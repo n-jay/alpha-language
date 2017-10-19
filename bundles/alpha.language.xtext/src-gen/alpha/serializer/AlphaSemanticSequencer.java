@@ -488,7 +488,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     ADomain returns ADomain
 	 *
 	 * Constraint:
-	 *     ((dims=AIndexList? constraintString=ISLString) | var=[AVariable|ID])
+	 *     (dims=AIndexList? constraintString=ISLString)
 	 */
 	protected void sequence_ADomain(ISerializationContext context, ADomain semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

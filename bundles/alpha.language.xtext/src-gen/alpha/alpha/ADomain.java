@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link alpha.alpha.ADomain#getDims <em>Dims</em>}</li>
  *   <li>{@link alpha.alpha.ADomain#getConstraintString <em>Constraint String</em>}</li>
- *   <li>{@link alpha.alpha.ADomain#getVar <em>Var</em>}</li>
  * </ul>
  *
  * @see alpha.alpha.AlphaPackage#getADomain()
@@ -76,31 +75,5 @@ public interface ADomain extends EObject
    * @generated
    */
   void setConstraintString(String value);
-
-  /**
-   * Returns the value of the '<em><b>Var</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Var</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Var</em>' reference.
-   * @see #setVar(AVariable)
-   * @see alpha.alpha.AlphaPackage#getADomain_Var()
-   * @model
-   * @generated
-   */
-  AVariable getVar();
-
-  /**
-   * Sets the value of the '{@link alpha.alpha.ADomain#getVar <em>Var</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Var</em>' reference.
-   * @see #getVar()
-   * @generated
-   */
-  void setVar(AVariable value);
 
 } // ADomain

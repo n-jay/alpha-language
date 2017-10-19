@@ -1196,9 +1196,9 @@ ruleAVariableDomain returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='domain'
+		otherlv_0='D'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getAVariableDomainAccess().getDomainKeyword_0());
+			newLeafNode(otherlv_0, grammarAccess.getAVariableDomainAccess().getDKeyword_0());
 		}
 		otherlv_1='('
 		{
@@ -1259,9 +1259,9 @@ ruleADomainProduct returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_1='x'
+		otherlv_1='times'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getADomainProductAccess().getXKeyword_1());
+			newLeafNode(otherlv_1, grammarAccess.getADomainProductAccess().getTimesKeyword_1());
 		}
 		(
 			(
@@ -1301,96 +1301,66 @@ ruleADomain returns [EObject current=null]
 	leaveRule();
 }:
 	(
+		otherlv_0='{'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getADomainAccess().getLeftCurlyBracketKeyword_0());
+		}
 		(
-			otherlv_0='{'
+			otherlv_1='['
 			{
-				newLeafNode(otherlv_0, grammarAccess.getADomainAccess().getLeftCurlyBracketKeyword_0_0());
-			}
-			(
-				otherlv_1='['
-				{
-					newLeafNode(otherlv_1, grammarAccess.getADomainAccess().getLeftSquareBracketKeyword_0_1_0());
-				}
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getADomainAccess().getDimsAIndexListParserRuleCall_0_1_1_0());
-						}
-						lv_dims_2_0=ruleAIndexList
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getADomainRule());
-							}
-							set(
-								$current,
-								"dims",
-								lv_dims_2_0,
-								"alpha.Alpha.AIndexList");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)
-				otherlv_3=']'
-				{
-					newLeafNode(otherlv_3, grammarAccess.getADomainAccess().getRightSquareBracketKeyword_0_1_2());
-				}
-			)?
-			otherlv_4=':'
-			{
-				newLeafNode(otherlv_4, grammarAccess.getADomainAccess().getColonKeyword_0_2());
+				newLeafNode(otherlv_1, grammarAccess.getADomainAccess().getLeftSquareBracketKeyword_1_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getADomainAccess().getConstraintStringISLStringParserRuleCall_0_3_0());
+						newCompositeNode(grammarAccess.getADomainAccess().getDimsAIndexListParserRuleCall_1_1_0());
 					}
-					lv_constraintString_5_0=ruleISLString
+					lv_dims_2_0=ruleAIndexList
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getADomainRule());
 						}
 						set(
 							$current,
-							"constraintString",
-							lv_constraintString_5_0,
-							"alpha.Alpha.ISLString");
+							"dims",
+							lv_dims_2_0,
+							"alpha.Alpha.AIndexList");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
-			otherlv_6='}'
+			otherlv_3=']'
 			{
-				newLeafNode(otherlv_6, grammarAccess.getADomainAccess().getRightCurlyBracketKeyword_0_4());
+				newLeafNode(otherlv_3, grammarAccess.getADomainAccess().getRightSquareBracketKeyword_1_2());
 			}
-		)
-		    |
+		)?
+		otherlv_4=':'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getADomainAccess().getColonKeyword_2());
+		}
 		(
-			otherlv_7='domain'
-			{
-				newLeafNode(otherlv_7, grammarAccess.getADomainAccess().getDomainKeyword_1_0());
-			}
-			otherlv_8='('
-			{
-				newLeafNode(otherlv_8, grammarAccess.getADomainAccess().getLeftParenthesisKeyword_1_1());
-			}
 			(
-				(
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getADomainRule());
-						}
+				{
+					newCompositeNode(grammarAccess.getADomainAccess().getConstraintStringISLStringParserRuleCall_3_0());
+				}
+				lv_constraintString_5_0=ruleISLString
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getADomainRule());
 					}
-					otherlv_9=RULE_ID
-					{
-						newLeafNode(otherlv_9, grammarAccess.getADomainAccess().getVarAVariableCrossReference_1_2_0());
-					}
-				)
+					set(
+						$current,
+						"constraintString",
+						lv_constraintString_5_0,
+						"alpha.Alpha.ISLString");
+					afterParserOrEnumRuleCall();
+				}
 			)
-			otherlv_10=')'
-			{
-				newLeafNode(otherlv_10, grammarAccess.getADomainAccess().getRightParenthesisKeyword_1_3());
-			}
 		)
+		otherlv_6='}'
+		{
+			newLeafNode(otherlv_6, grammarAccess.getADomainAccess().getRightCurlyBracketKeyword_4());
+		}
 	)
 ;
 

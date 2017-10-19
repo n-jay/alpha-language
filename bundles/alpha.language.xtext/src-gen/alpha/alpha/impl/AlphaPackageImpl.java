@@ -993,16 +993,6 @@ public class AlphaPackageImpl extends EPackageImpl implements AlphaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getADomain_Var()
-  {
-    return (EReference)aDomainEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getAParamDomain()
   {
     return aParamDomainEClass;
@@ -2124,7 +2114,6 @@ public class AlphaPackageImpl extends EPackageImpl implements AlphaPackage
     aDomainEClass = createEClass(ADOMAIN);
     createEReference(aDomainEClass, ADOMAIN__DIMS);
     createEAttribute(aDomainEClass, ADOMAIN__CONSTRAINT_STRING);
-    createEReference(aDomainEClass, ADOMAIN__VAR);
 
     aParamDomainEClass = createEClass(APARAM_DOMAIN);
     createEReference(aParamDomainEClass, APARAM_DOMAIN__DIMS);
@@ -2395,7 +2384,6 @@ public class AlphaPackageImpl extends EPackageImpl implements AlphaPackage
     initEClass(aDomainEClass, ADomain.class, "ADomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getADomain_Dims(), this.getAIndexList(), null, "dims", null, 0, 1, ADomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getADomain_ConstraintString(), ecorePackage.getEString(), "constraintString", null, 0, 1, ADomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getADomain_Var(), this.getAVariable(), null, "var", null, 0, 1, ADomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(aParamDomainEClass, AParamDomain.class, "AParamDomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAParamDomain_Dims(), this.getAIndexList(), null, "dims", null, 0, 1, AParamDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

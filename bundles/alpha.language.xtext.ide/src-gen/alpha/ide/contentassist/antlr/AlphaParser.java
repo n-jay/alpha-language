@@ -34,7 +34,6 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractElementAccess().getAlternatives(), "rule__AbstractElement__Alternatives");
 					put(grammarAccess.getADomainExpressionAccess().getAlternatives(), "rule__ADomainExpression__Alternatives");
 					put(grammarAccess.getADomainTerminalAccess().getAlternatives(), "rule__ADomainTerminal__Alternatives");
-					put(grammarAccess.getADomainAccess().getAlternatives(), "rule__ADomain__Alternatives");
 					put(grammarAccess.getISLStringAccess().getAlternatives(), "rule__ISLString__Alternatives");
 					put(grammarAccess.getAAlphaExpressionAccess().getAlternatives(), "rule__AAlphaExpression__Alternatives");
 					put(grammarAccess.getAAlphabetsTerminalExpressionAccess().getAlternatives(), "rule__AAlphabetsTerminalExpression__Alternatives");
@@ -85,8 +84,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAISLDomainAccess().getGroup_1(), "rule__AISLDomain__Group_1__0");
 					put(grammarAccess.getAVariableDomainAccess().getGroup(), "rule__AVariableDomain__Group__0");
 					put(grammarAccess.getADomainProductAccess().getGroup(), "rule__ADomainProduct__Group__0");
-					put(grammarAccess.getADomainAccess().getGroup_0(), "rule__ADomain__Group_0__0");
-					put(grammarAccess.getADomainAccess().getGroup_0_1(), "rule__ADomain__Group_0_1__0");
+					put(grammarAccess.getADomainAccess().getGroup(), "rule__ADomain__Group__0");
 					put(grammarAccess.getADomainAccess().getGroup_1(), "rule__ADomain__Group_1__0");
 					put(grammarAccess.getAParamDomainAccess().getGroup(), "rule__AParamDomain__Group__0");
 					put(grammarAccess.getARelationAccess().getGroup(), "rule__ARelation__Group__0");
@@ -168,9 +166,8 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAVariableDomainAccess().getVarAssignment_2(), "rule__AVariableDomain__VarAssignment_2");
 					put(grammarAccess.getADomainProductAccess().getExtensionAssignment_0(), "rule__ADomainProduct__ExtensionAssignment_0");
 					put(grammarAccess.getADomainProductAccess().getBaseAssignment_2(), "rule__ADomainProduct__BaseAssignment_2");
-					put(grammarAccess.getADomainAccess().getDimsAssignment_0_1_1(), "rule__ADomain__DimsAssignment_0_1_1");
-					put(grammarAccess.getADomainAccess().getConstraintStringAssignment_0_3(), "rule__ADomain__ConstraintStringAssignment_0_3");
-					put(grammarAccess.getADomainAccess().getVarAssignment_1_2(), "rule__ADomain__VarAssignment_1_2");
+					put(grammarAccess.getADomainAccess().getDimsAssignment_1_1(), "rule__ADomain__DimsAssignment_1_1");
+					put(grammarAccess.getADomainAccess().getConstraintStringAssignment_3(), "rule__ADomain__ConstraintStringAssignment_3");
 					put(grammarAccess.getAParamDomainAccess().getDimsAssignment_1(), "rule__AParamDomain__DimsAssignment_1");
 					put(grammarAccess.getAParamDomainAccess().getConstraintStringAssignment_6(), "rule__AParamDomain__ConstraintStringAssignment_6");
 					put(grammarAccess.getARelationAccess().getInDimsAssignment_2(), "rule__ARelation__InDimsAssignment_2");

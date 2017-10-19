@@ -68,7 +68,6 @@
     <genClasses ecoreClass="Alpha.ecore#//ADomain">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alpha.ecore#//ADomain/dims"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alpha.ecore#//ADomain/constraintString"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alpha.ecore#//ADomain/var"/>
     </genClasses>
     <genClasses ecoreClass="Alpha.ecore#//AParamDomain">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alpha.ecore#//AParamDomain/dims"/>

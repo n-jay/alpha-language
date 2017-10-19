@@ -14,12 +14,14 @@ Workflow {
 				rootPath = rootPath
 				runtimeTest = {
 					enabled = true
+					root="../../tests/alpha.language.xtext.tests/"
 				}
 				eclipsePlugin = {
 					enabled = true
 				}
 				eclipsePluginTest = {
 					enabled = true
+					root="../../tests/alpha.language.xtext.ui.tests/"
 				}
 				createEclipseMetaData = true
 			}

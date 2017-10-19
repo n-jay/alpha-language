@@ -671,22 +671,13 @@ public interface AlphaPackage extends EPackage
   int ADOMAIN__CONSTRAINT_STRING = 1;
 
   /**
-   * The feature id for the '<em><b>Var</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ADOMAIN__VAR = 2;
-
-  /**
    * The number of structural features of the '<em>ADomain</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ADOMAIN_FEATURE_COUNT = 3;
+  int ADOMAIN_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link alpha.alpha.impl.AParamDomainImpl <em>AParam Domain</em>}' class.
@@ -2493,17 +2484,6 @@ public interface AlphaPackage extends EPackage
   EAttribute getADomain_ConstraintString();
 
   /**
-   * Returns the meta object for the reference '{@link alpha.alpha.ADomain#getVar <em>Var</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Var</em>'.
-   * @see alpha.alpha.ADomain#getVar()
-   * @see #getADomain()
-   * @generated
-   */
-  EReference getADomain_Var();
-
-  /**
    * Returns the meta object for class '{@link alpha.alpha.AParamDomain <em>AParam Domain</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4046,14 +4026,6 @@ public interface AlphaPackage extends EPackage
      * @generated
      */
     EAttribute ADOMAIN__CONSTRAINT_STRING = eINSTANCE.getADomain_ConstraintString();
-
-    /**
-     * The meta object literal for the '<em><b>Var</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ADOMAIN__VAR = eINSTANCE.getADomain_Var();
 
     /**
      * The meta object literal for the '{@link alpha.alpha.impl.AParamDomainImpl <em>AParam Domain</em>}' class.

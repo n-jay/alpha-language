@@ -5,7 +5,6 @@ package alpha.alpha.impl;
 
 import alpha.alpha.ADomain;
 import alpha.alpha.AIndexList;
-import alpha.alpha.AVariable;
 import alpha.alpha.AlphaPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -27,7 +26,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link alpha.alpha.impl.ADomainImpl#getDims <em>Dims</em>}</li>
  *   <li>{@link alpha.alpha.impl.ADomainImpl#getConstraintString <em>Constraint String</em>}</li>
- *   <li>{@link alpha.alpha.impl.ADomainImpl#getVar <em>Var</em>}</li>
  * </ul>
  *
  * @generated
@@ -63,16 +61,6 @@ public class ADomainImpl extends MinimalEObjectImpl.Container implements ADomain
    * @ordered
    */
   protected String constraintString = CONSTRAINT_STRING_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getVar() <em>Var</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVar()
-   * @generated
-   * @ordered
-   */
-  protected AVariable var;
 
   /**
    * <!-- begin-user-doc -->
@@ -171,49 +159,6 @@ public class ADomainImpl extends MinimalEObjectImpl.Container implements ADomain
    * <!-- end-user-doc -->
    * @generated
    */
-  public AVariable getVar()
-  {
-    if (var != null && var.eIsProxy())
-    {
-      InternalEObject oldVar = (InternalEObject)var;
-      var = (AVariable)eResolveProxy(oldVar);
-      if (var != oldVar)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AlphaPackage.ADOMAIN__VAR, oldVar, var));
-      }
-    }
-    return var;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AVariable basicGetVar()
-  {
-    return var;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setVar(AVariable newVar)
-  {
-    AVariable oldVar = var;
-    var = newVar;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlphaPackage.ADOMAIN__VAR, oldVar, var));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -239,9 +184,6 @@ public class ADomainImpl extends MinimalEObjectImpl.Container implements ADomain
         return getDims();
       case AlphaPackage.ADOMAIN__CONSTRAINT_STRING:
         return getConstraintString();
-      case AlphaPackage.ADOMAIN__VAR:
-        if (resolve) return getVar();
-        return basicGetVar();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -261,9 +203,6 @@ public class ADomainImpl extends MinimalEObjectImpl.Container implements ADomain
         return;
       case AlphaPackage.ADOMAIN__CONSTRAINT_STRING:
         setConstraintString((String)newValue);
-        return;
-      case AlphaPackage.ADOMAIN__VAR:
-        setVar((AVariable)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -285,9 +224,6 @@ public class ADomainImpl extends MinimalEObjectImpl.Container implements ADomain
       case AlphaPackage.ADOMAIN__CONSTRAINT_STRING:
         setConstraintString(CONSTRAINT_STRING_EDEFAULT);
         return;
-      case AlphaPackage.ADOMAIN__VAR:
-        setVar((AVariable)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -306,8 +242,6 @@ public class ADomainImpl extends MinimalEObjectImpl.Container implements ADomain
         return dims != null;
       case AlphaPackage.ADOMAIN__CONSTRAINT_STRING:
         return CONSTRAINT_STRING_EDEFAULT == null ? constraintString != null : !CONSTRAINT_STRING_EDEFAULT.equals(constraintString);
-      case AlphaPackage.ADOMAIN__VAR:
-        return var != null;
     }
     return super.eIsSet(featureID);
   }

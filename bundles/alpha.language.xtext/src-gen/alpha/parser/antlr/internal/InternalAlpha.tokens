@@ -7,13 +7,13 @@
 ':'=52
 ';'=37
 '@'=60
+'D'=53
 '['=50
 '\''=49
 ']'=51
 'affine'=40
 'argreduce'=66
 'case'=59
-'domain'=53
 'else'=63
 'external'=36
 'fuzzy'=44
@@ -28,9 +28,9 @@
 'package'=32
 'reduce'=65
 'then'=62
+'times'=54
 'val('=64
 'with'=57
-'x'=54
 '{'=33
 '}'=34
 RULE_ANY_OTHER=31

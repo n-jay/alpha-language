@@ -659,7 +659,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	public class AVariableDomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.Alpha.AVariableDomain");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cDomainKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cDKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cVarAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cVarAVariableCrossReference_2_0 = (CrossReference)cVarAssignment_2.eContents().get(0);
@@ -667,14 +667,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//AVariableDomain:
-		//	'domain' '(' var=[AVariable] ')';
+		//	'D' '(' var=[AVariable] ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'domain' '(' var=[AVariable] ')'
+		//'D' '(' var=[AVariable] ')'
 		public Group getGroup() { return cGroup; }
 		
-		//'domain'
-		public Keyword getDomainKeyword_0() { return cDomainKeyword_0; }
+		//'D'
+		public Keyword getDKeyword_0() { return cDKeyword_0; }
 		
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
@@ -696,15 +696,15 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cExtensionAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cExtensionADomainTerminalParserRuleCall_0_0 = (RuleCall)cExtensionAssignment_0.eContents().get(0);
-		private final Keyword cXKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cTimesKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cBaseAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cBaseADomainExpressionParserRuleCall_2_0 = (RuleCall)cBaseAssignment_2.eContents().get(0);
 		
 		//ADomainProduct:
-		//	extension=ADomainTerminal 'x' base=ADomainExpression;
+		//	extension=ADomainTerminal 'times' base=ADomainExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//extension=ADomainTerminal 'x' base=ADomainExpression
+		//extension=ADomainTerminal 'times' base=ADomainExpression
 		public Group getGroup() { return cGroup; }
 		
 		//extension=ADomainTerminal
@@ -713,8 +713,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//ADomainTerminal
 		public RuleCall getExtensionADomainTerminalParserRuleCall_0_0() { return cExtensionADomainTerminalParserRuleCall_0_0; }
 		
-		//'x'
-		public Keyword getXKeyword_1() { return cXKeyword_1; }
+		//'times'
+		public Keyword getTimesKeyword_1() { return cTimesKeyword_1; }
 		
 		//base=ADomainExpression
 		public Assignment getBaseAssignment_2() { return cBaseAssignment_2; }
@@ -724,88 +724,55 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class ADomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.Alpha.ADomain");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
-		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
-		private final Assignment cDimsAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
-		private final RuleCall cDimsAIndexListParserRuleCall_0_1_1_0 = (RuleCall)cDimsAssignment_0_1_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
-		private final Keyword cColonKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
-		private final Assignment cConstraintStringAssignment_0_3 = (Assignment)cGroup_0.eContents().get(3);
-		private final RuleCall cConstraintStringISLStringParserRuleCall_0_3_0 = (RuleCall)cConstraintStringAssignment_0_3.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_0_4 = (Keyword)cGroup_0.eContents().get(4);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Keyword cDomainKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cVarAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final CrossReference cVarAVariableCrossReference_1_2_0 = (CrossReference)cVarAssignment_1_2.eContents().get(0);
-		private final RuleCall cVarAVariableIDTerminalRuleCall_1_2_0_1 = (RuleCall)cVarAVariableCrossReference_1_2_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cDimsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cDimsAIndexListParserRuleCall_1_1_0 = (RuleCall)cDimsAssignment_1_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cConstraintStringAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cConstraintStringISLStringParserRuleCall_3_0 = (RuleCall)cConstraintStringAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		////Domains are unions of single polyhedron
 		//ADomain:
-		//	'{' ('[' dims=AIndexList ']')? ':' constraintString=ISLString '}' |
-		//	'domain' '(' var=[AVariable] ')';
+		//	'{' ('[' dims=AIndexList ']')? ':' constraintString=ISLString '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'{' ('[' dims=AIndexList ']')? ':' constraintString=ISLString '}' | 'domain' '(' var=[AVariable] ')'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
 		//'{' ('[' dims=AIndexList ']')? ':' constraintString=ISLString '}'
-		public Group getGroup_0() { return cGroup_0; }
+		public Group getGroup() { return cGroup; }
 		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_0_0() { return cLeftCurlyBracketKeyword_0_0; }
+		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
 		
 		//('[' dims=AIndexList ']')?
-		public Group getGroup_0_1() { return cGroup_0_1; }
-		
-		//'['
-		public Keyword getLeftSquareBracketKeyword_0_1_0() { return cLeftSquareBracketKeyword_0_1_0; }
-		
-		//dims=AIndexList
-		public Assignment getDimsAssignment_0_1_1() { return cDimsAssignment_0_1_1; }
-		
-		//AIndexList
-		public RuleCall getDimsAIndexListParserRuleCall_0_1_1_0() { return cDimsAIndexListParserRuleCall_0_1_1_0; }
-		
-		//']'
-		public Keyword getRightSquareBracketKeyword_0_1_2() { return cRightSquareBracketKeyword_0_1_2; }
-		
-		//':'
-		public Keyword getColonKeyword_0_2() { return cColonKeyword_0_2; }
-		
-		//constraintString=ISLString
-		public Assignment getConstraintStringAssignment_0_3() { return cConstraintStringAssignment_0_3; }
-		
-		//ISLString
-		public RuleCall getConstraintStringISLStringParserRuleCall_0_3_0() { return cConstraintStringISLStringParserRuleCall_0_3_0; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_0_4() { return cRightCurlyBracketKeyword_0_4; }
-		
-		//'domain' '(' var=[AVariable] ')'
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//'domain'
-		public Keyword getDomainKeyword_1_0() { return cDomainKeyword_1_0; }
+		//'['
+		public Keyword getLeftSquareBracketKeyword_1_0() { return cLeftSquareBracketKeyword_1_0; }
 		
-		//'('
-		public Keyword getLeftParenthesisKeyword_1_1() { return cLeftParenthesisKeyword_1_1; }
+		//dims=AIndexList
+		public Assignment getDimsAssignment_1_1() { return cDimsAssignment_1_1; }
 		
-		//var=[AVariable]
-		public Assignment getVarAssignment_1_2() { return cVarAssignment_1_2; }
+		//AIndexList
+		public RuleCall getDimsAIndexListParserRuleCall_1_1_0() { return cDimsAIndexListParserRuleCall_1_1_0; }
 		
-		//[AVariable]
-		public CrossReference getVarAVariableCrossReference_1_2_0() { return cVarAVariableCrossReference_1_2_0; }
+		//']'
+		public Keyword getRightSquareBracketKeyword_1_2() { return cRightSquareBracketKeyword_1_2; }
 		
-		//ID
-		public RuleCall getVarAVariableIDTerminalRuleCall_1_2_0_1() { return cVarAVariableIDTerminalRuleCall_1_2_0_1; }
+		//':'
+		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
 		
-		//')'
-		public Keyword getRightParenthesisKeyword_1_3() { return cRightParenthesisKeyword_1_3; }
+		//constraintString=ISLString
+		public Assignment getConstraintStringAssignment_3() { return cConstraintStringAssignment_3; }
+		
+		//ISLString
+		public RuleCall getConstraintStringISLStringParserRuleCall_3_0() { return cConstraintStringISLStringParserRuleCall_3_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
 	public class AParamDomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.Alpha.AParamDomain");
@@ -3201,7 +3168,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AVariableDomain:
-	//	'domain' '(' var=[AVariable] ')';
+	//	'D' '(' var=[AVariable] ')';
 	public AVariableDomainElements getAVariableDomainAccess() {
 		return pAVariableDomain;
 	}
@@ -3211,7 +3178,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ADomainProduct:
-	//	extension=ADomainTerminal 'x' base=ADomainExpression;
+	//	extension=ADomainTerminal 'times' base=ADomainExpression;
 	public ADomainProductElements getADomainProductAccess() {
 		return pADomainProduct;
 	}
@@ -3222,8 +3189,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	////Domains are unions of single polyhedron
 	//ADomain:
-	//	'{' ('[' dims=AIndexList ']')? ':' constraintString=ISLString '}' |
-	//	'domain' '(' var=[AVariable] ')';
+	//	'{' ('[' dims=AIndexList ']')? ':' constraintString=ISLString '}';
 	public ADomainElements getADomainAccess() {
 		return pADomain;
 	}
