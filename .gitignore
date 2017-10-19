@@ -1,0 +1,25 @@
+# eclipse build output and temp dirs
+bin/
+.metadata
+.settings
+
+# maven build output dir
+target/
+
+# gitlab-runner local build dir
+builds/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# Xtend temp files
+*.xtendbin
+*._trace
+
+# Tom temp files
+*.tfix.parsed.table
+
+# vi backup files
+.*.swp
+
+

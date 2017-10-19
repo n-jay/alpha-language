@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: alpha.language.xtext.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: alpha.language.xtext.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: alpha.language.xtext,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: alpha.ide.contentassist.antlr.internal,
+ alpha.ide.contentassist.antlr
+
