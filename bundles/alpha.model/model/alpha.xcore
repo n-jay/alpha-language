@@ -1,0 +1,653 @@
+@GenModel(operationReflection="false")
+package alpha.model
+
+import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.runtime.JNIObject
+
+//type JNIDomain wraps JNIDomain
+type JNIObject wraps JNIObject
+type JNIISLSet wraps JNIISLSet
+type JNIISLMap wraps JNIISLMap
+type JNIISLMultiAff wraps JNIISLMultiAff
+type ISL_FORMAT wraps ISL_FORMAT
+
+
+/*
+ * Some conventions:
+ *  polyhedral objects are either domains or relations in Alpha terms
+ * the above is distinguished from ISL objects that are named sets or maps
+ * 
+ * TODO make sure calculator expression does not have cycles in its evaluation chain
+ *   VariableDomain and DefinedObject should only refer to textually preceding definitions
+ */
+
+interface AlphaNode {}
+
+interface AlphaVisitable extends AlphaNode {
+	op void accept(AlphaVisitor visitor)
+}
+interface AlphaExpressionVisitable extends AlphaNode {
+	op void accept(AlphaExpressionVisitor visitor)
+}
+
+interface CalculatorExpressionVisitable extends AlphaNode {
+	op void accept(CalculatorExpressionVisitor visitor)
+}
+
+interface DomainQualifiedElement {}
+
+interface AlphaVisitor {
+	op void visitAlphaRoot(AlphaRoot root)
+	
+	op void visitAlphaElement(AlphaElement ap)
+	op void visitAlphaPackage(AlphaPackage ap)
+	op void visitAlphaSystem(AlphaSystem system)
+	op void visitImports(Imports imports)
+	op void visitAlphaConstant(AlphaConstant ac)
+	op void visitExternalFunction(ExternalFunction ef)
+	
+	/* Use specialized methods for input/output/local specific operations.
+	 * The abstract visitor calls the specialized methods, which then calls the generic visitor.
+	 */
+	op void visitVariable(Variable variable)
+	
+	/* Use visitVariable for generic operations */
+	op void visitInputVariable(InputVariable variable)
+	/* Use visitVariable for generic operations */
+	op void visitOutputVariable(OutputVariable variable)
+	/* Use visitVariable for generic operations */
+	op void visitLocalVariable(LocalVariable variable)
+	op void visitFuzzyVariable(FuzzyVariable variable)
+	
+	op void visitPolyhedralObject(PolyhedralObject pobj)
+
+	op void visitUseEquation(UseEquation se)
+	op void visitStandardEquation(StandardEquation se)
+}
+
+interface AlphaExpressionVisitor {
+	op void visitRestrictExpression(RestrictExpression re)
+	op void visitAutoRestrictExpression(AutoRestrictExpression are)
+	op void visitCaseExpression(CaseExpression ce)
+	op void visitIfExpression(IfExpression ie)
+	op void visitDependenceExpression(DependenceExpression de)
+	op void visitReduceExpression(ReduceExpression re)
+	op void visitUnaryExpression(UnaryExpression ue)
+	op void visitBinaryExpression(BinaryExpression be)
+	op void visitMultiArgExpression(MultiArgExpression mae)
+	
+	op void visitIndexExpression(IndexExpression ie)
+	op void visitVariableExpression(VariableExpression ve)
+	
+	op void visitConstantExpression(ConstantExpression ce)
+	op void visitIntegerExpression(IntegerExpression ie)
+	op void visitRealExpression(RealExpression re)
+	op void visitBooleanExpression(BooleanExpression be)
+	
+	op void visitExternalMultiArgExpression(ExternalMultiArgExpression emae)
+	op void visitExternalReduceExpression(ExternalReduceExpression ere)
+	
+}
+
+interface AlphaCompleteVisitor extends AlphaVisitor, AlphaExpressionVisitor {
+	
+}
+
+interface CalculatorExpressionVisitor {
+	op void visitCalculatorExpression(CalculatorExpression expr)
+	
+	op void visitUnaryCalculatorExpression(UnaryCalculatorExpression expr)
+	op void visitBinaryCalculatorExpression(BinaryCalculatorExpression expr)
+	
+	op void visitJNIDomain(JNIDomain jniDomain)
+	op void visitJNIRelation(JNIRelation jniRelation)
+	op void visitJNIFunction(JNIFunction jniFunction)
+	
+	op void visitVariableDomain(VariableDomain vdom)
+	op void visitRectangularDomain(RectangularDomain rdom)
+	op void visitDefinedObject(DefinedObject dobj)
+}
+
+class AlphaRoot extends AlphaVisitable {
+	contains AlphaElement[] elements
+	
+	op Imports[] getImports() { elements.filter(Imports).asEList }
+	op AlphaConstant[] getConstants() { elements.filter(AlphaConstant).asEList }
+	op ExternalFunction[] getExternalFunctions() { elements.filter(ExternalFunction).asEList }
+	op AlphaPackage[] getPackages() { elements.filter(AlphaPackage).asEList }
+	op AlphaSystem[] getSystems() { elements.filter(AlphaSystem).asEList }
+}
+
+abstract class AlphaElement extends AlphaVisitable {
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitAlphaElement(this)
+	}
+}
+
+class Imports extends AlphaElement {
+	String importedNamespace
+	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitImports(this)
+	}
+}
+
+class AlphaPackage extends AlphaElement {
+	 id String name
+	 contains AlphaElement[] elements
+	 
+	op AlphaConstant[] getConstants() { elements.filter(AlphaConstant).asEList }
+	op ExternalFunction[] getExternalFunctions() { elements.filter(ExternalFunction).asEList }
+	op AlphaPackage[] getPackages() { elements.filter(AlphaPackage).asEList }
+	op AlphaSystem[] getSystems() { elements.filter(AlphaSystem).asEList }
+	 
+	 op void accept(AlphaVisitor visitor) {
+		visitor.visitAlphaPackage(this)
+	}
+}
+
+class AlphaConstant extends AlphaElement {
+	String name
+	int value 
+	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitAlphaConstant(this)
+	}
+}
+
+class ExternalFunction extends AlphaElement {
+	String name
+	int cardinarity
+	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitExternalFunction(this)
+	}
+}
+
+class AlphaSystem extends AlphaElement {
+	String name
+	contains JNIDomain parameterDomain
+	contains PolyhedralObject[] definedObjects
+	contains InputVariable[] inputs
+	contains OutputVariable[] outputs
+	contains LocalVariable[] locals
+	contains FuzzyVariable[] fuzzyVariables
+	contains CalculatorExpression whileDomain
+	contains AlphaExpression testExpression
+	
+	contains UseEquation[] useEquations
+	contains StandardEquation[] equations
+	
+	op Variable[] getVariables() {
+		(inputs+outputs+locals).asEList.unmodifiableEList
+	}
+	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitAlphaSystem(this)
+	}
+}
+
+
+class Variable extends AlphaVisitable {
+	String name
+	contains CalculatorExpression domainExpr
+	
+	op JNIISLSet getDomain() {
+		if (domainExpr.^type != POLY_OBJECT_TYPE::SET) {
+			return null
+		}
+		
+		return domainExpr.ISLObject as JNIISLSet
+	}
+	
+	 op void accept(AlphaVisitor visitor) {
+	 	visitor.visitVariable(this)
+	}
+}
+
+class InputVariable extends Variable {
+	op void accept(AlphaVisitor visitor) {
+	 	visitor.visitInputVariable(this)
+	}
+}
+class OutputVariable extends Variable {
+	op void accept(AlphaVisitor visitor) {
+	 	visitor.visitOutputVariable(this)
+	}
+}
+class LocalVariable extends Variable {
+	op void accept(AlphaVisitor visitor) {
+	 	visitor.visitLocalVariable(this)
+	}
+}
+
+class FuzzyVariable extends Variable {
+	
+	op JNIISLSet getDomain() {
+		if (domainExpr.^type != POLY_OBJECT_TYPE::MAP) {
+			return null
+		}
+		
+		return (domainExpr.ISLObject as JNIISLMap).copy().domain()
+	}
+	
+	op JNIISLMap getRelation() {
+		if (domainExpr.^type != POLY_OBJECT_TYPE::MAP) {
+			return null
+		}
+		
+		return domainExpr.ISLObject as JNIISLMap
+	}
+	
+	
+	op void accept(AlphaVisitor visitor) {
+	 	visitor.visitFuzzyVariable(this)
+	}
+}
+
+
+class StandardEquation extends AlphaVisitable {
+	refers Variable variable
+	String[] indexNames
+	contains AlphaExpression expr
+	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitStandardEquation(this)
+	}
+}
+class UseEquation extends AlphaVisitable {
+	refers AlphaSystem system
+	contains CalculatorExpression instantiationDomain
+	contains JNIFunctionInArrayNotation callParams
+	String[] subsystemDims
+	contains AlphaExpression[] inputExprs
+	contains AlphaExpression[] outputExprs
+}
+
+/** Alpha Expressions */
+
+interface AlphaExpression extends AlphaExpressionVisitable {}
+
+class RestrictExpression extends AlphaExpression {
+	contains CalculatorExpression domainExpr
+	contains AlphaExpression expr
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitRestrictExpression(this)
+	}
+}
+class AutoRestrictExpression extends AlphaExpression {
+	contains JNIDomain inferredDomain
+	contains AlphaExpression expr
+		
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitAutoRestrictExpression(this)
+	}
+}
+
+class CaseExpression extends AlphaExpression {
+	String name
+	contains AlphaExpression[] exprs
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitCaseExpression(this)
+	}
+}
+class DependenceExpression extends AlphaExpression {
+	contains JNIFunction function
+	contains AlphaExpression expr
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitDependenceExpression(this)
+	}
+}
+class IfExpression extends AlphaExpression {
+	contains AlphaExpression condExpr
+	contains AlphaExpression thenExpr
+	contains AlphaExpression elseExpr
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitIfExpression(this)
+	}
+}
+class IndexExpression extends AlphaExpression {
+	contains JNIFunction function
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitIndexExpression(this)
+	}
+}
+class ReduceExpression extends AlphaExpression {
+	REDUCTION_OP operator
+	contains JNIFunction projection
+	contains AlphaExpression body
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitReduceExpression(this)
+	}
+}
+class ExternalReduceExpression extends ReduceExpression {
+	refers ExternalFunction externalFunction
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitExternalReduceExpression(this)
+	}
+}
+class ConvolutionExpression extends AlphaExpression {}
+class VariableExpression extends AlphaExpression {
+	refers Variable variable
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitVariableExpression(this)
+	}
+}
+abstract class ConstantExpression extends AlphaExpression {
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitConstantExpression(this)
+	}
+}
+class IntegerExpression extends ConstantExpression {
+	int value
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitIntegerExpression(this)
+	}
+}
+class RealExpression extends ConstantExpression {
+	float value
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitRealExpression(this)
+	}
+}
+class BooleanExpression extends ConstantExpression {
+	boolean value
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitBooleanExpression(this)
+	}
+}
+class UnaryExpression extends AlphaExpression {
+	UNARY_OP operator
+	contains AlphaExpression expr
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitUnaryExpression(this)
+	}
+}
+class BinaryExpression extends AlphaExpression {
+	BINARY_OP operator
+	contains AlphaExpression left
+	contains AlphaExpression right
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitBinaryExpression(this)
+	}
+}
+class MultiArgExpression extends AlphaExpression {
+	REDUCTION_OP operator
+	contains AlphaExpression[] exprs
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitMultiArgExpression(this)
+	}
+}
+class ExternalMultiArgExpression extends MultiArgExpression {
+	refers ExternalFunction externalFunction 
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitExternalMultiArgExpression(this)
+	}
+}
+
+enum UNARY_OP {
+	NOT as "not"
+	NEGATE as "-"
+}
+
+enum BINARY_OP {
+	MIN as "min"
+	MAX as "max"
+	
+	MUL as "*"
+	DIV as "/"
+	MOD as "%"
+	
+	ADD as "+"
+	SUB as "-"
+	
+	AND as "and"
+	OR  as "or"
+	XOR as "xor"
+	
+	EQ as "="
+	NE as "!="
+	GE as ">="
+	GT as ">"
+	LE as "<="
+	LT as "<"
+}
+
+enum REDUCTION_OP {
+	MIN as "min"
+	MAX as "max"
+	PROD as "prod"
+	SUM as "sum"
+	AND as "and"
+	OR as "or"
+	XOR as "xor"
+	
+	EX as "external"
+}
+
+
+/** Calculator Expressions **/
+enum POLY_OBJECT_TYPE {
+	SET
+	MAP
+	FUNCTION
+}
+
+enum CALCULATOR_UNARY_OP {
+	GET_DOMAIN as "domain"
+	GET_RANGE as "range"
+	COMPLEMENT as "complement"
+	POLYHEDRAL_HULL as "poly-hull"
+	AFFINE_HULL as "affine-hull"
+	REVERSE as "reverse"
+}
+
+enum CALCULATOR_BINARY_OP {
+	INTERSECT as "*"
+	UNION as "+"
+	CROSS_PRODUCT as "cross"
+	SET_DIFFERENCE as "-"
+	JOIN as "@"
+	INTERSECT_RANGE as "->*"
+	SUBTRACT_RANGE as "->-"
+}
+
+interface CalculatorNode {
+	op POLY_OBJECT_TYPE getType()
+	op JNIObject getISLObject()
+}
+
+class PolyhedralObject extends CalculatorNode, AlphaVisitable {
+	String name
+	contains CalculatorExpression expr
+	
+	op POLY_OBJECT_TYPE getType() { expr.^type }
+	op JNIObject getISLObject() { expr.ISLObject }
+	
+	
+	op void accept(AlphaVisitor visitor) {
+	 	visitor.visitPolyhedralObject(this)
+	}
+}
+
+abstract class CalculatorExpression extends CalculatorNode, CalculatorExpressionVisitable {
+	String errorMessage
+	
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitCalculatorExpression(this);
+	}
+}
+
+class JNIDomain extends CalculatorExpression {
+	String islString
+	JNIISLSet islSet
+	
+	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::SET }
+	op JNIObject getISLObject() { islSet }
+	
+	op String toString() {
+		if (islSet !== null) {
+			return islSet.toString(ISL_FORMAT::ISL);
+		} else {
+			return "null ISL object"
+		}
+	}
+	
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitJNIDomain(this);
+	}
+}
+
+class JNIRelation extends CalculatorExpression {
+	String islString
+	JNIISLMap islMap
+	
+	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::MAP }
+	op JNIObject getISLObject() { islMap }
+	
+	op String toString() {
+		if (islMap !== null) {
+			return islMap.toString(ISL_FORMAT::ISL);
+		} else {
+			return "null ISL object"
+		}
+	}
+	
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitJNIRelation(this);
+	}
+}
+
+class JNIFunction extends CalculatorExpression {
+	String alphaString
+	JNIISLMultiAff islMAff
+	
+	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::FUNCTION }
+	op JNIObject getISLObject() { islMAff }
+	
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitJNIFunction(this);
+	}
+}
+
+class JNIFunctionInArrayNotation extends JNIFunction {
+	String arrayNotation
+}
+
+class UnaryCalculatorExpression extends CalculatorExpression {
+	CALCULATOR_UNARY_OP operator
+	contains CalculatorExpression expr
+	
+	JNIObject __internal_cache_islObject
+	
+	op POLY_OBJECT_TYPE getType() { 
+		if (__internal_cache_islObject instanceof JNIISLSet)
+			return POLY_OBJECT_TYPE::SET
+		if (__internal_cache_islObject instanceof JNIISLMap)
+			return POLY_OBJECT_TYPE::MAP
+		return null
+	}
+	op JNIObject getISLObject() { __internal_cache_islObject }
+	
+	
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitUnaryCalculatorExpression(this);
+	}
+}
+
+class BinaryCalculatorExpression extends CalculatorExpression {
+	CALCULATOR_BINARY_OP operator
+	contains CalculatorExpression left
+	contains CalculatorExpression right
+	
+	JNIObject __internal_cache_islObject
+	
+	op POLY_OBJECT_TYPE getType() { 
+		if (__internal_cache_islObject instanceof JNIISLSet)
+			return POLY_OBJECT_TYPE::SET
+		if (__internal_cache_islObject instanceof JNIISLMap)
+			return POLY_OBJECT_TYPE::MAP
+		return null
+	}
+	op JNIObject getISLObject() { __internal_cache_islObject }
+
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitBinaryCalculatorExpression(this);
+	}
+}
+
+/* VariableDomain refers to the domain of declared variables */
+class VariableDomain extends CalculatorExpression {
+	refers Variable variable
+	
+	op POLY_OBJECT_TYPE getType() { return POLY_OBJECT_TYPE::SET }
+	op JNIObject getISLObject() { if (variable !== null) variable.domain else null }
+	
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitVariableDomain(this);
+	}
+}
+
+/* RectangularDomain is a short-hand for rectilinear domains bounded by 0 from below, and by some parameter from above.
+ * The dimensionality of the domain is the length of upperBounds that give the upper bound for each dimension.
+ * The index names can be optionally specified for each dimension. (It is not possible to only name a subset of the dimensions.)
+ * 
+ * The bounds are of the form: 0<=i<N; each dimension will have N integer points starting from 0. 
+ */
+class RectangularDomain extends CalculatorExpression {
+	String[] upperBounds
+	String[] indexNames
+	JNIISLSet islSet
+	
+	op POLY_OBJECT_TYPE getType() { return POLY_OBJECT_TYPE::SET }
+	op JNIObject getISLObject() { islSet }
+	
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitRectangularDomain(this);
+	}
+}
+
+/* Reference to an already defined object in the calculator section */
+class DefinedObject extends CalculatorExpression {
+	refers PolyhedralObject object
+	boolean __internalCycleDetector
+	
+	op POLY_OBJECT_TYPE getType() { return object.getType }
+	op JNIObject getISLObject() {
+		
+		if (object !== null) {
+			if (__internalCycleDetector) {
+				errorMessage = "Cycle detected in the definition of: " + object.name
+				return null
+			}
+			__internalCycleDetector = true;
+			val res = object.ISLObject
+			__internalCycleDetector = false
+			return res
+		}
+		return null
+	}
+	
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitDefinedObject(this);
+	}
+}
