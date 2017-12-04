@@ -35,6 +35,9 @@ Workflow {
 			name = "alpha.Alpha"
 			fileExtensions = "alpha"
 
+			 qualifiedNamesProvider = {
+			 	
+			 }
 			serializer = {
 				generateStub = false
 			}

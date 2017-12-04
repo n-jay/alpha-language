@@ -4,7 +4,6 @@
 package alpha.ui.labeling;
 
 import alpha.alpha.AAffineSystem;
-import alpha.alpha.AParamDomain;
 import alpha.alpha.AVariableDeclaration;
 import com.google.inject.Inject;
 import org.eclipse.emf.common.util.EList;
@@ -29,7 +28,7 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
     String _name = system.getName();
     _builder.append(_name);
     _builder.append(" ");
-    AParamDomain _parameters = system.getParameters();
+    String _parameters = system.getParameters();
     _builder.append(_parameters);
     _builder.newLineIfNotEmpty();
     _builder.append("inputs");

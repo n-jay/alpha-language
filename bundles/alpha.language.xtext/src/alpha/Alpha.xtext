@@ -7,7 +7,7 @@ AStart:
 ;
 
 AbstractElement:
-	APackageDeclaration | AAffineSystem | AImport | AExternalFunctionDeclaration
+	APackageDeclaration | AAffineSystem | AImport | AExternalFunctionDeclaration | AConstantDeclaration
 ;
 
 APackageDeclaration:
@@ -20,29 +20,39 @@ AImport:
   'import' importedNamespace = QualifiedNameWithWildcard
 ;
 	
+AConstantDeclaration:
+	'constant' AConstant
+;
 AExternalFunctionDeclaration:
-	'external' AExternalFunction ';';
+	'external' AExternalFunction;
 	
 AExternalFunction:
 	name=ID '(' inputCardinarity=INT ')'
 ;
+AConstant:
+	name=ID OP_EQ value=INT
+;
 
 AAffineSystem : 'affine' name=SystemName parameters=AParamDomain
+				('define'
+						(polyObjects+=PolyhedralObject)*
+				)?
 				('inputs' (inputDeclarations+=AVariableDeclaration)*)?
 				('outputs' (outputDeclarations+=AVariableDeclaration)*)?
 				('locals' (localvarDeclarations+=AVariableDeclaration)*)?
 				('fuzzy' (fuzzyVariables+=AFuzzyVariableDeclaration)*)?
+				('over' whileDomain=APolyhedralObjectExpression while?='while' '(' testExpression=AAlphaExpression ')' )?
 				('let' 
 						(useEquations+=AUseEquation)*
 						(equations+=AEquation)*
 				)?
 				'.';
 
-AVariableDeclaration: varList+=AVariableList domain=ADomainExpression? ';';
+AVariableDeclaration: varList=AVariableList (':' domain=APolyhedralObjectExpression)?;
 AVariableList: vars+=AVariable   (',' vars+=AVariable)*;
 AVariable: name=ID;
 
-AFuzzyVariableDeclaration : varList+=AVariableList relation=ARelation ';';
+AFuzzyVariableDeclaration : varList=AVariableList ':' relation=APolyhedralObjectExpression;
 
 QualifiedName:
   ID ('.' ID)*
@@ -60,58 +70,85 @@ IndexName:
 ;
 
 AIndexDimension:
-	name=IndexName
+	IndexName
 ;
 
-AIndexList: {AIndexList}
-	(ids+=AIndexDimension (','ids+=AIndexDimension)*)?;
+AIndexList:
+	(AIndexDimension (','AIndexDimension)*)?;
 
 //
 //////// Domains ////////
-
-ADomainExpression:
-	ADomainProduct |
-	ADomainTerminal
+PolyhedralObject:
+	name=ID OP_EQ object=APolyhedralObjectExpression 
 ;
 
-ADomainTerminal:
-	AISLDomain |
-	AVariableDomain	
+APolyhedralObjectExpression returns APolyhedralObjectExpression:
+	AUnaryOrTerminalPolyObjExpression ({ABinaryPolyObjExpression.left=current} operator=('cross'|OP_PLUS|OP_MINUS|OP_MUL|'@'|'->-'|'->*') right=AUnaryOrTerminalPolyObjExpression)*
 ;
 
-AISLDomain:
-	'{' ('[' dims=AIndexList ']')? ':' constraintString=ISLString '}'
+AUnaryOrTerminalPolyObjExpression returns APolyhedralObjectExpression:
+	AUnaryPolyObjExpression | APolyObjTerminal
 ;
+
+APolyObjTerminal returns APolyhedralObjectExpression:
+	AISLSet |
+	AISLRelation |
+	ADeclaredObject |
+	ARectangularDomain |
+	AVariableDomain | 
+	'(' APolyhedralObjectExpression ')'
+;
+
+AUnaryPolyObjExpression returns APolyhedralObjectExpression:
+	op=('domain'|'range'|'complement'|'poly-hull'|'affine-hull'|'reverse') expr=APolyObjTerminal;
+
+
 
 AVariableDomain:
-	'D' '(' var=[AVariable] ')'
+	'{' var=[AVariable] '}'
+;
+ARectangularDomain:
+	'[' dimensions+=AIndexList ']' ('as' '[' names+=AIndexList ']')? 
+;
+ADeclaredObject:
+	object=[PolyhedralObject]
 ;
 
-ADomainProduct:
-	extension=ADomainTerminal 'times' base=ADomainExpression
+
+
+
+//ISL syntax defs
+AISLSet:
+	'{' sets+=AISLBasicSet (';' relations+=AISLBasicSet)* '}'
 ;
 
-//Domains are unions of single polyhedron
-ADomain: 
-	'{' ('[' dims=AIndexList ']')? ':' constraintString=ISLString '}'
-;	
+AISLBasicSet:
+	('[' dims=AIndexList ']')? ':' constraintString=ISLString
+;
+
+AISLRelation:
+	'{' relations+=AISLBasicRelation (';' relations+=AISLBasicRelation)* '}'
+;
+
+AISLBasicRelation:
+	'[' inDims=AIndexList ']' '->' '[' outDims=AIndexList ']' ':' constraintStr=ISLString
+;
+
 AParamDomain:
-	'[' dims=AIndexList ']' '->' '{' ':' constraintString=ISLString '}' 
-;	
-ARelation:
-	'{' '[' inDims=AIndexList ']' '->' '[' outDims=AIndexList ']' constraintStr=ISLString '}'
-; 
+	'[' AIndexList ']' '->' '{' ':' ISLString '}' 
+;
+
 ISLString:
-	(IndexName|INT|OP_PLUS|OP_MINUS|OP_MUL|OP_DIV|OP_AND|OP_OR|'['|']'|'('|')'|','|':'|INTERSECTION|UNION|WS|RELATIONAL_OP)*;
+	(IndexName|INT|OP_PLUS|OP_MINUS|OP_MUL|OP_DIV|OP_MOD|OP_AND|OP_OR|'['|']'|'('|')'|','|':'|INTERSECTION|UNION|WS|RELATIONAL_OP)*;
 
 ///////// Equations //////
 AEquation :
 	var=[AVariable] ('[' indexes=AIndexList ']')? OP_EQ expr=AAlphaExpression ';';
 	
 AUseEquation :
-	'over' instantiationDomain=ADomain ('with' '[' subsystemDims=AIndexList ']')? ':' '(' (outputExprs += AAlphaExpression (',' outputExprs += AAlphaExpression)* )? ')'
+	('over' instantiationDomain=APolyhedralObjectExpression ('with' '[' subsystemDims=AIndexList ']')? ':')? '(' (outputExprs += AAlphaExpression (',' outputExprs += AAlphaExpression)* )? ')'
 	 OP_EQ 
-	system=[AAffineSystem] '[' callParams=AIndexList ']'
+	system=[AAffineSystem] '[' callParams=AIndexAffineExpressionList ']'
 	'(' (inputExprs  += AAlphaExpression (',' inputExprs  += AAlphaExpression)* )? ')' 
 	 ';';
 	 
@@ -119,6 +156,7 @@ AUseEquation :
 AAlphaExpression:
 	AIfExpression |
 	ARestrictExpression |
+	AAutoRestrictExpression | 
 	AOrExpression;
 	
 AAlphabetsTerminalExpression returns AAlphaExpression:
@@ -126,12 +164,15 @@ AAlphabetsTerminalExpression returns AAlphaExpression:
 	ACaseExpression |
 	AReduceExpression |
 	AArgReduceExpression |
+	AConvExpression |
 	AMultiArgExpression |
 	AConstantExpression |
 	AVariableExpression | 
 	AIndexExpression |
+	AIndexExpressionInArrayNotation |
 	ADependenceExpression |
-	ADependenceInArrayNotation;
+	ADependenceInArrayNotation |
+	ASelectDependenceExpression;
 
 AParanthesizedAlphabetsExpression returns AAlphaExpression:
 	"(" AAlphaExpression ")";
@@ -172,7 +213,10 @@ ACaseExpression : 'case' name=ID? '{'
 '}';
 
 ADependenceExpression:
-	func=AFunction '@' expr=AAlphabetsTerminalExpression;
+	function=AFunction '@' expr=AAlphabetsTerminalExpression;
+	
+ASelectDependenceExpression:
+	'select' relation=APolyhedralObjectExpression 'from' expr=AAlphabetsTerminalExpression;
 
 ////Array notation for AShow type syntax
 ADependenceInArrayNotation:
@@ -184,15 +228,30 @@ AIfExpression :
 	'else'	(else=AAlphaExpression );
 	
 AIndexExpression :
-	'[' func=IndexAffineExpressionTerminal ']' | ('val(' indexes=AIndexList '->' func=IndexAffineExpressionTerminal ')');
+	('val(' indexes=AIndexList '->' func=IndexAffineExpressionTerminal ')');
+AIndexExpressionInArrayNotation :
+	'[' func=IndexAffineExpressionTerminal ']';
 		
 AReduceExpression : 
 	'reduce' '(' op=AReductionOperator ',' projection=(AFunction|AFunctionInArrayNotation) ',' expr=AAlphaExpression ')';
 AArgReduceExpression : 
 	'argreduce' '(' op=AReductionOperator ',' projection=(AFunction|AFunctionInArrayNotation) ',' expr=AAlphaExpression ')';
+AConvExpression :
+	'conv' '(' domain=APolyhedralObjectExpression ',' kernel=AAlphaExpression ',' data=AAlphaExpression ')';
 
 ARestrictExpression :
-	domain=ADomain ':' expr=AAlphaExpression;
+	domain=APolyObjectInRestrict ':' expr=AAlphaExpression;
+	
+	
+APolyObjectInRestrict:
+	AISLSet |
+	AISLRelation |
+	ADeclaredObject |
+	( => AVariableDomain)  |
+	'{' APolyhedralObjectExpression '}'
+;	 
+AAutoRestrictExpression :
+	'auto' ':' expr=AAlphaExpression;
 
 AVariableExpression :
 	var=[AVariable];
@@ -237,7 +296,7 @@ AIndexAffineExpressionList: {AIndexAffineExpressionList}
 	(exprs+=IndexAffineExpression (',' exprs+=IndexAffineExpression)*)?;	
 	
 AFunction:
-	('(' indexes=AIndexList '->' func=AIndexAffineExpressionList ')');
+	'(' indexes=AIndexList '->' func=AIndexAffineExpressionList ')';
 	
 ////Array notation for AShow type syntax
 AFunctionInArrayNotation:
@@ -316,7 +375,6 @@ terminal REAL : ('0'..'9')+ '.' ('0'..'9')+;
 terminal INTERSECTION : '&&';
 
 terminal UNION : '||';
-
 
 @Override	
 terminal STRING	: 
