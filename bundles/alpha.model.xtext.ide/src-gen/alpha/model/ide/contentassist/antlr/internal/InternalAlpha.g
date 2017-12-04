@@ -9437,16 +9437,9 @@ rule__MultiArgExpression__Group__3__Impl
 	}
 :
 (
-	(
-		{ before(grammarAccess.getMultiArgExpressionAccess().getGroup_3()); }
-		(rule__MultiArgExpression__Group_3__0)
-		{ after(grammarAccess.getMultiArgExpressionAccess().getGroup_3()); }
-	)
-	(
-		{ before(grammarAccess.getMultiArgExpressionAccess().getGroup_3()); }
-		(rule__MultiArgExpression__Group_3__0)*
-		{ after(grammarAccess.getMultiArgExpressionAccess().getGroup_3()); }
-	)
+	{ before(grammarAccess.getMultiArgExpressionAccess().getGroup_3()); }
+	(rule__MultiArgExpression__Group_3__0)*
+	{ after(grammarAccess.getMultiArgExpressionAccess().getGroup_3()); }
 )
 ;
 finally {
@@ -9633,16 +9626,9 @@ rule__ExternalMultiArgExpression__Group__3__Impl
 	}
 :
 (
-	(
-		{ before(grammarAccess.getExternalMultiArgExpressionAccess().getGroup_3()); }
-		(rule__ExternalMultiArgExpression__Group_3__0)
-		{ after(grammarAccess.getExternalMultiArgExpressionAccess().getGroup_3()); }
-	)
-	(
-		{ before(grammarAccess.getExternalMultiArgExpressionAccess().getGroup_3()); }
-		(rule__ExternalMultiArgExpression__Group_3__0)*
-		{ after(grammarAccess.getExternalMultiArgExpressionAccess().getGroup_3()); }
-	)
+	{ before(grammarAccess.getExternalMultiArgExpressionAccess().getGroup_3()); }
+	(rule__ExternalMultiArgExpression__Group_3__0)*
+	{ after(grammarAccess.getExternalMultiArgExpressionAccess().getGroup_3()); }
 )
 ;
 finally {

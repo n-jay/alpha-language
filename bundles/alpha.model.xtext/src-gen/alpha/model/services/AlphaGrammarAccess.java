@@ -2156,10 +2156,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//MultiArgExpression:
-		//	operator=AREDUCTION_OP '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)+ ')';
+		//	operator=AREDUCTION_OP '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//operator=AREDUCTION_OP '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)+ ')'
+		//operator=AREDUCTION_OP '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')'
 		public Group getGroup() { return cGroup; }
 		
 		//operator=AREDUCTION_OP
@@ -2177,7 +2177,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//AlphaExpression
 		public RuleCall getExprsAlphaExpressionParserRuleCall_2_0() { return cExprsAlphaExpressionParserRuleCall_2_0; }
 		
-		//(',' exprs+=AlphaExpression)+
+		//(',' exprs+=AlphaExpression)*
 		public Group getGroup_3() { return cGroup_3; }
 		
 		//','
@@ -2208,10 +2208,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//ExternalMultiArgExpression:
-		//	externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)+ ')';
+		//	externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)+ ')'
+		//externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')'
 		public Group getGroup() { return cGroup; }
 		
 		//externalFunction=[ExternalFunction]
@@ -2232,7 +2232,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//AlphaExpression
 		public RuleCall getExprsAlphaExpressionParserRuleCall_2_0() { return cExprsAlphaExpressionParserRuleCall_2_0; }
 		
-		//(',' exprs+=AlphaExpression)+
+		//(',' exprs+=AlphaExpression)*
 		public Group getGroup_3() { return cGroup_3; }
 		
 		//','
@@ -3665,7 +3665,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//MultiArgExpression:
-	//	operator=AREDUCTION_OP '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)+ ')';
+	//	operator=AREDUCTION_OP '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
 	public MultiArgExpressionElements getMultiArgExpressionAccess() {
 		return pMultiArgExpression;
 	}
@@ -3675,7 +3675,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExternalMultiArgExpression:
-	//	externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)+ ')';
+	//	externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
 	public ExternalMultiArgExpressionElements getExternalMultiArgExpressionAccess() {
 		return pExternalMultiArgExpression;
 	}

@@ -235,10 +235,10 @@ MinMaxExpression returns AlphaExpression:
 	UnaryOrTerminalExpression ({BinaryExpression.left=current} operator=AMINMAX_OP right=UnaryOrTerminalExpression)*;
 
 MultiArgExpression:
-	operator=AREDUCTION_OP '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)+ ')';
+	operator=AREDUCTION_OP '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
 	
 ExternalMultiArgExpression:
-	externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)+ ')';	
+	externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';	
 
 UnaryOrTerminalExpression returns AlphaExpression:
 	UnaryExpression | AlphaTerminalExpression; 

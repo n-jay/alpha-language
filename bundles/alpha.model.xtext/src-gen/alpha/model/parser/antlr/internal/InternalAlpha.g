@@ -3818,7 +3818,7 @@ ruleMultiArgExpression returns [EObject current=null]
 					}
 				)
 			)
-		)+
+		)*
 		otherlv_5=')'
 		{
 			newLeafNode(otherlv_5, grammarAccess.getMultiArgExpressionAccess().getRightParenthesisKeyword_4());
@@ -3902,7 +3902,7 @@ ruleExternalMultiArgExpression returns [EObject current=null]
 					}
 				)
 			)
-		)+
+		)*
 		otherlv_5=')'
 		{
 			newLeafNode(otherlv_5, grammarAccess.getExternalMultiArgExpressionAccess().getRightParenthesisKeyword_4());

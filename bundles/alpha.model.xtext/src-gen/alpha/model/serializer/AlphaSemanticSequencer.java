@@ -511,7 +511,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ExternalMultiArgExpression
 	 *
 	 * Constraint:
-	 *     (externalFunction=[ExternalFunction|ID] exprs+=AlphaExpression exprs+=AlphaExpression+)
+	 *     (externalFunction=[ExternalFunction|ID] exprs+=AlphaExpression exprs+=AlphaExpression*)
 	 */
 	protected void sequence_ExternalMultiArgExpression(ISerializationContext context, ExternalMultiArgExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -821,7 +821,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns MultiArgExpression
 	 *
 	 * Constraint:
-	 *     (operator=AREDUCTION_OP exprs+=AlphaExpression exprs+=AlphaExpression+)
+	 *     (operator=AREDUCTION_OP exprs+=AlphaExpression exprs+=AlphaExpression*)
 	 */
 	protected void sequence_MultiArgExpression(ISerializationContext context, MultiArgExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
