@@ -5,7 +5,7 @@
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" complianceLevel="6.0"
     copyrightFields="false" runtimeVersion="2.13">
   <genPackages prefix="Alpha" basePackage="alpha" disposableProviderFactory="true"
-      fileExtensions="alpha" ecorePackage="Alpha.ecore#/">
+      fileExtensions="ab2" ecorePackage="Alpha.ecore#/">
     <genClasses ecoreClass="Alpha.ecore#//AStart">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alpha.ecore#//AStart/elements"/>
     </genClasses>

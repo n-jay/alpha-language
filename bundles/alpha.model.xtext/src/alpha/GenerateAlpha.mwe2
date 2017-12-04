@@ -25,7 +25,7 @@ Workflow {
 		}
 		language = StandardLanguage {
 			name = "alpha.Alpha"
-			fileExtensions = "ab2"
+			fileExtensions = "alpha"
 			referencedResource = "platform:/resource/alpha.model/model/alpha.xcore"
 			
 			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment2 auto-inject {}

@@ -33,7 +33,7 @@ Workflow {
 		}
 		language = StandardLanguage {
 			name = "alpha.Alpha"
-			fileExtensions = "alpha"
+			fileExtensions = "ab2"
 
 			 qualifiedNamesProvider = {
 			 	
