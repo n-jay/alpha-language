@@ -14,8 +14,8 @@ import alpha.model.RectangularDomain;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.Variable;
 import alpha.model.VariableDomain;
-import alpha.model.util.AbstractCalculatorExpressionVisitor;
 import alpha.model.util.AlphaUtil;
+import alpha.model.util.DefaultCalculatorExpressionVisitor;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
@@ -29,12 +29,12 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 
 @SuppressWarnings("all")
-public class CalculatorExpressionEvaluator extends EObjectImpl implements AbstractCalculatorExpressionVisitor {
+public class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {
   public final static CalculatorExpressionEvaluator INSTANCE = new CalculatorExpressionEvaluator();
   
   @Override
   public void visitUnaryCalculatorExpression(final UnaryCalculatorExpression expr) {
-    AbstractCalculatorExpressionVisitor.super.visitUnaryCalculatorExpression(expr);
+    DefaultCalculatorExpressionVisitor.super.visitUnaryCalculatorExpression(expr);
     JNIObject _iSLObject = expr.getExpr().getISLObject();
     boolean _tripleEquals = (_iSLObject == null);
     if (_tripleEquals) {
@@ -116,7 +116,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Abstra
   
   @Override
   public void visitBinaryCalculatorExpression(final BinaryCalculatorExpression expr) {
-    AbstractCalculatorExpressionVisitor.super.visitBinaryCalculatorExpression(expr);
+    DefaultCalculatorExpressionVisitor.super.visitBinaryCalculatorExpression(expr);
     if (((((expr.getLeft() == null) || (expr.getRight() == null)) || (expr.getLeft().getISLObject() == null)) || (expr.getRight().getISLObject() == null))) {
       return;
     }

@@ -25,7 +25,7 @@ import alpha.model.SelectExpression;
 import alpha.model.UnaryExpression;
 import alpha.model.VariableExpression;
 
-public interface AbstractAlphaExpressionVisitor extends AlphaExpressionVisitor {
+public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 
 	/*
 	 * Helper to avoid repeating null check all over the place.

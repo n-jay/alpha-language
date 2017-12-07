@@ -1,6 +1,5 @@
 package alpha.model
 
-import alpha.model.util.AbstractCalculatorExpressionVisitor
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext
@@ -10,15 +9,16 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
 import java.util.ArrayList
 import org.eclipse.emf.ecore.impl.EObjectImpl
+import alpha.model.util.DefaultCalculatorExpressionVisitor
 
-class CalculatorExpressionEvaluator extends EObjectImpl implements AbstractCalculatorExpressionVisitor{
+class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor{
 	
 	public static final CalculatorExpressionEvaluator INSTANCE = new CalculatorExpressionEvaluator();
 	
 	
 	override visitUnaryCalculatorExpression(UnaryCalculatorExpression expr) {
 		//depth first; visit the children first
-		AbstractCalculatorExpressionVisitor.super.visitUnaryCalculatorExpression(expr);
+		DefaultCalculatorExpressionVisitor.super.visitUnaryCalculatorExpression(expr);
 		
 		if (expr.getExpr().getISLObject() === null) {
 			//silent error since the root cause should already by registered in its child
@@ -90,7 +90,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements AbstractCalcu
 	
 	override visitBinaryCalculatorExpression(BinaryCalculatorExpression expr) {
 		//depth first; visit the children first
-		AbstractCalculatorExpressionVisitor.super.visitBinaryCalculatorExpression(expr);
+		DefaultCalculatorExpressionVisitor.super.visitBinaryCalculatorExpression(expr);
 		
 		if (expr.getLeft() === null || expr.getRight() === null || expr.getLeft().getISLObject() === null || expr.getRight().getISLObject() === null) {
 			//silent error since the root cause should already by registered in its child

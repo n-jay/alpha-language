@@ -11,13 +11,10 @@ import alpha.model.RectangularDomain;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.VariableDomain;
 
-public interface AbstractCalculatorExpressionVisitor extends CalculatorExpressionVisitor {
+public interface DefaultCalculatorExpressionVisitor extends CalculatorExpressionVisitor {
 
 	@Override
-	default void visitCalculatorExpression(CalculatorExpression expr) {
-		// TODO Auto-generated method stub
-		
-	}
+	default void visitCalculatorExpression(CalculatorExpression expr) {}
 
 	@Override
 	default void visitUnaryCalculatorExpression(UnaryCalculatorExpression expr) {

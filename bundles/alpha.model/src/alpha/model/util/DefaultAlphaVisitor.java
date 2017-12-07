@@ -17,7 +17,7 @@ import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
 
-public interface AbstractAlphaVisitor extends AlphaVisitor {
+public interface DefaultAlphaVisitor extends AlphaVisitor {
 
 	
 	@Override
@@ -86,25 +86,17 @@ public interface AbstractAlphaVisitor extends AlphaVisitor {
 
 	@Override
 	default void visitPolyhedralObject(PolyhedralObject pobj) {}
+	
 	@Override
-	default void visitAlphaConstant(AlphaConstant ac) {
-		// TODO Auto-generated method stub
-		
-	}
+	default void visitAlphaConstant(AlphaConstant ac) {}
+	
 	@Override
-	default void visitExternalFunction(ExternalFunction ef) {
-		// TODO Auto-generated method stub
-		
-	}
+	default void visitExternalFunction(ExternalFunction ef) {}
+	
 	@Override
-	default void visitUseEquation(UseEquation ue) {
-		// TODO Auto-generated method stub
-		
-	}
+	default void visitUseEquation(UseEquation ue) {}
+	
 	@Override
-	default void visitStandardEquation(StandardEquation se) {
-		// TODO Auto-generated method stub
-		
-	}
+	default void visitStandardEquation(StandardEquation se) {}
 
 }

@@ -111,14 +111,6 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackage.ALPHA_COMPLETE_VISITOR: {
-				AlphaCompleteVisitor alphaCompleteVisitor = (AlphaCompleteVisitor)theEObject;
-				T result = caseAlphaCompleteVisitor(alphaCompleteVisitor);
-				if (result == null) result = caseAlphaVisitor(alphaCompleteVisitor);
-				if (result == null) result = caseAlphaExpressionVisitor(alphaCompleteVisitor);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case ModelPackage.CALCULATOR_EXPRESSION_VISITOR: {
 				CalculatorExpressionVisitor calculatorExpressionVisitor = (CalculatorExpressionVisitor)theEObject;
 				T result = caseCalculatorExpressionVisitor(calculatorExpressionVisitor);
@@ -670,21 +662,6 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAlphaExpressionVisitor(AlphaExpressionVisitor object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Alpha Complete Visitor</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Alpha Complete Visitor</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAlphaCompleteVisitor(AlphaCompleteVisitor object) {
 		return null;
 	}
 

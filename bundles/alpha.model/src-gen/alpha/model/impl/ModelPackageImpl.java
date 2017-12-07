@@ -2,7 +2,6 @@
  */
 package alpha.model.impl;
 
-import alpha.model.AlphaCompleteVisitor;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaElement;
 import alpha.model.AlphaExpression;
@@ -134,13 +133,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass alphaExpressionVisitorEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass alphaCompleteVisitorEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -687,15 +679,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 */
 	public EClass getAlphaExpressionVisitor() {
 		return alphaExpressionVisitorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAlphaCompleteVisitor() {
-		return alphaCompleteVisitorEClass;
 	}
 
 	/**
@@ -2090,8 +2073,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		alphaExpressionVisitorEClass = createEClass(ALPHA_EXPRESSION_VISITOR);
 
-		alphaCompleteVisitorEClass = createEClass(ALPHA_COMPLETE_VISITOR);
-
 		calculatorExpressionVisitorEClass = createEClass(CALCULATOR_EXPRESSION_VISITOR);
 
 		alphaRootEClass = createEClass(ALPHA_ROOT);
@@ -2330,8 +2311,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		alphaVisitableEClass.getESuperTypes().add(this.getAlphaNode());
 		alphaExpressionVisitableEClass.getESuperTypes().add(this.getAlphaNode());
 		calculatorExpressionVisitableEClass.getESuperTypes().add(this.getAlphaNode());
-		alphaCompleteVisitorEClass.getESuperTypes().add(this.getAlphaVisitor());
-		alphaCompleteVisitorEClass.getESuperTypes().add(this.getAlphaExpressionVisitor());
 		alphaRootEClass.getESuperTypes().add(this.getAlphaVisitable());
 		alphaElementEClass.getESuperTypes().add(this.getAlphaVisitable());
 		importsEClass.getESuperTypes().add(this.getAlphaElement());
@@ -2513,8 +2492,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		initEClass(alphaCompleteVisitorEClass, AlphaCompleteVisitor.class, "AlphaCompleteVisitor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(calculatorExpressionVisitorEClass, CalculatorExpressionVisitor.class, "CalculatorExpressionVisitor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -2,13 +2,13 @@ package alpha.model;
 
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import alpha.model.util.AbstractAlphaExpressionVisitor;
-import alpha.model.util.AbstractAlphaVisitor;
+import alpha.model.util.DefaultAlphaExpressionVisitor;
+import alpha.model.util.DefaultAlphaVisitor;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
-public class JNIDomainCalculator extends EObjectImpl implements AbstractAlphaVisitor, AbstractAlphaExpressionVisitor {
+public class JNIDomainCalculator extends EObjectImpl implements DefaultAlphaVisitor, DefaultAlphaExpressionVisitor {
 
 	public static final JNIDomainCalculator INSTANCE = new JNIDomainCalculator();
 	
@@ -37,7 +37,7 @@ public class JNIDomainCalculator extends EObjectImpl implements AbstractAlphaVis
 			system.getWhileDomain().accept(CalculatorExpressionEvaluator.INSTANCE);	
 		}
 
-		AbstractAlphaVisitor.super.visitAlphaSystem(system);
+		DefaultAlphaVisitor.super.visitAlphaSystem(system);
 	}
 	
 	@Override

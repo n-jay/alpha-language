@@ -96,10 +96,6 @@ interface AlphaExpressionVisitor {
 	
 }
 
-interface AlphaCompleteVisitor extends AlphaVisitor, AlphaExpressionVisitor {
-	
-}
-
 interface CalculatorExpressionVisitor {
 	op void visitCalculatorExpression(CalculatorExpression expr)
 	
