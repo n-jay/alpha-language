@@ -1,4 +1,7 @@
-@GenModel(operationReflection="false")
+@GenModel(
+	operationReflection="false",
+	loadInitialization="false",
+	literalsInterface="true")
 package alpha.model
 
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
@@ -64,11 +67,57 @@ interface AlphaVisitor {
 	
 	op void visitPolyhedralObject(PolyhedralObject pobj)
 
-	op void visitUseEquation(UseEquation se)
+	op void visitUseEquation(UseEquation ue)
 	op void visitStandardEquation(StandardEquation se)
+	
+	
+	op void inAlphaRoot(AlphaRoot root)
+	
+	op void inAlphaElement(AlphaElement ap)
+	op void inAlphaPackage(AlphaPackage ap)
+	op void inAlphaSystem(AlphaSystem system)
+	op void inImports(Imports imports)
+	op void inAlphaConstant(AlphaConstant ac)
+	op void inExternalFunction(ExternalFunction ef)
+	
+	op void inVariable(Variable variable)
+	
+	op void inInputVariable(InputVariable variable)
+	op void inOutputVariable(OutputVariable variable)
+	op void inLocalVariable(LocalVariable variable)
+	op void inFuzzyVariable(FuzzyVariable variable)
+	
+	op void inPolyhedralObject(PolyhedralObject pobj)
+
+	op void inUseEquation(UseEquation ue)
+	op void inStandardEquation(StandardEquation se)
+	
+	
+	op void outAlphaRoot(AlphaRoot root)
+	
+	op void outAlphaElement(AlphaElement ap)
+	op void outAlphaPackage(AlphaPackage ap)
+	op void outAlphaSystem(AlphaSystem system)
+	op void outImports(Imports imports)
+	op void outAlphaConstant(AlphaConstant ac)
+	op void outExternalFunction(ExternalFunction ef)
+	
+	op void outVariable(Variable variable)
+	
+	op void outInputVariable(InputVariable variable)
+	op void outOutputVariable(OutputVariable variable)
+	op void outLocalVariable(LocalVariable variable)
+	op void outFuzzyVariable(FuzzyVariable variable)
+	
+	op void outPolyhedralObject(PolyhedralObject pobj)
+
+	op void outUseEquation(UseEquation ue)
+	op void outStandardEquation(StandardEquation se)
 }
 
 interface AlphaExpressionVisitor {
+	op void visitAlphaExpression(AlphaExpression ae)
+	
 	op void visitRestrictExpression(RestrictExpression re)
 	op void visitAutoRestrictExpression(AutoRestrictExpression are)
 	op void visitCaseExpression(CaseExpression ce)
@@ -94,6 +143,60 @@ interface AlphaExpressionVisitor {
 	op void visitExternalArgReduceExpression(ExternalArgReduceExpression eare)
 	op void visitExternalMultiArgExpression(ExternalMultiArgExpression emae)
 	
+	
+	op void inAlphaExpression(AlphaExpression ae)
+	
+	op void inRestrictExpression(RestrictExpression re)
+	op void inAutoRestrictExpression(AutoRestrictExpression are)
+	op void inCaseExpression(CaseExpression ce)
+	op void inIfExpression(IfExpression ie)
+	op void inDependenceExpression(DependenceExpression de)
+	op void inReduceExpression(ReduceExpression re)
+	op void inArgReduceExpression(ArgReduceExpression are)
+	op void inConvolutionExpression(ConvolutionExpression ce)
+	op void inUnaryExpression(UnaryExpression ue)
+	op void inBinaryExpression(BinaryExpression be)
+	op void inMultiArgExpression(MultiArgExpression mae)
+	op void inSelectExpression(SelectExpression se)
+	
+	op void inIndexExpression(IndexExpression ie)
+	op void inVariableExpression(VariableExpression ve)
+	
+	op void inConstantExpression(ConstantExpression ce)
+	op void inIntegerExpression(IntegerExpression ie)
+	op void inRealExpression(RealExpression re)
+	op void inBooleanExpression(BooleanExpression be)
+	
+	op void inExternalReduceExpression(ExternalReduceExpression ere)
+	op void inExternalArgReduceExpression(ExternalArgReduceExpression eare)
+	op void inExternalMultiArgExpression(ExternalMultiArgExpression emae)
+	
+	op void outAlphaExpression(AlphaExpression ae)
+	
+	op void outRestrictExpression(RestrictExpression re)
+	op void outAutoRestrictExpression(AutoRestrictExpression are)
+	op void outCaseExpression(CaseExpression ce)
+	op void outIfExpression(IfExpression ie)
+	op void outDependenceExpression(DependenceExpression de)
+	op void outReduceExpression(ReduceExpression re)
+	op void outArgReduceExpression(ArgReduceExpression are)
+	op void outConvolutionExpression(ConvolutionExpression ce)
+	op void outUnaryExpression(UnaryExpression ue)
+	op void outBinaryExpression(BinaryExpression be)
+	op void outMultiArgExpression(MultiArgExpression mae)
+	op void outSelectExpression(SelectExpression se)
+	
+	op void outIndexExpression(IndexExpression ie)
+	op void outVariableExpression(VariableExpression ve)
+	
+	op void outConstantExpression(ConstantExpression ce)
+	op void outIntegerExpression(IntegerExpression ie)
+	op void outRealExpression(RealExpression re)
+	op void outBooleanExpression(BooleanExpression be)
+	
+	op void outExternalReduceExpression(ExternalReduceExpression ere)
+	op void outExternalArgReduceExpression(ExternalArgReduceExpression eare)
+	op void outExternalMultiArgExpression(ExternalMultiArgExpression emae)
 }
 
 interface CalculatorExpressionVisitor {
@@ -119,6 +222,10 @@ class AlphaRoot extends AlphaVisitable {
 	op ExternalFunction[] getExternalFunctions() { elements.filter(ExternalFunction).asEList }
 	op AlphaPackage[] getPackages() { elements.filter(AlphaPackage).asEList }
 	op AlphaSystem[] getSystems() { elements.filter(AlphaSystem).asEList }
+	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitAlphaRoot(this)
+	}
 }
 
 abstract class AlphaElement extends AlphaVisitable {
@@ -160,7 +267,7 @@ class AlphaConstant extends AlphaElement {
 
 class ExternalFunction extends AlphaElement {
 	String name
-	int cardinarity
+	int cardinality
 	
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitExternalFunction(this)
@@ -265,6 +372,10 @@ class UseEquation extends AlphaVisitable {
 	String[] subsystemDims
 	contains AlphaExpression[] inputExprs
 	contains AlphaExpression[] outputExprs
+	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitUseEquation(this)
+	}
 }
 
 /** Alpha Expressions */

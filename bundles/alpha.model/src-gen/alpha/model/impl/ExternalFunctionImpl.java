@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.impl.ExternalFunctionImpl#getName <em>Name</em>}</li>
- *   <li>{@link alpha.model.impl.ExternalFunctionImpl#getCardinarity <em>Cardinarity</em>}</li>
+ *   <li>{@link alpha.model.impl.ExternalFunctionImpl#getCardinality <em>Cardinality</em>}</li>
  * </ul>
  *
  * @generated
@@ -48,24 +48,24 @@ public class ExternalFunctionImpl extends AlphaElementImpl implements ExternalFu
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getCardinarity() <em>Cardinarity</em>}' attribute.
+	 * The default value of the '{@link #getCardinality() <em>Cardinality</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCardinarity()
+	 * @see #getCardinality()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int CARDINARITY_EDEFAULT = 0;
+	protected static final int CARDINALITY_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getCardinarity() <em>Cardinarity</em>}' attribute.
+	 * The cached value of the '{@link #getCardinality() <em>Cardinality</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCardinarity()
+	 * @see #getCardinality()
 	 * @generated
 	 * @ordered
 	 */
-	protected int cardinarity = CARDINARITY_EDEFAULT;
+	protected int cardinality = CARDINALITY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -112,8 +112,8 @@ public class ExternalFunctionImpl extends AlphaElementImpl implements ExternalFu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getCardinarity() {
-		return cardinarity;
+	public int getCardinality() {
+		return cardinality;
 	}
 
 	/**
@@ -121,11 +121,11 @@ public class ExternalFunctionImpl extends AlphaElementImpl implements ExternalFu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCardinarity(int newCardinarity) {
-		int oldCardinarity = cardinarity;
-		cardinarity = newCardinarity;
+	public void setCardinality(int newCardinality) {
+		int oldCardinality = cardinality;
+		cardinality = newCardinality;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EXTERNAL_FUNCTION__CARDINARITY, oldCardinarity, cardinarity));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EXTERNAL_FUNCTION__CARDINALITY, oldCardinality, cardinality));
 	}
 
 	/**
@@ -147,8 +147,8 @@ public class ExternalFunctionImpl extends AlphaElementImpl implements ExternalFu
 		switch (featureID) {
 			case ModelPackage.EXTERNAL_FUNCTION__NAME:
 				return getName();
-			case ModelPackage.EXTERNAL_FUNCTION__CARDINARITY:
-				return getCardinarity();
+			case ModelPackage.EXTERNAL_FUNCTION__CARDINALITY:
+				return getCardinality();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -164,8 +164,8 @@ public class ExternalFunctionImpl extends AlphaElementImpl implements ExternalFu
 			case ModelPackage.EXTERNAL_FUNCTION__NAME:
 				setName((String)newValue);
 				return;
-			case ModelPackage.EXTERNAL_FUNCTION__CARDINARITY:
-				setCardinarity((Integer)newValue);
+			case ModelPackage.EXTERNAL_FUNCTION__CARDINALITY:
+				setCardinality((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -182,8 +182,8 @@ public class ExternalFunctionImpl extends AlphaElementImpl implements ExternalFu
 			case ModelPackage.EXTERNAL_FUNCTION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ModelPackage.EXTERNAL_FUNCTION__CARDINARITY:
-				setCardinarity(CARDINARITY_EDEFAULT);
+			case ModelPackage.EXTERNAL_FUNCTION__CARDINALITY:
+				setCardinality(CARDINALITY_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -199,8 +199,8 @@ public class ExternalFunctionImpl extends AlphaElementImpl implements ExternalFu
 		switch (featureID) {
 			case ModelPackage.EXTERNAL_FUNCTION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ModelPackage.EXTERNAL_FUNCTION__CARDINARITY:
-				return cardinarity != CARDINARITY_EDEFAULT;
+			case ModelPackage.EXTERNAL_FUNCTION__CARDINALITY:
+				return cardinality != CARDINALITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -217,8 +217,8 @@ public class ExternalFunctionImpl extends AlphaElementImpl implements ExternalFu
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", cardinarity: ");
-		result.append(cardinarity);
+		result.append(", cardinality: ");
+		result.append(cardinality);
 		result.append(')');
 		return result.toString();
 	}

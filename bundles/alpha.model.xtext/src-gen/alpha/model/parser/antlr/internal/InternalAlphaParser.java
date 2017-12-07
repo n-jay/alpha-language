@@ -590,25 +590,25 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExternalFunction"
-    // InternalAlpha.g:236:1: ruleExternalFunction returns [EObject current=null] : (otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinarity_3_0= RULE_INT ) ) otherlv_4= ')' ) ;
+    // InternalAlpha.g:236:1: ruleExternalFunction returns [EObject current=null] : (otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinality_3_0= RULE_INT ) ) otherlv_4= ')' ) ;
     public final EObject ruleExternalFunction() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
         Token lv_name_1_0=null;
         Token otherlv_2=null;
-        Token lv_cardinarity_3_0=null;
+        Token lv_cardinality_3_0=null;
         Token otherlv_4=null;
 
 
         	enterRule();
 
         try {
-            // InternalAlpha.g:242:2: ( (otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinarity_3_0= RULE_INT ) ) otherlv_4= ')' ) )
-            // InternalAlpha.g:243:2: (otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinarity_3_0= RULE_INT ) ) otherlv_4= ')' )
+            // InternalAlpha.g:242:2: ( (otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinality_3_0= RULE_INT ) ) otherlv_4= ')' ) )
+            // InternalAlpha.g:243:2: (otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinality_3_0= RULE_INT ) ) otherlv_4= ')' )
             {
-            // InternalAlpha.g:243:2: (otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinarity_3_0= RULE_INT ) ) otherlv_4= ')' )
-            // InternalAlpha.g:244:3: otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinarity_3_0= RULE_INT ) ) otherlv_4= ')'
+            // InternalAlpha.g:243:2: (otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinality_3_0= RULE_INT ) ) otherlv_4= ')' )
+            // InternalAlpha.g:244:3: otherlv_0= 'external' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '(' ( (lv_cardinality_3_0= RULE_INT ) ) otherlv_4= ')'
             {
             otherlv_0=(Token)match(input,15,FOLLOW_4); 
 
@@ -644,15 +644,15 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_2, grammarAccess.getExternalFunctionAccess().getLeftParenthesisKeyword_2());
             		
-            // InternalAlpha.g:270:3: ( (lv_cardinarity_3_0= RULE_INT ) )
-            // InternalAlpha.g:271:4: (lv_cardinarity_3_0= RULE_INT )
+            // InternalAlpha.g:270:3: ( (lv_cardinality_3_0= RULE_INT ) )
+            // InternalAlpha.g:271:4: (lv_cardinality_3_0= RULE_INT )
             {
-            // InternalAlpha.g:271:4: (lv_cardinarity_3_0= RULE_INT )
-            // InternalAlpha.g:272:5: lv_cardinarity_3_0= RULE_INT
+            // InternalAlpha.g:271:4: (lv_cardinality_3_0= RULE_INT )
+            // InternalAlpha.g:272:5: lv_cardinality_3_0= RULE_INT
             {
-            lv_cardinarity_3_0=(Token)match(input,RULE_INT,FOLLOW_8); 
+            lv_cardinality_3_0=(Token)match(input,RULE_INT,FOLLOW_8); 
 
-            					newLeafNode(lv_cardinarity_3_0, grammarAccess.getExternalFunctionAccess().getCardinarityINTTerminalRuleCall_3_0());
+            					newLeafNode(lv_cardinality_3_0, grammarAccess.getExternalFunctionAccess().getCardinalityINTTerminalRuleCall_3_0());
             				
 
             					if (current==null) {
@@ -660,8 +660,8 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             					}
             					setWithLastConsumed(
             						current,
-            						"cardinarity",
-            						lv_cardinarity_3_0,
+            						"cardinality",
+            						lv_cardinality_3_0,
             						"org.eclipse.xtext.common.Terminals.INT");
             				
 

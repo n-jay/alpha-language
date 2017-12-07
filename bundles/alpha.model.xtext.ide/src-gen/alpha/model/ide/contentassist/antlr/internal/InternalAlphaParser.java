@@ -10393,31 +10393,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExternalFunction__Group__3__Impl"
-    // InternalAlpha.g:3213:1: rule__ExternalFunction__Group__3__Impl : ( ( rule__ExternalFunction__CardinarityAssignment_3 ) ) ;
+    // InternalAlpha.g:3213:1: rule__ExternalFunction__Group__3__Impl : ( ( rule__ExternalFunction__CardinalityAssignment_3 ) ) ;
     public final void rule__ExternalFunction__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:3217:1: ( ( ( rule__ExternalFunction__CardinarityAssignment_3 ) ) )
-            // InternalAlpha.g:3218:1: ( ( rule__ExternalFunction__CardinarityAssignment_3 ) )
+            // InternalAlpha.g:3217:1: ( ( ( rule__ExternalFunction__CardinalityAssignment_3 ) ) )
+            // InternalAlpha.g:3218:1: ( ( rule__ExternalFunction__CardinalityAssignment_3 ) )
             {
-            // InternalAlpha.g:3218:1: ( ( rule__ExternalFunction__CardinarityAssignment_3 ) )
-            // InternalAlpha.g:3219:2: ( rule__ExternalFunction__CardinarityAssignment_3 )
+            // InternalAlpha.g:3218:1: ( ( rule__ExternalFunction__CardinalityAssignment_3 ) )
+            // InternalAlpha.g:3219:2: ( rule__ExternalFunction__CardinalityAssignment_3 )
             {
-             before(grammarAccess.getExternalFunctionAccess().getCardinarityAssignment_3()); 
-            // InternalAlpha.g:3220:2: ( rule__ExternalFunction__CardinarityAssignment_3 )
-            // InternalAlpha.g:3220:3: rule__ExternalFunction__CardinarityAssignment_3
+             before(grammarAccess.getExternalFunctionAccess().getCardinalityAssignment_3()); 
+            // InternalAlpha.g:3220:2: ( rule__ExternalFunction__CardinalityAssignment_3 )
+            // InternalAlpha.g:3220:3: rule__ExternalFunction__CardinalityAssignment_3
             {
             pushFollow(FOLLOW_2);
-            rule__ExternalFunction__CardinarityAssignment_3();
+            rule__ExternalFunction__CardinalityAssignment_3();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getExternalFunctionAccess().getCardinarityAssignment_3()); 
+             after(grammarAccess.getExternalFunctionAccess().getCardinalityAssignment_3()); 
 
             }
 
@@ -35445,9 +35445,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ExternalFunction__NameAssignment_1"
 
 
-    // $ANTLR start "rule__ExternalFunction__CardinarityAssignment_3"
-    // InternalAlpha.g:11565:1: rule__ExternalFunction__CardinarityAssignment_3 : ( RULE_INT ) ;
-    public final void rule__ExternalFunction__CardinarityAssignment_3() throws RecognitionException {
+    // $ANTLR start "rule__ExternalFunction__CardinalityAssignment_3"
+    // InternalAlpha.g:11565:1: rule__ExternalFunction__CardinalityAssignment_3 : ( RULE_INT ) ;
+    public final void rule__ExternalFunction__CardinalityAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -35458,9 +35458,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:11570:2: ( RULE_INT )
             // InternalAlpha.g:11571:3: RULE_INT
             {
-             before(grammarAccess.getExternalFunctionAccess().getCardinarityINTTerminalRuleCall_3_0()); 
+             before(grammarAccess.getExternalFunctionAccess().getCardinalityINTTerminalRuleCall_3_0()); 
             match(input,RULE_INT,FOLLOW_2); 
-             after(grammarAccess.getExternalFunctionAccess().getCardinarityINTTerminalRuleCall_3_0()); 
+             after(grammarAccess.getExternalFunctionAccess().getCardinalityINTTerminalRuleCall_3_0()); 
 
             }
 
@@ -35479,7 +35479,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ExternalFunction__CardinarityAssignment_3"
+    // $ANTLR end "rule__ExternalFunction__CardinalityAssignment_3"
 
 
     // $ANTLR start "rule__Imports__ImportedNamespaceAssignment_1"

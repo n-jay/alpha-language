@@ -135,10 +135,10 @@ public interface AlphaVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model seUnique="false"
+	 * @model ueUnique="false"
 	 * @generated
 	 */
-	void visitUseEquation(UseEquation se);
+	void visitUseEquation(UseEquation ue);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -147,5 +147,245 @@ public interface AlphaVisitor extends EObject {
 	 * @generated
 	 */
 	void visitStandardEquation(StandardEquation se);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model rootUnique="false"
+	 * @generated
+	 */
+	void inAlphaRoot(AlphaRoot root);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model apUnique="false"
+	 * @generated
+	 */
+	void inAlphaElement(AlphaElement ap);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model apUnique="false"
+	 * @generated
+	 */
+	void inAlphaPackage(AlphaPackage ap);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model systemUnique="false"
+	 * @generated
+	 */
+	void inAlphaSystem(AlphaSystem system);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model importsUnique="false"
+	 * @generated
+	 */
+	void inImports(Imports imports);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model acUnique="false"
+	 * @generated
+	 */
+	void inAlphaConstant(AlphaConstant ac);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model efUnique="false"
+	 * @generated
+	 */
+	void inExternalFunction(ExternalFunction ef);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void inVariable(Variable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void inInputVariable(InputVariable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void inOutputVariable(OutputVariable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void inLocalVariable(LocalVariable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void inFuzzyVariable(FuzzyVariable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model pobjUnique="false"
+	 * @generated
+	 */
+	void inPolyhedralObject(PolyhedralObject pobj);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model ueUnique="false"
+	 * @generated
+	 */
+	void inUseEquation(UseEquation ue);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model seUnique="false"
+	 * @generated
+	 */
+	void inStandardEquation(StandardEquation se);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model rootUnique="false"
+	 * @generated
+	 */
+	void outAlphaRoot(AlphaRoot root);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model apUnique="false"
+	 * @generated
+	 */
+	void outAlphaElement(AlphaElement ap);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model apUnique="false"
+	 * @generated
+	 */
+	void outAlphaPackage(AlphaPackage ap);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model systemUnique="false"
+	 * @generated
+	 */
+	void outAlphaSystem(AlphaSystem system);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model importsUnique="false"
+	 * @generated
+	 */
+	void outImports(Imports imports);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model acUnique="false"
+	 * @generated
+	 */
+	void outAlphaConstant(AlphaConstant ac);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model efUnique="false"
+	 * @generated
+	 */
+	void outExternalFunction(ExternalFunction ef);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void outVariable(Variable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void outInputVariable(InputVariable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void outOutputVariable(OutputVariable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void outLocalVariable(LocalVariable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableUnique="false"
+	 * @generated
+	 */
+	void outFuzzyVariable(FuzzyVariable variable);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model pobjUnique="false"
+	 * @generated
+	 */
+	void outPolyhedralObject(PolyhedralObject pobj);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model ueUnique="false"
+	 * @generated
+	 */
+	void outUseEquation(UseEquation ue);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model seUnique="false"
+	 * @generated
+	 */
+	void outStandardEquation(StandardEquation se);
 
 } // AlphaVisitor

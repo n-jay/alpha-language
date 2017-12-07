@@ -812,7 +812,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExternalFunction_Cardinarity() {
+	public EAttribute getExternalFunction_Cardinality() {
 		return (EAttribute)externalFunctionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2093,7 +2093,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		externalFunctionEClass = createEClass(EXTERNAL_FUNCTION);
 		createEAttribute(externalFunctionEClass, EXTERNAL_FUNCTION__NAME);
-		createEAttribute(externalFunctionEClass, EXTERNAL_FUNCTION__CARDINARITY);
+		createEAttribute(externalFunctionEClass, EXTERNAL_FUNCTION__CARDINALITY);
 
 		alphaSystemEClass = createEClass(ALPHA_SYSTEM);
 		createEAttribute(alphaSystemEClass, ALPHA_SYSTEM__NAME);
@@ -2423,12 +2423,105 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getPolyhedralObject(), "pobj", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaVisitorEClass, null, "visitUseEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getUseEquation(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getUseEquation(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaVisitorEClass, null, "visitStandardEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getStandardEquation(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaVisitorEClass, null, "inAlphaRoot", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaRoot(), "root", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inAlphaElement", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaElement(), "ap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inAlphaPackage", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaPackage(), "ap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inAlphaSystem", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaSystem(), "system", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inImports", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getImports(), "imports", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inAlphaConstant", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaConstant(), "ac", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inExternalFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalFunction(), "ef", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inInputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getInputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inOutputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getOutputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inLocalVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getLocalVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inFuzzyVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inPolyhedralObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getPolyhedralObject(), "pobj", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inUseEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getUseEquation(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "inStandardEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getStandardEquation(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outAlphaRoot", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaRoot(), "root", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outAlphaElement", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaElement(), "ap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outAlphaPackage", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaPackage(), "ap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outAlphaSystem", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaSystem(), "system", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outImports", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getImports(), "imports", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outAlphaConstant", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaConstant(), "ac", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outExternalFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalFunction(), "ef", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outInputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getInputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outOutputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getOutputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outLocalVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getLocalVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outFuzzyVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outPolyhedralObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getPolyhedralObject(), "pobj", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outUseEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getUseEquation(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outStandardEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getStandardEquation(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(alphaExpressionVisitorEClass, AlphaExpressionVisitor.class, "AlphaExpressionVisitor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitAlphaExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpression(), "ae", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitRestrictExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getRestrictExpression(), "re", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2493,6 +2586,138 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inAlphaExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpression(), "ae", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inRestrictExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getRestrictExpression(), "re", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inAutoRestrictExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAutoRestrictExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inCaseExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getCaseExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inIfExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIfExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getReduceExpression(), "re", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getArgReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inConvolutionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConvolutionExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inUnaryExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getUnaryExpression(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inBinaryExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getBinaryExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getMultiArgExpression(), "mae", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inSelectExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSelectExpression(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIndexExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inVariableExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getVariableExpression(), "ve", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inConstantExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConstantExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inIntegerExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIntegerExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inRealExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getRealExpression(), "re", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inBooleanExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getBooleanExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inExternalReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalReduceExpression(), "ere", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inExternalArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalArgReduceExpression(), "eare", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outAlphaExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpression(), "ae", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outRestrictExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getRestrictExpression(), "re", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outAutoRestrictExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAutoRestrictExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outCaseExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getCaseExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outIfExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIfExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getReduceExpression(), "re", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getArgReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outConvolutionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConvolutionExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outUnaryExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getUnaryExpression(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outBinaryExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getBinaryExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getMultiArgExpression(), "mae", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outSelectExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSelectExpression(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIndexExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outVariableExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getVariableExpression(), "ve", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outConstantExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConstantExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outIntegerExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIntegerExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outRealExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getRealExpression(), "re", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outBooleanExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getBooleanExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outExternalReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalReduceExpression(), "ere", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outExternalArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalArgReduceExpression(), "eare", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(calculatorExpressionVisitorEClass, CalculatorExpressionVisitor.class, "CalculatorExpressionVisitor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitCalculatorExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2535,6 +2760,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(alphaRootEClass, this.getAlphaSystem(), "getSystems", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaRootEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(alphaElementEClass, AlphaElement.class, "AlphaElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(alphaElementEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2570,7 +2798,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		initEClass(externalFunctionEClass, ExternalFunction.class, "ExternalFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getExternalFunction_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ExternalFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getExternalFunction_Cardinarity(), theEcorePackage.getEInt(), "cardinarity", null, 0, 1, ExternalFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExternalFunction_Cardinality(), theEcorePackage.getEInt(), "cardinality", null, 0, 1, ExternalFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(externalFunctionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2641,6 +2869,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getUseEquation_SubsystemDims(), theEcorePackage.getEString(), "subsystemDims", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_InputExprs(), this.getAlphaExpression(), null, "inputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_OutputExprs(), this.getAlphaExpression(), null, "outputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(useEquationEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaExpressionEClass, AlphaExpression.class, "AlphaExpression", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

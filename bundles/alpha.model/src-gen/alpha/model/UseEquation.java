@@ -152,4 +152,13 @@ public interface UseEquation extends AlphaVisitable {
 	 */
 	EList<AlphaExpression> getOutputExprs();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitUseEquation(this);'"
+	 * @generated
+	 */
+	void accept(AlphaVisitor visitor);
+
 } // UseEquation

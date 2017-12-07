@@ -3216,9 +3216,9 @@ rule__ExternalFunction__Group__3__Impl
 	}
 :
 (
-	{ before(grammarAccess.getExternalFunctionAccess().getCardinarityAssignment_3()); }
-	(rule__ExternalFunction__CardinarityAssignment_3)
-	{ after(grammarAccess.getExternalFunctionAccess().getCardinarityAssignment_3()); }
+	{ before(grammarAccess.getExternalFunctionAccess().getCardinalityAssignment_3()); }
+	(rule__ExternalFunction__CardinalityAssignment_3)
+	{ after(grammarAccess.getExternalFunctionAccess().getCardinalityAssignment_3()); }
 )
 ;
 finally {
@@ -11562,15 +11562,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ExternalFunction__CardinarityAssignment_3
+rule__ExternalFunction__CardinalityAssignment_3
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getExternalFunctionAccess().getCardinarityINTTerminalRuleCall_3_0()); }
+		{ before(grammarAccess.getExternalFunctionAccess().getCardinalityINTTerminalRuleCall_3_0()); }
 		RULE_INT
-		{ after(grammarAccess.getExternalFunctionAccess().getCardinarityINTTerminalRuleCall_3_0()); }
+		{ after(grammarAccess.getExternalFunctionAccess().getCardinalityINTTerminalRuleCall_3_0()); }
 	)
 ;
 finally {

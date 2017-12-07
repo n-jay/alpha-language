@@ -13,7 +13,7 @@ AlphaConstant:
 ;
 
 ExternalFunction:
-	'external' name=ID '(' cardinarity=INT ')'
+	'external' name=ID '(' cardinality=INT ')'
 ;
 
 Imports:

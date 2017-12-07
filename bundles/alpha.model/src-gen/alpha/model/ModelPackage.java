@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see alpha.model.ModelFactory
  * @model kind="package"
- *        annotation="http://www.eclipse.org/emf/2002/GenModel operationReflection='false' basePackage='alpha'"
+ *        annotation="http://www.eclipse.org/emf/2002/GenModel operationReflection='false' loadInitialization='false' literalsInterface='true' basePackage='alpha'"
  * @generated
  */
 public interface ModelPackage extends EPackage {
@@ -379,13 +379,13 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_FUNCTION__NAME = ALPHA_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Cardinarity</b></em>' attribute.
+	 * The feature id for the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_FUNCTION__CARDINARITY = ALPHA_ELEMENT_FEATURE_COUNT + 1;
+	int EXTERNAL_FUNCTION__CARDINALITY = ALPHA_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>External Function</em>' class.
@@ -2504,15 +2504,15 @@ public interface ModelPackage extends EPackage {
 	EAttribute getExternalFunction_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.ExternalFunction#getCardinarity <em>Cardinarity</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.ExternalFunction#getCardinality <em>Cardinality</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Cardinarity</em>'.
-	 * @see alpha.model.ExternalFunction#getCardinarity()
+	 * @return the meta object for the attribute '<em>Cardinality</em>'.
+	 * @see alpha.model.ExternalFunction#getCardinality()
 	 * @see #getExternalFunction()
 	 * @generated
 	 */
-	EAttribute getExternalFunction_Cardinarity();
+	EAttribute getExternalFunction_Cardinality();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.AlphaSystem <em>Alpha System</em>}'.
@@ -4170,12 +4170,12 @@ public interface ModelPackage extends EPackage {
 		EAttribute EXTERNAL_FUNCTION__NAME = eINSTANCE.getExternalFunction_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Cardinarity</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Cardinality</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EXTERNAL_FUNCTION__CARDINARITY = eINSTANCE.getExternalFunction_Cardinarity();
+		EAttribute EXTERNAL_FUNCTION__CARDINALITY = eINSTANCE.getExternalFunction_Cardinality();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.AlphaSystemImpl <em>Alpha System</em>}' class.

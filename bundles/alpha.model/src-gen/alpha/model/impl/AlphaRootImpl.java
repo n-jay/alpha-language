@@ -134,10 +134,8 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void accept(AlphaVisitor visitor) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public void accept(final AlphaVisitor visitor) {
+		visitor.visitAlphaRoot(this);
 	}
 
 	/**

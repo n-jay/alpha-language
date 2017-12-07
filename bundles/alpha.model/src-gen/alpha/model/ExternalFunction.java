@@ -13,7 +13,7 @@ package alpha.model;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.ExternalFunction#getName <em>Name</em>}</li>
- *   <li>{@link alpha.model.ExternalFunction#getCardinarity <em>Cardinarity</em>}</li>
+ *   <li>{@link alpha.model.ExternalFunction#getCardinality <em>Cardinality</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getExternalFunction()
@@ -48,30 +48,30 @@ public interface ExternalFunction extends AlphaElement {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Cardinarity</b></em>' attribute.
+	 * Returns the value of the '<em><b>Cardinality</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Cardinarity</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Cardinality</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Cardinarity</em>' attribute.
-	 * @see #setCardinarity(int)
-	 * @see alpha.model.ModelPackage#getExternalFunction_Cardinarity()
+	 * @return the value of the '<em>Cardinality</em>' attribute.
+	 * @see #setCardinality(int)
+	 * @see alpha.model.ModelPackage#getExternalFunction_Cardinality()
 	 * @model unique="false"
 	 * @generated
 	 */
-	int getCardinarity();
+	int getCardinality();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.ExternalFunction#getCardinarity <em>Cardinarity</em>}' attribute.
+	 * Sets the value of the '{@link alpha.model.ExternalFunction#getCardinality <em>Cardinality</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Cardinarity</em>' attribute.
-	 * @see #getCardinarity()
+	 * @param value the new value of the '<em>Cardinality</em>' attribute.
+	 * @see #getCardinality()
 	 * @generated
 	 */
-	void setCardinarity(int value);
+	void setCardinality(int value);
 
 	/**
 	 * <!-- begin-user-doc -->

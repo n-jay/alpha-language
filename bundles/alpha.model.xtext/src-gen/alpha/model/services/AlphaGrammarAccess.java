@@ -101,15 +101,15 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cCardinarityAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cCardinarityINTTerminalRuleCall_3_0 = (RuleCall)cCardinarityAssignment_3.eContents().get(0);
+		private final Assignment cCardinalityAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cCardinalityINTTerminalRuleCall_3_0 = (RuleCall)cCardinalityAssignment_3.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//ExternalFunction:
-		//	'external' name=ID '(' cardinarity=INT ')';
+		//	'external' name=ID '(' cardinality=INT ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'external' name=ID '(' cardinarity=INT ')'
+		//'external' name=ID '(' cardinality=INT ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'external'
@@ -124,11 +124,11 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 		
-		//cardinarity=INT
-		public Assignment getCardinarityAssignment_3() { return cCardinarityAssignment_3; }
+		//cardinality=INT
+		public Assignment getCardinalityAssignment_3() { return cCardinalityAssignment_3; }
 		
 		//INT
-		public RuleCall getCardinarityINTTerminalRuleCall_3_0() { return cCardinarityINTTerminalRuleCall_3_0; }
+		public RuleCall getCardinalityINTTerminalRuleCall_3_0() { return cCardinalityINTTerminalRuleCall_3_0; }
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
@@ -3419,7 +3419,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExternalFunction:
-	//	'external' name=ID '(' cardinarity=INT ')';
+	//	'external' name=ID '(' cardinality=INT ')';
 	public ExternalFunctionElements getExternalFunctionAccess() {
 		return pExternalFunction;
 	}

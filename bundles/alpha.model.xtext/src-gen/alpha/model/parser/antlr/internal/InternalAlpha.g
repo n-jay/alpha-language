@@ -269,9 +269,9 @@ ruleExternalFunction returns [EObject current=null]
 		}
 		(
 			(
-				lv_cardinarity_3_0=RULE_INT
+				lv_cardinality_3_0=RULE_INT
 				{
-					newLeafNode(lv_cardinarity_3_0, grammarAccess.getExternalFunctionAccess().getCardinarityINTTerminalRuleCall_3_0());
+					newLeafNode(lv_cardinality_3_0, grammarAccess.getExternalFunctionAccess().getCardinalityINTTerminalRuleCall_3_0());
 				}
 				{
 					if ($current==null) {
@@ -279,8 +279,8 @@ ruleExternalFunction returns [EObject current=null]
 					}
 					setWithLastConsumed(
 						$current,
-						"cardinarity",
-						lv_cardinarity_3_0,
+						"cardinality",
+						lv_cardinality_3_0,
 						"org.eclipse.xtext.common.Terminals.INT");
 				}
 			)
