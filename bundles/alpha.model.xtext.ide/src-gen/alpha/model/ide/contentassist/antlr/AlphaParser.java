@@ -42,6 +42,8 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIndexExpressionAccess().getAlternatives(), "rule__IndexExpression__Alternatives");
 					put(grammarAccess.getReduceExpressionAccess().getProjectionAlternatives_4_0(), "rule__ReduceExpression__ProjectionAlternatives_4_0");
 					put(grammarAccess.getExternalReduceExpressionAccess().getProjectionAlternatives_4_0(), "rule__ExternalReduceExpression__ProjectionAlternatives_4_0");
+					put(grammarAccess.getArgReduceExpressionAccess().getProjectionAlternatives_4_0(), "rule__ArgReduceExpression__ProjectionAlternatives_4_0");
+					put(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionAlternatives_4_0(), "rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0");
 					put(grammarAccess.getUnaryOrTerminalExpressionAccess().getAlternatives(), "rule__UnaryOrTerminalExpression__Alternatives");
 					put(grammarAccess.getConstantExpressionAccess().getAlternatives(), "rule__ConstantExpression__Alternatives");
 					put(grammarAccess.getAREDUCTION_OPAccess().getAlternatives(), "rule__AREDUCTION_OP__Alternatives");
@@ -113,6 +115,10 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIndexExpressionAccess().getGroup_0(), "rule__IndexExpression__Group_0__0");
 					put(grammarAccess.getReduceExpressionAccess().getGroup(), "rule__ReduceExpression__Group__0");
 					put(grammarAccess.getExternalReduceExpressionAccess().getGroup(), "rule__ExternalReduceExpression__Group__0");
+					put(grammarAccess.getArgReduceExpressionAccess().getGroup(), "rule__ArgReduceExpression__Group__0");
+					put(grammarAccess.getExternalArgReduceExpressionAccess().getGroup(), "rule__ExternalArgReduceExpression__Group__0");
+					put(grammarAccess.getConvolutionExpressionAccess().getGroup(), "rule__ConvolutionExpression__Group__0");
+					put(grammarAccess.getSelectExpressionAccess().getGroup(), "rule__SelectExpression__Group__0");
 					put(grammarAccess.getOrExpressionAccess().getGroup(), "rule__OrExpression__Group__0");
 					put(grammarAccess.getOrExpressionAccess().getGroup_1(), "rule__OrExpression__Group_1__0");
 					put(grammarAccess.getAndExpressionAccess().getGroup(), "rule__AndExpression__Group__0");
@@ -207,6 +213,17 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getExternalReduceExpressionAccess().getExternalFunctionAssignment_2(), "rule__ExternalReduceExpression__ExternalFunctionAssignment_2");
 					put(grammarAccess.getExternalReduceExpressionAccess().getProjectionAssignment_4(), "rule__ExternalReduceExpression__ProjectionAssignment_4");
 					put(grammarAccess.getExternalReduceExpressionAccess().getBodyAssignment_6(), "rule__ExternalReduceExpression__BodyAssignment_6");
+					put(grammarAccess.getArgReduceExpressionAccess().getOperatorAssignment_2(), "rule__ArgReduceExpression__OperatorAssignment_2");
+					put(grammarAccess.getArgReduceExpressionAccess().getProjectionAssignment_4(), "rule__ArgReduceExpression__ProjectionAssignment_4");
+					put(grammarAccess.getArgReduceExpressionAccess().getBodyAssignment_6(), "rule__ArgReduceExpression__BodyAssignment_6");
+					put(grammarAccess.getExternalArgReduceExpressionAccess().getExternalFunctionAssignment_2(), "rule__ExternalArgReduceExpression__ExternalFunctionAssignment_2");
+					put(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionAssignment_4(), "rule__ExternalArgReduceExpression__ProjectionAssignment_4");
+					put(grammarAccess.getExternalArgReduceExpressionAccess().getBodyAssignment_6(), "rule__ExternalArgReduceExpression__BodyAssignment_6");
+					put(grammarAccess.getConvolutionExpressionAccess().getKernelDomainAssignment_2(), "rule__ConvolutionExpression__KernelDomainAssignment_2");
+					put(grammarAccess.getConvolutionExpressionAccess().getKernelExpressionAssignment_4(), "rule__ConvolutionExpression__KernelExpressionAssignment_4");
+					put(grammarAccess.getConvolutionExpressionAccess().getDataExpressionAssignment_6(), "rule__ConvolutionExpression__DataExpressionAssignment_6");
+					put(grammarAccess.getSelectExpressionAccess().getSelectRelationAssignment_1(), "rule__SelectExpression__SelectRelationAssignment_1");
+					put(grammarAccess.getSelectExpressionAccess().getExprAssignment_3(), "rule__SelectExpression__ExprAssignment_3");
 					put(grammarAccess.getOrExpressionAccess().getOperatorAssignment_1_1(), "rule__OrExpression__OperatorAssignment_1_1");
 					put(grammarAccess.getOrExpressionAccess().getRightAssignment_1_2(), "rule__OrExpression__RightAssignment_1_2");
 					put(grammarAccess.getAndExpressionAccess().getOperatorAssignment_1_1(), "rule__AndExpression__OperatorAssignment_1_1");

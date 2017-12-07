@@ -2,22 +2,23 @@ package alpha.model
 
 import alpha.model.util.AbstractCalculatorExpressionVisitor
 import alpha.model.util.AlphaUtil
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
-import java.util.ArrayList
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
+import java.util.ArrayList
+import org.eclipse.emf.ecore.impl.EObjectImpl
 
-class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionVisitor{
+class CalculatorExpressionEvaluator extends EObjectImpl implements AbstractCalculatorExpressionVisitor{
 	
 	public static final CalculatorExpressionEvaluator INSTANCE = new CalculatorExpressionEvaluator();
 	
 	
 	override visitUnaryCalculatorExpression(UnaryCalculatorExpression expr) {
 		//depth first; visit the children first
-		super.visitUnaryCalculatorExpression(expr);
+		AbstractCalculatorExpressionVisitor.super.visitUnaryCalculatorExpression(expr);
 		
 		if (expr.getExpr().getISLObject() === null) {
 			//silent error since the root cause should already by registered in its child
@@ -89,7 +90,7 @@ class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionVisitor{
 	
 	override visitBinaryCalculatorExpression(BinaryCalculatorExpression expr) {
 		//depth first; visit the children first
-		super.visitBinaryCalculatorExpression(expr);
+		AbstractCalculatorExpressionVisitor.super.visitBinaryCalculatorExpression(expr);
 		
 		if (expr.getLeft() === null || expr.getRight() === null || expr.getLeft().getISLObject() === null || expr.getRight().getISLObject() === null) {
 			//silent error since the root cause should already by registered in its child
@@ -222,7 +223,8 @@ class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionVisitor{
 			completed.append("] -> ");
 			completed.append(jniDomain.getIslString());
 			
-			var jniset = ISLFactory.islSet(completed.toString());
+			
+			var jniset = ISLFactory.islSet(AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniDomain), completed.toString()));
 			jniset = jniset.intersectParams(pdom.copy());
 			jniDomain.setIslSet(jniset);
 		} catch (RuntimeException re) {
@@ -239,7 +241,7 @@ class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionVisitor{
 			completed.append("] -> ");
 			completed.append(jniRelation.getIslString());
 			
-			var jnimap = ISLFactory.islMap(completed.toString());
+			var jnimap = ISLFactory.islMap(AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniRelation), completed.toString()));
 			jnimap = jnimap.intersectParams(pdom.copy());
 			jniRelation.setIslMap(jnimap);
 		} catch (RuntimeException re) {
@@ -266,7 +268,7 @@ class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionVisitor{
 			completed.append(expr);
 			completed.append("] }");
 			
-			val jnimaff = ISLFactory.islMultiAff(completed.toString());
+			val jnimaff = ISLFactory.islMultiAff(AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
 			jniFunction.setIslMAff(jnimaff);
 			
 		} catch (RuntimeException re) {

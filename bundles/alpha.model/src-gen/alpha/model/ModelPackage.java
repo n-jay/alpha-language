@@ -1180,6 +1180,107 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_REDUCE_EXPRESSION_FEATURE_COUNT = REDUCE_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link alpha.model.impl.ArgReduceExpressionImpl <em>Arg Reduce Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.ArgReduceExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getArgReduceExpression()
+	 * @generated
+	 */
+	int ARG_REDUCE_EXPRESSION = 32;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARG_REDUCE_EXPRESSION__OPERATOR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARG_REDUCE_EXPRESSION__PROJECTION = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARG_REDUCE_EXPRESSION__BODY = ALPHA_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Arg Reduce Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARG_REDUCE_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.ExternalArgReduceExpressionImpl <em>External Arg Reduce Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.ExternalArgReduceExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getExternalArgReduceExpression()
+	 * @generated
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION = 33;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__OPERATOR = ARG_REDUCE_EXPRESSION__OPERATOR;
+
+	/**
+	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__PROJECTION = ARG_REDUCE_EXPRESSION__PROJECTION;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__BODY = ARG_REDUCE_EXPRESSION__BODY;
+
+	/**
+	 * The feature id for the '<em><b>External Function</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION = ARG_REDUCE_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>External Arg Reduce Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION_FEATURE_COUNT = ARG_REDUCE_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link alpha.model.impl.ConvolutionExpressionImpl <em>Convolution Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1187,7 +1288,34 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getConvolutionExpression()
 	 * @generated
 	 */
-	int CONVOLUTION_EXPRESSION = 32;
+	int CONVOLUTION_EXPRESSION = 34;
+
+	/**
+	 * The feature id for the '<em><b>Kernel Domain</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVOLUTION_EXPRESSION__KERNEL_DOMAIN = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Kernel Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Data Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVOLUTION_EXPRESSION__DATA_EXPRESSION = ALPHA_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Convolution Expression</em>' class.
@@ -1196,7 +1324,44 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONVOLUTION_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+	int CONVOLUTION_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.SelectExpressionImpl <em>Select Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.SelectExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getSelectExpression()
+	 * @generated
+	 */
+	int SELECT_EXPRESSION = 35;
+
+	/**
+	 * The feature id for the '<em><b>Select Relation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SELECT_EXPRESSION__SELECT_RELATION = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SELECT_EXPRESSION__EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Select Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SELECT_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.VariableExpressionImpl <em>Variable Expression</em>}' class.
@@ -1206,7 +1371,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getVariableExpression()
 	 * @generated
 	 */
-	int VARIABLE_EXPRESSION = 33;
+	int VARIABLE_EXPRESSION = 36;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -1234,7 +1399,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getConstantExpression()
 	 * @generated
 	 */
-	int CONSTANT_EXPRESSION = 34;
+	int CONSTANT_EXPRESSION = 37;
 
 	/**
 	 * The number of structural features of the '<em>Constant Expression</em>' class.
@@ -1253,7 +1418,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getIntegerExpression()
 	 * @generated
 	 */
-	int INTEGER_EXPRESSION = 35;
+	int INTEGER_EXPRESSION = 38;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1281,7 +1446,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getRealExpression()
 	 * @generated
 	 */
-	int REAL_EXPRESSION = 36;
+	int REAL_EXPRESSION = 39;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1309,7 +1474,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBooleanExpression()
 	 * @generated
 	 */
-	int BOOLEAN_EXPRESSION = 37;
+	int BOOLEAN_EXPRESSION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1337,7 +1502,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUnaryExpression()
 	 * @generated
 	 */
-	int UNARY_EXPRESSION = 38;
+	int UNARY_EXPRESSION = 41;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1374,7 +1539,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBinaryExpression()
 	 * @generated
 	 */
-	int BINARY_EXPRESSION = 39;
+	int BINARY_EXPRESSION = 42;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1420,7 +1585,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getMultiArgExpression()
 	 * @generated
 	 */
-	int MULTI_ARG_EXPRESSION = 40;
+	int MULTI_ARG_EXPRESSION = 43;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1457,7 +1622,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getExternalMultiArgExpression()
 	 * @generated
 	 */
-	int EXTERNAL_MULTI_ARG_EXPRESSION = 41;
+	int EXTERNAL_MULTI_ARG_EXPRESSION = 44;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1503,7 +1668,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCalculatorNode()
 	 * @generated
 	 */
-	int CALCULATOR_NODE = 42;
+	int CALCULATOR_NODE = 45;
 
 	/**
 	 * The number of structural features of the '<em>Calculator Node</em>' class.
@@ -1522,7 +1687,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPolyhedralObject()
 	 * @generated
 	 */
-	int POLYHEDRAL_OBJECT = 43;
+	int POLYHEDRAL_OBJECT = 46;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1559,7 +1724,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCalculatorExpression()
 	 * @generated
 	 */
-	int CALCULATOR_EXPRESSION = 44;
+	int CALCULATOR_EXPRESSION = 47;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1587,7 +1752,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIDomain()
 	 * @generated
 	 */
-	int JNI_DOMAIN = 45;
+	int JNI_DOMAIN = 48;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1633,7 +1798,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIRelation()
 	 * @generated
 	 */
-	int JNI_RELATION = 46;
+	int JNI_RELATION = 49;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1679,7 +1844,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIFunction()
 	 * @generated
 	 */
-	int JNI_FUNCTION = 47;
+	int JNI_FUNCTION = 50;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1725,7 +1890,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIFunctionInArrayNotation()
 	 * @generated
 	 */
-	int JNI_FUNCTION_IN_ARRAY_NOTATION = 48;
+	int JNI_FUNCTION_IN_ARRAY_NOTATION = 51;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1780,7 +1945,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUnaryCalculatorExpression()
 	 * @generated
 	 */
-	int UNARY_CALCULATOR_EXPRESSION = 49;
+	int UNARY_CALCULATOR_EXPRESSION = 52;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1835,7 +2000,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBinaryCalculatorExpression()
 	 * @generated
 	 */
-	int BINARY_CALCULATOR_EXPRESSION = 50;
+	int BINARY_CALCULATOR_EXPRESSION = 53;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1899,7 +2064,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getVariableDomain()
 	 * @generated
 	 */
-	int VARIABLE_DOMAIN = 51;
+	int VARIABLE_DOMAIN = 54;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1936,7 +2101,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getRectangularDomain()
 	 * @generated
 	 */
-	int RECTANGULAR_DOMAIN = 52;
+	int RECTANGULAR_DOMAIN = 55;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1991,7 +2156,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getDefinedObject()
 	 * @generated
 	 */
-	int DEFINED_OBJECT = 53;
+	int DEFINED_OBJECT = 56;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -2037,7 +2202,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUNARY_OP()
 	 * @generated
 	 */
-	int UNARY_OP = 54;
+	int UNARY_OP = 57;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.BINARY_OP <em>BINARY OP</em>}' enum.
@@ -2047,7 +2212,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBINARY_OP()
 	 * @generated
 	 */
-	int BINARY_OP = 55;
+	int BINARY_OP = 58;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.REDUCTION_OP <em>REDUCTION OP</em>}' enum.
@@ -2057,7 +2222,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getREDUCTION_OP()
 	 * @generated
 	 */
-	int REDUCTION_OP = 56;
+	int REDUCTION_OP = 59;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.POLY_OBJECT_TYPE <em>POLY OBJECT TYPE</em>}' enum.
@@ -2067,7 +2232,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPOLY_OBJECT_TYPE()
 	 * @generated
 	 */
-	int POLY_OBJECT_TYPE = 57;
+	int POLY_OBJECT_TYPE = 60;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_UNARY_OP <em>CALCULATOR UNARY OP</em>}' enum.
@@ -2077,7 +2242,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_UNARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_UNARY_OP = 58;
+	int CALCULATOR_UNARY_OP = 61;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_BINARY_OP <em>CALCULATOR BINARY OP</em>}' enum.
@@ -2087,7 +2252,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_BINARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_BINARY_OP = 59;
+	int CALCULATOR_BINARY_OP = 62;
 
 	/**
 	 * The meta object id for the '<em>JNI Object</em>' data type.
@@ -2097,7 +2262,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIObject()
 	 * @generated
 	 */
-	int JNI_OBJECT = 60;
+	int JNI_OBJECT = 63;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Set</em>' data type.
@@ -2107,7 +2272,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLSet()
 	 * @generated
 	 */
-	int JNIISL_SET = 61;
+	int JNIISL_SET = 64;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Map</em>' data type.
@@ -2117,7 +2282,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMap()
 	 * @generated
 	 */
-	int JNIISL_MAP = 62;
+	int JNIISL_MAP = 65;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
@@ -2127,7 +2292,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
-	int JNIISL_MULTI_AFF = 63;
+	int JNIISL_MULTI_AFF = 66;
 
 	/**
 	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
@@ -2137,7 +2302,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getISL_FORMAT()
 	 * @generated
 	 */
-	int ISL_FORMAT = 64;
+	int ISL_FORMAT = 67;
 
 
 	/**
@@ -2967,6 +3132,70 @@ public interface ModelPackage extends EPackage {
 	EReference getExternalReduceExpression_ExternalFunction();
 
 	/**
+	 * Returns the meta object for class '{@link alpha.model.ArgReduceExpression <em>Arg Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Arg Reduce Expression</em>'.
+	 * @see alpha.model.ArgReduceExpression
+	 * @generated
+	 */
+	EClass getArgReduceExpression();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.ArgReduceExpression#getOperator <em>Operator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Operator</em>'.
+	 * @see alpha.model.ArgReduceExpression#getOperator()
+	 * @see #getArgReduceExpression()
+	 * @generated
+	 */
+	EAttribute getArgReduceExpression_Operator();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.ArgReduceExpression#getProjection <em>Projection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Projection</em>'.
+	 * @see alpha.model.ArgReduceExpression#getProjection()
+	 * @see #getArgReduceExpression()
+	 * @generated
+	 */
+	EReference getArgReduceExpression_Projection();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.ArgReduceExpression#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see alpha.model.ArgReduceExpression#getBody()
+	 * @see #getArgReduceExpression()
+	 * @generated
+	 */
+	EReference getArgReduceExpression_Body();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.ExternalArgReduceExpression <em>External Arg Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>External Arg Reduce Expression</em>'.
+	 * @see alpha.model.ExternalArgReduceExpression
+	 * @generated
+	 */
+	EClass getExternalArgReduceExpression();
+
+	/**
+	 * Returns the meta object for the reference '{@link alpha.model.ExternalArgReduceExpression#getExternalFunction <em>External Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>External Function</em>'.
+	 * @see alpha.model.ExternalArgReduceExpression#getExternalFunction()
+	 * @see #getExternalArgReduceExpression()
+	 * @generated
+	 */
+	EReference getExternalArgReduceExpression_ExternalFunction();
+
+	/**
 	 * Returns the meta object for class '{@link alpha.model.ConvolutionExpression <em>Convolution Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2975,6 +3204,71 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getConvolutionExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.ConvolutionExpression#getKernelDomain <em>Kernel Domain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Kernel Domain</em>'.
+	 * @see alpha.model.ConvolutionExpression#getKernelDomain()
+	 * @see #getConvolutionExpression()
+	 * @generated
+	 */
+	EReference getConvolutionExpression_KernelDomain();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.ConvolutionExpression#getKernelExpression <em>Kernel Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Kernel Expression</em>'.
+	 * @see alpha.model.ConvolutionExpression#getKernelExpression()
+	 * @see #getConvolutionExpression()
+	 * @generated
+	 */
+	EReference getConvolutionExpression_KernelExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.ConvolutionExpression#getDataExpression <em>Data Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Data Expression</em>'.
+	 * @see alpha.model.ConvolutionExpression#getDataExpression()
+	 * @see #getConvolutionExpression()
+	 * @generated
+	 */
+	EReference getConvolutionExpression_DataExpression();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.SelectExpression <em>Select Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Select Expression</em>'.
+	 * @see alpha.model.SelectExpression
+	 * @generated
+	 */
+	EClass getSelectExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.SelectExpression#getSelectRelation <em>Select Relation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Select Relation</em>'.
+	 * @see alpha.model.SelectExpression#getSelectRelation()
+	 * @see #getSelectExpression()
+	 * @generated
+	 */
+	EReference getSelectExpression_SelectRelation();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.SelectExpression#getExpr <em>Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Expr</em>'.
+	 * @see alpha.model.SelectExpression#getExpr()
+	 * @see #getSelectExpression()
+	 * @generated
+	 */
+	EReference getSelectExpression_Expr();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.VariableExpression <em>Variable Expression</em>}'.
@@ -4397,6 +4691,58 @@ public interface ModelPackage extends EPackage {
 		EReference EXTERNAL_REDUCE_EXPRESSION__EXTERNAL_FUNCTION = eINSTANCE.getExternalReduceExpression_ExternalFunction();
 
 		/**
+		 * The meta object literal for the '{@link alpha.model.impl.ArgReduceExpressionImpl <em>Arg Reduce Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.ArgReduceExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getArgReduceExpression()
+		 * @generated
+		 */
+		EClass ARG_REDUCE_EXPRESSION = eINSTANCE.getArgReduceExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ARG_REDUCE_EXPRESSION__OPERATOR = eINSTANCE.getArgReduceExpression_Operator();
+
+		/**
+		 * The meta object literal for the '<em><b>Projection</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ARG_REDUCE_EXPRESSION__PROJECTION = eINSTANCE.getArgReduceExpression_Projection();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ARG_REDUCE_EXPRESSION__BODY = eINSTANCE.getArgReduceExpression_Body();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.ExternalArgReduceExpressionImpl <em>External Arg Reduce Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.ExternalArgReduceExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getExternalArgReduceExpression()
+		 * @generated
+		 */
+		EClass EXTERNAL_ARG_REDUCE_EXPRESSION = eINSTANCE.getExternalArgReduceExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>External Function</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTERNAL_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION = eINSTANCE.getExternalArgReduceExpression_ExternalFunction();
+
+		/**
 		 * The meta object literal for the '{@link alpha.model.impl.ConvolutionExpressionImpl <em>Convolution Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4405,6 +4751,56 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CONVOLUTION_EXPRESSION = eINSTANCE.getConvolutionExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Kernel Domain</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONVOLUTION_EXPRESSION__KERNEL_DOMAIN = eINSTANCE.getConvolutionExpression_KernelDomain();
+
+		/**
+		 * The meta object literal for the '<em><b>Kernel Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION = eINSTANCE.getConvolutionExpression_KernelExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONVOLUTION_EXPRESSION__DATA_EXPRESSION = eINSTANCE.getConvolutionExpression_DataExpression();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.SelectExpressionImpl <em>Select Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.SelectExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getSelectExpression()
+		 * @generated
+		 */
+		EClass SELECT_EXPRESSION = eINSTANCE.getSelectExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Select Relation</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SELECT_EXPRESSION__SELECT_RELATION = eINSTANCE.getSelectExpression_SelectRelation();
+
+		/**
+		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SELECT_EXPRESSION__EXPR = eINSTANCE.getSelectExpression_Expr();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.VariableExpressionImpl <em>Variable Expression</em>}' class.

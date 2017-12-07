@@ -166,15 +166,14 @@ AlphaTerminalExpression returns AlphaExpression:
 	DependenceExpression |
 	IndexExpression | 
 	ReduceExpression |
+	ArgReduceExpression |
+	ConvolutionExpression |
 	ExternalReduceExpression |
+	ExternalArgReduceExpression |
 	MultiArgExpression |
-	ExternalMultiArgExpression
+	ExternalMultiArgExpression |
+	SelectExpression
 ;
-
-//AAlphabetsTerminalExpression returns AAlphaExpression:
-//	AArgReduceExpression |
-//	AConvExpression |
-//	ASelectDependenceExpression;
 
 IfExpression:
 	'if' condExpr=AlphaExpression
@@ -214,6 +213,29 @@ ExternalReduceExpression:
 	projection=(JNIFunction|JNIFunctionInArrayNotation) ','
 	body=AlphaExpression
 	 ')'
+;
+ArgReduceExpression : 
+	'argreduce' '(' operator=AREDUCTION_OP ',' 
+	projection=(JNIFunction|JNIFunctionInArrayNotation) ','
+	body=AlphaExpression
+	 ')'
+;
+ExternalArgReduceExpression:
+	'argreduce' '(' externalFunction=[ExternalFunction] ',' 
+	projection=(JNIFunction|JNIFunctionInArrayNotation) ','
+	body=AlphaExpression
+	 ')'
+;
+
+ConvolutionExpression:
+	'conv' '(' kernelDomain=CalculatorExpression ',' 
+	kernelExpression=AlphaExpression ','
+	dataExpression=AlphaExpression
+	 ')'
+;
+
+SelectExpression:
+	'select' selectRelation=CalculatorExpression 'from' expr=AlphaTerminalExpression
 ;
 	
 OrExpression returns AlphaExpression:

@@ -1431,17 +1431,23 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDependenceExpressionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cIndexExpressionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cReduceExpressionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cExternalReduceExpressionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cMultiArgExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cExternalMultiArgExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cArgReduceExpressionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cConvolutionExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cExternalReduceExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cExternalArgReduceExpressionParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cMultiArgExpressionParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
+		private final RuleCall cExternalMultiArgExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
+		private final RuleCall cSelectExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
 		
 		//AlphaTerminalExpression AlphaExpression:
 		//	'(' AlphaExpression ')' | CaseExpression | ConstantExpression | VariableExpression | DependenceExpression |
-		//	IndexExpression | ReduceExpression | ExternalReduceExpression | MultiArgExpression | ExternalMultiArgExpression;
+		//	IndexExpression | ReduceExpression | ArgReduceExpression | ConvolutionExpression | ExternalReduceExpression |
+		//	ExternalArgReduceExpression | MultiArgExpression | ExternalMultiArgExpression | SelectExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'(' AlphaExpression ')' | CaseExpression | ConstantExpression | VariableExpression | DependenceExpression |
-		//IndexExpression | ReduceExpression | ExternalReduceExpression | MultiArgExpression | ExternalMultiArgExpression
+		//IndexExpression | ReduceExpression | ArgReduceExpression | ConvolutionExpression | ExternalReduceExpression |
+		//ExternalArgReduceExpression | MultiArgExpression | ExternalMultiArgExpression | SelectExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'(' AlphaExpression ')'
@@ -1474,14 +1480,26 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//ReduceExpression
 		public RuleCall getReduceExpressionParserRuleCall_6() { return cReduceExpressionParserRuleCall_6; }
 		
+		//ArgReduceExpression
+		public RuleCall getArgReduceExpressionParserRuleCall_7() { return cArgReduceExpressionParserRuleCall_7; }
+		
+		//ConvolutionExpression
+		public RuleCall getConvolutionExpressionParserRuleCall_8() { return cConvolutionExpressionParserRuleCall_8; }
+		
 		//ExternalReduceExpression
-		public RuleCall getExternalReduceExpressionParserRuleCall_7() { return cExternalReduceExpressionParserRuleCall_7; }
+		public RuleCall getExternalReduceExpressionParserRuleCall_9() { return cExternalReduceExpressionParserRuleCall_9; }
+		
+		//ExternalArgReduceExpression
+		public RuleCall getExternalArgReduceExpressionParserRuleCall_10() { return cExternalArgReduceExpressionParserRuleCall_10; }
 		
 		//MultiArgExpression
-		public RuleCall getMultiArgExpressionParserRuleCall_8() { return cMultiArgExpressionParserRuleCall_8; }
+		public RuleCall getMultiArgExpressionParserRuleCall_11() { return cMultiArgExpressionParserRuleCall_11; }
 		
 		//ExternalMultiArgExpression
-		public RuleCall getExternalMultiArgExpressionParserRuleCall_9() { return cExternalMultiArgExpressionParserRuleCall_9; }
+		public RuleCall getExternalMultiArgExpressionParserRuleCall_12() { return cExternalMultiArgExpressionParserRuleCall_12; }
+		
+		//SelectExpression
+		public RuleCall getSelectExpressionParserRuleCall_13() { return cSelectExpressionParserRuleCall_13; }
 	}
 	public class IfExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.IfExpression");
@@ -1496,10 +1514,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cElseExprAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cElseExprAlphaExpressionParserRuleCall_5_0 = (RuleCall)cElseExprAssignment_5.eContents().get(0);
 		
-		////AAlphabetsTerminalExpression returns AAlphaExpression:
-		////	AArgReduceExpression |
-		////	AConvExpression |
-		////	ASelectDependenceExpression;
 		//IfExpression:
 		//	'if' condExpr=AlphaExpression
 		//	'then' thenExpr=AlphaExpression
@@ -1906,6 +1920,237 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
+	}
+	public class ArgReduceExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.ArgReduceExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cArgreduceKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cOperatorAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cOperatorAREDUCTION_OPParserRuleCall_2_0 = (RuleCall)cOperatorAssignment_2.eContents().get(0);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cProjectionAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Alternatives cProjectionAlternatives_4_0 = (Alternatives)cProjectionAssignment_4.eContents().get(0);
+		private final RuleCall cProjectionJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(0);
+		private final RuleCall cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(1);
+		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cBodyAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cBodyAlphaExpressionParserRuleCall_6_0 = (RuleCall)cBodyAssignment_6.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		
+		//ArgReduceExpression:
+		//	'argreduce' '(' operator=AREDUCTION_OP ','
+		//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//	body=AlphaExpression
+		//	')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'argreduce' '(' operator=AREDUCTION_OP ',' projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//body=AlphaExpression ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'argreduce'
+		public Keyword getArgreduceKeyword_0() { return cArgreduceKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//operator=AREDUCTION_OP
+		public Assignment getOperatorAssignment_2() { return cOperatorAssignment_2; }
+		
+		//AREDUCTION_OP
+		public RuleCall getOperatorAREDUCTION_OPParserRuleCall_2_0() { return cOperatorAREDUCTION_OPParserRuleCall_2_0; }
+		
+		//','
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+		
+		//projection=(JNIFunction | JNIFunctionInArrayNotation)
+		public Assignment getProjectionAssignment_4() { return cProjectionAssignment_4; }
+		
+		//(JNIFunction | JNIFunctionInArrayNotation)
+		public Alternatives getProjectionAlternatives_4_0() { return cProjectionAlternatives_4_0; }
+		
+		//JNIFunction
+		public RuleCall getProjectionJNIFunctionParserRuleCall_4_0_0() { return cProjectionJNIFunctionParserRuleCall_4_0_0; }
+		
+		//JNIFunctionInArrayNotation
+		public RuleCall getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
+		
+		//body=AlphaExpression
+		public Assignment getBodyAssignment_6() { return cBodyAssignment_6; }
+		
+		//AlphaExpression
+		public RuleCall getBodyAlphaExpressionParserRuleCall_6_0() { return cBodyAlphaExpressionParserRuleCall_6_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
+	}
+	public class ExternalArgReduceExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.ExternalArgReduceExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cArgreduceKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cExternalFunctionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cExternalFunctionExternalFunctionCrossReference_2_0 = (CrossReference)cExternalFunctionAssignment_2.eContents().get(0);
+		private final RuleCall cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cProjectionAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Alternatives cProjectionAlternatives_4_0 = (Alternatives)cProjectionAssignment_4.eContents().get(0);
+		private final RuleCall cProjectionJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(0);
+		private final RuleCall cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(1);
+		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cBodyAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cBodyAlphaExpressionParserRuleCall_6_0 = (RuleCall)cBodyAssignment_6.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		
+		//ExternalArgReduceExpression:
+		//	'argreduce' '(' externalFunction=[ExternalFunction] ','
+		//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//	body=AlphaExpression
+		//	')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'argreduce' '(' externalFunction=[ExternalFunction] ',' projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//body=AlphaExpression ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'argreduce'
+		public Keyword getArgreduceKeyword_0() { return cArgreduceKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//externalFunction=[ExternalFunction]
+		public Assignment getExternalFunctionAssignment_2() { return cExternalFunctionAssignment_2; }
+		
+		//[ExternalFunction]
+		public CrossReference getExternalFunctionExternalFunctionCrossReference_2_0() { return cExternalFunctionExternalFunctionCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1() { return cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+		
+		//projection=(JNIFunction | JNIFunctionInArrayNotation)
+		public Assignment getProjectionAssignment_4() { return cProjectionAssignment_4; }
+		
+		//(JNIFunction | JNIFunctionInArrayNotation)
+		public Alternatives getProjectionAlternatives_4_0() { return cProjectionAlternatives_4_0; }
+		
+		//JNIFunction
+		public RuleCall getProjectionJNIFunctionParserRuleCall_4_0_0() { return cProjectionJNIFunctionParserRuleCall_4_0_0; }
+		
+		//JNIFunctionInArrayNotation
+		public RuleCall getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
+		
+		//','
+		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
+		
+		//body=AlphaExpression
+		public Assignment getBodyAssignment_6() { return cBodyAssignment_6; }
+		
+		//AlphaExpression
+		public RuleCall getBodyAlphaExpressionParserRuleCall_6_0() { return cBodyAlphaExpressionParserRuleCall_6_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
+	}
+	public class ConvolutionExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.ConvolutionExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cConvKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cKernelDomainAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cKernelDomainCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cKernelDomainAssignment_2.eContents().get(0);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cKernelExpressionAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cKernelExpressionAlphaExpressionParserRuleCall_4_0 = (RuleCall)cKernelExpressionAssignment_4.eContents().get(0);
+		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cDataExpressionAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cDataExpressionAlphaExpressionParserRuleCall_6_0 = (RuleCall)cDataExpressionAssignment_6.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		
+		//ConvolutionExpression:
+		//	'conv' '(' kernelDomain=CalculatorExpression ','
+		//	kernelExpression=AlphaExpression ','
+		//	dataExpression=AlphaExpression
+		//	')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'conv' '(' kernelDomain=CalculatorExpression ',' kernelExpression=AlphaExpression ',' dataExpression=AlphaExpression ')'
+		public Group getGroup() { return cGroup; }
+		
+		//'conv'
+		public Keyword getConvKeyword_0() { return cConvKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//kernelDomain=CalculatorExpression
+		public Assignment getKernelDomainAssignment_2() { return cKernelDomainAssignment_2; }
+		
+		//CalculatorExpression
+		public RuleCall getKernelDomainCalculatorExpressionParserRuleCall_2_0() { return cKernelDomainCalculatorExpressionParserRuleCall_2_0; }
+		
+		//','
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+		
+		//kernelExpression=AlphaExpression
+		public Assignment getKernelExpressionAssignment_4() { return cKernelExpressionAssignment_4; }
+		
+		//AlphaExpression
+		public RuleCall getKernelExpressionAlphaExpressionParserRuleCall_4_0() { return cKernelExpressionAlphaExpressionParserRuleCall_4_0; }
+		
+		//','
+		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
+		
+		//dataExpression=AlphaExpression
+		public Assignment getDataExpressionAssignment_6() { return cDataExpressionAssignment_6; }
+		
+		//AlphaExpression
+		public RuleCall getDataExpressionAlphaExpressionParserRuleCall_6_0() { return cDataExpressionAlphaExpressionParserRuleCall_6_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
+	}
+	public class SelectExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.SelectExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cSelectKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cSelectRelationAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cSelectRelationCalculatorExpressionParserRuleCall_1_0 = (RuleCall)cSelectRelationAssignment_1.eContents().get(0);
+		private final Keyword cFromKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cExprAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cExprAlphaTerminalExpressionParserRuleCall_3_0 = (RuleCall)cExprAssignment_3.eContents().get(0);
+		
+		//SelectExpression:
+		//	'select' selectRelation=CalculatorExpression 'from' expr=AlphaTerminalExpression;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'select' selectRelation=CalculatorExpression 'from' expr=AlphaTerminalExpression
+		public Group getGroup() { return cGroup; }
+		
+		//'select'
+		public Keyword getSelectKeyword_0() { return cSelectKeyword_0; }
+		
+		//selectRelation=CalculatorExpression
+		public Assignment getSelectRelationAssignment_1() { return cSelectRelationAssignment_1; }
+		
+		//CalculatorExpression
+		public RuleCall getSelectRelationCalculatorExpressionParserRuleCall_1_0() { return cSelectRelationCalculatorExpressionParserRuleCall_1_0; }
+		
+		//'from'
+		public Keyword getFromKeyword_2() { return cFromKeyword_2; }
+		
+		//expr=AlphaTerminalExpression
+		public Assignment getExprAssignment_3() { return cExprAssignment_3; }
+		
+		//AlphaTerminalExpression
+		public RuleCall getExprAlphaTerminalExpressionParserRuleCall_3_0() { return cExprAlphaTerminalExpressionParserRuleCall_3_0; }
 	}
 	public class OrExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.OrExpression");
@@ -2992,6 +3237,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final IndexExpressionElements pIndexExpression;
 	private final ReduceExpressionElements pReduceExpression;
 	private final ExternalReduceExpressionElements pExternalReduceExpression;
+	private final ArgReduceExpressionElements pArgReduceExpression;
+	private final ExternalArgReduceExpressionElements pExternalArgReduceExpression;
+	private final ConvolutionExpressionElements pConvolutionExpression;
+	private final SelectExpressionElements pSelectExpression;
 	private final OrExpressionElements pOrExpression;
 	private final AndExpressionElements pAndExpression;
 	private final RelationalExpressionElements pRelationalExpression;
@@ -3080,6 +3329,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pIndexExpression = new IndexExpressionElements();
 		this.pReduceExpression = new ReduceExpressionElements();
 		this.pExternalReduceExpression = new ExternalReduceExpressionElements();
+		this.pArgReduceExpression = new ArgReduceExpressionElements();
+		this.pExternalArgReduceExpression = new ExternalArgReduceExpressionElements();
+		this.pConvolutionExpression = new ConvolutionExpressionElements();
+		this.pSelectExpression = new SelectExpressionElements();
 		this.pOrExpression = new OrExpressionElements();
 		this.pAndExpression = new AndExpressionElements();
 		this.pRelationalExpression = new RelationalExpressionElements();
@@ -3501,7 +3754,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//AlphaTerminalExpression AlphaExpression:
 	//	'(' AlphaExpression ')' | CaseExpression | ConstantExpression | VariableExpression | DependenceExpression |
-	//	IndexExpression | ReduceExpression | ExternalReduceExpression | MultiArgExpression | ExternalMultiArgExpression;
+	//	IndexExpression | ReduceExpression | ArgReduceExpression | ConvolutionExpression | ExternalReduceExpression |
+	//	ExternalArgReduceExpression | MultiArgExpression | ExternalMultiArgExpression | SelectExpression;
 	public AlphaTerminalExpressionElements getAlphaTerminalExpressionAccess() {
 		return pAlphaTerminalExpression;
 	}
@@ -3510,10 +3764,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		return getAlphaTerminalExpressionAccess().getRule();
 	}
 	
-	////AAlphabetsTerminalExpression returns AAlphaExpression:
-	////	AArgReduceExpression |
-	////	AConvExpression |
-	////	ASelectDependenceExpression;
 	//IfExpression:
 	//	'if' condExpr=AlphaExpression
 	//	'then' thenExpr=AlphaExpression
@@ -3602,6 +3852,55 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getExternalReduceExpressionRule() {
 		return getExternalReduceExpressionAccess().getRule();
+	}
+	
+	//ArgReduceExpression:
+	//	'argreduce' '(' operator=AREDUCTION_OP ','
+	//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+	//	body=AlphaExpression
+	//	')';
+	public ArgReduceExpressionElements getArgReduceExpressionAccess() {
+		return pArgReduceExpression;
+	}
+	
+	public ParserRule getArgReduceExpressionRule() {
+		return getArgReduceExpressionAccess().getRule();
+	}
+	
+	//ExternalArgReduceExpression:
+	//	'argreduce' '(' externalFunction=[ExternalFunction] ','
+	//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+	//	body=AlphaExpression
+	//	')';
+	public ExternalArgReduceExpressionElements getExternalArgReduceExpressionAccess() {
+		return pExternalArgReduceExpression;
+	}
+	
+	public ParserRule getExternalArgReduceExpressionRule() {
+		return getExternalArgReduceExpressionAccess().getRule();
+	}
+	
+	//ConvolutionExpression:
+	//	'conv' '(' kernelDomain=CalculatorExpression ','
+	//	kernelExpression=AlphaExpression ','
+	//	dataExpression=AlphaExpression
+	//	')';
+	public ConvolutionExpressionElements getConvolutionExpressionAccess() {
+		return pConvolutionExpression;
+	}
+	
+	public ParserRule getConvolutionExpressionRule() {
+		return getConvolutionExpressionAccess().getRule();
+	}
+	
+	//SelectExpression:
+	//	'select' selectRelation=CalculatorExpression 'from' expr=AlphaTerminalExpression;
+	public SelectExpressionElements getSelectExpressionAccess() {
+		return pSelectExpression;
+	}
+	
+	public ParserRule getSelectExpressionRule() {
+		return getSelectExpressionAccess().getRule();
 	}
 	
 	//OrExpression AlphaExpression:

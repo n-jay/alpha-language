@@ -85,7 +85,10 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.INDEX_EXPRESSION: return createIndexExpression();
 			case ModelPackage.REDUCE_EXPRESSION: return createReduceExpression();
 			case ModelPackage.EXTERNAL_REDUCE_EXPRESSION: return createExternalReduceExpression();
+			case ModelPackage.ARG_REDUCE_EXPRESSION: return createArgReduceExpression();
+			case ModelPackage.EXTERNAL_ARG_REDUCE_EXPRESSION: return createExternalArgReduceExpression();
 			case ModelPackage.CONVOLUTION_EXPRESSION: return createConvolutionExpression();
+			case ModelPackage.SELECT_EXPRESSION: return createSelectExpression();
 			case ModelPackage.VARIABLE_EXPRESSION: return createVariableExpression();
 			case ModelPackage.INTEGER_EXPRESSION: return createIntegerExpression();
 			case ModelPackage.REAL_EXPRESSION: return createRealExpression();
@@ -394,9 +397,39 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ArgReduceExpression createArgReduceExpression() {
+		ArgReduceExpressionImpl argReduceExpression = new ArgReduceExpressionImpl();
+		return argReduceExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExternalArgReduceExpression createExternalArgReduceExpression() {
+		ExternalArgReduceExpressionImpl externalArgReduceExpression = new ExternalArgReduceExpressionImpl();
+		return externalArgReduceExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ConvolutionExpression createConvolutionExpression() {
 		ConvolutionExpressionImpl convolutionExpression = new ConvolutionExpressionImpl();
 		return convolutionExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SelectExpression createSelectExpression() {
+		SelectExpressionImpl selectExpression = new SelectExpressionImpl();
+		return selectExpression;
 	}
 
 	/**

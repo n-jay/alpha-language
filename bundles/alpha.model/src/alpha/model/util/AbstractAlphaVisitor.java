@@ -1,7 +1,5 @@
 package alpha.model.util;
 
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaElement;
 import alpha.model.AlphaPackage;
@@ -19,11 +17,11 @@ import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
 
-public abstract class AbstractAlphaVisitor extends EObjectImpl implements AlphaVisitor {
+public interface AbstractAlphaVisitor extends AlphaVisitor {
 
 	
 	@Override
-	public void visitAlphaRoot(AlphaRoot root) {
+	default void visitAlphaRoot(AlphaRoot root) {
 		for (Imports i : root.getImports()) {
 			i.accept(this);
 		}
@@ -36,16 +34,16 @@ public abstract class AbstractAlphaVisitor extends EObjectImpl implements AlphaV
 	}
 	
 	@Override
-	public void visitAlphaElement(AlphaElement ap) {}
+	default void visitAlphaElement(AlphaElement ap) {}
 	
 	@Override
-	public void visitAlphaPackage(AlphaPackage ap) {}
+	default void visitAlphaPackage(AlphaPackage ap) {}
 
 	@Override
-	public void visitImports(Imports imports) {}
+	default void visitImports(Imports imports) {}
 
 	@Override
-	public void visitAlphaSystem(AlphaSystem system) {
+	default void visitAlphaSystem(AlphaSystem system) {
 		for (PolyhedralObject pobj : system.getDefinedObjects()) {
 			visitPolyhedralObject(pobj);
 		}
@@ -64,47 +62,47 @@ public abstract class AbstractAlphaVisitor extends EObjectImpl implements AlphaV
 	}
 
 	@Override
-	public void visitVariable(Variable variable) {}
+	default void visitVariable(Variable variable) {}
 	
 	@Override
-	public void visitInputVariable(InputVariable variable) {
+	default void visitInputVariable(InputVariable variable) {
 		visitVariable(variable);
 	}
 
 	@Override
-	public void visitOutputVariable(OutputVariable variable) {
+	default void visitOutputVariable(OutputVariable variable) {
 		visitVariable(variable);
 	}
 
 	@Override
-	public void visitLocalVariable(LocalVariable variable) {
+	default void visitLocalVariable(LocalVariable variable) {
 		visitVariable(variable);
 	}
 	
 	@Override
-	public void visitFuzzyVariable(FuzzyVariable variable) {
+	default void visitFuzzyVariable(FuzzyVariable variable) {
 		visitVariable(variable);
 	}
 
 	@Override
-	public void visitPolyhedralObject(PolyhedralObject pobj) {}
+	default void visitPolyhedralObject(PolyhedralObject pobj) {}
 	@Override
-	public void visitAlphaConstant(AlphaConstant ac) {
+	default void visitAlphaConstant(AlphaConstant ac) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void visitExternalFunction(ExternalFunction ef) {
+	default void visitExternalFunction(ExternalFunction ef) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void visitUseEquation(UseEquation ue) {
+	default void visitUseEquation(UseEquation ue) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void visitStandardEquation(StandardEquation se) {
+	default void visitStandardEquation(StandardEquation se) {
 		// TODO Auto-generated method stub
 		
 	}

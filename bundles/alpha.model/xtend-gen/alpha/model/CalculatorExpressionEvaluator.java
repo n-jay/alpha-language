@@ -24,16 +24,17 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 
 @SuppressWarnings("all")
-public class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionVisitor {
+public class CalculatorExpressionEvaluator extends EObjectImpl implements AbstractCalculatorExpressionVisitor {
   public final static CalculatorExpressionEvaluator INSTANCE = new CalculatorExpressionEvaluator();
   
   @Override
   public void visitUnaryCalculatorExpression(final UnaryCalculatorExpression expr) {
-    super.visitUnaryCalculatorExpression(expr);
+    AbstractCalculatorExpressionVisitor.super.visitUnaryCalculatorExpression(expr);
     JNIObject _iSLObject = expr.getExpr().getISLObject();
     boolean _tripleEquals = (_iSLObject == null);
     if (_tripleEquals) {
@@ -115,7 +116,7 @@ public class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionV
   
   @Override
   public void visitBinaryCalculatorExpression(final BinaryCalculatorExpression expr) {
-    super.visitBinaryCalculatorExpression(expr);
+    AbstractCalculatorExpressionVisitor.super.visitBinaryCalculatorExpression(expr);
     if (((((expr.getLeft() == null) || (expr.getRight() == null)) || (expr.getLeft().getISLObject() == null)) || (expr.getRight().getISLObject() == null))) {
       return;
     }
@@ -259,7 +260,7 @@ public class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionV
       completed.append(String.join(",", pdom.getParametersNames()));
       completed.append("] -> ");
       completed.append(jniDomain.getIslString());
-      JNIISLSet jniset = ISLFactory.islSet(completed.toString());
+      JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniDomain), completed.toString()));
       jniset = jniset.intersectParams(pdom.copy());
       jniDomain.setIslSet(jniset);
     } catch (final Throwable _t) {
@@ -280,7 +281,7 @@ public class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionV
       completed.append(String.join(",", pdom.getParametersNames()));
       completed.append("] -> ");
       completed.append(jniRelation.getIslString());
-      JNIISLMap jnimap = ISLFactory.islMap(completed.toString());
+      JNIISLMap jnimap = ISLFactory.islMap(AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniRelation), completed.toString()));
       jnimap = jnimap.intersectParams(pdom.copy());
       jniRelation.setIslMap(jnimap);
     } catch (final Throwable _t) {
@@ -310,7 +311,7 @@ public class CalculatorExpressionEvaluator extends AbstractCalculatorExpressionV
       completed.append("] -> [");
       completed.append(expr);
       completed.append("] }");
-      final JNIISLMultiAff jnimaff = ISLFactory.islMultiAff(completed.toString());
+      final JNIISLMultiAff jnimaff = ISLFactory.islMultiAff(AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
       jniFunction.setIslMAff(jnimaff);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {

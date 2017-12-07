@@ -196,8 +196,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createExternalReduceExpressionAdapter();
 			}
 			@Override
+			public Adapter caseArgReduceExpression(ArgReduceExpression object) {
+				return createArgReduceExpressionAdapter();
+			}
+			@Override
+			public Adapter caseExternalArgReduceExpression(ExternalArgReduceExpression object) {
+				return createExternalArgReduceExpressionAdapter();
+			}
+			@Override
 			public Adapter caseConvolutionExpression(ConvolutionExpression object) {
 				return createConvolutionExpressionAdapter();
+			}
+			@Override
+			public Adapter caseSelectExpression(SelectExpression object) {
+				return createSelectExpressionAdapter();
 			}
 			@Override
 			public Adapter caseVariableExpression(VariableExpression object) {
@@ -752,6 +764,34 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.ArgReduceExpression <em>Arg Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.ArgReduceExpression
+	 * @generated
+	 */
+	public Adapter createArgReduceExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.ExternalArgReduceExpression <em>External Arg Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.ExternalArgReduceExpression
+	 * @generated
+	 */
+	public Adapter createExternalArgReduceExpressionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link alpha.model.ConvolutionExpression <em>Convolution Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -762,6 +802,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConvolutionExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.SelectExpression <em>Select Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.SelectExpression
+	 * @generated
+	 */
+	public Adapter createSelectExpressionAdapter() {
 		return null;
 	}
 

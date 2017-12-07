@@ -211,6 +211,24 @@ public interface ModelFactory extends EFactory {
 	ExternalReduceExpression createExternalReduceExpression();
 
 	/**
+	 * Returns a new object of class '<em>Arg Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Arg Reduce Expression</em>'.
+	 * @generated
+	 */
+	ArgReduceExpression createArgReduceExpression();
+
+	/**
+	 * Returns a new object of class '<em>External Arg Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>External Arg Reduce Expression</em>'.
+	 * @generated
+	 */
+	ExternalArgReduceExpression createExternalArgReduceExpression();
+
+	/**
 	 * Returns a new object of class '<em>Convolution Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -218,6 +236,15 @@ public interface ModelFactory extends EFactory {
 	 * @generated
 	 */
 	ConvolutionExpression createConvolutionExpression();
+
+	/**
+	 * Returns a new object of class '<em>Select Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Select Expression</em>'.
+	 * @generated
+	 */
+	SelectExpression createSelectExpression();
 
 	/**
 	 * Returns a new object of class '<em>Variable Expression</em>'.

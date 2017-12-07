@@ -327,12 +327,40 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.ARG_REDUCE_EXPRESSION: {
+				ArgReduceExpression argReduceExpression = (ArgReduceExpression)theEObject;
+				T result = caseArgReduceExpression(argReduceExpression);
+				if (result == null) result = caseAlphaExpression(argReduceExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(argReduceExpression);
+				if (result == null) result = caseAlphaNode(argReduceExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.EXTERNAL_ARG_REDUCE_EXPRESSION: {
+				ExternalArgReduceExpression externalArgReduceExpression = (ExternalArgReduceExpression)theEObject;
+				T result = caseExternalArgReduceExpression(externalArgReduceExpression);
+				if (result == null) result = caseArgReduceExpression(externalArgReduceExpression);
+				if (result == null) result = caseAlphaExpression(externalArgReduceExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(externalArgReduceExpression);
+				if (result == null) result = caseAlphaNode(externalArgReduceExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ModelPackage.CONVOLUTION_EXPRESSION: {
 				ConvolutionExpression convolutionExpression = (ConvolutionExpression)theEObject;
 				T result = caseConvolutionExpression(convolutionExpression);
 				if (result == null) result = caseAlphaExpression(convolutionExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(convolutionExpression);
 				if (result == null) result = caseAlphaNode(convolutionExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.SELECT_EXPRESSION: {
+				SelectExpression selectExpression = (SelectExpression)theEObject;
+				T result = caseSelectExpression(selectExpression);
+				if (result == null) result = caseAlphaExpression(selectExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(selectExpression);
+				if (result == null) result = caseAlphaNode(selectExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1021,6 +1049,36 @@ public class ModelSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Arg Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Arg Reduce Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseArgReduceExpression(ArgReduceExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>External Arg Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>External Arg Reduce Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExternalArgReduceExpression(ExternalArgReduceExpression object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Convolution Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1032,6 +1090,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConvolutionExpression(ConvolutionExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Select Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Select Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSelectExpression(SelectExpression object) {
 		return null;
 	}
 

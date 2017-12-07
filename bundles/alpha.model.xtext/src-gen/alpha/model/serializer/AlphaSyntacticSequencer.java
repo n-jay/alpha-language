@@ -88,12 +88,16 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) 'argreduce' '(' externalFunction=[ExternalFunction|ID]
+	 *     (rule start) (ambiguity) 'argreduce' '(' operator=AREDUCTION_OP
 	 *     (rule start) (ambiguity) 'auto' ':' expr=AlphaExpression
 	 *     (rule start) (ambiguity) 'case' '{' exprs+=AlphaExpression
 	 *     (rule start) (ambiguity) 'case' name=ID
+	 *     (rule start) (ambiguity) 'conv' '(' kernelDomain=CalculatorExpression
 	 *     (rule start) (ambiguity) 'if' condExpr=AlphaExpression
 	 *     (rule start) (ambiguity) 'reduce' '(' externalFunction=[ExternalFunction|ID]
 	 *     (rule start) (ambiguity) 'reduce' '(' operator=AREDUCTION_OP
+	 *     (rule start) (ambiguity) 'select' selectRelation=CalculatorExpression
 	 *     (rule start) (ambiguity) 'val' function=JNIFunction
 	 *     (rule start) (ambiguity) '{' domainExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) domainExpr=JNIDomain

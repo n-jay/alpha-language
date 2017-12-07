@@ -75,9 +75,12 @@ interface AlphaExpressionVisitor {
 	op void visitIfExpression(IfExpression ie)
 	op void visitDependenceExpression(DependenceExpression de)
 	op void visitReduceExpression(ReduceExpression re)
+	op void visitArgReduceExpression(ArgReduceExpression are)
+	op void visitConvolutionExpression(ConvolutionExpression ce)
 	op void visitUnaryExpression(UnaryExpression ue)
 	op void visitBinaryExpression(BinaryExpression be)
 	op void visitMultiArgExpression(MultiArgExpression mae)
+	op void visitSelectExpression(SelectExpression se)
 	
 	op void visitIndexExpression(IndexExpression ie)
 	op void visitVariableExpression(VariableExpression ve)
@@ -87,8 +90,9 @@ interface AlphaExpressionVisitor {
 	op void visitRealExpression(RealExpression re)
 	op void visitBooleanExpression(BooleanExpression be)
 	
-	op void visitExternalMultiArgExpression(ExternalMultiArgExpression emae)
 	op void visitExternalReduceExpression(ExternalReduceExpression ere)
+	op void visitExternalArgReduceExpression(ExternalArgReduceExpression eare)
+	op void visitExternalMultiArgExpression(ExternalMultiArgExpression emae)
 	
 }
 
@@ -336,7 +340,40 @@ class ExternalReduceExpression extends ReduceExpression {
 		visitor.visitExternalReduceExpression(this)
 	}
 }
-class ConvolutionExpression extends AlphaExpression {}
+class ArgReduceExpression extends AlphaExpression {
+	REDUCTION_OP operator
+	contains JNIFunction projection
+	contains AlphaExpression body
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitArgReduceExpression(this)
+	}
+}
+class ExternalArgReduceExpression extends ArgReduceExpression {
+	refers ExternalFunction externalFunction
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitExternalArgReduceExpression(this)
+	}
+}
+class ConvolutionExpression extends AlphaExpression {
+	contains CalculatorExpression kernelDomain
+	contains AlphaExpression kernelExpression
+	contains AlphaExpression dataExpression
+
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitConvolutionExpression(this)
+	}
+}
+class SelectExpression extends AlphaExpression {
+	contains CalculatorExpression selectRelation
+	contains AlphaExpression expr
+
+
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitSelectExpression(this)
+	}
+}
 class VariableExpression extends AlphaExpression {
 	refers Variable variable
 	

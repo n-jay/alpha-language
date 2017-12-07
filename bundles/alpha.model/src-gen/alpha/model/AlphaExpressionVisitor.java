@@ -66,6 +66,22 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model areUnique="false"
+	 * @generated
+	 */
+	void visitArgReduceExpression(ArgReduceExpression are);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model ceUnique="false"
+	 * @generated
+	 */
+	void visitConvolutionExpression(ConvolutionExpression ce);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model ueUnique="false"
 	 * @generated
 	 */
@@ -86,6 +102,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void visitMultiArgExpression(MultiArgExpression mae);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model seUnique="false"
+	 * @generated
+	 */
+	void visitSelectExpression(SelectExpression se);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,17 +162,25 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model emaeUnique="false"
-	 * @generated
-	 */
-	void visitExternalMultiArgExpression(ExternalMultiArgExpression emae);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model ereUnique="false"
 	 * @generated
 	 */
 	void visitExternalReduceExpression(ExternalReduceExpression ere);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model eareUnique="false"
+	 * @generated
+	 */
+	void visitExternalArgReduceExpression(ExternalArgReduceExpression eare);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model emaeUnique="false"
+	 * @generated
+	 */
+	void visitExternalMultiArgExpression(ExternalMultiArgExpression emae);
 
 } // AlphaExpressionVisitor

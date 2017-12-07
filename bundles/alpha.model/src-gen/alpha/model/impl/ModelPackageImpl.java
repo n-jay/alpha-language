@@ -14,6 +14,7 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
 import alpha.model.AlphaVisitor;
+import alpha.model.ArgReduceExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.BinaryCalculatorExpression;
 import alpha.model.BinaryExpression;
@@ -28,6 +29,7 @@ import alpha.model.ConvolutionExpression;
 import alpha.model.DefinedObject;
 import alpha.model.DependenceExpression;
 import alpha.model.DomainQualifiedElement;
+import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
@@ -51,6 +53,7 @@ import alpha.model.RealExpression;
 import alpha.model.RectangularDomain;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
+import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.UnaryExpression;
@@ -312,7 +315,28 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass argReduceExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass externalArgReduceExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass convolutionExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass selectExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1309,8 +1333,116 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getArgReduceExpression() {
+		return argReduceExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getArgReduceExpression_Operator() {
+		return (EAttribute)argReduceExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getArgReduceExpression_Projection() {
+		return (EReference)argReduceExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getArgReduceExpression_Body() {
+		return (EReference)argReduceExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExternalArgReduceExpression() {
+		return externalArgReduceExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExternalArgReduceExpression_ExternalFunction() {
+		return (EReference)externalArgReduceExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConvolutionExpression() {
 		return convolutionExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConvolutionExpression_KernelDomain() {
+		return (EReference)convolutionExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConvolutionExpression_KernelExpression() {
+		return (EReference)convolutionExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConvolutionExpression_DataExpression() {
+		return (EReference)convolutionExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSelectExpression() {
+		return selectExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSelectExpression_SelectRelation() {
+		return (EReference)selectExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSelectExpression_Expr() {
+		return (EReference)selectExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2054,7 +2186,22 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		externalReduceExpressionEClass = createEClass(EXTERNAL_REDUCE_EXPRESSION);
 		createEReference(externalReduceExpressionEClass, EXTERNAL_REDUCE_EXPRESSION__EXTERNAL_FUNCTION);
 
+		argReduceExpressionEClass = createEClass(ARG_REDUCE_EXPRESSION);
+		createEAttribute(argReduceExpressionEClass, ARG_REDUCE_EXPRESSION__OPERATOR);
+		createEReference(argReduceExpressionEClass, ARG_REDUCE_EXPRESSION__PROJECTION);
+		createEReference(argReduceExpressionEClass, ARG_REDUCE_EXPRESSION__BODY);
+
+		externalArgReduceExpressionEClass = createEClass(EXTERNAL_ARG_REDUCE_EXPRESSION);
+		createEReference(externalArgReduceExpressionEClass, EXTERNAL_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION);
+
 		convolutionExpressionEClass = createEClass(CONVOLUTION_EXPRESSION);
+		createEReference(convolutionExpressionEClass, CONVOLUTION_EXPRESSION__KERNEL_DOMAIN);
+		createEReference(convolutionExpressionEClass, CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION);
+		createEReference(convolutionExpressionEClass, CONVOLUTION_EXPRESSION__DATA_EXPRESSION);
+
+		selectExpressionEClass = createEClass(SELECT_EXPRESSION);
+		createEReference(selectExpressionEClass, SELECT_EXPRESSION__SELECT_RELATION);
+		createEReference(selectExpressionEClass, SELECT_EXPRESSION__EXPR);
 
 		variableExpressionEClass = createEClass(VARIABLE_EXPRESSION);
 		createEReference(variableExpressionEClass, VARIABLE_EXPRESSION__VARIABLE);
@@ -2208,7 +2355,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		indexExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		reduceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		externalReduceExpressionEClass.getESuperTypes().add(this.getReduceExpression());
+		argReduceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
+		externalArgReduceExpressionEClass.getESuperTypes().add(this.getArgReduceExpression());
 		convolutionExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
+		selectExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		variableExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		constantExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		integerExpressionEClass.getESuperTypes().add(this.getConstantExpression());
@@ -2319,6 +2469,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getReduceExpression(), "re", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getArgReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitConvolutionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getConvolutionExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitUnaryExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getUnaryExpression(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2327,6 +2483,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getMultiArgExpression(), "mae", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitSelectExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSelectExpression(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIndexExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2346,11 +2505,14 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitBooleanExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getBooleanExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getExternalReduceExpression(), "ere", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalArgReduceExpression(), "eare", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaCompleteVisitorEClass, AlphaCompleteVisitor.class, "AlphaCompleteVisitor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2561,7 +2723,34 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(externalReduceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		initEClass(argReduceExpressionEClass, ArgReduceExpression.class, "ArgReduceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getArgReduceExpression_Operator(), this.getREDUCTION_OP(), "operator", null, 0, 1, ArgReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getArgReduceExpression_Projection(), this.getJNIFunction(), null, "projection", null, 0, 1, ArgReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getArgReduceExpression_Body(), this.getAlphaExpression(), null, "body", null, 0, 1, ArgReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(argReduceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(externalArgReduceExpressionEClass, ExternalArgReduceExpression.class, "ExternalArgReduceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExternalArgReduceExpression_ExternalFunction(), this.getExternalFunction(), null, "externalFunction", null, 0, 1, ExternalArgReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(externalArgReduceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(convolutionExpressionEClass, ConvolutionExpression.class, "ConvolutionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConvolutionExpression_KernelDomain(), this.getCalculatorExpression(), null, "kernelDomain", null, 0, 1, ConvolutionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConvolutionExpression_KernelExpression(), this.getAlphaExpression(), null, "kernelExpression", null, 0, 1, ConvolutionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConvolutionExpression_DataExpression(), this.getAlphaExpression(), null, "dataExpression", null, 0, 1, ConvolutionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(convolutionExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(selectExpressionEClass, SelectExpression.class, "SelectExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSelectExpression_SelectRelation(), this.getCalculatorExpression(), null, "selectRelation", null, 0, 1, SelectExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSelectExpression_Expr(), this.getAlphaExpression(), null, "expr", null, 0, 1, SelectExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(selectExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(variableExpressionEClass, VariableExpression.class, "VariableExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVariableExpression_Variable(), this.getVariable(), null, "variable", null, 0, 1, VariableExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -7,13 +7,16 @@ import alpha.model.AlphaConstant;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
+import alpha.model.ArgReduceExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.BinaryCalculatorExpression;
 import alpha.model.BinaryExpression;
 import alpha.model.BooleanExpression;
 import alpha.model.CaseExpression;
+import alpha.model.ConvolutionExpression;
 import alpha.model.DefinedObject;
 import alpha.model.DependenceExpression;
+import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
@@ -36,6 +39,7 @@ import alpha.model.RealExpression;
 import alpha.model.RectangularDomain;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
+import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.UnaryExpression;
@@ -81,6 +85,9 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case ModelPackage.ALPHA_SYSTEM:
 				sequence_AlphaSystem(context, (AlphaSystem) semanticObject); 
 				return; 
+			case ModelPackage.ARG_REDUCE_EXPRESSION:
+				sequence_ArgReduceExpression(context, (ArgReduceExpression) semanticObject); 
+				return; 
 			case ModelPackage.AUTO_RESTRICT_EXPRESSION:
 				sequence_AutoRestrictExpression(context, (AutoRestrictExpression) semanticObject); 
 				return; 
@@ -96,11 +103,17 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case ModelPackage.CASE_EXPRESSION:
 				sequence_CaseExpression(context, (CaseExpression) semanticObject); 
 				return; 
+			case ModelPackage.CONVOLUTION_EXPRESSION:
+				sequence_ConvolutionExpression(context, (ConvolutionExpression) semanticObject); 
+				return; 
 			case ModelPackage.DEFINED_OBJECT:
 				sequence_DefinedObject(context, (DefinedObject) semanticObject); 
 				return; 
 			case ModelPackage.DEPENDENCE_EXPRESSION:
 				sequence_DependenceExpression(context, (DependenceExpression) semanticObject); 
+				return; 
+			case ModelPackage.EXTERNAL_ARG_REDUCE_EXPRESSION:
+				sequence_ExternalArgReduceExpression(context, (ExternalArgReduceExpression) semanticObject); 
 				return; 
 			case ModelPackage.EXTERNAL_FUNCTION:
 				sequence_ExternalFunction(context, (ExternalFunction) semanticObject); 
@@ -175,6 +188,9 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case ModelPackage.RESTRICT_EXPRESSION:
 				sequence_RestrictExpression(context, (RestrictExpression) semanticObject); 
+				return; 
+			case ModelPackage.SELECT_EXPRESSION:
+				sequence_SelectExpression(context, (SelectExpression) semanticObject); 
 				return; 
 			case ModelPackage.STANDARD_EQUATION:
 				sequence_StandardEquation(context, (StandardEquation) semanticObject); 
@@ -302,6 +318,33 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     AlphaExpression returns ArgReduceExpression
+	 *     AlphaTerminalExpression returns ArgReduceExpression
+	 *     ArgReduceExpression returns ArgReduceExpression
+	 *     OrExpression returns ArgReduceExpression
+	 *     OrExpression.BinaryExpression_1_0 returns ArgReduceExpression
+	 *     AndExpression returns ArgReduceExpression
+	 *     AndExpression.BinaryExpression_1_0 returns ArgReduceExpression
+	 *     RelationalExpression returns ArgReduceExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns ArgReduceExpression
+	 *     AdditiveExpression returns ArgReduceExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns ArgReduceExpression
+	 *     MultiplicativeExpression returns ArgReduceExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns ArgReduceExpression
+	 *     MinMaxExpression returns ArgReduceExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns ArgReduceExpression
+	 *     UnaryOrTerminalExpression returns ArgReduceExpression
+	 *
+	 * Constraint:
+	 *     (operator=AREDUCTION_OP (projection=JNIFunction | projection=JNIFunctionInArrayNotation) body=AlphaExpression)
+	 */
+	protected void sequence_ArgReduceExpression(ISerializationContext context, ArgReduceExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     AlphaExpression returns AutoRestrictExpression
 	 *     AlphaTerminalExpression returns AutoRestrictExpression
 	 *     AutoRestrictExpression returns AutoRestrictExpression
@@ -423,6 +466,45 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     AlphaExpression returns ConvolutionExpression
+	 *     AlphaTerminalExpression returns ConvolutionExpression
+	 *     ConvolutionExpression returns ConvolutionExpression
+	 *     OrExpression returns ConvolutionExpression
+	 *     OrExpression.BinaryExpression_1_0 returns ConvolutionExpression
+	 *     AndExpression returns ConvolutionExpression
+	 *     AndExpression.BinaryExpression_1_0 returns ConvolutionExpression
+	 *     RelationalExpression returns ConvolutionExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns ConvolutionExpression
+	 *     AdditiveExpression returns ConvolutionExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns ConvolutionExpression
+	 *     MultiplicativeExpression returns ConvolutionExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns ConvolutionExpression
+	 *     MinMaxExpression returns ConvolutionExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns ConvolutionExpression
+	 *     UnaryOrTerminalExpression returns ConvolutionExpression
+	 *
+	 * Constraint:
+	 *     (kernelDomain=CalculatorExpression kernelExpression=AlphaExpression dataExpression=AlphaExpression)
+	 */
+	protected void sequence_ConvolutionExpression(ISerializationContext context, ConvolutionExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__DATA_EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__DATA_EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getConvolutionExpressionAccess().getKernelDomainCalculatorExpressionParserRuleCall_2_0(), semanticObject.getKernelDomain());
+		feeder.accept(grammarAccess.getConvolutionExpressionAccess().getKernelExpressionAlphaExpressionParserRuleCall_4_0(), semanticObject.getKernelExpression());
+		feeder.accept(grammarAccess.getConvolutionExpressionAccess().getDataExpressionAlphaExpressionParserRuleCall_6_0(), semanticObject.getDataExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     CalculatorExpression returns DefinedObject
 	 *     CalculatorExpression.BinaryCalculatorExpression_1_0 returns DefinedObject
 	 *     UnaryOrTerminalCalculatorExpression returns DefinedObject
@@ -466,6 +548,33 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     ((function=JNIFunction expr=AlphaTerminalExpression) | (expr=VariableExpression function=JNIFunctionInArrayNotation))
 	 */
 	protected void sequence_DependenceExpression(ISerializationContext context, DependenceExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaExpression returns ExternalArgReduceExpression
+	 *     AlphaTerminalExpression returns ExternalArgReduceExpression
+	 *     ExternalArgReduceExpression returns ExternalArgReduceExpression
+	 *     OrExpression returns ExternalArgReduceExpression
+	 *     OrExpression.BinaryExpression_1_0 returns ExternalArgReduceExpression
+	 *     AndExpression returns ExternalArgReduceExpression
+	 *     AndExpression.BinaryExpression_1_0 returns ExternalArgReduceExpression
+	 *     RelationalExpression returns ExternalArgReduceExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns ExternalArgReduceExpression
+	 *     AdditiveExpression returns ExternalArgReduceExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns ExternalArgReduceExpression
+	 *     MultiplicativeExpression returns ExternalArgReduceExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns ExternalArgReduceExpression
+	 *     MinMaxExpression returns ExternalArgReduceExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns ExternalArgReduceExpression
+	 *     UnaryOrTerminalExpression returns ExternalArgReduceExpression
+	 *
+	 * Constraint:
+	 *     (externalFunction=[ExternalFunction|ID] (projection=JNIFunction | projection=JNIFunctionInArrayNotation) body=AlphaExpression)
+	 */
+	protected void sequence_ExternalArgReduceExpression(ISerializationContext context, ExternalArgReduceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -962,6 +1071,42 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_RestrictExpression(ISerializationContext context, RestrictExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaExpression returns SelectExpression
+	 *     AlphaTerminalExpression returns SelectExpression
+	 *     SelectExpression returns SelectExpression
+	 *     OrExpression returns SelectExpression
+	 *     OrExpression.BinaryExpression_1_0 returns SelectExpression
+	 *     AndExpression returns SelectExpression
+	 *     AndExpression.BinaryExpression_1_0 returns SelectExpression
+	 *     RelationalExpression returns SelectExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns SelectExpression
+	 *     AdditiveExpression returns SelectExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns SelectExpression
+	 *     MultiplicativeExpression returns SelectExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns SelectExpression
+	 *     MinMaxExpression returns SelectExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns SelectExpression
+	 *     UnaryOrTerminalExpression returns SelectExpression
+	 *
+	 * Constraint:
+	 *     (selectRelation=CalculatorExpression expr=AlphaTerminalExpression)
+	 */
+	protected void sequence_SelectExpression(ISerializationContext context, SelectExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__SELECT_RELATION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__SELECT_RELATION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__EXPR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getSelectExpressionAccess().getSelectRelationCalculatorExpressionParserRuleCall_1_0(), semanticObject.getSelectRelation());
+		feeder.accept(grammarAccess.getSelectExpressionAccess().getExprAlphaTerminalExpressionParserRuleCall_3_0(), semanticObject.getExpr());
+		feeder.finish();
 	}
 	
 	
