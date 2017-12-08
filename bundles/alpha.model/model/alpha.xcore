@@ -4,12 +4,12 @@
 	literalsInterface="true")
 package alpha.model
 
+import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
-import alpha.model.util.AlphaUtil
 
 //type JNIDomain wraps JNIDomain
 type JNIObject wraps JNIObject
@@ -382,8 +382,28 @@ class UseEquation extends AlphaVisitable {
 /** Alpha Expressions */
 
 abstract class AlphaExpression extends AlphaExpressionVisitable {
-	JNIISLSet expressionDomain
-	JNIISLSet contextDomain
+	/*Internal object for always copying expression domain at getter */
+	JNIISLSet __internal_cache_exprDom
+	/*Internal object for always copying context domain at getter */
+	JNIISLSet __internal_cache_contextDom
+	
+	op void setExpressionDomain(JNIISLSet dom) {
+		this.set__internal_cache_exprDom(dom)
+	}
+	op JNIISLSet getExpressionDomain() {
+		if (__internal_cache_exprDom !== null)
+			return __internal_cache_exprDom.copy
+		return null
+	}
+	
+	op void setContextDomain(JNIISLSet dom) {
+		this.set__internal_cache_contextDom(dom)
+	}
+	op JNIISLSet geContextDomain() {
+		if (__internal_cache_contextDom !== null)
+			return __internal_cache_contextDom.copy
+		return null
+	}
 }
 
 class RestrictExpression extends AlphaExpression {

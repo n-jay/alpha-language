@@ -1100,7 +1100,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAlphaExpression_ExpressionDomain() {
+	public EAttribute getAlphaExpression___internal_cache_exprDom() {
 		return (EAttribute)alphaExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1109,7 +1109,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAlphaExpression_ContextDomain() {
+	public EAttribute getAlphaExpression___internal_cache_contextDom() {
 		return (EAttribute)alphaExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2152,8 +2152,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(useEquationEClass, USE_EQUATION__OUTPUT_EXPRS);
 
 		alphaExpressionEClass = createEClass(ALPHA_EXPRESSION);
-		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__EXPRESSION_DOMAIN);
-		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__CONTEXT_DOMAIN);
+		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM);
+		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM);
 
 		restrictExpressionEClass = createEClass(RESTRICT_EXPRESSION);
 		createEReference(restrictExpressionEClass, RESTRICT_EXPRESSION__DOMAIN_EXPR);
@@ -2894,8 +2894,18 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaExpressionEClass, AlphaExpression.class, "AlphaExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAlphaExpression_ExpressionDomain(), this.getJNIISLSet(), "expressionDomain", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAlphaExpression_ContextDomain(), this.getJNIISLSet(), "contextDomain", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaExpression___internal_cache_exprDom(), this.getJNIISLSet(), "__internal_cache_exprDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaExpression___internal_cache_contextDom(), this.getJNIISLSet(), "__internal_cache_contextDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionEClass, null, "setExpressionDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getJNIISLSet(), "dom", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(alphaExpressionEClass, this.getJNIISLSet(), "getExpressionDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionEClass, null, "setContextDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getJNIISLSet(), "dom", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(alphaExpressionEClass, this.getJNIISLSet(), "geContextDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(restrictExpressionEClass, RestrictExpression.class, "RestrictExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRestrictExpression_DomainExpr(), this.getCalculatorExpression(), null, "domainExpr", null, 0, 1, RestrictExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

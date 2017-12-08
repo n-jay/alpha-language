@@ -829,22 +829,22 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_EXPRESSION = 22;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 0;
+	int ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 1;
+	int ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Alpha Expression</em>' class.
@@ -866,22 +866,22 @@ public interface ModelPackage extends EPackage {
 	int RESTRICT_EXPRESSION = 23;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESTRICT_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int RESTRICT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESTRICT_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int RESTRICT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Domain Expr</b></em>' containment reference.
@@ -921,22 +921,22 @@ public interface ModelPackage extends EPackage {
 	int AUTO_RESTRICT_EXPRESSION = 24;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUTO_RESTRICT_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int AUTO_RESTRICT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUTO_RESTRICT_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int AUTO_RESTRICT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Inferred Domain</b></em>' containment reference.
@@ -976,22 +976,22 @@ public interface ModelPackage extends EPackage {
 	int CASE_EXPRESSION = 25;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int CASE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int CASE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1031,22 +1031,22 @@ public interface ModelPackage extends EPackage {
 	int DEPENDENCE_EXPRESSION = 26;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEPENDENCE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int DEPENDENCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEPENDENCE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int DEPENDENCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Function</b></em>' containment reference.
@@ -1086,22 +1086,22 @@ public interface ModelPackage extends EPackage {
 	int IF_EXPRESSION = 27;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IF_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int IF_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IF_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int IF_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Cond Expr</b></em>' containment reference.
@@ -1150,22 +1150,22 @@ public interface ModelPackage extends EPackage {
 	int INDEX_EXPRESSION = 28;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INDEX_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int INDEX_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INDEX_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int INDEX_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Function</b></em>' containment reference.
@@ -1196,22 +1196,22 @@ public interface ModelPackage extends EPackage {
 	int REDUCE_EXPRESSION = 29;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1260,22 +1260,22 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_REDUCE_EXPRESSION = 30;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_REDUCE_EXPRESSION__EXPRESSION_DOMAIN = REDUCE_EXPRESSION__EXPRESSION_DOMAIN;
+	int EXTERNAL_REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_REDUCE_EXPRESSION__CONTEXT_DOMAIN = REDUCE_EXPRESSION__CONTEXT_DOMAIN;
+	int EXTERNAL_REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1333,22 +1333,22 @@ public interface ModelPackage extends EPackage {
 	int ARG_REDUCE_EXPRESSION = 31;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1397,22 +1397,22 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_ARG_REDUCE_EXPRESSION = 32;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_ARG_REDUCE_EXPRESSION__EXPRESSION_DOMAIN = ARG_REDUCE_EXPRESSION__EXPRESSION_DOMAIN;
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_ARG_REDUCE_EXPRESSION__CONTEXT_DOMAIN = ARG_REDUCE_EXPRESSION__CONTEXT_DOMAIN;
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1470,22 +1470,22 @@ public interface ModelPackage extends EPackage {
 	int CONVOLUTION_EXPRESSION = 33;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONVOLUTION_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int CONVOLUTION_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONVOLUTION_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int CONVOLUTION_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Kernel Domain</b></em>' containment reference.
@@ -1534,22 +1534,22 @@ public interface ModelPackage extends EPackage {
 	int SELECT_EXPRESSION = 34;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SELECT_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int SELECT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SELECT_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int SELECT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Select Relation</b></em>' containment reference.
@@ -1589,22 +1589,22 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE_EXPRESSION = 35;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int VARIABLE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int VARIABLE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -1635,22 +1635,22 @@ public interface ModelPackage extends EPackage {
 	int CONSTANT_EXPRESSION = 36;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTANT_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int CONSTANT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTANT_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int CONSTANT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The number of structural features of the '<em>Constant Expression</em>' class.
@@ -1672,22 +1672,22 @@ public interface ModelPackage extends EPackage {
 	int INTEGER_EXPRESSION = 37;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_EXPRESSION__EXPRESSION_DOMAIN = CONSTANT_EXPRESSION__EXPRESSION_DOMAIN;
+	int INTEGER_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_EXPRESSION__CONTEXT_DOMAIN = CONSTANT_EXPRESSION__CONTEXT_DOMAIN;
+	int INTEGER_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1718,22 +1718,22 @@ public interface ModelPackage extends EPackage {
 	int REAL_EXPRESSION = 38;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_EXPRESSION__EXPRESSION_DOMAIN = CONSTANT_EXPRESSION__EXPRESSION_DOMAIN;
+	int REAL_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_EXPRESSION__CONTEXT_DOMAIN = CONSTANT_EXPRESSION__CONTEXT_DOMAIN;
+	int REAL_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1764,22 +1764,22 @@ public interface ModelPackage extends EPackage {
 	int BOOLEAN_EXPRESSION = 39;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_EXPRESSION__EXPRESSION_DOMAIN = CONSTANT_EXPRESSION__EXPRESSION_DOMAIN;
+	int BOOLEAN_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_EXPRESSION__CONTEXT_DOMAIN = CONSTANT_EXPRESSION__CONTEXT_DOMAIN;
+	int BOOLEAN_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1810,22 +1810,22 @@ public interface ModelPackage extends EPackage {
 	int UNARY_EXPRESSION = 40;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UNARY_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int UNARY_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UNARY_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int UNARY_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1865,22 +1865,22 @@ public interface ModelPackage extends EPackage {
 	int BINARY_EXPRESSION = 41;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINARY_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int BINARY_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINARY_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int BINARY_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1929,22 +1929,22 @@ public interface ModelPackage extends EPackage {
 	int MULTI_ARG_EXPRESSION = 42;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MULTI_ARG_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+	int MULTI_ARG_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MULTI_ARG_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+	int MULTI_ARG_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1984,22 +1984,22 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_MULTI_ARG_EXPRESSION = 43;
 
 	/**
-	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_MULTI_ARG_EXPRESSION__EXPRESSION_DOMAIN = MULTI_ARG_EXPRESSION__EXPRESSION_DOMAIN;
+	int EXTERNAL_MULTI_ARG_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = MULTI_ARG_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_MULTI_ARG_EXPRESSION__CONTEXT_DOMAIN = MULTI_ARG_EXPRESSION__CONTEXT_DOMAIN;
+	int EXTERNAL_MULTI_ARG_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = MULTI_ARG_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -3243,26 +3243,26 @@ public interface ModelPackage extends EPackage {
 	EClass getAlphaExpression();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#getExpressionDomain <em>Expression Domain</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#get__internal_cache_exprDom <em>internal cache expr Dom</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Expression Domain</em>'.
-	 * @see alpha.model.AlphaExpression#getExpressionDomain()
+	 * @return the meta object for the attribute '<em>internal cache expr Dom</em>'.
+	 * @see alpha.model.AlphaExpression#get__internal_cache_exprDom()
 	 * @see #getAlphaExpression()
 	 * @generated
 	 */
-	EAttribute getAlphaExpression_ExpressionDomain();
+	EAttribute getAlphaExpression___internal_cache_exprDom();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#getContextDomain <em>Context Domain</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#get__internal_cache_contextDom <em>internal cache context Dom</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Context Domain</em>'.
-	 * @see alpha.model.AlphaExpression#getContextDomain()
+	 * @return the meta object for the attribute '<em>internal cache context Dom</em>'.
+	 * @see alpha.model.AlphaExpression#get__internal_cache_contextDom()
 	 * @see #getAlphaExpression()
 	 * @generated
 	 */
-	EAttribute getAlphaExpression_ContextDomain();
+	EAttribute getAlphaExpression___internal_cache_contextDom();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.RestrictExpression <em>Restrict Expression</em>}'.
@@ -4862,20 +4862,20 @@ public interface ModelPackage extends EPackage {
 		EClass ALPHA_EXPRESSION = eINSTANCE.getAlphaExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Expression Domain</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>internal cache expr Dom</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ALPHA_EXPRESSION__EXPRESSION_DOMAIN = eINSTANCE.getAlphaExpression_ExpressionDomain();
+		EAttribute ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = eINSTANCE.getAlphaExpression___internal_cache_exprDom();
 
 		/**
-		 * The meta object literal for the '<em><b>Context Domain</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>internal cache context Dom</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ALPHA_EXPRESSION__CONTEXT_DOMAIN = eINSTANCE.getAlphaExpression_ContextDomain();
+		EAttribute ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = eINSTANCE.getAlphaExpression___internal_cache_contextDom();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.RestrictExpressionImpl <em>Restrict Expression</em>}' class.

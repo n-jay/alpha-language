@@ -17,8 +17,8 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.AlphaExpression#getExpressionDomain <em>Expression Domain</em>}</li>
- *   <li>{@link alpha.model.AlphaExpression#getContextDomain <em>Context Domain</em>}</li>
+ *   <li>{@link alpha.model.AlphaExpression#get__internal_cache_exprDom <em>internal cache expr Dom</em>}</li>
+ *   <li>{@link alpha.model.AlphaExpression#get__internal_cache_contextDom <em>internal cache context Dom</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getAlphaExpression()
@@ -27,55 +27,89 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  */
 public interface AlphaExpression extends AlphaExpressionVisitable {
 	/**
-	 * Returns the value of the '<em><b>Expression Domain</b></em>' attribute.
+	 * Returns the value of the '<em><b>internal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Expression Domain</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Expression Domain</em>' attribute.
-	 * @see #setExpressionDomain(JNIISLSet)
-	 * @see alpha.model.ModelPackage#getAlphaExpression_ExpressionDomain()
+	 * <!-- begin-model-doc -->
+	 * Internal object for always copying expression domain at getter
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>internal cache expr Dom</em>' attribute.
+	 * @see #set__internal_cache_exprDom(JNIISLSet)
+	 * @see alpha.model.ModelPackage#getAlphaExpression___internal_cache_exprDom()
 	 * @model unique="false" dataType="alpha.model.JNIISLSet"
+	 * @generated
+	 */
+	JNIISLSet get__internal_cache_exprDom();
+
+	/**
+	 * Sets the value of the '{@link alpha.model.AlphaExpression#get__internal_cache_exprDom <em>internal cache expr Dom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>internal cache expr Dom</em>' attribute.
+	 * @see #get__internal_cache_exprDom()
+	 * @generated
+	 */
+	void set__internal_cache_exprDom(JNIISLSet value);
+
+	/**
+	 * Returns the value of the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Internal object for always copying context domain at getter
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>internal cache context Dom</em>' attribute.
+	 * @see #set__internal_cache_contextDom(JNIISLSet)
+	 * @see alpha.model.ModelPackage#getAlphaExpression___internal_cache_contextDom()
+	 * @model unique="false" dataType="alpha.model.JNIISLSet"
+	 * @generated
+	 */
+	JNIISLSet get__internal_cache_contextDom();
+
+	/**
+	 * Sets the value of the '{@link alpha.model.AlphaExpression#get__internal_cache_contextDom <em>internal cache context Dom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>internal cache context Dom</em>' attribute.
+	 * @see #get__internal_cache_contextDom()
+	 * @generated
+	 */
+	void set__internal_cache_contextDom(JNIISLSet value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model domDataType="alpha.model.JNIISLSet" domUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.set__internal_cache_exprDom(dom);'"
+	 * @generated
+	 */
+	void setExpressionDomain(JNIISLSet dom);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; ___internal_cache_exprDom = this.get__internal_cache_exprDom();\nboolean _tripleNotEquals = (___internal_cache_exprDom != null);\nif (_tripleNotEquals)\n{\n\treturn this.get__internal_cache_exprDom().copy();\n}\nreturn null;'"
 	 * @generated
 	 */
 	JNIISLSet getExpressionDomain();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.AlphaExpression#getExpressionDomain <em>Expression Domain</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Expression Domain</em>' attribute.
-	 * @see #getExpressionDomain()
+	 * @model domDataType="alpha.model.JNIISLSet" domUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.set__internal_cache_contextDom(dom);'"
 	 * @generated
 	 */
-	void setExpressionDomain(JNIISLSet value);
+	void setContextDomain(JNIISLSet dom);
 
 	/**
-	 * Returns the value of the '<em><b>Context Domain</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Context Domain</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Context Domain</em>' attribute.
-	 * @see #setContextDomain(JNIISLSet)
-	 * @see alpha.model.ModelPackage#getAlphaExpression_ContextDomain()
-	 * @model unique="false" dataType="alpha.model.JNIISLSet"
-	 * @generated
-	 */
-	JNIISLSet getContextDomain();
-
-	/**
-	 * Sets the value of the '{@link alpha.model.AlphaExpression#getContextDomain <em>Context Domain</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Context Domain</em>' attribute.
-	 * @see #getContextDomain()
+	 * @model dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; ___internal_cache_contextDom = this.get__internal_cache_contextDom();\nboolean _tripleNotEquals = (___internal_cache_contextDom != null);\nif (_tripleNotEquals)\n{\n\treturn this.get__internal_cache_contextDom().copy();\n}\nreturn null;'"
 	 * @generated
 	 */
-	void setContextDomain(JNIISLSet value);
+	JNIISLSet geContextDomain();
 
 } // AlphaExpression

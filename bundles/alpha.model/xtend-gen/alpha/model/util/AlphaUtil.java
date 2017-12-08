@@ -1,6 +1,8 @@
 package alpha.model.util;
 
 import alpha.model.AlphaConstant;
+import alpha.model.AlphaExpression;
+import alpha.model.AlphaNode;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
@@ -27,6 +29,11 @@ public class AlphaUtil {
     return AlphaUtil.getContainerSystem(node.eContainer());
   }
   
+  /**
+   * Replaces all AlphaConstants in the given string with its integer values.
+   * It is based on String.replaceAll, so it may fail on some inputs.
+   * Currently the model is that the users pick good names for AlphaConstants to avoid this issue
+   */
   public static String replaceAlphaConstants(final AlphaSystem system, final String jniString) {
     if (((system != null) && (system.eContainer() != null))) {
       String str = jniString;
@@ -64,6 +71,23 @@ public class AlphaUtil {
     return maff.copy();
   }
   
+  public static JNIISLSet _getScalarDomain(final AlphaSystem system) {
+    return JNIISLSet.buildUniverse(system.getParameterDomain().getIslSet().getSpace());
+  }
+  
+  public static JNIISLSet _getScalarDomain(final AlphaExpression expr) {
+    JNIISLSet _xblockexpression = null;
+    {
+      AlphaSystem _containerSystem = AlphaUtil.getContainerSystem(expr);
+      boolean _tripleEquals = (_containerSystem == null);
+      if (_tripleEquals) {
+        return null;
+      }
+      _xblockexpression = AlphaUtil.getScalarDomain(AlphaUtil.getContainerSystem(expr));
+    }
+    return _xblockexpression;
+  }
+  
   private static Iterable<AlphaConstant> gatherAlphaConstants(final AlphaVisitable ap) {
     if (ap instanceof AlphaPackage) {
       return _gatherAlphaConstants((AlphaPackage)ap);
@@ -87,6 +111,17 @@ public class AlphaUtil {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(map).toString());
+    }
+  }
+  
+  public static JNIISLSet getScalarDomain(final AlphaNode system) {
+    if (system instanceof AlphaSystem) {
+      return _getScalarDomain((AlphaSystem)system);
+    } else if (system instanceof AlphaExpression) {
+      return _getScalarDomain((AlphaExpression)system);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(system).toString());
     }
   }
 }

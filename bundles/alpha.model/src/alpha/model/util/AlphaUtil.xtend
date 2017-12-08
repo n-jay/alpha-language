@@ -1,14 +1,15 @@
 package alpha.model.util
 
 import alpha.model.AlphaConstant
+import alpha.model.AlphaExpression
 import alpha.model.AlphaPackage
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-import org.eclipse.emf.ecore.EObject
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import org.eclipse.emf.ecore.EObject
 
 class AlphaUtil {
 
@@ -23,6 +24,11 @@ class AlphaUtil {
 		return AlphaUtil.getContainerSystem(node.eContainer())
 	}
 
+	/**
+	 * Replaces all AlphaConstants in the given string with its integer values.
+	 * It is based on String.replaceAll, so it may fail on some inputs.
+	 * Currently the model is that the users pick good names for AlphaConstants to avoid this issue
+	 */
 	public static def String replaceAlphaConstants(AlphaSystem system, String jniString) {
 		if (system !== null && system.eContainer !== null) {
 			var str = jniString
@@ -44,6 +50,7 @@ class AlphaUtil {
 		ar.elements.filter(AlphaConstant)
 	}
 	
+
 	//Void is for null in Xtend dispatch
 	public static def dispatch copy(Void n) {
 		null
@@ -56,5 +63,14 @@ class AlphaUtil {
 	}
 	public static def dispatch copy(JNIISLMultiAff maff) {
 		maff.copy
+	}
+	
+	
+	public static def dispatch JNIISLSet getScalarDomain(AlphaSystem system) {
+		return JNIISLSet.buildUniverse(system.parameterDomain.islSet.space)
+	}
+	public static def dispatch JNIISLSet getScalarDomain(AlphaExpression expr) {
+		if (expr.containerSystem === null) return null
+		expr.containerSystem.scalarDomain
 	}
 }
