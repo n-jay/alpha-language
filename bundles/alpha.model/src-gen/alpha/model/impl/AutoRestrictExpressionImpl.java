@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +30,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class AutoRestrictExpressionImpl extends MinimalEObjectImpl.Container implements AutoRestrictExpression {
+public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements AutoRestrictExpression {
 	/**
 	 * The cached value of the '{@link #getInferredDomain() <em>Inferred Domain</em>}' containment reference.
 	 * <!-- begin-user-doc -->

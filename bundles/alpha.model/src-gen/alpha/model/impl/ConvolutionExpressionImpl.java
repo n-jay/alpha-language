@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,7 +31,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class ConvolutionExpressionImpl extends MinimalEObjectImpl.Container implements ConvolutionExpression {
+public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements ConvolutionExpression {
 	/**
 	 * The cached value of the '{@link #getKernelDomain() <em>Kernel Domain</em>}' containment reference.
 	 * <!-- begin-user-doc -->

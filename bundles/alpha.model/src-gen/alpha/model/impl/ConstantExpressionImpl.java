@@ -8,8 +8,6 @@ import alpha.model.ModelPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Constant Expression</b></em>'.
@@ -17,7 +15,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public abstract class ConstantExpressionImpl extends MinimalEObjectImpl.Container implements ConstantExpression {
+public abstract class ConstantExpressionImpl extends AlphaExpressionImpl implements ConstantExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

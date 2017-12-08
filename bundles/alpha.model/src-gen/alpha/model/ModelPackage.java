@@ -819,14 +819,32 @@ public interface ModelPackage extends EPackage {
 	int USE_EQUATION_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 6;
 
 	/**
-	 * The meta object id for the '{@link alpha.model.AlphaExpression <em>Alpha Expression</em>}' class.
+	 * The meta object id for the '{@link alpha.model.impl.AlphaExpressionImpl <em>Alpha Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see alpha.model.AlphaExpression
+	 * @see alpha.model.impl.AlphaExpressionImpl
 	 * @see alpha.model.impl.ModelPackageImpl#getAlphaExpression()
 	 * @generated
 	 */
 	int ALPHA_EXPRESSION = 22;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Alpha Expression</em>' class.
@@ -835,7 +853,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 0;
+	int ALPHA_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.RestrictExpressionImpl <em>Restrict Expression</em>}' class.
@@ -846,6 +864,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int RESTRICT_EXPRESSION = 23;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESTRICT_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESTRICT_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Domain Expr</b></em>' containment reference.
@@ -885,6 +921,24 @@ public interface ModelPackage extends EPackage {
 	int AUTO_RESTRICT_EXPRESSION = 24;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTO_RESTRICT_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTO_RESTRICT_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Inferred Domain</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -920,6 +974,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int CASE_EXPRESSION = 25;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -959,6 +1031,24 @@ public interface ModelPackage extends EPackage {
 	int DEPENDENCE_EXPRESSION = 26;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEPENDENCE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEPENDENCE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -994,6 +1084,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int IF_EXPRESSION = 27;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IF_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IF_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Cond Expr</b></em>' containment reference.
@@ -1042,6 +1150,24 @@ public interface ModelPackage extends EPackage {
 	int INDEX_EXPRESSION = 28;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEX_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEX_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1068,6 +1194,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int REDUCE_EXPRESSION = 29;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1114,6 +1258,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int EXTERNAL_REDUCE_EXPRESSION = 30;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_REDUCE_EXPRESSION__EXPRESSION_DOMAIN = REDUCE_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_REDUCE_EXPRESSION__CONTEXT_DOMAIN = REDUCE_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1171,6 +1333,24 @@ public interface ModelPackage extends EPackage {
 	int ARG_REDUCE_EXPRESSION = 31;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARG_REDUCE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARG_REDUCE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1215,6 +1395,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int EXTERNAL_ARG_REDUCE_EXPRESSION = 32;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__EXPRESSION_DOMAIN = ARG_REDUCE_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__CONTEXT_DOMAIN = ARG_REDUCE_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1272,6 +1470,24 @@ public interface ModelPackage extends EPackage {
 	int CONVOLUTION_EXPRESSION = 33;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVOLUTION_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVOLUTION_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Kernel Domain</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1318,6 +1534,24 @@ public interface ModelPackage extends EPackage {
 	int SELECT_EXPRESSION = 34;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SELECT_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SELECT_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Select Relation</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1355,6 +1589,24 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE_EXPRESSION = 35;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1383,6 +1635,24 @@ public interface ModelPackage extends EPackage {
 	int CONSTANT_EXPRESSION = 36;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The number of structural features of the '<em>Constant Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1400,6 +1670,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int INTEGER_EXPRESSION = 37;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_EXPRESSION__EXPRESSION_DOMAIN = CONSTANT_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_EXPRESSION__CONTEXT_DOMAIN = CONSTANT_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1430,6 +1718,24 @@ public interface ModelPackage extends EPackage {
 	int REAL_EXPRESSION = 38;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REAL_EXPRESSION__EXPRESSION_DOMAIN = CONSTANT_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REAL_EXPRESSION__CONTEXT_DOMAIN = CONSTANT_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1458,6 +1764,24 @@ public interface ModelPackage extends EPackage {
 	int BOOLEAN_EXPRESSION = 39;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_EXPRESSION__EXPRESSION_DOMAIN = CONSTANT_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_EXPRESSION__CONTEXT_DOMAIN = CONSTANT_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1484,6 +1808,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int UNARY_EXPRESSION = 40;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1521,6 +1863,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int BINARY_EXPRESSION = 41;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1569,6 +1929,24 @@ public interface ModelPackage extends EPackage {
 	int MULTI_ARG_EXPRESSION = 42;
 
 	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_ARG_EXPRESSION__EXPRESSION_DOMAIN = ALPHA_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_ARG_EXPRESSION__CONTEXT_DOMAIN = ALPHA_EXPRESSION__CONTEXT_DOMAIN;
+
+	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1604,6 +1982,24 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int EXTERNAL_MULTI_ARG_EXPRESSION = 43;
+
+	/**
+	 * The feature id for the '<em><b>Expression Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_MULTI_ARG_EXPRESSION__EXPRESSION_DOMAIN = MULTI_ARG_EXPRESSION__EXPRESSION_DOMAIN;
+
+	/**
+	 * The feature id for the '<em><b>Context Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_MULTI_ARG_EXPRESSION__CONTEXT_DOMAIN = MULTI_ARG_EXPRESSION__CONTEXT_DOMAIN;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2845,6 +3241,28 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getAlphaExpression();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#getExpressionDomain <em>Expression Domain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Expression Domain</em>'.
+	 * @see alpha.model.AlphaExpression#getExpressionDomain()
+	 * @see #getAlphaExpression()
+	 * @generated
+	 */
+	EAttribute getAlphaExpression_ExpressionDomain();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#getContextDomain <em>Context Domain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Context Domain</em>'.
+	 * @see alpha.model.AlphaExpression#getContextDomain()
+	 * @see #getAlphaExpression()
+	 * @generated
+	 */
+	EAttribute getAlphaExpression_ContextDomain();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.RestrictExpression <em>Restrict Expression</em>}'.
@@ -4434,14 +4852,30 @@ public interface ModelPackage extends EPackage {
 		EReference USE_EQUATION__OUTPUT_EXPRS = eINSTANCE.getUseEquation_OutputExprs();
 
 		/**
-		 * The meta object literal for the '{@link alpha.model.AlphaExpression <em>Alpha Expression</em>}' class.
+		 * The meta object literal for the '{@link alpha.model.impl.AlphaExpressionImpl <em>Alpha Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see alpha.model.AlphaExpression
+		 * @see alpha.model.impl.AlphaExpressionImpl
 		 * @see alpha.model.impl.ModelPackageImpl#getAlphaExpression()
 		 * @generated
 		 */
 		EClass ALPHA_EXPRESSION = eINSTANCE.getAlphaExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Expression Domain</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALPHA_EXPRESSION__EXPRESSION_DOMAIN = eINSTANCE.getAlphaExpression_ExpressionDomain();
+
+		/**
+		 * The meta object literal for the '<em><b>Context Domain</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALPHA_EXPRESSION__CONTEXT_DOMAIN = eINSTANCE.getAlphaExpression_ContextDomain();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.RestrictExpressionImpl <em>Restrict Expression</em>}' class.

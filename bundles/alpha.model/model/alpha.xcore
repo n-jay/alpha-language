@@ -380,7 +380,10 @@ class UseEquation extends AlphaVisitable {
 
 /** Alpha Expressions */
 
-interface AlphaExpression extends AlphaExpressionVisitable {}
+abstract class AlphaExpression extends AlphaExpressionVisitable {
+	JNIISLSet expressionDomain
+	JNIISLSet contextDomain
+}
 
 class RestrictExpression extends AlphaExpression {
 	contains CalculatorExpression domainExpr

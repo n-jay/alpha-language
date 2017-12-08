@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +30,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class RestrictExpressionImpl extends MinimalEObjectImpl.Container implements RestrictExpression {
+public class RestrictExpressionImpl extends AlphaExpressionImpl implements RestrictExpression {
 	/**
 	 * The cached value of the '{@link #getDomainExpr() <em>Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
