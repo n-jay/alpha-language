@@ -25,7 +25,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			return;
 		}
 		
-		val obj  = copyISLObject(expr.expr)
+		val obj  = expr.expr.ISLObject
 		
 		try {
 			JNIISLContext.recordStderrStart();
@@ -97,8 +97,8 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			return;
 		}
 		
-		val left  = copyISLObject(expr.left)
-		val right = copyISLObject(expr.right);
+		val left  = expr.left.ISLObject
+		val right = expr.right.ISLObject
 		
 		try {
 			JNIISLContext.recordStderrStart();
@@ -335,22 +335,5 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		}
 		
 		return system.getParameterDomain().getIslSet();
-	}
-	
-	
-	private def copyISLObject(CalculatorExpression expr) {
-		
-		switch (expr.getType()) {
-			case SET: {
-				return (expr.getISLObject() as JNIISLSet).copy;
-			}
-			case MAP: {
-				return (expr.getISLObject() as JNIISLMap).copy;
-			}
-			case FUNCTION: {
-				return (expr.getISLObject() as JNIISLMultiAff).copy;
-			}
-			
-		}
 	}
 }

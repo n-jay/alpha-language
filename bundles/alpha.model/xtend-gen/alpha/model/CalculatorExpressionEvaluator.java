@@ -40,7 +40,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     if (_tripleEquals) {
       return;
     }
-    final JNIObject obj = this.copyISLObject(expr.getExpr());
+    final JNIObject obj = expr.getExpr().getISLObject();
     try {
       JNIISLContext.recordStderrStart();
       final JNIObject res = this.evaluateUnaryOperation(expr.getOperator(), obj);
@@ -120,8 +120,8 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     if (((((expr.getLeft() == null) || (expr.getRight() == null)) || (expr.getLeft().getISLObject() == null)) || (expr.getRight().getISLObject() == null))) {
       return;
     }
-    final JNIObject left = this.copyISLObject(expr.getLeft());
-    final JNIObject right = this.copyISLObject(expr.getRight());
+    final JNIObject left = expr.getLeft().getISLObject();
+    final JNIObject right = expr.getRight().getISLObject();
     try {
       JNIISLContext.recordStderrStart();
       final JNIObject res = this.evaluateBinaryOperation(expr.getOperator(), left, right);
@@ -395,26 +395,6 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       throw new RuntimeException("The parameter domain of the container system is null.");
     }
     return system.getParameterDomain().getIslSet();
-  }
-  
-  private JNIObject copyISLObject(final CalculatorExpression expr) {
-    POLY_OBJECT_TYPE _type = expr.getType();
-    if (_type != null) {
-      switch (_type) {
-        case SET:
-          JNIObject _iSLObject = expr.getISLObject();
-          return ((JNIISLSet) _iSLObject).copy();
-        case MAP:
-          JNIObject _iSLObject_1 = expr.getISLObject();
-          return ((JNIISLMap) _iSLObject_1).copy();
-        case FUNCTION:
-          JNIObject _iSLObject_2 = expr.getISLObject();
-          return ((JNIISLMultiAff) _iSLObject_2).copy();
-        default:
-          break;
-      }
-    }
-    return null;
   }
   
   private JNIObject evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIObject map) {
