@@ -16,7 +16,7 @@ import fr.irisa.cairn.jnimap.runtime.JNIObject;
  *   <li>{@link alpha.model.BinaryCalculatorExpression#getOperator <em>Operator</em>}</li>
  *   <li>{@link alpha.model.BinaryCalculatorExpression#getLeft <em>Left</em>}</li>
  *   <li>{@link alpha.model.BinaryCalculatorExpression#getRight <em>Right</em>}</li>
- *   <li>{@link alpha.model.BinaryCalculatorExpression#get__internal_cache_islObject <em>internal cache isl Object</em>}</li>
+ *   <li>{@link alpha.model.BinaryCalculatorExpression#getZ__internal_cache_islObject <em>Zinternal cache isl Object</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getBinaryCalculatorExpression()
@@ -106,36 +106,36 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	void setRight(CalculatorExpression value);
 
 	/**
-	 * Returns the value of the '<em><b>internal cache isl Object</b></em>' attribute.
+	 * Returns the value of the '<em><b>Zinternal cache isl Object</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>internal cache isl Object</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Zinternal cache isl Object</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>internal cache isl Object</em>' attribute.
-	 * @see #set__internal_cache_islObject(JNIObject)
-	 * @see alpha.model.ModelPackage#getBinaryCalculatorExpression___internal_cache_islObject()
+	 * @return the value of the '<em>Zinternal cache isl Object</em>' attribute.
+	 * @see #setZ__internal_cache_islObject(JNIObject)
+	 * @see alpha.model.ModelPackage#getBinaryCalculatorExpression_Z__internal_cache_islObject()
 	 * @model unique="false" dataType="alpha.model.JNIObject"
 	 * @generated
 	 */
-	JNIObject get__internal_cache_islObject();
+	JNIObject getZ__internal_cache_islObject();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.BinaryCalculatorExpression#get__internal_cache_islObject <em>internal cache isl Object</em>}' attribute.
+	 * Sets the value of the '{@link alpha.model.BinaryCalculatorExpression#getZ__internal_cache_islObject <em>Zinternal cache isl Object</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>internal cache isl Object</em>' attribute.
-	 * @see #get__internal_cache_islObject()
+	 * @param value the new value of the '<em>Zinternal cache isl Object</em>' attribute.
+	 * @see #getZ__internal_cache_islObject()
 	 * @generated
 	 */
-	void set__internal_cache_islObject(JNIObject value);
+	void setZ__internal_cache_islObject(JNIObject value);
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; ___internal_cache_islObject = this.get__internal_cache_islObject();\nif ((___internal_cache_islObject instanceof &lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;))\n{\n\treturn &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET;\n}\n&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; ___internal_cache_islObject_1 = this.get__internal_cache_islObject();\nif ((___internal_cache_islObject_1 instanceof &lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt;))\n{\n\treturn &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.MAP;\n}\nreturn null;'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _z__internal_cache_islObject = this.getZ__internal_cache_islObject();\nif ((_z__internal_cache_islObject instanceof &lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;))\n{\n\treturn &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET;\n}\n&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _z__internal_cache_islObject_1 = this.getZ__internal_cache_islObject();\nif ((_z__internal_cache_islObject_1 instanceof &lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt;))\n{\n\treturn &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.MAP;\n}\nreturn null;'"
 	 * @generated
 	 */
 	POLY_OBJECT_TYPE getType();
@@ -144,7 +144,7 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.util.AlphaUtil%&gt;.copy(this.get__internal_cache_islObject());'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.util.AlphaUtil%&gt;.copy(this.getZ__internal_cache_islObject());'"
 	 * @generated
 	 */
 	JNIObject getISLObject();

@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link alpha.model.impl.UnaryCalculatorExpressionImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link alpha.model.impl.UnaryCalculatorExpressionImpl#getExpr <em>Expr</em>}</li>
- *   <li>{@link alpha.model.impl.UnaryCalculatorExpressionImpl#get__internal_cache_islObject <em>internal cache isl Object</em>}</li>
+ *   <li>{@link alpha.model.impl.UnaryCalculatorExpressionImpl#getZ__internal_cache_islObject <em>Zinternal cache isl Object</em>}</li>
  * </ul>
  *
  * @generated
@@ -71,24 +71,24 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	protected CalculatorExpression expr;
 
 	/**
-	 * The default value of the '{@link #get__internal_cache_islObject() <em>internal cache isl Object</em>}' attribute.
+	 * The default value of the '{@link #getZ__internal_cache_islObject() <em>Zinternal cache isl Object</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #get__internal_cache_islObject()
+	 * @see #getZ__internal_cache_islObject()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIObject _INTERNAL_CACHE_ISL_OBJECT_EDEFAULT = null;
+	protected static final JNIObject ZINTERNAL_CACHE_ISL_OBJECT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #get__internal_cache_islObject() <em>internal cache isl Object</em>}' attribute.
+	 * The cached value of the '{@link #getZ__internal_cache_islObject() <em>Zinternal cache isl Object</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #get__internal_cache_islObject()
+	 * @see #getZ__internal_cache_islObject()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIObject __internal_cache_islObject = _INTERNAL_CACHE_ISL_OBJECT_EDEFAULT;
+	protected JNIObject z__internal_cache_islObject = ZINTERNAL_CACHE_ISL_OBJECT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -178,8 +178,8 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIObject get__internal_cache_islObject() {
-		return __internal_cache_islObject;
+	public JNIObject getZ__internal_cache_islObject() {
+		return z__internal_cache_islObject;
 	}
 
 	/**
@@ -187,11 +187,11 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void set__internal_cache_islObject(JNIObject new__internal_cache_islObject) {
-		JNIObject old__internal_cache_islObject = __internal_cache_islObject;
-		__internal_cache_islObject = new__internal_cache_islObject;
+	public void setZ__internal_cache_islObject(JNIObject newZ__internal_cache_islObject) {
+		JNIObject oldZ__internal_cache_islObject = z__internal_cache_islObject;
+		z__internal_cache_islObject = newZ__internal_cache_islObject;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.UNARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT, old__internal_cache_islObject, __internal_cache_islObject));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.UNARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT, oldZ__internal_cache_islObject, z__internal_cache_islObject));
 	}
 
 	/**
@@ -200,12 +200,12 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * @generated
 	 */
 	public POLY_OBJECT_TYPE getType() {
-		JNIObject ___internal_cache_islObject = this.get__internal_cache_islObject();
-		if ((___internal_cache_islObject instanceof JNIISLSet)) {
+		JNIObject _z__internal_cache_islObject = this.getZ__internal_cache_islObject();
+		if ((_z__internal_cache_islObject instanceof JNIISLSet)) {
 			return POLY_OBJECT_TYPE.SET;
 		}
-		JNIObject ___internal_cache_islObject_1 = this.get__internal_cache_islObject();
-		if ((___internal_cache_islObject_1 instanceof JNIISLMap)) {
+		JNIObject _z__internal_cache_islObject_1 = this.getZ__internal_cache_islObject();
+		if ((_z__internal_cache_islObject_1 instanceof JNIISLMap)) {
 			return POLY_OBJECT_TYPE.MAP;
 		}
 		return null;
@@ -217,7 +217,7 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return AlphaUtil.copy(this.get__internal_cache_islObject());
+		return AlphaUtil.copy(this.getZ__internal_cache_islObject());
 	}
 
 	/**
@@ -255,8 +255,8 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 				return getOperator();
 			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__EXPR:
 				return getExpr();
-			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT:
-				return get__internal_cache_islObject();
+			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT:
+				return getZ__internal_cache_islObject();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -275,8 +275,8 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__EXPR:
 				setExpr((CalculatorExpression)newValue);
 				return;
-			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT:
-				set__internal_cache_islObject((JNIObject)newValue);
+			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT:
+				setZ__internal_cache_islObject((JNIObject)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -296,8 +296,8 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__EXPR:
 				setExpr((CalculatorExpression)null);
 				return;
-			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT:
-				set__internal_cache_islObject(_INTERNAL_CACHE_ISL_OBJECT_EDEFAULT);
+			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT:
+				setZ__internal_cache_islObject(ZINTERNAL_CACHE_ISL_OBJECT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -315,8 +315,8 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 				return operator != OPERATOR_EDEFAULT;
 			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__EXPR:
 				return expr != null;
-			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT:
-				return _INTERNAL_CACHE_ISL_OBJECT_EDEFAULT == null ? __internal_cache_islObject != null : !_INTERNAL_CACHE_ISL_OBJECT_EDEFAULT.equals(__internal_cache_islObject);
+			case ModelPackage.UNARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT:
+				return ZINTERNAL_CACHE_ISL_OBJECT_EDEFAULT == null ? z__internal_cache_islObject != null : !ZINTERNAL_CACHE_ISL_OBJECT_EDEFAULT.equals(z__internal_cache_islObject);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -333,8 +333,8 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (operator: ");
 		result.append(operator);
-		result.append(", __internal_cache_islObject: ");
-		result.append(__internal_cache_islObject);
+		result.append(", z__internal_cache_islObject: ");
+		result.append(z__internal_cache_islObject);
 		result.append(')');
 		return result.toString();
 	}

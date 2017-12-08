@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.impl.DefinedObjectImpl#getObject <em>Object</em>}</li>
- *   <li>{@link alpha.model.impl.DefinedObjectImpl#is__internalCycleDetector <em>internal Cycle Detector</em>}</li>
+ *   <li>{@link alpha.model.impl.DefinedObjectImpl#isZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}</li>
  * </ul>
  *
  * @generated
@@ -43,24 +43,24 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	protected PolyhedralObject object;
 
 	/**
-	 * The default value of the '{@link #is__internalCycleDetector() <em>internal Cycle Detector</em>}' attribute.
+	 * The default value of the '{@link #isZ__internalCycleDetector() <em>Zinternal Cycle Detector</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #is__internalCycleDetector()
+	 * @see #isZ__internalCycleDetector()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean _INTERNAL_CYCLE_DETECTOR_EDEFAULT = false;
+	protected static final boolean ZINTERNAL_CYCLE_DETECTOR_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #is__internalCycleDetector() <em>internal Cycle Detector</em>}' attribute.
+	 * The cached value of the '{@link #isZ__internalCycleDetector() <em>Zinternal Cycle Detector</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #is__internalCycleDetector()
+	 * @see #isZ__internalCycleDetector()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean __internalCycleDetector = _INTERNAL_CYCLE_DETECTOR_EDEFAULT;
+	protected boolean z__internalCycleDetector = ZINTERNAL_CYCLE_DETECTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,8 +124,8 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean is__internalCycleDetector() {
-		return __internalCycleDetector;
+	public boolean isZ__internalCycleDetector() {
+		return z__internalCycleDetector;
 	}
 
 	/**
@@ -133,11 +133,11 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void set__internalCycleDetector(boolean new__internalCycleDetector) {
-		boolean old__internalCycleDetector = __internalCycleDetector;
-		__internalCycleDetector = new__internalCycleDetector;
+	public void setZ__internalCycleDetector(boolean newZ__internalCycleDetector) {
+		boolean oldZ__internalCycleDetector = z__internalCycleDetector;
+		z__internalCycleDetector = newZ__internalCycleDetector;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEFINED_OBJECT__INTERNAL_CYCLE_DETECTOR, old__internalCycleDetector, __internalCycleDetector));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR, oldZ__internalCycleDetector, z__internalCycleDetector));
 	}
 
 	/**
@@ -158,16 +158,16 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 		PolyhedralObject _object = this.getObject();
 		boolean _tripleNotEquals = (_object != null);
 		if (_tripleNotEquals) {
-			boolean _is__internalCycleDetector = this.is__internalCycleDetector();
-			if (_is__internalCycleDetector) {
+			boolean _isZ__internalCycleDetector = this.isZ__internalCycleDetector();
+			if (_isZ__internalCycleDetector) {
 				String _name = this.getObject().getName();
 				String _plus = ("Cycle detected in the definition of: " + _name);
 				this.setErrorMessage(_plus);
 				return null;
 			}
-			this.set__internalCycleDetector(true);
+			this.setZ__internalCycleDetector(true);
 			final JNIObject res = this.getObject().getISLObject();
-			this.set__internalCycleDetector(false);
+			this.setZ__internalCycleDetector(false);
 			return res;
 		}
 		return null;
@@ -193,8 +193,8 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 			case ModelPackage.DEFINED_OBJECT__OBJECT:
 				if (resolve) return getObject();
 				return basicGetObject();
-			case ModelPackage.DEFINED_OBJECT__INTERNAL_CYCLE_DETECTOR:
-				return is__internalCycleDetector();
+			case ModelPackage.DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR:
+				return isZ__internalCycleDetector();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -210,8 +210,8 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 			case ModelPackage.DEFINED_OBJECT__OBJECT:
 				setObject((PolyhedralObject)newValue);
 				return;
-			case ModelPackage.DEFINED_OBJECT__INTERNAL_CYCLE_DETECTOR:
-				set__internalCycleDetector((Boolean)newValue);
+			case ModelPackage.DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR:
+				setZ__internalCycleDetector((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -228,8 +228,8 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 			case ModelPackage.DEFINED_OBJECT__OBJECT:
 				setObject((PolyhedralObject)null);
 				return;
-			case ModelPackage.DEFINED_OBJECT__INTERNAL_CYCLE_DETECTOR:
-				set__internalCycleDetector(_INTERNAL_CYCLE_DETECTOR_EDEFAULT);
+			case ModelPackage.DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR:
+				setZ__internalCycleDetector(ZINTERNAL_CYCLE_DETECTOR_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -245,8 +245,8 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 		switch (featureID) {
 			case ModelPackage.DEFINED_OBJECT__OBJECT:
 				return object != null;
-			case ModelPackage.DEFINED_OBJECT__INTERNAL_CYCLE_DETECTOR:
-				return __internalCycleDetector != _INTERNAL_CYCLE_DETECTOR_EDEFAULT;
+			case ModelPackage.DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR:
+				return z__internalCycleDetector != ZINTERNAL_CYCLE_DETECTOR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -261,8 +261,8 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (__internalCycleDetector: ");
-		result.append(__internalCycleDetector);
+		result.append(" (z__internalCycleDetector: ");
+		result.append(z__internalCycleDetector);
 		result.append(')');
 		return result.toString();
 	}

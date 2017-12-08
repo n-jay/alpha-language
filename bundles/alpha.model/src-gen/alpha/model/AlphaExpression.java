@@ -17,8 +17,8 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.AlphaExpression#get__internal_cache_exprDom <em>internal cache expr Dom</em>}</li>
- *   <li>{@link alpha.model.AlphaExpression#get__internal_cache_contextDom <em>internal cache context Dom</em>}</li>
+ *   <li>{@link alpha.model.AlphaExpression#getZ__internal_cache_exprDom <em>Zinternal cache expr Dom</em>}</li>
+ *   <li>{@link alpha.model.AlphaExpression#getZ__internal_cache_contextDom <em>Zinternal cache context Dom</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getAlphaExpression()
@@ -27,60 +27,60 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  */
 public interface AlphaExpression extends AlphaExpressionVisitable {
 	/**
-	 * Returns the value of the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * Returns the value of the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Internal object for always copying expression domain at getter
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>internal cache expr Dom</em>' attribute.
-	 * @see #set__internal_cache_exprDom(JNIISLSet)
-	 * @see alpha.model.ModelPackage#getAlphaExpression___internal_cache_exprDom()
+	 * @return the value of the '<em>Zinternal cache expr Dom</em>' attribute.
+	 * @see #setZ__internal_cache_exprDom(JNIISLSet)
+	 * @see alpha.model.ModelPackage#getAlphaExpression_Z__internal_cache_exprDom()
 	 * @model unique="false" dataType="alpha.model.JNIISLSet"
 	 * @generated
 	 */
-	JNIISLSet get__internal_cache_exprDom();
+	JNIISLSet getZ__internal_cache_exprDom();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.AlphaExpression#get__internal_cache_exprDom <em>internal cache expr Dom</em>}' attribute.
+	 * Sets the value of the '{@link alpha.model.AlphaExpression#getZ__internal_cache_exprDom <em>Zinternal cache expr Dom</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>internal cache expr Dom</em>' attribute.
-	 * @see #get__internal_cache_exprDom()
+	 * @param value the new value of the '<em>Zinternal cache expr Dom</em>' attribute.
+	 * @see #getZ__internal_cache_exprDom()
 	 * @generated
 	 */
-	void set__internal_cache_exprDom(JNIISLSet value);
+	void setZ__internal_cache_exprDom(JNIISLSet value);
 
 	/**
-	 * Returns the value of the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * Returns the value of the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Internal object for always copying context domain at getter
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>internal cache context Dom</em>' attribute.
-	 * @see #set__internal_cache_contextDom(JNIISLSet)
-	 * @see alpha.model.ModelPackage#getAlphaExpression___internal_cache_contextDom()
+	 * @return the value of the '<em>Zinternal cache context Dom</em>' attribute.
+	 * @see #setZ__internal_cache_contextDom(JNIISLSet)
+	 * @see alpha.model.ModelPackage#getAlphaExpression_Z__internal_cache_contextDom()
 	 * @model unique="false" dataType="alpha.model.JNIISLSet"
 	 * @generated
 	 */
-	JNIISLSet get__internal_cache_contextDom();
+	JNIISLSet getZ__internal_cache_contextDom();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.AlphaExpression#get__internal_cache_contextDom <em>internal cache context Dom</em>}' attribute.
+	 * Sets the value of the '{@link alpha.model.AlphaExpression#getZ__internal_cache_contextDom <em>Zinternal cache context Dom</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>internal cache context Dom</em>' attribute.
-	 * @see #get__internal_cache_contextDom()
+	 * @param value the new value of the '<em>Zinternal cache context Dom</em>' attribute.
+	 * @see #getZ__internal_cache_contextDom()
 	 * @generated
 	 */
-	void set__internal_cache_contextDom(JNIISLSet value);
+	void setZ__internal_cache_contextDom(JNIISLSet value);
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model domDataType="alpha.model.JNIISLSet" domUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.set__internal_cache_exprDom(dom);'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_exprDom(dom);'"
 	 * @generated
 	 */
 	void setExpressionDomain(JNIISLSet dom);
@@ -89,7 +89,7 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; ___internal_cache_exprDom = this.get__internal_cache_exprDom();\nboolean _tripleNotEquals = (___internal_cache_exprDom != null);\nif (_tripleNotEquals)\n{\n\treturn this.get__internal_cache_exprDom().copy();\n}\nreturn null;'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_exprDom = this.getZ__internal_cache_exprDom();\nboolean _tripleNotEquals = (_z__internal_cache_exprDom != null);\nif (_tripleNotEquals)\n{\n\treturn this.getZ__internal_cache_exprDom().copy();\n}\nreturn null;'"
 	 * @generated
 	 */
 	JNIISLSet getExpressionDomain();
@@ -98,7 +98,7 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model domDataType="alpha.model.JNIISLSet" domUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.set__internal_cache_contextDom(dom);'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_contextDom(dom);'"
 	 * @generated
 	 */
 	void setContextDomain(JNIISLSet dom);
@@ -107,7 +107,7 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; ___internal_cache_contextDom = this.get__internal_cache_contextDom();\nboolean _tripleNotEquals = (___internal_cache_contextDom != null);\nif (_tripleNotEquals)\n{\n\treturn this.get__internal_cache_contextDom().copy();\n}\nreturn null;'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_contextDom = this.getZ__internal_cache_contextDom();\nboolean _tripleNotEquals = (_z__internal_cache_contextDom != null);\nif (_tripleNotEquals)\n{\n\treturn this.getZ__internal_cache_contextDom().copy();\n}\nreturn null;'"
 	 * @generated
 	 */
 	JNIISLSet getContextDomain();

@@ -1100,7 +1100,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAlphaExpression___internal_cache_exprDom() {
+	public EAttribute getAlphaExpression_Z__internal_cache_exprDom() {
 		return (EAttribute)alphaExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1109,7 +1109,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAlphaExpression___internal_cache_contextDom() {
+	public EAttribute getAlphaExpression_Z__internal_cache_contextDom() {
 		return (EAttribute)alphaExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1820,7 +1820,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getUnaryCalculatorExpression___internal_cache_islObject() {
+	public EAttribute getUnaryCalculatorExpression_Z__internal_cache_islObject() {
 		return (EAttribute)unaryCalculatorExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1865,7 +1865,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBinaryCalculatorExpression___internal_cache_islObject() {
+	public EAttribute getBinaryCalculatorExpression_Z__internal_cache_islObject() {
 		return (EAttribute)binaryCalculatorExpressionEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1946,7 +1946,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDefinedObject___internalCycleDetector() {
+	public EAttribute getDefinedObject_Z__internalCycleDetector() {
 		return (EAttribute)definedObjectEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2152,8 +2152,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(useEquationEClass, USE_EQUATION__OUTPUT_EXPRS);
 
 		alphaExpressionEClass = createEClass(ALPHA_EXPRESSION);
-		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM);
-		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM);
+		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM);
+		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM);
 
 		restrictExpressionEClass = createEClass(RESTRICT_EXPRESSION);
 		createEReference(restrictExpressionEClass, RESTRICT_EXPRESSION__DOMAIN_EXPR);
@@ -2261,13 +2261,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		unaryCalculatorExpressionEClass = createEClass(UNARY_CALCULATOR_EXPRESSION);
 		createEAttribute(unaryCalculatorExpressionEClass, UNARY_CALCULATOR_EXPRESSION__OPERATOR);
 		createEReference(unaryCalculatorExpressionEClass, UNARY_CALCULATOR_EXPRESSION__EXPR);
-		createEAttribute(unaryCalculatorExpressionEClass, UNARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT);
+		createEAttribute(unaryCalculatorExpressionEClass, UNARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT);
 
 		binaryCalculatorExpressionEClass = createEClass(BINARY_CALCULATOR_EXPRESSION);
 		createEAttribute(binaryCalculatorExpressionEClass, BINARY_CALCULATOR_EXPRESSION__OPERATOR);
 		createEReference(binaryCalculatorExpressionEClass, BINARY_CALCULATOR_EXPRESSION__LEFT);
 		createEReference(binaryCalculatorExpressionEClass, BINARY_CALCULATOR_EXPRESSION__RIGHT);
-		createEAttribute(binaryCalculatorExpressionEClass, BINARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT);
+		createEAttribute(binaryCalculatorExpressionEClass, BINARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT);
 
 		variableDomainEClass = createEClass(VARIABLE_DOMAIN);
 		createEReference(variableDomainEClass, VARIABLE_DOMAIN__VARIABLE);
@@ -2279,7 +2279,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		definedObjectEClass = createEClass(DEFINED_OBJECT);
 		createEReference(definedObjectEClass, DEFINED_OBJECT__OBJECT);
-		createEAttribute(definedObjectEClass, DEFINED_OBJECT__INTERNAL_CYCLE_DETECTOR);
+		createEAttribute(definedObjectEClass, DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR);
 
 		// Create enums
 		unarY_OPEEnum = createEEnum(UNARY_OP);
@@ -2894,8 +2894,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaExpressionEClass, AlphaExpression.class, "AlphaExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAlphaExpression___internal_cache_exprDom(), this.getJNIISLSet(), "__internal_cache_exprDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAlphaExpression___internal_cache_contextDom(), this.getJNIISLSet(), "__internal_cache_contextDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaExpression_Z__internal_cache_exprDom(), this.getJNIISLSet(), "z__internal_cache_exprDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaExpression_Z__internal_cache_contextDom(), this.getJNIISLSet(), "z__internal_cache_contextDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionEClass, null, "setExpressionDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getJNIISLSet(), "dom", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3115,7 +3115,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(unaryCalculatorExpressionEClass, UnaryCalculatorExpression.class, "UnaryCalculatorExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUnaryCalculatorExpression_Operator(), this.getCALCULATOR_UNARY_OP(), "operator", null, 0, 1, UnaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUnaryCalculatorExpression_Expr(), this.getCalculatorExpression(), null, "expr", null, 0, 1, UnaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUnaryCalculatorExpression___internal_cache_islObject(), this.getJNIObject(), "__internal_cache_islObject", null, 0, 1, UnaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getUnaryCalculatorExpression_Z__internal_cache_islObject(), this.getJNIObject(), "z__internal_cache_islObject", null, 0, 1, UnaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(unaryCalculatorExpressionEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -3128,7 +3128,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getBinaryCalculatorExpression_Operator(), this.getCALCULATOR_BINARY_OP(), "operator", null, 0, 1, BinaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBinaryCalculatorExpression_Left(), this.getCalculatorExpression(), null, "left", null, 0, 1, BinaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBinaryCalculatorExpression_Right(), this.getCalculatorExpression(), null, "right", null, 0, 1, BinaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBinaryCalculatorExpression___internal_cache_islObject(), this.getJNIObject(), "__internal_cache_islObject", null, 0, 1, BinaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBinaryCalculatorExpression_Z__internal_cache_islObject(), this.getJNIObject(), "z__internal_cache_islObject", null, 0, 1, BinaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(binaryCalculatorExpressionEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -3161,7 +3161,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		initEClass(definedObjectEClass, DefinedObject.class, "DefinedObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDefinedObject_Object(), this.getPolyhedralObject(), null, "object", null, 0, 1, DefinedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDefinedObject___internalCycleDetector(), theEcorePackage.getEBoolean(), "__internalCycleDetector", null, 0, 1, DefinedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDefinedObject_Z__internalCycleDetector(), theEcorePackage.getEBoolean(), "z__internalCycleDetector", null, 0, 1, DefinedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(definedObjectEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
 

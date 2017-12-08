@@ -383,25 +383,25 @@ class UseEquation extends AlphaVisitable {
 
 abstract class AlphaExpression extends AlphaExpressionVisitable {
 	/*Internal object for always copying expression domain at getter */
-	JNIISLSet __internal_cache_exprDom
+	JNIISLSet z__internal_cache_exprDom
 	/*Internal object for always copying context domain at getter */
-	JNIISLSet __internal_cache_contextDom
+	JNIISLSet z__internal_cache_contextDom
 	
 	op void setExpressionDomain(JNIISLSet dom) {
-		this.set__internal_cache_exprDom(dom)
+		this.setZ__internal_cache_exprDom(dom)
 	}
 	op JNIISLSet getExpressionDomain() {
-		if (__internal_cache_exprDom !== null)
-			return __internal_cache_exprDom.copy
+		if (z__internal_cache_exprDom !== null)
+			return z__internal_cache_exprDom.copy
 		return null
 	}
 	
 	op void setContextDomain(JNIISLSet dom) {
-		this.set__internal_cache_contextDom(dom)
+		this.setZ__internal_cache_contextDom(dom)
 	}
 	op JNIISLSet getContextDomain() {
-		if (__internal_cache_contextDom !== null)
-			return __internal_cache_contextDom.copy
+		if (z__internal_cache_contextDom !== null)
+			return z__internal_cache_contextDom.copy
 		return null
 	}
 }
@@ -727,17 +727,17 @@ class UnaryCalculatorExpression extends CalculatorExpression {
 	CALCULATOR_UNARY_OP operator
 	contains CalculatorExpression expr
 	
-	JNIObject __internal_cache_islObject
+	JNIObject z__internal_cache_islObject
 	
 	op POLY_OBJECT_TYPE getType() { 
-		if (__internal_cache_islObject instanceof JNIISLSet)
+		if (z__internal_cache_islObject instanceof JNIISLSet)
 			return POLY_OBJECT_TYPE::SET
-		if (__internal_cache_islObject instanceof JNIISLMap)
+		if (z__internal_cache_islObject instanceof JNIISLMap)
 			return POLY_OBJECT_TYPE::MAP
 		return null
 	}
 	op JNIObject getISLObject() { 
-		AlphaUtil.copy(__internal_cache_islObject)
+		AlphaUtil.copy(z__internal_cache_islObject)
 	}
 	
 	
@@ -751,17 +751,17 @@ class BinaryCalculatorExpression extends CalculatorExpression {
 	contains CalculatorExpression left
 	contains CalculatorExpression right
 	
-	JNIObject __internal_cache_islObject
+	JNIObject z__internal_cache_islObject
 	
 	op POLY_OBJECT_TYPE getType() { 
-		if (__internal_cache_islObject instanceof JNIISLSet)
+		if (z__internal_cache_islObject instanceof JNIISLSet)
 			return POLY_OBJECT_TYPE::SET
-		if (__internal_cache_islObject instanceof JNIISLMap)
+		if (z__internal_cache_islObject instanceof JNIISLMap)
 			return POLY_OBJECT_TYPE::MAP
 		return null
 	}
 	op JNIObject getISLObject() { 
-		AlphaUtil.copy(__internal_cache_islObject)
+		AlphaUtil.copy(z__internal_cache_islObject)
 	}
 
 	op void accept(CalculatorExpressionVisitor visitor) {
@@ -803,19 +803,19 @@ class RectangularDomain extends CalculatorExpression {
 /* Reference to an already defined object in the calculator section */
 class DefinedObject extends CalculatorExpression {
 	refers PolyhedralObject object
-	boolean __internalCycleDetector
+	boolean z__internalCycleDetector
 	
 	op POLY_OBJECT_TYPE getType() { return object.getType }
 	op JNIObject getISLObject() {
 		
 		if (object !== null) {
-			if (__internalCycleDetector) {
+			if (z__internalCycleDetector) {
 				errorMessage = "Cycle detected in the definition of: " + object.name
 				return null
 			}
-			__internalCycleDetector = true;
+			z__internalCycleDetector = true;
 			val res = object.ISLObject
-			__internalCycleDetector = false
+			z__internalCycleDetector = false
 			return res
 		}
 		return null

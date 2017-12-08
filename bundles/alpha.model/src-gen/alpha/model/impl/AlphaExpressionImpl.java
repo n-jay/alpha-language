@@ -23,52 +23,52 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.AlphaExpressionImpl#get__internal_cache_exprDom <em>internal cache expr Dom</em>}</li>
- *   <li>{@link alpha.model.impl.AlphaExpressionImpl#get__internal_cache_contextDom <em>internal cache context Dom</em>}</li>
+ *   <li>{@link alpha.model.impl.AlphaExpressionImpl#getZ__internal_cache_exprDom <em>Zinternal cache expr Dom</em>}</li>
+ *   <li>{@link alpha.model.impl.AlphaExpressionImpl#getZ__internal_cache_contextDom <em>Zinternal cache context Dom</em>}</li>
  * </ul>
  *
  * @generated
  */
 public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container implements AlphaExpression {
 	/**
-	 * The default value of the '{@link #get__internal_cache_exprDom() <em>internal cache expr Dom</em>}' attribute.
+	 * The default value of the '{@link #getZ__internal_cache_exprDom() <em>Zinternal cache expr Dom</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #get__internal_cache_exprDom()
+	 * @see #getZ__internal_cache_exprDom()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLSet _INTERNAL_CACHE_EXPR_DOM_EDEFAULT = null;
+	protected static final JNIISLSet ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #get__internal_cache_exprDom() <em>internal cache expr Dom</em>}' attribute.
+	 * The cached value of the '{@link #getZ__internal_cache_exprDom() <em>Zinternal cache expr Dom</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #get__internal_cache_exprDom()
+	 * @see #getZ__internal_cache_exprDom()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLSet __internal_cache_exprDom = _INTERNAL_CACHE_EXPR_DOM_EDEFAULT;
+	protected JNIISLSet z__internal_cache_exprDom = ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #get__internal_cache_contextDom() <em>internal cache context Dom</em>}' attribute.
+	 * The default value of the '{@link #getZ__internal_cache_contextDom() <em>Zinternal cache context Dom</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #get__internal_cache_contextDom()
+	 * @see #getZ__internal_cache_contextDom()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLSet _INTERNAL_CACHE_CONTEXT_DOM_EDEFAULT = null;
+	protected static final JNIISLSet ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #get__internal_cache_contextDom() <em>internal cache context Dom</em>}' attribute.
+	 * The cached value of the '{@link #getZ__internal_cache_contextDom() <em>Zinternal cache context Dom</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #get__internal_cache_contextDom()
+	 * @see #getZ__internal_cache_contextDom()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLSet __internal_cache_contextDom = _INTERNAL_CACHE_CONTEXT_DOM_EDEFAULT;
+	protected JNIISLSet z__internal_cache_contextDom = ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -94,8 +94,8 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet get__internal_cache_exprDom() {
-		return __internal_cache_exprDom;
+	public JNIISLSet getZ__internal_cache_exprDom() {
+		return z__internal_cache_exprDom;
 	}
 
 	/**
@@ -103,11 +103,11 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void set__internal_cache_exprDom(JNIISLSet new__internal_cache_exprDom) {
-		JNIISLSet old__internal_cache_exprDom = __internal_cache_exprDom;
-		__internal_cache_exprDom = new__internal_cache_exprDom;
+	public void setZ__internal_cache_exprDom(JNIISLSet newZ__internal_cache_exprDom) {
+		JNIISLSet oldZ__internal_cache_exprDom = z__internal_cache_exprDom;
+		z__internal_cache_exprDom = newZ__internal_cache_exprDom;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM, old__internal_cache_exprDom, __internal_cache_exprDom));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM, oldZ__internal_cache_exprDom, z__internal_cache_exprDom));
 	}
 
 	/**
@@ -115,8 +115,8 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet get__internal_cache_contextDom() {
-		return __internal_cache_contextDom;
+	public JNIISLSet getZ__internal_cache_contextDom() {
+		return z__internal_cache_contextDom;
 	}
 
 	/**
@@ -124,11 +124,11 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void set__internal_cache_contextDom(JNIISLSet new__internal_cache_contextDom) {
-		JNIISLSet old__internal_cache_contextDom = __internal_cache_contextDom;
-		__internal_cache_contextDom = new__internal_cache_contextDom;
+	public void setZ__internal_cache_contextDom(JNIISLSet newZ__internal_cache_contextDom) {
+		JNIISLSet oldZ__internal_cache_contextDom = z__internal_cache_contextDom;
+		z__internal_cache_contextDom = newZ__internal_cache_contextDom;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM, old__internal_cache_contextDom, __internal_cache_contextDom));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM, oldZ__internal_cache_contextDom, z__internal_cache_contextDom));
 	}
 
 	/**
@@ -137,7 +137,7 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	public void setExpressionDomain(final JNIISLSet dom) {
-		this.set__internal_cache_exprDom(dom);
+		this.setZ__internal_cache_exprDom(dom);
 	}
 
 	/**
@@ -146,10 +146,10 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	public JNIISLSet getExpressionDomain() {
-		JNIISLSet ___internal_cache_exprDom = this.get__internal_cache_exprDom();
-		boolean _tripleNotEquals = (___internal_cache_exprDom != null);
+		JNIISLSet _z__internal_cache_exprDom = this.getZ__internal_cache_exprDom();
+		boolean _tripleNotEquals = (_z__internal_cache_exprDom != null);
 		if (_tripleNotEquals) {
-			return this.get__internal_cache_exprDom().copy();
+			return this.getZ__internal_cache_exprDom().copy();
 		}
 		return null;
 	}
@@ -160,7 +160,7 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	public void setContextDomain(final JNIISLSet dom) {
-		this.set__internal_cache_contextDom(dom);
+		this.setZ__internal_cache_contextDom(dom);
 	}
 
 	/**
@@ -169,10 +169,10 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	public JNIISLSet getContextDomain() {
-		JNIISLSet ___internal_cache_contextDom = this.get__internal_cache_contextDom();
-		boolean _tripleNotEquals = (___internal_cache_contextDom != null);
+		JNIISLSet _z__internal_cache_contextDom = this.getZ__internal_cache_contextDom();
+		boolean _tripleNotEquals = (_z__internal_cache_contextDom != null);
 		if (_tripleNotEquals) {
-			return this.get__internal_cache_contextDom().copy();
+			return this.getZ__internal_cache_contextDom().copy();
 		}
 		return null;
 	}
@@ -196,10 +196,10 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM:
-				return get__internal_cache_exprDom();
-			case ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM:
-				return get__internal_cache_contextDom();
+			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM:
+				return getZ__internal_cache_exprDom();
+			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM:
+				return getZ__internal_cache_contextDom();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -212,11 +212,11 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM:
-				set__internal_cache_exprDom((JNIISLSet)newValue);
+			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM:
+				setZ__internal_cache_exprDom((JNIISLSet)newValue);
 				return;
-			case ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM:
-				set__internal_cache_contextDom((JNIISLSet)newValue);
+			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM:
+				setZ__internal_cache_contextDom((JNIISLSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -230,11 +230,11 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM:
-				set__internal_cache_exprDom(_INTERNAL_CACHE_EXPR_DOM_EDEFAULT);
+			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM:
+				setZ__internal_cache_exprDom(ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT);
 				return;
-			case ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM:
-				set__internal_cache_contextDom(_INTERNAL_CACHE_CONTEXT_DOM_EDEFAULT);
+			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM:
+				setZ__internal_cache_contextDom(ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -248,10 +248,10 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM:
-				return _INTERNAL_CACHE_EXPR_DOM_EDEFAULT == null ? __internal_cache_exprDom != null : !_INTERNAL_CACHE_EXPR_DOM_EDEFAULT.equals(__internal_cache_exprDom);
-			case ModelPackage.ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM:
-				return _INTERNAL_CACHE_CONTEXT_DOM_EDEFAULT == null ? __internal_cache_contextDom != null : !_INTERNAL_CACHE_CONTEXT_DOM_EDEFAULT.equals(__internal_cache_contextDom);
+			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM:
+				return ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT == null ? z__internal_cache_exprDom != null : !ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT.equals(z__internal_cache_exprDom);
+			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM:
+				return ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT == null ? z__internal_cache_contextDom != null : !ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT.equals(z__internal_cache_contextDom);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -266,10 +266,10 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (__internal_cache_exprDom: ");
-		result.append(__internal_cache_exprDom);
-		result.append(", __internal_cache_contextDom: ");
-		result.append(__internal_cache_contextDom);
+		result.append(" (z__internal_cache_exprDom: ");
+		result.append(z__internal_cache_exprDom);
+		result.append(", z__internal_cache_contextDom: ");
+		result.append(z__internal_cache_contextDom);
 		result.append(')');
 		return result.toString();
 	}

@@ -829,22 +829,22 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_EXPRESSION = 22;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 0;
+	int ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 1;
+	int ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Alpha Expression</em>' class.
@@ -866,22 +866,22 @@ public interface ModelPackage extends EPackage {
 	int RESTRICT_EXPRESSION = 23;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESTRICT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int RESTRICT_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESTRICT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int RESTRICT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Domain Expr</b></em>' containment reference.
@@ -921,22 +921,22 @@ public interface ModelPackage extends EPackage {
 	int AUTO_RESTRICT_EXPRESSION = 24;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUTO_RESTRICT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int AUTO_RESTRICT_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUTO_RESTRICT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int AUTO_RESTRICT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Inferred Domain</b></em>' containment reference.
@@ -976,22 +976,22 @@ public interface ModelPackage extends EPackage {
 	int CASE_EXPRESSION = 25;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int CASE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CASE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int CASE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1031,22 +1031,22 @@ public interface ModelPackage extends EPackage {
 	int DEPENDENCE_EXPRESSION = 26;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEPENDENCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int DEPENDENCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEPENDENCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int DEPENDENCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Function</b></em>' containment reference.
@@ -1086,22 +1086,22 @@ public interface ModelPackage extends EPackage {
 	int IF_EXPRESSION = 27;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IF_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int IF_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IF_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int IF_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Cond Expr</b></em>' containment reference.
@@ -1150,22 +1150,22 @@ public interface ModelPackage extends EPackage {
 	int INDEX_EXPRESSION = 28;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INDEX_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int INDEX_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INDEX_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int INDEX_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Function</b></em>' containment reference.
@@ -1196,22 +1196,22 @@ public interface ModelPackage extends EPackage {
 	int REDUCE_EXPRESSION = 29;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1260,22 +1260,22 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_REDUCE_EXPRESSION = 30;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int EXTERNAL_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int EXTERNAL_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1333,22 +1333,22 @@ public interface ModelPackage extends EPackage {
 	int ARG_REDUCE_EXPRESSION = 31;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1397,22 +1397,22 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_ARG_REDUCE_EXPRESSION = 32;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ARG_REDUCE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1470,22 +1470,22 @@ public interface ModelPackage extends EPackage {
 	int CONVOLUTION_EXPRESSION = 33;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONVOLUTION_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int CONVOLUTION_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONVOLUTION_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int CONVOLUTION_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Kernel Domain</b></em>' containment reference.
@@ -1534,22 +1534,22 @@ public interface ModelPackage extends EPackage {
 	int SELECT_EXPRESSION = 34;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SELECT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int SELECT_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SELECT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int SELECT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Select Relation</b></em>' containment reference.
@@ -1589,22 +1589,22 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE_EXPRESSION = 35;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int VARIABLE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int VARIABLE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -1635,22 +1635,22 @@ public interface ModelPackage extends EPackage {
 	int CONSTANT_EXPRESSION = 36;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTANT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int CONSTANT_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTANT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int CONSTANT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The number of structural features of the '<em>Constant Expression</em>' class.
@@ -1672,22 +1672,22 @@ public interface ModelPackage extends EPackage {
 	int INTEGER_EXPRESSION = 37;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int INTEGER_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = CONSTANT_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTEGER_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int INTEGER_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1718,22 +1718,22 @@ public interface ModelPackage extends EPackage {
 	int REAL_EXPRESSION = 38;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int REAL_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = CONSTANT_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int REAL_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1764,22 +1764,22 @@ public interface ModelPackage extends EPackage {
 	int BOOLEAN_EXPRESSION = 39;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int BOOLEAN_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = CONSTANT_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BOOLEAN_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int BOOLEAN_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1810,22 +1810,22 @@ public interface ModelPackage extends EPackage {
 	int UNARY_EXPRESSION = 40;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UNARY_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int UNARY_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UNARY_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int UNARY_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1865,22 +1865,22 @@ public interface ModelPackage extends EPackage {
 	int BINARY_EXPRESSION = 41;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINARY_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int BINARY_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINARY_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int BINARY_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1929,22 +1929,22 @@ public interface ModelPackage extends EPackage {
 	int MULTI_ARG_EXPRESSION = 42;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MULTI_ARG_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int MULTI_ARG_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MULTI_ARG_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int MULTI_ARG_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1984,22 +1984,22 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_MULTI_ARG_EXPRESSION = 43;
 
 	/**
-	 * The feature id for the '<em><b>internal cache expr Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_MULTI_ARG_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = MULTI_ARG_EXPRESSION__INTERNAL_CACHE_EXPR_DOM;
+	int EXTERNAL_MULTI_ARG_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = MULTI_ARG_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
-	 * The feature id for the '<em><b>internal cache context Dom</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_MULTI_ARG_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = MULTI_ARG_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM;
+	int EXTERNAL_MULTI_ARG_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = MULTI_ARG_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2352,13 +2352,13 @@ public interface ModelPackage extends EPackage {
 	int UNARY_CALCULATOR_EXPRESSION__EXPR = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>internal cache isl Object</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache isl Object</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int UNARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
+	int UNARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Unary Calculator Expression</em>' class.
@@ -2416,13 +2416,13 @@ public interface ModelPackage extends EPackage {
 	int BINARY_CALCULATOR_EXPRESSION__RIGHT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>internal cache isl Object</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache isl Object</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 3;
+	int BINARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Binary Calculator Expression</em>' class.
@@ -2554,13 +2554,13 @@ public interface ModelPackage extends EPackage {
 	int DEFINED_OBJECT__OBJECT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>internal Cycle Detector</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal Cycle Detector</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEFINED_OBJECT__INTERNAL_CYCLE_DETECTOR = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
+	int DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Defined Object</em>' class.
@@ -3243,26 +3243,26 @@ public interface ModelPackage extends EPackage {
 	EClass getAlphaExpression();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#get__internal_cache_exprDom <em>internal cache expr Dom</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#getZ__internal_cache_exprDom <em>Zinternal cache expr Dom</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>internal cache expr Dom</em>'.
-	 * @see alpha.model.AlphaExpression#get__internal_cache_exprDom()
+	 * @return the meta object for the attribute '<em>Zinternal cache expr Dom</em>'.
+	 * @see alpha.model.AlphaExpression#getZ__internal_cache_exprDom()
 	 * @see #getAlphaExpression()
 	 * @generated
 	 */
-	EAttribute getAlphaExpression___internal_cache_exprDom();
+	EAttribute getAlphaExpression_Z__internal_cache_exprDom();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#get__internal_cache_contextDom <em>internal cache context Dom</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.AlphaExpression#getZ__internal_cache_contextDom <em>Zinternal cache context Dom</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>internal cache context Dom</em>'.
-	 * @see alpha.model.AlphaExpression#get__internal_cache_contextDom()
+	 * @return the meta object for the attribute '<em>Zinternal cache context Dom</em>'.
+	 * @see alpha.model.AlphaExpression#getZ__internal_cache_contextDom()
 	 * @see #getAlphaExpression()
 	 * @generated
 	 */
-	EAttribute getAlphaExpression___internal_cache_contextDom();
+	EAttribute getAlphaExpression_Z__internal_cache_contextDom();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.RestrictExpression <em>Restrict Expression</em>}'.
@@ -4094,15 +4094,15 @@ public interface ModelPackage extends EPackage {
 	EReference getUnaryCalculatorExpression_Expr();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.UnaryCalculatorExpression#get__internal_cache_islObject <em>internal cache isl Object</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.UnaryCalculatorExpression#getZ__internal_cache_islObject <em>Zinternal cache isl Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>internal cache isl Object</em>'.
-	 * @see alpha.model.UnaryCalculatorExpression#get__internal_cache_islObject()
+	 * @return the meta object for the attribute '<em>Zinternal cache isl Object</em>'.
+	 * @see alpha.model.UnaryCalculatorExpression#getZ__internal_cache_islObject()
 	 * @see #getUnaryCalculatorExpression()
 	 * @generated
 	 */
-	EAttribute getUnaryCalculatorExpression___internal_cache_islObject();
+	EAttribute getUnaryCalculatorExpression_Z__internal_cache_islObject();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.BinaryCalculatorExpression <em>Binary Calculator Expression</em>}'.
@@ -4148,15 +4148,15 @@ public interface ModelPackage extends EPackage {
 	EReference getBinaryCalculatorExpression_Right();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.BinaryCalculatorExpression#get__internal_cache_islObject <em>internal cache isl Object</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.BinaryCalculatorExpression#getZ__internal_cache_islObject <em>Zinternal cache isl Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>internal cache isl Object</em>'.
-	 * @see alpha.model.BinaryCalculatorExpression#get__internal_cache_islObject()
+	 * @return the meta object for the attribute '<em>Zinternal cache isl Object</em>'.
+	 * @see alpha.model.BinaryCalculatorExpression#getZ__internal_cache_islObject()
 	 * @see #getBinaryCalculatorExpression()
 	 * @generated
 	 */
-	EAttribute getBinaryCalculatorExpression___internal_cache_islObject();
+	EAttribute getBinaryCalculatorExpression_Z__internal_cache_islObject();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.VariableDomain <em>Variable Domain</em>}'.
@@ -4244,15 +4244,15 @@ public interface ModelPackage extends EPackage {
 	EReference getDefinedObject_Object();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.DefinedObject#is__internalCycleDetector <em>internal Cycle Detector</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.DefinedObject#isZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>internal Cycle Detector</em>'.
-	 * @see alpha.model.DefinedObject#is__internalCycleDetector()
+	 * @return the meta object for the attribute '<em>Zinternal Cycle Detector</em>'.
+	 * @see alpha.model.DefinedObject#isZ__internalCycleDetector()
 	 * @see #getDefinedObject()
 	 * @generated
 	 */
-	EAttribute getDefinedObject___internalCycleDetector();
+	EAttribute getDefinedObject_Z__internalCycleDetector();
 
 	/**
 	 * Returns the meta object for enum '{@link alpha.model.UNARY_OP <em>UNARY OP</em>}'.
@@ -4862,20 +4862,20 @@ public interface ModelPackage extends EPackage {
 		EClass ALPHA_EXPRESSION = eINSTANCE.getAlphaExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>internal cache expr Dom</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zinternal cache expr Dom</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ALPHA_EXPRESSION__INTERNAL_CACHE_EXPR_DOM = eINSTANCE.getAlphaExpression___internal_cache_exprDom();
+		EAttribute ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = eINSTANCE.getAlphaExpression_Z__internal_cache_exprDom();
 
 		/**
-		 * The meta object literal for the '<em><b>internal cache context Dom</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zinternal cache context Dom</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ALPHA_EXPRESSION__INTERNAL_CACHE_CONTEXT_DOM = eINSTANCE.getAlphaExpression___internal_cache_contextDom();
+		EAttribute ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = eINSTANCE.getAlphaExpression_Z__internal_cache_contextDom();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.RestrictExpressionImpl <em>Restrict Expression</em>}' class.
@@ -5560,12 +5560,12 @@ public interface ModelPackage extends EPackage {
 		EReference UNARY_CALCULATOR_EXPRESSION__EXPR = eINSTANCE.getUnaryCalculatorExpression_Expr();
 
 		/**
-		 * The meta object literal for the '<em><b>internal cache isl Object</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zinternal cache isl Object</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute UNARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT = eINSTANCE.getUnaryCalculatorExpression___internal_cache_islObject();
+		EAttribute UNARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT = eINSTANCE.getUnaryCalculatorExpression_Z__internal_cache_islObject();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.BinaryCalculatorExpressionImpl <em>Binary Calculator Expression</em>}' class.
@@ -5602,12 +5602,12 @@ public interface ModelPackage extends EPackage {
 		EReference BINARY_CALCULATOR_EXPRESSION__RIGHT = eINSTANCE.getBinaryCalculatorExpression_Right();
 
 		/**
-		 * The meta object literal for the '<em><b>internal cache isl Object</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zinternal cache isl Object</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BINARY_CALCULATOR_EXPRESSION__INTERNAL_CACHE_ISL_OBJECT = eINSTANCE.getBinaryCalculatorExpression___internal_cache_islObject();
+		EAttribute BINARY_CALCULATOR_EXPRESSION__ZINTERNAL_CACHE_ISL_OBJECT = eINSTANCE.getBinaryCalculatorExpression_Z__internal_cache_islObject();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.VariableDomainImpl <em>Variable Domain</em>}' class.
@@ -5680,12 +5680,12 @@ public interface ModelPackage extends EPackage {
 		EReference DEFINED_OBJECT__OBJECT = eINSTANCE.getDefinedObject_Object();
 
 		/**
-		 * The meta object literal for the '<em><b>internal Cycle Detector</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zinternal Cycle Detector</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DEFINED_OBJECT__INTERNAL_CYCLE_DETECTOR = eINSTANCE.getDefinedObject___internalCycleDetector();
+		EAttribute DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR = eINSTANCE.getDefinedObject_Z__internalCycleDetector();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.UNARY_OP <em>UNARY OP</em>}' enum.

@@ -44,7 +44,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     try {
       JNIISLContext.recordStderrStart();
       final JNIObject res = this.evaluateUnaryOperation(expr.getOperator(), obj);
-      expr.set__internal_cache_islObject(res);
+      expr.setZ__internal_cache_islObject(res);
     } catch (final Throwable _t) {
       if (_t instanceof UnsupportedOperationException) {
         final UnsupportedOperationException uoe = (UnsupportedOperationException)_t;
@@ -125,7 +125,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     try {
       JNIISLContext.recordStderrStart();
       final JNIObject res = this.evaluateBinaryOperation(expr.getOperator(), left, right);
-      expr.set__internal_cache_islObject(res);
+      expr.setZ__internal_cache_islObject(res);
     } catch (final Throwable _t) {
       if (_t instanceof UnsupportedOperationException) {
         final UnsupportedOperationException uoe = (UnsupportedOperationException)_t;

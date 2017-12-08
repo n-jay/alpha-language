@@ -30,7 +30,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		try {
 			JNIISLContext.recordStderrStart();
 			val res = evaluateUnaryOperation(expr.operator, obj);
-			expr.set__internal_cache_islObject(res)
+			expr.setZ__internal_cache_islObject(res)
 		} catch (UnsupportedOperationException uoe) {
 			expr.setErrorMessage("Unary operation '"+expr.getOperator()+"' is undefined for " + expr.expr.type);
 			obj.free();
@@ -103,7 +103,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		try {
 			JNIISLContext.recordStderrStart();
 			val res = evaluateBinaryOperation(expr.operator, left, right);
-			expr.set__internal_cache_islObject(res)
+			expr.setZ__internal_cache_islObject(res)
 		} catch (UnsupportedOperationException uoe) {
 			expr.setErrorMessage("Binary operation '"+expr.getOperator()+"' is undefined for " + expr.left.type + " -> " + expr.right.type);
 			left.free(); right.free();
