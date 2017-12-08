@@ -15,6 +15,23 @@ import alpha.model.PolyhedralObject
 import alpha.model.RestrictExpression
 import alpha.model.AlphaVisitable
 import alpha.model.AlphaExpressionVisitable
+import alpha.model.UseEquation
+import alpha.model.AlphaExpression
+import alpha.model.VariableExpression
+import alpha.model.ConstantExpression
+import alpha.model.BinaryExpression
+import alpha.model.UnaryExpression
+import alpha.model.MultiArgExpression
+import alpha.model.ExternalMultiArgExpression
+import alpha.model.DependenceExpression
+import alpha.model.ReduceExpression
+import alpha.model.ExternalReduceExpression
+import alpha.model.ArgReduceExpression
+import alpha.model.ExternalArgReduceExpression
+import alpha.model.ConvolutionExpression
+import alpha.model.SelectExpression
+import alpha.model.AutoRestrictExpression
+import alpha.model.IndexExpression
 
 class PrintAST extends AbstractAlphaCompleteVisitor {
 	
@@ -46,9 +63,9 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 		printStr(prefix, v+"");
 	}
 	
-	protected def printStr(String... strs) {
+	protected def printStr(Object... objs) {
 		_output.append(indent)
-		strs.forEach[str|_output.append(str)]
+		objs.forEach[o|_output.append(o)]
 		_output.append("\n") 
 	}
 	
@@ -128,14 +145,14 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	override visitVariable(Variable v) {
 		defaultIn(v);
 		printStr("+-- ", v.getName());
-		printStr("+-- ", v.domain.toString);
+		printStr("+-- ", v.domain);
 		defaultOut(v);
 	}
 	
 	override visitFuzzyVariable(FuzzyVariable v) {
 		defaultIn(v);
 		printStr("+-- ", v.getName());
-		printStr("+-- ", v.relation.toString);
+		printStr("+-- ", v.relation);
 		defaultOut(v);
 	}
 	
@@ -143,16 +160,116 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 		defaultIn(pobj);
 		printStr("+-- ", pobj.getName());
 		printStr("+-- ", pobj.type.name());
-		printStr("+-- ", pobj.ISLObject.toString);
-		defaultOut(pobj)
+		printStr("+-- ", pobj.ISLObject);
+		defaultOut(pobj);
 	}
 	
-	override visitStandardEquation(StandardEquation s) {
-		defaultIn(s);
-		printStr("+-- ", s.getVariable().getName());
-		super.visitStandardEquation(s)
-		defaultOut(s);
+	override inStandardEquation(StandardEquation se) {
+		defaultIn(se)
+		printStr("+-- ", se.getVariable().getName())
 	}
+	
+	override inUseEquation(UseEquation ue) {
+		defaultIn(ue)
+		printStr("+-- ", ue.system.name)
+		if (ue.instantiationDomain !== null)
+			printStr("+-- ", ue.instantiationDomain.ISLObject)
+	}
+	
+	override inAlphaExpression(AlphaExpression ae) {
+		defaultIn(ae)
+		//TODO print context/expression domains
+	}
+	
+	override outAlphaExpression(AlphaExpression ae) {
+		defaultOut(ae)
+	}
+	
+	override inRestrictExpression(RestrictExpression re) {
+		inAlphaExpression(re)
+		printStr("+-- ", re.domainExpr.ISLObject);
+	}
+	
+	override inAutoRestrictExpression(AutoRestrictExpression are) {
+		inAlphaExpression(are)
+		if (are.inferredDomain !== null)
+			printStr("+-- ", are.inferredDomain.ISLObject);
+	}
+	
+	override inDependenceExpression(DependenceExpression de) {
+		inAlphaExpression(de)
+		printStr("+-- ", de.function.ISLObject);
+	}
+	
+	override inVariableExpression(VariableExpression ve) {
+		inAlphaExpression(ve)
+		printStr("+-- ", ve.variable.name);
+	}
+	
+	override inIndexExpression(IndexExpression ie) {
+		inAlphaExpression(ie)
+		printStr("+-- ", ie.function.ISLObject);
+	}
+	
+	override inConstantExpression(ConstantExpression ce) {
+		inAlphaExpression(ce)
+		printStr("+-- ", ce);
+	}
+	
+	override inUnaryExpression(UnaryExpression ue) {
+		inAlphaExpression(ue)
+		printStr("+-- ", ue.operator);
+	}
+	
+	override inBinaryExpression(BinaryExpression be) {
+		inAlphaExpression(be)
+		printStr("+-- ", be.operator);
+	}
+	
+	override inReduceExpression(ReduceExpression re) {
+		inAlphaExpression(re)
+		printStr("+-- ", re.operator);
+		printStr("+-- ", re.projection.ISLObject);
+	}
+	
+	override inExternalReduceExpression(ExternalReduceExpression ere) {
+		inAlphaExpression(ere)
+		printStr("+-- ", ere.externalFunction.name);
+		printStr("+-- ", ere.projection.ISLObject);
+	}
+	
+	override inArgReduceExpression(ArgReduceExpression are) {
+		inAlphaExpression(are)
+		printStr("+-- ", are.operator);
+		printStr("+-- ", are.projection.ISLObject);
+	}
+	
+	override inExternalArgReduceExpression(ExternalArgReduceExpression eare) {
+		inAlphaExpression(eare)
+		printStr("+-- ", eare.operator);
+		printStr("+-- ", eare.projection.ISLObject);
+	}
+	
+	override inConvolutionExpression(ConvolutionExpression ce) {
+		inAlphaExpression(ce)
+		printStr("+-- ", ce.kernelDomain.ISLObject);
+	}
+	
+	override inMultiArgExpression(MultiArgExpression mae) {
+		inAlphaExpression(mae)
+		printStr("+-- ", mae.operator);
+	}
+	
+	override inExternalMultiArgExpression(ExternalMultiArgExpression emae) {
+		inAlphaExpression(emae)
+		printStr("+-- ", emae.externalFunction.name);
+	}
+	
+	override inSelectExpression(SelectExpression se) {
+		inAlphaExpression(se)
+		printStr("+-- ", se.selectRelation.ISLObject);
+	}
+	 
 	
 //	override visitRestrictExpression(RestrictExpression re) {
 //		defaultIn(re);

@@ -1,15 +1,35 @@
 package alpha.model.util;
 
 import alpha.model.AlphaConstant;
+import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
+import alpha.model.ArgReduceExpression;
+import alpha.model.AutoRestrictExpression;
+import alpha.model.BinaryExpression;
+import alpha.model.CalculatorExpression;
+import alpha.model.ConstantExpression;
+import alpha.model.ConvolutionExpression;
+import alpha.model.DependenceExpression;
+import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
+import alpha.model.ExternalMultiArgExpression;
+import alpha.model.ExternalReduceExpression;
 import alpha.model.FuzzyVariable;
+import alpha.model.IndexExpression;
+import alpha.model.JNIDomain;
+import alpha.model.MultiArgExpression;
 import alpha.model.PolyhedralObject;
+import alpha.model.ReduceExpression;
+import alpha.model.RestrictExpression;
+import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
+import alpha.model.UnaryExpression;
+import alpha.model.UseEquation;
 import alpha.model.Variable;
+import alpha.model.VariableExpression;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,14 +74,14 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
     return this.printStr(prefix, _plus);
   }
   
-  protected StringBuffer printStr(final String... strs) {
+  protected StringBuffer printStr(final Object... objs) {
     StringBuffer _xblockexpression = null;
     {
       this._output.append(this.indent);
-      final Consumer<String> _function = (String str) -> {
-        this._output.append(str);
+      final Consumer<Object> _function = (Object o) -> {
+        this._output.append(o);
       };
-      ((List<String>)Conversions.doWrapArray(strs)).forEach(_function);
+      ((List<Object>)Conversions.doWrapArray(objs)).forEach(_function);
       _xblockexpression = this._output.append("\n");
     }
     return _xblockexpression;
@@ -157,7 +177,7 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void visitVariable(final Variable v) {
     this.defaultIn(v);
     this.printStr("+-- ", v.getName());
-    this.printStr("+-- ", v.getDomain().toString());
+    this.printStr("+-- ", v.getDomain());
     this.defaultOut(v);
   }
   
@@ -165,7 +185,7 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void visitFuzzyVariable(final FuzzyVariable v) {
     this.defaultIn(v);
     this.printStr("+-- ", v.getName());
-    this.printStr("+-- ", v.getRelation().toString());
+    this.printStr("+-- ", v.getRelation());
     this.defaultOut(v);
   }
   
@@ -174,15 +194,138 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
     this.defaultIn(pobj);
     this.printStr("+-- ", pobj.getName());
     this.printStr("+-- ", pobj.getType().name());
-    this.printStr("+-- ", pobj.getISLObject().toString());
+    this.printStr("+-- ", pobj.getISLObject());
     this.defaultOut(pobj);
   }
   
   @Override
-  public void visitStandardEquation(final StandardEquation s) {
-    this.defaultIn(s);
-    this.printStr("+-- ", s.getVariable().getName());
-    super.visitStandardEquation(s);
-    this.defaultOut(s);
+  public void inStandardEquation(final StandardEquation se) {
+    this.defaultIn(se);
+    this.printStr("+-- ", se.getVariable().getName());
+  }
+  
+  @Override
+  public void inUseEquation(final UseEquation ue) {
+    this.defaultIn(ue);
+    this.printStr("+-- ", ue.getSystem().getName());
+    CalculatorExpression _instantiationDomain = ue.getInstantiationDomain();
+    boolean _tripleNotEquals = (_instantiationDomain != null);
+    if (_tripleNotEquals) {
+      this.printStr("+-- ", ue.getInstantiationDomain().getISLObject());
+    }
+  }
+  
+  @Override
+  public void inAlphaExpression(final AlphaExpression ae) {
+    this.defaultIn(ae);
+  }
+  
+  @Override
+  public void outAlphaExpression(final AlphaExpression ae) {
+    this.defaultOut(ae);
+  }
+  
+  @Override
+  public void inRestrictExpression(final RestrictExpression re) {
+    this.inAlphaExpression(re);
+    this.printStr("+-- ", re.getDomainExpr().getISLObject());
+  }
+  
+  @Override
+  public void inAutoRestrictExpression(final AutoRestrictExpression are) {
+    this.inAlphaExpression(are);
+    JNIDomain _inferredDomain = are.getInferredDomain();
+    boolean _tripleNotEquals = (_inferredDomain != null);
+    if (_tripleNotEquals) {
+      this.printStr("+-- ", are.getInferredDomain().getISLObject());
+    }
+  }
+  
+  @Override
+  public void inDependenceExpression(final DependenceExpression de) {
+    this.inAlphaExpression(de);
+    this.printStr("+-- ", de.getFunction().getISLObject());
+  }
+  
+  @Override
+  public void inVariableExpression(final VariableExpression ve) {
+    this.inAlphaExpression(ve);
+    this.printStr("+-- ", ve.getVariable().getName());
+  }
+  
+  @Override
+  public void inIndexExpression(final IndexExpression ie) {
+    this.inAlphaExpression(ie);
+    this.printStr("+-- ", ie.getFunction().getISLObject());
+  }
+  
+  @Override
+  public void inConstantExpression(final ConstantExpression ce) {
+    this.inAlphaExpression(ce);
+    this.printStr("+-- ", ce);
+  }
+  
+  @Override
+  public void inUnaryExpression(final UnaryExpression ue) {
+    this.inAlphaExpression(ue);
+    this.printStr("+-- ", ue.getOperator());
+  }
+  
+  @Override
+  public void inBinaryExpression(final BinaryExpression be) {
+    this.inAlphaExpression(be);
+    this.printStr("+-- ", be.getOperator());
+  }
+  
+  @Override
+  public void inReduceExpression(final ReduceExpression re) {
+    this.inAlphaExpression(re);
+    this.printStr("+-- ", re.getOperator());
+    this.printStr("+-- ", re.getProjection().getISLObject());
+  }
+  
+  @Override
+  public void inExternalReduceExpression(final ExternalReduceExpression ere) {
+    this.inAlphaExpression(ere);
+    this.printStr("+-- ", ere.getExternalFunction().getName());
+    this.printStr("+-- ", ere.getProjection().getISLObject());
+  }
+  
+  @Override
+  public void inArgReduceExpression(final ArgReduceExpression are) {
+    this.inAlphaExpression(are);
+    this.printStr("+-- ", are.getOperator());
+    this.printStr("+-- ", are.getProjection().getISLObject());
+  }
+  
+  @Override
+  public void inExternalArgReduceExpression(final ExternalArgReduceExpression eare) {
+    this.inAlphaExpression(eare);
+    this.printStr("+-- ", eare.getOperator());
+    this.printStr("+-- ", eare.getProjection().getISLObject());
+  }
+  
+  @Override
+  public void inConvolutionExpression(final ConvolutionExpression ce) {
+    this.inAlphaExpression(ce);
+    this.printStr("+-- ", ce.getKernelDomain().getISLObject());
+  }
+  
+  @Override
+  public void inMultiArgExpression(final MultiArgExpression mae) {
+    this.inAlphaExpression(mae);
+    this.printStr("+-- ", mae.getOperator());
+  }
+  
+  @Override
+  public void inExternalMultiArgExpression(final ExternalMultiArgExpression emae) {
+    this.inAlphaExpression(emae);
+    this.printStr("+-- ", emae.getExternalFunction().getName());
+  }
+  
+  @Override
+  public void inSelectExpression(final SelectExpression se) {
+    this.inAlphaExpression(se);
+    this.printStr("+-- ", se.getSelectRelation().getISLObject());
   }
 }
