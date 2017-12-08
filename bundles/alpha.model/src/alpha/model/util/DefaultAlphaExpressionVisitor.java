@@ -52,7 +52,7 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	@Override
 	default void visitAutoRestrictExpression(AutoRestrictExpression are) {
 		inAutoRestrictExpression(are);
-		accept(are);
+		accept(are.getExpr());
 		outAutoRestrictExpression(are);
 	}
 
