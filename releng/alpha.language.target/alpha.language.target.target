@@ -36,11 +36,11 @@
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/framework/release/v1.1.0/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.testframework.model.feature.feature.group" version="1.0.1.201710171624"/>
-<unit id="fr.irisa.cairn.gecos.testframework.model.feature.source.feature.group" version="1.0.1.201710171624"/>
-<unit id="fr.irisa.cairn.gecos.testframework.resources.feature.feature.group" version="1.0.1.201710171624"/>
-<unit id="fr.irisa.cairn.gecos.testframework.resources.feature.source.feature.group" version="1.0.1.201710171624"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/testframework/release/v1.0.1/"/>
+<unit id="fr.irisa.cairn.gecos.testframework.model.feature.feature.group" version="1.0.1.201712071300"/>
+<unit id="fr.irisa.cairn.gecos.testframework.model.feature.source.feature.group" version="1.0.1.201712071300"/>
+<unit id="fr.irisa.cairn.gecos.testframework.resources.feature.feature.group" version="1.0.1.201712071300"/>
+<unit id="fr.irisa.cairn.gecos.testframework.resources.feature.source.feature.group" version="1.0.1.201712071300"/>
+<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/testframework/snapshot/20171207130053/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" version="1.0.0.201712041303"/>
