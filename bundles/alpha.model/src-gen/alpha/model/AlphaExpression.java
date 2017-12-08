@@ -106,10 +106,10 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model dataType="alpha.model.JNIISLSet" unique="false"
+	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; ___internal_cache_contextDom = this.get__internal_cache_contextDom();\nboolean _tripleNotEquals = (___internal_cache_contextDom != null);\nif (_tripleNotEquals)\n{\n\treturn this.get__internal_cache_contextDom().copy();\n}\nreturn null;'"
 	 * @generated
 	 */
-	JNIISLSet geContextDomain();
+	JNIISLSet getContextDomain();
 
 } // AlphaExpression

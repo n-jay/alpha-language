@@ -168,7 +168,7 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet geContextDomain() {
+	public JNIISLSet getContextDomain() {
 		JNIISLSet ___internal_cache_contextDom = this.get__internal_cache_contextDom();
 		boolean _tripleNotEquals = (___internal_cache_contextDom != null);
 		if (_tripleNotEquals) {

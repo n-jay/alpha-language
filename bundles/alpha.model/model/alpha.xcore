@@ -399,7 +399,7 @@ abstract class AlphaExpression extends AlphaExpressionVisitable {
 	op void setContextDomain(JNIISLSet dom) {
 		this.set__internal_cache_contextDom(dom)
 	}
-	op JNIISLSet geContextDomain() {
+	op JNIISLSet getContextDomain() {
 		if (__internal_cache_contextDom !== null)
 			return __internal_cache_contextDom.copy
 		return null
