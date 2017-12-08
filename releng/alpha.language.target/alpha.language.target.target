@@ -43,9 +43,9 @@
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/testframework/release/v1.0.1/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" version="1.0.0.201711061719"/>
-<unit id="fr.irisa.cairn.gecos.tools.isl.feature.source.feature.group" version="1.0.0.201711061719"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/release/v1.0.0/"/>
+<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" version="1.0.0.201712041303"/>
+<unit id="fr.irisa.cairn.gecos.tools.isl.feature.source.feature.group" version="1.0.0.201712041303"/>
+<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/snapshot/20171204130348/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.jnimapper.feature.feature.group" version="1.0.0.201710301607"/>
