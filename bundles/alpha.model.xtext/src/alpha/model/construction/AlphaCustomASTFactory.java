@@ -6,7 +6,10 @@ import org.eclipse.xtext.parser.DefaultEcoreElementFactory;
 
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
+import alpha.model.JNIDomain;
 import alpha.model.REDUCTION_OP;
+import alpha.model.Variable;
+import alpha.model.impl.ModelFactoryImpl;
 import alpha.model.util.ModelSwitch;
 
 /**
@@ -47,6 +50,16 @@ public class AlphaCustomASTFactory extends DefaultEcoreElementFactory {
 
 	
 	protected class PostProcessor extends ModelSwitch<EObject> {
+	
+		@Override
+		public EObject caseVariable(Variable object) {
+			if (object.getDomainExpr() == null) {
+				JNIDomain scalarDom = ModelFactoryImpl.eINSTANCE.createJNIDomain();
+				scalarDom.setIslString("{ [] : }");
+				object.setDomainExpr(scalarDom);
+			}
+			return super.caseVariable(object);
+		}
 		
 		@Override
 		public EObject caseExternalMultiArgExpression(ExternalMultiArgExpression object) {
