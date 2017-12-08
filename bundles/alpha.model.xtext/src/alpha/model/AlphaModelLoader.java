@@ -34,6 +34,7 @@ public class AlphaModelLoader {
 
 	 		EObject root = res.getContents().get(0);
 	 		AlphaRoot toplevel= (AlphaRoot) root;
+	 		JNIDomainCalculator.INSTANCE.calculate(toplevel);
 
 	 		return toplevel;
 		}
@@ -51,6 +52,7 @@ public class AlphaModelLoader {
 	        		final Resource res = set.getResource(URI.createFileURI(file.getPath()), true);
 	    	 		EObject root = res.getContents().get(0);
 	    	 		AlphaRoot toplevel= (AlphaRoot) root;
+	    	 		JNIDomainCalculator.INSTANCE.calculate(toplevel);
 	    	 		roots.add(toplevel);
 	        }
 
