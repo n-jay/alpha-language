@@ -1,0 +1,14 @@
+<site>
+  <description name="Alpha Update Site" url="">
+     Alpha update site
+  </description>
+
+  <feature id="alpha.language.feature" version="1.0.0.qualifier">
+     <category name="alpha"/>
+  </feature>
+
+  <category-def name="alpha" label="Alpha">
+    <description> Alpha language </description>
+  </category-def>
+
+</site>

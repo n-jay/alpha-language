@@ -1,0 +1,35 @@
+variables:
+  # shell environment variable to specify timezone
+  TZ: "UTC-2"
+
+  # Maven options
+  # use '/cache/.m2/repository" as local maven repository.
+  # '/cache' is automatically added as volume for docker executors
+  # to use another cachedir it need to be added to the docker
+  # executor's 'volumes' parameter (in config.toml)
+  MAVEN_OPTS: "-Dmaven.repo.local=/cache/.m2/repository -Xmx3072m"
+
+  # Uncomment to enable debug traces
+  # !!! WARNING !!! 
+  #     This will expose secret variables !
+  #CI_DEBUG_TRACE: "true"
+
+  # Update site artifacts storage dir (local) 
+  UPSITE_ARTIFACTS_DIR: "artifacts__updatesite"
+
+
+# default docker image. can be overriden per job.
+image: maven:3-jdk-8
+
+
+build:
+  stage: build
+  script:
+    - mvn -B -e -fae -Dmaven.test.failure.ignore clean integration-test
+    # find update site and copy it to ./artifacts
+#    - upsite_zip="`find releng/*.update/target -maxdepth 1 -name '*.update-*.zip' | head -1`"
+#    - mkdir "${UPSITE_ARTIFACTS_DIR}" && cp "${upsite_zip}" "${UPSITE_ARTIFACTS_DIR}"
+  artifacts:
+    paths:
+      - "${UPSITE_ARTIFACTS_DIR}"
+
