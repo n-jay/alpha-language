@@ -106,7 +106,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getIslSet();'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getIslSet().copy();'"
 	 * @generated
 	 */
 	JNIObject getISLObject();

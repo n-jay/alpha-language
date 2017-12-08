@@ -117,7 +117,7 @@ public interface UnaryCalculatorExpression extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.get__internal_cache_islObject();'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.util.AlphaUtil%&gt;.copy(this.get__internal_cache_islObject());'"
 	 * @generated
 	 */
 	JNIObject getISLObject();

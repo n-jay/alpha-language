@@ -87,7 +87,7 @@ public interface PolyhedralObject extends CalculatorNode, AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getExpr().getISLObject();'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.util.AlphaUtil%&gt;.copy(this.getExpr().getISLObject());'"
 	 * @generated
 	 */
 	JNIObject getISLObject();

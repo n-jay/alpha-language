@@ -8,6 +8,8 @@ import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.PolyhedralObject;
 
+import alpha.model.util.AlphaUtil;
+
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -162,7 +164,7 @@ public class PolyhedralObjectImpl extends MinimalEObjectImpl.Container implement
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return this.getExpr().getISLObject();
+		return AlphaUtil.copy(this.getExpr().getISLObject());
 	}
 
 	/**

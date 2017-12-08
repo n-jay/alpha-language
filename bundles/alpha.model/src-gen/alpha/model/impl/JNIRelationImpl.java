@@ -149,7 +149,7 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return this.getIslMap();
+		return this.getIslMap().copy();
 	}
 
 	/**

@@ -9,6 +9,8 @@ import alpha.model.CalculatorExpressionVisitor;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 
+import alpha.model.util.AlphaUtil;
+
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
@@ -269,7 +271,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return this.get__internal_cache_islObject();
+		return AlphaUtil.copy(this.get__internal_cache_islObject());
 	}
 
 	/**

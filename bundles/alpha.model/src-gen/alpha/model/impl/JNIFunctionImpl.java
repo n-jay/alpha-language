@@ -148,7 +148,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return this.getIslMAff();
+		return this.getIslMAff().copy();
 	}
 
 	/**

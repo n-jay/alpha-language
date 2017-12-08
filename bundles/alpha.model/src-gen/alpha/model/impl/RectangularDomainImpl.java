@@ -158,7 +158,7 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return this.getIslSet();
+		return this.getIslSet().copy();
 	}
 
 	/**

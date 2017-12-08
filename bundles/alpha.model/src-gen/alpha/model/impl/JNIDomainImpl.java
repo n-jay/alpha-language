@@ -149,7 +149,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return this.getIslSet();
+		return this.getIslSet().copy();
 	}
 
 	/**
