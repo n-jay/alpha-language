@@ -44,6 +44,10 @@ class AlphaUtil {
 		ar.elements.filter(AlphaConstant)
 	}
 	
+	//Void is for null in Xtend dispatch
+	public static def dispatch copy(Void n) {
+		null
+	}
 	public static def dispatch copy(JNIISLMap map) {
 		map.copy
 	}

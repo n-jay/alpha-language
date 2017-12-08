@@ -7,6 +7,8 @@ import alpha.model.JNIFunction;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 
+import alpha.model.util.AlphaUtil;
+
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
@@ -148,7 +150,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return this.getIslMAff().copy();
+		return AlphaUtil.copy(this.getIslMAff());
 	}
 
 	/**

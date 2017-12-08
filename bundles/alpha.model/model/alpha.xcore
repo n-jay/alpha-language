@@ -652,7 +652,7 @@ class JNIDomain extends CalculatorExpression {
 	JNIISLSet islSet
 	
 	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::SET }
-	op JNIObject getISLObject() { islSet.copy }
+	op JNIObject getISLObject() { AlphaUtil.copy(islSet) }
 	
 	op String toString() {
 		if (islSet !== null) {
@@ -672,7 +672,7 @@ class JNIRelation extends CalculatorExpression {
 	JNIISLMap islMap
 	
 	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::MAP }
-	op JNIObject getISLObject() { islMap.copy }
+	op JNIObject getISLObject() { AlphaUtil.copy(islMap) }
 	
 	op String toString() {
 		if (islMap !== null) {
@@ -692,7 +692,7 @@ class JNIFunction extends CalculatorExpression {
 	JNIISLMultiAff islMAff
 	
 	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::FUNCTION }
-	op JNIObject getISLObject() { islMAff.copy }
+	op JNIObject getISLObject() { AlphaUtil.copy(islMAff) }
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitJNIFunction(this);
@@ -773,7 +773,7 @@ class RectangularDomain extends CalculatorExpression {
 	JNIISLSet islSet
 	
 	op POLY_OBJECT_TYPE getType() { return POLY_OBJECT_TYPE::SET }
-	op JNIObject getISLObject() { islSet.copy }
+	op JNIObject getISLObject() { AlphaUtil.copy(islSet) }
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitRectangularDomain(this);

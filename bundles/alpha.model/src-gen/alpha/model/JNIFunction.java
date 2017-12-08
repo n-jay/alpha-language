@@ -89,7 +89,7 @@ public interface JNIFunction extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getIslMAff().copy();'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.util.AlphaUtil%&gt;.copy(this.getIslMAff());'"
 	 * @generated
 	 */
 	JNIObject getISLObject();

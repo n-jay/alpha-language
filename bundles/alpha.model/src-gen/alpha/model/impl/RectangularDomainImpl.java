@@ -7,6 +7,8 @@ import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.RectangularDomain;
 
+import alpha.model.util.AlphaUtil;
+
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
@@ -158,7 +160,7 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return this.getIslSet().copy();
+		return AlphaUtil.copy(this.getIslSet());
 	}
 
 	/**

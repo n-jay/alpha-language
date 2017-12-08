@@ -48,6 +48,10 @@ public class AlphaUtil {
     return Iterables.<AlphaConstant>filter(ar.getElements(), AlphaConstant.class);
   }
   
+  public static JNIObject _copy(final Void n) {
+    return null;
+  }
+  
   public static JNIObject _copy(final JNIISLMap map) {
     return map.copy();
   }
@@ -78,6 +82,8 @@ public class AlphaUtil {
       return _copy((JNIISLMultiAff)map);
     } else if (map instanceof JNIISLSet) {
       return _copy((JNIISLSet)map);
+    } else if (map == null) {
+      return _copy((Void)null);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(map).toString());

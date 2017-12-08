@@ -7,6 +7,8 @@ import alpha.model.JNIDomain;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 
+import alpha.model.util.AlphaUtil;
+
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
@@ -149,7 +151,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return this.getIslSet().copy();
+		return AlphaUtil.copy(this.getIslSet());
 	}
 
 	/**
