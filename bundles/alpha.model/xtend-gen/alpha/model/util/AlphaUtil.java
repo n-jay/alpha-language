@@ -6,6 +6,10 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
 import com.google.common.collect.Iterables;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.Arrays;
 import org.eclipse.emf.ecore.EObject;
 
@@ -44,6 +48,18 @@ public class AlphaUtil {
     return Iterables.<AlphaConstant>filter(ar.getElements(), AlphaConstant.class);
   }
   
+  public static JNIObject _copy(final JNIISLMap map) {
+    return map.copy();
+  }
+  
+  public static JNIObject _copy(final JNIISLSet set) {
+    return set.copy();
+  }
+  
+  public static JNIObject _copy(final JNIISLMultiAff maff) {
+    return maff.copy();
+  }
+  
   private static Iterable<AlphaConstant> gatherAlphaConstants(final AlphaVisitable ap) {
     if (ap instanceof AlphaPackage) {
       return _gatherAlphaConstants((AlphaPackage)ap);
@@ -52,6 +68,19 @@ public class AlphaUtil {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(ap).toString());
+    }
+  }
+  
+  public static JNIObject copy(final JNIObject map) {
+    if (map instanceof JNIISLMap) {
+      return _copy((JNIISLMap)map);
+    } else if (map instanceof JNIISLMultiAff) {
+      return _copy((JNIISLMultiAff)map);
+    } else if (map instanceof JNIISLSet) {
+      return _copy((JNIISLSet)map);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(map).toString());
     }
   }
 }

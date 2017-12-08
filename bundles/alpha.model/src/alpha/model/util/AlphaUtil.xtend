@@ -1,11 +1,14 @@
 package alpha.model.util
 
-import org.eclipse.emf.ecore.EObject
-import alpha.model.AlphaSystem
-import alpha.model.AlphaPackage
 import alpha.model.AlphaConstant
+import alpha.model.AlphaPackage
 import alpha.model.AlphaRoot
+import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
+import org.eclipse.emf.ecore.EObject
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 
 class AlphaUtil {
 
@@ -41,4 +44,13 @@ class AlphaUtil {
 		ar.elements.filter(AlphaConstant)
 	}
 	
+	public static def dispatch copy(JNIISLMap map) {
+		map.copy
+	}
+	public static def dispatch copy(JNIISLSet set) {
+		set.copy
+	}
+	public static def dispatch copy(JNIISLMultiAff maff) {
+		maff.copy
+	}
 }
