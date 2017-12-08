@@ -218,6 +218,8 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   @Override
   public void inAlphaExpression(final AlphaExpression ae) {
     this.defaultIn(ae);
+    this.printStr("+-- ", "expDomain: ", ae.getExpressionDomain());
+    this.printStr("+-- ", "ctxDomain: ", ae.getContextDomain());
   }
   
   @Override

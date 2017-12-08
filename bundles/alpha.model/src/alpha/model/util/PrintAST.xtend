@@ -178,7 +178,8 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	
 	override inAlphaExpression(AlphaExpression ae) {
 		defaultIn(ae)
-		//TODO print context/expression domains
+		printStr("+-- ", "expDomain: ", ae.expressionDomain)
+		printStr("+-- ", "ctxDomain: ",  ae.contextDomain)
 	}
 	
 	override outAlphaExpression(AlphaExpression ae) {
