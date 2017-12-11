@@ -19,6 +19,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  * <ul>
  *   <li>{@link alpha.model.AlphaExpression#getZ__internal_cache_exprDom <em>Zinternal cache expr Dom</em>}</li>
  *   <li>{@link alpha.model.AlphaExpression#getZ__internal_cache_contextDom <em>Zinternal cache context Dom</em>}</li>
+ *   <li>{@link alpha.model.AlphaExpression#getErrorMessage <em>Error Message</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getAlphaExpression()
@@ -75,6 +76,32 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * @generated
 	 */
 	void setZ__internal_cache_contextDom(JNIISLSet value);
+
+	/**
+	 * Returns the value of the '<em><b>Error Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Error Message</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Error Message</em>' attribute.
+	 * @see #setErrorMessage(String)
+	 * @see alpha.model.ModelPackage#getAlphaExpression_ErrorMessage()
+	 * @model unique="false"
+	 * @generated
+	 */
+	String getErrorMessage();
+
+	/**
+	 * Sets the value of the '{@link alpha.model.AlphaExpression#getErrorMessage <em>Error Message</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Error Message</em>' attribute.
+	 * @see #getErrorMessage()
+	 * @generated
+	 */
+	void setErrorMessage(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -386,6 +386,7 @@ abstract class AlphaExpression extends AlphaExpressionVisitable {
 	JNIISLSet z__internal_cache_exprDom
 	/*Internal object for always copying context domain at getter */
 	JNIISLSet z__internal_cache_contextDom
+	String errorMessage
 	
 	op void setExpressionDomain(JNIISLSet dom) {
 		this.setZ__internal_cache_exprDom(dom)
