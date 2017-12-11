@@ -8,6 +8,8 @@ import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.Variable;
 
+import alpha.model.issue.CyclicDefinitionException;
+
 import com.google.common.base.Objects;
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
@@ -22,6 +24,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.xtext.xbase.lib.Exceptions;
 
 /**
  * <!-- begin-user-doc -->
@@ -162,8 +166,19 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 		if (_notEquals) {
 			return null;
 		}
-		JNIObject _iSLObject = this.getDomainExpr().getISLObject();
-		return ((JNIISLSet) _iSLObject);
+		try {
+			JNIObject _iSLObject = this.getDomainExpr().getISLObject();
+			return ((JNIISLSet) _iSLObject);
+		}
+		catch (final Throwable _t) {
+			if (_t instanceof CyclicDefinitionException) {
+				final CyclicDefinitionException cde = (CyclicDefinitionException)_t;
+				return null;
+			}
+			else {
+				throw Exceptions.sneakyThrow(_t);
+			}
+		}
 	}
 
 	/**

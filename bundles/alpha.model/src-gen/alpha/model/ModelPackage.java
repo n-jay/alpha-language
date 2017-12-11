@@ -2302,22 +2302,13 @@ public interface ModelPackage extends EPackage {
 	int CALCULATOR_EXPRESSION = 46;
 
 	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CALCULATOR_EXPRESSION__ERROR_MESSAGE = CALCULATOR_NODE_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Calculator Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALCULATOR_EXPRESSION_FEATURE_COUNT = CALCULATOR_NODE_FEATURE_COUNT + 1;
+	int CALCULATOR_EXPRESSION_FEATURE_COUNT = CALCULATOR_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.JNIDomainImpl <em>JNI Domain</em>}' class.
@@ -2328,15 +2319,6 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int JNI_DOMAIN = 47;
-
-	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JNI_DOMAIN__ERROR_MESSAGE = CALCULATOR_EXPRESSION__ERROR_MESSAGE;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -2376,15 +2358,6 @@ public interface ModelPackage extends EPackage {
 	int JNI_RELATION = 48;
 
 	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JNI_RELATION__ERROR_MESSAGE = CALCULATOR_EXPRESSION__ERROR_MESSAGE;
-
-	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2422,15 +2395,6 @@ public interface ModelPackage extends EPackage {
 	int JNI_FUNCTION = 49;
 
 	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JNI_FUNCTION__ERROR_MESSAGE = CALCULATOR_EXPRESSION__ERROR_MESSAGE;
-
-	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2466,15 +2430,6 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int JNI_FUNCTION_IN_ARRAY_NOTATION = 50;
-
-	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JNI_FUNCTION_IN_ARRAY_NOTATION__ERROR_MESSAGE = JNI_FUNCTION__ERROR_MESSAGE;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -2523,15 +2478,6 @@ public interface ModelPackage extends EPackage {
 	int UNARY_CALCULATOR_EXPRESSION = 51;
 
 	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_CALCULATOR_EXPRESSION__ERROR_MESSAGE = CALCULATOR_EXPRESSION__ERROR_MESSAGE;
-
-	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2576,15 +2522,6 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int BINARY_CALCULATOR_EXPRESSION = 52;
-
-	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_CALCULATOR_EXPRESSION__ERROR_MESSAGE = CALCULATOR_EXPRESSION__ERROR_MESSAGE;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2642,15 +2579,6 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE_DOMAIN = 53;
 
 	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_DOMAIN__ERROR_MESSAGE = CALCULATOR_EXPRESSION__ERROR_MESSAGE;
-
-	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2677,15 +2605,6 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int RECTANGULAR_DOMAIN = 54;
-
-	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECTANGULAR_DOMAIN__ERROR_MESSAGE = CALCULATOR_EXPRESSION__ERROR_MESSAGE;
 
 	/**
 	 * The feature id for the '<em><b>Upper Bounds</b></em>' attribute list.
@@ -2732,15 +2651,6 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int DEFINED_OBJECT = 55;
-
-	/**
-	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DEFINED_OBJECT__ERROR_MESSAGE = CALCULATOR_EXPRESSION__ERROR_MESSAGE;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' reference.
@@ -4141,17 +4051,6 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getCalculatorExpression();
-
-	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.CalculatorExpression#getErrorMessage <em>Error Message</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Error Message</em>'.
-	 * @see alpha.model.CalculatorExpression#getErrorMessage()
-	 * @see #getCalculatorExpression()
-	 * @generated
-	 */
-	EAttribute getCalculatorExpression_ErrorMessage();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.JNIDomain <em>JNI Domain</em>}'.
@@ -5645,14 +5544,6 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CALCULATOR_EXPRESSION = eINSTANCE.getCalculatorExpression();
-
-		/**
-		 * The meta object literal for the '<em><b>Error Message</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CALCULATOR_EXPRESSION__ERROR_MESSAGE = eINSTANCE.getCalculatorExpression_ErrorMessage();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.JNIDomainImpl <em>JNI Domain</em>}' class.

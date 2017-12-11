@@ -4,6 +4,7 @@
 	literalsInterface="true")
 package alpha.model
 
+import alpha.model.issue.CyclicDefinitionException
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
@@ -308,7 +309,11 @@ class Variable extends AlphaVisitable {
 			return null
 		}
 		
-		return domainExpr.ISLObject as JNIISLSet
+		try {
+			return domainExpr.ISLObject as JNIISLSet
+		} catch (CyclicDefinitionException cde) {
+			return null
+		}
 	}
 	
 	 op void accept(AlphaVisitor visitor) {
@@ -661,7 +666,7 @@ class PolyhedralObject extends CalculatorNode, AlphaVisitable {
 }
 
 abstract class CalculatorExpression extends CalculatorNode, CalculatorExpressionVisitable {
-	String errorMessage
+//	String errorMessage
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitCalculatorExpression(this);
@@ -811,8 +816,7 @@ class DefinedObject extends CalculatorExpression {
 		
 		if (object !== null) {
 			if (z__internalCycleDetector) {
-				errorMessage = "Cycle detected in the definition of: " + object.name
-				return null
+				throw new CyclicDefinitionException("Cycle detected in the definition of: " + object.name);
 			}
 			z__internalCycleDetector = true;
 			val res = object.ISLObject

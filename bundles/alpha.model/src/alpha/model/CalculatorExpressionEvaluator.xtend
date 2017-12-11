@@ -10,10 +10,23 @@ import fr.irisa.cairn.jnimap.runtime.JNIObject
 import java.util.ArrayList
 import org.eclipse.emf.ecore.impl.EObjectImpl
 import alpha.model.util.DefaultCalculatorExpressionVisitor
+import alpha.model.issue.CalculatorExpressionIssue
+import java.util.LinkedList
+import java.util.List
+import alpha.model.issue.AlphaIssue.TYPE
+import java.lang.RuntimeException
 
-class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor{
+class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {
 	
-	public static final CalculatorExpressionEvaluator INSTANCE = new CalculatorExpressionEvaluator();
+	private List<CalculatorExpressionIssue> issues = new LinkedList;
+	
+	public static def List<CalculatorExpressionIssue> calculate(CalculatorExpression expr) {
+		val calc = new CalculatorExpressionEvaluator;
+		
+		expr.accept(calc);
+		
+		return calc.issues
+	}
 	
 	
 	override visitUnaryCalculatorExpression(UnaryCalculatorExpression expr) {
@@ -32,11 +45,21 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			val res = evaluateUnaryOperation(expr.operator, obj);
 			expr.setZ__internal_cache_islObject(res)
 		} catch (UnsupportedOperationException uoe) {
-			expr.setErrorMessage("Unary operation '"+expr.getOperator()+"' is undefined for " + expr.expr.type);
+			issues.add(new CalculatorExpressionIssue(
+				TYPE.ERROR,
+				"Unary operation '"+expr.getOperator()+"' is undefined for " + expr.expr.type,
+				expr, 
+				ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__OPERATOR
+			));
 			obj.free();
 		} catch (RuntimeException re) {
 			val err = JNIISLContext.recordStderrEnd();
-			expr.setErrorMessage("Operation " + expr.getOperator() + "failed: " + err);
+			issues.add(new CalculatorExpressionIssue(
+				TYPE.ERROR,
+				"Operation " + expr.getOperator() + "failed: " + err,
+				expr, 
+				ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__OPERATOR
+			));
 		} finally {
 			JNIISLContext.recordStderrEnd();
 		}
@@ -105,11 +128,21 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			val res = evaluateBinaryOperation(expr.operator, left, right);
 			expr.setZ__internal_cache_islObject(res)
 		} catch (UnsupportedOperationException uoe) {
-			expr.setErrorMessage("Binary operation '"+expr.getOperator()+"' is undefined for " + expr.left.type + " -> " + expr.right.type);
+			issues.add(new CalculatorExpressionIssue(
+				TYPE.ERROR,
+				"Binary operation '"+expr.getOperator()+"' is undefined for " + expr.left.type + " -> " + expr.right.type,
+				expr, 
+				ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__OPERATOR
+			));
 			left.free(); right.free();
 		} catch (RuntimeException re) {
 			val err = JNIISLContext.recordStderrEnd();
-			expr.setErrorMessage("Operation " + expr.getOperator() + "failed: " + err);
+			issues.add(new CalculatorExpressionIssue(
+				TYPE.ERROR,
+				"Operation " + expr.getOperator() + "failed: " + err,
+				expr, 
+				ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__OPERATOR
+			));
 		} finally {
 			JNIISLContext.recordStderrEnd();
 		}
@@ -228,7 +261,12 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			jniset = jniset.intersectParams(pdom.copy());
 			jniDomain.setIslSet(jniset);
 		} catch (RuntimeException re) {
-			jniDomain.setErrorMessage(re.getMessage());
+			issues.add(new CalculatorExpressionIssue(
+				TYPE.ERROR,
+				re.message,
+				jniDomain, 
+				ModelPackage.Literals.JNI_DOMAIN__ISL_STRING
+			));
 		}
 	}
 	
@@ -245,7 +283,12 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			jnimap = jnimap.intersectParams(pdom.copy());
 			jniRelation.setIslMap(jnimap);
 		} catch (RuntimeException re) {
-			jniRelation.setErrorMessage(re.getMessage());
+			issues.add(new CalculatorExpressionIssue(
+				TYPE.ERROR,
+				re.message,
+				jniRelation, 
+				ModelPackage.Literals.JNI_RELATION__ISL_STRING
+			));
 		}
 	}
 	
@@ -272,7 +315,12 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			jniFunction.setIslMAff(jnimaff);
 			
 		} catch (RuntimeException re) {
-			jniFunction.setErrorMessage(re.getMessage());
+			issues.add(new CalculatorExpressionIssue(
+				TYPE.ERROR,
+				re.message,
+				jniFunction, 
+				ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING
+			));
 		}
 	}
 	
@@ -291,6 +339,16 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		} else {
 			for (d : 0 ..< dim) {
 				dimNames.add("i"+d);
+			}
+			if (rdom.upperBounds !== null && rdom.getIndexNames().size() > 0) {
+				issues.add(
+					new CalculatorExpressionIssue(
+						TYPE.WARNING,
+						"Length of the index names do not match the domain. Specified names are unused.",
+						rdom,
+						ModelPackage.Literals.RECTANGULAR_DOMAIN__INDEX_NAMES
+					)
+				);
 			}
 		}
 
@@ -313,7 +371,12 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			
 			rdom.setIslSet(jniset);
 		} catch (RuntimeException re) {
-			rdom.setErrorMessage(re.getMessage());
+			issues.add(new CalculatorExpressionIssue(
+				TYPE.ERROR,
+				re.message,
+				rdom, 
+				ModelPackage.Literals.RECTANGULAR_DOMAIN__UPPER_BOUNDS
+			));
 		}
 	}
 	

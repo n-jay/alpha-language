@@ -4,22 +4,17 @@
 package alpha.model.validation;
 
 import alpha.model.AlphaSystem;
-import alpha.model.BinaryCalculatorExpression;
-import alpha.model.DefinedObject;
-import alpha.model.JNIDomain;
 import alpha.model.JNIDomainCalculator;
-import alpha.model.JNIFunction;
-import alpha.model.JNIRelation;
-import alpha.model.ModelPackage;
-import alpha.model.POLY_OBJECT_TYPE;
-import alpha.model.RectangularDomain;
-import alpha.model.UnaryCalculatorExpression;
-import alpha.model.Variable;
-import alpha.model.VariableDomain;
+import alpha.model.issue.AlphaIssue;
+import alpha.model.issue.CalculatorExpressionIssue;
 import alpha.model.validation.AbstractAlphaValidator;
 import com.google.common.base.Objects;
+import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.xtext.validation.Check;
-import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.validation.ValidationMessageAcceptor;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
  * This class contains custom validation rules.
@@ -30,77 +25,22 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 public class AlphaValidator extends AbstractAlphaValidator {
   @Check
   public void checkSystem(final AlphaSystem system) {
-    system.accept(JNIDomainCalculator.INSTANCE);
-  }
-  
-  @Check
-  public Object checkVariable(final Variable v) {
-    Object _xifexpression = null;
-    POLY_OBJECT_TYPE _type = v.getDomainExpr().getType();
-    boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
-    if (_notEquals) {
-      _xifexpression = null;
-    }
-    return _xifexpression;
-  }
-  
-  @Check
-  public void checkJNIDomain(final JNIDomain dom) {
-    if (((dom.getErrorMessage() != null) && (dom.getErrorMessage().length() > 0))) {
-      this.error(dom.getErrorMessage(), ModelPackage.Literals.JNI_DOMAIN__ISL_STRING);
-    }
-  }
-  
-  @Check
-  public void checkJNIRelation(final JNIRelation rel) {
-    if (((rel.getErrorMessage() != null) && (rel.getErrorMessage().length() > 0))) {
-      this.error(rel.getErrorMessage(), ModelPackage.Literals.JNI_RELATION__ISL_STRING);
-    }
-  }
-  
-  @Check
-  public void checkJNIFunction(final JNIFunction fun) {
-    if (((fun.getErrorMessage() != null) && (fun.getErrorMessage().length() > 0))) {
-      this.error(fun.getErrorMessage(), ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING);
-    }
-  }
-  
-  @Check
-  public void checkDefinedObject(final DefinedObject expr) {
-    if (((expr.getErrorMessage() != null) && (expr.getErrorMessage().length() > 0))) {
-      this.error(expr.getErrorMessage(), ModelPackage.Literals.DEFINED_OBJECT__OBJECT);
-    }
-  }
-  
-  @Check
-  public void checkUnaryCalculatorExpression(final UnaryCalculatorExpression expr) {
-    if (((expr.getErrorMessage() != null) && (expr.getErrorMessage().length() > 0))) {
-      this.error(expr.getErrorMessage(), ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__OPERATOR);
-    }
-  }
-  
-  @Check
-  public void checkBinaryCalculatorExpression(final BinaryCalculatorExpression expr) {
-    if (((expr.getErrorMessage() != null) && (expr.getErrorMessage().length() > 0))) {
-      this.error(expr.getErrorMessage(), ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__OPERATOR);
-    }
-  }
-  
-  @Check
-  public void checkVariableDomain(final VariableDomain vdom) {
-    if (((vdom.getErrorMessage() != null) && (vdom.getErrorMessage().length() > 0))) {
-      this.error(vdom.getErrorMessage(), ModelPackage.Literals.VARIABLE_DOMAIN__VARIABLE);
-    }
-  }
-  
-  @Check
-  public void checkRectangularDomain(final RectangularDomain rdom) {
-    if (((rdom.getErrorMessage() != null) && (rdom.getErrorMessage().length() > 0))) {
-      this.error(rdom.getErrorMessage(), ModelPackage.Literals.RECTANGULAR_DOMAIN__UPPER_BOUNDS);
-    }
-    if (((((rdom.getUpperBounds() != null) && (rdom.getIndexNames() != null)) && 
-      (((Object[])Conversions.unwrapArray(rdom.getIndexNames(), Object.class)).length > 0)) && (((Object[])Conversions.unwrapArray(rdom.getUpperBounds(), Object.class)).length != ((Object[])Conversions.unwrapArray(rdom.getIndexNames(), Object.class)).length))) {
-      this.warning("Length of the index names do not match the domain. Specified names are unused.", ModelPackage.Literals.RECTANGULAR_DOMAIN__INDEX_NAMES);
-    }
+    final List<CalculatorExpressionIssue> issues = JNIDomainCalculator.calculate(system);
+    final Function1<CalculatorExpressionIssue, Boolean> _function = (CalculatorExpressionIssue i) -> {
+      AlphaIssue.TYPE _type = i.getType();
+      return Boolean.valueOf(Objects.equal(_type, AlphaIssue.TYPE.ERROR));
+    };
+    final Consumer<CalculatorExpressionIssue> _function_1 = (CalculatorExpressionIssue i) -> {
+      this.error(i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
+    };
+    IterableExtensions.<CalculatorExpressionIssue>filter(issues, _function).forEach(_function_1);
+    final Function1<CalculatorExpressionIssue, Boolean> _function_2 = (CalculatorExpressionIssue i) -> {
+      AlphaIssue.TYPE _type = i.getType();
+      return Boolean.valueOf(Objects.equal(_type, AlphaIssue.TYPE.WARNING));
+    };
+    final Consumer<CalculatorExpressionIssue> _function_3 = (CalculatorExpressionIssue i) -> {
+      this.warning(i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
+    };
+    IterableExtensions.<CalculatorExpressionIssue>filter(issues, _function_2).forEach(_function_3);
   }
 }

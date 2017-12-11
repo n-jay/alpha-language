@@ -1694,15 +1694,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCalculatorExpression_ErrorMessage() {
-		return (EAttribute)calculatorExpressionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getJNIDomain() {
 		return jniDomainEClass;
 	}
@@ -2251,7 +2242,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(polyhedralObjectEClass, POLYHEDRAL_OBJECT__EXPR);
 
 		calculatorExpressionEClass = createEClass(CALCULATOR_EXPRESSION);
-		createEAttribute(calculatorExpressionEClass, CALCULATOR_EXPRESSION__ERROR_MESSAGE);
 
 		jniDomainEClass = createEClass(JNI_DOMAIN);
 		createEAttribute(jniDomainEClass, JNI_DOMAIN__ISL_STRING);
@@ -3078,7 +3068,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(calculatorExpressionEClass, CalculatorExpression.class, "CalculatorExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCalculatorExpression_ErrorMessage(), theEcorePackage.getEString(), "errorMessage", null, 0, 1, CalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(calculatorExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);

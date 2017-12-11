@@ -8,6 +8,8 @@ import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.PolyhedralObject;
 
+import alpha.model.issue.CyclicDefinitionException;
+
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -162,8 +164,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 			if (_isZ__internalCycleDetector) {
 				String _name = this.getObject().getName();
 				String _plus = ("Cycle detected in the definition of: " + _name);
-				this.setErrorMessage(_plus);
-				return null;
+				throw new CyclicDefinitionException(_plus);
 			}
 			this.setZ__internalCycleDetector(true);
 			final JNIObject res = this.getObject().getISLObject();

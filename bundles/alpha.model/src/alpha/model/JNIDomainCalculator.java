@@ -1,5 +1,10 @@
 package alpha.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import alpha.model.issue.CalculatorExpressionIssue;
+import alpha.model.issue.AlphaIssue.TYPE;
 import alpha.model.util.AbstractAlphaVisitor;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
@@ -7,14 +12,15 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 public class JNIDomainCalculator extends AbstractAlphaVisitor {
 
-	public static final JNIDomainCalculator INSTANCE = new JNIDomainCalculator();
+//	public static final JNIDomainCalculator INSTANCE = 
+	private List<CalculatorExpressionIssue> issues = new LinkedList<>();
 	
-	
-	public void calculate(AlphaNode node) {
+	public static List<CalculatorExpressionIssue> calculate(AlphaNode node) {
+		JNIDomainCalculator calc = new JNIDomainCalculator();
 		if (node instanceof AlphaVisitable) {
-			((AlphaVisitable) node).accept(INSTANCE);
-		} 
-		
+			((AlphaVisitable) node).accept(calc);
+		}
+		return calc.issues;
 	}
 	
 	@Override
@@ -27,11 +33,11 @@ public class JNIDomainCalculator extends AbstractAlphaVisitor {
 			JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.replaceAlphaConstants(system, jniDomain.getIslString()));
 			jniDomain.setIslSet(jniset);
 		} catch (RuntimeException re) {
-			jniDomain.setErrorMessage(re.getMessage());
+			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), jniDomain, ModelPackage.Literals.ALPHA_SYSTEM__PARAMETER_DOMAIN));
 		}
 		
 		if (system.getWhileDomain() != null) {
-			system.getWhileDomain().accept(CalculatorExpressionEvaluator.INSTANCE);	
+			issues.addAll(CalculatorExpressionEvaluator.calculate(system.getWhileDomain()));
 		}
 
 		super.visitAlphaSystem(system);
@@ -46,13 +52,13 @@ public class JNIDomainCalculator extends AbstractAlphaVisitor {
 		AlphaSystem system = AlphaUtil.getContainerSystem(variable);
 		if (system == null) return;
 		
-		expr.accept(CalculatorExpressionEvaluator.INSTANCE);
+		issues.addAll(CalculatorExpressionEvaluator.calculate(expr));
 	}
 	
 	@Override
 	public void visitPolyhedralObject(PolyhedralObject pobj) {
 		if (pobj.getExpr() != null)
-			pobj.getExpr().accept(CalculatorExpressionEvaluator.INSTANCE);
+			issues.addAll(CalculatorExpressionEvaluator.calculate(pobj.getExpr()));
 	}
 
 }

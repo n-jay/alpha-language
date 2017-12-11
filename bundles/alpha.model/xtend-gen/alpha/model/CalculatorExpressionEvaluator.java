@@ -9,11 +9,14 @@ import alpha.model.DefinedObject;
 import alpha.model.JNIDomain;
 import alpha.model.JNIFunction;
 import alpha.model.JNIRelation;
+import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.RectangularDomain;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.Variable;
 import alpha.model.VariableDomain;
+import alpha.model.issue.AlphaIssue;
+import alpha.model.issue.CalculatorExpressionIssue;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.DefaultCalculatorExpressionVisitor;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
@@ -24,13 +27,21 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 
 @SuppressWarnings("all")
 public class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {
-  public final static CalculatorExpressionEvaluator INSTANCE = new CalculatorExpressionEvaluator();
+  private List<CalculatorExpressionIssue> issues = new LinkedList<CalculatorExpressionIssue>();
+  
+  public static List<CalculatorExpressionIssue> calculate(final CalculatorExpression expr) {
+    final CalculatorExpressionEvaluator calc = new CalculatorExpressionEvaluator();
+    expr.accept(calc);
+    return calc.issues;
+  }
   
   @Override
   public void visitUnaryCalculatorExpression(final UnaryCalculatorExpression expr) {
@@ -53,7 +64,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         String _plus_1 = (_plus + "\' is undefined for ");
         POLY_OBJECT_TYPE _type = expr.getExpr().getType();
         String _plus_2 = (_plus_1 + _type);
-        expr.setErrorMessage(_plus_2);
+        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
+          AlphaIssue.TYPE.ERROR, _plus_2, expr, 
+          ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__OPERATOR);
+        this.issues.add(_calculatorExpressionIssue);
         obj.free();
       } else if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
@@ -62,7 +76,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         String _plus_3 = ("Operation " + _operator_1);
         String _plus_4 = (_plus_3 + "failed: ");
         String _plus_5 = (_plus_4 + err);
-        expr.setErrorMessage(_plus_5);
+        CalculatorExpressionIssue _calculatorExpressionIssue_1 = new CalculatorExpressionIssue(
+          AlphaIssue.TYPE.ERROR, _plus_5, expr, 
+          ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__OPERATOR);
+        this.issues.add(_calculatorExpressionIssue_1);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -137,7 +154,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         String _plus_3 = (_plus_2 + " -> ");
         POLY_OBJECT_TYPE _type_1 = expr.getRight().getType();
         String _plus_4 = (_plus_3 + _type_1);
-        expr.setErrorMessage(_plus_4);
+        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
+          AlphaIssue.TYPE.ERROR, _plus_4, expr, 
+          ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__OPERATOR);
+        this.issues.add(_calculatorExpressionIssue);
         left.free();
         right.free();
       } else if (_t instanceof RuntimeException) {
@@ -147,7 +167,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         String _plus_5 = ("Operation " + _operator_1);
         String _plus_6 = (_plus_5 + "failed: ");
         String _plus_7 = (_plus_6 + err);
-        expr.setErrorMessage(_plus_7);
+        CalculatorExpressionIssue _calculatorExpressionIssue_1 = new CalculatorExpressionIssue(
+          AlphaIssue.TYPE.ERROR, _plus_7, expr, 
+          ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__OPERATOR);
+        this.issues.add(_calculatorExpressionIssue_1);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -266,7 +289,11 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
-        jniDomain.setErrorMessage(re.getMessage());
+        String _message = re.getMessage();
+        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
+          AlphaIssue.TYPE.ERROR, _message, jniDomain, 
+          ModelPackage.Literals.JNI_DOMAIN__ISL_STRING);
+        this.issues.add(_calculatorExpressionIssue);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -287,7 +314,11 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
-        jniRelation.setErrorMessage(re.getMessage());
+        String _message = re.getMessage();
+        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
+          AlphaIssue.TYPE.ERROR, _message, jniRelation, 
+          ModelPackage.Literals.JNI_RELATION__ISL_STRING);
+        this.issues.add(_calculatorExpressionIssue);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -316,7 +347,11 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
-        jniFunction.setErrorMessage(re.getMessage());
+        String _message = re.getMessage();
+        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
+          AlphaIssue.TYPE.ERROR, _message, jniFunction, 
+          ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING);
+        this.issues.add(_calculatorExpressionIssue);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -342,6 +377,13 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, dim, true);
       for (final Integer d : _doubleDotLessThan) {
         dimNames.add(("i" + d));
+      }
+      if (((rdom.getUpperBounds() != null) && (rdom.getIndexNames().size() > 0))) {
+        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
+          AlphaIssue.TYPE.WARNING, 
+          "Length of the index names do not match the domain. Specified names are unused.", rdom, 
+          ModelPackage.Literals.RECTANGULAR_DOMAIN__INDEX_NAMES);
+        this.issues.add(_calculatorExpressionIssue);
       }
     }
     try {
@@ -372,7 +414,11 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
-        rdom.setErrorMessage(re.getMessage());
+        String _message = re.getMessage();
+        CalculatorExpressionIssue _calculatorExpressionIssue_1 = new CalculatorExpressionIssue(
+          AlphaIssue.TYPE.ERROR, _message, rdom, 
+          ModelPackage.Literals.RECTANGULAR_DOMAIN__UPPER_BOUNDS);
+        this.issues.add(_calculatorExpressionIssue_1);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }

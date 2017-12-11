@@ -257,10 +257,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_AlphaConstant(ISerializationContext context, AlphaConstant semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getAlphaConstant_Name()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getAlphaConstant_Name()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getAlphaConstant_Value()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getAlphaConstant_Value()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_CONSTANT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_CONSTANT__NAME));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_CONSTANT__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getAlphaConstantAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
@@ -367,8 +367,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_AutoRestrictExpression(ISerializationContext context, AutoRestrictExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getAutoRestrictExpression_Expr()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getAutoRestrictExpression_Expr()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.AUTO_RESTRICT_EXPRESSION__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.AUTO_RESTRICT_EXPRESSION__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getAutoRestrictExpressionAccess().getExprAlphaExpressionParserRuleCall_2_0(), semanticObject.getExpr());
@@ -401,8 +401,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_BooleanExpression(ISerializationContext context, BooleanExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getBooleanExpression_Value()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getBooleanExpression_Value()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.BOOLEAN_EXPRESSION__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.BOOLEAN_EXPRESSION__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getBooleanExpressionAccess().getValueBOOLEANTerminalRuleCall_0(), semanticObject.isValue());
@@ -422,12 +422,12 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_CalculatorExpression(ISerializationContext context, BinaryCalculatorExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getBinaryCalculatorExpression_Left()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getBinaryCalculatorExpression_Left()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getBinaryCalculatorExpression_Operator()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getBinaryCalculatorExpression_Operator()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getBinaryCalculatorExpression_Right()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getBinaryCalculatorExpression_Right()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__LEFT));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__RIGHT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getCalculatorExpressionAccess().getBinaryCalculatorExpressionLeftAction_1_0(), semanticObject.getLeft());
@@ -488,12 +488,12 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_ConvolutionExpression(ISerializationContext context, ConvolutionExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getConvolutionExpression_KernelDomain()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getConvolutionExpression_KernelDomain()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getConvolutionExpression_KernelExpression()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getConvolutionExpression_KernelExpression()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getConvolutionExpression_DataExpression()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getConvolutionExpression_DataExpression()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__DATA_EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__DATA_EXPRESSION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getConvolutionExpressionAccess().getKernelDomainCalculatorExpressionParserRuleCall_2_0(), semanticObject.getKernelDomain());
@@ -516,11 +516,11 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_DefinedObject(ISerializationContext context, DefinedObject semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getDefinedObject_Object()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getDefinedObject_Object()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.DEFINED_OBJECT__OBJECT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.DEFINED_OBJECT__OBJECT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getDefinedObjectAccess().getObjectPolyhedralObjectIDTerminalRuleCall_0_1(), semanticObject.eGet(ModelPackage.eINSTANCE.getDefinedObject_Object(), false));
+		feeder.accept(grammarAccess.getDefinedObjectAccess().getObjectPolyhedralObjectIDTerminalRuleCall_0_1(), semanticObject.eGet(ModelPackage.Literals.DEFINED_OBJECT__OBJECT, false));
 		feeder.finish();
 	}
 	
@@ -588,10 +588,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_ExternalFunction(ISerializationContext context, ExternalFunction semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getExternalFunction_Name()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getExternalFunction_Name()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getExternalFunction_Cardinality()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getExternalFunction_Cardinality()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.EXTERNAL_FUNCTION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.EXTERNAL_FUNCTION__NAME));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.EXTERNAL_FUNCTION__CARDINALITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.EXTERNAL_FUNCTION__CARDINALITY));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getExternalFunctionAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
@@ -690,12 +690,12 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_IfExpression(ISerializationContext context, IfExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getIfExpression_CondExpr()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getIfExpression_CondExpr()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getIfExpression_ThenExpr()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getIfExpression_ThenExpr()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getIfExpression_ElseExpr()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getIfExpression_ElseExpr()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.IF_EXPRESSION__COND_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.IF_EXPRESSION__COND_EXPR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.IF_EXPRESSION__THEN_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.IF_EXPRESSION__THEN_EXPR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.IF_EXPRESSION__ELSE_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.IF_EXPRESSION__ELSE_EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getIfExpressionAccess().getCondExprAlphaExpressionParserRuleCall_1_0(), semanticObject.getCondExpr());
@@ -714,8 +714,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_Imports(ISerializationContext context, Imports semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getImports_ImportedNamespace()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getImports_ImportedNamespace()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.IMPORTS__IMPORTED_NAMESPACE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.IMPORTS__IMPORTED_NAMESPACE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getImportsAccess().getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0(), semanticObject.getImportedNamespace());
@@ -787,8 +787,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_IntegerExpression(ISerializationContext context, IntegerExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getIntegerExpression_Value()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getIntegerExpression_Value()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.INTEGER_EXPRESSION__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.INTEGER_EXPRESSION__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getIntegerExpressionAccess().getValueINTTerminalRuleCall_0(), semanticObject.getValue());
@@ -809,8 +809,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_JNIDomain(ISerializationContext context, JNIDomain semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getJNIDomain_IslString()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getJNIDomain_IslString()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_DOMAIN__ISL_STRING) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_DOMAIN__ISL_STRING));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getJNIDomainAccess().getIslStringAISLSetParserRuleCall_0(), semanticObject.getIslString());
@@ -827,8 +827,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_JNIFunctionInArrayNotation(ISerializationContext context, JNIFunctionInArrayNotation semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getJNIFunctionInArrayNotation_ArrayNotation()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getJNIFunctionInArrayNotation_ArrayNotation()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAAlphaFunctionInArrayNotationParserRuleCall_0(), semanticObject.getArrayNotation());
@@ -849,8 +849,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_JNIFunction(ISerializationContext context, JNIFunction semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getJNIFunction_AlphaString()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getJNIFunction_AlphaString()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getJNIFunctionAccess().getAlphaStringAAlphaFunctionParserRuleCall_0(), semanticObject.getAlphaString());
@@ -867,8 +867,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_JNIParamDomain(ISerializationContext context, JNIDomain semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getJNIDomain_IslString()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getJNIDomain_IslString()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_DOMAIN__ISL_STRING) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_DOMAIN__ISL_STRING));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getJNIParamDomainAccess().getIslStringAParamDomainParserRuleCall_0(), semanticObject.getIslString());
@@ -889,8 +889,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_JNIRelation(ISerializationContext context, JNIRelation semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getJNIRelation_IslString()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getJNIRelation_IslString()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_RELATION__ISL_STRING) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_RELATION__ISL_STRING));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getJNIRelationAccess().getIslStringAISLRelationParserRuleCall_0(), semanticObject.getIslString());
@@ -958,10 +958,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_PolyhedralObject(ISerializationContext context, PolyhedralObject semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getPolyhedralObject_Name()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getPolyhedralObject_Name()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getPolyhedralObject_Expr()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getPolyhedralObject_Expr()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.POLYHEDRAL_OBJECT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.POLYHEDRAL_OBJECT__NAME));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.POLYHEDRAL_OBJECT__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.POLYHEDRAL_OBJECT__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getPolyhedralObjectAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
@@ -995,8 +995,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_RealExpression(ISerializationContext context, RealExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getRealExpression_Value()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getRealExpression_Value()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.REAL_EXPRESSION__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.REAL_EXPRESSION__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRealExpressionAccess().getValueFLOATTerminalRuleCall_0(), semanticObject.getValue());
@@ -1098,10 +1098,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_SelectExpression(ISerializationContext context, SelectExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getSelectExpression_SelectRelation()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getSelectExpression_SelectRelation()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getSelectExpression_Expr()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getSelectExpression_Expr()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__SELECT_RELATION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__SELECT_RELATION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getSelectExpressionAccess().getSelectRelationCalculatorExpressionParserRuleCall_1_0(), semanticObject.getSelectRelation());
@@ -1135,10 +1135,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_UnaryCalculatorExpression(ISerializationContext context, UnaryCalculatorExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getUnaryCalculatorExpression_Operator()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getUnaryCalculatorExpression_Operator()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getUnaryCalculatorExpression_Expr()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getUnaryCalculatorExpression_Expr()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getUnaryCalculatorExpressionAccess().getOperatorAUnaryCalcOpParserRuleCall_0_0(), semanticObject.getOperator());
@@ -1171,10 +1171,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_UnaryExpression(ISerializationContext context, UnaryExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getUnaryExpression_Operator()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getUnaryExpression_Operator()));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getUnaryExpression_Expr()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getUnaryExpression_Expr()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.UNARY_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.UNARY_EXPRESSION__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.UNARY_EXPRESSION__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.UNARY_EXPRESSION__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getUnaryExpressionAccess().getOperatorAUnaryOPParserRuleCall_0_0(), semanticObject.getOperator());
@@ -1214,11 +1214,11 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_VariableDomain(ISerializationContext context, VariableDomain semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getVariableDomain_Variable()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getVariableDomain_Variable()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.VARIABLE_DOMAIN__VARIABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.VARIABLE_DOMAIN__VARIABLE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getVariableDomainAccess().getVariableVariableIDTerminalRuleCall_1_0_1(), semanticObject.eGet(ModelPackage.eINSTANCE.getVariableDomain_Variable(), false));
+		feeder.accept(grammarAccess.getVariableDomainAccess().getVariableVariableIDTerminalRuleCall_1_0_1(), semanticObject.eGet(ModelPackage.Literals.VARIABLE_DOMAIN__VARIABLE, false));
 		feeder.finish();
 	}
 	
@@ -1247,11 +1247,11 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_VariableExpression(ISerializationContext context, VariableExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.eINSTANCE.getVariableExpression_Variable()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.eINSTANCE.getVariableExpression_Variable()));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.VARIABLE_EXPRESSION__VARIABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.VARIABLE_EXPRESSION__VARIABLE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getVariableExpressionAccess().getVariableVariableIDTerminalRuleCall_0_1(), semanticObject.eGet(ModelPackage.eINSTANCE.getVariableExpression_Variable(), false));
+		feeder.accept(grammarAccess.getVariableExpressionAccess().getVariableVariableIDTerminalRuleCall_0_1(), semanticObject.eGet(ModelPackage.Literals.VARIABLE_EXPRESSION__VARIABLE, false));
 		feeder.finish();
 	}
 	
