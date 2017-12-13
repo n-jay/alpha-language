@@ -99,6 +99,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.EXTERNAL_MULTI_ARG_EXPRESSION: return createExternalMultiArgExpression();
 			case ModelPackage.POLYHEDRAL_OBJECT: return createPolyhedralObject();
 			case ModelPackage.JNI_DOMAIN: return createJNIDomain();
+			case ModelPackage.JNI_DOMAIN_IN_ARRAY_NOTATION: return createJNIDomainInArrayNotation();
 			case ModelPackage.JNI_RELATION: return createJNIRelation();
 			case ModelPackage.JNI_FUNCTION: return createJNIFunction();
 			case ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION: return createJNIFunctionInArrayNotation();
@@ -530,6 +531,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public JNIDomain createJNIDomain() {
 		JNIDomainImpl jniDomain = new JNIDomainImpl();
 		return jniDomain;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIDomainInArrayNotation createJNIDomainInArrayNotation() {
+		JNIDomainInArrayNotationImpl jniDomainInArrayNotation = new JNIDomainInArrayNotationImpl();
+		return jniDomainInArrayNotation;
 	}
 
 	/**

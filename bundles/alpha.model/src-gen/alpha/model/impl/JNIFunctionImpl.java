@@ -7,8 +7,6 @@ import alpha.model.JNIFunction;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 
-import alpha.model.util.AlphaUtil;
-
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
@@ -28,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.impl.JNIFunctionImpl#getAlphaString <em>Alpha String</em>}</li>
- *   <li>{@link alpha.model.impl.JNIFunctionImpl#getIslMAff <em>Isl MAff</em>}</li>
+ *   <li>{@link alpha.model.impl.JNIFunctionImpl#getZ__internal_cache_islMAff <em>Zinternal cache isl MAff</em>}</li>
  * </ul>
  *
  * @generated
@@ -55,24 +53,24 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	protected String alphaString = ALPHA_STRING_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getIslMAff() <em>Isl MAff</em>}' attribute.
+	 * The default value of the '{@link #getZ__internal_cache_islMAff() <em>Zinternal cache isl MAff</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIslMAff()
+	 * @see #getZ__internal_cache_islMAff()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLMultiAff ISL_MAFF_EDEFAULT = null;
+	protected static final JNIISLMultiAff ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getIslMAff() <em>Isl MAff</em>}' attribute.
+	 * The cached value of the '{@link #getZ__internal_cache_islMAff() <em>Zinternal cache isl MAff</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIslMAff()
+	 * @see #getZ__internal_cache_islMAff()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLMultiAff islMAff = ISL_MAFF_EDEFAULT;
+	protected JNIISLMultiAff z__internal_cache_islMAff = ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -119,8 +117,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMultiAff getIslMAff() {
-		return islMAff;
+	public JNIISLMultiAff getZ__internal_cache_islMAff() {
+		return z__internal_cache_islMAff;
 	}
 
 	/**
@@ -128,11 +126,38 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIslMAff(JNIISLMultiAff newIslMAff) {
-		JNIISLMultiAff oldIslMAff = islMAff;
-		islMAff = newIslMAff;
+	public void setZ__internal_cache_islMAff(JNIISLMultiAff newZ__internal_cache_islMAff) {
+		JNIISLMultiAff oldZ__internal_cache_islMAff = z__internal_cache_islMAff;
+		z__internal_cache_islMAff = newZ__internal_cache_islMAff;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_FUNCTION__ISL_MAFF, oldIslMAff, islMAff));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF, oldZ__internal_cache_islMAff, z__internal_cache_islMAff));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIISLMultiAff getISLMultiAff() {
+		JNIISLMultiAff _xifexpression = null;
+		JNIISLMultiAff _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();
+		boolean _tripleNotEquals = (_z__internal_cache_islMAff != null);
+		if (_tripleNotEquals) {
+			_xifexpression = this.getZ__internal_cache_islMAff().copy();
+		}
+		else {
+			_xifexpression = null;
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setISLMultiAff(final JNIISLMultiAff islMAff) {
+		this.setZ__internal_cache_islMAff(islMAff);
 	}
 
 	/**
@@ -150,7 +175,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return AlphaUtil.copy(this.getIslMAff());
+		return this.getISLMultiAff();
 	}
 
 	/**
@@ -172,8 +197,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 		switch (featureID) {
 			case ModelPackage.JNI_FUNCTION__ALPHA_STRING:
 				return getAlphaString();
-			case ModelPackage.JNI_FUNCTION__ISL_MAFF:
-				return getIslMAff();
+			case ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF:
+				return getZ__internal_cache_islMAff();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -189,8 +214,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 			case ModelPackage.JNI_FUNCTION__ALPHA_STRING:
 				setAlphaString((String)newValue);
 				return;
-			case ModelPackage.JNI_FUNCTION__ISL_MAFF:
-				setIslMAff((JNIISLMultiAff)newValue);
+			case ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF:
+				setZ__internal_cache_islMAff((JNIISLMultiAff)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -207,8 +232,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 			case ModelPackage.JNI_FUNCTION__ALPHA_STRING:
 				setAlphaString(ALPHA_STRING_EDEFAULT);
 				return;
-			case ModelPackage.JNI_FUNCTION__ISL_MAFF:
-				setIslMAff(ISL_MAFF_EDEFAULT);
+			case ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF:
+				setZ__internal_cache_islMAff(ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -224,8 +249,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 		switch (featureID) {
 			case ModelPackage.JNI_FUNCTION__ALPHA_STRING:
 				return ALPHA_STRING_EDEFAULT == null ? alphaString != null : !ALPHA_STRING_EDEFAULT.equals(alphaString);
-			case ModelPackage.JNI_FUNCTION__ISL_MAFF:
-				return ISL_MAFF_EDEFAULT == null ? islMAff != null : !ISL_MAFF_EDEFAULT.equals(islMAff);
+			case ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF:
+				return ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT == null ? z__internal_cache_islMAff != null : !ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT.equals(z__internal_cache_islMAff);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -242,8 +267,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (alphaString: ");
 		result.append(alphaString);
-		result.append(", islMAff: ");
-		result.append(islMAff);
+		result.append(", z__internal_cache_islMAff: ");
+		result.append(z__internal_cache_islMAff);
 		result.append(')');
 		return result.toString();
 	}

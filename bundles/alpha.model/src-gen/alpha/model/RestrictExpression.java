@@ -2,6 +2,7 @@
  */
 package alpha.model;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -72,6 +73,15 @@ public interface RestrictExpression extends AlphaExpression {
 	 * @generated
 	 */
 	void setExpr(AlphaExpression value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='if ((((this.getDomainExpr() != null) &amp;&amp; &lt;%com.google.common.base.Objects%&gt;.equal(this.getDomainExpr().getType(), &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET)) &amp;&amp; (this.getDomainExpr().getISLObject() != null)))\n{\n\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getDomainExpr().getISLObject();\n\treturn ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;) _iSLObject);\n}\nreturn null;'"
+	 * @generated
+	 */
+	JNIISLSet getRestrictDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

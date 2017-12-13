@@ -3,11 +3,16 @@
  */
 package alpha.model.validation
 
+import alpha.model.AlphaNameUniquenessChecker
+import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.JNIDomainCalculator
 import alpha.model.issue.AlphaIssue
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ValidationMessageAcceptor
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * This class contains custom validation rules. 
@@ -26,15 +31,47 @@ class AlphaValidator extends AbstractAlphaValidator {
 //					INVALID_NAME)
 //		}
 //	}
+//
+//	@Inject
+//	ResourceDescriptionsProvider resourceDescriptionsProvider;
+//	@Inject
+//	IContainer.Manager containerManager;
+
+	//helper to switch between error/warning 
+	private def flagEditor(AlphaIssue.TYPE type, String message, EObject source, EStructuralFeature feature, int index) {
+		if (type == AlphaIssue.TYPE.ERROR) {
+			error(message, source, feature, index)
+		}
+		if (type == AlphaIssue.TYPE.WARNING) {
+			warning(message, source, feature, index)
+		}	
+	}
+	
+	@Check
+	def checkRoot(AlphaRoot root) {
+		val issues = AlphaNameUniquenessChecker.check(root);
+		issues.filter[i|EcoreUtil.isAncestor(root, i.source)]
+				.forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)];
+	}
+	
 
 	@Check
 	def checkSystem(AlphaSystem system) {
 		val issues = JNIDomainCalculator.calculate(system);
 		
-		issues.filter[i|i.type == AlphaIssue.TYPE.ERROR]
-				.forEach[i|error(i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
-		issues.filter[i|i.type == AlphaIssue.TYPE.WARNING]
-				.forEach[i|warning(i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
+		issues.forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
+				
+		//following from: http://www.eclipse.org/forums/index.php/mv/msg/261440/754503/#msg_754503
+//		val names = new HashSet<QualifiedName>();
+//		val resourceDescriptions = resourceDescriptionsProvider.getResourceDescriptions(system.eResource());
+//		val resourceDescription = resourceDescriptions.getResourceDescription(system.eResource().getURI());
+//		for (IContainer c : containerManager.getVisibleContainers(resourceDescription, resourceDescriptions)) {
+//			for (IEObjectDescription od : c.getExportedObjectsByType(ModelPackage.Literals.ALPHA_SYSTEM)) {
+//				if (!names.add(od.getQualifiedName())) {
+//					error("duplicate system", ModelPackage.Literals.ALPHA_SYSTEM__NAME);
+//				}
+//			}
+//		}
 		
 //		error("Test Error", system, ModelPackage.Literals.ALPHA_SYSTEM__NAME, ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
 //		error("Test Error", system.inputs.get(0), ModelPackage.Literals.VARIABLE__NAME, ValidationMessageAcceptor.INSIGNIFICANT_INDEX);

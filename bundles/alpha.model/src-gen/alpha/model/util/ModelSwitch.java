@@ -300,9 +300,19 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION: {
+				AbstractReduceExpression abstractReduceExpression = (AbstractReduceExpression)theEObject;
+				T result = caseAbstractReduceExpression(abstractReduceExpression);
+				if (result == null) result = caseAlphaExpression(abstractReduceExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(abstractReduceExpression);
+				if (result == null) result = caseAlphaNode(abstractReduceExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ModelPackage.REDUCE_EXPRESSION: {
 				ReduceExpression reduceExpression = (ReduceExpression)theEObject;
 				T result = caseReduceExpression(reduceExpression);
+				if (result == null) result = caseAbstractReduceExpression(reduceExpression);
 				if (result == null) result = caseAlphaExpression(reduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(reduceExpression);
 				if (result == null) result = caseAlphaNode(reduceExpression);
@@ -313,6 +323,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				ExternalReduceExpression externalReduceExpression = (ExternalReduceExpression)theEObject;
 				T result = caseExternalReduceExpression(externalReduceExpression);
 				if (result == null) result = caseReduceExpression(externalReduceExpression);
+				if (result == null) result = caseAbstractReduceExpression(externalReduceExpression);
 				if (result == null) result = caseAlphaExpression(externalReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(externalReduceExpression);
 				if (result == null) result = caseAlphaNode(externalReduceExpression);
@@ -322,6 +333,7 @@ public class ModelSwitch<T> extends Switch<T> {
 			case ModelPackage.ARG_REDUCE_EXPRESSION: {
 				ArgReduceExpression argReduceExpression = (ArgReduceExpression)theEObject;
 				T result = caseArgReduceExpression(argReduceExpression);
+				if (result == null) result = caseAbstractReduceExpression(argReduceExpression);
 				if (result == null) result = caseAlphaExpression(argReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(argReduceExpression);
 				if (result == null) result = caseAlphaNode(argReduceExpression);
@@ -332,6 +344,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				ExternalArgReduceExpression externalArgReduceExpression = (ExternalArgReduceExpression)theEObject;
 				T result = caseExternalArgReduceExpression(externalArgReduceExpression);
 				if (result == null) result = caseArgReduceExpression(externalArgReduceExpression);
+				if (result == null) result = caseAbstractReduceExpression(externalArgReduceExpression);
 				if (result == null) result = caseAlphaExpression(externalArgReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(externalArgReduceExpression);
 				if (result == null) result = caseAlphaNode(externalArgReduceExpression);
@@ -472,6 +485,17 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = caseCalculatorNode(jniDomain);
 				if (result == null) result = caseCalculatorExpressionVisitable(jniDomain);
 				if (result == null) result = caseAlphaNode(jniDomain);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.JNI_DOMAIN_IN_ARRAY_NOTATION: {
+				JNIDomainInArrayNotation jniDomainInArrayNotation = (JNIDomainInArrayNotation)theEObject;
+				T result = caseJNIDomainInArrayNotation(jniDomainInArrayNotation);
+				if (result == null) result = caseJNIDomain(jniDomainInArrayNotation);
+				if (result == null) result = caseCalculatorExpression(jniDomainInArrayNotation);
+				if (result == null) result = caseCalculatorNode(jniDomainInArrayNotation);
+				if (result == null) result = caseCalculatorExpressionVisitable(jniDomainInArrayNotation);
+				if (result == null) result = caseAlphaNode(jniDomainInArrayNotation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -996,6 +1020,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Reduce Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractReduceExpression(AbstractReduceExpression object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Reduce Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1277,6 +1316,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseJNIDomain(JNIDomain object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>JNI Domain In Array Notation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>JNI Domain In Array Notation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJNIDomainInArrayNotation(JNIDomainInArrayNotation object) {
 		return null;
 	}
 

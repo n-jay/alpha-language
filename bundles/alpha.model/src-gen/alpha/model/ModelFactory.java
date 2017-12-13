@@ -337,6 +337,15 @@ public interface ModelFactory extends EFactory {
 	JNIDomain createJNIDomain();
 
 	/**
+	 * Returns a new object of class '<em>JNI Domain In Array Notation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>JNI Domain In Array Notation</em>'.
+	 * @generated
+	 */
+	JNIDomainInArrayNotation createJNIDomainInArrayNotation();
+
+	/**
 	 * Returns a new object of class '<em>JNI Relation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

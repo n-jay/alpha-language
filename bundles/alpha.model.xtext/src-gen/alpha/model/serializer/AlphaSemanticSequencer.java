@@ -27,6 +27,7 @@ import alpha.model.IndexExpression;
 import alpha.model.InputVariable;
 import alpha.model.IntegerExpression;
 import alpha.model.JNIDomain;
+import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.JNIRelation;
@@ -156,6 +157,9 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 					return; 
 				}
 				else break;
+			case ModelPackage.JNI_DOMAIN_IN_ARRAY_NOTATION:
+				sequence_JNIDomainInArrayNotation(context, (JNIDomainInArrayNotation) semanticObject); 
+				return; 
 			case ModelPackage.JNI_FUNCTION:
 				sequence_JNIFunction(context, (JNIFunction) semanticObject); 
 				return; 
@@ -798,6 +802,24 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     JNIDomainInArrayNotation returns JNIDomainInArrayNotation
+	 *
+	 * Constraint:
+	 *     islString=AISLString
+	 */
+	protected void sequence_JNIDomainInArrayNotation(ISerializationContext context, JNIDomainInArrayNotation semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_DOMAIN__ISL_STRING) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_DOMAIN__ISL_STRING));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getJNIDomainInArrayNotationAccess().getIslStringAISLStringParserRuleCall_2_0(), semanticObject.getIslString());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     JNIDomain returns JNIDomain
 	 *     CalculatorExpression returns JNIDomain
 	 *     CalculatorExpression.BinaryCalculatorExpression_1_0 returns JNIDomain
@@ -823,16 +845,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     JNIFunctionInArrayNotation returns JNIFunctionInArrayNotation
 	 *
 	 * Constraint:
-	 *     arrayNotation=AAlphaFunctionInArrayNotation
+	 *     (arrayNotation+=AISLExpression arrayNotation+=AISLExpression*)?
 	 */
 	protected void sequence_JNIFunctionInArrayNotation(ISerializationContext context, JNIFunctionInArrayNotation semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAAlphaFunctionInArrayNotationParserRuleCall_0(), semanticObject.getArrayNotation());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1067,7 +1083,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns RestrictExpression
 	 *
 	 * Constraint:
-	 *     ((domainExpr=JNIDomain expr=AlphaExpression) | (domainExpr=CalculatorExpression expr=AlphaExpression))
+	 *     (((domainExpr=JNIDomain | domainExpr=JNIDomainInArrayNotation) expr=AlphaExpression) | (domainExpr=CalculatorExpression expr=AlphaExpression))
 	 */
 	protected void sequence_RestrictExpression(ISerializationContext context, RestrictExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1191,7 +1207,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     (
 	 *         (instantiationDomain=CalculatorExpression (subsystemDims+=IndexName subsystemDims+=IndexName*)?)? 
 	 *         (outputExprs+=AlphaExpression outputExprs+=AlphaExpression*)? 
-	 *         system=[AlphaSystem|ID] 
+	 *         system=[AlphaSystem|QualifiedName] 
 	 *         callParams=JNIFunctionInArrayNotation 
 	 *         (inputExprs+=AlphaExpression inputExprs+=AlphaExpression*)?
 	 *     )

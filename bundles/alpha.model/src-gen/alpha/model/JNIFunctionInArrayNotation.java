@@ -2,6 +2,7 @@
  */
 package alpha.model;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,29 +22,19 @@ package alpha.model;
  */
 public interface JNIFunctionInArrayNotation extends JNIFunction {
 	/**
-	 * Returns the value of the '<em><b>Array Notation</b></em>' attribute.
+	 * Returns the value of the '<em><b>Array Notation</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Array Notation</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Array Notation</em>' attribute list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Array Notation</em>' attribute.
-	 * @see #setArrayNotation(String)
+	 * @return the value of the '<em>Array Notation</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getJNIFunctionInArrayNotation_ArrayNotation()
 	 * @model unique="false"
 	 * @generated
 	 */
-	String getArrayNotation();
-
-	/**
-	 * Sets the value of the '{@link alpha.model.JNIFunctionInArrayNotation#getArrayNotation <em>Array Notation</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Array Notation</em>' attribute.
-	 * @see #getArrayNotation()
-	 * @generated
-	 */
-	void setArrayNotation(String value);
+	EList<String> getArrayNotation();
 
 } // JNIFunctionInArrayNotation

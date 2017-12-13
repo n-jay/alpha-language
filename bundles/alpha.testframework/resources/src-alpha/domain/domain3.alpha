@@ -1,0 +1,34 @@
+affine domain3a [N]->{ : }
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		B[i] = {:i>=0 } : A[i];
+.
+affine domain3b [N]->{ : }
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		B[i] = {[x]:x>=0 } : A[x];
+.
+affine domain3c [N]->{ : }
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		//context changed by restrict, A[i] should fail
+		B[i] = {[x]:x>=0 } : A[i];
+.
+affine domain3d [N]->{ : }
+	inputs
+		A : [N,N]
+	outputs
+		B : [N,N]
+	let
+		//restrict domain mismatch
+		B[i,j] = {[x]:x>=0 } : A[x] + A[i,j];
+.

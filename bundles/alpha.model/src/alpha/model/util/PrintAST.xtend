@@ -194,7 +194,7 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	override inAutoRestrictExpression(AutoRestrictExpression are) {
 		inAlphaExpression(are)
 		if (are.inferredDomain !== null)
-			printStr("+-- ", are.inferredDomain.ISLObject);
+			printStr("+-- ", are.inferredDomain);
 	}
 	
 	override inDependenceExpression(DependenceExpression de) {

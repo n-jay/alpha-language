@@ -3,6 +3,7 @@ package alpha.model;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,7 +23,19 @@ import org.eclipse.xtext.validation.Issue;
 
 import com.google.inject.Injector;
 
+import alpha.model.issue.AlphaIssue;
+
 public class AlphaModelLoader {
+
+		public static List<AlphaRoot> loadModelDir(String dirname) throws IOException {
+			
+			File file = new File(dirname);
+			if (!file.isDirectory())
+				throw new RuntimeException("Expecting path to a directory @ loadModelDir");
+			
+			return loadModel(Arrays.asList(file.listFiles()));
+		}
+		
 		public static AlphaRoot loadModel(String filename) throws IOException {
 			
 	        final Injector injector = new AlphaStandaloneSetup().createInjectorAndDoEMFRegistration();
@@ -34,7 +47,8 @@ public class AlphaModelLoader {
 
 	 		EObject root = res.getContents().get(0);
 	 		AlphaRoot toplevel= (AlphaRoot) root;
-	 		JNIDomainCalculator.calculate(toplevel);
+	 		List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(toplevel); //FIXME to be moved else where for error checking
+	 		System.err.println(issues);
 
 	 		return toplevel;
 		}
@@ -52,7 +66,8 @@ public class AlphaModelLoader {
 	        		final Resource res = set.getResource(URI.createFileURI(file.getPath()), true);
 	    	 		EObject root = res.getContents().get(0);
 	    	 		AlphaRoot toplevel= (AlphaRoot) root;
-	    	 		JNIDomainCalculator.calculate(toplevel);
+	    	 		List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(toplevel); //FIXME to be moved else where for error checking
+	    	 		System.err.println(issues);
 	    	 		roots.add(toplevel);
 	        }
 

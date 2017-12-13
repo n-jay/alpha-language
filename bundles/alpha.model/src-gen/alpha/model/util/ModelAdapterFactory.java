@@ -184,6 +184,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createIndexExpressionAdapter();
 			}
 			@Override
+			public Adapter caseAbstractReduceExpression(AbstractReduceExpression object) {
+				return createAbstractReduceExpressionAdapter();
+			}
+			@Override
 			public Adapter caseReduceExpression(ReduceExpression object) {
 				return createReduceExpressionAdapter();
 			}
@@ -258,6 +262,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseJNIDomain(JNIDomain object) {
 				return createJNIDomainAdapter();
+			}
+			@Override
+			public Adapter caseJNIDomainInArrayNotation(JNIDomainInArrayNotation object) {
+				return createJNIDomainInArrayNotationAdapter();
 			}
 			@Override
 			public Adapter caseJNIRelation(JNIRelation object) {
@@ -718,6 +726,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AbstractReduceExpression <em>Abstract Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AbstractReduceExpression
+	 * @generated
+	 */
+	public Adapter createAbstractReduceExpressionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link alpha.model.ReduceExpression <em>Reduce Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -980,6 +1002,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createJNIDomainAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.JNIDomainInArrayNotation <em>JNI Domain In Array Notation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.JNIDomainInArrayNotation
+	 * @generated
+	 */
+	public Adapter createJNIDomainInArrayNotationAdapter() {
 		return null;
 	}
 

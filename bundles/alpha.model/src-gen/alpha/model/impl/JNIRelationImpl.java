@@ -7,8 +7,6 @@ import alpha.model.JNIRelation;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 
-import alpha.model.util.AlphaUtil;
-
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 
@@ -29,7 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.impl.JNIRelationImpl#getIslString <em>Isl String</em>}</li>
- *   <li>{@link alpha.model.impl.JNIRelationImpl#getIslMap <em>Isl Map</em>}</li>
+ *   <li>{@link alpha.model.impl.JNIRelationImpl#getZ__internal_cache_islMap <em>Zinternal cache isl Map</em>}</li>
  * </ul>
  *
  * @generated
@@ -56,24 +54,24 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	protected String islString = ISL_STRING_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getIslMap() <em>Isl Map</em>}' attribute.
+	 * The default value of the '{@link #getZ__internal_cache_islMap() <em>Zinternal cache isl Map</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIslMap()
+	 * @see #getZ__internal_cache_islMap()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLMap ISL_MAP_EDEFAULT = null;
+	protected static final JNIISLMap ZINTERNAL_CACHE_ISL_MAP_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getIslMap() <em>Isl Map</em>}' attribute.
+	 * The cached value of the '{@link #getZ__internal_cache_islMap() <em>Zinternal cache isl Map</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIslMap()
+	 * @see #getZ__internal_cache_islMap()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLMap islMap = ISL_MAP_EDEFAULT;
+	protected JNIISLMap z__internal_cache_islMap = ZINTERNAL_CACHE_ISL_MAP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -120,8 +118,8 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getIslMap() {
-		return islMap;
+	public JNIISLMap getZ__internal_cache_islMap() {
+		return z__internal_cache_islMap;
 	}
 
 	/**
@@ -129,11 +127,38 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIslMap(JNIISLMap newIslMap) {
-		JNIISLMap oldIslMap = islMap;
-		islMap = newIslMap;
+	public void setZ__internal_cache_islMap(JNIISLMap newZ__internal_cache_islMap) {
+		JNIISLMap oldZ__internal_cache_islMap = z__internal_cache_islMap;
+		z__internal_cache_islMap = newZ__internal_cache_islMap;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_RELATION__ISL_MAP, oldIslMap, islMap));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP, oldZ__internal_cache_islMap, z__internal_cache_islMap));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIISLMap getISLMap() {
+		JNIISLMap _xifexpression = null;
+		JNIISLMap _z__internal_cache_islMap = this.getZ__internal_cache_islMap();
+		boolean _tripleNotEquals = (_z__internal_cache_islMap != null);
+		if (_tripleNotEquals) {
+			_xifexpression = this.getZ__internal_cache_islMap().copy();
+		}
+		else {
+			_xifexpression = null;
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setISLMap(final JNIISLMap islMap) {
+		this.setZ__internal_cache_islMap(islMap);
 	}
 
 	/**
@@ -151,7 +176,7 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return AlphaUtil.copy(this.getIslMap());
+		return this.getISLMap();
 	}
 
 	/**
@@ -160,10 +185,10 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * @generated
 	 */
 	public String toString() {
-		JNIISLMap _islMap = this.getIslMap();
-		boolean _tripleNotEquals = (_islMap != null);
+		JNIISLMap _z__internal_cache_islMap = this.getZ__internal_cache_islMap();
+		boolean _tripleNotEquals = (_z__internal_cache_islMap != null);
 		if (_tripleNotEquals) {
-			return this.getIslMap().toString(ISL_FORMAT.ISL);
+			return this.getZ__internal_cache_islMap().toString(ISL_FORMAT.ISL);
 		}
 		else {
 			return "null ISL object";
@@ -189,8 +214,8 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 		switch (featureID) {
 			case ModelPackage.JNI_RELATION__ISL_STRING:
 				return getIslString();
-			case ModelPackage.JNI_RELATION__ISL_MAP:
-				return getIslMap();
+			case ModelPackage.JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP:
+				return getZ__internal_cache_islMap();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -206,8 +231,8 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 			case ModelPackage.JNI_RELATION__ISL_STRING:
 				setIslString((String)newValue);
 				return;
-			case ModelPackage.JNI_RELATION__ISL_MAP:
-				setIslMap((JNIISLMap)newValue);
+			case ModelPackage.JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP:
+				setZ__internal_cache_islMap((JNIISLMap)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -224,8 +249,8 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 			case ModelPackage.JNI_RELATION__ISL_STRING:
 				setIslString(ISL_STRING_EDEFAULT);
 				return;
-			case ModelPackage.JNI_RELATION__ISL_MAP:
-				setIslMap(ISL_MAP_EDEFAULT);
+			case ModelPackage.JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP:
+				setZ__internal_cache_islMap(ZINTERNAL_CACHE_ISL_MAP_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -241,8 +266,8 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 		switch (featureID) {
 			case ModelPackage.JNI_RELATION__ISL_STRING:
 				return ISL_STRING_EDEFAULT == null ? islString != null : !ISL_STRING_EDEFAULT.equals(islString);
-			case ModelPackage.JNI_RELATION__ISL_MAP:
-				return ISL_MAP_EDEFAULT == null ? islMap != null : !ISL_MAP_EDEFAULT.equals(islMap);
+			case ModelPackage.JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP:
+				return ZINTERNAL_CACHE_ISL_MAP_EDEFAULT == null ? z__internal_cache_islMap != null : !ZINTERNAL_CACHE_ISL_MAP_EDEFAULT.equals(z__internal_cache_islMap);
 		}
 		return super.eIsSet(featureID);
 	}

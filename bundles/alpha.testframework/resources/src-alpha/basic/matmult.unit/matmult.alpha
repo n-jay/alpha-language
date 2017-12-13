@@ -58,9 +58,9 @@ affine Stencil [N] -> {:2<= N}
     over {[t]:0<=t} while (reduce(max, [i,j], abs(Y[i,j,t]-Y[i,j,t-1])<EPSILON))
    let
    Y[i,j] = case {
-      {:t=0} : Init[i,j];
-      { {[x]:0<=x<2}cross D_body } : 0.2*(Y[t-i-1,j] + Y[t-1,i,j-1] + Y[t-1,i,j] + Y[t-1,i,j+1] + Y[t,i+1,j]);
-      auto: select { [t,i,j]->[t',i,j] : t-1<=t'<=t } from Y[t',i,j];
+      {[x,y,z]:x=0} : Init[y,z];
+//      { {[x]:0<=x<2}cross D_body } : 0.2*(Y[t,i-1,j] + Y[t-1,i,j-1] + Y[t-1,i,j] + Y[t-1,i,j+1] + Y[t,i+1,j]);
+      auto: select { [t,i,j]->[tp,i,j] : t-1<=tp<=t } from Y[tp,i,j];
 	};
 .
 		

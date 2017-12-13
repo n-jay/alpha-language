@@ -3,8 +3,6 @@ package alpha.model.issue;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import alpha.model.issue.AlphaIssue.TYPE;
-
 public abstract class AbstractAlphaIssue implements AlphaIssue {
 	
 	private TYPE type;
@@ -37,6 +35,11 @@ public abstract class AbstractAlphaIssue implements AlphaIssue {
 	@Override
 	public EStructuralFeature getFeature() {
 		return feature;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s: %s @ %s", type.name(), message, source.eClass());
 	}
 
 }

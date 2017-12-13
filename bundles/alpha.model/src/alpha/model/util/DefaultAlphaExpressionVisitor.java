@@ -1,5 +1,6 @@
 package alpha.model.util;
 
+import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaExpressionVisitor;
@@ -81,6 +82,13 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 		outDependenceExpression(de);
 	}
 
+	@Override
+	default void visitAbstractReduceExpression(AbstractReduceExpression are) {
+		inAbstractReduceExpression(are);
+		accept(are.getBody());
+		outAbstractReduceExpression(are);
+	}
+	
 	@Override
 	default void visitReduceExpression(ReduceExpression re) {
 		inReduceExpression(re);
@@ -227,13 +235,18 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	}
 
 	@Override
+	default void inAbstractReduceExpression(AbstractReduceExpression are) {
+		inAlphaExpression(are);
+	}
+	
+	@Override
 	default void inReduceExpression(ReduceExpression re) {
-		inAlphaExpression(re);
+		inAbstractReduceExpression(re);
 	}
 
 	@Override
 	default void inArgReduceExpression(ArgReduceExpression are) {
-		inAlphaExpression(are);
+		inAbstractReduceExpression(are);
 	}
 
 	@Override
@@ -335,15 +348,20 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	default void outDependenceExpression(DependenceExpression de) {
 		outAlphaExpression(de);
 	}
+	
+	@Override
+	default void outAbstractReduceExpression(AbstractReduceExpression are) {
+		outAlphaExpression(are);
+	}
 
 	@Override
 	default void outReduceExpression(ReduceExpression re) {
-		outAlphaExpression(re);
+		outAbstractReduceExpression(re);
 	}
 
 	@Override
 	default void outArgReduceExpression(ArgReduceExpression are) {
-		outAlphaExpression(are);
+		outAbstractReduceExpression(are);
 	}
 
 	@Override

@@ -2,6 +2,7 @@
  */
 package alpha.model;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,8 +13,8 @@ package alpha.model;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.AutoRestrictExpression#getInferredDomain <em>Inferred Domain</em>}</li>
  *   <li>{@link alpha.model.AutoRestrictExpression#getExpr <em>Expr</em>}</li>
+ *   <li>{@link alpha.model.AutoRestrictExpression#getZ__internal_cache_inferredDomain <em>Zinternal cache inferred Domain</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getAutoRestrictExpression()
@@ -21,32 +22,6 @@ package alpha.model;
  * @generated
  */
 public interface AutoRestrictExpression extends AlphaExpression {
-	/**
-	 * Returns the value of the '<em><b>Inferred Domain</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Inferred Domain</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Inferred Domain</em>' containment reference.
-	 * @see #setInferredDomain(JNIDomain)
-	 * @see alpha.model.ModelPackage#getAutoRestrictExpression_InferredDomain()
-	 * @model containment="true"
-	 * @generated
-	 */
-	JNIDomain getInferredDomain();
-
-	/**
-	 * Sets the value of the '{@link alpha.model.AutoRestrictExpression#getInferredDomain <em>Inferred Domain</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Inferred Domain</em>' containment reference.
-	 * @see #getInferredDomain()
-	 * @generated
-	 */
-	void setInferredDomain(JNIDomain value);
-
 	/**
 	 * Returns the value of the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -72,6 +47,50 @@ public interface AutoRestrictExpression extends AlphaExpression {
 	 * @generated
 	 */
 	void setExpr(AlphaExpression value);
+
+	/**
+	 * Returns the value of the '<em><b>Zinternal cache inferred Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Zinternal cache inferred Domain</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Zinternal cache inferred Domain</em>' attribute.
+	 * @see #setZ__internal_cache_inferredDomain(JNIISLSet)
+	 * @see alpha.model.ModelPackage#getAutoRestrictExpression_Z__internal_cache_inferredDomain()
+	 * @model unique="false" dataType="alpha.model.JNIISLSet"
+	 * @generated
+	 */
+	JNIISLSet getZ__internal_cache_inferredDomain();
+
+	/**
+	 * Sets the value of the '{@link alpha.model.AutoRestrictExpression#getZ__internal_cache_inferredDomain <em>Zinternal cache inferred Domain</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Zinternal cache inferred Domain</em>' attribute.
+	 * @see #getZ__internal_cache_inferredDomain()
+	 * @generated
+	 */
+	void setZ__internal_cache_inferredDomain(JNIISLSet value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_inferredDomain = this.getZ__internal_cache_inferredDomain();\nboolean _tripleNotEquals = (_z__internal_cache_inferredDomain != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getZ__internal_cache_inferredDomain().copy();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
+	 * @generated
+	 */
+	JNIISLSet getInferredDomain();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model islsetDataType="alpha.model.JNIISLSet" islsetUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_inferredDomain(islset);'"
+	 * @generated
+	 */
+	void setInferredDomain(JNIISLSet islset);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -56,6 +56,10 @@ FuzzyVariable:
 JNIDomain:
 	islString=AISLSet
 ;
+JNIDomainInArrayNotation:
+	'{' ':' islString=AISLString '}'
+;
+
 JNIParamDomain returns JNIDomain:
 	islString=AParamDomain
 ;
@@ -68,7 +72,7 @@ JNIFunction:
 ;
 
 JNIFunctionInArrayNotation:
-	arrayNotation=AAlphaFunctionInArrayNotation
+	'[' {JNIFunctionInArrayNotation} (arrayNotation+=AISLExpression (',' arrayNotation+=AISLExpression)*)? ']'
 ;
 
 QualifiedName:
@@ -104,7 +108,7 @@ AISLSet:
 ;
 
 AISLBasicSet:
-	('[' AIndexList ']')? ':' AISLString
+	'[' AIndexList ']' ':' AISLString
 ;
 
 AISLRelation:
@@ -128,10 +132,6 @@ AAlphaFunction:
 	'(' AIndexList '->' AISLExpressionList ')'
 ;
 
-AAlphaFunctionInArrayNotation:
-	'[' AISLExpressionList ']'
-;
-
 //AIndexAffineExpression:	
 //	 '-'? AIndexAffineExpressionTerminal (('+'|'-') AIndexAffineExpression)*;
 //	
@@ -145,7 +145,7 @@ StandardEquation :
 UseEquation :
 	('over' instantiationDomain=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs += AlphaExpression (',' outputExprs += AlphaExpression)* )? ')'
 	 '=' 
-	system=[AlphaSystem] callParams=JNIFunctionInArrayNotation
+	system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation
 	'(' (inputExprs  += AlphaExpression (',' inputExprs  += AlphaExpression)* )? ')' 
 	 ';';
 	 	
@@ -182,7 +182,7 @@ IfExpression:
 ;
 
 RestrictExpression:
-	domainExpr=JNIDomain ':' expr=AlphaExpression |
+	domainExpr=(JNIDomain|JNIDomainInArrayNotation) ':' expr=AlphaExpression |
 	'{' domainExpr=CalculatorExpression '}' ':' expr=AlphaExpression
 ;
 

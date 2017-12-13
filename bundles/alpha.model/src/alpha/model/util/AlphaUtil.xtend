@@ -10,6 +10,10 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import org.eclipse.emf.ecore.EObject
+import alpha.model.AlphaNode
+import alpha.model.POLY_OBJECT_TYPE
+import java.util.LinkedList
+import java.util.List
 
 class AlphaUtil {
 
@@ -67,10 +71,24 @@ class AlphaUtil {
 	
 	
 	public static def dispatch JNIISLSet getScalarDomain(AlphaSystem system) {
-		return JNIISLSet.buildUniverse(system.parameterDomain.islSet.space)
+		return JNIISLSet.buildUniverse(system.parameterDomain.ISLSet.space)
 	}
 	public static def dispatch JNIISLSet getScalarDomain(AlphaExpression expr) {
 		if (expr.containerSystem === null) return null
 		expr.containerSystem.scalarDomain
 	}
+	
+	
+
+	/**
+	 * Helper function to obtain the additional indices due to while expressions when parsing polyhedral objects specified in ArrayNotation
+	 * */
+	public static def List<String> getWhileIndexNames(AlphaNode node) {
+		val containerSystem = AlphaUtil.getContainerSystem(node)
+		if (containerSystem.whileDomain !== null && containerSystem.whileDomain.type == POLY_OBJECT_TYPE.SET) {
+			return (containerSystem.whileDomain.ISLObject as JNIISLSet).indicesNames
+		}
+		return new LinkedList;
+	}
+	
 }

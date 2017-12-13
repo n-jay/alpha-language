@@ -125,6 +125,7 @@ interface AlphaExpressionVisitor {
 	op void visitCaseExpression(CaseExpression ce)
 	op void visitIfExpression(IfExpression ie)
 	op void visitDependenceExpression(DependenceExpression de)
+	op void visitAbstractReduceExpression(AbstractReduceExpression are)
 	op void visitReduceExpression(ReduceExpression re)
 	op void visitArgReduceExpression(ArgReduceExpression are)
 	op void visitConvolutionExpression(ConvolutionExpression ce)
@@ -153,6 +154,7 @@ interface AlphaExpressionVisitor {
 	op void inCaseExpression(CaseExpression ce)
 	op void inIfExpression(IfExpression ie)
 	op void inDependenceExpression(DependenceExpression de)
+	op void inAbstractReduceExpression(AbstractReduceExpression are)
 	op void inReduceExpression(ReduceExpression re)
 	op void inArgReduceExpression(ArgReduceExpression are)
 	op void inConvolutionExpression(ConvolutionExpression ce)
@@ -180,6 +182,7 @@ interface AlphaExpressionVisitor {
 	op void outCaseExpression(CaseExpression ce)
 	op void outIfExpression(IfExpression ie)
 	op void outDependenceExpression(DependenceExpression de)
+	op void outAbstractReduceExpression(AbstractReduceExpression are)
 	op void outReduceExpression(ReduceExpression re)
 	op void outArgReduceExpression(ArgReduceExpression are)
 	op void outConvolutionExpression(ConvolutionExpression ce)
@@ -393,36 +396,34 @@ abstract class AlphaExpression extends AlphaExpressionVisitable {
 	JNIISLSet z__internal_cache_contextDom
 	String errorMessage
 	
-	op void setExpressionDomain(JNIISLSet dom) {
-		this.setZ__internal_cache_exprDom(dom)
-	}
-	op JNIISLSet getExpressionDomain() {
-		if (z__internal_cache_exprDom !== null)
-			return z__internal_cache_exprDom.copy
-		return null
-	}
+	op void setExpressionDomain(JNIISLSet dom) { this.setZ__internal_cache_exprDom(dom) }
+	op JNIISLSet getExpressionDomain() { if (z__internal_cache_exprDom !== null) z__internal_cache_exprDom.copy else null }
 	
-	op void setContextDomain(JNIISLSet dom) {
-		this.setZ__internal_cache_contextDom(dom)
-	}
-	op JNIISLSet getContextDomain() {
-		if (z__internal_cache_contextDom !== null)
-			return z__internal_cache_contextDom.copy
-		return null
-	}
+	op void setContextDomain(JNIISLSet dom) { this.setZ__internal_cache_contextDom(dom) }
+	op JNIISLSet getContextDomain() { if (z__internal_cache_contextDom !== null)  z__internal_cache_contextDom.copy else null }
 }
 
 class RestrictExpression extends AlphaExpression {
 	contains CalculatorExpression domainExpr
 	contains AlphaExpression expr
 	
+	op JNIISLSet getRestrictDomain() {
+		if (domainExpr !== null && domainExpr.^type == POLY_OBJECT_TYPE.SET && domainExpr.ISLObject !== null) {
+			return domainExpr.ISLObject as JNIISLSet
+		}
+		return null
+	}
+	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitRestrictExpression(this)
 	}
 }
 class AutoRestrictExpression extends AlphaExpression {
-	contains JNIDomain inferredDomain
 	contains AlphaExpression expr
+	JNIISLSet z__internal_cache_inferredDomain
+	
+	op JNIISLSet getInferredDomain() { if (z__internal_cache_inferredDomain !== null) z__internal_cache_inferredDomain.copy else null }
+	op void setInferredDomain(JNIISLSet islset) { z__internal_cache_inferredDomain = islset }
 		
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitAutoRestrictExpression(this)
@@ -461,10 +462,16 @@ class IndexExpression extends AlphaExpression {
 		visitor.visitIndexExpression(this)
 	}
 }
-class ReduceExpression extends AlphaExpression {
+abstract class AbstractReduceExpression extends AlphaExpression {
 	REDUCTION_OP operator
 	contains JNIFunction projection
 	contains AlphaExpression body
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitAbstractReduceExpression(this)
+	}
+}
+class ReduceExpression extends AbstractReduceExpression {
 	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitReduceExpression(this)
@@ -477,10 +484,7 @@ class ExternalReduceExpression extends ReduceExpression {
 		visitor.visitExternalReduceExpression(this)
 	}
 }
-class ArgReduceExpression extends AlphaExpression {
-	REDUCTION_OP operator
-	contains JNIFunction projection
-	contains AlphaExpression body
+class ArgReduceExpression extends AbstractReduceExpression {
 	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitArgReduceExpression(this)
@@ -675,14 +679,17 @@ abstract class CalculatorExpression extends CalculatorNode, CalculatorExpression
 
 class JNIDomain extends CalculatorExpression {
 	String islString
-	JNIISLSet islSet
+	JNIISLSet z__internal_cache_islSet
+	
+	op JNIISLSet getISLSet() { if (z__internal_cache_islSet !== null) z__internal_cache_islSet.copy else null }
+	op void setISLSet(JNIISLSet islset) { z__internal_cache_islSet = islset }
 	
 	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::SET }
-	op JNIObject getISLObject() { AlphaUtil.copy(islSet) }
+	op JNIObject getISLObject() { getISLSet }
 	
 	op String toString() {
-		if (islSet !== null) {
-			return islSet.toString(ISL_FORMAT::ISL);
+		if (z__internal_cache_islSet !== null) {
+			return z__internal_cache_islSet.toString(ISL_FORMAT::ISL);
 		} else {
 			return "null ISL object"
 		}
@@ -692,17 +699,23 @@ class JNIDomain extends CalculatorExpression {
 		visitor.visitJNIDomain(this);
 	}
 }
+class JNIDomainInArrayNotation extends JNIDomain {
+	
+}
 
 class JNIRelation extends CalculatorExpression {
 	String islString
-	JNIISLMap islMap
+	JNIISLMap z__internal_cache_islMap
+	
+	op JNIISLMap getISLMap() { if (z__internal_cache_islMap !== null) z__internal_cache_islMap.copy else null }
+	op void setISLMap(JNIISLMap islMap) { z__internal_cache_islMap = islMap }
 	
 	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::MAP }
-	op JNIObject getISLObject() { AlphaUtil.copy(islMap) }
+	op JNIObject getISLObject() { ISLMap }
 	
 	op String toString() {
-		if (islMap !== null) {
-			return islMap.toString(ISL_FORMAT::ISL);
+		if (z__internal_cache_islMap !== null) {
+			return z__internal_cache_islMap.toString(ISL_FORMAT::ISL);
 		} else {
 			return "null ISL object"
 		}
@@ -715,10 +728,13 @@ class JNIRelation extends CalculatorExpression {
 
 class JNIFunction extends CalculatorExpression {
 	String alphaString
-	JNIISLMultiAff islMAff
+	JNIISLMultiAff z__internal_cache_islMAff
+	
+	op JNIISLMultiAff getISLMultiAff() { if (z__internal_cache_islMAff !== null) z__internal_cache_islMAff.copy else null }
+	op void setISLMultiAff(JNIISLMultiAff islMAff) { z__internal_cache_islMAff = islMAff }
 	
 	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::FUNCTION }
-	op JNIObject getISLObject() { AlphaUtil.copy(islMAff) }
+	op JNIObject getISLObject() { ISLMultiAff }
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitJNIFunction(this);
@@ -726,7 +742,7 @@ class JNIFunction extends CalculatorExpression {
 }
 
 class JNIFunctionInArrayNotation extends JNIFunction {
-	String arrayNotation
+	String[] arrayNotation
 }
 
 class UnaryCalculatorExpression extends CalculatorExpression {
@@ -796,10 +812,14 @@ class VariableDomain extends CalculatorExpression {
 class RectangularDomain extends CalculatorExpression {
 	String[] upperBounds
 	String[] indexNames
-	JNIISLSet islSet
+	
+	JNIISLSet z__internal_cache_islSet
+	
+	op JNIISLSet getISLSet() { if (z__internal_cache_islSet !== null) z__internal_cache_islSet.copy else null}
+	op void setISLSet(JNIISLSet islset) { z__internal_cache_islSet = islset }
 	
 	op POLY_OBJECT_TYPE getType() { return POLY_OBJECT_TYPE::SET }
-	op JNIObject getISLObject() { AlphaUtil.copy(islSet) }
+	op JNIObject getISLObject() { ISLSet }
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitRectangularDomain(this);

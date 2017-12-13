@@ -536,6 +536,37 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//AISLSet
 		public RuleCall getIslStringAISLSetParserRuleCall_0() { return cIslStringAISLSetParserRuleCall_0; }
 	}
+	public class JNIDomainInArrayNotationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.JNIDomainInArrayNotation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cIslStringAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cIslStringAISLStringParserRuleCall_2_0 = (RuleCall)cIslStringAssignment_2.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//JNIDomainInArrayNotation:
+		//	'{' ':' islString=AISLString '}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'{' ':' islString=AISLString '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
+		
+		//':'
+		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
+		
+		//islString=AISLString
+		public Assignment getIslStringAssignment_2() { return cIslStringAssignment_2; }
+		
+		//AISLString
+		public RuleCall getIslStringAISLStringParserRuleCall_2_0() { return cIslStringAISLStringParserRuleCall_2_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
+	}
 	public class JNIParamDomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.JNIParamDomain");
 		private final Assignment cIslStringAssignment = (Assignment)rule.eContents().get(1);
@@ -583,18 +614,54 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class JNIFunctionInArrayNotationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.JNIFunctionInArrayNotation");
-		private final Assignment cArrayNotationAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cArrayNotationAAlphaFunctionInArrayNotationParserRuleCall_0 = (RuleCall)cArrayNotationAssignment.eContents().get(0);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Action cJNIFunctionInArrayNotationAction_1 = (Action)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cArrayNotationAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cArrayNotationAISLExpressionParserRuleCall_2_0_0 = (RuleCall)cArrayNotationAssignment_2_0.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cArrayNotationAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cArrayNotationAISLExpressionParserRuleCall_2_1_1_0 = (RuleCall)cArrayNotationAssignment_2_1_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//JNIFunctionInArrayNotation:
-		//	arrayNotation=AAlphaFunctionInArrayNotation;
+		//	'[' {JNIFunctionInArrayNotation} (arrayNotation+=AISLExpression (',' arrayNotation+=AISLExpression)*)? ']';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//arrayNotation=AAlphaFunctionInArrayNotation
-		public Assignment getArrayNotationAssignment() { return cArrayNotationAssignment; }
+		//'[' {JNIFunctionInArrayNotation} (arrayNotation+=AISLExpression (',' arrayNotation+=AISLExpression)*)? ']'
+		public Group getGroup() { return cGroup; }
 		
-		//AAlphaFunctionInArrayNotation
-		public RuleCall getArrayNotationAAlphaFunctionInArrayNotationParserRuleCall_0() { return cArrayNotationAAlphaFunctionInArrayNotationParserRuleCall_0; }
+		//'['
+		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
+		
+		//{JNIFunctionInArrayNotation}
+		public Action getJNIFunctionInArrayNotationAction_1() { return cJNIFunctionInArrayNotationAction_1; }
+		
+		//(arrayNotation+=AISLExpression (',' arrayNotation+=AISLExpression)*)?
+		public Group getGroup_2() { return cGroup_2; }
+		
+		//arrayNotation+=AISLExpression
+		public Assignment getArrayNotationAssignment_2_0() { return cArrayNotationAssignment_2_0; }
+		
+		//AISLExpression
+		public RuleCall getArrayNotationAISLExpressionParserRuleCall_2_0_0() { return cArrayNotationAISLExpressionParserRuleCall_2_0_0; }
+		
+		//(',' arrayNotation+=AISLExpression)*
+		public Group getGroup_2_1() { return cGroup_2_1; }
+		
+		//','
+		public Keyword getCommaKeyword_2_1_0() { return cCommaKeyword_2_1_0; }
+		
+		//arrayNotation+=AISLExpression
+		public Assignment getArrayNotationAssignment_2_1_1() { return cArrayNotationAssignment_2_1_1; }
+		
+		//AISLExpression
+		public RuleCall getArrayNotationAISLExpressionParserRuleCall_2_1_1_0() { return cArrayNotationAISLExpressionParserRuleCall_2_1_1_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
 	}
 	public class QualifiedNameElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.QualifiedName");
@@ -785,37 +852,33 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	public class AISLBasicSetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLBasicSet");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
-		private final RuleCall cAIndexListParserRuleCall_0_1 = (RuleCall)cGroup_0.eContents().get(1);
-		private final Keyword cRightSquareBracketKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cAISLStringParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cAIndexListParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final RuleCall cAISLStringParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		
 		//AISLBasicSet:
-		//	('[' AIndexList ']')? ':' AISLString;
+		//	'[' AIndexList ']' ':' AISLString;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//('[' AIndexList ']')? ':' AISLString
+		//'[' AIndexList ']' ':' AISLString
 		public Group getGroup() { return cGroup; }
 		
-		//('[' AIndexList ']')?
-		public Group getGroup_0() { return cGroup_0; }
-		
 		//'['
-		public Keyword getLeftSquareBracketKeyword_0_0() { return cLeftSquareBracketKeyword_0_0; }
+		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
 		
 		//AIndexList
-		public RuleCall getAIndexListParserRuleCall_0_1() { return cAIndexListParserRuleCall_0_1; }
+		public RuleCall getAIndexListParserRuleCall_1() { return cAIndexListParserRuleCall_1; }
 		
 		//']'
-		public Keyword getRightSquareBracketKeyword_0_2() { return cRightSquareBracketKeyword_0_2; }
+		public Keyword getRightSquareBracketKeyword_2() { return cRightSquareBracketKeyword_2; }
 		
 		//':'
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
+		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 		
 		//AISLString
-		public RuleCall getAISLStringParserRuleCall_2() { return cAISLStringParserRuleCall_2; }
+		public RuleCall getAISLStringParserRuleCall_4() { return cAISLStringParserRuleCall_4; }
 	}
 	public class AISLRelationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLRelation");
@@ -1105,29 +1168,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//')'
 		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
 	}
-	public class AAlphaFunctionInArrayNotationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AAlphaFunctionInArrayNotation");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cAISLExpressionListParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Keyword cRightSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		
-		//AAlphaFunctionInArrayNotation:
-		//	'[' AISLExpressionList ']';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'[' AISLExpressionList ']'
-		public Group getGroup() { return cGroup; }
-		
-		//'['
-		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
-		
-		//AISLExpressionList
-		public RuleCall getAISLExpressionListParserRuleCall_1() { return cAISLExpressionListParserRuleCall_1; }
-		
-		//']'
-		public Keyword getRightSquareBracketKeyword_2() { return cRightSquareBracketKeyword_2; }
-	}
 	public class StandardEquationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.StandardEquation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1239,7 +1279,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cEqualsSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cSystemAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final CrossReference cSystemAlphaSystemCrossReference_5_0 = (CrossReference)cSystemAssignment_5.eContents().get(0);
-		private final RuleCall cSystemAlphaSystemIDTerminalRuleCall_5_0_1 = (RuleCall)cSystemAlphaSystemCrossReference_5_0.eContents().get(1);
+		private final RuleCall cSystemAlphaSystemQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cSystemAlphaSystemCrossReference_5_0.eContents().get(1);
 		private final Assignment cCallParamsAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cCallParamsJNIFunctionInArrayNotationParserRuleCall_6_0 = (RuleCall)cCallParamsAssignment_6.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
@@ -1257,14 +1297,15 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//	('over' instantiationDomain=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)*
 		//	']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
 		//	'='
-		//	system=[AlphaSystem] callParams=JNIFunctionInArrayNotation
+		//	system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation
 		//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')'
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//('over' instantiationDomain=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)*
-		//']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')' '=' system=[AlphaSystem]
-		//callParams=JNIFunctionInArrayNotation '(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')' ';'
+		//']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')' '='
+		//system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation '(' (inputExprs+=AlphaExpression (','
+		//inputExprs+=AlphaExpression)*)? ')' ';'
 		public Group getGroup() { return cGroup; }
 		
 		//('over' instantiationDomain=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)*
@@ -1346,14 +1387,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//'='
 		public Keyword getEqualsSignKeyword_4() { return cEqualsSignKeyword_4; }
 		
-		//system=[AlphaSystem]
+		//system=[AlphaSystem|QualifiedName]
 		public Assignment getSystemAssignment_5() { return cSystemAssignment_5; }
 		
-		//[AlphaSystem]
+		//[AlphaSystem|QualifiedName]
 		public CrossReference getSystemAlphaSystemCrossReference_5_0() { return cSystemAlphaSystemCrossReference_5_0; }
 		
-		//ID
-		public RuleCall getSystemAlphaSystemIDTerminalRuleCall_5_0_1() { return cSystemAlphaSystemIDTerminalRuleCall_5_0_1; }
+		//QualifiedName
+		public RuleCall getSystemAlphaSystemQualifiedNameParserRuleCall_5_0_1() { return cSystemAlphaSystemQualifiedNameParserRuleCall_5_0_1; }
 		
 		//callParams=JNIFunctionInArrayNotation
 		public Assignment getCallParamsAssignment_6() { return cCallParamsAssignment_6; }
@@ -1555,7 +1596,9 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Assignment cDomainExprAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cDomainExprJNIDomainParserRuleCall_0_0_0 = (RuleCall)cDomainExprAssignment_0_0.eContents().get(0);
+		private final Alternatives cDomainExprAlternatives_0_0_0 = (Alternatives)cDomainExprAssignment_0_0.eContents().get(0);
+		private final RuleCall cDomainExprJNIDomainParserRuleCall_0_0_0_0 = (RuleCall)cDomainExprAlternatives_0_0_0.eContents().get(0);
+		private final RuleCall cDomainExprJNIDomainInArrayNotationParserRuleCall_0_0_0_1 = (RuleCall)cDomainExprAlternatives_0_0_0.eContents().get(1);
 		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final Assignment cExprAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final RuleCall cExprAlphaExpressionParserRuleCall_0_2_0 = (RuleCall)cExprAssignment_0_2.eContents().get(0);
@@ -1569,21 +1612,28 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExprAlphaExpressionParserRuleCall_1_4_0 = (RuleCall)cExprAssignment_1_4.eContents().get(0);
 		
 		//RestrictExpression:
-		//	domainExpr=JNIDomain ':' expr=AlphaExpression |
+		//	domainExpr=(JNIDomain | JNIDomainInArrayNotation) ':' expr=AlphaExpression |
 		//	'{' domainExpr=CalculatorExpression '}' ':' expr=AlphaExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//domainExpr=JNIDomain ':' expr=AlphaExpression | '{' domainExpr=CalculatorExpression '}' ':' expr=AlphaExpression
+		//domainExpr=(JNIDomain | JNIDomainInArrayNotation) ':' expr=AlphaExpression | '{' domainExpr=CalculatorExpression '}' ':'
+		//expr=AlphaExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//domainExpr=JNIDomain ':' expr=AlphaExpression
+		//domainExpr=(JNIDomain | JNIDomainInArrayNotation) ':' expr=AlphaExpression
 		public Group getGroup_0() { return cGroup_0; }
 		
-		//domainExpr=JNIDomain
+		//domainExpr=(JNIDomain | JNIDomainInArrayNotation)
 		public Assignment getDomainExprAssignment_0_0() { return cDomainExprAssignment_0_0; }
 		
+		//(JNIDomain | JNIDomainInArrayNotation)
+		public Alternatives getDomainExprAlternatives_0_0_0() { return cDomainExprAlternatives_0_0_0; }
+		
 		//JNIDomain
-		public RuleCall getDomainExprJNIDomainParserRuleCall_0_0_0() { return cDomainExprJNIDomainParserRuleCall_0_0_0; }
+		public RuleCall getDomainExprJNIDomainParserRuleCall_0_0_0_0() { return cDomainExprJNIDomainParserRuleCall_0_0_0_0; }
+		
+		//JNIDomainInArrayNotation
+		public RuleCall getDomainExprJNIDomainInArrayNotationParserRuleCall_0_0_0_1() { return cDomainExprJNIDomainInArrayNotationParserRuleCall_0_0_0_1; }
 		
 		//':'
 		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
@@ -3206,6 +3256,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final LocalVariableElements pLocalVariable;
 	private final FuzzyVariableElements pFuzzyVariable;
 	private final JNIDomainElements pJNIDomain;
+	private final JNIDomainInArrayNotationElements pJNIDomainInArrayNotation;
 	private final JNIParamDomainElements pJNIParamDomain;
 	private final JNIRelationElements pJNIRelation;
 	private final JNIFunctionElements pJNIFunction;
@@ -3224,7 +3275,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final AISLExpressionElements pAISLExpression;
 	private final AISLExpressionListElements pAISLExpressionList;
 	private final AAlphaFunctionElements pAAlphaFunction;
-	private final AAlphaFunctionInArrayNotationElements pAAlphaFunctionInArrayNotation;
 	private final StandardEquationElements pStandardEquation;
 	private final UseEquationElements pUseEquation;
 	private final AlphaExpressionElements pAlphaExpression;
@@ -3298,6 +3348,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pLocalVariable = new LocalVariableElements();
 		this.pFuzzyVariable = new FuzzyVariableElements();
 		this.pJNIDomain = new JNIDomainElements();
+		this.pJNIDomainInArrayNotation = new JNIDomainInArrayNotationElements();
 		this.pJNIParamDomain = new JNIParamDomainElements();
 		this.pJNIRelation = new JNIRelationElements();
 		this.pJNIFunction = new JNIFunctionElements();
@@ -3316,7 +3367,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAISLExpression = new AISLExpressionElements();
 		this.pAISLExpressionList = new AISLExpressionListElements();
 		this.pAAlphaFunction = new AAlphaFunctionElements();
-		this.pAAlphaFunctionInArrayNotation = new AAlphaFunctionInArrayNotationElements();
 		this.pStandardEquation = new StandardEquationElements();
 		this.pUseEquation = new UseEquationElements();
 		this.pAlphaExpression = new AlphaExpressionElements();
@@ -3516,6 +3566,16 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		return getJNIDomainAccess().getRule();
 	}
 	
+	//JNIDomainInArrayNotation:
+	//	'{' ':' islString=AISLString '}';
+	public JNIDomainInArrayNotationElements getJNIDomainInArrayNotationAccess() {
+		return pJNIDomainInArrayNotation;
+	}
+	
+	public ParserRule getJNIDomainInArrayNotationRule() {
+		return getJNIDomainInArrayNotationAccess().getRule();
+	}
+	
 	//JNIParamDomain JNIDomain:
 	//	islString=AParamDomain;
 	public JNIParamDomainElements getJNIParamDomainAccess() {
@@ -3547,7 +3607,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//JNIFunctionInArrayNotation:
-	//	arrayNotation=AAlphaFunctionInArrayNotation;
+	//	'[' {JNIFunctionInArrayNotation} (arrayNotation+=AISLExpression (',' arrayNotation+=AISLExpression)*)? ']';
 	public JNIFunctionInArrayNotationElements getJNIFunctionInArrayNotationAccess() {
 		return pJNIFunctionInArrayNotation;
 	}
@@ -3632,7 +3692,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AISLBasicSet:
-	//	('[' AIndexList ']')? ':' AISLString;
+	//	'[' AIndexList ']' ':' AISLString;
 	public AISLBasicSetElements getAISLBasicSetAccess() {
 		return pAISLBasicSet;
 	}
@@ -3702,16 +3762,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		return getAAlphaFunctionAccess().getRule();
 	}
 	
-	//AAlphaFunctionInArrayNotation:
-	//	'[' AISLExpressionList ']';
-	public AAlphaFunctionInArrayNotationElements getAAlphaFunctionInArrayNotationAccess() {
-		return pAAlphaFunctionInArrayNotation;
-	}
-	
-	public ParserRule getAAlphaFunctionInArrayNotationRule() {
-		return getAAlphaFunctionInArrayNotationAccess().getRule();
-	}
-	
 	////AIndexAffineExpression:	
 	////	 '-'? AIndexAffineExpressionTerminal (('+'|'-') AIndexAffineExpression)*;
 	////	
@@ -3731,7 +3781,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	//	('over' instantiationDomain=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)*
 	//	']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
 	//	'='
-	//	system=[AlphaSystem] callParams=JNIFunctionInArrayNotation
+	//	system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation
 	//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')'
 	//	';';
 	public UseEquationElements getUseEquationAccess() {
@@ -3777,7 +3827,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//RestrictExpression:
-	//	domainExpr=JNIDomain ':' expr=AlphaExpression |
+	//	domainExpr=(JNIDomain | JNIDomainInArrayNotation) ':' expr=AlphaExpression |
 	//	'{' domainExpr=CalculatorExpression '}' ':' expr=AlphaExpression;
 	public RestrictExpressionElements getRestrictExpressionAccess() {
 		return pRestrictExpression;

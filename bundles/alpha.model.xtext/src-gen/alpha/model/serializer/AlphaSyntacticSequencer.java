@@ -101,6 +101,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) 'val' function=JNIFunction
 	 *     (rule start) (ambiguity) '{' domainExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) domainExpr=JNIDomain
+	 *     (rule start) (ambiguity) domainExpr=JNIDomainInArrayNotation
 	 *     (rule start) (ambiguity) expr=VariableExpression
 	 *     (rule start) (ambiguity) externalFunction=[ExternalFunction|ID]
 	 *     (rule start) (ambiguity) function=JNIFunction
@@ -126,6 +127,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) 'if' condExpr=AlphaExpression
 	 *     (rule start) (ambiguity) '{' domainExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) domainExpr=JNIDomain
+	 *     (rule start) (ambiguity) domainExpr=JNIDomainInArrayNotation
 	 *     (rule start) (ambiguity) operator=AUnaryOP
 	 *     (rule start) (ambiguity) {BinaryExpression.left=}
 	 */
@@ -168,7 +170,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'with'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     instantiationDomain=CalculatorExpression (ambiguity) ':' '(' ')' '=' system=[AlphaSystem|ID]
+	 *     instantiationDomain=CalculatorExpression (ambiguity) ':' '(' ')' '=' system=[AlphaSystem|QualifiedName]
 	 *     instantiationDomain=CalculatorExpression (ambiguity) ':' '(' outputExprs+=AlphaExpression
 	 */
 	protected void emit_UseEquation_WithKeyword_0_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {

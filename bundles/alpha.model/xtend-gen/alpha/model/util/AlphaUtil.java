@@ -7,12 +7,16 @@ import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
+import alpha.model.POLY_OBJECT_TYPE;
+import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 
 @SuppressWarnings("all")
@@ -72,7 +76,7 @@ public class AlphaUtil {
   }
   
   public static JNIISLSet _getScalarDomain(final AlphaSystem system) {
-    return JNIISLSet.buildUniverse(system.getParameterDomain().getIslSet().getSpace());
+    return JNIISLSet.buildUniverse(system.getParameterDomain().getISLSet().getSpace());
   }
   
   public static JNIISLSet _getScalarDomain(final AlphaExpression expr) {
@@ -86,6 +90,18 @@ public class AlphaUtil {
       _xblockexpression = AlphaUtil.getScalarDomain(AlphaUtil.getContainerSystem(expr));
     }
     return _xblockexpression;
+  }
+  
+  /**
+   * Helper function to obtain the additional indices due to while expressions when parsing polyhedral objects specified in ArrayNotation
+   */
+  public static List<String> getWhileIndexNames(final AlphaNode node) {
+    final AlphaSystem containerSystem = AlphaUtil.getContainerSystem(node);
+    if (((containerSystem.getWhileDomain() != null) && Objects.equal(containerSystem.getWhileDomain().getType(), POLY_OBJECT_TYPE.SET))) {
+      JNIObject _iSLObject = containerSystem.getWhileDomain().getISLObject();
+      return ((JNIISLSet) _iSLObject).getIndicesNames();
+    }
+    return new LinkedList<String>();
   }
   
   private static Iterable<AlphaConstant> gatherAlphaConstants(final AlphaVisitable ap) {

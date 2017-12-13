@@ -38,6 +38,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAlphaExpressionAccess().getAlternatives(), "rule__AlphaExpression__Alternatives");
 					put(grammarAccess.getAlphaTerminalExpressionAccess().getAlternatives(), "rule__AlphaTerminalExpression__Alternatives");
 					put(grammarAccess.getRestrictExpressionAccess().getAlternatives(), "rule__RestrictExpression__Alternatives");
+					put(grammarAccess.getRestrictExpressionAccess().getDomainExprAlternatives_0_0_0(), "rule__RestrictExpression__DomainExprAlternatives_0_0_0");
 					put(grammarAccess.getDependenceExpressionAccess().getAlternatives(), "rule__DependenceExpression__Alternatives");
 					put(grammarAccess.getIndexExpressionAccess().getAlternatives(), "rule__IndexExpression__Alternatives");
 					put(grammarAccess.getReduceExpressionAccess().getProjectionAlternatives_4_0(), "rule__ReduceExpression__ProjectionAlternatives_4_0");
@@ -73,6 +74,10 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOutputVariableAccess().getGroup(), "rule__OutputVariable__Group__0");
 					put(grammarAccess.getLocalVariableAccess().getGroup(), "rule__LocalVariable__Group__0");
 					put(grammarAccess.getFuzzyVariableAccess().getGroup(), "rule__FuzzyVariable__Group__0");
+					put(grammarAccess.getJNIDomainInArrayNotationAccess().getGroup(), "rule__JNIDomainInArrayNotation__Group__0");
+					put(grammarAccess.getJNIFunctionInArrayNotationAccess().getGroup(), "rule__JNIFunctionInArrayNotation__Group__0");
+					put(grammarAccess.getJNIFunctionInArrayNotationAccess().getGroup_2(), "rule__JNIFunctionInArrayNotation__Group_2__0");
+					put(grammarAccess.getJNIFunctionInArrayNotationAccess().getGroup_2_1(), "rule__JNIFunctionInArrayNotation__Group_2_1__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
 					put(grammarAccess.getQualifiedNameWithWildcardAccess().getGroup(), "rule__QualifiedNameWithWildcard__Group__0");
@@ -83,14 +88,12 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAISLSetAccess().getGroup(), "rule__AISLSet__Group__0");
 					put(grammarAccess.getAISLSetAccess().getGroup_2(), "rule__AISLSet__Group_2__0");
 					put(grammarAccess.getAISLBasicSetAccess().getGroup(), "rule__AISLBasicSet__Group__0");
-					put(grammarAccess.getAISLBasicSetAccess().getGroup_0(), "rule__AISLBasicSet__Group_0__0");
 					put(grammarAccess.getAISLRelationAccess().getGroup(), "rule__AISLRelation__Group__0");
 					put(grammarAccess.getAISLRelationAccess().getGroup_2(), "rule__AISLRelation__Group_2__0");
 					put(grammarAccess.getAISLBasicRelationAccess().getGroup(), "rule__AISLBasicRelation__Group__0");
 					put(grammarAccess.getAISLExpressionListAccess().getGroup(), "rule__AISLExpressionList__Group__0");
 					put(grammarAccess.getAISLExpressionListAccess().getGroup_1(), "rule__AISLExpressionList__Group_1__0");
 					put(grammarAccess.getAAlphaFunctionAccess().getGroup(), "rule__AAlphaFunction__Group__0");
-					put(grammarAccess.getAAlphaFunctionInArrayNotationAccess().getGroup(), "rule__AAlphaFunctionInArrayNotation__Group__0");
 					put(grammarAccess.getStandardEquationAccess().getGroup(), "rule__StandardEquation__Group__0");
 					put(grammarAccess.getStandardEquationAccess().getGroup_1(), "rule__StandardEquation__Group_1__0");
 					put(grammarAccess.getStandardEquationAccess().getGroup_1_2(), "rule__StandardEquation__Group_1_2__0");
@@ -174,10 +177,12 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFuzzyVariableAccess().getNameAssignment_0(), "rule__FuzzyVariable__NameAssignment_0");
 					put(grammarAccess.getFuzzyVariableAccess().getDomainExprAssignment_2(), "rule__FuzzyVariable__DomainExprAssignment_2");
 					put(grammarAccess.getJNIDomainAccess().getIslStringAssignment(), "rule__JNIDomain__IslStringAssignment");
+					put(grammarAccess.getJNIDomainInArrayNotationAccess().getIslStringAssignment_2(), "rule__JNIDomainInArrayNotation__IslStringAssignment_2");
 					put(grammarAccess.getJNIParamDomainAccess().getIslStringAssignment(), "rule__JNIParamDomain__IslStringAssignment");
 					put(grammarAccess.getJNIRelationAccess().getIslStringAssignment(), "rule__JNIRelation__IslStringAssignment");
 					put(grammarAccess.getJNIFunctionAccess().getAlphaStringAssignment(), "rule__JNIFunction__AlphaStringAssignment");
-					put(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAssignment(), "rule__JNIFunctionInArrayNotation__ArrayNotationAssignment");
+					put(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAssignment_2_0(), "rule__JNIFunctionInArrayNotation__ArrayNotationAssignment_2_0");
+					put(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAssignment_2_1_1(), "rule__JNIFunctionInArrayNotation__ArrayNotationAssignment_2_1_1");
 					put(grammarAccess.getStandardEquationAccess().getVariableAssignment_0(), "rule__StandardEquation__VariableAssignment_0");
 					put(grammarAccess.getStandardEquationAccess().getIndexNamesAssignment_1_1(), "rule__StandardEquation__IndexNamesAssignment_1_1");
 					put(grammarAccess.getStandardEquationAccess().getIndexNamesAssignment_1_2_1(), "rule__StandardEquation__IndexNamesAssignment_1_2_1");

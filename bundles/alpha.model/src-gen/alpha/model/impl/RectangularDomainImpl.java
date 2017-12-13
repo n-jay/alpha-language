@@ -7,8 +7,6 @@ import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.RectangularDomain;
 
-import alpha.model.util.AlphaUtil;
-
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
@@ -35,7 +33,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * <ul>
  *   <li>{@link alpha.model.impl.RectangularDomainImpl#getUpperBounds <em>Upper Bounds</em>}</li>
  *   <li>{@link alpha.model.impl.RectangularDomainImpl#getIndexNames <em>Index Names</em>}</li>
- *   <li>{@link alpha.model.impl.RectangularDomainImpl#getIslSet <em>Isl Set</em>}</li>
+ *   <li>{@link alpha.model.impl.RectangularDomainImpl#getZ__internal_cache_islSet <em>Zinternal cache isl Set</em>}</li>
  * </ul>
  *
  * @generated
@@ -62,24 +60,24 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	protected EList<String> indexNames;
 
 	/**
-	 * The default value of the '{@link #getIslSet() <em>Isl Set</em>}' attribute.
+	 * The default value of the '{@link #getZ__internal_cache_islSet() <em>Zinternal cache isl Set</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIslSet()
+	 * @see #getZ__internal_cache_islSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLSet ISL_SET_EDEFAULT = null;
+	protected static final JNIISLSet ZINTERNAL_CACHE_ISL_SET_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getIslSet() <em>Isl Set</em>}' attribute.
+	 * The cached value of the '{@link #getZ__internal_cache_islSet() <em>Zinternal cache isl Set</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIslSet()
+	 * @see #getZ__internal_cache_islSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLSet islSet = ISL_SET_EDEFAULT;
+	protected JNIISLSet z__internal_cache_islSet = ZINTERNAL_CACHE_ISL_SET_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -129,8 +127,8 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getIslSet() {
-		return islSet;
+	public JNIISLSet getZ__internal_cache_islSet() {
+		return z__internal_cache_islSet;
 	}
 
 	/**
@@ -138,11 +136,38 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIslSet(JNIISLSet newIslSet) {
-		JNIISLSet oldIslSet = islSet;
-		islSet = newIslSet;
+	public void setZ__internal_cache_islSet(JNIISLSet newZ__internal_cache_islSet) {
+		JNIISLSet oldZ__internal_cache_islSet = z__internal_cache_islSet;
+		z__internal_cache_islSet = newZ__internal_cache_islSet;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.RECTANGULAR_DOMAIN__ISL_SET, oldIslSet, islSet));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET, oldZ__internal_cache_islSet, z__internal_cache_islSet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIISLSet getISLSet() {
+		JNIISLSet _xifexpression = null;
+		JNIISLSet _z__internal_cache_islSet = this.getZ__internal_cache_islSet();
+		boolean _tripleNotEquals = (_z__internal_cache_islSet != null);
+		if (_tripleNotEquals) {
+			_xifexpression = this.getZ__internal_cache_islSet().copy();
+		}
+		else {
+			_xifexpression = null;
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setISLSet(final JNIISLSet islset) {
+		this.setZ__internal_cache_islSet(islset);
 	}
 
 	/**
@@ -160,7 +185,7 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		return AlphaUtil.copy(this.getIslSet());
+		return this.getISLSet();
 	}
 
 	/**
@@ -184,8 +209,8 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 				return getUpperBounds();
 			case ModelPackage.RECTANGULAR_DOMAIN__INDEX_NAMES:
 				return getIndexNames();
-			case ModelPackage.RECTANGULAR_DOMAIN__ISL_SET:
-				return getIslSet();
+			case ModelPackage.RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET:
+				return getZ__internal_cache_islSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -207,8 +232,8 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 				getIndexNames().clear();
 				getIndexNames().addAll((Collection<? extends String>)newValue);
 				return;
-			case ModelPackage.RECTANGULAR_DOMAIN__ISL_SET:
-				setIslSet((JNIISLSet)newValue);
+			case ModelPackage.RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET:
+				setZ__internal_cache_islSet((JNIISLSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -228,8 +253,8 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 			case ModelPackage.RECTANGULAR_DOMAIN__INDEX_NAMES:
 				getIndexNames().clear();
 				return;
-			case ModelPackage.RECTANGULAR_DOMAIN__ISL_SET:
-				setIslSet(ISL_SET_EDEFAULT);
+			case ModelPackage.RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET:
+				setZ__internal_cache_islSet(ZINTERNAL_CACHE_ISL_SET_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -247,8 +272,8 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 				return upperBounds != null && !upperBounds.isEmpty();
 			case ModelPackage.RECTANGULAR_DOMAIN__INDEX_NAMES:
 				return indexNames != null && !indexNames.isEmpty();
-			case ModelPackage.RECTANGULAR_DOMAIN__ISL_SET:
-				return ISL_SET_EDEFAULT == null ? islSet != null : !ISL_SET_EDEFAULT.equals(islSet);
+			case ModelPackage.RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET:
+				return ZINTERNAL_CACHE_ISL_SET_EDEFAULT == null ? z__internal_cache_islSet != null : !ZINTERNAL_CACHE_ISL_SET_EDEFAULT.equals(z__internal_cache_islSet);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -267,8 +292,8 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 		result.append(upperBounds);
 		result.append(", indexNames: ");
 		result.append(indexNames);
-		result.append(", islSet: ");
-		result.append(islSet);
+		result.append(", z__internal_cache_islSet: ");
+		result.append(z__internal_cache_islSet);
 		result.append(')');
 		return result.toString();
 	}

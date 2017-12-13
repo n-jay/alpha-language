@@ -966,22 +966,22 @@ public interface ModelPackage extends EPackage {
 	int AUTO_RESTRICT_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
 
 	/**
-	 * The feature id for the '<em><b>Inferred Domain</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AUTO_RESTRICT_EXPRESSION__INFERRED_DOMAIN = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUTO_RESTRICT_EXPRESSION__EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
+	int AUTO_RESTRICT_EXPRESSION__EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache inferred Domain</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTO_RESTRICT_EXPRESSION__ZINTERNAL_CACHE_INFERRED_DOMAIN = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Auto Restrict Expression</em>' class.
@@ -1249,14 +1249,14 @@ public interface ModelPackage extends EPackage {
 	int INDEX_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link alpha.model.impl.ReduceExpressionImpl <em>Reduce Expression</em>}' class.
+	 * The meta object id for the '{@link alpha.model.impl.AbstractReduceExpressionImpl <em>Abstract Reduce Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see alpha.model.impl.ReduceExpressionImpl
-	 * @see alpha.model.impl.ModelPackageImpl#getReduceExpression()
+	 * @see alpha.model.impl.AbstractReduceExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getAbstractReduceExpression()
 	 * @generated
 	 */
-	int REDUCE_EXPRESSION = 29;
+	int ABSTRACT_REDUCE_EXPRESSION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1265,7 +1265,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
+	int ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
@@ -1274,7 +1274,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+	int ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1283,7 +1283,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
+	int ABSTRACT_REDUCE_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1292,7 +1292,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__OPERATOR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+	int ABSTRACT_REDUCE_EXPRESSION__OPERATOR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
@@ -1301,7 +1301,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__PROJECTION = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
+	int ABSTRACT_REDUCE_EXPRESSION__PROJECTION = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1310,7 +1310,80 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__BODY = ALPHA_EXPRESSION_FEATURE_COUNT + 2;
+	int ABSTRACT_REDUCE_EXPRESSION__BODY = ALPHA_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Reduce Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_REDUCE_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.ReduceExpressionImpl <em>Reduce Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.ReduceExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getReduceExpression()
+	 * @generated
+	 */
+	int REDUCE_EXPRESSION = 30;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__ERROR_MESSAGE = ABSTRACT_REDUCE_EXPRESSION__ERROR_MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__OPERATOR = ABSTRACT_REDUCE_EXPRESSION__OPERATOR;
+
+	/**
+	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__PROJECTION = ABSTRACT_REDUCE_EXPRESSION__PROJECTION;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__BODY = ABSTRACT_REDUCE_EXPRESSION__BODY;
 
 	/**
 	 * The number of structural features of the '<em>Reduce Expression</em>' class.
@@ -1319,7 +1392,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 3;
+	int REDUCE_EXPRESSION_FEATURE_COUNT = ABSTRACT_REDUCE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.ExternalReduceExpressionImpl <em>External Reduce Expression</em>}' class.
@@ -1329,7 +1402,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getExternalReduceExpression()
 	 * @generated
 	 */
-	int EXTERNAL_REDUCE_EXPRESSION = 30;
+	int EXTERNAL_REDUCE_EXPRESSION = 31;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1411,7 +1484,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getArgReduceExpression()
 	 * @generated
 	 */
-	int ARG_REDUCE_EXPRESSION = 31;
+	int ARG_REDUCE_EXPRESSION = 32;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1420,7 +1493,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
+	int ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
@@ -1429,7 +1502,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+	int ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
 	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
@@ -1438,7 +1511,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
+	int ARG_REDUCE_EXPRESSION__ERROR_MESSAGE = ABSTRACT_REDUCE_EXPRESSION__ERROR_MESSAGE;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1447,7 +1520,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__OPERATOR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+	int ARG_REDUCE_EXPRESSION__OPERATOR = ABSTRACT_REDUCE_EXPRESSION__OPERATOR;
 
 	/**
 	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
@@ -1456,7 +1529,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__PROJECTION = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
+	int ARG_REDUCE_EXPRESSION__PROJECTION = ABSTRACT_REDUCE_EXPRESSION__PROJECTION;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1465,7 +1538,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__BODY = ALPHA_EXPRESSION_FEATURE_COUNT + 2;
+	int ARG_REDUCE_EXPRESSION__BODY = ABSTRACT_REDUCE_EXPRESSION__BODY;
 
 	/**
 	 * The number of structural features of the '<em>Arg Reduce Expression</em>' class.
@@ -1474,7 +1547,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 3;
+	int ARG_REDUCE_EXPRESSION_FEATURE_COUNT = ABSTRACT_REDUCE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.ExternalArgReduceExpressionImpl <em>External Arg Reduce Expression</em>}' class.
@@ -1484,7 +1557,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getExternalArgReduceExpression()
 	 * @generated
 	 */
-	int EXTERNAL_ARG_REDUCE_EXPRESSION = 32;
+	int EXTERNAL_ARG_REDUCE_EXPRESSION = 33;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1566,7 +1639,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getConvolutionExpression()
 	 * @generated
 	 */
-	int CONVOLUTION_EXPRESSION = 33;
+	int CONVOLUTION_EXPRESSION = 34;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1639,7 +1712,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getSelectExpression()
 	 * @generated
 	 */
-	int SELECT_EXPRESSION = 34;
+	int SELECT_EXPRESSION = 35;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1703,7 +1776,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getVariableExpression()
 	 * @generated
 	 */
-	int VARIABLE_EXPRESSION = 35;
+	int VARIABLE_EXPRESSION = 36;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1758,7 +1831,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getConstantExpression()
 	 * @generated
 	 */
-	int CONSTANT_EXPRESSION = 36;
+	int CONSTANT_EXPRESSION = 37;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1804,7 +1877,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getIntegerExpression()
 	 * @generated
 	 */
-	int INTEGER_EXPRESSION = 37;
+	int INTEGER_EXPRESSION = 38;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1859,7 +1932,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getRealExpression()
 	 * @generated
 	 */
-	int REAL_EXPRESSION = 38;
+	int REAL_EXPRESSION = 39;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1914,7 +1987,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBooleanExpression()
 	 * @generated
 	 */
-	int BOOLEAN_EXPRESSION = 39;
+	int BOOLEAN_EXPRESSION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1969,7 +2042,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUnaryExpression()
 	 * @generated
 	 */
-	int UNARY_EXPRESSION = 40;
+	int UNARY_EXPRESSION = 41;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2033,7 +2106,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBinaryExpression()
 	 * @generated
 	 */
-	int BINARY_EXPRESSION = 41;
+	int BINARY_EXPRESSION = 42;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2106,7 +2179,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getMultiArgExpression()
 	 * @generated
 	 */
-	int MULTI_ARG_EXPRESSION = 42;
+	int MULTI_ARG_EXPRESSION = 43;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2170,7 +2243,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getExternalMultiArgExpression()
 	 * @generated
 	 */
-	int EXTERNAL_MULTI_ARG_EXPRESSION = 43;
+	int EXTERNAL_MULTI_ARG_EXPRESSION = 44;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2243,7 +2316,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCalculatorNode()
 	 * @generated
 	 */
-	int CALCULATOR_NODE = 44;
+	int CALCULATOR_NODE = 45;
 
 	/**
 	 * The number of structural features of the '<em>Calculator Node</em>' class.
@@ -2262,7 +2335,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPolyhedralObject()
 	 * @generated
 	 */
-	int POLYHEDRAL_OBJECT = 45;
+	int POLYHEDRAL_OBJECT = 46;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2299,7 +2372,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCalculatorExpression()
 	 * @generated
 	 */
-	int CALCULATOR_EXPRESSION = 46;
+	int CALCULATOR_EXPRESSION = 47;
 
 	/**
 	 * The number of structural features of the '<em>Calculator Expression</em>' class.
@@ -2318,7 +2391,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIDomain()
 	 * @generated
 	 */
-	int JNI_DOMAIN = 47;
+	int JNI_DOMAIN = 48;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -2330,13 +2403,13 @@ public interface ModelPackage extends EPackage {
 	int JNI_DOMAIN__ISL_STRING = CALCULATOR_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Isl Set</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache isl Set</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_DOMAIN__ISL_SET = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
+	int JNI_DOMAIN__ZINTERNAL_CACHE_ISL_SET = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>JNI Domain</em>' class.
@@ -2348,6 +2421,43 @@ public interface ModelPackage extends EPackage {
 	int JNI_DOMAIN_FEATURE_COUNT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link alpha.model.impl.JNIDomainInArrayNotationImpl <em>JNI Domain In Array Notation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.JNIDomainInArrayNotationImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getJNIDomainInArrayNotation()
+	 * @generated
+	 */
+	int JNI_DOMAIN_IN_ARRAY_NOTATION = 49;
+
+	/**
+	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_DOMAIN_IN_ARRAY_NOTATION__ISL_STRING = JNI_DOMAIN__ISL_STRING;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache isl Set</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_DOMAIN_IN_ARRAY_NOTATION__ZINTERNAL_CACHE_ISL_SET = JNI_DOMAIN__ZINTERNAL_CACHE_ISL_SET;
+
+	/**
+	 * The number of structural features of the '<em>JNI Domain In Array Notation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_DOMAIN_IN_ARRAY_NOTATION_FEATURE_COUNT = JNI_DOMAIN_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link alpha.model.impl.JNIRelationImpl <em>JNI Relation</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2355,7 +2465,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIRelation()
 	 * @generated
 	 */
-	int JNI_RELATION = 48;
+	int JNI_RELATION = 50;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -2367,13 +2477,13 @@ public interface ModelPackage extends EPackage {
 	int JNI_RELATION__ISL_STRING = CALCULATOR_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Isl Map</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache isl Map</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_RELATION__ISL_MAP = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
+	int JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>JNI Relation</em>' class.
@@ -2392,7 +2502,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIFunction()
 	 * @generated
 	 */
-	int JNI_FUNCTION = 49;
+	int JNI_FUNCTION = 51;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -2404,13 +2514,13 @@ public interface ModelPackage extends EPackage {
 	int JNI_FUNCTION__ALPHA_STRING = CALCULATOR_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Isl MAff</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache isl MAff</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUNCTION__ISL_MAFF = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
+	int JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>JNI Function</em>' class.
@@ -2429,7 +2539,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIFunctionInArrayNotation()
 	 * @generated
 	 */
-	int JNI_FUNCTION_IN_ARRAY_NOTATION = 50;
+	int JNI_FUNCTION_IN_ARRAY_NOTATION = 52;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -2441,16 +2551,16 @@ public interface ModelPackage extends EPackage {
 	int JNI_FUNCTION_IN_ARRAY_NOTATION__ALPHA_STRING = JNI_FUNCTION__ALPHA_STRING;
 
 	/**
-	 * The feature id for the '<em><b>Isl MAff</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache isl MAff</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUNCTION_IN_ARRAY_NOTATION__ISL_MAFF = JNI_FUNCTION__ISL_MAFF;
+	int JNI_FUNCTION_IN_ARRAY_NOTATION__ZINTERNAL_CACHE_ISL_MAFF = JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF;
 
 	/**
-	 * The feature id for the '<em><b>Array Notation</b></em>' attribute.
+	 * The feature id for the '<em><b>Array Notation</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2475,7 +2585,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUnaryCalculatorExpression()
 	 * @generated
 	 */
-	int UNARY_CALCULATOR_EXPRESSION = 51;
+	int UNARY_CALCULATOR_EXPRESSION = 53;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2521,7 +2631,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBinaryCalculatorExpression()
 	 * @generated
 	 */
-	int BINARY_CALCULATOR_EXPRESSION = 52;
+	int BINARY_CALCULATOR_EXPRESSION = 54;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2576,7 +2686,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getVariableDomain()
 	 * @generated
 	 */
-	int VARIABLE_DOMAIN = 53;
+	int VARIABLE_DOMAIN = 55;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -2604,7 +2714,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getRectangularDomain()
 	 * @generated
 	 */
-	int RECTANGULAR_DOMAIN = 54;
+	int RECTANGULAR_DOMAIN = 56;
 
 	/**
 	 * The feature id for the '<em><b>Upper Bounds</b></em>' attribute list.
@@ -2625,13 +2735,13 @@ public interface ModelPackage extends EPackage {
 	int RECTANGULAR_DOMAIN__INDEX_NAMES = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Isl Set</b></em>' attribute.
+	 * The feature id for the '<em><b>Zinternal cache isl Set</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECTANGULAR_DOMAIN__ISL_SET = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
+	int RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Rectangular Domain</em>' class.
@@ -2650,7 +2760,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getDefinedObject()
 	 * @generated
 	 */
-	int DEFINED_OBJECT = 55;
+	int DEFINED_OBJECT = 57;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' reference.
@@ -2687,7 +2797,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUNARY_OP()
 	 * @generated
 	 */
-	int UNARY_OP = 56;
+	int UNARY_OP = 58;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.BINARY_OP <em>BINARY OP</em>}' enum.
@@ -2697,7 +2807,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBINARY_OP()
 	 * @generated
 	 */
-	int BINARY_OP = 57;
+	int BINARY_OP = 59;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.REDUCTION_OP <em>REDUCTION OP</em>}' enum.
@@ -2707,7 +2817,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getREDUCTION_OP()
 	 * @generated
 	 */
-	int REDUCTION_OP = 58;
+	int REDUCTION_OP = 60;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.POLY_OBJECT_TYPE <em>POLY OBJECT TYPE</em>}' enum.
@@ -2717,7 +2827,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPOLY_OBJECT_TYPE()
 	 * @generated
 	 */
-	int POLY_OBJECT_TYPE = 59;
+	int POLY_OBJECT_TYPE = 61;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_UNARY_OP <em>CALCULATOR UNARY OP</em>}' enum.
@@ -2727,7 +2837,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_UNARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_UNARY_OP = 60;
+	int CALCULATOR_UNARY_OP = 62;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_BINARY_OP <em>CALCULATOR BINARY OP</em>}' enum.
@@ -2737,7 +2847,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_BINARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_BINARY_OP = 61;
+	int CALCULATOR_BINARY_OP = 63;
 
 	/**
 	 * The meta object id for the '<em>JNI Object</em>' data type.
@@ -2747,7 +2857,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIObject()
 	 * @generated
 	 */
-	int JNI_OBJECT = 62;
+	int JNI_OBJECT = 64;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Set</em>' data type.
@@ -2757,7 +2867,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLSet()
 	 * @generated
 	 */
-	int JNIISL_SET = 63;
+	int JNIISL_SET = 65;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Map</em>' data type.
@@ -2767,7 +2877,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMap()
 	 * @generated
 	 */
-	int JNIISL_MAP = 64;
+	int JNIISL_MAP = 66;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
@@ -2777,7 +2887,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
-	int JNIISL_MULTI_AFF = 65;
+	int JNIISL_MULTI_AFF = 67;
 
 	/**
 	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
@@ -2787,7 +2897,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getISL_FORMAT()
 	 * @generated
 	 */
-	int ISL_FORMAT = 66;
+	int ISL_FORMAT = 68;
 
 
 	/**
@@ -3426,17 +3536,6 @@ public interface ModelPackage extends EPackage {
 	EClass getAutoRestrictExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.AutoRestrictExpression#getInferredDomain <em>Inferred Domain</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Inferred Domain</em>'.
-	 * @see alpha.model.AutoRestrictExpression#getInferredDomain()
-	 * @see #getAutoRestrictExpression()
-	 * @generated
-	 */
-	EReference getAutoRestrictExpression_InferredDomain();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link alpha.model.AutoRestrictExpression#getExpr <em>Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3446,6 +3545,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAutoRestrictExpression_Expr();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.AutoRestrictExpression#getZ__internal_cache_inferredDomain <em>Zinternal cache inferred Domain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Zinternal cache inferred Domain</em>'.
+	 * @see alpha.model.AutoRestrictExpression#getZ__internal_cache_inferredDomain()
+	 * @see #getAutoRestrictExpression()
+	 * @generated
+	 */
+	EAttribute getAutoRestrictExpression_Z__internal_cache_inferredDomain();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.CaseExpression <em>Case Expression</em>}'.
@@ -3576,6 +3686,49 @@ public interface ModelPackage extends EPackage {
 	EReference getIndexExpression_Function();
 
 	/**
+	 * Returns the meta object for class '{@link alpha.model.AbstractReduceExpression <em>Abstract Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Reduce Expression</em>'.
+	 * @see alpha.model.AbstractReduceExpression
+	 * @generated
+	 */
+	EClass getAbstractReduceExpression();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.AbstractReduceExpression#getOperator <em>Operator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Operator</em>'.
+	 * @see alpha.model.AbstractReduceExpression#getOperator()
+	 * @see #getAbstractReduceExpression()
+	 * @generated
+	 */
+	EAttribute getAbstractReduceExpression_Operator();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.AbstractReduceExpression#getProjection <em>Projection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Projection</em>'.
+	 * @see alpha.model.AbstractReduceExpression#getProjection()
+	 * @see #getAbstractReduceExpression()
+	 * @generated
+	 */
+	EReference getAbstractReduceExpression_Projection();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.AbstractReduceExpression#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see alpha.model.AbstractReduceExpression#getBody()
+	 * @see #getAbstractReduceExpression()
+	 * @generated
+	 */
+	EReference getAbstractReduceExpression_Body();
+
+	/**
 	 * Returns the meta object for class '{@link alpha.model.ReduceExpression <em>Reduce Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3584,39 +3737,6 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getReduceExpression();
-
-	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.ReduceExpression#getOperator <em>Operator</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Operator</em>'.
-	 * @see alpha.model.ReduceExpression#getOperator()
-	 * @see #getReduceExpression()
-	 * @generated
-	 */
-	EAttribute getReduceExpression_Operator();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.ReduceExpression#getProjection <em>Projection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Projection</em>'.
-	 * @see alpha.model.ReduceExpression#getProjection()
-	 * @see #getReduceExpression()
-	 * @generated
-	 */
-	EReference getReduceExpression_Projection();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.ReduceExpression#getBody <em>Body</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Body</em>'.
-	 * @see alpha.model.ReduceExpression#getBody()
-	 * @see #getReduceExpression()
-	 * @generated
-	 */
-	EReference getReduceExpression_Body();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.ExternalReduceExpression <em>External Reduce Expression</em>}'.
@@ -3648,39 +3768,6 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getArgReduceExpression();
-
-	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.ArgReduceExpression#getOperator <em>Operator</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Operator</em>'.
-	 * @see alpha.model.ArgReduceExpression#getOperator()
-	 * @see #getArgReduceExpression()
-	 * @generated
-	 */
-	EAttribute getArgReduceExpression_Operator();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.ArgReduceExpression#getProjection <em>Projection</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Projection</em>'.
-	 * @see alpha.model.ArgReduceExpression#getProjection()
-	 * @see #getArgReduceExpression()
-	 * @generated
-	 */
-	EReference getArgReduceExpression_Projection();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.ArgReduceExpression#getBody <em>Body</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Body</em>'.
-	 * @see alpha.model.ArgReduceExpression#getBody()
-	 * @see #getArgReduceExpression()
-	 * @generated
-	 */
-	EReference getArgReduceExpression_Body();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.ExternalArgReduceExpression <em>External Arg Reduce Expression</em>}'.
@@ -4074,15 +4161,25 @@ public interface ModelPackage extends EPackage {
 	EAttribute getJNIDomain_IslString();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.JNIDomain#getIslSet <em>Isl Set</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.JNIDomain#getZ__internal_cache_islSet <em>Zinternal cache isl Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Isl Set</em>'.
-	 * @see alpha.model.JNIDomain#getIslSet()
+	 * @return the meta object for the attribute '<em>Zinternal cache isl Set</em>'.
+	 * @see alpha.model.JNIDomain#getZ__internal_cache_islSet()
 	 * @see #getJNIDomain()
 	 * @generated
 	 */
-	EAttribute getJNIDomain_IslSet();
+	EAttribute getJNIDomain_Z__internal_cache_islSet();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.JNIDomainInArrayNotation <em>JNI Domain In Array Notation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>JNI Domain In Array Notation</em>'.
+	 * @see alpha.model.JNIDomainInArrayNotation
+	 * @generated
+	 */
+	EClass getJNIDomainInArrayNotation();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.JNIRelation <em>JNI Relation</em>}'.
@@ -4106,15 +4203,15 @@ public interface ModelPackage extends EPackage {
 	EAttribute getJNIRelation_IslString();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.JNIRelation#getIslMap <em>Isl Map</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.JNIRelation#getZ__internal_cache_islMap <em>Zinternal cache isl Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Isl Map</em>'.
-	 * @see alpha.model.JNIRelation#getIslMap()
+	 * @return the meta object for the attribute '<em>Zinternal cache isl Map</em>'.
+	 * @see alpha.model.JNIRelation#getZ__internal_cache_islMap()
 	 * @see #getJNIRelation()
 	 * @generated
 	 */
-	EAttribute getJNIRelation_IslMap();
+	EAttribute getJNIRelation_Z__internal_cache_islMap();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.JNIFunction <em>JNI Function</em>}'.
@@ -4138,15 +4235,15 @@ public interface ModelPackage extends EPackage {
 	EAttribute getJNIFunction_AlphaString();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.JNIFunction#getIslMAff <em>Isl MAff</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.JNIFunction#getZ__internal_cache_islMAff <em>Zinternal cache isl MAff</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Isl MAff</em>'.
-	 * @see alpha.model.JNIFunction#getIslMAff()
+	 * @return the meta object for the attribute '<em>Zinternal cache isl MAff</em>'.
+	 * @see alpha.model.JNIFunction#getZ__internal_cache_islMAff()
 	 * @see #getJNIFunction()
 	 * @generated
 	 */
-	EAttribute getJNIFunction_IslMAff();
+	EAttribute getJNIFunction_Z__internal_cache_islMAff();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.JNIFunctionInArrayNotation <em>JNI Function In Array Notation</em>}'.
@@ -4159,10 +4256,10 @@ public interface ModelPackage extends EPackage {
 	EClass getJNIFunctionInArrayNotation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.JNIFunctionInArrayNotation#getArrayNotation <em>Array Notation</em>}'.
+	 * Returns the meta object for the attribute list '{@link alpha.model.JNIFunctionInArrayNotation#getArrayNotation <em>Array Notation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Array Notation</em>'.
+	 * @return the meta object for the attribute list '<em>Array Notation</em>'.
 	 * @see alpha.model.JNIFunctionInArrayNotation#getArrayNotation()
 	 * @see #getJNIFunctionInArrayNotation()
 	 * @generated
@@ -4320,15 +4417,15 @@ public interface ModelPackage extends EPackage {
 	EAttribute getRectangularDomain_IndexNames();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.RectangularDomain#getIslSet <em>Isl Set</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.RectangularDomain#getZ__internal_cache_islSet <em>Zinternal cache isl Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Isl Set</em>'.
-	 * @see alpha.model.RectangularDomain#getIslSet()
+	 * @return the meta object for the attribute '<em>Zinternal cache isl Set</em>'.
+	 * @see alpha.model.RectangularDomain#getZ__internal_cache_islSet()
 	 * @see #getRectangularDomain()
 	 * @generated
 	 */
-	EAttribute getRectangularDomain_IslSet();
+	EAttribute getRectangularDomain_Z__internal_cache_islSet();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.DefinedObject <em>Defined Object</em>}'.
@@ -5030,20 +5127,20 @@ public interface ModelPackage extends EPackage {
 		EClass AUTO_RESTRICT_EXPRESSION = eINSTANCE.getAutoRestrictExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Inferred Domain</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference AUTO_RESTRICT_EXPRESSION__INFERRED_DOMAIN = eINSTANCE.getAutoRestrictExpression_InferredDomain();
-
-		/**
 		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference AUTO_RESTRICT_EXPRESSION__EXPR = eINSTANCE.getAutoRestrictExpression_Expr();
+
+		/**
+		 * The meta object literal for the '<em><b>Zinternal cache inferred Domain</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AUTO_RESTRICT_EXPRESSION__ZINTERNAL_CACHE_INFERRED_DOMAIN = eINSTANCE.getAutoRestrictExpression_Z__internal_cache_inferredDomain();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.CaseExpressionImpl <em>Case Expression</em>}' class.
@@ -5150,6 +5247,40 @@ public interface ModelPackage extends EPackage {
 		EReference INDEX_EXPRESSION__FUNCTION = eINSTANCE.getIndexExpression_Function();
 
 		/**
+		 * The meta object literal for the '{@link alpha.model.impl.AbstractReduceExpressionImpl <em>Abstract Reduce Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.AbstractReduceExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getAbstractReduceExpression()
+		 * @generated
+		 */
+		EClass ABSTRACT_REDUCE_EXPRESSION = eINSTANCE.getAbstractReduceExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_REDUCE_EXPRESSION__OPERATOR = eINSTANCE.getAbstractReduceExpression_Operator();
+
+		/**
+		 * The meta object literal for the '<em><b>Projection</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_REDUCE_EXPRESSION__PROJECTION = eINSTANCE.getAbstractReduceExpression_Projection();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_REDUCE_EXPRESSION__BODY = eINSTANCE.getAbstractReduceExpression_Body();
+
+		/**
 		 * The meta object literal for the '{@link alpha.model.impl.ReduceExpressionImpl <em>Reduce Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5158,30 +5289,6 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass REDUCE_EXPRESSION = eINSTANCE.getReduceExpression();
-
-		/**
-		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REDUCE_EXPRESSION__OPERATOR = eINSTANCE.getReduceExpression_Operator();
-
-		/**
-		 * The meta object literal for the '<em><b>Projection</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference REDUCE_EXPRESSION__PROJECTION = eINSTANCE.getReduceExpression_Projection();
-
-		/**
-		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference REDUCE_EXPRESSION__BODY = eINSTANCE.getReduceExpression_Body();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.ExternalReduceExpressionImpl <em>External Reduce Expression</em>}' class.
@@ -5210,30 +5317,6 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ARG_REDUCE_EXPRESSION = eINSTANCE.getArgReduceExpression();
-
-		/**
-		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ARG_REDUCE_EXPRESSION__OPERATOR = eINSTANCE.getArgReduceExpression_Operator();
-
-		/**
-		 * The meta object literal for the '<em><b>Projection</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ARG_REDUCE_EXPRESSION__PROJECTION = eINSTANCE.getArgReduceExpression_Projection();
-
-		/**
-		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ARG_REDUCE_EXPRESSION__BODY = eINSTANCE.getArgReduceExpression_Body();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.ExternalArgReduceExpressionImpl <em>External Arg Reduce Expression</em>}' class.
@@ -5564,12 +5647,22 @@ public interface ModelPackage extends EPackage {
 		EAttribute JNI_DOMAIN__ISL_STRING = eINSTANCE.getJNIDomain_IslString();
 
 		/**
-		 * The meta object literal for the '<em><b>Isl Set</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zinternal cache isl Set</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute JNI_DOMAIN__ISL_SET = eINSTANCE.getJNIDomain_IslSet();
+		EAttribute JNI_DOMAIN__ZINTERNAL_CACHE_ISL_SET = eINSTANCE.getJNIDomain_Z__internal_cache_islSet();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.JNIDomainInArrayNotationImpl <em>JNI Domain In Array Notation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.JNIDomainInArrayNotationImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getJNIDomainInArrayNotation()
+		 * @generated
+		 */
+		EClass JNI_DOMAIN_IN_ARRAY_NOTATION = eINSTANCE.getJNIDomainInArrayNotation();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.JNIRelationImpl <em>JNI Relation</em>}' class.
@@ -5590,12 +5683,12 @@ public interface ModelPackage extends EPackage {
 		EAttribute JNI_RELATION__ISL_STRING = eINSTANCE.getJNIRelation_IslString();
 
 		/**
-		 * The meta object literal for the '<em><b>Isl Map</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zinternal cache isl Map</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute JNI_RELATION__ISL_MAP = eINSTANCE.getJNIRelation_IslMap();
+		EAttribute JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP = eINSTANCE.getJNIRelation_Z__internal_cache_islMap();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.JNIFunctionImpl <em>JNI Function</em>}' class.
@@ -5616,12 +5709,12 @@ public interface ModelPackage extends EPackage {
 		EAttribute JNI_FUNCTION__ALPHA_STRING = eINSTANCE.getJNIFunction_AlphaString();
 
 		/**
-		 * The meta object literal for the '<em><b>Isl MAff</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zinternal cache isl MAff</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute JNI_FUNCTION__ISL_MAFF = eINSTANCE.getJNIFunction_IslMAff();
+		EAttribute JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF = eINSTANCE.getJNIFunction_Z__internal_cache_islMAff();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.JNIFunctionInArrayNotationImpl <em>JNI Function In Array Notation</em>}' class.
@@ -5634,7 +5727,7 @@ public interface ModelPackage extends EPackage {
 		EClass JNI_FUNCTION_IN_ARRAY_NOTATION = eINSTANCE.getJNIFunctionInArrayNotation();
 
 		/**
-		 * The meta object literal for the '<em><b>Array Notation</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Array Notation</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -5762,12 +5855,12 @@ public interface ModelPackage extends EPackage {
 		EAttribute RECTANGULAR_DOMAIN__INDEX_NAMES = eINSTANCE.getRectangularDomain_IndexNames();
 
 		/**
-		 * The meta object literal for the '<em><b>Isl Set</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Zinternal cache isl Set</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute RECTANGULAR_DOMAIN__ISL_SET = eINSTANCE.getRectangularDomain_IslSet();
+		EAttribute RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET = eINSTANCE.getRectangularDomain_Z__internal_cache_islSet();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.DefinedObjectImpl <em>Defined Object</em>}' class.

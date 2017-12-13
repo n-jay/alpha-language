@@ -66,6 +66,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model areUnique="false"
+	 * @generated
+	 */
+	void visitAbstractReduceExpression(AbstractReduceExpression are);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model reUnique="false"
 	 * @generated
 	 */
@@ -242,6 +250,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model areUnique="false"
+	 * @generated
+	 */
+	void inAbstractReduceExpression(AbstractReduceExpression are);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model reUnique="false"
 	 * @generated
 	 */
@@ -414,6 +430,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void outDependenceExpression(DependenceExpression de);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model areUnique="false"
+	 * @generated
+	 */
+	void outAbstractReduceExpression(AbstractReduceExpression are);
 
 	/**
 	 * <!-- begin-user-doc -->

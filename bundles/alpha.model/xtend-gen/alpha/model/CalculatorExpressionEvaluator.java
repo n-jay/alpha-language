@@ -1,24 +1,34 @@
 package alpha.model;
 
+import alpha.model.AlphaNode;
 import alpha.model.AlphaSystem;
+import alpha.model.ArgReduceExpression;
 import alpha.model.BinaryCalculatorExpression;
 import alpha.model.CALCULATOR_BINARY_OP;
 import alpha.model.CALCULATOR_UNARY_OP;
 import alpha.model.CalculatorExpression;
 import alpha.model.DefinedObject;
+import alpha.model.DependenceExpression;
+import alpha.model.IndexExpression;
 import alpha.model.JNIDomain;
+import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
+import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.JNIRelation;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.RectangularDomain;
+import alpha.model.ReduceExpression;
 import alpha.model.UnaryCalculatorExpression;
+import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.VariableDomain;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.CalculatorExpressionIssue;
+import alpha.model.issue.OutOfContextArrayNotationException;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.DefaultCalculatorExpressionVisitor;
+import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
@@ -29,16 +39,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {
   private List<CalculatorExpressionIssue> issues = new LinkedList<CalculatorExpressionIssue>();
   
+  private List<String> indexNameContext;
+  
+  protected CalculatorExpressionEvaluator(final List<String> indexNameContext) {
+    this.indexNameContext = indexNameContext;
+  }
+  
   public static List<CalculatorExpressionIssue> calculate(final CalculatorExpression expr) {
-    final CalculatorExpressionEvaluator calc = new CalculatorExpressionEvaluator();
+    return CalculatorExpressionEvaluator.calculate(expr, null);
+  }
+  
+  public static List<CalculatorExpressionIssue> calculate(final CalculatorExpression expr, final List<String> indexNameContext) {
+    final CalculatorExpressionEvaluator calc = new CalculatorExpressionEvaluator(indexNameContext);
     expr.accept(calc);
     return calc.issues;
   }
@@ -134,7 +157,8 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitBinaryCalculatorExpression(final BinaryCalculatorExpression expr) {
     DefaultCalculatorExpressionVisitor.super.visitBinaryCalculatorExpression(expr);
-    if (((((expr.getLeft() == null) || (expr.getRight() == null)) || (expr.getLeft().getISLObject() == null)) || (expr.getRight().getISLObject() == null))) {
+    if (((((expr.getLeft() == null) || (expr.getRight() == null)) || (expr.getLeft().getISLObject() == null)) || 
+      (expr.getRight().getISLObject() == null))) {
       return;
     }
     final JNIObject left = expr.getLeft().getISLObject();
@@ -282,22 +306,39 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       final StringBuffer completed = new StringBuffer("[");
       completed.append(String.join(",", pdom.getParametersNames()));
       completed.append("] -> ");
-      completed.append(jniDomain.getIslString());
-      JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniDomain), completed.toString()));
+      completed.append(this.parseJNIDomain(jniDomain));
+      JNIISLSet jniset = ISLFactory.islSet(
+        AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniDomain), completed.toString()));
       jniset = jniset.intersectParams(pdom.copy());
-      jniDomain.setIslSet(jniset);
+      jniDomain.setISLSet(jniset);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
+        String _xifexpression = null;
         String _message = re.getMessage();
+        boolean _tripleEquals = (_message == null);
+        if (_tripleEquals) {
+          _xifexpression = re.getClass().getName();
+        } else {
+          _xifexpression = re.getMessage();
+        }
+        final String msg = _xifexpression;
         CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, _message, jniDomain, 
+          AlphaIssue.TYPE.ERROR, msg, jniDomain, 
           ModelPackage.Literals.JNI_DOMAIN__ISL_STRING);
         this.issues.add(_calculatorExpressionIssue);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
+  }
+  
+  private String _parseJNIDomain(final JNIDomain jniDomain) {
+    return jniDomain.getIslString();
+  }
+  
+  private String _parseJNIDomain(final JNIDomainInArrayNotation jniDomain) {
+    return String.format("{ [%s] : %s }", IterableExtensions.join(this.indexNameContext, ","), jniDomain.getIslString());
   }
   
   @Override
@@ -308,15 +349,24 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       completed.append(String.join(",", pdom.getParametersNames()));
       completed.append("] -> ");
       completed.append(jniRelation.getIslString());
-      JNIISLMap jnimap = ISLFactory.islMap(AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniRelation), completed.toString()));
+      JNIISLMap jnimap = ISLFactory.islMap(
+        AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniRelation), completed.toString()));
       jnimap = jnimap.intersectParams(pdom.copy());
-      jniRelation.setIslMap(jnimap);
+      jniRelation.setISLMap(jnimap);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
+        String _xifexpression = null;
         String _message = re.getMessage();
+        boolean _tripleEquals = (_message == null);
+        if (_tripleEquals) {
+          _xifexpression = re.getClass().getName();
+        } else {
+          _xifexpression = re.getMessage();
+        }
+        final String msg = _xifexpression;
         CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, _message, jniRelation, 
+          AlphaIssue.TYPE.ERROR, msg, jniRelation, 
           ModelPackage.Literals.JNI_RELATION__ISL_STRING);
         this.issues.add(_calculatorExpressionIssue);
       } else {
@@ -327,6 +377,11 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   
   @Override
   public void visitJNIFunction(final JNIFunction jniFunction) {
+    this.parseJNIFunction(jniFunction);
+  }
+  
+  protected Boolean _parseJNIFunction(final JNIFunction jniFunction) {
+    boolean _xtrycatchfinallyexpression = false;
     try {
       final JNIISLSet pdom = this.getParameterDomain(jniFunction);
       final StringBuffer completed = new StringBuffer("[");
@@ -342,20 +397,120 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       completed.append("] -> [");
       completed.append(expr);
       completed.append("] }");
-      final JNIISLMultiAff jnimaff = ISLFactory.islMultiAff(AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
-      jniFunction.setIslMAff(jnimaff);
+      final JNIISLMultiAff jnimaff = ISLFactory.islMultiAff(
+        AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
+      jniFunction.setISLMultiAff(jnimaff);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
-        String _message = re.getMessage();
-        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, _message, jniFunction, 
-          ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING);
-        this.issues.add(_calculatorExpressionIssue);
+        boolean _xblockexpression = false;
+        {
+          String _xifexpression = null;
+          String _message = re.getMessage();
+          boolean _tripleEquals = (_message == null);
+          if (_tripleEquals) {
+            _xifexpression = re.getClass().getName();
+          } else {
+            _xifexpression = re.getMessage();
+          }
+          final String msg = _xifexpression;
+          CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
+            AlphaIssue.TYPE.ERROR, msg, jniFunction, 
+            ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING);
+          _xblockexpression = this.issues.add(_calculatorExpressionIssue);
+        }
+        _xtrycatchfinallyexpression = _xblockexpression;
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
+    return Boolean.valueOf(_xtrycatchfinallyexpression);
+  }
+  
+  protected Boolean _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction) {
+    boolean _xtrycatchfinallyexpression = false;
+    try {
+      final JNIISLSet pdom = this.getParameterDomain(jniFunction);
+      final StringBuffer completed = new StringBuffer("[");
+      completed.append(String.join(",", pdom.getParametersNames()));
+      completed.append("] -> ");
+      EObject _eContainer = jniFunction.eContainer();
+      completed.append(this.parseJNIFunction(jniFunction, ((AlphaNode) _eContainer)));
+      final JNIISLMultiAff jnimaff = ISLFactory.islMultiAff(
+        AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
+      jniFunction.setISLMultiAff(jnimaff);
+    } catch (final Throwable _t) {
+      if (_t instanceof RuntimeException) {
+        final RuntimeException re = (RuntimeException)_t;
+        boolean _xblockexpression = false;
+        {
+          String _xifexpression = null;
+          String _message = re.getMessage();
+          boolean _tripleEquals = (_message == null);
+          if (_tripleEquals) {
+            _xifexpression = re.getClass().getName();
+          } else {
+            _xifexpression = re.getMessage();
+          }
+          final String msg = _xifexpression;
+          CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
+            AlphaIssue.TYPE.ERROR, msg, jniFunction, 
+            ModelPackage.Literals.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
+          _xblockexpression = this.issues.add(_calculatorExpressionIssue);
+        }
+        _xtrycatchfinallyexpression = _xblockexpression;
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
+    return Boolean.valueOf(_xtrycatchfinallyexpression);
+  }
+  
+  private StringBuffer parseJNIFunctionAsProjection(final JNIFunctionInArrayNotation jniFunction) {
+    if ((this.indexNameContext == null)) {
+      String _format = String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", IterableExtensions.join(jniFunction.getArrayNotation(), ","));
+      throw new OutOfContextArrayNotationException(_format);
+    }
+    final StringBuffer funStr = new StringBuffer("{ [");
+    EList<String> _arrayNotation = jniFunction.getArrayNotation();
+    funStr.append(IterableExtensions.join(Iterables.<String>concat(this.indexNameContext, _arrayNotation), ","));
+    funStr.append("] -> [");
+    funStr.append(IterableExtensions.join(this.indexNameContext, ","));
+    funStr.append("] }");
+    return funStr;
+  }
+  
+  private StringBuffer parseJNIFunctionAsFunction(final JNIFunctionInArrayNotation jniFunction) {
+    if ((this.indexNameContext == null)) {
+      String _format = String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", IterableExtensions.join(jniFunction.getArrayNotation(), ","));
+      throw new OutOfContextArrayNotationException(_format);
+    }
+    final StringBuffer funStr = new StringBuffer("{ [");
+    funStr.append(IterableExtensions.join(this.indexNameContext, ","));
+    funStr.append("] -> [");
+    funStr.append(IterableExtensions.join(jniFunction.getArrayNotation(), ","));
+    funStr.append("] }");
+    return funStr;
+  }
+  
+  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final ReduceExpression parent) {
+    return this.parseJNIFunctionAsProjection(jniFunction);
+  }
+  
+  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final ArgReduceExpression parent) {
+    return this.parseJNIFunctionAsProjection(jniFunction);
+  }
+  
+  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final UseEquation parent) {
+    return this.parseJNIFunctionAsFunction(jniFunction);
+  }
+  
+  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final DependenceExpression parent) {
+    return this.parseJNIFunctionAsFunction(jniFunction);
+  }
+  
+  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final IndexExpression parent) {
+    return this.parseJNIFunctionAsFunction(jniFunction);
   }
   
   @Override
@@ -410,7 +565,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       completed.append("}");
       JNIISLSet jniset = ISLFactory.islSet(completed.toString());
       jniset = jniset.intersectParams(pdom.copy());
-      rdom.setIslSet(jniset);
+      rdom.setISLSet(jniset);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
@@ -437,10 +592,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     if ((system == null)) {
       throw new RuntimeException("Expression is not contained by an AlphaSystem.");
     }
-    if (((system.getParameterDomain() == null) || (system.getParameterDomain().getIslSet() == null))) {
+    if (((system.getParameterDomain() == null) || (system.getParameterDomain().getISLSet() == null))) {
       throw new RuntimeException("The parameter domain of the container system is null.");
     }
-    return system.getParameterDomain().getIslSet();
+    return system.getParameterDomain().getISLSet();
   }
   
   private JNIObject evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIObject map) {
@@ -487,6 +642,45 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(op, left, right).toString());
+    }
+  }
+  
+  private String parseJNIDomain(final JNIDomain jniDomain) {
+    if (jniDomain instanceof JNIDomainInArrayNotation) {
+      return _parseJNIDomain((JNIDomainInArrayNotation)jniDomain);
+    } else if (jniDomain != null) {
+      return _parseJNIDomain(jniDomain);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(jniDomain).toString());
+    }
+  }
+  
+  protected Boolean parseJNIFunction(final JNIFunction jniFunction) {
+    if (jniFunction instanceof JNIFunctionInArrayNotation) {
+      return _parseJNIFunction((JNIFunctionInArrayNotation)jniFunction);
+    } else if (jniFunction != null) {
+      return _parseJNIFunction(jniFunction);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(jniFunction).toString());
+    }
+  }
+  
+  protected StringBuffer parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final AlphaNode parent) {
+    if (parent instanceof ArgReduceExpression) {
+      return _parseJNIFunction(jniFunction, (ArgReduceExpression)parent);
+    } else if (parent instanceof ReduceExpression) {
+      return _parseJNIFunction(jniFunction, (ReduceExpression)parent);
+    } else if (parent instanceof DependenceExpression) {
+      return _parseJNIFunction(jniFunction, (DependenceExpression)parent);
+    } else if (parent instanceof IndexExpression) {
+      return _parseJNIFunction(jniFunction, (IndexExpression)parent);
+    } else if (parent instanceof UseEquation) {
+      return _parseJNIFunction(jniFunction, (UseEquation)parent);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(jniFunction, parent).toString());
     }
   }
 }

@@ -19,7 +19,6 @@ import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
 import alpha.model.FuzzyVariable;
 import alpha.model.IndexExpression;
-import alpha.model.JNIDomain;
 import alpha.model.MultiArgExpression;
 import alpha.model.PolyhedralObject;
 import alpha.model.ReduceExpression;
@@ -31,6 +30,7 @@ import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -236,10 +236,10 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   @Override
   public void inAutoRestrictExpression(final AutoRestrictExpression are) {
     this.inAlphaExpression(are);
-    JNIDomain _inferredDomain = are.getInferredDomain();
+    JNIISLSet _inferredDomain = are.getInferredDomain();
     boolean _tripleNotEquals = (_inferredDomain != null);
     if (_tripleNotEquals) {
-      this.printStr("+-- ", are.getInferredDomain().getISLObject());
+      this.printStr("+-- ", are.getInferredDomain());
     }
   }
   

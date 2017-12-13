@@ -6,7 +6,14 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitor;
 import alpha.model.CalculatorExpression;
 import alpha.model.ModelPackage;
+import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.RestrictExpression;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -154,6 +161,19 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.RESTRICT_EXPRESSION__EXPR, newExpr, newExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIISLSet getRestrictDomain() {
+		if ((((this.getDomainExpr() != null) && Objects.equal(this.getDomainExpr().getType(), POLY_OBJECT_TYPE.SET)) && (this.getDomainExpr().getISLObject() != null))) {
+			JNIObject _iSLObject = this.getDomainExpr().getISLObject();
+			return ((JNIISLSet) _iSLObject);
+		}
+		return null;
 	}
 
 	/**

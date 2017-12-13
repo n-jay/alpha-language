@@ -188,12 +188,16 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	public JNIISLSet getExpressionDomain() {
+		JNIISLSet _xifexpression = null;
 		JNIISLSet _z__internal_cache_exprDom = this.getZ__internal_cache_exprDom();
 		boolean _tripleNotEquals = (_z__internal_cache_exprDom != null);
 		if (_tripleNotEquals) {
-			return this.getZ__internal_cache_exprDom().copy();
+			_xifexpression = this.getZ__internal_cache_exprDom().copy();
 		}
-		return null;
+		else {
+			_xifexpression = null;
+		}
+		return _xifexpression;
 	}
 
 	/**
@@ -211,12 +215,16 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	public JNIISLSet getContextDomain() {
+		JNIISLSet _xifexpression = null;
 		JNIISLSet _z__internal_cache_contextDom = this.getZ__internal_cache_contextDom();
 		boolean _tripleNotEquals = (_z__internal_cache_contextDom != null);
 		if (_tripleNotEquals) {
-			return this.getZ__internal_cache_contextDom().copy();
+			_xifexpression = this.getZ__internal_cache_contextDom().copy();
 		}
-		return null;
+		else {
+			_xifexpression = null;
+		}
+		return _xifexpression;
 	}
 
 	/**

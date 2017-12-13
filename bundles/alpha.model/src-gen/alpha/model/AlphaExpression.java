@@ -116,7 +116,7 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_exprDom = this.getZ__internal_cache_exprDom();\nboolean _tripleNotEquals = (_z__internal_cache_exprDom != null);\nif (_tripleNotEquals)\n{\n\treturn this.getZ__internal_cache_exprDom().copy();\n}\nreturn null;'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_exprDom = this.getZ__internal_cache_exprDom();\nboolean _tripleNotEquals = (_z__internal_cache_exprDom != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getZ__internal_cache_exprDom().copy();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLSet getExpressionDomain();
@@ -134,7 +134,7 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_contextDom = this.getZ__internal_cache_contextDom();\nboolean _tripleNotEquals = (_z__internal_cache_contextDom != null);\nif (_tripleNotEquals)\n{\n\treturn this.getZ__internal_cache_contextDom().copy();\n}\nreturn null;'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_contextDom = this.getZ__internal_cache_contextDom();\nboolean _tripleNotEquals = (_z__internal_cache_contextDom != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getZ__internal_cache_contextDom().copy();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLSet getContextDomain();

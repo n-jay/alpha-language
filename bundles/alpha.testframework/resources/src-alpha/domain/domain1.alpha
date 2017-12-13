@@ -1,0 +1,67 @@
+/*
+ * Tests for ArrayNotation 1
+ * 1D arrays in combination with dependences
+ */
+affine domain1a [N]->{ : }
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		B[i] = A[i];
+.
+
+affine domain1b [N]->{ : }
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		B = A;
+.
+
+affine domain1c [N]->{ : }
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		B = A[i]; //should fail due to index name not being specified in B, disallowing array notation
+.
+
+affine domain1d [N]->{ : }
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		B = (x->x)@A;
+.
+
+affine domain1e [N]->{:}
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		B[i] = (x->x)@A[i]; //cannot use array notation after pure function
+.
+
+affine domain1f [N]->{:}
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		B[i] = select {[x]->[x]:} from A[x]; //select can rename array notation context
+.
+
+affine domain1g [N]->{:}
+	inputs
+		A : [N]
+	outputs
+		B : [N]
+	let
+		B[i] = select {[x]->[x]:} from A[i]; //should fail due to context being changed by select
+.
+

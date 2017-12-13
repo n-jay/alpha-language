@@ -1,0 +1,35 @@
+affine domain2a [N]->{ : }
+	inputs
+		A : [N,N]
+	outputs
+		B : [N,N]
+	let
+		B[i] = A[i]; //incorrect dimensions
+.
+
+affine domain2b [N]->{ : }
+	inputs
+		A : [N,N]
+	outputs
+		B : [N,N]
+	let
+		B = A[i,j];
+.
+
+affine domain2c [N]->{ : }
+	inputs
+		A : [N,N]
+	outputs
+		B : [N,N]
+	let
+		B[i,j] = A;
+.
+
+affine domain2d [N]->{ : }
+	inputs
+		A : [N,N]
+	outputs
+		B : [N,N]
+	let
+		B = (x,y->x,y)@A;
+.

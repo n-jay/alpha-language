@@ -1019,6 +1019,56 @@ ruleJNIDomain returns [EObject current=null]
 	)
 ;
 
+// Entry rule entryRuleJNIDomainInArrayNotation
+entryRuleJNIDomainInArrayNotation returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getJNIDomainInArrayNotationRule()); }
+	iv_ruleJNIDomainInArrayNotation=ruleJNIDomainInArrayNotation
+	{ $current=$iv_ruleJNIDomainInArrayNotation.current; }
+	EOF;
+
+// Rule JNIDomainInArrayNotation
+ruleJNIDomainInArrayNotation returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='{'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getJNIDomainInArrayNotationAccess().getLeftCurlyBracketKeyword_0());
+		}
+		otherlv_1=':'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getJNIDomainInArrayNotationAccess().getColonKeyword_1());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getJNIDomainInArrayNotationAccess().getIslStringAISLStringParserRuleCall_2_0());
+				}
+				lv_islString_2_0=ruleAISLString
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getJNIDomainInArrayNotationRule());
+					}
+					set(
+						$current,
+						"islString",
+						lv_islString_2_0,
+						"alpha.model.Alpha.AISLString");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_3='}'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getJNIDomainInArrayNotationAccess().getRightCurlyBracketKeyword_3());
+		}
+	)
+;
+
 // Entry rule entryRuleJNIParamDomain
 entryRuleJNIParamDomain returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getJNIParamDomainRule()); }
@@ -1143,23 +1193,67 @@ ruleJNIFunctionInArrayNotation returns [EObject current=null]
 	leaveRule();
 }:
 	(
+		otherlv_0='['
+		{
+			newLeafNode(otherlv_0, grammarAccess.getJNIFunctionInArrayNotationAccess().getLeftSquareBracketKeyword_0());
+		}
 		(
 			{
-				newCompositeNode(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAAlphaFunctionInArrayNotationParserRuleCall_0());
-			}
-			lv_arrayNotation_0_0=ruleAAlphaFunctionInArrayNotation
-			{
-				if ($current==null) {
-					$current = createModelElementForParent(grammarAccess.getJNIFunctionInArrayNotationRule());
-				}
-				set(
-					$current,
-					"arrayNotation",
-					lv_arrayNotation_0_0,
-					"alpha.model.Alpha.AAlphaFunctionInArrayNotation");
-				afterParserOrEnumRuleCall();
+				$current = forceCreateModelElement(
+					grammarAccess.getJNIFunctionInArrayNotationAccess().getJNIFunctionInArrayNotationAction_1(),
+					$current);
 			}
 		)
+		(
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAISLExpressionParserRuleCall_2_0_0());
+					}
+					lv_arrayNotation_2_0=ruleAISLExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getJNIFunctionInArrayNotationRule());
+						}
+						add(
+							$current,
+							"arrayNotation",
+							lv_arrayNotation_2_0,
+							"alpha.model.Alpha.AISLExpression");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			(
+				otherlv_3=','
+				{
+					newLeafNode(otherlv_3, grammarAccess.getJNIFunctionInArrayNotationAccess().getCommaKeyword_2_1_0());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAISLExpressionParserRuleCall_2_1_1_0());
+						}
+						lv_arrayNotation_4_0=ruleAISLExpression
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getJNIFunctionInArrayNotationRule());
+							}
+							add(
+								$current,
+								"arrayNotation",
+								lv_arrayNotation_4_0,
+								"alpha.model.Alpha.AISLExpression");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)*
+		)?
+		otherlv_5=']'
+		{
+			newLeafNode(otherlv_5, grammarAccess.getJNIFunctionInArrayNotationAccess().getRightSquareBracketKeyword_3());
+		}
 	)
 ;
 
@@ -1483,35 +1577,33 @@ ruleAISLBasicSet returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
 	leaveRule();
 }:
 	(
-		(
-			kw='['
-			{
-				$current.merge(kw);
-				newLeafNode(kw, grammarAccess.getAISLBasicSetAccess().getLeftSquareBracketKeyword_0_0());
-			}
-			{
-				newCompositeNode(grammarAccess.getAISLBasicSetAccess().getAIndexListParserRuleCall_0_1());
-			}
-			this_AIndexList_1=ruleAIndexList
-			{
-				$current.merge(this_AIndexList_1);
-			}
-			{
-				afterParserOrEnumRuleCall();
-			}
-			kw=']'
-			{
-				$current.merge(kw);
-				newLeafNode(kw, grammarAccess.getAISLBasicSetAccess().getRightSquareBracketKeyword_0_2());
-			}
-		)?
+		kw='['
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLBasicSetAccess().getLeftSquareBracketKeyword_0());
+		}
+		{
+			newCompositeNode(grammarAccess.getAISLBasicSetAccess().getAIndexListParserRuleCall_1());
+		}
+		this_AIndexList_1=ruleAIndexList
+		{
+			$current.merge(this_AIndexList_1);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		kw=']'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLBasicSetAccess().getRightSquareBracketKeyword_2());
+		}
 		kw=':'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLBasicSetAccess().getColonKeyword_1());
+			newLeafNode(kw, grammarAccess.getAISLBasicSetAccess().getColonKeyword_3());
 		}
 		{
-			newCompositeNode(grammarAccess.getAISLBasicSetAccess().getAISLStringParserRuleCall_2());
+			newCompositeNode(grammarAccess.getAISLBasicSetAccess().getAISLStringParserRuleCall_4());
 		}
 		this_AISLString_4=ruleAISLString
 		{
@@ -1998,45 +2090,6 @@ ruleAAlphaFunction returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRule
 	)
 ;
 
-// Entry rule entryRuleAAlphaFunctionInArrayNotation
-entryRuleAAlphaFunctionInArrayNotation returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getAAlphaFunctionInArrayNotationRule()); }
-	iv_ruleAAlphaFunctionInArrayNotation=ruleAAlphaFunctionInArrayNotation
-	{ $current=$iv_ruleAAlphaFunctionInArrayNotation.current.getText(); }
-	EOF;
-
-// Rule AAlphaFunctionInArrayNotation
-ruleAAlphaFunctionInArrayNotation returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
-@init {
-	enterRule();
-}
-@after {
-	leaveRule();
-}:
-	(
-		kw='['
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAAlphaFunctionInArrayNotationAccess().getLeftSquareBracketKeyword_0());
-		}
-		{
-			newCompositeNode(grammarAccess.getAAlphaFunctionInArrayNotationAccess().getAISLExpressionListParserRuleCall_1());
-		}
-		this_AISLExpressionList_1=ruleAISLExpressionList
-		{
-			$current.merge(this_AISLExpressionList_1);
-		}
-		{
-			afterParserOrEnumRuleCall();
-		}
-		kw=']'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAAlphaFunctionInArrayNotationAccess().getRightSquareBracketKeyword_2());
-		}
-	)
-;
-
 // Entry rule entryRuleStandardEquation
 entryRuleStandardEquation returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getStandardEquationRule()); }
@@ -2320,9 +2373,12 @@ ruleUseEquation returns [EObject current=null]
 						$current = createModelElement(grammarAccess.getUseEquationRule());
 					}
 				}
-				otherlv_15=RULE_ID
 				{
-					newLeafNode(otherlv_15, grammarAccess.getUseEquationAccess().getSystemAlphaSystemCrossReference_5_0());
+					newCompositeNode(grammarAccess.getUseEquationAccess().getSystemAlphaSystemCrossReference_5_0());
+				}
+				ruleQualifiedName
+				{
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -2721,21 +2777,39 @@ ruleRestrictExpression returns [EObject current=null]
 		(
 			(
 				(
-					{
-						newCompositeNode(grammarAccess.getRestrictExpressionAccess().getDomainExprJNIDomainParserRuleCall_0_0_0());
-					}
-					lv_domainExpr_0_0=ruleJNIDomain
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getRestrictExpressionRule());
+					(
+						{
+							newCompositeNode(grammarAccess.getRestrictExpressionAccess().getDomainExprJNIDomainParserRuleCall_0_0_0_0());
 						}
-						set(
-							$current,
-							"domainExpr",
-							lv_domainExpr_0_0,
-							"alpha.model.Alpha.JNIDomain");
-						afterParserOrEnumRuleCall();
-					}
+						lv_domainExpr_0_1=ruleJNIDomain
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getRestrictExpressionRule());
+							}
+							set(
+								$current,
+								"domainExpr",
+								lv_domainExpr_0_1,
+								"alpha.model.Alpha.JNIDomain");
+							afterParserOrEnumRuleCall();
+						}
+						    |
+						{
+							newCompositeNode(grammarAccess.getRestrictExpressionAccess().getDomainExprJNIDomainInArrayNotationParserRuleCall_0_0_0_1());
+						}
+						lv_domainExpr_0_2=ruleJNIDomainInArrayNotation
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getRestrictExpressionRule());
+							}
+							set(
+								$current,
+								"domainExpr",
+								lv_domainExpr_0_2,
+								"alpha.model.Alpha.JNIDomainInArrayNotation");
+							afterParserOrEnumRuleCall();
+						}
+					)
 				)
 			)
 			otherlv_1=':'

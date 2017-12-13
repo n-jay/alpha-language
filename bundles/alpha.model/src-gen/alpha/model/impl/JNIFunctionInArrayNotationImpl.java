@@ -5,11 +5,13 @@ package alpha.model.impl;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.ModelPackage;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,24 +28,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class JNIFunctionInArrayNotationImpl extends JNIFunctionImpl implements JNIFunctionInArrayNotation {
 	/**
-	 * The default value of the '{@link #getArrayNotation() <em>Array Notation</em>}' attribute.
+	 * The cached value of the '{@link #getArrayNotation() <em>Array Notation</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getArrayNotation()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String ARRAY_NOTATION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getArrayNotation() <em>Array Notation</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getArrayNotation()
-	 * @generated
-	 * @ordered
-	 */
-	protected String arrayNotation = ARRAY_NOTATION_EDEFAULT;
+	protected EList<String> arrayNotation;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -69,20 +61,11 @@ public class JNIFunctionInArrayNotationImpl extends JNIFunctionImpl implements J
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getArrayNotation() {
+	public EList<String> getArrayNotation() {
+		if (arrayNotation == null) {
+			arrayNotation = new EDataTypeEList<String>(String.class, this, ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
+		}
 		return arrayNotation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setArrayNotation(String newArrayNotation) {
-		String oldArrayNotation = arrayNotation;
-		arrayNotation = newArrayNotation;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION, oldArrayNotation, arrayNotation));
 	}
 
 	/**
@@ -104,11 +87,13 @@ public class JNIFunctionInArrayNotationImpl extends JNIFunctionImpl implements J
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
-				setArrayNotation((String)newValue);
+				getArrayNotation().clear();
+				getArrayNotation().addAll((Collection<? extends String>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -123,7 +108,7 @@ public class JNIFunctionInArrayNotationImpl extends JNIFunctionImpl implements J
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
-				setArrayNotation(ARRAY_NOTATION_EDEFAULT);
+				getArrayNotation().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -138,7 +123,7 @@ public class JNIFunctionInArrayNotationImpl extends JNIFunctionImpl implements J
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
-				return ARRAY_NOTATION_EDEFAULT == null ? arrayNotation != null : !ARRAY_NOTATION_EDEFAULT.equals(arrayNotation);
+				return arrayNotation != null && !arrayNotation.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
