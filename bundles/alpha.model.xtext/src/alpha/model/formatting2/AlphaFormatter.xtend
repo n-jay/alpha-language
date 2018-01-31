@@ -3,30 +3,187 @@
  */
 package alpha.model.formatting2
 
+import alpha.model.AlphaElement
+import alpha.model.AlphaExpression
 import alpha.model.AlphaPackage
 import alpha.model.AlphaRoot
+import alpha.model.AlphaSystem
+import alpha.model.CaseExpression
+import alpha.model.FuzzyVariable
+import alpha.model.ModelPackage
+import alpha.model.PolyhedralObject
+import alpha.model.StandardEquation
+import alpha.model.UseEquation
+import alpha.model.Variable
 import alpha.model.services.AlphaGrammarAccess
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
+import org.eclipse.emf.ecore.EStructuralFeature
+import org.eclipse.xtext.Keyword
 
 class AlphaFormatter extends AbstractFormatter2 {
 	
 	@Inject extension AlphaGrammarAccess
-
+//
 	def dispatch void format(AlphaRoot alphaRoot, extension IFormattableDocument document) {
+//		alphaRoot.regionFor.keyword(";").prepend[noSpace]
 		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-//		for (AbstractElement abstractElement : alphaRoot.getElements()) {
-//			abstractElement.format;
-//		}
+		for (AlphaElement alphaElement : alphaRoot.getElements()) {
+			alphaElement.format;
+		}
 	}
 
 	def dispatch void format(AlphaPackage alphaPackage, extension IFormattableDocument document) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
-//		for (AbstractElement abstractElement : alphaPackage.getElements()) {
-//			abstractElement.format;
-//		}
+		//interior(alphaPackage.regionFor.keyword("{"), alphaPackage.regionFor.keyword("}"))[indent]
+		
+		alphaPackage.regionFor.keyword(alphaPackageAccess.leftCurlyBracketKeyword_2).append[newLine]
+		alphaPackage.interior()[indent]
+	
+		for (AlphaElement alphaElement : alphaPackage.getElements()) {
+			alphaElement.format;
+		}
 	}
 	
-	// TODO: implement for AffineSystem
+	private def void newLineAndIndent(EObject element, Object start, Object end, extension IFormattableDocument document) {
+		element.getISemanticRegion(start).surround[newLine]
+		interior(element.getISemanticRegion(start), element.getISemanticRegion(end))[indent]
+	}
+	
+	private def dispatch getISemanticRegion(EObject element, String obj) {
+		element.regionFor.keyword(obj)
+	}
+	private def dispatch getISemanticRegion(EObject element, 	Keyword obj) {
+		element.regionFor.keyword(obj)
+	}
+	private def dispatch getISemanticRegion(EObject element, EStructuralFeature obj) {
+		element.regionFor.feature(obj)
+	}
+	
+	static val SysKWs = newArrayList('define', 'inputs', 'outputs', 'locals', 'fuzzy', 'over', 'let', '.')
+	
+	private def String getNextApplicableKeyword(AlphaSystem system, String keyword) {
+		val isEmpty = switch (keyword) {
+			case "define" : system.inputs.isEmpty
+			case "inputs" : system.outputs.isEmpty
+			case "outputs" : system.locals.isEmpty
+			case "locals" : system.fuzzyVariables.isEmpty
+			case "fuzzy" : system.whileDomain === null
+			case "over" : system.equations.isEmpty && system.useEquations.isEmpty
+			default : false
+		}
+		
+		return if (isEmpty) system.getNextApplicableKeyword(keyword.next) else keyword.next
+	}
+	
+	private def String next(String current) {
+		val index = SysKWs.indexOf(current)
+		if (index == -1 || index == 7) return null
+		
+		return SysKWs.get(index+1)
+	}
+	
+	def dispatch void format(AlphaSystem alphaSystem, extension IFormattableDocument document) {
+		
+		alphaSystem.interior()[indent]
+				
+		var current = "define"
+		while (current != ".") {
+			val next = alphaSystem.getNextApplicableKeyword(current)
+			alphaSystem.newLineAndIndent(current, next, document)
+			current = next;
+		}
+		
+		for (Variable variable : alphaSystem.variables) {
+			variable.format
+			variable.append[newLine]
+		}
+		
+		for (FuzzyVariable variable : alphaSystem.fuzzyVariables) {
+			variable.format
+			variable.append[newLine]
+		}
+		
+		for (PolyhedralObject pobj : alphaSystem.definedObjects) {
+			pobj.format
+			pobj.append[newLine]
+		}
+		
+		for (StandardEquation eq : alphaSystem.equations) {
+			eq.format
+			eq.append[newLine]
+		}
+		
+		for (UseEquation eq : alphaSystem.useEquations) {
+			eq.format
+			eq.append[newLine]
+		}
+		
+//		alphaSystem.testExpression.format
+//		alphaSystem.whileDomain.format
+		
+	}
+	
+	def dispatch void format(Variable v, extension IFormattableDocument document) {
+		v.regionFor.keyword(":").surround[oneSpace]
+	}
+	
+	def dispatch void format(StandardEquation eq, extension IFormattableDocument document) {
+		eq.regionFor.keyword(";").prepend[noSpace]
+		eq.expr.format
+	}
+	
+	def private void formatChildren(AlphaExpression expr, extension IFormattableDocument document) {
+		for (AlphaExpression child : expr.eContents.filter(AlphaExpression)) {
+			child.format
+		}
+	}
+	
+	def dispatch void format(AlphaExpression expr, extension IFormattableDocument document) {
+		expr.formatChildren(document)
+	}
+	
+	def dispatch void format(CaseExpression caseExpr, extension IFormattableDocument document) {
+		caseExpr.regionFor.keyword("{").prepend[oneSpace].append[newLine]
+		caseExpr.regionFor.keyword("}").prepend[newLine].append[noSpace]
+		caseExpr.interior()[indent]
+//		interior(caseExpr.regionFor.keyword(caseExpressionAccess.leftCurlyBracketKeyword_2), caseExpr.regionFor.keyword(caseExpressionAccess.rightCurlyBracketKeyword_4))[indent]
+		caseExpr.allRegionsFor.keywords(";").forEach[append[newLine]]
+		caseExpr.formatChildren(document)
+	}
+	
+//	def dispatch void format(RestrictExpression re, extension IFormattableDocument document) {
+//		re.regionFor.keyword(";").prepend[noSpace]
+//		re.formatChildren(document)
+//	}
+	
+	
+//	op void visitRestrictExpression(RestrictExpression re)
+//	op void visitAutoRestrictExpression(AutoRestrictExpression are)
+//	op void visitCaseExpression(CaseExpression ce)
+//	op void visitIfExpression(IfExpression ie)
+//	op void visitDependenceExpression(DependenceExpression de)
+//	op void visitAbstractReduceExpression(AbstractReduceExpression are)
+//	op void visitReduceExpression(ReduceExpression re)
+//	op void visitArgReduceExpression(ArgReduceExpression are)
+//	op void visitConvolutionExpression(ConvolutionExpression ce)
+//	op void visitUnaryExpression(UnaryExpression ue)
+//	op void visitBinaryExpression(BinaryExpression be)
+//	op void visitMultiArgExpression(MultiArgExpression mae)
+//	op void visitSelectExpression(SelectExpression se)
+//	
+//	op void visitIndexExpression(IndexExpression ie)
+//	op void visitVariableExpression(VariableExpression ve)
+//	
+//	op void visitConstantExpression(ConstantExpression ce)
+//	op void visitIntegerExpression(IntegerExpression ie)
+//	op void visitRealExpression(RealExpression re)
+//	op void visitBooleanExpression(BooleanExpression be)
+//	
+//	op void visitExternalReduceExpression(ExternalReduceExpression ere)
+//	op void visitExternalArgReduceExpression(ExternalArgReduceExpression eare)
+//	op void visitExternalMultiArgExpression(ExternalMultiArgExpression emae)
+	
 }
