@@ -10,9 +10,5 @@
     <relativePath>..</relativePath>  
   </parent>
 
-  <modules>
-    <module>alpha.language.xtext.tests</module>
-    <module>alpha.language.xtext.ui.tests</module>
-  </modules>
 
 </project>
