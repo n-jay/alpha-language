@@ -10,7 +10,9 @@
     <relativePath>..</relativePath>  
   </parent>
 
+
   <modules>
+    <module>alpha.language.feature</module>
   </modules>
 
 </project>

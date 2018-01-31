@@ -12,7 +12,7 @@
 
   <modules>
     <module>alpha.language.target</module>
-<!--    <module>alpha.language.update</module> -->
+    <module>alpha.language.update</module>
   </modules>
 
 </project>
