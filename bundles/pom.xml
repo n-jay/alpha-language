@@ -11,9 +11,6 @@
   </parent>
 
   <modules>
-    <module>alpha.language.xtext</module>
-    <module>alpha.language.xtext.ide</module>
-    <module>alpha.language.xtext.ui</module>
     <module>alpha.model</module>
     <module>alpha.model.xtext</module>
     <module>alpha.model.xtext.ide</module>
