@@ -121,4 +121,13 @@ public interface JNIFunction extends CalculatorExpression {
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getAlphaString();'"
+	 * @generated
+	 */
+	String plainToString();
+
 } // JNIFunction

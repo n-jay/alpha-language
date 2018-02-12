@@ -158,4 +158,13 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%java.lang.String%&gt; _plainToString = this.getLeft().plainToString();\n&lt;%java.lang.String%&gt; _plus = (_plainToString + \" \");\n&lt;%alpha.model.CALCULATOR_BINARY_OP%&gt; _operator = this.getOperator();\n&lt;%java.lang.String%&gt; _plus_1 = (_plus + _operator);\n&lt;%java.lang.String%&gt; _plus_2 = (_plus_1 + \" \");\n&lt;%java.lang.String%&gt; _plainToString_1 = this.getRight().plainToString();\nreturn (_plus_2 + _plainToString_1);'"
+	 * @generated
+	 */
+	String plainToString();
+
 } // BinaryCalculatorExpression

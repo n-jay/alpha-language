@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>JNI Function In Array Notation</b></em>'.
@@ -66,6 +68,17 @@ public class JNIFunctionInArrayNotationImpl extends JNIFunctionImpl implements J
 			arrayNotation = new EDataTypeEList<String>(String.class, this, ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
 		}
 		return arrayNotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String plainToString() {
+		String _join = IterableExtensions.join(this.getArrayNotation(), ",");
+		String _plus = ("[" + _join);
+		return (_plus + "]");
 	}
 
 	/**

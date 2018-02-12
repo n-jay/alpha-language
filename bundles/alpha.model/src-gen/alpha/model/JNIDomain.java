@@ -124,6 +124,15 @@ public interface JNIDomain extends CalculatorExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getIslString();'"
+	 * @generated
+	 */
+	String plainToString();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitJNIDomain(this);'"
 	 * @generated

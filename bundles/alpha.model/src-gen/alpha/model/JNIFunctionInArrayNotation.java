@@ -37,4 +37,13 @@ public interface JNIFunctionInArrayNotation extends JNIFunction {
 	 */
 	EList<String> getArrayNotation();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%java.lang.String%&gt; _join = &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.join(this.getArrayNotation(), \",\");\n&lt;%java.lang.String%&gt; _plus = (\"[\" + _join);\nreturn (_plus + \"]\");'"
+	 * @generated
+	 */
+	String plainToString();
+
 } // JNIFunctionInArrayNotation

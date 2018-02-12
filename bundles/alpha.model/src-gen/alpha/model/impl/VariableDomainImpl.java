@@ -141,6 +141,17 @@ public class VariableDomainImpl extends CalculatorExpressionImpl implements Vari
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String plainToString() {
+		String _name = this.getVariable().getName();
+		String _plus = ("{" + _name);
+		return (_plus + "}");
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {

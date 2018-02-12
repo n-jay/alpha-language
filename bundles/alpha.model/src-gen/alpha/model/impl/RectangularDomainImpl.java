@@ -23,6 +23,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Rectangular Domain</b></em>'.
@@ -195,6 +197,17 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 */
 	public void accept(final CalculatorExpressionVisitor visitor) {
 		visitor.visitRectangularDomain(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String plainToString() {
+		String _join = IterableExtensions.join(this.getUpperBounds(), ", ");
+		String _plus = ("[" + _join);
+		return (_plus + "]");
 	}
 
 	/**

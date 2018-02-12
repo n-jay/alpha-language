@@ -200,6 +200,15 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String plainToString() {
+		return this.getIslString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final CalculatorExpressionVisitor visitor) {
 		visitor.visitJNIDomain(this);
 	}

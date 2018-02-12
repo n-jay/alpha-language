@@ -188,6 +188,15 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String plainToString() {
+		return this.getObject().getName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {

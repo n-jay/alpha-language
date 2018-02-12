@@ -192,6 +192,15 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String plainToString() {
+		return this.getAlphaString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {

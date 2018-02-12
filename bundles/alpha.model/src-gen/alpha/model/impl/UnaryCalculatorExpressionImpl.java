@@ -234,6 +234,18 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String plainToString() {
+		CALCULATOR_UNARY_OP _operator = this.getOperator();
+		String _plus = (_operator + " ");
+		String _plainToString = this.getExpr().plainToString();
+		return (_plus + _plainToString);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {

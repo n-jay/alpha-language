@@ -23,4 +23,17 @@ public interface CalculatorExpression extends CalculatorNode, CalculatorExpressi
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * *
+	 * toString without using ISL objects
+	 * <!-- end-model-doc -->
+	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='throw new &lt;%java.lang.UnsupportedOperationException%&gt;();'"
+	 * @generated
+	 */
+	String plainToString();
+
 } // CalculatorExpression

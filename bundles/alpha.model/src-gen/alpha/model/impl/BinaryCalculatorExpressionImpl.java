@@ -288,6 +288,21 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String plainToString() {
+		String _plainToString = this.getLeft().plainToString();
+		String _plus = (_plainToString + " ");
+		CALCULATOR_BINARY_OP _operator = this.getOperator();
+		String _plus_1 = (_plus + _operator);
+		String _plus_2 = (_plus_1 + " ");
+		String _plainToString_1 = this.getRight().plainToString();
+		return (_plus_2 + _plainToString_1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {

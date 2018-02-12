@@ -54,6 +54,15 @@ public abstract class CalculatorExpressionImpl extends MinimalEObjectImpl.Contai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String plainToString() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public POLY_OBJECT_TYPE getType() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

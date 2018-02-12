@@ -131,4 +131,13 @@ public interface UnaryCalculatorExpression extends CalculatorExpression {
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%alpha.model.CALCULATOR_UNARY_OP%&gt; _operator = this.getOperator();\n&lt;%java.lang.String%&gt; _plus = (_operator + \" \");\n&lt;%java.lang.String%&gt; _plainToString = this.getExpr().plainToString();\nreturn (_plus + _plainToString);'"
+	 * @generated
+	 */
+	String plainToString();
+
 } // UnaryCalculatorExpression

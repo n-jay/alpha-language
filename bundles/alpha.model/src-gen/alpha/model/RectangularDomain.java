@@ -138,4 +138,13 @@ public interface RectangularDomain extends CalculatorExpression {
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%java.lang.String%&gt; _join = &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.join(this.getUpperBounds(), \", \");\n&lt;%java.lang.String%&gt; _plus = (\"[\" + _join);\nreturn (_plus + \"]\");'"
+	 * @generated
+	 */
+	String plainToString();
+
 } // RectangularDomain

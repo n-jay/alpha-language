@@ -675,6 +675,13 @@ abstract class CalculatorExpression extends CalculatorNode, CalculatorExpression
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitCalculatorExpression(this);
 	}
+	
+	/**
+	 * toString without using ISL objects 
+	 */
+	op String plainToString() {
+		throw new UnsupportedOperationException();
+	}
 }
 
 class JNIDomain extends CalculatorExpression {
@@ -693,6 +700,10 @@ class JNIDomain extends CalculatorExpression {
 		} else {
 			return "null ISL object"
 		}
+	}
+	
+	op String plainToString() {
+		islString
 	}
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
@@ -721,6 +732,10 @@ class JNIRelation extends CalculatorExpression {
 		}
 	}
 	
+	op String plainToString() {
+		islString
+	}
+	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitJNIRelation(this);
 	}
@@ -739,10 +754,18 @@ class JNIFunction extends CalculatorExpression {
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitJNIFunction(this);
 	}
+	
+	op String plainToString() {
+		alphaString
+	}
 }
 
 class JNIFunctionInArrayNotation extends JNIFunction {
 	String[] arrayNotation
+	
+	op String plainToString() {
+		'[' + arrayNotation.join(",") + ']'
+	}
 }
 
 class UnaryCalculatorExpression extends CalculatorExpression {
@@ -765,6 +788,10 @@ class UnaryCalculatorExpression extends CalculatorExpression {
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitUnaryCalculatorExpression(this);
+	}
+	
+	op String plainToString() {
+		operator + ' ' + expr.plainToString
 	}
 }
 
@@ -789,6 +816,10 @@ class BinaryCalculatorExpression extends CalculatorExpression {
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitBinaryCalculatorExpression(this);
 	}
+	
+	op String plainToString() {
+		left.plainToString + ' ' + operator + ' ' + right.plainToString
+	}
 }
 
 /* VariableDomain refers to the domain of declared variables */
@@ -800,6 +831,10 @@ class VariableDomain extends CalculatorExpression {
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitVariableDomain(this);
+	}
+	
+	op String plainToString() {
+		'{' + variable.name + '}'
 	}
 }
 
@@ -823,6 +858,10 @@ class RectangularDomain extends CalculatorExpression {
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitRectangularDomain(this);
+	}
+	
+	op String plainToString() {
+		'[' + upperBounds.join(", ") + ']'
 	}
 }
 
@@ -848,5 +887,9 @@ class DefinedObject extends CalculatorExpression {
 	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitDefinedObject(this);
+	}
+	
+	op String plainToString() {
+		object.name
 	}
 }

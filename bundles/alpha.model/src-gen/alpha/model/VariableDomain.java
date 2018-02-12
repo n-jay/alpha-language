@@ -78,4 +78,13 @@ public interface VariableDomain extends CalculatorExpression {
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%java.lang.String%&gt; _name = this.getVariable().getName();\n&lt;%java.lang.String%&gt; _plus = (\"{\" + _name);\nreturn (_plus + \"}\");'"
+	 * @generated
+	 */
+	String plainToString();
+
 } // VariableDomain
