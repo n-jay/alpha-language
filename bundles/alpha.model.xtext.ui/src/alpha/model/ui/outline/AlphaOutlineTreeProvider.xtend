@@ -3,7 +3,13 @@
  */
 package alpha.model.ui.outline
 
+import alpha.model.CalculatorExpression
+import alpha.model.RestrictExpression
+import alpha.model.impl.RestrictExpressionImpl
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
+import alpha.model.VariableExpression
+import alpha.model.DependenceExpression
 
 /**
  * Customization of the default outline structure.
@@ -11,5 +17,19 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#outline
  */
 class AlphaOutlineTreeProvider extends DefaultOutlineTreeProvider {
+	
+	def protected _createNode(EObjectNode parentNode, CalculatorExpression cexp) {
+		val c = RestrictExpression;
+		if (parentNode.EClass.instanceClass == c) return;
+		
+		super._createNode(parentNode, cexp);
+	}
+	
+	def protected _createNode(EObjectNode parentNode, VariableExpression vexp) {
+		val c = DependenceExpression;
+		if (parentNode.EClass.instanceClass == c) return;
+		
+		super._createNode(parentNode, vexp);
+	}
 
 }

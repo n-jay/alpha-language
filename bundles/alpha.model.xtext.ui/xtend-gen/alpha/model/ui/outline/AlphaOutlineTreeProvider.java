@@ -3,7 +3,13 @@
  */
 package alpha.model.ui.outline;
 
+import alpha.model.CalculatorExpression;
+import alpha.model.DependenceExpression;
+import alpha.model.RestrictExpression;
+import alpha.model.VariableExpression;
+import com.google.common.base.Objects;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 
 /**
  * Customization of the default outline structure.
@@ -12,4 +18,23 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
  */
 @SuppressWarnings("all")
 public class AlphaOutlineTreeProvider extends DefaultOutlineTreeProvider {
+  protected void _createNode(final EObjectNode parentNode, final CalculatorExpression cexp) {
+    final Class<RestrictExpression> c = RestrictExpression.class;
+    Class<?> _instanceClass = parentNode.getEClass().getInstanceClass();
+    boolean _equals = Objects.equal(_instanceClass, c);
+    if (_equals) {
+      return;
+    }
+    super._createNode(parentNode, cexp);
+  }
+  
+  protected void _createNode(final EObjectNode parentNode, final VariableExpression vexp) {
+    final Class<DependenceExpression> c = DependenceExpression.class;
+    Class<?> _instanceClass = parentNode.getEClass().getInstanceClass();
+    boolean _equals = Objects.equal(_instanceClass, c);
+    if (_equals) {
+      return;
+    }
+    super._createNode(parentNode, vexp);
+  }
 }
