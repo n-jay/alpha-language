@@ -60,23 +60,6 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	private boolean checkNotNull(AlphaExpression ... exprs) {
 		return checkNotNull(Arrays.asList(exprs));
 	}
-
-	
-	@Override
-	public void outVariableExpression(VariableExpression ve) {
-		ve.setExpressionDomain(ve.getVariable().getDomain());
-	}
-	
-	@Override
-	public void outConstantExpression(ConstantExpression ce) {
-		ce.setExpressionDomain(AlphaUtil.getScalarDomain(ce));
-	}
-	
-	@Override
-	public void outUnaryExpression(UnaryExpression ue) {
-		if (checkNotNull(ue.getExpr()))
-			ue.setExpressionDomain(ue.getExpr().getExpressionDomain());
-	}
 	
 	@Override
 	public void outBinaryExpression(BinaryExpression be) {
@@ -91,6 +74,19 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 			JNIISLSet union = ce.getExprs().stream().map(a->a.getExpressionDomain())
 				.reduce((a,b)->a.union(b)).get();
 			ce.setExpressionDomain(union);
+		}
+	}
+	
+	@Override
+	public void outConstantExpression(ConstantExpression ce) {
+		ce.setExpressionDomain(AlphaUtil.getScalarDomain(ce));
+	}
+	
+	@Override
+	public void outDependenceExpression(DependenceExpression de) {
+		if (checkNotNull(de.getExpr()) && de.getFunction().getISLMultiAff() != null) {
+			JNIISLSet set = de.getExpr().getExpressionDomain();
+			de.setExpressionDomain(set.preimage(de.getFunction().getISLMultiAff()));
 		}
 	}
 	
@@ -138,5 +134,16 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 			}
 		
 		}
+	}
+
+	@Override
+	public void outUnaryExpression(UnaryExpression ue) {
+		if (checkNotNull(ue.getExpr()))
+			ue.setExpressionDomain(ue.getExpr().getExpressionDomain());
+	}
+	
+	@Override
+	public void outVariableExpression(VariableExpression ve) {
+		ve.setExpressionDomain(ve.getVariable().getDomain());
 	}
 }
