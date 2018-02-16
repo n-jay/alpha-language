@@ -12,7 +12,7 @@ affine ANNForwardLayer [N,M]->{:N>0 && M>0}
 	outputs
 		out : [M]
 	let
-		out[j] = activation( reduce(+, [j], weights[i,j] * in[i]));
+		out[i] = activation( reduce(+, [j], weights[i,j] * in[i]));
 .
 
 //A single ANN

@@ -1,8 +1,8 @@
 /*
  * Tests for ArrayNotation 1
- * 1D arrays in combination with dependences
+ * 1D arrays + dependences
  */
-affine domain1a [N]->{ : }
+affine array1a [N]->{ : }
 	inputs
 		A : [N]
 	outputs
@@ -11,7 +11,7 @@ affine domain1a [N]->{ : }
 		B[i] = A[i];
 .
 
-affine domain1b [N]->{ : }
+affine array1b [N]->{ : }
 	inputs
 		A : [N]
 	outputs
@@ -20,16 +20,7 @@ affine domain1b [N]->{ : }
 		B = A;
 .
 
-affine domain1c [N]->{ : }
-	inputs
-		A : [N]
-	outputs
-		B : [N]
-	let
-		B = A[i]; //should fail due to index name not being specified in B, disallowing array notation
-.
-
-affine domain1d [N]->{ : }
+affine array1c [N]->{ : }
 	inputs
 		A : [N]
 	outputs
@@ -38,30 +29,20 @@ affine domain1d [N]->{ : }
 		B = (x->x)@A;
 .
 
-affine domain1e [N]->{:}
+affine array1d [N]->{ : }
 	inputs
 		A : [N]
 	outputs
 		B : [N]
 	let
-		B[i] = (x->x)@A[i]; //cannot use array notation after pure function
+		B[i] = {:i>=0 } : A[i];
 .
 
-affine domain1f [N]->{:}
+affine array1e [N]->{ : }
 	inputs
 		A : [N]
 	outputs
 		B : [N]
 	let
-		B[i] = select {[x]->[x]:} from A[x]; //select can rename array notation context
+		B[i] = {[x]:x>=0 } : A[x];
 .
-
-affine domain1g [N]->{:}
-	inputs
-		A : [N]
-	outputs
-		B : [N]
-	let
-		B[i] = select {[x]->[x]:} from A[i]; //should fail due to context being changed by select
-.
-

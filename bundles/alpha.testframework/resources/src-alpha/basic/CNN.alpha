@@ -23,7 +23,7 @@ affine CONVLayer [W,H,D,F,X,Y]->{:}
 	outputs
 		out : [W,H,F]
 	let
-		out[i,j,k] = conv({[x,y,z]: -X<=x<=X and -Y<=y<=Y and 0<=z<D}, weights[x,y,z,k], image[i+x,j+y,k+z]);
+		//out[i,j,k] = conv({[x,y,z]: -X<=x<=X and -Y<=y<=Y and 0<=z<D}, weights[x,y,z,k], image[i+x,j+y,k+z]);
 		out[i,j,k] = conv( [X,Y,D] as [x,y,z], weights[x,y,z,k], image[i+x,j+y,k+z]);
 .
 
@@ -49,7 +49,7 @@ affine POOLLayer [W,H,D,WW,HH]->{:factor*WW=W and factor*HH=H}
 	outputs
 		out : [WW,HH,D]
 	let
-		out[i,j,k] = reduce(max, [i',j'], {:factor*i<=i'<factor*(i+1) and factor*j<=j'<factor*(j+1)} : image[i',j',k]);
+		out[i,j,k] = reduce(max, [x,y], {:factor*i<=x<factor*(i+1) and factor*j<=y<factor*(j+1)} : image[x,y,k]);
 .
 
 //Fully connected layer
