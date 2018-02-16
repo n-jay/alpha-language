@@ -1440,7 +1440,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSelectExpression_SelectRelation() {
+	public EReference getSelectExpression_RelationExpr() {
 		return (EReference)selectExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2208,7 +2208,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(convolutionExpressionEClass, CONVOLUTION_EXPRESSION__DATA_EXPRESSION);
 
 		selectExpressionEClass = createEClass(SELECT_EXPRESSION);
-		createEReference(selectExpressionEClass, SELECT_EXPRESSION__SELECT_RELATION);
+		createEReference(selectExpressionEClass, SELECT_EXPRESSION__RELATION_EXPR);
 		createEReference(selectExpressionEClass, SELECT_EXPRESSION__EXPR);
 
 		variableExpressionEClass = createEClass(VARIABLE_EXPRESSION);
@@ -3015,8 +3015,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(selectExpressionEClass, SelectExpression.class, "SelectExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSelectExpression_SelectRelation(), this.getCalculatorExpression(), null, "selectRelation", null, 0, 1, SelectExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSelectExpression_RelationExpr(), this.getCalculatorExpression(), null, "relationExpr", null, 0, 1, SelectExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSelectExpression_Expr(), this.getAlphaExpression(), null, "expr", null, 0, 1, SelectExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(selectExpressionEClass, this.getJNIISLMap(), "getSelectRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(selectExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);

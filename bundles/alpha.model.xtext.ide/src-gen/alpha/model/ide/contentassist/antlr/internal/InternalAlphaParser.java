@@ -29583,31 +29583,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SelectExpression__Group__1__Impl"
-    // InternalAlpha.g:9621:1: rule__SelectExpression__Group__1__Impl : ( ( rule__SelectExpression__SelectRelationAssignment_1 ) ) ;
+    // InternalAlpha.g:9621:1: rule__SelectExpression__Group__1__Impl : ( ( rule__SelectExpression__RelationExprAssignment_1 ) ) ;
     public final void rule__SelectExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:9625:1: ( ( ( rule__SelectExpression__SelectRelationAssignment_1 ) ) )
-            // InternalAlpha.g:9626:1: ( ( rule__SelectExpression__SelectRelationAssignment_1 ) )
+            // InternalAlpha.g:9625:1: ( ( ( rule__SelectExpression__RelationExprAssignment_1 ) ) )
+            // InternalAlpha.g:9626:1: ( ( rule__SelectExpression__RelationExprAssignment_1 ) )
             {
-            // InternalAlpha.g:9626:1: ( ( rule__SelectExpression__SelectRelationAssignment_1 ) )
-            // InternalAlpha.g:9627:2: ( rule__SelectExpression__SelectRelationAssignment_1 )
+            // InternalAlpha.g:9626:1: ( ( rule__SelectExpression__RelationExprAssignment_1 ) )
+            // InternalAlpha.g:9627:2: ( rule__SelectExpression__RelationExprAssignment_1 )
             {
-             before(grammarAccess.getSelectExpressionAccess().getSelectRelationAssignment_1()); 
-            // InternalAlpha.g:9628:2: ( rule__SelectExpression__SelectRelationAssignment_1 )
-            // InternalAlpha.g:9628:3: rule__SelectExpression__SelectRelationAssignment_1
+             before(grammarAccess.getSelectExpressionAccess().getRelationExprAssignment_1()); 
+            // InternalAlpha.g:9628:2: ( rule__SelectExpression__RelationExprAssignment_1 )
+            // InternalAlpha.g:9628:3: rule__SelectExpression__RelationExprAssignment_1
             {
             pushFollow(FOLLOW_2);
-            rule__SelectExpression__SelectRelationAssignment_1();
+            rule__SelectExpression__RelationExprAssignment_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getSelectExpressionAccess().getSelectRelationAssignment_1()); 
+             after(grammarAccess.getSelectExpressionAccess().getRelationExprAssignment_1()); 
 
             }
 
@@ -39244,9 +39244,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ConvolutionExpression__DataExpressionAssignment_6"
 
 
-    // $ANTLR start "rule__SelectExpression__SelectRelationAssignment_1"
-    // InternalAlpha.g:12928:1: rule__SelectExpression__SelectRelationAssignment_1 : ( ruleCalculatorExpression ) ;
-    public final void rule__SelectExpression__SelectRelationAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__SelectExpression__RelationExprAssignment_1"
+    // InternalAlpha.g:12928:1: rule__SelectExpression__RelationExprAssignment_1 : ( ruleCalculatorExpression ) ;
+    public final void rule__SelectExpression__RelationExprAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -39257,13 +39257,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:12933:2: ( ruleCalculatorExpression )
             // InternalAlpha.g:12934:3: ruleCalculatorExpression
             {
-             before(grammarAccess.getSelectExpressionAccess().getSelectRelationCalculatorExpressionParserRuleCall_1_0()); 
+             before(grammarAccess.getSelectExpressionAccess().getRelationExprCalculatorExpressionParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
             ruleCalculatorExpression();
 
             state._fsp--;
 
-             after(grammarAccess.getSelectExpressionAccess().getSelectRelationCalculatorExpressionParserRuleCall_1_0()); 
+             after(grammarAccess.getSelectExpressionAccess().getRelationExprCalculatorExpressionParserRuleCall_1_0()); 
 
             }
 
@@ -39282,7 +39282,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SelectExpression__SelectRelationAssignment_1"
+    // $ANTLR end "rule__SelectExpression__RelationExprAssignment_1"
 
 
     // $ANTLR start "rule__SelectExpression__ExprAssignment_3"

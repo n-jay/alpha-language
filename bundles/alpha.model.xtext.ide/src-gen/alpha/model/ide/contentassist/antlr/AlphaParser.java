@@ -227,7 +227,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConvolutionExpressionAccess().getKernelDomainAssignment_2(), "rule__ConvolutionExpression__KernelDomainAssignment_2");
 					put(grammarAccess.getConvolutionExpressionAccess().getKernelExpressionAssignment_4(), "rule__ConvolutionExpression__KernelExpressionAssignment_4");
 					put(grammarAccess.getConvolutionExpressionAccess().getDataExpressionAssignment_6(), "rule__ConvolutionExpression__DataExpressionAssignment_6");
-					put(grammarAccess.getSelectExpressionAccess().getSelectRelationAssignment_1(), "rule__SelectExpression__SelectRelationAssignment_1");
+					put(grammarAccess.getSelectExpressionAccess().getRelationExprAssignment_1(), "rule__SelectExpression__RelationExprAssignment_1");
 					put(grammarAccess.getSelectExpressionAccess().getExprAssignment_3(), "rule__SelectExpression__ExprAssignment_3");
 					put(grammarAccess.getOrExpressionAccess().getOperatorAssignment_1_1(), "rule__OrExpression__OperatorAssignment_1_1");
 					put(grammarAccess.getOrExpressionAccess().getRightAssignment_1_2(), "rule__OrExpression__RightAssignment_1_2");

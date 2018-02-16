@@ -1110,17 +1110,17 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns SelectExpression
 	 *
 	 * Constraint:
-	 *     (selectRelation=CalculatorExpression expr=AlphaTerminalExpression)
+	 *     (relationExpr=CalculatorExpression expr=AlphaTerminalExpression)
 	 */
 	protected void sequence_SelectExpression(ISerializationContext context, SelectExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__SELECT_RELATION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__SELECT_RELATION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__RELATION_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__RELATION_EXPR));
 			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__EXPR) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.SELECT_EXPRESSION__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSelectExpressionAccess().getSelectRelationCalculatorExpressionParserRuleCall_1_0(), semanticObject.getSelectRelation());
+		feeder.accept(grammarAccess.getSelectExpressionAccess().getRelationExprCalculatorExpressionParserRuleCall_1_0(), semanticObject.getRelationExpr());
 		feeder.accept(grammarAccess.getSelectExpressionAccess().getExprAlphaTerminalExpressionParserRuleCall_3_0(), semanticObject.getExpr());
 		feeder.finish();
 	}

@@ -9624,9 +9624,9 @@ rule__SelectExpression__Group__1__Impl
 	}
 :
 (
-	{ before(grammarAccess.getSelectExpressionAccess().getSelectRelationAssignment_1()); }
-	(rule__SelectExpression__SelectRelationAssignment_1)
-	{ after(grammarAccess.getSelectExpressionAccess().getSelectRelationAssignment_1()); }
+	{ before(grammarAccess.getSelectExpressionAccess().getRelationExprAssignment_1()); }
+	(rule__SelectExpression__RelationExprAssignment_1)
+	{ after(grammarAccess.getSelectExpressionAccess().getRelationExprAssignment_1()); }
 )
 ;
 finally {
@@ -12925,15 +12925,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__SelectExpression__SelectRelationAssignment_1
+rule__SelectExpression__RelationExprAssignment_1
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getSelectExpressionAccess().getSelectRelationCalculatorExpressionParserRuleCall_1_0()); }
+		{ before(grammarAccess.getSelectExpressionAccess().getRelationExprCalculatorExpressionParserRuleCall_1_0()); }
 		ruleCalculatorExpression
-		{ after(grammarAccess.getSelectExpressionAccess().getSelectRelationCalculatorExpressionParserRuleCall_1_0()); }
+		{ after(grammarAccess.getSelectExpressionAccess().getRelationExprCalculatorExpressionParserRuleCall_1_0()); }
 	)
 ;
 finally {

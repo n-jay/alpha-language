@@ -1742,13 +1742,13 @@ public interface ModelPackage extends EPackage {
 	int SELECT_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
 
 	/**
-	 * The feature id for the '<em><b>Select Relation</b></em>' containment reference.
+	 * The feature id for the '<em><b>Relation Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SELECT_EXPRESSION__SELECT_RELATION = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+	int SELECT_EXPRESSION__RELATION_EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -3844,15 +3844,15 @@ public interface ModelPackage extends EPackage {
 	EClass getSelectExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.SelectExpression#getSelectRelation <em>Select Relation</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.SelectExpression#getRelationExpr <em>Relation Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Select Relation</em>'.
-	 * @see alpha.model.SelectExpression#getSelectRelation()
+	 * @return the meta object for the containment reference '<em>Relation Expr</em>'.
+	 * @see alpha.model.SelectExpression#getRelationExpr()
 	 * @see #getSelectExpression()
 	 * @generated
 	 */
-	EReference getSelectExpression_SelectRelation();
+	EReference getSelectExpression_RelationExpr();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.model.SelectExpression#getExpr <em>Expr</em>}'.
@@ -5381,12 +5381,12 @@ public interface ModelPackage extends EPackage {
 		EClass SELECT_EXPRESSION = eINSTANCE.getSelectExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Select Relation</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Relation Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SELECT_EXPRESSION__SELECT_RELATION = eINSTANCE.getSelectExpression_SelectRelation();
+		EReference SELECT_EXPRESSION__RELATION_EXPR = eINSTANCE.getSelectExpression_RelationExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.

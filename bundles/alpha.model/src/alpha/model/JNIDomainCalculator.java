@@ -74,8 +74,17 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			issues.addAll(CalculatorExpressionEvaluator.calculate(pobj.getExpr()));
 	}
 
+	private CalculatorExpressionIssue expectingSetIssue(UseEquation expr, EStructuralFeature feature) {
+		return new CalculatorExpressionIssue(TYPE.ERROR, "Expecting calculator expression to evaluate as set/domain", expr, feature);
+	}
+	private CalculatorExpressionIssue expectingSetIssue(AlphaExpression expr, EStructuralFeature feature) {
+		return new CalculatorExpressionIssue(TYPE.ERROR, "Expecting calculator expression to evaluate as set/domain", expr, feature);
+	}
+	private CalculatorExpressionIssue expectingMapIssue(AlphaExpression expr, EStructuralFeature feature) {
+		return new CalculatorExpressionIssue(TYPE.ERROR, "Expecting calculator expression to evaluate as map/relation", expr, feature);
+	}
 	/*
-	 * Follow code is for calculating CalcuatorExpression within AlphaExpression
+	 * Following code is for calculating CalcuatorExpression within AlphaExpression
 	 * Some of these expressions are in ArrayNotation, and requires the index names
 	 * to be known from the context.
 	 * 
@@ -205,16 +214,13 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			indexNameContext = contextHistory.pop();
 		}
 	}
-	private CalculatorExpressionIssue expectingSetIssue(UseEquation expr, EStructuralFeature feature) {
-		return new CalculatorExpressionIssue(TYPE.ERROR, "Expecting calculator expression to evaluate as set/domain", expr, feature);
-	}
-	private CalculatorExpressionIssue expectingSetIssue(AlphaExpression expr, EStructuralFeature feature) {
-		return new CalculatorExpressionIssue(TYPE.ERROR, "Expecting calculator expression to evaluate as set/domain", expr, feature);
-	}
-	private CalculatorExpressionIssue expectingMapIssue(AlphaExpression expr, EStructuralFeature feature) {
-		return new CalculatorExpressionIssue(TYPE.ERROR, "Expecting calculator expression to evaluate as map/relation", expr, feature);
+
+	@Override
+	public void inIndexExpression(IndexExpression ie) {
+		issues.addAll(CalculatorExpressionEvaluator.calculate(ie.getFunction(), indexNameContext));
 	}
 
+	
 	@Override
 	public void inRestrictExpression(RestrictExpression re) {
 		issues.addAll(CalculatorExpressionEvaluator.calculate(re.getDomainExpr(), indexNameContext));
@@ -230,7 +236,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		}
 
 		//Only when the dimensions match the context, new indices can replace the context for Array Notation
-		if (indexNameContext == null || re.getRestrictDomain().getNbDims() == indexNameContext.size()) {
+		if (indexNameContext == null || re.getRestrictDomain() != null && re.getRestrictDomain().getNbDims() == indexNameContext.size()) {
 			indexNameContext = re.getRestrictDomain().getIndicesNames();
 		} else {
 			indexNameContext = copy;
@@ -248,18 +254,18 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 
 	@Override
 	public void inSelectExpression(SelectExpression se) {
-		issues.addAll(CalculatorExpressionEvaluator.calculate(se.getSelectRelation(), indexNameContext));
+		issues.addAll(CalculatorExpressionEvaluator.calculate(se.getRelationExpr(), indexNameContext));
 
 		List<String> copy = (indexNameContext == null) ? null : new LinkedList<>(indexNameContext);
 		contextHistory.push(indexNameContext);
 		
-		if (se.getSelectRelation().getType() != POLY_OBJECT_TYPE.MAP) {
-			issues.add(expectingMapIssue(se, ModelPackage.Literals.SELECT_EXPRESSION__SELECT_RELATION));
+		if (se.getRelationExpr().getType() != POLY_OBJECT_TYPE.MAP) {
+			issues.add(expectingMapIssue(se, ModelPackage.Literals.SELECT_EXPRESSION__RELATION_EXPR));
 			indexNameContext = null;
 			return;
 		}
 
-		JNIISLMap map = ((JNIISLMap) se.getSelectRelation().getISLObject());
+		JNIISLMap map = se.getSelectRelation();
 		// FIXME : following is a hack because ISL is buggy w.r.t. get_dim_name
 		String[] mapStr = map.toString(ISL_FORMAT.ISL).split("->");
 		if (mapStr.length != 3)
@@ -274,7 +280,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 
 			issues.add(new CalculatorExpressionIssue(TYPE.ERROR,
 					"Dimensionality of the select relation does not match its context.", se,
-					ModelPackage.Literals.SELECT_EXPRESSION__SELECT_RELATION));
+					ModelPackage.Literals.SELECT_EXPRESSION__RELATION_EXPR));
 		}
 
 	}
@@ -283,5 +289,4 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	public void outSelectExpression(SelectExpression se) {
 		indexNameContext = contextHistory.pop();
 	}
-
 }

@@ -235,7 +235,7 @@ ConvolutionExpression:
 ;
 
 SelectExpression:
-	'select' selectRelation=CalculatorExpression 'from' expr=AlphaTerminalExpression
+	'select' relationExpr=CalculatorExpression 'from' expr=AlphaTerminalExpression
 ;
 	
 OrExpression returns AlphaExpression:

@@ -6,7 +6,14 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitor;
 import alpha.model.CalculatorExpression;
 import alpha.model.ModelPackage;
+import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.SelectExpression;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -24,7 +31,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.SelectExpressionImpl#getSelectRelation <em>Select Relation</em>}</li>
+ *   <li>{@link alpha.model.impl.SelectExpressionImpl#getRelationExpr <em>Relation Expr</em>}</li>
  *   <li>{@link alpha.model.impl.SelectExpressionImpl#getExpr <em>Expr</em>}</li>
  * </ul>
  *
@@ -32,14 +39,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectExpression {
 	/**
-	 * The cached value of the '{@link #getSelectRelation() <em>Select Relation</em>}' containment reference.
+	 * The cached value of the '{@link #getRelationExpr() <em>Relation Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSelectRelation()
+	 * @see #getRelationExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected CalculatorExpression selectRelation;
+	protected CalculatorExpression relationExpr;
 
 	/**
 	 * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.
@@ -75,8 +82,8 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CalculatorExpression getSelectRelation() {
-		return selectRelation;
+	public CalculatorExpression getRelationExpr() {
+		return relationExpr;
 	}
 
 	/**
@@ -84,11 +91,11 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSelectRelation(CalculatorExpression newSelectRelation, NotificationChain msgs) {
-		CalculatorExpression oldSelectRelation = selectRelation;
-		selectRelation = newSelectRelation;
+	public NotificationChain basicSetRelationExpr(CalculatorExpression newRelationExpr, NotificationChain msgs) {
+		CalculatorExpression oldRelationExpr = relationExpr;
+		relationExpr = newRelationExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.SELECT_EXPRESSION__SELECT_RELATION, oldSelectRelation, newSelectRelation);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.SELECT_EXPRESSION__RELATION_EXPR, oldRelationExpr, newRelationExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -99,18 +106,18 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSelectRelation(CalculatorExpression newSelectRelation) {
-		if (newSelectRelation != selectRelation) {
+	public void setRelationExpr(CalculatorExpression newRelationExpr) {
+		if (newRelationExpr != relationExpr) {
 			NotificationChain msgs = null;
-			if (selectRelation != null)
-				msgs = ((InternalEObject)selectRelation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.SELECT_EXPRESSION__SELECT_RELATION, null, msgs);
-			if (newSelectRelation != null)
-				msgs = ((InternalEObject)newSelectRelation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.SELECT_EXPRESSION__SELECT_RELATION, null, msgs);
-			msgs = basicSetSelectRelation(newSelectRelation, msgs);
+			if (relationExpr != null)
+				msgs = ((InternalEObject)relationExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.SELECT_EXPRESSION__RELATION_EXPR, null, msgs);
+			if (newRelationExpr != null)
+				msgs = ((InternalEObject)newRelationExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.SELECT_EXPRESSION__RELATION_EXPR, null, msgs);
+			msgs = basicSetRelationExpr(newRelationExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SELECT_EXPRESSION__SELECT_RELATION, newSelectRelation, newSelectRelation));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SELECT_EXPRESSION__RELATION_EXPR, newRelationExpr, newRelationExpr));
 	}
 
 	/**
@@ -161,6 +168,19 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JNIISLMap getSelectRelation() {
+		if ((((this.getRelationExpr() != null) && Objects.equal(this.getRelationExpr().getType(), POLY_OBJECT_TYPE.MAP)) && (this.getRelationExpr().getISLObject() != null))) {
+			JNIObject _iSLObject = this.getRelationExpr().getISLObject();
+			return ((JNIISLMap) _iSLObject);
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitSelectExpression(this);
 	}
@@ -173,8 +193,8 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.SELECT_EXPRESSION__SELECT_RELATION:
-				return basicSetSelectRelation(null, msgs);
+			case ModelPackage.SELECT_EXPRESSION__RELATION_EXPR:
+				return basicSetRelationExpr(null, msgs);
 			case ModelPackage.SELECT_EXPRESSION__EXPR:
 				return basicSetExpr(null, msgs);
 		}
@@ -189,8 +209,8 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.SELECT_EXPRESSION__SELECT_RELATION:
-				return getSelectRelation();
+			case ModelPackage.SELECT_EXPRESSION__RELATION_EXPR:
+				return getRelationExpr();
 			case ModelPackage.SELECT_EXPRESSION__EXPR:
 				return getExpr();
 		}
@@ -205,8 +225,8 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.SELECT_EXPRESSION__SELECT_RELATION:
-				setSelectRelation((CalculatorExpression)newValue);
+			case ModelPackage.SELECT_EXPRESSION__RELATION_EXPR:
+				setRelationExpr((CalculatorExpression)newValue);
 				return;
 			case ModelPackage.SELECT_EXPRESSION__EXPR:
 				setExpr((AlphaExpression)newValue);
@@ -223,8 +243,8 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.SELECT_EXPRESSION__SELECT_RELATION:
-				setSelectRelation((CalculatorExpression)null);
+			case ModelPackage.SELECT_EXPRESSION__RELATION_EXPR:
+				setRelationExpr((CalculatorExpression)null);
 				return;
 			case ModelPackage.SELECT_EXPRESSION__EXPR:
 				setExpr((AlphaExpression)null);
@@ -241,8 +261,8 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.SELECT_EXPRESSION__SELECT_RELATION:
-				return selectRelation != null;
+			case ModelPackage.SELECT_EXPRESSION__RELATION_EXPR:
+				return relationExpr != null;
 			case ModelPackage.SELECT_EXPRESSION__EXPR:
 				return expr != null;
 		}

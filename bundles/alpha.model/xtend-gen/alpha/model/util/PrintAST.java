@@ -328,6 +328,6 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   @Override
   public void inSelectExpression(final SelectExpression se) {
     this.inAlphaExpression(se);
-    this.printStr("+-- ", se.getSelectRelation().getISLObject());
+    this.printStr("+-- ", se.getSelectRelation());
   }
 }

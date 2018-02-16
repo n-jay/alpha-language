@@ -39,8 +39,6 @@ class AlphaValidator extends AbstractAlphaValidator {
 
 	//helper to switch between error/warning 
 	private def flagEditor(AlphaIssue.TYPE type, String message, EObject source, EStructuralFeature feature, int index) {
-		
-		
 		if (type == AlphaIssue.TYPE.ERROR) {
 			error(message, source, feature, index)
 		}

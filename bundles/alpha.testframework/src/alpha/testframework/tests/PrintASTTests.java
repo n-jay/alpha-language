@@ -21,7 +21,9 @@ public class PrintASTTests extends AlphaTestTemplate {
 	
 	@Test
 	@UseDataProvider(location = AlphaDataFromFileProvider.class, value = AlphaDataFromFileProvider.PROVIDER_NAME)
-	@ResourcesLocation(bundleName = "alpha.testframework", value = "resources/src-alpha/basic")
+//	@ResourcesLocation(bundleName = "alpha.testframework", value = "resources/src-alpha/basic")
+//	@ResourcesLocation(bundleName = "alpha.testframework", value = "resources/src-alpha/syntax-tests")
+	@ResourcesLocation(bundleName = "alpha.testframework", value = "resources/src-alpha/kernels")
 	public void basic(IData d) {
 		runTest(d); 
 	}
@@ -33,7 +35,7 @@ public class PrintASTTests extends AlphaTestTemplate {
 			@Override
 			public void generate(AlphaTestVersion version) {
 				for (AlphaRoot root : version.getAlphaRoots()) {
-					PrintAST.print(root);
+					System.out.println(PrintAST.print(root));
 				}
 			}
 		};

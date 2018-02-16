@@ -7,17 +7,26 @@ import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
+import alpha.model.CalculatorExpression;
 import alpha.model.POLY_OBJECT_TYPE;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
+import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 
 @SuppressWarnings("all")
 public class AlphaUtil {
@@ -102,6 +111,61 @@ public class AlphaUtil {
       return ((JNIISLSet) _iSLObject).getIndicesNames();
     }
     return new LinkedList<String>();
+  }
+  
+  public static <T extends Object> Stream<T> getChildrenOfType(final AlphaNode expr, final Class<T> c) {
+    final Predicate<EObject> _function = (EObject e) -> {
+      return c.isInstance(e);
+    };
+    final Function<EObject, T> _function_1 = (EObject e) -> {
+      return c.cast(e);
+    };
+    return expr.eContents().stream().filter(_function).<T>map(_function_1);
+  }
+  
+  public static boolean testNonNullExpressionDomain(final Stream<AlphaExpression> exprs) {
+    final Predicate<AlphaExpression> _function = (AlphaExpression e) -> {
+      return ((e != null) && (e.getExpressionDomain() != null));
+    };
+    return exprs.allMatch(_function);
+  }
+  
+  public static boolean testNonNullCalcExpression(final Stream<CalculatorExpression> exprs) {
+    final Predicate<CalculatorExpression> _function = (CalculatorExpression e) -> {
+      return ((e != null) && (e.getISLObject() != null));
+    };
+    return exprs.allMatch(_function);
+  }
+  
+  public static <T extends Object> T callISLwithErrorHandling(final Supplier<T> r, final Consumer<String> f) {
+    return AlphaUtil.<T>callISLwithErrorHandling(r, f, null);
+  }
+  
+  public static <T extends Object> T callISLwithErrorHandling(final Supplier<T> r, final Consumer<String> f, final T defaultValue) {
+    try {
+      return JNIISLTools.<T>recordError(r);
+    } catch (final Throwable _t) {
+      if (_t instanceof ISLErrorException) {
+        final ISLErrorException e = (ISLErrorException)_t;
+        f.accept(e.islErrorMessage);
+        return defaultValue;
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
+  }
+  
+  public static void callISLwithErrorHandling(final Runnable r, final Consumer<String> f) {
+    try {
+      JNIISLTools.recordError(r);
+    } catch (final Throwable _t) {
+      if (_t instanceof ISLErrorException) {
+        final ISLErrorException e = (ISLErrorException)_t;
+        f.accept(e.islErrorMessage);
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
   }
   
   private static Iterable<AlphaConstant> gatherAlphaConstants(final AlphaVisitable ap) {

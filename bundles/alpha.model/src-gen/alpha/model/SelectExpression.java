@@ -2,6 +2,7 @@
  */
 package alpha.model;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,7 +13,7 @@ package alpha.model;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.SelectExpression#getSelectRelation <em>Select Relation</em>}</li>
+ *   <li>{@link alpha.model.SelectExpression#getRelationExpr <em>Relation Expr</em>}</li>
  *   <li>{@link alpha.model.SelectExpression#getExpr <em>Expr</em>}</li>
  * </ul>
  *
@@ -22,30 +23,30 @@ package alpha.model;
  */
 public interface SelectExpression extends AlphaExpression {
 	/**
-	 * Returns the value of the '<em><b>Select Relation</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Relation Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Select Relation</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Relation Expr</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Select Relation</em>' containment reference.
-	 * @see #setSelectRelation(CalculatorExpression)
-	 * @see alpha.model.ModelPackage#getSelectExpression_SelectRelation()
+	 * @return the value of the '<em>Relation Expr</em>' containment reference.
+	 * @see #setRelationExpr(CalculatorExpression)
+	 * @see alpha.model.ModelPackage#getSelectExpression_RelationExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	CalculatorExpression getSelectRelation();
+	CalculatorExpression getRelationExpr();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.SelectExpression#getSelectRelation <em>Select Relation</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.model.SelectExpression#getRelationExpr <em>Relation Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Select Relation</em>' containment reference.
-	 * @see #getSelectRelation()
+	 * @param value the new value of the '<em>Relation Expr</em>' containment reference.
+	 * @see #getRelationExpr()
 	 * @generated
 	 */
-	void setSelectRelation(CalculatorExpression value);
+	void setRelationExpr(CalculatorExpression value);
 
 	/**
 	 * Returns the value of the '<em><b>Expr</b></em>' containment reference.
@@ -72,6 +73,15 @@ public interface SelectExpression extends AlphaExpression {
 	 * @generated
 	 */
 	void setExpr(AlphaExpression value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='if ((((this.getRelationExpr() != null) &amp;&amp; &lt;%com.google.common.base.Objects%&gt;.equal(this.getRelationExpr().getType(), &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.MAP)) &amp;&amp; (this.getRelationExpr().getISLObject() != null)))\n{\n\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getRelationExpr().getISLObject();\n\treturn ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt;) _iSLObject);\n}\nreturn null;'"
+	 * @generated
+	 */
+	JNIISLMap getSelectRelation();
 
 	/**
 	 * <!-- begin-user-doc -->

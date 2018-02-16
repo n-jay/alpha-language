@@ -30,7 +30,6 @@ import alpha.model.util.AlphaUtil;
 import alpha.model.util.DefaultCalculatorExpressionVisitor;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
@@ -39,8 +38,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
@@ -66,6 +68,13 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return calc.issues;
   }
   
+  private boolean registerIssue(final String msg, final AlphaNode node) {
+    EObject _eContainer = node.eContainer();
+    EStructuralFeature _eContainingFeature = node.eContainingFeature();
+    CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(AlphaIssue.TYPE.ERROR, msg, _eContainer, _eContainingFeature);
+    return this.issues.add(_calculatorExpressionIssue);
+  }
+  
   @Override
   public void visitUnaryCalculatorExpression(final UnaryCalculatorExpression expr) {
     DefaultCalculatorExpressionVisitor.super.visitUnaryCalculatorExpression(expr);
@@ -76,8 +85,18 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
     final JNIObject obj = expr.getExpr().getISLObject();
     try {
-      JNIISLContext.recordStderrStart();
-      final JNIObject res = this.evaluateUnaryOperation(expr.getOperator(), obj);
+      final Supplier<JNIObject> _function = () -> {
+        return this.evaluateUnaryOperation(expr.getOperator(), obj);
+      };
+      final Consumer<String> _function_1 = (String err) -> {
+        CALCULATOR_UNARY_OP _operator = expr.getOperator();
+        String _plus = ("Unary operation \'" + _operator);
+        String _plus_1 = (_plus + "\' is undefined for ");
+        POLY_OBJECT_TYPE _type = expr.getExpr().getType();
+        String _plus_2 = (_plus_1 + _type);
+        this.registerIssue(_plus_2, expr);
+      };
+      final JNIObject res = AlphaUtil.<JNIObject>callISLwithErrorHandling(_function, _function_1);
       expr.setZ__internal_cache_islObject(res);
     } catch (final Throwable _t) {
       if (_t instanceof UnsupportedOperationException) {
@@ -87,27 +106,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         String _plus_1 = (_plus + "\' is undefined for ");
         POLY_OBJECT_TYPE _type = expr.getExpr().getType();
         String _plus_2 = (_plus_1 + _type);
-        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, _plus_2, expr, 
-          ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__OPERATOR);
-        this.issues.add(_calculatorExpressionIssue);
-        obj.free();
-      } else if (_t instanceof RuntimeException) {
-        final RuntimeException re = (RuntimeException)_t;
-        final String err = JNIISLContext.recordStderrEnd();
-        CALCULATOR_UNARY_OP _operator_1 = expr.getOperator();
-        String _plus_3 = ("Operation " + _operator_1);
-        String _plus_4 = (_plus_3 + "failed: ");
-        String _plus_5 = (_plus_4 + err);
-        CalculatorExpressionIssue _calculatorExpressionIssue_1 = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, _plus_5, expr, 
-          ModelPackage.Literals.UNARY_CALCULATOR_EXPRESSION__OPERATOR);
-        this.issues.add(_calculatorExpressionIssue_1);
+        this.registerIssue(_plus_2, expr.getExpr());
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
-    } finally {
-      JNIISLContext.recordStderrEnd();
     }
   }
   
@@ -164,8 +166,17 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     final JNIObject left = expr.getLeft().getISLObject();
     final JNIObject right = expr.getRight().getISLObject();
     try {
-      JNIISLContext.recordStderrStart();
-      final JNIObject res = this.evaluateBinaryOperation(expr.getOperator(), left, right);
+      final Supplier<JNIObject> _function = () -> {
+        return this.evaluateBinaryOperation(expr.getOperator(), left, right);
+      };
+      final Consumer<String> _function_1 = (String err) -> {
+        CALCULATOR_BINARY_OP _operator = expr.getOperator();
+        String _plus = ("Operation " + _operator);
+        String _plus_1 = (_plus + "failed: ");
+        String _plus_2 = (_plus_1 + err);
+        this.registerIssue(_plus_2, expr);
+      };
+      final JNIObject res = AlphaUtil.<JNIObject>callISLwithErrorHandling(_function, _function_1);
       expr.setZ__internal_cache_islObject(res);
     } catch (final Throwable _t) {
       if (_t instanceof UnsupportedOperationException) {
@@ -178,28 +189,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         String _plus_3 = (_plus_2 + " -> ");
         POLY_OBJECT_TYPE _type_1 = expr.getRight().getType();
         String _plus_4 = (_plus_3 + _type_1);
-        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, _plus_4, expr, 
-          ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__OPERATOR);
-        this.issues.add(_calculatorExpressionIssue);
-        left.free();
-        right.free();
-      } else if (_t instanceof RuntimeException) {
-        final RuntimeException re = (RuntimeException)_t;
-        final String err = JNIISLContext.recordStderrEnd();
-        CALCULATOR_BINARY_OP _operator_1 = expr.getOperator();
-        String _plus_5 = ("Operation " + _operator_1);
-        String _plus_6 = (_plus_5 + "failed: ");
-        String _plus_7 = (_plus_6 + err);
-        CalculatorExpressionIssue _calculatorExpressionIssue_1 = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, _plus_7, expr, 
-          ModelPackage.Literals.BINARY_CALCULATOR_EXPRESSION__OPERATOR);
-        this.issues.add(_calculatorExpressionIssue_1);
+        this.registerIssue(_plus_4, expr);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
-    } finally {
-      JNIISLContext.recordStderrEnd();
     }
   }
   
@@ -323,10 +316,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
           _xifexpression = re.getMessage();
         }
         final String msg = _xifexpression;
-        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, msg, jniDomain, 
-          ModelPackage.Literals.JNI_DOMAIN__ISL_STRING);
-        this.issues.add(_calculatorExpressionIssue);
+        this.registerIssue(msg, jniDomain);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -365,10 +355,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
           _xifexpression = re.getMessage();
         }
         final String msg = _xifexpression;
-        CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, msg, jniRelation, 
-          ModelPackage.Literals.JNI_RELATION__ISL_STRING);
-        this.issues.add(_calculatorExpressionIssue);
+        this.registerIssue(msg, jniRelation);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -414,10 +401,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
             _xifexpression = re.getMessage();
           }
           final String msg = _xifexpression;
-          CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
-            AlphaIssue.TYPE.ERROR, msg, jniFunction, 
-            ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING);
-          _xblockexpression = this.issues.add(_calculatorExpressionIssue);
+          _xblockexpression = this.registerIssue(msg, jniFunction);
         }
         _xtrycatchfinallyexpression = _xblockexpression;
       } else {
@@ -453,10 +437,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
             _xifexpression = re.getMessage();
           }
           final String msg = _xifexpression;
-          CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(
-            AlphaIssue.TYPE.ERROR, msg, jniFunction, 
-            ModelPackage.Literals.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
-          _xblockexpression = this.issues.add(_calculatorExpressionIssue);
+          _xblockexpression = this.registerIssue(msg, jniFunction);
         }
         _xtrycatchfinallyexpression = _xblockexpression;
       } else {
@@ -569,11 +550,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
-        String _message = re.getMessage();
-        CalculatorExpressionIssue _calculatorExpressionIssue_1 = new CalculatorExpressionIssue(
-          AlphaIssue.TYPE.ERROR, _message, rdom, 
-          ModelPackage.Literals.RECTANGULAR_DOMAIN__UPPER_BOUNDS);
-        this.issues.add(_calculatorExpressionIssue_1);
+        this.registerIssue(re.getMessage(), rdom);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }

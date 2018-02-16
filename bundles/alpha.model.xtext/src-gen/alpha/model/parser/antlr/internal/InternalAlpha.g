@@ -3743,17 +3743,17 @@ ruleSelectExpression returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getSelectExpressionAccess().getSelectRelationCalculatorExpressionParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getSelectExpressionAccess().getRelationExprCalculatorExpressionParserRuleCall_1_0());
 				}
-				lv_selectRelation_1_0=ruleCalculatorExpression
+				lv_relationExpr_1_0=ruleCalculatorExpression
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getSelectExpressionRule());
 					}
 					set(
 						$current,
-						"selectRelation",
-						lv_selectRelation_1_0,
+						"relationExpr",
+						lv_relationExpr_1_0,
 						"alpha.model.Alpha.CalculatorExpression");
 					afterParserOrEnumRuleCall();
 				}

@@ -268,7 +268,7 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	
 	override inSelectExpression(SelectExpression se) {
 		inAlphaExpression(se)
-		printStr("+-- ", se.selectRelation.ISLObject);
+		printStr("+-- ", se.selectRelation);
 	}
 	 
 	

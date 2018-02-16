@@ -23,6 +23,7 @@ public class AlphaInternalStateConstructor {
 		List<AlphaIssue> issues = JNIDomainCalculator.calculate(root);
 		
 		issues.addAll(ExpressionDomainCalculator.calculate(root));
+		issues.addAll(ContextDomainCalculator.calculate(root));
 		issues.addAll(AlphaNameUniquenessChecker.check(root));
 		
 		return issues;

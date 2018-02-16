@@ -507,9 +507,15 @@ class ConvolutionExpression extends AlphaExpression {
 	}
 }
 class SelectExpression extends AlphaExpression {
-	contains CalculatorExpression selectRelation
+	contains CalculatorExpression relationExpr
 	contains AlphaExpression expr
-
+	
+	op JNIISLMap getSelectRelation() {
+		if (relationExpr !== null && relationExpr.^type == POLY_OBJECT_TYPE.MAP && relationExpr.ISLObject !== null) {
+			return relationExpr.ISLObject as JNIISLMap
+		}
+		return null
+	}
 
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitSelectExpression(this)

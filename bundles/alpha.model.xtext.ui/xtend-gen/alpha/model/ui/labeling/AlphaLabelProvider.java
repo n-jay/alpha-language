@@ -177,8 +177,8 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   }
   
   public String text(final IndexExpression ie) {
-    JNIFunction _function = ie.getFunction();
-    return ("val " + _function);
+    String _plainToString = ie.getFunction().plainToString();
+    return ("val " + _plainToString);
   }
   
   public String text(final VariableExpression ve) {

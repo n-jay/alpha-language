@@ -2171,27 +2171,27 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.SelectExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cSelectKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cSelectRelationAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cSelectRelationCalculatorExpressionParserRuleCall_1_0 = (RuleCall)cSelectRelationAssignment_1.eContents().get(0);
+		private final Assignment cRelationExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cRelationExprCalculatorExpressionParserRuleCall_1_0 = (RuleCall)cRelationExprAssignment_1.eContents().get(0);
 		private final Keyword cFromKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cExprAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cExprAlphaTerminalExpressionParserRuleCall_3_0 = (RuleCall)cExprAssignment_3.eContents().get(0);
 		
 		//SelectExpression:
-		//	'select' selectRelation=CalculatorExpression 'from' expr=AlphaTerminalExpression;
+		//	'select' relationExpr=CalculatorExpression 'from' expr=AlphaTerminalExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'select' selectRelation=CalculatorExpression 'from' expr=AlphaTerminalExpression
+		//'select' relationExpr=CalculatorExpression 'from' expr=AlphaTerminalExpression
 		public Group getGroup() { return cGroup; }
 		
 		//'select'
 		public Keyword getSelectKeyword_0() { return cSelectKeyword_0; }
 		
-		//selectRelation=CalculatorExpression
-		public Assignment getSelectRelationAssignment_1() { return cSelectRelationAssignment_1; }
+		//relationExpr=CalculatorExpression
+		public Assignment getRelationExprAssignment_1() { return cRelationExprAssignment_1; }
 		
 		//CalculatorExpression
-		public RuleCall getSelectRelationCalculatorExpressionParserRuleCall_1_0() { return cSelectRelationCalculatorExpressionParserRuleCall_1_0; }
+		public RuleCall getRelationExprCalculatorExpressionParserRuleCall_1_0() { return cRelationExprCalculatorExpressionParserRuleCall_1_0; }
 		
 		//'from'
 		public Keyword getFromKeyword_2() { return cFromKeyword_2; }
@@ -3944,7 +3944,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//SelectExpression:
-	//	'select' selectRelation=CalculatorExpression 'from' expr=AlphaTerminalExpression;
+	//	'select' relationExpr=CalculatorExpression 'from' expr=AlphaTerminalExpression;
 	public SelectExpressionElements getSelectExpressionAccess() {
 		return pSelectExpression;
 	}

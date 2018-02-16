@@ -9359,13 +9359,13 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSelectExpression"
-    // InternalAlpha.g:3731:1: ruleSelectExpression returns [EObject current=null] : (otherlv_0= 'select' ( (lv_selectRelation_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) ) ) ;
+    // InternalAlpha.g:3731:1: ruleSelectExpression returns [EObject current=null] : (otherlv_0= 'select' ( (lv_relationExpr_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) ) ) ;
     public final EObject ruleSelectExpression() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
         Token otherlv_2=null;
-        EObject lv_selectRelation_1_0 = null;
+        EObject lv_relationExpr_1_0 = null;
 
         EObject lv_expr_3_0 = null;
 
@@ -9374,27 +9374,27 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalAlpha.g:3737:2: ( (otherlv_0= 'select' ( (lv_selectRelation_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) ) ) )
-            // InternalAlpha.g:3738:2: (otherlv_0= 'select' ( (lv_selectRelation_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) ) )
+            // InternalAlpha.g:3737:2: ( (otherlv_0= 'select' ( (lv_relationExpr_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) ) ) )
+            // InternalAlpha.g:3738:2: (otherlv_0= 'select' ( (lv_relationExpr_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) ) )
             {
-            // InternalAlpha.g:3738:2: (otherlv_0= 'select' ( (lv_selectRelation_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) ) )
-            // InternalAlpha.g:3739:3: otherlv_0= 'select' ( (lv_selectRelation_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) )
+            // InternalAlpha.g:3738:2: (otherlv_0= 'select' ( (lv_relationExpr_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) ) )
+            // InternalAlpha.g:3739:3: otherlv_0= 'select' ( (lv_relationExpr_1_0= ruleCalculatorExpression ) ) otherlv_2= 'from' ( (lv_expr_3_0= ruleAlphaTerminalExpression ) )
             {
             otherlv_0=(Token)match(input,64,FOLLOW_18); 
 
             			newLeafNode(otherlv_0, grammarAccess.getSelectExpressionAccess().getSelectKeyword_0());
             		
-            // InternalAlpha.g:3743:3: ( (lv_selectRelation_1_0= ruleCalculatorExpression ) )
-            // InternalAlpha.g:3744:4: (lv_selectRelation_1_0= ruleCalculatorExpression )
+            // InternalAlpha.g:3743:3: ( (lv_relationExpr_1_0= ruleCalculatorExpression ) )
+            // InternalAlpha.g:3744:4: (lv_relationExpr_1_0= ruleCalculatorExpression )
             {
-            // InternalAlpha.g:3744:4: (lv_selectRelation_1_0= ruleCalculatorExpression )
-            // InternalAlpha.g:3745:5: lv_selectRelation_1_0= ruleCalculatorExpression
+            // InternalAlpha.g:3744:4: (lv_relationExpr_1_0= ruleCalculatorExpression )
+            // InternalAlpha.g:3745:5: lv_relationExpr_1_0= ruleCalculatorExpression
             {
 
-            					newCompositeNode(grammarAccess.getSelectExpressionAccess().getSelectRelationCalculatorExpressionParserRuleCall_1_0());
+            					newCompositeNode(grammarAccess.getSelectExpressionAccess().getRelationExprCalculatorExpressionParserRuleCall_1_0());
             				
             pushFollow(FOLLOW_59);
-            lv_selectRelation_1_0=ruleCalculatorExpression();
+            lv_relationExpr_1_0=ruleCalculatorExpression();
 
             state._fsp--;
 
@@ -9404,8 +9404,8 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             					}
             					set(
             						current,
-            						"selectRelation",
-            						lv_selectRelation_1_0,
+            						"relationExpr",
+            						lv_relationExpr_1_0,
             						"alpha.model.Alpha.CalculatorExpression");
             					afterParserOrEnumRuleCall();
             				

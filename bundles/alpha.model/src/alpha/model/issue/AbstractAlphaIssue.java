@@ -5,10 +5,10 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 public abstract class AbstractAlphaIssue implements AlphaIssue {
 	
-	private TYPE type;
-	private String message;
-	private EObject source;
-	private EStructuralFeature feature;
+	protected final TYPE type;
+	protected final String message;
+	protected final EObject source;
+	protected final EStructuralFeature feature;
 	
 	 public AbstractAlphaIssue(TYPE type, String message, EObject source, EStructuralFeature feature) {
 		this.type = type;

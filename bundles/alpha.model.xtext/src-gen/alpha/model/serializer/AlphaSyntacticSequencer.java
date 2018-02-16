@@ -97,7 +97,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) 'if' condExpr=AlphaExpression
 	 *     (rule start) (ambiguity) 'reduce' '(' externalFunction=[ExternalFunction|ID]
 	 *     (rule start) (ambiguity) 'reduce' '(' operator=AREDUCTION_OP
-	 *     (rule start) (ambiguity) 'select' selectRelation=CalculatorExpression
+	 *     (rule start) (ambiguity) 'select' relationExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) 'val' function=JNIFunction
 	 *     (rule start) (ambiguity) '{' domainExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) domainExpr=JNIDomain
