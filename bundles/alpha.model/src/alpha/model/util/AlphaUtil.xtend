@@ -102,6 +102,10 @@ class AlphaUtil {
 		expr.eContents.stream.filter([e|c.isInstance(e)]).map([e|c.cast(e)])
 	}
 	
+	public static def testNonNullContextDomain(Stream<AlphaExpression> exprs) {
+		return exprs.allMatch([e|e !== null && e.contextDomain !== null]);
+	}
+	
 	public static def testNonNullExpressionDomain(Stream<AlphaExpression> exprs) {
 		return exprs.allMatch([e|e !== null && e.expressionDomain !== null]);
 	}

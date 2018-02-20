@@ -4,7 +4,9 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaNode;
 import alpha.model.AlphaVisitable;
 import alpha.model.ArgReduceExpression;
+import alpha.model.AutoRestrictExpression;
 import alpha.model.CalculatorExpression;
+import alpha.model.CaseExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.ReduceExpression;
@@ -13,6 +15,9 @@ import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.ContextDomainIssue;
+import alpha.model.issue.EmptyAutoRestrictIssue;
+import alpha.model.issue.MisplacedAutoRestrictIssue;
+import alpha.model.issue.MultipleAutoRestrictIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AbstractAlphaVisitor;
 import alpha.model.util.AlphaUtil;
@@ -26,6 +31,10 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.Functions.Function2;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
@@ -65,6 +74,70 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     EStructuralFeature _eContainingFeature = node.eContainingFeature();
     ContextDomainIssue _contextDomainIssue = new ContextDomainIssue(AlphaIssue.TYPE.ERROR, errMsg, _eContainer, _eContainingFeature);
     this.issues.add(_contextDomainIssue);
+  }
+  
+  @Override
+  public void inAutoRestrictExpression(final AutoRestrictExpression are) {
+    EObject _eContainer = are.eContainer();
+    boolean _tripleEquals = (_eContainer == null);
+    if (_tripleEquals) {
+      throw new RuntimeException("Uncontained AlphaExpression");
+    }
+    JNIISLSet _expressionDomain = are.getExpressionDomain();
+    boolean _tripleEquals_1 = (_expressionDomain == null);
+    if (_tripleEquals_1) {
+      return;
+    }
+    EObject _eContainer_1 = are.eContainer();
+    boolean _not = (!(_eContainer_1 instanceof CaseExpression));
+    if (_not) {
+      MisplacedAutoRestrictIssue _misplacedAutoRestrictIssue = new MisplacedAutoRestrictIssue(are);
+      this.issues.add(_misplacedAutoRestrictIssue);
+      return;
+    }
+    EObject _eContainer_2 = are.eContainer();
+    final CaseExpression parentCase = ((CaseExpression) _eContainer_2);
+    long _count = AlphaUtil.<AutoRestrictExpression>getChildrenOfType(parentCase, AutoRestrictExpression.class).count();
+    boolean _greaterThan = (_count > 1);
+    if (_greaterThan) {
+      MultipleAutoRestrictIssue _multipleAutoRestrictIssue = new MultipleAutoRestrictIssue(are);
+      this.issues.add(_multipleAutoRestrictIssue);
+      return;
+    }
+    boolean _testNonNullExpressionDomain = AlphaUtil.testNonNullExpressionDomain(parentCase.getExprs().stream());
+    boolean _not_1 = (!_testNonNullExpressionDomain);
+    if (_not_1) {
+      return;
+    }
+    final JNIISLSet parentContext = this.parentContext(parentCase);
+    if ((parentContext == null)) {
+      return;
+    }
+    JNIISLSet inferredDomain = null;
+    int _length = ((Object[])Conversions.unwrapArray(parentCase.getExprs(), Object.class)).length;
+    boolean _equals = (_length == 1);
+    if (_equals) {
+      inferredDomain = parentContext.intersect(are.getExpressionDomain());
+    } else {
+      final Function1<AlphaExpression, Boolean> _function = (AlphaExpression e) -> {
+        return Boolean.valueOf((!(e instanceof AutoRestrictExpression)));
+      };
+      final Function1<AlphaExpression, JNIISLSet> _function_1 = (AlphaExpression it) -> {
+        return it.getExpressionDomain();
+      };
+      final Function2<JNIISLSet, JNIISLSet, JNIISLSet> _function_2 = (JNIISLSet p1, JNIISLSet p2) -> {
+        return p1.union(p2);
+      };
+      final JNIISLSet otherExprDomain = IterableExtensions.<JNIISLSet>reduce(IterableExtensions.<AlphaExpression, JNIISLSet>map(IterableExtensions.<AlphaExpression>filter(parentCase.getExprs(), _function), _function_1), _function_2);
+      inferredDomain = parentContext.subtract(otherExprDomain).intersect(are.getExpressionDomain());
+    }
+    boolean _isEmpty = inferredDomain.isEmpty();
+    if (_isEmpty) {
+      EmptyAutoRestrictIssue _emptyAutoRestrictIssue = new EmptyAutoRestrictIssue(are);
+      this.issues.add(_emptyAutoRestrictIssue);
+    }
+    are.setInferredDomain(inferredDomain);
+    are.setContextDomain(inferredDomain.copy());
   }
   
   @Override

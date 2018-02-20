@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ValidationMessageAcceptor
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import alpha.model.AlphaInternalStateConstructor
 
 /**
  * This class contains custom validation rules. 
@@ -52,14 +53,15 @@ class AlphaValidator extends AbstractAlphaValidator {
 		val issues = AlphaNameUniquenessChecker.check(root);
 		issues.filter[i|EcoreUtil.isAncestor(root, i.source)]
 				.forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)];
+				
+		val issues2 = AlphaInternalStateConstructor.compute(root);
+		issues2.forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
 	}
 	
 
 	@Check
 	def checkSystem(AlphaSystem system) {
-		val issues = JNIDomainCalculator.calculate(system);
 		
-		issues.forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
 				
 		//following from: http://www.eclipse.org/forums/index.php/mv/msg/261440/754503/#msg_754503
 //		val names = new HashSet<QualifiedName>();

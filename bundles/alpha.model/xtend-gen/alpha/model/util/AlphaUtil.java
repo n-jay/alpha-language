@@ -123,6 +123,13 @@ public class AlphaUtil {
     return expr.eContents().stream().filter(_function).<T>map(_function_1);
   }
   
+  public static boolean testNonNullContextDomain(final Stream<AlphaExpression> exprs) {
+    final Predicate<AlphaExpression> _function = (AlphaExpression e) -> {
+      return ((e != null) && (e.getContextDomain() != null));
+    };
+    return exprs.allMatch(_function);
+  }
+  
   public static boolean testNonNullExpressionDomain(final Stream<AlphaExpression> exprs) {
     final Predicate<AlphaExpression> _function = (AlphaExpression e) -> {
       return ((e != null) && (e.getExpressionDomain() != null));

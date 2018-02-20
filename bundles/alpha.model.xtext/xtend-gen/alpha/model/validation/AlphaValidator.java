@@ -3,10 +3,10 @@
  */
 package alpha.model.validation;
 
+import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.AlphaNameUniquenessChecker;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
-import alpha.model.JNIDomainCalculator;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.validation.AbstractAlphaValidator;
 import com.google.common.base.Objects;
@@ -48,14 +48,15 @@ public class AlphaValidator extends AbstractAlphaValidator {
       this.flagEditor(i.getType(), i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
     };
     IterableExtensions.<AlphaIssue>filter(issues, _function).forEach(_function_1);
+    final List<AlphaIssue> issues2 = AlphaInternalStateConstructor.compute(root);
+    final Consumer<AlphaIssue> _function_2 = (AlphaIssue i) -> {
+      this.flagEditor(i.getType(), i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
+    };
+    issues2.forEach(_function_2);
   }
   
   @Check
-  public void checkSystem(final AlphaSystem system) {
-    final List<AlphaIssue> issues = JNIDomainCalculator.calculate(system);
-    final Consumer<AlphaIssue> _function = (AlphaIssue i) -> {
-      this.flagEditor(i.getType(), i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
-    };
-    issues.forEach(_function);
+  public Object checkSystem(final AlphaSystem system) {
+    return null;
   }
 }

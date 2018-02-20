@@ -4,10 +4,20 @@
 package alpha.model.ui
 
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import com.google.inject.Binder
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider
+import org.eclipse.xtext.ui.editor.hover.html.IEObjectHoverDocumentationProvider
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
  */
 @FinalFieldsConstructor
 class AlphaUiModule extends AbstractAlphaUiModule {
+	
+	override configure(Binder binder) {
+		super.configure(binder)
+		binder.bind(IEObjectHoverProvider).to(AlphaEObjectHoverProvider)
+		binder.bind(IEObjectHoverDocumentationProvider).to(AlphaEObjectHoverDocumentationProvider)
+	}
+	
 }

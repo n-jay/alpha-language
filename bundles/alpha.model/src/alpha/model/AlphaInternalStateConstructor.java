@@ -17,7 +17,6 @@ import alpha.model.issue.AlphaIssue;
  *
  */
 public class AlphaInternalStateConstructor {
-
 	
 	public static List<AlphaIssue> compute(AlphaRoot root) {
 		List<AlphaIssue> issues = JNIDomainCalculator.calculate(root);
@@ -25,6 +24,7 @@ public class AlphaInternalStateConstructor {
 		issues.addAll(ExpressionDomainCalculator.calculate(root));
 		issues.addAll(ContextDomainCalculator.calculate(root));
 		issues.addAll(AlphaNameUniquenessChecker.check(root));
+		issues.addAll(UniquenessAndCompletenessCheck.check(root));
 		
 		return issues;
 	}
