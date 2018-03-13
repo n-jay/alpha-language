@@ -40,17 +40,17 @@ AlphaSystem:
 	'.';
 	
 InputVariable:
-	name=ID ':' (domainExpr=CalculatorExpression)?
+	name=ID ':' (domainExpr=CalculatorExpression)? ';'?
 ;
 OutputVariable:
-	name=ID ':' (domainExpr=CalculatorExpression)?
+	name=ID ':' (domainExpr=CalculatorExpression)? ';'?
 ;
 LocalVariable:
-	name=ID ':' (domainExpr=CalculatorExpression)?
+	name=ID ':' (domainExpr=CalculatorExpression)? ';'?
 ;	
 
 FuzzyVariable:
-	name=ID ':' (domainExpr=CalculatorExpression)?
+	name=ID ':' (domainExpr=CalculatorExpression)? ';'?
 ;
 
 JNIDomain:

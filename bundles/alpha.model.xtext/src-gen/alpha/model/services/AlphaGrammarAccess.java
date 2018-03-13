@@ -405,12 +405,13 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cDomainExprAssignment_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//InputVariable:
-		//	name=ID ':' domainExpr=CalculatorExpression?;
+		//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID ':' domainExpr=CalculatorExpression?
+		//name=ID ':' domainExpr=CalculatorExpression? ';'?
 		public Group getGroup() { return cGroup; }
 		
 		//name=ID
@@ -427,6 +428,9 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//CalculatorExpression
 		public RuleCall getDomainExprCalculatorExpressionParserRuleCall_2_0() { return cDomainExprCalculatorExpressionParserRuleCall_2_0; }
+		
+		//';'?
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 	public class OutputVariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.OutputVariable");
@@ -436,12 +440,13 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cDomainExprAssignment_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//OutputVariable:
-		//	name=ID ':' domainExpr=CalculatorExpression?;
+		//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID ':' domainExpr=CalculatorExpression?
+		//name=ID ':' domainExpr=CalculatorExpression? ';'?
 		public Group getGroup() { return cGroup; }
 		
 		//name=ID
@@ -458,6 +463,9 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//CalculatorExpression
 		public RuleCall getDomainExprCalculatorExpressionParserRuleCall_2_0() { return cDomainExprCalculatorExpressionParserRuleCall_2_0; }
+		
+		//';'?
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 	public class LocalVariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.LocalVariable");
@@ -467,12 +475,13 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cDomainExprAssignment_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//LocalVariable:
-		//	name=ID ':' domainExpr=CalculatorExpression?;
+		//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID ':' domainExpr=CalculatorExpression?
+		//name=ID ':' domainExpr=CalculatorExpression? ';'?
 		public Group getGroup() { return cGroup; }
 		
 		//name=ID
@@ -489,6 +498,9 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//CalculatorExpression
 		public RuleCall getDomainExprCalculatorExpressionParserRuleCall_2_0() { return cDomainExprCalculatorExpressionParserRuleCall_2_0; }
+		
+		//';'?
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 	public class FuzzyVariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyVariable");
@@ -498,12 +510,13 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cDomainExprAssignment_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//FuzzyVariable:
-		//	name=ID ':' domainExpr=CalculatorExpression?;
+		//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID ':' domainExpr=CalculatorExpression?
+		//name=ID ':' domainExpr=CalculatorExpression? ';'?
 		public Group getGroup() { return cGroup; }
 		
 		//name=ID
@@ -520,6 +533,9 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//CalculatorExpression
 		public RuleCall getDomainExprCalculatorExpressionParserRuleCall_2_0() { return cDomainExprCalculatorExpressionParserRuleCall_2_0; }
+		
+		//';'?
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 	public class JNIDomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.JNIDomain");
@@ -3517,7 +3533,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//InputVariable:
-	//	name=ID ':' domainExpr=CalculatorExpression?;
+	//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
 	public InputVariableElements getInputVariableAccess() {
 		return pInputVariable;
 	}
@@ -3527,7 +3543,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//OutputVariable:
-	//	name=ID ':' domainExpr=CalculatorExpression?;
+	//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
 	public OutputVariableElements getOutputVariableAccess() {
 		return pOutputVariable;
 	}
@@ -3537,7 +3553,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LocalVariable:
-	//	name=ID ':' domainExpr=CalculatorExpression?;
+	//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
 	public LocalVariableElements getLocalVariableAccess() {
 		return pLocalVariable;
 	}
@@ -3547,7 +3563,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//FuzzyVariable:
-	//	name=ID ':' domainExpr=CalculatorExpression?;
+	//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
 	public FuzzyVariableElements getFuzzyVariableAccess() {
 		return pFuzzyVariable;
 	}

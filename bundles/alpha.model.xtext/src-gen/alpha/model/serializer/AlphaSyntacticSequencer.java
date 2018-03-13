@@ -25,6 +25,10 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a;
 	protected AbstractElementAlias match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p;
+	protected AbstractElementAlias match_FuzzyVariable_SemicolonKeyword_3_q;
+	protected AbstractElementAlias match_InputVariable_SemicolonKeyword_3_q;
+	protected AbstractElementAlias match_LocalVariable_SemicolonKeyword_3_q;
+	protected AbstractElementAlias match_OutputVariable_SemicolonKeyword_3_q;
 	protected AbstractElementAlias match_UseEquation_WithKeyword_0_2_0_q;
 	
 	@Inject
@@ -35,6 +39,10 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a = new TokenAlias(true, true, grammarAccess.getCalculatorExpressionTerminalAccess().getLeftParenthesisKeyword_6_0());
 		match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p = new TokenAlias(true, false, grammarAccess.getCalculatorExpressionTerminalAccess().getLeftParenthesisKeyword_6_0());
+		match_FuzzyVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getFuzzyVariableAccess().getSemicolonKeyword_3());
+		match_InputVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getInputVariableAccess().getSemicolonKeyword_3());
+		match_LocalVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getLocalVariableAccess().getSemicolonKeyword_3());
+		match_OutputVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getOutputVariableAccess().getSemicolonKeyword_3());
 		match_UseEquation_WithKeyword_0_2_0_q = new TokenAlias(false, true, grammarAccess.getUseEquationAccess().getWithKeyword_0_2_0());
 	}
 	
@@ -60,6 +68,14 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p.equals(syntax))
 				emit_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_FuzzyVariable_SemicolonKeyword_3_q.equals(syntax))
+				emit_FuzzyVariable_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_InputVariable_SemicolonKeyword_3_q.equals(syntax))
+				emit_InputVariable_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_LocalVariable_SemicolonKeyword_3_q.equals(syntax))
+				emit_LocalVariable_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_OutputVariable_SemicolonKeyword_3_q.equals(syntax))
+				emit_OutputVariable_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_UseEquation_WithKeyword_0_2_0_q.equals(syntax))
 				emit_UseEquation_WithKeyword_0_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
@@ -162,6 +178,54 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) {BinaryCalculatorExpression.left=}
 	 */
 	protected void emit_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     domainExpr=CalculatorExpression (ambiguity) (rule end)
+	 *     name=ID ':' (ambiguity) (rule end)
+	 */
+	protected void emit_FuzzyVariable_SemicolonKeyword_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     domainExpr=CalculatorExpression (ambiguity) (rule end)
+	 *     name=ID ':' (ambiguity) (rule end)
+	 */
+	protected void emit_InputVariable_SemicolonKeyword_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     domainExpr=CalculatorExpression (ambiguity) (rule end)
+	 *     name=ID ':' (ambiguity) (rule end)
+	 */
+	protected void emit_LocalVariable_SemicolonKeyword_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     domainExpr=CalculatorExpression (ambiguity) (rule end)
+	 *     name=ID ':' (ambiguity) (rule end)
+	 */
+	protected void emit_OutputVariable_SemicolonKeyword_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

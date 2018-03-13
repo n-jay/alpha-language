@@ -800,6 +800,12 @@ ruleInputVariable returns [EObject current=null]
 				}
 			)
 		)?
+		(
+			otherlv_3=';'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getInputVariableAccess().getSemicolonKeyword_3());
+			}
+		)?
 	)
 ;
 
@@ -859,6 +865,12 @@ ruleOutputVariable returns [EObject current=null]
 					afterParserOrEnumRuleCall();
 				}
 			)
+		)?
+		(
+			otherlv_3=';'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getOutputVariableAccess().getSemicolonKeyword_3());
+			}
 		)?
 	)
 ;
@@ -920,6 +932,12 @@ ruleLocalVariable returns [EObject current=null]
 				}
 			)
 		)?
+		(
+			otherlv_3=';'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getLocalVariableAccess().getSemicolonKeyword_3());
+			}
+		)?
 	)
 ;
 
@@ -979,6 +997,12 @@ ruleFuzzyVariable returns [EObject current=null]
 					afterParserOrEnumRuleCall();
 				}
 			)
+		)?
+		(
+			otherlv_3=';'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getFuzzyVariableAccess().getSemicolonKeyword_3());
+			}
 		)?
 	)
 ;
