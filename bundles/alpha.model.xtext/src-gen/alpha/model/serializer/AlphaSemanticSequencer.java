@@ -1205,7 +1205,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *
 	 * Constraint:
 	 *     (
-	 *         (instantiationDomain=CalculatorExpression (subsystemDims+=IndexName subsystemDims+=IndexName*)?)? 
+	 *         (instantiationDomainExpr=CalculatorExpression (subsystemDims+=IndexName subsystemDims+=IndexName*)?)? 
 	 *         (outputExprs+=AlphaExpression outputExprs+=AlphaExpression*)? 
 	 *         system=[AlphaSystem|QualifiedName] 
 	 *         callParams=JNIFunctionInArrayNotation 

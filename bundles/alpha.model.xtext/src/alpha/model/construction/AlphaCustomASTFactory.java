@@ -79,7 +79,7 @@ public class AlphaCustomASTFactory extends DefaultEcoreElementFactory {
 			if (object.getInstantiationDomain() == null) {
 				JNIDomain scalarDom = ModelFactoryImpl.eINSTANCE.createJNIDomain();
 				scalarDom.setIslString("{ [] : }");
-				object.setInstantiationDomain(scalarDom);
+				object.setInstantiationDomainExpr(scalarDom);
 			}
 				
 			return super.caseUseEquation(object);

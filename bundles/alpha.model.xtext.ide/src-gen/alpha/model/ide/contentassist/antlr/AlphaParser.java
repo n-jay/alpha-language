@@ -187,7 +187,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStandardEquationAccess().getIndexNamesAssignment_1_1(), "rule__StandardEquation__IndexNamesAssignment_1_1");
 					put(grammarAccess.getStandardEquationAccess().getIndexNamesAssignment_1_2_1(), "rule__StandardEquation__IndexNamesAssignment_1_2_1");
 					put(grammarAccess.getStandardEquationAccess().getExprAssignment_3(), "rule__StandardEquation__ExprAssignment_3");
-					put(grammarAccess.getUseEquationAccess().getInstantiationDomainAssignment_0_1(), "rule__UseEquation__InstantiationDomainAssignment_0_1");
+					put(grammarAccess.getUseEquationAccess().getInstantiationDomainExprAssignment_0_1(), "rule__UseEquation__InstantiationDomainExprAssignment_0_1");
 					put(grammarAccess.getUseEquationAccess().getSubsystemDimsAssignment_0_2_1_1(), "rule__UseEquation__SubsystemDimsAssignment_0_2_1_1");
 					put(grammarAccess.getUseEquationAccess().getSubsystemDimsAssignment_0_2_1_2_1(), "rule__UseEquation__SubsystemDimsAssignment_0_2_1_2_1");
 					put(grammarAccess.getUseEquationAccess().getOutputExprsAssignment_2_0(), "rule__UseEquation__OutputExprsAssignment_2_0");

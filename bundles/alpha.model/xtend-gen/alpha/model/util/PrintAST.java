@@ -9,7 +9,6 @@ import alpha.model.AlphaVisitable;
 import alpha.model.ArgReduceExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.BinaryExpression;
-import alpha.model.CalculatorExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.ConvolutionExpression;
 import alpha.model.DependenceExpression;
@@ -208,10 +207,10 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void inUseEquation(final UseEquation ue) {
     this.defaultIn(ue);
     this.printStr("+-- ", ue.getSystem().getName());
-    CalculatorExpression _instantiationDomain = ue.getInstantiationDomain();
+    JNIISLSet _instantiationDomain = ue.getInstantiationDomain();
     boolean _tripleNotEquals = (_instantiationDomain != null);
     if (_tripleNotEquals) {
-      this.printStr("+-- ", ue.getInstantiationDomain().getISLObject());
+      this.printStr("+-- ", ue.getInstantiationDomain());
     }
   }
   

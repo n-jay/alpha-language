@@ -2,6 +2,8 @@
  */
 package alpha.model;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -14,7 +16,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.UseEquation#getSystem <em>System</em>}</li>
- *   <li>{@link alpha.model.UseEquation#getInstantiationDomain <em>Instantiation Domain</em>}</li>
+ *   <li>{@link alpha.model.UseEquation#getInstantiationDomainExpr <em>Instantiation Domain Expr</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getCallParams <em>Call Params</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getSubsystemDims <em>Subsystem Dims</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getInputExprs <em>Input Exprs</em>}</li>
@@ -53,30 +55,30 @@ public interface UseEquation extends AlphaVisitable {
 	void setSystem(AlphaSystem value);
 
 	/**
-	 * Returns the value of the '<em><b>Instantiation Domain</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Instantiation Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Instantiation Domain</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Instantiation Domain Expr</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Instantiation Domain</em>' containment reference.
-	 * @see #setInstantiationDomain(CalculatorExpression)
-	 * @see alpha.model.ModelPackage#getUseEquation_InstantiationDomain()
+	 * @return the value of the '<em>Instantiation Domain Expr</em>' containment reference.
+	 * @see #setInstantiationDomainExpr(CalculatorExpression)
+	 * @see alpha.model.ModelPackage#getUseEquation_InstantiationDomainExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	CalculatorExpression getInstantiationDomain();
+	CalculatorExpression getInstantiationDomainExpr();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.UseEquation#getInstantiationDomain <em>Instantiation Domain</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.model.UseEquation#getInstantiationDomainExpr <em>Instantiation Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Instantiation Domain</em>' containment reference.
-	 * @see #getInstantiationDomain()
+	 * @param value the new value of the '<em>Instantiation Domain Expr</em>' containment reference.
+	 * @see #getInstantiationDomainExpr()
 	 * @generated
 	 */
-	void setInstantiationDomain(CalculatorExpression value);
+	void setInstantiationDomainExpr(CalculatorExpression value);
 
 	/**
 	 * Returns the value of the '<em><b>Call Params</b></em>' containment reference.
@@ -151,6 +153,15 @@ public interface UseEquation extends AlphaVisitable {
 	 * @generated
 	 */
 	EList<AlphaExpression> getOutputExprs();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='if ((((this.getInstantiationDomainExpr() != null) &amp;&amp; &lt;%com.google.common.base.Objects%&gt;.equal(this.getInstantiationDomainExpr().getType(), &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET)) &amp;&amp; (this.getInstantiationDomainExpr().getISLObject() != null)))\n{\n\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getInstantiationDomainExpr().getISLObject();\n\treturn ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;) _iSLObject);\n}\nreturn null;'"
+	 * @generated
+	 */
+	JNIISLSet getInstantiationDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

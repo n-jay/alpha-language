@@ -1062,7 +1062,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getUseEquation_InstantiationDomain() {
+	public EReference getUseEquation_InstantiationDomainExpr() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2152,7 +2152,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		useEquationEClass = createEClass(USE_EQUATION);
 		createEReference(useEquationEClass, USE_EQUATION__SYSTEM);
-		createEReference(useEquationEClass, USE_EQUATION__INSTANTIATION_DOMAIN);
+		createEReference(useEquationEClass, USE_EQUATION__INSTANTIATION_DOMAIN_EXPR);
 		createEReference(useEquationEClass, USE_EQUATION__CALL_PARAMS);
 		createEAttribute(useEquationEClass, USE_EQUATION__SUBSYSTEM_DIMS);
 		createEReference(useEquationEClass, USE_EQUATION__INPUT_EXPRS);
@@ -2903,11 +2903,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		initEClass(useEquationEClass, UseEquation.class, "UseEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getUseEquation_System(), this.getAlphaSystem(), null, "system", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getUseEquation_InstantiationDomain(), this.getCalculatorExpression(), null, "instantiationDomain", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUseEquation_InstantiationDomainExpr(), this.getCalculatorExpression(), null, "instantiationDomainExpr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_CallParams(), this.getJNIFunctionInArrayNotation(), null, "callParams", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUseEquation_SubsystemDims(), theEcorePackage.getEString(), "subsystemDims", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_InputExprs(), this.getAlphaExpression(), null, "inputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_OutputExprs(), this.getAlphaExpression(), null, "outputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(useEquationEClass, this.getJNIISLSet(), "getInstantiationDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(useEquationEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);

@@ -2251,17 +2251,17 @@ ruleUseEquation returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getUseEquationAccess().getInstantiationDomainCalculatorExpressionParserRuleCall_0_1_0());
+						newCompositeNode(grammarAccess.getUseEquationAccess().getInstantiationDomainExprCalculatorExpressionParserRuleCall_0_1_0());
 					}
-					lv_instantiationDomain_1_0=ruleCalculatorExpression
+					lv_instantiationDomainExpr_1_0=ruleCalculatorExpression
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getUseEquationRule());
 						}
 						set(
 							$current,
-							"instantiationDomain",
-							lv_instantiationDomain_1_0,
+							"instantiationDomainExpr",
+							lv_instantiationDomainExpr_1_0,
 							"alpha.model.Alpha.CalculatorExpression");
 						afterParserOrEnumRuleCall();
 					}

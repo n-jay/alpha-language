@@ -1,14 +1,14 @@
 package alpha.model
 
 import alpha.model.issue.AlphaIssue
-import alpha.model.issue.AlphaIssue.TYPE
-import alpha.model.issue.ContextDomainIssue
-import alpha.model.issue.EmptyAutoRestrictIssue
-import alpha.model.issue.MisplacedAutoRestrictIssue
-import alpha.model.issue.MultipleAutoRestrictIssue
+import alpha.model.issue.AlphaIssueFactory
+import alpha.model.issue.UnexpectedISLErrorIssue
 import alpha.model.util.AbstractAlphaExpressionVisitor
 import alpha.model.util.AbstractAlphaVisitor
 import alpha.model.util.AlphaUtil
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import java.util.LinkedList
 import java.util.List
@@ -16,6 +16,7 @@ import java.util.function.Supplier
 import org.eclipse.emf.ecore.EObject
 
 import static alpha.model.util.AlphaUtil.callISLwithErrorHandling
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 
 class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 
@@ -48,7 +49,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 	}
 
 	private def void registerIssue(String errMsg, AlphaNode node) {
-		issues.add(new ContextDomainIssue(TYPE.ERROR, errMsg, node.eContainer(), node.eContainingFeature()));
+		issues.add(new UnexpectedISLErrorIssue(errMsg, node.eContainer(), node.eContainingFeature()));
 	}
 	
 	override inAutoRestrictExpression(AutoRestrictExpression are) {
@@ -57,20 +58,21 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 		
 		if (!(are.eContainer instanceof CaseExpression)) {
 			//throw new RuntimeException("AutoRestrict can only be direct child of CaseExpression.");
-			issues.add(new MisplacedAutoRestrictIssue(are));
+			issues.add(AlphaIssueFactory.autoRestrictNotInCase(are));
 			return;
 		}
 		
 		val parentCase = are.eContainer as CaseExpression;
 		if (AlphaUtil.getChildrenOfType(parentCase, AutoRestrictExpression).count > 1) {
-			issues.add(new MultipleAutoRestrictIssue(are));
+			issues.add(AlphaIssueFactory.multipleAutoRestrict(are));
 			return;
 		}
 		
 		if (!AlphaUtil.testNonNullExpressionDomain(parentCase.exprs.stream)) {
 			return;
 		}
-		val parentContext = parentCase.parentContext;
+		
+		val parentContext = are.parentContext(parentCase);
 		if (parentContext === null) return;
 
 		var JNIISLSet inferredDomain
@@ -83,7 +85,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 		}
 		
 		if (inferredDomain.isEmpty) {
-			issues.add(new EmptyAutoRestrictIssue(are));
+			issues.add(AlphaIssueFactory.emptyAutoRestrict(are));
 		}
 		
 		are.inferredDomain =  inferredDomain;
@@ -94,7 +96,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 		if (ae.eContainer === null) throw new RuntimeException("Uncontained AlphaExpression");
 		if (ae.expressionDomain === null) return;
 
-		val parentContext = (ae.eContainer as AlphaNode).parentContext
+		val parentContext = ae.parentContext(ae.eContainer as AlphaNode)
 
 		if (parentContext === null) {
 			// If parent context domain is not define, then do not report this as an issue, 
@@ -112,20 +114,45 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 		ae.contextDomain = context
 	}
 
-	private dispatch def parentContext(StandardEquation eq) {
-		eq.variable.domain
+	private dispatch def parentContext(AlphaExpression child, StandardEquation parent) {
+		parent.variable.domain
 	}
 
-	private dispatch def parentContext(UseEquation ueq) {
-		if (checkCalcExprType(ueq.instantiationDomain, POLY_OBJECT_TYPE.SET)) {
-			ueq.instantiationDomain.ISLObject as JNIISLSet
+	//For UseEquations, the context depends on the location of the child
+	// the instantiation domain is extended by the number of dimension with the corresponding input/output in the callee subsystem
+	//  
+	private dispatch def parentContext(AlphaExpression child, UseEquation parent) {
+		if (checkCalcExprType(parent.instantiationDomainExpr, POLY_OBJECT_TYPE.SET)) {
+			
+			val inputLoc = parent.inputExprs.indexOf(child);
+			val outputLoc = parent.outputExprs.indexOf(child)
+			if (inputLoc == -1 && outputLoc == -1) return null
+			
+			var calleeVar = if (inputLoc!=-1) parent.system.inputs.get(inputLoc) else parent.system.outputs.get(outputLoc)
+			
+			return extendCalleeDomainByInstantiationDomain(parent.instantiationDomain, parent.callParams.ISLMultiAff, calleeVar.domain)
+			
 		} else {
 			return null
 		}
 	}
+	
+	
+	
+	private def JNIISLSet extendCalleeDomainByInstantiationDomain(JNIISLSet instantiationDomain, JNIISLMultiAff callParams, JNIISLSet calleeVarDom) {
+		val map = JNIISLMap.fromRange(calleeVarDom)
+		val nparam = map.getNbParams()
+		val p2s = map.moveDims(JNIISLDimType.isl_dim_in, 0, JNIISLDimType.isl_dim_param, 0, nparam)
+		val p2sEx = p2s.alignParams(instantiationDomain.space)
+		val paramCallRel = callParams.toMap.intersectDomain(instantiationDomain)
+		val ctxMap = paramCallRel.applyRange(p2sEx)
+		
+		return ctxMap.toSet
+	}
 
-	private dispatch def parentContext(AlphaExpression expr) {
-		expr.contextDomain
+	//default case, just pass the context of the parent
+	private dispatch def parentContext(AlphaExpression child, AlphaExpression parent) {
+		parent.contextDomain
 	}
 
 	private dispatch def processContext(DependenceExpression expr, JNIISLSet context) {
@@ -161,10 +188,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	private def boolean checkCalcExprType(CalculatorExpression cexpr, POLY_OBJECT_TYPE expected) {
 		if (cexpr.getType() != expected) {
-			val name = cexpr.eContainer().eClass().getName();
-			issues.add(new ContextDomainIssue(
-					TYPE.ERROR, "Calculator Expression for a " + name + " must evaluate to "+expected.getName()+".",
-					cexpr.eContainer(), cexpr.eContainingFeature()));
+			issues.add(AlphaIssueFactory.unmatchedCalcExprType(cexpr, expected));
 			return false;
 		}
 		

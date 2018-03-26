@@ -5,10 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
-
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssue.TYPE;
+import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.CalculatorExpressionIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaUtil;
@@ -73,16 +72,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		if (pobj.getExpr() != null)
 			issues.addAll(CalculatorExpressionEvaluator.calculate(pobj.getExpr()));
 	}
-
-	private CalculatorExpressionIssue expectingSetIssue(UseEquation expr, EStructuralFeature feature) {
-		return new CalculatorExpressionIssue(TYPE.ERROR, "Expecting calculator expression to evaluate as set/domain", expr, feature);
-	}
-	private CalculatorExpressionIssue expectingSetIssue(AlphaExpression expr, EStructuralFeature feature) {
-		return new CalculatorExpressionIssue(TYPE.ERROR, "Expecting calculator expression to evaluate as set/domain", expr, feature);
-	}
-	private CalculatorExpressionIssue expectingMapIssue(AlphaExpression expr, EStructuralFeature feature) {
-		return new CalculatorExpressionIssue(TYPE.ERROR, "Expecting calculator expression to evaluate as map/relation", expr, feature);
-	}
+	
 	/*
 	 * Following code is for calculating CalcuatorExpression within AlphaExpression
 	 * Some of these expressions are in ArrayNotation, and requires the index names
@@ -110,26 +100,75 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	}
 
 	@Override
-	public void inUseEquation(UseEquation ue) {
+	public void visitUseEquation(UseEquation ue) {
+		//TODO handling of while is not finalized
 		indexNameContext = AlphaUtil.getWhileIndexNames(ue);
-		if (ue.getInstantiationDomain() != null) {
-			issues.addAll(CalculatorExpressionEvaluator.calculate(ue.getInstantiationDomain()));
+		
+		int initialIssueCount = issues.size();
+		
+		//compute the instantiation domain and its indices are the base set of indices
+		if (ue.getInstantiationDomainExpr() != null) {
+			issues.addAll(CalculatorExpressionEvaluator.calculate(ue.getInstantiationDomainExpr()));
 
-			if (ue.getInstantiationDomain().getType() != POLY_OBJECT_TYPE.SET) {
-				issues.add(expectingSetIssue(ue, ModelPackage.Literals.USE_EQUATION__INSTANTIATION_DOMAIN));
+			if (ue.getInstantiationDomainExpr().getType() != POLY_OBJECT_TYPE.SET) {
+				issues.add(AlphaIssueFactory.expectingSet(ue, ModelPackage.Literals.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR));
 				return;
 			}
-			indexNameContext.addAll(((JNIISLSet) ue.getInstantiationDomain().getISLObject()).getIndicesNames());
+			indexNameContext.addAll(ue.getInstantiationDomain().getIndicesNames());
 		}
-		if (ue.getSubsystemDims() != null)
-			indexNameContext.addAll(ue.getSubsystemDims());
-	}
+		
+		if (ue.getCallParams() != null) {
+			issues.addAll(CalculatorExpressionEvaluator.calculate(ue.getCallParams(), indexNameContext));
+			
+			if (ue.getCallParams().getType() != POLY_OBJECT_TYPE.FUNCTION) {
+				issues.add(AlphaIssueFactory.expectingFunction(ue, ModelPackage.Literals.USE_EQUATION__CALL_PARAMS));
+				return;
+			}
+		}
 
-	@Override
-	public void outUseEquation(UseEquation ue) {
+		if (ue.getSystem().getParameterDomain().getISLSet().getNbParams() != ue.getCallParams().getISLMultiAff().getNbAff()) {
+			issues.add(AlphaIssueFactory.subsystemWithIncompatibleParameters(ue));
+		}
+		
+		if (ue.getInputExprs().size() != ue.getSystem().getInputs().size()) {
+			issues.add(AlphaIssueFactory.subsystemWithIncompatibleInputs(ue));
+		}
+
+		if (ue.getOutputExprs().size() != ue.getSystem().getOutputs().size()) {
+			issues.add(AlphaIssueFactory.subsystemWithIncompatibleOutputs(ue));
+		}
+		
+		//visit the in/out expressions only if prior checks pass
+		if (issues.size() == initialIssueCount) {
+			//for each input/output, the base indices are extended according to the dimensionality of the input/output in the callee
+			visitChildrenWithAppropriateIndexNames(ue, ue.getInputExprs(), ue.getSystem().getInputs());
+			visitChildrenWithAppropriateIndexNames(ue, ue.getOutputExprs(), ue.getSystem().getOutputs());
+		}
+		
+		
 		indexNameContext = null;
 	}
-
+	
+	private void visitChildrenWithAppropriateIndexNames(UseEquation ue, List<AlphaExpression> exprs, List<? extends Variable> variables) {
+		for (int i = 0; i < exprs.size(); i++) {
+			Variable calleeVar = variables.get(i);
+			int ndim = calleeVar.getDomain().getNbDims();
+			
+			boolean arrayNotation = ue.getSubsystemDims() != null && ndim <= ue.getSubsystemDims().size(); 
+			
+			if (arrayNotation) {
+				indexNameContext.addAll(ue.getSubsystemDims().subList(0, ndim));
+			}
+			
+			exprs.get(i).accept(this);
+			
+			if (arrayNotation) {
+				indexNameContext.removeAll(ue.getSubsystemDims());
+			}
+		}
+		
+	}
+	
 	@Override
 	public void inAbstractReduceExpression(AbstractReduceExpression re) {
 		/*
@@ -167,7 +206,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		contextHistory.push(indexNameContext);
 		
 		if (ce.getKernelDomain().getType() != POLY_OBJECT_TYPE.SET) {
-			expectingSetIssue(ce, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN);
+			AlphaIssueFactory.expectingSet(ce, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN);
 			indexNameContext = null;
 			return;
 		}
@@ -230,7 +269,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		contextHistory.push(indexNameContext);
 		
 		if (re.getDomainExpr().getType() != POLY_OBJECT_TYPE.SET) {
-			issues.add(expectingSetIssue(re, ModelPackage.Literals.RESTRICT_EXPRESSION__DOMAIN_EXPR));
+			issues.add(AlphaIssueFactory.expectingSet(re, ModelPackage.Literals.RESTRICT_EXPRESSION__DOMAIN_EXPR));
 			indexNameContext = null;
 			return;
 		}
@@ -241,9 +280,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		} else {
 			indexNameContext = copy;
 
-			issues.add(new CalculatorExpressionIssue(TYPE.ERROR,
-					"Dimensionality of the restrict domain does not match its context.", re,
-					ModelPackage.Literals.RESTRICT_EXPRESSION__DOMAIN_EXPR));
+			issues.add(AlphaIssueFactory.umatchedRestrictDomainDimensions(re));
 		}
 	}
 
@@ -260,7 +297,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		contextHistory.push(indexNameContext);
 		
 		if (se.getRelationExpr().getType() != POLY_OBJECT_TYPE.MAP) {
-			issues.add(expectingMapIssue(se, ModelPackage.Literals.SELECT_EXPRESSION__RELATION_EXPR));
+			issues.add(AlphaIssueFactory.expectingMap(se, ModelPackage.Literals.SELECT_EXPRESSION__RELATION_EXPR));
 			indexNameContext = null;
 			return;
 		}
@@ -278,9 +315,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		} else {
 			indexNameContext = copy;
 
-			issues.add(new CalculatorExpressionIssue(TYPE.ERROR,
-					"Dimensionality of the select relation does not match its context.", se,
-					ModelPackage.Literals.SELECT_EXPRESSION__RELATION_EXPR));
+			issues.add(AlphaIssueFactory.unmatchedSelectRelationDimensions(se));
 		}
 
 	}

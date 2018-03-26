@@ -1269,8 +1269,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
 		private final Keyword cOverKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
-		private final Assignment cInstantiationDomainAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final RuleCall cInstantiationDomainCalculatorExpressionParserRuleCall_0_1_0 = (RuleCall)cInstantiationDomainAssignment_0_1.eContents().get(0);
+		private final Assignment cInstantiationDomainExprAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cInstantiationDomainExprCalculatorExpressionParserRuleCall_0_1_0 = (RuleCall)cInstantiationDomainExprAssignment_0_1.eContents().get(0);
 		private final Group cGroup_0_2 = (Group)cGroup_0.eContents().get(2);
 		private final Keyword cWithKeyword_0_2_0 = (Keyword)cGroup_0_2.eContents().get(0);
 		private final Group cGroup_0_2_1 = (Group)cGroup_0_2.eContents().get(1);
@@ -1310,32 +1310,32 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//UseEquation:
-		//	('over' instantiationDomain=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)*
-		//	']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
+		//	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
+		//	subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
 		//	'='
 		//	system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation
 		//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')'
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//('over' instantiationDomain=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)*
-		//']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')' '='
-		//system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation '(' (inputExprs+=AlphaExpression (','
+		//('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
+		//subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
+		//'=' system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation '(' (inputExprs+=AlphaExpression (','
 		//inputExprs+=AlphaExpression)*)? ')' ';'
 		public Group getGroup() { return cGroup; }
 		
-		//('over' instantiationDomain=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)*
-		//']')?)? ':')?
+		//('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
+		//subsystemDims+=IndexName)* ']')?)? ':')?
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//'over'
 		public Keyword getOverKeyword_0_0() { return cOverKeyword_0_0; }
 		
-		//instantiationDomain=CalculatorExpression
-		public Assignment getInstantiationDomainAssignment_0_1() { return cInstantiationDomainAssignment_0_1; }
+		//instantiationDomainExpr=CalculatorExpression
+		public Assignment getInstantiationDomainExprAssignment_0_1() { return cInstantiationDomainExprAssignment_0_1; }
 		
 		//CalculatorExpression
-		public RuleCall getInstantiationDomainCalculatorExpressionParserRuleCall_0_1_0() { return cInstantiationDomainCalculatorExpressionParserRuleCall_0_1_0; }
+		public RuleCall getInstantiationDomainExprCalculatorExpressionParserRuleCall_0_1_0() { return cInstantiationDomainExprCalculatorExpressionParserRuleCall_0_1_0; }
 		
 		//('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?)?
 		public Group getGroup_0_2() { return cGroup_0_2; }
@@ -3794,8 +3794,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//UseEquation:
-	//	('over' instantiationDomain=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)*
-	//	']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
+	//	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
+	//	subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
 	//	'='
 	//	system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation
 	//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')'

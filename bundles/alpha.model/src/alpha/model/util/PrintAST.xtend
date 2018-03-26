@@ -173,7 +173,7 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 		defaultIn(ue)
 		printStr("+-- ", ue.system.name)
 		if (ue.instantiationDomain !== null)
-			printStr("+-- ", ue.instantiationDomain.ISLObject)
+			printStr("+-- ", ue.instantiationDomain)
 	}
 	
 	override inAlphaExpression(AlphaExpression ae) {

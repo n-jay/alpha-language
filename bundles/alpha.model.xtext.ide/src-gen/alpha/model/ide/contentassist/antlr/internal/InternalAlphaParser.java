@@ -22452,31 +22452,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__UseEquation__Group_0__1__Impl"
-    // InternalAlpha.g:7184:1: rule__UseEquation__Group_0__1__Impl : ( ( rule__UseEquation__InstantiationDomainAssignment_0_1 ) ) ;
+    // InternalAlpha.g:7184:1: rule__UseEquation__Group_0__1__Impl : ( ( rule__UseEquation__InstantiationDomainExprAssignment_0_1 ) ) ;
     public final void rule__UseEquation__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:7188:1: ( ( ( rule__UseEquation__InstantiationDomainAssignment_0_1 ) ) )
-            // InternalAlpha.g:7189:1: ( ( rule__UseEquation__InstantiationDomainAssignment_0_1 ) )
+            // InternalAlpha.g:7188:1: ( ( ( rule__UseEquation__InstantiationDomainExprAssignment_0_1 ) ) )
+            // InternalAlpha.g:7189:1: ( ( rule__UseEquation__InstantiationDomainExprAssignment_0_1 ) )
             {
-            // InternalAlpha.g:7189:1: ( ( rule__UseEquation__InstantiationDomainAssignment_0_1 ) )
-            // InternalAlpha.g:7190:2: ( rule__UseEquation__InstantiationDomainAssignment_0_1 )
+            // InternalAlpha.g:7189:1: ( ( rule__UseEquation__InstantiationDomainExprAssignment_0_1 ) )
+            // InternalAlpha.g:7190:2: ( rule__UseEquation__InstantiationDomainExprAssignment_0_1 )
             {
-             before(grammarAccess.getUseEquationAccess().getInstantiationDomainAssignment_0_1()); 
-            // InternalAlpha.g:7191:2: ( rule__UseEquation__InstantiationDomainAssignment_0_1 )
-            // InternalAlpha.g:7191:3: rule__UseEquation__InstantiationDomainAssignment_0_1
+             before(grammarAccess.getUseEquationAccess().getInstantiationDomainExprAssignment_0_1()); 
+            // InternalAlpha.g:7191:2: ( rule__UseEquation__InstantiationDomainExprAssignment_0_1 )
+            // InternalAlpha.g:7191:3: rule__UseEquation__InstantiationDomainExprAssignment_0_1
             {
             pushFollow(FOLLOW_2);
-            rule__UseEquation__InstantiationDomainAssignment_0_1();
+            rule__UseEquation__InstantiationDomainExprAssignment_0_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getUseEquationAccess().getInstantiationDomainAssignment_0_1()); 
+             after(grammarAccess.getUseEquationAccess().getInstantiationDomainExprAssignment_0_1()); 
 
             }
 
@@ -37930,9 +37930,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__StandardEquation__ExprAssignment_3"
 
 
-    // $ANTLR start "rule__UseEquation__InstantiationDomainAssignment_0_1"
-    // InternalAlpha.g:12424:1: rule__UseEquation__InstantiationDomainAssignment_0_1 : ( ruleCalculatorExpression ) ;
-    public final void rule__UseEquation__InstantiationDomainAssignment_0_1() throws RecognitionException {
+    // $ANTLR start "rule__UseEquation__InstantiationDomainExprAssignment_0_1"
+    // InternalAlpha.g:12424:1: rule__UseEquation__InstantiationDomainExprAssignment_0_1 : ( ruleCalculatorExpression ) ;
+    public final void rule__UseEquation__InstantiationDomainExprAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -37943,13 +37943,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:12429:2: ( ruleCalculatorExpression )
             // InternalAlpha.g:12430:3: ruleCalculatorExpression
             {
-             before(grammarAccess.getUseEquationAccess().getInstantiationDomainCalculatorExpressionParserRuleCall_0_1_0()); 
+             before(grammarAccess.getUseEquationAccess().getInstantiationDomainExprCalculatorExpressionParserRuleCall_0_1_0()); 
             pushFollow(FOLLOW_2);
             ruleCalculatorExpression();
 
             state._fsp--;
 
-             after(grammarAccess.getUseEquationAccess().getInstantiationDomainCalculatorExpressionParserRuleCall_0_1_0()); 
+             after(grammarAccess.getUseEquationAccess().getInstantiationDomainExprCalculatorExpressionParserRuleCall_0_1_0()); 
 
             }
 
@@ -37968,7 +37968,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__UseEquation__InstantiationDomainAssignment_0_1"
+    // $ANTLR end "rule__UseEquation__InstantiationDomainExprAssignment_0_1"
 
 
     // $ANTLR start "rule__UseEquation__SubsystemDimsAssignment_0_2_1_1"

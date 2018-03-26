@@ -1,12 +1,14 @@
 package alpha.model;
 
+import static alpha.model.util.AlphaUtil.callISLwithErrorHandling;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import alpha.model.issue.AlphaIssue;
-import alpha.model.issue.IncompleteEquationIssue;
-import alpha.model.issue.OverlappingCaseIssue;
+import alpha.model.issue.AlphaIssueFactory;
+import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
@@ -49,15 +51,18 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 		JNIISLSet varDom = se.getVariable().getDomain();
 		if (defDom == null || varDom == null) return;
 
-		JNIISLSet undefDom = varDom.copy().subtract(defDom);
-		
-		if (!undefDom.isEmpty()) {
-			JNIISLSet systemParam = AlphaUtil.getContainerSystem(se).getParameterDomain().getISLSet();
-			JNIISLSet undefDomParam = undefDom.copy().paramSet().gist(systemParam);
-			JNIISLSet undefDomGist = undefDom.gist(varDom);
+		callISLwithErrorHandling(()->{
+			JNIISLSet undefDom = varDom.copy().subtract(defDom);
+			
+			if (!undefDom.isEmpty()) {
+				JNIISLSet systemParam = AlphaUtil.getContainerSystem(se).getParameterDomain().getISLSet();
+				JNIISLSet undefDomParam = undefDom.copy().paramSet().gist(systemParam);
+				JNIISLSet undefDomGist = undefDom.gist(varDom);
 
-			issues.add(new IncompleteEquationIssue(se, undefDomGist, undefDomParam));
-		}
+				issues.add(AlphaIssueFactory.incompleteEquation(se, undefDomGist, undefDomParam));
+			}
+		}, (err)->{issues.add(new UnexpectedISLErrorIssue(err, se, null));});
+		
 	}
 	
 	@Override
@@ -72,7 +77,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 				} else {
 					if (!childrenDomain.isDisjoint(expr.getContextDomain())) {
 						
-						issues.add(new OverlappingCaseIssue(expr, expr.getContextDomain().intersect(childrenDomain.copy())));
+						issues.add(AlphaIssueFactory.overlappingCaseBranch(expr, expr.getContextDomain().intersect(childrenDomain.copy())));
 					}
 					childrenDomain = childrenDomain.union(expr.getContextDomain());
 				}

@@ -13,11 +13,7 @@ import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 
 import alpha.model.issue.AlphaIssue;
-import alpha.model.issue.DuplicatePolyObjectIssue;
-import alpha.model.issue.DuplicateStandardEquationIssue;
-import alpha.model.issue.DuplicateSystemIssue;
-import alpha.model.issue.DuplicateUseEquationIssue;
-import alpha.model.issue.DuplicateVariableIssue;
+import alpha.model.issue.AlphaIssueFactory;
 
 /**
  * Checks the uniqueness of system and equation names.
@@ -61,7 +57,7 @@ public class AlphaNameUniquenessChecker {
 
 		nameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
 			for (AlphaSystem system : l) {
-				issues.add(new DuplicateSystemIssue(system));
+				issues.add(AlphaIssueFactory.duplicateSystem(system));
 			}
 		});
 
@@ -90,9 +86,9 @@ public class AlphaNameUniquenessChecker {
 			nameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
 				for (AlphaNode node : l) {
 					if (node instanceof Variable)
-						issues.add(new DuplicateVariableIssue((Variable) node));
+						issues.add(AlphaIssueFactory.duplicateVariable((Variable) node));
 					if (node instanceof PolyhedralObject)
-						issues.add(new DuplicatePolyObjectIssue((PolyhedralObject) node));
+						issues.add(AlphaIssueFactory.duplicatePolyObject((PolyhedralObject) node));
 				}
 			});
 		}
@@ -119,9 +115,9 @@ public class AlphaNameUniquenessChecker {
 			nameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
 				for (AlphaNode node : l) {
 					if (node instanceof StandardEquation)
-						issues.add(new DuplicateStandardEquationIssue((StandardEquation) node));
+						issues.add(AlphaIssueFactory.duplicateStandardEquation((StandardEquation) node));
 					if (node instanceof UseEquation)
-						issues.add(new DuplicateUseEquationIssue((UseEquation) node));
+						issues.add(AlphaIssueFactory.duplicateUseEquation((UseEquation) node));
 				}
 			});
 		}

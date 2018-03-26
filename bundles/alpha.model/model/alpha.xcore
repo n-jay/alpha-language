@@ -376,11 +376,19 @@ class StandardEquation extends AlphaVisitable {
 }
 class UseEquation extends AlphaVisitable {
 	refers AlphaSystem system
-	contains CalculatorExpression instantiationDomain
+	contains CalculatorExpression instantiationDomainExpr
 	contains JNIFunctionInArrayNotation callParams
 	String[] subsystemDims
 	contains AlphaExpression[] inputExprs
 	contains AlphaExpression[] outputExprs
+	
+	
+	op JNIISLSet getInstantiationDomain() {
+		if (instantiationDomainExpr !== null && instantiationDomainExpr.^type == POLY_OBJECT_TYPE.SET && instantiationDomainExpr.ISLObject !== null) {
+			return instantiationDomainExpr.ISLObject as JNIISLSet
+		}
+		return null
+	}
 	
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitUseEquation(this)
@@ -669,7 +677,6 @@ class PolyhedralObject extends CalculatorNode, AlphaVisitable {
 		AlphaUtil.copy(expr.ISLObject)
 	}
 	
-	
 	op void accept(AlphaVisitor visitor) {
 	 	visitor.visitPolyhedralObject(this)
 	}
@@ -791,7 +798,6 @@ class UnaryCalculatorExpression extends CalculatorExpression {
 		AlphaUtil.copy(z__internal_cache_islObject)
 	}
 	
-	
 	op void accept(CalculatorExpressionVisitor visitor) {
 		visitor.visitUnaryCalculatorExpression(this);
 	}
@@ -815,6 +821,7 @@ class BinaryCalculatorExpression extends CalculatorExpression {
 			return POLY_OBJECT_TYPE::MAP
 		return null
 	}
+	
 	op JNIObject getISLObject() { 
 		AlphaUtil.copy(z__internal_cache_islObject)
 	}

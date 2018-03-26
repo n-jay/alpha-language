@@ -6,12 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import alpha.model.issue.AlphaIssue;
-import alpha.model.issue.AlphaIssue.TYPE;
-import alpha.model.issue.ExpressionDomainIssue;
+import alpha.model.issue.AlphaIssueFactory;
+import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AbstractAlphaVisitor;
 import alpha.model.util.AlphaUtil;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
@@ -46,15 +45,12 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	}
 	
 	private void registerIssue(String islErr, AlphaNode node) {
-		issues.add(new ExpressionDomainIssue(TYPE.ERROR, islErr, node.eContainer(), node.eContainingFeature()));
+		issues.add(new UnexpectedISLErrorIssue(islErr, node.eContainer(), node.eContainingFeature()));
 	}
 	
 	private boolean checkCalcExprType(CalculatorExpression cexpr, POLY_OBJECT_TYPE expected) {
 		if (cexpr.getType() != expected) {
-			String name = cexpr.eContainer().eClass().getName();
-			issues.add(new ExpressionDomainIssue(
-					TYPE.ERROR, "Calculator Expression for a " + name + " must evaluate to "+expected.getName()+".",
-					cexpr.eContainer(), cexpr.eContainingFeature()));
+			issues.add(AlphaIssueFactory.unmatchedCalcExprType(cexpr, expected));
 			return false;
 		}
 		

@@ -8,7 +8,14 @@ import alpha.model.AlphaVisitor;
 import alpha.model.CalculatorExpression;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.ModelPackage;
+import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.UseEquation;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import java.util.Collection;
 
@@ -36,7 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getSystem <em>System</em>}</li>
- *   <li>{@link alpha.model.impl.UseEquationImpl#getInstantiationDomain <em>Instantiation Domain</em>}</li>
+ *   <li>{@link alpha.model.impl.UseEquationImpl#getInstantiationDomainExpr <em>Instantiation Domain Expr</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getCallParams <em>Call Params</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getSubsystemDims <em>Subsystem Dims</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getInputExprs <em>Input Exprs</em>}</li>
@@ -57,14 +64,14 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	protected AlphaSystem system;
 
 	/**
-	 * The cached value of the '{@link #getInstantiationDomain() <em>Instantiation Domain</em>}' containment reference.
+	 * The cached value of the '{@link #getInstantiationDomainExpr() <em>Instantiation Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInstantiationDomain()
+	 * @see #getInstantiationDomainExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected CalculatorExpression instantiationDomain;
+	protected CalculatorExpression instantiationDomainExpr;
 
 	/**
 	 * The cached value of the '{@link #getCallParams() <em>Call Params</em>}' containment reference.
@@ -168,8 +175,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CalculatorExpression getInstantiationDomain() {
-		return instantiationDomain;
+	public CalculatorExpression getInstantiationDomainExpr() {
+		return instantiationDomainExpr;
 	}
 
 	/**
@@ -177,11 +184,11 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetInstantiationDomain(CalculatorExpression newInstantiationDomain, NotificationChain msgs) {
-		CalculatorExpression oldInstantiationDomain = instantiationDomain;
-		instantiationDomain = newInstantiationDomain;
+	public NotificationChain basicSetInstantiationDomainExpr(CalculatorExpression newInstantiationDomainExpr, NotificationChain msgs) {
+		CalculatorExpression oldInstantiationDomainExpr = instantiationDomainExpr;
+		instantiationDomainExpr = newInstantiationDomainExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN, oldInstantiationDomain, newInstantiationDomain);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR, oldInstantiationDomainExpr, newInstantiationDomainExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -192,18 +199,18 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInstantiationDomain(CalculatorExpression newInstantiationDomain) {
-		if (newInstantiationDomain != instantiationDomain) {
+	public void setInstantiationDomainExpr(CalculatorExpression newInstantiationDomainExpr) {
+		if (newInstantiationDomainExpr != instantiationDomainExpr) {
 			NotificationChain msgs = null;
-			if (instantiationDomain != null)
-				msgs = ((InternalEObject)instantiationDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN, null, msgs);
-			if (newInstantiationDomain != null)
-				msgs = ((InternalEObject)newInstantiationDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN, null, msgs);
-			msgs = basicSetInstantiationDomain(newInstantiationDomain, msgs);
+			if (instantiationDomainExpr != null)
+				msgs = ((InternalEObject)instantiationDomainExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR, null, msgs);
+			if (newInstantiationDomainExpr != null)
+				msgs = ((InternalEObject)newInstantiationDomainExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR, null, msgs);
+			msgs = basicSetInstantiationDomainExpr(newInstantiationDomainExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN, newInstantiationDomain, newInstantiationDomain));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR, newInstantiationDomainExpr, newInstantiationDomainExpr));
 	}
 
 	/**
@@ -290,6 +297,19 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JNIISLSet getInstantiationDomain() {
+		if ((((this.getInstantiationDomainExpr() != null) && Objects.equal(this.getInstantiationDomainExpr().getType(), POLY_OBJECT_TYPE.SET)) && (this.getInstantiationDomainExpr().getISLObject() != null))) {
+			JNIObject _iSLObject = this.getInstantiationDomainExpr().getISLObject();
+			return ((JNIISLSet) _iSLObject);
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitUseEquation(this);
 	}
@@ -302,8 +322,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN:
-				return basicSetInstantiationDomain(null, msgs);
+			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
+				return basicSetInstantiationDomainExpr(null, msgs);
 			case ModelPackage.USE_EQUATION__CALL_PARAMS:
 				return basicSetCallParams(null, msgs);
 			case ModelPackage.USE_EQUATION__INPUT_EXPRS:
@@ -325,8 +345,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 			case ModelPackage.USE_EQUATION__SYSTEM:
 				if (resolve) return getSystem();
 				return basicGetSystem();
-			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN:
-				return getInstantiationDomain();
+			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
+				return getInstantiationDomainExpr();
 			case ModelPackage.USE_EQUATION__CALL_PARAMS:
 				return getCallParams();
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
@@ -351,8 +371,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 			case ModelPackage.USE_EQUATION__SYSTEM:
 				setSystem((AlphaSystem)newValue);
 				return;
-			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN:
-				setInstantiationDomain((CalculatorExpression)newValue);
+			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
+				setInstantiationDomainExpr((CalculatorExpression)newValue);
 				return;
 			case ModelPackage.USE_EQUATION__CALL_PARAMS:
 				setCallParams((JNIFunctionInArrayNotation)newValue);
@@ -384,8 +404,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 			case ModelPackage.USE_EQUATION__SYSTEM:
 				setSystem((AlphaSystem)null);
 				return;
-			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN:
-				setInstantiationDomain((CalculatorExpression)null);
+			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
+				setInstantiationDomainExpr((CalculatorExpression)null);
 				return;
 			case ModelPackage.USE_EQUATION__CALL_PARAMS:
 				setCallParams((JNIFunctionInArrayNotation)null);
@@ -413,8 +433,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 		switch (featureID) {
 			case ModelPackage.USE_EQUATION__SYSTEM:
 				return system != null;
-			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN:
-				return instantiationDomain != null;
+			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
+				return instantiationDomainExpr != null;
 			case ModelPackage.USE_EQUATION__CALL_PARAMS:
 				return callParams != null;
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:

@@ -234,8 +234,8 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'with'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     instantiationDomain=CalculatorExpression (ambiguity) ':' '(' ')' '=' system=[AlphaSystem|QualifiedName]
-	 *     instantiationDomain=CalculatorExpression (ambiguity) ':' '(' outputExprs+=AlphaExpression
+	 *     instantiationDomainExpr=CalculatorExpression (ambiguity) ':' '(' ')' '=' system=[AlphaSystem|QualifiedName]
+	 *     instantiationDomainExpr=CalculatorExpression (ambiguity) ':' '(' outputExprs+=AlphaExpression
 	 */
 	protected void emit_UseEquation_WithKeyword_0_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

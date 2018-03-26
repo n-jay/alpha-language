@@ -20,6 +20,7 @@ import java.util.function.Supplier
 import java.util.stream.Stream
 import org.eclipse.emf.ecore.EObject
 import alpha.model.CalculatorExpression
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 
 class AlphaUtil {
 
