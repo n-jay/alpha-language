@@ -184,8 +184,11 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
       } else {
         _xifexpression = parent.getSystem().getOutputs().get(outputLoc);
       }
-      Variable calleeVar = _xifexpression;
-      return this.extendCalleeDomainByInstantiationDomain(parent.getInstantiationDomain(), parent.getCallParams().getISLMultiAff(), calleeVar.getDomain());
+      final Variable calleeVar = _xifexpression;
+      final Supplier<JNIISLSet> _function = () -> {
+        return this.extendCalleeDomainByInstantiationDomain(parent.getInstantiationDomain(), parent.getCallParams().getISLMultiAff(), calleeVar.getDomain());
+      };
+      return this.<JNIISLSet>runISLoperations(child, _function);
     } else {
       return null;
     }

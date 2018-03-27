@@ -2,15 +2,18 @@ package alpha.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
@@ -54,23 +57,34 @@ public class AlphaModelLoader {
 		}
 		
 
+		public static List<AlphaRoot> loadModelFromPaths(Collection<Path> files) throws IOException {
+			return loadModel(files.stream().map(f->f.toFile()).collect(Collectors.toList()));
+		}
+
 		public static List<AlphaRoot> loadModel(Collection<File> files) throws IOException {
 			
 	        final Injector injector = new AlphaStandaloneSetup().createInjectorAndDoEMFRegistration();
 	        
-	        final ResourceSet set = injector.getInstance(XtextResourceSet.class);
+	        final XtextResourceSet set = injector.getInstance(XtextResourceSet.class);
 	        set.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
-	        
+	        set.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
+	           
 	        List<AlphaRoot> roots = new ArrayList<>(files.size());
+
+	        for (File file : files) {
+	        		set.getResources().add(set.createResource(URI.createFileURI(file.getPath())));
+	        }
+	        EcoreUtil.resolveAll(set);
+	        
 	        for (File file : files) {
 	        		final Resource res = set.getResource(URI.createFileURI(file.getPath()), true);
 	    	 		EObject root = res.getContents().get(0);
 	    	 		AlphaRoot toplevel= (AlphaRoot) root;
-	    	 		List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(toplevel); //FIXME to be moved else where for error checking
-	    	 		System.err.println(issues);
 	    	 		roots.add(toplevel);
 	        }
-
+	        
+	 		List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(roots);
+	 		System.err.println(issues);
 
 	 		return roots;
 		}

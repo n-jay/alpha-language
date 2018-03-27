@@ -128,9 +128,9 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 			val outputLoc = parent.outputExprs.indexOf(child)
 			if (inputLoc == -1 && outputLoc == -1) return null
 			
-			var calleeVar = if (inputLoc!=-1) parent.system.inputs.get(inputLoc) else parent.system.outputs.get(outputLoc)
+			val calleeVar = if (inputLoc!=-1) parent.system.inputs.get(inputLoc) else parent.system.outputs.get(outputLoc)
 			
-			return extendCalleeDomainByInstantiationDomain(parent.instantiationDomain, parent.callParams.ISLMultiAff, calleeVar.domain)
+			return runISLoperations(child, [extendCalleeDomainByInstantiationDomain(parent.instantiationDomain, parent.callParams.ISLMultiAff, calleeVar.domain)])
 			
 		} else {
 			return null
