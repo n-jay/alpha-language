@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests
+Bundle-SymbolicName: alpha.model.tests
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: alpha.model.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: alpha.model,
+ alpha.model.xtext,
+ alpha.model.testframework,
+ fr.irisa.cairn.gecos.testframework.model,
+ org.junit
