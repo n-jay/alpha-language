@@ -15,7 +15,7 @@
     <module>alpha.model.xtext</module>
     <module>alpha.model.xtext.ide</module>
     <module>alpha.model.xtext.ui</module>
-    <module>alpha.testframework</module>
+    <module>alpha.model.testframework</module>
   </modules>
 
 </project>
