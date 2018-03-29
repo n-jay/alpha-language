@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="alpha.language.target" sequenceNumber="60">
+<?pde version="3.8"?><target name="alpha.language.target" sequenceNumber="62">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" version="1.5.0.v20170613-0242"/>
@@ -13,11 +13,6 @@
 <unit id="fr.irisa.cairn.gecos.framework.feature.feature.group" version="1.1.0.201707191751"/>
 <unit id="fr.irisa.cairn.gecos.framework.feature.source.feature.group" version="1.1.0.201707191751"/>
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/framework/release/v1.1.0/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" version="1.0.0.201712041303"/>
-<unit id="fr.irisa.cairn.gecos.tools.isl.feature.source.feature.group" version="1.0.0.201712041303"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/snapshot/20171204130348/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.tommapping.feature.feature.group" version="1.0.0.201707181216"/>
@@ -35,13 +30,6 @@
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools/tomsdk/release/v2.10.5/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.testframework.model.feature.feature.group" version="1.0.1.201712071300"/>
-<unit id="fr.irisa.cairn.gecos.testframework.model.feature.source.feature.group" version="1.0.1.201712071300"/>
-<unit id="fr.irisa.cairn.gecos.testframework.resources.feature.feature.group" version="1.0.1.201712071300"/>
-<unit id="fr.irisa.cairn.gecos.testframework.resources.feature.source.feature.group" version="1.0.1.201712071300"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/testframework/snapshot/20171207130053/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.emf.feature.feature.group" version="1.0.0.201707171607"/>
 <unit id="fr.irisa.cairn.gecos.tools.emf.feature.source.feature.group" version="1.0.0.201707171607"/>
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools/emf/release/v1.0.0/"/>
@@ -55,6 +43,14 @@
 <unit id="org.eclipse.xtend.sdk.feature.group" version="2.13.0.v20171020-0920"/>
 <unit id="org.eclipse.xtext.sdk.feature.group" version="2.13.0.v20171020-0920"/>
 <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.13.0/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="fr.irisa.cairn.gecos.testframework.model.feature.feature.group" version="2.0.0.201803221903"/>
+<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/testframework/release"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" version="1.2.0.201803260944"/>
+<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/testing/latest"/>
 </location>
 </locations>
 </target>
