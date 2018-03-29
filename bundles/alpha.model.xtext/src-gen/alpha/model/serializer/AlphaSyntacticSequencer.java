@@ -92,7 +92,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     inputs+=InputVariable (ambiguity) '.' (rule end)
 	 *     locals+=LocalVariable (ambiguity) '.' (rule end)
 	 *     outputs+=OutputVariable (ambiguity) '.' (rule end)
-	 *     parameterDomain=JNIParamDomain (ambiguity) '.' (rule end)
+	 *     parameterDomainExpr=JNIParamDomain (ambiguity) '.' (rule end)
 	 *     testExpression=AlphaExpression ')' (ambiguity) '.' (rule end)
 	 */
 	protected void emit_AlphaSystem_LetKeyword_9_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -109,19 +109,19 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) 'auto' ':' expr=AlphaExpression
 	 *     (rule start) (ambiguity) 'case' '{' exprs+=AlphaExpression
 	 *     (rule start) (ambiguity) 'case' name=ID
-	 *     (rule start) (ambiguity) 'conv' '(' kernelDomain=CalculatorExpression
+	 *     (rule start) (ambiguity) 'conv' '(' kernelDomainExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) 'if' condExpr=AlphaExpression
 	 *     (rule start) (ambiguity) 'reduce' '(' externalFunction=[ExternalFunction|ID]
 	 *     (rule start) (ambiguity) 'reduce' '(' operator=AREDUCTION_OP
 	 *     (rule start) (ambiguity) 'select' relationExpr=CalculatorExpression
-	 *     (rule start) (ambiguity) 'val' function=JNIFunction
+	 *     (rule start) (ambiguity) 'val' functionExpr=JNIFunction
 	 *     (rule start) (ambiguity) '{' domainExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) domainExpr=JNIDomain
 	 *     (rule start) (ambiguity) domainExpr=JNIDomainInArrayNotation
 	 *     (rule start) (ambiguity) expr=VariableExpression
 	 *     (rule start) (ambiguity) externalFunction=[ExternalFunction|ID]
-	 *     (rule start) (ambiguity) function=JNIFunction
-	 *     (rule start) (ambiguity) function=JNIFunctionInArrayNotation
+	 *     (rule start) (ambiguity) functionExpr=JNIFunction
+	 *     (rule start) (ambiguity) functionExpr=JNIFunctionInArrayNotation
 	 *     (rule start) (ambiguity) operator=AREDUCTION_OP
 	 *     (rule start) (ambiguity) operator=AUnaryOP
 	 *     (rule start) (ambiguity) value=BOOLEAN

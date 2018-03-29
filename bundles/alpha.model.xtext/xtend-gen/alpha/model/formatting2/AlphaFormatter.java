@@ -105,8 +105,8 @@ public class AlphaFormatter extends AbstractFormatter2 {
           _switchResult = system.getFuzzyVariables().isEmpty();
           break;
         case "fuzzy":
-          CalculatorExpression _whileDomain = system.getWhileDomain();
-          _switchResult = (_whileDomain == null);
+          CalculatorExpression _whileDomainExpr = system.getWhileDomainExpr();
+          _switchResult = (_whileDomainExpr == null);
           break;
         case "over":
           _switchResult = (system.getEquations().isEmpty() && system.getUseEquations().isEmpty());

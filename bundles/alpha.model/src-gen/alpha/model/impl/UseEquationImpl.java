@@ -13,6 +13,7 @@ import alpha.model.UseEquation;
 
 import com.google.common.base.Objects;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
@@ -44,7 +45,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getSystem <em>System</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getInstantiationDomainExpr <em>Instantiation Domain Expr</em>}</li>
- *   <li>{@link alpha.model.impl.UseEquationImpl#getCallParams <em>Call Params</em>}</li>
+ *   <li>{@link alpha.model.impl.UseEquationImpl#getCallParamsExpr <em>Call Params Expr</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getSubsystemDims <em>Subsystem Dims</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getInputExprs <em>Input Exprs</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getOutputExprs <em>Output Exprs</em>}</li>
@@ -74,14 +75,14 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	protected CalculatorExpression instantiationDomainExpr;
 
 	/**
-	 * The cached value of the '{@link #getCallParams() <em>Call Params</em>}' containment reference.
+	 * The cached value of the '{@link #getCallParamsExpr() <em>Call Params Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCallParams()
+	 * @see #getCallParamsExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIFunctionInArrayNotation callParams;
+	protected JNIFunctionInArrayNotation callParamsExpr;
 
 	/**
 	 * The cached value of the '{@link #getSubsystemDims() <em>Subsystem Dims</em>}' attribute list.
@@ -218,8 +219,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFunctionInArrayNotation getCallParams() {
-		return callParams;
+	public JNIFunctionInArrayNotation getCallParamsExpr() {
+		return callParamsExpr;
 	}
 
 	/**
@@ -227,11 +228,11 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCallParams(JNIFunctionInArrayNotation newCallParams, NotificationChain msgs) {
-		JNIFunctionInArrayNotation oldCallParams = callParams;
-		callParams = newCallParams;
+	public NotificationChain basicSetCallParamsExpr(JNIFunctionInArrayNotation newCallParamsExpr, NotificationChain msgs) {
+		JNIFunctionInArrayNotation oldCallParamsExpr = callParamsExpr;
+		callParamsExpr = newCallParamsExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__CALL_PARAMS, oldCallParams, newCallParams);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR, oldCallParamsExpr, newCallParamsExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -242,18 +243,18 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCallParams(JNIFunctionInArrayNotation newCallParams) {
-		if (newCallParams != callParams) {
+	public void setCallParamsExpr(JNIFunctionInArrayNotation newCallParamsExpr) {
+		if (newCallParamsExpr != callParamsExpr) {
 			NotificationChain msgs = null;
-			if (callParams != null)
-				msgs = ((InternalEObject)callParams).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USE_EQUATION__CALL_PARAMS, null, msgs);
-			if (newCallParams != null)
-				msgs = ((InternalEObject)newCallParams).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USE_EQUATION__CALL_PARAMS, null, msgs);
-			msgs = basicSetCallParams(newCallParams, msgs);
+			if (callParamsExpr != null)
+				msgs = ((InternalEObject)callParamsExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR, null, msgs);
+			if (newCallParamsExpr != null)
+				msgs = ((InternalEObject)newCallParamsExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR, null, msgs);
+			msgs = basicSetCallParamsExpr(newCallParamsExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__CALL_PARAMS, newCallParams, newCallParams));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR, newCallParamsExpr, newCallParamsExpr));
 	}
 
 	/**
@@ -298,11 +299,36 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * @generated
 	 */
 	public JNIISLSet getInstantiationDomain() {
-		if ((((this.getInstantiationDomainExpr() != null) && Objects.equal(this.getInstantiationDomainExpr().getType(), POLY_OBJECT_TYPE.SET)) && (this.getInstantiationDomainExpr().getISLObject() != null))) {
-			JNIObject _iSLObject = this.getInstantiationDomainExpr().getISLObject();
-			return ((JNIISLSet) _iSLObject);
+		JNIISLSet _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getInstantiationDomainExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
+		if (_notEquals) {
+			_xifexpression = null;
 		}
-		return null;
+		else {
+			JNIObject _iSLObject = this.getInstantiationDomainExpr().getISLObject();
+			_xifexpression = ((JNIISLSet) _iSLObject);
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIISLMultiAff getCallParams() {
+		JNIISLMultiAff _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getCallParamsExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.FUNCTION));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getCallParamsExpr().getISLObject();
+			_xifexpression = ((JNIISLMultiAff) _iSLObject);
+		}
+		return _xifexpression;
 	}
 
 	/**
@@ -324,8 +350,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 		switch (featureID) {
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				return basicSetInstantiationDomainExpr(null, msgs);
-			case ModelPackage.USE_EQUATION__CALL_PARAMS:
-				return basicSetCallParams(null, msgs);
+			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
+				return basicSetCallParamsExpr(null, msgs);
 			case ModelPackage.USE_EQUATION__INPUT_EXPRS:
 				return ((InternalEList<?>)getInputExprs()).basicRemove(otherEnd, msgs);
 			case ModelPackage.USE_EQUATION__OUTPUT_EXPRS:
@@ -347,8 +373,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 				return basicGetSystem();
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				return getInstantiationDomainExpr();
-			case ModelPackage.USE_EQUATION__CALL_PARAMS:
-				return getCallParams();
+			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
+				return getCallParamsExpr();
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
 				return getSubsystemDims();
 			case ModelPackage.USE_EQUATION__INPUT_EXPRS:
@@ -374,8 +400,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				setInstantiationDomainExpr((CalculatorExpression)newValue);
 				return;
-			case ModelPackage.USE_EQUATION__CALL_PARAMS:
-				setCallParams((JNIFunctionInArrayNotation)newValue);
+			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
+				setCallParamsExpr((JNIFunctionInArrayNotation)newValue);
 				return;
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
 				getSubsystemDims().clear();
@@ -407,8 +433,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				setInstantiationDomainExpr((CalculatorExpression)null);
 				return;
-			case ModelPackage.USE_EQUATION__CALL_PARAMS:
-				setCallParams((JNIFunctionInArrayNotation)null);
+			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
+				setCallParamsExpr((JNIFunctionInArrayNotation)null);
 				return;
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
 				getSubsystemDims().clear();
@@ -435,8 +461,8 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 				return system != null;
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				return instantiationDomainExpr != null;
-			case ModelPackage.USE_EQUATION__CALL_PARAMS:
-				return callParams != null;
+			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
+				return callParamsExpr != null;
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
 				return subsystemDims != null && !subsystemDims.isEmpty();
 			case ModelPackage.USE_EQUATION__INPUT_EXPRS:

@@ -7,6 +7,13 @@ import alpha.model.AlphaExpressionVisitor;
 import alpha.model.CalculatorExpression;
 import alpha.model.ConvolutionExpression;
 import alpha.model.ModelPackage;
+import alpha.model.POLY_OBJECT_TYPE;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -24,7 +31,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.ConvolutionExpressionImpl#getKernelDomain <em>Kernel Domain</em>}</li>
+ *   <li>{@link alpha.model.impl.ConvolutionExpressionImpl#getKernelDomainExpr <em>Kernel Domain Expr</em>}</li>
  *   <li>{@link alpha.model.impl.ConvolutionExpressionImpl#getKernelExpression <em>Kernel Expression</em>}</li>
  *   <li>{@link alpha.model.impl.ConvolutionExpressionImpl#getDataExpression <em>Data Expression</em>}</li>
  * </ul>
@@ -33,14 +40,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements ConvolutionExpression {
 	/**
-	 * The cached value of the '{@link #getKernelDomain() <em>Kernel Domain</em>}' containment reference.
+	 * The cached value of the '{@link #getKernelDomainExpr() <em>Kernel Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getKernelDomain()
+	 * @see #getKernelDomainExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected CalculatorExpression kernelDomain;
+	protected CalculatorExpression kernelDomainExpr;
 
 	/**
 	 * The cached value of the '{@link #getKernelExpression() <em>Kernel Expression</em>}' containment reference.
@@ -86,8 +93,8 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CalculatorExpression getKernelDomain() {
-		return kernelDomain;
+	public CalculatorExpression getKernelDomainExpr() {
+		return kernelDomainExpr;
 	}
 
 	/**
@@ -95,11 +102,11 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetKernelDomain(CalculatorExpression newKernelDomain, NotificationChain msgs) {
-		CalculatorExpression oldKernelDomain = kernelDomain;
-		kernelDomain = newKernelDomain;
+	public NotificationChain basicSetKernelDomainExpr(CalculatorExpression newKernelDomainExpr, NotificationChain msgs) {
+		CalculatorExpression oldKernelDomainExpr = kernelDomainExpr;
+		kernelDomainExpr = newKernelDomainExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN, oldKernelDomain, newKernelDomain);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR, oldKernelDomainExpr, newKernelDomainExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -110,18 +117,18 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setKernelDomain(CalculatorExpression newKernelDomain) {
-		if (newKernelDomain != kernelDomain) {
+	public void setKernelDomainExpr(CalculatorExpression newKernelDomainExpr) {
+		if (newKernelDomainExpr != kernelDomainExpr) {
 			NotificationChain msgs = null;
-			if (kernelDomain != null)
-				msgs = ((InternalEObject)kernelDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN, null, msgs);
-			if (newKernelDomain != null)
-				msgs = ((InternalEObject)newKernelDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN, null, msgs);
-			msgs = basicSetKernelDomain(newKernelDomain, msgs);
+			if (kernelDomainExpr != null)
+				msgs = ((InternalEObject)kernelDomainExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR, null, msgs);
+			if (newKernelDomainExpr != null)
+				msgs = ((InternalEObject)newKernelDomainExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR, null, msgs);
+			msgs = basicSetKernelDomainExpr(newKernelDomainExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN, newKernelDomain, newKernelDomain));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR, newKernelDomainExpr, newKernelDomainExpr));
 	}
 
 	/**
@@ -215,6 +222,25 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JNIISLSet getKernelDomain() {
+		JNIISLSet _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getKernelDomainExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getKernelDomainExpr().getISLObject();
+			_xifexpression = ((JNIISLSet) _iSLObject);
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitConvolutionExpression(this);
 	}
@@ -227,8 +253,8 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN:
-				return basicSetKernelDomain(null, msgs);
+			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR:
+				return basicSetKernelDomainExpr(null, msgs);
 			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION:
 				return basicSetKernelExpression(null, msgs);
 			case ModelPackage.CONVOLUTION_EXPRESSION__DATA_EXPRESSION:
@@ -245,8 +271,8 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN:
-				return getKernelDomain();
+			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR:
+				return getKernelDomainExpr();
 			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION:
 				return getKernelExpression();
 			case ModelPackage.CONVOLUTION_EXPRESSION__DATA_EXPRESSION:
@@ -263,8 +289,8 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN:
-				setKernelDomain((CalculatorExpression)newValue);
+			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR:
+				setKernelDomainExpr((CalculatorExpression)newValue);
 				return;
 			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION:
 				setKernelExpression((AlphaExpression)newValue);
@@ -284,8 +310,8 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN:
-				setKernelDomain((CalculatorExpression)null);
+			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR:
+				setKernelDomainExpr((CalculatorExpression)null);
 				return;
 			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION:
 				setKernelExpression((AlphaExpression)null);
@@ -305,8 +331,8 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN:
-				return kernelDomain != null;
+			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR:
+				return kernelDomainExpr != null;
 			case ModelPackage.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION:
 				return kernelExpression != null;
 			case ModelPackage.CONVOLUTION_EXPRESSION__DATA_EXPRESSION:

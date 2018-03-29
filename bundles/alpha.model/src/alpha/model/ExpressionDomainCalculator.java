@@ -81,9 +81,9 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	@Override
 	public void outDependenceExpression(DependenceExpression de) {
-		if (de.getFunction().getISLMultiAff() != null)
+		if (de.getFunction() != null)
 			runISLoperations(de, ()->{
-				JNIISLSet set = de.getExpr().getExpressionDomain().preimage(de.getFunction().getISLMultiAff());
+				JNIISLSet set = de.getExpr().getExpressionDomain().preimage(de.getFunction());
 				de.setExpressionDomain(set);
 			});
 	}
@@ -100,9 +100,9 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	@Override
 	public void outIndexExpression(IndexExpression ie) {
-		if (ie.getFunction().getISLMultiAff() != null)
+		if (ie.getFunction() != null)
 			runISLoperations(ie, ()->{
-				ie.setExpressionDomain(JNIISLSet.buildUniverse(ie.getFunction().getISLMultiAff().getDomainSpace()));
+				ie.setExpressionDomain(JNIISLSet.buildUniverse(ie.getFunction().getDomainSpace()));
 			});
 	}
 	
@@ -118,7 +118,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	@Override
 	public void outAbstractReduceExpression(AbstractReduceExpression re) {
 		runISLoperations(re, ()->{
-			JNIISLSet proj = re.getBody().getExpressionDomain().apply(re.getProjection().getISLMultiAff().toMap());
+			JNIISLSet proj = re.getBody().getExpressionDomain().apply(re.getProjection().toMap());
 			re.setExpressionDomain(proj);
 		});
 	}

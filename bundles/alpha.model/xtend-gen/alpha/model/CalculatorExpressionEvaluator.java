@@ -328,7 +328,16 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   }
   
   private String _parseJNIDomain(final JNIDomainInArrayNotation jniDomain) {
-    return String.format("{ [%s] : %s }", IterableExtensions.join(this.indexNameContext, ","), jniDomain.getIslString());
+    String _xblockexpression = null;
+    {
+      if ((this.indexNameContext == null)) {
+        String _islString = jniDomain.getIslString();
+        String _plus = ("Empty context found when trying to parse JNIDomain: " + _islString);
+        throw new OutOfContextArrayNotationException(_plus);
+      }
+      _xblockexpression = String.format("{ [%s] : %s }", IterableExtensions.join(this.indexNameContext, ","), jniDomain.getIslString());
+    }
+    return _xblockexpression;
   }
   
   @Override
@@ -569,10 +578,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     if ((system == null)) {
       throw new RuntimeException("Expression is not contained by an AlphaSystem.");
     }
-    if (((system.getParameterDomain() == null) || (system.getParameterDomain().getISLSet() == null))) {
+    if (((system.getParameterDomain() == null) || (system.getParameterDomain() == null))) {
       throw new RuntimeException("The parameter domain of the container system is null.");
     }
-    return system.getParameterDomain().getISLSet();
+    return system.getParameterDomain();
   }
   
   private JNIObject evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIObject map) {

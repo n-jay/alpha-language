@@ -49,13 +49,17 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * @generated
 	 */
 	public JNIISLSet getDomain() {
+		JNIISLSet _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getDomainExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.MAP));
 		if (_notEquals) {
-			return null;
+			_xifexpression = null;
 		}
-		JNIObject _iSLObject = this.getDomainExpr().getISLObject();
-		return ((JNIISLMap) _iSLObject).copy().domain();
+		else {
+			JNIObject _iSLObject = this.getDomainExpr().getISLObject();
+			_xifexpression = ((JNIISLMap) _iSLObject).domain();
+		}
+		return _xifexpression;
 	}
 
 	/**
@@ -64,13 +68,17 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * @generated
 	 */
 	public JNIISLMap getRelation() {
+		JNIISLMap _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getDomainExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.MAP));
 		if (_notEquals) {
-			return null;
+			_xifexpression = null;
 		}
-		JNIObject _iSLObject = this.getDomainExpr().getISLObject();
-		return ((JNIISLMap) _iSLObject);
+		else {
+			JNIObject _iSLObject = this.getDomainExpr().getISLObject();
+			_xifexpression = ((JNIISLMap) _iSLObject);
+		}
+		return _xifexpression;
 	}
 
 	/**

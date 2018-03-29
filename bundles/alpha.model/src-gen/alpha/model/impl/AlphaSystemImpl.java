@@ -12,12 +12,19 @@ import alpha.model.JNIDomain;
 import alpha.model.LocalVariable;
 import alpha.model.ModelPackage;
 import alpha.model.OutputVariable;
+import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.PolyhedralObject;
 import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
 
+import com.google.common.base.Objects;
+
 import com.google.common.collect.Iterables;
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import java.lang.Iterable;
 
@@ -46,13 +53,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getName <em>Name</em>}</li>
- *   <li>{@link alpha.model.impl.AlphaSystemImpl#getParameterDomain <em>Parameter Domain</em>}</li>
+ *   <li>{@link alpha.model.impl.AlphaSystemImpl#getParameterDomainExpr <em>Parameter Domain Expr</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getDefinedObjects <em>Defined Objects</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getLocals <em>Locals</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getFuzzyVariables <em>Fuzzy Variables</em>}</li>
- *   <li>{@link alpha.model.impl.AlphaSystemImpl#getWhileDomain <em>While Domain</em>}</li>
+ *   <li>{@link alpha.model.impl.AlphaSystemImpl#getWhileDomainExpr <em>While Domain Expr</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getTestExpression <em>Test Expression</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getUseEquations <em>Use Equations</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getEquations <em>Equations</em>}</li>
@@ -82,14 +89,14 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getParameterDomain() <em>Parameter Domain</em>}' containment reference.
+	 * The cached value of the '{@link #getParameterDomainExpr() <em>Parameter Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getParameterDomain()
+	 * @see #getParameterDomainExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIDomain parameterDomain;
+	protected JNIDomain parameterDomainExpr;
 
 	/**
 	 * The cached value of the '{@link #getDefinedObjects() <em>Defined Objects</em>}' containment reference list.
@@ -142,14 +149,14 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	protected EList<FuzzyVariable> fuzzyVariables;
 
 	/**
-	 * The cached value of the '{@link #getWhileDomain() <em>While Domain</em>}' containment reference.
+	 * The cached value of the '{@link #getWhileDomainExpr() <em>While Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getWhileDomain()
+	 * @see #getWhileDomainExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected CalculatorExpression whileDomain;
+	protected CalculatorExpression whileDomainExpr;
 
 	/**
 	 * The cached value of the '{@link #getTestExpression() <em>Test Expression</em>}' containment reference.
@@ -226,8 +233,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIDomain getParameterDomain() {
-		return parameterDomain;
+	public JNIDomain getParameterDomainExpr() {
+		return parameterDomainExpr;
 	}
 
 	/**
@@ -235,11 +242,11 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetParameterDomain(JNIDomain newParameterDomain, NotificationChain msgs) {
-		JNIDomain oldParameterDomain = parameterDomain;
-		parameterDomain = newParameterDomain;
+	public NotificationChain basicSetParameterDomainExpr(JNIDomain newParameterDomainExpr, NotificationChain msgs) {
+		JNIDomain oldParameterDomainExpr = parameterDomainExpr;
+		parameterDomainExpr = newParameterDomainExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN, oldParameterDomain, newParameterDomain);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR, oldParameterDomainExpr, newParameterDomainExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -250,18 +257,18 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setParameterDomain(JNIDomain newParameterDomain) {
-		if (newParameterDomain != parameterDomain) {
+	public void setParameterDomainExpr(JNIDomain newParameterDomainExpr) {
+		if (newParameterDomainExpr != parameterDomainExpr) {
 			NotificationChain msgs = null;
-			if (parameterDomain != null)
-				msgs = ((InternalEObject)parameterDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN, null, msgs);
-			if (newParameterDomain != null)
-				msgs = ((InternalEObject)newParameterDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN, null, msgs);
-			msgs = basicSetParameterDomain(newParameterDomain, msgs);
+			if (parameterDomainExpr != null)
+				msgs = ((InternalEObject)parameterDomainExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR, null, msgs);
+			if (newParameterDomainExpr != null)
+				msgs = ((InternalEObject)newParameterDomainExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR, null, msgs);
+			msgs = basicSetParameterDomainExpr(newParameterDomainExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN, newParameterDomain, newParameterDomain));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR, newParameterDomainExpr, newParameterDomainExpr));
 	}
 
 	/**
@@ -329,8 +336,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CalculatorExpression getWhileDomain() {
-		return whileDomain;
+	public CalculatorExpression getWhileDomainExpr() {
+		return whileDomainExpr;
 	}
 
 	/**
@@ -338,11 +345,11 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetWhileDomain(CalculatorExpression newWhileDomain, NotificationChain msgs) {
-		CalculatorExpression oldWhileDomain = whileDomain;
-		whileDomain = newWhileDomain;
+	public NotificationChain basicSetWhileDomainExpr(CalculatorExpression newWhileDomainExpr, NotificationChain msgs) {
+		CalculatorExpression oldWhileDomainExpr = whileDomainExpr;
+		whileDomainExpr = newWhileDomainExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN, oldWhileDomain, newWhileDomain);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR, oldWhileDomainExpr, newWhileDomainExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -353,18 +360,18 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setWhileDomain(CalculatorExpression newWhileDomain) {
-		if (newWhileDomain != whileDomain) {
+	public void setWhileDomainExpr(CalculatorExpression newWhileDomainExpr) {
+		if (newWhileDomainExpr != whileDomainExpr) {
 			NotificationChain msgs = null;
-			if (whileDomain != null)
-				msgs = ((InternalEObject)whileDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN, null, msgs);
-			if (newWhileDomain != null)
-				msgs = ((InternalEObject)newWhileDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN, null, msgs);
-			msgs = basicSetWhileDomain(newWhileDomain, msgs);
+			if (whileDomainExpr != null)
+				msgs = ((InternalEObject)whileDomainExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR, null, msgs);
+			if (newWhileDomainExpr != null)
+				msgs = ((InternalEObject)newWhileDomainExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR, null, msgs);
+			msgs = basicSetWhileDomainExpr(newWhileDomainExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN, newWhileDomain, newWhileDomain));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR, newWhileDomainExpr, newWhileDomainExpr));
 	}
 
 	/**
@@ -461,11 +468,37 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JNIISLSet getParameterDomain() {
+		return this.getParameterDomainExpr().getISLSet();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIISLSet getWhileDomain() {
+		JNIISLSet _xifexpression = null;
+		if (((this.getWhileDomainExpr() == null) || (!Objects.equal(this.getWhileDomainExpr().getType(), POLY_OBJECT_TYPE.SET)))) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getWhileDomainExpr().getISLObject();
+			_xifexpression = ((JNIISLSet) _iSLObject).copy();
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN:
-				return basicSetParameterDomain(null, msgs);
+			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR:
+				return basicSetParameterDomainExpr(null, msgs);
 			case ModelPackage.ALPHA_SYSTEM__DEFINED_OBJECTS:
 				return ((InternalEList<?>)getDefinedObjects()).basicRemove(otherEnd, msgs);
 			case ModelPackage.ALPHA_SYSTEM__INPUTS:
@@ -476,8 +509,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return ((InternalEList<?>)getLocals()).basicRemove(otherEnd, msgs);
 			case ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES:
 				return ((InternalEList<?>)getFuzzyVariables()).basicRemove(otherEnd, msgs);
-			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN:
-				return basicSetWhileDomain(null, msgs);
+			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
+				return basicSetWhileDomainExpr(null, msgs);
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				return basicSetTestExpression(null, msgs);
 			case ModelPackage.ALPHA_SYSTEM__USE_EQUATIONS:
@@ -498,8 +531,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 		switch (featureID) {
 			case ModelPackage.ALPHA_SYSTEM__NAME:
 				return getName();
-			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN:
-				return getParameterDomain();
+			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR:
+				return getParameterDomainExpr();
 			case ModelPackage.ALPHA_SYSTEM__DEFINED_OBJECTS:
 				return getDefinedObjects();
 			case ModelPackage.ALPHA_SYSTEM__INPUTS:
@@ -510,8 +543,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return getLocals();
 			case ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES:
 				return getFuzzyVariables();
-			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN:
-				return getWhileDomain();
+			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
+				return getWhileDomainExpr();
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				return getTestExpression();
 			case ModelPackage.ALPHA_SYSTEM__USE_EQUATIONS:
@@ -534,8 +567,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 			case ModelPackage.ALPHA_SYSTEM__NAME:
 				setName((String)newValue);
 				return;
-			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN:
-				setParameterDomain((JNIDomain)newValue);
+			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR:
+				setParameterDomainExpr((JNIDomain)newValue);
 				return;
 			case ModelPackage.ALPHA_SYSTEM__DEFINED_OBJECTS:
 				getDefinedObjects().clear();
@@ -557,8 +590,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				getFuzzyVariables().clear();
 				getFuzzyVariables().addAll((Collection<? extends FuzzyVariable>)newValue);
 				return;
-			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN:
-				setWhileDomain((CalculatorExpression)newValue);
+			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
+				setWhileDomainExpr((CalculatorExpression)newValue);
 				return;
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				setTestExpression((AlphaExpression)newValue);
@@ -586,8 +619,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 			case ModelPackage.ALPHA_SYSTEM__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN:
-				setParameterDomain((JNIDomain)null);
+			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR:
+				setParameterDomainExpr((JNIDomain)null);
 				return;
 			case ModelPackage.ALPHA_SYSTEM__DEFINED_OBJECTS:
 				getDefinedObjects().clear();
@@ -604,8 +637,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 			case ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES:
 				getFuzzyVariables().clear();
 				return;
-			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN:
-				setWhileDomain((CalculatorExpression)null);
+			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
+				setWhileDomainExpr((CalculatorExpression)null);
 				return;
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				setTestExpression((AlphaExpression)null);
@@ -630,8 +663,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 		switch (featureID) {
 			case ModelPackage.ALPHA_SYSTEM__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN:
-				return parameterDomain != null;
+			case ModelPackage.ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR:
+				return parameterDomainExpr != null;
 			case ModelPackage.ALPHA_SYSTEM__DEFINED_OBJECTS:
 				return definedObjects != null && !definedObjects.isEmpty();
 			case ModelPackage.ALPHA_SYSTEM__INPUTS:
@@ -642,8 +675,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return locals != null && !locals.isEmpty();
 			case ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES:
 				return fuzzyVariables != null && !fuzzyVariables.isEmpty();
-			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN:
-				return whileDomain != null;
+			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
+				return whileDomainExpr != null;
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				return testExpression != null;
 			case ModelPackage.ALPHA_SYSTEM__USE_EQUATIONS:

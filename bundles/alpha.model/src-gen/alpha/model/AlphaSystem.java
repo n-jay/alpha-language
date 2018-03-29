@@ -2,6 +2,8 @@
  */
 package alpha.model;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -14,13 +16,13 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.AlphaSystem#getName <em>Name</em>}</li>
- *   <li>{@link alpha.model.AlphaSystem#getParameterDomain <em>Parameter Domain</em>}</li>
+ *   <li>{@link alpha.model.AlphaSystem#getParameterDomainExpr <em>Parameter Domain Expr</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getDefinedObjects <em>Defined Objects</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getInputs <em>Inputs</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getLocals <em>Locals</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getFuzzyVariables <em>Fuzzy Variables</em>}</li>
- *   <li>{@link alpha.model.AlphaSystem#getWhileDomain <em>While Domain</em>}</li>
+ *   <li>{@link alpha.model.AlphaSystem#getWhileDomainExpr <em>While Domain Expr</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getTestExpression <em>Test Expression</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getUseEquations <em>Use Equations</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getEquations <em>Equations</em>}</li>
@@ -58,30 +60,30 @@ public interface AlphaSystem extends AlphaElement {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Parameter Domain</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Parameter Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Parameter Domain</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Parameter Domain Expr</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parameter Domain</em>' containment reference.
-	 * @see #setParameterDomain(JNIDomain)
-	 * @see alpha.model.ModelPackage#getAlphaSystem_ParameterDomain()
+	 * @return the value of the '<em>Parameter Domain Expr</em>' containment reference.
+	 * @see #setParameterDomainExpr(JNIDomain)
+	 * @see alpha.model.ModelPackage#getAlphaSystem_ParameterDomainExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIDomain getParameterDomain();
+	JNIDomain getParameterDomainExpr();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.AlphaSystem#getParameterDomain <em>Parameter Domain</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.model.AlphaSystem#getParameterDomainExpr <em>Parameter Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Parameter Domain</em>' containment reference.
-	 * @see #getParameterDomain()
+	 * @param value the new value of the '<em>Parameter Domain Expr</em>' containment reference.
+	 * @see #getParameterDomainExpr()
 	 * @generated
 	 */
-	void setParameterDomain(JNIDomain value);
+	void setParameterDomainExpr(JNIDomain value);
 
 	/**
 	 * Returns the value of the '<em><b>Defined Objects</b></em>' containment reference list.
@@ -164,30 +166,30 @@ public interface AlphaSystem extends AlphaElement {
 	EList<FuzzyVariable> getFuzzyVariables();
 
 	/**
-	 * Returns the value of the '<em><b>While Domain</b></em>' containment reference.
+	 * Returns the value of the '<em><b>While Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>While Domain</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>While Domain Expr</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>While Domain</em>' containment reference.
-	 * @see #setWhileDomain(CalculatorExpression)
-	 * @see alpha.model.ModelPackage#getAlphaSystem_WhileDomain()
+	 * @return the value of the '<em>While Domain Expr</em>' containment reference.
+	 * @see #setWhileDomainExpr(CalculatorExpression)
+	 * @see alpha.model.ModelPackage#getAlphaSystem_WhileDomainExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	CalculatorExpression getWhileDomain();
+	CalculatorExpression getWhileDomainExpr();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.AlphaSystem#getWhileDomain <em>While Domain</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.model.AlphaSystem#getWhileDomainExpr <em>While Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>While Domain</em>' containment reference.
-	 * @see #getWhileDomain()
+	 * @param value the new value of the '<em>While Domain Expr</em>' containment reference.
+	 * @see #getWhileDomainExpr()
 	 * @generated
 	 */
-	void setWhileDomain(CalculatorExpression value);
+	void setWhileDomainExpr(CalculatorExpression value);
 
 	/**
 	 * Returns the value of the '<em><b>Test Expression</b></em>' containment reference.
@@ -264,5 +266,23 @@ public interface AlphaSystem extends AlphaElement {
 	 * @generated
 	 */
 	void accept(AlphaVisitor visitor);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getParameterDomainExpr().getISLSet();'"
+	 * @generated
+	 */
+	JNIISLSet getParameterDomain();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\nif (((this.getWhileDomainExpr() == null) || (!&lt;%com.google.common.base.Objects%&gt;.equal(this.getWhileDomainExpr().getType(), &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET))))\n{\n\t_xifexpression = null;\n}\nelse\n{\n\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getWhileDomainExpr().getISLObject();\n\t_xifexpression = ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;) _iSLObject).copy();\n}\nreturn _xifexpression;'"
+	 * @generated
+	 */
+	JNIISLSet getWhileDomain();
 
 } // AlphaSystem

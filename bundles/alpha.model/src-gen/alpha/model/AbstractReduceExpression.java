@@ -2,6 +2,7 @@
  */
 package alpha.model;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,7 +14,7 @@ package alpha.model;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.AbstractReduceExpression#getOperator <em>Operator</em>}</li>
- *   <li>{@link alpha.model.AbstractReduceExpression#getProjection <em>Projection</em>}</li>
+ *   <li>{@link alpha.model.AbstractReduceExpression#getProjectionExpr <em>Projection Expr</em>}</li>
  *   <li>{@link alpha.model.AbstractReduceExpression#getBody <em>Body</em>}</li>
  * </ul>
  *
@@ -52,30 +53,30 @@ public interface AbstractReduceExpression extends AlphaExpression {
 	void setOperator(REDUCTION_OP value);
 
 	/**
-	 * Returns the value of the '<em><b>Projection</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Projection Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Projection</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Projection Expr</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Projection</em>' containment reference.
-	 * @see #setProjection(JNIFunction)
-	 * @see alpha.model.ModelPackage#getAbstractReduceExpression_Projection()
+	 * @return the value of the '<em>Projection Expr</em>' containment reference.
+	 * @see #setProjectionExpr(JNIFunction)
+	 * @see alpha.model.ModelPackage#getAbstractReduceExpression_ProjectionExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIFunction getProjection();
+	JNIFunction getProjectionExpr();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.AbstractReduceExpression#getProjection <em>Projection</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.model.AbstractReduceExpression#getProjectionExpr <em>Projection Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Projection</em>' containment reference.
-	 * @see #getProjection()
+	 * @param value the new value of the '<em>Projection Expr</em>' containment reference.
+	 * @see #getProjectionExpr()
 	 * @generated
 	 */
-	void setProjection(JNIFunction value);
+	void setProjectionExpr(JNIFunction value);
 
 	/**
 	 * Returns the value of the '<em><b>Body</b></em>' containment reference.
@@ -102,6 +103,15 @@ public interface AbstractReduceExpression extends AlphaExpression {
 	 * @generated
 	 */
 	void setBody(AlphaExpression value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.JNIISLMultiAff" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff%&gt; _xifexpression = null;\n&lt;%alpha.model.POLY_OBJECT_TYPE%&gt; _type = this.getProjectionExpr().getType();\nboolean _notEquals = (!&lt;%com.google.common.base.Objects%&gt;.equal(_type, &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.FUNCTION));\nif (_notEquals)\n{\n\t_xifexpression = null;\n}\nelse\n{\n\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getProjectionExpr().getISLObject();\n\t_xifexpression = ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff%&gt;) _iSLObject);\n}\nreturn _xifexpression;'"
+	 * @generated
+	 */
+	JNIISLMultiAff getProjection();
 
 	/**
 	 * <!-- begin-user-doc -->

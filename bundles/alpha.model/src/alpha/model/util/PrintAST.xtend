@@ -199,7 +199,7 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	
 	override inDependenceExpression(DependenceExpression de) {
 		inAlphaExpression(de)
-		printStr("+-- ", de.function.ISLObject);
+		printStr("+-- ", de.function);
 	}
 	
 	override inVariableExpression(VariableExpression ve) {
@@ -209,7 +209,7 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	
 	override inIndexExpression(IndexExpression ie) {
 		inAlphaExpression(ie)
-		printStr("+-- ", ie.function.ISLObject);
+		printStr("+-- ", ie.function);
 	}
 	
 	override inConstantExpression(ConstantExpression ce) {
@@ -230,30 +230,30 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	override inReduceExpression(ReduceExpression re) {
 		inAlphaExpression(re)
 		printStr("+-- ", re.operator);
-		printStr("+-- ", re.projection.ISLObject);
+		printStr("+-- ", re.projection);
 	}
 	
 	override inExternalReduceExpression(ExternalReduceExpression ere) {
 		inAlphaExpression(ere)
 		printStr("+-- ", ere.externalFunction.name);
-		printStr("+-- ", ere.projection.ISLObject);
+		printStr("+-- ", ere.projection);
 	}
 	
 	override inArgReduceExpression(ArgReduceExpression are) {
 		inAlphaExpression(are)
 		printStr("+-- ", are.operator);
-		printStr("+-- ", are.projection.ISLObject);
+		printStr("+-- ", are.projection);
 	}
 	
 	override inExternalArgReduceExpression(ExternalArgReduceExpression eare) {
 		inAlphaExpression(eare)
 		printStr("+-- ", eare.operator);
-		printStr("+-- ", eare.projection.ISLObject);
+		printStr("+-- ", eare.projection);
 	}
 	
 	override inConvolutionExpression(ConvolutionExpression ce) {
 		inAlphaExpression(ce)
-		printStr("+-- ", ce.kernelDomain.ISLObject);
+		printStr("+-- ", ce.kernelDomain);
 	}
 	
 	override inMultiArgExpression(MultiArgExpression mae) {

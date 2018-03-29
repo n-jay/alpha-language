@@ -7,7 +7,14 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitor;
 import alpha.model.JNIFunction;
 import alpha.model.ModelPackage;
+import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.REDUCTION_OP;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -26,7 +33,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.impl.AbstractReduceExpressionImpl#getOperator <em>Operator</em>}</li>
- *   <li>{@link alpha.model.impl.AbstractReduceExpressionImpl#getProjection <em>Projection</em>}</li>
+ *   <li>{@link alpha.model.impl.AbstractReduceExpressionImpl#getProjectionExpr <em>Projection Expr</em>}</li>
  *   <li>{@link alpha.model.impl.AbstractReduceExpressionImpl#getBody <em>Body</em>}</li>
  * </ul>
  *
@@ -54,14 +61,14 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	protected REDUCTION_OP operator = OPERATOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getProjection() <em>Projection</em>}' containment reference.
+	 * The cached value of the '{@link #getProjectionExpr() <em>Projection Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProjection()
+	 * @see #getProjectionExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIFunction projection;
+	protected JNIFunction projectionExpr;
 
 	/**
 	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
@@ -118,8 +125,8 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFunction getProjection() {
-		return projection;
+	public JNIFunction getProjectionExpr() {
+		return projectionExpr;
 	}
 
 	/**
@@ -127,11 +134,11 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetProjection(JNIFunction newProjection, NotificationChain msgs) {
-		JNIFunction oldProjection = projection;
-		projection = newProjection;
+	public NotificationChain basicSetProjectionExpr(JNIFunction newProjectionExpr, NotificationChain msgs) {
+		JNIFunction oldProjectionExpr = projectionExpr;
+		projectionExpr = newProjectionExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION, oldProjection, newProjection);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR, oldProjectionExpr, newProjectionExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -142,18 +149,18 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setProjection(JNIFunction newProjection) {
-		if (newProjection != projection) {
+	public void setProjectionExpr(JNIFunction newProjectionExpr) {
+		if (newProjectionExpr != projectionExpr) {
 			NotificationChain msgs = null;
-			if (projection != null)
-				msgs = ((InternalEObject)projection).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION, null, msgs);
-			if (newProjection != null)
-				msgs = ((InternalEObject)newProjection).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION, null, msgs);
-			msgs = basicSetProjection(newProjection, msgs);
+			if (projectionExpr != null)
+				msgs = ((InternalEObject)projectionExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR, null, msgs);
+			if (newProjectionExpr != null)
+				msgs = ((InternalEObject)newProjectionExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR, null, msgs);
+			msgs = basicSetProjectionExpr(newProjectionExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION, newProjection, newProjection));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR, newProjectionExpr, newProjectionExpr));
 	}
 
 	/**
@@ -204,6 +211,25 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JNIISLMultiAff getProjection() {
+		JNIISLMultiAff _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getProjectionExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.FUNCTION));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getProjectionExpr().getISLObject();
+			_xifexpression = ((JNIISLMultiAff) _iSLObject);
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractReduceExpression(this);
 	}
@@ -216,8 +242,8 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION:
-				return basicSetProjection(null, msgs);
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR:
+				return basicSetProjectionExpr(null, msgs);
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__BODY:
 				return basicSetBody(null, msgs);
 		}
@@ -234,8 +260,8 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 		switch (featureID) {
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__OPERATOR:
 				return getOperator();
-			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION:
-				return getProjection();
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR:
+				return getProjectionExpr();
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__BODY:
 				return getBody();
 		}
@@ -253,8 +279,8 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__OPERATOR:
 				setOperator((REDUCTION_OP)newValue);
 				return;
-			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION:
-				setProjection((JNIFunction)newValue);
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR:
+				setProjectionExpr((JNIFunction)newValue);
 				return;
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__BODY:
 				setBody((AlphaExpression)newValue);
@@ -274,8 +300,8 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__OPERATOR:
 				setOperator(OPERATOR_EDEFAULT);
 				return;
-			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION:
-				setProjection((JNIFunction)null);
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR:
+				setProjectionExpr((JNIFunction)null);
 				return;
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__BODY:
 				setBody((AlphaExpression)null);
@@ -294,8 +320,8 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 		switch (featureID) {
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__OPERATOR:
 				return operator != OPERATOR_EDEFAULT;
-			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION:
-				return projection != null;
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR:
+				return projectionExpr != null;
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__BODY:
 				return body != null;
 		}

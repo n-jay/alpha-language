@@ -18,7 +18,6 @@ import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
 import alpha.model.IfExpression;
 import alpha.model.IndexExpression;
-import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.MultiArgExpression;
 import alpha.model.PolyhedralObject;
@@ -30,6 +29,7 @@ import alpha.model.UnaryExpression;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import com.google.inject.Inject;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
@@ -113,23 +113,23 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   
   public String text(final DependenceExpression dep) {
     String _xifexpression = null;
-    JNIFunction _function = dep.getFunction();
+    JNIISLMultiAff _function = dep.getFunction();
     if ((_function instanceof JNIFunctionInArrayNotation)) {
       AlphaExpression _expr = dep.getExpr();
       String _name = ((VariableExpression) _expr).getVariable().getName();
-      String _plainToString = dep.getFunction().plainToString();
+      String _plainToString = dep.getFunctionExpr().plainToString();
       _xifexpression = (_name + _plainToString);
     } else {
       String _xifexpression_1 = null;
       AlphaExpression _expr_1 = dep.getExpr();
       if ((_expr_1 instanceof VariableExpression)) {
-        String _plainToString_1 = dep.getFunction().plainToString();
+        String _plainToString_1 = dep.getFunctionExpr().plainToString();
         String _plus = (_plainToString_1 + " @ ");
         AlphaExpression _expr_2 = dep.getExpr();
         String _name_1 = ((VariableExpression) _expr_2).getVariable().getName();
         _xifexpression_1 = (_plus + _name_1);
       } else {
-        _xifexpression_1 = dep.getFunction().plainToString();
+        _xifexpression_1 = dep.getFunctionExpr().plainToString();
       }
       _xifexpression = _xifexpression_1;
     }
@@ -177,7 +177,7 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   }
   
   public String text(final IndexExpression ie) {
-    String _plainToString = ie.getFunction().plainToString();
+    String _plainToString = ie.getFunctionExpr().plainToString();
     return ("val " + _plainToString);
   }
   

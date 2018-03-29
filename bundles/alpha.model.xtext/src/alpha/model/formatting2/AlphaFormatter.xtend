@@ -70,7 +70,7 @@ class AlphaFormatter extends AbstractFormatter2 {
 			case "inputs" : system.outputs.isEmpty
 			case "outputs" : system.locals.isEmpty
 			case "locals" : system.fuzzyVariables.isEmpty
-			case "fuzzy" : system.whileDomain === null
+			case "fuzzy" : system.whileDomainExpr === null
 			case "over" : system.equations.isEmpty && system.useEquations.isEmpty
 			default : false
 		}

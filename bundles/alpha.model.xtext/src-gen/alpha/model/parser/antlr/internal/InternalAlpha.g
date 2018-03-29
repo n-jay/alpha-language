@@ -495,17 +495,17 @@ ruleAlphaSystem returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getAlphaSystemAccess().getParameterDomainJNIParamDomainParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getAlphaSystemAccess().getParameterDomainExprJNIParamDomainParserRuleCall_2_0());
 				}
-				lv_parameterDomain_2_0=ruleJNIParamDomain
+				lv_parameterDomainExpr_2_0=ruleJNIParamDomain
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getAlphaSystemRule());
 					}
 					set(
 						$current,
-						"parameterDomain",
-						lv_parameterDomain_2_0,
+						"parameterDomainExpr",
+						lv_parameterDomainExpr_2_0,
 						"alpha.model.Alpha.JNIParamDomain");
 					afterParserOrEnumRuleCall();
 				}
@@ -644,17 +644,17 @@ ruleAlphaSystem returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getAlphaSystemAccess().getWhileDomainCalculatorExpressionParserRuleCall_8_1_0());
+						newCompositeNode(grammarAccess.getAlphaSystemAccess().getWhileDomainExprCalculatorExpressionParserRuleCall_8_1_0());
 					}
-					lv_whileDomain_14_0=ruleCalculatorExpression
+					lv_whileDomainExpr_14_0=ruleCalculatorExpression
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getAlphaSystemRule());
 						}
 						set(
 							$current,
-							"whileDomain",
-							lv_whileDomain_14_0,
+							"whileDomainExpr",
+							lv_whileDomainExpr_14_0,
 							"alpha.model.Alpha.CalculatorExpression");
 						afterParserOrEnumRuleCall();
 					}
@@ -2409,17 +2409,17 @@ ruleUseEquation returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getUseEquationAccess().getCallParamsJNIFunctionInArrayNotationParserRuleCall_6_0());
+					newCompositeNode(grammarAccess.getUseEquationAccess().getCallParamsExprJNIFunctionInArrayNotationParserRuleCall_6_0());
 				}
-				lv_callParams_16_0=ruleJNIFunctionInArrayNotation
+				lv_callParamsExpr_16_0=ruleJNIFunctionInArrayNotation
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getUseEquationRule());
 					}
 					set(
 						$current,
-						"callParams",
-						lv_callParams_16_0,
+						"callParamsExpr",
+						lv_callParamsExpr_16_0,
 						"alpha.model.Alpha.JNIFunctionInArrayNotation");
 					afterParserOrEnumRuleCall();
 				}
@@ -3056,17 +3056,17 @@ ruleDependenceExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getDependenceExpressionAccess().getFunctionJNIFunctionParserRuleCall_0_0_0());
+						newCompositeNode(grammarAccess.getDependenceExpressionAccess().getFunctionExprJNIFunctionParserRuleCall_0_0_0());
 					}
-					lv_function_0_0=ruleJNIFunction
+					lv_functionExpr_0_0=ruleJNIFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getDependenceExpressionRule());
 						}
 						set(
 							$current,
-							"function",
-							lv_function_0_0,
+							"functionExpr",
+							lv_functionExpr_0_0,
 							"alpha.model.Alpha.JNIFunction");
 						afterParserOrEnumRuleCall();
 					}
@@ -3120,17 +3120,17 @@ ruleDependenceExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getDependenceExpressionAccess().getFunctionJNIFunctionInArrayNotationParserRuleCall_1_1_0());
+						newCompositeNode(grammarAccess.getDependenceExpressionAccess().getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0());
 					}
-					lv_function_4_0=ruleJNIFunctionInArrayNotation
+					lv_functionExpr_4_0=ruleJNIFunctionInArrayNotation
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getDependenceExpressionRule());
 						}
 						set(
 							$current,
-							"function",
-							lv_function_4_0,
+							"functionExpr",
+							lv_functionExpr_4_0,
 							"alpha.model.Alpha.JNIFunctionInArrayNotation");
 						afterParserOrEnumRuleCall();
 					}
@@ -3164,17 +3164,17 @@ ruleIndexExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getIndexExpressionAccess().getFunctionJNIFunctionParserRuleCall_0_1_0());
+						newCompositeNode(grammarAccess.getIndexExpressionAccess().getFunctionExprJNIFunctionParserRuleCall_0_1_0());
 					}
-					lv_function_1_0=ruleJNIFunction
+					lv_functionExpr_1_0=ruleJNIFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getIndexExpressionRule());
 						}
 						set(
 							$current,
-							"function",
-							lv_function_1_0,
+							"functionExpr",
+							lv_functionExpr_1_0,
 							"alpha.model.Alpha.JNIFunction");
 						afterParserOrEnumRuleCall();
 					}
@@ -3185,17 +3185,17 @@ ruleIndexExpression returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getIndexExpressionAccess().getFunctionJNIFunctionInArrayNotationParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getIndexExpressionAccess().getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_0());
 				}
-				lv_function_2_0=ruleJNIFunctionInArrayNotation
+				lv_functionExpr_2_0=ruleJNIFunctionInArrayNotation
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getIndexExpressionRule());
 					}
 					set(
 						$current,
-						"function",
-						lv_function_2_0,
+						"functionExpr",
+						lv_functionExpr_2_0,
 						"alpha.model.Alpha.JNIFunctionInArrayNotation");
 					afterParserOrEnumRuleCall();
 				}
@@ -3255,33 +3255,33 @@ ruleReduceExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0());
+						newCompositeNode(grammarAccess.getReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0());
 					}
-					lv_projection_4_1=ruleJNIFunction
+					lv_projectionExpr_4_1=ruleJNIFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getReduceExpressionRule());
 						}
 						set(
 							$current,
-							"projection",
-							lv_projection_4_1,
+							"projectionExpr",
+							lv_projectionExpr_4_1,
 							"alpha.model.Alpha.JNIFunction");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1());
+						newCompositeNode(grammarAccess.getReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1());
 					}
-					lv_projection_4_2=ruleJNIFunctionInArrayNotation
+					lv_projectionExpr_4_2=ruleJNIFunctionInArrayNotation
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getReduceExpressionRule());
 						}
 						set(
 							$current,
-							"projection",
-							lv_projection_4_2,
+							"projectionExpr",
+							lv_projectionExpr_4_2,
 							"alpha.model.Alpha.JNIFunctionInArrayNotation");
 						afterParserOrEnumRuleCall();
 					}
@@ -3363,33 +3363,33 @@ ruleExternalReduceExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getExternalReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0());
+						newCompositeNode(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0());
 					}
-					lv_projection_4_1=ruleJNIFunction
+					lv_projectionExpr_4_1=ruleJNIFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getExternalReduceExpressionRule());
 						}
 						set(
 							$current,
-							"projection",
-							lv_projection_4_1,
+							"projectionExpr",
+							lv_projectionExpr_4_1,
 							"alpha.model.Alpha.JNIFunction");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getExternalReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1());
+						newCompositeNode(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1());
 					}
-					lv_projection_4_2=ruleJNIFunctionInArrayNotation
+					lv_projectionExpr_4_2=ruleJNIFunctionInArrayNotation
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getExternalReduceExpressionRule());
 						}
 						set(
 							$current,
-							"projection",
-							lv_projection_4_2,
+							"projectionExpr",
+							lv_projectionExpr_4_2,
 							"alpha.model.Alpha.JNIFunctionInArrayNotation");
 						afterParserOrEnumRuleCall();
 					}
@@ -3477,33 +3477,33 @@ ruleArgReduceExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getArgReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0());
+						newCompositeNode(grammarAccess.getArgReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0());
 					}
-					lv_projection_4_1=ruleJNIFunction
+					lv_projectionExpr_4_1=ruleJNIFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getArgReduceExpressionRule());
 						}
 						set(
 							$current,
-							"projection",
-							lv_projection_4_1,
+							"projectionExpr",
+							lv_projectionExpr_4_1,
 							"alpha.model.Alpha.JNIFunction");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getArgReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1());
+						newCompositeNode(grammarAccess.getArgReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1());
 					}
-					lv_projection_4_2=ruleJNIFunctionInArrayNotation
+					lv_projectionExpr_4_2=ruleJNIFunctionInArrayNotation
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getArgReduceExpressionRule());
 						}
 						set(
 							$current,
-							"projection",
-							lv_projection_4_2,
+							"projectionExpr",
+							lv_projectionExpr_4_2,
 							"alpha.model.Alpha.JNIFunctionInArrayNotation");
 						afterParserOrEnumRuleCall();
 					}
@@ -3585,33 +3585,33 @@ ruleExternalArgReduceExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0());
+						newCompositeNode(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0());
 					}
-					lv_projection_4_1=ruleJNIFunction
+					lv_projectionExpr_4_1=ruleJNIFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getExternalArgReduceExpressionRule());
 						}
 						set(
 							$current,
-							"projection",
-							lv_projection_4_1,
+							"projectionExpr",
+							lv_projectionExpr_4_1,
 							"alpha.model.Alpha.JNIFunction");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1());
+						newCompositeNode(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1());
 					}
-					lv_projection_4_2=ruleJNIFunctionInArrayNotation
+					lv_projectionExpr_4_2=ruleJNIFunctionInArrayNotation
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getExternalArgReduceExpressionRule());
 						}
 						set(
 							$current,
-							"projection",
-							lv_projection_4_2,
+							"projectionExpr",
+							lv_projectionExpr_4_2,
 							"alpha.model.Alpha.JNIFunctionInArrayNotation");
 						afterParserOrEnumRuleCall();
 					}
@@ -3675,17 +3675,17 @@ ruleConvolutionExpression returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getConvolutionExpressionAccess().getKernelDomainCalculatorExpressionParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getConvolutionExpressionAccess().getKernelDomainExprCalculatorExpressionParserRuleCall_2_0());
 				}
-				lv_kernelDomain_2_0=ruleCalculatorExpression
+				lv_kernelDomainExpr_2_0=ruleCalculatorExpression
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getConvolutionExpressionRule());
 					}
 					set(
 						$current,
-						"kernelDomain",
-						lv_kernelDomain_2_0,
+						"kernelDomainExpr",
+						lv_kernelDomainExpr_2_0,
 						"alpha.model.Alpha.CalculatorExpression");
 					afterParserOrEnumRuleCall();
 				}

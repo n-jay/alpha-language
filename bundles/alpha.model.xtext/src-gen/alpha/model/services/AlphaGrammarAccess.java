@@ -219,8 +219,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAffineKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameSystemNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cParameterDomainAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cParameterDomainJNIParamDomainParserRuleCall_2_0 = (RuleCall)cParameterDomainAssignment_2.eContents().get(0);
+		private final Assignment cParameterDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cParameterDomainExprJNIParamDomainParserRuleCall_2_0 = (RuleCall)cParameterDomainExprAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cDefineKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cDefinedObjectsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -243,8 +243,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFuzzyVariablesFuzzyVariableParserRuleCall_7_1_0 = (RuleCall)cFuzzyVariablesAssignment_7_1.eContents().get(0);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
 		private final Keyword cOverKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cWhileDomainAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cWhileDomainCalculatorExpressionParserRuleCall_8_1_0 = (RuleCall)cWhileDomainAssignment_8_1.eContents().get(0);
+		private final Assignment cWhileDomainExprAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cWhileDomainExprCalculatorExpressionParserRuleCall_8_1_0 = (RuleCall)cWhileDomainExprAssignment_8_1.eContents().get(0);
 		private final Keyword cWhileKeyword_8_2 = (Keyword)cGroup_8.eContents().get(2);
 		private final Keyword cLeftParenthesisKeyword_8_3 = (Keyword)cGroup_8.eContents().get(3);
 		private final Assignment cTestExpressionAssignment_8_4 = (Assignment)cGroup_8.eContents().get(4);
@@ -259,19 +259,19 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//AlphaSystem:
-		//	'affine' name=SystemName parameterDomain=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
+		//	'affine' name=SystemName parameterDomainExpr=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
 		//	inputs+=InputVariable+)? ('outputs' outputs+=OutputVariable+)? ('locals' locals+=LocalVariable+)? ('fuzzy'
-		//	fuzzyVariables+=FuzzyVariable+)? ('over' whileDomain=CalculatorExpression 'while' '(' testExpression=AlphaExpression
-		//	')')? ('let'
+		//	fuzzyVariables+=FuzzyVariable+)? ('over' whileDomainExpr=CalculatorExpression 'while' '('
+		//	testExpression=AlphaExpression ')')? ('let'
 		//	useEquations+=UseEquation*
 		//	equations+=StandardEquation*)?
 		//	'.';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'affine' name=SystemName parameterDomain=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
+		//'affine' name=SystemName parameterDomainExpr=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
 		//inputs+=InputVariable+)? ('outputs' outputs+=OutputVariable+)? ('locals' locals+=LocalVariable+)? ('fuzzy'
-		//fuzzyVariables+=FuzzyVariable+)? ('over' whileDomain=CalculatorExpression 'while' '(' testExpression=AlphaExpression
-		//')')? ('let' useEquations+=UseEquation* equations+=StandardEquation*)? '.'
+		//fuzzyVariables+=FuzzyVariable+)? ('over' whileDomainExpr=CalculatorExpression 'while' '('
+		//testExpression=AlphaExpression ')')? ('let' useEquations+=UseEquation* equations+=StandardEquation*)? '.'
 		public Group getGroup() { return cGroup; }
 		
 		//'affine'
@@ -283,11 +283,11 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//SystemName
 		public RuleCall getNameSystemNameParserRuleCall_1_0() { return cNameSystemNameParserRuleCall_1_0; }
 		
-		//parameterDomain=JNIParamDomain
-		public Assignment getParameterDomainAssignment_2() { return cParameterDomainAssignment_2; }
+		//parameterDomainExpr=JNIParamDomain
+		public Assignment getParameterDomainExprAssignment_2() { return cParameterDomainExprAssignment_2; }
 		
 		//JNIParamDomain
-		public RuleCall getParameterDomainJNIParamDomainParserRuleCall_2_0() { return cParameterDomainJNIParamDomainParserRuleCall_2_0; }
+		public RuleCall getParameterDomainExprJNIParamDomainParserRuleCall_2_0() { return cParameterDomainExprJNIParamDomainParserRuleCall_2_0; }
 		
 		//('define' definedObjects+=PolyhedralObject+)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -349,17 +349,17 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//FuzzyVariable
 		public RuleCall getFuzzyVariablesFuzzyVariableParserRuleCall_7_1_0() { return cFuzzyVariablesFuzzyVariableParserRuleCall_7_1_0; }
 		
-		//('over' whileDomain=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')?
+		//('over' whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')?
 		public Group getGroup_8() { return cGroup_8; }
 		
 		//'over'
 		public Keyword getOverKeyword_8_0() { return cOverKeyword_8_0; }
 		
-		//whileDomain=CalculatorExpression
-		public Assignment getWhileDomainAssignment_8_1() { return cWhileDomainAssignment_8_1; }
+		//whileDomainExpr=CalculatorExpression
+		public Assignment getWhileDomainExprAssignment_8_1() { return cWhileDomainExprAssignment_8_1; }
 		
 		//CalculatorExpression
-		public RuleCall getWhileDomainCalculatorExpressionParserRuleCall_8_1_0() { return cWhileDomainCalculatorExpressionParserRuleCall_8_1_0; }
+		public RuleCall getWhileDomainExprCalculatorExpressionParserRuleCall_8_1_0() { return cWhileDomainExprCalculatorExpressionParserRuleCall_8_1_0; }
 		
 		//'while'
 		public Keyword getWhileKeyword_8_2() { return cWhileKeyword_8_2; }
@@ -1296,8 +1296,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cSystemAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final CrossReference cSystemAlphaSystemCrossReference_5_0 = (CrossReference)cSystemAssignment_5.eContents().get(0);
 		private final RuleCall cSystemAlphaSystemQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cSystemAlphaSystemCrossReference_5_0.eContents().get(1);
-		private final Assignment cCallParamsAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cCallParamsJNIFunctionInArrayNotationParserRuleCall_6_0 = (RuleCall)cCallParamsAssignment_6.eContents().get(0);
+		private final Assignment cCallParamsExprAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cCallParamsExprJNIFunctionInArrayNotationParserRuleCall_6_0 = (RuleCall)cCallParamsExprAssignment_6.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
 		private final Assignment cInputExprsAssignment_8_0 = (Assignment)cGroup_8.eContents().get(0);
@@ -1313,14 +1313,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
 		//	subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
 		//	'='
-		//	system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation
+		//	system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation
 		//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')'
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
 		//subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
-		//'=' system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation '(' (inputExprs+=AlphaExpression (','
+		//'=' system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation '(' (inputExprs+=AlphaExpression (','
 		//inputExprs+=AlphaExpression)*)? ')' ';'
 		public Group getGroup() { return cGroup; }
 		
@@ -1412,11 +1412,11 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getSystemAlphaSystemQualifiedNameParserRuleCall_5_0_1() { return cSystemAlphaSystemQualifiedNameParserRuleCall_5_0_1; }
 		
-		//callParams=JNIFunctionInArrayNotation
-		public Assignment getCallParamsAssignment_6() { return cCallParamsAssignment_6; }
+		//callParamsExpr=JNIFunctionInArrayNotation
+		public Assignment getCallParamsExprAssignment_6() { return cCallParamsExprAssignment_6; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getCallParamsJNIFunctionInArrayNotationParserRuleCall_6_0() { return cCallParamsJNIFunctionInArrayNotationParserRuleCall_6_0; }
+		public RuleCall getCallParamsExprJNIFunctionInArrayNotationParserRuleCall_6_0() { return cCallParamsExprJNIFunctionInArrayNotationParserRuleCall_6_0; }
 		
 		//'('
 		public Keyword getLeftParenthesisKeyword_7() { return cLeftParenthesisKeyword_7; }
@@ -1763,32 +1763,34 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.DependenceExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cFunctionAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cFunctionJNIFunctionParserRuleCall_0_0_0 = (RuleCall)cFunctionAssignment_0_0.eContents().get(0);
+		private final Assignment cFunctionExprAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cFunctionExprJNIFunctionParserRuleCall_0_0_0 = (RuleCall)cFunctionExprAssignment_0_0.eContents().get(0);
 		private final Keyword cCommercialAtKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final Assignment cExprAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final RuleCall cExprAlphaTerminalExpressionParserRuleCall_0_2_0 = (RuleCall)cExprAssignment_0_2.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Assignment cExprAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final RuleCall cExprVariableExpressionParserRuleCall_1_0_0 = (RuleCall)cExprAssignment_1_0.eContents().get(0);
-		private final Assignment cFunctionAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cFunctionJNIFunctionInArrayNotationParserRuleCall_1_1_0 = (RuleCall)cFunctionAssignment_1_1.eContents().get(0);
+		private final Assignment cFunctionExprAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0 = (RuleCall)cFunctionExprAssignment_1_1.eContents().get(0);
 		
 		//DependenceExpression:
-		//	function=JNIFunction '@' expr=AlphaTerminalExpression | expr=VariableExpression function=JNIFunctionInArrayNotation;
+		//	functionExpr=JNIFunction '@' expr=AlphaTerminalExpression | expr=VariableExpression
+		//	functionExpr=JNIFunctionInArrayNotation;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//function=JNIFunction '@' expr=AlphaTerminalExpression | expr=VariableExpression function=JNIFunctionInArrayNotation
+		//functionExpr=JNIFunction '@' expr=AlphaTerminalExpression | expr=VariableExpression
+		//functionExpr=JNIFunctionInArrayNotation
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//function=JNIFunction '@' expr=AlphaTerminalExpression
+		//functionExpr=JNIFunction '@' expr=AlphaTerminalExpression
 		public Group getGroup_0() { return cGroup_0; }
 		
-		//function=JNIFunction
-		public Assignment getFunctionAssignment_0_0() { return cFunctionAssignment_0_0; }
+		//functionExpr=JNIFunction
+		public Assignment getFunctionExprAssignment_0_0() { return cFunctionExprAssignment_0_0; }
 		
 		//JNIFunction
-		public RuleCall getFunctionJNIFunctionParserRuleCall_0_0_0() { return cFunctionJNIFunctionParserRuleCall_0_0_0; }
+		public RuleCall getFunctionExprJNIFunctionParserRuleCall_0_0_0() { return cFunctionExprJNIFunctionParserRuleCall_0_0_0; }
 		
 		//'@'
 		public Keyword getCommercialAtKeyword_0_1() { return cCommercialAtKeyword_0_1; }
@@ -1799,7 +1801,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//AlphaTerminalExpression
 		public RuleCall getExprAlphaTerminalExpressionParserRuleCall_0_2_0() { return cExprAlphaTerminalExpressionParserRuleCall_0_2_0; }
 		
-		//expr=VariableExpression function=JNIFunctionInArrayNotation
+		//expr=VariableExpression functionExpr=JNIFunctionInArrayNotation
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//expr=VariableExpression
@@ -1808,46 +1810,46 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//VariableExpression
 		public RuleCall getExprVariableExpressionParserRuleCall_1_0_0() { return cExprVariableExpressionParserRuleCall_1_0_0; }
 		
-		//function=JNIFunctionInArrayNotation
-		public Assignment getFunctionAssignment_1_1() { return cFunctionAssignment_1_1; }
+		//functionExpr=JNIFunctionInArrayNotation
+		public Assignment getFunctionExprAssignment_1_1() { return cFunctionExprAssignment_1_1; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getFunctionJNIFunctionInArrayNotationParserRuleCall_1_1_0() { return cFunctionJNIFunctionInArrayNotationParserRuleCall_1_1_0; }
+		public RuleCall getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0() { return cFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0; }
 	}
 	public class IndexExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.IndexExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Keyword cValKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
-		private final Assignment cFunctionAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final RuleCall cFunctionJNIFunctionParserRuleCall_0_1_0 = (RuleCall)cFunctionAssignment_0_1.eContents().get(0);
-		private final Assignment cFunctionAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cFunctionJNIFunctionInArrayNotationParserRuleCall_1_0 = (RuleCall)cFunctionAssignment_1.eContents().get(0);
+		private final Assignment cFunctionExprAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cFunctionExprJNIFunctionParserRuleCall_0_1_0 = (RuleCall)cFunctionExprAssignment_0_1.eContents().get(0);
+		private final Assignment cFunctionExprAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_0 = (RuleCall)cFunctionExprAssignment_1.eContents().get(0);
 		
 		//IndexExpression:
-		//	'val' function=JNIFunction | function=JNIFunctionInArrayNotation;
+		//	'val' functionExpr=JNIFunction | functionExpr=JNIFunctionInArrayNotation;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'val' function=JNIFunction | function=JNIFunctionInArrayNotation
+		//'val' functionExpr=JNIFunction | functionExpr=JNIFunctionInArrayNotation
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//'val' function=JNIFunction
+		//'val' functionExpr=JNIFunction
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//'val'
 		public Keyword getValKeyword_0_0() { return cValKeyword_0_0; }
 		
-		//function=JNIFunction
-		public Assignment getFunctionAssignment_0_1() { return cFunctionAssignment_0_1; }
+		//functionExpr=JNIFunction
+		public Assignment getFunctionExprAssignment_0_1() { return cFunctionExprAssignment_0_1; }
 		
 		//JNIFunction
-		public RuleCall getFunctionJNIFunctionParserRuleCall_0_1_0() { return cFunctionJNIFunctionParserRuleCall_0_1_0; }
+		public RuleCall getFunctionExprJNIFunctionParserRuleCall_0_1_0() { return cFunctionExprJNIFunctionParserRuleCall_0_1_0; }
 		
-		//function=JNIFunctionInArrayNotation
-		public Assignment getFunctionAssignment_1() { return cFunctionAssignment_1; }
+		//functionExpr=JNIFunctionInArrayNotation
+		public Assignment getFunctionExprAssignment_1() { return cFunctionExprAssignment_1; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getFunctionJNIFunctionInArrayNotationParserRuleCall_1_0() { return cFunctionJNIFunctionInArrayNotationParserRuleCall_1_0; }
+		public RuleCall getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_0() { return cFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_0; }
 	}
 	public class ReduceExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.ReduceExpression");
@@ -1857,10 +1859,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOperatorAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cOperatorAREDUCTION_OPParserRuleCall_2_0 = (RuleCall)cOperatorAssignment_2.eContents().get(0);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cProjectionAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final Alternatives cProjectionAlternatives_4_0 = (Alternatives)cProjectionAssignment_4.eContents().get(0);
-		private final RuleCall cProjectionJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(0);
-		private final RuleCall cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(1);
+		private final Assignment cProjectionExprAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Alternatives cProjectionExprAlternatives_4_0 = (Alternatives)cProjectionExprAssignment_4.eContents().get(0);
+		private final RuleCall cProjectionExprJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionExprAlternatives_4_0.eContents().get(0);
+		private final RuleCall cProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionExprAlternatives_4_0.eContents().get(1);
 		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cBodyAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cBodyAlphaExpressionParserRuleCall_6_0 = (RuleCall)cBodyAssignment_6.eContents().get(0);
@@ -1868,13 +1870,13 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ReduceExpression:
 		//	'reduce' '(' operator=AREDUCTION_OP ','
-		//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 		//	body=AlphaExpression
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'reduce' '(' operator=AREDUCTION_OP ',' projection=(JNIFunction | JNIFunctionInArrayNotation) ',' body=AlphaExpression
-		//')'
+		//'reduce' '(' operator=AREDUCTION_OP ',' projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//body=AlphaExpression ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'reduce'
@@ -1892,17 +1894,17 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
 		
-		//projection=(JNIFunction | JNIFunctionInArrayNotation)
-		public Assignment getProjectionAssignment_4() { return cProjectionAssignment_4; }
+		//projectionExpr=(JNIFunction | JNIFunctionInArrayNotation)
+		public Assignment getProjectionExprAssignment_4() { return cProjectionExprAssignment_4; }
 		
 		//(JNIFunction | JNIFunctionInArrayNotation)
-		public Alternatives getProjectionAlternatives_4_0() { return cProjectionAlternatives_4_0; }
+		public Alternatives getProjectionExprAlternatives_4_0() { return cProjectionExprAlternatives_4_0; }
 		
 		//JNIFunction
-		public RuleCall getProjectionJNIFunctionParserRuleCall_4_0_0() { return cProjectionJNIFunctionParserRuleCall_4_0_0; }
+		public RuleCall getProjectionExprJNIFunctionParserRuleCall_4_0_0() { return cProjectionExprJNIFunctionParserRuleCall_4_0_0; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
+		public RuleCall getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
 		
 		//','
 		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
@@ -1925,10 +1927,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cExternalFunctionExternalFunctionCrossReference_2_0 = (CrossReference)cExternalFunctionAssignment_2.eContents().get(0);
 		private final RuleCall cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cProjectionAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final Alternatives cProjectionAlternatives_4_0 = (Alternatives)cProjectionAssignment_4.eContents().get(0);
-		private final RuleCall cProjectionJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(0);
-		private final RuleCall cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(1);
+		private final Assignment cProjectionExprAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Alternatives cProjectionExprAlternatives_4_0 = (Alternatives)cProjectionExprAssignment_4.eContents().get(0);
+		private final RuleCall cProjectionExprJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionExprAlternatives_4_0.eContents().get(0);
+		private final RuleCall cProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionExprAlternatives_4_0.eContents().get(1);
 		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cBodyAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cBodyAlphaExpressionParserRuleCall_6_0 = (RuleCall)cBodyAssignment_6.eContents().get(0);
@@ -1936,12 +1938,12 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ExternalReduceExpression:
 		//	'reduce' '(' externalFunction=[ExternalFunction] ','
-		//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 		//	body=AlphaExpression
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'reduce' '(' externalFunction=[ExternalFunction] ',' projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//'reduce' '(' externalFunction=[ExternalFunction] ',' projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 		//body=AlphaExpression ')'
 		public Group getGroup() { return cGroup; }
 		
@@ -1963,17 +1965,17 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
 		
-		//projection=(JNIFunction | JNIFunctionInArrayNotation)
-		public Assignment getProjectionAssignment_4() { return cProjectionAssignment_4; }
+		//projectionExpr=(JNIFunction | JNIFunctionInArrayNotation)
+		public Assignment getProjectionExprAssignment_4() { return cProjectionExprAssignment_4; }
 		
 		//(JNIFunction | JNIFunctionInArrayNotation)
-		public Alternatives getProjectionAlternatives_4_0() { return cProjectionAlternatives_4_0; }
+		public Alternatives getProjectionExprAlternatives_4_0() { return cProjectionExprAlternatives_4_0; }
 		
 		//JNIFunction
-		public RuleCall getProjectionJNIFunctionParserRuleCall_4_0_0() { return cProjectionJNIFunctionParserRuleCall_4_0_0; }
+		public RuleCall getProjectionExprJNIFunctionParserRuleCall_4_0_0() { return cProjectionExprJNIFunctionParserRuleCall_4_0_0; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
+		public RuleCall getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
 		
 		//','
 		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
@@ -1995,10 +1997,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOperatorAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cOperatorAREDUCTION_OPParserRuleCall_2_0 = (RuleCall)cOperatorAssignment_2.eContents().get(0);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cProjectionAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final Alternatives cProjectionAlternatives_4_0 = (Alternatives)cProjectionAssignment_4.eContents().get(0);
-		private final RuleCall cProjectionJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(0);
-		private final RuleCall cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(1);
+		private final Assignment cProjectionExprAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Alternatives cProjectionExprAlternatives_4_0 = (Alternatives)cProjectionExprAssignment_4.eContents().get(0);
+		private final RuleCall cProjectionExprJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionExprAlternatives_4_0.eContents().get(0);
+		private final RuleCall cProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionExprAlternatives_4_0.eContents().get(1);
 		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cBodyAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cBodyAlphaExpressionParserRuleCall_6_0 = (RuleCall)cBodyAssignment_6.eContents().get(0);
@@ -2006,12 +2008,12 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ArgReduceExpression:
 		//	'argreduce' '(' operator=AREDUCTION_OP ','
-		//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 		//	body=AlphaExpression
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'argreduce' '(' operator=AREDUCTION_OP ',' projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//'argreduce' '(' operator=AREDUCTION_OP ',' projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 		//body=AlphaExpression ')'
 		public Group getGroup() { return cGroup; }
 		
@@ -2030,17 +2032,17 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
 		
-		//projection=(JNIFunction | JNIFunctionInArrayNotation)
-		public Assignment getProjectionAssignment_4() { return cProjectionAssignment_4; }
+		//projectionExpr=(JNIFunction | JNIFunctionInArrayNotation)
+		public Assignment getProjectionExprAssignment_4() { return cProjectionExprAssignment_4; }
 		
 		//(JNIFunction | JNIFunctionInArrayNotation)
-		public Alternatives getProjectionAlternatives_4_0() { return cProjectionAlternatives_4_0; }
+		public Alternatives getProjectionExprAlternatives_4_0() { return cProjectionExprAlternatives_4_0; }
 		
 		//JNIFunction
-		public RuleCall getProjectionJNIFunctionParserRuleCall_4_0_0() { return cProjectionJNIFunctionParserRuleCall_4_0_0; }
+		public RuleCall getProjectionExprJNIFunctionParserRuleCall_4_0_0() { return cProjectionExprJNIFunctionParserRuleCall_4_0_0; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
+		public RuleCall getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
 		
 		//','
 		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
@@ -2063,10 +2065,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cExternalFunctionExternalFunctionCrossReference_2_0 = (CrossReference)cExternalFunctionAssignment_2.eContents().get(0);
 		private final RuleCall cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cProjectionAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final Alternatives cProjectionAlternatives_4_0 = (Alternatives)cProjectionAssignment_4.eContents().get(0);
-		private final RuleCall cProjectionJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(0);
-		private final RuleCall cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionAlternatives_4_0.eContents().get(1);
+		private final Assignment cProjectionExprAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Alternatives cProjectionExprAlternatives_4_0 = (Alternatives)cProjectionExprAssignment_4.eContents().get(0);
+		private final RuleCall cProjectionExprJNIFunctionParserRuleCall_4_0_0 = (RuleCall)cProjectionExprAlternatives_4_0.eContents().get(0);
+		private final RuleCall cProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1 = (RuleCall)cProjectionExprAlternatives_4_0.eContents().get(1);
 		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cBodyAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cBodyAlphaExpressionParserRuleCall_6_0 = (RuleCall)cBodyAssignment_6.eContents().get(0);
@@ -2074,12 +2076,12 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ExternalArgReduceExpression:
 		//	'argreduce' '(' externalFunction=[ExternalFunction] ','
-		//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 		//	body=AlphaExpression
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'argreduce' '(' externalFunction=[ExternalFunction] ',' projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+		//'argreduce' '(' externalFunction=[ExternalFunction] ',' projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 		//body=AlphaExpression ')'
 		public Group getGroup() { return cGroup; }
 		
@@ -2101,17 +2103,17 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
 		
-		//projection=(JNIFunction | JNIFunctionInArrayNotation)
-		public Assignment getProjectionAssignment_4() { return cProjectionAssignment_4; }
+		//projectionExpr=(JNIFunction | JNIFunctionInArrayNotation)
+		public Assignment getProjectionExprAssignment_4() { return cProjectionExprAssignment_4; }
 		
 		//(JNIFunction | JNIFunctionInArrayNotation)
-		public Alternatives getProjectionAlternatives_4_0() { return cProjectionAlternatives_4_0; }
+		public Alternatives getProjectionExprAlternatives_4_0() { return cProjectionExprAlternatives_4_0; }
 		
 		//JNIFunction
-		public RuleCall getProjectionJNIFunctionParserRuleCall_4_0_0() { return cProjectionJNIFunctionParserRuleCall_4_0_0; }
+		public RuleCall getProjectionExprJNIFunctionParserRuleCall_4_0_0() { return cProjectionExprJNIFunctionParserRuleCall_4_0_0; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
+		public RuleCall getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1() { return cProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1; }
 		
 		//','
 		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
@@ -2130,8 +2132,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cConvKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cKernelDomainAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cKernelDomainCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cKernelDomainAssignment_2.eContents().get(0);
+		private final Assignment cKernelDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cKernelDomainExprCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cKernelDomainExprAssignment_2.eContents().get(0);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cKernelExpressionAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cKernelExpressionAlphaExpressionParserRuleCall_4_0 = (RuleCall)cKernelExpressionAssignment_4.eContents().get(0);
@@ -2141,13 +2143,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ConvolutionExpression:
-		//	'conv' '(' kernelDomain=CalculatorExpression ','
+		//	'conv' '(' kernelDomainExpr=CalculatorExpression ','
 		//	kernelExpression=AlphaExpression ','
 		//	dataExpression=AlphaExpression
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'conv' '(' kernelDomain=CalculatorExpression ',' kernelExpression=AlphaExpression ',' dataExpression=AlphaExpression ')'
+		//'conv' '(' kernelDomainExpr=CalculatorExpression ',' kernelExpression=AlphaExpression ',' dataExpression=AlphaExpression
+		//')'
 		public Group getGroup() { return cGroup; }
 		
 		//'conv'
@@ -2156,11 +2159,11 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
-		//kernelDomain=CalculatorExpression
-		public Assignment getKernelDomainAssignment_2() { return cKernelDomainAssignment_2; }
+		//kernelDomainExpr=CalculatorExpression
+		public Assignment getKernelDomainExprAssignment_2() { return cKernelDomainExprAssignment_2; }
 		
 		//CalculatorExpression
-		public RuleCall getKernelDomainCalculatorExpressionParserRuleCall_2_0() { return cKernelDomainCalculatorExpressionParserRuleCall_2_0; }
+		public RuleCall getKernelDomainExprCalculatorExpressionParserRuleCall_2_0() { return cKernelDomainExprCalculatorExpressionParserRuleCall_2_0; }
 		
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
@@ -3517,10 +3520,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AlphaSystem:
-	//	'affine' name=SystemName parameterDomain=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
+	//	'affine' name=SystemName parameterDomainExpr=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
 	//	inputs+=InputVariable+)? ('outputs' outputs+=OutputVariable+)? ('locals' locals+=LocalVariable+)? ('fuzzy'
-	//	fuzzyVariables+=FuzzyVariable+)? ('over' whileDomain=CalculatorExpression 'while' '(' testExpression=AlphaExpression
-	//	')')? ('let'
+	//	fuzzyVariables+=FuzzyVariable+)? ('over' whileDomainExpr=CalculatorExpression 'while' '('
+	//	testExpression=AlphaExpression ')')? ('let'
 	//	useEquations+=UseEquation*
 	//	equations+=StandardEquation*)?
 	//	'.';
@@ -3797,7 +3800,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	//	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
 	//	subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
 	//	'='
-	//	system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation
+	//	system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation
 	//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')'
 	//	';';
 	public UseEquationElements getUseEquationAccess() {
@@ -3875,7 +3878,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//DependenceExpression:
-	//	function=JNIFunction '@' expr=AlphaTerminalExpression | expr=VariableExpression function=JNIFunctionInArrayNotation;
+	//	functionExpr=JNIFunction '@' expr=AlphaTerminalExpression | expr=VariableExpression
+	//	functionExpr=JNIFunctionInArrayNotation;
 	public DependenceExpressionElements getDependenceExpressionAccess() {
 		return pDependenceExpression;
 	}
@@ -3885,7 +3889,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//IndexExpression:
-	//	'val' function=JNIFunction | function=JNIFunctionInArrayNotation;
+	//	'val' functionExpr=JNIFunction | functionExpr=JNIFunctionInArrayNotation;
 	public IndexExpressionElements getIndexExpressionAccess() {
 		return pIndexExpression;
 	}
@@ -3896,7 +3900,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//ReduceExpression:
 	//	'reduce' '(' operator=AREDUCTION_OP ','
-	//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+	//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 	//	body=AlphaExpression
 	//	')';
 	public ReduceExpressionElements getReduceExpressionAccess() {
@@ -3909,7 +3913,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//ExternalReduceExpression:
 	//	'reduce' '(' externalFunction=[ExternalFunction] ','
-	//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+	//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 	//	body=AlphaExpression
 	//	')';
 	public ExternalReduceExpressionElements getExternalReduceExpressionAccess() {
@@ -3922,7 +3926,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//ArgReduceExpression:
 	//	'argreduce' '(' operator=AREDUCTION_OP ','
-	//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+	//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 	//	body=AlphaExpression
 	//	')';
 	public ArgReduceExpressionElements getArgReduceExpressionAccess() {
@@ -3935,7 +3939,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//ExternalArgReduceExpression:
 	//	'argreduce' '(' externalFunction=[ExternalFunction] ','
-	//	projection=(JNIFunction | JNIFunctionInArrayNotation) ','
+	//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 	//	body=AlphaExpression
 	//	')';
 	public ExternalArgReduceExpressionElements getExternalArgReduceExpressionAccess() {
@@ -3947,7 +3951,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ConvolutionExpression:
-	//	'conv' '(' kernelDomain=CalculatorExpression ','
+	//	'conv' '(' kernelDomainExpr=CalculatorExpression ','
 	//	kernelExpression=AlphaExpression ','
 	//	dataExpression=AlphaExpression
 	//	')';

@@ -254,7 +254,9 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 
 			var jniset = ISLFactory.islSet(
 				AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniDomain), completed.toString()));
+			
 			jniset = jniset.intersectParams(pdom.copy());
+			
 			jniDomain.setISLSet(jniset);
 		} catch (RuntimeException re) {
 			val msg = if (re.message === null) re.class.name else re.message
@@ -267,6 +269,8 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	}
 
 	private def dispatch parseJNIDomain(JNIDomainInArrayNotation jniDomain) {
+		if (indexNameContext === null) throw new OutOfContextArrayNotationException("Empty context found when trying to parse JNIDomain: " + jniDomain.islString);
+		
 		String.format("{ [%s] : %s }", (indexNameContext).join(","), jniDomain.getIslString());
 	}
 
@@ -449,10 +453,10 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			throw new RuntimeException("Expression is not contained by an AlphaSystem.");
 		}
 
-		if (system.getParameterDomain() === null || system.getParameterDomain().getISLSet() === null) {
+		if (system.getParameterDomain() === null || system.getParameterDomain() === null) {
 			throw new RuntimeException("The parameter domain of the container system is null.");
 		}
 
-		return system.getParameterDomain().getISLSet();
+		return system.getParameterDomain();
 	}
 }

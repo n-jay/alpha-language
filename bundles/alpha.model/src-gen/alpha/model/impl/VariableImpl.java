@@ -167,8 +167,17 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 			return null;
 		}
 		try {
-			JNIObject _iSLObject = this.getDomainExpr().getISLObject();
-			return ((JNIISLSet) _iSLObject);
+			JNIISLSet _xifexpression = null;
+			POLY_OBJECT_TYPE _type_1 = this.getDomainExpr().getType();
+			boolean _notEquals_1 = (!Objects.equal(_type_1, POLY_OBJECT_TYPE.SET));
+			if (_notEquals_1) {
+				_xifexpression = null;
+			}
+			else {
+				JNIObject _iSLObject = this.getDomainExpr().getISLObject();
+				_xifexpression = ((JNIISLSet) _iSLObject);
+			}
+			return _xifexpression;
 		}
 		catch (final Throwable _t) {
 			if (_t instanceof CyclicDefinitionException) {

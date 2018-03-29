@@ -304,13 +304,13 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 * Constraint:
 	 *     (
 	 *         name=SystemName 
-	 *         parameterDomain=JNIParamDomain 
+	 *         parameterDomainExpr=JNIParamDomain 
 	 *         definedObjects+=PolyhedralObject* 
 	 *         inputs+=InputVariable* 
 	 *         outputs+=OutputVariable* 
 	 *         locals+=LocalVariable* 
 	 *         fuzzyVariables+=FuzzyVariable* 
-	 *         (whileDomain=CalculatorExpression testExpression=AlphaExpression)? 
+	 *         (whileDomainExpr=CalculatorExpression testExpression=AlphaExpression)? 
 	 *         useEquations+=UseEquation* 
 	 *         equations+=StandardEquation*
 	 *     )
@@ -340,7 +340,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ArgReduceExpression
 	 *
 	 * Constraint:
-	 *     (operator=AREDUCTION_OP (projection=JNIFunction | projection=JNIFunctionInArrayNotation) body=AlphaExpression)
+	 *     (operator=AREDUCTION_OP (projectionExpr=JNIFunction | projectionExpr=JNIFunctionInArrayNotation) body=AlphaExpression)
 	 */
 	protected void sequence_ArgReduceExpression(ISerializationContext context, ArgReduceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -488,19 +488,19 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ConvolutionExpression
 	 *
 	 * Constraint:
-	 *     (kernelDomain=CalculatorExpression kernelExpression=AlphaExpression dataExpression=AlphaExpression)
+	 *     (kernelDomainExpr=CalculatorExpression kernelExpression=AlphaExpression dataExpression=AlphaExpression)
 	 */
 	protected void sequence_ConvolutionExpression(ISerializationContext context, ConvolutionExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR));
 			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION));
 			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__DATA_EXPRESSION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.CONVOLUTION_EXPRESSION__DATA_EXPRESSION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getConvolutionExpressionAccess().getKernelDomainCalculatorExpressionParserRuleCall_2_0(), semanticObject.getKernelDomain());
+		feeder.accept(grammarAccess.getConvolutionExpressionAccess().getKernelDomainExprCalculatorExpressionParserRuleCall_2_0(), semanticObject.getKernelDomainExpr());
 		feeder.accept(grammarAccess.getConvolutionExpressionAccess().getKernelExpressionAlphaExpressionParserRuleCall_4_0(), semanticObject.getKernelExpression());
 		feeder.accept(grammarAccess.getConvolutionExpressionAccess().getDataExpressionAlphaExpressionParserRuleCall_6_0(), semanticObject.getDataExpression());
 		feeder.finish();
@@ -549,7 +549,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns DependenceExpression
 	 *
 	 * Constraint:
-	 *     ((function=JNIFunction expr=AlphaTerminalExpression) | (expr=VariableExpression function=JNIFunctionInArrayNotation))
+	 *     ((functionExpr=JNIFunction expr=AlphaTerminalExpression) | (expr=VariableExpression functionExpr=JNIFunctionInArrayNotation))
 	 */
 	protected void sequence_DependenceExpression(ISerializationContext context, DependenceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -576,7 +576,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ExternalArgReduceExpression
 	 *
 	 * Constraint:
-	 *     (externalFunction=[ExternalFunction|ID] (projection=JNIFunction | projection=JNIFunctionInArrayNotation) body=AlphaExpression)
+	 *     (externalFunction=[ExternalFunction|ID] (projectionExpr=JNIFunction | projectionExpr=JNIFunctionInArrayNotation) body=AlphaExpression)
 	 */
 	protected void sequence_ExternalArgReduceExpression(ISerializationContext context, ExternalArgReduceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -651,7 +651,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ExternalReduceExpression
 	 *
 	 * Constraint:
-	 *     (externalFunction=[ExternalFunction|ID] (projection=JNIFunction | projection=JNIFunctionInArrayNotation) body=AlphaExpression)
+	 *     (externalFunction=[ExternalFunction|ID] (projectionExpr=JNIFunction | projectionExpr=JNIFunctionInArrayNotation) body=AlphaExpression)
 	 */
 	protected void sequence_ExternalReduceExpression(ISerializationContext context, ExternalReduceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -747,7 +747,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns IndexExpression
 	 *
 	 * Constraint:
-	 *     (function=JNIFunction | function=JNIFunctionInArrayNotation)
+	 *     (functionExpr=JNIFunction | functionExpr=JNIFunctionInArrayNotation)
 	 */
 	protected void sequence_IndexExpression(ISerializationContext context, IndexExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1056,7 +1056,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ReduceExpression
 	 *
 	 * Constraint:
-	 *     (operator=AREDUCTION_OP (projection=JNIFunction | projection=JNIFunctionInArrayNotation) body=AlphaExpression)
+	 *     (operator=AREDUCTION_OP (projectionExpr=JNIFunction | projectionExpr=JNIFunctionInArrayNotation) body=AlphaExpression)
 	 */
 	protected void sequence_ReduceExpression(ISerializationContext context, ReduceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1208,7 +1208,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *         (instantiationDomainExpr=CalculatorExpression (subsystemDims+=IndexName subsystemDims+=IndexName*)?)? 
 	 *         (outputExprs+=AlphaExpression outputExprs+=AlphaExpression*)? 
 	 *         system=[AlphaSystem|QualifiedName] 
-	 *         callParams=JNIFunctionInArrayNotation 
+	 *         callParamsExpr=JNIFunctionInArrayNotation 
 	 *         (inputExprs+=AlphaExpression inputExprs+=AlphaExpression*)?
 	 *     )
 	 */

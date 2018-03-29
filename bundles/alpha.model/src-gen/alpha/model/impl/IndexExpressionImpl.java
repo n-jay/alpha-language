@@ -6,6 +6,13 @@ import alpha.model.AlphaExpressionVisitor;
 import alpha.model.IndexExpression;
 import alpha.model.JNIFunction;
 import alpha.model.ModelPackage;
+import alpha.model.POLY_OBJECT_TYPE;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -23,21 +30,21 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.IndexExpressionImpl#getFunction <em>Function</em>}</li>
+ *   <li>{@link alpha.model.impl.IndexExpressionImpl#getFunctionExpr <em>Function Expr</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExpression {
 	/**
-	 * The cached value of the '{@link #getFunction() <em>Function</em>}' containment reference.
+	 * The cached value of the '{@link #getFunctionExpr() <em>Function Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFunction()
+	 * @see #getFunctionExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIFunction function;
+	protected JNIFunction functionExpr;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -63,8 +70,8 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFunction getFunction() {
-		return function;
+	public JNIFunction getFunctionExpr() {
+		return functionExpr;
 	}
 
 	/**
@@ -72,11 +79,11 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFunction(JNIFunction newFunction, NotificationChain msgs) {
-		JNIFunction oldFunction = function;
-		function = newFunction;
+	public NotificationChain basicSetFunctionExpr(JNIFunction newFunctionExpr, NotificationChain msgs) {
+		JNIFunction oldFunctionExpr = functionExpr;
+		functionExpr = newFunctionExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.INDEX_EXPRESSION__FUNCTION, oldFunction, newFunction);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.INDEX_EXPRESSION__FUNCTION_EXPR, oldFunctionExpr, newFunctionExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -87,18 +94,37 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFunction(JNIFunction newFunction) {
-		if (newFunction != function) {
+	public void setFunctionExpr(JNIFunction newFunctionExpr) {
+		if (newFunctionExpr != functionExpr) {
 			NotificationChain msgs = null;
-			if (function != null)
-				msgs = ((InternalEObject)function).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.INDEX_EXPRESSION__FUNCTION, null, msgs);
-			if (newFunction != null)
-				msgs = ((InternalEObject)newFunction).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.INDEX_EXPRESSION__FUNCTION, null, msgs);
-			msgs = basicSetFunction(newFunction, msgs);
+			if (functionExpr != null)
+				msgs = ((InternalEObject)functionExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.INDEX_EXPRESSION__FUNCTION_EXPR, null, msgs);
+			if (newFunctionExpr != null)
+				msgs = ((InternalEObject)newFunctionExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.INDEX_EXPRESSION__FUNCTION_EXPR, null, msgs);
+			msgs = basicSetFunctionExpr(newFunctionExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.INDEX_EXPRESSION__FUNCTION, newFunction, newFunction));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.INDEX_EXPRESSION__FUNCTION_EXPR, newFunctionExpr, newFunctionExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIISLMultiAff getFunction() {
+		JNIISLMultiAff _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getFunctionExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.FUNCTION));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getFunctionExpr().getISLObject();
+			_xifexpression = ((JNIISLMultiAff) _iSLObject);
+		}
+		return _xifexpression;
 	}
 
 	/**
@@ -118,8 +144,8 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.INDEX_EXPRESSION__FUNCTION:
-				return basicSetFunction(null, msgs);
+			case ModelPackage.INDEX_EXPRESSION__FUNCTION_EXPR:
+				return basicSetFunctionExpr(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -132,8 +158,8 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.INDEX_EXPRESSION__FUNCTION:
-				return getFunction();
+			case ModelPackage.INDEX_EXPRESSION__FUNCTION_EXPR:
+				return getFunctionExpr();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -146,8 +172,8 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.INDEX_EXPRESSION__FUNCTION:
-				setFunction((JNIFunction)newValue);
+			case ModelPackage.INDEX_EXPRESSION__FUNCTION_EXPR:
+				setFunctionExpr((JNIFunction)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,8 +187,8 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.INDEX_EXPRESSION__FUNCTION:
-				setFunction((JNIFunction)null);
+			case ModelPackage.INDEX_EXPRESSION__FUNCTION_EXPR:
+				setFunctionExpr((JNIFunction)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -176,8 +202,8 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.INDEX_EXPRESSION__FUNCTION:
-				return function != null;
+			case ModelPackage.INDEX_EXPRESSION__FUNCTION_EXPR:
+				return functionExpr != null;
 		}
 		return super.eIsSet(featureID);
 	}

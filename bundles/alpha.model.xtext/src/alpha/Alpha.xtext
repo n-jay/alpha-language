@@ -26,13 +26,13 @@ AlphaPackage:
 	'}';
 
 AlphaSystem:
-	'affine' name=SystemName parameterDomain=JNIParamDomain
+	'affine' name=SystemName parameterDomainExpr=JNIParamDomain
 		('define' (definedObjects+=PolyhedralObject)+)?
 		('inputs' (inputs+=InputVariable)+)?
 		('outputs' (outputs+=OutputVariable)+)?
 		('locals' (locals+=LocalVariable)+)?
 		('fuzzy' (fuzzyVariables+=FuzzyVariable)+)?
-		('over' whileDomain=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')' )?
+		('over' whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')' )?
 		('let' 
 				(useEquations+=UseEquation)*
 				(equations+=StandardEquation)*
@@ -145,7 +145,7 @@ StandardEquation :
 UseEquation :
 	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs += AlphaExpression (',' outputExprs += AlphaExpression)* )? ')'
 	 '=' 
-	system=[AlphaSystem|QualifiedName] callParams=JNIFunctionInArrayNotation
+	system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation
 	'(' (inputExprs  += AlphaExpression (',' inputExprs  += AlphaExpression)* )? ')' 
 	 ';';
 	 	
@@ -195,40 +195,40 @@ CaseExpression : 'case' name=ID? '{'
 '}';
 
 DependenceExpression:
-	function=JNIFunction '@' expr=AlphaTerminalExpression |
-	expr=VariableExpression function=JNIFunctionInArrayNotation;
+	functionExpr=JNIFunction '@' expr=AlphaTerminalExpression |
+	expr=VariableExpression functionExpr=JNIFunctionInArrayNotation;
 		
 IndexExpression:
-	'val' function=JNIFunction |
-	function=JNIFunctionInArrayNotation;
+	'val' functionExpr=JNIFunction |
+	functionExpr=JNIFunctionInArrayNotation;
 
 ReduceExpression:
 	'reduce' '(' operator=AREDUCTION_OP ',' 
-	projection=(JNIFunction|JNIFunctionInArrayNotation) ','
+	projectionExpr=(JNIFunction|JNIFunctionInArrayNotation) ','
 	body=AlphaExpression
 	 ')'
 ;
 ExternalReduceExpression:
 	'reduce' '(' externalFunction=[ExternalFunction] ',' 
-	projection=(JNIFunction|JNIFunctionInArrayNotation) ','
+	projectionExpr=(JNIFunction|JNIFunctionInArrayNotation) ','
 	body=AlphaExpression
 	 ')'
 ;
 ArgReduceExpression : 
 	'argreduce' '(' operator=AREDUCTION_OP ',' 
-	projection=(JNIFunction|JNIFunctionInArrayNotation) ','
+	projectionExpr=(JNIFunction|JNIFunctionInArrayNotation) ','
 	body=AlphaExpression
 	 ')'
 ;
 ExternalArgReduceExpression:
 	'argreduce' '(' externalFunction=[ExternalFunction] ',' 
-	projection=(JNIFunction|JNIFunctionInArrayNotation) ','
+	projectionExpr=(JNIFunction|JNIFunctionInArrayNotation) ','
 	body=AlphaExpression
 	 ')'
 ;
 
 ConvolutionExpression:
-	'conv' '(' kernelDomain=CalculatorExpression ',' 
+	'conv' '(' kernelDomainExpr=CalculatorExpression ',' 
 	kernelExpression=AlphaExpression ','
 	dataExpression=AlphaExpression
 	 ')'

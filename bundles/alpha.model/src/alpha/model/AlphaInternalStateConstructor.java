@@ -1,5 +1,6 @@
 package alpha.model;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,35 +20,63 @@ import alpha.model.issue.AlphaIssue;
  *
  */
 public class AlphaInternalStateConstructor {
-	
+
 	public static List<AlphaIssue> compute(AlphaRoot root) {
 		List<AlphaIssue> issues = JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.INTERFACE_ONLY);
 		issues.addAll(JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.EXPRESSION_ONLY));
-		
+
 		issues.addAll(ExpressionDomainCalculator.calculate(root));
 		issues.addAll(ContextDomainCalculator.calculate(root));
 		issues.addAll(AlphaNameUniquenessChecker.check(root));
 		issues.addAll(UniquenessAndCompletenessCheck.check(root));
-		
+
 		return issues;
 	}
-	
+
 	public static List<AlphaIssue> compute(List<AlphaRoot> roots) {
 		List<AlphaIssue> issues = new LinkedList<>();
 
 		for (AlphaRoot root : roots) {
 			issues.addAll(JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.INTERFACE_ONLY));
 		}
-				
+
 		for (AlphaRoot root : roots) {
 			issues.addAll(JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.EXPRESSION_ONLY));
-			
+
 			issues.addAll(ExpressionDomainCalculator.calculate(root));
 			issues.addAll(ContextDomainCalculator.calculate(root));
 			issues.addAll(AlphaNameUniquenessChecker.check(root));
 			issues.addAll(UniquenessAndCompletenessCheck.check(root));
 		}
-		
+
+		return issues;
+	}
+
+	/**
+	 * Recomputes expression/context domain. See {@link #recomputeContextDomain(List)}.
+	 * 
+	 * @param nodes
+	 * @return
+	 */
+	public static List<AlphaIssue> recomputeContextDomain(AlphaVisitable... nodes) {
+		return recomputeContextDomain(Arrays.asList(nodes));
+	}
+
+	/**
+	 * Recomputes expression/context domain. It is necessary after transformations
+	 * of the Alpha programs to recompute the expression/context domain.
+	 * 
+	 * @param nodes
+	 * @return
+	 */
+	public static List<AlphaIssue> recomputeContextDomain(List<AlphaVisitable> nodes) {
+		List<AlphaIssue> issues = new LinkedList<>();
+
+		for (AlphaVisitable node : nodes) {
+			issues.addAll(ExpressionDomainCalculator.calculate(node));
+			issues.addAll(ContextDomainCalculator.calculate(node));
+		}
+
 		return issues;
 	}
 }

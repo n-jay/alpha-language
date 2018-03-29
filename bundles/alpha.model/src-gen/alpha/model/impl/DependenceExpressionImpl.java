@@ -7,6 +7,13 @@ import alpha.model.AlphaExpressionVisitor;
 import alpha.model.DependenceExpression;
 import alpha.model.JNIFunction;
 import alpha.model.ModelPackage;
+import alpha.model.POLY_OBJECT_TYPE;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -24,7 +31,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.DependenceExpressionImpl#getFunction <em>Function</em>}</li>
+ *   <li>{@link alpha.model.impl.DependenceExpressionImpl#getFunctionExpr <em>Function Expr</em>}</li>
  *   <li>{@link alpha.model.impl.DependenceExpressionImpl#getExpr <em>Expr</em>}</li>
  * </ul>
  *
@@ -32,14 +39,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class DependenceExpressionImpl extends AlphaExpressionImpl implements DependenceExpression {
 	/**
-	 * The cached value of the '{@link #getFunction() <em>Function</em>}' containment reference.
+	 * The cached value of the '{@link #getFunctionExpr() <em>Function Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFunction()
+	 * @see #getFunctionExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIFunction function;
+	protected JNIFunction functionExpr;
 
 	/**
 	 * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.
@@ -75,8 +82,8 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFunction getFunction() {
-		return function;
+	public JNIFunction getFunctionExpr() {
+		return functionExpr;
 	}
 
 	/**
@@ -84,11 +91,11 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFunction(JNIFunction newFunction, NotificationChain msgs) {
-		JNIFunction oldFunction = function;
-		function = newFunction;
+	public NotificationChain basicSetFunctionExpr(JNIFunction newFunctionExpr, NotificationChain msgs) {
+		JNIFunction oldFunctionExpr = functionExpr;
+		functionExpr = newFunctionExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION, oldFunction, newFunction);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION_EXPR, oldFunctionExpr, newFunctionExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -99,18 +106,18 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFunction(JNIFunction newFunction) {
-		if (newFunction != function) {
+	public void setFunctionExpr(JNIFunction newFunctionExpr) {
+		if (newFunctionExpr != functionExpr) {
 			NotificationChain msgs = null;
-			if (function != null)
-				msgs = ((InternalEObject)function).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION, null, msgs);
-			if (newFunction != null)
-				msgs = ((InternalEObject)newFunction).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION, null, msgs);
-			msgs = basicSetFunction(newFunction, msgs);
+			if (functionExpr != null)
+				msgs = ((InternalEObject)functionExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION_EXPR, null, msgs);
+			if (newFunctionExpr != null)
+				msgs = ((InternalEObject)newFunctionExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION_EXPR, null, msgs);
+			msgs = basicSetFunctionExpr(newFunctionExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION, newFunction, newFunction));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION_EXPR, newFunctionExpr, newFunctionExpr));
 	}
 
 	/**
@@ -161,6 +168,25 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JNIISLMultiAff getFunction() {
+		JNIISLMultiAff _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getFunctionExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.FUNCTION));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getFunctionExpr().getISLObject();
+			_xifexpression = ((JNIISLMultiAff) _iSLObject);
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitDependenceExpression(this);
 	}
@@ -173,8 +199,8 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION:
-				return basicSetFunction(null, msgs);
+			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
+				return basicSetFunctionExpr(null, msgs);
 			case ModelPackage.DEPENDENCE_EXPRESSION__EXPR:
 				return basicSetExpr(null, msgs);
 		}
@@ -189,8 +215,8 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION:
-				return getFunction();
+			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
+				return getFunctionExpr();
 			case ModelPackage.DEPENDENCE_EXPRESSION__EXPR:
 				return getExpr();
 		}
@@ -205,8 +231,8 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION:
-				setFunction((JNIFunction)newValue);
+			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
+				setFunctionExpr((JNIFunction)newValue);
 				return;
 			case ModelPackage.DEPENDENCE_EXPRESSION__EXPR:
 				setExpr((AlphaExpression)newValue);
@@ -223,8 +249,8 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION:
-				setFunction((JNIFunction)null);
+			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
+				setFunctionExpr((JNIFunction)null);
 				return;
 			case ModelPackage.DEPENDENCE_EXPRESSION__EXPR:
 				setExpr((AlphaExpression)null);
@@ -241,8 +267,8 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION:
-				return function != null;
+			case ModelPackage.DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
+				return functionExpr != null;
 			case ModelPackage.DEPENDENCE_EXPRESSION__EXPR:
 				return expr != null;
 		}

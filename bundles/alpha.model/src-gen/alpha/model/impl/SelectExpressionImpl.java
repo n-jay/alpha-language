@@ -169,11 +169,17 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * @generated
 	 */
 	public JNIISLMap getSelectRelation() {
-		if ((((this.getRelationExpr() != null) && Objects.equal(this.getRelationExpr().getType(), POLY_OBJECT_TYPE.MAP)) && (this.getRelationExpr().getISLObject() != null))) {
-			JNIObject _iSLObject = this.getRelationExpr().getISLObject();
-			return ((JNIISLMap) _iSLObject);
+		JNIISLMap _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getRelationExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.MAP));
+		if (_notEquals) {
+			_xifexpression = null;
 		}
-		return null;
+		else {
+			JNIObject _iSLObject = this.getRelationExpr().getISLObject();
+			_xifexpression = ((JNIISLMap) _iSLObject);
+		}
+		return _xifexpression;
 	}
 
 	/**

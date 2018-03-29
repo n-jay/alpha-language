@@ -8,8 +8,6 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
 import alpha.model.CalculatorExpression;
-import alpha.model.POLY_OBJECT_TYPE;
-import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
@@ -85,7 +83,7 @@ public class AlphaUtil {
   }
   
   public static JNIISLSet _getScalarDomain(final AlphaSystem system) {
-    return JNIISLSet.buildUniverse(system.getParameterDomain().getISLSet().getSpace());
+    return JNIISLSet.buildUniverse(system.getParameterDomain().getSpace());
   }
   
   public static JNIISLSet _getScalarDomain(final AlphaExpression expr) {
@@ -105,12 +103,20 @@ public class AlphaUtil {
    * Helper function to obtain the additional indices due to while expressions when parsing polyhedral objects specified in ArrayNotation
    */
   public static List<String> getWhileIndexNames(final AlphaNode node) {
-    final AlphaSystem containerSystem = AlphaUtil.getContainerSystem(node);
-    if (((containerSystem.getWhileDomain() != null) && Objects.equal(containerSystem.getWhileDomain().getType(), POLY_OBJECT_TYPE.SET))) {
-      JNIObject _iSLObject = containerSystem.getWhileDomain().getISLObject();
-      return ((JNIISLSet) _iSLObject).getIndicesNames();
+    List<String> _xblockexpression = null;
+    {
+      final AlphaSystem containerSystem = AlphaUtil.getContainerSystem(node);
+      List<String> _xifexpression = null;
+      JNIISLSet _whileDomain = containerSystem.getWhileDomain();
+      boolean _tripleNotEquals = (_whileDomain != null);
+      if (_tripleNotEquals) {
+        _xifexpression = containerSystem.getWhileDomain().getIndicesNames();
+      } else {
+        _xifexpression = new LinkedList<String>();
+      }
+      _xblockexpression = _xifexpression;
     }
-    return new LinkedList<String>();
+    return _xblockexpression;
   }
   
   public static <T extends Object> Stream<T> getChildrenOfType(final AlphaNode expr, final Class<T> c) {

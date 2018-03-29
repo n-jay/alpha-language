@@ -95,12 +95,12 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 	}
 	def text(DependenceExpression dep) {
 		if (dep.function instanceof JNIFunctionInArrayNotation) {
-				(dep.expr as VariableExpression).variable.name + dep.function.plainToString 
+				(dep.expr as VariableExpression).variable.name + dep.functionExpr.plainToString 
 		} else {
 			if (dep.expr instanceof VariableExpression) {
-				dep.function.plainToString + ' @ ' + (dep.expr as VariableExpression).variable.name
+				dep.functionExpr.plainToString + ' @ ' + (dep.expr as VariableExpression).variable.name
 			} else {
-				dep.function.plainToString
+				dep.functionExpr.plainToString
 			}	
 		}
 	}
@@ -132,7 +132,7 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 		'select'
 	}
 	def text(IndexExpression ie) {
-		'val ' + ie.function.plainToString
+		'val ' + ie.functionExpr.plainToString
 	}
 	def text(VariableExpression ve) {
 		ve.variable.name

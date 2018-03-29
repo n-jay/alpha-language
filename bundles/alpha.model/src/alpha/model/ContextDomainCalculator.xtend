@@ -130,7 +130,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 			
 			val calleeVar = if (inputLoc!=-1) parent.system.inputs.get(inputLoc) else parent.system.outputs.get(outputLoc)
 			
-			return runISLoperations(child, [extendCalleeDomainByInstantiationDomain(parent.instantiationDomain, parent.callParams.ISLMultiAff, calleeVar.domain)])
+			return runISLoperations(child, [extendCalleeDomainByInstantiationDomain(parent.instantiationDomain, parent.callParams, calleeVar.domain)])
 			
 		} else {
 			return null
@@ -156,7 +156,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 	}
 
 	private dispatch def processContext(DependenceExpression expr, JNIISLSet context) {
-		return runISLoperations(expr, [context.apply(expr.function.ISLMultiAff.toMap)]);
+		return runISLoperations(expr, [context.apply(expr.function.toMap)]);
 	}
 	
 	private dispatch def processContext(SelectExpression expr, JNIISLSet context) {
@@ -164,11 +164,11 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 	}
 
 	private dispatch def processContext(ReduceExpression expr, JNIISLSet context) {
-		return runISLoperations(expr, [context.preimage(expr.projection.ISLMultiAff)]);
+		return runISLoperations(expr, [context.preimage(expr.projection)]);
 	}
 
 	private dispatch def processContext(ArgReduceExpression expr, JNIISLSet context) {
-		return runISLoperations(expr, [context.preimage(expr.projection.ISLMultiAff)]);
+		return runISLoperations(expr, [context.preimage(expr.projection)]);
 	}
 
 	// default is not do anything

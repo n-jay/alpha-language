@@ -245,7 +245,7 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   @Override
   public void inDependenceExpression(final DependenceExpression de) {
     this.inAlphaExpression(de);
-    this.printStr("+-- ", de.getFunction().getISLObject());
+    this.printStr("+-- ", de.getFunction());
   }
   
   @Override
@@ -257,7 +257,7 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   @Override
   public void inIndexExpression(final IndexExpression ie) {
     this.inAlphaExpression(ie);
-    this.printStr("+-- ", ie.getFunction().getISLObject());
+    this.printStr("+-- ", ie.getFunction());
   }
   
   @Override
@@ -282,34 +282,34 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void inReduceExpression(final ReduceExpression re) {
     this.inAlphaExpression(re);
     this.printStr("+-- ", re.getOperator());
-    this.printStr("+-- ", re.getProjection().getISLObject());
+    this.printStr("+-- ", re.getProjection());
   }
   
   @Override
   public void inExternalReduceExpression(final ExternalReduceExpression ere) {
     this.inAlphaExpression(ere);
     this.printStr("+-- ", ere.getExternalFunction().getName());
-    this.printStr("+-- ", ere.getProjection().getISLObject());
+    this.printStr("+-- ", ere.getProjection());
   }
   
   @Override
   public void inArgReduceExpression(final ArgReduceExpression are) {
     this.inAlphaExpression(are);
     this.printStr("+-- ", are.getOperator());
-    this.printStr("+-- ", are.getProjection().getISLObject());
+    this.printStr("+-- ", are.getProjection());
   }
   
   @Override
   public void inExternalArgReduceExpression(final ExternalArgReduceExpression eare) {
     this.inAlphaExpression(eare);
     this.printStr("+-- ", eare.getOperator());
-    this.printStr("+-- ", eare.getProjection().getISLObject());
+    this.printStr("+-- ", eare.getProjection());
   }
   
   @Override
   public void inConvolutionExpression(final ConvolutionExpression ce) {
     this.inAlphaExpression(ce);
-    this.printStr("+-- ", ce.getKernelDomain().getISLObject());
+    this.printStr("+-- ", ce.getKernelDomain());
   }
   
   @Override

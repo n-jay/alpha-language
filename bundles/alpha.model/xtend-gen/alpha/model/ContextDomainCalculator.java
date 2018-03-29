@@ -186,7 +186,7 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
       }
       final Variable calleeVar = _xifexpression;
       final Supplier<JNIISLSet> _function = () -> {
-        return this.extendCalleeDomainByInstantiationDomain(parent.getInstantiationDomain(), parent.getCallParams().getISLMultiAff(), calleeVar.getDomain());
+        return this.extendCalleeDomainByInstantiationDomain(parent.getInstantiationDomain(), parent.getCallParams(), calleeVar.getDomain());
       };
       return this.<JNIISLSet>runISLoperations(child, _function);
     } else {
@@ -210,7 +210,7 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
   
   private JNIISLSet _processContext(final DependenceExpression expr, final JNIISLSet context) {
     final Supplier<JNIISLSet> _function = () -> {
-      return context.apply(expr.getFunction().getISLMultiAff().toMap());
+      return context.apply(expr.getFunction().toMap());
     };
     return this.<JNIISLSet>runISLoperations(expr, _function);
   }
@@ -224,14 +224,14 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
   
   private JNIISLSet _processContext(final ReduceExpression expr, final JNIISLSet context) {
     final Supplier<JNIISLSet> _function = () -> {
-      return context.preimage(expr.getProjection().getISLMultiAff());
+      return context.preimage(expr.getProjection());
     };
     return this.<JNIISLSet>runISLoperations(expr, _function);
   }
   
   private JNIISLSet _processContext(final ArgReduceExpression expr, final JNIISLSet context) {
     final Supplier<JNIISLSet> _function = () -> {
-      return context.preimage(expr.getProjection().getISLMultiAff());
+      return context.preimage(expr.getProjection());
     };
     return this.<JNIISLSet>runISLoperations(expr, _function);
   }

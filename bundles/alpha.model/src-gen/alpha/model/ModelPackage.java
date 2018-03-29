@@ -416,13 +416,13 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_SYSTEM__NAME = ALPHA_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Parameter Domain</b></em>' containment reference.
+	 * The feature id for the '<em><b>Parameter Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_SYSTEM__PARAMETER_DOMAIN = ALPHA_ELEMENT_FEATURE_COUNT + 1;
+	int ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR = ALPHA_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Defined Objects</b></em>' containment reference list.
@@ -470,13 +470,13 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_SYSTEM__FUZZY_VARIABLES = ALPHA_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>While Domain</b></em>' containment reference.
+	 * The feature id for the '<em><b>While Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_SYSTEM__WHILE_DOMAIN = ALPHA_ELEMENT_FEATURE_COUNT + 7;
+	int ALPHA_SYSTEM__WHILE_DOMAIN_EXPR = ALPHA_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Test Expression</b></em>' containment reference.
@@ -774,13 +774,13 @@ public interface ModelPackage extends EPackage {
 	int USE_EQUATION__INSTANTIATION_DOMAIN_EXPR = ALPHA_VISITABLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Call Params</b></em>' containment reference.
+	 * The feature id for the '<em><b>Call Params Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int USE_EQUATION__CALL_PARAMS = ALPHA_VISITABLE_FEATURE_COUNT + 2;
+	int USE_EQUATION__CALL_PARAMS_EXPR = ALPHA_VISITABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Subsystem Dims</b></em>' attribute list.
@@ -1094,13 +1094,13 @@ public interface ModelPackage extends EPackage {
 	int DEPENDENCE_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
 
 	/**
-	 * The feature id for the '<em><b>Function</b></em>' containment reference.
+	 * The feature id for the '<em><b>Function Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEPENDENCE_EXPRESSION__FUNCTION = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+	int DEPENDENCE_EXPRESSION__FUNCTION_EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -1231,13 +1231,13 @@ public interface ModelPackage extends EPackage {
 	int INDEX_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
 
 	/**
-	 * The feature id for the '<em><b>Function</b></em>' containment reference.
+	 * The feature id for the '<em><b>Function Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INDEX_EXPRESSION__FUNCTION = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+	int INDEX_EXPRESSION__FUNCTION_EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Index Expression</em>' class.
@@ -1295,13 +1295,13 @@ public interface ModelPackage extends EPackage {
 	int ABSTRACT_REDUCE_EXPRESSION__OPERATOR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
+	 * The feature id for the '<em><b>Projection Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_REDUCE_EXPRESSION__PROJECTION = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
+	int ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1368,13 +1368,13 @@ public interface ModelPackage extends EPackage {
 	int REDUCE_EXPRESSION__OPERATOR = ABSTRACT_REDUCE_EXPRESSION__OPERATOR;
 
 	/**
-	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
+	 * The feature id for the '<em><b>Projection Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_EXPRESSION__PROJECTION = ABSTRACT_REDUCE_EXPRESSION__PROJECTION;
+	int REDUCE_EXPRESSION__PROJECTION_EXPR = ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1441,13 +1441,13 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_REDUCE_EXPRESSION__OPERATOR = REDUCE_EXPRESSION__OPERATOR;
 
 	/**
-	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
+	 * The feature id for the '<em><b>Projection Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_REDUCE_EXPRESSION__PROJECTION = REDUCE_EXPRESSION__PROJECTION;
+	int EXTERNAL_REDUCE_EXPRESSION__PROJECTION_EXPR = REDUCE_EXPRESSION__PROJECTION_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1523,13 +1523,13 @@ public interface ModelPackage extends EPackage {
 	int ARG_REDUCE_EXPRESSION__OPERATOR = ABSTRACT_REDUCE_EXPRESSION__OPERATOR;
 
 	/**
-	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
+	 * The feature id for the '<em><b>Projection Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ARG_REDUCE_EXPRESSION__PROJECTION = ABSTRACT_REDUCE_EXPRESSION__PROJECTION;
+	int ARG_REDUCE_EXPRESSION__PROJECTION_EXPR = ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1596,13 +1596,13 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_ARG_REDUCE_EXPRESSION__OPERATOR = ARG_REDUCE_EXPRESSION__OPERATOR;
 
 	/**
-	 * The feature id for the '<em><b>Projection</b></em>' containment reference.
+	 * The feature id for the '<em><b>Projection Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTERNAL_ARG_REDUCE_EXPRESSION__PROJECTION = ARG_REDUCE_EXPRESSION__PROJECTION;
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__PROJECTION_EXPR = ARG_REDUCE_EXPRESSION__PROJECTION_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1669,13 +1669,13 @@ public interface ModelPackage extends EPackage {
 	int CONVOLUTION_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
 
 	/**
-	 * The feature id for the '<em><b>Kernel Domain</b></em>' containment reference.
+	 * The feature id for the '<em><b>Kernel Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONVOLUTION_EXPRESSION__KERNEL_DOMAIN = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+	int CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Kernel Expression</b></em>' containment reference.
@@ -3150,15 +3150,15 @@ public interface ModelPackage extends EPackage {
 	EAttribute getAlphaSystem_Name();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.AlphaSystem#getParameterDomain <em>Parameter Domain</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.AlphaSystem#getParameterDomainExpr <em>Parameter Domain Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Parameter Domain</em>'.
-	 * @see alpha.model.AlphaSystem#getParameterDomain()
+	 * @return the meta object for the containment reference '<em>Parameter Domain Expr</em>'.
+	 * @see alpha.model.AlphaSystem#getParameterDomainExpr()
 	 * @see #getAlphaSystem()
 	 * @generated
 	 */
-	EReference getAlphaSystem_ParameterDomain();
+	EReference getAlphaSystem_ParameterDomainExpr();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link alpha.model.AlphaSystem#getDefinedObjects <em>Defined Objects</em>}'.
@@ -3216,15 +3216,15 @@ public interface ModelPackage extends EPackage {
 	EReference getAlphaSystem_FuzzyVariables();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.AlphaSystem#getWhileDomain <em>While Domain</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.AlphaSystem#getWhileDomainExpr <em>While Domain Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>While Domain</em>'.
-	 * @see alpha.model.AlphaSystem#getWhileDomain()
+	 * @return the meta object for the containment reference '<em>While Domain Expr</em>'.
+	 * @see alpha.model.AlphaSystem#getWhileDomainExpr()
 	 * @see #getAlphaSystem()
 	 * @generated
 	 */
-	EReference getAlphaSystem_WhileDomain();
+	EReference getAlphaSystem_WhileDomainExpr();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.model.AlphaSystem#getTestExpression <em>Test Expression</em>}'.
@@ -3407,15 +3407,15 @@ public interface ModelPackage extends EPackage {
 	EReference getUseEquation_InstantiationDomainExpr();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.UseEquation#getCallParams <em>Call Params</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.UseEquation#getCallParamsExpr <em>Call Params Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Call Params</em>'.
-	 * @see alpha.model.UseEquation#getCallParams()
+	 * @return the meta object for the containment reference '<em>Call Params Expr</em>'.
+	 * @see alpha.model.UseEquation#getCallParamsExpr()
 	 * @see #getUseEquation()
 	 * @generated
 	 */
-	EReference getUseEquation_CallParams();
+	EReference getUseEquation_CallParamsExpr();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link alpha.model.UseEquation#getSubsystemDims <em>Subsystem Dims</em>}'.
@@ -3600,15 +3600,15 @@ public interface ModelPackage extends EPackage {
 	EClass getDependenceExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.DependenceExpression#getFunction <em>Function</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.DependenceExpression#getFunctionExpr <em>Function Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Function</em>'.
-	 * @see alpha.model.DependenceExpression#getFunction()
+	 * @return the meta object for the containment reference '<em>Function Expr</em>'.
+	 * @see alpha.model.DependenceExpression#getFunctionExpr()
 	 * @see #getDependenceExpression()
 	 * @generated
 	 */
-	EReference getDependenceExpression_Function();
+	EReference getDependenceExpression_FunctionExpr();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.model.DependenceExpression#getExpr <em>Expr</em>}'.
@@ -3675,15 +3675,15 @@ public interface ModelPackage extends EPackage {
 	EClass getIndexExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.IndexExpression#getFunction <em>Function</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.IndexExpression#getFunctionExpr <em>Function Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Function</em>'.
-	 * @see alpha.model.IndexExpression#getFunction()
+	 * @return the meta object for the containment reference '<em>Function Expr</em>'.
+	 * @see alpha.model.IndexExpression#getFunctionExpr()
 	 * @see #getIndexExpression()
 	 * @generated
 	 */
-	EReference getIndexExpression_Function();
+	EReference getIndexExpression_FunctionExpr();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.AbstractReduceExpression <em>Abstract Reduce Expression</em>}'.
@@ -3707,15 +3707,15 @@ public interface ModelPackage extends EPackage {
 	EAttribute getAbstractReduceExpression_Operator();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.AbstractReduceExpression#getProjection <em>Projection</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.AbstractReduceExpression#getProjectionExpr <em>Projection Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Projection</em>'.
-	 * @see alpha.model.AbstractReduceExpression#getProjection()
+	 * @return the meta object for the containment reference '<em>Projection Expr</em>'.
+	 * @see alpha.model.AbstractReduceExpression#getProjectionExpr()
 	 * @see #getAbstractReduceExpression()
 	 * @generated
 	 */
-	EReference getAbstractReduceExpression_Projection();
+	EReference getAbstractReduceExpression_ProjectionExpr();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.model.AbstractReduceExpression#getBody <em>Body</em>}'.
@@ -3801,15 +3801,15 @@ public interface ModelPackage extends EPackage {
 	EClass getConvolutionExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.ConvolutionExpression#getKernelDomain <em>Kernel Domain</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.ConvolutionExpression#getKernelDomainExpr <em>Kernel Domain Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Kernel Domain</em>'.
-	 * @see alpha.model.ConvolutionExpression#getKernelDomain()
+	 * @return the meta object for the containment reference '<em>Kernel Domain Expr</em>'.
+	 * @see alpha.model.ConvolutionExpression#getKernelDomainExpr()
 	 * @see #getConvolutionExpression()
 	 * @generated
 	 */
-	EReference getConvolutionExpression_KernelDomain();
+	EReference getConvolutionExpression_KernelDomainExpr();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.model.ConvolutionExpression#getKernelExpression <em>Kernel Expression</em>}'.
@@ -4819,12 +4819,12 @@ public interface ModelPackage extends EPackage {
 		EAttribute ALPHA_SYSTEM__NAME = eINSTANCE.getAlphaSystem_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Parameter Domain</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Parameter Domain Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ALPHA_SYSTEM__PARAMETER_DOMAIN = eINSTANCE.getAlphaSystem_ParameterDomain();
+		EReference ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR = eINSTANCE.getAlphaSystem_ParameterDomainExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Defined Objects</b></em>' containment reference list feature.
@@ -4867,12 +4867,12 @@ public interface ModelPackage extends EPackage {
 		EReference ALPHA_SYSTEM__FUZZY_VARIABLES = eINSTANCE.getAlphaSystem_FuzzyVariables();
 
 		/**
-		 * The meta object literal for the '<em><b>While Domain</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>While Domain Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ALPHA_SYSTEM__WHILE_DOMAIN = eINSTANCE.getAlphaSystem_WhileDomain();
+		EReference ALPHA_SYSTEM__WHILE_DOMAIN_EXPR = eINSTANCE.getAlphaSystem_WhileDomainExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Test Expression</b></em>' containment reference feature.
@@ -5025,12 +5025,12 @@ public interface ModelPackage extends EPackage {
 		EReference USE_EQUATION__INSTANTIATION_DOMAIN_EXPR = eINSTANCE.getUseEquation_InstantiationDomainExpr();
 
 		/**
-		 * The meta object literal for the '<em><b>Call Params</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Call Params Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference USE_EQUATION__CALL_PARAMS = eINSTANCE.getUseEquation_CallParams();
+		EReference USE_EQUATION__CALL_PARAMS_EXPR = eINSTANCE.getUseEquation_CallParamsExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Subsystem Dims</b></em>' attribute list feature.
@@ -5179,12 +5179,12 @@ public interface ModelPackage extends EPackage {
 		EClass DEPENDENCE_EXPRESSION = eINSTANCE.getDependenceExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Function</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Function Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DEPENDENCE_EXPRESSION__FUNCTION = eINSTANCE.getDependenceExpression_Function();
+		EReference DEPENDENCE_EXPRESSION__FUNCTION_EXPR = eINSTANCE.getDependenceExpression_FunctionExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
@@ -5239,12 +5239,12 @@ public interface ModelPackage extends EPackage {
 		EClass INDEX_EXPRESSION = eINSTANCE.getIndexExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Function</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Function Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference INDEX_EXPRESSION__FUNCTION = eINSTANCE.getIndexExpression_Function();
+		EReference INDEX_EXPRESSION__FUNCTION_EXPR = eINSTANCE.getIndexExpression_FunctionExpr();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.AbstractReduceExpressionImpl <em>Abstract Reduce Expression</em>}' class.
@@ -5265,12 +5265,12 @@ public interface ModelPackage extends EPackage {
 		EAttribute ABSTRACT_REDUCE_EXPRESSION__OPERATOR = eINSTANCE.getAbstractReduceExpression_Operator();
 
 		/**
-		 * The meta object literal for the '<em><b>Projection</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Projection Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ABSTRACT_REDUCE_EXPRESSION__PROJECTION = eINSTANCE.getAbstractReduceExpression_Projection();
+		EReference ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR = eINSTANCE.getAbstractReduceExpression_ProjectionExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
@@ -5347,12 +5347,12 @@ public interface ModelPackage extends EPackage {
 		EClass CONVOLUTION_EXPRESSION = eINSTANCE.getConvolutionExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Kernel Domain</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Kernel Domain Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONVOLUTION_EXPRESSION__KERNEL_DOMAIN = eINSTANCE.getConvolutionExpression_KernelDomain();
+		EReference CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR = eINSTANCE.getConvolutionExpression_KernelDomainExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Kernel Expression</b></em>' containment reference feature.

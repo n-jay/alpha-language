@@ -78,7 +78,7 @@ class AlphaUtil {
 	
 	
 	public static def dispatch JNIISLSet getScalarDomain(AlphaSystem system) {
-		return JNIISLSet.buildUniverse(system.parameterDomain.ISLSet.space)
+		return JNIISLSet.buildUniverse(system.parameterDomain.space)
 	}
 	public static def dispatch JNIISLSet getScalarDomain(AlphaExpression expr) {
 		if (expr.containerSystem === null) return null
@@ -92,10 +92,8 @@ class AlphaUtil {
 	 * */
 	public static def List<String> getWhileIndexNames(AlphaNode node) {
 		val containerSystem = AlphaUtil.getContainerSystem(node)
-		if (containerSystem.whileDomain !== null && containerSystem.whileDomain.type == POLY_OBJECT_TYPE.SET) {
-			return (containerSystem.whileDomain.ISLObject as JNIISLSet).indicesNames
-		}
-		return new LinkedList;
+		if (containerSystem.whileDomain !== null) containerSystem.whileDomain.indicesNames
+		else new LinkedList;
 	}
 	
 	

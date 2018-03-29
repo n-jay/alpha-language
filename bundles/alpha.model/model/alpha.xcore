@@ -281,13 +281,13 @@ class ExternalFunction extends AlphaElement {
 
 class AlphaSystem extends AlphaElement {
 	String name
-	contains JNIDomain parameterDomain
+	contains JNIDomain parameterDomainExpr
 	contains PolyhedralObject[] definedObjects
 	contains InputVariable[] inputs
 	contains OutputVariable[] outputs
 	contains LocalVariable[] locals
 	contains FuzzyVariable[] fuzzyVariables
-	contains CalculatorExpression whileDomain
+	contains CalculatorExpression whileDomainExpr
 	contains AlphaExpression testExpression
 	
 	contains UseEquation[] useEquations
@@ -299,6 +299,15 @@ class AlphaSystem extends AlphaElement {
 	
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitAlphaSystem(this)
+	}
+	
+	op JNIISLSet getParameterDomain() {
+		return parameterDomainExpr.ISLSet
+	}
+	
+	op JNIISLSet getWhileDomain() {
+		if (whileDomainExpr === null || whileDomainExpr.^type != POLY_OBJECT_TYPE::SET) null 
+		else (whileDomainExpr.ISLObject as JNIISLSet).copy
 	}
 }
 
@@ -313,7 +322,7 @@ class Variable extends AlphaVisitable {
 		}
 		
 		try {
-			return domainExpr.ISLObject as JNIISLSet
+			return if (domainExpr.^type != POLY_OBJECT_TYPE::SET) null else domainExpr.ISLObject as JNIISLSet
 		} catch (CyclicDefinitionException cde) {
 			return null
 		}
@@ -343,21 +352,12 @@ class LocalVariable extends Variable {
 class FuzzyVariable extends Variable {
 	
 	op JNIISLSet getDomain() {
-		if (domainExpr.^type != POLY_OBJECT_TYPE::MAP) {
-			return null
-		}
-		
-		return (domainExpr.ISLObject as JNIISLMap).copy().domain()
+		return if (domainExpr.^type != POLY_OBJECT_TYPE::MAP) null else (domainExpr.ISLObject as JNIISLMap).domain()
 	}
 	
 	op JNIISLMap getRelation() {
-		if (domainExpr.^type != POLY_OBJECT_TYPE::MAP) {
-			return null
-		}
-		
-		return domainExpr.ISLObject as JNIISLMap
+		if (domainExpr.^type != POLY_OBJECT_TYPE::MAP) null else domainExpr.ISLObject as JNIISLMap
 	}
-	
 	
 	op void accept(AlphaVisitor visitor) {
 	 	visitor.visitFuzzyVariable(this)
@@ -377,17 +377,20 @@ class StandardEquation extends AlphaVisitable {
 class UseEquation extends AlphaVisitable {
 	refers AlphaSystem system
 	contains CalculatorExpression instantiationDomainExpr
-	contains JNIFunctionInArrayNotation callParams
+	contains JNIFunctionInArrayNotation callParamsExpr
 	String[] subsystemDims
 	contains AlphaExpression[] inputExprs
 	contains AlphaExpression[] outputExprs
 	
 	
 	op JNIISLSet getInstantiationDomain() {
-		if (instantiationDomainExpr !== null && instantiationDomainExpr.^type == POLY_OBJECT_TYPE.SET && instantiationDomainExpr.ISLObject !== null) {
-			return instantiationDomainExpr.ISLObject as JNIISLSet
-		}
-		return null
+		if (instantiationDomainExpr.^type != POLY_OBJECT_TYPE.SET) null
+		else instantiationDomainExpr.ISLObject as JNIISLSet
+	}
+	
+	op JNIISLMultiAff getCallParams() {
+		if (callParamsExpr.^type != POLY_OBJECT_TYPE.FUNCTION) null
+		else callParamsExpr.ISLObject as JNIISLMultiAff
 	}
 	
 	op void accept(AlphaVisitor visitor) {
@@ -416,10 +419,8 @@ class RestrictExpression extends AlphaExpression {
 	contains AlphaExpression expr
 	
 	op JNIISLSet getRestrictDomain() {
-		if (domainExpr !== null && domainExpr.^type == POLY_OBJECT_TYPE.SET && domainExpr.ISLObject !== null) {
-			return domainExpr.ISLObject as JNIISLSet
-		}
-		return null
+		if (domainExpr.^type != POLY_OBJECT_TYPE.SET ) null
+		else domainExpr.ISLObject as JNIISLSet
 	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -447,8 +448,13 @@ class CaseExpression extends AlphaExpression {
 	}
 }
 class DependenceExpression extends AlphaExpression {
-	contains JNIFunction function
+	contains JNIFunction functionExpr
 	contains AlphaExpression expr
+	
+	op JNIISLMultiAff getFunction() {
+		if (functionExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
+		else functionExpr.ISLObject as JNIISLMultiAff
+	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitDependenceExpression(this)
@@ -464,7 +470,12 @@ class IfExpression extends AlphaExpression {
 	}
 }
 class IndexExpression extends AlphaExpression {
-	contains JNIFunction function
+	contains JNIFunction functionExpr
+	
+	op JNIISLMultiAff getFunction() {
+		if (functionExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
+		else functionExpr.ISLObject as JNIISLMultiAff
+	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitIndexExpression(this)
@@ -472,8 +483,13 @@ class IndexExpression extends AlphaExpression {
 }
 abstract class AbstractReduceExpression extends AlphaExpression {
 	REDUCTION_OP operator
-	contains JNIFunction projection
+	contains JNIFunction projectionExpr
 	contains AlphaExpression body
+	
+	op JNIISLMultiAff getProjection() {
+		if (projectionExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
+		else projectionExpr.ISLObject as JNIISLMultiAff
+	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractReduceExpression(this)
@@ -506,9 +522,14 @@ class ExternalArgReduceExpression extends ArgReduceExpression {
 	}
 }
 class ConvolutionExpression extends AlphaExpression {
-	contains CalculatorExpression kernelDomain
+	contains CalculatorExpression kernelDomainExpr
 	contains AlphaExpression kernelExpression
 	contains AlphaExpression dataExpression
+	
+	op JNIISLSet getKernelDomain() {
+		if (kernelDomainExpr.^type != POLY_OBJECT_TYPE.SET ) null
+		else kernelDomainExpr.ISLObject as JNIISLSet
+	}
 
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitConvolutionExpression(this)
@@ -519,10 +540,8 @@ class SelectExpression extends AlphaExpression {
 	contains AlphaExpression expr
 	
 	op JNIISLMap getSelectRelation() {
-		if (relationExpr !== null && relationExpr.^type == POLY_OBJECT_TYPE.MAP && relationExpr.ISLObject !== null) {
-			return relationExpr.ISLObject as JNIISLMap
-		}
-		return null
+		if (relationExpr.^type != POLY_OBJECT_TYPE.MAP) null
+		else relationExpr.ISLObject as JNIISLMap
 	}
 
 	op void accept(AlphaExpressionVisitor visitor) {

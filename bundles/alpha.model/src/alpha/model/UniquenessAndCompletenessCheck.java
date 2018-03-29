@@ -55,7 +55,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 			JNIISLSet undefDom = varDom.copy().subtract(defDom);
 			
 			if (!undefDom.isEmpty()) {
-				JNIISLSet systemParam = AlphaUtil.getContainerSystem(se).getParameterDomain().getISLSet();
+				JNIISLSet systemParam = AlphaUtil.getContainerSystem(se).getParameterDomain();
 				JNIISLSet undefDomParam = undefDom.copy().paramSet().gist(systemParam);
 				JNIISLSet undefDomGist = undefDom.gist(varDom);
 

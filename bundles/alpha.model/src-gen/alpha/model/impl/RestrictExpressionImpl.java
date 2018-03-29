@@ -169,11 +169,17 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 	 * @generated
 	 */
 	public JNIISLSet getRestrictDomain() {
-		if ((((this.getDomainExpr() != null) && Objects.equal(this.getDomainExpr().getType(), POLY_OBJECT_TYPE.SET)) && (this.getDomainExpr().getISLObject() != null))) {
-			JNIObject _iSLObject = this.getDomainExpr().getISLObject();
-			return ((JNIISLSet) _iSLObject);
+		JNIISLSet _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getDomainExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
+		if (_notEquals) {
+			_xifexpression = null;
 		}
-		return null;
+		else {
+			JNIObject _iSLObject = this.getDomainExpr().getISLObject();
+			_xifexpression = ((JNIISLSet) _iSLObject);
+		}
+		return _xifexpression;
 	}
 
 	/**

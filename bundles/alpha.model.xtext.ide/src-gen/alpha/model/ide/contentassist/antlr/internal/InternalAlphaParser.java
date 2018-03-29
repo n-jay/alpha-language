@@ -8000,13 +8000,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IndexExpression__Alternatives"
-    // InternalAlpha.g:2499:1: rule__IndexExpression__Alternatives : ( ( ( rule__IndexExpression__Group_0__0 ) ) | ( ( rule__IndexExpression__FunctionAssignment_1 ) ) );
+    // InternalAlpha.g:2499:1: rule__IndexExpression__Alternatives : ( ( ( rule__IndexExpression__Group_0__0 ) ) | ( ( rule__IndexExpression__FunctionExprAssignment_1 ) ) );
     public final void rule__IndexExpression__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:2503:1: ( ( ( rule__IndexExpression__Group_0__0 ) ) | ( ( rule__IndexExpression__FunctionAssignment_1 ) ) )
+            // InternalAlpha.g:2503:1: ( ( ( rule__IndexExpression__Group_0__0 ) ) | ( ( rule__IndexExpression__FunctionExprAssignment_1 ) ) )
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -8049,24 +8049,24 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalAlpha.g:2510:2: ( ( rule__IndexExpression__FunctionAssignment_1 ) )
+                    // InternalAlpha.g:2510:2: ( ( rule__IndexExpression__FunctionExprAssignment_1 ) )
                     {
-                    // InternalAlpha.g:2510:2: ( ( rule__IndexExpression__FunctionAssignment_1 ) )
-                    // InternalAlpha.g:2511:3: ( rule__IndexExpression__FunctionAssignment_1 )
+                    // InternalAlpha.g:2510:2: ( ( rule__IndexExpression__FunctionExprAssignment_1 ) )
+                    // InternalAlpha.g:2511:3: ( rule__IndexExpression__FunctionExprAssignment_1 )
                     {
-                     before(grammarAccess.getIndexExpressionAccess().getFunctionAssignment_1()); 
-                    // InternalAlpha.g:2512:3: ( rule__IndexExpression__FunctionAssignment_1 )
-                    // InternalAlpha.g:2512:4: rule__IndexExpression__FunctionAssignment_1
+                     before(grammarAccess.getIndexExpressionAccess().getFunctionExprAssignment_1()); 
+                    // InternalAlpha.g:2512:3: ( rule__IndexExpression__FunctionExprAssignment_1 )
+                    // InternalAlpha.g:2512:4: rule__IndexExpression__FunctionExprAssignment_1
                     {
                     pushFollow(FOLLOW_2);
-                    rule__IndexExpression__FunctionAssignment_1();
+                    rule__IndexExpression__FunctionExprAssignment_1();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getIndexExpressionAccess().getFunctionAssignment_1()); 
+                     after(grammarAccess.getIndexExpressionAccess().getFunctionExprAssignment_1()); 
 
                     }
 
@@ -8090,9 +8090,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__IndexExpression__Alternatives"
 
 
-    // $ANTLR start "rule__ReduceExpression__ProjectionAlternatives_4_0"
-    // InternalAlpha.g:2520:1: rule__ReduceExpression__ProjectionAlternatives_4_0 : ( ( ruleJNIFunction ) | ( ruleJNIFunctionInArrayNotation ) );
-    public final void rule__ReduceExpression__ProjectionAlternatives_4_0() throws RecognitionException {
+    // $ANTLR start "rule__ReduceExpression__ProjectionExprAlternatives_4_0"
+    // InternalAlpha.g:2520:1: rule__ReduceExpression__ProjectionExprAlternatives_4_0 : ( ( ruleJNIFunction ) | ( ruleJNIFunctionInArrayNotation ) );
+    public final void rule__ReduceExpression__ProjectionExprAlternatives_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -8120,13 +8120,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     // InternalAlpha.g:2525:2: ( ruleJNIFunction )
                     // InternalAlpha.g:2526:3: ruleJNIFunction
                     {
-                     before(grammarAccess.getReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0()); 
+                     before(grammarAccess.getReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0()); 
                     pushFollow(FOLLOW_2);
                     ruleJNIFunction();
 
                     state._fsp--;
 
-                     after(grammarAccess.getReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0()); 
+                     after(grammarAccess.getReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0()); 
 
                     }
 
@@ -8139,13 +8139,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     // InternalAlpha.g:2531:2: ( ruleJNIFunctionInArrayNotation )
                     // InternalAlpha.g:2532:3: ruleJNIFunctionInArrayNotation
                     {
-                     before(grammarAccess.getReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
+                     before(grammarAccess.getReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
                     pushFollow(FOLLOW_2);
                     ruleJNIFunctionInArrayNotation();
 
                     state._fsp--;
 
-                     after(grammarAccess.getReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
+                     after(grammarAccess.getReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
 
                     }
 
@@ -8166,12 +8166,12 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ReduceExpression__ProjectionAlternatives_4_0"
+    // $ANTLR end "rule__ReduceExpression__ProjectionExprAlternatives_4_0"
 
 
-    // $ANTLR start "rule__ExternalReduceExpression__ProjectionAlternatives_4_0"
-    // InternalAlpha.g:2541:1: rule__ExternalReduceExpression__ProjectionAlternatives_4_0 : ( ( ruleJNIFunction ) | ( ruleJNIFunctionInArrayNotation ) );
-    public final void rule__ExternalReduceExpression__ProjectionAlternatives_4_0() throws RecognitionException {
+    // $ANTLR start "rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0"
+    // InternalAlpha.g:2541:1: rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0 : ( ( ruleJNIFunction ) | ( ruleJNIFunctionInArrayNotation ) );
+    public final void rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -8199,13 +8199,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     // InternalAlpha.g:2546:2: ( ruleJNIFunction )
                     // InternalAlpha.g:2547:3: ruleJNIFunction
                     {
-                     before(grammarAccess.getExternalReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0()); 
+                     before(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0()); 
                     pushFollow(FOLLOW_2);
                     ruleJNIFunction();
 
                     state._fsp--;
 
-                     after(grammarAccess.getExternalReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0()); 
+                     after(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0()); 
 
                     }
 
@@ -8218,13 +8218,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     // InternalAlpha.g:2552:2: ( ruleJNIFunctionInArrayNotation )
                     // InternalAlpha.g:2553:3: ruleJNIFunctionInArrayNotation
                     {
-                     before(grammarAccess.getExternalReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
+                     before(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
                     pushFollow(FOLLOW_2);
                     ruleJNIFunctionInArrayNotation();
 
                     state._fsp--;
 
-                     after(grammarAccess.getExternalReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
+                     after(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
 
                     }
 
@@ -8245,12 +8245,12 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ExternalReduceExpression__ProjectionAlternatives_4_0"
+    // $ANTLR end "rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0"
 
 
-    // $ANTLR start "rule__ArgReduceExpression__ProjectionAlternatives_4_0"
-    // InternalAlpha.g:2562:1: rule__ArgReduceExpression__ProjectionAlternatives_4_0 : ( ( ruleJNIFunction ) | ( ruleJNIFunctionInArrayNotation ) );
-    public final void rule__ArgReduceExpression__ProjectionAlternatives_4_0() throws RecognitionException {
+    // $ANTLR start "rule__ArgReduceExpression__ProjectionExprAlternatives_4_0"
+    // InternalAlpha.g:2562:1: rule__ArgReduceExpression__ProjectionExprAlternatives_4_0 : ( ( ruleJNIFunction ) | ( ruleJNIFunctionInArrayNotation ) );
+    public final void rule__ArgReduceExpression__ProjectionExprAlternatives_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -8278,13 +8278,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     // InternalAlpha.g:2567:2: ( ruleJNIFunction )
                     // InternalAlpha.g:2568:3: ruleJNIFunction
                     {
-                     before(grammarAccess.getArgReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0()); 
+                     before(grammarAccess.getArgReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0()); 
                     pushFollow(FOLLOW_2);
                     ruleJNIFunction();
 
                     state._fsp--;
 
-                     after(grammarAccess.getArgReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0()); 
+                     after(grammarAccess.getArgReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0()); 
 
                     }
 
@@ -8297,13 +8297,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     // InternalAlpha.g:2573:2: ( ruleJNIFunctionInArrayNotation )
                     // InternalAlpha.g:2574:3: ruleJNIFunctionInArrayNotation
                     {
-                     before(grammarAccess.getArgReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
+                     before(grammarAccess.getArgReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
                     pushFollow(FOLLOW_2);
                     ruleJNIFunctionInArrayNotation();
 
                     state._fsp--;
 
-                     after(grammarAccess.getArgReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
+                     after(grammarAccess.getArgReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
 
                     }
 
@@ -8324,12 +8324,12 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ArgReduceExpression__ProjectionAlternatives_4_0"
+    // $ANTLR end "rule__ArgReduceExpression__ProjectionExprAlternatives_4_0"
 
 
-    // $ANTLR start "rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0"
-    // InternalAlpha.g:2583:1: rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0 : ( ( ruleJNIFunction ) | ( ruleJNIFunctionInArrayNotation ) );
-    public final void rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0() throws RecognitionException {
+    // $ANTLR start "rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0"
+    // InternalAlpha.g:2583:1: rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0 : ( ( ruleJNIFunction ) | ( ruleJNIFunctionInArrayNotation ) );
+    public final void rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -8357,13 +8357,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     // InternalAlpha.g:2588:2: ( ruleJNIFunction )
                     // InternalAlpha.g:2589:3: ruleJNIFunction
                     {
-                     before(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0()); 
+                     before(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0()); 
                     pushFollow(FOLLOW_2);
                     ruleJNIFunction();
 
                     state._fsp--;
 
-                     after(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionJNIFunctionParserRuleCall_4_0_0()); 
+                     after(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprJNIFunctionParserRuleCall_4_0_0()); 
 
                     }
 
@@ -8376,13 +8376,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     // InternalAlpha.g:2594:2: ( ruleJNIFunctionInArrayNotation )
                     // InternalAlpha.g:2595:3: ruleJNIFunctionInArrayNotation
                     {
-                     before(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
+                     before(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
                     pushFollow(FOLLOW_2);
                     ruleJNIFunctionInArrayNotation();
 
                     state._fsp--;
 
-                     after(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
+                     after(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprJNIFunctionInArrayNotationParserRuleCall_4_0_1()); 
 
                     }
 
@@ -8403,7 +8403,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0"
+    // $ANTLR end "rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0"
 
 
     // $ANTLR start "rule__UnaryOrTerminalExpression__Alternatives"
@@ -11360,31 +11360,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AlphaSystem__Group__2__Impl"
-    // InternalAlpha.g:3531:1: rule__AlphaSystem__Group__2__Impl : ( ( rule__AlphaSystem__ParameterDomainAssignment_2 ) ) ;
+    // InternalAlpha.g:3531:1: rule__AlphaSystem__Group__2__Impl : ( ( rule__AlphaSystem__ParameterDomainExprAssignment_2 ) ) ;
     public final void rule__AlphaSystem__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:3535:1: ( ( ( rule__AlphaSystem__ParameterDomainAssignment_2 ) ) )
-            // InternalAlpha.g:3536:1: ( ( rule__AlphaSystem__ParameterDomainAssignment_2 ) )
+            // InternalAlpha.g:3535:1: ( ( ( rule__AlphaSystem__ParameterDomainExprAssignment_2 ) ) )
+            // InternalAlpha.g:3536:1: ( ( rule__AlphaSystem__ParameterDomainExprAssignment_2 ) )
             {
-            // InternalAlpha.g:3536:1: ( ( rule__AlphaSystem__ParameterDomainAssignment_2 ) )
-            // InternalAlpha.g:3537:2: ( rule__AlphaSystem__ParameterDomainAssignment_2 )
+            // InternalAlpha.g:3536:1: ( ( rule__AlphaSystem__ParameterDomainExprAssignment_2 ) )
+            // InternalAlpha.g:3537:2: ( rule__AlphaSystem__ParameterDomainExprAssignment_2 )
             {
-             before(grammarAccess.getAlphaSystemAccess().getParameterDomainAssignment_2()); 
-            // InternalAlpha.g:3538:2: ( rule__AlphaSystem__ParameterDomainAssignment_2 )
-            // InternalAlpha.g:3538:3: rule__AlphaSystem__ParameterDomainAssignment_2
+             before(grammarAccess.getAlphaSystemAccess().getParameterDomainExprAssignment_2()); 
+            // InternalAlpha.g:3538:2: ( rule__AlphaSystem__ParameterDomainExprAssignment_2 )
+            // InternalAlpha.g:3538:3: rule__AlphaSystem__ParameterDomainExprAssignment_2
             {
             pushFollow(FOLLOW_2);
-            rule__AlphaSystem__ParameterDomainAssignment_2();
+            rule__AlphaSystem__ParameterDomainExprAssignment_2();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getAlphaSystemAccess().getParameterDomainAssignment_2()); 
+             after(grammarAccess.getAlphaSystemAccess().getParameterDomainExprAssignment_2()); 
 
             }
 
@@ -13252,31 +13252,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AlphaSystem__Group_8__1__Impl"
-    // InternalAlpha.g:4106:1: rule__AlphaSystem__Group_8__1__Impl : ( ( rule__AlphaSystem__WhileDomainAssignment_8_1 ) ) ;
+    // InternalAlpha.g:4106:1: rule__AlphaSystem__Group_8__1__Impl : ( ( rule__AlphaSystem__WhileDomainExprAssignment_8_1 ) ) ;
     public final void rule__AlphaSystem__Group_8__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:4110:1: ( ( ( rule__AlphaSystem__WhileDomainAssignment_8_1 ) ) )
-            // InternalAlpha.g:4111:1: ( ( rule__AlphaSystem__WhileDomainAssignment_8_1 ) )
+            // InternalAlpha.g:4110:1: ( ( ( rule__AlphaSystem__WhileDomainExprAssignment_8_1 ) ) )
+            // InternalAlpha.g:4111:1: ( ( rule__AlphaSystem__WhileDomainExprAssignment_8_1 ) )
             {
-            // InternalAlpha.g:4111:1: ( ( rule__AlphaSystem__WhileDomainAssignment_8_1 ) )
-            // InternalAlpha.g:4112:2: ( rule__AlphaSystem__WhileDomainAssignment_8_1 )
+            // InternalAlpha.g:4111:1: ( ( rule__AlphaSystem__WhileDomainExprAssignment_8_1 ) )
+            // InternalAlpha.g:4112:2: ( rule__AlphaSystem__WhileDomainExprAssignment_8_1 )
             {
-             before(grammarAccess.getAlphaSystemAccess().getWhileDomainAssignment_8_1()); 
-            // InternalAlpha.g:4113:2: ( rule__AlphaSystem__WhileDomainAssignment_8_1 )
-            // InternalAlpha.g:4113:3: rule__AlphaSystem__WhileDomainAssignment_8_1
+             before(grammarAccess.getAlphaSystemAccess().getWhileDomainExprAssignment_8_1()); 
+            // InternalAlpha.g:4113:2: ( rule__AlphaSystem__WhileDomainExprAssignment_8_1 )
+            // InternalAlpha.g:4113:3: rule__AlphaSystem__WhileDomainExprAssignment_8_1
             {
             pushFollow(FOLLOW_2);
-            rule__AlphaSystem__WhileDomainAssignment_8_1();
+            rule__AlphaSystem__WhileDomainExprAssignment_8_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getAlphaSystemAccess().getWhileDomainAssignment_8_1()); 
+             after(grammarAccess.getAlphaSystemAccess().getWhileDomainExprAssignment_8_1()); 
 
             }
 
@@ -21976,31 +21976,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__UseEquation__Group__6__Impl"
-    // InternalAlpha.g:7022:1: rule__UseEquation__Group__6__Impl : ( ( rule__UseEquation__CallParamsAssignment_6 ) ) ;
+    // InternalAlpha.g:7022:1: rule__UseEquation__Group__6__Impl : ( ( rule__UseEquation__CallParamsExprAssignment_6 ) ) ;
     public final void rule__UseEquation__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:7026:1: ( ( ( rule__UseEquation__CallParamsAssignment_6 ) ) )
-            // InternalAlpha.g:7027:1: ( ( rule__UseEquation__CallParamsAssignment_6 ) )
+            // InternalAlpha.g:7026:1: ( ( ( rule__UseEquation__CallParamsExprAssignment_6 ) ) )
+            // InternalAlpha.g:7027:1: ( ( rule__UseEquation__CallParamsExprAssignment_6 ) )
             {
-            // InternalAlpha.g:7027:1: ( ( rule__UseEquation__CallParamsAssignment_6 ) )
-            // InternalAlpha.g:7028:2: ( rule__UseEquation__CallParamsAssignment_6 )
+            // InternalAlpha.g:7027:1: ( ( rule__UseEquation__CallParamsExprAssignment_6 ) )
+            // InternalAlpha.g:7028:2: ( rule__UseEquation__CallParamsExprAssignment_6 )
             {
-             before(grammarAccess.getUseEquationAccess().getCallParamsAssignment_6()); 
-            // InternalAlpha.g:7029:2: ( rule__UseEquation__CallParamsAssignment_6 )
-            // InternalAlpha.g:7029:3: rule__UseEquation__CallParamsAssignment_6
+             before(grammarAccess.getUseEquationAccess().getCallParamsExprAssignment_6()); 
+            // InternalAlpha.g:7029:2: ( rule__UseEquation__CallParamsExprAssignment_6 )
+            // InternalAlpha.g:7029:3: rule__UseEquation__CallParamsExprAssignment_6
             {
             pushFollow(FOLLOW_2);
-            rule__UseEquation__CallParamsAssignment_6();
+            rule__UseEquation__CallParamsExprAssignment_6();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getUseEquationAccess().getCallParamsAssignment_6()); 
+             after(grammarAccess.getUseEquationAccess().getCallParamsExprAssignment_6()); 
 
             }
 
@@ -26191,31 +26191,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DependenceExpression__Group_0__0__Impl"
-    // InternalAlpha.g:8433:1: rule__DependenceExpression__Group_0__0__Impl : ( ( rule__DependenceExpression__FunctionAssignment_0_0 ) ) ;
+    // InternalAlpha.g:8433:1: rule__DependenceExpression__Group_0__0__Impl : ( ( rule__DependenceExpression__FunctionExprAssignment_0_0 ) ) ;
     public final void rule__DependenceExpression__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:8437:1: ( ( ( rule__DependenceExpression__FunctionAssignment_0_0 ) ) )
-            // InternalAlpha.g:8438:1: ( ( rule__DependenceExpression__FunctionAssignment_0_0 ) )
+            // InternalAlpha.g:8437:1: ( ( ( rule__DependenceExpression__FunctionExprAssignment_0_0 ) ) )
+            // InternalAlpha.g:8438:1: ( ( rule__DependenceExpression__FunctionExprAssignment_0_0 ) )
             {
-            // InternalAlpha.g:8438:1: ( ( rule__DependenceExpression__FunctionAssignment_0_0 ) )
-            // InternalAlpha.g:8439:2: ( rule__DependenceExpression__FunctionAssignment_0_0 )
+            // InternalAlpha.g:8438:1: ( ( rule__DependenceExpression__FunctionExprAssignment_0_0 ) )
+            // InternalAlpha.g:8439:2: ( rule__DependenceExpression__FunctionExprAssignment_0_0 )
             {
-             before(grammarAccess.getDependenceExpressionAccess().getFunctionAssignment_0_0()); 
-            // InternalAlpha.g:8440:2: ( rule__DependenceExpression__FunctionAssignment_0_0 )
-            // InternalAlpha.g:8440:3: rule__DependenceExpression__FunctionAssignment_0_0
+             before(grammarAccess.getDependenceExpressionAccess().getFunctionExprAssignment_0_0()); 
+            // InternalAlpha.g:8440:2: ( rule__DependenceExpression__FunctionExprAssignment_0_0 )
+            // InternalAlpha.g:8440:3: rule__DependenceExpression__FunctionExprAssignment_0_0
             {
             pushFollow(FOLLOW_2);
-            rule__DependenceExpression__FunctionAssignment_0_0();
+            rule__DependenceExpression__FunctionExprAssignment_0_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getDependenceExpressionAccess().getFunctionAssignment_0_0()); 
+             after(grammarAccess.getDependenceExpressionAccess().getFunctionExprAssignment_0_0()); 
 
             }
 
@@ -26511,31 +26511,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DependenceExpression__Group_1__1__Impl"
-    // InternalAlpha.g:8540:1: rule__DependenceExpression__Group_1__1__Impl : ( ( rule__DependenceExpression__FunctionAssignment_1_1 ) ) ;
+    // InternalAlpha.g:8540:1: rule__DependenceExpression__Group_1__1__Impl : ( ( rule__DependenceExpression__FunctionExprAssignment_1_1 ) ) ;
     public final void rule__DependenceExpression__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:8544:1: ( ( ( rule__DependenceExpression__FunctionAssignment_1_1 ) ) )
-            // InternalAlpha.g:8545:1: ( ( rule__DependenceExpression__FunctionAssignment_1_1 ) )
+            // InternalAlpha.g:8544:1: ( ( ( rule__DependenceExpression__FunctionExprAssignment_1_1 ) ) )
+            // InternalAlpha.g:8545:1: ( ( rule__DependenceExpression__FunctionExprAssignment_1_1 ) )
             {
-            // InternalAlpha.g:8545:1: ( ( rule__DependenceExpression__FunctionAssignment_1_1 ) )
-            // InternalAlpha.g:8546:2: ( rule__DependenceExpression__FunctionAssignment_1_1 )
+            // InternalAlpha.g:8545:1: ( ( rule__DependenceExpression__FunctionExprAssignment_1_1 ) )
+            // InternalAlpha.g:8546:2: ( rule__DependenceExpression__FunctionExprAssignment_1_1 )
             {
-             before(grammarAccess.getDependenceExpressionAccess().getFunctionAssignment_1_1()); 
-            // InternalAlpha.g:8547:2: ( rule__DependenceExpression__FunctionAssignment_1_1 )
-            // InternalAlpha.g:8547:3: rule__DependenceExpression__FunctionAssignment_1_1
+             before(grammarAccess.getDependenceExpressionAccess().getFunctionExprAssignment_1_1()); 
+            // InternalAlpha.g:8547:2: ( rule__DependenceExpression__FunctionExprAssignment_1_1 )
+            // InternalAlpha.g:8547:3: rule__DependenceExpression__FunctionExprAssignment_1_1
             {
             pushFollow(FOLLOW_2);
-            rule__DependenceExpression__FunctionAssignment_1_1();
+            rule__DependenceExpression__FunctionExprAssignment_1_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getDependenceExpressionAccess().getFunctionAssignment_1_1()); 
+             after(grammarAccess.getDependenceExpressionAccess().getFunctionExprAssignment_1_1()); 
 
             }
 
@@ -26666,31 +26666,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IndexExpression__Group_0__1__Impl"
-    // InternalAlpha.g:8594:1: rule__IndexExpression__Group_0__1__Impl : ( ( rule__IndexExpression__FunctionAssignment_0_1 ) ) ;
+    // InternalAlpha.g:8594:1: rule__IndexExpression__Group_0__1__Impl : ( ( rule__IndexExpression__FunctionExprAssignment_0_1 ) ) ;
     public final void rule__IndexExpression__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:8598:1: ( ( ( rule__IndexExpression__FunctionAssignment_0_1 ) ) )
-            // InternalAlpha.g:8599:1: ( ( rule__IndexExpression__FunctionAssignment_0_1 ) )
+            // InternalAlpha.g:8598:1: ( ( ( rule__IndexExpression__FunctionExprAssignment_0_1 ) ) )
+            // InternalAlpha.g:8599:1: ( ( rule__IndexExpression__FunctionExprAssignment_0_1 ) )
             {
-            // InternalAlpha.g:8599:1: ( ( rule__IndexExpression__FunctionAssignment_0_1 ) )
-            // InternalAlpha.g:8600:2: ( rule__IndexExpression__FunctionAssignment_0_1 )
+            // InternalAlpha.g:8599:1: ( ( rule__IndexExpression__FunctionExprAssignment_0_1 ) )
+            // InternalAlpha.g:8600:2: ( rule__IndexExpression__FunctionExprAssignment_0_1 )
             {
-             before(grammarAccess.getIndexExpressionAccess().getFunctionAssignment_0_1()); 
-            // InternalAlpha.g:8601:2: ( rule__IndexExpression__FunctionAssignment_0_1 )
-            // InternalAlpha.g:8601:3: rule__IndexExpression__FunctionAssignment_0_1
+             before(grammarAccess.getIndexExpressionAccess().getFunctionExprAssignment_0_1()); 
+            // InternalAlpha.g:8601:2: ( rule__IndexExpression__FunctionExprAssignment_0_1 )
+            // InternalAlpha.g:8601:3: rule__IndexExpression__FunctionExprAssignment_0_1
             {
             pushFollow(FOLLOW_2);
-            rule__IndexExpression__FunctionAssignment_0_1();
+            rule__IndexExpression__FunctionExprAssignment_0_1();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getIndexExpressionAccess().getFunctionAssignment_0_1()); 
+             after(grammarAccess.getIndexExpressionAccess().getFunctionExprAssignment_0_1()); 
 
             }
 
@@ -27061,31 +27061,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReduceExpression__Group__4__Impl"
-    // InternalAlpha.g:8730:1: rule__ReduceExpression__Group__4__Impl : ( ( rule__ReduceExpression__ProjectionAssignment_4 ) ) ;
+    // InternalAlpha.g:8730:1: rule__ReduceExpression__Group__4__Impl : ( ( rule__ReduceExpression__ProjectionExprAssignment_4 ) ) ;
     public final void rule__ReduceExpression__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:8734:1: ( ( ( rule__ReduceExpression__ProjectionAssignment_4 ) ) )
-            // InternalAlpha.g:8735:1: ( ( rule__ReduceExpression__ProjectionAssignment_4 ) )
+            // InternalAlpha.g:8734:1: ( ( ( rule__ReduceExpression__ProjectionExprAssignment_4 ) ) )
+            // InternalAlpha.g:8735:1: ( ( rule__ReduceExpression__ProjectionExprAssignment_4 ) )
             {
-            // InternalAlpha.g:8735:1: ( ( rule__ReduceExpression__ProjectionAssignment_4 ) )
-            // InternalAlpha.g:8736:2: ( rule__ReduceExpression__ProjectionAssignment_4 )
+            // InternalAlpha.g:8735:1: ( ( rule__ReduceExpression__ProjectionExprAssignment_4 ) )
+            // InternalAlpha.g:8736:2: ( rule__ReduceExpression__ProjectionExprAssignment_4 )
             {
-             before(grammarAccess.getReduceExpressionAccess().getProjectionAssignment_4()); 
-            // InternalAlpha.g:8737:2: ( rule__ReduceExpression__ProjectionAssignment_4 )
-            // InternalAlpha.g:8737:3: rule__ReduceExpression__ProjectionAssignment_4
+             before(grammarAccess.getReduceExpressionAccess().getProjectionExprAssignment_4()); 
+            // InternalAlpha.g:8737:2: ( rule__ReduceExpression__ProjectionExprAssignment_4 )
+            // InternalAlpha.g:8737:3: rule__ReduceExpression__ProjectionExprAssignment_4
             {
             pushFollow(FOLLOW_2);
-            rule__ReduceExpression__ProjectionAssignment_4();
+            rule__ReduceExpression__ProjectionExprAssignment_4();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getReduceExpressionAccess().getProjectionAssignment_4()); 
+             after(grammarAccess.getReduceExpressionAccess().getProjectionExprAssignment_4()); 
 
             }
 
@@ -27686,31 +27686,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExternalReduceExpression__Group__4__Impl"
-    // InternalAlpha.g:8946:1: rule__ExternalReduceExpression__Group__4__Impl : ( ( rule__ExternalReduceExpression__ProjectionAssignment_4 ) ) ;
+    // InternalAlpha.g:8946:1: rule__ExternalReduceExpression__Group__4__Impl : ( ( rule__ExternalReduceExpression__ProjectionExprAssignment_4 ) ) ;
     public final void rule__ExternalReduceExpression__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:8950:1: ( ( ( rule__ExternalReduceExpression__ProjectionAssignment_4 ) ) )
-            // InternalAlpha.g:8951:1: ( ( rule__ExternalReduceExpression__ProjectionAssignment_4 ) )
+            // InternalAlpha.g:8950:1: ( ( ( rule__ExternalReduceExpression__ProjectionExprAssignment_4 ) ) )
+            // InternalAlpha.g:8951:1: ( ( rule__ExternalReduceExpression__ProjectionExprAssignment_4 ) )
             {
-            // InternalAlpha.g:8951:1: ( ( rule__ExternalReduceExpression__ProjectionAssignment_4 ) )
-            // InternalAlpha.g:8952:2: ( rule__ExternalReduceExpression__ProjectionAssignment_4 )
+            // InternalAlpha.g:8951:1: ( ( rule__ExternalReduceExpression__ProjectionExprAssignment_4 ) )
+            // InternalAlpha.g:8952:2: ( rule__ExternalReduceExpression__ProjectionExprAssignment_4 )
             {
-             before(grammarAccess.getExternalReduceExpressionAccess().getProjectionAssignment_4()); 
-            // InternalAlpha.g:8953:2: ( rule__ExternalReduceExpression__ProjectionAssignment_4 )
-            // InternalAlpha.g:8953:3: rule__ExternalReduceExpression__ProjectionAssignment_4
+             before(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprAssignment_4()); 
+            // InternalAlpha.g:8953:2: ( rule__ExternalReduceExpression__ProjectionExprAssignment_4 )
+            // InternalAlpha.g:8953:3: rule__ExternalReduceExpression__ProjectionExprAssignment_4
             {
             pushFollow(FOLLOW_2);
-            rule__ExternalReduceExpression__ProjectionAssignment_4();
+            rule__ExternalReduceExpression__ProjectionExprAssignment_4();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getExternalReduceExpressionAccess().getProjectionAssignment_4()); 
+             after(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprAssignment_4()); 
 
             }
 
@@ -28311,31 +28311,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArgReduceExpression__Group__4__Impl"
-    // InternalAlpha.g:9162:1: rule__ArgReduceExpression__Group__4__Impl : ( ( rule__ArgReduceExpression__ProjectionAssignment_4 ) ) ;
+    // InternalAlpha.g:9162:1: rule__ArgReduceExpression__Group__4__Impl : ( ( rule__ArgReduceExpression__ProjectionExprAssignment_4 ) ) ;
     public final void rule__ArgReduceExpression__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:9166:1: ( ( ( rule__ArgReduceExpression__ProjectionAssignment_4 ) ) )
-            // InternalAlpha.g:9167:1: ( ( rule__ArgReduceExpression__ProjectionAssignment_4 ) )
+            // InternalAlpha.g:9166:1: ( ( ( rule__ArgReduceExpression__ProjectionExprAssignment_4 ) ) )
+            // InternalAlpha.g:9167:1: ( ( rule__ArgReduceExpression__ProjectionExprAssignment_4 ) )
             {
-            // InternalAlpha.g:9167:1: ( ( rule__ArgReduceExpression__ProjectionAssignment_4 ) )
-            // InternalAlpha.g:9168:2: ( rule__ArgReduceExpression__ProjectionAssignment_4 )
+            // InternalAlpha.g:9167:1: ( ( rule__ArgReduceExpression__ProjectionExprAssignment_4 ) )
+            // InternalAlpha.g:9168:2: ( rule__ArgReduceExpression__ProjectionExprAssignment_4 )
             {
-             before(grammarAccess.getArgReduceExpressionAccess().getProjectionAssignment_4()); 
-            // InternalAlpha.g:9169:2: ( rule__ArgReduceExpression__ProjectionAssignment_4 )
-            // InternalAlpha.g:9169:3: rule__ArgReduceExpression__ProjectionAssignment_4
+             before(grammarAccess.getArgReduceExpressionAccess().getProjectionExprAssignment_4()); 
+            // InternalAlpha.g:9169:2: ( rule__ArgReduceExpression__ProjectionExprAssignment_4 )
+            // InternalAlpha.g:9169:3: rule__ArgReduceExpression__ProjectionExprAssignment_4
             {
             pushFollow(FOLLOW_2);
-            rule__ArgReduceExpression__ProjectionAssignment_4();
+            rule__ArgReduceExpression__ProjectionExprAssignment_4();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getArgReduceExpressionAccess().getProjectionAssignment_4()); 
+             after(grammarAccess.getArgReduceExpressionAccess().getProjectionExprAssignment_4()); 
 
             }
 
@@ -28936,31 +28936,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExternalArgReduceExpression__Group__4__Impl"
-    // InternalAlpha.g:9378:1: rule__ExternalArgReduceExpression__Group__4__Impl : ( ( rule__ExternalArgReduceExpression__ProjectionAssignment_4 ) ) ;
+    // InternalAlpha.g:9378:1: rule__ExternalArgReduceExpression__Group__4__Impl : ( ( rule__ExternalArgReduceExpression__ProjectionExprAssignment_4 ) ) ;
     public final void rule__ExternalArgReduceExpression__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:9382:1: ( ( ( rule__ExternalArgReduceExpression__ProjectionAssignment_4 ) ) )
-            // InternalAlpha.g:9383:1: ( ( rule__ExternalArgReduceExpression__ProjectionAssignment_4 ) )
+            // InternalAlpha.g:9382:1: ( ( ( rule__ExternalArgReduceExpression__ProjectionExprAssignment_4 ) ) )
+            // InternalAlpha.g:9383:1: ( ( rule__ExternalArgReduceExpression__ProjectionExprAssignment_4 ) )
             {
-            // InternalAlpha.g:9383:1: ( ( rule__ExternalArgReduceExpression__ProjectionAssignment_4 ) )
-            // InternalAlpha.g:9384:2: ( rule__ExternalArgReduceExpression__ProjectionAssignment_4 )
+            // InternalAlpha.g:9383:1: ( ( rule__ExternalArgReduceExpression__ProjectionExprAssignment_4 ) )
+            // InternalAlpha.g:9384:2: ( rule__ExternalArgReduceExpression__ProjectionExprAssignment_4 )
             {
-             before(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionAssignment_4()); 
-            // InternalAlpha.g:9385:2: ( rule__ExternalArgReduceExpression__ProjectionAssignment_4 )
-            // InternalAlpha.g:9385:3: rule__ExternalArgReduceExpression__ProjectionAssignment_4
+             before(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprAssignment_4()); 
+            // InternalAlpha.g:9385:2: ( rule__ExternalArgReduceExpression__ProjectionExprAssignment_4 )
+            // InternalAlpha.g:9385:3: rule__ExternalArgReduceExpression__ProjectionExprAssignment_4
             {
             pushFollow(FOLLOW_2);
-            rule__ExternalArgReduceExpression__ProjectionAssignment_4();
+            rule__ExternalArgReduceExpression__ProjectionExprAssignment_4();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionAssignment_4()); 
+             after(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprAssignment_4()); 
 
             }
 
@@ -29401,31 +29401,31 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConvolutionExpression__Group__2__Impl"
-    // InternalAlpha.g:9540:1: rule__ConvolutionExpression__Group__2__Impl : ( ( rule__ConvolutionExpression__KernelDomainAssignment_2 ) ) ;
+    // InternalAlpha.g:9540:1: rule__ConvolutionExpression__Group__2__Impl : ( ( rule__ConvolutionExpression__KernelDomainExprAssignment_2 ) ) ;
     public final void rule__ConvolutionExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:9544:1: ( ( ( rule__ConvolutionExpression__KernelDomainAssignment_2 ) ) )
-            // InternalAlpha.g:9545:1: ( ( rule__ConvolutionExpression__KernelDomainAssignment_2 ) )
+            // InternalAlpha.g:9544:1: ( ( ( rule__ConvolutionExpression__KernelDomainExprAssignment_2 ) ) )
+            // InternalAlpha.g:9545:1: ( ( rule__ConvolutionExpression__KernelDomainExprAssignment_2 ) )
             {
-            // InternalAlpha.g:9545:1: ( ( rule__ConvolutionExpression__KernelDomainAssignment_2 ) )
-            // InternalAlpha.g:9546:2: ( rule__ConvolutionExpression__KernelDomainAssignment_2 )
+            // InternalAlpha.g:9545:1: ( ( rule__ConvolutionExpression__KernelDomainExprAssignment_2 ) )
+            // InternalAlpha.g:9546:2: ( rule__ConvolutionExpression__KernelDomainExprAssignment_2 )
             {
-             before(grammarAccess.getConvolutionExpressionAccess().getKernelDomainAssignment_2()); 
-            // InternalAlpha.g:9547:2: ( rule__ConvolutionExpression__KernelDomainAssignment_2 )
-            // InternalAlpha.g:9547:3: rule__ConvolutionExpression__KernelDomainAssignment_2
+             before(grammarAccess.getConvolutionExpressionAccess().getKernelDomainExprAssignment_2()); 
+            // InternalAlpha.g:9547:2: ( rule__ConvolutionExpression__KernelDomainExprAssignment_2 )
+            // InternalAlpha.g:9547:3: rule__ConvolutionExpression__KernelDomainExprAssignment_2
             {
             pushFollow(FOLLOW_2);
-            rule__ConvolutionExpression__KernelDomainAssignment_2();
+            rule__ConvolutionExpression__KernelDomainExprAssignment_2();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getConvolutionExpressionAccess().getKernelDomainAssignment_2()); 
+             after(grammarAccess.getConvolutionExpressionAccess().getKernelDomainExprAssignment_2()); 
 
             }
 
@@ -36753,9 +36753,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__AlphaSystem__NameAssignment_1"
 
 
-    // $ANTLR start "rule__AlphaSystem__ParameterDomainAssignment_2"
-    // InternalAlpha.g:11985:1: rule__AlphaSystem__ParameterDomainAssignment_2 : ( ruleJNIParamDomain ) ;
-    public final void rule__AlphaSystem__ParameterDomainAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__AlphaSystem__ParameterDomainExprAssignment_2"
+    // InternalAlpha.g:11985:1: rule__AlphaSystem__ParameterDomainExprAssignment_2 : ( ruleJNIParamDomain ) ;
+    public final void rule__AlphaSystem__ParameterDomainExprAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -36766,13 +36766,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:11990:2: ( ruleJNIParamDomain )
             // InternalAlpha.g:11991:3: ruleJNIParamDomain
             {
-             before(grammarAccess.getAlphaSystemAccess().getParameterDomainJNIParamDomainParserRuleCall_2_0()); 
+             before(grammarAccess.getAlphaSystemAccess().getParameterDomainExprJNIParamDomainParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
             ruleJNIParamDomain();
 
             state._fsp--;
 
-             after(grammarAccess.getAlphaSystemAccess().getParameterDomainJNIParamDomainParserRuleCall_2_0()); 
+             after(grammarAccess.getAlphaSystemAccess().getParameterDomainExprJNIParamDomainParserRuleCall_2_0()); 
 
             }
 
@@ -36791,7 +36791,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__AlphaSystem__ParameterDomainAssignment_2"
+    // $ANTLR end "rule__AlphaSystem__ParameterDomainExprAssignment_2"
 
 
     // $ANTLR start "rule__AlphaSystem__DefinedObjectsAssignment_3_1"
@@ -36999,9 +36999,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__AlphaSystem__FuzzyVariablesAssignment_7_1"
 
 
-    // $ANTLR start "rule__AlphaSystem__WhileDomainAssignment_8_1"
-    // InternalAlpha.g:12075:1: rule__AlphaSystem__WhileDomainAssignment_8_1 : ( ruleCalculatorExpression ) ;
-    public final void rule__AlphaSystem__WhileDomainAssignment_8_1() throws RecognitionException {
+    // $ANTLR start "rule__AlphaSystem__WhileDomainExprAssignment_8_1"
+    // InternalAlpha.g:12075:1: rule__AlphaSystem__WhileDomainExprAssignment_8_1 : ( ruleCalculatorExpression ) ;
+    public final void rule__AlphaSystem__WhileDomainExprAssignment_8_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -37012,13 +37012,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:12080:2: ( ruleCalculatorExpression )
             // InternalAlpha.g:12081:3: ruleCalculatorExpression
             {
-             before(grammarAccess.getAlphaSystemAccess().getWhileDomainCalculatorExpressionParserRuleCall_8_1_0()); 
+             before(grammarAccess.getAlphaSystemAccess().getWhileDomainExprCalculatorExpressionParserRuleCall_8_1_0()); 
             pushFollow(FOLLOW_2);
             ruleCalculatorExpression();
 
             state._fsp--;
 
-             after(grammarAccess.getAlphaSystemAccess().getWhileDomainCalculatorExpressionParserRuleCall_8_1_0()); 
+             after(grammarAccess.getAlphaSystemAccess().getWhileDomainExprCalculatorExpressionParserRuleCall_8_1_0()); 
 
             }
 
@@ -37037,7 +37037,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__AlphaSystem__WhileDomainAssignment_8_1"
+    // $ANTLR end "rule__AlphaSystem__WhileDomainExprAssignment_8_1"
 
 
     // $ANTLR start "rule__AlphaSystem__TestExpressionAssignment_8_4"
@@ -38184,9 +38184,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__UseEquation__SystemAssignment_5"
 
 
-    // $ANTLR start "rule__UseEquation__CallParamsAssignment_6"
-    // InternalAlpha.g:12518:1: rule__UseEquation__CallParamsAssignment_6 : ( ruleJNIFunctionInArrayNotation ) ;
-    public final void rule__UseEquation__CallParamsAssignment_6() throws RecognitionException {
+    // $ANTLR start "rule__UseEquation__CallParamsExprAssignment_6"
+    // InternalAlpha.g:12518:1: rule__UseEquation__CallParamsExprAssignment_6 : ( ruleJNIFunctionInArrayNotation ) ;
+    public final void rule__UseEquation__CallParamsExprAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -38197,13 +38197,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:12523:2: ( ruleJNIFunctionInArrayNotation )
             // InternalAlpha.g:12524:3: ruleJNIFunctionInArrayNotation
             {
-             before(grammarAccess.getUseEquationAccess().getCallParamsJNIFunctionInArrayNotationParserRuleCall_6_0()); 
+             before(grammarAccess.getUseEquationAccess().getCallParamsExprJNIFunctionInArrayNotationParserRuleCall_6_0()); 
             pushFollow(FOLLOW_2);
             ruleJNIFunctionInArrayNotation();
 
             state._fsp--;
 
-             after(grammarAccess.getUseEquationAccess().getCallParamsJNIFunctionInArrayNotationParserRuleCall_6_0()); 
+             after(grammarAccess.getUseEquationAccess().getCallParamsExprJNIFunctionInArrayNotationParserRuleCall_6_0()); 
 
             }
 
@@ -38222,7 +38222,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__UseEquation__CallParamsAssignment_6"
+    // $ANTLR end "rule__UseEquation__CallParamsExprAssignment_6"
 
 
     // $ANTLR start "rule__UseEquation__InputExprsAssignment_8_0"
@@ -38719,9 +38719,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__CaseExpression__ExprsAssignment_3_0"
 
 
-    // $ANTLR start "rule__DependenceExpression__FunctionAssignment_0_0"
-    // InternalAlpha.g:12713:1: rule__DependenceExpression__FunctionAssignment_0_0 : ( ruleJNIFunction ) ;
-    public final void rule__DependenceExpression__FunctionAssignment_0_0() throws RecognitionException {
+    // $ANTLR start "rule__DependenceExpression__FunctionExprAssignment_0_0"
+    // InternalAlpha.g:12713:1: rule__DependenceExpression__FunctionExprAssignment_0_0 : ( ruleJNIFunction ) ;
+    public final void rule__DependenceExpression__FunctionExprAssignment_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -38732,13 +38732,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:12718:2: ( ruleJNIFunction )
             // InternalAlpha.g:12719:3: ruleJNIFunction
             {
-             before(grammarAccess.getDependenceExpressionAccess().getFunctionJNIFunctionParserRuleCall_0_0_0()); 
+             before(grammarAccess.getDependenceExpressionAccess().getFunctionExprJNIFunctionParserRuleCall_0_0_0()); 
             pushFollow(FOLLOW_2);
             ruleJNIFunction();
 
             state._fsp--;
 
-             after(grammarAccess.getDependenceExpressionAccess().getFunctionJNIFunctionParserRuleCall_0_0_0()); 
+             after(grammarAccess.getDependenceExpressionAccess().getFunctionExprJNIFunctionParserRuleCall_0_0_0()); 
 
             }
 
@@ -38757,7 +38757,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__DependenceExpression__FunctionAssignment_0_0"
+    // $ANTLR end "rule__DependenceExpression__FunctionExprAssignment_0_0"
 
 
     // $ANTLR start "rule__DependenceExpression__ExprAssignment_0_2"
@@ -38842,9 +38842,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__DependenceExpression__ExprAssignment_1_0"
 
 
-    // $ANTLR start "rule__DependenceExpression__FunctionAssignment_1_1"
-    // InternalAlpha.g:12758:1: rule__DependenceExpression__FunctionAssignment_1_1 : ( ruleJNIFunctionInArrayNotation ) ;
-    public final void rule__DependenceExpression__FunctionAssignment_1_1() throws RecognitionException {
+    // $ANTLR start "rule__DependenceExpression__FunctionExprAssignment_1_1"
+    // InternalAlpha.g:12758:1: rule__DependenceExpression__FunctionExprAssignment_1_1 : ( ruleJNIFunctionInArrayNotation ) ;
+    public final void rule__DependenceExpression__FunctionExprAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -38855,13 +38855,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:12763:2: ( ruleJNIFunctionInArrayNotation )
             // InternalAlpha.g:12764:3: ruleJNIFunctionInArrayNotation
             {
-             before(grammarAccess.getDependenceExpressionAccess().getFunctionJNIFunctionInArrayNotationParserRuleCall_1_1_0()); 
+             before(grammarAccess.getDependenceExpressionAccess().getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0()); 
             pushFollow(FOLLOW_2);
             ruleJNIFunctionInArrayNotation();
 
             state._fsp--;
 
-             after(grammarAccess.getDependenceExpressionAccess().getFunctionJNIFunctionInArrayNotationParserRuleCall_1_1_0()); 
+             after(grammarAccess.getDependenceExpressionAccess().getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0()); 
 
             }
 
@@ -38880,12 +38880,12 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__DependenceExpression__FunctionAssignment_1_1"
+    // $ANTLR end "rule__DependenceExpression__FunctionExprAssignment_1_1"
 
 
-    // $ANTLR start "rule__IndexExpression__FunctionAssignment_0_1"
-    // InternalAlpha.g:12773:1: rule__IndexExpression__FunctionAssignment_0_1 : ( ruleJNIFunction ) ;
-    public final void rule__IndexExpression__FunctionAssignment_0_1() throws RecognitionException {
+    // $ANTLR start "rule__IndexExpression__FunctionExprAssignment_0_1"
+    // InternalAlpha.g:12773:1: rule__IndexExpression__FunctionExprAssignment_0_1 : ( ruleJNIFunction ) ;
+    public final void rule__IndexExpression__FunctionExprAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -38896,13 +38896,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:12778:2: ( ruleJNIFunction )
             // InternalAlpha.g:12779:3: ruleJNIFunction
             {
-             before(grammarAccess.getIndexExpressionAccess().getFunctionJNIFunctionParserRuleCall_0_1_0()); 
+             before(grammarAccess.getIndexExpressionAccess().getFunctionExprJNIFunctionParserRuleCall_0_1_0()); 
             pushFollow(FOLLOW_2);
             ruleJNIFunction();
 
             state._fsp--;
 
-             after(grammarAccess.getIndexExpressionAccess().getFunctionJNIFunctionParserRuleCall_0_1_0()); 
+             after(grammarAccess.getIndexExpressionAccess().getFunctionExprJNIFunctionParserRuleCall_0_1_0()); 
 
             }
 
@@ -38921,12 +38921,12 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IndexExpression__FunctionAssignment_0_1"
+    // $ANTLR end "rule__IndexExpression__FunctionExprAssignment_0_1"
 
 
-    // $ANTLR start "rule__IndexExpression__FunctionAssignment_1"
-    // InternalAlpha.g:12788:1: rule__IndexExpression__FunctionAssignment_1 : ( ruleJNIFunctionInArrayNotation ) ;
-    public final void rule__IndexExpression__FunctionAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__IndexExpression__FunctionExprAssignment_1"
+    // InternalAlpha.g:12788:1: rule__IndexExpression__FunctionExprAssignment_1 : ( ruleJNIFunctionInArrayNotation ) ;
+    public final void rule__IndexExpression__FunctionExprAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -38937,13 +38937,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:12793:2: ( ruleJNIFunctionInArrayNotation )
             // InternalAlpha.g:12794:3: ruleJNIFunctionInArrayNotation
             {
-             before(grammarAccess.getIndexExpressionAccess().getFunctionJNIFunctionInArrayNotationParserRuleCall_1_0()); 
+             before(grammarAccess.getIndexExpressionAccess().getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
             ruleJNIFunctionInArrayNotation();
 
             state._fsp--;
 
-             after(grammarAccess.getIndexExpressionAccess().getFunctionJNIFunctionInArrayNotationParserRuleCall_1_0()); 
+             after(grammarAccess.getIndexExpressionAccess().getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_0()); 
 
             }
 
@@ -38962,7 +38962,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__IndexExpression__FunctionAssignment_1"
+    // $ANTLR end "rule__IndexExpression__FunctionExprAssignment_1"
 
 
     // $ANTLR start "rule__ReduceExpression__OperatorAssignment_2"
@@ -39006,32 +39006,32 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ReduceExpression__OperatorAssignment_2"
 
 
-    // $ANTLR start "rule__ReduceExpression__ProjectionAssignment_4"
-    // InternalAlpha.g:12818:1: rule__ReduceExpression__ProjectionAssignment_4 : ( ( rule__ReduceExpression__ProjectionAlternatives_4_0 ) ) ;
-    public final void rule__ReduceExpression__ProjectionAssignment_4() throws RecognitionException {
+    // $ANTLR start "rule__ReduceExpression__ProjectionExprAssignment_4"
+    // InternalAlpha.g:12818:1: rule__ReduceExpression__ProjectionExprAssignment_4 : ( ( rule__ReduceExpression__ProjectionExprAlternatives_4_0 ) ) ;
+    public final void rule__ReduceExpression__ProjectionExprAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:12822:1: ( ( ( rule__ReduceExpression__ProjectionAlternatives_4_0 ) ) )
-            // InternalAlpha.g:12823:2: ( ( rule__ReduceExpression__ProjectionAlternatives_4_0 ) )
+            // InternalAlpha.g:12822:1: ( ( ( rule__ReduceExpression__ProjectionExprAlternatives_4_0 ) ) )
+            // InternalAlpha.g:12823:2: ( ( rule__ReduceExpression__ProjectionExprAlternatives_4_0 ) )
             {
-            // InternalAlpha.g:12823:2: ( ( rule__ReduceExpression__ProjectionAlternatives_4_0 ) )
-            // InternalAlpha.g:12824:3: ( rule__ReduceExpression__ProjectionAlternatives_4_0 )
+            // InternalAlpha.g:12823:2: ( ( rule__ReduceExpression__ProjectionExprAlternatives_4_0 ) )
+            // InternalAlpha.g:12824:3: ( rule__ReduceExpression__ProjectionExprAlternatives_4_0 )
             {
-             before(grammarAccess.getReduceExpressionAccess().getProjectionAlternatives_4_0()); 
-            // InternalAlpha.g:12825:3: ( rule__ReduceExpression__ProjectionAlternatives_4_0 )
-            // InternalAlpha.g:12825:4: rule__ReduceExpression__ProjectionAlternatives_4_0
+             before(grammarAccess.getReduceExpressionAccess().getProjectionExprAlternatives_4_0()); 
+            // InternalAlpha.g:12825:3: ( rule__ReduceExpression__ProjectionExprAlternatives_4_0 )
+            // InternalAlpha.g:12825:4: rule__ReduceExpression__ProjectionExprAlternatives_4_0
             {
             pushFollow(FOLLOW_2);
-            rule__ReduceExpression__ProjectionAlternatives_4_0();
+            rule__ReduceExpression__ProjectionExprAlternatives_4_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getReduceExpressionAccess().getProjectionAlternatives_4_0()); 
+             after(grammarAccess.getReduceExpressionAccess().getProjectionExprAlternatives_4_0()); 
 
             }
 
@@ -39050,7 +39050,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ReduceExpression__ProjectionAssignment_4"
+    // $ANTLR end "rule__ReduceExpression__ProjectionExprAssignment_4"
 
 
     // $ANTLR start "rule__ReduceExpression__BodyAssignment_6"
@@ -39139,32 +39139,32 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ExternalReduceExpression__ExternalFunctionAssignment_2"
 
 
-    // $ANTLR start "rule__ExternalReduceExpression__ProjectionAssignment_4"
-    // InternalAlpha.g:12867:1: rule__ExternalReduceExpression__ProjectionAssignment_4 : ( ( rule__ExternalReduceExpression__ProjectionAlternatives_4_0 ) ) ;
-    public final void rule__ExternalReduceExpression__ProjectionAssignment_4() throws RecognitionException {
+    // $ANTLR start "rule__ExternalReduceExpression__ProjectionExprAssignment_4"
+    // InternalAlpha.g:12867:1: rule__ExternalReduceExpression__ProjectionExprAssignment_4 : ( ( rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0 ) ) ;
+    public final void rule__ExternalReduceExpression__ProjectionExprAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:12871:1: ( ( ( rule__ExternalReduceExpression__ProjectionAlternatives_4_0 ) ) )
-            // InternalAlpha.g:12872:2: ( ( rule__ExternalReduceExpression__ProjectionAlternatives_4_0 ) )
+            // InternalAlpha.g:12871:1: ( ( ( rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0 ) ) )
+            // InternalAlpha.g:12872:2: ( ( rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0 ) )
             {
-            // InternalAlpha.g:12872:2: ( ( rule__ExternalReduceExpression__ProjectionAlternatives_4_0 ) )
-            // InternalAlpha.g:12873:3: ( rule__ExternalReduceExpression__ProjectionAlternatives_4_0 )
+            // InternalAlpha.g:12872:2: ( ( rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0 ) )
+            // InternalAlpha.g:12873:3: ( rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0 )
             {
-             before(grammarAccess.getExternalReduceExpressionAccess().getProjectionAlternatives_4_0()); 
-            // InternalAlpha.g:12874:3: ( rule__ExternalReduceExpression__ProjectionAlternatives_4_0 )
-            // InternalAlpha.g:12874:4: rule__ExternalReduceExpression__ProjectionAlternatives_4_0
+             before(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprAlternatives_4_0()); 
+            // InternalAlpha.g:12874:3: ( rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0 )
+            // InternalAlpha.g:12874:4: rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0
             {
             pushFollow(FOLLOW_2);
-            rule__ExternalReduceExpression__ProjectionAlternatives_4_0();
+            rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getExternalReduceExpressionAccess().getProjectionAlternatives_4_0()); 
+             after(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprAlternatives_4_0()); 
 
             }
 
@@ -39183,7 +39183,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ExternalReduceExpression__ProjectionAssignment_4"
+    // $ANTLR end "rule__ExternalReduceExpression__ProjectionExprAssignment_4"
 
 
     // $ANTLR start "rule__ExternalReduceExpression__BodyAssignment_6"
@@ -39268,32 +39268,32 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ArgReduceExpression__OperatorAssignment_2"
 
 
-    // $ANTLR start "rule__ArgReduceExpression__ProjectionAssignment_4"
-    // InternalAlpha.g:12912:1: rule__ArgReduceExpression__ProjectionAssignment_4 : ( ( rule__ArgReduceExpression__ProjectionAlternatives_4_0 ) ) ;
-    public final void rule__ArgReduceExpression__ProjectionAssignment_4() throws RecognitionException {
+    // $ANTLR start "rule__ArgReduceExpression__ProjectionExprAssignment_4"
+    // InternalAlpha.g:12912:1: rule__ArgReduceExpression__ProjectionExprAssignment_4 : ( ( rule__ArgReduceExpression__ProjectionExprAlternatives_4_0 ) ) ;
+    public final void rule__ArgReduceExpression__ProjectionExprAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:12916:1: ( ( ( rule__ArgReduceExpression__ProjectionAlternatives_4_0 ) ) )
-            // InternalAlpha.g:12917:2: ( ( rule__ArgReduceExpression__ProjectionAlternatives_4_0 ) )
+            // InternalAlpha.g:12916:1: ( ( ( rule__ArgReduceExpression__ProjectionExprAlternatives_4_0 ) ) )
+            // InternalAlpha.g:12917:2: ( ( rule__ArgReduceExpression__ProjectionExprAlternatives_4_0 ) )
             {
-            // InternalAlpha.g:12917:2: ( ( rule__ArgReduceExpression__ProjectionAlternatives_4_0 ) )
-            // InternalAlpha.g:12918:3: ( rule__ArgReduceExpression__ProjectionAlternatives_4_0 )
+            // InternalAlpha.g:12917:2: ( ( rule__ArgReduceExpression__ProjectionExprAlternatives_4_0 ) )
+            // InternalAlpha.g:12918:3: ( rule__ArgReduceExpression__ProjectionExprAlternatives_4_0 )
             {
-             before(grammarAccess.getArgReduceExpressionAccess().getProjectionAlternatives_4_0()); 
-            // InternalAlpha.g:12919:3: ( rule__ArgReduceExpression__ProjectionAlternatives_4_0 )
-            // InternalAlpha.g:12919:4: rule__ArgReduceExpression__ProjectionAlternatives_4_0
+             before(grammarAccess.getArgReduceExpressionAccess().getProjectionExprAlternatives_4_0()); 
+            // InternalAlpha.g:12919:3: ( rule__ArgReduceExpression__ProjectionExprAlternatives_4_0 )
+            // InternalAlpha.g:12919:4: rule__ArgReduceExpression__ProjectionExprAlternatives_4_0
             {
             pushFollow(FOLLOW_2);
-            rule__ArgReduceExpression__ProjectionAlternatives_4_0();
+            rule__ArgReduceExpression__ProjectionExprAlternatives_4_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getArgReduceExpressionAccess().getProjectionAlternatives_4_0()); 
+             after(grammarAccess.getArgReduceExpressionAccess().getProjectionExprAlternatives_4_0()); 
 
             }
 
@@ -39312,7 +39312,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ArgReduceExpression__ProjectionAssignment_4"
+    // $ANTLR end "rule__ArgReduceExpression__ProjectionExprAssignment_4"
 
 
     // $ANTLR start "rule__ArgReduceExpression__BodyAssignment_6"
@@ -39401,32 +39401,32 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ExternalArgReduceExpression__ExternalFunctionAssignment_2"
 
 
-    // $ANTLR start "rule__ExternalArgReduceExpression__ProjectionAssignment_4"
-    // InternalAlpha.g:12961:1: rule__ExternalArgReduceExpression__ProjectionAssignment_4 : ( ( rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0 ) ) ;
-    public final void rule__ExternalArgReduceExpression__ProjectionAssignment_4() throws RecognitionException {
+    // $ANTLR start "rule__ExternalArgReduceExpression__ProjectionExprAssignment_4"
+    // InternalAlpha.g:12961:1: rule__ExternalArgReduceExpression__ProjectionExprAssignment_4 : ( ( rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0 ) ) ;
+    public final void rule__ExternalArgReduceExpression__ProjectionExprAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:12965:1: ( ( ( rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0 ) ) )
-            // InternalAlpha.g:12966:2: ( ( rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0 ) )
+            // InternalAlpha.g:12965:1: ( ( ( rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0 ) ) )
+            // InternalAlpha.g:12966:2: ( ( rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0 ) )
             {
-            // InternalAlpha.g:12966:2: ( ( rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0 ) )
-            // InternalAlpha.g:12967:3: ( rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0 )
+            // InternalAlpha.g:12966:2: ( ( rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0 ) )
+            // InternalAlpha.g:12967:3: ( rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0 )
             {
-             before(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionAlternatives_4_0()); 
-            // InternalAlpha.g:12968:3: ( rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0 )
-            // InternalAlpha.g:12968:4: rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0
+             before(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprAlternatives_4_0()); 
+            // InternalAlpha.g:12968:3: ( rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0 )
+            // InternalAlpha.g:12968:4: rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0
             {
             pushFollow(FOLLOW_2);
-            rule__ExternalArgReduceExpression__ProjectionAlternatives_4_0();
+            rule__ExternalArgReduceExpression__ProjectionExprAlternatives_4_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionAlternatives_4_0()); 
+             after(grammarAccess.getExternalArgReduceExpressionAccess().getProjectionExprAlternatives_4_0()); 
 
             }
 
@@ -39445,7 +39445,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ExternalArgReduceExpression__ProjectionAssignment_4"
+    // $ANTLR end "rule__ExternalArgReduceExpression__ProjectionExprAssignment_4"
 
 
     // $ANTLR start "rule__ExternalArgReduceExpression__BodyAssignment_6"
@@ -39489,9 +39489,9 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ExternalArgReduceExpression__BodyAssignment_6"
 
 
-    // $ANTLR start "rule__ConvolutionExpression__KernelDomainAssignment_2"
-    // InternalAlpha.g:12991:1: rule__ConvolutionExpression__KernelDomainAssignment_2 : ( ruleCalculatorExpression ) ;
-    public final void rule__ConvolutionExpression__KernelDomainAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__ConvolutionExpression__KernelDomainExprAssignment_2"
+    // InternalAlpha.g:12991:1: rule__ConvolutionExpression__KernelDomainExprAssignment_2 : ( ruleCalculatorExpression ) ;
+    public final void rule__ConvolutionExpression__KernelDomainExprAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -39502,13 +39502,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:12996:2: ( ruleCalculatorExpression )
             // InternalAlpha.g:12997:3: ruleCalculatorExpression
             {
-             before(grammarAccess.getConvolutionExpressionAccess().getKernelDomainCalculatorExpressionParserRuleCall_2_0()); 
+             before(grammarAccess.getConvolutionExpressionAccess().getKernelDomainExprCalculatorExpressionParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
             ruleCalculatorExpression();
 
             state._fsp--;
 
-             after(grammarAccess.getConvolutionExpressionAccess().getKernelDomainCalculatorExpressionParserRuleCall_2_0()); 
+             after(grammarAccess.getConvolutionExpressionAccess().getKernelDomainExprCalculatorExpressionParserRuleCall_2_0()); 
 
             }
 
@@ -39527,7 +39527,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ConvolutionExpression__KernelDomainAssignment_2"
+    // $ANTLR end "rule__ConvolutionExpression__KernelDomainExprAssignment_2"
 
 
     // $ANTLR start "rule__ConvolutionExpression__KernelExpressionAssignment_4"

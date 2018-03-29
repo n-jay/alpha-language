@@ -855,7 +855,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAlphaSystem_ParameterDomain() {
+	public EReference getAlphaSystem_ParameterDomainExpr() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -909,7 +909,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAlphaSystem_WhileDomain() {
+	public EReference getAlphaSystem_WhileDomainExpr() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1071,7 +1071,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getUseEquation_CallParams() {
+	public EReference getUseEquation_CallParamsExpr() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1233,7 +1233,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDependenceExpression_Function() {
+	public EReference getDependenceExpression_FunctionExpr() {
 		return (EReference)dependenceExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1296,7 +1296,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIndexExpression_Function() {
+	public EReference getIndexExpression_FunctionExpr() {
 		return (EReference)indexExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1323,7 +1323,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAbstractReduceExpression_Projection() {
+	public EReference getAbstractReduceExpression_ProjectionExpr() {
 		return (EReference)abstractReduceExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1404,7 +1404,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConvolutionExpression_KernelDomain() {
+	public EReference getConvolutionExpression_KernelDomainExpr() {
 		return (EReference)convolutionExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2122,13 +2122,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		alphaSystemEClass = createEClass(ALPHA_SYSTEM);
 		createEAttribute(alphaSystemEClass, ALPHA_SYSTEM__NAME);
-		createEReference(alphaSystemEClass, ALPHA_SYSTEM__PARAMETER_DOMAIN);
+		createEReference(alphaSystemEClass, ALPHA_SYSTEM__PARAMETER_DOMAIN_EXPR);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__DEFINED_OBJECTS);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__INPUTS);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__OUTPUTS);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__LOCALS);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__FUZZY_VARIABLES);
-		createEReference(alphaSystemEClass, ALPHA_SYSTEM__WHILE_DOMAIN);
+		createEReference(alphaSystemEClass, ALPHA_SYSTEM__WHILE_DOMAIN_EXPR);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__TEST_EXPRESSION);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__USE_EQUATIONS);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__EQUATIONS);
@@ -2153,7 +2153,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		useEquationEClass = createEClass(USE_EQUATION);
 		createEReference(useEquationEClass, USE_EQUATION__SYSTEM);
 		createEReference(useEquationEClass, USE_EQUATION__INSTANTIATION_DOMAIN_EXPR);
-		createEReference(useEquationEClass, USE_EQUATION__CALL_PARAMS);
+		createEReference(useEquationEClass, USE_EQUATION__CALL_PARAMS_EXPR);
 		createEAttribute(useEquationEClass, USE_EQUATION__SUBSYSTEM_DIMS);
 		createEReference(useEquationEClass, USE_EQUATION__INPUT_EXPRS);
 		createEReference(useEquationEClass, USE_EQUATION__OUTPUT_EXPRS);
@@ -2176,7 +2176,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(caseExpressionEClass, CASE_EXPRESSION__EXPRS);
 
 		dependenceExpressionEClass = createEClass(DEPENDENCE_EXPRESSION);
-		createEReference(dependenceExpressionEClass, DEPENDENCE_EXPRESSION__FUNCTION);
+		createEReference(dependenceExpressionEClass, DEPENDENCE_EXPRESSION__FUNCTION_EXPR);
 		createEReference(dependenceExpressionEClass, DEPENDENCE_EXPRESSION__EXPR);
 
 		ifExpressionEClass = createEClass(IF_EXPRESSION);
@@ -2185,11 +2185,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(ifExpressionEClass, IF_EXPRESSION__ELSE_EXPR);
 
 		indexExpressionEClass = createEClass(INDEX_EXPRESSION);
-		createEReference(indexExpressionEClass, INDEX_EXPRESSION__FUNCTION);
+		createEReference(indexExpressionEClass, INDEX_EXPRESSION__FUNCTION_EXPR);
 
 		abstractReduceExpressionEClass = createEClass(ABSTRACT_REDUCE_EXPRESSION);
 		createEAttribute(abstractReduceExpressionEClass, ABSTRACT_REDUCE_EXPRESSION__OPERATOR);
-		createEReference(abstractReduceExpressionEClass, ABSTRACT_REDUCE_EXPRESSION__PROJECTION);
+		createEReference(abstractReduceExpressionEClass, ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR);
 		createEReference(abstractReduceExpressionEClass, ABSTRACT_REDUCE_EXPRESSION__BODY);
 
 		reduceExpressionEClass = createEClass(REDUCE_EXPRESSION);
@@ -2203,7 +2203,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(externalArgReduceExpressionEClass, EXTERNAL_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION);
 
 		convolutionExpressionEClass = createEClass(CONVOLUTION_EXPRESSION);
-		createEReference(convolutionExpressionEClass, CONVOLUTION_EXPRESSION__KERNEL_DOMAIN);
+		createEReference(convolutionExpressionEClass, CONVOLUTION_EXPRESSION__KERNEL_DOMAIN_EXPR);
 		createEReference(convolutionExpressionEClass, CONVOLUTION_EXPRESSION__KERNEL_EXPRESSION);
 		createEReference(convolutionExpressionEClass, CONVOLUTION_EXPRESSION__DATA_EXPRESSION);
 
@@ -2844,13 +2844,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		initEClass(alphaSystemEClass, AlphaSystem.class, "AlphaSystem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAlphaSystem_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAlphaSystem_ParameterDomain(), this.getJNIDomain(), null, "parameterDomain", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAlphaSystem_ParameterDomainExpr(), this.getJNIDomain(), null, "parameterDomainExpr", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_DefinedObjects(), this.getPolyhedralObject(), null, "definedObjects", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_Inputs(), this.getInputVariable(), null, "inputs", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_Outputs(), this.getOutputVariable(), null, "outputs", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_Locals(), this.getLocalVariable(), null, "locals", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_FuzzyVariables(), this.getFuzzyVariable(), null, "fuzzyVariables", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAlphaSystem_WhileDomain(), this.getCalculatorExpression(), null, "whileDomain", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAlphaSystem_WhileDomainExpr(), this.getCalculatorExpression(), null, "whileDomainExpr", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_TestExpression(), this.getAlphaExpression(), null, "testExpression", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_UseEquations(), this.getUseEquation(), null, "useEquations", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_Equations(), this.getStandardEquation(), null, "equations", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2859,6 +2859,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaSystemEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(alphaSystemEClass, this.getJNIISLSet(), "getParameterDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(alphaSystemEClass, this.getJNIISLSet(), "getWhileDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariable_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2904,12 +2908,14 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(useEquationEClass, UseEquation.class, "UseEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getUseEquation_System(), this.getAlphaSystem(), null, "system", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_InstantiationDomainExpr(), this.getCalculatorExpression(), null, "instantiationDomainExpr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getUseEquation_CallParams(), this.getJNIFunctionInArrayNotation(), null, "callParams", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUseEquation_CallParamsExpr(), this.getJNIFunctionInArrayNotation(), null, "callParamsExpr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUseEquation_SubsystemDims(), theEcorePackage.getEString(), "subsystemDims", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_InputExprs(), this.getAlphaExpression(), null, "inputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_OutputExprs(), this.getAlphaExpression(), null, "outputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(useEquationEClass, this.getJNIISLSet(), "getInstantiationDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(useEquationEClass, this.getJNIISLMultiAff(), "getCallParams", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(useEquationEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2958,8 +2964,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(dependenceExpressionEClass, DependenceExpression.class, "DependenceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDependenceExpression_Function(), this.getJNIFunction(), null, "function", null, 0, 1, DependenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDependenceExpression_FunctionExpr(), this.getJNIFunction(), null, "functionExpr", null, 0, 1, DependenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDependenceExpression_Expr(), this.getAlphaExpression(), null, "expr", null, 0, 1, DependenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(dependenceExpressionEClass, this.getJNIISLMultiAff(), "getFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(dependenceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2973,15 +2981,19 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(indexExpressionEClass, IndexExpression.class, "IndexExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIndexExpression_Function(), this.getJNIFunction(), null, "function", null, 0, 1, IndexExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIndexExpression_FunctionExpr(), this.getJNIFunction(), null, "functionExpr", null, 0, 1, IndexExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(indexExpressionEClass, this.getJNIISLMultiAff(), "getFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(indexExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(abstractReduceExpressionEClass, AbstractReduceExpression.class, "AbstractReduceExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAbstractReduceExpression_Operator(), this.getREDUCTION_OP(), "operator", null, 0, 1, AbstractReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAbstractReduceExpression_Projection(), this.getJNIFunction(), null, "projection", null, 0, 1, AbstractReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractReduceExpression_ProjectionExpr(), this.getJNIFunction(), null, "projectionExpr", null, 0, 1, AbstractReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractReduceExpression_Body(), this.getAlphaExpression(), null, "body", null, 0, 1, AbstractReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(abstractReduceExpressionEClass, this.getJNIISLMultiAff(), "getProjection", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(abstractReduceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3009,9 +3021,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(convolutionExpressionEClass, ConvolutionExpression.class, "ConvolutionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConvolutionExpression_KernelDomain(), this.getCalculatorExpression(), null, "kernelDomain", null, 0, 1, ConvolutionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConvolutionExpression_KernelDomainExpr(), this.getCalculatorExpression(), null, "kernelDomainExpr", null, 0, 1, ConvolutionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConvolutionExpression_KernelExpression(), this.getAlphaExpression(), null, "kernelExpression", null, 0, 1, ConvolutionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConvolutionExpression_DataExpression(), this.getAlphaExpression(), null, "dataExpression", null, 0, 1, ConvolutionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(convolutionExpressionEClass, this.getJNIISLSet(), "getKernelDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(convolutionExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
