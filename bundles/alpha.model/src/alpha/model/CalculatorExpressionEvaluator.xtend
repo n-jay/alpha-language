@@ -1,5 +1,6 @@
 package alpha.model
 
+import alpha.model.exception.OutOfContextArrayNotationException
 import alpha.model.issue.AlphaIssue.TYPE
 import alpha.model.issue.CalculatorExpressionIssue
 import alpha.model.util.AlphaUtil
@@ -9,12 +10,11 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
-import java.lang.RuntimeException
 import java.util.ArrayList
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.emf.ecore.impl.EObjectImpl
-import alpha.model.issue.OutOfContextArrayNotationException
+
 import static alpha.model.util.AlphaUtil.callISLwithErrorHandling
 
 class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {

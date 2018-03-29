@@ -1,4 +1,4 @@
-package alpha.model.issue;
+package alpha.model.exception;
 
 public class CyclicDefinitionException extends RuntimeException {
 

@@ -4,7 +4,7 @@
 	literalsInterface="true")
 package alpha.model
 
-import alpha.model.issue.CyclicDefinitionException
+import alpha.model.exception.CyclicDefinitionException
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap

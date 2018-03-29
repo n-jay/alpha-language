@@ -8,7 +8,7 @@ import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.Variable;
 
-import alpha.model.issue.CyclicDefinitionException;
+import alpha.model.exception.CyclicDefinitionException;
 
 import com.google.common.base.Objects;
 

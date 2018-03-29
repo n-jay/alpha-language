@@ -8,7 +8,7 @@ import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.PolyhedralObject;
 
-import alpha.model.issue.CyclicDefinitionException;
+import alpha.model.exception.CyclicDefinitionException;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
