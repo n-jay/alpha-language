@@ -196,7 +196,7 @@ ruleAlphaConstant returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"alpha.model.Alpha.ID");
 				}
 			)
 		)
@@ -259,7 +259,7 @@ ruleExternalFunction returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"alpha.model.Alpha.ID");
 				}
 			)
 		)
@@ -773,7 +773,7 @@ ruleInputVariable returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_0_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"alpha.model.Alpha.ID");
 				}
 			)
 		)
@@ -839,7 +839,7 @@ ruleOutputVariable returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_0_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"alpha.model.Alpha.ID");
 				}
 			)
 		)
@@ -905,7 +905,7 @@ ruleLocalVariable returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_0_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"alpha.model.Alpha.ID");
 				}
 			)
 		)
@@ -971,7 +971,7 @@ ruleFuzzyVariable returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_0_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"alpha.model.Alpha.ID");
 				}
 			)
 		)
@@ -2996,7 +2996,7 @@ ruleCaseExpression returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"alpha.model.Alpha.ID");
 				}
 			)
 		)?
@@ -5028,7 +5028,7 @@ rulePolyhedralObject returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_0_0,
-						"org.eclipse.xtext.common.Terminals.ID");
+						"alpha.model.Alpha.ID");
 				}
 			)
 		)
@@ -5633,9 +5633,9 @@ RULE_BOOLEAN : ('true'|'false');
 
 RULE_FLOAT : ('0'..'9')+ '.' ('0'..'9')+;
 
-RULE_STRING : '"' ('\\' .|~(('\\'|'"')))* '"';
+RULE_ID : ('^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*|'\'' ('a'..'z'|'A'..'Z'|'~'|'!'|'@'|'#'|'$'|'%'|'^'|'&'|'*'|'('|')'|'-'|'_'|'+'|'='|'|'|'/'|'?'|'0'..'9')+ '\'');
 
-RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+RULE_STRING : '"' ('\\' .|~(('\\'|'"')))* '"';
 
 RULE_INT : ('0'..'9')+;
 

@@ -3345,6 +3345,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final ABinaryCalcOpElements pABinaryCalcOp;
 	private final TerminalRule tBOOLEAN;
 	private final TerminalRule tFLOAT;
+	private final TerminalRule tID;
 	private final TerminalRule tSTRING;
 	
 	private final Grammar grammar;
@@ -3437,6 +3438,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pABinaryCalcOp = new ABinaryCalcOpElements();
 		this.tBOOLEAN = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.BOOLEAN");
 		this.tFLOAT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FLOAT");
+		this.tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.ID");
 		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.STRING");
 	}
 	
@@ -4318,16 +4320,18 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		return tFLOAT;
 	}
 	
+	//@ Override terminal ID:
+	//	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')* |
+	//	"'" ('a'..'z' | 'A'..'Z' | '~' | '!' | '@' | '#' | '$' | '%' | '^' | '&' | '*' | '(' | ')' | '-' | '_' | '+' | '=' |
+	//	'|' | '/' | '?' | '0'..'9')+ "'";
+	public TerminalRule getIDRule() {
+		return tID;
+	}
+	
 	//@ Override terminal STRING:
 	//	'"' ('\\' . | !('\\' | '"'))* '"';
 	public TerminalRule getSTRINGRule() {
 		return tSTRING;
-	}
-	
-	//terminal ID:
-	//	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
-	public TerminalRule getIDRule() {
-		return gaTerminals.getIDRule();
 	}
 	
 	//terminal INT returns ecore::EInt:

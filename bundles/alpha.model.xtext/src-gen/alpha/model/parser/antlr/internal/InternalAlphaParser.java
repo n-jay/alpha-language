@@ -493,7 +493,7 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             						current,
             						"name",
             						lv_name_1_0,
-            						"org.eclipse.xtext.common.Terminals.ID");
+            						"alpha.model.Alpha.ID");
             				
 
             }
@@ -632,7 +632,7 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             						current,
             						"name",
             						lv_name_1_0,
-            						"org.eclipse.xtext.common.Terminals.ID");
+            						"alpha.model.Alpha.ID");
             				
 
             }
@@ -1944,7 +1944,7 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             						current,
             						"name",
             						lv_name_0_0,
-            						"org.eclipse.xtext.common.Terminals.ID");
+            						"alpha.model.Alpha.ID");
             				
 
             }
@@ -2123,7 +2123,7 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             						current,
             						"name",
             						lv_name_0_0,
-            						"org.eclipse.xtext.common.Terminals.ID");
+            						"alpha.model.Alpha.ID");
             				
 
             }
@@ -2302,7 +2302,7 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             						current,
             						"name",
             						lv_name_0_0,
-            						"org.eclipse.xtext.common.Terminals.ID");
+            						"alpha.model.Alpha.ID");
             				
 
             }
@@ -2481,7 +2481,7 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             						current,
             						"name",
             						lv_name_0_0,
-            						"org.eclipse.xtext.common.Terminals.ID");
+            						"alpha.model.Alpha.ID");
             				
 
             }
@@ -7699,7 +7699,7 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
                     						current,
                     						"name",
                     						lv_name_1_0,
-                    						"org.eclipse.xtext.common.Terminals.ID");
+                    						"alpha.model.Alpha.ID");
                     				
 
                     }
@@ -13016,7 +13016,7 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             						current,
             						"name",
             						lv_name_0_0,
-            						"org.eclipse.xtext.common.Terminals.ID");
+            						"alpha.model.Alpha.ID");
             				
 
             }
