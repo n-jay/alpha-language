@@ -122,6 +122,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) externalFunction=[ExternalFunction|ID]
 	 *     (rule start) (ambiguity) functionExpr=JNIFunction
 	 *     (rule start) (ambiguity) functionExpr=JNIFunctionInArrayNotation
+	 *     (rule start) (ambiguity) functionExpr=JNIFuzzyFunction
 	 *     (rule start) (ambiguity) operator=AREDUCTION_OP
 	 *     (rule start) (ambiguity) operator=AUnaryOP
 	 *     (rule start) (ambiguity) value=BOOLEAN

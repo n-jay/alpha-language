@@ -304,6 +304,16 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			indexNameContext = null;
 		}
 	}
+	
+	@Override
+	public void inFuzzyDependenceExpression(FuzzyDependenceExpression de) {
+//		issues.addAll(CalculatorExpressionEvaluator.calculate(de.getEx.getFunctionExpr(), indexNameContext));
+
+//		if (jniFunctionNotInArrayNotation(de.getFunctionExpr())) {
+//			contextHistory.push(indexNameContext);
+//			indexNameContext = null;
+//		}
+	}
 
 	@Override
 	public void outDependenceExpression(DependenceExpression de) {

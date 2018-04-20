@@ -8,6 +8,7 @@ import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -81,6 +82,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.AUTO_RESTRICT_EXPRESSION: return createAutoRestrictExpression();
 			case ModelPackage.CASE_EXPRESSION: return createCaseExpression();
 			case ModelPackage.DEPENDENCE_EXPRESSION: return createDependenceExpression();
+			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION: return createFuzzyDependenceExpression();
 			case ModelPackage.IF_EXPRESSION: return createIfExpression();
 			case ModelPackage.INDEX_EXPRESSION: return createIndexExpression();
 			case ModelPackage.REDUCE_EXPRESSION: return createReduceExpression();
@@ -103,6 +105,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.JNI_RELATION: return createJNIRelation();
 			case ModelPackage.JNI_FUNCTION: return createJNIFunction();
 			case ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION: return createJNIFunctionInArrayNotation();
+			case ModelPackage.JNI_FUZZY_FUNCTION: return createJNIFuzzyFunction();
+			case ModelPackage.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION: return createJNIFuzzyFunctionInArrayNotation();
 			case ModelPackage.UNARY_CALCULATOR_EXPRESSION: return createUnaryCalculatorExpression();
 			case ModelPackage.BINARY_CALCULATOR_EXPRESSION: return createBinaryCalculatorExpression();
 			case ModelPackage.VARIABLE_DOMAIN: return createVariableDomain();
@@ -141,6 +145,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return createJNIISLMapFromString(eDataType, initialValue);
 			case ModelPackage.JNIISL_MULTI_AFF:
 				return createJNIISLMultiAffFromString(eDataType, initialValue);
+			case ModelPackage.JNIISL_UNION_MAP:
+				return createJNIISLUnionMapFromString(eDataType, initialValue);
 			case ModelPackage.ISL_FORMAT:
 				return createISL_FORMATFromString(eDataType, initialValue);
 			default:
@@ -176,6 +182,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return convertJNIISLMapToString(eDataType, instanceValue);
 			case ModelPackage.JNIISL_MULTI_AFF:
 				return convertJNIISLMultiAffToString(eDataType, instanceValue);
+			case ModelPackage.JNIISL_UNION_MAP:
+				return convertJNIISLUnionMapToString(eDataType, instanceValue);
 			case ModelPackage.ISL_FORMAT:
 				return convertISL_FORMATToString(eDataType, instanceValue);
 			default:
@@ -351,6 +359,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public DependenceExpression createDependenceExpression() {
 		DependenceExpressionImpl dependenceExpression = new DependenceExpressionImpl();
 		return dependenceExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FuzzyDependenceExpression createFuzzyDependenceExpression() {
+		FuzzyDependenceExpressionImpl fuzzyDependenceExpression = new FuzzyDependenceExpressionImpl();
+		return fuzzyDependenceExpression;
 	}
 
 	/**
@@ -571,6 +589,26 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public JNIFunctionInArrayNotation createJNIFunctionInArrayNotation() {
 		JNIFunctionInArrayNotationImpl jniFunctionInArrayNotation = new JNIFunctionInArrayNotationImpl();
 		return jniFunctionInArrayNotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIFuzzyFunction createJNIFuzzyFunction() {
+		JNIFuzzyFunctionImpl jniFuzzyFunction = new JNIFuzzyFunctionImpl();
+		return jniFuzzyFunction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIFuzzyFunctionInArrayNotation createJNIFuzzyFunctionInArrayNotation() {
+		JNIFuzzyFunctionInArrayNotationImpl jniFuzzyFunctionInArrayNotation = new JNIFuzzyFunctionInArrayNotationImpl();
+		return jniFuzzyFunctionInArrayNotation;
 	}
 
 	/**
@@ -812,6 +850,24 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * @generated
 	 */
 	public String convertJNIISLMultiAffToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIISLUnionMap createJNIISLUnionMapFromString(EDataType eDataType, String initialValue) {
+		return (JNIISLUnionMap)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJNIISLUnionMapToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

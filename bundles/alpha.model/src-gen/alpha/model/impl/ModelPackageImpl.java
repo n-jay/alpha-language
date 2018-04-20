@@ -33,6 +33,7 @@ import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
+import alpha.model.FuzzyDependenceExpression;
 import alpha.model.FuzzyVariable;
 import alpha.model.IfExpression;
 import alpha.model.Imports;
@@ -43,6 +44,8 @@ import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.JNIFuzzyFunction;
+import alpha.model.JNIFuzzyFunctionInArrayNotation;
 import alpha.model.JNIRelation;
 import alpha.model.LocalVariable;
 import alpha.model.ModelFactory;
@@ -66,6 +69,7 @@ import alpha.model.VariableExpression;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -281,6 +285,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass fuzzyDependenceExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass ifExpressionEClass = null;
 
 	/**
@@ -463,6 +474,20 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass jniFuzzyFunctionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jniFuzzyFunctionInArrayNotationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass unaryCalculatorExpressionEClass = null;
 
 	/**
@@ -562,6 +587,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EDataType jniislMultiAffEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType jniislUnionMapEDataType = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1251,6 +1283,33 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getFuzzyDependenceExpression() {
+		return fuzzyDependenceExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFuzzyDependenceExpression_FunctionExpr() {
+		return (EReference)fuzzyDependenceExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFuzzyDependenceExpression_Expr() {
+		return (EReference)fuzzyDependenceExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getIfExpression() {
 		return ifExpressionEClass;
 	}
@@ -1800,6 +1859,51 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getJNIFuzzyFunction() {
+		return jniFuzzyFunctionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJNIFuzzyFunction_AlphaString() {
+		return (EAttribute)jniFuzzyFunctionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJNIFuzzyFunction_Z__internal_cache_islUMap() {
+		return (EAttribute)jniFuzzyFunctionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJNIFuzzyFunctionInArrayNotation() {
+		return jniFuzzyFunctionInArrayNotationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJNIFuzzyFunctionInArrayNotation_ArrayNotation() {
+		return (EAttribute)jniFuzzyFunctionInArrayNotationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getUnaryCalculatorExpression() {
 		return unaryCalculatorExpressionEClass;
 	}
@@ -2052,6 +2156,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getJNIISLUnionMap() {
+		return jniislUnionMapEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getISL_FORMAT() {
 		return isL_FORMATEDataType;
 	}
@@ -2179,6 +2292,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(dependenceExpressionEClass, DEPENDENCE_EXPRESSION__FUNCTION_EXPR);
 		createEReference(dependenceExpressionEClass, DEPENDENCE_EXPRESSION__EXPR);
 
+		fuzzyDependenceExpressionEClass = createEClass(FUZZY_DEPENDENCE_EXPRESSION);
+		createEReference(fuzzyDependenceExpressionEClass, FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR);
+		createEReference(fuzzyDependenceExpressionEClass, FUZZY_DEPENDENCE_EXPRESSION__EXPR);
+
 		ifExpressionEClass = createEClass(IF_EXPRESSION);
 		createEReference(ifExpressionEClass, IF_EXPRESSION__COND_EXPR);
 		createEReference(ifExpressionEClass, IF_EXPRESSION__THEN_EXPR);
@@ -2266,6 +2383,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniFunctionInArrayNotationEClass = createEClass(JNI_FUNCTION_IN_ARRAY_NOTATION);
 		createEAttribute(jniFunctionInArrayNotationEClass, JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
 
+		jniFuzzyFunctionEClass = createEClass(JNI_FUZZY_FUNCTION);
+		createEAttribute(jniFuzzyFunctionEClass, JNI_FUZZY_FUNCTION__ALPHA_STRING);
+		createEAttribute(jniFuzzyFunctionEClass, JNI_FUZZY_FUNCTION__ZINTERNAL_CACHE_ISL_UMAP);
+
+		jniFuzzyFunctionInArrayNotationEClass = createEClass(JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION);
+		createEAttribute(jniFuzzyFunctionInArrayNotationEClass, JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
+
 		unaryCalculatorExpressionEClass = createEClass(UNARY_CALCULATOR_EXPRESSION);
 		createEAttribute(unaryCalculatorExpressionEClass, UNARY_CALCULATOR_EXPRESSION__OPERATOR);
 		createEReference(unaryCalculatorExpressionEClass, UNARY_CALCULATOR_EXPRESSION__EXPR);
@@ -2302,6 +2426,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniislSetEDataType = createEDataType(JNIISL_SET);
 		jniislMapEDataType = createEDataType(JNIISL_MAP);
 		jniislMultiAffEDataType = createEDataType(JNIISL_MULTI_AFF);
+		jniislUnionMapEDataType = createEDataType(JNIISL_UNION_MAP);
 		isL_FORMATEDataType = createEDataType(ISL_FORMAT);
 	}
 
@@ -2358,6 +2483,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		autoRestrictExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		caseExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		dependenceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
+		fuzzyDependenceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		ifExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		indexExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		abstractReduceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
@@ -2385,6 +2511,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniRelationEClass.getESuperTypes().add(this.getCalculatorExpression());
 		jniFunctionEClass.getESuperTypes().add(this.getCalculatorExpression());
 		jniFunctionInArrayNotationEClass.getESuperTypes().add(this.getJNIFunction());
+		jniFuzzyFunctionEClass.getESuperTypes().add(this.getCalculatorExpression());
+		jniFuzzyFunctionInArrayNotationEClass.getESuperTypes().add(this.getJNIFuzzyFunction());
 		unaryCalculatorExpressionEClass.getESuperTypes().add(this.getCalculatorExpression());
 		binaryCalculatorExpressionEClass.getESuperTypes().add(this.getCalculatorExpression());
 		variableDomainEClass.getESuperTypes().add(this.getCalculatorExpression());
@@ -2568,6 +2696,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitFuzzyDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitAbstractReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAbstractReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2637,6 +2768,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inFuzzyDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inAbstractReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAbstractReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2705,6 +2839,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outFuzzyDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outAbstractReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAbstractReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2776,6 +2913,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitJNIFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getJNIFunction(), "jniFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitJNIFuzzyFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getJNIFuzzyFunction(), "jniFuzzyFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitVariableDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariableDomain(), "vdom", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2970,6 +3110,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(dependenceExpressionEClass, this.getJNIISLMultiAff(), "getFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(dependenceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(fuzzyDependenceExpressionEClass, FuzzyDependenceExpression.class, "FuzzyDependenceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFuzzyDependenceExpression_FunctionExpr(), this.getJNIFuzzyFunction(), null, "functionExpr", null, 0, 1, FuzzyDependenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFuzzyDependenceExpression_Expr(), this.getAlphaExpression(), null, "expr", null, 0, 1, FuzzyDependenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(fuzzyDependenceExpressionEClass, this.getJNIISLUnionMap(), "getFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(fuzzyDependenceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(ifExpressionEClass, IfExpression.class, "IfExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3185,6 +3334,26 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(jniFunctionInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		initEClass(jniFuzzyFunctionEClass, JNIFuzzyFunction.class, "JNIFuzzyFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJNIFuzzyFunction_AlphaString(), theEcorePackage.getEString(), "alphaString", null, 0, 1, JNIFuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJNIFuzzyFunction_Z__internal_cache_islUMap(), this.getJNIISLUnionMap(), "z__internal_cache_islUMap", null, 0, 1, JNIFuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(jniFuzzyFunctionEClass, this.getJNIISLUnionMap(), "getISLUnionMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(jniFuzzyFunctionEClass, null, "setISLUnionMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getJNIISLUnionMap(), "islUMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jniFuzzyFunctionEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jniFuzzyFunctionEClass, this.getJNIObject(), "getISLObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jniFuzzyFunctionEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(jniFuzzyFunctionInArrayNotationEClass, JNIFuzzyFunctionInArrayNotation.class, "JNIFuzzyFunctionInArrayNotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJNIFuzzyFunctionInArrayNotation_ArrayNotation(), theEcorePackage.getEString(), "arrayNotation", null, 0, -1, JNIFuzzyFunctionInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(jniFuzzyFunctionInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(unaryCalculatorExpressionEClass, UnaryCalculatorExpression.class, "UnaryCalculatorExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUnaryCalculatorExpression_Operator(), this.getCALCULATOR_UNARY_OP(), "operator", null, 0, 1, UnaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUnaryCalculatorExpression_Expr(), this.getCalculatorExpression(), null, "expr", null, 0, 1, UnaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3295,6 +3464,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.SET);
 		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.MAP);
 		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.FUNCTION);
+		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.UNION_MAP);
 
 		initEEnum(calculatoR_UNARY_OPEEnum, alpha.model.CALCULATOR_UNARY_OP.class, "CALCULATOR_UNARY_OP");
 		addEEnumLiteral(calculatoR_UNARY_OPEEnum, alpha.model.CALCULATOR_UNARY_OP.GET_DOMAIN);
@@ -3318,6 +3488,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEDataType(jniislSetEDataType, JNIISLSet.class, "JNIISLSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(jniislMapEDataType, JNIISLMap.class, "JNIISLMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(jniislMultiAffEDataType, JNIISLMultiAff.class, "JNIISLMultiAff", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislUnionMapEDataType, JNIISLUnionMap.class, "JNIISLUnionMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(isL_FORMATEDataType, fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT.class, "ISL_FORMAT", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource

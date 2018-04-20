@@ -15,6 +15,7 @@ import alpha.model.DependenceExpression;
 import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
+import alpha.model.FuzzyDependenceExpression;
 import alpha.model.IfExpression;
 import alpha.model.IndexExpression;
 import alpha.model.IntegerExpression;
@@ -82,6 +83,13 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 		outDependenceExpression(de);
 	}
 
+	@Override
+	default void visitFuzzyDependenceExpression(FuzzyDependenceExpression de) {
+		inFuzzyDependenceExpression(de);
+		accept(de.getExpr());
+		outFuzzyDependenceExpression(de);
+	}
+	
 	@Override
 	default void visitAbstractReduceExpression(AbstractReduceExpression are) {
 		inAbstractReduceExpression(are);
@@ -235,6 +243,11 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	}
 
 	@Override
+	default void inFuzzyDependenceExpression(FuzzyDependenceExpression de) {
+		inAlphaExpression(de);
+	}
+
+	@Override
 	default void inAbstractReduceExpression(AbstractReduceExpression are) {
 		inAlphaExpression(are);
 	}
@@ -346,6 +359,11 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 
 	@Override
 	default void outDependenceExpression(DependenceExpression de) {
+		outAlphaExpression(de);
+	}
+	
+	@Override
+	default void outFuzzyDependenceExpression(FuzzyDependenceExpression de) {
 		outAlphaExpression(de);
 	}
 	

@@ -176,6 +176,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createDependenceExpressionAdapter();
 			}
 			@Override
+			public Adapter caseFuzzyDependenceExpression(FuzzyDependenceExpression object) {
+				return createFuzzyDependenceExpressionAdapter();
+			}
+			@Override
 			public Adapter caseIfExpression(IfExpression object) {
 				return createIfExpressionAdapter();
 			}
@@ -278,6 +282,14 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseJNIFunctionInArrayNotation(JNIFunctionInArrayNotation object) {
 				return createJNIFunctionInArrayNotationAdapter();
+			}
+			@Override
+			public Adapter caseJNIFuzzyFunction(JNIFuzzyFunction object) {
+				return createJNIFuzzyFunctionAdapter();
+			}
+			@Override
+			public Adapter caseJNIFuzzyFunctionInArrayNotation(JNIFuzzyFunctionInArrayNotation object) {
+				return createJNIFuzzyFunctionInArrayNotationAdapter();
 			}
 			@Override
 			public Adapter caseUnaryCalculatorExpression(UnaryCalculatorExpression object) {
@@ -698,6 +710,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.FuzzyDependenceExpression <em>Fuzzy Dependence Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.FuzzyDependenceExpression
+	 * @generated
+	 */
+	public Adapter createFuzzyDependenceExpressionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link alpha.model.IfExpression <em>If Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1058,6 +1084,34 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createJNIFunctionInArrayNotationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.JNIFuzzyFunction <em>JNI Fuzzy Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.JNIFuzzyFunction
+	 * @generated
+	 */
+	public Adapter createJNIFuzzyFunctionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.JNIFuzzyFunctionInArrayNotation <em>JNI Fuzzy Function In Array Notation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.JNIFuzzyFunctionInArrayNotation
+	 * @generated
+	 */
+	public Adapter createJNIFuzzyFunctionInArrayNotationAdapter() {
 		return null;
 	}
 

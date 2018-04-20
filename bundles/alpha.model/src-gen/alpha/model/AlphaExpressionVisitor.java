@@ -66,6 +66,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model deUnique="false"
+	 * @generated
+	 */
+	void visitFuzzyDependenceExpression(FuzzyDependenceExpression de);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model areUnique="false"
 	 * @generated
 	 */
@@ -250,6 +258,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model deUnique="false"
+	 * @generated
+	 */
+	void inFuzzyDependenceExpression(FuzzyDependenceExpression de);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model areUnique="false"
 	 * @generated
 	 */
@@ -430,6 +446,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void outDependenceExpression(DependenceExpression de);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model deUnique="false"
+	 * @generated
+	 */
+	void outFuzzyDependenceExpression(FuzzyDependenceExpression de);
 
 	/**
 	 * <!-- begin-user-doc -->

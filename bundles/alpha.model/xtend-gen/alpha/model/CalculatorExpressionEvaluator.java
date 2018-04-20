@@ -14,6 +14,7 @@ import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.JNIFuzzyFunction;
 import alpha.model.JNIRelation;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
@@ -33,6 +34,7 @@ import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -153,6 +155,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   }
   
   private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIISLMultiAff fun) {
+    throw new UnsupportedOperationException();
+  }
+  
+  private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIISLUnionMap umap) {
     throw new UnsupportedOperationException();
   }
   
@@ -292,6 +298,34 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLUnionMap left, final JNIISLUnionMap right) {
+    throw new UnsupportedOperationException();
+  }
+  
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLUnionMap left, final JNIISLSet right) {
+    throw new UnsupportedOperationException();
+  }
+  
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLUnionMap left, final JNIISLMap right) {
+    throw new UnsupportedOperationException();
+  }
+  
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLUnionMap left, final JNIISLMultiAff right) {
+    throw new UnsupportedOperationException();
+  }
+  
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLSet left, final JNIISLUnionMap right) {
+    throw new UnsupportedOperationException();
+  }
+  
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMap left, final JNIISLUnionMap right) {
+    throw new UnsupportedOperationException();
+  }
+  
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMultiAff left, final JNIISLUnionMap right) {
+    throw new UnsupportedOperationException();
+  }
+  
   @Override
   public void visitJNIDomain(final JNIDomain jniDomain) {
     try {
@@ -374,6 +408,11 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIFunction(final JNIFunction jniFunction) {
     this.parseJNIFunction(jniFunction);
+  }
+  
+  @Override
+  public void visitJNIFuzzyFunction(final JNIFuzzyFunction jniFuzzyFunction) {
+    this.parseJNIFuzzyFunction(jniFuzzyFunction);
   }
   
   protected Boolean _parseJNIFunction(final JNIFunction jniFunction) {
@@ -503,6 +542,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return this.parseJNIFunctionAsFunction(jniFunction);
   }
   
+  protected void _parseJNIFuzzyFunction(final JNIFuzzyFunction jniFuzzyFunction) {
+    throw new UnsupportedOperationException();
+  }
+  
   @Override
   public void visitVariableDomain(final VariableDomain vdom) {
     Variable _variable = vdom.getVariable();
@@ -591,6 +634,8 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       return _evaluateUnaryOperation(op, (JNIISLMultiAff)map);
     } else if (map instanceof JNIISLSet) {
       return _evaluateUnaryOperation(op, (JNIISLSet)map);
+    } else if (map instanceof JNIISLUnionMap) {
+      return _evaluateUnaryOperation(op, (JNIISLUnionMap)map);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(op, map).toString());
@@ -607,6 +652,9 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } else if (left instanceof JNIISLMap
          && right instanceof JNIISLSet) {
       return _evaluateBinaryOperation(op, (JNIISLMap)left, (JNIISLSet)right);
+    } else if (left instanceof JNIISLMap
+         && right instanceof JNIISLUnionMap) {
+      return _evaluateBinaryOperation(op, (JNIISLMap)left, (JNIISLUnionMap)right);
     } else if (left instanceof JNIISLMultiAff
          && right instanceof JNIISLMap) {
       return _evaluateBinaryOperation(op, (JNIISLMultiAff)left, (JNIISLMap)right);
@@ -616,6 +664,9 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } else if (left instanceof JNIISLMultiAff
          && right instanceof JNIISLSet) {
       return _evaluateBinaryOperation(op, (JNIISLMultiAff)left, (JNIISLSet)right);
+    } else if (left instanceof JNIISLMultiAff
+         && right instanceof JNIISLUnionMap) {
+      return _evaluateBinaryOperation(op, (JNIISLMultiAff)left, (JNIISLUnionMap)right);
     } else if (left instanceof JNIISLSet
          && right instanceof JNIISLMap) {
       return _evaluateBinaryOperation(op, (JNIISLSet)left, (JNIISLMap)right);
@@ -625,6 +676,21 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } else if (left instanceof JNIISLSet
          && right instanceof JNIISLSet) {
       return _evaluateBinaryOperation(op, (JNIISLSet)left, (JNIISLSet)right);
+    } else if (left instanceof JNIISLSet
+         && right instanceof JNIISLUnionMap) {
+      return _evaluateBinaryOperation(op, (JNIISLSet)left, (JNIISLUnionMap)right);
+    } else if (left instanceof JNIISLUnionMap
+         && right instanceof JNIISLMap) {
+      return _evaluateBinaryOperation(op, (JNIISLUnionMap)left, (JNIISLMap)right);
+    } else if (left instanceof JNIISLUnionMap
+         && right instanceof JNIISLMultiAff) {
+      return _evaluateBinaryOperation(op, (JNIISLUnionMap)left, (JNIISLMultiAff)right);
+    } else if (left instanceof JNIISLUnionMap
+         && right instanceof JNIISLSet) {
+      return _evaluateBinaryOperation(op, (JNIISLUnionMap)left, (JNIISLSet)right);
+    } else if (left instanceof JNIISLUnionMap
+         && right instanceof JNIISLUnionMap) {
+      return _evaluateBinaryOperation(op, (JNIISLUnionMap)left, (JNIISLUnionMap)right);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(op, left, right).toString());
@@ -668,5 +734,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(jniFunction, parent).toString());
     }
+  }
+  
+  protected void parseJNIFuzzyFunction(final JNIFuzzyFunction jniFuzzyFunction) {
+    _parseJNIFuzzyFunction(jniFuzzyFunction);
+    return;
   }
 }

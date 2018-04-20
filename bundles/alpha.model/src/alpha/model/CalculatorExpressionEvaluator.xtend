@@ -9,6 +9,7 @@ import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
 import fr.irisa.cairn.jnimap.runtime.JNIObject
 import java.util.ArrayList
 import java.util.LinkedList
@@ -108,6 +109,11 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 
 	// None of the unary operators currently in the language makes sense for functions
 	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, JNIISLMultiAff fun) {
+		throw new UnsupportedOperationException();
+	}
+	
+	//No operation supported for JNIISLUnionMap
+	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, JNIISLUnionMap umap) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -242,6 +248,29 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		}
 	}
 	
+	// Binary Operation involving JNIISLUnionMap are not supported
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLUnionMap left, JNIISLUnionMap right) {
+		throw new UnsupportedOperationException();
+	}
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLUnionMap left, JNIISLSet right) {
+		throw new UnsupportedOperationException();
+	}
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLUnionMap left, JNIISLMap right) {
+		throw new UnsupportedOperationException();
+	}
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLUnionMap left, JNIISLMultiAff right) {
+		throw new UnsupportedOperationException();
+	}
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLSet left, JNIISLUnionMap right) {
+		throw new UnsupportedOperationException();
+	}
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMap left, JNIISLUnionMap right) {
+		throw new UnsupportedOperationException();
+	}
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMultiAff left, JNIISLUnionMap right) {
+		throw new UnsupportedOperationException();
+	}
+		
 	override visitJNIDomain(JNIDomain jniDomain) {
 		try {
 			val pdom = getParameterDomain(jniDomain);
@@ -295,6 +324,10 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 
 	override visitJNIFunction(JNIFunction jniFunction) {
 		parseJNIFunction(jniFunction);
+	}
+	
+	override visitJNIFuzzyFunction(JNIFuzzyFunction jniFuzzyFunction) {
+		parseJNIFuzzyFunction(jniFuzzyFunction);
 	}
 
 	protected def dispatch parseJNIFunction(JNIFunction jniFunction) {
@@ -387,6 +420,11 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 
 	protected def dispatch parseJNIFunction(JNIFunctionInArrayNotation jniFunction, IndexExpression parent) {
 		return parseJNIFunctionAsFunction(jniFunction);
+	}
+	
+	
+	protected def dispatch parseJNIFuzzyFunction(JNIFuzzyFunction jniFuzzyFunction) {
+		throw new UnsupportedOperationException();
 	}
 
 	override visitVariableDomain(VariableDomain vdom) {

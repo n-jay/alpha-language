@@ -75,6 +75,14 @@ JNIFunctionInArrayNotation:
 	'[' {JNIFunctionInArrayNotation} (arrayNotation+=AISLExpression (',' arrayNotation+=AISLExpression)*)? ']'
 ;
 
+JNIFuzzyFunction:
+	alphaString=AISLFuzzyRelation
+;
+
+JNIFuzzyFunctionInArrayNotation:
+	'[[' {JNIFuzzyFunctionInArrayNotation} (arrayNotation+=AISLFuzzyExpression (',' arrayNotation+=AISLFuzzyExpression)*)? ']]'
+;
+
 QualifiedName:
   ID ('.' ID)*
 ;
@@ -87,7 +95,7 @@ SystemName:
 ;
 
 IndexName:
-	ID ('\'')*
+	ID
 ;
 
 //IndexDimension:
@@ -115,15 +123,11 @@ AISLRelation:
 	'{' AISLBasicRelation (';' AISLBasicRelation)* '}'
 ;
 
-AISLBasicRelation:
-	'[' AIndexList ']' '->' '[' AIndexList ']' ':' AISLString
-;
-
 AISLString:
 	(IndexName|INT|'+'|'-'|'*'|'/'|'%'|'and'|'or'|'['|']'|'('|')'|','|':'|'&'|'|'|WS|'>='|'>'|'='|'<'|'<=')*;
 	
 AISLExpression:
-	(IndexName|INT|'+'|'-'|'*'|'/'|'%'|WS)+;
+	(IndexName|INT|'='|'+'|'-'|'*'|'/'|'%'|WS)+;
 	
 AISLExpressionList:
 	(AISLExpression (',' AISLExpression)*)?;
@@ -131,6 +135,26 @@ AISLExpressionList:
 AAlphaFunction:
 	'(' AIndexList '->' AISLExpressionList ')'
 ;
+
+AISLBasicRelation:
+	'[' AIndexList ']' '->' '[' AISLExpressionList ']' ':' AISLString
+;
+
+
+AISLFuzzyRelation:
+	'{' AISLWrappedBasicRelation (';' AISLIndirection)* '}'
+;
+
+AISLWrappedBasicRelation:
+	'[[' AIndexList ']' '->' '[' AISLExpressionList ']]'
+;
+
+AISLIndirection:
+	'[' AIndexList ']' '->' IndexName '[' AISLExpressionList ']'
+;
+
+AISLFuzzyExpression:
+	(IndexName|INT|'['|']'|'='|'+'|'-'|'*'|'/'|'%'|WS)+;	
 
 //AIndexAffineExpression:	
 //	 '-'? AIndexAffineExpressionTerminal (('+'|'-') AIndexAffineExpression)*;
@@ -164,6 +188,7 @@ AlphaTerminalExpression returns AlphaExpression:
 	ConstantExpression |
 	VariableExpression |
 	DependenceExpression |
+	FuzzyDependenceExpression |
 	IndexExpression | 
 	ReduceExpression |
 	ArgReduceExpression |
@@ -197,6 +222,10 @@ CaseExpression : 'case' name=ID? '{'
 DependenceExpression:
 	functionExpr=JNIFunction '@' expr=AlphaTerminalExpression |
 	expr=VariableExpression functionExpr=JNIFunctionInArrayNotation;
+	
+FuzzyDependenceExpression:
+	functionExpr=JNIFuzzyFunction '@' expr=AlphaTerminalExpression |
+	expr=VariableExpression functionExpr=JNIFuzzyFunctionInArrayNotation;
 		
 IndexExpression:
 	'val' functionExpr=JNIFunction |

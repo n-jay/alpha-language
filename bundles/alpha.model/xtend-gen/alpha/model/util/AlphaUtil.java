@@ -14,6 +14,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -80,6 +81,10 @@ public class AlphaUtil {
   
   public static JNIObject _copy(final JNIISLMultiAff maff) {
     return maff.copy();
+  }
+  
+  public static JNIObject _copy(final JNIISLUnionMap umap) {
+    return umap.copy();
   }
   
   public static JNIISLSet _getScalarDomain(final AlphaSystem system) {
@@ -199,6 +204,8 @@ public class AlphaUtil {
       return _copy((JNIISLMultiAff)map);
     } else if (map instanceof JNIISLSet) {
       return _copy((JNIISLSet)map);
+    } else if (map instanceof JNIISLUnionMap) {
+      return _copy((JNIISLUnionMap)map);
     } else if (map == null) {
       return _copy((Void)null);
     } else {

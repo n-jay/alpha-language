@@ -8,6 +8,7 @@ import alpha.model.exception.CyclicDefinitionException
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
@@ -17,6 +18,7 @@ type JNIObject wraps JNIObject
 type JNIISLSet wraps JNIISLSet
 type JNIISLMap wraps JNIISLMap
 type JNIISLMultiAff wraps JNIISLMultiAff
+type JNIISLUnionMap wraps JNIISLUnionMap
 type ISL_FORMAT wraps ISL_FORMAT
 
 
@@ -125,6 +127,7 @@ interface AlphaExpressionVisitor {
 	op void visitCaseExpression(CaseExpression ce)
 	op void visitIfExpression(IfExpression ie)
 	op void visitDependenceExpression(DependenceExpression de)
+	op void visitFuzzyDependenceExpression(FuzzyDependenceExpression de)
 	op void visitAbstractReduceExpression(AbstractReduceExpression are)
 	op void visitReduceExpression(ReduceExpression re)
 	op void visitArgReduceExpression(ArgReduceExpression are)
@@ -154,6 +157,7 @@ interface AlphaExpressionVisitor {
 	op void inCaseExpression(CaseExpression ce)
 	op void inIfExpression(IfExpression ie)
 	op void inDependenceExpression(DependenceExpression de)
+	op void inFuzzyDependenceExpression(FuzzyDependenceExpression de)
 	op void inAbstractReduceExpression(AbstractReduceExpression are)
 	op void inReduceExpression(ReduceExpression re)
 	op void inArgReduceExpression(ArgReduceExpression are)
@@ -182,6 +186,7 @@ interface AlphaExpressionVisitor {
 	op void outCaseExpression(CaseExpression ce)
 	op void outIfExpression(IfExpression ie)
 	op void outDependenceExpression(DependenceExpression de)
+	op void outFuzzyDependenceExpression(FuzzyDependenceExpression de)
 	op void outAbstractReduceExpression(AbstractReduceExpression are)
 	op void outReduceExpression(ReduceExpression re)
 	op void outArgReduceExpression(ArgReduceExpression are)
@@ -213,6 +218,7 @@ interface CalculatorExpressionVisitor {
 	op void visitJNIDomain(JNIDomain jniDomain)
 	op void visitJNIRelation(JNIRelation jniRelation)
 	op void visitJNIFunction(JNIFunction jniFunction)
+	op void visitJNIFuzzyFunction(JNIFuzzyFunction jniFuzzyFunction)
 	
 	op void visitVariableDomain(VariableDomain vdom)
 	op void visitRectangularDomain(RectangularDomain rdom)
@@ -460,6 +466,19 @@ class DependenceExpression extends AlphaExpression {
 		visitor.visitDependenceExpression(this)
 	}
 }
+class FuzzyDependenceExpression extends AlphaExpression {
+	contains JNIFuzzyFunction functionExpr
+	contains AlphaExpression expr
+	
+	op JNIISLUnionMap getFunction() {
+		if (functionExpr.^type != POLY_OBJECT_TYPE.UNION_MAP ) null
+		else functionExpr.ISLObject as JNIISLUnionMap
+	}
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitFuzzyDependenceExpression(this)
+	}
+}
 class IfExpression extends AlphaExpression {
 	contains AlphaExpression condExpr
 	contains AlphaExpression thenExpr
@@ -661,6 +680,7 @@ enum POLY_OBJECT_TYPE {
 	SET
 	MAP
 	FUNCTION
+	UNION_MAP
 }
 
 enum CALCULATOR_UNARY_OP {
@@ -793,6 +813,29 @@ class JNIFunction extends CalculatorExpression {
 }
 
 class JNIFunctionInArrayNotation extends JNIFunction {
+	String[] arrayNotation
+	
+	op String plainToString() {
+		'[' + arrayNotation.join(",") + ']'
+	}
+}
+
+class JNIFuzzyFunction extends CalculatorExpression {
+	String alphaString
+	JNIISLUnionMap z__internal_cache_islUMap
+	
+	op JNIISLUnionMap getISLUnionMap() { if (z__internal_cache_islUMap !== null) z__internal_cache_islUMap.copy else null }
+	op void setISLUnionMap(JNIISLUnionMap islUMap) { z__internal_cache_islUMap = islUMap }
+	
+	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::UNION_MAP }
+	op JNIObject getISLObject() { ISLUnionMap }
+	
+	op String plainToString() {
+		alphaString
+	}
+}
+
+class JNIFuzzyFunctionInArrayNotation extends JNIFuzzyFunction {
 	String[] arrayNotation
 	
 	op String plainToString() {

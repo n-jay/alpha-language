@@ -66,6 +66,14 @@ public interface CalculatorExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model jniFuzzyFunctionUnique="false"
+	 * @generated
+	 */
+	void visitJNIFuzzyFunction(JNIFuzzyFunction jniFuzzyFunction);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model vdomUnique="false"
 	 * @generated
 	 */

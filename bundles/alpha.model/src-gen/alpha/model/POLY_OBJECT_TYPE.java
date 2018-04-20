@@ -49,7 +49,17 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FUNCTION(0, "FUNCTION", "FUNCTION");
+	FUNCTION(0, "FUNCTION", "FUNCTION"),
+
+	/**
+	 * The '<em><b>UNION MAP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #UNION_MAP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	UNION_MAP(0, "UNION_MAP", "UNION_MAP");
 
 	/**
 	 * The '<em><b>SET</b></em>' literal value.
@@ -97,6 +107,21 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 	public static final int FUNCTION_VALUE = 0;
 
 	/**
+	 * The '<em><b>UNION MAP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>UNION MAP</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #UNION_MAP
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int UNION_MAP_VALUE = 0;
+
+	/**
 	 * An array of all the '<em><b>POLY OBJECT TYPE</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,6 +132,7 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 			SET,
 			MAP,
 			FUNCTION,
+			UNION_MAP,
 		};
 
 	/**

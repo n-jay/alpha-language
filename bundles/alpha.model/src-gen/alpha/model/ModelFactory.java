@@ -175,6 +175,15 @@ public interface ModelFactory extends EFactory {
 	DependenceExpression createDependenceExpression();
 
 	/**
+	 * Returns a new object of class '<em>Fuzzy Dependence Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fuzzy Dependence Expression</em>'.
+	 * @generated
+	 */
+	FuzzyDependenceExpression createFuzzyDependenceExpression();
+
+	/**
 	 * Returns a new object of class '<em>If Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -371,6 +380,24 @@ public interface ModelFactory extends EFactory {
 	 * @generated
 	 */
 	JNIFunctionInArrayNotation createJNIFunctionInArrayNotation();
+
+	/**
+	 * Returns a new object of class '<em>JNI Fuzzy Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>JNI Fuzzy Function</em>'.
+	 * @generated
+	 */
+	JNIFuzzyFunction createJNIFuzzyFunction();
+
+	/**
+	 * Returns a new object of class '<em>JNI Fuzzy Function In Array Notation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>JNI Fuzzy Function In Array Notation</em>'.
+	 * @generated
+	 */
+	JNIFuzzyFunctionInArrayNotation createJNIFuzzyFunctionInArrayNotation();
 
 	/**
 	 * Returns a new object of class '<em>Unary Calculator Expression</em>'.

@@ -7,20 +7,19 @@ import alpha.model.AlphaPackage
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
-import alpha.model.POLY_OBJECT_TYPE
+import alpha.model.CalculatorExpression
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
 import java.util.LinkedList
 import java.util.List
 import java.util.function.Consumer
 import java.util.function.Supplier
 import java.util.stream.Stream
 import org.eclipse.emf.ecore.EObject
-import alpha.model.CalculatorExpression
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 
 class AlphaUtil {
 
@@ -75,7 +74,9 @@ class AlphaUtil {
 	public static def dispatch copy(JNIISLMultiAff maff) {
 		maff.copy
 	}
-	
+	public static def dispatch copy(JNIISLUnionMap umap) {
+		umap.copy
+	}
 	
 	public static def dispatch JNIISLSet getScalarDomain(AlphaSystem system) {
 		return JNIISLSet.buildUniverse(system.parameterDomain.space)
