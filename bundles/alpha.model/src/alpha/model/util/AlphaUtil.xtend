@@ -20,6 +20,7 @@ import java.util.function.Consumer
 import java.util.function.Supplier
 import java.util.stream.Stream
 import org.eclipse.emf.ecore.EObject
+import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
 
 class AlphaUtil {
 
@@ -78,8 +79,25 @@ class AlphaUtil {
 		umap.copy
 	}
 	
+	/**
+	 * Method that adds parameter domain names and replaces AlphaConstants with its value.
+	 * Last step before passing the string to ISL.
+	 */
+	public static def String toContextFreeISLString(AlphaSystem system, String alphaDom) {
+			val completed = new StringBuffer("[");
+			completed.append(String.join(",", system.parameterDomain.getParametersNames()));
+			completed.append("] -> ");
+
+			completed.append(alphaDom);
+			
+			AlphaUtil.replaceAlphaConstants(system, completed.toString())
+	}
+	
 	public static def dispatch JNIISLSet getScalarDomain(AlphaSystem system) {
-		return JNIISLSet.buildUniverse(system.parameterDomain.space)
+		var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "[] : "));
+		val pdom = system.parameterDomain
+		
+		jniset.intersectParams(pdom.copy());
 	}
 	public static def dispatch JNIISLSet getScalarDomain(AlphaExpression expr) {
 		if (expr.containerSystem === null) return null

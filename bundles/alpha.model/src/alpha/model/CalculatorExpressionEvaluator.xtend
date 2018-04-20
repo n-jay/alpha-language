@@ -273,16 +273,8 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		
 	override visitJNIDomain(JNIDomain jniDomain) {
 		try {
+			var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniDomain), parseJNIDomain(jniDomain)));
 			val pdom = getParameterDomain(jniDomain);
-
-			val completed = new StringBuffer("[");
-			completed.append(String.join(",", pdom.getParametersNames()));
-			completed.append("] -> ");
-
-			completed.append(parseJNIDomain(jniDomain));
-
-			var jniset = ISLFactory.islSet(
-				AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniDomain), completed.toString()));
 			
 			jniset = jniset.intersectParams(pdom.copy());
 			
@@ -306,15 +298,10 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	override visitJNIRelation(JNIRelation jniRelation) {
 		try {
 			val pdom = getParameterDomain(jniRelation);
+			var jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniRelation), jniRelation.getIslString()));
 
-			val completed = new StringBuffer("[");
-			completed.append(String.join(",", pdom.getParametersNames()));
-			completed.append("] -> ");
-			completed.append(jniRelation.getIslString());
-
-			var jnimap = ISLFactory.islMap(
-				AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniRelation), completed.toString()));
 			jnimap = jnimap.intersectParams(pdom.copy());
+
 			jniRelation.setISLMap(jnimap);
 		} catch (RuntimeException re) {
 			val msg = if(re.message === null) re.class.name else re.message

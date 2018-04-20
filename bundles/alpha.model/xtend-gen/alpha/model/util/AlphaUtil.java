@@ -10,6 +10,7 @@ import alpha.model.AlphaVisitable;
 import alpha.model.CalculatorExpression;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
+import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
@@ -87,8 +88,30 @@ public class AlphaUtil {
     return umap.copy();
   }
   
+  /**
+   * Method that adds parameter domain names and replaces AlphaConstants with its value.
+   * Last step before passing the string to ISL.
+   */
+  public static String toContextFreeISLString(final AlphaSystem system, final String alphaDom) {
+    String _xblockexpression = null;
+    {
+      final StringBuffer completed = new StringBuffer("[");
+      completed.append(String.join(",", system.getParameterDomain().getParametersNames()));
+      completed.append("] -> ");
+      completed.append(alphaDom);
+      _xblockexpression = AlphaUtil.replaceAlphaConstants(system, completed.toString());
+    }
+    return _xblockexpression;
+  }
+  
   public static JNIISLSet _getScalarDomain(final AlphaSystem system) {
-    return JNIISLSet.buildUniverse(system.getParameterDomain().getSpace());
+    JNIISLSet _xblockexpression = null;
+    {
+      JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "[] : "));
+      final JNIISLSet pdom = system.getParameterDomain();
+      _xblockexpression = jniset.intersectParams(pdom.copy());
+    }
+    return _xblockexpression;
   }
   
   public static JNIISLSet _getScalarDomain(final AlphaExpression expr) {

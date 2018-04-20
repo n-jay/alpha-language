@@ -371,7 +371,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		}
 
 		JNIISLMap map = se.getSelectRelation();
-		// FIXME : following is a hack because ISL is buggy w.r.t. get_dim_name
+		// FIXME : following is a hack because I tried ISL to use names with apostrophes, which has a separate meaning
 		String[] mapStr = map.toString(ISL_FORMAT.ISL).split("->");
 		if (mapStr.length != 3)
 			throw new RuntimeException("Unexpected map: " + map);

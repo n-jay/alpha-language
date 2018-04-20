@@ -329,13 +329,8 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIDomain(final JNIDomain jniDomain) {
     try {
+      JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniDomain), this.parseJNIDomain(jniDomain)));
       final JNIISLSet pdom = this.getParameterDomain(jniDomain);
-      final StringBuffer completed = new StringBuffer("[");
-      completed.append(String.join(",", pdom.getParametersNames()));
-      completed.append("] -> ");
-      completed.append(this.parseJNIDomain(jniDomain));
-      JNIISLSet jniset = ISLFactory.islSet(
-        AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniDomain), completed.toString()));
       jniset = jniset.intersectParams(pdom.copy());
       jniDomain.setISLSet(jniset);
     } catch (final Throwable _t) {
@@ -378,12 +373,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   public void visitJNIRelation(final JNIRelation jniRelation) {
     try {
       final JNIISLSet pdom = this.getParameterDomain(jniRelation);
-      final StringBuffer completed = new StringBuffer("[");
-      completed.append(String.join(",", pdom.getParametersNames()));
-      completed.append("] -> ");
-      completed.append(jniRelation.getIslString());
-      JNIISLMap jnimap = ISLFactory.islMap(
-        AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniRelation), completed.toString()));
+      JNIISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniRelation), jniRelation.getIslString()));
       jnimap = jnimap.intersectParams(pdom.copy());
       jniRelation.setISLMap(jnimap);
     } catch (final Throwable _t) {
