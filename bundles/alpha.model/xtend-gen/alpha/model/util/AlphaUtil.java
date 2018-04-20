@@ -107,7 +107,7 @@ public class AlphaUtil {
   public static JNIISLSet _getScalarDomain(final AlphaSystem system) {
     JNIISLSet _xblockexpression = null;
     {
-      JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "[] : "));
+      JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "{ [] : }"));
       final JNIISLSet pdom = system.getParameterDomain();
       _xblockexpression = jniset.intersectParams(pdom.copy());
     }

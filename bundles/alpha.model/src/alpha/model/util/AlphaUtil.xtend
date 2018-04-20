@@ -94,7 +94,7 @@ class AlphaUtil {
 	}
 	
 	public static def dispatch JNIISLSet getScalarDomain(AlphaSystem system) {
-		var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "[] : "));
+		var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "{ [] : }"));
 		val pdom = system.parameterDomain
 		
 		jniset.intersectParams(pdom.copy());

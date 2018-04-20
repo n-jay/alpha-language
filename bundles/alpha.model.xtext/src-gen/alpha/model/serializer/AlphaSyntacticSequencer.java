@@ -119,6 +119,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '{' domainExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) domainExpr=JNIDomain
 	 *     (rule start) (ambiguity) domainExpr=JNIDomainInArrayNotation
+	 *     (rule start) (ambiguity) expr=ConstantExpression
 	 *     (rule start) (ambiguity) expr=VariableExpression
 	 *     (rule start) (ambiguity) externalFunction=[ExternalFunction|ID]
 	 *     (rule start) (ambiguity) functionExpr=JNIFunction

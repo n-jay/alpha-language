@@ -124,6 +124,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCaseExpressionAccess().getGroup_3(), "rule__CaseExpression__Group_3__0");
 					put(grammarAccess.getDependenceExpressionAccess().getGroup_0(), "rule__DependenceExpression__Group_0__0");
 					put(grammarAccess.getDependenceExpressionAccess().getGroup_1(), "rule__DependenceExpression__Group_1__0");
+					put(grammarAccess.getDependenceExpressionAccess().getGroup_2(), "rule__DependenceExpression__Group_2__0");
 					put(grammarAccess.getFuzzyDependenceExpressionAccess().getGroup_0(), "rule__FuzzyDependenceExpression__Group_0__0");
 					put(grammarAccess.getFuzzyDependenceExpressionAccess().getGroup_1(), "rule__FuzzyDependenceExpression__Group_1__0");
 					put(grammarAccess.getIndexExpressionAccess().getGroup_0(), "rule__IndexExpression__Group_0__0");
@@ -225,6 +226,8 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDependenceExpressionAccess().getExprAssignment_0_2(), "rule__DependenceExpression__ExprAssignment_0_2");
 					put(grammarAccess.getDependenceExpressionAccess().getExprAssignment_1_0(), "rule__DependenceExpression__ExprAssignment_1_0");
 					put(grammarAccess.getDependenceExpressionAccess().getFunctionExprAssignment_1_1(), "rule__DependenceExpression__FunctionExprAssignment_1_1");
+					put(grammarAccess.getDependenceExpressionAccess().getExprAssignment_2_0(), "rule__DependenceExpression__ExprAssignment_2_0");
+					put(grammarAccess.getDependenceExpressionAccess().getFunctionExprAssignment_2_1(), "rule__DependenceExpression__FunctionExprAssignment_2_1");
 					put(grammarAccess.getFuzzyDependenceExpressionAccess().getFunctionExprAssignment_0_0(), "rule__FuzzyDependenceExpression__FunctionExprAssignment_0_0");
 					put(grammarAccess.getFuzzyDependenceExpressionAccess().getExprAssignment_0_2(), "rule__FuzzyDependenceExpression__ExprAssignment_0_2");
 					put(grammarAccess.getFuzzyDependenceExpressionAccess().getExprAssignment_1_0(), "rule__FuzzyDependenceExpression__ExprAssignment_1_0");

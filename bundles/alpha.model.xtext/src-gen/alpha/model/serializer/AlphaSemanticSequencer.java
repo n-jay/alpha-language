@@ -565,7 +565,11 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns DependenceExpression
 	 *
 	 * Constraint:
-	 *     ((functionExpr=JNIFunction expr=AlphaTerminalExpression) | (expr=VariableExpression functionExpr=JNIFunctionInArrayNotation))
+	 *     (
+	 *         (functionExpr=JNIFunction expr=AlphaTerminalExpression) | 
+	 *         (expr=VariableExpression functionExpr=JNIFunctionInArrayNotation) | 
+	 *         (expr=ConstantExpression functionExpr=JNIFunctionInArrayNotation)
+	 *     )
 	 */
 	protected void sequence_DependenceExpression(ISerializationContext context, DependenceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

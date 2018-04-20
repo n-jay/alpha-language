@@ -2027,14 +2027,19 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExprVariableExpressionParserRuleCall_1_0_0 = (RuleCall)cExprAssignment_1_0.eContents().get(0);
 		private final Assignment cFunctionExprAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0 = (RuleCall)cFunctionExprAssignment_1_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final Assignment cExprAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cExprConstantExpressionParserRuleCall_2_0_0 = (RuleCall)cExprAssignment_2_0.eContents().get(0);
+		private final Assignment cFunctionExprAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cFunctionExprJNIFunctionInArrayNotationParserRuleCall_2_1_0 = (RuleCall)cFunctionExprAssignment_2_1.eContents().get(0);
 		
 		//DependenceExpression:
 		//	functionExpr=JNIFunction '@' expr=AlphaTerminalExpression | expr=VariableExpression
-		//	functionExpr=JNIFunctionInArrayNotation;
+		//	functionExpr=JNIFunctionInArrayNotation | expr=ConstantExpression functionExpr=JNIFunctionInArrayNotation;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//functionExpr=JNIFunction '@' expr=AlphaTerminalExpression | expr=VariableExpression
-		//functionExpr=JNIFunctionInArrayNotation
+		//functionExpr=JNIFunctionInArrayNotation | expr=ConstantExpression functionExpr=JNIFunctionInArrayNotation
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//functionExpr=JNIFunction '@' expr=AlphaTerminalExpression
@@ -2069,6 +2074,21 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//JNIFunctionInArrayNotation
 		public RuleCall getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0() { return cFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0; }
+		
+		//expr=ConstantExpression functionExpr=JNIFunctionInArrayNotation
+		public Group getGroup_2() { return cGroup_2; }
+		
+		//expr=ConstantExpression
+		public Assignment getExprAssignment_2_0() { return cExprAssignment_2_0; }
+		
+		//ConstantExpression
+		public RuleCall getExprConstantExpressionParserRuleCall_2_0_0() { return cExprConstantExpressionParserRuleCall_2_0_0; }
+		
+		//functionExpr=JNIFunctionInArrayNotation
+		public Assignment getFunctionExprAssignment_2_1() { return cFunctionExprAssignment_2_1; }
+		
+		//JNIFunctionInArrayNotation
+		public RuleCall getFunctionExprJNIFunctionInArrayNotationParserRuleCall_2_1_0() { return cFunctionExprJNIFunctionInArrayNotationParserRuleCall_2_1_0; }
 	}
 	public class FuzzyDependenceExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyDependenceExpression");
@@ -4305,7 +4325,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//DependenceExpression:
 	//	functionExpr=JNIFunction '@' expr=AlphaTerminalExpression | expr=VariableExpression
-	//	functionExpr=JNIFunctionInArrayNotation;
+	//	functionExpr=JNIFunctionInArrayNotation | expr=ConstantExpression functionExpr=JNIFunctionInArrayNotation;
 	public DependenceExpressionElements getDependenceExpressionAccess() {
 		return pDependenceExpression;
 	}

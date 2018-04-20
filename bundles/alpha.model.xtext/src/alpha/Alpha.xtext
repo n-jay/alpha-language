@@ -222,7 +222,8 @@ CaseExpression : 'case' name=ID? '{'
 
 DependenceExpression:
 	functionExpr=JNIFunction '@' expr=AlphaTerminalExpression |
-	expr=VariableExpression functionExpr=JNIFunctionInArrayNotation;
+	expr=VariableExpression functionExpr=JNIFunctionInArrayNotation |
+	expr=ConstantExpression functionExpr=JNIFunctionInArrayNotation;
 	
 FuzzyDependenceExpression:
 	functionExpr=JNIFuzzyFunction '@' expr=AlphaTerminalExpression |

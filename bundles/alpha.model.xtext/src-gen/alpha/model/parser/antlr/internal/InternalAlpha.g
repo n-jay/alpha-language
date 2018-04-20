@@ -3565,6 +3565,47 @@ ruleDependenceExpression returns [EObject current=null]
 				)
 			)
 		)
+		    |
+		(
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getDependenceExpressionAccess().getExprConstantExpressionParserRuleCall_2_0_0());
+					}
+					lv_expr_5_0=ruleConstantExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getDependenceExpressionRule());
+						}
+						set(
+							$current,
+							"expr",
+							lv_expr_5_0,
+							"alpha.model.Alpha.ConstantExpression");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getDependenceExpressionAccess().getFunctionExprJNIFunctionInArrayNotationParserRuleCall_2_1_0());
+					}
+					lv_functionExpr_6_0=ruleJNIFunctionInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getDependenceExpressionRule());
+						}
+						set(
+							$current,
+							"functionExpr",
+							lv_functionExpr_6_0,
+							"alpha.model.Alpha.JNIFunctionInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)
 	)
 ;
 
