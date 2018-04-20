@@ -85,6 +85,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION: return createFuzzyDependenceExpression();
 			case ModelPackage.IF_EXPRESSION: return createIfExpression();
 			case ModelPackage.INDEX_EXPRESSION: return createIndexExpression();
+			case ModelPackage.FUZZY_INDEX_EXPRESSION: return createFuzzyIndexExpression();
 			case ModelPackage.REDUCE_EXPRESSION: return createReduceExpression();
 			case ModelPackage.EXTERNAL_REDUCE_EXPRESSION: return createExternalReduceExpression();
 			case ModelPackage.ARG_REDUCE_EXPRESSION: return createArgReduceExpression();
@@ -389,6 +390,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public IndexExpression createIndexExpression() {
 		IndexExpressionImpl indexExpression = new IndexExpressionImpl();
 		return indexExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FuzzyIndexExpression createFuzzyIndexExpression() {
+		FuzzyIndexExpressionImpl fuzzyIndexExpression = new FuzzyIndexExpressionImpl();
+		return fuzzyIndexExpression;
 	}
 
 	/**

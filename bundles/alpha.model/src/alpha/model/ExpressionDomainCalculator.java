@@ -127,7 +127,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	public void outRestrictExpression(RestrictExpression re) {
 		if (checkCalcExprType(re.getDomainExpr(), POLY_OBJECT_TYPE.SET))
 			runISLoperations(re, ()->{
-				re.setExpressionDomain(re.getExpr().getExpressionDomain().intersect((JNIISLSet)re.getDomainExpr().getISLObject()));
+				re.setExpressionDomain(re.getExpr().getExpressionDomain().intersect(re.getRestrictDomain()));
 			});
 	}
 

@@ -43,6 +43,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDependenceExpressionAccess().getAlternatives(), "rule__DependenceExpression__Alternatives");
 					put(grammarAccess.getFuzzyDependenceExpressionAccess().getAlternatives(), "rule__FuzzyDependenceExpression__Alternatives");
 					put(grammarAccess.getIndexExpressionAccess().getAlternatives(), "rule__IndexExpression__Alternatives");
+					put(grammarAccess.getFuzzyIndexExpressionAccess().getAlternatives(), "rule__FuzzyIndexExpression__Alternatives");
 					put(grammarAccess.getReduceExpressionAccess().getProjectionExprAlternatives_4_0(), "rule__ReduceExpression__ProjectionExprAlternatives_4_0");
 					put(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprAlternatives_4_0(), "rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0");
 					put(grammarAccess.getArgReduceExpressionAccess().getProjectionExprAlternatives_4_0(), "rule__ArgReduceExpression__ProjectionExprAlternatives_4_0");
@@ -126,6 +127,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFuzzyDependenceExpressionAccess().getGroup_0(), "rule__FuzzyDependenceExpression__Group_0__0");
 					put(grammarAccess.getFuzzyDependenceExpressionAccess().getGroup_1(), "rule__FuzzyDependenceExpression__Group_1__0");
 					put(grammarAccess.getIndexExpressionAccess().getGroup_0(), "rule__IndexExpression__Group_0__0");
+					put(grammarAccess.getFuzzyIndexExpressionAccess().getGroup_0(), "rule__FuzzyIndexExpression__Group_0__0");
 					put(grammarAccess.getReduceExpressionAccess().getGroup(), "rule__ReduceExpression__Group__0");
 					put(grammarAccess.getExternalReduceExpressionAccess().getGroup(), "rule__ExternalReduceExpression__Group__0");
 					put(grammarAccess.getArgReduceExpressionAccess().getGroup(), "rule__ArgReduceExpression__Group__0");
@@ -229,6 +231,8 @@ public class AlphaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getFuzzyDependenceExpressionAccess().getFunctionExprAssignment_1_1(), "rule__FuzzyDependenceExpression__FunctionExprAssignment_1_1");
 					put(grammarAccess.getIndexExpressionAccess().getFunctionExprAssignment_0_1(), "rule__IndexExpression__FunctionExprAssignment_0_1");
 					put(grammarAccess.getIndexExpressionAccess().getFunctionExprAssignment_1(), "rule__IndexExpression__FunctionExprAssignment_1");
+					put(grammarAccess.getFuzzyIndexExpressionAccess().getFunctionExprAssignment_0_1(), "rule__FuzzyIndexExpression__FunctionExprAssignment_0_1");
+					put(grammarAccess.getFuzzyIndexExpressionAccess().getFunctionExprAssignment_1(), "rule__FuzzyIndexExpression__FunctionExprAssignment_1");
 					put(grammarAccess.getReduceExpressionAccess().getOperatorAssignment_2(), "rule__ReduceExpression__OperatorAssignment_2");
 					put(grammarAccess.getReduceExpressionAccess().getProjectionExprAssignment_4(), "rule__ReduceExpression__ProjectionExprAssignment_4");
 					put(grammarAccess.getReduceExpressionAccess().getBodyAssignment_6(), "rule__ReduceExpression__BodyAssignment_6");

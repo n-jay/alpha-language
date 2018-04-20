@@ -127,7 +127,7 @@ interface AlphaExpressionVisitor {
 	op void visitCaseExpression(CaseExpression ce)
 	op void visitIfExpression(IfExpression ie)
 	op void visitDependenceExpression(DependenceExpression de)
-	op void visitFuzzyDependenceExpression(FuzzyDependenceExpression de)
+	op void visitFuzzyDependenceExpression(FuzzyDependenceExpression fde)
 	op void visitAbstractReduceExpression(AbstractReduceExpression are)
 	op void visitReduceExpression(ReduceExpression re)
 	op void visitArgReduceExpression(ArgReduceExpression are)
@@ -138,6 +138,7 @@ interface AlphaExpressionVisitor {
 	op void visitSelectExpression(SelectExpression se)
 	
 	op void visitIndexExpression(IndexExpression ie)
+	op void visitFuzzyIndexExpression(FuzzyIndexExpression fie)
 	op void visitVariableExpression(VariableExpression ve)
 	
 	op void visitConstantExpression(ConstantExpression ce)
@@ -157,7 +158,7 @@ interface AlphaExpressionVisitor {
 	op void inCaseExpression(CaseExpression ce)
 	op void inIfExpression(IfExpression ie)
 	op void inDependenceExpression(DependenceExpression de)
-	op void inFuzzyDependenceExpression(FuzzyDependenceExpression de)
+	op void inFuzzyDependenceExpression(FuzzyDependenceExpression fde)
 	op void inAbstractReduceExpression(AbstractReduceExpression are)
 	op void inReduceExpression(ReduceExpression re)
 	op void inArgReduceExpression(ArgReduceExpression are)
@@ -168,6 +169,7 @@ interface AlphaExpressionVisitor {
 	op void inSelectExpression(SelectExpression se)
 	
 	op void inIndexExpression(IndexExpression ie)
+	op void inFuzzyIndexExpression(FuzzyIndexExpression fie)
 	op void inVariableExpression(VariableExpression ve)
 	
 	op void inConstantExpression(ConstantExpression ce)
@@ -186,7 +188,7 @@ interface AlphaExpressionVisitor {
 	op void outCaseExpression(CaseExpression ce)
 	op void outIfExpression(IfExpression ie)
 	op void outDependenceExpression(DependenceExpression de)
-	op void outFuzzyDependenceExpression(FuzzyDependenceExpression de)
+	op void outFuzzyDependenceExpression(FuzzyDependenceExpression fde)
 	op void outAbstractReduceExpression(AbstractReduceExpression are)
 	op void outReduceExpression(ReduceExpression re)
 	op void outArgReduceExpression(ArgReduceExpression are)
@@ -197,6 +199,7 @@ interface AlphaExpressionVisitor {
 	op void outSelectExpression(SelectExpression se)
 	
 	op void outIndexExpression(IndexExpression ie)
+	op void outFuzzyIndexExpression(FuzzyIndexExpression fie)
 	op void outVariableExpression(VariableExpression ve)
 	
 	op void outConstantExpression(ConstantExpression ce)
@@ -500,6 +503,21 @@ class IndexExpression extends AlphaExpression {
 		visitor.visitIndexExpression(this)
 	}
 }
+
+class FuzzyIndexExpression extends AlphaExpression {
+	contains JNIFuzzyFunction functionExpr
+	
+	op JNIISLUnionMap getFunction() {
+		if (functionExpr.^type != POLY_OBJECT_TYPE.UNION_MAP ) null
+		else functionExpr.ISLObject as JNIISLUnionMap
+	}
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitFuzzyIndexExpression(this)
+	}
+}
+
+
 abstract class AbstractReduceExpression extends AlphaExpression {
 	REDUCTION_OP operator
 	contains JNIFunction projectionExpr

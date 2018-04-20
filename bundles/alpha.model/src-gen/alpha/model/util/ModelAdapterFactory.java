@@ -188,6 +188,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createIndexExpressionAdapter();
 			}
 			@Override
+			public Adapter caseFuzzyIndexExpression(FuzzyIndexExpression object) {
+				return createFuzzyIndexExpressionAdapter();
+			}
+			@Override
 			public Adapter caseAbstractReduceExpression(AbstractReduceExpression object) {
 				return createAbstractReduceExpressionAdapter();
 			}
@@ -748,6 +752,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIndexExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.FuzzyIndexExpression <em>Fuzzy Index Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.FuzzyIndexExpression
+	 * @generated
+	 */
+	public Adapter createFuzzyIndexExpressionAdapter() {
 		return null;
 	}
 

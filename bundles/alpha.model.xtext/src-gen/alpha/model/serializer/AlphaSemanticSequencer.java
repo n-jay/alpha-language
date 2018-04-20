@@ -21,6 +21,7 @@ import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
 import alpha.model.FuzzyDependenceExpression;
+import alpha.model.FuzzyIndexExpression;
 import alpha.model.FuzzyVariable;
 import alpha.model.IfExpression;
 import alpha.model.Imports;
@@ -130,6 +131,9 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION:
 				sequence_FuzzyDependenceExpression(context, (FuzzyDependenceExpression) semanticObject); 
+				return; 
+			case ModelPackage.FUZZY_INDEX_EXPRESSION:
+				sequence_FuzzyIndexExpression(context, (FuzzyIndexExpression) semanticObject); 
 				return; 
 			case ModelPackage.FUZZY_VARIABLE:
 				sequence_FuzzyVariable(context, (FuzzyVariable) semanticObject); 
@@ -693,6 +697,33 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     ((functionExpr=JNIFuzzyFunction expr=AlphaTerminalExpression) | (expr=VariableExpression functionExpr=JNIFuzzyFunctionInArrayNotation))
 	 */
 	protected void sequence_FuzzyDependenceExpression(ISerializationContext context, FuzzyDependenceExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaExpression returns FuzzyIndexExpression
+	 *     AlphaTerminalExpression returns FuzzyIndexExpression
+	 *     FuzzyIndexExpression returns FuzzyIndexExpression
+	 *     OrExpression returns FuzzyIndexExpression
+	 *     OrExpression.BinaryExpression_1_0 returns FuzzyIndexExpression
+	 *     AndExpression returns FuzzyIndexExpression
+	 *     AndExpression.BinaryExpression_1_0 returns FuzzyIndexExpression
+	 *     RelationalExpression returns FuzzyIndexExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns FuzzyIndexExpression
+	 *     AdditiveExpression returns FuzzyIndexExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns FuzzyIndexExpression
+	 *     MultiplicativeExpression returns FuzzyIndexExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns FuzzyIndexExpression
+	 *     MinMaxExpression returns FuzzyIndexExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns FuzzyIndexExpression
+	 *     UnaryOrTerminalExpression returns FuzzyIndexExpression
+	 *
+	 * Constraint:
+	 *     (functionExpr=JNIFuzzyFunction | functionExpr=JNIFuzzyFunctionInArrayNotation)
+	 */
+	protected void sequence_FuzzyIndexExpression(ISerializationContext context, FuzzyIndexExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

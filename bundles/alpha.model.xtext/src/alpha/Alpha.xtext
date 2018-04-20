@@ -146,7 +146,7 @@ AISLFuzzyRelation:
 ;
 
 AISLWrappedBasicRelation:
-	'[[' AIndexList ']' '->' '[' AISLExpressionList ']]'
+	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']'
 ;
 
 AISLIndirection:
@@ -190,6 +190,7 @@ AlphaTerminalExpression returns AlphaExpression:
 	DependenceExpression |
 	FuzzyDependenceExpression |
 	IndexExpression | 
+	FuzzyIndexExpression |
 	ReduceExpression |
 	ArgReduceExpression |
 	ConvolutionExpression |
@@ -230,6 +231,10 @@ FuzzyDependenceExpression:
 IndexExpression:
 	'val' functionExpr=JNIFunction |
 	functionExpr=JNIFunctionInArrayNotation;
+	
+FuzzyIndexExpression:
+	'val' functionExpr=JNIFuzzyFunction |
+	functionExpr=JNIFuzzyFunctionInArrayNotation;
 
 ReduceExpression:
 	'reduce' '(' operator=AREDUCTION_OP ',' 

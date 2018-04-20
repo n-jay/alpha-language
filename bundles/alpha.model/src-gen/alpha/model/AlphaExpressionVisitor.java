@@ -66,10 +66,10 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model deUnique="false"
+	 * @model fdeUnique="false"
 	 * @generated
 	 */
-	void visitFuzzyDependenceExpression(FuzzyDependenceExpression de);
+	void visitFuzzyDependenceExpression(FuzzyDependenceExpression fde);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -142,6 +142,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void visitIndexExpression(IndexExpression ie);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model fieUnique="false"
+	 * @generated
+	 */
+	void visitFuzzyIndexExpression(FuzzyIndexExpression fie);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -258,10 +266,10 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model deUnique="false"
+	 * @model fdeUnique="false"
 	 * @generated
 	 */
-	void inFuzzyDependenceExpression(FuzzyDependenceExpression de);
+	void inFuzzyDependenceExpression(FuzzyDependenceExpression fde);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -334,6 +342,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void inIndexExpression(IndexExpression ie);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model fieUnique="false"
+	 * @generated
+	 */
+	void inFuzzyIndexExpression(FuzzyIndexExpression fie);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -450,10 +466,10 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model deUnique="false"
+	 * @model fdeUnique="false"
 	 * @generated
 	 */
-	void outFuzzyDependenceExpression(FuzzyDependenceExpression de);
+	void outFuzzyDependenceExpression(FuzzyDependenceExpression fde);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -526,6 +542,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void outIndexExpression(IndexExpression ie);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model fieUnique="false"
+	 * @generated
+	 */
+	void outFuzzyIndexExpression(FuzzyIndexExpression fie);
 
 	/**
 	 * <!-- begin-user-doc -->

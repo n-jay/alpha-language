@@ -1286,41 +1286,49 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	public class AISLWrappedBasicRelationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLWrappedBasicRelation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftSquareBracketLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cAIndexListParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Keyword cRightSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final RuleCall cAISLExpressionListParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
-		private final Keyword cRightSquareBracketRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cAIndexListParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final RuleCall cAISLExpressionListParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//AISLWrappedBasicRelation:
-		//	'[[' AIndexList ']' '->' '[' AISLExpressionList ']]';
+		//	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'[[' AIndexList ']' '->' '[' AISLExpressionList ']]'
+		//'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']'
 		public Group getGroup() { return cGroup; }
 		
-		//'[['
-		public Keyword getLeftSquareBracketLeftSquareBracketKeyword_0() { return cLeftSquareBracketLeftSquareBracketKeyword_0; }
-		
-		//AIndexList
-		public RuleCall getAIndexListParserRuleCall_1() { return cAIndexListParserRuleCall_1; }
-		
-		//']'
-		public Keyword getRightSquareBracketKeyword_2() { return cRightSquareBracketKeyword_2; }
-		
-		//'->'
-		public Keyword getHyphenMinusGreaterThanSignKeyword_3() { return cHyphenMinusGreaterThanSignKeyword_3; }
+		//'['
+		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
 		
 		//'['
-		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
+		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
+		
+		//AIndexList
+		public RuleCall getAIndexListParserRuleCall_2() { return cAIndexListParserRuleCall_2; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
+		
+		//'->'
+		public Keyword getHyphenMinusGreaterThanSignKeyword_4() { return cHyphenMinusGreaterThanSignKeyword_4; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 		
 		//AISLExpressionList
-		public RuleCall getAISLExpressionListParserRuleCall_5() { return cAISLExpressionListParserRuleCall_5; }
+		public RuleCall getAISLExpressionListParserRuleCall_6() { return cAISLExpressionListParserRuleCall_6; }
 		
-		//']]'
-		public Keyword getRightSquareBracketRightSquareBracketKeyword_6() { return cRightSquareBracketRightSquareBracketKeyword_6; }
+		//']'
+		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
 	}
 	public class AISLIndirectionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLIndirection");
@@ -1724,26 +1732,27 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDependenceExpressionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cFuzzyDependenceExpressionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cIndexExpressionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cReduceExpressionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cArgReduceExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cConvolutionExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
-		private final RuleCall cExternalReduceExpressionParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
-		private final RuleCall cExternalArgReduceExpressionParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
-		private final RuleCall cMultiArgExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
-		private final RuleCall cExternalMultiArgExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
-		private final RuleCall cSelectExpressionParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
+		private final RuleCall cFuzzyIndexExpressionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cReduceExpressionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cArgReduceExpressionParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cConvolutionExpressionParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cExternalReduceExpressionParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
+		private final RuleCall cExternalArgReduceExpressionParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
+		private final RuleCall cMultiArgExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
+		private final RuleCall cExternalMultiArgExpressionParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
+		private final RuleCall cSelectExpressionParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
 		
 		//AlphaTerminalExpression AlphaExpression:
 		//	'(' AlphaExpression ')' | CaseExpression | ConstantExpression | VariableExpression | DependenceExpression |
-		//	FuzzyDependenceExpression | IndexExpression | ReduceExpression | ArgReduceExpression | ConvolutionExpression |
-		//	ExternalReduceExpression | ExternalArgReduceExpression | MultiArgExpression | ExternalMultiArgExpression |
-		//	SelectExpression;
+		//	FuzzyDependenceExpression | IndexExpression | FuzzyIndexExpression | ReduceExpression | ArgReduceExpression |
+		//	ConvolutionExpression | ExternalReduceExpression | ExternalArgReduceExpression | MultiArgExpression |
+		//	ExternalMultiArgExpression | SelectExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'(' AlphaExpression ')' | CaseExpression | ConstantExpression | VariableExpression | DependenceExpression |
-		//FuzzyDependenceExpression | IndexExpression | ReduceExpression | ArgReduceExpression | ConvolutionExpression |
-		//ExternalReduceExpression | ExternalArgReduceExpression | MultiArgExpression | ExternalMultiArgExpression |
-		//SelectExpression
+		//FuzzyDependenceExpression | IndexExpression | FuzzyIndexExpression | ReduceExpression | ArgReduceExpression |
+		//ConvolutionExpression | ExternalReduceExpression | ExternalArgReduceExpression | MultiArgExpression |
+		//ExternalMultiArgExpression | SelectExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'(' AlphaExpression ')'
@@ -1776,29 +1785,32 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//IndexExpression
 		public RuleCall getIndexExpressionParserRuleCall_6() { return cIndexExpressionParserRuleCall_6; }
 		
+		//FuzzyIndexExpression
+		public RuleCall getFuzzyIndexExpressionParserRuleCall_7() { return cFuzzyIndexExpressionParserRuleCall_7; }
+		
 		//ReduceExpression
-		public RuleCall getReduceExpressionParserRuleCall_7() { return cReduceExpressionParserRuleCall_7; }
+		public RuleCall getReduceExpressionParserRuleCall_8() { return cReduceExpressionParserRuleCall_8; }
 		
 		//ArgReduceExpression
-		public RuleCall getArgReduceExpressionParserRuleCall_8() { return cArgReduceExpressionParserRuleCall_8; }
+		public RuleCall getArgReduceExpressionParserRuleCall_9() { return cArgReduceExpressionParserRuleCall_9; }
 		
 		//ConvolutionExpression
-		public RuleCall getConvolutionExpressionParserRuleCall_9() { return cConvolutionExpressionParserRuleCall_9; }
+		public RuleCall getConvolutionExpressionParserRuleCall_10() { return cConvolutionExpressionParserRuleCall_10; }
 		
 		//ExternalReduceExpression
-		public RuleCall getExternalReduceExpressionParserRuleCall_10() { return cExternalReduceExpressionParserRuleCall_10; }
+		public RuleCall getExternalReduceExpressionParserRuleCall_11() { return cExternalReduceExpressionParserRuleCall_11; }
 		
 		//ExternalArgReduceExpression
-		public RuleCall getExternalArgReduceExpressionParserRuleCall_11() { return cExternalArgReduceExpressionParserRuleCall_11; }
+		public RuleCall getExternalArgReduceExpressionParserRuleCall_12() { return cExternalArgReduceExpressionParserRuleCall_12; }
 		
 		//MultiArgExpression
-		public RuleCall getMultiArgExpressionParserRuleCall_12() { return cMultiArgExpressionParserRuleCall_12; }
+		public RuleCall getMultiArgExpressionParserRuleCall_13() { return cMultiArgExpressionParserRuleCall_13; }
 		
 		//ExternalMultiArgExpression
-		public RuleCall getExternalMultiArgExpressionParserRuleCall_13() { return cExternalMultiArgExpressionParserRuleCall_13; }
+		public RuleCall getExternalMultiArgExpressionParserRuleCall_14() { return cExternalMultiArgExpressionParserRuleCall_14; }
 		
 		//SelectExpression
-		public RuleCall getSelectExpressionParserRuleCall_14() { return cSelectExpressionParserRuleCall_14; }
+		public RuleCall getSelectExpressionParserRuleCall_15() { return cSelectExpressionParserRuleCall_15; }
 	}
 	public class IfExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.IfExpression");
@@ -2149,6 +2161,41 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//JNIFunctionInArrayNotation
 		public RuleCall getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_0() { return cFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_0; }
+	}
+	public class FuzzyIndexExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyIndexExpression");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Keyword cValKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Assignment cFunctionExprAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cFunctionExprJNIFuzzyFunctionParserRuleCall_0_1_0 = (RuleCall)cFunctionExprAssignment_0_1.eContents().get(0);
+		private final Assignment cFunctionExprAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cFunctionExprJNIFuzzyFunctionInArrayNotationParserRuleCall_1_0 = (RuleCall)cFunctionExprAssignment_1.eContents().get(0);
+		
+		//FuzzyIndexExpression:
+		//	'val' functionExpr=JNIFuzzyFunction | functionExpr=JNIFuzzyFunctionInArrayNotation;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'val' functionExpr=JNIFuzzyFunction | functionExpr=JNIFuzzyFunctionInArrayNotation
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//'val' functionExpr=JNIFuzzyFunction
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//'val'
+		public Keyword getValKeyword_0_0() { return cValKeyword_0_0; }
+		
+		//functionExpr=JNIFuzzyFunction
+		public Assignment getFunctionExprAssignment_0_1() { return cFunctionExprAssignment_0_1; }
+		
+		//JNIFuzzyFunction
+		public RuleCall getFunctionExprJNIFuzzyFunctionParserRuleCall_0_1_0() { return cFunctionExprJNIFuzzyFunctionParserRuleCall_0_1_0; }
+		
+		//functionExpr=JNIFuzzyFunctionInArrayNotation
+		public Assignment getFunctionExprAssignment_1() { return cFunctionExprAssignment_1; }
+		
+		//JNIFuzzyFunctionInArrayNotation
+		public RuleCall getFunctionExprJNIFuzzyFunctionInArrayNotationParserRuleCall_1_0() { return cFunctionExprJNIFuzzyFunctionInArrayNotationParserRuleCall_1_0; }
 	}
 	public class ReduceExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.ReduceExpression");
@@ -3610,6 +3657,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final DependenceExpressionElements pDependenceExpression;
 	private final FuzzyDependenceExpressionElements pFuzzyDependenceExpression;
 	private final IndexExpressionElements pIndexExpression;
+	private final FuzzyIndexExpressionElements pFuzzyIndexExpression;
 	private final ReduceExpressionElements pReduceExpression;
 	private final ExternalReduceExpressionElements pExternalReduceExpression;
 	private final ArgReduceExpressionElements pArgReduceExpression;
@@ -3710,6 +3758,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDependenceExpression = new DependenceExpressionElements();
 		this.pFuzzyDependenceExpression = new FuzzyDependenceExpressionElements();
 		this.pIndexExpression = new IndexExpressionElements();
+		this.pFuzzyIndexExpression = new FuzzyIndexExpressionElements();
 		this.pReduceExpression = new ReduceExpressionElements();
 		this.pExternalReduceExpression = new ExternalReduceExpressionElements();
 		this.pArgReduceExpression = new ArgReduceExpressionElements();
@@ -4128,7 +4177,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AISLWrappedBasicRelation:
-	//	'[[' AIndexList ']' '->' '[' AISLExpressionList ']]';
+	//	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']';
 	public AISLWrappedBasicRelationElements getAISLWrappedBasicRelationAccess() {
 		return pAISLWrappedBasicRelation;
 	}
@@ -4199,9 +4248,9 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//AlphaTerminalExpression AlphaExpression:
 	//	'(' AlphaExpression ')' | CaseExpression | ConstantExpression | VariableExpression | DependenceExpression |
-	//	FuzzyDependenceExpression | IndexExpression | ReduceExpression | ArgReduceExpression | ConvolutionExpression |
-	//	ExternalReduceExpression | ExternalArgReduceExpression | MultiArgExpression | ExternalMultiArgExpression |
-	//	SelectExpression;
+	//	FuzzyDependenceExpression | IndexExpression | FuzzyIndexExpression | ReduceExpression | ArgReduceExpression |
+	//	ConvolutionExpression | ExternalReduceExpression | ExternalArgReduceExpression | MultiArgExpression |
+	//	ExternalMultiArgExpression | SelectExpression;
 	public AlphaTerminalExpressionElements getAlphaTerminalExpressionAccess() {
 		return pAlphaTerminalExpression;
 	}
@@ -4284,6 +4333,16 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getIndexExpressionRule() {
 		return getIndexExpressionAccess().getRule();
+	}
+	
+	//FuzzyIndexExpression:
+	//	'val' functionExpr=JNIFuzzyFunction | functionExpr=JNIFuzzyFunctionInArrayNotation;
+	public FuzzyIndexExpressionElements getFuzzyIndexExpressionAccess() {
+		return pFuzzyIndexExpression;
+	}
+	
+	public ParserRule getFuzzyIndexExpressionRule() {
+		return getFuzzyIndexExpressionAccess().getRule();
 	}
 	
 	//ReduceExpression:

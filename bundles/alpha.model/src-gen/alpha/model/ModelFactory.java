@@ -202,6 +202,15 @@ public interface ModelFactory extends EFactory {
 	IndexExpression createIndexExpression();
 
 	/**
+	 * Returns a new object of class '<em>Fuzzy Index Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fuzzy Index Expression</em>'.
+	 * @generated
+	 */
+	FuzzyIndexExpression createFuzzyIndexExpression();
+
+	/**
 	 * Returns a new object of class '<em>Reduce Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

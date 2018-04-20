@@ -2299,17 +2299,22 @@ ruleAISLWrappedBasicRelation returns [AntlrDatatypeRuleToken current=new AntlrDa
 	leaveRule();
 }:
 	(
-		kw='[['
+		kw='['
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getLeftSquareBracketLeftSquareBracketKeyword_0());
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getLeftSquareBracketKeyword_0());
+		}
+		kw='['
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getLeftSquareBracketKeyword_1());
 		}
 		{
-			newCompositeNode(grammarAccess.getAISLWrappedBasicRelationAccess().getAIndexListParserRuleCall_1());
+			newCompositeNode(grammarAccess.getAISLWrappedBasicRelationAccess().getAIndexListParserRuleCall_2());
 		}
-		this_AIndexList_1=ruleAIndexList
+		this_AIndexList_2=ruleAIndexList
 		{
-			$current.merge(this_AIndexList_1);
+			$current.merge(this_AIndexList_2);
 		}
 		{
 			afterParserOrEnumRuleCall();
@@ -2317,32 +2322,37 @@ ruleAISLWrappedBasicRelation returns [AntlrDatatypeRuleToken current=new AntlrDa
 		kw=']'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getRightSquareBracketKeyword_2());
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getRightSquareBracketKeyword_3());
 		}
 		kw='->'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getHyphenMinusGreaterThanSignKeyword_3());
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getHyphenMinusGreaterThanSignKeyword_4());
 		}
 		kw='['
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getLeftSquareBracketKeyword_4());
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getLeftSquareBracketKeyword_5());
 		}
 		{
-			newCompositeNode(grammarAccess.getAISLWrappedBasicRelationAccess().getAISLExpressionListParserRuleCall_5());
+			newCompositeNode(grammarAccess.getAISLWrappedBasicRelationAccess().getAISLExpressionListParserRuleCall_6());
 		}
-		this_AISLExpressionList_5=ruleAISLExpressionList
+		this_AISLExpressionList_6=ruleAISLExpressionList
 		{
-			$current.merge(this_AISLExpressionList_5);
+			$current.merge(this_AISLExpressionList_6);
 		}
 		{
 			afterParserOrEnumRuleCall();
 		}
-		kw=']]'
+		kw=']'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getRightSquareBracketRightSquareBracketKeyword_6());
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getRightSquareBracketKeyword_7());
+		}
+		kw=']'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getRightSquareBracketKeyword_8());
 		}
 	)
 ;
@@ -3030,74 +3040,83 @@ ruleAlphaTerminalExpression returns [EObject current=null]
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getReduceExpressionParserRuleCall_7());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getFuzzyIndexExpressionParserRuleCall_7());
 		}
-		this_ReduceExpression_9=ruleReduceExpression
+		this_FuzzyIndexExpression_9=ruleFuzzyIndexExpression
 		{
-			$current = $this_ReduceExpression_9.current;
+			$current = $this_FuzzyIndexExpression_9.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getArgReduceExpressionParserRuleCall_8());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getReduceExpressionParserRuleCall_8());
 		}
-		this_ArgReduceExpression_10=ruleArgReduceExpression
+		this_ReduceExpression_10=ruleReduceExpression
 		{
-			$current = $this_ArgReduceExpression_10.current;
+			$current = $this_ReduceExpression_10.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getConvolutionExpressionParserRuleCall_9());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getArgReduceExpressionParserRuleCall_9());
 		}
-		this_ConvolutionExpression_11=ruleConvolutionExpression
+		this_ArgReduceExpression_11=ruleArgReduceExpression
 		{
-			$current = $this_ConvolutionExpression_11.current;
+			$current = $this_ArgReduceExpression_11.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getExternalReduceExpressionParserRuleCall_10());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getConvolutionExpressionParserRuleCall_10());
 		}
-		this_ExternalReduceExpression_12=ruleExternalReduceExpression
+		this_ConvolutionExpression_12=ruleConvolutionExpression
 		{
-			$current = $this_ExternalReduceExpression_12.current;
+			$current = $this_ConvolutionExpression_12.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getExternalArgReduceExpressionParserRuleCall_11());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getExternalReduceExpressionParserRuleCall_11());
 		}
-		this_ExternalArgReduceExpression_13=ruleExternalArgReduceExpression
+		this_ExternalReduceExpression_13=ruleExternalReduceExpression
 		{
-			$current = $this_ExternalArgReduceExpression_13.current;
+			$current = $this_ExternalReduceExpression_13.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getMultiArgExpressionParserRuleCall_12());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getExternalArgReduceExpressionParserRuleCall_12());
 		}
-		this_MultiArgExpression_14=ruleMultiArgExpression
+		this_ExternalArgReduceExpression_14=ruleExternalArgReduceExpression
 		{
-			$current = $this_MultiArgExpression_14.current;
+			$current = $this_ExternalArgReduceExpression_14.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getExternalMultiArgExpressionParserRuleCall_13());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getMultiArgExpressionParserRuleCall_13());
 		}
-		this_ExternalMultiArgExpression_15=ruleExternalMultiArgExpression
+		this_MultiArgExpression_15=ruleMultiArgExpression
 		{
-			$current = $this_ExternalMultiArgExpression_15.current;
+			$current = $this_MultiArgExpression_15.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getSelectExpressionParserRuleCall_14());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getExternalMultiArgExpressionParserRuleCall_14());
 		}
-		this_SelectExpression_16=ruleSelectExpression
+		this_ExternalMultiArgExpression_16=ruleExternalMultiArgExpression
 		{
-			$current = $this_SelectExpression_16.current;
+			$current = $this_ExternalMultiArgExpression_16.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getSelectExpressionParserRuleCall_15());
+		}
+		this_SelectExpression_17=ruleSelectExpression
+		{
+			$current = $this_SelectExpression_17.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -3710,6 +3729,70 @@ ruleIndexExpression returns [EObject current=null]
 						"functionExpr",
 						lv_functionExpr_2_0,
 						"alpha.model.Alpha.JNIFunctionInArrayNotation");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleFuzzyIndexExpression
+entryRuleFuzzyIndexExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getFuzzyIndexExpressionRule()); }
+	iv_ruleFuzzyIndexExpression=ruleFuzzyIndexExpression
+	{ $current=$iv_ruleFuzzyIndexExpression.current; }
+	EOF;
+
+// Rule FuzzyIndexExpression
+ruleFuzzyIndexExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			otherlv_0='val'
+			{
+				newLeafNode(otherlv_0, grammarAccess.getFuzzyIndexExpressionAccess().getValKeyword_0_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getFuzzyIndexExpressionAccess().getFunctionExprJNIFuzzyFunctionParserRuleCall_0_1_0());
+					}
+					lv_functionExpr_1_0=ruleJNIFuzzyFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFuzzyIndexExpressionRule());
+						}
+						set(
+							$current,
+							"functionExpr",
+							lv_functionExpr_1_0,
+							"alpha.model.Alpha.JNIFuzzyFunction");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)
+		    |
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getFuzzyIndexExpressionAccess().getFunctionExprJNIFuzzyFunctionInArrayNotationParserRuleCall_1_0());
+				}
+				lv_functionExpr_2_0=ruleJNIFuzzyFunctionInArrayNotation
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getFuzzyIndexExpressionRule());
+					}
+					set(
+						$current,
+						"functionExpr",
+						lv_functionExpr_2_0,
+						"alpha.model.Alpha.JNIFuzzyFunctionInArrayNotation");
 					afterParserOrEnumRuleCall();
 				}
 			)

@@ -34,6 +34,7 @@ import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
 import alpha.model.FuzzyDependenceExpression;
+import alpha.model.FuzzyIndexExpression;
 import alpha.model.FuzzyVariable;
 import alpha.model.IfExpression;
 import alpha.model.Imports;
@@ -300,6 +301,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass indexExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fuzzyIndexExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1364,6 +1372,24 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getFuzzyIndexExpression() {
+		return fuzzyIndexExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFuzzyIndexExpression_FunctionExpr() {
+		return (EReference)fuzzyIndexExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAbstractReduceExpression() {
 		return abstractReduceExpressionEClass;
 	}
@@ -2304,6 +2330,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		indexExpressionEClass = createEClass(INDEX_EXPRESSION);
 		createEReference(indexExpressionEClass, INDEX_EXPRESSION__FUNCTION_EXPR);
 
+		fuzzyIndexExpressionEClass = createEClass(FUZZY_INDEX_EXPRESSION);
+		createEReference(fuzzyIndexExpressionEClass, FUZZY_INDEX_EXPRESSION__FUNCTION_EXPR);
+
 		abstractReduceExpressionEClass = createEClass(ABSTRACT_REDUCE_EXPRESSION);
 		createEAttribute(abstractReduceExpressionEClass, ABSTRACT_REDUCE_EXPRESSION__OPERATOR);
 		createEReference(abstractReduceExpressionEClass, ABSTRACT_REDUCE_EXPRESSION__PROJECTION_EXPR);
@@ -2486,6 +2515,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		fuzzyDependenceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		ifExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		indexExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
+		fuzzyIndexExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		abstractReduceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		reduceExpressionEClass.getESuperTypes().add(this.getAbstractReduceExpression());
 		externalReduceExpressionEClass.getESuperTypes().add(this.getReduceExpression());
@@ -2697,7 +2727,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitFuzzyDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getFuzzyDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyDependenceExpression(), "fde", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitAbstractReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAbstractReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2725,6 +2755,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIndexExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitFuzzyIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyIndexExpression(), "fie", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitVariableExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariableExpression(), "ve", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2769,7 +2802,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inFuzzyDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getFuzzyDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyDependenceExpression(), "fde", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inAbstractReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAbstractReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2797,6 +2830,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIndexExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inFuzzyIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyIndexExpression(), "fie", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inVariableExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariableExpression(), "ve", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2841,7 +2877,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outFuzzyDependenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getFuzzyDependenceExpression(), "de", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyDependenceExpression(), "fde", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outAbstractReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAbstractReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2869,6 +2905,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIndexExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outFuzzyIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyIndexExpression(), "fie", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outVariableExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariableExpression(), "ve", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3135,6 +3174,14 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(indexExpressionEClass, this.getJNIISLMultiAff(), "getFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(indexExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(fuzzyIndexExpressionEClass, FuzzyIndexExpression.class, "FuzzyIndexExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFuzzyIndexExpression_FunctionExpr(), this.getJNIFuzzyFunction(), null, "functionExpr", null, 0, 1, FuzzyIndexExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(fuzzyIndexExpressionEClass, this.getJNIISLUnionMap(), "getFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(fuzzyIndexExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(abstractReduceExpressionEClass, AbstractReduceExpression.class, "AbstractReduceExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

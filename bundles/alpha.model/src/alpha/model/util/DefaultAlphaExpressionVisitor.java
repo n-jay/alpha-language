@@ -16,6 +16,7 @@ import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
 import alpha.model.FuzzyDependenceExpression;
+import alpha.model.FuzzyIndexExpression;
 import alpha.model.IfExpression;
 import alpha.model.IndexExpression;
 import alpha.model.IntegerExpression;
@@ -84,10 +85,10 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	}
 
 	@Override
-	default void visitFuzzyDependenceExpression(FuzzyDependenceExpression de) {
-		inFuzzyDependenceExpression(de);
-		accept(de.getExpr());
-		outFuzzyDependenceExpression(de);
+	default void visitFuzzyDependenceExpression(FuzzyDependenceExpression fde) {
+		inFuzzyDependenceExpression(fde);
+		accept(fde.getExpr());
+		outFuzzyDependenceExpression(fde);
 	}
 	
 	@Override
@@ -155,6 +156,13 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 		inIndexExpression(ie);
 		outIndexExpression(ie);
 	}
+
+	@Override
+	default void visitFuzzyIndexExpression(FuzzyIndexExpression fie) {
+		inFuzzyIndexExpression(fie);
+		outFuzzyIndexExpression(fie);
+	}
+
 
 	@Override
 	default void visitVariableExpression(VariableExpression ve) {
@@ -243,8 +251,8 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	}
 
 	@Override
-	default void inFuzzyDependenceExpression(FuzzyDependenceExpression de) {
-		inAlphaExpression(de);
+	default void inFuzzyDependenceExpression(FuzzyDependenceExpression fde) {
+		inAlphaExpression(fde);
 	}
 
 	@Override
@@ -290,6 +298,11 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	@Override
 	default void inIndexExpression(IndexExpression ie) {
 		inAlphaExpression(ie);
+	}
+	
+	@Override
+	default void inFuzzyIndexExpression(FuzzyIndexExpression fie) {
+		inAlphaExpression(fie);
 	}
 
 	@Override
@@ -363,8 +376,8 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	}
 	
 	@Override
-	default void outFuzzyDependenceExpression(FuzzyDependenceExpression de) {
-		outAlphaExpression(de);
+	default void outFuzzyDependenceExpression(FuzzyDependenceExpression fde) {
+		outAlphaExpression(fde);
 	}
 	
 	@Override
@@ -410,6 +423,11 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	@Override
 	default void outIndexExpression(IndexExpression ie) {
 		outAlphaExpression(ie);
+	}
+	
+	@Override
+	default void outFuzzyIndexExpression(FuzzyIndexExpression fie) {
+		outAlphaExpression(fie);
 	}
 
 	@Override

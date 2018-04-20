@@ -309,6 +309,15 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.FUZZY_INDEX_EXPRESSION: {
+				FuzzyIndexExpression fuzzyIndexExpression = (FuzzyIndexExpression)theEObject;
+				T result = caseFuzzyIndexExpression(fuzzyIndexExpression);
+				if (result == null) result = caseAlphaExpression(fuzzyIndexExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(fuzzyIndexExpression);
+				if (result == null) result = caseAlphaNode(fuzzyIndexExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION: {
 				AbstractReduceExpression abstractReduceExpression = (AbstractReduceExpression)theEObject;
 				T result = caseAbstractReduceExpression(abstractReduceExpression);
@@ -1061,6 +1070,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIndexExpression(IndexExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fuzzy Index Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fuzzy Index Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFuzzyIndexExpression(FuzzyIndexExpression object) {
 		return null;
 	}
 
