@@ -2354,6 +2354,31 @@ ruleAISLWrappedBasicRelation returns [AntlrDatatypeRuleToken current=new AntlrDa
 			$current.merge(kw);
 			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getRightSquareBracketKeyword_8());
 		}
+		kw='->'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getHyphenMinusGreaterThanSignKeyword_9());
+		}
+		kw='['
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getLeftSquareBracketKeyword_10());
+		}
+		{
+			newCompositeNode(grammarAccess.getAISLWrappedBasicRelationAccess().getAISLExpressionListParserRuleCall_11());
+		}
+		this_AISLExpressionList_11=ruleAISLExpressionList
+		{
+			$current.merge(this_AISLExpressionList_11);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		kw=']'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLWrappedBasicRelationAccess().getRightSquareBracketKeyword_12());
+		}
 	)
 ;
 

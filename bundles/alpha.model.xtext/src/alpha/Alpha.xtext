@@ -146,7 +146,7 @@ AISLFuzzyRelation:
 ;
 
 AISLWrappedBasicRelation:
-	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']'
+	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']' '->' '[' AISLExpressionList ']'
 ;
 
 AISLIndirection:

@@ -1295,12 +1295,16 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAISLExpressionListParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Keyword cLeftSquareBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		private final RuleCall cAISLExpressionListParserRuleCall_11 = (RuleCall)cGroup.eContents().get(11);
+		private final Keyword cRightSquareBracketKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		
 		//AISLWrappedBasicRelation:
-		//	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']';
+		//	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']' '->' '[' AISLExpressionList ']';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']'
+		//'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']' '->' '[' AISLExpressionList ']'
 		public Group getGroup() { return cGroup; }
 		
 		//'['
@@ -1329,6 +1333,18 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//']'
 		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
+		
+		//'->'
+		public Keyword getHyphenMinusGreaterThanSignKeyword_9() { return cHyphenMinusGreaterThanSignKeyword_9; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_10() { return cLeftSquareBracketKeyword_10; }
+		
+		//AISLExpressionList
+		public RuleCall getAISLExpressionListParserRuleCall_11() { return cAISLExpressionListParserRuleCall_11; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_12() { return cRightSquareBracketKeyword_12; }
 	}
 	public class AISLIndirectionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLIndirection");
@@ -4197,7 +4213,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AISLWrappedBasicRelation:
-	//	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']';
+	//	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']' '->' '[' AISLExpressionList ']';
 	public AISLWrappedBasicRelationElements getAISLWrappedBasicRelationAccess() {
 		return pAISLWrappedBasicRelation;
 	}
