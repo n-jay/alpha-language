@@ -33,18 +33,15 @@ import alpha.model.FuzzyVariable;
 import alpha.model.IfExpression;
 import alpha.model.Imports;
 import alpha.model.IndexExpression;
-import alpha.model.InputVariable;
 import alpha.model.IntegerExpression;
 import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.JNIRelation;
-import alpha.model.LocalVariable;
 import alpha.model.ModelPackage;
 import alpha.model.MultiArgExpression;
 import alpha.model.NestedFuzzyFunction;
-import alpha.model.OutputVariable;
 import alpha.model.PolyhedralObject;
 import alpha.model.RealExpression;
 import alpha.model.RectangularDomain;
@@ -55,6 +52,7 @@ import alpha.model.StandardEquation;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.UnaryExpression;
 import alpha.model.UseEquation;
+import alpha.model.Variable;
 import alpha.model.VariableDomain;
 import alpha.model.VariableExpression;
 import alpha.model.services.AlphaGrammarAccess;
@@ -163,8 +161,19 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				sequence_FuzzyReduceExpression(context, (FuzzyReduceExpression) semanticObject); 
 				return; 
 			case ModelPackage.FUZZY_VARIABLE:
-				sequence_FuzzyVariable(context, (FuzzyVariable) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getFuzzyInputVariableRule()) {
+					sequence_FuzzyInputVariable(context, (FuzzyVariable) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getFuzzyLocalVariableRule()) {
+					sequence_FuzzyLocalVariable(context, (FuzzyVariable) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getFuzzyOutputVariableRule()) {
+					sequence_FuzzyOutputVariable(context, (FuzzyVariable) semanticObject); 
+					return; 
+				}
+				else break;
 			case ModelPackage.IF_EXPRESSION:
 				sequence_IfExpression(context, (IfExpression) semanticObject); 
 				return; 
@@ -173,9 +182,6 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case ModelPackage.INDEX_EXPRESSION:
 				sequence_IndexExpression(context, (IndexExpression) semanticObject); 
-				return; 
-			case ModelPackage.INPUT_VARIABLE:
-				sequence_InputVariable(context, (InputVariable) semanticObject); 
 				return; 
 			case ModelPackage.INTEGER_EXPRESSION:
 				sequence_IntegerExpression(context, (IntegerExpression) semanticObject); 
@@ -206,17 +212,11 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case ModelPackage.JNI_RELATION:
 				sequence_JNIRelation(context, (JNIRelation) semanticObject); 
 				return; 
-			case ModelPackage.LOCAL_VARIABLE:
-				sequence_LocalVariable(context, (LocalVariable) semanticObject); 
-				return; 
 			case ModelPackage.MULTI_ARG_EXPRESSION:
 				sequence_MultiArgExpression(context, (MultiArgExpression) semanticObject); 
 				return; 
 			case ModelPackage.NESTED_FUZZY_FUNCTION:
 				sequence_NestedFuzzyFunction(context, (NestedFuzzyFunction) semanticObject); 
-				return; 
-			case ModelPackage.OUTPUT_VARIABLE:
-				sequence_OutputVariable(context, (OutputVariable) semanticObject); 
 				return; 
 			case ModelPackage.POLYHEDRAL_OBJECT:
 				sequence_PolyhedralObject(context, (PolyhedralObject) semanticObject); 
@@ -248,6 +248,20 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case ModelPackage.USE_EQUATION:
 				sequence_UseEquation(context, (UseEquation) semanticObject); 
 				return; 
+			case ModelPackage.VARIABLE:
+				if (rule == grammarAccess.getInputVariableRule()) {
+					sequence_InputVariable(context, (Variable) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getLocalVariableRule()) {
+					sequence_LocalVariable(context, (Variable) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getOutputVariableRule()) {
+					sequence_OutputVariable(context, (Variable) semanticObject); 
+					return; 
+				}
+				else break;
 			case ModelPackage.VARIABLE_DOMAIN:
 				sequence_VariableDomain(context, (VariableDomain) semanticObject); 
 				return; 
@@ -371,10 +385,11 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *         name=SystemName 
 	 *         parameterDomainExpr=JNIParamDomain 
 	 *         definedObjects+=PolyhedralObject* 
-	 *         inputs+=InputVariable* 
-	 *         outputs+=OutputVariable* 
-	 *         locals+=LocalVariable* 
-	 *         fuzzyVariables+=FuzzyVariable* 
+	 *         (inputs+=InputVariable | inputs+=FuzzyInputVariable)* 
+	 *         outputs+=OutputVariable? 
+	 *         (outputs+=FuzzyOutputVariable? outputs+=OutputVariable?)* 
+	 *         locals+=LocalVariable? 
+	 *         (locals+=FuzzyLocalVariable? locals+=LocalVariable?)* 
 	 *         (whileDomainExpr=CalculatorExpression testExpression=AlphaExpression)? 
 	 *         useEquations+=UseEquation* 
 	 *         equations+=StandardEquation*
@@ -930,6 +945,78 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     FuzzyInputVariable returns FuzzyVariable
+	 *
+	 * Constraint:
+	 *     (name=ID domainExpr=CalculatorExpression rangeExpr=CalculatorExpression)
+	 */
+	protected void sequence_FuzzyInputVariable(ISerializationContext context, FuzzyVariable semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.VARIABLE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.VARIABLE__NAME));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.VARIABLE__DOMAIN_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.VARIABLE__DOMAIN_EXPR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE__RANGE_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE__RANGE_EXPR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFuzzyInputVariableAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getFuzzyInputVariableAccess().getDomainExprCalculatorExpressionParserRuleCall_3_0(), semanticObject.getDomainExpr());
+		feeder.accept(grammarAccess.getFuzzyInputVariableAccess().getRangeExprCalculatorExpressionParserRuleCall_5_0(), semanticObject.getRangeExpr());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FuzzyLocalVariable returns FuzzyVariable
+	 *
+	 * Constraint:
+	 *     (name=ID domainExpr=CalculatorExpression rangeExpr=CalculatorExpression)
+	 */
+	protected void sequence_FuzzyLocalVariable(ISerializationContext context, FuzzyVariable semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.VARIABLE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.VARIABLE__NAME));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.VARIABLE__DOMAIN_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.VARIABLE__DOMAIN_EXPR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE__RANGE_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE__RANGE_EXPR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFuzzyLocalVariableAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getFuzzyLocalVariableAccess().getDomainExprCalculatorExpressionParserRuleCall_3_0(), semanticObject.getDomainExpr());
+		feeder.accept(grammarAccess.getFuzzyLocalVariableAccess().getRangeExprCalculatorExpressionParserRuleCall_5_0(), semanticObject.getRangeExpr());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FuzzyOutputVariable returns FuzzyVariable
+	 *
+	 * Constraint:
+	 *     (name=ID domainExpr=CalculatorExpression rangeExpr=CalculatorExpression)
+	 */
+	protected void sequence_FuzzyOutputVariable(ISerializationContext context, FuzzyVariable semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.VARIABLE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.VARIABLE__NAME));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.VARIABLE__DOMAIN_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.VARIABLE__DOMAIN_EXPR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE__RANGE_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE__RANGE_EXPR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFuzzyOutputVariableAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getFuzzyOutputVariableAccess().getDomainExprCalculatorExpressionParserRuleCall_3_0(), semanticObject.getDomainExpr());
+		feeder.accept(grammarAccess.getFuzzyOutputVariableAccess().getRangeExprCalculatorExpressionParserRuleCall_5_0(), semanticObject.getRangeExpr());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     AlphaExpression returns FuzzyReduceExpression
 	 *     AlphaTerminalExpression returns FuzzyReduceExpression
 	 *     Reductions returns FuzzyReduceExpression
@@ -965,18 +1052,6 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		feeder.accept(grammarAccess.getFuzzyReduceExpressionAccess().getProjectionFunctionFuzzyFunctionParserRuleCall_4_0(), semanticObject.getProjectionFunction());
 		feeder.accept(grammarAccess.getFuzzyReduceExpressionAccess().getBodyAlphaExpressionParserRuleCall_6_0(), semanticObject.getBody());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     FuzzyVariable returns FuzzyVariable
-	 *
-	 * Constraint:
-	 *     (name=ID domainExpr=CalculatorExpression?)
-	 */
-	protected void sequence_FuzzyVariable(ISerializationContext context, FuzzyVariable semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1066,12 +1141,12 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     InputVariable returns InputVariable
+	 *     InputVariable returns Variable
 	 *
 	 * Constraint:
 	 *     (name=ID domainExpr=CalculatorExpression?)
 	 */
-	protected void sequence_InputVariable(ISerializationContext context, InputVariable semanticObject) {
+	protected void sequence_InputVariable(ISerializationContext context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1226,12 +1301,12 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     LocalVariable returns LocalVariable
+	 *     LocalVariable returns Variable
 	 *
 	 * Constraint:
 	 *     (name=ID domainExpr=CalculatorExpression?)
 	 */
-	protected void sequence_LocalVariable(ISerializationContext context, LocalVariable semanticObject) {
+	protected void sequence_LocalVariable(ISerializationContext context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1278,12 +1353,12 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     OutputVariable returns OutputVariable
+	 *     OutputVariable returns Variable
 	 *
 	 * Constraint:
 	 *     (name=ID domainExpr=CalculatorExpression?)
 	 */
-	protected void sequence_OutputVariable(ISerializationContext context, OutputVariable semanticObject) {
+	protected void sequence_OutputVariable(ISerializationContext context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

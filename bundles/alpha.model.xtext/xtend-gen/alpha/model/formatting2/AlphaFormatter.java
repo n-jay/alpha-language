@@ -10,7 +10,6 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.CalculatorExpression;
 import alpha.model.CaseExpression;
-import alpha.model.FuzzyVariable;
 import alpha.model.PolyhedralObject;
 import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
@@ -101,9 +100,6 @@ public class AlphaFormatter extends AbstractFormatter2 {
         case "outputs":
           _switchResult = system.getLocals().isEmpty();
           break;
-        case "locals":
-          _switchResult = system.getFuzzyVariables().isEmpty();
-          break;
         case "fuzzy":
           CalculatorExpression _whileDomainExpr = system.getWhileDomainExpr();
           _switchResult = (_whileDomainExpr == null);
@@ -157,16 +153,6 @@ public class AlphaFormatter extends AbstractFormatter2 {
           it.newLine();
         };
         document.<Variable>append(variable, _function_1);
-      }
-    }
-    EList<FuzzyVariable> _fuzzyVariables = alphaSystem.getFuzzyVariables();
-    for (final FuzzyVariable variable_1 : _fuzzyVariables) {
-      {
-        document.<FuzzyVariable>format(variable_1);
-        final Procedure1<IHiddenRegionFormatter> _function_1 = (IHiddenRegionFormatter it) -> {
-          it.newLine();
-        };
-        document.<FuzzyVariable>append(variable_1, _function_1);
       }
     }
     EList<PolyhedralObject> _definedObjects = alphaSystem.getDefinedObjects();

@@ -5,6 +5,9 @@ package alpha.model.impl;
 import alpha.model.AlphaVisitor;
 import alpha.model.CalculatorExpression;
 import alpha.model.ModelPackage;
+
+import alpha.model.ModelPackage.Literals;
+
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.Variable;
 
@@ -188,6 +191,33 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 				throw Exceptions.sneakyThrow(_t);
 			}
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isInput() {
+		return ((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__INPUTS));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOutput() {
+		return ((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__OUTPUTS));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isLocal() {
+		return ((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__LOCALS));
 	}
 
 	/**

@@ -72,9 +72,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.EXTERNAL_FUNCTION: return createExternalFunction();
 			case ModelPackage.ALPHA_SYSTEM: return createAlphaSystem();
 			case ModelPackage.VARIABLE: return createVariable();
-			case ModelPackage.INPUT_VARIABLE: return createInputVariable();
-			case ModelPackage.OUTPUT_VARIABLE: return createOutputVariable();
-			case ModelPackage.LOCAL_VARIABLE: return createLocalVariable();
 			case ModelPackage.FUZZY_VARIABLE: return createFuzzyVariable();
 			case ModelPackage.STANDARD_EQUATION: return createStandardEquation();
 			case ModelPackage.USE_EQUATION: return createUseEquation();
@@ -266,36 +263,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public Variable createVariable() {
 		VariableImpl variable = new VariableImpl();
 		return variable;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public InputVariable createInputVariable() {
-		InputVariableImpl inputVariable = new InputVariableImpl();
-		return inputVariable;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public OutputVariable createOutputVariable() {
-		OutputVariableImpl outputVariable = new OutputVariableImpl();
-		return outputVariable;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public LocalVariable createLocalVariable() {
-		LocalVariableImpl localVariable = new LocalVariableImpl();
-		return localVariable;
 	}
 
 	/**

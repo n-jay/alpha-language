@@ -85,33 +85,6 @@ public interface ModelFactory extends EFactory {
 	Variable createVariable();
 
 	/**
-	 * Returns a new object of class '<em>Input Variable</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Input Variable</em>'.
-	 * @generated
-	 */
-	InputVariable createInputVariable();
-
-	/**
-	 * Returns a new object of class '<em>Output Variable</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Output Variable</em>'.
-	 * @generated
-	 */
-	OutputVariable createOutputVariable();
-
-	/**
-	 * Returns a new object of class '<em>Local Variable</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Local Variable</em>'.
-	 * @generated
-	 */
-	LocalVariable createLocalVariable();
-
-	/**
 	 * Returns a new object of class '<em>Fuzzy Variable</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -186,33 +186,6 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackage.INPUT_VARIABLE: {
-				InputVariable inputVariable = (InputVariable)theEObject;
-				T result = caseInputVariable(inputVariable);
-				if (result == null) result = caseVariable(inputVariable);
-				if (result == null) result = caseAlphaVisitable(inputVariable);
-				if (result == null) result = caseAlphaNode(inputVariable);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ModelPackage.OUTPUT_VARIABLE: {
-				OutputVariable outputVariable = (OutputVariable)theEObject;
-				T result = caseOutputVariable(outputVariable);
-				if (result == null) result = caseVariable(outputVariable);
-				if (result == null) result = caseAlphaVisitable(outputVariable);
-				if (result == null) result = caseAlphaNode(outputVariable);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ModelPackage.LOCAL_VARIABLE: {
-				LocalVariable localVariable = (LocalVariable)theEObject;
-				T result = caseLocalVariable(localVariable);
-				if (result == null) result = caseVariable(localVariable);
-				if (result == null) result = caseAlphaVisitable(localVariable);
-				if (result == null) result = caseAlphaNode(localVariable);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case ModelPackage.FUZZY_VARIABLE: {
 				FuzzyVariable fuzzyVariable = (FuzzyVariable)theEObject;
 				T result = caseFuzzyVariable(fuzzyVariable);
@@ -927,51 +900,6 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseVariable(Variable object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Input Variable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Input Variable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseInputVariable(InputVariable object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Output Variable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Output Variable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseOutputVariable(OutputVariable object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Local Variable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Local Variable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseLocalVariable(LocalVariable object) {
 		return null;
 	}
 

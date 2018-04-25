@@ -461,22 +461,13 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_SYSTEM__LOCALS = ALPHA_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Fuzzy Variables</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ALPHA_SYSTEM__FUZZY_VARIABLES = ALPHA_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
 	 * The feature id for the '<em><b>While Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_SYSTEM__WHILE_DOMAIN_EXPR = ALPHA_ELEMENT_FEATURE_COUNT + 7;
+	int ALPHA_SYSTEM__WHILE_DOMAIN_EXPR = ALPHA_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Test Expression</b></em>' containment reference.
@@ -485,7 +476,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_SYSTEM__TEST_EXPRESSION = ALPHA_ELEMENT_FEATURE_COUNT + 8;
+	int ALPHA_SYSTEM__TEST_EXPRESSION = ALPHA_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Use Equations</b></em>' containment reference list.
@@ -494,7 +485,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_SYSTEM__USE_EQUATIONS = ALPHA_ELEMENT_FEATURE_COUNT + 9;
+	int ALPHA_SYSTEM__USE_EQUATIONS = ALPHA_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Equations</b></em>' containment reference list.
@@ -503,7 +494,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_SYSTEM__EQUATIONS = ALPHA_ELEMENT_FEATURE_COUNT + 10;
+	int ALPHA_SYSTEM__EQUATIONS = ALPHA_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Alpha System</em>' class.
@@ -512,7 +503,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_SYSTEM_FEATURE_COUNT = ALPHA_ELEMENT_FEATURE_COUNT + 11;
+	int ALPHA_SYSTEM_FEATURE_COUNT = ALPHA_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.VariableImpl <em>Variable</em>}' class.
@@ -552,117 +543,6 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link alpha.model.impl.InputVariableImpl <em>Input Variable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see alpha.model.impl.InputVariableImpl
-	 * @see alpha.model.impl.ModelPackageImpl#getInputVariable()
-	 * @generated
-	 */
-	int INPUT_VARIABLE = 16;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INPUT_VARIABLE__NAME = VARIABLE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Domain Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INPUT_VARIABLE__DOMAIN_EXPR = VARIABLE__DOMAIN_EXPR;
-
-	/**
-	 * The number of structural features of the '<em>Input Variable</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INPUT_VARIABLE_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link alpha.model.impl.OutputVariableImpl <em>Output Variable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see alpha.model.impl.OutputVariableImpl
-	 * @see alpha.model.impl.ModelPackageImpl#getOutputVariable()
-	 * @generated
-	 */
-	int OUTPUT_VARIABLE = 17;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTPUT_VARIABLE__NAME = VARIABLE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Domain Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTPUT_VARIABLE__DOMAIN_EXPR = VARIABLE__DOMAIN_EXPR;
-
-	/**
-	 * The number of structural features of the '<em>Output Variable</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTPUT_VARIABLE_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link alpha.model.impl.LocalVariableImpl <em>Local Variable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see alpha.model.impl.LocalVariableImpl
-	 * @see alpha.model.impl.ModelPackageImpl#getLocalVariable()
-	 * @generated
-	 */
-	int LOCAL_VARIABLE = 18;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_VARIABLE__NAME = VARIABLE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Domain Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_VARIABLE__DOMAIN_EXPR = VARIABLE__DOMAIN_EXPR;
-
-	/**
-	 * The number of structural features of the '<em>Local Variable</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_VARIABLE_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link alpha.model.impl.FuzzyVariableImpl <em>Fuzzy Variable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -670,7 +550,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyVariable()
 	 * @generated
 	 */
-	int FUZZY_VARIABLE = 19;
+	int FUZZY_VARIABLE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -691,13 +571,22 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_VARIABLE__DOMAIN_EXPR = VARIABLE__DOMAIN_EXPR;
 
 	/**
+	 * The feature id for the '<em><b>Range Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_VARIABLE__RANGE_EXPR = VARIABLE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Fuzzy Variable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUZZY_VARIABLE_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 0;
+	int FUZZY_VARIABLE_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.StandardEquationImpl <em>Standard Equation</em>}' class.
@@ -707,7 +596,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getStandardEquation()
 	 * @generated
 	 */
-	int STANDARD_EQUATION = 20;
+	int STANDARD_EQUATION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -753,7 +642,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUseEquation()
 	 * @generated
 	 */
-	int USE_EQUATION = 21;
+	int USE_EQUATION = 18;
 
 	/**
 	 * The feature id for the '<em><b>System</b></em>' reference.
@@ -826,7 +715,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getAlphaExpression()
 	 * @generated
 	 */
-	int ALPHA_EXPRESSION = 22;
+	int ALPHA_EXPRESSION = 19;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -872,7 +761,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getRestrictExpression()
 	 * @generated
 	 */
-	int RESTRICT_EXPRESSION = 23;
+	int RESTRICT_EXPRESSION = 20;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -936,7 +825,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getAutoRestrictExpression()
 	 * @generated
 	 */
-	int AUTO_RESTRICT_EXPRESSION = 24;
+	int AUTO_RESTRICT_EXPRESSION = 21;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1000,7 +889,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCaseExpression()
 	 * @generated
 	 */
-	int CASE_EXPRESSION = 25;
+	int CASE_EXPRESSION = 22;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1064,7 +953,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getDependenceExpression()
 	 * @generated
 	 */
-	int DEPENDENCE_EXPRESSION = 26;
+	int DEPENDENCE_EXPRESSION = 23;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1128,7 +1017,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyDependenceExpression()
 	 * @generated
 	 */
-	int FUZZY_DEPENDENCE_EXPRESSION = 27;
+	int FUZZY_DEPENDENCE_EXPRESSION = 24;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1192,7 +1081,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getIfExpression()
 	 * @generated
 	 */
-	int IF_EXPRESSION = 28;
+	int IF_EXPRESSION = 25;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1265,7 +1154,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getIndexExpression()
 	 * @generated
 	 */
-	int INDEX_EXPRESSION = 29;
+	int INDEX_EXPRESSION = 26;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1320,7 +1209,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyIndexExpression()
 	 * @generated
 	 */
-	int FUZZY_INDEX_EXPRESSION = 30;
+	int FUZZY_INDEX_EXPRESSION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1375,7 +1264,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getAbstractReduceExpression()
 	 * @generated
 	 */
-	int ABSTRACT_REDUCE_EXPRESSION = 31;
+	int ABSTRACT_REDUCE_EXPRESSION = 28;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1448,7 +1337,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getReduceExpression()
 	 * @generated
 	 */
-	int REDUCE_EXPRESSION = 32;
+	int REDUCE_EXPRESSION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1521,7 +1410,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getExternalReduceExpression()
 	 * @generated
 	 */
-	int EXTERNAL_REDUCE_EXPRESSION = 33;
+	int EXTERNAL_REDUCE_EXPRESSION = 30;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1603,7 +1492,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getArgReduceExpression()
 	 * @generated
 	 */
-	int ARG_REDUCE_EXPRESSION = 34;
+	int ARG_REDUCE_EXPRESSION = 31;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1676,7 +1565,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getExternalArgReduceExpression()
 	 * @generated
 	 */
-	int EXTERNAL_ARG_REDUCE_EXPRESSION = 35;
+	int EXTERNAL_ARG_REDUCE_EXPRESSION = 32;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1758,7 +1647,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getConvolutionExpression()
 	 * @generated
 	 */
-	int CONVOLUTION_EXPRESSION = 36;
+	int CONVOLUTION_EXPRESSION = 33;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1831,7 +1720,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getSelectExpression()
 	 * @generated
 	 */
-	int SELECT_EXPRESSION = 37;
+	int SELECT_EXPRESSION = 34;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1895,7 +1784,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getVariableExpression()
 	 * @generated
 	 */
-	int VARIABLE_EXPRESSION = 38;
+	int VARIABLE_EXPRESSION = 35;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1950,7 +1839,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getConstantExpression()
 	 * @generated
 	 */
-	int CONSTANT_EXPRESSION = 39;
+	int CONSTANT_EXPRESSION = 36;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1996,7 +1885,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getIntegerExpression()
 	 * @generated
 	 */
-	int INTEGER_EXPRESSION = 40;
+	int INTEGER_EXPRESSION = 37;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2051,7 +1940,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getRealExpression()
 	 * @generated
 	 */
-	int REAL_EXPRESSION = 41;
+	int REAL_EXPRESSION = 38;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2106,7 +1995,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBooleanExpression()
 	 * @generated
 	 */
-	int BOOLEAN_EXPRESSION = 42;
+	int BOOLEAN_EXPRESSION = 39;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2161,7 +2050,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUnaryExpression()
 	 * @generated
 	 */
-	int UNARY_EXPRESSION = 43;
+	int UNARY_EXPRESSION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2225,7 +2114,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBinaryExpression()
 	 * @generated
 	 */
-	int BINARY_EXPRESSION = 44;
+	int BINARY_EXPRESSION = 41;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2298,7 +2187,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getMultiArgExpression()
 	 * @generated
 	 */
-	int MULTI_ARG_EXPRESSION = 45;
+	int MULTI_ARG_EXPRESSION = 42;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2362,7 +2251,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getExternalMultiArgExpression()
 	 * @generated
 	 */
-	int EXTERNAL_MULTI_ARG_EXPRESSION = 46;
+	int EXTERNAL_MULTI_ARG_EXPRESSION = 43;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2435,7 +2324,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getAbstractFuzzyReduceExpression()
 	 * @generated
 	 */
-	int ABSTRACT_FUZZY_REDUCE_EXPRESSION = 47;
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION = 44;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2508,7 +2397,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyReduceExpression()
 	 * @generated
 	 */
-	int FUZZY_REDUCE_EXPRESSION = 48;
+	int FUZZY_REDUCE_EXPRESSION = 45;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2581,7 +2470,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getExternalFuzzyReduceExpression()
 	 * @generated
 	 */
-	int EXTERNAL_FUZZY_REDUCE_EXPRESSION = 49;
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION = 46;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2663,7 +2552,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyArgReduceExpression()
 	 * @generated
 	 */
-	int FUZZY_ARG_REDUCE_EXPRESSION = 50;
+	int FUZZY_ARG_REDUCE_EXPRESSION = 47;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2736,7 +2625,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getExternalFuzzyArgReduceExpression()
 	 * @generated
 	 */
-	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION = 51;
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION = 48;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2818,7 +2707,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCalculatorNode()
 	 * @generated
 	 */
-	int CALCULATOR_NODE = 52;
+	int CALCULATOR_NODE = 49;
 
 	/**
 	 * The number of structural features of the '<em>Calculator Node</em>' class.
@@ -2837,7 +2726,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPolyhedralObject()
 	 * @generated
 	 */
-	int POLYHEDRAL_OBJECT = 53;
+	int POLYHEDRAL_OBJECT = 50;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2874,7 +2763,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCalculatorExpression()
 	 * @generated
 	 */
-	int CALCULATOR_EXPRESSION = 54;
+	int CALCULATOR_EXPRESSION = 51;
 
 	/**
 	 * The number of structural features of the '<em>Calculator Expression</em>' class.
@@ -2893,7 +2782,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIDomain()
 	 * @generated
 	 */
-	int JNI_DOMAIN = 55;
+	int JNI_DOMAIN = 52;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -2930,7 +2819,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIDomainInArrayNotation()
 	 * @generated
 	 */
-	int JNI_DOMAIN_IN_ARRAY_NOTATION = 56;
+	int JNI_DOMAIN_IN_ARRAY_NOTATION = 53;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -2967,7 +2856,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIRelation()
 	 * @generated
 	 */
-	int JNI_RELATION = 57;
+	int JNI_RELATION = 54;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -3004,7 +2893,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIFunction()
 	 * @generated
 	 */
-	int JNI_FUNCTION = 58;
+	int JNI_FUNCTION = 55;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -3041,7 +2930,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIFunctionInArrayNotation()
 	 * @generated
 	 */
-	int JNI_FUNCTION_IN_ARRAY_NOTATION = 59;
+	int JNI_FUNCTION_IN_ARRAY_NOTATION = 56;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -3087,7 +2976,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyFunction()
 	 * @generated
 	 */
-	int FUZZY_FUNCTION = 60;
+	int FUZZY_FUNCTION = 57;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -3142,7 +3031,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyVariableUse()
 	 * @generated
 	 */
-	int FUZZY_VARIABLE_USE = 61;
+	int FUZZY_VARIABLE_USE = 58;
 
 	/**
 	 * The feature id for the '<em><b>Fuzzy Index</b></em>' attribute.
@@ -3179,7 +3068,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getNestedFuzzyFunction()
 	 * @generated
 	 */
-	int NESTED_FUZZY_FUNCTION = 62;
+	int NESTED_FUZZY_FUNCTION = 59;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -3252,7 +3141,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getAffineFuzzyVariableUse()
 	 * @generated
 	 */
-	int AFFINE_FUZZY_VARIABLE_USE = 63;
+	int AFFINE_FUZZY_VARIABLE_USE = 60;
 
 	/**
 	 * The feature id for the '<em><b>Fuzzy Index</b></em>' attribute.
@@ -3298,7 +3187,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyFunctionInArrayNotation()
 	 * @generated
 	 */
-	int FUZZY_FUNCTION_IN_ARRAY_NOTATION = 64;
+	int FUZZY_FUNCTION_IN_ARRAY_NOTATION = 61;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -3362,7 +3251,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUnaryCalculatorExpression()
 	 * @generated
 	 */
-	int UNARY_CALCULATOR_EXPRESSION = 65;
+	int UNARY_CALCULATOR_EXPRESSION = 62;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -3408,7 +3297,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBinaryCalculatorExpression()
 	 * @generated
 	 */
-	int BINARY_CALCULATOR_EXPRESSION = 66;
+	int BINARY_CALCULATOR_EXPRESSION = 63;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -3463,7 +3352,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getVariableDomain()
 	 * @generated
 	 */
-	int VARIABLE_DOMAIN = 67;
+	int VARIABLE_DOMAIN = 64;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -3491,7 +3380,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getRectangularDomain()
 	 * @generated
 	 */
-	int RECTANGULAR_DOMAIN = 68;
+	int RECTANGULAR_DOMAIN = 65;
 
 	/**
 	 * The feature id for the '<em><b>Upper Bounds</b></em>' attribute list.
@@ -3537,7 +3426,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getDefinedObject()
 	 * @generated
 	 */
-	int DEFINED_OBJECT = 69;
+	int DEFINED_OBJECT = 66;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' reference.
@@ -3574,7 +3463,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUNARY_OP()
 	 * @generated
 	 */
-	int UNARY_OP = 70;
+	int UNARY_OP = 67;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.BINARY_OP <em>BINARY OP</em>}' enum.
@@ -3584,7 +3473,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBINARY_OP()
 	 * @generated
 	 */
-	int BINARY_OP = 71;
+	int BINARY_OP = 68;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.REDUCTION_OP <em>REDUCTION OP</em>}' enum.
@@ -3594,7 +3483,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getREDUCTION_OP()
 	 * @generated
 	 */
-	int REDUCTION_OP = 72;
+	int REDUCTION_OP = 69;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.POLY_OBJECT_TYPE <em>POLY OBJECT TYPE</em>}' enum.
@@ -3604,7 +3493,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPOLY_OBJECT_TYPE()
 	 * @generated
 	 */
-	int POLY_OBJECT_TYPE = 73;
+	int POLY_OBJECT_TYPE = 70;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_UNARY_OP <em>CALCULATOR UNARY OP</em>}' enum.
@@ -3614,7 +3503,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_UNARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_UNARY_OP = 74;
+	int CALCULATOR_UNARY_OP = 71;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_BINARY_OP <em>CALCULATOR BINARY OP</em>}' enum.
@@ -3624,7 +3513,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_BINARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_BINARY_OP = 75;
+	int CALCULATOR_BINARY_OP = 72;
 
 	/**
 	 * The meta object id for the '<em>JNI Object</em>' data type.
@@ -3634,7 +3523,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIObject()
 	 * @generated
 	 */
-	int JNI_OBJECT = 76;
+	int JNI_OBJECT = 73;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Set</em>' data type.
@@ -3644,7 +3533,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLSet()
 	 * @generated
 	 */
-	int JNIISL_SET = 77;
+	int JNIISL_SET = 74;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Map</em>' data type.
@@ -3654,7 +3543,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMap()
 	 * @generated
 	 */
-	int JNIISL_MAP = 78;
+	int JNIISL_MAP = 75;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
@@ -3664,7 +3553,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
-	int JNIISL_MULTI_AFF = 79;
+	int JNIISL_MULTI_AFF = 76;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Union Map</em>' data type.
@@ -3674,7 +3563,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLUnionMap()
 	 * @generated
 	 */
-	int JNIISL_UNION_MAP = 80;
+	int JNIISL_UNION_MAP = 77;
 
 	/**
 	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
@@ -3684,7 +3573,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getISL_FORMAT()
 	 * @generated
 	 */
-	int ISL_FORMAT = 81;
+	int ISL_FORMAT = 78;
 
 
 	/**
@@ -3992,17 +3881,6 @@ public interface ModelPackage extends EPackage {
 	EReference getAlphaSystem_Locals();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link alpha.model.AlphaSystem#getFuzzyVariables <em>Fuzzy Variables</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Fuzzy Variables</em>'.
-	 * @see alpha.model.AlphaSystem#getFuzzyVariables()
-	 * @see #getAlphaSystem()
-	 * @generated
-	 */
-	EReference getAlphaSystem_FuzzyVariables();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link alpha.model.AlphaSystem#getWhileDomainExpr <em>While Domain Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4079,36 +3957,6 @@ public interface ModelPackage extends EPackage {
 	EReference getVariable_DomainExpr();
 
 	/**
-	 * Returns the meta object for class '{@link alpha.model.InputVariable <em>Input Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Input Variable</em>'.
-	 * @see alpha.model.InputVariable
-	 * @generated
-	 */
-	EClass getInputVariable();
-
-	/**
-	 * Returns the meta object for class '{@link alpha.model.OutputVariable <em>Output Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Output Variable</em>'.
-	 * @see alpha.model.OutputVariable
-	 * @generated
-	 */
-	EClass getOutputVariable();
-
-	/**
-	 * Returns the meta object for class '{@link alpha.model.LocalVariable <em>Local Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Local Variable</em>'.
-	 * @see alpha.model.LocalVariable
-	 * @generated
-	 */
-	EClass getLocalVariable();
-
-	/**
 	 * Returns the meta object for class '{@link alpha.model.FuzzyVariable <em>Fuzzy Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4117,6 +3965,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFuzzyVariable();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.FuzzyVariable#getRangeExpr <em>Range Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Range Expr</em>'.
+	 * @see alpha.model.FuzzyVariable#getRangeExpr()
+	 * @see #getFuzzyVariable()
+	 * @generated
+	 */
+	EReference getFuzzyVariable_RangeExpr();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.StandardEquation <em>Standard Equation</em>}'.
@@ -5953,14 +5812,6 @@ public interface ModelPackage extends EPackage {
 		EReference ALPHA_SYSTEM__LOCALS = eINSTANCE.getAlphaSystem_Locals();
 
 		/**
-		 * The meta object literal for the '<em><b>Fuzzy Variables</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ALPHA_SYSTEM__FUZZY_VARIABLES = eINSTANCE.getAlphaSystem_FuzzyVariables();
-
-		/**
 		 * The meta object literal for the '<em><b>While Domain Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6019,36 +5870,6 @@ public interface ModelPackage extends EPackage {
 		EReference VARIABLE__DOMAIN_EXPR = eINSTANCE.getVariable_DomainExpr();
 
 		/**
-		 * The meta object literal for the '{@link alpha.model.impl.InputVariableImpl <em>Input Variable</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see alpha.model.impl.InputVariableImpl
-		 * @see alpha.model.impl.ModelPackageImpl#getInputVariable()
-		 * @generated
-		 */
-		EClass INPUT_VARIABLE = eINSTANCE.getInputVariable();
-
-		/**
-		 * The meta object literal for the '{@link alpha.model.impl.OutputVariableImpl <em>Output Variable</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see alpha.model.impl.OutputVariableImpl
-		 * @see alpha.model.impl.ModelPackageImpl#getOutputVariable()
-		 * @generated
-		 */
-		EClass OUTPUT_VARIABLE = eINSTANCE.getOutputVariable();
-
-		/**
-		 * The meta object literal for the '{@link alpha.model.impl.LocalVariableImpl <em>Local Variable</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see alpha.model.impl.LocalVariableImpl
-		 * @see alpha.model.impl.ModelPackageImpl#getLocalVariable()
-		 * @generated
-		 */
-		EClass LOCAL_VARIABLE = eINSTANCE.getLocalVariable();
-
-		/**
 		 * The meta object literal for the '{@link alpha.model.impl.FuzzyVariableImpl <em>Fuzzy Variable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6057,6 +5878,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FUZZY_VARIABLE = eINSTANCE.getFuzzyVariable();
+
+		/**
+		 * The meta object literal for the '<em><b>Range Expr</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FUZZY_VARIABLE__RANGE_EXPR = eINSTANCE.getFuzzyVariable_RangeExpr();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.StandardEquationImpl <em>Standard Equation</em>}' class.

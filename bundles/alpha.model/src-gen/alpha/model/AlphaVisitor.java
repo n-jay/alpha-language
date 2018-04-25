@@ -86,39 +86,6 @@ public interface AlphaVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 *  Use visitVariable for generic operations
-	 * <!-- end-model-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
-	void visitInputVariable(InputVariable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 *  Use visitVariable for generic operations
-	 * <!-- end-model-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
-	void visitOutputVariable(OutputVariable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 *  Use visitVariable for generic operations
-	 * <!-- end-model-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
-	void visitLocalVariable(LocalVariable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model variableUnique="false"
 	 * @generated
 	 */
@@ -218,30 +185,6 @@ public interface AlphaVisitor extends EObject {
 	 * @model variableUnique="false"
 	 * @generated
 	 */
-	void inInputVariable(InputVariable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
-	void inOutputVariable(OutputVariable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
-	void inLocalVariable(LocalVariable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
 	void inFuzzyVariable(FuzzyVariable variable);
 
 	/**
@@ -331,30 +274,6 @@ public interface AlphaVisitor extends EObject {
 	 * @generated
 	 */
 	void outVariable(Variable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
-	void outInputVariable(InputVariable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
-	void outOutputVariable(OutputVariable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
-	void outLocalVariable(LocalVariable variable);
 
 	/**
 	 * <!-- begin-user-doc -->

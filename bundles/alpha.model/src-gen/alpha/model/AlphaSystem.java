@@ -21,7 +21,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link alpha.model.AlphaSystem#getInputs <em>Inputs</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getLocals <em>Locals</em>}</li>
- *   <li>{@link alpha.model.AlphaSystem#getFuzzyVariables <em>Fuzzy Variables</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getWhileDomainExpr <em>While Domain Expr</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getTestExpression <em>Test Expression</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getUseEquations <em>Use Equations</em>}</li>
@@ -103,7 +102,7 @@ public interface AlphaSystem extends AlphaElement {
 
 	/**
 	 * Returns the value of the '<em><b>Inputs</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.InputVariable}.
+	 * The list contents are of type {@link alpha.model.Variable}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Inputs</em>' containment reference list isn't clear,
@@ -115,11 +114,11 @@ public interface AlphaSystem extends AlphaElement {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<InputVariable> getInputs();
+	EList<Variable> getInputs();
 
 	/**
 	 * Returns the value of the '<em><b>Outputs</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.OutputVariable}.
+	 * The list contents are of type {@link alpha.model.Variable}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Outputs</em>' containment reference list isn't clear,
@@ -131,11 +130,11 @@ public interface AlphaSystem extends AlphaElement {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<OutputVariable> getOutputs();
+	EList<Variable> getOutputs();
 
 	/**
 	 * Returns the value of the '<em><b>Locals</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.LocalVariable}.
+	 * The list contents are of type {@link alpha.model.Variable}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Locals</em>' containment reference list isn't clear,
@@ -147,23 +146,7 @@ public interface AlphaSystem extends AlphaElement {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<LocalVariable> getLocals();
-
-	/**
-	 * Returns the value of the '<em><b>Fuzzy Variables</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.FuzzyVariable}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Fuzzy Variables</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Fuzzy Variables</em>' containment reference list.
-	 * @see alpha.model.ModelPackage#getAlphaSystem_FuzzyVariables()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<FuzzyVariable> getFuzzyVariables();
+	EList<Variable> getLocals();
 
 	/**
 	 * Returns the value of the '<em><b>While Domain Expr</b></em>' containment reference.
@@ -253,7 +236,7 @@ public interface AlphaSystem extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.InputVariable%&gt;&gt; _inputs = this.getInputs();\n&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.OutputVariable%&gt;&gt; _outputs = this.getOutputs();\n&lt;%java.lang.Iterable%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _plus = &lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;concat(_inputs, _outputs);\n&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.LocalVariable%&gt;&gt; _locals = this.getLocals();\nreturn &lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;unmodifiableEList(&lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;asEList(((&lt;%alpha.model.Variable%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(&lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;concat(_plus, _locals), &lt;%alpha.model.Variable%&gt;.class))));'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _inputs = this.getInputs();\n&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _outputs = this.getOutputs();\n&lt;%java.lang.Iterable%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _plus = &lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;concat(_inputs, _outputs);\n&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _locals = this.getLocals();\nreturn &lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;unmodifiableEList(&lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;asEList(((&lt;%alpha.model.Variable%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(&lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;concat(_plus, _locals), &lt;%alpha.model.Variable%&gt;.class))));'"
 	 * @generated
 	 */
 	EList<Variable> getVariables();

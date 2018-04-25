@@ -86,6 +86,33 @@ public interface Variable extends AlphaVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return ((this.eContainmentFeature() != null) &amp;&amp; (this.eContainmentFeature() == &lt;%alpha.model.ModelPackage.Literals%&gt;.ALPHA_SYSTEM__INPUTS));'"
+	 * @generated
+	 */
+	boolean isInput();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return ((this.eContainmentFeature() != null) &amp;&amp; (this.eContainmentFeature() == &lt;%alpha.model.ModelPackage.Literals%&gt;.ALPHA_SYSTEM__OUTPUTS));'"
+	 * @generated
+	 */
+	boolean isOutput();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return ((this.eContainmentFeature() != null) &amp;&amp; (this.eContainmentFeature() == &lt;%alpha.model.ModelPackage.Literals%&gt;.ALPHA_SYSTEM__LOCALS));'"
+	 * @generated
+	 */
+	boolean isLocal();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitVariable(this);'"
 	 * @generated

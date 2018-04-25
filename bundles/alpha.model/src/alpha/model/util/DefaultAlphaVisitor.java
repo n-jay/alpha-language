@@ -10,9 +10,6 @@ import alpha.model.AlphaVisitor;
 import alpha.model.ExternalFunction;
 import alpha.model.FuzzyVariable;
 import alpha.model.Imports;
-import alpha.model.InputVariable;
-import alpha.model.LocalVariable;
-import alpha.model.OutputVariable;
 import alpha.model.PolyhedralObject;
 import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
@@ -62,7 +59,6 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 		system.getInputs().forEach(a->a.accept(this));
 		system.getOutputs().forEach(a->a.accept(this));
 		system.getLocals().forEach(a->a.accept(this));
-		system.getFuzzyVariables().forEach(a->a.accept(this));
 		system.getUseEquations().forEach(a->a.accept(this));
 		system.getEquations().forEach(a->a.accept(this));
 		outAlphaSystem(system);
@@ -72,27 +68,6 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	default void visitVariable(Variable variable) {
 		inVariable(variable);
 		outVariable(variable);
-	}
-	
-	@Override
-	default void visitInputVariable(InputVariable variable) {
-		inInputVariable(variable);
-		visitVariable(variable);
-		outInputVariable(variable);
-	}
-
-	@Override
-	default void visitOutputVariable(OutputVariable variable) {
-		inOutputVariable(variable);
-		visitVariable(variable);
-		outOutputVariable(variable);
-	}
-
-	@Override
-	default void visitLocalVariable(LocalVariable variable) {
-		inLocalVariable(variable);
-		visitVariable(variable);
-		outLocalVariable(variable);
 	}
 	
 	@Override
@@ -172,22 +147,7 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	default void inVariable(Variable variable) {
 		defaultIn(variable);
 	}
-
-	@Override
-	default void inInputVariable(InputVariable variable) {
-		inVariable(variable);
-	}
-
-	@Override
-	default void inOutputVariable(OutputVariable variable) {
-		inVariable(variable);
-	}
-
-	@Override
-	default void inLocalVariable(LocalVariable variable) {
-		inVariable(variable);
-	}
-
+	
 	@Override
 	default void inFuzzyVariable(FuzzyVariable variable) {
 		inVariable(variable);
@@ -246,21 +206,6 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	@Override
 	default void outVariable(Variable variable) {
 		defaultOut(variable);
-	}
-
-	@Override
-	default void outInputVariable(InputVariable variable) {
-		outVariable(variable);
-	}
-
-	@Override
-	default void outOutputVariable(OutputVariable variable) {
-		outVariable(variable);
-	}
-
-	@Override
-	default void outLocalVariable(LocalVariable variable) {
-		outVariable(variable);
 	}
 
 	@Override

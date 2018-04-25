@@ -48,19 +48,16 @@ import alpha.model.FuzzyVariableUse;
 import alpha.model.IfExpression;
 import alpha.model.Imports;
 import alpha.model.IndexExpression;
-import alpha.model.InputVariable;
 import alpha.model.IntegerExpression;
 import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.JNIRelation;
-import alpha.model.LocalVariable;
 import alpha.model.ModelFactory;
 import alpha.model.ModelPackage;
 import alpha.model.MultiArgExpression;
 import alpha.model.NestedFuzzyFunction;
-import alpha.model.OutputVariable;
 import alpha.model.PolyhedralObject;
 import alpha.model.RealExpression;
 import alpha.model.RectangularDomain;
@@ -211,27 +208,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass variableEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass inputVariableEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass outputVariableEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass localVariableEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1004,7 +980,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAlphaSystem_FuzzyVariables() {
+	public EReference getAlphaSystem_WhileDomainExpr() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1013,7 +989,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAlphaSystem_WhileDomainExpr() {
+	public EReference getAlphaSystem_TestExpression() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1022,7 +998,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAlphaSystem_TestExpression() {
+	public EReference getAlphaSystem_UseEquations() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -1031,17 +1007,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAlphaSystem_UseEquations() {
-		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(9);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getAlphaSystem_Equations() {
-		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(10);
+		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1076,35 +1043,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getInputVariable() {
-		return inputVariableEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getOutputVariable() {
-		return outputVariableEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getLocalVariable() {
-		return localVariableEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getFuzzyVariable() {
 		return fuzzyVariableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFuzzyVariable_RangeExpr() {
+		return (EReference)fuzzyVariableEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2492,7 +2441,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__INPUTS);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__OUTPUTS);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__LOCALS);
-		createEReference(alphaSystemEClass, ALPHA_SYSTEM__FUZZY_VARIABLES);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__WHILE_DOMAIN_EXPR);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__TEST_EXPRESSION);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__USE_EQUATIONS);
@@ -2502,13 +2450,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEAttribute(variableEClass, VARIABLE__NAME);
 		createEReference(variableEClass, VARIABLE__DOMAIN_EXPR);
 
-		inputVariableEClass = createEClass(INPUT_VARIABLE);
-
-		outputVariableEClass = createEClass(OUTPUT_VARIABLE);
-
-		localVariableEClass = createEClass(LOCAL_VARIABLE);
-
 		fuzzyVariableEClass = createEClass(FUZZY_VARIABLE);
+		createEReference(fuzzyVariableEClass, FUZZY_VARIABLE__RANGE_EXPR);
 
 		standardEquationEClass = createEClass(STANDARD_EQUATION);
 		createEReference(standardEquationEClass, STANDARD_EQUATION__VARIABLE);
@@ -2753,9 +2696,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		externalFunctionEClass.getESuperTypes().add(this.getAlphaElement());
 		alphaSystemEClass.getESuperTypes().add(this.getAlphaElement());
 		variableEClass.getESuperTypes().add(this.getAlphaVisitable());
-		inputVariableEClass.getESuperTypes().add(this.getVariable());
-		outputVariableEClass.getESuperTypes().add(this.getVariable());
-		localVariableEClass.getESuperTypes().add(this.getVariable());
 		fuzzyVariableEClass.getESuperTypes().add(this.getVariable());
 		standardEquationEClass.getESuperTypes().add(this.getAlphaVisitable());
 		useEquationEClass.getESuperTypes().add(this.getAlphaVisitable());
@@ -2855,15 +2795,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaVisitorEClass, null, "visitVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(alphaVisitorEClass, null, "visitInputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getInputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaVisitorEClass, null, "visitOutputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getOutputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaVisitorEClass, null, "visitLocalVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getLocalVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
 		op = addEOperation(alphaVisitorEClass, null, "visitFuzzyVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFuzzyVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2900,15 +2831,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaVisitorEClass, null, "inVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(alphaVisitorEClass, null, "inInputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getInputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaVisitorEClass, null, "inOutputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getOutputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaVisitorEClass, null, "inLocalVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getLocalVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
 		op = addEOperation(alphaVisitorEClass, null, "inFuzzyVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFuzzyVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2944,15 +2866,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaVisitorEClass, null, "outVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaVisitorEClass, null, "outInputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getInputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaVisitorEClass, null, "outOutputVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getOutputVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaVisitorEClass, null, "outLocalVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getLocalVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaVisitorEClass, null, "outFuzzyVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFuzzyVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3327,10 +3240,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getAlphaSystem_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_ParameterDomainExpr(), this.getJNIDomain(), null, "parameterDomainExpr", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_DefinedObjects(), this.getPolyhedralObject(), null, "definedObjects", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAlphaSystem_Inputs(), this.getInputVariable(), null, "inputs", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAlphaSystem_Outputs(), this.getOutputVariable(), null, "outputs", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAlphaSystem_Locals(), this.getLocalVariable(), null, "locals", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAlphaSystem_FuzzyVariables(), this.getFuzzyVariable(), null, "fuzzyVariables", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAlphaSystem_Inputs(), this.getVariable(), null, "inputs", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAlphaSystem_Outputs(), this.getVariable(), null, "outputs", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAlphaSystem_Locals(), this.getVariable(), null, "locals", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_WhileDomainExpr(), this.getCalculatorExpression(), null, "whileDomainExpr", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_TestExpression(), this.getAlphaExpression(), null, "testExpression", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_UseEquations(), this.getUseEquation(), null, "useEquations", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3351,27 +3263,19 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(variableEClass, this.getJNIISLSet(), "getDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(variableEClass, theEcorePackage.getEBoolean(), "isInput", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(variableEClass, theEcorePackage.getEBoolean(), "isOutput", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(variableEClass, theEcorePackage.getEBoolean(), "isLocal", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(variableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		initEClass(inputVariableEClass, InputVariable.class, "InputVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		op = addEOperation(inputVariableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		initEClass(outputVariableEClass, OutputVariable.class, "OutputVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		op = addEOperation(outputVariableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		initEClass(localVariableEClass, LocalVariable.class, "LocalVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		op = addEOperation(localVariableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
 		initEClass(fuzzyVariableEClass, FuzzyVariable.class, "FuzzyVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFuzzyVariable_RangeExpr(), this.getCalculatorExpression(), null, "rangeExpr", null, 0, 1, FuzzyVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(fuzzyVariableEClass, this.getJNIISLSet(), "getDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(fuzzyVariableEClass, this.getJNIISLSet(), "getRange", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(fuzzyVariableEClass, this.getJNIISLMap(), "getRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 

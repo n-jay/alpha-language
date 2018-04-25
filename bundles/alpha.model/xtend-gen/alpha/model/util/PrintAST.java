@@ -184,7 +184,8 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void visitFuzzyVariable(final FuzzyVariable v) {
     this.defaultIn(v);
     this.printStr("+-- ", v.getName());
-    this.printStr("+-- ", v.getRelation());
+    this.printStr("+-- ", v.getDomain());
+    this.printStr("+-- ", v.getRange());
     this.defaultOut(v);
   }
   

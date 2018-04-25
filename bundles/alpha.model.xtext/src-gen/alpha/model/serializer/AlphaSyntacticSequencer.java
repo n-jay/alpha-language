@@ -20,12 +20,14 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AlphaGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_AlphaSystem_LetKeyword_9_0_q;
+	protected AbstractElementAlias match_AlphaSystem_LetKeyword_8_0_q;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a;
 	protected AbstractElementAlias match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p;
-	protected AbstractElementAlias match_FuzzyVariable_SemicolonKeyword_3_q;
+	protected AbstractElementAlias match_FuzzyInputVariable_SemicolonKeyword_6_q;
+	protected AbstractElementAlias match_FuzzyLocalVariable_SemicolonKeyword_6_q;
+	protected AbstractElementAlias match_FuzzyOutputVariable_SemicolonKeyword_6_q;
 	protected AbstractElementAlias match_InputVariable_SemicolonKeyword_3_q;
 	protected AbstractElementAlias match_LocalVariable_SemicolonKeyword_3_q;
 	protected AbstractElementAlias match_OutputVariable_SemicolonKeyword_3_q;
@@ -34,12 +36,14 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AlphaGrammarAccess) access;
-		match_AlphaSystem_LetKeyword_9_0_q = new TokenAlias(false, true, grammarAccess.getAlphaSystemAccess().getLetKeyword_9_0());
+		match_AlphaSystem_LetKeyword_8_0_q = new TokenAlias(false, true, grammarAccess.getAlphaSystemAccess().getLetKeyword_8_0());
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a = new TokenAlias(true, true, grammarAccess.getCalculatorExpressionTerminalAccess().getLeftParenthesisKeyword_6_0());
 		match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p = new TokenAlias(true, false, grammarAccess.getCalculatorExpressionTerminalAccess().getLeftParenthesisKeyword_6_0());
-		match_FuzzyVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getFuzzyVariableAccess().getSemicolonKeyword_3());
+		match_FuzzyInputVariable_SemicolonKeyword_6_q = new TokenAlias(false, true, grammarAccess.getFuzzyInputVariableAccess().getSemicolonKeyword_6());
+		match_FuzzyLocalVariable_SemicolonKeyword_6_q = new TokenAlias(false, true, grammarAccess.getFuzzyLocalVariableAccess().getSemicolonKeyword_6());
+		match_FuzzyOutputVariable_SemicolonKeyword_6_q = new TokenAlias(false, true, grammarAccess.getFuzzyOutputVariableAccess().getSemicolonKeyword_6());
 		match_InputVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getInputVariableAccess().getSemicolonKeyword_3());
 		match_LocalVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getLocalVariableAccess().getSemicolonKeyword_3());
 		match_OutputVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getOutputVariableAccess().getSemicolonKeyword_3());
@@ -58,8 +62,8 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_AlphaSystem_LetKeyword_9_0_q.equals(syntax))
-				emit_AlphaSystem_LetKeyword_9_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if (match_AlphaSystem_LetKeyword_8_0_q.equals(syntax))
+				emit_AlphaSystem_LetKeyword_8_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a.equals(syntax))
 				emit_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p.equals(syntax))
@@ -68,8 +72,12 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p.equals(syntax))
 				emit_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_FuzzyVariable_SemicolonKeyword_3_q.equals(syntax))
-				emit_FuzzyVariable_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_FuzzyInputVariable_SemicolonKeyword_6_q.equals(syntax))
+				emit_FuzzyInputVariable_SemicolonKeyword_6_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_FuzzyLocalVariable_SemicolonKeyword_6_q.equals(syntax))
+				emit_FuzzyLocalVariable_SemicolonKeyword_6_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_FuzzyOutputVariable_SemicolonKeyword_6_q.equals(syntax))
+				emit_FuzzyOutputVariable_SemicolonKeyword_6_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_InputVariable_SemicolonKeyword_3_q.equals(syntax))
 				emit_InputVariable_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_LocalVariable_SemicolonKeyword_3_q.equals(syntax))
@@ -88,14 +96,16 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     definedObjects+=PolyhedralObject (ambiguity) '.' (rule end)
-	 *     fuzzyVariables+=FuzzyVariable (ambiguity) '.' (rule end)
+	 *     inputs+=FuzzyInputVariable (ambiguity) '.' (rule end)
 	 *     inputs+=InputVariable (ambiguity) '.' (rule end)
+	 *     locals+=FuzzyLocalVariable (ambiguity) '.' (rule end)
 	 *     locals+=LocalVariable (ambiguity) '.' (rule end)
+	 *     outputs+=FuzzyOutputVariable (ambiguity) '.' (rule end)
 	 *     outputs+=OutputVariable (ambiguity) '.' (rule end)
 	 *     parameterDomainExpr=JNIParamDomain (ambiguity) '.' (rule end)
 	 *     testExpression=AlphaExpression ')' (ambiguity) '.' (rule end)
 	 */
-	protected void emit_AlphaSystem_LetKeyword_9_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AlphaSystem_LetKeyword_8_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -190,10 +200,31 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ';'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     domainExpr=CalculatorExpression (ambiguity) (rule end)
-	 *     name=ID ':' (ambiguity) (rule end)
+	 *     rangeExpr=CalculatorExpression (ambiguity) (rule end)
 	 */
-	protected void emit_FuzzyVariable_SemicolonKeyword_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_FuzzyInputVariable_SemicolonKeyword_6_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     rangeExpr=CalculatorExpression (ambiguity) (rule end)
+	 */
+	protected void emit_FuzzyLocalVariable_SemicolonKeyword_6_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     rangeExpr=CalculatorExpression (ambiguity) (rule end)
+	 */
+	protected void emit_FuzzyOutputVariable_SemicolonKeyword_6_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

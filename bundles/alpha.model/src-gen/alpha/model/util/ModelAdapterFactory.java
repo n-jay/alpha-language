@@ -132,18 +132,6 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createVariableAdapter();
 			}
 			@Override
-			public Adapter caseInputVariable(InputVariable object) {
-				return createInputVariableAdapter();
-			}
-			@Override
-			public Adapter caseOutputVariable(OutputVariable object) {
-				return createOutputVariableAdapter();
-			}
-			@Override
-			public Adapter caseLocalVariable(LocalVariable object) {
-				return createLocalVariableAdapter();
-			}
-			@Override
 			public Adapter caseFuzzyVariable(FuzzyVariable object) {
 				return createFuzzyVariableAdapter();
 			}
@@ -588,48 +576,6 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createVariableAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.model.InputVariable <em>Input Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.model.InputVariable
-	 * @generated
-	 */
-	public Adapter createInputVariableAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.model.OutputVariable <em>Output Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.model.OutputVariable
-	 * @generated
-	 */
-	public Adapter createOutputVariableAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.model.LocalVariable <em>Local Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.model.LocalVariable
-	 * @generated
-	 */
-	public Adapter createLocalVariableAdapter() {
 		return null;
 	}
 

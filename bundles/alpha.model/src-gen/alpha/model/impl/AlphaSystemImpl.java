@@ -6,12 +6,8 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitor;
 import alpha.model.CalculatorExpression;
-import alpha.model.FuzzyVariable;
-import alpha.model.InputVariable;
 import alpha.model.JNIDomain;
-import alpha.model.LocalVariable;
 import alpha.model.ModelPackage;
-import alpha.model.OutputVariable;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.PolyhedralObject;
 import alpha.model.StandardEquation;
@@ -58,7 +54,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getLocals <em>Locals</em>}</li>
- *   <li>{@link alpha.model.impl.AlphaSystemImpl#getFuzzyVariables <em>Fuzzy Variables</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getWhileDomainExpr <em>While Domain Expr</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getTestExpression <em>Test Expression</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getUseEquations <em>Use Equations</em>}</li>
@@ -116,7 +111,7 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<InputVariable> inputs;
+	protected EList<Variable> inputs;
 
 	/**
 	 * The cached value of the '{@link #getOutputs() <em>Outputs</em>}' containment reference list.
@@ -126,7 +121,7 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<OutputVariable> outputs;
+	protected EList<Variable> outputs;
 
 	/**
 	 * The cached value of the '{@link #getLocals() <em>Locals</em>}' containment reference list.
@@ -136,17 +131,7 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<LocalVariable> locals;
-
-	/**
-	 * The cached value of the '{@link #getFuzzyVariables() <em>Fuzzy Variables</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFuzzyVariables()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<FuzzyVariable> fuzzyVariables;
+	protected EList<Variable> locals;
 
 	/**
 	 * The cached value of the '{@link #getWhileDomainExpr() <em>While Domain Expr</em>}' containment reference.
@@ -288,9 +273,9 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<InputVariable> getInputs() {
+	public EList<Variable> getInputs() {
 		if (inputs == null) {
-			inputs = new EObjectContainmentEList<InputVariable>(InputVariable.class, this, ModelPackage.ALPHA_SYSTEM__INPUTS);
+			inputs = new EObjectContainmentEList<Variable>(Variable.class, this, ModelPackage.ALPHA_SYSTEM__INPUTS);
 		}
 		return inputs;
 	}
@@ -300,9 +285,9 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<OutputVariable> getOutputs() {
+	public EList<Variable> getOutputs() {
 		if (outputs == null) {
-			outputs = new EObjectContainmentEList<OutputVariable>(OutputVariable.class, this, ModelPackage.ALPHA_SYSTEM__OUTPUTS);
+			outputs = new EObjectContainmentEList<Variable>(Variable.class, this, ModelPackage.ALPHA_SYSTEM__OUTPUTS);
 		}
 		return outputs;
 	}
@@ -312,23 +297,11 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<LocalVariable> getLocals() {
+	public EList<Variable> getLocals() {
 		if (locals == null) {
-			locals = new EObjectContainmentEList<LocalVariable>(LocalVariable.class, this, ModelPackage.ALPHA_SYSTEM__LOCALS);
+			locals = new EObjectContainmentEList<Variable>(Variable.class, this, ModelPackage.ALPHA_SYSTEM__LOCALS);
 		}
 		return locals;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<FuzzyVariable> getFuzzyVariables() {
-		if (fuzzyVariables == null) {
-			fuzzyVariables = new EObjectContainmentEList<FuzzyVariable>(FuzzyVariable.class, this, ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES);
-		}
-		return fuzzyVariables;
 	}
 
 	/**
@@ -447,10 +420,10 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * @generated
 	 */
 	public EList<Variable> getVariables() {
-		EList<InputVariable> _inputs = this.getInputs();
-		EList<OutputVariable> _outputs = this.getOutputs();
+		EList<Variable> _inputs = this.getInputs();
+		EList<Variable> _outputs = this.getOutputs();
 		Iterable<Variable> _plus = Iterables.<Variable>concat(_inputs, _outputs);
-		EList<LocalVariable> _locals = this.getLocals();
+		EList<Variable> _locals = this.getLocals();
 		return ECollections.<Variable>unmodifiableEList(ECollections.<Variable>asEList(((Variable[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<Variable>concat(_plus, _locals), Variable.class))));
 	}
 
@@ -507,8 +480,6 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
 			case ModelPackage.ALPHA_SYSTEM__LOCALS:
 				return ((InternalEList<?>)getLocals()).basicRemove(otherEnd, msgs);
-			case ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES:
-				return ((InternalEList<?>)getFuzzyVariables()).basicRemove(otherEnd, msgs);
 			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
 				return basicSetWhileDomainExpr(null, msgs);
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
@@ -541,8 +512,6 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return getOutputs();
 			case ModelPackage.ALPHA_SYSTEM__LOCALS:
 				return getLocals();
-			case ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES:
-				return getFuzzyVariables();
 			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
 				return getWhileDomainExpr();
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
@@ -576,19 +545,15 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return;
 			case ModelPackage.ALPHA_SYSTEM__INPUTS:
 				getInputs().clear();
-				getInputs().addAll((Collection<? extends InputVariable>)newValue);
+				getInputs().addAll((Collection<? extends Variable>)newValue);
 				return;
 			case ModelPackage.ALPHA_SYSTEM__OUTPUTS:
 				getOutputs().clear();
-				getOutputs().addAll((Collection<? extends OutputVariable>)newValue);
+				getOutputs().addAll((Collection<? extends Variable>)newValue);
 				return;
 			case ModelPackage.ALPHA_SYSTEM__LOCALS:
 				getLocals().clear();
-				getLocals().addAll((Collection<? extends LocalVariable>)newValue);
-				return;
-			case ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES:
-				getFuzzyVariables().clear();
-				getFuzzyVariables().addAll((Collection<? extends FuzzyVariable>)newValue);
+				getLocals().addAll((Collection<? extends Variable>)newValue);
 				return;
 			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
 				setWhileDomainExpr((CalculatorExpression)newValue);
@@ -634,9 +599,6 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 			case ModelPackage.ALPHA_SYSTEM__LOCALS:
 				getLocals().clear();
 				return;
-			case ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES:
-				getFuzzyVariables().clear();
-				return;
 			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
 				setWhileDomainExpr((CalculatorExpression)null);
 				return;
@@ -673,8 +635,6 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return outputs != null && !outputs.isEmpty();
 			case ModelPackage.ALPHA_SYSTEM__LOCALS:
 				return locals != null && !locals.isEmpty();
-			case ModelPackage.ALPHA_SYSTEM__FUZZY_VARIABLES:
-				return fuzzyVariables != null && !fuzzyVariables.isEmpty();
 			case ModelPackage.ALPHA_SYSTEM__WHILE_DOMAIN_EXPR:
 				return whileDomainExpr != null;
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:

@@ -69,7 +69,6 @@ class AlphaFormatter extends AbstractFormatter2 {
 			case "define" : system.inputs.isEmpty
 			case "inputs" : system.outputs.isEmpty
 			case "outputs" : system.locals.isEmpty
-			case "locals" : system.fuzzyVariables.isEmpty
 			case "fuzzy" : system.whileDomainExpr === null
 			case "over" : system.equations.isEmpty && system.useEquations.isEmpty
 			default : false
@@ -97,11 +96,6 @@ class AlphaFormatter extends AbstractFormatter2 {
 		}
 		
 		for (Variable variable : alphaSystem.variables) {
-			variable.format
-			variable.append[newLine]
-		}
-		
-		for (FuzzyVariable variable : alphaSystem.fuzzyVariables) {
 			variable.format
 			variable.append[newLine]
 		}

@@ -61,12 +61,6 @@ interface AlphaVisitor {
 	 */
 	op void visitVariable(Variable variable)
 	
-	/* Use visitVariable for generic operations */
-	op void visitInputVariable(InputVariable variable)
-	/* Use visitVariable for generic operations */
-	op void visitOutputVariable(OutputVariable variable)
-	/* Use visitVariable for generic operations */
-	op void visitLocalVariable(LocalVariable variable)
 	op void visitFuzzyVariable(FuzzyVariable variable)
 	
 	op void visitPolyhedralObject(PolyhedralObject pobj)
@@ -86,9 +80,6 @@ interface AlphaVisitor {
 	
 	op void inVariable(Variable variable)
 	
-	op void inInputVariable(InputVariable variable)
-	op void inOutputVariable(OutputVariable variable)
-	op void inLocalVariable(LocalVariable variable)
 	op void inFuzzyVariable(FuzzyVariable variable)
 	
 	op void inPolyhedralObject(PolyhedralObject pobj)
@@ -108,9 +99,6 @@ interface AlphaVisitor {
 	
 	op void outVariable(Variable variable)
 	
-	op void outInputVariable(InputVariable variable)
-	op void outOutputVariable(OutputVariable variable)
-	op void outLocalVariable(LocalVariable variable)
 	op void outFuzzyVariable(FuzzyVariable variable)
 	
 	op void outPolyhedralObject(PolyhedralObject pobj)
@@ -306,10 +294,9 @@ class AlphaSystem extends AlphaElement {
 	String name
 	contains JNIDomain parameterDomainExpr
 	contains PolyhedralObject[] definedObjects
-	contains InputVariable[] inputs
-	contains OutputVariable[] outputs
-	contains LocalVariable[] locals
-	contains FuzzyVariable[] fuzzyVariables
+	contains Variable[] inputs
+	contains Variable[] outputs
+	contains Variable[] locals
 	contains CalculatorExpression whileDomainExpr
 	contains AlphaExpression testExpression
 	
@@ -351,42 +338,38 @@ class Variable extends AlphaVisitable {
 		}
 	}
 	
+	op boolean isInput() {
+		eContainmentFeature !== null && eContainmentFeature === ModelPackage.Literals.ALPHA_SYSTEM__INPUTS
+	}
+	op boolean isOutput() {
+		eContainmentFeature !== null && eContainmentFeature === ModelPackage.Literals.ALPHA_SYSTEM__OUTPUTS
+	}
+	op boolean isLocal() {
+		eContainmentFeature !== null && eContainmentFeature === ModelPackage.Literals.ALPHA_SYSTEM__LOCALS
+	}
+	
 	 op void accept(AlphaVisitor visitor) {
 	 	visitor.visitVariable(this)
 	}
 }
 
-class InputVariable extends Variable {
-	op void accept(AlphaVisitor visitor) {
-	 	visitor.visitInputVariable(this)
-	}
-}
-class OutputVariable extends Variable {
-	op void accept(AlphaVisitor visitor) {
-	 	visitor.visitOutputVariable(this)
-	}
-}
-class LocalVariable extends Variable {
-	op void accept(AlphaVisitor visitor) {
-	 	visitor.visitLocalVariable(this)
-	}
-}
-
 class FuzzyVariable extends Variable {
+	contains CalculatorExpression rangeExpr
 	
-	op JNIISLSet getDomain() {
-		return if (domainExpr.^type != POLY_OBJECT_TYPE::MAP) null else (domainExpr.ISLObject as JNIISLMap).domain()
+	op JNIISLSet getRange() {
+		return if (rangeExpr.^type != POLY_OBJECT_TYPE::SET) null else rangeExpr.ISLObject as JNIISLSet
 	}
 	
 	op JNIISLMap getRelation() {
-		if (domainExpr.^type != POLY_OBJECT_TYPE::MAP) null else domainExpr.ISLObject as JNIISLMap
+		val dom = domain
+		val ran = range
+		if (dom === null || ran === null) null else dom.product(ran).unwrap
 	}
 	
 	op void accept(AlphaVisitor visitor) {
 	 	visitor.visitFuzzyVariable(this)
 	}
 }
-
 
 class StandardEquation extends AlphaVisitable {
 	refers Variable variable
