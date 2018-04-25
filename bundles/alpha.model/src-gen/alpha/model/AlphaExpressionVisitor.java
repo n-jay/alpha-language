@@ -98,6 +98,30 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model afreUnique="false"
+	 * @generated
+	 */
+	void visitAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model freUnique="false"
+	 * @generated
+	 */
+	void visitFuzzyReduceExpression(FuzzyReduceExpression fre);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model fareUnique="false"
+	 * @generated
+	 */
+	void visitFuzzyArgReduceExpression(FuzzyArgReduceExpression fare);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model ceUnique="false"
 	 * @generated
 	 */
@@ -218,6 +242,22 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model efreUnique="false"
+	 * @generated
+	 */
+	void visitExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model efareUnique="false"
+	 * @generated
+	 */
+	void visitExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model aeUnique="false"
 	 * @generated
 	 */
@@ -294,6 +334,30 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void inArgReduceExpression(ArgReduceExpression are);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model afreUnique="false"
+	 * @generated
+	 */
+	void inAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model freUnique="false"
+	 * @generated
+	 */
+	void inFuzzyReduceExpression(FuzzyReduceExpression fre);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model fareUnique="false"
+	 * @generated
+	 */
+	void inFuzzyArgReduceExpression(FuzzyArgReduceExpression fare);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -418,6 +482,22 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model efreUnique="false"
+	 * @generated
+	 */
+	void inExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model efareUnique="false"
+	 * @generated
+	 */
+	void inExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model aeUnique="false"
 	 * @generated
 	 */
@@ -494,6 +574,30 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void outArgReduceExpression(ArgReduceExpression are);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model afreUnique="false"
+	 * @generated
+	 */
+	void outAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model freUnique="false"
+	 * @generated
+	 */
+	void outFuzzyReduceExpression(FuzzyReduceExpression fre);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model fareUnique="false"
+	 * @generated
+	 */
+	void outFuzzyArgReduceExpression(FuzzyArgReduceExpression fare);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -614,5 +718,21 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void outExternalMultiArgExpression(ExternalMultiArgExpression emae);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model efreUnique="false"
+	 * @generated
+	 */
+	void outExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model efareUnique="false"
+	 * @generated
+	 */
+	void outExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare);
 
 } // AlphaExpressionVisitor

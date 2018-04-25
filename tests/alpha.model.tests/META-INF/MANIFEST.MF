@@ -9,4 +9,5 @@ Require-Bundle: alpha.model,
  alpha.model.xtext,
  alpha.model.testframework,
  fr.irisa.cairn.gecos.testframework.model,
- org.junit
+ org.junit,
+ com.google.guava

@@ -131,6 +131,9 @@ interface AlphaExpressionVisitor {
 	op void visitAbstractReduceExpression(AbstractReduceExpression are)
 	op void visitReduceExpression(ReduceExpression re)
 	op void visitArgReduceExpression(ArgReduceExpression are)
+	op void visitAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre)
+	op void visitFuzzyReduceExpression(FuzzyReduceExpression fre)
+	op void visitFuzzyArgReduceExpression(FuzzyArgReduceExpression fare)
 	op void visitConvolutionExpression(ConvolutionExpression ce)
 	op void visitUnaryExpression(UnaryExpression ue)
 	op void visitBinaryExpression(BinaryExpression be)
@@ -149,6 +152,8 @@ interface AlphaExpressionVisitor {
 	op void visitExternalReduceExpression(ExternalReduceExpression ere)
 	op void visitExternalArgReduceExpression(ExternalArgReduceExpression eare)
 	op void visitExternalMultiArgExpression(ExternalMultiArgExpression emae)
+	op void visitExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre)
+	op void visitExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare)
 	
 	
 	op void inAlphaExpression(AlphaExpression ae)
@@ -162,6 +167,9 @@ interface AlphaExpressionVisitor {
 	op void inAbstractReduceExpression(AbstractReduceExpression are)
 	op void inReduceExpression(ReduceExpression re)
 	op void inArgReduceExpression(ArgReduceExpression are)
+	op void inAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre)
+	op void inFuzzyReduceExpression(FuzzyReduceExpression fre)
+	op void inFuzzyArgReduceExpression(FuzzyArgReduceExpression fare)
 	op void inConvolutionExpression(ConvolutionExpression ce)
 	op void inUnaryExpression(UnaryExpression ue)
 	op void inBinaryExpression(BinaryExpression be)
@@ -180,6 +188,8 @@ interface AlphaExpressionVisitor {
 	op void inExternalReduceExpression(ExternalReduceExpression ere)
 	op void inExternalArgReduceExpression(ExternalArgReduceExpression eare)
 	op void inExternalMultiArgExpression(ExternalMultiArgExpression emae)
+	op void inExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre)
+	op void inExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare)
 	
 	op void outAlphaExpression(AlphaExpression ae)
 	
@@ -192,6 +202,9 @@ interface AlphaExpressionVisitor {
 	op void outAbstractReduceExpression(AbstractReduceExpression are)
 	op void outReduceExpression(ReduceExpression re)
 	op void outArgReduceExpression(ArgReduceExpression are)
+	op void outAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre)
+	op void outFuzzyReduceExpression(FuzzyReduceExpression fre)
+	op void outFuzzyArgReduceExpression(FuzzyArgReduceExpression fare)
 	op void outConvolutionExpression(ConvolutionExpression ce)
 	op void outUnaryExpression(UnaryExpression ue)
 	op void outBinaryExpression(BinaryExpression be)
@@ -210,6 +223,8 @@ interface AlphaExpressionVisitor {
 	op void outExternalReduceExpression(ExternalReduceExpression ere)
 	op void outExternalArgReduceExpression(ExternalArgReduceExpression eare)
 	op void outExternalMultiArgExpression(ExternalMultiArgExpression emae)
+	op void outExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre)
+	op void outExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare)
 }
 
 interface CalculatorExpressionVisitor {
@@ -221,7 +236,6 @@ interface CalculatorExpressionVisitor {
 	op void visitJNIDomain(JNIDomain jniDomain)
 	op void visitJNIRelation(JNIRelation jniRelation)
 	op void visitJNIFunction(JNIFunction jniFunction)
-	op void visitJNIFuzzyFunction(JNIFuzzyFunction jniFuzzyFunction)
 	
 	op void visitVariableDomain(VariableDomain vdom)
 	op void visitRectangularDomain(RectangularDomain rdom)
@@ -470,12 +484,11 @@ class DependenceExpression extends AlphaExpression {
 	}
 }
 class FuzzyDependenceExpression extends AlphaExpression {
-	contains JNIFuzzyFunction functionExpr
+	contains FuzzyFunction fuzzyFunction
 	contains AlphaExpression expr
 	
-	op JNIISLUnionMap getFunction() {
-		if (functionExpr.^type != POLY_OBJECT_TYPE.UNION_MAP ) null
-		else functionExpr.ISLObject as JNIISLUnionMap
+	op JNIISLMap getDependenceRelation() {
+		if (fuzzyFunction !== null) fuzzyFunction.dependenceRelation else null
 	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -504,12 +517,11 @@ class IndexExpression extends AlphaExpression {
 	}
 }
 
-class FuzzyIndexExpression extends AlphaExpression {
-	contains JNIFuzzyFunction functionExpr
+class FuzzyIndexExpression extends AlphaExpression {	
+	contains FuzzyFunction fuzzyFunction
 	
-	op JNIISLUnionMap getFunction() {
-		if (functionExpr.^type != POLY_OBJECT_TYPE.UNION_MAP ) null
-		else functionExpr.ISLObject as JNIISLUnionMap
+	op JNIISLMap getDependenceRelation() {
+		if (fuzzyFunction !== null) fuzzyFunction.dependenceRelation else null
 	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -652,6 +664,46 @@ class ExternalMultiArgExpression extends MultiArgExpression {
 	}
 }
 
+abstract class AbstractFuzzyReduceExpression extends AlphaExpression {
+	REDUCTION_OP operator
+	contains FuzzyFunction projectionFunction
+	contains AlphaExpression body
+	
+	op JNIISLMap getProjection() {
+		if (projectionFunction !== null) projectionFunction.dependenceRelation else null
+	}
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitAbstractFuzzyReduceExpression(this)
+	}
+}
+class FuzzyReduceExpression extends AbstractFuzzyReduceExpression {
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitFuzzyReduceExpression(this)
+	}
+}
+class ExternalFuzzyReduceExpression extends FuzzyReduceExpression {
+	refers ExternalFunction externalFunction
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitExternalFuzzyReduceExpression(this)
+	}
+}
+class FuzzyArgReduceExpression extends AbstractFuzzyReduceExpression {
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitFuzzyArgReduceExpression(this)
+	}
+}
+class ExternalFuzzyArgReduceExpression extends FuzzyArgReduceExpression {
+	refers ExternalFunction externalFunction
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitExternalFuzzyArgReduceExpression(this)
+	}
+}
+
 enum UNARY_OP {
 	NOT as "not"
 	NEGATE as "-"
@@ -698,7 +750,6 @@ enum POLY_OBJECT_TYPE {
 	SET
 	MAP
 	FUNCTION
-	UNION_MAP
 }
 
 enum CALCULATOR_UNARY_OP {
@@ -838,22 +889,39 @@ class JNIFunctionInArrayNotation extends JNIFunction {
 	}
 }
 
-class JNIFuzzyFunction extends CalculatorExpression {
+class FuzzyFunction extends AlphaNode {
 	String alphaString
-	JNIISLUnionMap z__internal_cache_islUMap
+	contains FuzzyVariableUse[] indirections
+	JNIISLMap z__internal_cache_fuzzyMap
+	JNIISLMap z__internal_cache_depRelation
 	
-	op JNIISLUnionMap getISLUnionMap() { if (z__internal_cache_islUMap !== null) z__internal_cache_islUMap.copy else null }
-	op void setISLUnionMap(JNIISLUnionMap islUMap) { z__internal_cache_islUMap = islUMap }
+	op JNIISLMap getFuzzyMap() { if (z__internal_cache_fuzzyMap !== null) z__internal_cache_fuzzyMap.copy else null }
+	op void setFuzzyMap(JNIISLMap fuzzyMap) { z__internal_cache_fuzzyMap = fuzzyMap }
 	
-	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::UNION_MAP }
-	op JNIObject getISLObject() { ISLUnionMap }
+	op JNIISLMap getDependenceRelation() { if (z__internal_cache_depRelation !== null) z__internal_cache_depRelation.copy else null }
+	op void setDependenceRelation(JNIISLMap depRel) { z__internal_cache_depRelation = depRel }
 	
-	op String plainToString() {
-		alphaString
-	}
 }
 
-class JNIFuzzyFunctionInArrayNotation extends JNIFuzzyFunction {
+abstract class FuzzyVariableUse {
+	String fuzzyIndex
+	refers FuzzyVariable fuzzyVariable
+
+	//This method is identical to that in FuzzyFunction
+	// 	however, AffineFuzzyVariable use do not inherit from FuzzyFunction, so we need a separate declaration
+	op JNIISLMap getDependenceRelation()
+}
+
+class NestedFuzzyFunction extends FuzzyFunction, FuzzyVariableUse {
+}
+
+class AffineFuzzyVariableUse extends FuzzyVariableUse {
+	contains JNIFunctionInArrayNotation useFunction
+	
+	op JNIISLMap getDependenceRelation() { if (useFunction !== null) useFunction.ISLMultiAff.toMap else null }
+}
+
+class FuzzyFunctionInArrayNotation extends FuzzyFunction {
 	String[] arrayNotation
 	
 	op String plainToString() {

@@ -9,15 +9,28 @@ import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
 import fr.irisa.cairn.jnimap.runtime.JNIObject
 import java.util.ArrayList
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.emf.ecore.impl.EObjectImpl
 
+import static alpha.model.util.AlphaUtil.getParameterDomain
 import static alpha.model.util.AlphaUtil.callISLwithErrorHandling
 
+/**
+ * This class is responsible for constructing ISL objects for:<ul>
+ *   <li>{@link JNIDomain}</li>
+ *   <li>{@link JNIFunction}</li>
+ *   <li>{@link JNIRelation}</li> 
+ * </ul>
+ * which also involves evaluating operations over these objects.
+ * 
+ * The evaluation is done by first converting the textual specification to ISL objects, 
+ * and then calling the appropriate ISL functions. The list of index names must be provided
+ * as context for textual specification in ArrayNotation.
+ * 
+ */
 class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {
 
 	private List<CalculatorExpressionIssue> issues = new LinkedList;
@@ -40,7 +53,6 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 
 		return calc.issues
 	}
-
 
 	private def registerIssue(String msg, AlphaNode node) {
 		issues.add(new CalculatorExpressionIssue(TYPE.ERROR, msg, node.eContainer, node.eContainingFeature));
@@ -109,11 +121,6 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 
 	// None of the unary operators currently in the language makes sense for functions
 	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, JNIISLMultiAff fun) {
-		throw new UnsupportedOperationException();
-	}
-	
-	//No operation supported for JNIISLUnionMap
-	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, JNIISLUnionMap umap) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -248,29 +255,13 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		}
 	}
 	
-	// Binary Operation involving JNIISLUnionMap are not supported
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLUnionMap left, JNIISLUnionMap right) {
-		throw new UnsupportedOperationException();
-	}
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLUnionMap left, JNIISLSet right) {
-		throw new UnsupportedOperationException();
-	}
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLUnionMap left, JNIISLMap right) {
-		throw new UnsupportedOperationException();
-	}
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLUnionMap left, JNIISLMultiAff right) {
-		throw new UnsupportedOperationException();
-	}
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLSet left, JNIISLUnionMap right) {
-		throw new UnsupportedOperationException();
-	}
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMap left, JNIISLUnionMap right) {
-		throw new UnsupportedOperationException();
-	}
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMultiAff left, JNIISLUnionMap right) {
-		throw new UnsupportedOperationException();
-	}
-		
+	/**
+	 * Parsing domains in Alpha to ISLSets
+	 * 
+	 * ArrayNotation requires the index names to be inferred from the context. Once the constraints excluding parameters 
+	 * are computed (or it is what should be specified for AShow notation) the set is parsed with ISL.
+	 * 
+	 */
 	override visitJNIDomain(JNIDomain jniDomain) {
 		try {
 			var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniDomain), parseJNIDomain(jniDomain)));
@@ -295,6 +286,11 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		String.format("{ [%s] : %s }", (indexNameContext).join(","), jniDomain.getIslString());
 	}
 
+	/**
+	 * Parsing relations in Alpha as ISLMaps
+	 * 
+	 * There is no ArrayNotation for relations, and thus that only preprocessing is to add parameter names.
+	 */
 	override visitJNIRelation(JNIRelation jniRelation) {
 		try {
 			val pdom = getParameterDomain(jniRelation);
@@ -309,35 +305,40 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		}
 	}
 
+	/**
+	 * Parsing functions in Alpha as JNIISLMultiAffs
+	 * 
+	 * The functions in Alpha are written in two formats that are both different from ISL syntax.
+	 * The Show notation is only a different way to write ISLMAffs, and are parsed after simple conversion.
+	 * The ArrayNotation requires the index names to be inferred from the context.
+	 * 
+	 * Furthermore, ArrayNotation is used for projection functions in reductions, but with a different semantics.
+	 * 
+	 */
 	override visitJNIFunction(JNIFunction jniFunction) {
 		parseJNIFunction(jniFunction);
 	}
-	
-	override visitJNIFuzzyFunction(JNIFuzzyFunction jniFuzzyFunction) {
-		parseJNIFuzzyFunction(jniFuzzyFunction);
-	}
 
+	/**
+	 * Parsing Alpha functions in Show notation
+	 * 
+	 * Functions of the form (i,j->i+j) are converted to ISL syntax: { [i,j]->[i+j] }
+	 */
 	protected def dispatch parseJNIFunction(JNIFunction jniFunction) {
 		try {
-			val pdom = getParameterDomain(jniFunction);
-
-			val completed = new StringBuffer("[");
-			completed.append(String.join(",", pdom.getParametersNames()));
-			completed.append("] -> ");
-
 			val alphaStr = jniFunction.getAlphaString().split("->");
 
 			val indexNames = alphaStr.get(0).substring(alphaStr.get(0).indexOf('(') + 1);
 			val expr = alphaStr.get(1).substring(0, alphaStr.get(1).lastIndexOf(')'));
 
-			completed.append("{ [");
+			val completed = new StringBuffer("{ [");
 			completed.append(indexNames);
 			completed.append("] -> [");
 			completed.append(expr);
 			completed.append("] }");
 
 			val jnimaff = ISLFactory.islMultiAff(
-				AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
+				AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
 			jniFunction.setISLMultiAff(jnimaff);
 		} catch (RuntimeException re) {
 			val msg = if(re.message === null) re.class.name else re.message
@@ -345,19 +346,21 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		}
 	}
 
+	/**
+	 * Parsing Alpha functions in ArrayNotation
+	 * 
+	 * This function uses another dispatch to select either
+	 *   parseJNIFunctionAsProjection, or
+	 *   parseJNIFunctionAsFunction
+	 * depending on its parent node.
+	 */
 	protected def dispatch parseJNIFunction(JNIFunctionInArrayNotation jniFunction) {
 
 		try {
-			val pdom = getParameterDomain(jniFunction);
-
-			val completed = new StringBuffer("[");
-			completed.append(String.join(",", pdom.getParametersNames()));
-			completed.append("] -> ");
-
-			completed.append(jniFunction.parseJNIFunction(jniFunction.eContainer as AlphaNode));
-
 			val jnimaff = ISLFactory.islMultiAff(
-				AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
+				AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniFunction),
+					jniFunction.parseJNIFunctionInContext(jniFunction.eContainer as AlphaNode).toString
+				));
 			jniFunction.setISLMultiAff(jnimaff);
 		} catch (RuntimeException re) {
 			val msg = if(re.message === null) re.class.name else re.message
@@ -365,6 +368,11 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		}
 	}
 
+	/**
+	 * ArrayNotation is parsed as projection. In this case, the additional indices expressed are treated as the canonical projection dimensions.
+	 *   For example, reduce(op, [x,y], ...) in the context [i,j] gives (i,j,x,y->i,j) as the projection function.
+	 * 
+	 */
 	private def parseJNIFunctionAsProjection(JNIFunctionInArrayNotation jniFunction) {
 		if (indexNameContext === null)
 			throw new OutOfContextArrayNotationException(String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", jniFunction.arrayNotation.join(",")));
@@ -377,6 +385,10 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		return funStr;
 	}
 
+	/**
+	 * ArrayNotation is parsed as function. The indexing expression simply becomes the RHS of ISLMAff, while the LHS is determined by the context.
+	 * 
+	 */
 	private def parseJNIFunctionAsFunction(JNIFunctionInArrayNotation jniFunction) {
 		if (indexNameContext === null)
 			throw new OutOfContextArrayNotationException(String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", jniFunction.arrayNotation.join(",")));
@@ -389,31 +401,31 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		return funStr;
 	}
 
-	protected def dispatch parseJNIFunction(JNIFunctionInArrayNotation jniFunction, ReduceExpression parent) {
+	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, ReduceExpression parent) {
 		return parseJNIFunctionAsProjection(jniFunction);
 	}
 
-	protected def dispatch parseJNIFunction(JNIFunctionInArrayNotation jniFunction, ArgReduceExpression parent) {
+	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, ArgReduceExpression parent) {
 		return parseJNIFunctionAsProjection(jniFunction);
 	}
 
-	protected def dispatch parseJNIFunction(JNIFunctionInArrayNotation jniFunction, UseEquation parent) {
+	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, UseEquation parent) {
 		return parseJNIFunctionAsFunction(jniFunction);
 	}
 
-	protected def dispatch parseJNIFunction(JNIFunctionInArrayNotation jniFunction, DependenceExpression parent) {
+	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, DependenceExpression parent) {
 		return parseJNIFunctionAsFunction(jniFunction);
 	}
 
-	protected def dispatch parseJNIFunction(JNIFunctionInArrayNotation jniFunction, IndexExpression parent) {
+	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, IndexExpression parent) {
 		return parseJNIFunctionAsFunction(jniFunction);
 	}
 	
-	
-	protected def dispatch parseJNIFuzzyFunction(JNIFuzzyFunction jniFuzzyFunction) {
-		throw new UnsupportedOperationException();
+	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, FuzzyFunction parent) {
+		return parseJNIFunctionAsFunction(jniFunction);
 	}
 
+	
 	override visitVariableDomain(VariableDomain vdom) {
 		// try to evaluate the variable to detect cycles
 		if (vdom.getVariable() !== null)
@@ -469,19 +481,5 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		// try to evalute the object to detect cycles
 		if (dobj !== null)
 			dobj.getISLObject();
-	}
-
-	private def JNIISLSet getParameterDomain(CalculatorExpression expr) {
-
-		val system = AlphaUtil.getContainerSystem(expr);
-		if (system === null) {
-			throw new RuntimeException("Expression is not contained by an AlphaSystem.");
-		}
-
-		if (system.getParameterDomain() === null || system.getParameterDomain() === null) {
-			throw new RuntimeException("The parameter domain of the container system is null.");
-		}
-
-		return system.getParameterDomain();
 	}
 }

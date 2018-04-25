@@ -3,6 +3,7 @@
  */
 package alpha.model.serializer;
 
+import alpha.model.AffineFuzzyVariableUse;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
@@ -18,10 +19,16 @@ import alpha.model.DefinedObject;
 import alpha.model.DependenceExpression;
 import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
+import alpha.model.ExternalFuzzyArgReduceExpression;
+import alpha.model.ExternalFuzzyReduceExpression;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
+import alpha.model.FuzzyArgReduceExpression;
 import alpha.model.FuzzyDependenceExpression;
+import alpha.model.FuzzyFunction;
+import alpha.model.FuzzyFunctionInArrayNotation;
 import alpha.model.FuzzyIndexExpression;
+import alpha.model.FuzzyReduceExpression;
 import alpha.model.FuzzyVariable;
 import alpha.model.IfExpression;
 import alpha.model.Imports;
@@ -32,12 +39,11 @@ import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
-import alpha.model.JNIFuzzyFunction;
-import alpha.model.JNIFuzzyFunctionInArrayNotation;
 import alpha.model.JNIRelation;
 import alpha.model.LocalVariable;
 import alpha.model.ModelPackage;
 import alpha.model.MultiArgExpression;
+import alpha.model.NestedFuzzyFunction;
 import alpha.model.OutputVariable;
 import alpha.model.PolyhedralObject;
 import alpha.model.RealExpression;
@@ -78,6 +84,9 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == ModelPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case ModelPackage.AFFINE_FUZZY_VARIABLE_USE:
+				sequence_AffineFuzzyVariableUse(context, (AffineFuzzyVariableUse) semanticObject); 
+				return; 
 			case ModelPackage.ALPHA_CONSTANT:
 				sequence_AlphaConstant(context, (AlphaConstant) semanticObject); 
 				return; 
@@ -123,17 +132,35 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case ModelPackage.EXTERNAL_FUNCTION:
 				sequence_ExternalFunction(context, (ExternalFunction) semanticObject); 
 				return; 
+			case ModelPackage.EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION:
+				sequence_ExternalFuzzyArgReduceExpression(context, (ExternalFuzzyArgReduceExpression) semanticObject); 
+				return; 
+			case ModelPackage.EXTERNAL_FUZZY_REDUCE_EXPRESSION:
+				sequence_ExternalFuzzyReduceExpression(context, (ExternalFuzzyReduceExpression) semanticObject); 
+				return; 
 			case ModelPackage.EXTERNAL_MULTI_ARG_EXPRESSION:
 				sequence_ExternalMultiArgExpression(context, (ExternalMultiArgExpression) semanticObject); 
 				return; 
 			case ModelPackage.EXTERNAL_REDUCE_EXPRESSION:
 				sequence_ExternalReduceExpression(context, (ExternalReduceExpression) semanticObject); 
 				return; 
+			case ModelPackage.FUZZY_ARG_REDUCE_EXPRESSION:
+				sequence_FuzzyArgReduceExpression(context, (FuzzyArgReduceExpression) semanticObject); 
+				return; 
 			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION:
 				sequence_FuzzyDependenceExpression(context, (FuzzyDependenceExpression) semanticObject); 
 				return; 
+			case ModelPackage.FUZZY_FUNCTION:
+				sequence_FuzzyFunction(context, (FuzzyFunction) semanticObject); 
+				return; 
+			case ModelPackage.FUZZY_FUNCTION_IN_ARRAY_NOTATION:
+				sequence_FuzzyFunctionInArrayNotation(context, (FuzzyFunctionInArrayNotation) semanticObject); 
+				return; 
 			case ModelPackage.FUZZY_INDEX_EXPRESSION:
 				sequence_FuzzyIndexExpression(context, (FuzzyIndexExpression) semanticObject); 
+				return; 
+			case ModelPackage.FUZZY_REDUCE_EXPRESSION:
+				sequence_FuzzyReduceExpression(context, (FuzzyReduceExpression) semanticObject); 
 				return; 
 			case ModelPackage.FUZZY_VARIABLE:
 				sequence_FuzzyVariable(context, (FuzzyVariable) semanticObject); 
@@ -176,12 +203,6 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION:
 				sequence_JNIFunctionInArrayNotation(context, (JNIFunctionInArrayNotation) semanticObject); 
 				return; 
-			case ModelPackage.JNI_FUZZY_FUNCTION:
-				sequence_JNIFuzzyFunction(context, (JNIFuzzyFunction) semanticObject); 
-				return; 
-			case ModelPackage.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION:
-				sequence_JNIFuzzyFunctionInArrayNotation(context, (JNIFuzzyFunctionInArrayNotation) semanticObject); 
-				return; 
 			case ModelPackage.JNI_RELATION:
 				sequence_JNIRelation(context, (JNIRelation) semanticObject); 
 				return; 
@@ -190,6 +211,9 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case ModelPackage.MULTI_ARG_EXPRESSION:
 				sequence_MultiArgExpression(context, (MultiArgExpression) semanticObject); 
+				return; 
+			case ModelPackage.NESTED_FUZZY_FUNCTION:
+				sequence_NestedFuzzyFunction(context, (NestedFuzzyFunction) semanticObject); 
 				return; 
 			case ModelPackage.OUTPUT_VARIABLE:
 				sequence_OutputVariable(context, (OutputVariable) semanticObject); 
@@ -270,6 +294,31 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     FuzzyVariableUse returns AffineFuzzyVariableUse
+	 *     AffineFuzzyVariableUse returns AffineFuzzyVariableUse
+	 *
+	 * Constraint:
+	 *     (fuzzyIndex=IndexName fuzzyVariable=[FuzzyVariable|ID] useFunction=JNIFunctionInArrayNotation)
+	 */
+	protected void sequence_AffineFuzzyVariableUse(ISerializationContext context, AffineFuzzyVariableUse semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE_USE__FUZZY_INDEX) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE_USE__FUZZY_INDEX));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE_USE__FUZZY_VARIABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.FUZZY_VARIABLE_USE__FUZZY_VARIABLE));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAffineFuzzyVariableUseAccess().getFuzzyIndexIndexNameParserRuleCall_0_0(), semanticObject.getFuzzyIndex());
+		feeder.accept(grammarAccess.getAffineFuzzyVariableUseAccess().getFuzzyVariableFuzzyVariableIDTerminalRuleCall_2_0_1(), semanticObject.eGet(ModelPackage.Literals.FUZZY_VARIABLE_USE__FUZZY_VARIABLE, false));
+		feeder.accept(grammarAccess.getAffineFuzzyVariableUseAccess().getUseFunctionJNIFunctionInArrayNotationParserRuleCall_3_0(), semanticObject.getUseFunction());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     AlphaConstant returns AlphaConstant
 	 *
 	 * Constraint:
@@ -340,6 +389,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 * Contexts:
 	 *     AlphaExpression returns ArgReduceExpression
 	 *     AlphaTerminalExpression returns ArgReduceExpression
+	 *     Reductions returns ArgReduceExpression
 	 *     ArgReduceExpression returns ArgReduceExpression
 	 *     OrExpression returns ArgReduceExpression
 	 *     OrExpression.BinaryExpression_1_0 returns ArgReduceExpression
@@ -580,6 +630,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 * Contexts:
 	 *     AlphaExpression returns ExternalArgReduceExpression
 	 *     AlphaTerminalExpression returns ExternalArgReduceExpression
+	 *     Reductions returns ExternalArgReduceExpression
 	 *     ExternalArgReduceExpression returns ExternalArgReduceExpression
 	 *     OrExpression returns ExternalArgReduceExpression
 	 *     OrExpression.BinaryExpression_1_0 returns ExternalArgReduceExpression
@@ -626,6 +677,86 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     AlphaExpression returns ExternalFuzzyArgReduceExpression
+	 *     AlphaTerminalExpression returns ExternalFuzzyArgReduceExpression
+	 *     Reductions returns ExternalFuzzyArgReduceExpression
+	 *     ExternalFuzzyArgReduceExpression returns ExternalFuzzyArgReduceExpression
+	 *     OrExpression returns ExternalFuzzyArgReduceExpression
+	 *     OrExpression.BinaryExpression_1_0 returns ExternalFuzzyArgReduceExpression
+	 *     AndExpression returns ExternalFuzzyArgReduceExpression
+	 *     AndExpression.BinaryExpression_1_0 returns ExternalFuzzyArgReduceExpression
+	 *     RelationalExpression returns ExternalFuzzyArgReduceExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns ExternalFuzzyArgReduceExpression
+	 *     AdditiveExpression returns ExternalFuzzyArgReduceExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns ExternalFuzzyArgReduceExpression
+	 *     MultiplicativeExpression returns ExternalFuzzyArgReduceExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns ExternalFuzzyArgReduceExpression
+	 *     MinMaxExpression returns ExternalFuzzyArgReduceExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns ExternalFuzzyArgReduceExpression
+	 *     UnaryOrTerminalExpression returns ExternalFuzzyArgReduceExpression
+	 *
+	 * Constraint:
+	 *     (externalFunction=[ExternalFunction|ID] projectionFunction=FuzzyFunction body=AlphaExpression)
+	 */
+	protected void sequence_ExternalFuzzyArgReduceExpression(ISerializationContext context, ExternalFuzzyArgReduceExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1(), semanticObject.eGet(ModelPackage.Literals.EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION, false));
+		feeder.accept(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getProjectionFunctionFuzzyFunctionParserRuleCall_4_0(), semanticObject.getProjectionFunction());
+		feeder.accept(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getBodyAlphaExpressionParserRuleCall_6_0(), semanticObject.getBody());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaExpression returns ExternalFuzzyReduceExpression
+	 *     AlphaTerminalExpression returns ExternalFuzzyReduceExpression
+	 *     Reductions returns ExternalFuzzyReduceExpression
+	 *     ExternalFuzzyReduceExpression returns ExternalFuzzyReduceExpression
+	 *     OrExpression returns ExternalFuzzyReduceExpression
+	 *     OrExpression.BinaryExpression_1_0 returns ExternalFuzzyReduceExpression
+	 *     AndExpression returns ExternalFuzzyReduceExpression
+	 *     AndExpression.BinaryExpression_1_0 returns ExternalFuzzyReduceExpression
+	 *     RelationalExpression returns ExternalFuzzyReduceExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns ExternalFuzzyReduceExpression
+	 *     AdditiveExpression returns ExternalFuzzyReduceExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns ExternalFuzzyReduceExpression
+	 *     MultiplicativeExpression returns ExternalFuzzyReduceExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns ExternalFuzzyReduceExpression
+	 *     MinMaxExpression returns ExternalFuzzyReduceExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns ExternalFuzzyReduceExpression
+	 *     UnaryOrTerminalExpression returns ExternalFuzzyReduceExpression
+	 *
+	 * Constraint:
+	 *     (externalFunction=[ExternalFunction|ID] projectionFunction=FuzzyFunction body=AlphaExpression)
+	 */
+	protected void sequence_ExternalFuzzyReduceExpression(ISerializationContext context, ExternalFuzzyReduceExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.EXTERNAL_FUZZY_REDUCE_EXPRESSION__EXTERNAL_FUNCTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.EXTERNAL_FUZZY_REDUCE_EXPRESSION__EXTERNAL_FUNCTION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getExternalFuzzyReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1(), semanticObject.eGet(ModelPackage.Literals.EXTERNAL_FUZZY_REDUCE_EXPRESSION__EXTERNAL_FUNCTION, false));
+		feeder.accept(grammarAccess.getExternalFuzzyReduceExpressionAccess().getProjectionFunctionFuzzyFunctionParserRuleCall_4_0(), semanticObject.getProjectionFunction());
+		feeder.accept(grammarAccess.getExternalFuzzyReduceExpressionAccess().getBodyAlphaExpressionParserRuleCall_6_0(), semanticObject.getBody());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     AlphaExpression returns ExternalMultiArgExpression
 	 *     AlphaTerminalExpression returns ExternalMultiArgExpression
 	 *     OrExpression returns ExternalMultiArgExpression
@@ -655,6 +786,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 * Contexts:
 	 *     AlphaExpression returns ExternalReduceExpression
 	 *     AlphaTerminalExpression returns ExternalReduceExpression
+	 *     Reductions returns ExternalReduceExpression
 	 *     ExternalReduceExpression returns ExternalReduceExpression
 	 *     OrExpression returns ExternalReduceExpression
 	 *     OrExpression.BinaryExpression_1_0 returns ExternalReduceExpression
@@ -680,6 +812,46 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     AlphaExpression returns FuzzyArgReduceExpression
+	 *     AlphaTerminalExpression returns FuzzyArgReduceExpression
+	 *     Reductions returns FuzzyArgReduceExpression
+	 *     FuzzyArgReduceExpression returns FuzzyArgReduceExpression
+	 *     OrExpression returns FuzzyArgReduceExpression
+	 *     OrExpression.BinaryExpression_1_0 returns FuzzyArgReduceExpression
+	 *     AndExpression returns FuzzyArgReduceExpression
+	 *     AndExpression.BinaryExpression_1_0 returns FuzzyArgReduceExpression
+	 *     RelationalExpression returns FuzzyArgReduceExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns FuzzyArgReduceExpression
+	 *     AdditiveExpression returns FuzzyArgReduceExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns FuzzyArgReduceExpression
+	 *     MultiplicativeExpression returns FuzzyArgReduceExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns FuzzyArgReduceExpression
+	 *     MinMaxExpression returns FuzzyArgReduceExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns FuzzyArgReduceExpression
+	 *     UnaryOrTerminalExpression returns FuzzyArgReduceExpression
+	 *
+	 * Constraint:
+	 *     (operator=AREDUCTION_OP projectionFunction=FuzzyFunction body=AlphaExpression)
+	 */
+	protected void sequence_FuzzyArgReduceExpression(ISerializationContext context, FuzzyArgReduceExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFuzzyArgReduceExpressionAccess().getOperatorAREDUCTION_OPParserRuleCall_2_0(), semanticObject.getOperator());
+		feeder.accept(grammarAccess.getFuzzyArgReduceExpressionAccess().getProjectionFunctionFuzzyFunctionParserRuleCall_4_0(), semanticObject.getProjectionFunction());
+		feeder.accept(grammarAccess.getFuzzyArgReduceExpressionAccess().getBodyAlphaExpressionParserRuleCall_6_0(), semanticObject.getBody());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     AlphaExpression returns FuzzyDependenceExpression
 	 *     AlphaTerminalExpression returns FuzzyDependenceExpression
 	 *     FuzzyDependenceExpression returns FuzzyDependenceExpression
@@ -698,9 +870,33 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns FuzzyDependenceExpression
 	 *
 	 * Constraint:
-	 *     ((functionExpr=JNIFuzzyFunction expr=AlphaTerminalExpression) | (expr=VariableExpression functionExpr=JNIFuzzyFunctionInArrayNotation))
+	 *     ((fuzzyFunction=FuzzyFunction expr=AlphaTerminalExpression) | (expr=VariableExpression fuzzyFunction=FuzzyFunctionInArrayNotation))
 	 */
 	protected void sequence_FuzzyDependenceExpression(ISerializationContext context, FuzzyDependenceExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FuzzyFunctionInArrayNotation returns FuzzyFunctionInArrayNotation
+	 *
+	 * Constraint:
+	 *     (arrayNotation+=AISLFuzzyExpression arrayNotation+=AISLFuzzyExpression*)?
+	 */
+	protected void sequence_FuzzyFunctionInArrayNotation(ISerializationContext context, FuzzyFunctionInArrayNotation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FuzzyFunction returns FuzzyFunction
+	 *
+	 * Constraint:
+	 *     (alphaString=AISLWrappedBasicRelation indirections+=FuzzyVariableUse*)
+	 */
+	protected void sequence_FuzzyFunction(ISerializationContext context, FuzzyFunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -725,10 +921,50 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns FuzzyIndexExpression
 	 *
 	 * Constraint:
-	 *     (functionExpr=JNIFuzzyFunction | functionExpr=JNIFuzzyFunctionInArrayNotation)
+	 *     (fuzzyFunction=FuzzyFunction | fuzzyFunction=FuzzyFunctionInArrayNotation)
 	 */
 	protected void sequence_FuzzyIndexExpression(ISerializationContext context, FuzzyIndexExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaExpression returns FuzzyReduceExpression
+	 *     AlphaTerminalExpression returns FuzzyReduceExpression
+	 *     Reductions returns FuzzyReduceExpression
+	 *     FuzzyReduceExpression returns FuzzyReduceExpression
+	 *     OrExpression returns FuzzyReduceExpression
+	 *     OrExpression.BinaryExpression_1_0 returns FuzzyReduceExpression
+	 *     AndExpression returns FuzzyReduceExpression
+	 *     AndExpression.BinaryExpression_1_0 returns FuzzyReduceExpression
+	 *     RelationalExpression returns FuzzyReduceExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns FuzzyReduceExpression
+	 *     AdditiveExpression returns FuzzyReduceExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns FuzzyReduceExpression
+	 *     MultiplicativeExpression returns FuzzyReduceExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns FuzzyReduceExpression
+	 *     MinMaxExpression returns FuzzyReduceExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns FuzzyReduceExpression
+	 *     UnaryOrTerminalExpression returns FuzzyReduceExpression
+	 *
+	 * Constraint:
+	 *     (operator=AREDUCTION_OP projectionFunction=FuzzyFunction body=AlphaExpression)
+	 */
+	protected void sequence_FuzzyReduceExpression(ISerializationContext context, FuzzyReduceExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFuzzyReduceExpressionAccess().getOperatorAREDUCTION_OPParserRuleCall_2_0(), semanticObject.getOperator());
+		feeder.accept(grammarAccess.getFuzzyReduceExpressionAccess().getProjectionFunctionFuzzyFunctionParserRuleCall_4_0(), semanticObject.getProjectionFunction());
+		feeder.accept(grammarAccess.getFuzzyReduceExpressionAccess().getBodyAlphaExpressionParserRuleCall_6_0(), semanticObject.getBody());
+		feeder.finish();
 	}
 	
 	
@@ -950,36 +1186,6 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     JNIFuzzyFunctionInArrayNotation returns JNIFuzzyFunctionInArrayNotation
-	 *
-	 * Constraint:
-	 *     (arrayNotation+=AISLFuzzyExpression arrayNotation+=AISLFuzzyExpression*)?
-	 */
-	protected void sequence_JNIFuzzyFunctionInArrayNotation(ISerializationContext context, JNIFuzzyFunctionInArrayNotation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     JNIFuzzyFunction returns JNIFuzzyFunction
-	 *
-	 * Constraint:
-	 *     alphaString=AISLFuzzyRelation
-	 */
-	protected void sequence_JNIFuzzyFunction(ISerializationContext context, JNIFuzzyFunction semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_FUZZY_FUNCTION__ALPHA_STRING) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_FUZZY_FUNCTION__ALPHA_STRING));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getJNIFuzzyFunctionAccess().getAlphaStringAISLFuzzyRelationParserRuleCall_0(), semanticObject.getAlphaString());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     JNIParamDomain returns JNIDomain
 	 *
 	 * Constraint:
@@ -1053,6 +1259,19 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     (operator=AREDUCTION_OP exprs+=AlphaExpression exprs+=AlphaExpression*)
 	 */
 	protected void sequence_MultiArgExpression(ISerializationContext context, MultiArgExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FuzzyVariableUse returns NestedFuzzyFunction
+	 *     NestedFuzzyFunction returns NestedFuzzyFunction
+	 *
+	 * Constraint:
+	 *     (fuzzyIndex=IndexName fuzzyVariable=[FuzzyVariable|ID] alphaString=AISLWrappedBasicRelation indirections+=FuzzyVariableUse*)
+	 */
+	protected void sequence_NestedFuzzyFunction(ISerializationContext context, NestedFuzzyFunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1144,6 +1363,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 * Contexts:
 	 *     AlphaExpression returns ReduceExpression
 	 *     AlphaTerminalExpression returns ReduceExpression
+	 *     Reductions returns ReduceExpression
 	 *     ReduceExpression returns ReduceExpression
 	 *     OrExpression returns ReduceExpression
 	 *     OrExpression.BinaryExpression_1_0 returns ReduceExpression

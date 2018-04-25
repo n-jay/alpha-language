@@ -100,14 +100,20 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.BINARY_EXPRESSION: return createBinaryExpression();
 			case ModelPackage.MULTI_ARG_EXPRESSION: return createMultiArgExpression();
 			case ModelPackage.EXTERNAL_MULTI_ARG_EXPRESSION: return createExternalMultiArgExpression();
+			case ModelPackage.FUZZY_REDUCE_EXPRESSION: return createFuzzyReduceExpression();
+			case ModelPackage.EXTERNAL_FUZZY_REDUCE_EXPRESSION: return createExternalFuzzyReduceExpression();
+			case ModelPackage.FUZZY_ARG_REDUCE_EXPRESSION: return createFuzzyArgReduceExpression();
+			case ModelPackage.EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION: return createExternalFuzzyArgReduceExpression();
 			case ModelPackage.POLYHEDRAL_OBJECT: return createPolyhedralObject();
 			case ModelPackage.JNI_DOMAIN: return createJNIDomain();
 			case ModelPackage.JNI_DOMAIN_IN_ARRAY_NOTATION: return createJNIDomainInArrayNotation();
 			case ModelPackage.JNI_RELATION: return createJNIRelation();
 			case ModelPackage.JNI_FUNCTION: return createJNIFunction();
 			case ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION: return createJNIFunctionInArrayNotation();
-			case ModelPackage.JNI_FUZZY_FUNCTION: return createJNIFuzzyFunction();
-			case ModelPackage.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION: return createJNIFuzzyFunctionInArrayNotation();
+			case ModelPackage.FUZZY_FUNCTION: return createFuzzyFunction();
+			case ModelPackage.NESTED_FUZZY_FUNCTION: return createNestedFuzzyFunction();
+			case ModelPackage.AFFINE_FUZZY_VARIABLE_USE: return createAffineFuzzyVariableUse();
+			case ModelPackage.FUZZY_FUNCTION_IN_ARRAY_NOTATION: return createFuzzyFunctionInArrayNotation();
 			case ModelPackage.UNARY_CALCULATOR_EXPRESSION: return createUnaryCalculatorExpression();
 			case ModelPackage.BINARY_CALCULATOR_EXPRESSION: return createBinaryCalculatorExpression();
 			case ModelPackage.VARIABLE_DOMAIN: return createVariableDomain();
@@ -547,6 +553,46 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FuzzyReduceExpression createFuzzyReduceExpression() {
+		FuzzyReduceExpressionImpl fuzzyReduceExpression = new FuzzyReduceExpressionImpl();
+		return fuzzyReduceExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExternalFuzzyReduceExpression createExternalFuzzyReduceExpression() {
+		ExternalFuzzyReduceExpressionImpl externalFuzzyReduceExpression = new ExternalFuzzyReduceExpressionImpl();
+		return externalFuzzyReduceExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FuzzyArgReduceExpression createFuzzyArgReduceExpression() {
+		FuzzyArgReduceExpressionImpl fuzzyArgReduceExpression = new FuzzyArgReduceExpressionImpl();
+		return fuzzyArgReduceExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExternalFuzzyArgReduceExpression createExternalFuzzyArgReduceExpression() {
+		ExternalFuzzyArgReduceExpressionImpl externalFuzzyArgReduceExpression = new ExternalFuzzyArgReduceExpressionImpl();
+		return externalFuzzyArgReduceExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PolyhedralObject createPolyhedralObject() {
 		PolyhedralObjectImpl polyhedralObject = new PolyhedralObjectImpl();
 		return polyhedralObject;
@@ -607,9 +653,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFuzzyFunction createJNIFuzzyFunction() {
-		JNIFuzzyFunctionImpl jniFuzzyFunction = new JNIFuzzyFunctionImpl();
-		return jniFuzzyFunction;
+	public FuzzyFunction createFuzzyFunction() {
+		FuzzyFunctionImpl fuzzyFunction = new FuzzyFunctionImpl();
+		return fuzzyFunction;
 	}
 
 	/**
@@ -617,9 +663,29 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFuzzyFunctionInArrayNotation createJNIFuzzyFunctionInArrayNotation() {
-		JNIFuzzyFunctionInArrayNotationImpl jniFuzzyFunctionInArrayNotation = new JNIFuzzyFunctionInArrayNotationImpl();
-		return jniFuzzyFunctionInArrayNotation;
+	public NestedFuzzyFunction createNestedFuzzyFunction() {
+		NestedFuzzyFunctionImpl nestedFuzzyFunction = new NestedFuzzyFunctionImpl();
+		return nestedFuzzyFunction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AffineFuzzyVariableUse createAffineFuzzyVariableUse() {
+		AffineFuzzyVariableUseImpl affineFuzzyVariableUse = new AffineFuzzyVariableUseImpl();
+		return affineFuzzyVariableUse;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FuzzyFunctionInArrayNotation createFuzzyFunctionInArrayNotation() {
+		FuzzyFunctionInArrayNotationImpl fuzzyFunctionInArrayNotation = new FuzzyFunctionInArrayNotationImpl();
+		return fuzzyFunctionInArrayNotation;
 	}
 
 	/**

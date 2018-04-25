@@ -5,15 +5,10 @@ package alpha.model.impl;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitor;
 import alpha.model.FuzzyDependenceExpression;
-import alpha.model.JNIFuzzyFunction;
+import alpha.model.FuzzyFunction;
 import alpha.model.ModelPackage;
-import alpha.model.POLY_OBJECT_TYPE;
 
-import com.google.common.base.Objects;
-
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
-
-import fr.irisa.cairn.jnimap.runtime.JNIObject;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -31,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.FuzzyDependenceExpressionImpl#getFunctionExpr <em>Function Expr</em>}</li>
+ *   <li>{@link alpha.model.impl.FuzzyDependenceExpressionImpl#getFuzzyFunction <em>Fuzzy Function</em>}</li>
  *   <li>{@link alpha.model.impl.FuzzyDependenceExpressionImpl#getExpr <em>Expr</em>}</li>
  * </ul>
  *
@@ -39,14 +34,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implements FuzzyDependenceExpression {
 	/**
-	 * The cached value of the '{@link #getFunctionExpr() <em>Function Expr</em>}' containment reference.
+	 * The cached value of the '{@link #getFuzzyFunction() <em>Fuzzy Function</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFunctionExpr()
+	 * @see #getFuzzyFunction()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIFuzzyFunction functionExpr;
+	protected FuzzyFunction fuzzyFunction;
 
 	/**
 	 * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.
@@ -82,8 +77,8 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFuzzyFunction getFunctionExpr() {
-		return functionExpr;
+	public FuzzyFunction getFuzzyFunction() {
+		return fuzzyFunction;
 	}
 
 	/**
@@ -91,11 +86,11 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFunctionExpr(JNIFuzzyFunction newFunctionExpr, NotificationChain msgs) {
-		JNIFuzzyFunction oldFunctionExpr = functionExpr;
-		functionExpr = newFunctionExpr;
+	public NotificationChain basicSetFuzzyFunction(FuzzyFunction newFuzzyFunction, NotificationChain msgs) {
+		FuzzyFunction oldFuzzyFunction = fuzzyFunction;
+		fuzzyFunction = newFuzzyFunction;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR, oldFunctionExpr, newFunctionExpr);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION, oldFuzzyFunction, newFuzzyFunction);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -106,18 +101,18 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFunctionExpr(JNIFuzzyFunction newFunctionExpr) {
-		if (newFunctionExpr != functionExpr) {
+	public void setFuzzyFunction(FuzzyFunction newFuzzyFunction) {
+		if (newFuzzyFunction != fuzzyFunction) {
 			NotificationChain msgs = null;
-			if (functionExpr != null)
-				msgs = ((InternalEObject)functionExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR, null, msgs);
-			if (newFunctionExpr != null)
-				msgs = ((InternalEObject)newFunctionExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR, null, msgs);
-			msgs = basicSetFunctionExpr(newFunctionExpr, msgs);
+			if (fuzzyFunction != null)
+				msgs = ((InternalEObject)fuzzyFunction).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION, null, msgs);
+			if (newFuzzyFunction != null)
+				msgs = ((InternalEObject)newFuzzyFunction).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION, null, msgs);
+			msgs = basicSetFuzzyFunction(newFuzzyFunction, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR, newFunctionExpr, newFunctionExpr));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION, newFuzzyFunction, newFuzzyFunction));
 	}
 
 	/**
@@ -168,16 +163,15 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLUnionMap getFunction() {
-		JNIISLUnionMap _xifexpression = null;
-		POLY_OBJECT_TYPE _type = this.getFunctionExpr().getType();
-		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.UNION_MAP));
-		if (_notEquals) {
-			_xifexpression = null;
+	public JNIISLMap getDependenceRelation() {
+		JNIISLMap _xifexpression = null;
+		FuzzyFunction _fuzzyFunction = this.getFuzzyFunction();
+		boolean _tripleNotEquals = (_fuzzyFunction != null);
+		if (_tripleNotEquals) {
+			_xifexpression = this.getFuzzyFunction().getDependenceRelation();
 		}
 		else {
-			JNIObject _iSLObject = this.getFunctionExpr().getISLObject();
-			_xifexpression = ((JNIISLUnionMap) _iSLObject);
+			_xifexpression = null;
 		}
 		return _xifexpression;
 	}
@@ -199,8 +193,8 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
-				return basicSetFunctionExpr(null, msgs);
+			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION:
+				return basicSetFuzzyFunction(null, msgs);
 			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__EXPR:
 				return basicSetExpr(null, msgs);
 		}
@@ -215,8 +209,8 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
-				return getFunctionExpr();
+			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION:
+				return getFuzzyFunction();
 			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__EXPR:
 				return getExpr();
 		}
@@ -231,8 +225,8 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
-				setFunctionExpr((JNIFuzzyFunction)newValue);
+			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION:
+				setFuzzyFunction((FuzzyFunction)newValue);
 				return;
 			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__EXPR:
 				setExpr((AlphaExpression)newValue);
@@ -249,8 +243,8 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
-				setFunctionExpr((JNIFuzzyFunction)null);
+			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION:
+				setFuzzyFunction((FuzzyFunction)null);
 				return;
 			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__EXPR:
 				setExpr((AlphaExpression)null);
@@ -267,8 +261,8 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR:
-				return functionExpr != null;
+			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION:
+				return fuzzyFunction != null;
 			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION__EXPR:
 				return expr != null;
 		}

@@ -1,7 +1,6 @@
 package alpha.model;
 
 import alpha.model.AlphaNode;
-import alpha.model.AlphaSystem;
 import alpha.model.ArgReduceExpression;
 import alpha.model.BinaryCalculatorExpression;
 import alpha.model.CALCULATOR_BINARY_OP;
@@ -9,12 +8,12 @@ import alpha.model.CALCULATOR_UNARY_OP;
 import alpha.model.CalculatorExpression;
 import alpha.model.DefinedObject;
 import alpha.model.DependenceExpression;
+import alpha.model.FuzzyFunction;
 import alpha.model.IndexExpression;
 import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
-import alpha.model.JNIFuzzyFunction;
 import alpha.model.JNIRelation;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
@@ -34,7 +33,6 @@ import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +48,18 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
+/**
+ * This class is responsible for constructing ISL objects for:<ul>
+ *   <li>{@link JNIDomain}</li>
+ *   <li>{@link JNIFunction}</li>
+ *   <li>{@link JNIRelation}</li>
+ * </ul>
+ * which also involves evaluating operations over these objects.
+ * 
+ * The evaluation is done by first converting the textual specification to ISL objects,
+ * and then calling the appropriate ISL functions. The list of index names must be provided
+ * as context for textual specification in ArrayNotation.
+ */
 @SuppressWarnings("all")
 public class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {
   private List<CalculatorExpressionIssue> issues = new LinkedList<CalculatorExpressionIssue>();
@@ -155,10 +165,6 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   }
   
   private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIISLMultiAff fun) {
-    throw new UnsupportedOperationException();
-  }
-  
-  private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIISLUnionMap umap) {
     throw new UnsupportedOperationException();
   }
   
@@ -298,39 +304,17 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLUnionMap left, final JNIISLUnionMap right) {
-    throw new UnsupportedOperationException();
-  }
-  
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLUnionMap left, final JNIISLSet right) {
-    throw new UnsupportedOperationException();
-  }
-  
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLUnionMap left, final JNIISLMap right) {
-    throw new UnsupportedOperationException();
-  }
-  
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLUnionMap left, final JNIISLMultiAff right) {
-    throw new UnsupportedOperationException();
-  }
-  
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLSet left, final JNIISLUnionMap right) {
-    throw new UnsupportedOperationException();
-  }
-  
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMap left, final JNIISLUnionMap right) {
-    throw new UnsupportedOperationException();
-  }
-  
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMultiAff left, final JNIISLUnionMap right) {
-    throw new UnsupportedOperationException();
-  }
-  
+  /**
+   * Parsing domains in Alpha to ISLSets
+   * 
+   * ArrayNotation requires the index names to be inferred from the context. Once the constraints excluding parameters
+   * are computed (or it is what should be specified for AShow notation) the set is parsed with ISL.
+   */
   @Override
   public void visitJNIDomain(final JNIDomain jniDomain) {
     try {
       JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniDomain), this.parseJNIDomain(jniDomain)));
-      final JNIISLSet pdom = this.getParameterDomain(jniDomain);
+      final JNIISLSet pdom = AlphaUtil.getParameterDomain(jniDomain);
       jniset = jniset.intersectParams(pdom.copy());
       jniDomain.setISLSet(jniset);
     } catch (final Throwable _t) {
@@ -369,10 +353,15 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return _xblockexpression;
   }
   
+  /**
+   * Parsing relations in Alpha as ISLMaps
+   * 
+   * There is no ArrayNotation for relations, and thus that only preprocessing is to add parameter names.
+   */
   @Override
   public void visitJNIRelation(final JNIRelation jniRelation) {
     try {
-      final JNIISLSet pdom = this.getParameterDomain(jniRelation);
+      final JNIISLSet pdom = AlphaUtil.getParameterDomain(jniRelation);
       JNIISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniRelation), jniRelation.getIslString()));
       jnimap = jnimap.intersectParams(pdom.copy());
       jniRelation.setISLMap(jnimap);
@@ -395,35 +384,40 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
+  /**
+   * Parsing functions in Alpha as JNIISLMultiAffs
+   * 
+   * The functions in Alpha are written in two formats that are both different from ISL syntax.
+   * The Show notation is only a different way to write ISLMAffs, and are parsed after simple conversion.
+   * The ArrayNotation requires the index names to be inferred from the context.
+   * 
+   * Furthermore, ArrayNotation is used for projection functions in reductions, but with a different semantics.
+   */
   @Override
   public void visitJNIFunction(final JNIFunction jniFunction) {
     this.parseJNIFunction(jniFunction);
   }
   
-  @Override
-  public void visitJNIFuzzyFunction(final JNIFuzzyFunction jniFuzzyFunction) {
-    this.parseJNIFuzzyFunction(jniFuzzyFunction);
-  }
-  
+  /**
+   * Parsing Alpha functions in Show notation
+   * 
+   * Functions of the form (i,j->i+j) are converted to ISL syntax: { [i,j]->[i+j] }
+   */
   protected Boolean _parseJNIFunction(final JNIFunction jniFunction) {
     boolean _xtrycatchfinallyexpression = false;
     try {
-      final JNIISLSet pdom = this.getParameterDomain(jniFunction);
-      final StringBuffer completed = new StringBuffer("[");
-      completed.append(String.join(",", pdom.getParametersNames()));
-      completed.append("] -> ");
       final String[] alphaStr = jniFunction.getAlphaString().split("->");
       int _indexOf = alphaStr[0].indexOf("(");
       int _plus = (_indexOf + 1);
       final String indexNames = alphaStr[0].substring(_plus);
       final String expr = alphaStr[1].substring(0, alphaStr[1].lastIndexOf(")"));
-      completed.append("{ [");
+      final StringBuffer completed = new StringBuffer("{ [");
       completed.append(indexNames);
       completed.append("] -> [");
       completed.append(expr);
       completed.append("] }");
       final JNIISLMultiAff jnimaff = ISLFactory.islMultiAff(
-        AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
+        AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
       jniFunction.setISLMultiAff(jnimaff);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -449,17 +443,21 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return Boolean.valueOf(_xtrycatchfinallyexpression);
   }
   
+  /**
+   * Parsing Alpha functions in ArrayNotation
+   * 
+   * This function uses another dispatch to select either
+   *   parseJNIFunctionAsProjection, or
+   *   parseJNIFunctionAsFunction
+   * depending on its parent node.
+   */
   protected Boolean _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction) {
     boolean _xtrycatchfinallyexpression = false;
     try {
-      final JNIISLSet pdom = this.getParameterDomain(jniFunction);
-      final StringBuffer completed = new StringBuffer("[");
-      completed.append(String.join(",", pdom.getParametersNames()));
-      completed.append("] -> ");
       EObject _eContainer = jniFunction.eContainer();
-      completed.append(this.parseJNIFunction(jniFunction, ((AlphaNode) _eContainer)));
       final JNIISLMultiAff jnimaff = ISLFactory.islMultiAff(
-        AlphaUtil.replaceAlphaConstants(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
+        AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniFunction), 
+          this.parseJNIFunctionInContext(jniFunction, ((AlphaNode) _eContainer)).toString()));
       jniFunction.setISLMultiAff(jnimaff);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -485,6 +483,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return Boolean.valueOf(_xtrycatchfinallyexpression);
   }
   
+  /**
+   * ArrayNotation is parsed as projection. In this case, the additional indices expressed are treated as the canonical projection dimensions.
+   *   For example, reduce(op, [x,y], ...) in the context [i,j] gives (i,j,x,y->i,j) as the projection function.
+   */
   private StringBuffer parseJNIFunctionAsProjection(final JNIFunctionInArrayNotation jniFunction) {
     if ((this.indexNameContext == null)) {
       String _format = String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", IterableExtensions.join(jniFunction.getArrayNotation(), ","));
@@ -499,6 +501,9 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return funStr;
   }
   
+  /**
+   * ArrayNotation is parsed as function. The indexing expression simply becomes the RHS of ISLMAff, while the LHS is determined by the context.
+   */
   private StringBuffer parseJNIFunctionAsFunction(final JNIFunctionInArrayNotation jniFunction) {
     if ((this.indexNameContext == null)) {
       String _format = String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", IterableExtensions.join(jniFunction.getArrayNotation(), ","));
@@ -512,28 +517,28 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return funStr;
   }
   
-  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final ReduceExpression parent) {
+  protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final ReduceExpression parent) {
     return this.parseJNIFunctionAsProjection(jniFunction);
   }
   
-  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final ArgReduceExpression parent) {
+  protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final ArgReduceExpression parent) {
     return this.parseJNIFunctionAsProjection(jniFunction);
   }
   
-  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final UseEquation parent) {
+  protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final UseEquation parent) {
     return this.parseJNIFunctionAsFunction(jniFunction);
   }
   
-  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final DependenceExpression parent) {
+  protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final DependenceExpression parent) {
     return this.parseJNIFunctionAsFunction(jniFunction);
   }
   
-  protected StringBuffer _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final IndexExpression parent) {
+  protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final IndexExpression parent) {
     return this.parseJNIFunctionAsFunction(jniFunction);
   }
   
-  protected void _parseJNIFuzzyFunction(final JNIFuzzyFunction jniFuzzyFunction) {
-    throw new UnsupportedOperationException();
+  protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final FuzzyFunction parent) {
+    return this.parseJNIFunctionAsFunction(jniFunction);
   }
   
   @Override
@@ -565,7 +570,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       }
     }
     try {
-      final JNIISLSet pdom = this.getParameterDomain(rdom);
+      final JNIISLSet pdom = AlphaUtil.getParameterDomain(rdom);
       final StringBuffer completed = new StringBuffer("[");
       completed.append(String.join(",", pdom.getParametersNames()));
       completed.append("] -> { [");
@@ -606,17 +611,6 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  private JNIISLSet getParameterDomain(final CalculatorExpression expr) {
-    final AlphaSystem system = AlphaUtil.getContainerSystem(expr);
-    if ((system == null)) {
-      throw new RuntimeException("Expression is not contained by an AlphaSystem.");
-    }
-    if (((system.getParameterDomain() == null) || (system.getParameterDomain() == null))) {
-      throw new RuntimeException("The parameter domain of the container system is null.");
-    }
-    return system.getParameterDomain();
-  }
-  
   private JNIObject evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIObject map) {
     if (map instanceof JNIISLMap) {
       return _evaluateUnaryOperation(op, (JNIISLMap)map);
@@ -624,8 +618,6 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       return _evaluateUnaryOperation(op, (JNIISLMultiAff)map);
     } else if (map instanceof JNIISLSet) {
       return _evaluateUnaryOperation(op, (JNIISLSet)map);
-    } else if (map instanceof JNIISLUnionMap) {
-      return _evaluateUnaryOperation(op, (JNIISLUnionMap)map);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(op, map).toString());
@@ -642,9 +634,6 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } else if (left instanceof JNIISLMap
          && right instanceof JNIISLSet) {
       return _evaluateBinaryOperation(op, (JNIISLMap)left, (JNIISLSet)right);
-    } else if (left instanceof JNIISLMap
-         && right instanceof JNIISLUnionMap) {
-      return _evaluateBinaryOperation(op, (JNIISLMap)left, (JNIISLUnionMap)right);
     } else if (left instanceof JNIISLMultiAff
          && right instanceof JNIISLMap) {
       return _evaluateBinaryOperation(op, (JNIISLMultiAff)left, (JNIISLMap)right);
@@ -654,9 +643,6 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } else if (left instanceof JNIISLMultiAff
          && right instanceof JNIISLSet) {
       return _evaluateBinaryOperation(op, (JNIISLMultiAff)left, (JNIISLSet)right);
-    } else if (left instanceof JNIISLMultiAff
-         && right instanceof JNIISLUnionMap) {
-      return _evaluateBinaryOperation(op, (JNIISLMultiAff)left, (JNIISLUnionMap)right);
     } else if (left instanceof JNIISLSet
          && right instanceof JNIISLMap) {
       return _evaluateBinaryOperation(op, (JNIISLSet)left, (JNIISLMap)right);
@@ -666,21 +652,6 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } else if (left instanceof JNIISLSet
          && right instanceof JNIISLSet) {
       return _evaluateBinaryOperation(op, (JNIISLSet)left, (JNIISLSet)right);
-    } else if (left instanceof JNIISLSet
-         && right instanceof JNIISLUnionMap) {
-      return _evaluateBinaryOperation(op, (JNIISLSet)left, (JNIISLUnionMap)right);
-    } else if (left instanceof JNIISLUnionMap
-         && right instanceof JNIISLMap) {
-      return _evaluateBinaryOperation(op, (JNIISLUnionMap)left, (JNIISLMap)right);
-    } else if (left instanceof JNIISLUnionMap
-         && right instanceof JNIISLMultiAff) {
-      return _evaluateBinaryOperation(op, (JNIISLUnionMap)left, (JNIISLMultiAff)right);
-    } else if (left instanceof JNIISLUnionMap
-         && right instanceof JNIISLSet) {
-      return _evaluateBinaryOperation(op, (JNIISLUnionMap)left, (JNIISLSet)right);
-    } else if (left instanceof JNIISLUnionMap
-         && right instanceof JNIISLUnionMap) {
-      return _evaluateBinaryOperation(op, (JNIISLUnionMap)left, (JNIISLUnionMap)right);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(op, left, right).toString());
@@ -709,25 +680,22 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  protected StringBuffer parseJNIFunction(final JNIFunctionInArrayNotation jniFunction, final AlphaNode parent) {
+  protected StringBuffer parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final AlphaNode parent) {
     if (parent instanceof ArgReduceExpression) {
-      return _parseJNIFunction(jniFunction, (ArgReduceExpression)parent);
+      return _parseJNIFunctionInContext(jniFunction, (ArgReduceExpression)parent);
     } else if (parent instanceof ReduceExpression) {
-      return _parseJNIFunction(jniFunction, (ReduceExpression)parent);
+      return _parseJNIFunctionInContext(jniFunction, (ReduceExpression)parent);
     } else if (parent instanceof DependenceExpression) {
-      return _parseJNIFunction(jniFunction, (DependenceExpression)parent);
+      return _parseJNIFunctionInContext(jniFunction, (DependenceExpression)parent);
     } else if (parent instanceof IndexExpression) {
-      return _parseJNIFunction(jniFunction, (IndexExpression)parent);
+      return _parseJNIFunctionInContext(jniFunction, (IndexExpression)parent);
     } else if (parent instanceof UseEquation) {
-      return _parseJNIFunction(jniFunction, (UseEquation)parent);
+      return _parseJNIFunctionInContext(jniFunction, (UseEquation)parent);
+    } else if (parent instanceof FuzzyFunction) {
+      return _parseJNIFunctionInContext(jniFunction, (FuzzyFunction)parent);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(jniFunction, parent).toString());
     }
-  }
-  
-  protected void parseJNIFuzzyFunction(final JNIFuzzyFunction jniFuzzyFunction) {
-    _parseJNIFuzzyFunction(jniFuzzyFunction);
-    return;
   }
 }

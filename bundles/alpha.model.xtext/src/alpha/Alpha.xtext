@@ -75,12 +75,24 @@ JNIFunctionInArrayNotation:
 	'[' {JNIFunctionInArrayNotation} (arrayNotation+=AISLExpression (',' arrayNotation+=AISLExpression)*)? ']'
 ;
 
-JNIFuzzyFunction:
-	alphaString=AISLFuzzyRelation
+FuzzyFunction:
+	'{' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* '}'
 ;
 
-JNIFuzzyFunctionInArrayNotation:
-	'[[' {JNIFuzzyFunctionInArrayNotation} (arrayNotation+=AISLFuzzyExpression (',' arrayNotation+=AISLFuzzyExpression)*)? ']]'
+FuzzyVariableUse:
+	NestedFuzzyFunction | AffineFuzzyVariableUse
+;
+
+NestedFuzzyFunction:
+	fuzzyIndex=IndexName '=' fuzzyVariable=[FuzzyVariable] '{' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* '}'
+;
+
+AffineFuzzyVariableUse:
+	fuzzyIndex=IndexName '=' fuzzyVariable=[FuzzyVariable] useFunction=JNIFunctionInArrayNotation
+;
+
+FuzzyFunctionInArrayNotation:
+	'[[' {FuzzyFunctionInArrayNotation} (arrayNotation+=AISLFuzzyExpression (',' arrayNotation+=AISLFuzzyExpression)*)? ']]'
 ;
 
 QualifiedName:
@@ -141,16 +153,8 @@ AISLBasicRelation:
 ;
 
 
-AISLFuzzyRelation:
-	'{' AISLWrappedBasicRelation (';' AISLIndirection)* '}'
-;
-
 AISLWrappedBasicRelation:
 	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']' '->' '[' AISLExpressionList ']'
-;
-
-AISLIndirection:
-	'[' AIndexList ']' '->' IndexName '[' AISLExpressionList ']'
 ;
 
 AISLFuzzyExpression:
@@ -191,14 +195,22 @@ AlphaTerminalExpression returns AlphaExpression:
 	FuzzyDependenceExpression |
 	IndexExpression | 
 	FuzzyIndexExpression |
-	ReduceExpression |
-	ArgReduceExpression |
+	Reductions |
 	ConvolutionExpression |
-	ExternalReduceExpression |
-	ExternalArgReduceExpression |
 	MultiArgExpression |
 	ExternalMultiArgExpression |
 	SelectExpression
+;
+
+Reductions returns AlphaExpression:
+	ReduceExpression |
+	ArgReduceExpression |
+	ExternalReduceExpression |
+	ExternalArgReduceExpression |
+	FuzzyReduceExpression |
+	FuzzyArgReduceExpression |
+	ExternalFuzzyReduceExpression |
+	ExternalFuzzyArgReduceExpression
 ;
 
 IfExpression:
@@ -226,16 +238,16 @@ DependenceExpression:
 	expr=ConstantExpression functionExpr=JNIFunctionInArrayNotation;
 	
 FuzzyDependenceExpression:
-	functionExpr=JNIFuzzyFunction '@' expr=AlphaTerminalExpression |
-	expr=VariableExpression functionExpr=JNIFuzzyFunctionInArrayNotation;
+	fuzzyFunction=FuzzyFunction '@' expr=AlphaTerminalExpression |
+	expr=VariableExpression fuzzyFunction=FuzzyFunctionInArrayNotation;
 		
 IndexExpression:
 	'val' functionExpr=JNIFunction |
 	functionExpr=JNIFunctionInArrayNotation;
 	
 FuzzyIndexExpression:
-	'val' functionExpr=JNIFuzzyFunction |
-	functionExpr=JNIFuzzyFunctionInArrayNotation;
+	'val' fuzzyFunction=FuzzyFunction |
+	fuzzyFunction=FuzzyFunctionInArrayNotation;
 
 ReduceExpression:
 	'reduce' '(' operator=AREDUCTION_OP ',' 
@@ -258,6 +270,31 @@ ArgReduceExpression :
 ExternalArgReduceExpression:
 	'argreduce' '(' externalFunction=[ExternalFunction] ',' 
 	projectionExpr=(JNIFunction|JNIFunctionInArrayNotation) ','
+	body=AlphaExpression
+	 ')'
+;
+
+FuzzyReduceExpression:
+	'reduce' '(' operator=AREDUCTION_OP ',' 
+	projectionFunction=FuzzyFunction ','
+	body=AlphaExpression
+	 ')'
+;
+ExternalFuzzyReduceExpression:
+	'reduce' '(' externalFunction=[ExternalFunction] ',' 
+	projectionFunction=FuzzyFunction ','
+	body=AlphaExpression
+	 ')'
+;
+FuzzyArgReduceExpression : 
+	'argreduce' '(' operator=AREDUCTION_OP ',' 
+	projectionFunction=FuzzyFunction ','
+	body=AlphaExpression
+	 ')'
+;
+ExternalFuzzyArgReduceExpression:
+	'argreduce' '(' externalFunction=[ExternalFunction] ',' 
+	projectionFunction=FuzzyFunction ','
 	body=AlphaExpression
 	 ')'
 ;

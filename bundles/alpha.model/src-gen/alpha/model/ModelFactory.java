@@ -337,6 +337,42 @@ public interface ModelFactory extends EFactory {
 	ExternalMultiArgExpression createExternalMultiArgExpression();
 
 	/**
+	 * Returns a new object of class '<em>Fuzzy Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fuzzy Reduce Expression</em>'.
+	 * @generated
+	 */
+	FuzzyReduceExpression createFuzzyReduceExpression();
+
+	/**
+	 * Returns a new object of class '<em>External Fuzzy Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>External Fuzzy Reduce Expression</em>'.
+	 * @generated
+	 */
+	ExternalFuzzyReduceExpression createExternalFuzzyReduceExpression();
+
+	/**
+	 * Returns a new object of class '<em>Fuzzy Arg Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fuzzy Arg Reduce Expression</em>'.
+	 * @generated
+	 */
+	FuzzyArgReduceExpression createFuzzyArgReduceExpression();
+
+	/**
+	 * Returns a new object of class '<em>External Fuzzy Arg Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>External Fuzzy Arg Reduce Expression</em>'.
+	 * @generated
+	 */
+	ExternalFuzzyArgReduceExpression createExternalFuzzyArgReduceExpression();
+
+	/**
 	 * Returns a new object of class '<em>Polyhedral Object</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -391,22 +427,40 @@ public interface ModelFactory extends EFactory {
 	JNIFunctionInArrayNotation createJNIFunctionInArrayNotation();
 
 	/**
-	 * Returns a new object of class '<em>JNI Fuzzy Function</em>'.
+	 * Returns a new object of class '<em>Fuzzy Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>JNI Fuzzy Function</em>'.
+	 * @return a new object of class '<em>Fuzzy Function</em>'.
 	 * @generated
 	 */
-	JNIFuzzyFunction createJNIFuzzyFunction();
+	FuzzyFunction createFuzzyFunction();
 
 	/**
-	 * Returns a new object of class '<em>JNI Fuzzy Function In Array Notation</em>'.
+	 * Returns a new object of class '<em>Nested Fuzzy Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>JNI Fuzzy Function In Array Notation</em>'.
+	 * @return a new object of class '<em>Nested Fuzzy Function</em>'.
 	 * @generated
 	 */
-	JNIFuzzyFunctionInArrayNotation createJNIFuzzyFunctionInArrayNotation();
+	NestedFuzzyFunction createNestedFuzzyFunction();
+
+	/**
+	 * Returns a new object of class '<em>Affine Fuzzy Variable Use</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Affine Fuzzy Variable Use</em>'.
+	 * @generated
+	 */
+	AffineFuzzyVariableUse createAffineFuzzyVariableUse();
+
+	/**
+	 * Returns a new object of class '<em>Fuzzy Function In Array Notation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fuzzy Function In Array Notation</em>'.
+	 * @generated
+	 */
+	FuzzyFunctionInArrayNotation createFuzzyFunctionInArrayNotation();
 
 	/**
 	 * Returns a new object of class '<em>Unary Calculator Expression</em>'.

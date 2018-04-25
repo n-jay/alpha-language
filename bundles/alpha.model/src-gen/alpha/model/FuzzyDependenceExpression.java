@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,7 +13,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.FuzzyDependenceExpression#getFunctionExpr <em>Function Expr</em>}</li>
+ *   <li>{@link alpha.model.FuzzyDependenceExpression#getFuzzyFunction <em>Fuzzy Function</em>}</li>
  *   <li>{@link alpha.model.FuzzyDependenceExpression#getExpr <em>Expr</em>}</li>
  * </ul>
  *
@@ -23,30 +23,30 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
  */
 public interface FuzzyDependenceExpression extends AlphaExpression {
 	/**
-	 * Returns the value of the '<em><b>Function Expr</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Fuzzy Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Function Expr</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Fuzzy Function</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Function Expr</em>' containment reference.
-	 * @see #setFunctionExpr(JNIFuzzyFunction)
-	 * @see alpha.model.ModelPackage#getFuzzyDependenceExpression_FunctionExpr()
+	 * @return the value of the '<em>Fuzzy Function</em>' containment reference.
+	 * @see #setFuzzyFunction(FuzzyFunction)
+	 * @see alpha.model.ModelPackage#getFuzzyDependenceExpression_FuzzyFunction()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIFuzzyFunction getFunctionExpr();
+	FuzzyFunction getFuzzyFunction();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.FuzzyDependenceExpression#getFunctionExpr <em>Function Expr</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.model.FuzzyDependenceExpression#getFuzzyFunction <em>Fuzzy Function</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Function Expr</em>' containment reference.
-	 * @see #getFunctionExpr()
+	 * @param value the new value of the '<em>Fuzzy Function</em>' containment reference.
+	 * @see #getFuzzyFunction()
 	 * @generated
 	 */
-	void setFunctionExpr(JNIFuzzyFunction value);
+	void setFuzzyFunction(FuzzyFunction value);
 
 	/**
 	 * Returns the value of the '<em><b>Expr</b></em>' containment reference.
@@ -77,11 +77,11 @@ public interface FuzzyDependenceExpression extends AlphaExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" dataType="alpha.model.JNIISLUnionMap" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap%&gt; _xifexpression = null;\n&lt;%alpha.model.POLY_OBJECT_TYPE%&gt; _type = this.getFunctionExpr().getType();\nboolean _notEquals = (!&lt;%com.google.common.base.Objects%&gt;.equal(_type, &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.UNION_MAP));\nif (_notEquals)\n{\n\t_xifexpression = null;\n}\nelse\n{\n\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getFunctionExpr().getISLObject();\n\t_xifexpression = ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap%&gt;) _iSLObject);\n}\nreturn _xifexpression;'"
+	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _xifexpression = null;\n&lt;%alpha.model.FuzzyFunction%&gt; _fuzzyFunction = this.getFuzzyFunction();\nboolean _tripleNotEquals = (_fuzzyFunction != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getFuzzyFunction().getDependenceRelation();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
-	JNIISLUnionMap getFunction();
+	JNIISLMap getDependenceRelation();
 
 	/**
 	 * <!-- begin-user-doc -->

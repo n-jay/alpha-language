@@ -1,5 +1,6 @@
 package alpha.model.util;
 
+import alpha.model.AbstractFuzzyReduceExpression;
 import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
@@ -13,10 +14,14 @@ import alpha.model.ConstantExpression;
 import alpha.model.ConvolutionExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.ExternalArgReduceExpression;
+import alpha.model.ExternalFuzzyArgReduceExpression;
+import alpha.model.ExternalFuzzyReduceExpression;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
+import alpha.model.FuzzyArgReduceExpression;
 import alpha.model.FuzzyDependenceExpression;
 import alpha.model.FuzzyIndexExpression;
+import alpha.model.FuzzyReduceExpression;
 import alpha.model.IfExpression;
 import alpha.model.IndexExpression;
 import alpha.model.IntegerExpression;
@@ -110,6 +115,28 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 		inArgReduceExpression(are);
 		accept(are.getBody());
 		outArgReduceExpression(are);
+	}
+
+	
+	@Override
+	default void visitAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre) {
+		inAbstractFuzzyReduceExpression(afre);
+		accept(afre.getBody());
+		outAbstractFuzzyReduceExpression(afre);
+	}
+	
+	@Override
+	default void visitFuzzyReduceExpression(FuzzyReduceExpression fre) {
+		inFuzzyReduceExpression(fre);
+		accept(fre.getBody());
+		outFuzzyReduceExpression(fre);
+	}
+	
+	@Override
+	default void visitFuzzyArgReduceExpression(FuzzyArgReduceExpression fare) {
+		inFuzzyArgReduceExpression(fare);
+		accept(fare.getBody());
+		outFuzzyArgReduceExpression(fare);
 	}
 
 	@Override
@@ -219,6 +246,20 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 		accept(eare.getBody());
 		outExternalArgReduceExpression(eare);
 	}
+
+	@Override
+	default void visitExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre) {
+		inExternalFuzzyReduceExpression(efre);
+		accept(efre.getBody());
+		outExternalFuzzyReduceExpression(efre);
+	}
+
+	@Override
+	default void visitExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare) {
+		inExternalFuzzyArgReduceExpression(efare);
+		accept(efare.getBody());
+		outExternalFuzzyArgReduceExpression(efare);
+	}
 	
 	@Override
 	default void inAlphaExpression(AlphaExpression ae) {
@@ -269,6 +310,22 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	default void inArgReduceExpression(ArgReduceExpression are) {
 		inAbstractReduceExpression(are);
 	}
+
+	@Override
+	default void inAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre) {
+		inAlphaExpression(afre);
+	}
+	
+	@Override
+	default void inFuzzyReduceExpression(FuzzyReduceExpression fre) {
+		inAbstractFuzzyReduceExpression(fre);
+	}
+
+	@Override
+	default void inFuzzyArgReduceExpression(FuzzyArgReduceExpression afre) {
+		inAbstractFuzzyReduceExpression(afre);
+	}
+
 
 	@Override
 	default void inConvolutionExpression(ConvolutionExpression ce) {
@@ -344,7 +401,17 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	default void inExternalMultiArgExpression(ExternalMultiArgExpression emae) {
 		inMultiArgExpression(emae);
 	}
-	
+
+	@Override
+	default void inExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre) {
+		inFuzzyReduceExpression(efre);
+	}
+
+	@Override
+	default void inExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare) {
+		inFuzzyArgReduceExpression(efare);
+	}
+
 	@Override
 	default void outAlphaExpression(AlphaExpression ae) {
 		defaultOut(ae);
@@ -393,6 +460,21 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	@Override
 	default void outArgReduceExpression(ArgReduceExpression are) {
 		outAbstractReduceExpression(are);
+	}
+	
+	@Override
+	default void outAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre) {
+		outAlphaExpression(afre);
+	}
+
+	@Override
+	default void outFuzzyReduceExpression(FuzzyReduceExpression fre) {
+		outAbstractFuzzyReduceExpression(fre);
+	}
+
+	@Override
+	default void outFuzzyArgReduceExpression(FuzzyArgReduceExpression afre) {
+		outAbstractFuzzyReduceExpression(afre);
 	}
 
 	@Override
@@ -468,5 +550,15 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	@Override
 	default void outExternalMultiArgExpression(ExternalMultiArgExpression emae) {
 		outMultiArgExpression(emae);
+	}
+
+	@Override
+	default void outExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre) {
+		outFuzzyReduceExpression(efre);
+	}
+
+	@Override
+	default void outExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare) {
+		outFuzzyArgReduceExpression(efare);
 	}
 }

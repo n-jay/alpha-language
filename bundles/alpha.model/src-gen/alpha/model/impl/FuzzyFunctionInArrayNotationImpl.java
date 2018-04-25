@@ -2,7 +2,7 @@
  */
 package alpha.model.impl;
 
-import alpha.model.JNIFuzzyFunctionInArrayNotation;
+import alpha.model.FuzzyFunctionInArrayNotation;
 import alpha.model.ModelPackage;
 
 import java.util.Collection;
@@ -17,18 +17,18 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>JNI Fuzzy Function In Array Notation</b></em>'.
+ * An implementation of the model object '<em><b>Fuzzy Function In Array Notation</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.JNIFuzzyFunctionInArrayNotationImpl#getArrayNotation <em>Array Notation</em>}</li>
+ *   <li>{@link alpha.model.impl.FuzzyFunctionInArrayNotationImpl#getArrayNotation <em>Array Notation</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class JNIFuzzyFunctionInArrayNotationImpl extends JNIFuzzyFunctionImpl implements JNIFuzzyFunctionInArrayNotation {
+public class FuzzyFunctionInArrayNotationImpl extends FuzzyFunctionImpl implements FuzzyFunctionInArrayNotation {
 	/**
 	 * The cached value of the '{@link #getArrayNotation() <em>Array Notation</em>}' attribute list.
 	 * <!-- begin-user-doc -->
@@ -44,7 +44,7 @@ public class JNIFuzzyFunctionInArrayNotationImpl extends JNIFuzzyFunctionImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected JNIFuzzyFunctionInArrayNotationImpl() {
+	protected FuzzyFunctionInArrayNotationImpl() {
 		super();
 	}
 
@@ -55,7 +55,7 @@ public class JNIFuzzyFunctionInArrayNotationImpl extends JNIFuzzyFunctionImpl im
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ModelPackage.Literals.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION;
+		return ModelPackage.Literals.FUZZY_FUNCTION_IN_ARRAY_NOTATION;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class JNIFuzzyFunctionInArrayNotationImpl extends JNIFuzzyFunctionImpl im
 	 */
 	public EList<String> getArrayNotation() {
 		if (arrayNotation == null) {
-			arrayNotation = new EDataTypeEList<String>(String.class, this, ModelPackage.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
+			arrayNotation = new EDataTypeEList<String>(String.class, this, ModelPackage.FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
 		}
 		return arrayNotation;
 	}
@@ -89,7 +89,7 @@ public class JNIFuzzyFunctionInArrayNotationImpl extends JNIFuzzyFunctionImpl im
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
+			case ModelPackage.FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
 				return getArrayNotation();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -104,7 +104,7 @@ public class JNIFuzzyFunctionInArrayNotationImpl extends JNIFuzzyFunctionImpl im
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
+			case ModelPackage.FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
 				getArrayNotation().clear();
 				getArrayNotation().addAll((Collection<? extends String>)newValue);
 				return;
@@ -120,7 +120,7 @@ public class JNIFuzzyFunctionInArrayNotationImpl extends JNIFuzzyFunctionImpl im
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
+			case ModelPackage.FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
 				getArrayNotation().clear();
 				return;
 		}
@@ -135,7 +135,7 @@ public class JNIFuzzyFunctionInArrayNotationImpl extends JNIFuzzyFunctionImpl im
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
+			case ModelPackage.FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION:
 				return arrayNotation != null && !arrayNotation.isEmpty();
 		}
 		return super.eIsSet(featureID);
@@ -157,4 +157,4 @@ public class JNIFuzzyFunctionInArrayNotationImpl extends JNIFuzzyFunctionImpl im
 		return result.toString();
 	}
 
-} //JNIFuzzyFunctionInArrayNotationImpl
+} //FuzzyFunctionInArrayNotationImpl

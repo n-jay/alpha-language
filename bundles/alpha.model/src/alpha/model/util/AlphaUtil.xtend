@@ -34,6 +34,21 @@ class AlphaUtil {
 		
 		return AlphaUtil.getContainerSystem(node.eContainer())
 	}
+	
+
+	public static def JNIISLSet getParameterDomain(EObject node) {
+
+		val system = AlphaUtil.getContainerSystem(node);
+		if (system === null) {
+			throw new RuntimeException("Node is not contained by an AlphaSystem.");
+		}
+
+		if (system.getParameterDomain() === null || system.getParameterDomain() === null) {
+			throw new RuntimeException("The parameter domain of the container system is null.");
+		}
+
+		return system.getParameterDomain();
+	}
 
 	/**
 	 * Replaces all AlphaConstants in the given string with its integer values.

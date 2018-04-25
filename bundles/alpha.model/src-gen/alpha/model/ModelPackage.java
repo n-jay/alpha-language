@@ -1158,13 +1158,13 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_DEPENDENCE_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
 
 	/**
-	 * The feature id for the '<em><b>Function Expr</b></em>' containment reference.
+	 * The feature id for the '<em><b>Fuzzy Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+	int FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -1350,13 +1350,13 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_INDEX_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
 
 	/**
-	 * The feature id for the '<em><b>Function Expr</b></em>' containment reference.
+	 * The feature id for the '<em><b>Fuzzy Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUZZY_INDEX_EXPRESSION__FUNCTION_EXPR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+	int FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Fuzzy Index Expression</em>' class.
@@ -2428,6 +2428,389 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_MULTI_ARG_EXPRESSION_FEATURE_COUNT = MULTI_ARG_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link alpha.model.impl.AbstractFuzzyReduceExpressionImpl <em>Abstract Fuzzy Reduce Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.AbstractFuzzyReduceExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getAbstractFuzzyReduceExpression()
+	 * @generated
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION = 47;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION__ERROR_MESSAGE = ALPHA_EXPRESSION__ERROR_MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION__OPERATOR = ALPHA_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Projection Function</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY = ALPHA_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Fuzzy Reduce Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.FuzzyReduceExpressionImpl <em>Fuzzy Reduce Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.FuzzyReduceExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyReduceExpression()
+	 * @generated
+	 */
+	int FUZZY_REDUCE_EXPRESSION = 48;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ABSTRACT_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ABSTRACT_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_REDUCE_EXPRESSION__ERROR_MESSAGE = ABSTRACT_FUZZY_REDUCE_EXPRESSION__ERROR_MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_REDUCE_EXPRESSION__OPERATOR = ABSTRACT_FUZZY_REDUCE_EXPRESSION__OPERATOR;
+
+	/**
+	 * The feature id for the '<em><b>Projection Function</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION = ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_REDUCE_EXPRESSION__BODY = ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY;
+
+	/**
+	 * The number of structural features of the '<em>Fuzzy Reduce Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_REDUCE_EXPRESSION_FEATURE_COUNT = ABSTRACT_FUZZY_REDUCE_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.ExternalFuzzyReduceExpressionImpl <em>External Fuzzy Reduce Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.ExternalFuzzyReduceExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getExternalFuzzyReduceExpression()
+	 * @generated
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION = 49;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__ERROR_MESSAGE = FUZZY_REDUCE_EXPRESSION__ERROR_MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__OPERATOR = FUZZY_REDUCE_EXPRESSION__OPERATOR;
+
+	/**
+	 * The feature id for the '<em><b>Projection Function</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION = FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__BODY = FUZZY_REDUCE_EXPRESSION__BODY;
+
+	/**
+	 * The feature id for the '<em><b>External Function</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__EXTERNAL_FUNCTION = FUZZY_REDUCE_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>External Fuzzy Reduce Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION_FEATURE_COUNT = FUZZY_REDUCE_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.FuzzyArgReduceExpressionImpl <em>Fuzzy Arg Reduce Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.FuzzyArgReduceExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyArgReduceExpression()
+	 * @generated
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION = 50;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ABSTRACT_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ABSTRACT_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION__ERROR_MESSAGE = ABSTRACT_FUZZY_REDUCE_EXPRESSION__ERROR_MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION__OPERATOR = ABSTRACT_FUZZY_REDUCE_EXPRESSION__OPERATOR;
+
+	/**
+	 * The feature id for the '<em><b>Projection Function</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION__PROJECTION_FUNCTION = ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION__BODY = ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY;
+
+	/**
+	 * The number of structural features of the '<em>Fuzzy Arg Reduce Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION_FEATURE_COUNT = ABSTRACT_FUZZY_REDUCE_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.ExternalFuzzyArgReduceExpressionImpl <em>External Fuzzy Arg Reduce Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.ExternalFuzzyArgReduceExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getExternalFuzzyArgReduceExpression()
+	 * @generated
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION = 51;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = FUZZY_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = FUZZY_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Error Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__ERROR_MESSAGE = FUZZY_ARG_REDUCE_EXPRESSION__ERROR_MESSAGE;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__OPERATOR = FUZZY_ARG_REDUCE_EXPRESSION__OPERATOR;
+
+	/**
+	 * The feature id for the '<em><b>Projection Function</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__PROJECTION_FUNCTION = FUZZY_ARG_REDUCE_EXPRESSION__PROJECTION_FUNCTION;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__BODY = FUZZY_ARG_REDUCE_EXPRESSION__BODY;
+
+	/**
+	 * The feature id for the '<em><b>External Function</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION = FUZZY_ARG_REDUCE_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>External Fuzzy Arg Reduce Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION_FEATURE_COUNT = FUZZY_ARG_REDUCE_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link alpha.model.CalculatorNode <em>Calculator Node</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2435,7 +2818,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCalculatorNode()
 	 * @generated
 	 */
-	int CALCULATOR_NODE = 47;
+	int CALCULATOR_NODE = 52;
 
 	/**
 	 * The number of structural features of the '<em>Calculator Node</em>' class.
@@ -2454,7 +2837,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPolyhedralObject()
 	 * @generated
 	 */
-	int POLYHEDRAL_OBJECT = 48;
+	int POLYHEDRAL_OBJECT = 53;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2491,7 +2874,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCalculatorExpression()
 	 * @generated
 	 */
-	int CALCULATOR_EXPRESSION = 49;
+	int CALCULATOR_EXPRESSION = 54;
 
 	/**
 	 * The number of structural features of the '<em>Calculator Expression</em>' class.
@@ -2510,7 +2893,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIDomain()
 	 * @generated
 	 */
-	int JNI_DOMAIN = 50;
+	int JNI_DOMAIN = 55;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -2547,7 +2930,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIDomainInArrayNotation()
 	 * @generated
 	 */
-	int JNI_DOMAIN_IN_ARRAY_NOTATION = 51;
+	int JNI_DOMAIN_IN_ARRAY_NOTATION = 56;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -2584,7 +2967,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIRelation()
 	 * @generated
 	 */
-	int JNI_RELATION = 52;
+	int JNI_RELATION = 57;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -2621,7 +3004,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIFunction()
 	 * @generated
 	 */
-	int JNI_FUNCTION = 53;
+	int JNI_FUNCTION = 58;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -2658,7 +3041,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIFunctionInArrayNotation()
 	 * @generated
 	 */
-	int JNI_FUNCTION_IN_ARRAY_NOTATION = 54;
+	int JNI_FUNCTION_IN_ARRAY_NOTATION = 59;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -2697,14 +3080,14 @@ public interface ModelPackage extends EPackage {
 	int JNI_FUNCTION_IN_ARRAY_NOTATION_FEATURE_COUNT = JNI_FUNCTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link alpha.model.impl.JNIFuzzyFunctionImpl <em>JNI Fuzzy Function</em>}' class.
+	 * The meta object id for the '{@link alpha.model.impl.FuzzyFunctionImpl <em>Fuzzy Function</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see alpha.model.impl.JNIFuzzyFunctionImpl
-	 * @see alpha.model.impl.ModelPackageImpl#getJNIFuzzyFunction()
+	 * @see alpha.model.impl.FuzzyFunctionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyFunction()
 	 * @generated
 	 */
-	int JNI_FUZZY_FUNCTION = 55;
+	int FUZZY_FUNCTION = 60;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -2713,35 +3096,90 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUZZY_FUNCTION__ALPHA_STRING = CALCULATOR_EXPRESSION_FEATURE_COUNT + 0;
+	int FUZZY_FUNCTION__ALPHA_STRING = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Zinternal cache isl UMap</b></em>' attribute.
+	 * The feature id for the '<em><b>Indirections</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUZZY_FUNCTION__ZINTERNAL_CACHE_ISL_UMAP = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
+	int FUZZY_FUNCTION__INDIRECTIONS = ALPHA_NODE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>JNI Fuzzy Function</em>' class.
+	 * The feature id for the '<em><b>Zinternal cache fuzzy Map</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUZZY_FUNCTION_FEATURE_COUNT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
+	int FUZZY_FUNCTION__ZINTERNAL_CACHE_FUZZY_MAP = ALPHA_NODE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link alpha.model.impl.JNIFuzzyFunctionInArrayNotationImpl <em>JNI Fuzzy Function In Array Notation</em>}' class.
+	 * The feature id for the '<em><b>Zinternal cache dep Relation</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see alpha.model.impl.JNIFuzzyFunctionInArrayNotationImpl
-	 * @see alpha.model.impl.ModelPackageImpl#getJNIFuzzyFunctionInArrayNotation()
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_FUNCTION__ZINTERNAL_CACHE_DEP_RELATION = ALPHA_NODE_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Fuzzy Function</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_FUNCTION_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 4;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.FuzzyVariableUseImpl <em>Fuzzy Variable Use</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.FuzzyVariableUseImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyVariableUse()
 	 * @generated
 	 */
-	int JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION = 56;
+	int FUZZY_VARIABLE_USE = 61;
+
+	/**
+	 * The feature id for the '<em><b>Fuzzy Index</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_VARIABLE_USE__FUZZY_INDEX = 0;
+
+	/**
+	 * The feature id for the '<em><b>Fuzzy Variable</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_VARIABLE_USE__FUZZY_VARIABLE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Fuzzy Variable Use</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_VARIABLE_USE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.NestedFuzzyFunctionImpl <em>Nested Fuzzy Function</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.NestedFuzzyFunctionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getNestedFuzzyFunction()
+	 * @generated
+	 */
+	int NESTED_FUZZY_FUNCTION = 62;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -2750,16 +3188,153 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ALPHA_STRING = JNI_FUZZY_FUNCTION__ALPHA_STRING;
+	int NESTED_FUZZY_FUNCTION__ALPHA_STRING = FUZZY_FUNCTION__ALPHA_STRING;
 
 	/**
-	 * The feature id for the '<em><b>Zinternal cache isl UMap</b></em>' attribute.
+	 * The feature id for the '<em><b>Indirections</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ZINTERNAL_CACHE_ISL_UMAP = JNI_FUZZY_FUNCTION__ZINTERNAL_CACHE_ISL_UMAP;
+	int NESTED_FUZZY_FUNCTION__INDIRECTIONS = FUZZY_FUNCTION__INDIRECTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache fuzzy Map</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NESTED_FUZZY_FUNCTION__ZINTERNAL_CACHE_FUZZY_MAP = FUZZY_FUNCTION__ZINTERNAL_CACHE_FUZZY_MAP;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache dep Relation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NESTED_FUZZY_FUNCTION__ZINTERNAL_CACHE_DEP_RELATION = FUZZY_FUNCTION__ZINTERNAL_CACHE_DEP_RELATION;
+
+	/**
+	 * The feature id for the '<em><b>Fuzzy Index</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NESTED_FUZZY_FUNCTION__FUZZY_INDEX = FUZZY_FUNCTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Fuzzy Variable</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NESTED_FUZZY_FUNCTION__FUZZY_VARIABLE = FUZZY_FUNCTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Nested Fuzzy Function</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NESTED_FUZZY_FUNCTION_FEATURE_COUNT = FUZZY_FUNCTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.AffineFuzzyVariableUseImpl <em>Affine Fuzzy Variable Use</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.AffineFuzzyVariableUseImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getAffineFuzzyVariableUse()
+	 * @generated
+	 */
+	int AFFINE_FUZZY_VARIABLE_USE = 63;
+
+	/**
+	 * The feature id for the '<em><b>Fuzzy Index</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AFFINE_FUZZY_VARIABLE_USE__FUZZY_INDEX = FUZZY_VARIABLE_USE__FUZZY_INDEX;
+
+	/**
+	 * The feature id for the '<em><b>Fuzzy Variable</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AFFINE_FUZZY_VARIABLE_USE__FUZZY_VARIABLE = FUZZY_VARIABLE_USE__FUZZY_VARIABLE;
+
+	/**
+	 * The feature id for the '<em><b>Use Function</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION = FUZZY_VARIABLE_USE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Affine Fuzzy Variable Use</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AFFINE_FUZZY_VARIABLE_USE_FEATURE_COUNT = FUZZY_VARIABLE_USE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.FuzzyFunctionInArrayNotationImpl <em>Fuzzy Function In Array Notation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.FuzzyFunctionInArrayNotationImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getFuzzyFunctionInArrayNotation()
+	 * @generated
+	 */
+	int FUZZY_FUNCTION_IN_ARRAY_NOTATION = 64;
+
+	/**
+	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_FUNCTION_IN_ARRAY_NOTATION__ALPHA_STRING = FUZZY_FUNCTION__ALPHA_STRING;
+
+	/**
+	 * The feature id for the '<em><b>Indirections</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_FUNCTION_IN_ARRAY_NOTATION__INDIRECTIONS = FUZZY_FUNCTION__INDIRECTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache fuzzy Map</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_FUNCTION_IN_ARRAY_NOTATION__ZINTERNAL_CACHE_FUZZY_MAP = FUZZY_FUNCTION__ZINTERNAL_CACHE_FUZZY_MAP;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache dep Relation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_FUNCTION_IN_ARRAY_NOTATION__ZINTERNAL_CACHE_DEP_RELATION = FUZZY_FUNCTION__ZINTERNAL_CACHE_DEP_RELATION;
 
 	/**
 	 * The feature id for the '<em><b>Array Notation</b></em>' attribute list.
@@ -2768,16 +3343,16 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION = JNI_FUZZY_FUNCTION_FEATURE_COUNT + 0;
+	int FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION = FUZZY_FUNCTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>JNI Fuzzy Function In Array Notation</em>' class.
+	 * The number of structural features of the '<em>Fuzzy Function In Array Notation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION_FEATURE_COUNT = JNI_FUZZY_FUNCTION_FEATURE_COUNT + 1;
+	int FUZZY_FUNCTION_IN_ARRAY_NOTATION_FEATURE_COUNT = FUZZY_FUNCTION_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.UnaryCalculatorExpressionImpl <em>Unary Calculator Expression</em>}' class.
@@ -2787,7 +3362,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUnaryCalculatorExpression()
 	 * @generated
 	 */
-	int UNARY_CALCULATOR_EXPRESSION = 57;
+	int UNARY_CALCULATOR_EXPRESSION = 65;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2833,7 +3408,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBinaryCalculatorExpression()
 	 * @generated
 	 */
-	int BINARY_CALCULATOR_EXPRESSION = 58;
+	int BINARY_CALCULATOR_EXPRESSION = 66;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2888,7 +3463,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getVariableDomain()
 	 * @generated
 	 */
-	int VARIABLE_DOMAIN = 59;
+	int VARIABLE_DOMAIN = 67;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -2916,7 +3491,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getRectangularDomain()
 	 * @generated
 	 */
-	int RECTANGULAR_DOMAIN = 60;
+	int RECTANGULAR_DOMAIN = 68;
 
 	/**
 	 * The feature id for the '<em><b>Upper Bounds</b></em>' attribute list.
@@ -2962,7 +3537,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getDefinedObject()
 	 * @generated
 	 */
-	int DEFINED_OBJECT = 61;
+	int DEFINED_OBJECT = 69;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' reference.
@@ -2999,7 +3574,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUNARY_OP()
 	 * @generated
 	 */
-	int UNARY_OP = 62;
+	int UNARY_OP = 70;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.BINARY_OP <em>BINARY OP</em>}' enum.
@@ -3009,7 +3584,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBINARY_OP()
 	 * @generated
 	 */
-	int BINARY_OP = 63;
+	int BINARY_OP = 71;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.REDUCTION_OP <em>REDUCTION OP</em>}' enum.
@@ -3019,7 +3594,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getREDUCTION_OP()
 	 * @generated
 	 */
-	int REDUCTION_OP = 64;
+	int REDUCTION_OP = 72;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.POLY_OBJECT_TYPE <em>POLY OBJECT TYPE</em>}' enum.
@@ -3029,7 +3604,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPOLY_OBJECT_TYPE()
 	 * @generated
 	 */
-	int POLY_OBJECT_TYPE = 65;
+	int POLY_OBJECT_TYPE = 73;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_UNARY_OP <em>CALCULATOR UNARY OP</em>}' enum.
@@ -3039,7 +3614,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_UNARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_UNARY_OP = 66;
+	int CALCULATOR_UNARY_OP = 74;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_BINARY_OP <em>CALCULATOR BINARY OP</em>}' enum.
@@ -3049,7 +3624,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_BINARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_BINARY_OP = 67;
+	int CALCULATOR_BINARY_OP = 75;
 
 	/**
 	 * The meta object id for the '<em>JNI Object</em>' data type.
@@ -3059,7 +3634,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIObject()
 	 * @generated
 	 */
-	int JNI_OBJECT = 68;
+	int JNI_OBJECT = 76;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Set</em>' data type.
@@ -3069,7 +3644,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLSet()
 	 * @generated
 	 */
-	int JNIISL_SET = 69;
+	int JNIISL_SET = 77;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Map</em>' data type.
@@ -3079,7 +3654,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMap()
 	 * @generated
 	 */
-	int JNIISL_MAP = 70;
+	int JNIISL_MAP = 78;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
@@ -3089,7 +3664,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
-	int JNIISL_MULTI_AFF = 71;
+	int JNIISL_MULTI_AFF = 79;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Union Map</em>' data type.
@@ -3099,7 +3674,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLUnionMap()
 	 * @generated
 	 */
-	int JNIISL_UNION_MAP = 72;
+	int JNIISL_UNION_MAP = 80;
 
 	/**
 	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
@@ -3109,7 +3684,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getISL_FORMAT()
 	 * @generated
 	 */
-	int ISL_FORMAT = 73;
+	int ISL_FORMAT = 81;
 
 
 	/**
@@ -3844,15 +4419,15 @@ public interface ModelPackage extends EPackage {
 	EClass getFuzzyDependenceExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.FuzzyDependenceExpression#getFunctionExpr <em>Function Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.FuzzyDependenceExpression#getFuzzyFunction <em>Fuzzy Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Function Expr</em>'.
-	 * @see alpha.model.FuzzyDependenceExpression#getFunctionExpr()
+	 * @return the meta object for the containment reference '<em>Fuzzy Function</em>'.
+	 * @see alpha.model.FuzzyDependenceExpression#getFuzzyFunction()
 	 * @see #getFuzzyDependenceExpression()
 	 * @generated
 	 */
-	EReference getFuzzyDependenceExpression_FunctionExpr();
+	EReference getFuzzyDependenceExpression_FuzzyFunction();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.model.FuzzyDependenceExpression#getExpr <em>Expr</em>}'.
@@ -3940,15 +4515,15 @@ public interface ModelPackage extends EPackage {
 	EClass getFuzzyIndexExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.model.FuzzyIndexExpression#getFunctionExpr <em>Function Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.FuzzyIndexExpression#getFuzzyFunction <em>Fuzzy Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Function Expr</em>'.
-	 * @see alpha.model.FuzzyIndexExpression#getFunctionExpr()
+	 * @return the meta object for the containment reference '<em>Fuzzy Function</em>'.
+	 * @see alpha.model.FuzzyIndexExpression#getFuzzyFunction()
 	 * @see #getFuzzyIndexExpression()
 	 * @generated
 	 */
-	EReference getFuzzyIndexExpression_FunctionExpr();
+	EReference getFuzzyIndexExpression_FuzzyFunction();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.AbstractReduceExpression <em>Abstract Reduce Expression</em>}'.
@@ -4353,6 +4928,111 @@ public interface ModelPackage extends EPackage {
 	EReference getExternalMultiArgExpression_ExternalFunction();
 
 	/**
+	 * Returns the meta object for class '{@link alpha.model.AbstractFuzzyReduceExpression <em>Abstract Fuzzy Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Fuzzy Reduce Expression</em>'.
+	 * @see alpha.model.AbstractFuzzyReduceExpression
+	 * @generated
+	 */
+	EClass getAbstractFuzzyReduceExpression();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.AbstractFuzzyReduceExpression#getOperator <em>Operator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Operator</em>'.
+	 * @see alpha.model.AbstractFuzzyReduceExpression#getOperator()
+	 * @see #getAbstractFuzzyReduceExpression()
+	 * @generated
+	 */
+	EAttribute getAbstractFuzzyReduceExpression_Operator();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.AbstractFuzzyReduceExpression#getProjectionFunction <em>Projection Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Projection Function</em>'.
+	 * @see alpha.model.AbstractFuzzyReduceExpression#getProjectionFunction()
+	 * @see #getAbstractFuzzyReduceExpression()
+	 * @generated
+	 */
+	EReference getAbstractFuzzyReduceExpression_ProjectionFunction();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.AbstractFuzzyReduceExpression#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see alpha.model.AbstractFuzzyReduceExpression#getBody()
+	 * @see #getAbstractFuzzyReduceExpression()
+	 * @generated
+	 */
+	EReference getAbstractFuzzyReduceExpression_Body();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.FuzzyReduceExpression <em>Fuzzy Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Fuzzy Reduce Expression</em>'.
+	 * @see alpha.model.FuzzyReduceExpression
+	 * @generated
+	 */
+	EClass getFuzzyReduceExpression();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.ExternalFuzzyReduceExpression <em>External Fuzzy Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>External Fuzzy Reduce Expression</em>'.
+	 * @see alpha.model.ExternalFuzzyReduceExpression
+	 * @generated
+	 */
+	EClass getExternalFuzzyReduceExpression();
+
+	/**
+	 * Returns the meta object for the reference '{@link alpha.model.ExternalFuzzyReduceExpression#getExternalFunction <em>External Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>External Function</em>'.
+	 * @see alpha.model.ExternalFuzzyReduceExpression#getExternalFunction()
+	 * @see #getExternalFuzzyReduceExpression()
+	 * @generated
+	 */
+	EReference getExternalFuzzyReduceExpression_ExternalFunction();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.FuzzyArgReduceExpression <em>Fuzzy Arg Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Fuzzy Arg Reduce Expression</em>'.
+	 * @see alpha.model.FuzzyArgReduceExpression
+	 * @generated
+	 */
+	EClass getFuzzyArgReduceExpression();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.ExternalFuzzyArgReduceExpression <em>External Fuzzy Arg Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>External Fuzzy Arg Reduce Expression</em>'.
+	 * @see alpha.model.ExternalFuzzyArgReduceExpression
+	 * @generated
+	 */
+	EClass getExternalFuzzyArgReduceExpression();
+
+	/**
+	 * Returns the meta object for the reference '{@link alpha.model.ExternalFuzzyArgReduceExpression#getExternalFunction <em>External Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>External Function</em>'.
+	 * @see alpha.model.ExternalFuzzyArgReduceExpression#getExternalFunction()
+	 * @see #getExternalFuzzyArgReduceExpression()
+	 * @generated
+	 */
+	EReference getExternalFuzzyArgReduceExpression_ExternalFunction();
+
+	/**
 	 * Returns the meta object for class '{@link alpha.model.CalculatorNode <em>Calculator Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4532,57 +5212,142 @@ public interface ModelPackage extends EPackage {
 	EAttribute getJNIFunctionInArrayNotation_ArrayNotation();
 
 	/**
-	 * Returns the meta object for class '{@link alpha.model.JNIFuzzyFunction <em>JNI Fuzzy Function</em>}'.
+	 * Returns the meta object for class '{@link alpha.model.FuzzyFunction <em>Fuzzy Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>JNI Fuzzy Function</em>'.
-	 * @see alpha.model.JNIFuzzyFunction
+	 * @return the meta object for class '<em>Fuzzy Function</em>'.
+	 * @see alpha.model.FuzzyFunction
 	 * @generated
 	 */
-	EClass getJNIFuzzyFunction();
+	EClass getFuzzyFunction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.JNIFuzzyFunction#getAlphaString <em>Alpha String</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.FuzzyFunction#getAlphaString <em>Alpha String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Alpha String</em>'.
-	 * @see alpha.model.JNIFuzzyFunction#getAlphaString()
-	 * @see #getJNIFuzzyFunction()
+	 * @see alpha.model.FuzzyFunction#getAlphaString()
+	 * @see #getFuzzyFunction()
 	 * @generated
 	 */
-	EAttribute getJNIFuzzyFunction_AlphaString();
+	EAttribute getFuzzyFunction_AlphaString();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.JNIFuzzyFunction#getZ__internal_cache_islUMap <em>Zinternal cache isl UMap</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.model.FuzzyFunction#getIndirections <em>Indirections</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Zinternal cache isl UMap</em>'.
-	 * @see alpha.model.JNIFuzzyFunction#getZ__internal_cache_islUMap()
-	 * @see #getJNIFuzzyFunction()
+	 * @return the meta object for the containment reference list '<em>Indirections</em>'.
+	 * @see alpha.model.FuzzyFunction#getIndirections()
+	 * @see #getFuzzyFunction()
 	 * @generated
 	 */
-	EAttribute getJNIFuzzyFunction_Z__internal_cache_islUMap();
+	EReference getFuzzyFunction_Indirections();
 
 	/**
-	 * Returns the meta object for class '{@link alpha.model.JNIFuzzyFunctionInArrayNotation <em>JNI Fuzzy Function In Array Notation</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.FuzzyFunction#getZ__internal_cache_fuzzyMap <em>Zinternal cache fuzzy Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>JNI Fuzzy Function In Array Notation</em>'.
-	 * @see alpha.model.JNIFuzzyFunctionInArrayNotation
+	 * @return the meta object for the attribute '<em>Zinternal cache fuzzy Map</em>'.
+	 * @see alpha.model.FuzzyFunction#getZ__internal_cache_fuzzyMap()
+	 * @see #getFuzzyFunction()
 	 * @generated
 	 */
-	EClass getJNIFuzzyFunctionInArrayNotation();
+	EAttribute getFuzzyFunction_Z__internal_cache_fuzzyMap();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link alpha.model.JNIFuzzyFunctionInArrayNotation#getArrayNotation <em>Array Notation</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.FuzzyFunction#getZ__internal_cache_depRelation <em>Zinternal cache dep Relation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Zinternal cache dep Relation</em>'.
+	 * @see alpha.model.FuzzyFunction#getZ__internal_cache_depRelation()
+	 * @see #getFuzzyFunction()
+	 * @generated
+	 */
+	EAttribute getFuzzyFunction_Z__internal_cache_depRelation();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.FuzzyVariableUse <em>Fuzzy Variable Use</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Fuzzy Variable Use</em>'.
+	 * @see alpha.model.FuzzyVariableUse
+	 * @generated
+	 */
+	EClass getFuzzyVariableUse();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.FuzzyVariableUse#getFuzzyIndex <em>Fuzzy Index</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Fuzzy Index</em>'.
+	 * @see alpha.model.FuzzyVariableUse#getFuzzyIndex()
+	 * @see #getFuzzyVariableUse()
+	 * @generated
+	 */
+	EAttribute getFuzzyVariableUse_FuzzyIndex();
+
+	/**
+	 * Returns the meta object for the reference '{@link alpha.model.FuzzyVariableUse#getFuzzyVariable <em>Fuzzy Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Fuzzy Variable</em>'.
+	 * @see alpha.model.FuzzyVariableUse#getFuzzyVariable()
+	 * @see #getFuzzyVariableUse()
+	 * @generated
+	 */
+	EReference getFuzzyVariableUse_FuzzyVariable();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.NestedFuzzyFunction <em>Nested Fuzzy Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Nested Fuzzy Function</em>'.
+	 * @see alpha.model.NestedFuzzyFunction
+	 * @generated
+	 */
+	EClass getNestedFuzzyFunction();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.AffineFuzzyVariableUse <em>Affine Fuzzy Variable Use</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Affine Fuzzy Variable Use</em>'.
+	 * @see alpha.model.AffineFuzzyVariableUse
+	 * @generated
+	 */
+	EClass getAffineFuzzyVariableUse();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.AffineFuzzyVariableUse#getUseFunction <em>Use Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Use Function</em>'.
+	 * @see alpha.model.AffineFuzzyVariableUse#getUseFunction()
+	 * @see #getAffineFuzzyVariableUse()
+	 * @generated
+	 */
+	EReference getAffineFuzzyVariableUse_UseFunction();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.FuzzyFunctionInArrayNotation <em>Fuzzy Function In Array Notation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Fuzzy Function In Array Notation</em>'.
+	 * @see alpha.model.FuzzyFunctionInArrayNotation
+	 * @generated
+	 */
+	EClass getFuzzyFunctionInArrayNotation();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link alpha.model.FuzzyFunctionInArrayNotation#getArrayNotation <em>Array Notation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Array Notation</em>'.
-	 * @see alpha.model.JNIFuzzyFunctionInArrayNotation#getArrayNotation()
-	 * @see #getJNIFuzzyFunctionInArrayNotation()
+	 * @see alpha.model.FuzzyFunctionInArrayNotation#getArrayNotation()
+	 * @see #getFuzzyFunctionInArrayNotation()
 	 * @generated
 	 */
-	EAttribute getJNIFuzzyFunctionInArrayNotation_ArrayNotation();
+	EAttribute getFuzzyFunctionInArrayNotation_ArrayNotation();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.UnaryCalculatorExpression <em>Unary Calculator Expression</em>}'.
@@ -5534,12 +6299,12 @@ public interface ModelPackage extends EPackage {
 		EClass FUZZY_DEPENDENCE_EXPRESSION = eINSTANCE.getFuzzyDependenceExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Function Expr</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Fuzzy Function</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR = eINSTANCE.getFuzzyDependenceExpression_FunctionExpr();
+		EReference FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION = eINSTANCE.getFuzzyDependenceExpression_FuzzyFunction();
 
 		/**
 		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
@@ -5612,12 +6377,12 @@ public interface ModelPackage extends EPackage {
 		EClass FUZZY_INDEX_EXPRESSION = eINSTANCE.getFuzzyIndexExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Function Expr</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Fuzzy Function</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FUZZY_INDEX_EXPRESSION__FUNCTION_EXPR = eINSTANCE.getFuzzyIndexExpression_FunctionExpr();
+		EReference FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION = eINSTANCE.getFuzzyIndexExpression_FuzzyFunction();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.AbstractReduceExpressionImpl <em>Abstract Reduce Expression</em>}' class.
@@ -5956,6 +6721,96 @@ public interface ModelPackage extends EPackage {
 		EReference EXTERNAL_MULTI_ARG_EXPRESSION__EXTERNAL_FUNCTION = eINSTANCE.getExternalMultiArgExpression_ExternalFunction();
 
 		/**
+		 * The meta object literal for the '{@link alpha.model.impl.AbstractFuzzyReduceExpressionImpl <em>Abstract Fuzzy Reduce Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.AbstractFuzzyReduceExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getAbstractFuzzyReduceExpression()
+		 * @generated
+		 */
+		EClass ABSTRACT_FUZZY_REDUCE_EXPRESSION = eINSTANCE.getAbstractFuzzyReduceExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_FUZZY_REDUCE_EXPRESSION__OPERATOR = eINSTANCE.getAbstractFuzzyReduceExpression_Operator();
+
+		/**
+		 * The meta object literal for the '<em><b>Projection Function</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION = eINSTANCE.getAbstractFuzzyReduceExpression_ProjectionFunction();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY = eINSTANCE.getAbstractFuzzyReduceExpression_Body();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.FuzzyReduceExpressionImpl <em>Fuzzy Reduce Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.FuzzyReduceExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getFuzzyReduceExpression()
+		 * @generated
+		 */
+		EClass FUZZY_REDUCE_EXPRESSION = eINSTANCE.getFuzzyReduceExpression();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.ExternalFuzzyReduceExpressionImpl <em>External Fuzzy Reduce Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.ExternalFuzzyReduceExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getExternalFuzzyReduceExpression()
+		 * @generated
+		 */
+		EClass EXTERNAL_FUZZY_REDUCE_EXPRESSION = eINSTANCE.getExternalFuzzyReduceExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>External Function</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTERNAL_FUZZY_REDUCE_EXPRESSION__EXTERNAL_FUNCTION = eINSTANCE.getExternalFuzzyReduceExpression_ExternalFunction();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.FuzzyArgReduceExpressionImpl <em>Fuzzy Arg Reduce Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.FuzzyArgReduceExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getFuzzyArgReduceExpression()
+		 * @generated
+		 */
+		EClass FUZZY_ARG_REDUCE_EXPRESSION = eINSTANCE.getFuzzyArgReduceExpression();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.ExternalFuzzyArgReduceExpressionImpl <em>External Fuzzy Arg Reduce Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.ExternalFuzzyArgReduceExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getExternalFuzzyArgReduceExpression()
+		 * @generated
+		 */
+		EClass EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION = eINSTANCE.getExternalFuzzyArgReduceExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>External Function</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION = eINSTANCE.getExternalFuzzyArgReduceExpression_ExternalFunction();
+
+		/**
 		 * The meta object literal for the '{@link alpha.model.CalculatorNode <em>Calculator Node</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6108,14 +6963,14 @@ public interface ModelPackage extends EPackage {
 		EAttribute JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION = eINSTANCE.getJNIFunctionInArrayNotation_ArrayNotation();
 
 		/**
-		 * The meta object literal for the '{@link alpha.model.impl.JNIFuzzyFunctionImpl <em>JNI Fuzzy Function</em>}' class.
+		 * The meta object literal for the '{@link alpha.model.impl.FuzzyFunctionImpl <em>Fuzzy Function</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see alpha.model.impl.JNIFuzzyFunctionImpl
-		 * @see alpha.model.impl.ModelPackageImpl#getJNIFuzzyFunction()
+		 * @see alpha.model.impl.FuzzyFunctionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getFuzzyFunction()
 		 * @generated
 		 */
-		EClass JNI_FUZZY_FUNCTION = eINSTANCE.getJNIFuzzyFunction();
+		EClass FUZZY_FUNCTION = eINSTANCE.getFuzzyFunction();
 
 		/**
 		 * The meta object literal for the '<em><b>Alpha String</b></em>' attribute feature.
@@ -6123,25 +6978,95 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute JNI_FUZZY_FUNCTION__ALPHA_STRING = eINSTANCE.getJNIFuzzyFunction_AlphaString();
+		EAttribute FUZZY_FUNCTION__ALPHA_STRING = eINSTANCE.getFuzzyFunction_AlphaString();
 
 		/**
-		 * The meta object literal for the '<em><b>Zinternal cache isl UMap</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Indirections</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute JNI_FUZZY_FUNCTION__ZINTERNAL_CACHE_ISL_UMAP = eINSTANCE.getJNIFuzzyFunction_Z__internal_cache_islUMap();
+		EReference FUZZY_FUNCTION__INDIRECTIONS = eINSTANCE.getFuzzyFunction_Indirections();
 
 		/**
-		 * The meta object literal for the '{@link alpha.model.impl.JNIFuzzyFunctionInArrayNotationImpl <em>JNI Fuzzy Function In Array Notation</em>}' class.
+		 * The meta object literal for the '<em><b>Zinternal cache fuzzy Map</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see alpha.model.impl.JNIFuzzyFunctionInArrayNotationImpl
-		 * @see alpha.model.impl.ModelPackageImpl#getJNIFuzzyFunctionInArrayNotation()
 		 * @generated
 		 */
-		EClass JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION = eINSTANCE.getJNIFuzzyFunctionInArrayNotation();
+		EAttribute FUZZY_FUNCTION__ZINTERNAL_CACHE_FUZZY_MAP = eINSTANCE.getFuzzyFunction_Z__internal_cache_fuzzyMap();
+
+		/**
+		 * The meta object literal for the '<em><b>Zinternal cache dep Relation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FUZZY_FUNCTION__ZINTERNAL_CACHE_DEP_RELATION = eINSTANCE.getFuzzyFunction_Z__internal_cache_depRelation();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.FuzzyVariableUseImpl <em>Fuzzy Variable Use</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.FuzzyVariableUseImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getFuzzyVariableUse()
+		 * @generated
+		 */
+		EClass FUZZY_VARIABLE_USE = eINSTANCE.getFuzzyVariableUse();
+
+		/**
+		 * The meta object literal for the '<em><b>Fuzzy Index</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FUZZY_VARIABLE_USE__FUZZY_INDEX = eINSTANCE.getFuzzyVariableUse_FuzzyIndex();
+
+		/**
+		 * The meta object literal for the '<em><b>Fuzzy Variable</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FUZZY_VARIABLE_USE__FUZZY_VARIABLE = eINSTANCE.getFuzzyVariableUse_FuzzyVariable();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.NestedFuzzyFunctionImpl <em>Nested Fuzzy Function</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.NestedFuzzyFunctionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getNestedFuzzyFunction()
+		 * @generated
+		 */
+		EClass NESTED_FUZZY_FUNCTION = eINSTANCE.getNestedFuzzyFunction();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.AffineFuzzyVariableUseImpl <em>Affine Fuzzy Variable Use</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.AffineFuzzyVariableUseImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getAffineFuzzyVariableUse()
+		 * @generated
+		 */
+		EClass AFFINE_FUZZY_VARIABLE_USE = eINSTANCE.getAffineFuzzyVariableUse();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Function</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION = eINSTANCE.getAffineFuzzyVariableUse_UseFunction();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.FuzzyFunctionInArrayNotationImpl <em>Fuzzy Function In Array Notation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.FuzzyFunctionInArrayNotationImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getFuzzyFunctionInArrayNotation()
+		 * @generated
+		 */
+		EClass FUZZY_FUNCTION_IN_ARRAY_NOTATION = eINSTANCE.getFuzzyFunctionInArrayNotation();
 
 		/**
 		 * The meta object literal for the '<em><b>Array Notation</b></em>' attribute list feature.
@@ -6149,7 +7074,7 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION = eINSTANCE.getJNIFuzzyFunctionInArrayNotation_ArrayNotation();
+		EAttribute FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION = eINSTANCE.getFuzzyFunctionInArrayNotation_ArrayNotation();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.UnaryCalculatorExpressionImpl <em>Unary Calculator Expression</em>}' class.

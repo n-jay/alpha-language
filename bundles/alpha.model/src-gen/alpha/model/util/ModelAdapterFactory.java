@@ -256,6 +256,26 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createExternalMultiArgExpressionAdapter();
 			}
 			@Override
+			public Adapter caseAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression object) {
+				return createAbstractFuzzyReduceExpressionAdapter();
+			}
+			@Override
+			public Adapter caseFuzzyReduceExpression(FuzzyReduceExpression object) {
+				return createFuzzyReduceExpressionAdapter();
+			}
+			@Override
+			public Adapter caseExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression object) {
+				return createExternalFuzzyReduceExpressionAdapter();
+			}
+			@Override
+			public Adapter caseFuzzyArgReduceExpression(FuzzyArgReduceExpression object) {
+				return createFuzzyArgReduceExpressionAdapter();
+			}
+			@Override
+			public Adapter caseExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression object) {
+				return createExternalFuzzyArgReduceExpressionAdapter();
+			}
+			@Override
 			public Adapter caseCalculatorNode(CalculatorNode object) {
 				return createCalculatorNodeAdapter();
 			}
@@ -288,12 +308,24 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createJNIFunctionInArrayNotationAdapter();
 			}
 			@Override
-			public Adapter caseJNIFuzzyFunction(JNIFuzzyFunction object) {
-				return createJNIFuzzyFunctionAdapter();
+			public Adapter caseFuzzyFunction(FuzzyFunction object) {
+				return createFuzzyFunctionAdapter();
 			}
 			@Override
-			public Adapter caseJNIFuzzyFunctionInArrayNotation(JNIFuzzyFunctionInArrayNotation object) {
-				return createJNIFuzzyFunctionInArrayNotationAdapter();
+			public Adapter caseFuzzyVariableUse(FuzzyVariableUse object) {
+				return createFuzzyVariableUseAdapter();
+			}
+			@Override
+			public Adapter caseNestedFuzzyFunction(NestedFuzzyFunction object) {
+				return createNestedFuzzyFunctionAdapter();
+			}
+			@Override
+			public Adapter caseAffineFuzzyVariableUse(AffineFuzzyVariableUse object) {
+				return createAffineFuzzyVariableUseAdapter();
+			}
+			@Override
+			public Adapter caseFuzzyFunctionInArrayNotation(FuzzyFunctionInArrayNotation object) {
+				return createFuzzyFunctionInArrayNotationAdapter();
 			}
 			@Override
 			public Adapter caseUnaryCalculatorExpression(UnaryCalculatorExpression object) {
@@ -994,6 +1026,76 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AbstractFuzzyReduceExpression <em>Abstract Fuzzy Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AbstractFuzzyReduceExpression
+	 * @generated
+	 */
+	public Adapter createAbstractFuzzyReduceExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.FuzzyReduceExpression <em>Fuzzy Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.FuzzyReduceExpression
+	 * @generated
+	 */
+	public Adapter createFuzzyReduceExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.ExternalFuzzyReduceExpression <em>External Fuzzy Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.ExternalFuzzyReduceExpression
+	 * @generated
+	 */
+	public Adapter createExternalFuzzyReduceExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.FuzzyArgReduceExpression <em>Fuzzy Arg Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.FuzzyArgReduceExpression
+	 * @generated
+	 */
+	public Adapter createFuzzyArgReduceExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.ExternalFuzzyArgReduceExpression <em>External Fuzzy Arg Reduce Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.ExternalFuzzyArgReduceExpression
+	 * @generated
+	 */
+	public Adapter createExternalFuzzyArgReduceExpressionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link alpha.model.CalculatorNode <em>Calculator Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1106,30 +1208,72 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link alpha.model.JNIFuzzyFunction <em>JNI Fuzzy Function</em>}'.
+	 * Creates a new adapter for an object of class '{@link alpha.model.FuzzyFunction <em>Fuzzy Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see alpha.model.JNIFuzzyFunction
+	 * @see alpha.model.FuzzyFunction
 	 * @generated
 	 */
-	public Adapter createJNIFuzzyFunctionAdapter() {
+	public Adapter createFuzzyFunctionAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link alpha.model.JNIFuzzyFunctionInArrayNotation <em>JNI Fuzzy Function In Array Notation</em>}'.
+	 * Creates a new adapter for an object of class '{@link alpha.model.FuzzyVariableUse <em>Fuzzy Variable Use</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see alpha.model.JNIFuzzyFunctionInArrayNotation
+	 * @see alpha.model.FuzzyVariableUse
 	 * @generated
 	 */
-	public Adapter createJNIFuzzyFunctionInArrayNotationAdapter() {
+	public Adapter createFuzzyVariableUseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.NestedFuzzyFunction <em>Nested Fuzzy Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.NestedFuzzyFunction
+	 * @generated
+	 */
+	public Adapter createNestedFuzzyFunctionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AffineFuzzyVariableUse <em>Affine Fuzzy Variable Use</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AffineFuzzyVariableUse
+	 * @generated
+	 */
+	public Adapter createAffineFuzzyVariableUseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.FuzzyFunctionInArrayNotation <em>Fuzzy Function In Array Notation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.FuzzyFunctionInArrayNotation
+	 * @generated
+	 */
+	public Adapter createFuzzyFunctionInArrayNotationAdapter() {
 		return null;
 	}
 

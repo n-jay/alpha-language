@@ -2,9 +2,8 @@
  */
 package alpha.model.impl;
 
-import alpha.model.AlphaExpressionVisitor;
-import alpha.model.FuzzyFunction;
-import alpha.model.FuzzyIndexExpression;
+import alpha.model.AffineFuzzyVariableUse;
+import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.ModelPackage;
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
@@ -19,34 +18,34 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Fuzzy Index Expression</b></em>'.
+ * An implementation of the model object '<em><b>Affine Fuzzy Variable Use</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.FuzzyIndexExpressionImpl#getFuzzyFunction <em>Fuzzy Function</em>}</li>
+ *   <li>{@link alpha.model.impl.AffineFuzzyVariableUseImpl#getUseFunction <em>Use Function</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements FuzzyIndexExpression {
+public class AffineFuzzyVariableUseImpl extends FuzzyVariableUseImpl implements AffineFuzzyVariableUse {
 	/**
-	 * The cached value of the '{@link #getFuzzyFunction() <em>Fuzzy Function</em>}' containment reference.
+	 * The cached value of the '{@link #getUseFunction() <em>Use Function</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFuzzyFunction()
+	 * @see #getUseFunction()
 	 * @generated
 	 * @ordered
 	 */
-	protected FuzzyFunction fuzzyFunction;
+	protected JNIFunctionInArrayNotation useFunction;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FuzzyIndexExpressionImpl() {
+	protected AffineFuzzyVariableUseImpl() {
 		super();
 	}
 
@@ -57,7 +56,7 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ModelPackage.Literals.FUZZY_INDEX_EXPRESSION;
+		return ModelPackage.Literals.AFFINE_FUZZY_VARIABLE_USE;
 	}
 
 	/**
@@ -65,8 +64,8 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FuzzyFunction getFuzzyFunction() {
-		return fuzzyFunction;
+	public JNIFunctionInArrayNotation getUseFunction() {
+		return useFunction;
 	}
 
 	/**
@@ -74,11 +73,11 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFuzzyFunction(FuzzyFunction newFuzzyFunction, NotificationChain msgs) {
-		FuzzyFunction oldFuzzyFunction = fuzzyFunction;
-		fuzzyFunction = newFuzzyFunction;
+	public NotificationChain basicSetUseFunction(JNIFunctionInArrayNotation newUseFunction, NotificationChain msgs) {
+		JNIFunctionInArrayNotation oldUseFunction = useFunction;
+		useFunction = newUseFunction;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION, oldFuzzyFunction, newFuzzyFunction);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION, oldUseFunction, newUseFunction);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -89,18 +88,18 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFuzzyFunction(FuzzyFunction newFuzzyFunction) {
-		if (newFuzzyFunction != fuzzyFunction) {
+	public void setUseFunction(JNIFunctionInArrayNotation newUseFunction) {
+		if (newUseFunction != useFunction) {
 			NotificationChain msgs = null;
-			if (fuzzyFunction != null)
-				msgs = ((InternalEObject)fuzzyFunction).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION, null, msgs);
-			if (newFuzzyFunction != null)
-				msgs = ((InternalEObject)newFuzzyFunction).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION, null, msgs);
-			msgs = basicSetFuzzyFunction(newFuzzyFunction, msgs);
+			if (useFunction != null)
+				msgs = ((InternalEObject)useFunction).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION, null, msgs);
+			if (newUseFunction != null)
+				msgs = ((InternalEObject)newUseFunction).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION, null, msgs);
+			msgs = basicSetUseFunction(newUseFunction, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION, newFuzzyFunction, newFuzzyFunction));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION, newUseFunction, newUseFunction));
 	}
 
 	/**
@@ -110,10 +109,10 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 */
 	public JNIISLMap getDependenceRelation() {
 		JNIISLMap _xifexpression = null;
-		FuzzyFunction _fuzzyFunction = this.getFuzzyFunction();
-		boolean _tripleNotEquals = (_fuzzyFunction != null);
+		JNIFunctionInArrayNotation _useFunction = this.getUseFunction();
+		boolean _tripleNotEquals = (_useFunction != null);
 		if (_tripleNotEquals) {
-			_xifexpression = this.getFuzzyFunction().getDependenceRelation();
+			_xifexpression = this.getUseFunction().getISLMultiAff().toMap();
 		}
 		else {
 			_xifexpression = null;
@@ -126,20 +125,11 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void accept(final AlphaExpressionVisitor visitor) {
-		visitor.visitFuzzyIndexExpression(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION:
-				return basicSetFuzzyFunction(null, msgs);
+			case ModelPackage.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION:
+				return basicSetUseFunction(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -152,8 +142,8 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION:
-				return getFuzzyFunction();
+			case ModelPackage.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION:
+				return getUseFunction();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -166,8 +156,8 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION:
-				setFuzzyFunction((FuzzyFunction)newValue);
+			case ModelPackage.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION:
+				setUseFunction((JNIFunctionInArrayNotation)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -181,8 +171,8 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION:
-				setFuzzyFunction((FuzzyFunction)null);
+			case ModelPackage.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION:
+				setUseFunction((JNIFunctionInArrayNotation)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -196,10 +186,10 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION:
-				return fuzzyFunction != null;
+			case ModelPackage.AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION:
+				return useFunction != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //FuzzyIndexExpressionImpl
+} //AffineFuzzyVariableUseImpl

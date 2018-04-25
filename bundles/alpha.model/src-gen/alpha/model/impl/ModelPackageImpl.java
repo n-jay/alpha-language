@@ -2,7 +2,9 @@
  */
 package alpha.model.impl;
 
+import alpha.model.AbstractFuzzyReduceExpression;
 import alpha.model.AbstractReduceExpression;
+import alpha.model.AffineFuzzyVariableUse;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaElement;
 import alpha.model.AlphaExpression;
@@ -31,11 +33,18 @@ import alpha.model.DependenceExpression;
 import alpha.model.DomainQualifiedElement;
 import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
+import alpha.model.ExternalFuzzyArgReduceExpression;
+import alpha.model.ExternalFuzzyReduceExpression;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
+import alpha.model.FuzzyArgReduceExpression;
 import alpha.model.FuzzyDependenceExpression;
+import alpha.model.FuzzyFunction;
+import alpha.model.FuzzyFunctionInArrayNotation;
 import alpha.model.FuzzyIndexExpression;
+import alpha.model.FuzzyReduceExpression;
 import alpha.model.FuzzyVariable;
+import alpha.model.FuzzyVariableUse;
 import alpha.model.IfExpression;
 import alpha.model.Imports;
 import alpha.model.IndexExpression;
@@ -45,13 +54,12 @@ import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
-import alpha.model.JNIFuzzyFunction;
-import alpha.model.JNIFuzzyFunctionInArrayNotation;
 import alpha.model.JNIRelation;
 import alpha.model.LocalVariable;
 import alpha.model.ModelFactory;
 import alpha.model.ModelPackage;
 import alpha.model.MultiArgExpression;
+import alpha.model.NestedFuzzyFunction;
 import alpha.model.OutputVariable;
 import alpha.model.PolyhedralObject;
 import alpha.model.RealExpression;
@@ -426,6 +434,41 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass abstractFuzzyReduceExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fuzzyReduceExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass externalFuzzyReduceExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fuzzyArgReduceExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass externalFuzzyArgReduceExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass calculatorNodeEClass = null;
 
 	/**
@@ -482,14 +525,35 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass jniFuzzyFunctionEClass = null;
+	private EClass fuzzyFunctionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass jniFuzzyFunctionInArrayNotationEClass = null;
+	private EClass fuzzyVariableUseEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass nestedFuzzyFunctionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass affineFuzzyVariableUseEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fuzzyFunctionInArrayNotationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1300,7 +1364,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFuzzyDependenceExpression_FunctionExpr() {
+	public EReference getFuzzyDependenceExpression_FuzzyFunction() {
 		return (EReference)fuzzyDependenceExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1381,7 +1445,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFuzzyIndexExpression_FunctionExpr() {
+	public EReference getFuzzyIndexExpression_FuzzyFunction() {
 		return (EReference)fuzzyIndexExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1732,6 +1796,96 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAbstractFuzzyReduceExpression() {
+		return abstractFuzzyReduceExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractFuzzyReduceExpression_Operator() {
+		return (EAttribute)abstractFuzzyReduceExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractFuzzyReduceExpression_ProjectionFunction() {
+		return (EReference)abstractFuzzyReduceExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractFuzzyReduceExpression_Body() {
+		return (EReference)abstractFuzzyReduceExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFuzzyReduceExpression() {
+		return fuzzyReduceExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExternalFuzzyReduceExpression() {
+		return externalFuzzyReduceExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExternalFuzzyReduceExpression_ExternalFunction() {
+		return (EReference)externalFuzzyReduceExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFuzzyArgReduceExpression() {
+		return fuzzyArgReduceExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExternalFuzzyArgReduceExpression() {
+		return externalFuzzyArgReduceExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExternalFuzzyArgReduceExpression_ExternalFunction() {
+		return (EReference)externalFuzzyArgReduceExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCalculatorNode() {
 		return calculatorNodeEClass;
 	}
@@ -1885,8 +2039,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJNIFuzzyFunction() {
-		return jniFuzzyFunctionEClass;
+	public EClass getFuzzyFunction() {
+		return fuzzyFunctionEClass;
 	}
 
 	/**
@@ -1894,8 +2048,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJNIFuzzyFunction_AlphaString() {
-		return (EAttribute)jniFuzzyFunctionEClass.getEStructuralFeatures().get(0);
+	public EAttribute getFuzzyFunction_AlphaString() {
+		return (EAttribute)fuzzyFunctionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1903,8 +2057,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJNIFuzzyFunction_Z__internal_cache_islUMap() {
-		return (EAttribute)jniFuzzyFunctionEClass.getEStructuralFeatures().get(1);
+	public EReference getFuzzyFunction_Indirections() {
+		return (EReference)fuzzyFunctionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1912,8 +2066,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getJNIFuzzyFunctionInArrayNotation() {
-		return jniFuzzyFunctionInArrayNotationEClass;
+	public EAttribute getFuzzyFunction_Z__internal_cache_fuzzyMap() {
+		return (EAttribute)fuzzyFunctionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1921,8 +2075,80 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJNIFuzzyFunctionInArrayNotation_ArrayNotation() {
-		return (EAttribute)jniFuzzyFunctionInArrayNotationEClass.getEStructuralFeatures().get(0);
+	public EAttribute getFuzzyFunction_Z__internal_cache_depRelation() {
+		return (EAttribute)fuzzyFunctionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFuzzyVariableUse() {
+		return fuzzyVariableUseEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFuzzyVariableUse_FuzzyIndex() {
+		return (EAttribute)fuzzyVariableUseEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFuzzyVariableUse_FuzzyVariable() {
+		return (EReference)fuzzyVariableUseEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNestedFuzzyFunction() {
+		return nestedFuzzyFunctionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAffineFuzzyVariableUse() {
+		return affineFuzzyVariableUseEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAffineFuzzyVariableUse_UseFunction() {
+		return (EReference)affineFuzzyVariableUseEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFuzzyFunctionInArrayNotation() {
+		return fuzzyFunctionInArrayNotationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFuzzyFunctionInArrayNotation_ArrayNotation() {
+		return (EAttribute)fuzzyFunctionInArrayNotationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2319,7 +2545,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(dependenceExpressionEClass, DEPENDENCE_EXPRESSION__EXPR);
 
 		fuzzyDependenceExpressionEClass = createEClass(FUZZY_DEPENDENCE_EXPRESSION);
-		createEReference(fuzzyDependenceExpressionEClass, FUZZY_DEPENDENCE_EXPRESSION__FUNCTION_EXPR);
+		createEReference(fuzzyDependenceExpressionEClass, FUZZY_DEPENDENCE_EXPRESSION__FUZZY_FUNCTION);
 		createEReference(fuzzyDependenceExpressionEClass, FUZZY_DEPENDENCE_EXPRESSION__EXPR);
 
 		ifExpressionEClass = createEClass(IF_EXPRESSION);
@@ -2331,7 +2557,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(indexExpressionEClass, INDEX_EXPRESSION__FUNCTION_EXPR);
 
 		fuzzyIndexExpressionEClass = createEClass(FUZZY_INDEX_EXPRESSION);
-		createEReference(fuzzyIndexExpressionEClass, FUZZY_INDEX_EXPRESSION__FUNCTION_EXPR);
+		createEReference(fuzzyIndexExpressionEClass, FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION);
 
 		abstractReduceExpressionEClass = createEClass(ABSTRACT_REDUCE_EXPRESSION);
 		createEAttribute(abstractReduceExpressionEClass, ABSTRACT_REDUCE_EXPRESSION__OPERATOR);
@@ -2387,6 +2613,21 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		externalMultiArgExpressionEClass = createEClass(EXTERNAL_MULTI_ARG_EXPRESSION);
 		createEReference(externalMultiArgExpressionEClass, EXTERNAL_MULTI_ARG_EXPRESSION__EXTERNAL_FUNCTION);
 
+		abstractFuzzyReduceExpressionEClass = createEClass(ABSTRACT_FUZZY_REDUCE_EXPRESSION);
+		createEAttribute(abstractFuzzyReduceExpressionEClass, ABSTRACT_FUZZY_REDUCE_EXPRESSION__OPERATOR);
+		createEReference(abstractFuzzyReduceExpressionEClass, ABSTRACT_FUZZY_REDUCE_EXPRESSION__PROJECTION_FUNCTION);
+		createEReference(abstractFuzzyReduceExpressionEClass, ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY);
+
+		fuzzyReduceExpressionEClass = createEClass(FUZZY_REDUCE_EXPRESSION);
+
+		externalFuzzyReduceExpressionEClass = createEClass(EXTERNAL_FUZZY_REDUCE_EXPRESSION);
+		createEReference(externalFuzzyReduceExpressionEClass, EXTERNAL_FUZZY_REDUCE_EXPRESSION__EXTERNAL_FUNCTION);
+
+		fuzzyArgReduceExpressionEClass = createEClass(FUZZY_ARG_REDUCE_EXPRESSION);
+
+		externalFuzzyArgReduceExpressionEClass = createEClass(EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION);
+		createEReference(externalFuzzyArgReduceExpressionEClass, EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION);
+
 		calculatorNodeEClass = createEClass(CALCULATOR_NODE);
 
 		polyhedralObjectEClass = createEClass(POLYHEDRAL_OBJECT);
@@ -2412,12 +2653,23 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniFunctionInArrayNotationEClass = createEClass(JNI_FUNCTION_IN_ARRAY_NOTATION);
 		createEAttribute(jniFunctionInArrayNotationEClass, JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
 
-		jniFuzzyFunctionEClass = createEClass(JNI_FUZZY_FUNCTION);
-		createEAttribute(jniFuzzyFunctionEClass, JNI_FUZZY_FUNCTION__ALPHA_STRING);
-		createEAttribute(jniFuzzyFunctionEClass, JNI_FUZZY_FUNCTION__ZINTERNAL_CACHE_ISL_UMAP);
+		fuzzyFunctionEClass = createEClass(FUZZY_FUNCTION);
+		createEAttribute(fuzzyFunctionEClass, FUZZY_FUNCTION__ALPHA_STRING);
+		createEReference(fuzzyFunctionEClass, FUZZY_FUNCTION__INDIRECTIONS);
+		createEAttribute(fuzzyFunctionEClass, FUZZY_FUNCTION__ZINTERNAL_CACHE_FUZZY_MAP);
+		createEAttribute(fuzzyFunctionEClass, FUZZY_FUNCTION__ZINTERNAL_CACHE_DEP_RELATION);
 
-		jniFuzzyFunctionInArrayNotationEClass = createEClass(JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION);
-		createEAttribute(jniFuzzyFunctionInArrayNotationEClass, JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
+		fuzzyVariableUseEClass = createEClass(FUZZY_VARIABLE_USE);
+		createEAttribute(fuzzyVariableUseEClass, FUZZY_VARIABLE_USE__FUZZY_INDEX);
+		createEReference(fuzzyVariableUseEClass, FUZZY_VARIABLE_USE__FUZZY_VARIABLE);
+
+		nestedFuzzyFunctionEClass = createEClass(NESTED_FUZZY_FUNCTION);
+
+		affineFuzzyVariableUseEClass = createEClass(AFFINE_FUZZY_VARIABLE_USE);
+		createEReference(affineFuzzyVariableUseEClass, AFFINE_FUZZY_VARIABLE_USE__USE_FUNCTION);
+
+		fuzzyFunctionInArrayNotationEClass = createEClass(FUZZY_FUNCTION_IN_ARRAY_NOTATION);
+		createEAttribute(fuzzyFunctionInArrayNotationEClass, FUZZY_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
 
 		unaryCalculatorExpressionEClass = createEClass(UNARY_CALCULATOR_EXPRESSION);
 		createEAttribute(unaryCalculatorExpressionEClass, UNARY_CALCULATOR_EXPRESSION__OPERATOR);
@@ -2532,6 +2784,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		binaryExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		multiArgExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		externalMultiArgExpressionEClass.getESuperTypes().add(this.getMultiArgExpression());
+		abstractFuzzyReduceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
+		fuzzyReduceExpressionEClass.getESuperTypes().add(this.getAbstractFuzzyReduceExpression());
+		externalFuzzyReduceExpressionEClass.getESuperTypes().add(this.getFuzzyReduceExpression());
+		fuzzyArgReduceExpressionEClass.getESuperTypes().add(this.getAbstractFuzzyReduceExpression());
+		externalFuzzyArgReduceExpressionEClass.getESuperTypes().add(this.getFuzzyArgReduceExpression());
 		polyhedralObjectEClass.getESuperTypes().add(this.getCalculatorNode());
 		polyhedralObjectEClass.getESuperTypes().add(this.getAlphaVisitable());
 		calculatorExpressionEClass.getESuperTypes().add(this.getCalculatorNode());
@@ -2541,8 +2798,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniRelationEClass.getESuperTypes().add(this.getCalculatorExpression());
 		jniFunctionEClass.getESuperTypes().add(this.getCalculatorExpression());
 		jniFunctionInArrayNotationEClass.getESuperTypes().add(this.getJNIFunction());
-		jniFuzzyFunctionEClass.getESuperTypes().add(this.getCalculatorExpression());
-		jniFuzzyFunctionInArrayNotationEClass.getESuperTypes().add(this.getJNIFuzzyFunction());
+		fuzzyFunctionEClass.getESuperTypes().add(this.getAlphaNode());
+		nestedFuzzyFunctionEClass.getESuperTypes().add(this.getFuzzyFunction());
+		nestedFuzzyFunctionEClass.getESuperTypes().add(this.getFuzzyVariableUse());
+		affineFuzzyVariableUseEClass.getESuperTypes().add(this.getFuzzyVariableUse());
+		fuzzyFunctionInArrayNotationEClass.getESuperTypes().add(this.getFuzzyFunction());
 		unaryCalculatorExpressionEClass.getESuperTypes().add(this.getCalculatorExpression());
 		binaryCalculatorExpressionEClass.getESuperTypes().add(this.getCalculatorExpression());
 		variableDomainEClass.getESuperTypes().add(this.getCalculatorExpression());
@@ -2738,6 +2998,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getArgReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitAbstractFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAbstractFuzzyReduceExpression(), "afre", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyReduceExpression(), "fre", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitFuzzyArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyArgReduceExpression(), "fare", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitConvolutionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getConvolutionExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2783,6 +3052,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalFuzzyReduceExpression(), "efre", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalFuzzyArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalFuzzyArgReduceExpression(), "efare", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inAlphaExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpression(), "ae", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2812,6 +3087,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getArgReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inAbstractFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAbstractFuzzyReduceExpression(), "afre", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyReduceExpression(), "fre", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inFuzzyArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyArgReduceExpression(), "fare", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inConvolutionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getConvolutionExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2858,6 +3142,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inExternalFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalFuzzyReduceExpression(), "efre", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inExternalFuzzyArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalFuzzyArgReduceExpression(), "efare", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outAlphaExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpression(), "ae", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2887,6 +3177,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getArgReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outAbstractFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAbstractFuzzyReduceExpression(), "afre", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyReduceExpression(), "fre", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outFuzzyArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFuzzyArgReduceExpression(), "fare", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outConvolutionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getConvolutionExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2933,6 +3232,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outExternalFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalFuzzyReduceExpression(), "efre", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outExternalFuzzyArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExternalFuzzyArgReduceExpression(), "efare", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(calculatorExpressionVisitorEClass, CalculatorExpressionVisitor.class, "CalculatorExpressionVisitor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitCalculatorExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -2952,9 +3257,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitJNIFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getJNIFunction(), "jniFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitJNIFuzzyFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getJNIFuzzyFunction(), "jniFuzzyFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitVariableDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariableDomain(), "vdom", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3152,10 +3454,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(fuzzyDependenceExpressionEClass, FuzzyDependenceExpression.class, "FuzzyDependenceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFuzzyDependenceExpression_FunctionExpr(), this.getJNIFuzzyFunction(), null, "functionExpr", null, 0, 1, FuzzyDependenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFuzzyDependenceExpression_FuzzyFunction(), this.getFuzzyFunction(), null, "fuzzyFunction", null, 0, 1, FuzzyDependenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFuzzyDependenceExpression_Expr(), this.getAlphaExpression(), null, "expr", null, 0, 1, FuzzyDependenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(fuzzyDependenceExpressionEClass, this.getJNIISLUnionMap(), "getFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(fuzzyDependenceExpressionEClass, this.getJNIISLMap(), "getDependenceRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(fuzzyDependenceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3177,9 +3479,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(fuzzyIndexExpressionEClass, FuzzyIndexExpression.class, "FuzzyIndexExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFuzzyIndexExpression_FunctionExpr(), this.getJNIFuzzyFunction(), null, "functionExpr", null, 0, 1, FuzzyIndexExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFuzzyIndexExpression_FuzzyFunction(), this.getFuzzyFunction(), null, "fuzzyFunction", null, 0, 1, FuzzyIndexExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(fuzzyIndexExpressionEClass, this.getJNIISLUnionMap(), "getFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(fuzzyIndexExpressionEClass, this.getJNIISLMap(), "getDependenceRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(fuzzyIndexExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3292,6 +3594,38 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(externalMultiArgExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		initEClass(abstractFuzzyReduceExpressionEClass, AbstractFuzzyReduceExpression.class, "AbstractFuzzyReduceExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAbstractFuzzyReduceExpression_Operator(), this.getREDUCTION_OP(), "operator", null, 0, 1, AbstractFuzzyReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractFuzzyReduceExpression_ProjectionFunction(), this.getFuzzyFunction(), null, "projectionFunction", null, 0, 1, AbstractFuzzyReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractFuzzyReduceExpression_Body(), this.getAlphaExpression(), null, "body", null, 0, 1, AbstractFuzzyReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(abstractFuzzyReduceExpressionEClass, this.getJNIISLMap(), "getProjection", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(abstractFuzzyReduceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(fuzzyReduceExpressionEClass, FuzzyReduceExpression.class, "FuzzyReduceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(fuzzyReduceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(externalFuzzyReduceExpressionEClass, ExternalFuzzyReduceExpression.class, "ExternalFuzzyReduceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExternalFuzzyReduceExpression_ExternalFunction(), this.getExternalFunction(), null, "externalFunction", null, 0, 1, ExternalFuzzyReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(externalFuzzyReduceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(fuzzyArgReduceExpressionEClass, FuzzyArgReduceExpression.class, "FuzzyArgReduceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(fuzzyArgReduceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(externalFuzzyArgReduceExpressionEClass, ExternalFuzzyArgReduceExpression.class, "ExternalFuzzyArgReduceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExternalFuzzyArgReduceExpression_ExternalFunction(), this.getExternalFunction(), null, "externalFunction", null, 0, 1, ExternalFuzzyArgReduceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(externalFuzzyArgReduceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(calculatorNodeEClass, CalculatorNode.class, "CalculatorNode", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		addEOperation(calculatorNodeEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3381,25 +3715,39 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(jniFunctionInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		initEClass(jniFuzzyFunctionEClass, JNIFuzzyFunction.class, "JNIFuzzyFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJNIFuzzyFunction_AlphaString(), theEcorePackage.getEString(), "alphaString", null, 0, 1, JNIFuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getJNIFuzzyFunction_Z__internal_cache_islUMap(), this.getJNIISLUnionMap(), "z__internal_cache_islUMap", null, 0, 1, JNIFuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(fuzzyFunctionEClass, FuzzyFunction.class, "FuzzyFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFuzzyFunction_AlphaString(), theEcorePackage.getEString(), "alphaString", null, 0, 1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFuzzyFunction_Indirections(), this.getFuzzyVariableUse(), null, "indirections", null, 0, -1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFuzzyFunction_Z__internal_cache_fuzzyMap(), this.getJNIISLMap(), "z__internal_cache_fuzzyMap", null, 0, 1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFuzzyFunction_Z__internal_cache_depRelation(), this.getJNIISLMap(), "z__internal_cache_depRelation", null, 0, 1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(jniFuzzyFunctionEClass, this.getJNIISLUnionMap(), "getISLUnionMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(fuzzyFunctionEClass, this.getJNIISLMap(), "getFuzzyMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(jniFuzzyFunctionEClass, null, "setISLUnionMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getJNIISLUnionMap(), "islUMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(fuzzyFunctionEClass, null, "setFuzzyMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getJNIISLMap(), "fuzzyMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniFuzzyFunctionEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(fuzzyFunctionEClass, this.getJNIISLMap(), "getDependenceRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniFuzzyFunctionEClass, this.getJNIObject(), "getISLObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(fuzzyFunctionEClass, null, "setDependenceRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getJNIISLMap(), "depRel", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniFuzzyFunctionEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		initEClass(fuzzyVariableUseEClass, FuzzyVariableUse.class, "FuzzyVariableUse", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFuzzyVariableUse_FuzzyIndex(), theEcorePackage.getEString(), "fuzzyIndex", null, 0, 1, FuzzyVariableUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFuzzyVariableUse_FuzzyVariable(), this.getFuzzyVariable(), null, "fuzzyVariable", null, 0, 1, FuzzyVariableUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(jniFuzzyFunctionInArrayNotationEClass, JNIFuzzyFunctionInArrayNotation.class, "JNIFuzzyFunctionInArrayNotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJNIFuzzyFunctionInArrayNotation_ArrayNotation(), theEcorePackage.getEString(), "arrayNotation", null, 0, -1, JNIFuzzyFunctionInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		addEOperation(fuzzyVariableUseEClass, this.getJNIISLMap(), "getDependenceRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniFuzzyFunctionInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		initEClass(nestedFuzzyFunctionEClass, NestedFuzzyFunction.class, "NestedFuzzyFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(affineFuzzyVariableUseEClass, AffineFuzzyVariableUse.class, "AffineFuzzyVariableUse", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAffineFuzzyVariableUse_UseFunction(), this.getJNIFunctionInArrayNotation(), null, "useFunction", null, 0, 1, AffineFuzzyVariableUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(affineFuzzyVariableUseEClass, this.getJNIISLMap(), "getDependenceRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(fuzzyFunctionInArrayNotationEClass, FuzzyFunctionInArrayNotation.class, "FuzzyFunctionInArrayNotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFuzzyFunctionInArrayNotation_ArrayNotation(), theEcorePackage.getEString(), "arrayNotation", null, 0, -1, FuzzyFunctionInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(fuzzyFunctionInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(unaryCalculatorExpressionEClass, UnaryCalculatorExpression.class, "UnaryCalculatorExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUnaryCalculatorExpression_Operator(), this.getCALCULATOR_UNARY_OP(), "operator", null, 0, 1, UnaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3511,7 +3859,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.SET);
 		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.MAP);
 		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.FUNCTION);
-		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.UNION_MAP);
 
 		initEEnum(calculatoR_UNARY_OPEEnum, alpha.model.CALCULATOR_UNARY_OP.class, "CALCULATOR_UNARY_OP");
 		addEEnumLiteral(calculatoR_UNARY_OPEEnum, alpha.model.CALCULATOR_UNARY_OP.GET_DOMAIN);

@@ -472,6 +472,57 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.ABSTRACT_FUZZY_REDUCE_EXPRESSION: {
+				AbstractFuzzyReduceExpression abstractFuzzyReduceExpression = (AbstractFuzzyReduceExpression)theEObject;
+				T result = caseAbstractFuzzyReduceExpression(abstractFuzzyReduceExpression);
+				if (result == null) result = caseAlphaExpression(abstractFuzzyReduceExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(abstractFuzzyReduceExpression);
+				if (result == null) result = caseAlphaNode(abstractFuzzyReduceExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.FUZZY_REDUCE_EXPRESSION: {
+				FuzzyReduceExpression fuzzyReduceExpression = (FuzzyReduceExpression)theEObject;
+				T result = caseFuzzyReduceExpression(fuzzyReduceExpression);
+				if (result == null) result = caseAbstractFuzzyReduceExpression(fuzzyReduceExpression);
+				if (result == null) result = caseAlphaExpression(fuzzyReduceExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(fuzzyReduceExpression);
+				if (result == null) result = caseAlphaNode(fuzzyReduceExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.EXTERNAL_FUZZY_REDUCE_EXPRESSION: {
+				ExternalFuzzyReduceExpression externalFuzzyReduceExpression = (ExternalFuzzyReduceExpression)theEObject;
+				T result = caseExternalFuzzyReduceExpression(externalFuzzyReduceExpression);
+				if (result == null) result = caseFuzzyReduceExpression(externalFuzzyReduceExpression);
+				if (result == null) result = caseAbstractFuzzyReduceExpression(externalFuzzyReduceExpression);
+				if (result == null) result = caseAlphaExpression(externalFuzzyReduceExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(externalFuzzyReduceExpression);
+				if (result == null) result = caseAlphaNode(externalFuzzyReduceExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.FUZZY_ARG_REDUCE_EXPRESSION: {
+				FuzzyArgReduceExpression fuzzyArgReduceExpression = (FuzzyArgReduceExpression)theEObject;
+				T result = caseFuzzyArgReduceExpression(fuzzyArgReduceExpression);
+				if (result == null) result = caseAbstractFuzzyReduceExpression(fuzzyArgReduceExpression);
+				if (result == null) result = caseAlphaExpression(fuzzyArgReduceExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(fuzzyArgReduceExpression);
+				if (result == null) result = caseAlphaNode(fuzzyArgReduceExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION: {
+				ExternalFuzzyArgReduceExpression externalFuzzyArgReduceExpression = (ExternalFuzzyArgReduceExpression)theEObject;
+				T result = caseExternalFuzzyArgReduceExpression(externalFuzzyArgReduceExpression);
+				if (result == null) result = caseFuzzyArgReduceExpression(externalFuzzyArgReduceExpression);
+				if (result == null) result = caseAbstractFuzzyReduceExpression(externalFuzzyArgReduceExpression);
+				if (result == null) result = caseAlphaExpression(externalFuzzyArgReduceExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(externalFuzzyArgReduceExpression);
+				if (result == null) result = caseAlphaNode(externalFuzzyArgReduceExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ModelPackage.CALCULATOR_NODE: {
 				CalculatorNode calculatorNode = (CalculatorNode)theEObject;
 				T result = caseCalculatorNode(calculatorNode);
@@ -548,24 +599,40 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackage.JNI_FUZZY_FUNCTION: {
-				JNIFuzzyFunction jniFuzzyFunction = (JNIFuzzyFunction)theEObject;
-				T result = caseJNIFuzzyFunction(jniFuzzyFunction);
-				if (result == null) result = caseCalculatorExpression(jniFuzzyFunction);
-				if (result == null) result = caseCalculatorNode(jniFuzzyFunction);
-				if (result == null) result = caseCalculatorExpressionVisitable(jniFuzzyFunction);
-				if (result == null) result = caseAlphaNode(jniFuzzyFunction);
+			case ModelPackage.FUZZY_FUNCTION: {
+				FuzzyFunction fuzzyFunction = (FuzzyFunction)theEObject;
+				T result = caseFuzzyFunction(fuzzyFunction);
+				if (result == null) result = caseAlphaNode(fuzzyFunction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackage.JNI_FUZZY_FUNCTION_IN_ARRAY_NOTATION: {
-				JNIFuzzyFunctionInArrayNotation jniFuzzyFunctionInArrayNotation = (JNIFuzzyFunctionInArrayNotation)theEObject;
-				T result = caseJNIFuzzyFunctionInArrayNotation(jniFuzzyFunctionInArrayNotation);
-				if (result == null) result = caseJNIFuzzyFunction(jniFuzzyFunctionInArrayNotation);
-				if (result == null) result = caseCalculatorExpression(jniFuzzyFunctionInArrayNotation);
-				if (result == null) result = caseCalculatorNode(jniFuzzyFunctionInArrayNotation);
-				if (result == null) result = caseCalculatorExpressionVisitable(jniFuzzyFunctionInArrayNotation);
-				if (result == null) result = caseAlphaNode(jniFuzzyFunctionInArrayNotation);
+			case ModelPackage.FUZZY_VARIABLE_USE: {
+				FuzzyVariableUse fuzzyVariableUse = (FuzzyVariableUse)theEObject;
+				T result = caseFuzzyVariableUse(fuzzyVariableUse);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.NESTED_FUZZY_FUNCTION: {
+				NestedFuzzyFunction nestedFuzzyFunction = (NestedFuzzyFunction)theEObject;
+				T result = caseNestedFuzzyFunction(nestedFuzzyFunction);
+				if (result == null) result = caseFuzzyFunction(nestedFuzzyFunction);
+				if (result == null) result = caseFuzzyVariableUse(nestedFuzzyFunction);
+				if (result == null) result = caseAlphaNode(nestedFuzzyFunction);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.AFFINE_FUZZY_VARIABLE_USE: {
+				AffineFuzzyVariableUse affineFuzzyVariableUse = (AffineFuzzyVariableUse)theEObject;
+				T result = caseAffineFuzzyVariableUse(affineFuzzyVariableUse);
+				if (result == null) result = caseFuzzyVariableUse(affineFuzzyVariableUse);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.FUZZY_FUNCTION_IN_ARRAY_NOTATION: {
+				FuzzyFunctionInArrayNotation fuzzyFunctionInArrayNotation = (FuzzyFunctionInArrayNotation)theEObject;
+				T result = caseFuzzyFunctionInArrayNotation(fuzzyFunctionInArrayNotation);
+				if (result == null) result = caseFuzzyFunction(fuzzyFunctionInArrayNotation);
+				if (result == null) result = caseAlphaNode(fuzzyFunctionInArrayNotation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1329,6 +1396,81 @@ public class ModelSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Fuzzy Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Fuzzy Reduce Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fuzzy Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fuzzy Reduce Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFuzzyReduceExpression(FuzzyReduceExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>External Fuzzy Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>External Fuzzy Reduce Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fuzzy Arg Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fuzzy Arg Reduce Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFuzzyArgReduceExpression(FuzzyArgReduceExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>External Fuzzy Arg Reduce Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>External Fuzzy Arg Reduce Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Calculator Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1449,32 +1591,77 @@ public class ModelSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>JNI Fuzzy Function</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Fuzzy Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>JNI Fuzzy Function</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Fuzzy Function</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJNIFuzzyFunction(JNIFuzzyFunction object) {
+	public T caseFuzzyFunction(FuzzyFunction object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>JNI Fuzzy Function In Array Notation</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Fuzzy Variable Use</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>JNI Fuzzy Function In Array Notation</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Fuzzy Variable Use</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseJNIFuzzyFunctionInArrayNotation(JNIFuzzyFunctionInArrayNotation object) {
+	public T caseFuzzyVariableUse(FuzzyVariableUse object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Nested Fuzzy Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Nested Fuzzy Function</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNestedFuzzyFunction(NestedFuzzyFunction object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Affine Fuzzy Variable Use</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Affine Fuzzy Variable Use</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAffineFuzzyVariableUse(AffineFuzzyVariableUse object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fuzzy Function In Array Notation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fuzzy Function In Array Notation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFuzzyFunctionInArrayNotation(FuzzyFunctionInArrayNotation object) {
 		return null;
 	}
 
