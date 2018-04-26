@@ -1,5 +1,6 @@
 package alpha.model;
 
+import alpha.model.AffineFuzzyVariableUse;
 import alpha.model.AlphaNode;
 import alpha.model.ArgReduceExpression;
 import alpha.model.BinaryCalculatorExpression;
@@ -8,7 +9,6 @@ import alpha.model.CALCULATOR_UNARY_OP;
 import alpha.model.CalculatorExpression;
 import alpha.model.DefinedObject;
 import alpha.model.DependenceExpression;
-import alpha.model.FuzzyFunction;
 import alpha.model.IndexExpression;
 import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
@@ -537,7 +537,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return this.parseJNIFunctionAsFunction(jniFunction);
   }
   
-  protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final FuzzyFunction parent) {
+  protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final AffineFuzzyVariableUse parent) {
     return this.parseJNIFunctionAsFunction(jniFunction);
   }
   
@@ -689,10 +689,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       return _parseJNIFunctionInContext(jniFunction, (DependenceExpression)parent);
     } else if (parent instanceof IndexExpression) {
       return _parseJNIFunctionInContext(jniFunction, (IndexExpression)parent);
+    } else if (parent instanceof AffineFuzzyVariableUse) {
+      return _parseJNIFunctionInContext(jniFunction, (AffineFuzzyVariableUse)parent);
     } else if (parent instanceof UseEquation) {
       return _parseJNIFunctionInContext(jniFunction, (UseEquation)parent);
-    } else if (parent instanceof FuzzyFunction) {
-      return _parseJNIFunctionInContext(jniFunction, (FuzzyFunction)parent);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(jniFunction, parent).toString());

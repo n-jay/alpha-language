@@ -91,6 +91,16 @@ public class IntegerExpressionImpl extends ConstantExpressionImpl implements Int
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String valueString() {
+		int _value = this.getValue();
+		return (Integer.valueOf(_value) + "");
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitIntegerExpression(this);
 	}

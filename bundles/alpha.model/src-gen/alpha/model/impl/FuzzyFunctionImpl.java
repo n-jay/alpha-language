@@ -24,6 +24,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Fuzzy Function</b></em>'.
@@ -257,6 +261,20 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 */
 	public void setDependenceRelation(final JNIISLMap depRel) {
 		this.setZ__internal_cache_depRelation(depRel);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FuzzyVariableUse getIndirectionByName(final String name) {
+		final Function1<FuzzyVariableUse, Boolean> _function = new Function1<FuzzyVariableUse, Boolean>() {
+			public Boolean apply(final FuzzyVariableUse i) {
+				return Boolean.valueOf(i.getFuzzyIndex().contentEquals(name));
+			}
+		};
+		return IterableExtensions.<FuzzyVariableUse>findFirst(this.getIndirections(), _function);
 	}
 
 	/**

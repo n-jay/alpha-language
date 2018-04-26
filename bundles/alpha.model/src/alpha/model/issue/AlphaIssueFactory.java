@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import alpha.model.AlphaExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.CalculatorExpression;
+import alpha.model.FuzzyFunction;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.RestrictExpression;
@@ -77,6 +78,11 @@ public class AlphaIssueFactory {
 		return new CalculatorExpressionIssue(
 				TYPE.ERROR, "Calculator Expression for a " + name + " must evaluate to "+expected.getName()+".",
 				cexpr.eContainer(), cexpr.eContainingFeature());
+	}
+	
+	public static CalculatorExpressionIssue unwrappedFuzzyFunction(FuzzyFunction ff) {
+		//TODO
+		return new CalculatorExpressionIssue(TYPE.ERROR, "Fuzzy function is not wrapped", ff.eContainer(), null);
 	}
 	
 	

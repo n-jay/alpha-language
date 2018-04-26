@@ -582,6 +582,7 @@ public class ModelSwitch<T> extends Switch<T> {
 			case ModelPackage.FUZZY_VARIABLE_USE: {
 				FuzzyVariableUse fuzzyVariableUse = (FuzzyVariableUse)theEObject;
 				T result = caseFuzzyVariableUse(fuzzyVariableUse);
+				if (result == null) result = caseAlphaNode(fuzzyVariableUse);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -598,6 +599,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				AffineFuzzyVariableUse affineFuzzyVariableUse = (AffineFuzzyVariableUse)theEObject;
 				T result = caseAffineFuzzyVariableUse(affineFuzzyVariableUse);
 				if (result == null) result = caseFuzzyVariableUse(affineFuzzyVariableUse);
+				if (result == null) result = caseAlphaNode(affineFuzzyVariableUse);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

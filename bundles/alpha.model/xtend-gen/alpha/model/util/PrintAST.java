@@ -16,6 +16,8 @@ import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
+import alpha.model.FuzzyDependenceExpression;
+import alpha.model.FuzzyIndexExpression;
 import alpha.model.FuzzyVariable;
 import alpha.model.IndexExpression;
 import alpha.model.MultiArgExpression;
@@ -250,6 +252,13 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   }
   
   @Override
+  public void inFuzzyDependenceExpression(final FuzzyDependenceExpression fde) {
+    this.inAlphaExpression(fde);
+    this.printStr("+-- ", fde.getDependenceRelation());
+    this.printStr("+-- ", fde.getDependenceRelation().getDomain());
+  }
+  
+  @Override
   public void inVariableExpression(final VariableExpression ve) {
     this.inAlphaExpression(ve);
     this.printStr("+-- ", ve.getVariable().getName());
@@ -262,9 +271,15 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   }
   
   @Override
+  public void inFuzzyIndexExpression(final FuzzyIndexExpression fie) {
+    this.inAlphaExpression(fie);
+    this.printStr("+-- ", fie.getDependenceRelation());
+  }
+  
+  @Override
   public void inConstantExpression(final ConstantExpression ce) {
     this.inAlphaExpression(ce);
-    this.printStr("+-- ", ce);
+    this.printStr("+-- ", ce.valueString());
   }
   
   @Override

@@ -91,6 +91,16 @@ public class BooleanExpressionImpl extends ConstantExpressionImpl implements Boo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String valueString() {
+		boolean _isValue = this.isValue();
+		return (Boolean.valueOf(_isValue) + "");
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitBooleanExpression(this);
 	}

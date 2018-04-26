@@ -109,10 +109,8 @@ public class AffineFuzzyVariableUseImpl extends FuzzyVariableUseImpl implements 
 	 */
 	public JNIISLMap getDependenceRelation() {
 		JNIISLMap _xifexpression = null;
-		JNIFunctionInArrayNotation _useFunction = this.getUseFunction();
-		boolean _tripleNotEquals = (_useFunction != null);
-		if (_tripleNotEquals) {
-			_xifexpression = this.getUseFunction().getISLMultiAff().toMap();
+		if ((((this.getUseFunction() != null) && (this.getFuzzyVariable() != null)) && (this.getFuzzyVariable().getRelation() != null))) {
+			_xifexpression = this.getUseFunction().getISLMultiAff().toMap().applyRange(this.getFuzzyVariable().getRelation());
 		}
 		else {
 			_xifexpression = null;

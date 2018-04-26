@@ -4,8 +4,6 @@ package alpha.model;
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Fuzzy Variable Use</b></em>'.
@@ -23,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface FuzzyVariableUse extends EObject {
+public interface FuzzyVariableUse extends AlphaNode {
 	/**
 	 * Returns the value of the '<em><b>Fuzzy Index</b></em>' attribute.
 	 * <!-- begin-user-doc -->

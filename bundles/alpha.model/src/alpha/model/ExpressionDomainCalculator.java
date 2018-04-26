@@ -107,6 +107,14 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	}
 	
 	@Override
+	public void outFuzzyIndexExpression(FuzzyIndexExpression fie) {
+		if (fie.getDependenceRelation() != null)
+			runISLoperations(fie, ()->{
+				fie.setExpressionDomain(JNIISLSet.buildUniverse(fie.getDependenceRelation().getDomain().getSpace()));
+			});
+	}
+	
+	@Override
 	public void outMultiArgExpression(MultiArgExpression mae) {
 		runISLoperations(mae, ()->{
 				JNIISLSet intersection = mae.getExprs().stream().map(e->e.getExpressionDomain())

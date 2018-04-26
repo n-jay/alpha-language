@@ -102,7 +102,6 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 
 	@Override
 	public void visitVariable(Variable variable) {
-
 		CalculatorExpression expr = variable.getDomainExpr();
 		if (expr == null)
 			return;
@@ -112,6 +111,21 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			return;
 
 		issues.addAll(CalculatorExpressionEvaluator.calculate(expr));
+	}
+	
+	@Override
+	public void visitFuzzyVariable(FuzzyVariable variable) {
+		super.visitFuzzyVariable(variable);
+		CalculatorExpression expr = variable.getRangeExpr();
+		if (expr == null)
+			return;
+
+		AlphaSystem system = AlphaUtil.getContainerSystem(variable);
+		if (system == null)
+			return;
+
+		issues.addAll(CalculatorExpressionEvaluator.calculate(expr));
+
 	}
 
 	@Override
@@ -326,6 +340,11 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	@Override
 	public void inIndexExpression(IndexExpression ie) {
 		issues.addAll(CalculatorExpressionEvaluator.calculate(ie.getFunctionExpr(), indexNameContext));
+	}
+	
+	@Override
+	public void inFuzzyIndexExpression(FuzzyIndexExpression fie) {
+		issues.addAll(FuzzyFunctionEvaluator.calculate(fie.getFuzzyFunction(), indexNameContext));
 	}
 
 	@Override

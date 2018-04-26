@@ -3040,7 +3040,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUZZY_VARIABLE_USE__FUZZY_INDEX = 0;
+	int FUZZY_VARIABLE_USE__FUZZY_INDEX = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Fuzzy Variable</b></em>' reference.
@@ -3049,7 +3049,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUZZY_VARIABLE_USE__FUZZY_VARIABLE = 1;
+	int FUZZY_VARIABLE_USE__FUZZY_VARIABLE = ALPHA_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Fuzzy Variable Use</em>' class.
@@ -3058,7 +3058,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUZZY_VARIABLE_USE_FEATURE_COUNT = 2;
+	int FUZZY_VARIABLE_USE_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.NestedFuzzyFunctionImpl <em>Nested Fuzzy Function</em>}' class.

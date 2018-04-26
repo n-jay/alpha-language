@@ -9,9 +9,11 @@ import alpha.model.FuzzyFunctionInArrayNotation;
 import alpha.model.FuzzyVariableUse;
 import alpha.model.NestedFuzzyFunction;
 import alpha.model.issue.AlphaIssue;
+import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.CalculatorExpressionIssue;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.Arrays;
@@ -21,6 +23,8 @@ import java.util.Stack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 
 /**
  * This class computes the ISL representation for {@link FuzzyFunction}s.
@@ -61,22 +65,40 @@ public class FuzzyFunctionEvaluator {
    * for AffineFuzzyVariableUse in its children.
    */
   private void _computeBaseMap(final FuzzyFunction ff) {
-    final JNIISLSet pdom = AlphaUtil.getParameterDomain(ff);
-    AlphaSystem _containerSystem = AlphaUtil.getContainerSystem(ff);
-    String _alphaString = ff.getAlphaString();
-    String _plus = ("{" + _alphaString);
-    String _plus_1 = (_plus + "}");
-    JNIISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(_containerSystem, _plus_1));
-    jnimap = jnimap.intersectParams(pdom.copy());
-    ff.setFuzzyMap(jnimap);
-    boolean _domainIsWrapping = ff.getFuzzyMap().domainIsWrapping();
-    if (_domainIsWrapping) {
-      final List<String> newnames = ff.getFuzzyMap().getDomain().unwrap().getDomainNames();
-      this.contextHistory.push(this.indexNameContext);
-      this.indexNameContext = newnames;
-    } else {
-      this.contextHistory.push(this.indexNameContext);
-      this.indexNameContext = null;
+    try {
+      final JNIISLSet pdom = AlphaUtil.getParameterDomain(ff);
+      AlphaSystem _containerSystem = AlphaUtil.getContainerSystem(ff);
+      String _alphaString = ff.getAlphaString();
+      String _plus = ("{" + _alphaString);
+      String _plus_1 = (_plus + "}");
+      JNIISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(_containerSystem, _plus_1));
+      jnimap = jnimap.intersectParams(pdom.copy());
+      ff.setFuzzyMap(jnimap);
+      boolean _domainIsWrapping = ff.getFuzzyMap().domainIsWrapping();
+      if (_domainIsWrapping) {
+        final List<String> newnames = ff.getFuzzyMap().getDomain().unwrap().getDomainNames();
+        this.contextHistory.push(this.indexNameContext);
+        this.indexNameContext = newnames;
+      } else {
+        this.contextHistory.push(this.indexNameContext);
+        this.indexNameContext = null;
+      }
+    } catch (final Throwable _t) {
+      if (_t instanceof RuntimeException) {
+        final RuntimeException re = (RuntimeException)_t;
+        String _xifexpression = null;
+        String _message = re.getMessage();
+        boolean _tripleEquals = (_message == null);
+        if (_tripleEquals) {
+          _xifexpression = re.getClass().getName();
+        } else {
+          _xifexpression = re.getMessage();
+        }
+        final String msg = _xifexpression;
+        this.registerIssue(msg, ff);
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
     }
   }
   
@@ -96,6 +118,35 @@ public class FuzzyFunctionEvaluator {
    */
   private void computeDependenceRelation(final FuzzyFunction ff) {
     this.indexNameContext = this.contextHistory.pop();
+    JNIISLMap _fuzzyMap = ff.getFuzzyMap();
+    boolean _tripleEquals = (_fuzzyMap == null);
+    if (_tripleEquals) {
+      return;
+    }
+    boolean _domainIsWrapping = ff.getFuzzyMap().domainIsWrapping();
+    boolean _not = (!_domainIsWrapping);
+    if (_not) {
+      this.issues.add(AlphaIssueFactory.unwrappedFuzzyFunction(ff));
+      return;
+    }
+    final JNIISLMap fvIntroMap = ff.getFuzzyMap().getDomain().unwrap();
+    final int nDdim = fvIntroMap.getNbIns();
+    final List<String> ranNames = fvIntroMap.getRangeNames();
+    JNIISLMap depRel = ((JNIISLMap) null);
+    for (final String ranName : ranNames) {
+      {
+        final FuzzyVariableUse fvu = ff.getIndirectionByName(ranName);
+        if ((fvu == null)) {
+          return;
+        }
+        if ((depRel == null)) {
+          depRel = fvu.getDependenceRelation();
+        } else {
+          depRel = depRel.rangeProduct(fvu.getDependenceRelation()).flattenRange();
+        }
+      }
+    }
+    ff.setDependenceRelation(ff.getFuzzyMap().intersectDomain(depRel.wrap()).flatten().projectOut(JNIISLDimType.isl_dim_in, nDdim, ((Object[])Conversions.unwrapArray(ranNames, Object.class)).length));
   }
   
   /**
@@ -115,34 +166,35 @@ public class FuzzyFunctionEvaluator {
   }
   
   protected void _visitFuzzyVariableUse(final AffineFuzzyVariableUse afvu) {
+    this.computeBaseMap(afvu);
   }
   
-  private void computeBaseMap(final EObject ff) {
-    if (ff instanceof FuzzyFunctionInArrayNotation) {
-      _computeBaseMap((FuzzyFunctionInArrayNotation)ff);
+  private void computeBaseMap(final AlphaNode afvu) {
+    if (afvu instanceof AffineFuzzyVariableUse) {
+      _computeBaseMap((AffineFuzzyVariableUse)afvu);
       return;
-    } else if (ff instanceof AffineFuzzyVariableUse) {
-      _computeBaseMap((AffineFuzzyVariableUse)ff);
+    } else if (afvu instanceof FuzzyFunctionInArrayNotation) {
+      _computeBaseMap((FuzzyFunctionInArrayNotation)afvu);
       return;
-    } else if (ff instanceof FuzzyFunction) {
-      _computeBaseMap((FuzzyFunction)ff);
+    } else if (afvu instanceof FuzzyFunction) {
+      _computeBaseMap((FuzzyFunction)afvu);
       return;
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(ff).toString());
+        Arrays.<Object>asList(afvu).toString());
     }
   }
   
-  protected void visitFuzzyVariableUse(final FuzzyVariableUse nff) {
-    if (nff instanceof NestedFuzzyFunction) {
-      _visitFuzzyVariableUse((NestedFuzzyFunction)nff);
+  protected void visitFuzzyVariableUse(final FuzzyVariableUse afvu) {
+    if (afvu instanceof AffineFuzzyVariableUse) {
+      _visitFuzzyVariableUse((AffineFuzzyVariableUse)afvu);
       return;
-    } else if (nff instanceof AffineFuzzyVariableUse) {
-      _visitFuzzyVariableUse((AffineFuzzyVariableUse)nff);
+    } else if (afvu instanceof NestedFuzzyFunction) {
+      _visitFuzzyVariableUse((NestedFuzzyFunction)afvu);
       return;
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(nff).toString());
+        Arrays.<Object>asList(afvu).toString());
     }
   }
 }

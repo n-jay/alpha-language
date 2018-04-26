@@ -156,4 +156,13 @@ public interface FuzzyFunction extends AlphaNode {
 	 */
 	void setDependenceRelation(JNIISLMap depRel);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" nameUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='final &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%alpha.model.FuzzyVariableUse%&gt;, &lt;%java.lang.Boolean%&gt;&gt; _function = new &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%alpha.model.FuzzyVariableUse%&gt;, &lt;%java.lang.Boolean%&gt;&gt;()\n{\n\tpublic &lt;%java.lang.Boolean%&gt; apply(final &lt;%alpha.model.FuzzyVariableUse%&gt; i)\n\t{\n\t\treturn &lt;%java.lang.Boolean%&gt;.valueOf(i.getFuzzyIndex().contentEquals(name));\n\t}\n};\nreturn &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.&lt;&lt;%alpha.model.FuzzyVariableUse%&gt;&gt;findFirst(this.getIndirections(), _function);'"
+	 * @generated
+	 */
+	FuzzyVariableUse getIndirectionByName(String name);
+
 } // FuzzyFunction

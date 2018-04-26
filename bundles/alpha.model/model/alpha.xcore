@@ -589,12 +589,16 @@ class VariableExpression extends AlphaExpression {
 }
 abstract class ConstantExpression extends AlphaExpression {
 	
+	op String valueString()
+	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitConstantExpression(this)
 	}
 }
 class IntegerExpression extends ConstantExpression {
 	int value
+	
+	op String valueString() { value+"" }
 	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitIntegerExpression(this)
@@ -603,12 +607,16 @@ class IntegerExpression extends ConstantExpression {
 class RealExpression extends ConstantExpression {
 	float value
 	
+	op String valueString() { value+"" }
+	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitRealExpression(this)
 	}
 }
 class BooleanExpression extends ConstantExpression {
 	boolean value
+	
+	op String valueString() { value+"" }
 	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitBooleanExpression(this)
@@ -884,9 +892,13 @@ class FuzzyFunction extends AlphaNode {
 	op JNIISLMap getDependenceRelation() { if (z__internal_cache_depRelation !== null) z__internal_cache_depRelation.copy else null }
 	op void setDependenceRelation(JNIISLMap depRel) { z__internal_cache_depRelation = depRel }
 	
+	op FuzzyVariableUse getIndirectionByName(String name) {
+		indirections.findFirst[i|i.fuzzyIndex.contentEquals(name)]	
+	}
+	
 }
 
-abstract class FuzzyVariableUse {
+abstract class FuzzyVariableUse extends AlphaNode {
 	String fuzzyIndex
 	refers FuzzyVariable fuzzyVariable
 
@@ -901,7 +913,11 @@ class NestedFuzzyFunction extends FuzzyFunction, FuzzyVariableUse {
 class AffineFuzzyVariableUse extends FuzzyVariableUse {
 	contains JNIFunctionInArrayNotation useFunction
 	
-	op JNIISLMap getDependenceRelation() { if (useFunction !== null) useFunction.ISLMultiAff.toMap else null }
+	op JNIISLMap getDependenceRelation() { 
+		if (useFunction !== null && fuzzyVariable !== null && fuzzyVariable.relation !== null) 
+			useFunction.ISLMultiAff.toMap.applyRange(fuzzyVariable.relation)
+		else null
+	}
 }
 
 class FuzzyFunctionInArrayNotation extends FuzzyFunction {

@@ -2739,6 +2739,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniFunctionEClass.getESuperTypes().add(this.getCalculatorExpression());
 		jniFunctionInArrayNotationEClass.getESuperTypes().add(this.getJNIFunction());
 		fuzzyFunctionEClass.getESuperTypes().add(this.getAlphaNode());
+		fuzzyVariableUseEClass.getESuperTypes().add(this.getAlphaNode());
 		nestedFuzzyFunctionEClass.getESuperTypes().add(this.getFuzzyFunction());
 		nestedFuzzyFunctionEClass.getESuperTypes().add(this.getFuzzyVariableUse());
 		affineFuzzyVariableUseEClass.getESuperTypes().add(this.getFuzzyVariableUse());
@@ -3449,11 +3450,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		initEClass(constantExpressionEClass, ConstantExpression.class, "ConstantExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		addEOperation(constantExpressionEClass, theEcorePackage.getEString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(constantExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(integerExpressionEClass, IntegerExpression.class, "IntegerExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIntegerExpression_Value(), theEcorePackage.getEInt(), "value", null, 0, 1, IntegerExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(integerExpressionEClass, theEcorePackage.getEString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(integerExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3461,11 +3466,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(realExpressionEClass, RealExpression.class, "RealExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRealExpression_Value(), theEcorePackage.getEFloat(), "value", null, 0, 1, RealExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		addEOperation(realExpressionEClass, theEcorePackage.getEString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(realExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(booleanExpressionEClass, BooleanExpression.class, "BooleanExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBooleanExpression_Value(), theEcorePackage.getEBoolean(), "value", null, 0, 1, BooleanExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(booleanExpressionEClass, theEcorePackage.getEString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(booleanExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3634,6 +3643,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(fuzzyFunctionEClass, null, "setDependenceRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getJNIISLMap(), "depRel", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(fuzzyFunctionEClass, this.getFuzzyVariableUse(), "getIndirectionByName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "name", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(fuzzyVariableUseEClass, FuzzyVariableUse.class, "FuzzyVariableUse", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFuzzyVariableUse_FuzzyIndex(), theEcorePackage.getEString(), "fuzzyIndex", null, 0, 1, FuzzyVariableUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

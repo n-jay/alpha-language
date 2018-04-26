@@ -421,9 +421,10 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		return parseJNIFunctionAsFunction(jniFunction);
 	}
 	
-	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, FuzzyFunction parent) {
+	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, AffineFuzzyVariableUse parent) {
 		return parseJNIFunctionAsFunction(jniFunction);
 	}
+	
 
 	
 	override visitVariableDomain(VariableDomain vdom) {

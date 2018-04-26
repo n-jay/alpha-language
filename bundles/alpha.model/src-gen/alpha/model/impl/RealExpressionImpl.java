@@ -91,6 +91,16 @@ public class RealExpressionImpl extends ConstantExpressionImpl implements RealEx
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String valueString() {
+		float _value = this.getValue();
+		return (Float.valueOf(_value) + "");
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitRealExpression(this);
 	}

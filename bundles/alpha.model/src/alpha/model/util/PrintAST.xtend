@@ -32,6 +32,8 @@ import alpha.model.ConvolutionExpression
 import alpha.model.SelectExpression
 import alpha.model.AutoRestrictExpression
 import alpha.model.IndexExpression
+import alpha.model.FuzzyIndexExpression
+import alpha.model.FuzzyDependenceExpression
 
 class PrintAST extends AbstractAlphaCompleteVisitor {
 	
@@ -203,6 +205,12 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 		printStr("+-- ", de.function);
 	}
 	
+	override inFuzzyDependenceExpression(FuzzyDependenceExpression fde) {
+		inAlphaExpression(fde)
+		printStr("+-- ", fde.dependenceRelation);
+		printStr("+-- ", fde.dependenceRelation.getDomain());
+	}
+	
 	override inVariableExpression(VariableExpression ve) {
 		inAlphaExpression(ve)
 		printStr("+-- ", ve.variable.name);
@@ -213,9 +221,14 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 		printStr("+-- ", ie.function);
 	}
 	
+	override inFuzzyIndexExpression(FuzzyIndexExpression fie) {
+		inAlphaExpression(fie)
+		printStr("+-- ", fie.dependenceRelation);
+	}
+	
 	override inConstantExpression(ConstantExpression ce) {
 		inAlphaExpression(ce)
-		printStr("+-- ", ce);
+		printStr("+-- ", ce.valueString);
 	}
 	
 	override inUnaryExpression(UnaryExpression ue) {

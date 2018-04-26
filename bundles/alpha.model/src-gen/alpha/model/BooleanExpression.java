@@ -49,6 +49,15 @@ public interface BooleanExpression extends ConstantExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='boolean _isValue = this.isValue();\nreturn (&lt;%java.lang.Boolean%&gt;.valueOf(_isValue) + \"\");'"
+	 * @generated
+	 */
+	String valueString();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitBooleanExpression(this);'"
 	 * @generated

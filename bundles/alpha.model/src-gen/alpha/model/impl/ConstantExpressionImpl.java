@@ -40,6 +40,17 @@ public abstract class ConstantExpressionImpl extends AlphaExpressionImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String valueString() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitConstantExpression(this);
 	}
