@@ -43,8 +43,8 @@ public class AlphaCustomValueConverter extends Ecore2XtextTerminalConverters {
 				if (string.contentEquals("*")) {
 					return REDUCTION_OP.PROD;
 				}
-
-				return REDUCTION_OP.getByName(string);
+				
+				return REDUCTION_OP.get(string);
 			}
 
 			@Override
