@@ -98,7 +98,7 @@ public interface JNIRelation extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.MAP;'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%alpha.model.POLY_OBJECT_TYPE%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _z__internal_cache_islMap = this.getZ__internal_cache_islMap();\nboolean _tripleNotEquals = (_z__internal_cache_islMap != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.MAP;\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	POLY_OBJECT_TYPE getType();

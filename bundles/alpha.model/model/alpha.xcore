@@ -33,10 +33,19 @@ type ISL_FORMAT wraps ISL_FORMAT
 
 interface AlphaNode {}
 
-interface AlphaVisitable extends AlphaNode {
+
+/**
+ * Interface for AlphaCompleteVisitor, which actually is not complete in the sense it does not visit CalculatorExpression.
+ * This is because CalculatorExpressions are seprate data structure to describe polyhedral objects, which is tightly
+ * coupled with JNIISL.
+ * 
+ */
+interface AlphaCompleteVisitable extends AlphaNode {} 
+
+interface AlphaVisitable extends AlphaCompleteVisitable {
 	op void accept(AlphaVisitor visitor)
 }
-interface AlphaExpressionVisitable extends AlphaNode {
+interface AlphaExpressionVisitable extends AlphaCompleteVisitable {
 	op void accept(AlphaExpressionVisitor visitor)
 }
 
@@ -803,7 +812,7 @@ class JNIDomain extends CalculatorExpression {
 	op JNIISLSet getISLSet() { if (z__internal_cache_islSet !== null) z__internal_cache_islSet.copy else null }
 	op void setISLSet(JNIISLSet islset) { z__internal_cache_islSet = islset }
 	
-	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::SET }
+	op POLY_OBJECT_TYPE getType() { if (z__internal_cache_islSet !== null) POLY_OBJECT_TYPE::SET  else null }
 	op JNIObject getISLObject() { getISLSet }
 	
 	op String toString() {
@@ -833,7 +842,7 @@ class JNIRelation extends CalculatorExpression {
 	op JNIISLMap getISLMap() { if (z__internal_cache_islMap !== null) z__internal_cache_islMap.copy else null }
 	op void setISLMap(JNIISLMap islMap) { z__internal_cache_islMap = islMap }
 	
-	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::MAP }
+	op POLY_OBJECT_TYPE getType() { if (z__internal_cache_islMap !== null) POLY_OBJECT_TYPE::MAP else null }
 	op JNIObject getISLObject() { ISLMap }
 	
 	op String toString() {
@@ -860,7 +869,7 @@ class JNIFunction extends CalculatorExpression {
 	op JNIISLMultiAff getISLMultiAff() { if (z__internal_cache_islMAff !== null) z__internal_cache_islMAff.copy else null }
 	op void setISLMultiAff(JNIISLMultiAff islMAff) { z__internal_cache_islMAff = islMAff }
 	
-	op POLY_OBJECT_TYPE getType() { POLY_OBJECT_TYPE::FUNCTION }
+	op POLY_OBJECT_TYPE getType() { if (z__internal_cache_islMAff !== null) POLY_OBJECT_TYPE::FUNCTION else null }
 	op JNIObject getISLObject() { ISLMultiAff }
 	
 	op void accept(CalculatorExpressionVisitor visitor) {

@@ -1,29 +1,22 @@
 package alpha.model;
 
+import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaExpression;
+import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaNode;
 import alpha.model.AlphaVisitable;
 import alpha.model.ArgReduceExpression;
 import alpha.model.AutoRestrictExpression;
-import alpha.model.CalculatorExpression;
 import alpha.model.CaseExpression;
 import alpha.model.DependenceExpression;
-import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.ReduceExpression;
 import alpha.model.SelectExpression;
-import alpha.model.StandardEquation;
-import alpha.model.UseEquation;
-import alpha.model.Variable;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
-import alpha.model.util.AbstractAlphaVisitor;
+import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
-import com.google.common.base.Objects;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -41,30 +34,13 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
   private List<AlphaIssue> issues = new LinkedList<AlphaIssue>();
   
-  public static List<AlphaIssue> calculate(final AlphaVisitable node) {
+  public static List<AlphaIssue> _calculate(final AlphaVisitable node) {
     final ContextDomainCalculator calc = new ContextDomainCalculator();
-    node.accept(new AbstractAlphaVisitor() {
-      @Override
-      public void visitStandardEquation(final StandardEquation se) {
-        se.getExpr().accept(calc);
-      }
-      
-      @Override
-      public void visitUseEquation(final UseEquation ue) {
-        final Consumer<AlphaExpression> _function = (AlphaExpression a) -> {
-          a.accept(calc);
-        };
-        ue.getInputExprs().forEach(_function);
-        final Consumer<AlphaExpression> _function_1 = (AlphaExpression a) -> {
-          a.accept(calc);
-        };
-        ue.getOutputExprs().forEach(_function_1);
-      }
-    });
+    calc.visit(node);
     return calc.issues;
   }
   
-  public static List<AlphaIssue> calculate(final AlphaExpression expr) {
+  public static List<AlphaIssue> _calculate(final AlphaExpressionVisitable expr) {
     final ContextDomainCalculator calc = new ContextDomainCalculator();
     expr.accept(calc);
     return calc.issues;
@@ -75,6 +51,10 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     EStructuralFeature _eContainingFeature = node.eContainingFeature();
     UnexpectedISLErrorIssue _unexpectedISLErrorIssue = new UnexpectedISLErrorIssue(errMsg, _eContainer, _eContainingFeature);
     this.issues.add(_unexpectedISLErrorIssue);
+  }
+  
+  private void registerIssue(final AlphaIssue issue) {
+    this.issues.add(issue);
   }
   
   @Override
@@ -97,18 +77,21 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     }
     EObject _eContainer_2 = are.eContainer();
     final CaseExpression parentCase = ((CaseExpression) _eContainer_2);
-    long _count = AlphaUtil.<AutoRestrictExpression>getChildrenOfType(parentCase, AutoRestrictExpression.class).count();
+    long _count = AlphaExpressionUtil.<AutoRestrictExpression>getChildrenOfType(parentCase, AutoRestrictExpression.class).count();
     boolean _greaterThan = (_count > 1);
     if (_greaterThan) {
       this.issues.add(AlphaIssueFactory.multipleAutoRestrict(are));
       return;
     }
-    boolean _testNonNullExpressionDomain = AlphaUtil.testNonNullExpressionDomain(parentCase.getExprs().stream());
+    boolean _testNonNullExpressionDomain = AlphaExpressionUtil.testNonNullExpressionDomain(parentCase.getExprs().stream());
     boolean _not_1 = (!_testNonNullExpressionDomain);
     if (_not_1) {
       return;
     }
-    final JNIISLSet parentContext = this.parentContext(are, parentCase);
+    final Consumer<AlphaIssue> _function = (AlphaIssue i) -> {
+      this.registerIssue(i);
+    };
+    final JNIISLSet parentContext = AlphaExpressionUtil.parentContext(are, parentCase, _function);
     if ((parentContext == null)) {
       return;
     }
@@ -118,16 +101,16 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     if (_equals) {
       inferredDomain = parentContext.intersect(are.getExpressionDomain());
     } else {
-      final Function1<AlphaExpression, Boolean> _function = (AlphaExpression e) -> {
+      final Function1<AlphaExpression, Boolean> _function_1 = (AlphaExpression e) -> {
         return Boolean.valueOf((!(e instanceof AutoRestrictExpression)));
       };
-      final Function1<AlphaExpression, JNIISLSet> _function_1 = (AlphaExpression it) -> {
+      final Function1<AlphaExpression, JNIISLSet> _function_2 = (AlphaExpression it) -> {
         return it.getExpressionDomain();
       };
-      final Function2<JNIISLSet, JNIISLSet, JNIISLSet> _function_2 = (JNIISLSet p1, JNIISLSet p2) -> {
+      final Function2<JNIISLSet, JNIISLSet, JNIISLSet> _function_3 = (JNIISLSet p1, JNIISLSet p2) -> {
         return p1.union(p2);
       };
-      final JNIISLSet otherExprDomain = IterableExtensions.<JNIISLSet>reduce(IterableExtensions.<AlphaExpression, JNIISLSet>map(IterableExtensions.<AlphaExpression>filter(parentCase.getExprs(), _function), _function_1), _function_2);
+      final JNIISLSet otherExprDomain = IterableExtensions.<JNIISLSet>reduce(IterableExtensions.<AlphaExpression, JNIISLSet>map(IterableExtensions.<AlphaExpression>filter(parentCase.getExprs(), _function_1), _function_2), _function_3);
       inferredDomain = parentContext.subtract(otherExprDomain).intersect(are.getExpressionDomain());
     }
     boolean _isEmpty = inferredDomain.isEmpty();
@@ -151,7 +134,10 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
       return;
     }
     EObject _eContainer_1 = ae.eContainer();
-    final JNIISLSet parentContext = this.parentContext(ae, ((AlphaNode) _eContainer_1));
+    final Consumer<AlphaIssue> _function = (AlphaIssue i) -> {
+      this.registerIssue(i);
+    };
+    final JNIISLSet parentContext = AlphaExpressionUtil.parentContext(ae, ((AlphaCompleteVisitable) _eContainer_1), _function);
     if ((parentContext == null)) {
       return;
     }
@@ -159,53 +145,11 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     if ((processedContext == null)) {
       return;
     }
-    final Supplier<JNIISLSet> _function = () -> {
+    final Supplier<JNIISLSet> _function_1 = () -> {
       return processedContext.intersect(ae.getExpressionDomain());
     };
-    final JNIISLSet context = this.<JNIISLSet>runISLoperations(ae, _function);
+    final JNIISLSet context = this.<JNIISLSet>runISLoperations(ae, _function_1);
     ae.setContextDomain(context);
-  }
-  
-  private JNIISLSet _parentContext(final AlphaExpression child, final StandardEquation parent) {
-    return parent.getVariable().getDomain();
-  }
-  
-  private JNIISLSet _parentContext(final AlphaExpression child, final UseEquation parent) {
-    boolean _checkCalcExprType = this.checkCalcExprType(parent.getInstantiationDomainExpr(), POLY_OBJECT_TYPE.SET);
-    if (_checkCalcExprType) {
-      final int inputLoc = parent.getInputExprs().indexOf(child);
-      final int outputLoc = parent.getOutputExprs().indexOf(child);
-      if (((inputLoc == (-1)) && (outputLoc == (-1)))) {
-        return null;
-      }
-      Variable _xifexpression = null;
-      if ((inputLoc != (-1))) {
-        _xifexpression = parent.getSystem().getInputs().get(inputLoc);
-      } else {
-        _xifexpression = parent.getSystem().getOutputs().get(outputLoc);
-      }
-      final Variable calleeVar = _xifexpression;
-      final Supplier<JNIISLSet> _function = () -> {
-        return this.extendCalleeDomainByInstantiationDomain(parent.getInstantiationDomain(), parent.getCallParams(), calleeVar.getDomain());
-      };
-      return this.<JNIISLSet>runISLoperations(child, _function);
-    } else {
-      return null;
-    }
-  }
-  
-  private JNIISLSet extendCalleeDomainByInstantiationDomain(final JNIISLSet instantiationDomain, final JNIISLMultiAff callParams, final JNIISLSet calleeVarDom) {
-    final JNIISLMap map = JNIISLMap.fromRange(calleeVarDom);
-    final int nparam = map.getNbParams();
-    final JNIISLMap p2s = map.moveDims(JNIISLDimType.isl_dim_in, 0, JNIISLDimType.isl_dim_param, 0, nparam);
-    final JNIISLMap p2sEx = p2s.alignParams(instantiationDomain.getSpace());
-    final JNIISLMap paramCallRel = callParams.toMap().intersectDomain(instantiationDomain);
-    final JNIISLMap ctxMap = paramCallRel.applyRange(p2sEx);
-    return ctxMap.toSet();
-  }
-  
-  private JNIISLSet _parentContext(final AlphaExpression child, final AlphaExpression parent) {
-    return parent.getContextDomain();
   }
   
   private JNIISLSet _processContext(final DependenceExpression expr, final JNIISLSet context) {
@@ -245,7 +189,7 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
   }
   
   private <T extends Object> T runISLoperations(final AlphaExpression expr, final Supplier<T> r) {
-    boolean _testNonNullExpressionDomain = AlphaUtil.testNonNullExpressionDomain(AlphaUtil.<AlphaExpression>getChildrenOfType(expr, AlphaExpression.class));
+    boolean _testNonNullExpressionDomain = AlphaExpressionUtil.testNonNullExpressionDomain(AlphaExpressionUtil.<AlphaExpression>getChildrenOfType(expr, AlphaExpression.class));
     if (_testNonNullExpressionDomain) {
       final Consumer<String> _function = (String err) -> {
         this.registerIssue(err, expr);
@@ -255,26 +199,14 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     return null;
   }
   
-  private boolean checkCalcExprType(final CalculatorExpression cexpr, final POLY_OBJECT_TYPE expected) {
-    POLY_OBJECT_TYPE _type = cexpr.getType();
-    boolean _notEquals = (!Objects.equal(_type, expected));
-    if (_notEquals) {
-      this.issues.add(AlphaIssueFactory.unmatchedCalcExprType(cexpr, expected));
-      return false;
-    }
-    return true;
-  }
-  
-  private JNIISLSet parentContext(final AlphaExpression child, final AlphaNode parent) {
-    if (parent instanceof AlphaExpression) {
-      return _parentContext(child, (AlphaExpression)parent);
-    } else if (parent instanceof StandardEquation) {
-      return _parentContext(child, (StandardEquation)parent);
-    } else if (parent instanceof UseEquation) {
-      return _parentContext(child, (UseEquation)parent);
+  public static List<AlphaIssue> calculate(final AlphaCompleteVisitable expr) {
+    if (expr instanceof AlphaExpressionVisitable) {
+      return _calculate((AlphaExpressionVisitable)expr);
+    } else if (expr instanceof AlphaVisitable) {
+      return _calculate((AlphaVisitable)expr);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(child, parent).toString());
+        Arrays.<Object>asList(expr).toString());
     }
   }
   

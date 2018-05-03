@@ -166,7 +166,16 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * @generated
 	 */
 	public POLY_OBJECT_TYPE getType() {
-		return POLY_OBJECT_TYPE.FUNCTION;
+		POLY_OBJECT_TYPE _xifexpression = null;
+		JNIISLMultiAff _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();
+		boolean _tripleNotEquals = (_z__internal_cache_islMAff != null);
+		if (_tripleNotEquals) {
+			_xifexpression = POLY_OBJECT_TYPE.FUNCTION;
+		}
+		else {
+			_xifexpression = null;
+		}
+		return _xifexpression;
 	}
 
 	/**

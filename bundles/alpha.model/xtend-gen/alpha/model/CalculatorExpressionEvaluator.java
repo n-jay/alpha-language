@@ -689,10 +689,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       return _parseJNIFunctionInContext(jniFunction, (DependenceExpression)parent);
     } else if (parent instanceof IndexExpression) {
       return _parseJNIFunctionInContext(jniFunction, (IndexExpression)parent);
-    } else if (parent instanceof AffineFuzzyVariableUse) {
-      return _parseJNIFunctionInContext(jniFunction, (AffineFuzzyVariableUse)parent);
     } else if (parent instanceof UseEquation) {
       return _parseJNIFunctionInContext(jniFunction, (UseEquation)parent);
+    } else if (parent instanceof AffineFuzzyVariableUse) {
+      return _parseJNIFunctionInContext(jniFunction, (AffineFuzzyVariableUse)parent);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(jniFunction, parent).toString());

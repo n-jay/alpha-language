@@ -1551,9 +1551,9 @@ ruleFuzzyFunction returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='{'
+		otherlv_0='('
 		{
-			newLeafNode(otherlv_0, grammarAccess.getFuzzyFunctionAccess().getLeftCurlyBracketKeyword_0());
+			newLeafNode(otherlv_0, grammarAccess.getFuzzyFunctionAccess().getLeftParenthesisKeyword_0());
 		}
 		(
 			(
@@ -1599,9 +1599,9 @@ ruleFuzzyFunction returns [EObject current=null]
 				)
 			)
 		)*
-		otherlv_4='}'
+		otherlv_4=')'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getFuzzyFunctionAccess().getRightCurlyBracketKeyword_3());
+			newLeafNode(otherlv_4, grammarAccess.getFuzzyFunctionAccess().getRightParenthesisKeyword_3());
 		}
 	)
 ;

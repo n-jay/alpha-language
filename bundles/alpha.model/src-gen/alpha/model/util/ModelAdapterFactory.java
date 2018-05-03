@@ -72,6 +72,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createAlphaNodeAdapter();
 			}
 			@Override
+			public Adapter caseAlphaCompleteVisitable(AlphaCompleteVisitable object) {
+				return createAlphaCompleteVisitableAdapter();
+			}
+			@Override
 			public Adapter caseAlphaVisitable(AlphaVisitable object) {
 				return createAlphaVisitableAdapter();
 			}
@@ -366,6 +370,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAlphaNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AlphaCompleteVisitable <em>Alpha Complete Visitable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AlphaCompleteVisitable
+	 * @generated
+	 */
+	public Adapter createAlphaCompleteVisitableAdapter() {
 		return null;
 	}
 

@@ -5,6 +5,7 @@ import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaExpressionVisitor;
+import alpha.model.AlphaVisitable;
 import alpha.model.ArgReduceExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.BinaryExpression;
@@ -30,13 +31,35 @@ import alpha.model.RealExpression;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
+import alpha.model.StandardEquation;
 import alpha.model.UnaryExpression;
+import alpha.model.UseEquation;
 import alpha.model.VariableExpression;
 
 public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 
 	default void defaultIn(AlphaExpressionVisitable expr) {}
 	default void defaultOut(AlphaExpressionVisitable expr) {}
+	
+	/**
+	 * Visit only the AlphaExpressions of any AlphaVisitable.
+	 * 
+	 * @param node
+	 */
+	default void visit(AlphaVisitable node) {
+		node.accept(new AbstractAlphaVisitor() {
+			@Override
+			public void visitStandardEquation(StandardEquation se) {
+				se.getExpr().accept(DefaultAlphaExpressionVisitor.this);
+			}
+			
+			@Override
+			public void visitUseEquation(UseEquation ue) {
+				ue.getInputExprs().stream().forEach(a->a.accept(DefaultAlphaExpressionVisitor.this));
+				ue.getOutputExprs().stream().forEach(a->a.accept(DefaultAlphaExpressionVisitor.this));
+			}
+		});
+	}
 	
 	/*
 	 * Helper to avoid repeating null check all over the place.

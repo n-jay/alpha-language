@@ -9,34 +9,54 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
-import alpha.model.util.AbstractAlphaVisitor;
+import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
+/**
+ * Computes the expression domain for AlphaExpressions
+ * 
+ * @author tyuki
+ *
+ */
 public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	private List<AlphaIssue> issues = new LinkedList<>();
 	
-	public static List<AlphaIssue> calculate(AlphaVisitable node) {
+	/**
+	 * Recomputes the expression domain for all AlphaExpressions in the sub-tree rooted 
+	 * by the given node. 
+	 * 
+	 * This method is a dispatcher for two possible instances of AlphaCompleteVisitable
+	 * 
+	 * @param expr
+	 * @return
+	 */
+	public static List<AlphaIssue> calculate(AlphaCompleteVisitable expr) {
+		if (expr instanceof AlphaVisitable) {
+			return calculate((AlphaVisitable)expr);
+		} else if (expr instanceof AlphaExpressionVisitable) {
+			return calculate((AlphaExpressionVisitable)expr);
+		}
+		
+		throw new RuntimeException("This should be unreachable code. Got: " + expr);
+	}
+	
+	/**
+	 * ExpressionDomainCalculator is a AlphaExpressionVisitor. 
+	 * 
+	 * @param node
+	 * @return
+	 */
+	protected static List<AlphaIssue> calculate(AlphaVisitable node) {
 		ExpressionDomainCalculator calc = new ExpressionDomainCalculator();
 		
-		node.accept(new AbstractAlphaVisitor() {
-			@Override
-			public void visitStandardEquation(StandardEquation se) {
-				se.getExpr().accept(calc);
-			}
-			
-			@Override
-			public void visitUseEquation(UseEquation ue) {
-				ue.getInputExprs().stream().forEach(a->a.accept(calc));
-				ue.getOutputExprs().stream().forEach(a->a.accept(calc));
-			}
-		});
+		calc.visit(node);
 		
 		return calc.issues;
 	}
 	
-	public static List<AlphaIssue> calculate(AlphaExpression expr) {
+	protected static List<AlphaIssue> calculate(AlphaExpressionVisitable expr) {
 		ExpressionDomainCalculator calc = new ExpressionDomainCalculator();
 		
 		expr.accept(calc);
@@ -171,7 +191,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	
 	private void runISLoperations(AlphaExpression expr, Runnable r) {
-		if (AlphaUtil.testNonNullExpressionDomain(AlphaUtil.getChildrenOfType(expr, AlphaExpression.class))) 
+		if (AlphaExpressionUtil.testNonNullExpressionDomain(AlphaExpressionUtil.getChildrenOfType(expr, AlphaExpression.class))) 
 				callISLwithErrorHandling(r, (err)->registerIssue(err, expr));
 	}
 }

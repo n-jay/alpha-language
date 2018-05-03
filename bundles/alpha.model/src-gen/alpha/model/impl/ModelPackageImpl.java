@@ -5,6 +5,7 @@ package alpha.model.impl;
 import alpha.model.AbstractFuzzyReduceExpression;
 import alpha.model.AbstractReduceExpression;
 import alpha.model.AffineFuzzyVariableUse;
+import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaElement;
 import alpha.model.AlphaExpression;
@@ -103,6 +104,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass alphaNodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alphaCompleteVisitableEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -721,6 +729,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 */
 	public EClass getAlphaNode() {
 		return alphaNodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAlphaCompleteVisitable() {
+		return alphaCompleteVisitableEClass;
 	}
 
 	/**
@@ -2400,6 +2417,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		// Create classes and their features
 		alphaNodeEClass = createEClass(ALPHA_NODE);
 
+		alphaCompleteVisitableEClass = createEClass(ALPHA_COMPLETE_VISITABLE);
+
 		alphaVisitableEClass = createEClass(ALPHA_VISITABLE);
 
 		alphaExpressionVisitableEClass = createEClass(ALPHA_EXPRESSION_VISITABLE);
@@ -2685,8 +2704,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		alphaVisitableEClass.getESuperTypes().add(this.getAlphaNode());
-		alphaExpressionVisitableEClass.getESuperTypes().add(this.getAlphaNode());
+		alphaCompleteVisitableEClass.getESuperTypes().add(this.getAlphaNode());
+		alphaVisitableEClass.getESuperTypes().add(this.getAlphaCompleteVisitable());
+		alphaExpressionVisitableEClass.getESuperTypes().add(this.getAlphaCompleteVisitable());
 		calculatorExpressionVisitableEClass.getESuperTypes().add(this.getAlphaNode());
 		alphaRootEClass.getESuperTypes().add(this.getAlphaVisitable());
 		alphaElementEClass.getESuperTypes().add(this.getAlphaVisitable());
@@ -2752,6 +2772,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(alphaNodeEClass, AlphaNode.class, "AlphaNode", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(alphaCompleteVisitableEClass, AlphaCompleteVisitable.class, "AlphaCompleteVisitable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(alphaVisitableEClass, AlphaVisitable.class, "AlphaVisitable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

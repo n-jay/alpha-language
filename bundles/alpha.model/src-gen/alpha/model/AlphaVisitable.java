@@ -13,7 +13,7 @@ package alpha.model;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface AlphaVisitable extends AlphaNode {
+public interface AlphaVisitable extends AlphaCompleteVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -6123,9 +6123,9 @@ rule__FuzzyFunction__Group__0__Impl
 	}
 :
 (
-	{ before(grammarAccess.getFuzzyFunctionAccess().getLeftCurlyBracketKeyword_0()); }
-	'{'
-	{ after(grammarAccess.getFuzzyFunctionAccess().getLeftCurlyBracketKeyword_0()); }
+	{ before(grammarAccess.getFuzzyFunctionAccess().getLeftParenthesisKeyword_0()); }
+	'('
+	{ after(grammarAccess.getFuzzyFunctionAccess().getLeftParenthesisKeyword_0()); }
 )
 ;
 finally {
@@ -6203,9 +6203,9 @@ rule__FuzzyFunction__Group__3__Impl
 	}
 :
 (
-	{ before(grammarAccess.getFuzzyFunctionAccess().getRightCurlyBracketKeyword_3()); }
-	'}'
-	{ after(grammarAccess.getFuzzyFunctionAccess().getRightCurlyBracketKeyword_3()); }
+	{ before(grammarAccess.getFuzzyFunctionAccess().getRightParenthesisKeyword_3()); }
+	')'
+	{ after(grammarAccess.getFuzzyFunctionAccess().getRightParenthesisKeyword_3()); }
 )
 ;
 finally {

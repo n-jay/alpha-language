@@ -58,7 +58,7 @@ public class AlphaInternalStateConstructor {
 	 * @param nodes
 	 * @return
 	 */
-	public static List<AlphaIssue> recomputeContextDomain(AlphaVisitable... nodes) {
+	public static List<AlphaIssue> recomputeContextDomain(AlphaCompleteVisitable... nodes) {
 		return recomputeContextDomain(Arrays.asList(nodes));
 	}
 
@@ -69,10 +69,10 @@ public class AlphaInternalStateConstructor {
 	 * @param nodes
 	 * @return
 	 */
-	public static List<AlphaIssue> recomputeContextDomain(List<AlphaVisitable> nodes) {
+	public static List<AlphaIssue> recomputeContextDomain(List<AlphaCompleteVisitable> nodes) {
 		List<AlphaIssue> issues = new LinkedList<>();
 
-		for (AlphaVisitable node : nodes) {
+		for (AlphaCompleteVisitable node : nodes) {
 			issues.addAll(ExpressionDomainCalculator.calculate(node));
 			issues.addAll(ContextDomainCalculator.calculate(node));
 		}

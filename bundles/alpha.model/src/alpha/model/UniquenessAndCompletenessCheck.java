@@ -10,6 +10,7 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
+import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
@@ -67,7 +68,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	
 	@Override
 	public void inCaseExpression(CaseExpression ce) {
-		if (AlphaUtil.testNonNullContextDomain(AlphaUtil.getChildrenOfType(ce, AlphaExpression.class))) {
+		if (AlphaExpressionUtil.testNonNullContextDomain(AlphaExpressionUtil.getChildrenOfType(ce, AlphaExpression.class))) {
 			
 			JNIISLSet childrenDomain = null;
 			

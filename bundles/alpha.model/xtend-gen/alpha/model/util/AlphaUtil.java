@@ -1,5 +1,6 @@
 package alpha.model.util;
 
+import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaNode;
@@ -7,7 +8,6 @@ import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
-import alpha.model.CalculatorExpression;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
@@ -21,10 +21,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
@@ -158,37 +155,6 @@ public class AlphaUtil {
     return _xblockexpression;
   }
   
-  public static <T extends Object> Stream<T> getChildrenOfType(final AlphaNode expr, final Class<T> c) {
-    final Predicate<EObject> _function = (EObject e) -> {
-      return c.isInstance(e);
-    };
-    final Function<EObject, T> _function_1 = (EObject e) -> {
-      return c.cast(e);
-    };
-    return expr.eContents().stream().filter(_function).<T>map(_function_1);
-  }
-  
-  public static boolean testNonNullContextDomain(final Stream<AlphaExpression> exprs) {
-    final Predicate<AlphaExpression> _function = (AlphaExpression e) -> {
-      return ((e != null) && (e.getContextDomain() != null));
-    };
-    return exprs.allMatch(_function);
-  }
-  
-  public static boolean testNonNullExpressionDomain(final Stream<AlphaExpression> exprs) {
-    final Predicate<AlphaExpression> _function = (AlphaExpression e) -> {
-      return ((e != null) && (e.getExpressionDomain() != null));
-    };
-    return exprs.allMatch(_function);
-  }
-  
-  public static boolean testNonNullCalcExpression(final Stream<CalculatorExpression> exprs) {
-    final Predicate<CalculatorExpression> _function = (CalculatorExpression e) -> {
-      return ((e != null) && (e.getISLObject() != null));
-    };
-    return exprs.allMatch(_function);
-  }
-  
   public static <T extends Object> T callISLwithErrorHandling(final Supplier<T> r, final Consumer<String> f) {
     return AlphaUtil.<T>callISLwithErrorHandling(r, f, null);
   }
@@ -248,7 +214,7 @@ public class AlphaUtil {
     }
   }
   
-  public static JNIISLSet getScalarDomain(final AlphaNode system) {
+  public static JNIISLSet getScalarDomain(final AlphaCompleteVisitable system) {
     if (system instanceof AlphaSystem) {
       return _getScalarDomain((AlphaSystem)system);
     } else if (system instanceof AlphaExpression) {

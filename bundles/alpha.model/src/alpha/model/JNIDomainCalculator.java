@@ -153,6 +153,13 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	public void inStandardEquation(StandardEquation se) {
 		indexNameContext = AlphaUtil.getWhileIndexNames(se);
 		indexNameContext.addAll(se.getIndexNames());
+		
+		//indexNameContext = null means there is no context information
+		// this is the case when the StandardEquation do not have index names defined
+		// an exception is when the variable has a scalar domain; then there is no index name to define and an empty list is valid 
+		if (se.getIndexNames().isEmpty() && se.getVariable().getDomain().getNbDims() > 0) {
+			indexNameContext = null;
+		}
 	}
 
 	@Override
@@ -353,7 +360,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 
 		List<String> copy = (indexNameContext == null) ? null : new LinkedList<>(indexNameContext);
 		contextHistory.push(indexNameContext);
-
+		
 		if (re.getDomainExpr().getType() != POLY_OBJECT_TYPE.SET) {
 			issues.add(AlphaIssueFactory.expectingSet(re, ModelPackage.Literals.RESTRICT_EXPRESSION__DOMAIN_EXPR));
 			indexNameContext = null;

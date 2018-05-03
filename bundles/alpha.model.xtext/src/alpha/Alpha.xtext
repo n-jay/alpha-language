@@ -81,7 +81,7 @@ JNIFunctionInArrayNotation:
 ;
 
 FuzzyFunction:
-	'{' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* '}'
+	'(' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* ')'
 ;
 
 FuzzyVariableUse:

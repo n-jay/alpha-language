@@ -167,7 +167,16 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * @generated
 	 */
 	public POLY_OBJECT_TYPE getType() {
-		return POLY_OBJECT_TYPE.MAP;
+		POLY_OBJECT_TYPE _xifexpression = null;
+		JNIISLMap _z__internal_cache_islMap = this.getZ__internal_cache_islMap();
+		boolean _tripleNotEquals = (_z__internal_cache_islMap != null);
+		if (_tripleNotEquals) {
+			_xifexpression = POLY_OBJECT_TYPE.MAP;
+		}
+		else {
+			_xifexpression = null;
+		}
+		return _xifexpression;
 	}
 
 	/**

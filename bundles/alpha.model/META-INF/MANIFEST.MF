@@ -11,6 +11,7 @@ Export-Package: alpha.model,
  alpha.model.exception,
  alpha.model.impl,
  alpha.model.issue,
+ alpha.model.transformation,
  alpha.model.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,

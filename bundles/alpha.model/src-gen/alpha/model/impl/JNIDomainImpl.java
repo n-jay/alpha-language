@@ -167,7 +167,16 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * @generated
 	 */
 	public POLY_OBJECT_TYPE getType() {
-		return POLY_OBJECT_TYPE.SET;
+		POLY_OBJECT_TYPE _xifexpression = null;
+		JNIISLSet _z__internal_cache_islSet = this.getZ__internal_cache_islSet();
+		boolean _tripleNotEquals = (_z__internal_cache_islSet != null);
+		if (_tripleNotEquals) {
+			_xifexpression = POLY_OBJECT_TYPE.SET;
+		}
+		else {
+			_xifexpression = null;
+		}
+		return _xifexpression;
 	}
 
 	/**

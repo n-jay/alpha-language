@@ -821,24 +821,24 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	public class FuzzyFunctionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyFunction");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cAlphaStringAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cAlphaStringAISLWrappedBasicRelationParserRuleCall_1_0 = (RuleCall)cAlphaStringAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cSemicolonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cIndirectionsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cIndirectionsFuzzyVariableUseParserRuleCall_2_1_0 = (RuleCall)cIndirectionsAssignment_2_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//FuzzyFunction:
-		//	'{' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* '}';
+		//	'(' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'{' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* '}'
+		//'(' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* ')'
 		public Group getGroup() { return cGroup; }
 		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
+		//'('
+		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
 		
 		//alphaString=AISLWrappedBasicRelation
 		public Assignment getAlphaStringAssignment_1() { return cAlphaStringAssignment_1; }
@@ -858,8 +858,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//FuzzyVariableUse
 		public RuleCall getIndirectionsFuzzyVariableUseParserRuleCall_2_1_0() { return cIndirectionsFuzzyVariableUseParserRuleCall_2_1_0; }
 		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 	}
 	public class FuzzyVariableUseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyVariableUse");
@@ -4562,7 +4562,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//FuzzyFunction:
-	//	'{' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* '}';
+	//	'(' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* ')';
 	public FuzzyFunctionElements getFuzzyFunctionAccess() {
 		return pFuzzyFunction;
 	}
