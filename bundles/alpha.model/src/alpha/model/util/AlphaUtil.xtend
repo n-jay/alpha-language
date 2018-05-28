@@ -21,6 +21,10 @@ import java.util.function.Supplier
 import java.util.stream.Stream
 import org.eclipse.emf.ecore.EObject
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLVal
 
 class AlphaUtil {
 
@@ -148,5 +152,83 @@ class AlphaUtil {
 		} catch (ISLErrorException e) {
 			f.accept(e.islErrorMessage);
 		}
+	}
+	
+	
+	/* ISL to Alpha String */
+	public static def String toShowString(JNIISLMultiAff maff) {
+		if (maff === null) return null;
+		val lhs = maff.domainSpace.getNameList(JNIISLDimType.isl_dim_set).join(",")
+		val rhs = maff.affs.join(",", [a|a.islAffToShowString]);
+		
+		return '''(«lhs»->«rhs»)'''
+	}
+	
+	/**
+	 * JNIISLAff to AlphaString
+	 * 
+	 * The JNIISLAff corresponds to an affine function with 1D output. The space defines the 
+	 * index names, and the output expression is defined as a list of coef*name/denom with 
+	 * an additional denominator that applies to the entire expression.
+	 * 
+	 * This method applies the following order:
+	 *   - constant is always at the end
+	 *   - positive values first
+	 *   - among positive/negative values, the order is parameters, indices, divs
+	 * 
+	 */
+	public static def String islAffToShowString(JNIISLAff aff) {
+		val commonD = aff.denominator
+		
+		val constant = aff.constantVal
+		val cstVal = (constant.numerator * commonD) / constant.denominator
+
+		val posList = new LinkedList<String>
+		val negList = new LinkedList<String>
+		
+		islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_param, commonD, posList, negList)
+		islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_in, commonD, posList, negList)
+		islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_div, commonD, posList, negList)
+		
+		val pos = posList.join("+")
+		val neg = negList.join("")
+		val cst = if (cstVal == 0) "" else if (cstVal > 0) "+"+cstVal else cstVal
+		
+		if (commonD != 1) '''(«pos»«neg»«cst»)/«commonD»'''
+		else '''«pos»«neg»«cst»'''
+	}
+	
+	/*
+	 * Helper for printAff that collects positive/negative values of a given dim type
+	 */
+	private static def void islAffToShowStringHelper(JNIISLAff aff, JNIISLDimType dimType, long commonD, List<String> posList, List<String> negList) {
+		
+		val dims = aff.space
+		val n = dims.getNbDims(dimType)
+		val names = dims.getNameList(dimType)
+		
+		for (i : 0..< n) {
+			val coefficient = aff.getCoefficientVal(dimType, i)
+			val coef = (coefficient.numerator * commonD) / coefficient.denominator
+			
+			if (coef>1) posList.add('''«coef»«names.get(i)»''')
+			else if (coef==1) posList.add(names.get(i))
+			else if (coef<-1) negList.add('''«coef»«names.get(i)»''')
+			else if (coef==-1) negList.add('''-«names.get(i)»''')
+		}
+	}
+	
+	public dispatch static def String islSetToShowString(JNIISLMap map) {
+		return "expecting set; got: " + map
+	}
+	/**
+	 * ISLSet to AlphaString
+	 * 
+	 * For sets, ISL string without the parameter part is the AlphaString.
+	 */
+	public dispatch static def String islSetToShowString(JNIISLSet set) {
+		val str = set.toString
+		val out = str.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{")
+		return out
 	}
 }

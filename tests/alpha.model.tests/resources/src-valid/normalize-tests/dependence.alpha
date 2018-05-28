@@ -107,4 +107,26 @@ package tests.normalize.depndence {
 			//f @ op(E1, E2, ...) -> op(f@E1, f@E2, ...)
 			B = (i->i+1)@testOP(A, (i->i+1)@A, (i->i+2)@A);
 	.
+	affine ifExpression1 [N]->{:N>0}
+		inputs
+			A1:{[i]:0<=i<2N}
+			A2:{[i]:0<=i<2N}
+		outputs
+			B:[N]
+		let
+			// f @ if (E1, E2, E3) -> if (f@E1, f@E2, f@E3)
+			B = (i->i+1) @ (if (A1) then A1 else A2);
+	.
+	affine ifExpression2 [N]->{:N>1}
+		inputs
+			A1:{[i]:0<=i<2N}
+			A2:{[i]:0<=i<2N}
+		outputs
+			B:[N]
+		let
+			// f @ if (E1, E2, E3) -> if (f@E1, f@E2, f@E3)
+			// + composition
+			// + identity
+			B = (i->i+1) @ (if (A1) then (i->i-1)@A1 else (i->i+1)@A2);
+	.
 }

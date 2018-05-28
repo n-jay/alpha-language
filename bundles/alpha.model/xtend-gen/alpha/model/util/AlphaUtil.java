@@ -11,11 +11,15 @@ import alpha.model.AlphaVisitable;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLVal;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -23,7 +27,11 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.ExclusiveRange;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class AlphaUtil {
@@ -186,6 +194,151 @@ public class AlphaUtil {
     }
   }
   
+  /**
+   * ISL to Alpha String
+   */
+  public static String toShowString(final JNIISLMultiAff maff) {
+    if ((maff == null)) {
+      return null;
+    }
+    final String lhs = IterableExtensions.join(maff.getDomainSpace().getNameList(JNIISLDimType.isl_dim_set), ",");
+    final Function1<JNIISLAff, CharSequence> _function = (JNIISLAff a) -> {
+      return AlphaUtil.islAffToShowString(a);
+    };
+    final String rhs = IterableExtensions.<JNIISLAff>join(maff.getAffs(), ",", _function);
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("(");
+    _builder.append(lhs);
+    _builder.append("->");
+    _builder.append(rhs);
+    _builder.append(")");
+    return _builder.toString();
+  }
+  
+  /**
+   * JNIISLAff to AlphaString
+   * 
+   * The JNIISLAff corresponds to an affine function with 1D output. The space defines the
+   * index names, and the output expression is defined as a list of coef*name/denom with
+   * an additional denominator that applies to the entire expression.
+   * 
+   * This method applies the following order:
+   *   - constant is always at the end
+   *   - positive values first
+   *   - among positive/negative values, the order is parameters, indices, divs
+   */
+  public static String islAffToShowString(final JNIISLAff aff) {
+    String _xblockexpression = null;
+    {
+      final long commonD = aff.getDenominator();
+      final JNIISLVal constant = aff.getConstantVal();
+      long _numerator = constant.getNumerator();
+      long _multiply = (_numerator * commonD);
+      long _denominator = constant.getDenominator();
+      final long cstVal = (_multiply / _denominator);
+      final LinkedList<String> posList = new LinkedList<String>();
+      final LinkedList<String> negList = new LinkedList<String>();
+      AlphaUtil.islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_param, commonD, posList, negList);
+      AlphaUtil.islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_in, commonD, posList, negList);
+      AlphaUtil.islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_div, commonD, posList, negList);
+      final String pos = IterableExtensions.join(posList, "+");
+      final String neg = IterableExtensions.join(negList, "");
+      Object _xifexpression = null;
+      if ((cstVal == 0)) {
+        _xifexpression = "";
+      } else {
+        Object _xifexpression_1 = null;
+        if ((cstVal > 0)) {
+          _xifexpression_1 = ("+" + Long.valueOf(cstVal));
+        } else {
+          _xifexpression_1 = Long.valueOf(cstVal);
+        }
+        _xifexpression = ((Object)_xifexpression_1);
+      }
+      final Object cst = ((Object)_xifexpression);
+      String _xifexpression_2 = null;
+      if ((commonD != 1)) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("(");
+        _builder.append(pos);
+        _builder.append(neg);
+        _builder.append(((Object)cst));
+        _builder.append(")/");
+        _builder.append(commonD);
+        _xifexpression_2 = _builder.toString();
+      } else {
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append(pos);
+        _builder_1.append(neg);
+        _builder_1.append(((Object)cst));
+        _xifexpression_2 = _builder_1.toString();
+      }
+      _xblockexpression = _xifexpression_2;
+    }
+    return _xblockexpression;
+  }
+  
+  /**
+   * Helper for printAff that collects positive/negative values of a given dim type
+   */
+  private static void islAffToShowStringHelper(final JNIISLAff aff, final JNIISLDimType dimType, final long commonD, final List<String> posList, final List<String> negList) {
+    final JNIISLSpace dims = aff.getSpace();
+    final int n = dims.getNbDims(dimType);
+    final List<String> names = dims.getNameList(dimType);
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      {
+        final JNIISLVal coefficient = aff.getCoefficientVal(dimType, (i).intValue());
+        long _numerator = coefficient.getNumerator();
+        long _multiply = (_numerator * commonD);
+        long _denominator = coefficient.getDenominator();
+        final long coef = (_multiply / _denominator);
+        if ((coef > 1)) {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append(coef);
+          String _get = names.get((i).intValue());
+          _builder.append(_get);
+          posList.add(_builder.toString());
+        } else {
+          if ((coef == 1)) {
+            posList.add(names.get((i).intValue()));
+          } else {
+            if ((coef < (-1))) {
+              StringConcatenation _builder_1 = new StringConcatenation();
+              _builder_1.append(coef);
+              String _get_1 = names.get((i).intValue());
+              _builder_1.append(_get_1);
+              negList.add(_builder_1.toString());
+            } else {
+              if ((coef == (-1))) {
+                StringConcatenation _builder_2 = new StringConcatenation();
+                _builder_2.append("-");
+                String _get_2 = names.get((i).intValue());
+                _builder_2.append(_get_2);
+                negList.add(_builder_2.toString());
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  public static String _islSetToShowString(final JNIISLMap map) {
+    return ("expecting set; got: " + map);
+  }
+  
+  /**
+   * ISLSet to AlphaString
+   * 
+   * For sets, ISL string without the parameter part is the AlphaString.
+   */
+  public static String _islSetToShowString(final JNIISLSet set) {
+    final String str = set.toString();
+    final String out = str.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{");
+    return out;
+  }
+  
   private static Iterable<AlphaConstant> gatherAlphaConstants(final AlphaVisitable ap) {
     if (ap instanceof AlphaPackage) {
       return _gatherAlphaConstants((AlphaPackage)ap);
@@ -222,6 +375,17 @@ public class AlphaUtil {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(system).toString());
+    }
+  }
+  
+  public static String islSetToShowString(final JNIObject map) {
+    if (map instanceof JNIISLMap) {
+      return _islSetToShowString((JNIISLMap)map);
+    } else if (map instanceof JNIISLSet) {
+      return _islSetToShowString((JNIISLSet)map);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(map).toString());
     }
   }
 }

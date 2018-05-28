@@ -3,9 +3,11 @@ package alpha.model.factory;
 import alpha.model.AlphaExpression;
 import alpha.model.BINARY_OP;
 import alpha.model.BinaryExpression;
+import alpha.model.CaseExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
+import alpha.model.IfExpression;
 import alpha.model.JNIDomain;
 import alpha.model.JNIFunction;
 import alpha.model.ModelFactory;
@@ -94,5 +96,25 @@ public class AlphaUserFactory {
 		mae.setOperator(REDUCTION_OP.EX);
 		mae.setExternalFunction(ef);
 		return mae;
+	}
+	public static IfExpression createIfExpression() {
+		return fact.createIfExpression();		
+	}
+	public static IfExpression createIfExpression(AlphaExpression condExpr, AlphaExpression thenExpr, AlphaExpression elseExpr) {
+		IfExpression ie = fact.createIfExpression();
+
+		ie.setCondExpr(condExpr);
+		ie.setThenExpr(thenExpr);
+		ie.setElseExpr(elseExpr);
+		
+		return ie;
+	}
+	public static CaseExpression createCaseExpression() {
+		return fact.createCaseExpression();		
+	}
+	public static CaseExpression createCaseExpression(String name) {
+		CaseExpression ce = fact.createCaseExpression();
+		ce.setName(name);
+		return ce;
 	}
 }

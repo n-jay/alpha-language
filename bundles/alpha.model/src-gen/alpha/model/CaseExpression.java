@@ -67,6 +67,15 @@ public interface CaseExpression extends AlphaExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return ((this.getName() != null) &amp;&amp; (this.getName().length() &gt; 0));'"
+	 * @generated
+	 */
+	boolean isNamed();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitCaseExpression(this);'"
 	 * @generated

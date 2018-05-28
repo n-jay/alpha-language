@@ -179,7 +179,7 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	public void setExpressionDomain(final JNIISLSet dom) {
-		this.setZ__internal_cache_exprDom(dom);
+		this.setZ__internal_cache_exprDom(dom.coalesce());
 	}
 
 	/**
@@ -206,7 +206,7 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * @generated
 	 */
 	public void setContextDomain(final JNIISLSet dom) {
-		this.setZ__internal_cache_contextDom(dom);
+		this.setZ__internal_cache_contextDom(dom.coalesce());
 	}
 
 	/**

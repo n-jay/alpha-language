@@ -107,7 +107,7 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model domDataType="alpha.model.JNIISLSet" domUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_exprDom(dom);'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_exprDom(dom.coalesce());'"
 	 * @generated
 	 */
 	void setExpressionDomain(JNIISLSet dom);
@@ -125,7 +125,7 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model domDataType="alpha.model.JNIISLSet" domUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_contextDom(dom);'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_contextDom(dom.coalesce());'"
 	 * @generated
 	 */
 	void setContextDomain(JNIISLSet dom);

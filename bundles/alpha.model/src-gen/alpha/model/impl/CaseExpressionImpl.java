@@ -124,6 +124,15 @@ public class CaseExpressionImpl extends AlphaExpressionImpl implements CaseExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isNamed() {
+		return ((this.getName() != null) && (this.getName().length() > 0));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitCaseExpression(this);
 	}

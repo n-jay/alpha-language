@@ -422,10 +422,10 @@ abstract class AlphaExpression extends AlphaExpressionVisitable {
 	JNIISLSet z__internal_cache_contextDom
 	String errorMessage
 	
-	op void setExpressionDomain(JNIISLSet dom) { this.setZ__internal_cache_exprDom(dom) }
+	op void setExpressionDomain(JNIISLSet dom) { this.setZ__internal_cache_exprDom(dom.coalesce) }
 	op JNIISLSet getExpressionDomain() { if (z__internal_cache_exprDom !== null) z__internal_cache_exprDom.copy else null }
 	
-	op void setContextDomain(JNIISLSet dom) { this.setZ__internal_cache_contextDom(dom) }
+	op void setContextDomain(JNIISLSet dom) { this.setZ__internal_cache_contextDom(dom.coalesce) }
 	op JNIISLSet getContextDomain() { if (z__internal_cache_contextDom !== null)  z__internal_cache_contextDom.copy else null }
 }
 
@@ -457,6 +457,10 @@ class AutoRestrictExpression extends AlphaExpression {
 class CaseExpression extends AlphaExpression {
 	String name
 	contains AlphaExpression[] exprs
+	
+	op boolean isNamed() {
+		name !== null && name.length > 0
+	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitCaseExpression(this)
