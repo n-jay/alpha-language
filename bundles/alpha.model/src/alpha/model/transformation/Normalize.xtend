@@ -15,31 +15,29 @@ import alpha.model.MultiArgExpression
 import alpha.model.RestrictExpression
 import alpha.model.UnaryExpression
 import alpha.model.util.AbstractAlphaCompleteVisitor
+import alpha.model.util.AlphaUtil
+import alpha.model.util.Show
 import java.util.ArrayList
 import java.util.LinkedList
+import java.util.function.Predicate
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 
 import static alpha.model.factory.AlphaUserFactory.createBinaryExpression
+import static alpha.model.factory.AlphaUserFactory.createCaseExpression
 import static alpha.model.factory.AlphaUserFactory.createDependenceExpression
+import static alpha.model.factory.AlphaUserFactory.createIfExpression
 import static alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static alpha.model.factory.AlphaUserFactory.createRestrictExpression
 import static alpha.model.factory.AlphaUserFactory.createUnaryExpression
-import static alpha.model.factory.AlphaUserFactory.createIfExpression
-import static alpha.model.factory.AlphaUserFactory.createCaseExpression
-import static alpha.model.util.AlphaExpressionUtil.parentContext
-import java.util.function.Predicate
-import alpha.model.util.Show
-import alpha.model.util.AlphaUtil
-import alpha.model.util.PrintAST
-import org.eclipse.emf.ecore.EObject
 
 /**
  * Normalization of Alpha programs.
  * 
  * Each StandardEquation in an Alpha program should satisfy the following in its normal form:
  *   - the parent of CaseExpression should be StandardEquation or ReduceExpression
- *   - the parent of RestrictExpression should be CaseExpression or ReduceExpression
+ *   - the parent of RestrictExpression should be StandarEquation, ReduceExpression, or CaseExpression
  *   - the child of DependenceExpression should be VariableExpression or ConstantExpression
  *  
  * The same applies to each input expression in an UseEquation.
@@ -515,10 +513,6 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 			debug(ce);
 		}
 		
-	}
-	
-	protected def dispatch caseExpressionRules(CaseExpression ce, AlphaExpression expr) {
-		// Nothing if there is no matching rule
 	}
 	
 	override outIfExpression(IfExpression ie) {

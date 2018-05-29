@@ -44,7 +44,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  * 
  * Each StandardEquation in an Alpha program should satisfy the following in its normal form:
  *   - the parent of CaseExpression should be StandardEquation or ReduceExpression
- *   - the parent of RestrictExpression should be CaseExpression or ReduceExpression
+ *   - the parent of RestrictExpression should be StandarEquation, ReduceExpression, or CaseExpression
  *   - the child of DependenceExpression should be VariableExpression or ConstantExpression
  * 
  * The same applies to each input expression in an UseEquation.
@@ -552,10 +552,6 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
   }
   
-  protected Object _caseExpressionRules(final CaseExpression ce, final AlphaExpression expr) {
-    return null;
-  }
-  
   @Override
   public void outIfExpression(final IfExpression ie) {
     boolean _invalidState = this.invalidState(ie);
@@ -800,10 +796,6 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(mae, ce).toString());
     }
-  }
-  
-  protected Object caseExpressionRules(final CaseExpression ce, final AlphaExpression expr) {
-    return _caseExpressionRules(ce, expr);
   }
   
   protected AlphaExpression ifExpressionRules(final IfExpression ie, final AlphaExpression ce) {
