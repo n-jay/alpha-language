@@ -12,7 +12,7 @@ public class AlphaDefaultTestFlows {
 	
 	private AlphaDefaultTestFlows() {}
 	
-	public static TestFlow alphaFileDataTestFlow() {
+	public static TestFlow alphaFileDataCheckProgramTestFlow() {
 		return S2STestFlow.builder()
 			.convert(convert(defaultDataConvertor(AlphaTestVersion::new)))
 			.check(chain(
@@ -21,4 +21,11 @@ public class AlphaDefaultTestFlows {
 			.build();
 	}
 
+	public static TestFlow alphaFileDataNormalizeTestFlow() {
+		return S2STestFlow.builder()
+			.convert(convert(defaultDataConvertor(AlphaTestVersion::new)))
+			.check(forEach(v -> AlphaCheckers.checkNormalize()))
+			.build();
+	}
+	
 }

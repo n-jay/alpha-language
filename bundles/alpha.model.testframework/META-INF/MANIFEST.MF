@@ -8,6 +8,11 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: alpha.model,
  alpha.model.xtext,
  fr.irisa.cairn.gecos.testframework.model,
- org.eclipse.xtext
+ org.eclipse.xtext,
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro
 Export-Package: alpha.model.testframework,
  alpha.model.testframework.data
+

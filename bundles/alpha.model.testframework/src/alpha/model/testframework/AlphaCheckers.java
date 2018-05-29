@@ -15,6 +15,8 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaVisitable;
 import alpha.model.UniquenessAndCompletenessCheck;
 import alpha.model.issue.AlphaIssue;
+import alpha.model.testframework.checker.CheckNormalized;
+import alpha.model.transformation.Normalize;
 import fr.irisa.cairn.gecos.testframework.exceptions.CheckerFailure;
 import fr.irisa.cairn.gecos.testframework.model.IVersionOperator;
 
@@ -64,6 +66,23 @@ public class AlphaCheckers {
 					.collect(Collectors.joining("\n"));
 				throw new CheckerFailure("The version '" + version + "' fails UniquenessAndCompletenessCheck.\n" + msg);
 			}
+		};
+	}
+
+	public static <V extends AlphaTestVersion> IVersionOperator<V> checkNormalize() {
+		return version -> {
+			List<AlphaRoot> roots = version.getAlphaRoots();
+			if(roots == null || !roots.isEmpty())
+				throw new IllegalArgumentException("AlphaTestVersion is null or empty: " + version);
+
+			for (AlphaRoot root : roots) {
+				Normalize.apply(root);
+				boolean normalized = CheckNormalized.apply(root);
+				if (!normalized) {
+					throw new CheckerFailure("The version '" + version + "' fails CheckNormalize.\n");
+				}
+			}
+			
 		};
 	}
 
