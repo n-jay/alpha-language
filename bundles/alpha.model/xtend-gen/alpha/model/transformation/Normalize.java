@@ -6,6 +6,7 @@ import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
+import alpha.model.AutoRestrictExpression;
 import alpha.model.BinaryExpression;
 import alpha.model.CaseExpression;
 import alpha.model.DependenceExpression;
@@ -115,12 +116,18 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
    * 	debug("rule18c", "if(cond, then, case E; esac) -> esac if (cond, then, E); case", "");
    * 	debug("rule19", "exFunc(op, dom : E) -> dom : exFunc(op, E)", "");
    * 
+   * Rules for New Syntax:
+   *   D : auto : E -> auto : E
+   *   auto : auto : E -> auto : E
+   *   auto : D : E -> auto : E
+   * 
    * Additional Rules:
    *  - remove restrict expression when it is redundant (expression domain is unchanged by the restrict)
+   *  - remove branches of case expressions that have empty context domain
    */
   private final boolean DEEP;
   
-  public static boolean DEBUG = true;
+  public static boolean DEBUG = false;
   
   protected String debug(final String ruleID, final String rule) {
     String _xifexpression = null;
@@ -328,6 +335,16 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       re.setDomainExpr(AlphaUserFactory.createJNIDomain(intersection));
       EcoreUtil.replace(re.getExpr(), innerRE.getExpr());
       _xblockexpression = this.debug(re);
+    }
+    return _xblockexpression;
+  }
+  
+  protected String _restrictExpressionRules(final RestrictExpression re, final AutoRestrictExpression are) {
+    String _xblockexpression = null;
+    {
+      this.debug("merge auto-restrict", "D : auto : E -> auto : E");
+      EcoreUtil.replace(re, are);
+      _xblockexpression = this.debug(are);
     }
     return _xblockexpression;
   }
@@ -550,6 +567,15 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       ce.getExprs().addAll(children);
       this.debug(ce);
     }
+    final LinkedList<AlphaExpression> emptyExprs = new LinkedList<AlphaExpression>();
+    final Consumer<AlphaExpression> _function_2 = (AlphaExpression e) -> {
+      boolean _isEmpty = e.getContextDomain().isEmpty();
+      if (_isEmpty) {
+        emptyExprs.add(e);
+      }
+    };
+    ce.getExprs().forEach(_function_2);
+    ce.getExprs().removeAll(emptyExprs);
   }
   
   @Override
@@ -666,6 +692,20 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     return null;
   }
   
+  @Override
+  public void outAutoRestrictExpression(final AutoRestrictExpression are) {
+    AlphaExpression _expr = are.getExpr();
+    if ((_expr instanceof RestrictExpression)) {
+      AlphaExpression _expr_1 = are.getExpr();
+      EcoreUtil.replace(are.getExpr(), ((RestrictExpression) _expr_1).getExpr());
+    }
+    AlphaExpression _expr_2 = are.getExpr();
+    if ((_expr_2 instanceof AutoRestrictExpression)) {
+      AlphaExpression _expr_3 = are.getExpr();
+      EcoreUtil.replace(are.getExpr(), ((AutoRestrictExpression) _expr_3).getExpr());
+    }
+  }
+  
   /**
    * Helper function to propagate dependence/restrict expressions downwards.
    * 
@@ -748,16 +788,18 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
   }
   
-  protected String restrictExpressionRules(final RestrictExpression re, final AlphaExpression ce) {
-    if (ce instanceof CaseExpression) {
-      return _restrictExpressionRules(re, (CaseExpression)ce);
-    } else if (ce instanceof RestrictExpression) {
-      return _restrictExpressionRules(re, (RestrictExpression)ce);
-    } else if (ce != null) {
-      return _restrictExpressionRules(re, ce);
+  protected String restrictExpressionRules(final RestrictExpression re, final AlphaExpression are) {
+    if (are instanceof AutoRestrictExpression) {
+      return _restrictExpressionRules(re, (AutoRestrictExpression)are);
+    } else if (are instanceof CaseExpression) {
+      return _restrictExpressionRules(re, (CaseExpression)are);
+    } else if (are instanceof RestrictExpression) {
+      return _restrictExpressionRules(re, (RestrictExpression)are);
+    } else if (are != null) {
+      return _restrictExpressionRules(re, are);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(re, ce).toString());
+        Arrays.<Object>asList(re, are).toString());
     }
   }
   

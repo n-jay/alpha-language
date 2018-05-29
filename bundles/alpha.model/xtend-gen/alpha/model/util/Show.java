@@ -32,7 +32,6 @@ import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.MultiArgExpression;
-import alpha.model.PolyhedralObject;
 import alpha.model.REDUCTION_OP;
 import alpha.model.RealExpression;
 import alpha.model.RectangularDomain;
@@ -176,70 +175,53 @@ public class Show extends ModelSwitch<String> {
     _builder.append(_printParameterDomain);
     _builder.newLineIfNotEmpty();
     {
-      boolean _isEmpty = s.getDefinedObjects().isEmpty();
+      boolean _isEmpty = s.getInputs().isEmpty();
       boolean _not = (!_isEmpty);
       if (_not) {
         _builder.append("\t");
-        _builder.append("define");
+        _builder.append("inputs");
         _builder.newLine();
         _builder.append("\t");
         _builder.append("\t");
-        final Function1<PolyhedralObject, String> _function = (PolyhedralObject it) -> {
+        final Function1<Variable, String> _function = (Variable it) -> {
           return this.doSwitch(it);
         };
-        String _join = IterableExtensions.join(ListExtensions.<PolyhedralObject, String>map(s.getDefinedObjects(), _function), "\n");
+        String _join = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getInputs(), _function), "\n");
         _builder.append(_join, "\t\t");
         _builder.newLineIfNotEmpty();
       }
     }
     {
-      boolean _isEmpty_1 = s.getInputs().isEmpty();
+      boolean _isEmpty_1 = s.getOutputs().isEmpty();
       boolean _not_1 = (!_isEmpty_1);
       if (_not_1) {
         _builder.append("\t");
-        _builder.append("inputs");
+        _builder.append("outputs");
         _builder.newLine();
         _builder.append("\t");
         _builder.append("\t");
         final Function1<Variable, String> _function_1 = (Variable it) -> {
           return this.doSwitch(it);
         };
-        String _join_1 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getInputs(), _function_1), "\n");
+        String _join_1 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getOutputs(), _function_1), "\n");
         _builder.append(_join_1, "\t\t");
         _builder.newLineIfNotEmpty();
       }
     }
     {
-      boolean _isEmpty_2 = s.getOutputs().isEmpty();
+      boolean _isEmpty_2 = s.getLocals().isEmpty();
       boolean _not_2 = (!_isEmpty_2);
       if (_not_2) {
         _builder.append("\t");
-        _builder.append("outputs");
+        _builder.append("locals");
         _builder.newLine();
         _builder.append("\t");
         _builder.append("\t");
         final Function1<Variable, String> _function_2 = (Variable it) -> {
           return this.doSwitch(it);
         };
-        String _join_2 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getOutputs(), _function_2), "\n");
+        String _join_2 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getLocals(), _function_2), "\n");
         _builder.append(_join_2, "\t\t");
-        _builder.newLineIfNotEmpty();
-      }
-    }
-    {
-      boolean _isEmpty_3 = s.getLocals().isEmpty();
-      boolean _not_3 = (!_isEmpty_3);
-      if (_not_3) {
-        _builder.append("\t");
-        _builder.append("locals");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("\t");
-        final Function1<Variable, String> _function_3 = (Variable it) -> {
-          return this.doSwitch(it);
-        };
-        String _join_3 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getLocals(), _function_3), "\n");
-        _builder.append(_join_3, "\t\t");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -267,11 +249,11 @@ public class Show extends ModelSwitch<String> {
         _builder.append("\t");
         EList<UseEquation> _useEquations = s.getUseEquations();
         EList<StandardEquation> _equations = s.getEquations();
-        final Function1<AlphaVisitable, String> _function_4 = (AlphaVisitable it) -> {
+        final Function1<AlphaVisitable, String> _function_3 = (AlphaVisitable it) -> {
           return this.doSwitch(it);
         };
-        String _join_4 = IterableExtensions.join(IterableExtensions.<AlphaVisitable, String>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function_4), "\n\n");
-        _builder.append(_join_4, "\t\t");
+        String _join_3 = IterableExtensions.join(IterableExtensions.<AlphaVisitable, String>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function_3), "\n\n");
+        _builder.append(_join_3, "\t\t");
         _builder.newLineIfNotEmpty();
       }
     }

@@ -31,6 +31,7 @@ import static alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static alpha.model.factory.AlphaUserFactory.createRestrictExpression
 import static alpha.model.factory.AlphaUserFactory.createUnaryExpression
+import alpha.model.AutoRestrictExpression
 
 /**
  * Normalization of Alpha programs.
@@ -109,13 +110,19 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 	 *	debug("rule18c", "if(cond, then, case E; esac) -> esac if (cond, then, E); case", "");
 	 *	debug("rule19", "exFunc(op, dom : E) -> dom : exFunc(op, E)", "");
 	 * 
+	 * Rules for New Syntax:
+	 *   D : auto : E -> auto : E
+	 *   auto : auto : E -> auto : E
+	 *   auto : D : E -> auto : E
+	 * 
 	 * Additional Rules:
 	 *  - remove restrict expression when it is redundant (expression domain is unchanged by the restrict)
+	 *  - remove branches of case expressions that have empty context domain
 	 */
 
 	private final boolean DEEP;
 	
-	public static boolean DEBUG = true
+	public static boolean DEBUG = false
 	
 	protected def debug(String ruleID, String rule) {
 		if (DEBUG) println(ruleID + ": " + rule)
@@ -310,6 +317,14 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		EcoreUtil.replace(re.expr, innerRE.expr);
 		
 		debug(re);
+	}
+	
+	// D : auto : E -> auto : E
+	protected def dispatch restrictExpressionRules(RestrictExpression re, AutoRestrictExpression are) {
+		debug("merge auto-restrict", "D : auto : E -> auto : E");
+		EcoreUtil.replace(re, are);
+		
+		debug(are);
 	}
 
 	// D : case { E1; E2; ... } -> case { D:E1; D:E2; ... }
@@ -513,6 +528,11 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 			debug(ce);
 		}
 		
+		//removing empty case branches
+		val emptyExprs = new LinkedList<AlphaExpression>
+		ce.exprs.forEach[e| if (e.contextDomain.isEmpty) emptyExprs.add(e)]
+		ce.exprs.removeAll(emptyExprs)
+		
 	}
 	
 	override outIfExpression(IfExpression ie) {
@@ -606,6 +626,15 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 	protected def dispatch ifExpressionRules(IfExpression ie, AlphaExpression expr) {
 		//Nothing if there is no matching rule
 		return null;
+	}
+	
+	override outAutoRestrictExpression(AutoRestrictExpression are) {
+	 	//auto : D : E -> auto : E
+		if (are.expr instanceof RestrictExpression)
+			EcoreUtil.replace(are.expr, (are.expr as RestrictExpression).expr);
+		//auto : auto : E -> auto : E
+		if (are.expr instanceof AutoRestrictExpression)
+			EcoreUtil.replace(are.expr, (are.expr as AutoRestrictExpression).expr);
 	}
 	
 	/**

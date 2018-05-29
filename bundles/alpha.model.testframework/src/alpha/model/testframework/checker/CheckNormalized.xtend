@@ -20,8 +20,18 @@ import org.eclipse.emf.ecore.EObject
  */
 class CheckNormalized  extends ModelSwitch<Boolean> {
 	
+	private boolean DEEP;
+	
+	protected new(boolean deep) {
+		DEEP = deep;
+	}
+	
 	public static def boolean apply(AlphaVisitable av) {
-		val sw = new CheckNormalized();
+		return apply(av, false);
+	}
+	
+	public static def boolean apply(AlphaVisitable av, boolean deep) {
+		val sw = new CheckNormalized(false);
 		return sw.doSwitch(av);
 	}
 	
@@ -32,7 +42,7 @@ class CheckNormalized  extends ModelSwitch<Boolean> {
 	}
 	
 	override caseCaseExpression(CaseExpression ce) {
-		if (ce.eContainer instanceof StandardEquation || ce.eContainer instanceof ReduceExpression) {
+		if (ce.named || ce.eContainer instanceof StandardEquation || ce.eContainer instanceof ReduceExpression) {
 			return defaultCase(ce)
 		}
 		false

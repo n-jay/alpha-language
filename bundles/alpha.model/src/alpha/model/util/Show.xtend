@@ -110,12 +110,13 @@ class Show extends ModelSwitch<String> {
 	}
 
 	override caseAlphaSystem(AlphaSystem s) {
+//	No define in Show syntax
+//				«IF !s.definedObjects.isEmpty»
+//					define
+//						«s.definedObjects.map[doSwitch].join("\n")»
+//				«ENDIF»
 		'''
 			affine «s.name» «s.parameterDomainExpr.printParameterDomain»
-				«IF !s.definedObjects.isEmpty»
-					define
-						«s.definedObjects.map[doSwitch].join("\n")»
-				«ENDIF»
 				«IF !s.inputs.isEmpty»
 					inputs
 						«s.inputs.map[doSwitch].join("\n")»

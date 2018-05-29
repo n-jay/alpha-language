@@ -23,8 +23,18 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class CheckNormalized extends ModelSwitch<Boolean> {
+  private boolean DEEP;
+  
+  protected CheckNormalized(final boolean deep) {
+    this.DEEP = deep;
+  }
+  
   public static boolean apply(final AlphaVisitable av) {
-    final CheckNormalized sw = new CheckNormalized();
+    return CheckNormalized.apply(av, false);
+  }
+  
+  public static boolean apply(final AlphaVisitable av, final boolean deep) {
+    final CheckNormalized sw = new CheckNormalized(false);
     return (sw.doSwitch(av)).booleanValue();
   }
   
@@ -52,7 +62,7 @@ public class CheckNormalized extends ModelSwitch<Boolean> {
   public Boolean caseCaseExpression(final CaseExpression ce) {
     boolean _xblockexpression = false;
     {
-      if (((ce.eContainer() instanceof StandardEquation) || (ce.eContainer() instanceof ReduceExpression))) {
+      if (((ce.isNamed() || (ce.eContainer() instanceof StandardEquation)) || (ce.eContainer() instanceof ReduceExpression))) {
         return this.defaultCase(ce);
       }
       _xblockexpression = false;
