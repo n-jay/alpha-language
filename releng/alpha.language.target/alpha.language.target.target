@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="alpha.language.target" sequenceNumber="62">
+<?pde version="3.8"?><target name="alpha.language.target" sequenceNumber="63">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" version="1.5.0.v20170613-0242"/>
@@ -49,7 +49,7 @@
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/testframework/release"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" version="1.2.0.201803260944"/>
+<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" version="1.2.0.201805290840"/>
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/testing/latest"/>
 </location>
 </locations>
