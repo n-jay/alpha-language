@@ -13,8 +13,10 @@ import alpha.model.Imports;
 import alpha.model.ModelPackage;
 
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Iterators;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -28,6 +30,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 
 /**
  * <!-- begin-user-doc -->
@@ -127,6 +133,26 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	 */
 	public EList<AlphaSystem> getSystems() {
 		return ECollections.<AlphaSystem>asEList(((AlphaSystem[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<AlphaSystem>filter(this.getElements(), AlphaSystem.class), AlphaSystem.class)));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaSystem getSystem(final String name) {
+		final Function1<AlphaSystem, Boolean> _function = new Function1<AlphaSystem, Boolean>() {
+			public Boolean apply(final AlphaSystem s) {
+				return Boolean.valueOf(s.getName().contentEquals(name));
+			}
+		};
+		final Iterator<AlphaSystem> matching = IteratorExtensions.<AlphaSystem>filter(Iterators.<AlphaSystem>filter(this.eAllContents(), AlphaSystem.class), _function);
+		int _size = IteratorExtensions.size(matching);
+		boolean _greaterThan = (_size > 0);
+		if (_greaterThan) {
+			return IteratorExtensions.<AlphaSystem>head(matching);
+		}
+		throw new RuntimeException((("System " + name) + " was not found."));
 	}
 
 	/**

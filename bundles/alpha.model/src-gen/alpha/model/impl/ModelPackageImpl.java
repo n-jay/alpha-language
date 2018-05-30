@@ -3216,6 +3216,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(alphaRootEClass, this.getAlphaSystem(), "getSystems", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaRootEClass, this.getAlphaSystem(), "getSystem", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "name", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaRootEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 

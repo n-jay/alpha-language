@@ -248,6 +248,13 @@ class AlphaRoot extends AlphaVisitable {
 	op AlphaPackage[] getPackages() { elements.filter(AlphaPackage).asEList }
 	op AlphaSystem[] getSystems() { elements.filter(AlphaSystem).asEList }
 	
+	op AlphaSystem getSystem(String name) {
+		val matching = this.eAllContents.filter(AlphaSystem).filter[s|s.name.contentEquals(name)]
+		if (matching.size > 0) return matching.head
+		
+		throw new RuntimeException("System " + name + " was not found.");
+	}
+	
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitAlphaRoot(this)
 	}

@@ -85,6 +85,15 @@ public interface AlphaRoot extends AlphaVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model unique="false" nameUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='final &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%alpha.model.AlphaSystem%&gt;, &lt;%java.lang.Boolean%&gt;&gt; _function = new &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%alpha.model.AlphaSystem%&gt;, &lt;%java.lang.Boolean%&gt;&gt;()\n{\n\tpublic &lt;%java.lang.Boolean%&gt; apply(final &lt;%alpha.model.AlphaSystem%&gt; s)\n\t{\n\t\treturn &lt;%java.lang.Boolean%&gt;.valueOf(s.getName().contentEquals(name));\n\t}\n};\nfinal &lt;%java.util.Iterator%&gt;&lt;&lt;%alpha.model.AlphaSystem%&gt;&gt; matching = &lt;%org.eclipse.xtext.xbase.lib.IteratorExtensions%&gt;.&lt;&lt;%alpha.model.AlphaSystem%&gt;&gt;filter(&lt;%com.google.common.collect.Iterators%&gt;.&lt;&lt;%alpha.model.AlphaSystem%&gt;&gt;filter(this.eAllContents(), &lt;%alpha.model.AlphaSystem%&gt;.class), _function);\nint _size = &lt;%org.eclipse.xtext.xbase.lib.IteratorExtensions%&gt;.size(matching);\nboolean _greaterThan = (_size &gt; 0);\nif (_greaterThan)\n{\n\treturn &lt;%org.eclipse.xtext.xbase.lib.IteratorExtensions%&gt;.&lt;&lt;%alpha.model.AlphaSystem%&gt;&gt;head(matching);\n}\nthrow new &lt;%java.lang.RuntimeException%&gt;(((\"System \" + name) + \" was not found.\"));'"
+	 * @generated
+	 */
+	AlphaSystem getSystem(String name);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
 	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitAlphaRoot(this);'"
 	 * @generated
