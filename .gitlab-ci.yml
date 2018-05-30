@@ -27,8 +27,8 @@ build:
   script:
     - mvn -B -e -fae -Dmaven.test.failure.ignore clean integration-test
     # find update site and copy it to ./artifacts
-#    - upsite_zip="`find releng/*.update/target -maxdepth 1 -name '*.update-*.zip' | head -1`"
-#    - mkdir "${UPSITE_ARTIFACTS_DIR}" && cp "${upsite_zip}" "${UPSITE_ARTIFACTS_DIR}"
+    - upsite_zip="`find releng/*.update/target -maxdepth 1 -name '*.update-*.zip' | head -1`"
+    - mkdir "${UPSITE_ARTIFACTS_DIR}" && cp "${upsite_zip}" "${UPSITE_ARTIFACTS_DIR}"
   artifacts:
     paths:
       - "${UPSITE_ARTIFACTS_DIR}"
