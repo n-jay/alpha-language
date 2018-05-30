@@ -12,11 +12,12 @@
 
   <modules>
     <module>alpha.model</module>
-    <module>alpha.model.modules</module>
+    <module>alpha.model.module</module>
     <module>alpha.model.xtext</module>
     <module>alpha.model.xtext.ide</module>
     <module>alpha.model.xtext.ui</module>
     <module>alpha.model.testframework</module>
+    <module>alpha.model.wizard</module>
   </modules>
 
 </project>
