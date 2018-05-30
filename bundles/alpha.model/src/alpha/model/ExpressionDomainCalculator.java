@@ -14,7 +14,18 @@ import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 /**
- * Computes the expression domain for AlphaExpressions
+ * Computes the expression domain for AlphaExpressions. The expression domains
+ * define the set where the given expression can be evaluated. It starts from 
+ * the leafs of the expression tree:
+ *   - ConstantExpression -> defined over 0-dim universe
+ *   - IndexExpression -> defined over the (universe) domain of the index function
+ *   - VariableExpression -> defined over the variable domain 
+ * 
+ *  Then the expression domain is computed bottom-up with notably the following:
+ *   - DependenceExpression takes the pre-image of its child
+ *   - CaseExpression takes union of its children
+ *   - Binary/Multi-Arg operations take the intersection of its children
+ *   - ReduceExpression takes the image of its body by the projection
  * 
  * @author tyuki
  *
