@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="alpha.model.examples"
+            name="Alpha"
+            parentCategory="org.eclipse.ui.Examples">
+      </category>
+         
+      <wizard
+            category="org.eclipse.ui.Examples/alpha.model.examples"
+            class="alpha.model.wizard.AlphaExampleWizard"
+            hasPages="true"
+            icon="icons/alpha.gif"
+            id="alpha.model.examples"
+            name="Alpha Examples"
+            project="true">
+      </wizard>
+         
+   </extension>
+
+</plugin>

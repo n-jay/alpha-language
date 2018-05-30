@@ -22,4 +22,6 @@ builds/
 # vi backup files
 .*.swp
 
-
+# gecos script log files and eclipse workspaces
+*.cs.glog
+workspace/
