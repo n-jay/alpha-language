@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="fr.irisa.r2d2.gecos.framework.modules">
+      <module
+            class="alpha.model.module.ReadAlpha"
+            iterative="false"
+            name="ReadAlpha">
+      </module>
+      <module
+            class="alpha.model.module.Show"
+            iterative="false"
+            name="Show">
+      </module>
+      <module
+            class="alpha.model.module.DeepNormalize"
+            iterative="false"
+            name="DeepNormalize">
+      </module>
+      <module
+            class="alpha.model.module.Normalize"
+            iterative="false"
+            name="Normalize">
+      </module>
+      <module
+            class="alpha.model.module.ReadAlphaBundle"
+            iterative="false"
+            name="ReadAlphaBundle">
+      </module>
+   </extension>
+
+</plugin>
