@@ -184,7 +184,6 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 		}
 		catch (final Throwable _t) {
 			if (_t instanceof CyclicDefinitionException) {
-				final CyclicDefinitionException cde = (CyclicDefinitionException)_t;
 				return null;
 			}
 			else {

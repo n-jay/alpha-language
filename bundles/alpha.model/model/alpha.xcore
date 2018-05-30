@@ -12,6 +12,8 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 //type JNIDomain wraps JNIDomain
 type JNIObject wraps JNIObject
@@ -52,8 +54,6 @@ interface AlphaExpressionVisitable extends AlphaCompleteVisitable {
 interface CalculatorExpressionVisitable extends AlphaNode {
 	op void accept(CalculatorExpressionVisitor visitor)
 }
-
-interface DomainQualifiedElement {}
 
 interface AlphaVisitor {
 	op void visitAlphaRoot(AlphaRoot root)
@@ -249,8 +249,16 @@ class AlphaRoot extends AlphaVisitable {
 	op AlphaSystem[] getSystems() { elements.filter(AlphaSystem).asEList }
 	
 	op AlphaSystem getSystem(String name) {
-		val matching = this.eAllContents.filter(AlphaSystem).filter[s|s.name.contentEquals(name)]
-		if (matching.size > 0) return matching.head
+		//qualified name
+		if (name.contains('.')) {
+			val IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider;
+			val matching = this.eAllContents.filter(AlphaSystem).filter[s|provider.getFullyQualifiedName(s).toString.contentEquals(name)]
+			if (matching.size > 0) return matching.head
+		//just the system name
+		} else {
+			val matching = this.eAllContents.filter(AlphaSystem).filter[s|s.name.contentEquals(name)]
+			if (matching.size > 0) return matching.head
+		}
 		
 		throw new RuntimeException("System " + name + " was not found.");
 	}
