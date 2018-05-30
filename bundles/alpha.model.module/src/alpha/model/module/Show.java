@@ -1,7 +1,6 @@
 package alpha.model.module;
 
 import alpha.model.AlphaRoot;
-import fr.irisa.r2d2.gecos.framework.GSArg;
 import fr.irisa.r2d2.gecos.framework.GSModule;
 import fr.irisa.r2d2.gecos.framework.GSModuleConstructor;
 
