@@ -5,48 +5,48 @@ import alpha.model.AlphaPackage
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
+import alpha.model.ArgReduceExpression
+import alpha.model.AutoRestrictExpression
+import alpha.model.BinaryCalculatorExpression
+import alpha.model.BinaryExpression
+import alpha.model.BooleanExpression
 import alpha.model.CalculatorExpression
+import alpha.model.CaseExpression
+import alpha.model.ConvolutionExpression
+import alpha.model.DefinedObject
+import alpha.model.DependenceExpression
+import alpha.model.ExternalArgReduceExpression
 import alpha.model.ExternalFunction
+import alpha.model.ExternalMultiArgExpression
+import alpha.model.ExternalReduceExpression
+import alpha.model.IfExpression
 import alpha.model.Imports
+import alpha.model.IndexExpression
+import alpha.model.IntegerExpression
 import alpha.model.JNIDomain
+import alpha.model.JNIDomainInArrayNotation
+import alpha.model.JNIFunctionInArrayNotation
+import alpha.model.MultiArgExpression
+import alpha.model.RealExpression
+import alpha.model.RectangularDomain
+import alpha.model.ReduceExpression
+import alpha.model.RestrictExpression
+import alpha.model.SelectExpression
 import alpha.model.StandardEquation
+import alpha.model.UnaryCalculatorExpression
+import alpha.model.UnaryExpression
 import alpha.model.UseEquation
 import alpha.model.Variable
-import fr.irisa.cairn.jnimap.runtime.JNIObject
-import alpha.model.JNIFunction
-import alpha.model.JNIFunctionInArrayNotation
-import alpha.model.IfExpression
-import alpha.model.RestrictExpression
-import alpha.model.JNIDomainInArrayNotation
-import alpha.model.AutoRestrictExpression
-import alpha.model.CaseExpression
-import alpha.model.DependenceExpression
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import alpha.model.IndexExpression
-import alpha.model.ReduceExpression
-import alpha.model.ExternalReduceExpression
-import alpha.model.ArgReduceExpression
-import alpha.model.ExternalArgReduceExpression
-import alpha.model.ConvolutionExpression
-import alpha.model.SelectExpression
-import alpha.model.BinaryExpression
-import alpha.model.MultiArgExpression
-import alpha.model.ExternalMultiArgExpression
-import alpha.model.UnaryExpression
-import alpha.model.VariableExpression
-import alpha.model.BooleanExpression
-import alpha.model.IntegerExpression
-import alpha.model.RealExpression
-import alpha.model.BinaryCalculatorExpression
-import alpha.model.UnaryCalculatorExpression
 import alpha.model.VariableDomain
-import alpha.model.RectangularDomain
-import org.eclipse.xtext.build.Indexer.IndexResult
-import alpha.model.DefinedObject
+import alpha.model.VariableExpression
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 
 class Show extends ModelSwitch<String> {
+	
+	protected JNIISLSet parameterContext = null;
 
-	public static def <T extends AlphaVisitable> print(T av) {
+	static def <T extends AlphaVisitable> print(T av) {
 		val show = new Show();
 		show.doSwitch(av)
 	}
@@ -64,15 +64,15 @@ class Show extends ModelSwitch<String> {
 	}
 	
 	protected def printInstantiationDomain(CalculatorExpression dom) {
-		AlphaUtil.islSetToShowString(dom.ISLObject)
+		AlphaUtil.islSetToShowString(dom.ISLObject, parameterContext)
 	}
 	
 	protected def printWhileDomain(CalculatorExpression dom) {
-		AlphaUtil.islSetToShowString(dom.ISLObject)
+		AlphaUtil.islSetToShowString(dom.ISLObject, parameterContext)
 	}
 	
 	protected def printDomain(CalculatorExpression dom) {
-		AlphaUtil.islSetToShowString(dom.ISLObject)
+		AlphaUtil.islSetToShowString(dom.ISLObject, parameterContext)
 	}
 	
 	protected def printFunction(JNIISLMultiAff f) {
@@ -110,6 +110,7 @@ class Show extends ModelSwitch<String> {
 	}
 
 	override caseAlphaSystem(AlphaSystem s) {
+		parameterContext = s.parameterDomain;
 //	No define in Show syntax
 //				«IF !s.definedObjects.isEmpty»
 //					define

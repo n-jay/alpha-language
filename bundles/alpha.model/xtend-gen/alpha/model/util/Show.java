@@ -52,6 +52,7 @@ import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -61,6 +62,8 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
 public class Show extends ModelSwitch<String> {
+  protected JNIISLSet parameterContext = null;
+  
   public static <T extends AlphaVisitable> String print(final T av) {
     String _xblockexpression = null;
     {
@@ -82,15 +85,15 @@ public class Show extends ModelSwitch<String> {
   }
   
   protected String printInstantiationDomain(final CalculatorExpression dom) {
-    return AlphaUtil.islSetToShowString(dom.getISLObject());
+    return AlphaUtil.islSetToShowString(dom.getISLObject(), this.parameterContext);
   }
   
   protected String printWhileDomain(final CalculatorExpression dom) {
-    return AlphaUtil.islSetToShowString(dom.getISLObject());
+    return AlphaUtil.islSetToShowString(dom.getISLObject(), this.parameterContext);
   }
   
   protected String printDomain(final CalculatorExpression dom) {
-    return AlphaUtil.islSetToShowString(dom.getISLObject());
+    return AlphaUtil.islSetToShowString(dom.getISLObject(), this.parameterContext);
   }
   
   protected String printFunction(final JNIISLMultiAff f) {
@@ -166,100 +169,105 @@ public class Show extends ModelSwitch<String> {
   
   @Override
   public String caseAlphaSystem(final AlphaSystem s) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("affine ");
-    String _name = s.getName();
-    _builder.append(_name);
-    _builder.append(" ");
-    String _printParameterDomain = this.printParameterDomain(s.getParameterDomainExpr());
-    _builder.append(_printParameterDomain);
-    _builder.newLineIfNotEmpty();
+    String _xblockexpression = null;
     {
-      boolean _isEmpty = s.getInputs().isEmpty();
-      boolean _not = (!_isEmpty);
-      if (_not) {
-        _builder.append("\t");
-        _builder.append("inputs");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("\t");
-        final Function1<Variable, String> _function = (Variable it) -> {
-          return this.doSwitch(it);
-        };
-        String _join = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getInputs(), _function), "\n");
-        _builder.append(_join, "\t\t");
-        _builder.newLineIfNotEmpty();
+      this.parameterContext = s.getParameterDomain();
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("affine ");
+      String _name = s.getName();
+      _builder.append(_name);
+      _builder.append(" ");
+      String _printParameterDomain = this.printParameterDomain(s.getParameterDomainExpr());
+      _builder.append(_printParameterDomain);
+      _builder.newLineIfNotEmpty();
+      {
+        boolean _isEmpty = s.getInputs().isEmpty();
+        boolean _not = (!_isEmpty);
+        if (_not) {
+          _builder.append("\t");
+          _builder.append("inputs");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("\t");
+          final Function1<Variable, String> _function = (Variable it) -> {
+            return this.doSwitch(it);
+          };
+          String _join = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getInputs(), _function), "\n");
+          _builder.append(_join, "\t\t");
+          _builder.newLineIfNotEmpty();
+        }
       }
-    }
-    {
-      boolean _isEmpty_1 = s.getOutputs().isEmpty();
-      boolean _not_1 = (!_isEmpty_1);
-      if (_not_1) {
-        _builder.append("\t");
-        _builder.append("outputs");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("\t");
-        final Function1<Variable, String> _function_1 = (Variable it) -> {
-          return this.doSwitch(it);
-        };
-        String _join_1 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getOutputs(), _function_1), "\n");
-        _builder.append(_join_1, "\t\t");
-        _builder.newLineIfNotEmpty();
+      {
+        boolean _isEmpty_1 = s.getOutputs().isEmpty();
+        boolean _not_1 = (!_isEmpty_1);
+        if (_not_1) {
+          _builder.append("\t");
+          _builder.append("outputs");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("\t");
+          final Function1<Variable, String> _function_1 = (Variable it) -> {
+            return this.doSwitch(it);
+          };
+          String _join_1 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getOutputs(), _function_1), "\n");
+          _builder.append(_join_1, "\t\t");
+          _builder.newLineIfNotEmpty();
+        }
       }
-    }
-    {
-      boolean _isEmpty_2 = s.getLocals().isEmpty();
-      boolean _not_2 = (!_isEmpty_2);
-      if (_not_2) {
-        _builder.append("\t");
-        _builder.append("locals");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("\t");
-        final Function1<Variable, String> _function_2 = (Variable it) -> {
-          return this.doSwitch(it);
-        };
-        String _join_2 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getLocals(), _function_2), "\n");
-        _builder.append(_join_2, "\t\t");
-        _builder.newLineIfNotEmpty();
+      {
+        boolean _isEmpty_2 = s.getLocals().isEmpty();
+        boolean _not_2 = (!_isEmpty_2);
+        if (_not_2) {
+          _builder.append("\t");
+          _builder.append("locals");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("\t");
+          final Function1<Variable, String> _function_2 = (Variable it) -> {
+            return this.doSwitch(it);
+          };
+          String _join_2 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getLocals(), _function_2), "\n");
+          _builder.append(_join_2, "\t\t");
+          _builder.newLineIfNotEmpty();
+        }
       }
-    }
-    {
-      CalculatorExpression _whileDomainExpr = s.getWhileDomainExpr();
-      boolean _tripleNotEquals = (_whileDomainExpr != null);
-      if (_tripleNotEquals) {
-        _builder.append("\t");
-        _builder.append("over ");
-        String _printInstantiationDomain = this.printInstantiationDomain(s.getWhileDomainExpr());
-        _builder.append(_printInstantiationDomain, "\t");
-        _builder.append(" while (");
-        String _doSwitch = this.doSwitch(s.getTestExpression());
-        _builder.append(_doSwitch, "\t");
-        _builder.append(")");
-        _builder.newLineIfNotEmpty();
+      {
+        CalculatorExpression _whileDomainExpr = s.getWhileDomainExpr();
+        boolean _tripleNotEquals = (_whileDomainExpr != null);
+        if (_tripleNotEquals) {
+          _builder.append("\t");
+          _builder.append("over ");
+          String _printInstantiationDomain = this.printInstantiationDomain(s.getWhileDomainExpr());
+          _builder.append(_printInstantiationDomain, "\t");
+          _builder.append(" while (");
+          String _doSwitch = this.doSwitch(s.getTestExpression());
+          _builder.append(_doSwitch, "\t");
+          _builder.append(")");
+          _builder.newLineIfNotEmpty();
+        }
       }
-    }
-    {
-      if (((!s.getUseEquations().isEmpty()) || (!s.getEquations().isEmpty()))) {
-        _builder.append("\t");
-        _builder.append("let");
-        _builder.newLine();
-        _builder.append("\t");
-        _builder.append("\t");
-        EList<UseEquation> _useEquations = s.getUseEquations();
-        EList<StandardEquation> _equations = s.getEquations();
-        final Function1<AlphaVisitable, String> _function_3 = (AlphaVisitable it) -> {
-          return this.doSwitch(it);
-        };
-        String _join_3 = IterableExtensions.join(IterableExtensions.<AlphaVisitable, String>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function_3), "\n\n");
-        _builder.append(_join_3, "\t\t");
-        _builder.newLineIfNotEmpty();
+      {
+        if (((!s.getUseEquations().isEmpty()) || (!s.getEquations().isEmpty()))) {
+          _builder.append("\t");
+          _builder.append("let");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("\t");
+          EList<UseEquation> _useEquations = s.getUseEquations();
+          EList<StandardEquation> _equations = s.getEquations();
+          final Function1<AlphaVisitable, String> _function_3 = (AlphaVisitable it) -> {
+            return this.doSwitch(it);
+          };
+          String _join_3 = IterableExtensions.join(IterableExtensions.<AlphaVisitable, String>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function_3), "\n\n");
+          _builder.append(_join_3, "\t\t");
+          _builder.newLineIfNotEmpty();
+        }
       }
+      _builder.append(".");
+      _builder.newLine();
+      _xblockexpression = _builder.toString();
     }
-    _builder.append(".");
-    _builder.newLine();
-    return _builder.toString();
+    return _xblockexpression;
   }
   
   @Override
