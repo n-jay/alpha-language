@@ -11,6 +11,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 public class AlphaExampleWizardPage extends WizardPage {
+		private static final String DEFAULT_PROJECT_NAME = "alpha.examples";
+	
 		private Text _projectName;
 
 		public AlphaExampleWizardPage(String pageName, String description) {
@@ -32,6 +34,7 @@ public class AlphaExampleWizardPage extends WizardPage {
 			label.setText("&Project name:");
 
 			_projectName = new Text(container, SWT.BORDER | SWT.SINGLE);
+			_projectName.setText(DEFAULT_PROJECT_NAME);
 			gd = new GridData(GridData.FILL_HORIZONTAL);
 			_projectName.setLayoutData(gd);
 			_projectName.addModifyListener(new ModifyListener() {

@@ -70,15 +70,15 @@ public class AlphaExpressionUtil {
    *  - parent is an UseEquation: this depends on the corresponding input variable of the callee subsystem.
    *      In short, the context is the cross product of instantiation domain with the input variable domain.
    */
-  public static JNIISLSet _parentContext(final AlphaExpression child, final AlphaExpression parent, final Consumer<AlphaIssue> f) {
+  protected static JNIISLSet _parentContext(final AlphaExpression child, final AlphaExpression parent, final Consumer<AlphaIssue> f) {
     return parent.getContextDomain();
   }
   
-  public static JNIISLSet _parentContext(final AlphaExpression child, final StandardEquation parent, final Consumer<AlphaIssue> f) {
+  protected static JNIISLSet _parentContext(final AlphaExpression child, final StandardEquation parent, final Consumer<AlphaIssue> f) {
     return parent.getVariable().getDomain();
   }
   
-  public static JNIISLSet _parentContext(final AlphaExpression child, final UseEquation parent, final Consumer<AlphaIssue> f) {
+  protected static JNIISLSet _parentContext(final AlphaExpression child, final UseEquation parent, final Consumer<AlphaIssue> f) {
     boolean _checkCalcExprType = AlphaExpressionUtil.checkCalcExprType(parent.getInstantiationDomainExpr(), POLY_OBJECT_TYPE.SET, f);
     if (_checkCalcExprType) {
       final int inputLoc = parent.getInputExprs().indexOf(child);

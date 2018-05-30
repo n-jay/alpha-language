@@ -33,19 +33,19 @@ import static alpha.model.util.AlphaUtil.callISLwithErrorHandling
  */
 class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {
 
-	private List<CalculatorExpressionIssue> issues = new LinkedList;
+	List<CalculatorExpressionIssue> issues = new LinkedList;
 
-	private List<String> indexNameContext;
+	List<String> indexNameContext;
 
 	protected new(List<String> indexNameContext) {
 		this.indexNameContext = indexNameContext;
 	}
 
-	public static def List<CalculatorExpressionIssue> calculate(CalculatorExpression expr) {
+	static def List<CalculatorExpressionIssue> calculate(CalculatorExpression expr) {
 		return calculate(expr, null)
 	}
 
-	public static def List<CalculatorExpressionIssue> calculate(CalculatorExpression expr,
+	static def List<CalculatorExpressionIssue> calculate(CalculatorExpression expr,
 		List<String> indexNameContext) {
 		val calc = new CalculatorExpressionEvaluator(indexNameContext);
 

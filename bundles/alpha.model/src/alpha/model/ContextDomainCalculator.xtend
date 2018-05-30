@@ -16,9 +16,9 @@ import static alpha.model.util.AlphaExpressionUtil.parentContext
 
 class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 
-	private List<AlphaIssue> issues = new LinkedList
+	List<AlphaIssue> issues = new LinkedList
 
-	public static def dispatch List<AlphaIssue> calculate(AlphaVisitable node) {
+	static def dispatch List<AlphaIssue> calculate(AlphaVisitable node) {
 		val calc = new ContextDomainCalculator();
 
 		calc.visit(node)
@@ -26,7 +26,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 		return calc.issues;
 	}
 
-	public static def dispatch List<AlphaIssue> calculate(AlphaExpressionVisitable expr) {
+	static def dispatch List<AlphaIssue> calculate(AlphaExpressionVisitable expr) {
 		val calc = new ContextDomainCalculator();
 
 		expr.accept(calc);

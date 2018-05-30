@@ -9,6 +9,7 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Iterators;
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
@@ -22,19 +23,37 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLVal;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
 public class AlphaUtil {
+  public static AlphaRoot getContainerRoot(final EObject node) {
+    if ((node instanceof AlphaRoot)) {
+      return ((AlphaRoot) node);
+    }
+    EObject _eContainer = node.eContainer();
+    boolean _tripleEquals = (_eContainer == null);
+    if (_tripleEquals) {
+      return null;
+    }
+    return AlphaUtil.getContainerRoot(node.eContainer());
+  }
+  
   public static AlphaSystem getContainerSystem(final EObject node) {
     if ((node instanceof AlphaSystem)) {
       return ((AlphaSystem) node);
@@ -45,6 +64,38 @@ public class AlphaUtil {
       return null;
     }
     return AlphaUtil.getContainerSystem(node.eContainer());
+  }
+  
+  public static AlphaRoot selectAlphaRoot(final List<AlphaRoot> roots, final String systemName) {
+    boolean _contains = systemName.contains(".");
+    if (_contains) {
+      final IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider();
+      final Function1<AlphaRoot, TreeIterator<EObject>> _function = (AlphaRoot r) -> {
+        return r.eAllContents();
+      };
+      final Function1<AlphaSystem, Boolean> _function_1 = (AlphaSystem s) -> {
+        return Boolean.valueOf(provider.getFullyQualifiedName(s).toString().contentEquals(systemName));
+      };
+      final Iterable<AlphaSystem> matching = IterableExtensions.<AlphaSystem>filter(Iterables.<AlphaSystem>filter(ListExtensions.<AlphaRoot, TreeIterator<EObject>>map(roots, _function), AlphaSystem.class), _function_1);
+      int _size = IterableExtensions.size(matching);
+      boolean _greaterThan = (_size > 0);
+      if (_greaterThan) {
+        return AlphaUtil.getContainerRoot(IterableExtensions.<AlphaSystem>head(matching));
+      }
+    } else {
+      final Function1<AlphaRoot, Iterator<AlphaSystem>> _function_2 = (AlphaRoot it) -> {
+        final Function1<AlphaSystem, Boolean> _function_3 = (AlphaSystem s) -> {
+          return Boolean.valueOf(s.getName().contentEquals(systemName));
+        };
+        return IteratorExtensions.<AlphaSystem>filter(Iterators.<AlphaSystem>filter(it.eAllContents(), AlphaSystem.class), _function_3);
+      };
+      final Iterator<AlphaSystem> matching_1 = IteratorExtensions.<AlphaRoot, AlphaSystem>flatMap(roots.iterator(), _function_2);
+      boolean _hasNext = matching_1.hasNext();
+      if (_hasNext) {
+        return AlphaUtil.getContainerRoot(matching_1.next());
+      }
+    }
+    throw new RuntimeException((("System " + systemName) + " was not found."));
   }
   
   public static JNIISLSet getParameterDomain(final EObject node) {
@@ -84,23 +135,23 @@ public class AlphaUtil {
     return Iterables.<AlphaConstant>filter(ar.getElements(), AlphaConstant.class);
   }
   
-  public static JNIObject _copy(final Void n) {
+  protected static JNIObject _copy(final Void n) {
     return null;
   }
   
-  public static JNIObject _copy(final JNIISLMap map) {
+  protected static JNIObject _copy(final JNIISLMap map) {
     return map.copy();
   }
   
-  public static JNIObject _copy(final JNIISLSet set) {
+  protected static JNIObject _copy(final JNIISLSet set) {
     return set.copy();
   }
   
-  public static JNIObject _copy(final JNIISLMultiAff maff) {
+  protected static JNIObject _copy(final JNIISLMultiAff maff) {
     return maff.copy();
   }
   
-  public static JNIObject _copy(final JNIISLUnionMap umap) {
+  protected static JNIObject _copy(final JNIISLUnionMap umap) {
     return umap.copy();
   }
   
@@ -120,7 +171,7 @@ public class AlphaUtil {
     return _xblockexpression;
   }
   
-  public static JNIISLSet _getScalarDomain(final AlphaSystem system) {
+  protected static JNIISLSet _getScalarDomain(final AlphaSystem system) {
     JNIISLSet _xblockexpression = null;
     {
       JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "{ [] : }"));
@@ -130,7 +181,7 @@ public class AlphaUtil {
     return _xblockexpression;
   }
   
-  public static JNIISLSet _getScalarDomain(final AlphaExpression expr) {
+  protected static JNIISLSet _getScalarDomain(final AlphaExpression expr) {
     JNIISLSet _xblockexpression = null;
     {
       AlphaSystem _containerSystem = AlphaUtil.getContainerSystem(expr);
@@ -324,7 +375,11 @@ public class AlphaUtil {
     }
   }
   
-  public static String _islSetToShowString(final JNIISLMap map) {
+  protected static String _islSetToShowString(final JNIISLMap map) {
+    return AlphaUtil.islSetToShowString(map, null);
+  }
+  
+  protected static String _islSetToShowString(final JNIISLMap map, final JNIISLSet ctx) {
     return ("expecting set; got: " + map);
   }
   
@@ -333,8 +388,18 @@ public class AlphaUtil {
    * 
    * For sets, ISL string without the parameter part is the AlphaString.
    */
-  public static String _islSetToShowString(final JNIISLSet set) {
-    final String str = set.toString();
+  protected static String _islSetToShowString(final JNIISLSet set) {
+    return AlphaUtil.islSetToShowString(set, null);
+  }
+  
+  protected static String _islSetToShowString(final JNIISLSet set, final JNIISLSet ctx) {
+    String _xifexpression = null;
+    if (((ctx != null) && ctx.isParamSet())) {
+      _xifexpression = set.gist(ctx.copy().addDims(JNIISLDimType.isl_dim_set, set.getNbDims())).toString();
+    } else {
+      _xifexpression = set.toString();
+    }
+    final String str = _xifexpression;
     final String out = str.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{");
     return out;
   }
@@ -386,6 +451,17 @@ public class AlphaUtil {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(map).toString());
+    }
+  }
+  
+  public static String islSetToShowString(final JNIObject map, final JNIISLSet ctx) {
+    if (map instanceof JNIISLMap) {
+      return _islSetToShowString((JNIISLMap)map, ctx);
+    } else if (map instanceof JNIISLSet) {
+      return _islSetToShowString((JNIISLSet)map, ctx);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(map, ctx).toString());
     }
   }
 }

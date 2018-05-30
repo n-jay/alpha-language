@@ -31,6 +31,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
+
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
@@ -141,16 +144,33 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * @generated
 	 */
 	public AlphaSystem getSystem(final String name) {
-		final Function1<AlphaSystem, Boolean> _function = new Function1<AlphaSystem, Boolean>() {
-			public Boolean apply(final AlphaSystem s) {
-				return Boolean.valueOf(s.getName().contentEquals(name));
+		boolean _contains = name.contains(".");
+		if (_contains) {
+			final IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider();
+			final Function1<AlphaSystem, Boolean> _function = new Function1<AlphaSystem, Boolean>() {
+				public Boolean apply(final AlphaSystem s) {
+					return Boolean.valueOf(provider.getFullyQualifiedName(s).toString().contentEquals(name));
+				}
+			};
+			final Iterator<AlphaSystem> matching = IteratorExtensions.<AlphaSystem>filter(Iterators.<AlphaSystem>filter(this.eAllContents(), AlphaSystem.class), _function);
+			int _size = IteratorExtensions.size(matching);
+			boolean _greaterThan = (_size > 0);
+			if (_greaterThan) {
+				return IteratorExtensions.<AlphaSystem>head(matching);
 			}
-		};
-		final Iterator<AlphaSystem> matching = IteratorExtensions.<AlphaSystem>filter(Iterators.<AlphaSystem>filter(this.eAllContents(), AlphaSystem.class), _function);
-		int _size = IteratorExtensions.size(matching);
-		boolean _greaterThan = (_size > 0);
-		if (_greaterThan) {
-			return IteratorExtensions.<AlphaSystem>head(matching);
+		}
+		else {
+			final Function1<AlphaSystem, Boolean> _function_1 = new Function1<AlphaSystem, Boolean>() {
+				public Boolean apply(final AlphaSystem s) {
+					return Boolean.valueOf(s.getName().contentEquals(name));
+				}
+			};
+			final Iterator<AlphaSystem> matching_1 = IteratorExtensions.<AlphaSystem>filter(Iterators.<AlphaSystem>filter(this.eAllContents(), AlphaSystem.class), _function_1);
+			int _size_1 = IteratorExtensions.size(matching_1);
+			boolean _greaterThan_1 = (_size_1 > 0);
+			if (_greaterThan_1) {
+				return IteratorExtensions.<AlphaSystem>head(matching_1);
+			}
 		}
 		throw new RuntimeException((("System " + name) + " was not found."));
 	}

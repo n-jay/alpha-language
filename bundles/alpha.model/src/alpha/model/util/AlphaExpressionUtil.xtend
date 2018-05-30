@@ -23,19 +23,19 @@ import java.util.stream.Stream
 class AlphaExpressionUtil {
 	
 		
-	public static def <T> getChildrenOfType(AlphaNode expr, Class<T> c) {
+	static def <T> getChildrenOfType(AlphaNode expr, Class<T> c) {
 		expr.eContents.stream.filter([e|c.isInstance(e)]).map([e|c.cast(e)])
 	}
 	
-	public static def testNonNullContextDomain(Stream<AlphaExpression> exprs) {
+	static def testNonNullContextDomain(Stream<AlphaExpression> exprs) {
 		return exprs.allMatch([e|e !== null && e.contextDomain !== null]);
 	}
 	
-	public static def testNonNullExpressionDomain(Stream<AlphaExpression> exprs) {
+	static def testNonNullExpressionDomain(Stream<AlphaExpression> exprs) {
 		return exprs.allMatch([e|e !== null && e.expressionDomain !== null]);
 	}
 	
-	public static def testNonNullCalcExpression(Stream<CalculatorExpression> exprs) {
+	static def testNonNullCalcExpression(Stream<CalculatorExpression> exprs) {
 		return exprs.allMatch([e|e !== null && e.ISLObject !== null]);
 	}
 	
@@ -48,18 +48,18 @@ class AlphaExpressionUtil {
 	 *      In short, the context is the cross product of instantiation domain with the input variable domain.
 	 */
 	//default case, just pass the context of the parent
-	public static dispatch def parentContext(AlphaExpression child, AlphaExpression parent, Consumer<AlphaIssue> f) {
+	static dispatch def parentContext(AlphaExpression child, AlphaExpression parent, Consumer<AlphaIssue> f) {
 		parent.contextDomain
 	}
 	
-	public static dispatch def parentContext(AlphaExpression child, StandardEquation parent, Consumer<AlphaIssue> f) {
+	static dispatch def parentContext(AlphaExpression child, StandardEquation parent, Consumer<AlphaIssue> f) {
 		parent.variable.domain
 	}
 
 	//For UseEquations, the context depends on the location of the child
 	// the instantiation domain is extended by the number of dimension with the corresponding input/output in the callee subsystem
 	//  
-	public static dispatch def parentContext(AlphaExpression child, UseEquation parent, Consumer<AlphaIssue> f) {
+	static dispatch def parentContext(AlphaExpression child, UseEquation parent, Consumer<AlphaIssue> f) {
 		if (checkCalcExprType(parent.instantiationDomainExpr, POLY_OBJECT_TYPE.SET, f)) {
 			
 			val inputLoc = parent.inputExprs.indexOf(child);

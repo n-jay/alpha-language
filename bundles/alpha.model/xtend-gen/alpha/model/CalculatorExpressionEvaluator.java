@@ -112,7 +112,6 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       expr.setZ__internal_cache_islObject(res);
     } catch (final Throwable _t) {
       if (_t instanceof UnsupportedOperationException) {
-        final UnsupportedOperationException uoe = (UnsupportedOperationException)_t;
         CALCULATOR_UNARY_OP _operator = expr.getOperator();
         String _plus = ("Unary operation \'" + _operator);
         String _plus_1 = (_plus + "\' is undefined for ");
@@ -192,7 +191,6 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       expr.setZ__internal_cache_islObject(res);
     } catch (final Throwable _t) {
       if (_t instanceof UnsupportedOperationException) {
-        final UnsupportedOperationException uoe = (UnsupportedOperationException)_t;
         CALCULATOR_BINARY_OP _operator = expr.getOperator();
         String _plus = ("Binary operation \'" + _operator);
         String _plus_1 = (_plus + "\' is undefined for ");

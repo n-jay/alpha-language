@@ -420,10 +420,4 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	public void outSelectExpression(SelectExpression se) {
 		indexNameContext = contextHistory.pop();
 	}
-	
-	private void evaluteFuzzyFunction(FuzzyFunction ff) {
-//		ff.getAlphaString()
-		
-		
-	}
 }

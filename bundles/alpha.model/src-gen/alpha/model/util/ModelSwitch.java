@@ -102,12 +102,6 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackage.DOMAIN_QUALIFIED_ELEMENT: {
-				DomainQualifiedElement domainQualifiedElement = (DomainQualifiedElement)theEObject;
-				T result = caseDomainQualifiedElement(domainQualifiedElement);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case ModelPackage.ALPHA_VISITOR: {
 				AlphaVisitor alphaVisitor = (AlphaVisitor)theEObject;
 				T result = caseAlphaVisitor(alphaVisitor);
@@ -788,21 +782,6 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCalculatorExpressionVisitable(CalculatorExpressionVisitable object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Domain Qualified Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Domain Qualified Element</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDomainQualifiedElement(DomainQualifiedElement object) {
 		return null;
 	}
 

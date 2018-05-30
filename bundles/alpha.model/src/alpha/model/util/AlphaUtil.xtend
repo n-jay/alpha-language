@@ -7,8 +7,10 @@ import alpha.model.AlphaPackage
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
-import alpha.model.CalculatorExpression
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException
+import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
@@ -18,18 +20,24 @@ import java.util.LinkedList
 import java.util.List
 import java.util.function.Consumer
 import java.util.function.Supplier
-import java.util.stream.Stream
 import org.eclipse.emf.ecore.EObject
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLVal
+import org.eclipse.xtext.naming.IQualifiedNameProvider
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 
 class AlphaUtil {
+	
 
+	static def AlphaRoot getContainerRoot(EObject node) {
+		if (node instanceof AlphaRoot)
+			return node as AlphaRoot
+		
+		if (node.eContainer() === null)
+			return null
+		
+		return AlphaUtil.getContainerRoot(node.eContainer())
+	}
 
-	public static def AlphaSystem getContainerSystem(EObject node) {
+	static def AlphaSystem getContainerSystem(EObject node) {
 		if (node instanceof AlphaSystem)
 			return node as AlphaSystem
 		
@@ -39,8 +47,24 @@ class AlphaUtil {
 		return AlphaUtil.getContainerSystem(node.eContainer())
 	}
 	
+	static def AlphaRoot selectAlphaRoot(List<AlphaRoot> roots, String systemName) {
+		//qualified name
+		if (systemName.contains('.')) {
+			val IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider;
+			val matching = roots.map[r|r.eAllContents].filter(AlphaSystem).filter[s|provider.getFullyQualifiedName(s).toString.contentEquals(systemName)]
+			if (matching.size>0) return getContainerRoot(matching.head)
+		//just the system name
+		} else {
+			val matching = roots.iterator.flatMap[eAllContents.filter(AlphaSystem).filter[s|s.name.contentEquals(systemName)]]
+			if (matching.hasNext) return getContainerRoot(matching.next)
+		}
+		
+		throw new RuntimeException("System " + systemName + " was not found.");
+	}
 
-	public static def JNIISLSet getParameterDomain(EObject node) {
+	
+
+	static def JNIISLSet getParameterDomain(EObject node) {
 
 		val system = AlphaUtil.getContainerSystem(node);
 		if (system === null) {
@@ -59,7 +83,7 @@ class AlphaUtil {
 	 * It is based on String.replaceAll, so it may fail on some inputs.
 	 * Currently the model is that the users pick good names for AlphaConstants to avoid this issue
 	 */
-	public static def String replaceAlphaConstants(AlphaSystem system, String jniString) {
+	static def String replaceAlphaConstants(AlphaSystem system, String jniString) {
 		if (system !== null && system.eContainer !== null) {
 			var str = jniString
 			for (ac : gatherAlphaConstants(system.eContainer as AlphaVisitable)) {
@@ -82,19 +106,19 @@ class AlphaUtil {
 	
 
 	//Void is for null in Xtend dispatch
-	public static def dispatch copy(Void n) {
+	static def dispatch copy(Void n) {
 		null
 	}
-	public static def dispatch copy(JNIISLMap map) {
+	static def dispatch copy(JNIISLMap map) {
 		map.copy
 	}
-	public static def dispatch copy(JNIISLSet set) {
+	static def dispatch copy(JNIISLSet set) {
 		set.copy
 	}
-	public static def dispatch copy(JNIISLMultiAff maff) {
+	static def dispatch copy(JNIISLMultiAff maff) {
 		maff.copy
 	}
-	public static def dispatch copy(JNIISLUnionMap umap) {
+	static def dispatch copy(JNIISLUnionMap umap) {
 		umap.copy
 	}
 	
@@ -102,7 +126,7 @@ class AlphaUtil {
 	 * Method that adds parameter domain names and replaces AlphaConstants with its value.
 	 * Last step before passing the string to ISL.
 	 */
-	public static def String toContextFreeISLString(AlphaSystem system, String alphaDom) {
+	static def String toContextFreeISLString(AlphaSystem system, String alphaDom) {
 			val completed = new StringBuffer("[");
 			completed.append(String.join(",", system.parameterDomain.getParametersNames()));
 			completed.append("] -> ");
@@ -112,13 +136,13 @@ class AlphaUtil {
 			AlphaUtil.replaceAlphaConstants(system, completed.toString())
 	}
 	
-	public static def dispatch JNIISLSet getScalarDomain(AlphaSystem system) {
+	static def dispatch JNIISLSet getScalarDomain(AlphaSystem system) {
 		var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "{ [] : }"));
 		val pdom = system.parameterDomain
 		
 		jniset.intersectParams(pdom.copy());
 	}
-	public static def dispatch JNIISLSet getScalarDomain(AlphaExpression expr) {
+	static def dispatch JNIISLSet getScalarDomain(AlphaExpression expr) {
 		if (expr.containerSystem === null) return null
 		expr.containerSystem.scalarDomain
 	}
@@ -128,16 +152,16 @@ class AlphaUtil {
 	/**
 	 * Helper function to obtain the additional indices due to while expressions when parsing polyhedral objects specified in ArrayNotation
 	 * */
-	public static def List<String> getWhileIndexNames(AlphaNode node) {
+	static def List<String> getWhileIndexNames(AlphaNode node) {
 		val containerSystem = AlphaUtil.getContainerSystem(node)
 		if (containerSystem.whileDomain !== null) containerSystem.whileDomain.indicesNames
 		else new LinkedList;
 	}
 	
-	public static def <T> T callISLwithErrorHandling(Supplier<T> r, Consumer<String> f) {
+	static def <T> T callISLwithErrorHandling(Supplier<T> r, Consumer<String> f) {
 		return callISLwithErrorHandling(r, f, null);
 	}
-	public static def <T> T callISLwithErrorHandling(Supplier<T> r, Consumer<String> f, T defaultValue) {
+	static def <T> T callISLwithErrorHandling(Supplier<T> r, Consumer<String> f, T defaultValue) {
 		try {
 			return JNIISLTools.<T>recordError(r);
 		} catch (ISLErrorException e) {
@@ -146,7 +170,7 @@ class AlphaUtil {
 		}
 	}
 	
-	public static def void callISLwithErrorHandling(Runnable r, Consumer<String> f) {
+	static def void callISLwithErrorHandling(Runnable r, Consumer<String> f) {
 		try {
 			JNIISLTools.recordError(r);
 		} catch (ISLErrorException e) {
@@ -156,7 +180,7 @@ class AlphaUtil {
 	
 	
 	/* ISL to Alpha String */
-	public static def String toShowString(JNIISLMultiAff maff) {
+	static def String toShowString(JNIISLMultiAff maff) {
 		if (maff === null) return null;
 		val lhs = maff.domainSpace.getNameList(JNIISLDimType.isl_dim_set).join(",")
 		val rhs = maff.affs.join(",", [a|a.islAffToShowString]);
@@ -177,7 +201,7 @@ class AlphaUtil {
 	 *   - among positive/negative values, the order is parameters, indices, divs
 	 * 
 	 */
-	public static def String islAffToShowString(JNIISLAff aff) {
+	static def String islAffToShowString(JNIISLAff aff) {
 		val commonD = aff.denominator
 		
 		val constant = aff.constantVal
@@ -218,7 +242,10 @@ class AlphaUtil {
 		}
 	}
 	
-	public dispatch static def String islSetToShowString(JNIISLMap map) {
+	dispatch static def String islSetToShowString(JNIISLMap map) {
+		islSetToShowString(map, null)
+	}
+	dispatch static def String islSetToShowString(JNIISLMap map, JNIISLSet ctx) {
 		return "expecting set; got: " + map
 	}
 	/**
@@ -226,8 +253,14 @@ class AlphaUtil {
 	 * 
 	 * For sets, ISL string without the parameter part is the AlphaString.
 	 */
-	public dispatch static def String islSetToShowString(JNIISLSet set) {
-		val str = set.toString
+	dispatch static def String islSetToShowString(JNIISLSet set) {
+		islSetToShowString(set, null)
+	}
+	dispatch static def String islSetToShowString(JNIISLSet set, JNIISLSet ctx) {
+		val str = if (ctx !== null && ctx.isParamSet) {
+						set.gist(ctx.copy.addDims(JNIISLDimType.isl_dim_set, set.nbDims)).toString 
+				   } else set.toString
+		
 		val out = str.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{")
 		return out
 	}

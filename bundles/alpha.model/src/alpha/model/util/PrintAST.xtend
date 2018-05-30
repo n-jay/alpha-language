@@ -1,43 +1,42 @@
 package alpha.model.util
 
 import alpha.model.AlphaConstant
-import alpha.model.AlphaPackage
+import alpha.model.AlphaExpression
+import alpha.model.AlphaExpressionVisitable
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
+import alpha.model.AlphaVisitable
+import alpha.model.ArgReduceExpression
+import alpha.model.AutoRestrictExpression
+import alpha.model.BinaryExpression
+import alpha.model.ConstantExpression
+import alpha.model.ConvolutionExpression
+import alpha.model.DependenceExpression
+import alpha.model.ExternalArgReduceExpression
 import alpha.model.ExternalFunction
+import alpha.model.ExternalMultiArgExpression
+import alpha.model.ExternalReduceExpression
+import alpha.model.FuzzyDependenceExpression
+import alpha.model.FuzzyIndexExpression
+import alpha.model.FuzzyVariable
+import alpha.model.IndexExpression
+import alpha.model.MultiArgExpression
+import alpha.model.PolyhedralObject
+import alpha.model.ReduceExpression
+import alpha.model.RestrictExpression
+import alpha.model.SelectExpression
 import alpha.model.StandardEquation
+import alpha.model.UnaryExpression
+import alpha.model.UseEquation
 import alpha.model.Variable
+import alpha.model.VariableExpression
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
-import alpha.model.FuzzyVariable
-import alpha.model.PolyhedralObject
-import alpha.model.RestrictExpression
-import alpha.model.AlphaVisitable
-import alpha.model.AlphaExpressionVisitable
-import alpha.model.UseEquation
-import alpha.model.AlphaExpression
-import alpha.model.VariableExpression
-import alpha.model.ConstantExpression
-import alpha.model.BinaryExpression
-import alpha.model.UnaryExpression
-import alpha.model.MultiArgExpression
-import alpha.model.ExternalMultiArgExpression
-import alpha.model.DependenceExpression
-import alpha.model.ReduceExpression
-import alpha.model.ExternalReduceExpression
-import alpha.model.ArgReduceExpression
-import alpha.model.ExternalArgReduceExpression
-import alpha.model.ConvolutionExpression
-import alpha.model.SelectExpression
-import alpha.model.AutoRestrictExpression
-import alpha.model.IndexExpression
-import alpha.model.FuzzyIndexExpression
-import alpha.model.FuzzyDependenceExpression
 
 class PrintAST extends AbstractAlphaCompleteVisitor {
 	
-	private String indent = "";
+	String indent = "";
 	protected static final String INDENT_WITH_SIBILING = "   |";
 	protected static final String INDENT_LAST_CHILD = "    ";
 	protected StringBuffer _output = new StringBuffer;
@@ -45,12 +44,12 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	protected List<Integer> nodeIdTracker = new LinkedList; 
 	protected int depth = 0; 
 	
-	public static def String print(AlphaRoot program) {
+	static def String print(AlphaRoot program) {
 		val printer = new PrintAST
 		program.accept(printer);
 		return printer._output.toString();
 	}
-	public static def String print(AlphaSystem system) {
+	static def String print(AlphaSystem system) {
 		val printer = new PrintAST;
 		system.accept(printer);
 		return printer._output.toString();

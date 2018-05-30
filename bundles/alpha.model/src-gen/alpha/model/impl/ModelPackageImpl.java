@@ -31,7 +31,6 @@ import alpha.model.ConstantExpression;
 import alpha.model.ConvolutionExpression;
 import alpha.model.DefinedObject;
 import alpha.model.DependenceExpression;
-import alpha.model.DomainQualifiedElement;
 import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalFuzzyArgReduceExpression;
@@ -132,13 +131,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass calculatorExpressionVisitableEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass domainQualifiedElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -765,15 +757,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 */
 	public EClass getCalculatorExpressionVisitable() {
 		return calculatorExpressionVisitableEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getDomainQualifiedElement() {
-		return domainQualifiedElementEClass;
 	}
 
 	/**
@@ -2425,8 +2408,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		calculatorExpressionVisitableEClass = createEClass(CALCULATOR_EXPRESSION_VISITABLE);
 
-		domainQualifiedElementEClass = createEClass(DOMAIN_QUALIFIED_ELEMENT);
-
 		alphaVisitorEClass = createEClass(ALPHA_VISITOR);
 
 		alphaExpressionVisitorEClass = createEClass(ALPHA_EXPRESSION_VISITOR);
@@ -2789,8 +2770,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(calculatorExpressionVisitableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		initEClass(domainQualifiedElementEClass, DomainQualifiedElement.class, "DomainQualifiedElement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(alphaVisitorEClass, AlphaVisitor.class, "AlphaVisitor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -120,9 +120,9 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 	 *  - remove branches of case expressions that have empty context domain
 	 */
 
-	private final boolean DEEP;
+	final boolean DEEP;
 	
-	public static boolean DEBUG = false
+	static boolean DEBUG = false
 	
 	protected def debug(String ruleID, String rule) {
 		if (DEBUG) println(ruleID + ": " + rule)
@@ -142,10 +142,10 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		DEEP = isDeepNormalize;
 	}
 
-	public static def void apply(AlphaCompleteVisitable acv) {
+	static def void apply(AlphaCompleteVisitable acv) {
 		apply(acv, false)
 	}
-	public static def void apply(AlphaCompleteVisitable acv, boolean isDeepNormalize) {
+	static def void apply(AlphaCompleteVisitable acv, boolean isDeepNormalize) {
 		if (acv instanceof AlphaVisitable) {
 			apply(acv as AlphaVisitable, isDeepNormalize)
 		} else if (acv instanceof AlphaExpressionVisitable) {
@@ -155,13 +155,13 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		}
 	}
 	
-	public static def void apply(AlphaVisitable av) { apply(av, false) }
-	public static def void apply(AlphaVisitable av, boolean isDeepNormalize) {
+	static def void apply(AlphaVisitable av) { apply(av, false) }
+	static def void apply(AlphaVisitable av, boolean isDeepNormalize) {
 		val visitor = new Normalize(isDeepNormalize);
 		av.accept(visitor);
 	}
-	public static def void apply(AlphaExpressionVisitable aev) { apply(aev, false) }
-	public static def void apply(AlphaExpressionVisitable aev, boolean isDeepNormalize) {
+	static def void apply(AlphaExpressionVisitable aev) { apply(aev, false) }
+	static def void apply(AlphaExpressionVisitable aev, boolean isDeepNormalize) {
 		val visitor = new Normalize(isDeepNormalize);
 		aev.accept(visitor);
 	}

@@ -28,6 +28,11 @@
             iterative="false"
             name="ReadAlphaBundle">
       </module>
+      <module
+            class="alpha.model.module.SelectRoot"
+            iterative="false"
+            name="SelectRoot">
+      </module>
    </extension>
 
 </plugin>

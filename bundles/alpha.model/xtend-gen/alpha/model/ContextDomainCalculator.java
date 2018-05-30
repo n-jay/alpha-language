@@ -34,13 +34,13 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
   private List<AlphaIssue> issues = new LinkedList<AlphaIssue>();
   
-  public static List<AlphaIssue> _calculate(final AlphaVisitable node) {
+  protected static List<AlphaIssue> _calculate(final AlphaVisitable node) {
     final ContextDomainCalculator calc = new ContextDomainCalculator();
     calc.visit(node);
     return calc.issues;
   }
   
-  public static List<AlphaIssue> _calculate(final AlphaExpressionVisitable expr) {
+  protected static List<AlphaIssue> _calculate(final AlphaExpressionVisitable expr) {
     final ContextDomainCalculator calc = new ContextDomainCalculator();
     expr.accept(calc);
     return calc.issues;

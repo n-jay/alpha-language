@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="alpha.language.target" sequenceNumber="64">
+<?pde version="3.8"?><target name="alpha.language.target" sequenceNumber="66">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.framework.feature.feature.group" version="1.1.0.201707191751"/>
@@ -32,11 +32,6 @@
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools/graph/release/v1.0.0/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.xtend.sdk.feature.group" version="2.13.0.v20171020-0920"/>
-<unit id="org.eclipse.xtext.sdk.feature.group" version="2.13.0.v20171020-0920"/>
-<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.13.0/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.testframework.model.feature.feature.group" version="2.0.0.201803221903"/>
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/testframework/release"/>
 </location>
@@ -48,10 +43,12 @@
 <unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" version="1.5.0.v20170613-0242"/>
 <unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
 <unit id="org.eclipse.emf.validation.sdk.feature.group" version="1.11.0.201706061352"/>
-<unit id="org.eclipse.equinox.sdk.feature.group" version="3.13.0.v20170531-1133"/>
-<unit id="org.eclipse.jdt.feature.group" version="3.13.0.v20170612-0950"/>
-<unit id="org.eclipse.pde.feature.group" version="3.13.0.v20170612-0950"/>
-<repository location="http://download.eclipse.org/releases/oxygen/201706281000"/>
+<repository location="http://download.eclipse.org/releases/oxygen/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.xtend.sdk.feature.group" version="2.14.0.v20180523-0937"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.14.0.v20180523-0937"/>
+<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.14.0/"/>
 </location>
 </locations>
 </target>

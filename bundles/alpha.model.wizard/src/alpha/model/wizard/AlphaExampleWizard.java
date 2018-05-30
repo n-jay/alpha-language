@@ -8,11 +8,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -26,6 +29,9 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jdt.launching.environments.IExecutionEnvironment;
+import org.eclipse.jdt.launching.environments.IExecutionEnvironmentsManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -36,14 +42,14 @@ import org.eclipse.ui.IWorkbench;
 import org.osgi.framework.Bundle;
 
 public class AlphaExampleWizard extends Wizard implements INewWizard {
+	
+	public static final String RESOURCES_ROOT = "resources/";
 
 	public String getPageName() { return "Alpha Example Project Wizard"; }
 	public String getPageDescription() { return "Creates a Java project with examples of Alpha programs and compiler scripts."; }
-	public String getResourcesFolderToCopyIntoProject() { return "TODO"; }
 	protected Bundle getPluginBundle() {
 		return Platform.getBundle(Activator.PLUGIN_ID);
 	}
-
 	
 	private AlphaExampleWizardPage _page;
 	
@@ -95,10 +101,8 @@ public class AlphaExampleWizard extends Wizard implements INewWizard {
 	protected void doFinish(String projectName, IProgressMonitor monitor) throws CoreException {
 		monitor.beginTask("Example project creation", IProgressMonitor.UNKNOWN);
 		IJavaProject project = createExampleProject(projectName, monitor);
-//		
-//		if(getResourcesFolderToCopyIntoProject() != null)
-//			copyRessourcesToProjectFolder(getResourcesFolderToCopyIntoProject(), project.getLocationURI());
 		
+		copyResourcesToProjectFolder(project);
 		
 		monitor.worked(1);
 	}
@@ -113,62 +117,79 @@ public class AlphaExampleWizard extends Wizard implements INewWizard {
 	private IJavaProject createExampleProject(String projectName, IProgressMonitor monitor) throws CoreException {
 		IWorkspaceRoot wkRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IProject project = wkRoot.getProject(projectName);
-		IProjectDescription projectDescription = ResourcesPlugin.getWorkspace().newProjectDescription(project.getName());
-		projectDescription.setNatureIds(new String[] { JavaCore.NATURE_ID,  "org.eclipse.xtext.ui.shared.xtextNature" });
-		project.setDescription(projectDescription, null);
-		
-		IJavaProject javaProject = JavaCore.create(project);
-		
-		IFolder binFolder = project.getFolder("bin");
-		binFolder.create(false, true, null);
-		javaProject.setOutputLocation(binFolder.getFullPath(), null);
-		
-		IFolder sourceFolder = project.getFolder("src");
-		sourceFolder.create(false, true, null);
-		
-		IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(sourceFolder);
-		IClasspathEntry[] oldEntries = javaProject.getRawClasspath();
-		IClasspathEntry[] newEntries = new IClasspathEntry[oldEntries.length + 1];
-		System.arraycopy(oldEntries, 0, newEntries, 0, oldEntries.length);
-		newEntries[oldEntries.length] = JavaCore.newSourceEntry(root.getPath());
-		javaProject.setRawClasspath(newEntries, null);
 		
 		if(Arrays.asList(wkRoot.getProjects()).contains(project)){
 			IStatus status = new Status(Status.ERROR, getPluginBundle().getSymbolicName(), "Project with the same name already exist in the workspace");
 			throw new CoreException(status);
 		}
 		
+		project.create(null);
+		project.open(null);
+		
+		IProjectDescription projectDescription = ResourcesPlugin.getWorkspace().newProjectDescription(project.getName());
+		projectDescription.setNatureIds(new String[] { JavaCore.NATURE_ID,  "org.eclipse.xtext.ui.shared.xtextNature" });
+		project.setDescription(projectDescription, null);
+		
+		IJavaProject javaProject = JavaCore.create(project);
+		
+
+		IFolder binFolder = project.getFolder("bin");
+		if (!binFolder.exists())
+			binFolder.create(false, true, null);
+		javaProject.setOutputLocation(binFolder.getFullPath(), null);
+		
+		IFolder sourceFolder = project.getFolder("src");
+		if (!sourceFolder.exists())
+			sourceFolder.create(false, true, null);
+		
+		List<IClasspathEntry> entries = new ArrayList<IClasspathEntry>();
+		IExecutionEnvironmentsManager executionEnvironmentsManager = JavaRuntime.getExecutionEnvironmentsManager();
+		IExecutionEnvironment[] executionEnvironments = executionEnvironmentsManager.getExecutionEnvironments();
+		for (IExecutionEnvironment iExecutionEnvironment : executionEnvironments) {
+		    if ("JavaSE-1.8".equals(iExecutionEnvironment.getId())) {
+		        entries.add(JavaCore.newContainerEntry(JavaRuntime.newJREContainerPath(iExecutionEnvironment)));
+		        break;
+		    }
+		}
+
+		IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(sourceFolder);
+		entries.add(JavaCore.newSourceEntry(root.getPath()));
+
+		javaProject.setRawClasspath(entries.toArray(new IClasspathEntry[entries.size()]), null);		
+
 		return javaProject;
 	}
 	
-	private void copyRessourcesToProjectFolder(String resources, URI root) throws CoreException {
+	private void copyResourcesToProjectFolder(IJavaProject project) throws CoreException {
 		Bundle bundle = getPluginBundle();
 		try {	
-			Path path = new Path(resources);
+			Path path = new Path(RESOURCES_ROOT);
 			URL fileURL = FileLocator.find(bundle, path, null);
 			URI uri = FileLocator.resolve(fileURL).toURI();
-			File file = new File(uri); // File of folder to copy
-			File projectFolder = new File(root); // Project folder where copy resources
+			File src = new File(uri); // File of folder to copy
+			File projectFolder = new File(project.getProject().getLocationURI()); // Project folder where copy resources
 			
-			if(file.isFile()){
-				copyFile(file, projectFolder);
-			}
-			else if (file.isDirectory()) {
-				copyDirectory(file, projectFolder);
-			}
-			else{
+			if (src.isDirectory()) {
+				for (File file : src.listFiles()) {
+					if (file.isDirectory()) {
+						copyDirectory(file, new File(projectFolder, file.getName()));
+					} else {
+						copyFile(file, projectFolder);
+					}
+				}
+			} else {
 				IStatus status = new Status(Status.ERROR, bundle.getSymbolicName(),
-						"Error during wizard creation. Impossible to find wizard resources " + resources);
+						"Error during wizard creation. Impossible to find wizard resources: " + RESOURCES_ROOT);
 				throw new CoreException(status);
-			}			
+			}
 
+			project.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 		} catch (IOException | URISyntaxException e) {
 			IStatus status = new Status(Status.ERROR, bundle.getSymbolicName(),
 					"Error during wizard creation. Impossible to copy resources", e);
 			throw new CoreException(status);
 		}
 	}
-
 	
 	private void copyFile(File src, File target) throws IOException{
 		File targetFile = new File(target, src.getName());

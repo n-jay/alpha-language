@@ -1,20 +1,18 @@
 package alpha.model
 
 import alpha.model.issue.AlphaIssue
-import java.util.List
-import java.util.LinkedList
-import java.util.Stack
-import alpha.model.util.AlphaUtil
-
-import static alpha.model.util.AlphaUtil.getParameterDomain
-import static alpha.model.util.AlphaUtil.callISLwithErrorHandling
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
-import alpha.model.issue.CalculatorExpressionIssue
 import alpha.model.issue.AlphaIssue.TYPE
 import alpha.model.issue.AlphaIssueFactory
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
+import alpha.model.issue.CalculatorExpressionIssue
+import alpha.model.util.AlphaUtil
+import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
+import java.util.LinkedList
+import java.util.List
+import java.util.Stack
+
+import static alpha.model.util.AlphaUtil.getParameterDomain
 
 /**
  * 
@@ -24,20 +22,20 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
  */
 class FuzzyFunctionEvaluator {
 	
-	private List<AlphaIssue> issues = new LinkedList;
+	List<AlphaIssue> issues = new LinkedList;
 
-	private Stack<List<String>> contextHistory = new Stack;
-	private List<String> indexNameContext;
+	Stack<List<String>> contextHistory = new Stack;
+	List<String> indexNameContext;
 	
 	protected new(List<String> indexNameContext) {
 		this.indexNameContext = indexNameContext;
 	}
 	
-	public static def List<AlphaIssue> calculate(FuzzyFunction ff) {
+	static def List<AlphaIssue> calculate(FuzzyFunction ff) {
 		calculate(ff, null)
 	}
 	
-	public static def List<AlphaIssue> calculate(FuzzyFunction ff, List<String> indexNameContext) {
+	static def List<AlphaIssue> calculate(FuzzyFunction ff, List<String> indexNameContext) {
 		val calc = new FuzzyFunctionEvaluator(indexNameContext);	
 		
 		calc.visitFuzzyFunction(ff);
