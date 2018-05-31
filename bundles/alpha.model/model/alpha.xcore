@@ -1033,6 +1033,7 @@ class VariableDomain extends CalculatorExpression {
  * The bounds are of the form: 0<=i<N; each dimension will have N integer points starting from 0. 
  */
 class RectangularDomain extends CalculatorExpression {
+	String[] lowerBounds
 	String[] upperBounds
 	String[] indexNames
 	
@@ -1049,7 +1050,11 @@ class RectangularDomain extends CalculatorExpression {
 	}
 	
 	op String plainToString() {
-		'[' + upperBounds.join(", ") + ']'
+		if (lowerBounds.length == upperBounds.length) {
+			'[' + (0..<lowerBounds.length).map[i|lowerBounds.get(i) + ':' + upperBounds.get(i)].join(", ") + ']'
+		} else {
+			'[' + upperBounds.join(", ") + ']'
+		}
 	}
 }
 

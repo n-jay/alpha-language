@@ -1427,7 +1427,15 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     RectangularDomain returns RectangularDomain
 	 *
 	 * Constraint:
-	 *     (upperBounds+=IndexName upperBounds+=IndexName* (indexNames+=IndexName indexNames+=IndexName*)?)
+	 *     (
+	 *         (upperBounds+=AISLExpression upperBounds+=AISLExpression* (indexNames+=IndexName indexNames+=IndexName*)?) | 
+	 *         (
+	 *             lowerBounds+=AISLExpression 
+	 *             upperBounds+=AISLExpression 
+	 *             (lowerBounds+=AISLExpression upperBounds+=AISLExpression)* 
+	 *             (indexNames+=IndexName indexNames+=IndexName*)?
+	 *         )
+	 *     )
 	 */
 	protected void sequence_RectangularDomain(ISerializationContext context, RectangularDomain semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

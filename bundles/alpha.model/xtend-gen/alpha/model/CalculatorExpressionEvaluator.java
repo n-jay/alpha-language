@@ -44,6 +44,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -580,8 +581,18 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
           if (((d_1).intValue() > 0)) {
             completed.append(" && ");
           }
+          String _xifexpression = null;
+          int _length = ((Object[])Conversions.unwrapArray(rdom.getUpperBounds(), Object.class)).length;
+          int _length_1 = ((Object[])Conversions.unwrapArray(rdom.getLowerBounds(), Object.class)).length;
+          boolean _equals = (_length == _length_1);
+          if (_equals) {
+            _xifexpression = rdom.getLowerBounds().get((d_1).intValue());
+          } else {
+            _xifexpression = "0";
+          }
+          final String lb = _xifexpression;
           String _get = dimNames.get((d_1).intValue());
-          String _plus = ("0<=" + _get);
+          String _plus = ((lb + "<=") + _get);
           String _plus_1 = (_plus + "<");
           String _get_1 = rdom.getUpperBounds().get((d_1).intValue());
           String _plus_2 = (_plus_1 + _get_1);

@@ -423,7 +423,8 @@ VariableDomain:
 	'{' variable=[Variable] '}'
 ;
 RectangularDomain:
-	'[' upperBounds+=IndexName (',' upperBounds+=IndexName)* ']' ('as' '[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')? 
+	'[' upperBounds+=AISLExpression (',' upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')? |
+	'[' lowerBounds+=AISLExpression ':' upperBounds+=AISLExpression (',' lowerBounds+=AISLExpression ':' upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')?
 ;
 DefinedObject:
 	object=[PolyhedralObject]

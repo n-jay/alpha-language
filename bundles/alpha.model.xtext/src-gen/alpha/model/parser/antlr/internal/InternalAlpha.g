@@ -6845,40 +6845,17 @@ ruleRectangularDomain returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='['
-		{
-			newLeafNode(otherlv_0, grammarAccess.getRectangularDomainAccess().getLeftSquareBracketKeyword_0());
-		}
 		(
-			(
-				{
-					newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsIndexNameParserRuleCall_1_0());
-				}
-				lv_upperBounds_1_0=ruleIndexName
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
-					}
-					add(
-						$current,
-						"upperBounds",
-						lv_upperBounds_1_0,
-						"alpha.model.Alpha.IndexName");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)
-		(
-			otherlv_2=','
+			otherlv_0='['
 			{
-				newLeafNode(otherlv_2, grammarAccess.getRectangularDomainAccess().getCommaKeyword_2_0());
+				newLeafNode(otherlv_0, grammarAccess.getRectangularDomainAccess().getLeftSquareBracketKeyword_0_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsIndexNameParserRuleCall_2_1_0());
+						newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsAISLExpressionParserRuleCall_0_1_0());
 					}
-					lv_upperBounds_3_0=ruleIndexName
+					lv_upperBounds_1_0=ruleAISLExpression
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
@@ -6886,56 +6863,56 @@ ruleRectangularDomain returns [EObject current=null]
 						add(
 							$current,
 							"upperBounds",
-							lv_upperBounds_3_0,
-							"alpha.model.Alpha.IndexName");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
-		)*
-		otherlv_4=']'
-		{
-			newLeafNode(otherlv_4, grammarAccess.getRectangularDomainAccess().getRightSquareBracketKeyword_3());
-		}
-		(
-			otherlv_5='as'
-			{
-				newLeafNode(otherlv_5, grammarAccess.getRectangularDomainAccess().getAsKeyword_4_0());
-			}
-			otherlv_6='['
-			{
-				newLeafNode(otherlv_6, grammarAccess.getRectangularDomainAccess().getLeftSquareBracketKeyword_4_1());
-			}
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_4_2_0());
-					}
-					lv_indexNames_7_0=ruleIndexName
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
-						}
-						add(
-							$current,
-							"indexNames",
-							lv_indexNames_7_0,
-							"alpha.model.Alpha.IndexName");
+							lv_upperBounds_1_0,
+							"alpha.model.Alpha.AISLExpression");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
-				otherlv_8=','
+				otherlv_2=','
 				{
-					newLeafNode(otherlv_8, grammarAccess.getRectangularDomainAccess().getCommaKeyword_4_3_0());
+					newLeafNode(otherlv_2, grammarAccess.getRectangularDomainAccess().getCommaKeyword_0_2_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_4_3_1_0());
+							newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsAISLExpressionParserRuleCall_0_2_1_0());
 						}
-						lv_indexNames_9_0=ruleIndexName
+						lv_upperBounds_3_0=ruleAISLExpression
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
+							}
+							add(
+								$current,
+								"upperBounds",
+								lv_upperBounds_3_0,
+								"alpha.model.Alpha.AISLExpression");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)*
+			otherlv_4=']'
+			{
+				newLeafNode(otherlv_4, grammarAccess.getRectangularDomainAccess().getRightSquareBracketKeyword_0_3());
+			}
+			(
+				otherlv_5='as'
+				{
+					newLeafNode(otherlv_5, grammarAccess.getRectangularDomainAccess().getAsKeyword_0_4_0());
+				}
+				otherlv_6='['
+				{
+					newLeafNode(otherlv_6, grammarAccess.getRectangularDomainAccess().getLeftSquareBracketKeyword_0_4_1());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_0_4_2_0());
+						}
+						lv_indexNames_7_0=ruleIndexName
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
@@ -6943,18 +6920,202 @@ ruleRectangularDomain returns [EObject current=null]
 							add(
 								$current,
 								"indexNames",
-								lv_indexNames_9_0,
+								lv_indexNames_7_0,
 								"alpha.model.Alpha.IndexName");
 							afterParserOrEnumRuleCall();
 						}
 					)
 				)
-			)*
-			otherlv_10=']'
+				(
+					otherlv_8=','
+					{
+						newLeafNode(otherlv_8, grammarAccess.getRectangularDomainAccess().getCommaKeyword_0_4_3_0());
+					}
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_0_4_3_1_0());
+							}
+							lv_indexNames_9_0=ruleIndexName
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
+								}
+								add(
+									$current,
+									"indexNames",
+									lv_indexNames_9_0,
+									"alpha.model.Alpha.IndexName");
+								afterParserOrEnumRuleCall();
+							}
+						)
+					)
+				)*
+				otherlv_10=']'
+				{
+					newLeafNode(otherlv_10, grammarAccess.getRectangularDomainAccess().getRightSquareBracketKeyword_0_4_4());
+				}
+			)?
+		)
+		    |
+		(
+			otherlv_11='['
 			{
-				newLeafNode(otherlv_10, grammarAccess.getRectangularDomainAccess().getRightSquareBracketKeyword_4_4());
+				newLeafNode(otherlv_11, grammarAccess.getRectangularDomainAccess().getLeftSquareBracketKeyword_1_0());
 			}
-		)?
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getRectangularDomainAccess().getLowerBoundsAISLExpressionParserRuleCall_1_1_0());
+					}
+					lv_lowerBounds_12_0=ruleAISLExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
+						}
+						add(
+							$current,
+							"lowerBounds",
+							lv_lowerBounds_12_0,
+							"alpha.model.Alpha.AISLExpression");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_13=':'
+			{
+				newLeafNode(otherlv_13, grammarAccess.getRectangularDomainAccess().getColonKeyword_1_2());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsAISLExpressionParserRuleCall_1_3_0());
+					}
+					lv_upperBounds_14_0=ruleAISLExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
+						}
+						add(
+							$current,
+							"upperBounds",
+							lv_upperBounds_14_0,
+							"alpha.model.Alpha.AISLExpression");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			(
+				otherlv_15=','
+				{
+					newLeafNode(otherlv_15, grammarAccess.getRectangularDomainAccess().getCommaKeyword_1_4_0());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getRectangularDomainAccess().getLowerBoundsAISLExpressionParserRuleCall_1_4_1_0());
+						}
+						lv_lowerBounds_16_0=ruleAISLExpression
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
+							}
+							add(
+								$current,
+								"lowerBounds",
+								lv_lowerBounds_16_0,
+								"alpha.model.Alpha.AISLExpression");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+				otherlv_17=':'
+				{
+					newLeafNode(otherlv_17, grammarAccess.getRectangularDomainAccess().getColonKeyword_1_4_2());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsAISLExpressionParserRuleCall_1_4_3_0());
+						}
+						lv_upperBounds_18_0=ruleAISLExpression
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
+							}
+							add(
+								$current,
+								"upperBounds",
+								lv_upperBounds_18_0,
+								"alpha.model.Alpha.AISLExpression");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)*
+			otherlv_19=']'
+			{
+				newLeafNode(otherlv_19, grammarAccess.getRectangularDomainAccess().getRightSquareBracketKeyword_1_5());
+			}
+			(
+				otherlv_20='as'
+				{
+					newLeafNode(otherlv_20, grammarAccess.getRectangularDomainAccess().getAsKeyword_1_6_0());
+				}
+				otherlv_21='['
+				{
+					newLeafNode(otherlv_21, grammarAccess.getRectangularDomainAccess().getLeftSquareBracketKeyword_1_6_1());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_1_6_2_0());
+						}
+						lv_indexNames_22_0=ruleIndexName
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
+							}
+							add(
+								$current,
+								"indexNames",
+								lv_indexNames_22_0,
+								"alpha.model.Alpha.IndexName");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+				(
+					otherlv_23=','
+					{
+						newLeafNode(otherlv_23, grammarAccess.getRectangularDomainAccess().getCommaKeyword_1_6_3_0());
+					}
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_1_6_3_1_0());
+							}
+							lv_indexNames_24_0=ruleIndexName
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getRectangularDomainRule());
+								}
+								add(
+									$current,
+									"indexNames",
+									lv_indexNames_24_0,
+									"alpha.model.Alpha.IndexName");
+								afterParserOrEnumRuleCall();
+							}
+						)
+					)
+				)*
+				otherlv_25=']'
+				{
+					newLeafNode(otherlv_25, grammarAccess.getRectangularDomainAccess().getRightSquareBracketKeyword_1_6_4());
+				}
+			)?
+		)
 	)
 ;
 

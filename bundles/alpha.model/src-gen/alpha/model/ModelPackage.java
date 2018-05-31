@@ -3383,13 +3383,22 @@ public interface ModelPackage extends EPackage {
 	int RECTANGULAR_DOMAIN = 65;
 
 	/**
+	 * The feature id for the '<em><b>Lower Bounds</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGULAR_DOMAIN__LOWER_BOUNDS = CALCULATOR_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Upper Bounds</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECTANGULAR_DOMAIN__UPPER_BOUNDS = CALCULATOR_EXPRESSION_FEATURE_COUNT + 0;
+	int RECTANGULAR_DOMAIN__UPPER_BOUNDS = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Index Names</b></em>' attribute list.
@@ -3398,7 +3407,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RECTANGULAR_DOMAIN__INDEX_NAMES = CALCULATOR_EXPRESSION_FEATURE_COUNT + 1;
+	int RECTANGULAR_DOMAIN__INDEX_NAMES = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache isl Set</b></em>' attribute.
@@ -3407,7 +3416,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
+	int RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET = CALCULATOR_EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Rectangular Domain</em>' class.
@@ -3416,7 +3425,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RECTANGULAR_DOMAIN_FEATURE_COUNT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 3;
+	int RECTANGULAR_DOMAIN_FEATURE_COUNT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.DefinedObjectImpl <em>Defined Object</em>}' class.
@@ -5337,6 +5346,17 @@ public interface ModelPackage extends EPackage {
 	EClass getRectangularDomain();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link alpha.model.RectangularDomain#getLowerBounds <em>Lower Bounds</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Lower Bounds</em>'.
+	 * @see alpha.model.RectangularDomain#getLowerBounds()
+	 * @see #getRectangularDomain()
+	 * @generated
+	 */
+	EAttribute getRectangularDomain_LowerBounds();
+
+	/**
 	 * Returns the meta object for the attribute list '{@link alpha.model.RectangularDomain#getUpperBounds <em>Upper Bounds</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7008,6 +7028,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass RECTANGULAR_DOMAIN = eINSTANCE.getRectangularDomain();
+
+		/**
+		 * The meta object literal for the '<em><b>Lower Bounds</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RECTANGULAR_DOMAIN__LOWER_BOUNDS = eINSTANCE.getRectangularDomain_LowerBounds();
 
 		/**
 		 * The meta object literal for the '<em><b>Upper Bounds</b></em>' attribute list feature.

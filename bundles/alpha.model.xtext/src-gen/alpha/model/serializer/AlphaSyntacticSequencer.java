@@ -170,7 +170,8 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) '[' upperBounds+=IndexName
+	 *     (rule start) (ambiguity) '[' lowerBounds+=AISLExpression
+	 *     (rule start) (ambiguity) '[' upperBounds+=AISLExpression
 	 *     (rule start) (ambiguity) '{' variable=[Variable|ID]
 	 *     (rule start) (ambiguity) alphaString=AAlphaFunction
 	 *     (rule start) (ambiguity) islString=AISLRelation

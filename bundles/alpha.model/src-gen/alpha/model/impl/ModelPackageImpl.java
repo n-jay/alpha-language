@@ -2213,7 +2213,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRectangularDomain_UpperBounds() {
+	public EAttribute getRectangularDomain_LowerBounds() {
 		return (EAttribute)rectangularDomainEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2222,7 +2222,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRectangularDomain_IndexNames() {
+	public EAttribute getRectangularDomain_UpperBounds() {
 		return (EAttribute)rectangularDomainEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2231,8 +2231,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRectangularDomain_Z__internal_cache_islSet() {
+	public EAttribute getRectangularDomain_IndexNames() {
 		return (EAttribute)rectangularDomainEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRectangularDomain_Z__internal_cache_islSet() {
+		return (EAttribute)rectangularDomainEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2629,6 +2638,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(variableDomainEClass, VARIABLE_DOMAIN__VARIABLE);
 
 		rectangularDomainEClass = createEClass(RECTANGULAR_DOMAIN);
+		createEAttribute(rectangularDomainEClass, RECTANGULAR_DOMAIN__LOWER_BOUNDS);
 		createEAttribute(rectangularDomainEClass, RECTANGULAR_DOMAIN__UPPER_BOUNDS);
 		createEAttribute(rectangularDomainEClass, RECTANGULAR_DOMAIN__INDEX_NAMES);
 		createEAttribute(rectangularDomainEClass, RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET);
@@ -3713,6 +3723,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(variableDomainEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(rectangularDomainEClass, RectangularDomain.class, "RectangularDomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRectangularDomain_LowerBounds(), theEcorePackage.getEString(), "lowerBounds", null, 0, -1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRectangularDomain_UpperBounds(), theEcorePackage.getEString(), "upperBounds", null, 0, -1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRectangularDomain_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRectangularDomain_Z__internal_cache_islSet(), this.getJNIISLSet(), "z__internal_cache_islSet", null, 0, 1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

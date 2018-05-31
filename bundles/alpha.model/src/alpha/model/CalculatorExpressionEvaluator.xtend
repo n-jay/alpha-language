@@ -465,7 +465,8 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			completed.append("] :");
 			for (d : 0 ..< dim) {
 				if(d > 0) completed.append(" && ");
-				completed.append("0<=" + dimNames.get(d) + "<" + rdom.getUpperBounds().get(d));
+				val lb = if (rdom.upperBounds.length == rdom.lowerBounds.length) rdom.lowerBounds.get(d) else "0"
+				completed.append(lb + "<=" + dimNames.get(d) + "<" + rdom.upperBounds.get(d));
 			}
 			completed.append("}");
 

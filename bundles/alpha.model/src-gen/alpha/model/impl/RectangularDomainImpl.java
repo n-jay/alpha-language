@@ -23,6 +23,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
+import org.eclipse.xtext.xbase.lib.ExclusiveRange;
+
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
@@ -33,6 +37,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link alpha.model.impl.RectangularDomainImpl#getLowerBounds <em>Lower Bounds</em>}</li>
  *   <li>{@link alpha.model.impl.RectangularDomainImpl#getUpperBounds <em>Upper Bounds</em>}</li>
  *   <li>{@link alpha.model.impl.RectangularDomainImpl#getIndexNames <em>Index Names</em>}</li>
  *   <li>{@link alpha.model.impl.RectangularDomainImpl#getZ__internal_cache_islSet <em>Zinternal cache isl Set</em>}</li>
@@ -41,6 +46,16 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  * @generated
  */
 public class RectangularDomainImpl extends CalculatorExpressionImpl implements RectangularDomain {
+	/**
+	 * The cached value of the '{@link #getLowerBounds() <em>Lower Bounds</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLowerBounds()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> lowerBounds;
+
 	/**
 	 * The cached value of the '{@link #getUpperBounds() <em>Upper Bounds</em>}' attribute list.
 	 * <!-- begin-user-doc -->
@@ -98,6 +113,18 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	@Override
 	protected EClass eStaticClass() {
 		return ModelPackage.Literals.RECTANGULAR_DOMAIN;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getLowerBounds() {
+		if (lowerBounds == null) {
+			lowerBounds = new EDataTypeEList<String>(String.class, this, ModelPackage.RECTANGULAR_DOMAIN__LOWER_BOUNDS);
+		}
+		return lowerBounds;
 	}
 
 	/**
@@ -205,9 +232,30 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * @generated
 	 */
 	public String plainToString() {
-		String _join = IterableExtensions.join(this.getUpperBounds(), ", ");
-		String _plus = ("[" + _join);
-		return (_plus + "]");
+		String _xifexpression = null;
+		int _length = ((Object[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getLowerBounds(), Object.class)).length;
+		int _length_1 = ((Object[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getUpperBounds(), Object.class)).length;
+		boolean _equals = (_length == _length_1);
+		if (_equals) {
+			int _length_2 = ((Object[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getLowerBounds(), Object.class)).length;
+			final Function1<Integer, String> _function = new Function1<Integer, String>() {
+				public String apply(final Integer i) {
+					String _get = RectangularDomainImpl.this.getLowerBounds().get((i).intValue());
+					String _plus = (_get + ":");
+					String _get_1 = RectangularDomainImpl.this.getUpperBounds().get((i).intValue());
+					return (_plus + _get_1);
+				}
+			};
+			String _join = IterableExtensions.join(IterableExtensions.<Integer, String>map(new ExclusiveRange(0, _length_2, true), _function), ", ");
+			String _plus = ("[" + _join);
+			_xifexpression = (_plus + "]");
+		}
+		else {
+			String _join_1 = IterableExtensions.join(this.getUpperBounds(), ", ");
+			String _plus_1 = ("[" + _join_1);
+			_xifexpression = (_plus_1 + "]");
+		}
+		return _xifexpression;
 	}
 
 	/**
@@ -218,6 +266,8 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ModelPackage.RECTANGULAR_DOMAIN__LOWER_BOUNDS:
+				return getLowerBounds();
 			case ModelPackage.RECTANGULAR_DOMAIN__UPPER_BOUNDS:
 				return getUpperBounds();
 			case ModelPackage.RECTANGULAR_DOMAIN__INDEX_NAMES:
@@ -237,6 +287,10 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ModelPackage.RECTANGULAR_DOMAIN__LOWER_BOUNDS:
+				getLowerBounds().clear();
+				getLowerBounds().addAll((Collection<? extends String>)newValue);
+				return;
 			case ModelPackage.RECTANGULAR_DOMAIN__UPPER_BOUNDS:
 				getUpperBounds().clear();
 				getUpperBounds().addAll((Collection<? extends String>)newValue);
@@ -260,6 +314,9 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ModelPackage.RECTANGULAR_DOMAIN__LOWER_BOUNDS:
+				getLowerBounds().clear();
+				return;
 			case ModelPackage.RECTANGULAR_DOMAIN__UPPER_BOUNDS:
 				getUpperBounds().clear();
 				return;
@@ -281,6 +338,8 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ModelPackage.RECTANGULAR_DOMAIN__LOWER_BOUNDS:
+				return lowerBounds != null && !lowerBounds.isEmpty();
 			case ModelPackage.RECTANGULAR_DOMAIN__UPPER_BOUNDS:
 				return upperBounds != null && !upperBounds.isEmpty();
 			case ModelPackage.RECTANGULAR_DOMAIN__INDEX_NAMES:
@@ -301,7 +360,9 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (upperBounds: ");
+		result.append(" (lowerBounds: ");
+		result.append(lowerBounds);
+		result.append(", upperBounds: ");
 		result.append(upperBounds);
 		result.append(", indexNames: ");
 		result.append(indexNames);

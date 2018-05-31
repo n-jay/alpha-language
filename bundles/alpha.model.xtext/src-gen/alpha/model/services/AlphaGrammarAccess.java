@@ -3958,88 +3958,198 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class RectangularDomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.RectangularDomain");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cUpperBoundsAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cUpperBoundsIndexNameParserRuleCall_1_0 = (RuleCall)cUpperBoundsAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cUpperBoundsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cUpperBoundsIndexNameParserRuleCall_2_1_0 = (RuleCall)cUpperBoundsAssignment_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cAsKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
-		private final Assignment cIndexNamesAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
-		private final RuleCall cIndexNamesIndexNameParserRuleCall_4_2_0 = (RuleCall)cIndexNamesAssignment_4_2.eContents().get(0);
-		private final Group cGroup_4_3 = (Group)cGroup_4.eContents().get(3);
-		private final Keyword cCommaKeyword_4_3_0 = (Keyword)cGroup_4_3.eContents().get(0);
-		private final Assignment cIndexNamesAssignment_4_3_1 = (Assignment)cGroup_4_3.eContents().get(1);
-		private final RuleCall cIndexNamesIndexNameParserRuleCall_4_3_1_0 = (RuleCall)cIndexNamesAssignment_4_3_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Assignment cUpperBoundsAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cUpperBoundsAISLExpressionParserRuleCall_0_1_0 = (RuleCall)cUpperBoundsAssignment_0_1.eContents().get(0);
+		private final Group cGroup_0_2 = (Group)cGroup_0.eContents().get(2);
+		private final Keyword cCommaKeyword_0_2_0 = (Keyword)cGroup_0_2.eContents().get(0);
+		private final Assignment cUpperBoundsAssignment_0_2_1 = (Assignment)cGroup_0_2.eContents().get(1);
+		private final RuleCall cUpperBoundsAISLExpressionParserRuleCall_0_2_1_0 = (RuleCall)cUpperBoundsAssignment_0_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
+		private final Group cGroup_0_4 = (Group)cGroup_0.eContents().get(4);
+		private final Keyword cAsKeyword_0_4_0 = (Keyword)cGroup_0_4.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_0_4_1 = (Keyword)cGroup_0_4.eContents().get(1);
+		private final Assignment cIndexNamesAssignment_0_4_2 = (Assignment)cGroup_0_4.eContents().get(2);
+		private final RuleCall cIndexNamesIndexNameParserRuleCall_0_4_2_0 = (RuleCall)cIndexNamesAssignment_0_4_2.eContents().get(0);
+		private final Group cGroup_0_4_3 = (Group)cGroup_0_4.eContents().get(3);
+		private final Keyword cCommaKeyword_0_4_3_0 = (Keyword)cGroup_0_4_3.eContents().get(0);
+		private final Assignment cIndexNamesAssignment_0_4_3_1 = (Assignment)cGroup_0_4_3.eContents().get(1);
+		private final RuleCall cIndexNamesIndexNameParserRuleCall_0_4_3_1_0 = (RuleCall)cIndexNamesAssignment_0_4_3_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_0_4_4 = (Keyword)cGroup_0_4.eContents().get(4);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cLowerBoundsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cLowerBoundsAISLExpressionParserRuleCall_1_1_0 = (RuleCall)cLowerBoundsAssignment_1_1.eContents().get(0);
+		private final Keyword cColonKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Assignment cUpperBoundsAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final RuleCall cUpperBoundsAISLExpressionParserRuleCall_1_3_0 = (RuleCall)cUpperBoundsAssignment_1_3.eContents().get(0);
+		private final Group cGroup_1_4 = (Group)cGroup_1.eContents().get(4);
+		private final Keyword cCommaKeyword_1_4_0 = (Keyword)cGroup_1_4.eContents().get(0);
+		private final Assignment cLowerBoundsAssignment_1_4_1 = (Assignment)cGroup_1_4.eContents().get(1);
+		private final RuleCall cLowerBoundsAISLExpressionParserRuleCall_1_4_1_0 = (RuleCall)cLowerBoundsAssignment_1_4_1.eContents().get(0);
+		private final Keyword cColonKeyword_1_4_2 = (Keyword)cGroup_1_4.eContents().get(2);
+		private final Assignment cUpperBoundsAssignment_1_4_3 = (Assignment)cGroup_1_4.eContents().get(3);
+		private final RuleCall cUpperBoundsAISLExpressionParserRuleCall_1_4_3_0 = (RuleCall)cUpperBoundsAssignment_1_4_3.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_5 = (Keyword)cGroup_1.eContents().get(5);
+		private final Group cGroup_1_6 = (Group)cGroup_1.eContents().get(6);
+		private final Keyword cAsKeyword_1_6_0 = (Keyword)cGroup_1_6.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_1_6_1 = (Keyword)cGroup_1_6.eContents().get(1);
+		private final Assignment cIndexNamesAssignment_1_6_2 = (Assignment)cGroup_1_6.eContents().get(2);
+		private final RuleCall cIndexNamesIndexNameParserRuleCall_1_6_2_0 = (RuleCall)cIndexNamesAssignment_1_6_2.eContents().get(0);
+		private final Group cGroup_1_6_3 = (Group)cGroup_1_6.eContents().get(3);
+		private final Keyword cCommaKeyword_1_6_3_0 = (Keyword)cGroup_1_6_3.eContents().get(0);
+		private final Assignment cIndexNamesAssignment_1_6_3_1 = (Assignment)cGroup_1_6_3.eContents().get(1);
+		private final RuleCall cIndexNamesIndexNameParserRuleCall_1_6_3_1_0 = (RuleCall)cIndexNamesAssignment_1_6_3_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_6_4 = (Keyword)cGroup_1_6.eContents().get(4);
 		
 		//RectangularDomain:
-		//	'[' upperBounds+=IndexName (',' upperBounds+=IndexName)* ']' ('as' '[' indexNames+=IndexName (','
-		//	indexNames+=IndexName)* ']')?;
+		//	'[' upperBounds+=AISLExpression (',' upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (','
+		//	indexNames+=IndexName)* ']')? |
+		//	'[' lowerBounds+=AISLExpression ':' upperBounds+=AISLExpression (',' lowerBounds+=AISLExpression ':'
+		//	upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'[' upperBounds+=IndexName (',' upperBounds+=IndexName)* ']' ('as' '[' indexNames+=IndexName (','
+		//'[' upperBounds+=AISLExpression (',' upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (','
+		//indexNames+=IndexName)* ']')? | '[' lowerBounds+=AISLExpression ':' upperBounds+=AISLExpression (','
+		//lowerBounds+=AISLExpression ':' upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (','
 		//indexNames+=IndexName)* ']')?
-		public Group getGroup() { return cGroup; }
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//'[' upperBounds+=AISLExpression (',' upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (','
+		//indexNames+=IndexName)* ']')?
+		public Group getGroup_0() { return cGroup_0; }
 		
 		//'['
-		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
+		public Keyword getLeftSquareBracketKeyword_0_0() { return cLeftSquareBracketKeyword_0_0; }
 		
-		//upperBounds+=IndexName
-		public Assignment getUpperBoundsAssignment_1() { return cUpperBoundsAssignment_1; }
+		//upperBounds+=AISLExpression
+		public Assignment getUpperBoundsAssignment_0_1() { return cUpperBoundsAssignment_0_1; }
 		
-		//IndexName
-		public RuleCall getUpperBoundsIndexNameParserRuleCall_1_0() { return cUpperBoundsIndexNameParserRuleCall_1_0; }
+		//AISLExpression
+		public RuleCall getUpperBoundsAISLExpressionParserRuleCall_0_1_0() { return cUpperBoundsAISLExpressionParserRuleCall_0_1_0; }
 		
-		//(',' upperBounds+=IndexName)*
-		public Group getGroup_2() { return cGroup_2; }
+		//(',' upperBounds+=AISLExpression)*
+		public Group getGroup_0_2() { return cGroup_0_2; }
 		
 		//','
-		public Keyword getCommaKeyword_2_0() { return cCommaKeyword_2_0; }
+		public Keyword getCommaKeyword_0_2_0() { return cCommaKeyword_0_2_0; }
 		
-		//upperBounds+=IndexName
-		public Assignment getUpperBoundsAssignment_2_1() { return cUpperBoundsAssignment_2_1; }
+		//upperBounds+=AISLExpression
+		public Assignment getUpperBoundsAssignment_0_2_1() { return cUpperBoundsAssignment_0_2_1; }
 		
-		//IndexName
-		public RuleCall getUpperBoundsIndexNameParserRuleCall_2_1_0() { return cUpperBoundsIndexNameParserRuleCall_2_1_0; }
+		//AISLExpression
+		public RuleCall getUpperBoundsAISLExpressionParserRuleCall_0_2_1_0() { return cUpperBoundsAISLExpressionParserRuleCall_0_2_1_0; }
 		
 		//']'
-		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
+		public Keyword getRightSquareBracketKeyword_0_3() { return cRightSquareBracketKeyword_0_3; }
 		
 		//('as' '[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')?
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_0_4() { return cGroup_0_4; }
 		
 		//'as'
-		public Keyword getAsKeyword_4_0() { return cAsKeyword_4_0; }
+		public Keyword getAsKeyword_0_4_0() { return cAsKeyword_0_4_0; }
 		
 		//'['
-		public Keyword getLeftSquareBracketKeyword_4_1() { return cLeftSquareBracketKeyword_4_1; }
+		public Keyword getLeftSquareBracketKeyword_0_4_1() { return cLeftSquareBracketKeyword_0_4_1; }
 		
 		//indexNames+=IndexName
-		public Assignment getIndexNamesAssignment_4_2() { return cIndexNamesAssignment_4_2; }
+		public Assignment getIndexNamesAssignment_0_4_2() { return cIndexNamesAssignment_0_4_2; }
 		
 		//IndexName
-		public RuleCall getIndexNamesIndexNameParserRuleCall_4_2_0() { return cIndexNamesIndexNameParserRuleCall_4_2_0; }
+		public RuleCall getIndexNamesIndexNameParserRuleCall_0_4_2_0() { return cIndexNamesIndexNameParserRuleCall_0_4_2_0; }
 		
 		//(',' indexNames+=IndexName)*
-		public Group getGroup_4_3() { return cGroup_4_3; }
+		public Group getGroup_0_4_3() { return cGroup_0_4_3; }
 		
 		//','
-		public Keyword getCommaKeyword_4_3_0() { return cCommaKeyword_4_3_0; }
+		public Keyword getCommaKeyword_0_4_3_0() { return cCommaKeyword_0_4_3_0; }
 		
 		//indexNames+=IndexName
-		public Assignment getIndexNamesAssignment_4_3_1() { return cIndexNamesAssignment_4_3_1; }
+		public Assignment getIndexNamesAssignment_0_4_3_1() { return cIndexNamesAssignment_0_4_3_1; }
 		
 		//IndexName
-		public RuleCall getIndexNamesIndexNameParserRuleCall_4_3_1_0() { return cIndexNamesIndexNameParserRuleCall_4_3_1_0; }
+		public RuleCall getIndexNamesIndexNameParserRuleCall_0_4_3_1_0() { return cIndexNamesIndexNameParserRuleCall_0_4_3_1_0; }
 		
 		//']'
-		public Keyword getRightSquareBracketKeyword_4_4() { return cRightSquareBracketKeyword_4_4; }
+		public Keyword getRightSquareBracketKeyword_0_4_4() { return cRightSquareBracketKeyword_0_4_4; }
+		
+		//'[' lowerBounds+=AISLExpression ':' upperBounds+=AISLExpression (',' lowerBounds+=AISLExpression ':'
+		//upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')?
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_1_0() { return cLeftSquareBracketKeyword_1_0; }
+		
+		//lowerBounds+=AISLExpression
+		public Assignment getLowerBoundsAssignment_1_1() { return cLowerBoundsAssignment_1_1; }
+		
+		//AISLExpression
+		public RuleCall getLowerBoundsAISLExpressionParserRuleCall_1_1_0() { return cLowerBoundsAISLExpressionParserRuleCall_1_1_0; }
+		
+		//':'
+		public Keyword getColonKeyword_1_2() { return cColonKeyword_1_2; }
+		
+		//upperBounds+=AISLExpression
+		public Assignment getUpperBoundsAssignment_1_3() { return cUpperBoundsAssignment_1_3; }
+		
+		//AISLExpression
+		public RuleCall getUpperBoundsAISLExpressionParserRuleCall_1_3_0() { return cUpperBoundsAISLExpressionParserRuleCall_1_3_0; }
+		
+		//(',' lowerBounds+=AISLExpression ':' upperBounds+=AISLExpression)*
+		public Group getGroup_1_4() { return cGroup_1_4; }
+		
+		//','
+		public Keyword getCommaKeyword_1_4_0() { return cCommaKeyword_1_4_0; }
+		
+		//lowerBounds+=AISLExpression
+		public Assignment getLowerBoundsAssignment_1_4_1() { return cLowerBoundsAssignment_1_4_1; }
+		
+		//AISLExpression
+		public RuleCall getLowerBoundsAISLExpressionParserRuleCall_1_4_1_0() { return cLowerBoundsAISLExpressionParserRuleCall_1_4_1_0; }
+		
+		//':'
+		public Keyword getColonKeyword_1_4_2() { return cColonKeyword_1_4_2; }
+		
+		//upperBounds+=AISLExpression
+		public Assignment getUpperBoundsAssignment_1_4_3() { return cUpperBoundsAssignment_1_4_3; }
+		
+		//AISLExpression
+		public RuleCall getUpperBoundsAISLExpressionParserRuleCall_1_4_3_0() { return cUpperBoundsAISLExpressionParserRuleCall_1_4_3_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_1_5() { return cRightSquareBracketKeyword_1_5; }
+		
+		//('as' '[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')?
+		public Group getGroup_1_6() { return cGroup_1_6; }
+		
+		//'as'
+		public Keyword getAsKeyword_1_6_0() { return cAsKeyword_1_6_0; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_1_6_1() { return cLeftSquareBracketKeyword_1_6_1; }
+		
+		//indexNames+=IndexName
+		public Assignment getIndexNamesAssignment_1_6_2() { return cIndexNamesAssignment_1_6_2; }
+		
+		//IndexName
+		public RuleCall getIndexNamesIndexNameParserRuleCall_1_6_2_0() { return cIndexNamesIndexNameParserRuleCall_1_6_2_0; }
+		
+		//(',' indexNames+=IndexName)*
+		public Group getGroup_1_6_3() { return cGroup_1_6_3; }
+		
+		//','
+		public Keyword getCommaKeyword_1_6_3_0() { return cCommaKeyword_1_6_3_0; }
+		
+		//indexNames+=IndexName
+		public Assignment getIndexNamesAssignment_1_6_3_1() { return cIndexNamesAssignment_1_6_3_1; }
+		
+		//IndexName
+		public RuleCall getIndexNamesIndexNameParserRuleCall_1_6_3_1_0() { return cIndexNamesIndexNameParserRuleCall_1_6_3_1_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_1_6_4() { return cRightSquareBracketKeyword_1_6_4; }
 	}
 	public class DefinedObjectElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.DefinedObject");
@@ -5348,8 +5458,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//RectangularDomain:
-	//	'[' upperBounds+=IndexName (',' upperBounds+=IndexName)* ']' ('as' '[' indexNames+=IndexName (','
-	//	indexNames+=IndexName)* ']')?;
+	//	'[' upperBounds+=AISLExpression (',' upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (','
+	//	indexNames+=IndexName)* ']')? |
+	//	'[' lowerBounds+=AISLExpression ':' upperBounds+=AISLExpression (',' lowerBounds+=AISLExpression ':'
+	//	upperBounds+=AISLExpression)* ']' ('as' '[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')?;
 	public RectangularDomainElements getRectangularDomainAccess() {
 		return pRectangularDomain;
 	}

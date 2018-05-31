@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link alpha.model.RectangularDomain#getLowerBounds <em>Lower Bounds</em>}</li>
  *   <li>{@link alpha.model.RectangularDomain#getUpperBounds <em>Upper Bounds</em>}</li>
  *   <li>{@link alpha.model.RectangularDomain#getIndexNames <em>Index Names</em>}</li>
  *   <li>{@link alpha.model.RectangularDomain#getZ__internal_cache_islSet <em>Zinternal cache isl Set</em>}</li>
@@ -35,6 +36,22 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface RectangularDomain extends CalculatorExpression {
+	/**
+	 * Returns the value of the '<em><b>Lower Bounds</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Lower Bounds</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Lower Bounds</em>' attribute list.
+	 * @see alpha.model.ModelPackage#getRectangularDomain_LowerBounds()
+	 * @model unique="false"
+	 * @generated
+	 */
+	EList<String> getLowerBounds();
+
 	/**
 	 * Returns the value of the '<em><b>Upper Bounds</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
@@ -142,7 +159,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%java.lang.String%&gt; _join = &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.join(this.getUpperBounds(), \", \");\n&lt;%java.lang.String%&gt; _plus = (\"[\" + _join);\nreturn (_plus + \"]\");'"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%java.lang.String%&gt; _xifexpression = null;\nint _length = ((&lt;%java.lang.Object%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getLowerBounds(), &lt;%java.lang.Object%&gt;.class)).length;\nint _length_1 = ((&lt;%java.lang.Object%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getUpperBounds(), &lt;%java.lang.Object%&gt;.class)).length;\nboolean _equals = (_length == _length_1);\nif (_equals)\n{\n\tint _length_2 = ((&lt;%java.lang.Object%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getLowerBounds(), &lt;%java.lang.Object%&gt;.class)).length;\n\tfinal &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%java.lang.Integer%&gt;, &lt;%java.lang.String%&gt;&gt; _function = new &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%java.lang.Integer%&gt;, &lt;%java.lang.String%&gt;&gt;()\n\t{\n\t\tpublic &lt;%java.lang.String%&gt; apply(final &lt;%java.lang.Integer%&gt; i)\n\t\t{\n\t\t\t&lt;%java.lang.String%&gt; _get = &lt;%this%&gt;.getLowerBounds().get((i).intValue());\n\t\t\t&lt;%java.lang.String%&gt; _plus = (_get + \":\");\n\t\t\t&lt;%java.lang.String%&gt; _get_1 = &lt;%this%&gt;.getUpperBounds().get((i).intValue());\n\t\t\treturn (_plus + _get_1);\n\t\t}\n\t};\n\t&lt;%java.lang.String%&gt; _join = &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.join(&lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.&lt;&lt;%java.lang.Integer%&gt;, &lt;%java.lang.String%&gt;&gt;map(new &lt;%org.eclipse.xtext.xbase.lib.ExclusiveRange%&gt;(0, _length_2, true), _function), \", \");\n\t&lt;%java.lang.String%&gt; _plus = (\"[\" + _join);\n\t_xifexpression = (_plus + \"]\");\n}\nelse\n{\n\t&lt;%java.lang.String%&gt; _join_1 = &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.join(this.getUpperBounds(), \", \");\n\t&lt;%java.lang.String%&gt; _plus_1 = (\"[\" + _join_1);\n\t_xifexpression = (_plus_1 + \"]\");\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	String plainToString();

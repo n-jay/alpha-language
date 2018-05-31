@@ -64,6 +64,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAUnaryOPAccess().getAlternatives(), "rule__AUnaryOP__Alternatives");
 			builder.put(grammarAccess.getUnaryOrTerminalCalculatorExpressionAccess().getAlternatives(), "rule__UnaryOrTerminalCalculatorExpression__Alternatives");
 			builder.put(grammarAccess.getCalculatorExpressionTerminalAccess().getAlternatives(), "rule__CalculatorExpressionTerminal__Alternatives");
+			builder.put(grammarAccess.getRectangularDomainAccess().getAlternatives(), "rule__RectangularDomain__Alternatives");
 			builder.put(grammarAccess.getAUnaryCalcOpAccess().getAlternatives(), "rule__AUnaryCalcOp__Alternatives");
 			builder.put(grammarAccess.getABinaryCalcOpAccess().getAlternatives(), "rule__ABinaryCalcOp__Alternatives");
 			builder.put(grammarAccess.getAlphaConstantAccess().getGroup(), "rule__AlphaConstant__Group__0");
@@ -170,10 +171,14 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getCalculatorExpressionTerminalAccess().getGroup_6(), "rule__CalculatorExpressionTerminal__Group_6__0");
 			builder.put(grammarAccess.getUnaryCalculatorExpressionAccess().getGroup(), "rule__UnaryCalculatorExpression__Group__0");
 			builder.put(grammarAccess.getVariableDomainAccess().getGroup(), "rule__VariableDomain__Group__0");
-			builder.put(grammarAccess.getRectangularDomainAccess().getGroup(), "rule__RectangularDomain__Group__0");
-			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_2(), "rule__RectangularDomain__Group_2__0");
-			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_4(), "rule__RectangularDomain__Group_4__0");
-			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_4_3(), "rule__RectangularDomain__Group_4_3__0");
+			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_0(), "rule__RectangularDomain__Group_0__0");
+			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_0_2(), "rule__RectangularDomain__Group_0_2__0");
+			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_0_4(), "rule__RectangularDomain__Group_0_4__0");
+			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_0_4_3(), "rule__RectangularDomain__Group_0_4_3__0");
+			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_1(), "rule__RectangularDomain__Group_1__0");
+			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_1_4(), "rule__RectangularDomain__Group_1_4__0");
+			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_1_6(), "rule__RectangularDomain__Group_1_6__0");
+			builder.put(grammarAccess.getRectangularDomainAccess().getGroup_1_6_3(), "rule__RectangularDomain__Group_1_6_3__0");
 			builder.put(grammarAccess.getAlphaRootAccess().getElementsAssignment(), "rule__AlphaRoot__ElementsAssignment");
 			builder.put(grammarAccess.getAlphaConstantAccess().getNameAssignment_1(), "rule__AlphaConstant__NameAssignment_1");
 			builder.put(grammarAccess.getAlphaConstantAccess().getValueAssignment_3(), "rule__AlphaConstant__ValueAssignment_3");
@@ -325,10 +330,16 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getUnaryCalculatorExpressionAccess().getOperatorAssignment_0(), "rule__UnaryCalculatorExpression__OperatorAssignment_0");
 			builder.put(grammarAccess.getUnaryCalculatorExpressionAccess().getExprAssignment_1(), "rule__UnaryCalculatorExpression__ExprAssignment_1");
 			builder.put(grammarAccess.getVariableDomainAccess().getVariableAssignment_1(), "rule__VariableDomain__VariableAssignment_1");
-			builder.put(grammarAccess.getRectangularDomainAccess().getUpperBoundsAssignment_1(), "rule__RectangularDomain__UpperBoundsAssignment_1");
-			builder.put(grammarAccess.getRectangularDomainAccess().getUpperBoundsAssignment_2_1(), "rule__RectangularDomain__UpperBoundsAssignment_2_1");
-			builder.put(grammarAccess.getRectangularDomainAccess().getIndexNamesAssignment_4_2(), "rule__RectangularDomain__IndexNamesAssignment_4_2");
-			builder.put(grammarAccess.getRectangularDomainAccess().getIndexNamesAssignment_4_3_1(), "rule__RectangularDomain__IndexNamesAssignment_4_3_1");
+			builder.put(grammarAccess.getRectangularDomainAccess().getUpperBoundsAssignment_0_1(), "rule__RectangularDomain__UpperBoundsAssignment_0_1");
+			builder.put(grammarAccess.getRectangularDomainAccess().getUpperBoundsAssignment_0_2_1(), "rule__RectangularDomain__UpperBoundsAssignment_0_2_1");
+			builder.put(grammarAccess.getRectangularDomainAccess().getIndexNamesAssignment_0_4_2(), "rule__RectangularDomain__IndexNamesAssignment_0_4_2");
+			builder.put(grammarAccess.getRectangularDomainAccess().getIndexNamesAssignment_0_4_3_1(), "rule__RectangularDomain__IndexNamesAssignment_0_4_3_1");
+			builder.put(grammarAccess.getRectangularDomainAccess().getLowerBoundsAssignment_1_1(), "rule__RectangularDomain__LowerBoundsAssignment_1_1");
+			builder.put(grammarAccess.getRectangularDomainAccess().getUpperBoundsAssignment_1_3(), "rule__RectangularDomain__UpperBoundsAssignment_1_3");
+			builder.put(grammarAccess.getRectangularDomainAccess().getLowerBoundsAssignment_1_4_1(), "rule__RectangularDomain__LowerBoundsAssignment_1_4_1");
+			builder.put(grammarAccess.getRectangularDomainAccess().getUpperBoundsAssignment_1_4_3(), "rule__RectangularDomain__UpperBoundsAssignment_1_4_3");
+			builder.put(grammarAccess.getRectangularDomainAccess().getIndexNamesAssignment_1_6_2(), "rule__RectangularDomain__IndexNamesAssignment_1_6_2");
+			builder.put(grammarAccess.getRectangularDomainAccess().getIndexNamesAssignment_1_6_3_1(), "rule__RectangularDomain__IndexNamesAssignment_1_6_3_1");
 			builder.put(grammarAccess.getDefinedObjectAccess().getObjectAssignment(), "rule__DefinedObject__ObjectAssignment");
 		}
 	}
