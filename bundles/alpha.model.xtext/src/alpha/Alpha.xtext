@@ -133,7 +133,7 @@ AISLSet:
 ;
 
 AISLBasicSet:
-	'[' AIndexList ']' ':' AISLString
+	'[' AISLExpressionList ']' ':' AISLString
 ;
 
 AISLRelation:
@@ -154,7 +154,7 @@ AAlphaFunction:
 ;
 
 AISLBasicRelation:
-	'[' AIndexList ']' '->' '[' AISLExpressionList ']' ':' AISLString
+	'[' AISLExpressionList ']' '->' '[' AISLExpressionList ']' ':' AISLString
 ;
 
 

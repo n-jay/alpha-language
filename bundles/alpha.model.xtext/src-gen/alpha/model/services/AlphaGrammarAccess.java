@@ -1226,23 +1226,23 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLBasicSet");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cAIndexListParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cAISLExpressionListParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final RuleCall cAISLStringParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		
 		//AISLBasicSet:
-		//	'[' AIndexList ']' ':' AISLString;
+		//	'[' AISLExpressionList ']' ':' AISLString;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'[' AIndexList ']' ':' AISLString
+		//'[' AISLExpressionList ']' ':' AISLString
 		public Group getGroup() { return cGroup; }
 		
 		//'['
 		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
 		
-		//AIndexList
-		public RuleCall getAIndexListParserRuleCall_1() { return cAIndexListParserRuleCall_1; }
+		//AISLExpressionList
+		public RuleCall getAISLExpressionListParserRuleCall_1() { return cAISLExpressionListParserRuleCall_1; }
 		
 		//']'
 		public Keyword getRightSquareBracketKeyword_2() { return cRightSquareBracketKeyword_2; }
@@ -1502,7 +1502,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLBasicRelation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cAIndexListParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cAISLExpressionListParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cHyphenMinusGreaterThanSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
@@ -1512,17 +1512,17 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAISLStringParserRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
 		
 		//AISLBasicRelation:
-		//	'[' AIndexList ']' '->' '[' AISLExpressionList ']' ':' AISLString;
+		//	'[' AISLExpressionList ']' '->' '[' AISLExpressionList ']' ':' AISLString;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'[' AIndexList ']' '->' '[' AISLExpressionList ']' ':' AISLString
+		//'[' AISLExpressionList ']' '->' '[' AISLExpressionList ']' ':' AISLString
 		public Group getGroup() { return cGroup; }
 		
 		//'['
 		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
 		
-		//AIndexList
-		public RuleCall getAIndexListParserRuleCall_1() { return cAIndexListParserRuleCall_1; }
+		//AISLExpressionList
+		public RuleCall getAISLExpressionListParserRuleCall_1() { return cAISLExpressionListParserRuleCall_1; }
 		
 		//']'
 		public Keyword getRightSquareBracketKeyword_2() { return cRightSquareBracketKeyword_2; }
@@ -4689,7 +4689,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AISLBasicSet:
-	//	'[' AIndexList ']' ':' AISLString;
+	//	'[' AISLExpressionList ']' ':' AISLString;
 	public AISLBasicSetElements getAISLBasicSetAccess() {
 		return pAISLBasicSet;
 	}
@@ -4750,7 +4750,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AISLBasicRelation:
-	//	'[' AIndexList ']' '->' '[' AISLExpressionList ']' ':' AISLString;
+	//	'[' AISLExpressionList ']' '->' '[' AISLExpressionList ']' ':' AISLString;
 	public AISLBasicRelationElements getAISLBasicRelationAccess() {
 		return pAISLBasicRelation;
 	}

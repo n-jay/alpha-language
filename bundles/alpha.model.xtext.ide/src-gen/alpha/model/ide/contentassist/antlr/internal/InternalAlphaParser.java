@@ -23701,7 +23701,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:7489:1: ( rule__AISLBasicSet__Group__0__Impl rule__AISLBasicSet__Group__1 )
             // InternalAlpha.g:7490:2: rule__AISLBasicSet__Group__0__Impl rule__AISLBasicSet__Group__1
             {
-            pushFollow(FOLLOW_7);
+            pushFollow(FOLLOW_33);
             rule__AISLBasicSet__Group__0__Impl();
 
             state._fsp--;
@@ -23805,25 +23805,25 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AISLBasicSet__Group__1__Impl"
-    // InternalAlpha.g:7524:1: rule__AISLBasicSet__Group__1__Impl : ( ruleAIndexList ) ;
+    // InternalAlpha.g:7524:1: rule__AISLBasicSet__Group__1__Impl : ( ruleAISLExpressionList ) ;
     public final void rule__AISLBasicSet__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:7528:1: ( ( ruleAIndexList ) )
-            // InternalAlpha.g:7529:1: ( ruleAIndexList )
+            // InternalAlpha.g:7528:1: ( ( ruleAISLExpressionList ) )
+            // InternalAlpha.g:7529:1: ( ruleAISLExpressionList )
             {
-            // InternalAlpha.g:7529:1: ( ruleAIndexList )
-            // InternalAlpha.g:7530:2: ruleAIndexList
+            // InternalAlpha.g:7529:1: ( ruleAISLExpressionList )
+            // InternalAlpha.g:7530:2: ruleAISLExpressionList
             {
-             before(grammarAccess.getAISLBasicSetAccess().getAIndexListParserRuleCall_1()); 
+             before(grammarAccess.getAISLBasicSetAccess().getAISLExpressionListParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
-            ruleAIndexList();
+            ruleAISLExpressionList();
 
             state._fsp--;
 
-             after(grammarAccess.getAISLBasicSetAccess().getAIndexListParserRuleCall_1()); 
+             after(grammarAccess.getAISLBasicSetAccess().getAISLExpressionListParserRuleCall_1()); 
 
             }
 
@@ -25259,7 +25259,7 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             // InternalAlpha.g:8029:1: ( rule__AISLBasicRelation__Group__0__Impl rule__AISLBasicRelation__Group__1 )
             // InternalAlpha.g:8030:2: rule__AISLBasicRelation__Group__0__Impl rule__AISLBasicRelation__Group__1
             {
-            pushFollow(FOLLOW_7);
+            pushFollow(FOLLOW_33);
             rule__AISLBasicRelation__Group__0__Impl();
 
             state._fsp--;
@@ -25363,25 +25363,25 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AISLBasicRelation__Group__1__Impl"
-    // InternalAlpha.g:8064:1: rule__AISLBasicRelation__Group__1__Impl : ( ruleAIndexList ) ;
+    // InternalAlpha.g:8064:1: rule__AISLBasicRelation__Group__1__Impl : ( ruleAISLExpressionList ) ;
     public final void rule__AISLBasicRelation__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:8068:1: ( ( ruleAIndexList ) )
-            // InternalAlpha.g:8069:1: ( ruleAIndexList )
+            // InternalAlpha.g:8068:1: ( ( ruleAISLExpressionList ) )
+            // InternalAlpha.g:8069:1: ( ruleAISLExpressionList )
             {
-            // InternalAlpha.g:8069:1: ( ruleAIndexList )
-            // InternalAlpha.g:8070:2: ruleAIndexList
+            // InternalAlpha.g:8069:1: ( ruleAISLExpressionList )
+            // InternalAlpha.g:8070:2: ruleAISLExpressionList
             {
-             before(grammarAccess.getAISLBasicRelationAccess().getAIndexListParserRuleCall_1()); 
+             before(grammarAccess.getAISLBasicRelationAccess().getAISLExpressionListParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
-            ruleAIndexList();
+            ruleAISLExpressionList();
 
             state._fsp--;
 
-             after(grammarAccess.getAISLBasicRelationAccess().getAIndexListParserRuleCall_1()); 
+             after(grammarAccess.getAISLBasicRelationAccess().getAISLExpressionListParserRuleCall_1()); 
 
             }
 
@@ -52557,8 +52557,8 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
         }
     }
     static final String dfa_14s = "\11\uffff";
-    static final String dfa_15s = "\1\66\1\4\2\uffff\1\4\1\25\1\4\1\16\1\25";
-    static final String dfa_16s = "\2\66\2\uffff\1\25\1\30\1\4\1\123\1\30";
+    static final String dfa_15s = "\1\66\1\4\2\uffff\3\4\1\16\1\4";
+    static final String dfa_16s = "\2\66\2\uffff\3\36\1\123\1\36";
     static final String dfa_17s = "\2\uffff\1\1\1\2\5\uffff";
     static final String dfa_18s = "\11\uffff}>";
     static final String[] dfa_19s = {
@@ -52566,11 +52566,11 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             "\1\3\17\uffff\1\4\1\uffff\1\3\2\uffff\1\2\16\uffff\6\3\10\uffff\1\3",
             "",
             "",
-            "\1\5\20\uffff\1\2",
-            "\1\7\2\uffff\1\6",
-            "\1\10",
+            "\1\5\2\2\7\uffff\5\2\2\uffff\1\2\10\uffff\1\2",
+            "\3\2\7\uffff\5\2\2\uffff\1\7\2\uffff\1\6\5\uffff\1\2",
+            "\1\10\2\2\7\uffff\5\2\13\uffff\1\2",
             "\3\3\10\uffff\1\2\24\uffff\4\3\5\uffff\1\3\33\uffff\1\3",
-            "\1\7\2\uffff\1\6"
+            "\3\2\7\uffff\5\2\2\uffff\1\7\2\uffff\1\6\5\uffff\1\2"
     };
 
     static final short[] dfa_14 = DFA.unpackEncodedString(dfa_14s);
@@ -52597,28 +52597,62 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
             return "3059:1: rule__RestrictExpression__Alternatives : ( ( ( rule__RestrictExpression__Group_0__0 ) ) | ( ( rule__RestrictExpression__Group_1__0 ) ) );";
         }
     }
-    static final String dfa_20s = "\20\uffff";
-    static final String dfa_21s = "\3\4\2\uffff\1\4\1\uffff\1\16\2\uffff\1\25\1\31\1\4\2\uffff\1\25";
-    static final String dfa_22s = "\1\66\1\24\1\103\2\uffff\1\25\1\uffff\1\103\2\uffff\1\30\1\103\1\4\2\uffff\1\30";
-    static final String dfa_23s = "\3\uffff\1\4\1\5\1\uffff\1\6\1\uffff\1\3\1\7\3\uffff\1\1\1\2\1\uffff";
-    static final String dfa_24s = "\20\uffff}>";
+    static final String dfa_20s = "\62\uffff";
+    static final String dfa_21s = "\3\4\2\uffff\1\4\1\uffff\1\16\2\uffff\11\4\1\31\12\4\2\uffff\22\4";
+    static final String dfa_22s = "\1\66\1\24\1\103\2\uffff\1\36\1\uffff\1\103\2\uffff\11\36\1\103\12\36\2\uffff\22\36";
+    static final String dfa_23s = "\3\uffff\1\4\1\5\1\uffff\1\6\1\uffff\1\3\1\7\24\uffff\1\1\1\2\22\uffff";
+    static final String dfa_24s = "\62\uffff}>";
     static final String[] dfa_25s = {
             "\1\3\17\uffff\1\4\1\uffff\1\2\37\uffff\1\1",
             "\1\6\17\uffff\1\5",
             "\1\7\17\uffff\1\11\1\uffff\1\11\21\uffff\6\11\10\uffff\1\11\14\uffff\1\10",
             "",
             "",
-            "\1\12\20\uffff\1\13",
+            "\1\12\1\13\1\22\7\uffff\1\15\1\16\1\17\1\20\1\21\2\uffff\1\23\10\uffff\1\14",
             "",
             "\3\11\6\uffff\1\11\1\10\25\uffff\4\11\21\uffff\1\10",
             "",
             "",
-            "\1\13\2\uffff\1\14",
-            "\1\15\51\uffff\1\16",
-            "\1\17",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\36\51\uffff\1\37",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\24\1\25\1\34\7\uffff\1\27\1\30\1\31\1\32\1\33\2\uffff\1\23\2\uffff\1\35\5\uffff\1\26",
+            "\1\40\1\41\1\50\7\uffff\1\43\1\44\1\45\1\46\1\47\13\uffff\1\42",
             "",
             "",
-            "\1\13\2\uffff\1\14"
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53",
+            "\1\51\1\52\1\61\7\uffff\1\54\1\55\1\56\1\57\1\60\2\uffff\1\23\2\uffff\1\35\5\uffff\1\53"
     };
 
     static final short[] dfa_20 = DFA.unpackEncodedString(dfa_20s);

@@ -2220,11 +2220,11 @@ ruleAISLBasicSet returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
 			newLeafNode(kw, grammarAccess.getAISLBasicSetAccess().getLeftSquareBracketKeyword_0());
 		}
 		{
-			newCompositeNode(grammarAccess.getAISLBasicSetAccess().getAIndexListParserRuleCall_1());
+			newCompositeNode(grammarAccess.getAISLBasicSetAccess().getAISLExpressionListParserRuleCall_1());
 		}
-		this_AIndexList_1=ruleAIndexList
+		this_AISLExpressionList_1=ruleAISLExpressionList
 		{
-			$current.merge(this_AIndexList_1);
+			$current.merge(this_AISLExpressionList_1);
 		}
 		{
 			afterParserOrEnumRuleCall();
@@ -2676,11 +2676,11 @@ ruleAISLBasicRelation returns [AntlrDatatypeRuleToken current=new AntlrDatatypeR
 			newLeafNode(kw, grammarAccess.getAISLBasicRelationAccess().getLeftSquareBracketKeyword_0());
 		}
 		{
-			newCompositeNode(grammarAccess.getAISLBasicRelationAccess().getAIndexListParserRuleCall_1());
+			newCompositeNode(grammarAccess.getAISLBasicRelationAccess().getAISLExpressionListParserRuleCall_1());
 		}
-		this_AIndexList_1=ruleAIndexList
+		this_AISLExpressionList_1=ruleAISLExpressionList
 		{
-			$current.merge(this_AIndexList_1);
+			$current.merge(this_AISLExpressionList_1);
 		}
 		{
 			afterParserOrEnumRuleCall();

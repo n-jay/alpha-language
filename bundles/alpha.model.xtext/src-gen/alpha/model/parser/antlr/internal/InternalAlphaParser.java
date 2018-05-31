@@ -5620,12 +5620,12 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAISLBasicSet"
-    // InternalAlpha.g:2209:1: ruleAISLBasicSet returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= ':' this_AISLString_4= ruleAISLString ) ;
+    // InternalAlpha.g:2209:1: ruleAISLBasicSet returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_4= ruleAISLString ) ;
     public final AntlrDatatypeRuleToken ruleAISLBasicSet() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
         Token kw=null;
-        AntlrDatatypeRuleToken this_AIndexList_1 = null;
+        AntlrDatatypeRuleToken this_AISLExpressionList_1 = null;
 
         AntlrDatatypeRuleToken this_AISLString_4 = null;
 
@@ -5634,27 +5634,27 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalAlpha.g:2215:2: ( (kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= ':' this_AISLString_4= ruleAISLString ) )
-            // InternalAlpha.g:2216:2: (kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= ':' this_AISLString_4= ruleAISLString )
+            // InternalAlpha.g:2215:2: ( (kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_4= ruleAISLString ) )
+            // InternalAlpha.g:2216:2: (kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_4= ruleAISLString )
             {
-            // InternalAlpha.g:2216:2: (kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= ':' this_AISLString_4= ruleAISLString )
-            // InternalAlpha.g:2217:3: kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= ':' this_AISLString_4= ruleAISLString
+            // InternalAlpha.g:2216:2: (kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_4= ruleAISLString )
+            // InternalAlpha.g:2217:3: kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_4= ruleAISLString
             {
-            kw=(Token)match(input,35,FOLLOW_42); 
+            kw=(Token)match(input,35,FOLLOW_30); 
 
             			current.merge(kw);
             			newLeafNode(kw, grammarAccess.getAISLBasicSetAccess().getLeftSquareBracketKeyword_0());
             		
 
-            			newCompositeNode(grammarAccess.getAISLBasicSetAccess().getAIndexListParserRuleCall_1());
+            			newCompositeNode(grammarAccess.getAISLBasicSetAccess().getAISLExpressionListParserRuleCall_1());
             		
             pushFollow(FOLLOW_43);
-            this_AIndexList_1=ruleAIndexList();
+            this_AISLExpressionList_1=ruleAISLExpressionList();
 
             state._fsp--;
 
 
-            			current.merge(this_AIndexList_1);
+            			current.merge(this_AISLExpressionList_1);
             		
 
             			afterParserOrEnumRuleCall();
@@ -6876,12 +6876,12 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAISLBasicRelation"
-    // InternalAlpha.g:2665:1: ruleAISLBasicRelation returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString ) ;
+    // InternalAlpha.g:2665:1: ruleAISLBasicRelation returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString ) ;
     public final AntlrDatatypeRuleToken ruleAISLBasicRelation() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
         Token kw=null;
-        AntlrDatatypeRuleToken this_AIndexList_1 = null;
+        AntlrDatatypeRuleToken this_AISLExpressionList_1 = null;
 
         AntlrDatatypeRuleToken this_AISLExpressionList_5 = null;
 
@@ -6892,27 +6892,27 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalAlpha.g:2671:2: ( (kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString ) )
-            // InternalAlpha.g:2672:2: (kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString )
+            // InternalAlpha.g:2671:2: ( (kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString ) )
+            // InternalAlpha.g:2672:2: (kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString )
             {
-            // InternalAlpha.g:2672:2: (kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString )
-            // InternalAlpha.g:2673:3: kw= '[' this_AIndexList_1= ruleAIndexList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString
+            // InternalAlpha.g:2672:2: (kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString )
+            // InternalAlpha.g:2673:3: kw= '[' this_AISLExpressionList_1= ruleAISLExpressionList kw= ']' kw= '->' kw= '[' this_AISLExpressionList_5= ruleAISLExpressionList kw= ']' kw= ':' this_AISLString_8= ruleAISLString
             {
-            kw=(Token)match(input,35,FOLLOW_42); 
+            kw=(Token)match(input,35,FOLLOW_30); 
 
             			current.merge(kw);
             			newLeafNode(kw, grammarAccess.getAISLBasicRelationAccess().getLeftSquareBracketKeyword_0());
             		
 
-            			newCompositeNode(grammarAccess.getAISLBasicRelationAccess().getAIndexListParserRuleCall_1());
+            			newCompositeNode(grammarAccess.getAISLBasicRelationAccess().getAISLExpressionListParserRuleCall_1());
             		
             pushFollow(FOLLOW_43);
-            this_AIndexList_1=ruleAIndexList();
+            this_AISLExpressionList_1=ruleAISLExpressionList();
 
             state._fsp--;
 
 
-            			current.merge(this_AIndexList_1);
+            			current.merge(this_AISLExpressionList_1);
             		
 
             			afterParserOrEnumRuleCall();
@@ -18168,8 +18168,8 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
         }
     }
     static final String dfa_14s = "\11\uffff";
-    static final String dfa_15s = "\1\24\1\4\2\uffff\1\4\1\44\1\4\1\25\1\44";
-    static final String dfa_16s = "\1\24\1\120\2\uffff\2\45\1\4\1\123\1\45";
+    static final String dfa_15s = "\1\24\1\4\2\uffff\3\4\1\25\1\4";
+    static final String dfa_16s = "\1\24\1\120\2\uffff\3\55\1\123\1\55";
     static final String dfa_17s = "\2\uffff\1\1\1\2\5\uffff";
     static final String dfa_18s = "\11\uffff}>";
     static final String[] dfa_19s = {
@@ -18177,11 +18177,11 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             "\1\3\13\uffff\1\3\3\uffff\1\3\12\uffff\1\2\3\uffff\1\4\47\uffff\6\3",
             "",
             "",
-            "\1\5\40\uffff\1\2",
-            "\1\6\1\7",
-            "\1\10",
+            "\1\5\2\2\7\uffff\1\2\26\uffff\1\2\3\uffff\5\2",
+            "\3\2\7\uffff\1\2\25\uffff\1\6\1\7\3\uffff\5\2",
+            "\1\10\2\2\7\uffff\1\2\32\uffff\5\2",
             "\1\3\11\uffff\1\2\11\uffff\3\3\20\uffff\1\3\15\uffff\1\3\6\uffff\3\3",
-            "\1\6\1\7"
+            "\3\2\7\uffff\1\2\25\uffff\1\6\1\7\3\uffff\5\2"
     };
 
     static final short[] dfa_14 = DFA.unpackEncodedString(dfa_14s);
@@ -18208,11 +18208,11 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             return "3692:2: ( ( ( ( (lv_domainExpr_0_1= ruleJNIDomain | lv_domainExpr_0_2= ruleJNIDomainInArrayNotation ) ) ) otherlv_1= ':' ( (lv_expr_2_0= ruleAlphaExpression ) ) ) | (otherlv_3= '{' ( (lv_domainExpr_4_0= ruleCalculatorExpression ) ) otherlv_5= '}' otherlv_6= ':' ( (lv_expr_7_0= ruleAlphaExpression ) ) ) )";
         }
     }
-    static final String dfa_20s = "\20\uffff";
-    static final String dfa_21s = "\3\4\3\uffff\1\4\1\uffff\1\21\1\uffff\1\44\1\37\1\4\2\uffff\1\44";
-    static final String dfa_22s = "\2\43\1\120\3\uffff\1\45\1\uffff\1\123\1\uffff\1\45\1\42\1\4\2\uffff\1\45";
-    static final String dfa_23s = "\3\uffff\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\3\3\uffff\1\1\1\2\1\uffff";
-    static final String dfa_24s = "\20\uffff}>";
+    static final String dfa_20s = "\40\uffff";
+    static final String dfa_21s = "\3\4\3\uffff\1\4\1\uffff\1\21\1\uffff\11\4\1\37\1\4\2\uffff\11\4";
+    static final String dfa_22s = "\2\43\1\120\3\uffff\1\55\1\uffff\1\123\1\uffff\11\55\1\42\1\55\2\uffff\11\55";
+    static final String dfa_23s = "\3\uffff\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\3\13\uffff\1\1\1\2\11\uffff";
+    static final String dfa_24s = "\40\uffff}>";
     static final String[] dfa_25s = {
             "\1\3\13\uffff\1\2\3\uffff\1\1\16\uffff\1\4",
             "\1\5\36\uffff\1\6",
@@ -18220,16 +18220,32 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
-            "\1\12\40\uffff\1\13",
+            "\1\12\1\13\1\22\7\uffff\1\14\26\uffff\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
             "",
             "\1\7\20\uffff\1\11\1\uffff\1\11\4\uffff\3\7\20\uffff\1\7\24\uffff\3\7",
             "",
-            "\1\14\1\13",
-            "\1\15\2\uffff\1\16",
-            "\1\17",
+            "\1\12\1\13\1\22\7\uffff\1\14\25\uffff\1\24\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
+            "\1\12\1\13\1\22\7\uffff\1\14\25\uffff\1\24\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
+            "\1\12\1\13\1\22\7\uffff\1\14\25\uffff\1\24\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
+            "\1\12\1\13\1\22\7\uffff\1\14\25\uffff\1\24\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
+            "\1\12\1\13\1\22\7\uffff\1\14\25\uffff\1\24\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
+            "\1\12\1\13\1\22\7\uffff\1\14\25\uffff\1\24\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
+            "\1\12\1\13\1\22\7\uffff\1\14\25\uffff\1\24\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
+            "\1\12\1\13\1\22\7\uffff\1\14\25\uffff\1\24\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
+            "\1\12\1\13\1\22\7\uffff\1\14\25\uffff\1\24\1\23\3\uffff\1\15\1\16\1\17\1\20\1\21",
+            "\1\25\2\uffff\1\26",
+            "\1\27\1\30\1\37\7\uffff\1\31\32\uffff\1\32\1\33\1\34\1\35\1\36",
             "",
             "",
-            "\1\14\1\13"
+            "\1\27\1\30\1\37\7\uffff\1\31\25\uffff\1\24\1\23\3\uffff\1\32\1\33\1\34\1\35\1\36",
+            "\1\27\1\30\1\37\7\uffff\1\31\25\uffff\1\24\1\23\3\uffff\1\32\1\33\1\34\1\35\1\36",
+            "\1\27\1\30\1\37\7\uffff\1\31\25\uffff\1\24\1\23\3\uffff\1\32\1\33\1\34\1\35\1\36",
+            "\1\27\1\30\1\37\7\uffff\1\31\25\uffff\1\24\1\23\3\uffff\1\32\1\33\1\34\1\35\1\36",
+            "\1\27\1\30\1\37\7\uffff\1\31\25\uffff\1\24\1\23\3\uffff\1\32\1\33\1\34\1\35\1\36",
+            "\1\27\1\30\1\37\7\uffff\1\31\25\uffff\1\24\1\23\3\uffff\1\32\1\33\1\34\1\35\1\36",
+            "\1\27\1\30\1\37\7\uffff\1\31\25\uffff\1\24\1\23\3\uffff\1\32\1\33\1\34\1\35\1\36",
+            "\1\27\1\30\1\37\7\uffff\1\31\25\uffff\1\24\1\23\3\uffff\1\32\1\33\1\34\1\35\1\36",
+            "\1\27\1\30\1\37\7\uffff\1\31\25\uffff\1\24\1\23\3\uffff\1\32\1\33\1\34\1\35\1\36"
     };
 
     static final short[] dfa_20 = DFA.unpackEncodedString(dfa_20s);

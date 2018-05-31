@@ -7527,9 +7527,9 @@ rule__AISLBasicSet__Group__1__Impl
 	}
 :
 (
-	{ before(grammarAccess.getAISLBasicSetAccess().getAIndexListParserRuleCall_1()); }
-	ruleAIndexList
-	{ after(grammarAccess.getAISLBasicSetAccess().getAIndexListParserRuleCall_1()); }
+	{ before(grammarAccess.getAISLBasicSetAccess().getAISLExpressionListParserRuleCall_1()); }
+	ruleAISLExpressionList
+	{ after(grammarAccess.getAISLBasicSetAccess().getAISLExpressionListParserRuleCall_1()); }
 )
 ;
 finally {
@@ -8067,9 +8067,9 @@ rule__AISLBasicRelation__Group__1__Impl
 	}
 :
 (
-	{ before(grammarAccess.getAISLBasicRelationAccess().getAIndexListParserRuleCall_1()); }
-	ruleAIndexList
-	{ after(grammarAccess.getAISLBasicRelationAccess().getAIndexListParserRuleCall_1()); }
+	{ before(grammarAccess.getAISLBasicRelationAccess().getAISLExpressionListParserRuleCall_1()); }
+	ruleAISLExpressionList
+	{ after(grammarAccess.getAISLBasicRelationAccess().getAISLExpressionListParserRuleCall_1()); }
 )
 ;
 finally {
