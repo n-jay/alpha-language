@@ -30,6 +30,18 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
+/**
+ * Computes the context domain for AlphaExpressions. The context domains
+ * define the set where the given expression needs to be evaluated to
+ * compute all the outputs. It is computed top-down starting from the
+ * root (equations) after computing all the expression domains.
+ * 
+ * The context domain is essentially the intersection of the expression domain
+ * with the context domain of its parent. The parent context may undergo some
+ * transformations depending on the expression, where the notable ones are:
+ *   - DependenceExpression takes the image of its parent context by the dependence function
+ *   - ReduceExpression takes the pre-image of its parent context by the projection function
+ */
 @SuppressWarnings("all")
 public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
   private List<AlphaIssue> issues = new LinkedList<AlphaIssue>();
