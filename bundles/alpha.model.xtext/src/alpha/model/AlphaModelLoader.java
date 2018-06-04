@@ -39,9 +39,9 @@ public class AlphaModelLoader {
 	}
 
 	/**
-	 * Load a file specified by the given String (filepath).
+	 * Load the specified file as an Alpha program.
 	 * 
-	 * @param filename
+	 * @param file
 	 * @return
 	 * @throws IOException
 	 */
@@ -63,24 +63,30 @@ public class AlphaModelLoader {
 
 		return toplevel;
 	}
+	public static AlphaRoot loadModel(File file) throws IOException {
+		return loadModel(file.getAbsolutePath());
+	}
 
 	/**
 	 * Load all files under the given directory. Calls
 	 * {@link #loadModel(Collection)} after collecting the files in the given
 	 * directory.
 	 * 
-	 * @param dirname
+	 * @param directory
 	 * @return List<AlphaRoot>: list of top-level model elements for all the files
 	 *         in the given directory
 	 * @throws IOException
 	 */
-	public static List<AlphaRoot> loadModelDir(String dirname) throws IOException {
+	public static List<AlphaRoot> loadModelDir(File dir) throws IOException {
 
-		File file = new File(dirname);
-		if (!file.isDirectory())
+		if (!dir.isDirectory())
 			throw new RuntimeException("Expecting path to a directory @ loadModelDir");
 
-		return loadModel(Arrays.asList(file.listFiles()));
+		return loadModel(Arrays.asList(dir.listFiles()));
+	}
+	public static List<AlphaRoot> loadModelDir(String dirname) throws IOException {
+		File dir = new File(dirname);
+		return loadModelDir(dir);
 	}
 
 	/**
