@@ -1,7 +1,7 @@
 /*
  * Test for normalize involving dependences
  */
-package tests.normalize.depndence { 
+package tests.normalize.dependence { 
 	external testOP(3)
 	
 	affine identity [N]->{:N>0}
@@ -48,7 +48,7 @@ package tests.normalize.depndence {
 	
 	affine applyDomain [N]->{:N>0}
 		inputs
-			A:{[i]:0<=i<2N}
+			A:[2N]
 		outputs
 			B:[N]
 		let
@@ -58,7 +58,7 @@ package tests.normalize.depndence {
 	
 	affine binaryExpression1 [N]->{:N>0}
 		inputs
-			A:{[i]:0<=i<2N}
+			A:[2N]
 		outputs
 			B:[N]
 		let
@@ -68,7 +68,7 @@ package tests.normalize.depndence {
 	
 	affine binaryExpression2 [N]->{:N>0}
 		inputs
-			A:{[i]:0<=i<2N}
+			A:[2N]
 		outputs
 			B:[N]
 		let
@@ -90,7 +90,7 @@ package tests.normalize.depndence {
 	
 	affine multiArgExpression1 [N]->{:N>0}
 		inputs
-			A:{[i]:0<=i<4N}
+			A:[4N]
 		outputs
 			B:[N]
 		let
@@ -100,7 +100,7 @@ package tests.normalize.depndence {
 	
 	affine multiArgExpression2 [N]->{:N>0}
 		inputs
-			A:{[i]:0<=i<4N}
+			A:[4N]
 		outputs
 			B:[N]
 		let
@@ -109,8 +109,8 @@ package tests.normalize.depndence {
 	.
 	affine ifExpression1 [N]->{:N>0}
 		inputs
-			A1:{[i]:0<=i<2N}
-			A2:{[i]:0<=i<2N}
+			A1:[2N]
+			A2:[2N]
 		outputs
 			B:[N]
 		let
@@ -119,8 +119,8 @@ package tests.normalize.depndence {
 	.
 	affine ifExpression2 [N]->{:N>1}
 		inputs
-			A1:{[i]:0<=i<2N}
-			A2:{[i]:0<=i<2N}
+			A1:[2N]
+			A2:[2N]
 		outputs
 			B:[N]
 		let
