@@ -32,6 +32,7 @@ import static alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static alpha.model.factory.AlphaUserFactory.createRestrictExpression
 import static alpha.model.factory.AlphaUserFactory.createUnaryExpression
 import alpha.model.AutoRestrictExpression
+import alpha.model.util.PrintAST
 
 /**
  * Normalization of Alpha programs.
@@ -130,6 +131,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 	
 	protected def debug(AlphaExpression expr) {
 		if (DEBUG) println(Show.print(AlphaUtil.getContainerSystem(expr))); 
+//		if (DEBUG) println(PrintAST.print(AlphaUtil.getContainerSystem(expr))); 
 	}
 	
 	/**
@@ -269,6 +271,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 
 		debug(ce);
 		// the updated expression must be revisited 
+		AlphaInternalStateConstructor.recomputeContextDomain(ce);
 		reapply(ce);
 	}
 	

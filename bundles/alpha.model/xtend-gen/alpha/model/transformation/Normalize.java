@@ -287,6 +287,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.debug("push-dep CaseExpr", "f @ (op E) -> (op f@E)");
     this.propagateDownwards(de, ce);
     this.debug(ce);
+    AlphaInternalStateConstructor.recomputeContextDomain(ce);
     this.reapply(ce);
     return null;
   }
