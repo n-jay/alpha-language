@@ -30,7 +30,6 @@ public class AlphaCheckProgramTest extends AlphaTestTemplate<AlphaTestVersion> {
 	@UseDataProvider(location = DataFromPathProvider.class, value = DataFromPathProvider.PROVIDER_NAME)
 	@ResourcesLocation(value = "resources/src-valid", dataClasses = {AlphaBundleData.class, AlphaSingleFileData.class})
 	public void validSyntax(IAlphaData d) {
-		
 		runTest(d);
 	}
 	

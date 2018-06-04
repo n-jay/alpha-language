@@ -1,7 +1,10 @@
 package alpha.model.testframework;
 
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
 
 import alpha.model.AlphaRoot;
 import fr.irisa.cairn.gecos.testframework.model.IVersion;
@@ -19,10 +22,18 @@ import fr.irisa.cairn.gecos.testframework.model.IVersion;
 public class AlphaTestVersion extends IVersion {
 
 	private List<AlphaRoot> alphaRoots;
+	private List<Path> srcFiles;
 	
 	public List<AlphaRoot> getAlphaRoots() {
 		if(alphaRoots == null)
 			alphaRoots = new LinkedList<>();
 		return alphaRoots;
+	}
+	
+	public void setSrcFiles(List<Path> paths) {
+		this.srcFiles = paths;
+	}
+	public List<Path> getSrcFiles() {
+		return srcFiles;
 	}
 }

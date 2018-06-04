@@ -98,6 +98,7 @@ public class AlphaTestOperators {
 			ver.setName("Original");
 			ver.setPrevious(null);
 			ver.setTimeout(Long.valueOf(20));
+			ver.setSrcFiles(data.getAlphaFiles());
 			
 			if(afterVersionCreation != null)
 				afterVersionCreation.accept(data, ver);

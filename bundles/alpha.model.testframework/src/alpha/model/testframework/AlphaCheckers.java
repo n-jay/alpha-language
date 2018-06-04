@@ -1,5 +1,7 @@
 package alpha.model.testframework;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,12 +13,14 @@ import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
 
+import alpha.model.AlphaModelLoader;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaVisitable;
 import alpha.model.UniquenessAndCompletenessCheck;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.testframework.checker.CheckNormalized;
 import alpha.model.transformation.Normalize;
+import alpha.model.util.Show;
 import fr.irisa.cairn.gecos.testframework.exceptions.CheckerFailure;
 import fr.irisa.cairn.gecos.testframework.model.IVersionOperator;
 
@@ -36,7 +40,7 @@ public class AlphaCheckers {
 	public static <V extends AlphaTestVersion> IVersionOperator<V> xtextValidator() {
 		return version -> {
 			List<AlphaRoot> roots = version.getAlphaRoots();
-			if(roots == null || !roots.isEmpty())
+			if(roots == null || roots.isEmpty())
 				throw new IllegalArgumentException("AlphaTestVersion is null or empty: " + version);
 
 			List<Issue> issues = new LinkedList<>();
@@ -56,7 +60,7 @@ public class AlphaCheckers {
 	public static <V extends AlphaTestVersion> IVersionOperator<V> checkProgram() {
 		return version -> {
 			List<AlphaRoot> roots = version.getAlphaRoots();
-			if(roots == null || !roots.isEmpty())
+			if(roots == null || roots.isEmpty())
 				throw new IllegalArgumentException("AlphaTestVersion is null or empty: " + version);
 
 			List<AlphaIssue> issues = UniquenessAndCompletenessCheck.check(roots);
@@ -72,7 +76,7 @@ public class AlphaCheckers {
 	public static <V extends AlphaTestVersion> IVersionOperator<V> checkNormalize() {
 		return version -> {
 			List<AlphaRoot> roots = version.getAlphaRoots();
-			if(roots == null || !roots.isEmpty())
+			if(roots == null || roots.isEmpty())
 				throw new IllegalArgumentException("AlphaTestVersion is null or empty: " + version);
 
 			for (AlphaRoot root : roots) {
@@ -85,6 +89,7 @@ public class AlphaCheckers {
 			
 		};
 	}
+	
 
 	
 }

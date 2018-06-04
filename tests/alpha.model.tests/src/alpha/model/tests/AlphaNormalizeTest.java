@@ -17,8 +17,6 @@ public class AlphaNormalizeTest extends AlphaTestTemplate<AlphaTestVersion> {
 	
 	@Override
 	protected void configure() {
-		super.configure();
-		
 		registerTestFlow(AlphaSingleFileData.class, AlphaDefaultTestFlows.alphaFileDataNormalizeTestFlow());
 		registerTestFlow(AlphaBundleData.class, AlphaDefaultTestFlows.alphaFileDataNormalizeTestFlow());
 	}
