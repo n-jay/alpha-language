@@ -30,14 +30,11 @@ class AShow extends Show {
 	}
 	
 	override protected printDomain(JNIISLSet set) {
-		AlphaUtil.toAShowString(set, parameterContext, indexNameContext)
+		AlphaPrintingUtil.toAShowString(set, parameterContext, indexNameContext)
 	}
 	
 	override printFunction(JNIISLMultiAff f) {
-		AlphaUtil.toAShowString(f, indexNameContext)
-	}
-	override printRelation(CalculatorExpression rel) {
-		rel.ISLObject.toString
+		AlphaPrintingUtil.toAShowString(f, indexNameContext)
 	}
 	
 	

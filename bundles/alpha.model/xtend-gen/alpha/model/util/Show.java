@@ -47,10 +47,11 @@ import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.VariableDomain;
 import alpha.model.VariableExpression;
-import alpha.model.util.AlphaUtil;
+import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.ModelSwitch;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.Arrays;
@@ -96,7 +97,7 @@ public class Show extends ModelSwitch<String> {
     if (_equals) {
       _xifexpression = "";
     } else {
-      _xifexpression = AlphaUtil.toShowString(set, this.parameterContext);
+      _xifexpression = AlphaPrintingUtil.toShowString(set, this.parameterContext);
     }
     return _xifexpression;
   }
@@ -106,23 +107,23 @@ public class Show extends ModelSwitch<String> {
   }
   
   protected String printInstantiationDomain(final JNIISLSet set) {
-    return AlphaUtil.toShowString(set, this.parameterContext);
+    return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
   
   protected String printWhileDomain(final JNIISLSet set) {
-    return AlphaUtil.toShowString(set, this.parameterContext);
+    return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
   
   protected String printDomain(final JNIISLSet set) {
-    return AlphaUtil.toShowString(set, this.parameterContext);
+    return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
   
   protected String printFunction(final JNIISLMultiAff f) {
-    return AlphaUtil.toShowString(f);
+    return AlphaPrintingUtil.toShowString(f);
   }
   
-  protected String printRelation(final CalculatorExpression rel) {
-    return rel.getISLObject().toString();
+  protected String printRelation(final JNIISLMap rel) {
+    return AlphaPrintingUtil.toShowString(rel);
   }
   
   protected CharSequence printSubsystemCallParams(final JNIFunctionInArrayNotation f, final JNIISLSet instantiationDomain) {
@@ -130,7 +131,7 @@ public class Show extends ModelSwitch<String> {
     {
       final JNIISLMultiAff maff = f.getISLMultiAff();
       StringConcatenation _builder = new StringConcatenation();
-      String _aShowString = AlphaUtil.toAShowString(maff, instantiationDomain.getIndicesNames());
+      String _aShowString = AlphaPrintingUtil.toAShowString(maff, instantiationDomain.getIndicesNames());
       _builder.append(_aShowString);
       _xblockexpression = _builder;
     }
@@ -402,23 +403,47 @@ public class Show extends ModelSwitch<String> {
         _xifexpression = _builder.toString();
       }
       final String domStr = _xifexpression;
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append(domStr);
-      _builder_1.append(" : ");
-      String _doSwitch = this.doSwitch(re.getExpr());
-      _builder_1.append(_doSwitch);
-      _xblockexpression = _builder_1.toString();
+      String _xifexpression_1 = null;
+      if (((re.eContainer() instanceof UnaryExpression) || (re.eContainer() instanceof BinaryExpression))) {
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("(");
+        _builder_1.append(domStr);
+        _builder_1.append(" : ");
+        String _doSwitch = this.doSwitch(re.getExpr());
+        _builder_1.append(_doSwitch);
+        _builder_1.append(")");
+        _xifexpression_1 = _builder_1.toString();
+      } else {
+        StringConcatenation _builder_2 = new StringConcatenation();
+        _builder_2.append(domStr);
+        _builder_2.append(" : ");
+        String _doSwitch_1 = this.doSwitch(re.getExpr());
+        _builder_2.append(_doSwitch_1);
+        _xifexpression_1 = _builder_2.toString();
+      }
+      _xblockexpression = _xifexpression_1;
     }
     return _xblockexpression;
   }
   
   @Override
   public String caseAutoRestrictExpression(final AutoRestrictExpression are) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("auto : ");
-    String _doSwitch = this.doSwitch(are.getExpr());
-    _builder.append(_doSwitch);
-    return _builder.toString();
+    String _xifexpression = null;
+    if (((are.eContainer() instanceof UnaryExpression) || (are.eContainer() instanceof BinaryExpression))) {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("(auto : ");
+      String _doSwitch = this.doSwitch(are.getExpr());
+      _builder.append(_doSwitch);
+      _builder.append(")");
+      _xifexpression = _builder.toString();
+    } else {
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("auto : ");
+      String _doSwitch_1 = this.doSwitch(are.getExpr());
+      _builder_1.append(_doSwitch_1);
+      _xifexpression = _builder_1.toString();
+    }
+    return _xifexpression;
   }
   
   @Override
@@ -448,13 +473,26 @@ public class Show extends ModelSwitch<String> {
   
   @Override
   public String caseDependenceExpression(final DependenceExpression de) {
-    StringConcatenation _builder = new StringConcatenation();
-    String _printFunction = this.printFunction(de.getFunction());
-    _builder.append(_printFunction);
-    _builder.append("@");
-    String _doSwitch = this.doSwitch(de.getExpr());
-    _builder.append(_doSwitch);
-    return _builder.toString();
+    String _xifexpression = null;
+    if ((((((de.getExpr() instanceof IfExpression) || (de.getExpr() instanceof RestrictExpression)) || (de.getExpr() instanceof AutoRestrictExpression)) || (de.getExpr() instanceof UnaryExpression)) || (de.getExpr() instanceof BinaryExpression))) {
+      StringConcatenation _builder = new StringConcatenation();
+      String _printFunction = this.printFunction(de.getFunction());
+      _builder.append(_printFunction);
+      _builder.append("@(");
+      String _doSwitch = this.doSwitch(de.getExpr());
+      _builder.append(_doSwitch);
+      _builder.append(")");
+      _xifexpression = _builder.toString();
+    } else {
+      StringConcatenation _builder_1 = new StringConcatenation();
+      String _printFunction_1 = this.printFunction(de.getFunction());
+      _builder_1.append(_printFunction_1);
+      _builder_1.append("@");
+      String _doSwitch_1 = this.doSwitch(de.getExpr());
+      _builder_1.append(_doSwitch_1);
+      _xifexpression = _builder_1.toString();
+    }
+    return _xifexpression;
   }
   
   @Override
@@ -539,7 +577,7 @@ public class Show extends ModelSwitch<String> {
   }
   
   protected String printProjectionFunction(final JNIISLMultiAff maff) {
-    return AlphaUtil.toShowString(maff);
+    return AlphaPrintingUtil.toShowString(maff);
   }
   
   protected String printReductionBody(final AlphaExpression expr) {
@@ -591,7 +629,7 @@ public class Show extends ModelSwitch<String> {
   public String caseSelectExpression(final SelectExpression se) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("select ");
-    String _printRelation = this.printRelation(se.getRelationExpr());
+    String _printRelation = this.printRelation(se.getSelectRelation());
     _builder.append(_printRelation);
     _builder.append(" from ");
     String _doSwitch = this.doSwitch(se.getExpr());

@@ -45,6 +45,8 @@ import alpha.model.VariableExpression
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
+import alpha.model.ConstantExpression
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 
 /**
  * Prints the Alpha program in Show notation. The show notation
@@ -75,7 +77,7 @@ class Show extends ModelSwitch<String> {
 		if (set.getNbDims(JNIISLDimType.isl_dim_set) == 0)
 			""
 		else
-			AlphaUtil.toShowString(set, parameterContext)
+			AlphaPrintingUtil.toShowString(set, parameterContext)
 	}
 	
 	protected def printUECallParams(JNIFunctionInArrayNotation f) {
@@ -83,28 +85,28 @@ class Show extends ModelSwitch<String> {
 	}
 	
 	protected def printInstantiationDomain(JNIISLSet set) {
-		AlphaUtil.toShowString(set, parameterContext)
+		AlphaPrintingUtil.toShowString(set, parameterContext)
 	}
 	
 	protected def printWhileDomain(JNIISLSet set) {
-		AlphaUtil.toShowString(set, parameterContext)
+		AlphaPrintingUtil.toShowString(set, parameterContext)
 	}
 	
 	protected def printDomain(JNIISLSet set) {
-		AlphaUtil.toShowString(set, parameterContext)
+		AlphaPrintingUtil.toShowString(set, parameterContext)
 	}
 	
 	protected def printFunction(JNIISLMultiAff f) {
-		AlphaUtil.toShowString(f)
+		AlphaPrintingUtil.toShowString(f)
 	}
 	
-	protected def printRelation(CalculatorExpression rel) {
-		rel.ISLObject.toString
+	protected def printRelation(JNIISLMap rel) {
+		AlphaPrintingUtil.toShowString(rel)
 	}
 	
 	protected def printSubsystemCallParams(JNIFunctionInArrayNotation f, JNIISLSet instantiationDomain) {
 		val maff = f.ISLMultiAff
-		'''«AlphaUtil.toAShowString(maff, instantiationDomain.indicesNames)»'''
+		'''«AlphaPrintingUtil.toAShowString(maff, instantiationDomain.indicesNames)»'''
 	}
 
 	override caseAlphaRoot(AlphaRoot root) {
@@ -190,12 +192,20 @@ class Show extends ModelSwitch<String> {
 	override caseRestrictExpression(RestrictExpression re) {
 		val domStr = if (re.domainExpr instanceof JNIDomain || re.domainExpr instanceof JNIDomainInArrayNotation)
 		re.restrictDomain.printDomain else '''{«re.restrictDomain.printDomain»}''' 
-			
-		'''«domStr» : «re.expr.doSwitch»'''
+		
+		if (re.eContainer instanceof UnaryExpression || re.eContainer instanceof BinaryExpression) {
+			'''(«domStr» : «re.expr.doSwitch»)'''
+		} else {
+			'''«domStr» : «re.expr.doSwitch»'''
+		}
 	}
 	
 	override caseAutoRestrictExpression(AutoRestrictExpression are) {
-		'''auto : «are.expr.doSwitch»'''
+		if (are.eContainer instanceof UnaryExpression || are.eContainer instanceof BinaryExpression) {
+			'''(auto : «are.expr.doSwitch»)'''
+		} else {
+			'''auto : «are.expr.doSwitch»'''
+		}
 	}
 	
 	override caseCaseExpression(CaseExpression ce) {
@@ -206,7 +216,11 @@ class Show extends ModelSwitch<String> {
 	}
 
 	override caseDependenceExpression(DependenceExpression de) {
-		'''«de.function.printFunction»@«de.expr.doSwitch»'''
+		if (de.expr instanceof IfExpression || de.expr instanceof RestrictExpression || de.expr instanceof AutoRestrictExpression|| de.expr instanceof UnaryExpression || de.expr instanceof BinaryExpression) {
+			'''«de.function.printFunction»@(«de.expr.doSwitch»)'''
+		} else {
+			'''«de.function.printFunction»@«de.expr.doSwitch»'''
+		}
 	}
 	
 	override caseIndexExpression(IndexExpression ie) {
@@ -244,7 +258,7 @@ class Show extends ModelSwitch<String> {
 	}
 	
 	protected def printProjectionFunction(JNIISLMultiAff maff) {
-		AlphaUtil.toShowString(maff)
+		AlphaPrintingUtil.toShowString(maff)
 	}
 	
 	protected def printReductionBody(AlphaExpression expr) {
@@ -276,7 +290,7 @@ class Show extends ModelSwitch<String> {
 	}
 	
 	override caseSelectExpression(SelectExpression se) {
-		'''select «se.relationExpr.printRelation» from «se.expr.doSwitch»'''
+		'''select «se.selectRelation.printRelation» from «se.expr.doSwitch»'''
 	}
 	
 	override caseBinaryExpression(BinaryExpression be) {

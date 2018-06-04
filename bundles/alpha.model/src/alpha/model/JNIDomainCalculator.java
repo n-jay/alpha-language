@@ -13,6 +13,7 @@ import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
@@ -268,7 +269,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			indexNameContext = copy;
 			indexNameContext.addAll(((JNIFunctionInArrayNotation) re.getProjectionExpr()).getArrayNotation());
 		} else {
-			indexNameContext = null;
+			indexNameContext = re.getProjection().getSpace().getNameList(JNIISLDimType.isl_dim_in);
 		}
 	}
 
@@ -369,8 +370,8 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 
 		// Only when the dimensions match the context, new indices can replace the
 		// context for Array Notation
-		if (indexNameContext == null
-				|| re.getRestrictDomain() != null && re.getRestrictDomain().getNbDims() == indexNameContext.size()) {
+		if (re.getRestrictDomain() != null && 
+				(indexNameContext == null || re.getRestrictDomain().getNbDims() == indexNameContext.size())) {
 			indexNameContext = re.getRestrictDomain().getIndicesNames();
 		} else {
 			indexNameContext = copy;

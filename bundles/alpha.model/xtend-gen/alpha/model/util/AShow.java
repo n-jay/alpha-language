@@ -2,13 +2,12 @@ package alpha.model.util;
 
 import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaVisitable;
-import alpha.model.CalculatorExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.IndexExpression;
 import alpha.model.StandardEquation;
 import alpha.model.VariableExpression;
-import alpha.model.util.AlphaUtil;
+import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.Show;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
@@ -39,17 +38,12 @@ public class AShow extends Show {
   
   @Override
   protected String printDomain(final JNIISLSet set) {
-    return AlphaUtil.toAShowString(set, this.parameterContext, this.indexNameContext);
+    return AlphaPrintingUtil.toAShowString(set, this.parameterContext, this.indexNameContext);
   }
   
   @Override
   public String printFunction(final JNIISLMultiAff f) {
-    return AlphaUtil.toAShowString(f, this.indexNameContext);
-  }
-  
-  @Override
-  public String printRelation(final CalculatorExpression rel) {
-    return rel.getISLObject().toString();
+    return AlphaPrintingUtil.toAShowString(f, this.indexNameContext);
   }
   
   /**
