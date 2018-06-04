@@ -10,6 +10,7 @@ import alpha.model.AlphaVisitable
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
@@ -21,8 +22,8 @@ import java.util.List
 import java.util.function.Consumer
 import java.util.function.Supplier
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 class AlphaUtil {
 	
@@ -183,9 +184,19 @@ class AlphaUtil {
 	static def String toShowString(JNIISLMultiAff maff) {
 		if (maff === null) return null;
 		val lhs = maff.domainSpace.getNameList(JNIISLDimType.isl_dim_set).join(",")
-		val rhs = maff.affs.join(",", [a|a.islAffToShowString]);
+		val rhs = maff.affs.join(",", [a|a.toAlphaString(false)]);
 		
 		return '''(«lhs»->«rhs»)'''
+	}
+	static def String toAShowString(JNIISLMultiAff maff) {
+		if (maff === null) return null;
+		val rhs = maff.affs.join(",", [a|a.toAlphaString(true)]);
+		
+		return '''[«rhs»]'''
+	}
+	static def String toAShowString(JNIISLMultiAff maff, List<String> context) {
+		if (maff === null) return null;
+		return toAShowString(maff.renameIndices(context))
 	}
 	
 	/**
@@ -201,8 +212,8 @@ class AlphaUtil {
 	 *   - among positive/negative values, the order is parameters, indices, divs
 	 * 
 	 */
-	static def String islAffToShowString(JNIISLAff aff) {
-		val commonD = aff.denominator
+	static def String toAlphaString(JNIISLAff aff, boolean arrayNotation) {
+		val commonD = if (arrayNotation) aff.denominator else 1
 		
 		val constant = aff.constantVal
 		val cstVal = (constant.numerator * commonD) / constant.denominator
@@ -210,22 +221,24 @@ class AlphaUtil {
 		val posList = new LinkedList<String>
 		val negList = new LinkedList<String>
 		
-		islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_param, commonD, posList, negList)
-		islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_in, commonD, posList, negList)
-		islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_div, commonD, posList, negList)
+		toAlphaStringHelper(aff, JNIISLDimType.isl_dim_param, commonD, posList, negList)
+		toAlphaStringHelper(aff, JNIISLDimType.isl_dim_in, commonD, posList, negList)
+		toAlphaStringHelper(aff, JNIISLDimType.isl_dim_div, commonD, posList, negList)
 		
 		val pos = posList.join("+")
 		val neg = negList.join("")
 		val cst = if (cstVal == 0) "" else if (cstVal > 0) "+"+cstVal else cstVal
 		
-		if (commonD != 1) '''(«pos»«neg»«cst»)/«commonD»'''
+		//when everything is 0, then the output is 0; otherwise 0 is not printed
+		if (posList.length + negList.length == 0 && cstVal == 0) '''0'''
+		else if (commonD != 1) '''(«pos»«neg»«cst»)/«commonD»'''
 		else '''«pos»«neg»«cst»'''
 	}
 	
 	/*
 	 * Helper for printAff that collects positive/negative values of a given dim type
 	 */
-	private static def void islAffToShowStringHelper(JNIISLAff aff, JNIISLDimType dimType, long commonD, List<String> posList, List<String> negList) {
+	private static def void toAlphaStringHelper(JNIISLAff aff, JNIISLDimType dimType, long commonD, List<String> posList, List<String> negList) {
 		
 		val dims = aff.space
 		val n = dims.getNbDims(dimType)
@@ -242,26 +255,72 @@ class AlphaUtil {
 		}
 	}
 	
-	dispatch static def String islSetToShowString(JNIISLMap map) {
-		islSetToShowString(map, null)
-	}
-	dispatch static def String islSetToShowString(JNIISLMap map, JNIISLSet ctx) {
-		return "expecting set; got: " + map
-	}
 	/**
 	 * ISLSet to AlphaString
 	 * 
 	 * For sets, ISL string without the parameter part is the AlphaString.
 	 */
-	dispatch static def String islSetToShowString(JNIISLSet set) {
-		islSetToShowString(set, null)
+	static def String toShowString(JNIISLSet set) {
+		toShowString(set, null)
 	}
-	dispatch static def String islSetToShowString(JNIISLSet set, JNIISLSet ctx) {
-		val str = if (ctx !== null && ctx.isParamSet) {
-						set.gist(ctx.copy.addDims(JNIISLDimType.isl_dim_set, set.nbDims)).toString 
+	static def String toShowString(JNIISLSet set, JNIISLSet paramDom) {
+		val str = if (paramDom !== null && paramDom.isParamSet) {
+						set.gist(paramDom.copy.addDims(JNIISLDimType.isl_dim_set, set.nbDims)).toString 
 				   } else set.toString
 		
 		val out = str.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{")
 		return out
+	}
+	static def String toAShowString(JNIISLSet set) {
+		toAShowString(set, null)
+	}
+	static def String toAShowString(JNIISLSet set, JNIISLSet paramDom) {
+		return toAShowString(set, paramDom, null)
+	}
+	static def String toAShowString(JNIISLSet set, JNIISLSet paramDom, List<String> names) {
+		val setRenamed = if (names !== null) set.renameIndices(names) else set
+		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(JNIISLDimType.isl_dim_set, setRenamed.nbDims)) else setRenamed
+		
+		val constraints = setGisted.collectConstraints
+		val out = "{:"+constraints.join(" or ", [c|c.join(" and ")])+"}";
+		return out
+	}
+	static def collectConstraints(JNIISLSet set) {
+		set.basicSets.map[collectConstraints]
+	}
+	static def collectConstraints(JNIISLBasicSet bset) {
+		bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "")]
+	}
+	
+	
+	static def renameIndices(JNIISLSet set, List<String> names) {
+		val n = set.getNbDims()
+		var res = set;
+		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
+		for (i : 0..<n) {
+			res = res.setDimName(JNIISLDimType.isl_dim_set, i, names.get(i))
+		}
+			
+		return res
+	}
+	static def renameIndices(JNIISLMap map, List<String> names) {
+		val n = map.getNbDims(JNIISLDimType.isl_dim_in)
+		var res = map;
+		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
+		for (i : 0..<n) {
+			res = res.setDimName(JNIISLDimType.isl_dim_in, i, names.get(i))
+		}
+			
+		return res
+	}
+	static def renameIndices(JNIISLMultiAff maff, List<String> names) {
+		val n = maff.getNbDims(JNIISLDimType.isl_dim_in)
+		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
+		var res = maff;
+		for (i : 0..<n) {
+			res = res.setDimName(JNIISLDimType.isl_dim_in, i, names.get(i))
+		}
+			
+		return res
 	}
 }

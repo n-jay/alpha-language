@@ -13,6 +13,8 @@ import com.google.common.collect.Iterators;
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
@@ -33,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -254,7 +257,7 @@ public class AlphaUtil {
     }
     final String lhs = IterableExtensions.join(maff.getDomainSpace().getNameList(JNIISLDimType.isl_dim_set), ",");
     final Function1<JNIISLAff, CharSequence> _function = (JNIISLAff a) -> {
-      return AlphaUtil.islAffToShowString(a);
+      return AlphaUtil.toAlphaString(a, false);
     };
     final String rhs = IterableExtensions.<JNIISLAff>join(maff.getAffs(), ",", _function);
     StringConcatenation _builder = new StringConcatenation();
@@ -264,6 +267,28 @@ public class AlphaUtil {
     _builder.append(rhs);
     _builder.append(")");
     return _builder.toString();
+  }
+  
+  public static String toAShowString(final JNIISLMultiAff maff) {
+    if ((maff == null)) {
+      return null;
+    }
+    final Function1<JNIISLAff, CharSequence> _function = (JNIISLAff a) -> {
+      return AlphaUtil.toAlphaString(a, true);
+    };
+    final String rhs = IterableExtensions.<JNIISLAff>join(maff.getAffs(), ",", _function);
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("[");
+    _builder.append(rhs);
+    _builder.append("]");
+    return _builder.toString();
+  }
+  
+  public static String toAShowString(final JNIISLMultiAff maff, final List<String> context) {
+    if ((maff == null)) {
+      return null;
+    }
+    return AlphaUtil.toAShowString(AlphaUtil.renameIndices(maff, context));
   }
   
   /**
@@ -278,10 +303,16 @@ public class AlphaUtil {
    *   - positive values first
    *   - among positive/negative values, the order is parameters, indices, divs
    */
-  public static String islAffToShowString(final JNIISLAff aff) {
+  public static String toAlphaString(final JNIISLAff aff, final boolean arrayNotation) {
     String _xblockexpression = null;
     {
-      final long commonD = aff.getDenominator();
+      long _xifexpression = (long) 0;
+      if (arrayNotation) {
+        _xifexpression = aff.getDenominator();
+      } else {
+        _xifexpression = 1;
+      }
+      final long commonD = _xifexpression;
       final JNIISLVal constant = aff.getConstantVal();
       long _numerator = constant.getNumerator();
       long _multiply = (_numerator * commonD);
@@ -289,42 +320,50 @@ public class AlphaUtil {
       final long cstVal = (_multiply / _denominator);
       final LinkedList<String> posList = new LinkedList<String>();
       final LinkedList<String> negList = new LinkedList<String>();
-      AlphaUtil.islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_param, commonD, posList, negList);
-      AlphaUtil.islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_in, commonD, posList, negList);
-      AlphaUtil.islAffToShowStringHelper(aff, JNIISLDimType.isl_dim_div, commonD, posList, negList);
+      AlphaUtil.toAlphaStringHelper(aff, JNIISLDimType.isl_dim_param, commonD, posList, negList);
+      AlphaUtil.toAlphaStringHelper(aff, JNIISLDimType.isl_dim_in, commonD, posList, negList);
+      AlphaUtil.toAlphaStringHelper(aff, JNIISLDimType.isl_dim_div, commonD, posList, negList);
       final String pos = IterableExtensions.join(posList, "+");
       final String neg = IterableExtensions.join(negList, "");
-      Object _xifexpression = null;
+      Object _xifexpression_1 = null;
       if ((cstVal == 0)) {
-        _xifexpression = "";
+        _xifexpression_1 = "";
       } else {
-        Object _xifexpression_1 = null;
+        Object _xifexpression_2 = null;
         if ((cstVal > 0)) {
-          _xifexpression_1 = ("+" + Long.valueOf(cstVal));
+          _xifexpression_2 = ("+" + Long.valueOf(cstVal));
         } else {
-          _xifexpression_1 = Long.valueOf(cstVal);
+          _xifexpression_2 = Long.valueOf(cstVal);
         }
-        _xifexpression = ((Object)_xifexpression_1);
+        _xifexpression_1 = ((Object)_xifexpression_2);
       }
-      final Object cst = ((Object)_xifexpression);
-      String _xifexpression_2 = null;
-      if ((commonD != 1)) {
+      final Object cst = ((Object)_xifexpression_1);
+      String _xifexpression_3 = null;
+      if ((((((Object[])Conversions.unwrapArray(posList, Object.class)).length + ((Object[])Conversions.unwrapArray(negList, Object.class)).length) == 0) && (cstVal == 0))) {
         StringConcatenation _builder = new StringConcatenation();
-        _builder.append("(");
-        _builder.append(pos);
-        _builder.append(neg);
-        _builder.append(((Object)cst));
-        _builder.append(")/");
-        _builder.append(commonD);
-        _xifexpression_2 = _builder.toString();
+        _builder.append("0");
+        _xifexpression_3 = _builder.toString();
       } else {
-        StringConcatenation _builder_1 = new StringConcatenation();
-        _builder_1.append(pos);
-        _builder_1.append(neg);
-        _builder_1.append(((Object)cst));
-        _xifexpression_2 = _builder_1.toString();
+        String _xifexpression_4 = null;
+        if ((commonD != 1)) {
+          StringConcatenation _builder_1 = new StringConcatenation();
+          _builder_1.append("(");
+          _builder_1.append(pos);
+          _builder_1.append(neg);
+          _builder_1.append(((Object)cst));
+          _builder_1.append(")/");
+          _builder_1.append(commonD);
+          _xifexpression_4 = _builder_1.toString();
+        } else {
+          StringConcatenation _builder_2 = new StringConcatenation();
+          _builder_2.append(pos);
+          _builder_2.append(neg);
+          _builder_2.append(((Object)cst));
+          _xifexpression_4 = _builder_2.toString();
+        }
+        _xifexpression_3 = _xifexpression_4;
       }
-      _xblockexpression = _xifexpression_2;
+      _xblockexpression = _xifexpression_3;
     }
     return _xblockexpression;
   }
@@ -332,7 +371,7 @@ public class AlphaUtil {
   /**
    * Helper for printAff that collects positive/negative values of a given dim type
    */
-  private static void islAffToShowStringHelper(final JNIISLAff aff, final JNIISLDimType dimType, final long commonD, final List<String> posList, final List<String> negList) {
+  private static void toAlphaStringHelper(final JNIISLAff aff, final JNIISLDimType dimType, final long commonD, final List<String> posList, final List<String> negList) {
     final JNIISLSpace dims = aff.getSpace();
     final int n = dims.getNbDims(dimType);
     final List<String> names = dims.getNameList(dimType);
@@ -375,33 +414,117 @@ public class AlphaUtil {
     }
   }
   
-  protected static String _islSetToShowString(final JNIISLMap map) {
-    return AlphaUtil.islSetToShowString(map, null);
-  }
-  
-  protected static String _islSetToShowString(final JNIISLMap map, final JNIISLSet ctx) {
-    return ("expecting set; got: " + map);
-  }
-  
   /**
    * ISLSet to AlphaString
    * 
    * For sets, ISL string without the parameter part is the AlphaString.
    */
-  protected static String _islSetToShowString(final JNIISLSet set) {
-    return AlphaUtil.islSetToShowString(set, null);
+  public static String toShowString(final JNIISLSet set) {
+    return AlphaUtil.toShowString(set, null);
   }
   
-  protected static String _islSetToShowString(final JNIISLSet set, final JNIISLSet ctx) {
+  public static String toShowString(final JNIISLSet set, final JNIISLSet paramDom) {
     String _xifexpression = null;
-    if (((ctx != null) && ctx.isParamSet())) {
-      _xifexpression = set.gist(ctx.copy().addDims(JNIISLDimType.isl_dim_set, set.getNbDims())).toString();
+    if (((paramDom != null) && paramDom.isParamSet())) {
+      _xifexpression = set.gist(paramDom.copy().addDims(JNIISLDimType.isl_dim_set, set.getNbDims())).toString();
     } else {
       _xifexpression = set.toString();
     }
     final String str = _xifexpression;
     final String out = str.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{");
     return out;
+  }
+  
+  public static String toAShowString(final JNIISLSet set) {
+    return AlphaUtil.toAShowString(set, null);
+  }
+  
+  public static String toAShowString(final JNIISLSet set, final JNIISLSet paramDom) {
+    return AlphaUtil.toAShowString(set, paramDom, null);
+  }
+  
+  public static String toAShowString(final JNIISLSet set, final JNIISLSet paramDom, final List<String> names) {
+    JNIISLSet _xifexpression = null;
+    if ((names != null)) {
+      _xifexpression = AlphaUtil.renameIndices(set, names);
+    } else {
+      _xifexpression = set;
+    }
+    final JNIISLSet setRenamed = _xifexpression;
+    JNIISLSet _xifexpression_1 = null;
+    if (((paramDom != null) && paramDom.isParamSet())) {
+      _xifexpression_1 = setRenamed.gist(paramDom.copy().addDims(JNIISLDimType.isl_dim_set, setRenamed.getNbDims()));
+    } else {
+      _xifexpression_1 = setRenamed;
+    }
+    final JNIISLSet setGisted = _xifexpression_1;
+    final List<List<String>> constraints = AlphaUtil.collectConstraints(setGisted);
+    final Function1<List<String>, CharSequence> _function = (List<String> c) -> {
+      return IterableExtensions.join(c, " and ");
+    };
+    String _join = IterableExtensions.<List<String>>join(constraints, " or ", _function);
+    String _plus = ("{:" + _join);
+    final String out = (_plus + "}");
+    return out;
+  }
+  
+  public static List<List<String>> collectConstraints(final JNIISLSet set) {
+    final Function1<JNIISLBasicSet, List<String>> _function = (JNIISLBasicSet it) -> {
+      return AlphaUtil.collectConstraints(it);
+    };
+    return ListExtensions.<JNIISLBasicSet, List<String>>map(set.getBasicSets(), _function);
+  }
+  
+  public static List<String> collectConstraints(final JNIISLBasicSet bset) {
+    final Function1<JNIISLConstraint, String> _function = (JNIISLConstraint c) -> {
+      return c.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "");
+    };
+    return ListExtensions.<JNIISLConstraint, String>map(bset.getConstraints(), _function);
+  }
+  
+  public static JNIISLSet renameIndices(final JNIISLSet set, final List<String> names) {
+    final int n = set.getNbDims();
+    JNIISLSet res = set;
+    int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
+    boolean _greaterThan = (n > _length);
+    if (_greaterThan) {
+      throw new RuntimeException("Need n or more index names to rename n-d space.");
+    }
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      res = res.setDimName(JNIISLDimType.isl_dim_set, (i).intValue(), names.get((i).intValue()));
+    }
+    return res;
+  }
+  
+  public static JNIISLMap renameIndices(final JNIISLMap map, final List<String> names) {
+    final int n = map.getNbDims(JNIISLDimType.isl_dim_in);
+    JNIISLMap res = map;
+    int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
+    boolean _greaterThan = (n > _length);
+    if (_greaterThan) {
+      throw new RuntimeException("Need n or more index names to rename n-d space.");
+    }
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      res = res.setDimName(JNIISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
+    }
+    return res;
+  }
+  
+  public static JNIISLMultiAff renameIndices(final JNIISLMultiAff maff, final List<String> names) {
+    final int n = maff.getNbDims(JNIISLDimType.isl_dim_in);
+    int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
+    boolean _greaterThan = (n > _length);
+    if (_greaterThan) {
+      throw new RuntimeException("Need n or more index names to rename n-d space.");
+    }
+    JNIISLMultiAff res = maff;
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      res = res.setDimName(JNIISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
+    }
+    return res;
   }
   
   private static Iterable<AlphaConstant> gatherAlphaConstants(final AlphaVisitable ap) {
@@ -440,28 +563,6 @@ public class AlphaUtil {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(system).toString());
-    }
-  }
-  
-  public static String islSetToShowString(final JNIObject map) {
-    if (map instanceof JNIISLMap) {
-      return _islSetToShowString((JNIISLMap)map);
-    } else if (map instanceof JNIISLSet) {
-      return _islSetToShowString((JNIISLSet)map);
-    } else {
-      throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(map).toString());
-    }
-  }
-  
-  public static String islSetToShowString(final JNIObject map, final JNIISLSet ctx) {
-    if (map instanceof JNIISLMap) {
-      return _islSetToShowString((JNIISLMap)map, ctx);
-    } else if (map instanceof JNIISLSet) {
-      return _islSetToShowString((JNIISLSet)map, ctx);
-    } else {
-      throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(map, ctx).toString());
     }
   }
 }
