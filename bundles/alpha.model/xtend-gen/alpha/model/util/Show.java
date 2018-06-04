@@ -1,5 +1,6 @@
 package alpha.model.util;
 
+import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaElement;
 import alpha.model.AlphaExpression;
@@ -49,10 +50,10 @@ import alpha.model.VariableExpression;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.ModelSwitch;
 import com.google.common.collect.Iterables;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -60,6 +61,14 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * Prints the Alpha program in Show notation. The show notation
+ * is mostly context-free and each node can be printed on its own.
+ * The only exception is when printing the domains, the parameter
+ * domain of the enclosing system is used to simplify the constraints.
+ * 
+ * For now, Show will completely remove the calculator expression.
+ */
 @SuppressWarnings("all")
 public class Show extends ModelSwitch<String> {
   protected JNIISLSet parameterContext = null;
@@ -80,20 +89,32 @@ public class Show extends ModelSwitch<String> {
     return dom.getIslString();
   }
   
+  protected String printVariableDeclarationDomain(final JNIISLSet set) {
+    String _xifexpression = null;
+    int _nbDims = set.getNbDims(JNIISLDimType.isl_dim_set);
+    boolean _equals = (_nbDims == 0);
+    if (_equals) {
+      _xifexpression = "";
+    } else {
+      _xifexpression = AlphaUtil.toShowString(set, this.parameterContext);
+    }
+    return _xifexpression;
+  }
+  
   protected String printUECallParams(final JNIFunctionInArrayNotation f) {
     return f.getAlphaString();
   }
   
-  protected String printInstantiationDomain(final CalculatorExpression dom) {
-    return AlphaUtil.islSetToShowString(dom.getISLObject(), this.parameterContext);
+  protected String printInstantiationDomain(final JNIISLSet set) {
+    return AlphaUtil.toShowString(set, this.parameterContext);
   }
   
-  protected String printWhileDomain(final CalculatorExpression dom) {
-    return AlphaUtil.islSetToShowString(dom.getISLObject(), this.parameterContext);
+  protected String printWhileDomain(final JNIISLSet set) {
+    return AlphaUtil.toShowString(set, this.parameterContext);
   }
   
-  protected String printDomain(final CalculatorExpression dom) {
-    return AlphaUtil.islSetToShowString(dom.getISLObject(), this.parameterContext);
+  protected String printDomain(final JNIISLSet set) {
+    return AlphaUtil.toShowString(set, this.parameterContext);
   }
   
   protected String printFunction(final JNIISLMultiAff f) {
@@ -102,6 +123,18 @@ public class Show extends ModelSwitch<String> {
   
   protected String printRelation(final CalculatorExpression rel) {
     return rel.getISLObject().toString();
+  }
+  
+  protected CharSequence printSubsystemCallParams(final JNIFunctionInArrayNotation f, final JNIISLSet instantiationDomain) {
+    CharSequence _xblockexpression = null;
+    {
+      final JNIISLMultiAff maff = f.getISLMultiAff();
+      StringConcatenation _builder = new StringConcatenation();
+      String _aShowString = AlphaUtil.toAShowString(maff, instantiationDomain.getIndicesNames());
+      _builder.append(_aShowString);
+      _xblockexpression = _builder;
+    }
+    return _xblockexpression;
   }
   
   @Override
@@ -237,7 +270,7 @@ public class Show extends ModelSwitch<String> {
         if (_tripleNotEquals) {
           _builder.append("\t");
           _builder.append("over ");
-          String _printInstantiationDomain = this.printInstantiationDomain(s.getWhileDomainExpr());
+          String _printInstantiationDomain = this.printInstantiationDomain(s.getWhileDomain());
           _builder.append(_printInstantiationDomain, "\t");
           _builder.append(" while (");
           String _doSwitch = this.doSwitch(s.getTestExpression());
@@ -276,8 +309,8 @@ public class Show extends ModelSwitch<String> {
     String _name = v.getName();
     _builder.append(_name);
     _builder.append(" : ");
-    String _printDomain = this.printDomain(v.getDomainExpr());
-    _builder.append(_printDomain);
+    String _printVariableDeclarationDomain = this.printVariableDeclarationDomain(v.getDomain());
+    _builder.append(_printVariableDeclarationDomain);
     return _builder.toString();
   }
   
@@ -301,7 +334,7 @@ public class Show extends ModelSwitch<String> {
       if (((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbDims() > 0))) {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("over ");
-        String _printInstantiationDomain = this.printInstantiationDomain(ue.getInstantiationDomainExpr());
+        String _printInstantiationDomain = this.printInstantiationDomain(ue.getInstantiationDomain());
         _builder.append(_printInstantiationDomain);
         _builder.append(" : ");
         _xifexpression = _builder.toString();
@@ -310,6 +343,7 @@ public class Show extends ModelSwitch<String> {
         _xifexpression = _builder_1.toString();
       }
       final String idom = _xifexpression;
+      final CharSequence callParam = this.printSubsystemCallParams(ue.getCallParamsExpr(), ue.getInstantiationDomain());
       StringConcatenation _builder_2 = new StringConcatenation();
       _builder_2.append(idom);
       _builder_2.append("(");
@@ -321,14 +355,14 @@ public class Show extends ModelSwitch<String> {
       _builder_2.append(") = ");
       String _name = ue.getSystem().getName();
       _builder_2.append(_name);
-      String _doSwitch = this.doSwitch(ue.getCallParamsExpr());
-      _builder_2.append(_doSwitch);
+      _builder_2.append(callParam);
+      _builder_2.append("(");
       final Function1<AlphaExpression, String> _function_1 = (AlphaExpression it) -> {
         return this.doSwitch(it);
       };
       String _join_1 = IterableExtensions.join(ListExtensions.<AlphaExpression, String>map(ue.getInputExprs(), _function_1), ", ");
       _builder_2.append(_join_1);
-      _builder_2.append(";");
+      _builder_2.append(");");
       _xblockexpression = _builder_2.toString();
     }
     return _xblockexpression;
@@ -358,11 +392,11 @@ public class Show extends ModelSwitch<String> {
     {
       String _xifexpression = null;
       if (((re.getDomainExpr() instanceof JNIDomain) || (re.getDomainExpr() instanceof JNIDomainInArrayNotation))) {
-        _xifexpression = this.printDomain(re.getDomainExpr());
+        _xifexpression = this.printDomain(re.getRestrictDomain());
       } else {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("{");
-        String _printDomain = this.printDomain(re.getDomainExpr());
+        String _printDomain = this.printDomain(re.getRestrictDomain());
         _builder.append(_printDomain);
         _builder.append("}");
         _xifexpression = _builder.toString();
@@ -434,73 +468,114 @@ public class Show extends ModelSwitch<String> {
   
   @Override
   public String caseReduceExpression(final ReduceExpression re) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("reduce(");
-    REDUCTION_OP _operator = re.getOperator();
-    _builder.append(_operator);
-    _builder.append(", ");
-    String _printFunction = this.printFunction(re.getProjection());
-    _builder.append(_printFunction);
-    _builder.append(", ");
-    String _doSwitch = this.doSwitch(re.getBody());
-    _builder.append(_doSwitch);
-    _builder.append(")");
-    return _builder.toString();
+    return this.printAbstractReduceExpression(re);
   }
   
   @Override
   public String caseExternalReduceExpression(final ExternalReduceExpression ere) {
+    return this.printAbstractReduceExpression(ere);
+  }
+  
+  @Override
+  public String caseArgReduceExpression(final ArgReduceExpression re) {
+    return this.printAbstractReduceExpression(re);
+  }
+  
+  @Override
+  public String caseExternalArgReduceExpression(final ExternalArgReduceExpression ere) {
+    return this.printAbstractReduceExpression(ere);
+  }
+  
+  protected CharSequence _printReduceExpression(final ReduceExpression re, final String proj, final String body) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("reduce(");
+    String _printReductionOP = this.printReductionOP(re.getOperator());
+    _builder.append(_printReductionOP);
+    _builder.append(", ");
+    _builder.append(proj);
+    _builder.append(", ");
+    _builder.append(body);
+    _builder.append(")");
+    return _builder;
+  }
+  
+  protected CharSequence _printReduceExpression(final ExternalReduceExpression ere, final String proj, final String body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("reduce(");
     String _name = ere.getExternalFunction().getName();
     _builder.append(_name);
     _builder.append(", ");
-    String _printFunction = this.printFunction(ere.getProjection());
-    _builder.append(_printFunction);
+    _builder.append(proj);
     _builder.append(", ");
-    String _doSwitch = this.doSwitch(ere.getBody());
-    _builder.append(_doSwitch);
+    _builder.append(body);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseArgReduceExpression(final ArgReduceExpression re) {
+  protected CharSequence _printReduceExpression(final ArgReduceExpression are, final String proj, final String body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("argreduce(");
-    REDUCTION_OP _operator = re.getOperator();
-    _builder.append(_operator);
+    String _printReductionOP = this.printReductionOP(are.getOperator());
+    _builder.append(_printReductionOP);
     _builder.append(", ");
-    String _printFunction = this.printFunction(re.getProjection());
-    _builder.append(_printFunction);
+    _builder.append(proj);
     _builder.append(", ");
-    String _doSwitch = this.doSwitch(re.getBody());
-    _builder.append(_doSwitch);
+    _builder.append(body);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseExternalArgReduceExpression(final ExternalArgReduceExpression ere) {
+  protected CharSequence _printReduceExpression(final ExternalArgReduceExpression aere, final String proj, final String body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("argreduce(");
-    String _name = ere.getExternalFunction().getName();
+    String _name = aere.getExternalFunction().getName();
     _builder.append(_name);
     _builder.append(", ");
-    String _printFunction = this.printFunction(ere.getProjection());
-    _builder.append(_printFunction);
+    _builder.append(proj);
     _builder.append(", ");
-    String _doSwitch = this.doSwitch(ere.getBody());
-    _builder.append(_doSwitch);
+    _builder.append(body);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
+  }
+  
+  protected String printProjectionFunction(final JNIISLMultiAff maff) {
+    return AlphaUtil.toShowString(maff);
+  }
+  
+  protected String printReductionBody(final AlphaExpression expr) {
+    return this.doSwitch(expr);
+  }
+  
+  protected String printReductionOP(final REDUCTION_OP op) {
+    if (op != null) {
+      switch (op) {
+        case SUM:
+          return "+";
+        case PROD:
+          return "*";
+        default:
+          return op.getLiteral();
+      }
+    } else {
+      return op.getLiteral();
+    }
+  }
+  
+  protected String printAbstractReduceExpression(final AbstractReduceExpression are) {
+    String _xblockexpression = null;
+    {
+      final String proj = this.printProjectionFunction(are.getProjection());
+      final String body = this.printReductionBody(are.getBody());
+      _xblockexpression = this.printReduceExpression(are, proj, body).toString();
+    }
+    return _xblockexpression;
   }
   
   @Override
   public String caseConvolutionExpression(final ConvolutionExpression ce) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("conv(");
-    String _printDomain = this.printDomain(ce.getKernelDomainExpr());
+    String _printDomain = this.printDomain(ce.getKernelDomain());
     _builder.append(_printDomain);
     _builder.append(", ");
     String _doSwitch = this.doSwitch(ce.getKernelExpression());
@@ -675,19 +750,18 @@ public class Show extends ModelSwitch<String> {
     return dobj.getObject().getName();
   }
   
-  @Override
-  public String caseJNIDomain(final JNIDomain dom) {
-    return dom.getIslString();
-  }
-  
-  @Override
-  public String caseJNIDomainInArrayNotation(final JNIDomainInArrayNotation dom) {
-    final Function1<JNIISLBasicSet, CharSequence> _function = (JNIISLBasicSet bs) -> {
-      final Function1<JNIISLConstraint, String> _function_1 = (JNIISLConstraint c) -> {
-        return c.getAff().toString();
-      };
-      return IterableExtensions.join(ListExtensions.<JNIISLConstraint, String>map(bs.getConstraints(), _function_1), "and");
-    };
-    return IterableExtensions.<JNIISLBasicSet>join(dom.getISLSet().getBasicSets(), "", "", "", _function);
+  protected CharSequence printReduceExpression(final AbstractReduceExpression aere, final String proj, final String body) {
+    if (aere instanceof ExternalArgReduceExpression) {
+      return _printReduceExpression((ExternalArgReduceExpression)aere, proj, body);
+    } else if (aere instanceof ExternalReduceExpression) {
+      return _printReduceExpression((ExternalReduceExpression)aere, proj, body);
+    } else if (aere instanceof ArgReduceExpression) {
+      return _printReduceExpression((ArgReduceExpression)aere, proj, body);
+    } else if (aere instanceof ReduceExpression) {
+      return _printReduceExpression((ReduceExpression)aere, proj, body);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(aere, proj, body).toString());
+    }
   }
 }

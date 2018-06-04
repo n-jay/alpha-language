@@ -1,6 +1,8 @@
 package alpha.model.util
 
+import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaConstant
+import alpha.model.AlphaExpression
 import alpha.model.AlphaPackage
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
@@ -27,6 +29,7 @@ import alpha.model.JNIDomain
 import alpha.model.JNIDomainInArrayNotation
 import alpha.model.JNIFunctionInArrayNotation
 import alpha.model.MultiArgExpression
+import alpha.model.REDUCTION_OP
 import alpha.model.RealExpression
 import alpha.model.RectangularDomain
 import alpha.model.ReduceExpression
@@ -41,7 +44,16 @@ import alpha.model.VariableDomain
 import alpha.model.VariableExpression
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 
+/**
+ * Prints the Alpha program in Show notation. The show notation
+ * is mostly context-free and each node can be printed on its own.
+ * The only exception is when printing the domains, the parameter
+ * domain of the enclosing system is used to simplify the constraints.
+ * 
+ * For now, Show will completely remove the calculator expression.
+ */
 class Show extends ModelSwitch<String> {
 	
 	protected JNIISLSet parameterContext = null;
@@ -59,20 +71,27 @@ class Show extends ModelSwitch<String> {
 		dom.islString
 	}
 	
+	protected def printVariableDeclarationDomain(JNIISLSet set) {
+		if (set.getNbDims(JNIISLDimType.isl_dim_set) == 0)
+			""
+		else
+			AlphaUtil.toShowString(set, parameterContext)
+	}
+	
 	protected def printUECallParams(JNIFunctionInArrayNotation f) {
 		f.alphaString
 	}
 	
-	protected def printInstantiationDomain(CalculatorExpression dom) {
-		AlphaUtil.islSetToShowString(dom.ISLObject, parameterContext)
+	protected def printInstantiationDomain(JNIISLSet set) {
+		AlphaUtil.toShowString(set, parameterContext)
 	}
 	
-	protected def printWhileDomain(CalculatorExpression dom) {
-		AlphaUtil.islSetToShowString(dom.ISLObject, parameterContext)
+	protected def printWhileDomain(JNIISLSet set) {
+		AlphaUtil.toShowString(set, parameterContext)
 	}
 	
-	protected def printDomain(CalculatorExpression dom) {
-		AlphaUtil.islSetToShowString(dom.ISLObject, parameterContext)
+	protected def printDomain(JNIISLSet set) {
+		AlphaUtil.toShowString(set, parameterContext)
 	}
 	
 	protected def printFunction(JNIISLMultiAff f) {
@@ -83,6 +102,10 @@ class Show extends ModelSwitch<String> {
 		rel.ISLObject.toString
 	}
 	
+	protected def printSubsystemCallParams(JNIFunctionInArrayNotation f, JNIISLSet instantiationDomain) {
+		val maff = f.ISLMultiAff
+		'''«AlphaUtil.toAShowString(maff, instantiationDomain.indicesNames)»'''
+	}
 
 	override caseAlphaRoot(AlphaRoot root) {
 		root.elements.map[doSwitch].join("\n");
@@ -131,7 +154,7 @@ class Show extends ModelSwitch<String> {
 						«s.locals.map[doSwitch].join("\n")»
 				«ENDIF»
 				«IF s.whileDomainExpr !== null»
-					over «s.whileDomainExpr.printInstantiationDomain» while («s.testExpression.doSwitch»)
+					over «s.whileDomain.printInstantiationDomain» while («s.testExpression.doSwitch»)
 				«ENDIF»
 				«IF !s.useEquations.isEmpty || !s.equations.isEmpty»
 					let
@@ -142,7 +165,7 @@ class Show extends ModelSwitch<String> {
 	}
 
 	override caseVariable(Variable v) {
-		'''«v.name» : «v.domainExpr.printDomain»'''
+		'''«v.name» : «v.domain.printVariableDeclarationDomain»'''
 	}
 		
 	override caseStandardEquation(StandardEquation se) {
@@ -151,9 +174,11 @@ class Show extends ModelSwitch<String> {
 	
 	override caseUseEquation(UseEquation ue) {
 		val idom = if (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbDims > 0) 
-			'''over «ue.instantiationDomainExpr.printInstantiationDomain» : ''' else ''''''
+			'''over «ue.instantiationDomain.printInstantiationDomain» : ''' else ''''''
 		
-		'''«idom»(«ue.outputExprs.map[doSwitch].join(", ")») = «ue.system.name»«ue.callParamsExpr.doSwitch»«ue.inputExprs.map[doSwitch].join(", ")»;'''
+		val callParam = ue.callParamsExpr.printSubsystemCallParams(ue.instantiationDomain)
+		
+		'''«idom»(«ue.outputExprs.map[doSwitch].join(", ")») = «ue.system.name»«callParam»(«ue.inputExprs.map[doSwitch].join(", ")»);'''
 	}
 	
 	/* AlphaExpression */
@@ -164,7 +189,7 @@ class Show extends ModelSwitch<String> {
 	
 	override caseRestrictExpression(RestrictExpression re) {
 		val domStr = if (re.domainExpr instanceof JNIDomain || re.domainExpr instanceof JNIDomainInArrayNotation)
-		re.domainExpr.printDomain else '''{«re.domainExpr.printDomain»}''' 
+		re.restrictDomain.printDomain else '''{«re.restrictDomain.printDomain»}''' 
 			
 		'''«domStr» : «re.expr.doSwitch»'''
 	}
@@ -189,23 +214,65 @@ class Show extends ModelSwitch<String> {
 	}
 	
 	override caseReduceExpression(ReduceExpression re) {
-		'''reduce(«re.operator», «re.projection.printFunction», «re.body.doSwitch»)'''
+		re.printAbstractReduceExpression
 	}
 	
 	override caseExternalReduceExpression(ExternalReduceExpression ere) {
-		'''reduce(«ere.externalFunction.name», «ere.projection.printFunction», «ere.body.doSwitch»)'''
+		ere.printAbstractReduceExpression
 	}
 	
 	override caseArgReduceExpression(ArgReduceExpression re) {
-		'''argreduce(«re.operator», «re.projection.printFunction», «re.body.doSwitch»)'''
+		re.printAbstractReduceExpression
 	}
 	
 	override caseExternalArgReduceExpression(ExternalArgReduceExpression ere) {
-		'''argreduce(«ere.externalFunction.name», «ere.projection.printFunction», «ere.body.doSwitch»)'''
+		ere.printAbstractReduceExpression
+	}
+	
+	
+	protected def dispatch printReduceExpression(ReduceExpression re, String proj, String body) {
+		'''reduce(«re.operator.printReductionOP», «proj», «body»)'''
+	}
+	protected def dispatch printReduceExpression(ExternalReduceExpression ere, String proj, String body) {
+		'''reduce(«ere.externalFunction.name», «proj», «body»)'''
+	}
+	protected def dispatch printReduceExpression(ArgReduceExpression are, String proj, String body) {
+		'''argreduce(«are.operator.printReductionOP», «proj», «body»)'''
+	}
+	protected def dispatch printReduceExpression(ExternalArgReduceExpression aere, String proj, String body) {
+		'''argreduce(«aere.externalFunction.name», «proj», «body»)'''
+	}
+	
+	protected def printProjectionFunction(JNIISLMultiAff maff) {
+		AlphaUtil.toShowString(maff)
+	}
+	
+	protected def printReductionBody(AlphaExpression expr) {
+		doSwitch(expr)
+	}
+	protected def printReductionOP(REDUCTION_OP op) {
+		switch (op) {
+			case SUM: {
+				return "+"
+			}
+			case PROD: {
+				return "*"
+			}
+			default: {
+				return op.literal	
+			}
+		}	
+	}
+	
+	protected def String printAbstractReduceExpression(AbstractReduceExpression are) {
+		val proj = are.projection.printProjectionFunction
+		val body = are.body.printReductionBody
+		
+		are.printReduceExpression(proj, body).toString
 	}
 	
 	override caseConvolutionExpression(ConvolutionExpression ce) {
-		'''conv(«ce.kernelDomainExpr.printDomain», «ce.kernelExpression.doSwitch», «ce.dataExpression.doSwitch»)'''
+		'''conv(«ce.kernelDomain.printDomain», «ce.kernelExpression.doSwitch», «ce.dataExpression.doSwitch»)'''
 	}
 	
 	override caseSelectExpression(SelectExpression se) {
@@ -265,14 +332,6 @@ class Show extends ModelSwitch<String> {
 	
 	override caseDefinedObject(DefinedObject dobj) {
 		dobj.object.name
-	}
-	
-	override caseJNIDomain(JNIDomain dom) {
-		dom.islString
-	}
-	
-	override caseJNIDomainInArrayNotation(JNIDomainInArrayNotation dom) {
-		dom.ISLSet.basicSets.join("","","",[bs|bs.constraints.map[c|c.aff.toString].join("and")])
 	}
 	
 }
