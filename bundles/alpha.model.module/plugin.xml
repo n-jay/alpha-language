@@ -33,6 +33,11 @@
             iterative="false"
             name="SelectRoot">
       </module>
+      <module
+            class="alpha.model.module.AShow"
+            iterative="false"
+            name="AShow">
+      </module>
    </extension>
 
 </plugin>
