@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>alpha.language</groupId>
   <artifactId>alpha.language.root</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -22,7 +22,7 @@
     <!-- Target definition file -->
     <target.groupId>alpha.language</target.groupId>
     <target.artifactId>alpha.language.target</target.artifactId>
-    <target.version>1.0.0-SNAPSHOT</target.version>
+    <target.version>0.1.0</target.version>
   </properties>
 
   <scm>
@@ -112,4 +112,3 @@
   </build>
 
 </project>
-
