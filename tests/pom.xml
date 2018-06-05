@@ -10,5 +10,8 @@
     <relativePath>..</relativePath>  
   </parent>
 
+  <modules>
+    <module>alpha.model.tests</module>
+  </modules>
 
 </project>

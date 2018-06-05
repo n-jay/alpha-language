@@ -26,6 +26,9 @@ build:
   stage: build
   script:
     - mvn -B -e -fae -Dmaven.test.failure.ignore clean integration-test
+    #- mvn surefire-report:report-only -Daggregate
+    #- echo -e "Tests\tErrors\tFailures\tSkipped\tSuccess Rate\tTime"
+    #- tmp=$(cat target/site/surefire-report.html | grep  -A 17 -m 3 Summary | sed -n 12,17p | sed -e 's/<[^>]*>//g' | tr "\n" "\t")
     # find update site and copy it to ./artifacts
     - upsite_zip="`find releng/*.update/target -maxdepth 1 -name '*.update-*.zip' | head -1`"
     - mkdir "${UPSITE_ARTIFACTS_DIR}" && cp "${upsite_zip}" "${UPSITE_ARTIFACTS_DIR}"
