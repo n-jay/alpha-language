@@ -12,7 +12,6 @@ import alpha.model.AutoRestrictExpression
 import alpha.model.BinaryCalculatorExpression
 import alpha.model.BinaryExpression
 import alpha.model.BooleanExpression
-import alpha.model.CalculatorExpression
 import alpha.model.CaseExpression
 import alpha.model.ConvolutionExpression
 import alpha.model.DefinedObject
@@ -42,11 +41,10 @@ import alpha.model.UseEquation
 import alpha.model.Variable
 import alpha.model.VariableDomain
 import alpha.model.VariableExpression
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import alpha.model.ConstantExpression
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 
 /**
  * Prints the Alpha program in Show notation. The show notation

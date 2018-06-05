@@ -1,20 +1,21 @@
 package alpha.model.util
 
+import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaVisitable
 import alpha.model.ConstantExpression
+import alpha.model.ConvolutionExpression
 import alpha.model.DependenceExpression
-import alpha.model.ReduceExpression
+import alpha.model.IndexExpression
 import alpha.model.StandardEquation
 import alpha.model.VariableExpression
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import java.util.LinkedList
 import java.util.List
 import java.util.Stack
-import alpha.model.CalculatorExpression
-import alpha.model.AbstractReduceExpression
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import alpha.model.IndexExpression
+import alpha.model.UseEquation
+import alpha.model.SelectExpression
 
 class AShow extends Show {
 	
@@ -50,17 +51,26 @@ class AShow extends Show {
 		
 		'''«se.variable.name»«indices» = «se.expr.doSwitch»;'''
 	}
-//	
-//	override caseUseEquation(UseEquation ue) {
-//		val idom = if (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbDims > 0) 
-//			'''over «ue.instantiationDomainExpr.printInstantiationDomain» : ''' else ''''''
-//		
-//		'''«idom»(«ue.outputExprs.map[doSwitch].join(", ")») = «ue.system.name»«ue.callParamsExpr.doSwitch»«ue.inputExprs.map[doSwitch].join(", ")»;'''
-//	}
-//	
-//	/* AlphaExpression */
-//	
 	
+	
+	override caseUseEquation(UseEquation ue) {
+		val names = ue.inputExprs.map[e|e.contextDomain.indicesNames].maxBy[n|n.length]
+		System.err.println(names)
+		val idomDeclared = (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbDims > 0)
+		
+		val withClause = if (idomDeclared) names.subList(ue.instantiationDomain.nbDims, names.length) else null
+		val withStr = if (withClause?.length > 0) ''' with [«withClause.join(",")»]'''else ''''''
+		
+		val idom = if (idomDeclared) '''over «ue.instantiationDomain.printInstantiationDomain»«withStr» : ''' else ''''''
+		
+		indexNameContext = names
+		
+		val callParam = ue.callParamsExpr.printSubsystemCallParams(ue.instantiationDomain)
+		
+		'''«idom»(«ue.outputExprs.map[doSwitch].join(", ")») = «ue.system.name»«callParam»(«ue.inputExprs.map[doSwitch].join(", ")»);'''
+	}
+	
+	/* AlphaExpression */
 	override caseDependenceExpression(DependenceExpression de) {
 		if (de.expr instanceof ConstantExpression || de.expr instanceof VariableExpression) {
 			'''«de.expr.doSwitch»«de.function.printFunction»'''
@@ -88,4 +98,32 @@ class AShow extends Show {
 		
 		return res;
 	}
+	
+	override caseConvolutionExpression(ConvolutionExpression ce) {
+		val kerDom = super.printDomain(ce.kernelDomain);
+		
+		contextHistory.push(indexNameContext)
+		
+		val copy = new LinkedList<String>(indexNameContext);
+		copy.addAll(ce.kernelDomain.indicesNames);
+		indexNameContext = copy;
+		
+		val res = '''conv(«kerDom», «ce.kernelExpression.doSwitch», «ce.dataExpression.doSwitch»)'''
+		
+		indexNameContext = contextHistory.pop();
+		
+		return res;
+	}
+	
+	override caseSelectExpression(SelectExpression se) {
+		contextHistory.push(indexNameContext)
+		indexNameContext = se.selectRelation.rangeNames;
+		
+		val res = super.caseSelectExpression(se)
+		
+		indexNameContext = contextHistory.pop();
+		
+		return res;
+	}
+	
 }

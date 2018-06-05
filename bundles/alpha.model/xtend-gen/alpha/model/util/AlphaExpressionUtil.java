@@ -103,7 +103,8 @@ public class AlphaExpressionUtil {
           EStructuralFeature _eContainingFeature = child.eContainingFeature();
           new UnexpectedISLErrorIssue(err, _eContainer, _eContainingFeature);
         };
-        return AlphaUtil.<JNIISLSet>callISLwithErrorHandling(_function, _function_1);
+        final JNIISLSet exDom = AlphaUtil.<JNIISLSet>callISLwithErrorHandling(_function, _function_1);
+        return AlphaUtil.renameIndices(exDom, child.getExpressionDomain().getIndicesNames());
       }
     } else {
       return null;
@@ -123,6 +124,19 @@ public class AlphaExpressionUtil {
     return true;
   }
   
+  /**
+   * Extends the domain of a subsystem (variable) by the instantiation domain.
+   * 
+   * The output domain takes the following form:
+   *   - The parameters of the caller domain becomes the new set of parameters.
+   *   - The parameters of the callee domain are replaced by expressions over indices in the caller domain.
+   * 
+   * The above is done through:
+   *   - Convert the callee domain (set) to relation from parameter to domain (map)
+   *   - Add the parameters of the caller domain to the resulting map.
+   *   - Create another map that represents the relation between caller domain and parameter values of the instances
+   *   - Compose the two maps and collapse it as a set
+   */
   private static JNIISLSet extendCalleeDomainByInstantiationDomain(final JNIISLSet instantiationDomain, final JNIISLMultiAff callParams, final JNIISLSet calleeVarDom) {
     final JNIISLMap map = JNIISLMap.fromRange(calleeVarDom);
     final int nparam = map.getNbParams();

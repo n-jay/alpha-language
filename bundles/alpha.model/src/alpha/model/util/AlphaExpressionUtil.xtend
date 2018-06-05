@@ -68,11 +68,16 @@ class AlphaExpressionUtil {
 			
 			val calleeVar = if (inputLoc!=-1) parent.system.inputs.get(inputLoc) else parent.system.outputs.get(outputLoc)
 			
-			if (testNonNullExpressionDomain(getChildrenOfType(child, AlphaExpression)))
-				return AlphaUtil.callISLwithErrorHandling(
+			if (testNonNullExpressionDomain(getChildrenOfType(child, AlphaExpression))) {
+				val exDom = AlphaUtil.callISLwithErrorHandling(
 					[extendCalleeDomainByInstantiationDomain(parent.instantiationDomain, parent.callParams, calleeVar.domain)],
 					[err|new UnexpectedISLErrorIssue(err, child.eContainer(), child.eContainingFeature())]
 				);
+				//The context domain computed as above may contain indices with primes when the same index name is used in two systems.
+				//The index names are renamed to that of expression domain to avoid issues due to nameing.
+				// (a space [i,i'] gives [i,i] as index names in ISL)
+				return AlphaUtil.renameIndices(exDom, child.expressionDomain.indicesNames)
+			}
 			
 		} else {
 			return null
@@ -89,6 +94,20 @@ class AlphaExpressionUtil {
 		return true;
 	}
 	
+	/**
+	 * Extends the domain of a subsystem (variable) by the instantiation domain.
+	 * 
+	 * The output domain takes the following form:
+	 *   - The parameters of the caller domain becomes the new set of parameters.
+	 *   - The parameters of the callee domain are replaced by expressions over indices in the caller domain.
+	 * 
+	 * The above is done through:
+	 *   - Convert the callee domain (set) to relation from parameter to domain (map)
+	 *   - Add the parameters of the caller domain to the resulting map.
+	 *   - Create another map that represents the relation between caller domain and parameter values of the instances
+	 *   - Compose the two maps and collapse it as a set
+	 *  
+	 */
 	private static def JNIISLSet extendCalleeDomainByInstantiationDomain(JNIISLSet instantiationDomain, JNIISLMultiAff callParams, JNIISLSet calleeVarDom) {
 		val map = JNIISLMap.fromRange(calleeVarDom)
 		val nparam = map.getNbParams()

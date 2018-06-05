@@ -10,22 +10,30 @@ import alpha.model.testframework.AlphaTestVersion;
 import alpha.model.testframework.data.AlphaBundleData;
 import alpha.model.testframework.data.AlphaSingleFileData;
 import alpha.model.testframework.data.IAlphaData;
+import alpha.model.tests.util.AlphaTestUtil;
+import alpha.model.util.AShow;
 import fr.irisa.cairn.gecos.testframework.dataprovider.DataFromPathProvider;
 import fr.irisa.cairn.gecos.testframework.dataprovider.ResourcesLocation;
 
-public class AlphaNormalizeTest extends AlphaTestTemplate<AlphaTestVersion> {
+public class AlphaAShowTest extends AlphaTestTemplate<AlphaTestVersion> {
+
+	private void compute(AlphaTestVersion v) {
+		AlphaTestUtil.saveAndParse(v, (r->AShow.print(r)));
+	}
+
 	
 	@Override
 	protected void configure() {
-		registerTestFlow(AlphaSingleFileData.class, AlphaDefaultTestFlows.alphaFileDataNormalizeTestFlow());
-		registerTestFlow(AlphaBundleData.class, AlphaDefaultTestFlows.alphaFileDataNormalizeTestFlow());
+		super.configure();
+		
+		registerTestFlow(AlphaSingleFileData.class, AlphaDefaultTestFlows.alphaFileDataCheckProgramTestFlow());
+		registerTestFlow(AlphaBundleData.class, AlphaDefaultTestFlows.alphaFileDataCheckProgramTestFlow());
 	}
 
 	@Test
 	@UseDataProvider(location = DataFromPathProvider.class, value = DataFromPathProvider.PROVIDER_NAME)
 	@ResourcesLocation(value = "resources/src-valid", dataClasses = {AlphaBundleData.class, AlphaSingleFileData.class})
-	public void normalizeTest(IAlphaData d) {
-		runTest(d);
+	public void showTest(IAlphaData d) {
+		runTest(d, v->compute(v));
 	}
-	
 }
