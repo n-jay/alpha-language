@@ -1,10 +1,8 @@
 package alpha.model.testframework;
 
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
 
 import alpha.model.AlphaRoot;
 import fr.irisa.cairn.gecos.testframework.model.IVersion;

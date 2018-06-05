@@ -8,6 +8,7 @@ import alpha.model.ReduceExpression
 import alpha.model.RestrictExpression
 import alpha.model.StandardEquation
 import alpha.model.VariableExpression
+import alpha.model.transformation.Normalize
 import alpha.model.util.ModelSwitch
 import org.eclipse.emf.ecore.EObject
 
@@ -20,17 +21,17 @@ import org.eclipse.emf.ecore.EObject
  */
 class CheckNormalized  extends ModelSwitch<Boolean> {
 	
-	private boolean DEEP;
+	final boolean DEEP;
 	
 	protected new(boolean deep) {
 		DEEP = deep;
 	}
 	
-	public static def boolean apply(AlphaVisitable av) {
+	static def boolean apply(AlphaVisitable av) {
 		return apply(av, false);
 	}
 	
-	public static def boolean apply(AlphaVisitable av, boolean deep) {
+	static def boolean apply(AlphaVisitable av, boolean deep) {
 		val sw = new CheckNormalized(false);
 		return sw.doSwitch(av);
 	}

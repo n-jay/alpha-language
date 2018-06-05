@@ -5,9 +5,7 @@ import static alpha.model.testframework.AlphaTestOperators.versionCopier;
 import static fr.irisa.cairn.gecos.testframework.stages.Stages.chain;
 import static fr.irisa.cairn.gecos.testframework.stages.Stages.convert;
 import static fr.irisa.cairn.gecos.testframework.stages.Stages.forEach;
-import static fr.irisa.cairn.gecos.testframework.stages.Stages.forEach2;
 import static fr.irisa.cairn.gecos.testframework.stages.Stages.transform;
-
 
 import fr.irisa.cairn.gecos.testframework.s2s.S2STestFlow;
 import fr.irisa.cairn.gecos.testframework.s2s.TestFlow;

@@ -8,6 +8,7 @@ import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
 import alpha.model.VariableExpression;
+import alpha.model.transformation.Normalize;
 import alpha.model.util.ModelSwitch;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -23,7 +24,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class CheckNormalized extends ModelSwitch<Boolean> {
-  private boolean DEEP;
+  private final boolean DEEP;
   
   protected CheckNormalized(final boolean deep) {
     this.DEEP = deep;
