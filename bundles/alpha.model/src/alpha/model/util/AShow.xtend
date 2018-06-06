@@ -55,7 +55,6 @@ class AShow extends Show {
 	
 	override caseUseEquation(UseEquation ue) {
 		val names = ue.inputExprs.map[e|e.contextDomain.indicesNames].maxBy[n|n.length]
-		System.err.println(names)
 		val idomDeclared = (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbDims > 0)
 		
 		val withClause = if (idomDeclared) names.subList(ue.instantiationDomain.nbDims, names.length) else null

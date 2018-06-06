@@ -95,7 +95,6 @@ public class AShow extends Show {
         return Integer.valueOf(((Object[])Conversions.unwrapArray(n, Object.class)).length);
       };
       final List<String> names = IterableExtensions.<List<String>, Integer>maxBy(ListExtensions.<AlphaExpression, List<String>>map(ue.getInputExprs(), _function), _function_1);
-      System.err.println(names);
       final boolean idomDeclared = ((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbDims() > 0));
       List<String> _xifexpression = null;
       if (idomDeclared) {
