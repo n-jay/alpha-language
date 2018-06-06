@@ -46,12 +46,23 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link alpha.model.impl.AlphaRootImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaRootImpl#getElements <em>Elements</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class AlphaRootImpl extends MinimalEObjectImpl.Container implements AlphaRoot {
+	/**
+	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImports()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Imports> imports;
+
 	/**
 	 * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -86,11 +97,11 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<AlphaElement> getElements() {
-		if (elements == null) {
-			elements = new EObjectContainmentEList<AlphaElement>(AlphaElement.class, this, ModelPackage.ALPHA_ROOT__ELEMENTS);
+	public EList<Imports> getImports() {
+		if (imports == null) {
+			imports = new EObjectContainmentEList<Imports>(Imports.class, this, ModelPackage.ALPHA_ROOT__IMPORTS);
 		}
-		return elements;
+		return imports;
 	}
 
 	/**
@@ -98,8 +109,11 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Imports> getImports() {
-		return ECollections.<Imports>asEList(((Imports[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<Imports>filter(this.getElements(), Imports.class), Imports.class)));
+	public EList<AlphaElement> getElements() {
+		if (elements == null) {
+			elements = new EObjectContainmentEList<AlphaElement>(AlphaElement.class, this, ModelPackage.ALPHA_ROOT__ELEMENTS);
+		}
+		return elements;
 	}
 
 	/**
@@ -192,6 +206,8 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ModelPackage.ALPHA_ROOT__IMPORTS:
+				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
 			case ModelPackage.ALPHA_ROOT__ELEMENTS:
 				return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
 		}
@@ -206,6 +222,8 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ModelPackage.ALPHA_ROOT__IMPORTS:
+				return getImports();
 			case ModelPackage.ALPHA_ROOT__ELEMENTS:
 				return getElements();
 		}
@@ -221,6 +239,10 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ModelPackage.ALPHA_ROOT__IMPORTS:
+				getImports().clear();
+				getImports().addAll((Collection<? extends Imports>)newValue);
+				return;
 			case ModelPackage.ALPHA_ROOT__ELEMENTS:
 				getElements().clear();
 				getElements().addAll((Collection<? extends AlphaElement>)newValue);
@@ -237,6 +259,9 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ModelPackage.ALPHA_ROOT__IMPORTS:
+				getImports().clear();
+				return;
 			case ModelPackage.ALPHA_ROOT__ELEMENTS:
 				getElements().clear();
 				return;
@@ -252,6 +277,8 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ModelPackage.ALPHA_ROOT__IMPORTS:
+				return imports != null && !imports.isEmpty();
 			case ModelPackage.ALPHA_ROOT__ELEMENTS:
 				return elements != null && !elements.isEmpty();
 		}

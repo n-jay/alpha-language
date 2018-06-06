@@ -130,7 +130,7 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 
 	@Override
 	default void inImports(Imports imports) {
-		inAlphaElement(imports);
+		defaultIn(imports);
 	}
 
 	@Override
@@ -190,7 +190,7 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 
 	@Override
 	default void outImports(Imports imports) {
-		outAlphaElement(imports);
+		defaultOut(imports);
 	}
 
 	@Override

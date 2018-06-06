@@ -26,38 +26,47 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public class AlphaRootElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AlphaRoot");
-		private final Assignment cElementsAssignment = (Assignment)rule.eContents().get(1);
-		private final Alternatives cElementsAlternatives_0 = (Alternatives)cElementsAssignment.eContents().get(0);
-		private final RuleCall cElementsAlphaConstantParserRuleCall_0_0 = (RuleCall)cElementsAlternatives_0.eContents().get(0);
-		private final RuleCall cElementsExternalFunctionParserRuleCall_0_1 = (RuleCall)cElementsAlternatives_0.eContents().get(1);
-		private final RuleCall cElementsImportsParserRuleCall_0_2 = (RuleCall)cElementsAlternatives_0.eContents().get(2);
-		private final RuleCall cElementsAlphaPackageParserRuleCall_0_3 = (RuleCall)cElementsAlternatives_0.eContents().get(3);
-		private final RuleCall cElementsAlphaSystemParserRuleCall_0_4 = (RuleCall)cElementsAlternatives_0.eContents().get(4);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cImportsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cImportsImportsParserRuleCall_0_0 = (RuleCall)cImportsAssignment_0.eContents().get(0);
+		private final Assignment cElementsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Alternatives cElementsAlternatives_1_0 = (Alternatives)cElementsAssignment_1.eContents().get(0);
+		private final RuleCall cElementsAlphaConstantParserRuleCall_1_0_0 = (RuleCall)cElementsAlternatives_1_0.eContents().get(0);
+		private final RuleCall cElementsExternalFunctionParserRuleCall_1_0_1 = (RuleCall)cElementsAlternatives_1_0.eContents().get(1);
+		private final RuleCall cElementsAlphaPackageParserRuleCall_1_0_2 = (RuleCall)cElementsAlternatives_1_0.eContents().get(2);
+		private final RuleCall cElementsAlphaSystemParserRuleCall_1_0_3 = (RuleCall)cElementsAlternatives_1_0.eContents().get(3);
 		
 		//AlphaRoot:
-		//	elements+=(AlphaConstant | ExternalFunction | Imports | AlphaPackage | AlphaSystem)*;
+		//	imports+=Imports*
+		//	elements+=(AlphaConstant | ExternalFunction | AlphaPackage | AlphaSystem)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//elements+=(AlphaConstant | ExternalFunction | Imports | AlphaPackage | AlphaSystem)*
-		public Assignment getElementsAssignment() { return cElementsAssignment; }
+		//imports+=Imports* elements+=(AlphaConstant | ExternalFunction | AlphaPackage | AlphaSystem)*
+		public Group getGroup() { return cGroup; }
 		
-		//(AlphaConstant | ExternalFunction | Imports | AlphaPackage | AlphaSystem)
-		public Alternatives getElementsAlternatives_0() { return cElementsAlternatives_0; }
-		
-		//AlphaConstant
-		public RuleCall getElementsAlphaConstantParserRuleCall_0_0() { return cElementsAlphaConstantParserRuleCall_0_0; }
-		
-		//ExternalFunction
-		public RuleCall getElementsExternalFunctionParserRuleCall_0_1() { return cElementsExternalFunctionParserRuleCall_0_1; }
+		//imports+=Imports*
+		public Assignment getImportsAssignment_0() { return cImportsAssignment_0; }
 		
 		//Imports
-		public RuleCall getElementsImportsParserRuleCall_0_2() { return cElementsImportsParserRuleCall_0_2; }
+		public RuleCall getImportsImportsParserRuleCall_0_0() { return cImportsImportsParserRuleCall_0_0; }
+		
+		//elements+=(AlphaConstant | ExternalFunction | AlphaPackage | AlphaSystem)*
+		public Assignment getElementsAssignment_1() { return cElementsAssignment_1; }
+		
+		//(AlphaConstant | ExternalFunction | AlphaPackage | AlphaSystem)
+		public Alternatives getElementsAlternatives_1_0() { return cElementsAlternatives_1_0; }
+		
+		//AlphaConstant
+		public RuleCall getElementsAlphaConstantParserRuleCall_1_0_0() { return cElementsAlphaConstantParserRuleCall_1_0_0; }
+		
+		//ExternalFunction
+		public RuleCall getElementsExternalFunctionParserRuleCall_1_0_1() { return cElementsExternalFunctionParserRuleCall_1_0_1; }
 		
 		//AlphaPackage
-		public RuleCall getElementsAlphaPackageParserRuleCall_0_3() { return cElementsAlphaPackageParserRuleCall_0_3; }
+		public RuleCall getElementsAlphaPackageParserRuleCall_1_0_2() { return cElementsAlphaPackageParserRuleCall_1_0_2; }
 		
 		//AlphaSystem
-		public RuleCall getElementsAlphaSystemParserRuleCall_0_4() { return cElementsAlphaSystemParserRuleCall_0_4; }
+		public RuleCall getElementsAlphaSystemParserRuleCall_1_0_3() { return cElementsAlphaSystemParserRuleCall_1_0_3; }
 	}
 	public class AlphaConstantElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AlphaConstant");
@@ -4484,7 +4493,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//AlphaRoot:
-	//	elements+=(AlphaConstant | ExternalFunction | Imports | AlphaPackage | AlphaSystem)*;
+	//	imports+=Imports*
+	//	elements+=(AlphaConstant | ExternalFunction | AlphaPackage | AlphaSystem)*;
 	public AlphaRootElements getAlphaRootAccess() {
 		return pAlphaRoot;
 	}

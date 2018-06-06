@@ -369,7 +369,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     AlphaRoot returns AlphaRoot
 	 *
 	 * Constraint:
-	 *     (elements+=AlphaConstant | elements+=ExternalFunction | elements+=Imports | elements+=AlphaPackage | elements+=AlphaSystem)+
+	 *     (
+	 *         imports+=Imports+ | 
+	 *         (imports+=Imports+ (elements+=AlphaConstant | elements+=ExternalFunction | elements+=AlphaPackage | elements+=AlphaSystem)+)
+	 *     )?
 	 */
 	protected void sequence_AlphaRoot(ISerializationContext context, AlphaRoot semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

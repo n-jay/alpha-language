@@ -141,7 +141,6 @@ public class ModelSwitch<T> extends Switch<T> {
 			case ModelPackage.IMPORTS: {
 				Imports imports = (Imports)theEObject;
 				T result = caseImports(imports);
-				if (result == null) result = caseAlphaElement(imports);
 				if (result == null) result = caseAlphaVisitable(imports);
 				if (result == null) result = caseAlphaCompleteVisitable(imports);
 				if (result == null) result = caseAlphaNode(imports);

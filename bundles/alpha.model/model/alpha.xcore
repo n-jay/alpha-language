@@ -240,9 +240,9 @@ interface CalculatorExpressionVisitor {
 }
 
 class AlphaRoot extends AlphaVisitable {
+	contains Imports[] imports
 	contains AlphaElement[] elements
 	
-	op Imports[] getImports() { elements.filter(Imports).asEList }
 	op AlphaConstant[] getConstants() { elements.filter(AlphaConstant).asEList }
 	op ExternalFunction[] getExternalFunctions() { elements.filter(ExternalFunction).asEList }
 	op AlphaPackage[] getPackages() { elements.filter(AlphaPackage).asEList }
@@ -274,7 +274,7 @@ abstract class AlphaElement extends AlphaVisitable {
 	}
 }
 
-class Imports extends AlphaElement {
+class Imports extends AlphaVisitable {
 	String importedNamespace
 	
 	op void accept(AlphaVisitor visitor) {

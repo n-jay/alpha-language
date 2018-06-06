@@ -79,87 +79,92 @@ ruleAlphaRoot returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getAlphaRootAccess().getElementsAlphaConstantParserRuleCall_0_0());
+					newCompositeNode(grammarAccess.getAlphaRootAccess().getImportsImportsParserRuleCall_0_0());
 				}
-				lv_elements_0_1=ruleAlphaConstant
+				lv_imports_0_0=ruleImports
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getAlphaRootRule());
 					}
 					add(
 						$current,
-						"elements",
-						lv_elements_0_1,
-						"alpha.model.Alpha.AlphaConstant");
-					afterParserOrEnumRuleCall();
-				}
-				    |
-				{
-					newCompositeNode(grammarAccess.getAlphaRootAccess().getElementsExternalFunctionParserRuleCall_0_1());
-				}
-				lv_elements_0_2=ruleExternalFunction
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getAlphaRootRule());
-					}
-					add(
-						$current,
-						"elements",
-						lv_elements_0_2,
-						"alpha.model.Alpha.ExternalFunction");
-					afterParserOrEnumRuleCall();
-				}
-				    |
-				{
-					newCompositeNode(grammarAccess.getAlphaRootAccess().getElementsImportsParserRuleCall_0_2());
-				}
-				lv_elements_0_3=ruleImports
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getAlphaRootRule());
-					}
-					add(
-						$current,
-						"elements",
-						lv_elements_0_3,
+						"imports",
+						lv_imports_0_0,
 						"alpha.model.Alpha.Imports");
 					afterParserOrEnumRuleCall();
 				}
-				    |
-				{
-					newCompositeNode(grammarAccess.getAlphaRootAccess().getElementsAlphaPackageParserRuleCall_0_3());
-				}
-				lv_elements_0_4=ruleAlphaPackage
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getAlphaRootRule());
-					}
-					add(
-						$current,
-						"elements",
-						lv_elements_0_4,
-						"alpha.model.Alpha.AlphaPackage");
-					afterParserOrEnumRuleCall();
-				}
-				    |
-				{
-					newCompositeNode(grammarAccess.getAlphaRootAccess().getElementsAlphaSystemParserRuleCall_0_4());
-				}
-				lv_elements_0_5=ruleAlphaSystem
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getAlphaRootRule());
-					}
-					add(
-						$current,
-						"elements",
-						lv_elements_0_5,
-						"alpha.model.Alpha.AlphaSystem");
-					afterParserOrEnumRuleCall();
-				}
 			)
-		)
-	)*
+		)*
+		(
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getAlphaRootAccess().getElementsAlphaConstantParserRuleCall_1_0_0());
+					}
+					lv_elements_1_1=ruleAlphaConstant
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getAlphaRootRule());
+						}
+						add(
+							$current,
+							"elements",
+							lv_elements_1_1,
+							"alpha.model.Alpha.AlphaConstant");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getAlphaRootAccess().getElementsExternalFunctionParserRuleCall_1_0_1());
+					}
+					lv_elements_1_2=ruleExternalFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getAlphaRootRule());
+						}
+						add(
+							$current,
+							"elements",
+							lv_elements_1_2,
+							"alpha.model.Alpha.ExternalFunction");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getAlphaRootAccess().getElementsAlphaPackageParserRuleCall_1_0_2());
+					}
+					lv_elements_1_3=ruleAlphaPackage
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getAlphaRootRule());
+						}
+						add(
+							$current,
+							"elements",
+							lv_elements_1_3,
+							"alpha.model.Alpha.AlphaPackage");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getAlphaRootAccess().getElementsAlphaSystemParserRuleCall_1_0_3());
+					}
+					lv_elements_1_4=ruleAlphaSystem
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getAlphaRootRule());
+						}
+						add(
+							$current,
+							"elements",
+							lv_elements_1_4,
+							"alpha.model.Alpha.AlphaSystem");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)*
+	)
 ;
 
 // Entry rule entryRuleAlphaConstant

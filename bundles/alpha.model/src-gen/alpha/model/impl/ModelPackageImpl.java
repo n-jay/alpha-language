@@ -800,8 +800,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAlphaRoot_Elements() {
+	public EReference getAlphaRoot_Imports() {
 		return (EReference)alphaRootEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAlphaRoot_Elements() {
+		return (EReference)alphaRootEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2424,6 +2433,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		calculatorExpressionVisitorEClass = createEClass(CALCULATOR_EXPRESSION_VISITOR);
 
 		alphaRootEClass = createEClass(ALPHA_ROOT);
+		createEReference(alphaRootEClass, ALPHA_ROOT__IMPORTS);
 		createEReference(alphaRootEClass, ALPHA_ROOT__ELEMENTS);
 
 		alphaElementEClass = createEClass(ALPHA_ELEMENT);
@@ -2701,7 +2711,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		calculatorExpressionVisitableEClass.getESuperTypes().add(this.getAlphaNode());
 		alphaRootEClass.getESuperTypes().add(this.getAlphaVisitable());
 		alphaElementEClass.getESuperTypes().add(this.getAlphaVisitable());
-		importsEClass.getESuperTypes().add(this.getAlphaElement());
+		importsEClass.getESuperTypes().add(this.getAlphaVisitable());
 		alphaPackageEClass.getESuperTypes().add(this.getAlphaElement());
 		alphaConstantEClass.getESuperTypes().add(this.getAlphaElement());
 		externalFunctionEClass.getESuperTypes().add(this.getAlphaElement());
@@ -3193,9 +3203,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getDefinedObject(), "dobj", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaRootEClass, AlphaRoot.class, "AlphaRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAlphaRoot_Imports(), this.getImports(), null, "imports", null, 0, -1, AlphaRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaRoot_Elements(), this.getAlphaElement(), null, "elements", null, 0, -1, AlphaRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(alphaRootEClass, this.getImports(), "getImports", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(alphaRootEClass, this.getAlphaConstant(), "getConstants", 0, -1, !IS_UNIQUE, IS_ORDERED);
 

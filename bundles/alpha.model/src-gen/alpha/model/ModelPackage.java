@@ -221,13 +221,22 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_ROOT = 8;
 
 	/**
+	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_ROOT__IMPORTS = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_ROOT__ELEMENTS = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+	int ALPHA_ROOT__ELEMENTS = ALPHA_VISITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Alpha Root</em>' class.
@@ -236,7 +245,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_ROOT_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 1;
+	int ALPHA_ROOT_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.AlphaElementImpl <em>Alpha Element</em>}' class.
@@ -274,7 +283,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPORTS__IMPORTED_NAMESPACE = ALPHA_ELEMENT_FEATURE_COUNT + 0;
+	int IMPORTS__IMPORTED_NAMESPACE = ALPHA_VISITABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Imports</em>' class.
@@ -283,7 +292,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPORTS_FEATURE_COUNT = ALPHA_ELEMENT_FEATURE_COUNT + 1;
+	int IMPORTS_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.AlphaPackageImpl <em>Alpha Package</em>}' class.
@@ -3676,6 +3685,17 @@ public interface ModelPackage extends EPackage {
 	EClass getAlphaRoot();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link alpha.model.AlphaRoot#getImports <em>Imports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Imports</em>'.
+	 * @see alpha.model.AlphaRoot#getImports()
+	 * @see #getAlphaRoot()
+	 * @generated
+	 */
+	EReference getAlphaRoot_Imports();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link alpha.model.AlphaRoot#getElements <em>Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5658,6 +5678,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ALPHA_ROOT = eINSTANCE.getAlphaRoot();
+
+		/**
+		 * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ALPHA_ROOT__IMPORTS = eINSTANCE.getAlphaRoot_Imports();
 
 		/**
 		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.

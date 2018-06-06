@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link alpha.model.AlphaRoot#getImports <em>Imports</em>}</li>
  *   <li>{@link alpha.model.AlphaRoot#getElements <em>Elements</em>}</li>
  * </ul>
  *
@@ -21,6 +22,22 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface AlphaRoot extends AlphaVisitable {
+	/**
+	 * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
+	 * The list contents are of type {@link alpha.model.Imports}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Imports</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Imports</em>' containment reference list.
+	 * @see alpha.model.ModelPackage#getAlphaRoot_Imports()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Imports> getImports();
+
 	/**
 	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.AlphaElement}.
@@ -36,15 +53,6 @@ public interface AlphaRoot extends AlphaVisitable {
 	 * @generated
 	 */
 	EList<AlphaElement> getElements();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.Imports%&gt;&gt;asEList(((&lt;%alpha.model.Imports%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(&lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.Imports%&gt;&gt;filter(this.getElements(), &lt;%alpha.model.Imports%&gt;.class), &lt;%alpha.model.Imports%&gt;.class)));'"
-	 * @generated
-	 */
-	EList<Imports> getImports();
 
 	/**
 	 * <!-- begin-user-doc -->
