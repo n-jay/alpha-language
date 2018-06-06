@@ -41,8 +41,11 @@ public class AlphaNameUniquenessChecker {
 			throw new RuntimeException("Expecting Alpha programs in the same resource set.");
 		}
 
-		Map<String, List<AlphaSystem>> nameMap = new HashMap<>();
-		// Collect all systems by its qname
+		//check consistency for system and external functions
+		Map<String, List<AlphaSystem>> systemNameMap = new HashMap<>();
+		Map<String, List<ExternalFunction>> exFunNameMap = new HashMap<>();
+		
+		// Collect all systems by its qualified name
 		TreeIterator<Object> iterator = EcoreUtil.getAllProperContents(rset, false);
 
 		while (iterator.hasNext()) {
@@ -50,14 +53,26 @@ public class AlphaNameUniquenessChecker {
 			if (current instanceof AlphaSystem) {
 				iterator.prune();
 				String qname = provider.getFullyQualifiedName((AlphaSystem) current).toString();
-				checkAndAdd(qname, (AlphaSystem) current, nameMap);
+				checkAndAdd(qname, (AlphaSystem) current, systemNameMap);
 				issues.addAll(check((AlphaSystem) current));
+			} else if (current instanceof ExternalFunction) {
+				iterator.prune();
+				String qname = provider.getFullyQualifiedName((ExternalFunction) current).toString();
+				checkAndAdd(qname, (ExternalFunction) current, exFunNameMap);
 			}
 		}
 
-		nameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
+		//duplicate system
+		systemNameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
 			for (AlphaSystem system : l) {
 				issues.add(AlphaIssueFactory.duplicateSystem(system));
+			}
+		});
+		
+		//duplicate external function
+		exFunNameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
+			for (ExternalFunction exFun : l) {
+				issues.add(AlphaIssueFactory.duplicateExternalFunction(exFun));
 			}
 		});
 
@@ -95,7 +110,6 @@ public class AlphaNameUniquenessChecker {
 
 		// Then check name conflicts between equations
 		{
-
 			Map<String, List<AlphaNode>> nameMap = new HashMap<>();
 
 			system.getEquations().stream().forEach(e -> {
@@ -121,7 +135,7 @@ public class AlphaNameUniquenessChecker {
 				}
 			});
 		}
-
+		
 		return issues;
 	}
 

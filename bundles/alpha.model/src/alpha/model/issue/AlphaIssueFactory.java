@@ -24,6 +24,10 @@ public class AlphaIssueFactory {
 		return new InvalidSyntaxIssue(TYPE.ERROR, "Duplicate System", source, ModelPackage.Literals.ALPHA_SYSTEM__NAME);
 	}
 	
+	public static InvalidSyntaxIssue duplicateExternalFunction(EObject source) {
+		return new InvalidSyntaxIssue(TYPE.ERROR, "Duplicate External Function", source, ModelPackage.Literals.EXTERNAL_FUNCTION__NAME);
+	}
+	
 	public static InvalidSyntaxIssue duplicatePolyObject(EObject source) {
 		return new InvalidSyntaxIssue(TYPE.ERROR, "Duplicate Name", source, ModelPackage.Literals.POLYHEDRAL_OBJECT__NAME);
 	}
