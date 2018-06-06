@@ -17026,9 +17026,9 @@ rule__ExternalReduceExpression__ExternalFunctionAssignment_2
 	(
 		{ before(grammarAccess.getExternalReduceExpressionAccess().getExternalFunctionExternalFunctionCrossReference_2_0()); }
 		(
-			{ before(grammarAccess.getExternalReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1()); }
-			RULE_ID
-			{ after(grammarAccess.getExternalReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1()); }
+			{ before(grammarAccess.getExternalReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1()); }
+			ruleQualifiedName
+			{ after(grammarAccess.getExternalReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1()); }
 		)
 		{ after(grammarAccess.getExternalReduceExpressionAccess().getExternalFunctionExternalFunctionCrossReference_2_0()); }
 	)
@@ -17120,9 +17120,9 @@ rule__ExternalArgReduceExpression__ExternalFunctionAssignment_2
 	(
 		{ before(grammarAccess.getExternalArgReduceExpressionAccess().getExternalFunctionExternalFunctionCrossReference_2_0()); }
 		(
-			{ before(grammarAccess.getExternalArgReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1()); }
-			RULE_ID
-			{ after(grammarAccess.getExternalArgReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1()); }
+			{ before(grammarAccess.getExternalArgReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1()); }
+			ruleQualifiedName
+			{ after(grammarAccess.getExternalArgReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1()); }
 		)
 		{ after(grammarAccess.getExternalArgReduceExpressionAccess().getExternalFunctionExternalFunctionCrossReference_2_0()); }
 	)
@@ -17214,9 +17214,9 @@ rule__ExternalFuzzyReduceExpression__ExternalFunctionAssignment_2
 	(
 		{ before(grammarAccess.getExternalFuzzyReduceExpressionAccess().getExternalFunctionExternalFunctionCrossReference_2_0()); }
 		(
-			{ before(grammarAccess.getExternalFuzzyReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1()); }
-			RULE_ID
-			{ after(grammarAccess.getExternalFuzzyReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1()); }
+			{ before(grammarAccess.getExternalFuzzyReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1()); }
+			ruleQualifiedName
+			{ after(grammarAccess.getExternalFuzzyReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1()); }
 		)
 		{ after(grammarAccess.getExternalFuzzyReduceExpressionAccess().getExternalFunctionExternalFunctionCrossReference_2_0()); }
 	)
@@ -17308,9 +17308,9 @@ rule__ExternalFuzzyArgReduceExpression__ExternalFunctionAssignment_2
 	(
 		{ before(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getExternalFunctionExternalFunctionCrossReference_2_0()); }
 		(
-			{ before(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1()); }
-			RULE_ID
-			{ after(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1()); }
+			{ before(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1()); }
+			ruleQualifiedName
+			{ after(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1()); }
 		)
 		{ after(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getExternalFunctionExternalFunctionCrossReference_2_0()); }
 	)
@@ -17657,9 +17657,9 @@ rule__ExternalMultiArgExpression__ExternalFunctionAssignment_0
 	(
 		{ before(grammarAccess.getExternalMultiArgExpressionAccess().getExternalFunctionExternalFunctionCrossReference_0_0()); }
 		(
-			{ before(grammarAccess.getExternalMultiArgExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_0_0_1()); }
-			RULE_ID
-			{ after(grammarAccess.getExternalMultiArgExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_0_0_1()); }
+			{ before(grammarAccess.getExternalMultiArgExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_0_0_1()); }
+			ruleQualifiedName
+			{ after(grammarAccess.getExternalMultiArgExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_0_0_1()); }
 		)
 		{ after(grammarAccess.getExternalMultiArgExpressionAccess().getExternalFunctionExternalFunctionCrossReference_0_0()); }
 	)

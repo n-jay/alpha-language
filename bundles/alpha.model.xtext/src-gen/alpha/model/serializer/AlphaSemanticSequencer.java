@@ -665,7 +665,11 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ExternalArgReduceExpression
 	 *
 	 * Constraint:
-	 *     (externalFunction=[ExternalFunction|ID] (projectionExpr=JNIFunction | projectionExpr=JNIFunctionInArrayNotation) body=AlphaExpression)
+	 *     (
+	 *         externalFunction=[ExternalFunction|QualifiedName] 
+	 *         (projectionExpr=JNIFunction | projectionExpr=JNIFunctionInArrayNotation) 
+	 *         body=AlphaExpression
+	 *     )
 	 */
 	protected void sequence_ExternalArgReduceExpression(ISerializationContext context, ExternalArgReduceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -714,7 +718,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ExternalFuzzyArgReduceExpression
 	 *
 	 * Constraint:
-	 *     (externalFunction=[ExternalFunction|ID] projectionFunction=FuzzyFunction body=AlphaExpression)
+	 *     (externalFunction=[ExternalFunction|QualifiedName] projectionFunction=FuzzyFunction body=AlphaExpression)
 	 */
 	protected void sequence_ExternalFuzzyArgReduceExpression(ISerializationContext context, ExternalFuzzyArgReduceExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -726,7 +730,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1(), semanticObject.eGet(ModelPackage.Literals.EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION, false));
+		feeder.accept(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1(), semanticObject.eGet(ModelPackage.Literals.EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__EXTERNAL_FUNCTION, false));
 		feeder.accept(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getProjectionFunctionFuzzyFunctionParserRuleCall_4_0(), semanticObject.getProjectionFunction());
 		feeder.accept(grammarAccess.getExternalFuzzyArgReduceExpressionAccess().getBodyAlphaExpressionParserRuleCall_6_0(), semanticObject.getBody());
 		feeder.finish();
@@ -754,7 +758,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ExternalFuzzyReduceExpression
 	 *
 	 * Constraint:
-	 *     (externalFunction=[ExternalFunction|ID] projectionFunction=FuzzyFunction body=AlphaExpression)
+	 *     (externalFunction=[ExternalFunction|QualifiedName] projectionFunction=FuzzyFunction body=AlphaExpression)
 	 */
 	protected void sequence_ExternalFuzzyReduceExpression(ISerializationContext context, ExternalFuzzyReduceExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -766,7 +770,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ABSTRACT_FUZZY_REDUCE_EXPRESSION__BODY));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getExternalFuzzyReduceExpressionAccess().getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1(), semanticObject.eGet(ModelPackage.Literals.EXTERNAL_FUZZY_REDUCE_EXPRESSION__EXTERNAL_FUNCTION, false));
+		feeder.accept(grammarAccess.getExternalFuzzyReduceExpressionAccess().getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1(), semanticObject.eGet(ModelPackage.Literals.EXTERNAL_FUZZY_REDUCE_EXPRESSION__EXTERNAL_FUNCTION, false));
 		feeder.accept(grammarAccess.getExternalFuzzyReduceExpressionAccess().getProjectionFunctionFuzzyFunctionParserRuleCall_4_0(), semanticObject.getProjectionFunction());
 		feeder.accept(grammarAccess.getExternalFuzzyReduceExpressionAccess().getBodyAlphaExpressionParserRuleCall_6_0(), semanticObject.getBody());
 		feeder.finish();
@@ -793,7 +797,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ExternalMultiArgExpression
 	 *
 	 * Constraint:
-	 *     (externalFunction=[ExternalFunction|ID] exprs+=AlphaExpression exprs+=AlphaExpression*)
+	 *     (externalFunction=[ExternalFunction|QualifiedName] exprs+=AlphaExpression exprs+=AlphaExpression*)
 	 */
 	protected void sequence_ExternalMultiArgExpression(ISerializationContext context, ExternalMultiArgExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -821,7 +825,11 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UnaryOrTerminalExpression returns ExternalReduceExpression
 	 *
 	 * Constraint:
-	 *     (externalFunction=[ExternalFunction|ID] (projectionExpr=JNIFunction | projectionExpr=JNIFunctionInArrayNotation) body=AlphaExpression)
+	 *     (
+	 *         externalFunction=[ExternalFunction|QualifiedName] 
+	 *         (projectionExpr=JNIFunction | projectionExpr=JNIFunctionInArrayNotation) 
+	 *         body=AlphaExpression
+	 *     )
 	 */
 	protected void sequence_ExternalReduceExpression(ISerializationContext context, ExternalReduceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

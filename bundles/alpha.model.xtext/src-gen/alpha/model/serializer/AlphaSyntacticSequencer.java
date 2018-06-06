@@ -114,14 +114,14 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) 'argreduce' '(' externalFunction=[ExternalFunction|ID]
+	 *     (rule start) (ambiguity) 'argreduce' '(' externalFunction=[ExternalFunction|QualifiedName]
 	 *     (rule start) (ambiguity) 'argreduce' '(' operator=AREDUCTION_OP
 	 *     (rule start) (ambiguity) 'auto' ':' expr=AlphaExpression
 	 *     (rule start) (ambiguity) 'case' '{' exprs+=AlphaExpression
 	 *     (rule start) (ambiguity) 'case' name=ID
 	 *     (rule start) (ambiguity) 'conv' '(' kernelDomainExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) 'if' condExpr=AlphaExpression
-	 *     (rule start) (ambiguity) 'reduce' '(' externalFunction=[ExternalFunction|ID]
+	 *     (rule start) (ambiguity) 'reduce' '(' externalFunction=[ExternalFunction|QualifiedName]
 	 *     (rule start) (ambiguity) 'reduce' '(' operator=AREDUCTION_OP
 	 *     (rule start) (ambiguity) 'select' relationExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) 'val' functionExpr=JNIFunction
@@ -131,7 +131,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) domainExpr=JNIDomainInArrayNotation
 	 *     (rule start) (ambiguity) expr=ConstantExpression
 	 *     (rule start) (ambiguity) expr=VariableExpression
-	 *     (rule start) (ambiguity) externalFunction=[ExternalFunction|ID]
+	 *     (rule start) (ambiguity) externalFunction=[ExternalFunction|QualifiedName]
 	 *     (rule start) (ambiguity) functionExpr=JNIFunction
 	 *     (rule start) (ambiguity) functionExpr=JNIFunctionInArrayNotation
 	 *     (rule start) (ambiguity) fuzzyFunction=FuzzyFunction

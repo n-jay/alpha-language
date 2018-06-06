@@ -2566,7 +2566,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cExternalFunctionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cExternalFunctionExternalFunctionCrossReference_2_0 = (CrossReference)cExternalFunctionAssignment_2.eContents().get(0);
-		private final RuleCall cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
+		private final RuleCall cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cProjectionExprAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final Alternatives cProjectionExprAlternatives_4_0 = (Alternatives)cProjectionExprAssignment_4.eContents().get(0);
@@ -2578,14 +2578,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ExternalReduceExpression:
-		//	'reduce' '(' externalFunction=[ExternalFunction] ','
+		//	'reduce' '(' externalFunction=[ExternalFunction|QualifiedName] ','
 		//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 		//	body=AlphaExpression
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'reduce' '(' externalFunction=[ExternalFunction] ',' projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
-		//body=AlphaExpression ')'
+		//'reduce' '(' externalFunction=[ExternalFunction|QualifiedName] ',' projectionExpr=(JNIFunction |
+		//JNIFunctionInArrayNotation) ',' body=AlphaExpression ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'reduce'
@@ -2594,14 +2594,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
-		//externalFunction=[ExternalFunction]
+		//externalFunction=[ExternalFunction|QualifiedName]
 		public Assignment getExternalFunctionAssignment_2() { return cExternalFunctionAssignment_2; }
 		
-		//[ExternalFunction]
+		//[ExternalFunction|QualifiedName]
 		public CrossReference getExternalFunctionExternalFunctionCrossReference_2_0() { return cExternalFunctionExternalFunctionCrossReference_2_0; }
 		
-		//ID
-		public RuleCall getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1() { return cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1; }
+		//QualifiedName
+		public RuleCall getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1() { return cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1; }
 		
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
@@ -2704,7 +2704,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cExternalFunctionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cExternalFunctionExternalFunctionCrossReference_2_0 = (CrossReference)cExternalFunctionAssignment_2.eContents().get(0);
-		private final RuleCall cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
+		private final RuleCall cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cProjectionExprAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final Alternatives cProjectionExprAlternatives_4_0 = (Alternatives)cProjectionExprAssignment_4.eContents().get(0);
@@ -2716,14 +2716,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ExternalArgReduceExpression:
-		//	'argreduce' '(' externalFunction=[ExternalFunction] ','
+		//	'argreduce' '(' externalFunction=[ExternalFunction|QualifiedName] ','
 		//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 		//	body=AlphaExpression
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'argreduce' '(' externalFunction=[ExternalFunction] ',' projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
-		//body=AlphaExpression ')'
+		//'argreduce' '(' externalFunction=[ExternalFunction|QualifiedName] ',' projectionExpr=(JNIFunction |
+		//JNIFunctionInArrayNotation) ',' body=AlphaExpression ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'argreduce'
@@ -2732,14 +2732,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
-		//externalFunction=[ExternalFunction]
+		//externalFunction=[ExternalFunction|QualifiedName]
 		public Assignment getExternalFunctionAssignment_2() { return cExternalFunctionAssignment_2; }
 		
-		//[ExternalFunction]
+		//[ExternalFunction|QualifiedName]
 		public CrossReference getExternalFunctionExternalFunctionCrossReference_2_0() { return cExternalFunctionExternalFunctionCrossReference_2_0; }
 		
-		//ID
-		public RuleCall getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1() { return cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1; }
+		//QualifiedName
+		public RuleCall getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1() { return cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1; }
 		
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
@@ -2833,7 +2833,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cExternalFunctionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cExternalFunctionExternalFunctionCrossReference_2_0 = (CrossReference)cExternalFunctionAssignment_2.eContents().get(0);
-		private final RuleCall cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
+		private final RuleCall cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cProjectionFunctionAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cProjectionFunctionFuzzyFunctionParserRuleCall_4_0 = (RuleCall)cProjectionFunctionAssignment_4.eContents().get(0);
@@ -2843,13 +2843,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ExternalFuzzyReduceExpression:
-		//	'reduce' '(' externalFunction=[ExternalFunction] ','
+		//	'reduce' '(' externalFunction=[ExternalFunction|QualifiedName] ','
 		//	projectionFunction=FuzzyFunction ','
 		//	body=AlphaExpression
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'reduce' '(' externalFunction=[ExternalFunction] ',' projectionFunction=FuzzyFunction ',' body=AlphaExpression ')'
+		//'reduce' '(' externalFunction=[ExternalFunction|QualifiedName] ',' projectionFunction=FuzzyFunction ','
+		//body=AlphaExpression ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'reduce'
@@ -2858,14 +2859,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
-		//externalFunction=[ExternalFunction]
+		//externalFunction=[ExternalFunction|QualifiedName]
 		public Assignment getExternalFunctionAssignment_2() { return cExternalFunctionAssignment_2; }
 		
-		//[ExternalFunction]
+		//[ExternalFunction|QualifiedName]
 		public CrossReference getExternalFunctionExternalFunctionCrossReference_2_0() { return cExternalFunctionExternalFunctionCrossReference_2_0; }
 		
-		//ID
-		public RuleCall getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1() { return cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1; }
+		//QualifiedName
+		public RuleCall getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1() { return cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1; }
 		
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
@@ -2953,7 +2954,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cExternalFunctionAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cExternalFunctionExternalFunctionCrossReference_2_0 = (CrossReference)cExternalFunctionAssignment_2.eContents().get(0);
-		private final RuleCall cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
+		private final RuleCall cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_2_0.eContents().get(1);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cProjectionFunctionAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cProjectionFunctionFuzzyFunctionParserRuleCall_4_0 = (RuleCall)cProjectionFunctionAssignment_4.eContents().get(0);
@@ -2963,13 +2964,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ExternalFuzzyArgReduceExpression:
-		//	'argreduce' '(' externalFunction=[ExternalFunction] ','
+		//	'argreduce' '(' externalFunction=[ExternalFunction|QualifiedName] ','
 		//	projectionFunction=FuzzyFunction ','
 		//	body=AlphaExpression
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'argreduce' '(' externalFunction=[ExternalFunction] ',' projectionFunction=FuzzyFunction ',' body=AlphaExpression ')'
+		//'argreduce' '(' externalFunction=[ExternalFunction|QualifiedName] ',' projectionFunction=FuzzyFunction ','
+		//body=AlphaExpression ')'
 		public Group getGroup() { return cGroup; }
 		
 		//'argreduce'
@@ -2978,14 +2980,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
-		//externalFunction=[ExternalFunction]
+		//externalFunction=[ExternalFunction|QualifiedName]
 		public Assignment getExternalFunctionAssignment_2() { return cExternalFunctionAssignment_2; }
 		
-		//[ExternalFunction]
+		//[ExternalFunction|QualifiedName]
 		public CrossReference getExternalFunctionExternalFunctionCrossReference_2_0() { return cExternalFunctionExternalFunctionCrossReference_2_0; }
 		
-		//ID
-		public RuleCall getExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1() { return cExternalFunctionExternalFunctionIDTerminalRuleCall_2_0_1; }
+		//QualifiedName
+		public RuleCall getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1() { return cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_2_0_1; }
 		
 		//','
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
@@ -3392,7 +3394,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cExternalFunctionAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cExternalFunctionExternalFunctionCrossReference_0_0 = (CrossReference)cExternalFunctionAssignment_0.eContents().get(0);
-		private final RuleCall cExternalFunctionExternalFunctionIDTerminalRuleCall_0_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_0_0.eContents().get(1);
+		private final RuleCall cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cExternalFunctionExternalFunctionCrossReference_0_0.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cExprsAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cExprsAlphaExpressionParserRuleCall_2_0 = (RuleCall)cExprsAssignment_2.eContents().get(0);
@@ -3403,20 +3405,20 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//ExternalMultiArgExpression:
-		//	externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
+		//	externalFunction=[ExternalFunction|QualifiedName] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')'
+		//externalFunction=[ExternalFunction|QualifiedName] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')'
 		public Group getGroup() { return cGroup; }
 		
-		//externalFunction=[ExternalFunction]
+		//externalFunction=[ExternalFunction|QualifiedName]
 		public Assignment getExternalFunctionAssignment_0() { return cExternalFunctionAssignment_0; }
 		
-		//[ExternalFunction]
+		//[ExternalFunction|QualifiedName]
 		public CrossReference getExternalFunctionExternalFunctionCrossReference_0_0() { return cExternalFunctionExternalFunctionCrossReference_0_0; }
 		
-		//ID
-		public RuleCall getExternalFunctionExternalFunctionIDTerminalRuleCall_0_0_1() { return cExternalFunctionExternalFunctionIDTerminalRuleCall_0_0_1; }
+		//QualifiedName
+		public RuleCall getExternalFunctionExternalFunctionQualifiedNameParserRuleCall_0_0_1() { return cExternalFunctionExternalFunctionQualifiedNameParserRuleCall_0_0_1; }
 		
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
@@ -5062,7 +5064,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExternalReduceExpression:
-	//	'reduce' '(' externalFunction=[ExternalFunction] ','
+	//	'reduce' '(' externalFunction=[ExternalFunction|QualifiedName] ','
 	//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 	//	body=AlphaExpression
 	//	')';
@@ -5088,7 +5090,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExternalArgReduceExpression:
-	//	'argreduce' '(' externalFunction=[ExternalFunction] ','
+	//	'argreduce' '(' externalFunction=[ExternalFunction|QualifiedName] ','
 	//	projectionExpr=(JNIFunction | JNIFunctionInArrayNotation) ','
 	//	body=AlphaExpression
 	//	')';
@@ -5114,7 +5116,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExternalFuzzyReduceExpression:
-	//	'reduce' '(' externalFunction=[ExternalFunction] ','
+	//	'reduce' '(' externalFunction=[ExternalFunction|QualifiedName] ','
 	//	projectionFunction=FuzzyFunction ','
 	//	body=AlphaExpression
 	//	')';
@@ -5140,7 +5142,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExternalFuzzyArgReduceExpression:
-	//	'argreduce' '(' externalFunction=[ExternalFunction] ','
+	//	'argreduce' '(' externalFunction=[ExternalFunction|QualifiedName] ','
 	//	projectionFunction=FuzzyFunction ','
 	//	body=AlphaExpression
 	//	')';
@@ -5246,7 +5248,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ExternalMultiArgExpression:
-	//	externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
+	//	externalFunction=[ExternalFunction|QualifiedName] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
 	public ExternalMultiArgExpressionElements getExternalMultiArgExpressionAccess() {
 		return pExternalMultiArgExpression;
 	}

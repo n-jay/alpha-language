@@ -262,7 +262,7 @@ ReduceExpression:
 	 ')'
 ;
 ExternalReduceExpression:
-	'reduce' '(' externalFunction=[ExternalFunction] ',' 
+	'reduce' '(' externalFunction=[ExternalFunction|QualifiedName] ',' 
 	projectionExpr=(JNIFunction|JNIFunctionInArrayNotation) ','
 	body=AlphaExpression
 	 ')'
@@ -274,7 +274,7 @@ ArgReduceExpression :
 	 ')'
 ;
 ExternalArgReduceExpression:
-	'argreduce' '(' externalFunction=[ExternalFunction] ',' 
+	'argreduce' '(' externalFunction=[ExternalFunction|QualifiedName] ',' 
 	projectionExpr=(JNIFunction|JNIFunctionInArrayNotation) ','
 	body=AlphaExpression
 	 ')'
@@ -287,7 +287,7 @@ FuzzyReduceExpression:
 	 ')'
 ;
 ExternalFuzzyReduceExpression:
-	'reduce' '(' externalFunction=[ExternalFunction] ',' 
+	'reduce' '(' externalFunction=[ExternalFunction|QualifiedName] ',' 
 	projectionFunction=FuzzyFunction ','
 	body=AlphaExpression
 	 ')'
@@ -299,7 +299,7 @@ FuzzyArgReduceExpression :
 	 ')'
 ;
 ExternalFuzzyArgReduceExpression:
-	'argreduce' '(' externalFunction=[ExternalFunction] ',' 
+	'argreduce' '(' externalFunction=[ExternalFunction|QualifiedName] ',' 
 	projectionFunction=FuzzyFunction ','
 	body=AlphaExpression
 	 ')'
@@ -338,7 +338,7 @@ MultiArgExpression:
 	operator=AREDUCTION_OP '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';
 	
 ExternalMultiArgExpression:
-	externalFunction=[ExternalFunction] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';	
+	externalFunction=[ExternalFunction|QualifiedName] '(' exprs+=AlphaExpression (',' exprs+=AlphaExpression)* ')';	
 
 UnaryOrTerminalExpression returns AlphaExpression:
 	UnaryExpression | AlphaTerminalExpression; 
