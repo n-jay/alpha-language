@@ -14,6 +14,7 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider;
 
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
+import alpha.model.util.AlphaUtil;
 
 /**
  * Checks the uniqueness of system and equation names.
@@ -133,6 +134,20 @@ public class AlphaNameUniquenessChecker {
 					if (node instanceof UseEquation)
 						issues.add(AlphaIssueFactory.duplicateUseEquation((UseEquation) node));
 				}
+			});
+		}
+		
+		// Then check for AlphaConstants
+		{
+			Map<String, List<AlphaConstant>> nameMap = new HashMap<>();
+
+			AlphaUtil.getAlphaConstants(system).forEach(c -> {
+				checkAndAdd(c.getName(), c, nameMap);
+			});
+
+			nameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
+				for (AlphaConstant c : l)
+					issues.add(AlphaIssueFactory.duplicateAlphaConstant(c));
 			});
 		}
 		

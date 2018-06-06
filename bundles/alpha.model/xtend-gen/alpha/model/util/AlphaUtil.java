@@ -124,6 +124,14 @@ public class AlphaUtil {
     return jniString;
   }
   
+  public static Iterable<AlphaConstant> getAlphaConstants(final AlphaSystem system) {
+    if (((system != null) && (system.eContainer() != null))) {
+      EObject _eContainer = system.eContainer();
+      return AlphaUtil.gatherAlphaConstants(((AlphaVisitable) _eContainer));
+    }
+    return null;
+  }
+  
   private static Iterable<AlphaConstant> _gatherAlphaConstants(final AlphaPackage ap) {
     return Iterables.<AlphaConstant>filter(ap.getElements(), AlphaConstant.class);
   }

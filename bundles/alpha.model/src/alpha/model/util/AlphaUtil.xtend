@@ -97,6 +97,12 @@ class AlphaUtil {
 		return jniString
 	}
 	
+	static def getAlphaConstants(AlphaSystem system) {
+		if (system !== null && system.eContainer !== null) {
+			return gatherAlphaConstants(system.eContainer as AlphaVisitable)
+		}
+	}
+	
 	private static def dispatch gatherAlphaConstants(AlphaPackage ap) {
 		ap.elements.filter(AlphaConstant)
 	}
