@@ -283,7 +283,7 @@ class Imports extends AlphaVisitable {
 }
 
 class AlphaPackage extends AlphaElement {
-	 id String name
+	 String name
 	 contains AlphaElement[] elements
 	 
 	op AlphaConstant[] getConstants() { elements.filter(AlphaConstant).asEList }

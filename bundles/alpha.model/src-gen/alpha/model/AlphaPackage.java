@@ -33,7 +33,7 @@ public interface AlphaPackage extends AlphaElement {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see alpha.model.ModelPackage#getAlphaPackage_Name()
-	 * @model unique="false" id="true"
+	 * @model unique="false"
 	 * @generated
 	 */
 	String getName();
