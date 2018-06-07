@@ -108,8 +108,11 @@ class Show extends ModelSwitch<String> {
 	}
 
 	override caseAlphaRoot(AlphaRoot root) {
-		root.imports.map[doSwitch].join("\n");
-		root.elements.map[doSwitch].join("\n");
+		'''
+			«root.imports.map[doSwitch].join("\n")»
+			
+			«root.elements.map[doSwitch].join("\n")»
+		'''
 	}
 
 	override caseAlphaConstant(AlphaConstant ac) {

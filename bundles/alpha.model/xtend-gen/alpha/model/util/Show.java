@@ -140,18 +140,21 @@ public class Show extends ModelSwitch<String> {
   
   @Override
   public String caseAlphaRoot(final AlphaRoot root) {
-    String _xblockexpression = null;
-    {
-      final Function1<Imports, String> _function = (Imports it) -> {
-        return this.doSwitch(it);
-      };
-      IterableExtensions.join(ListExtensions.<Imports, String>map(root.getImports(), _function), "\n");
-      final Function1<AlphaElement, String> _function_1 = (AlphaElement it) -> {
-        return this.doSwitch(it);
-      };
-      _xblockexpression = IterableExtensions.join(ListExtensions.<AlphaElement, String>map(root.getElements(), _function_1), "\n");
-    }
-    return _xblockexpression;
+    StringConcatenation _builder = new StringConcatenation();
+    final Function1<Imports, String> _function = (Imports it) -> {
+      return this.doSwitch(it);
+    };
+    String _join = IterableExtensions.join(ListExtensions.<Imports, String>map(root.getImports(), _function), "\n");
+    _builder.append(_join);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    final Function1<AlphaElement, String> _function_1 = (AlphaElement it) -> {
+      return this.doSwitch(it);
+    };
+    String _join_1 = IterableExtensions.join(ListExtensions.<AlphaElement, String>map(root.getElements(), _function_1), "\n");
+    _builder.append(_join_1);
+    _builder.newLineIfNotEmpty();
+    return _builder.toString();
   }
   
   @Override
