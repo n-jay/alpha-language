@@ -51,6 +51,8 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 		JNIISLSet defDom = se.getExpr().getExpressionDomain();
 		JNIISLSet varDom = se.getVariable().getDomain();
 		if (defDom == null || varDom == null) return;
+		//This case is already checked at ContextDomainCalculator
+		if (!varDom.getSpace().isEqual(defDom.getSpace())) return;
 
 		callISLwithErrorHandling(()->{
 			JNIISLSet undefDom = varDom.copy().subtract(defDom);

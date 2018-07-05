@@ -112,11 +112,16 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	@Override
 	public void outDependenceExpression(DependenceExpression de) {
-		if (de.getFunction() != null)
+		if (de.getFunction() != null &&  de.getExpr().getExpressionDomain() != null) {
+			if (de.getFunction().getNbAff() != de.getExpr().getExpressionDomain().getNbDims()) {
+				issues.add(AlphaIssueFactory.incompatibleContextAndExpressionDomain(de));
+				return;
+			}
 			runISLoperations(de, ()->{
 				JNIISLSet set = de.getExpr().getExpressionDomain().preimage(de.getFunction());
 				de.setExpressionDomain(set);
 			});
+		}
 	}
 	
 	@Override

@@ -157,6 +157,12 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     if ((processedContext == null)) {
       return;
     }
+    boolean _isEqual = processedContext.getSpace().isEqual(ae.getExpressionDomain().getSpace());
+    boolean _not = (!_isEqual);
+    if (_not) {
+      this.issues.add(AlphaIssueFactory.incompatibleContextAndExpressionDomain(ae));
+      return;
+    }
     final Supplier<JNIISLSet> _function_1 = () -> {
       return processedContext.intersect(ae.getExpressionDomain());
     };

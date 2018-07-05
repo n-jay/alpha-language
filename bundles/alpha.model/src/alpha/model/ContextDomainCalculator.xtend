@@ -109,13 +109,16 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 			// Only the source of the error should report it. 
 			return;
 		}
-
+		
 		val processedContext = ae.eContainer.processContext(parentContext)
 		
 		if (processedContext === null) return;
+		if (!processedContext.space.isEqual(ae.expressionDomain.space)) {
+			issues.add(AlphaIssueFactory.incompatibleContextAndExpressionDomain(ae));
+			return;
+		}
 		
 		val context = runISLoperations(ae, [processedContext.intersect(ae.expressionDomain)]);
-
 		ae.contextDomain = context
 	}
 

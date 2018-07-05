@@ -94,7 +94,11 @@ public class AlphaIssueFactory {
 	}
 	
 	
-	
+
+
+	public static DomainConsistencyIssue incompatibleContextAndExpressionDomain(EObject source) {
+		return new DomainConsistencyIssue(TYPE.ERROR, "The context domain and expression domain are incompatible.", source, null);
+	}
 	public static DomainConsistencyIssue incompleteEquation(StandardEquation eq, JNIISLSet paramDomain, JNIISLSet domain) {
 		return new DomainConsistencyIssue(TYPE.ERROR, 
 				String.format("Equation for %s is not defined with parameters %s for %s", eq.getVariable().getName(), paramDomain.toString(), domain.toString()), 
