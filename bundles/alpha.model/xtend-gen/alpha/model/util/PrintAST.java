@@ -39,6 +39,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 
+/**
+ * PrintAST is a dump of the Alpha program, mainly used for debugging.
+ */
 @SuppressWarnings("all")
 public class PrintAST extends AbstractAlphaCompleteVisitor {
   private String indent = "";

@@ -11,7 +11,7 @@ package alpha.model;
  * <!-- begin-model-doc -->
  * *
  * Interface for AlphaCompleteVisitor, which actually is not complete in the sense it does not visit CalculatorExpression.
- * This is because CalculatorExpressions are seprate data structure to describe polyhedral objects, which is tightly
+ * This is because CalculatorExpressions are separate data structure to describe polyhedral objects, which is tightly
  * coupled with JNIISL.
  * <!-- end-model-doc -->
  *

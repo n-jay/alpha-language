@@ -9,6 +9,20 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Alpha Visitor</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * *
+ * Notes on visitors.
+ * 
+ * - Whenever you add a new node, the corresponding methods must be added to the visitor interface.
+ * - Each node should have visitXXX, inXXX, outXXX methods.
+ * - The default visiting pattern (depth first) is implemented in the corresponding default visitors. They need to be updated when a node is added as well.
+ * - In the default visitor, inXXX and outXXX is called from visitXXX, where visitXXX calls accept on all its children.
+ * - The abstract visitor does not need to be modified, except for the CompleteVisitor that require bridging between two visitors.
+ * 
+ * The default methods are used so that the visiting pattern can be implemented at the interface of each visitor.
+ * This allows the complete visitor, which is made up of two visitors, to reuse the visiting code.
+ * <!-- end-model-doc -->
+ *
  *
  * @see alpha.model.ModelPackage#getAlphaVisitor()
  * @model interface="true" abstract="true"

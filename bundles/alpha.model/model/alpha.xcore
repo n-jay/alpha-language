@@ -38,7 +38,7 @@ interface AlphaNode {}
 
 /**
  * Interface for AlphaCompleteVisitor, which actually is not complete in the sense it does not visit CalculatorExpression.
- * This is because CalculatorExpressions are seprate data structure to describe polyhedral objects, which is tightly
+ * This is because CalculatorExpressions are separate data structure to describe polyhedral objects, which is tightly
  * coupled with JNIISL.
  * 
  */
@@ -55,6 +55,19 @@ interface CalculatorExpressionVisitable extends AlphaNode {
 	op void accept(CalculatorExpressionVisitor visitor)
 }
 
+/**
+ * Notes on visitors.
+ * 
+ * - Whenever you add a new node, the corresponding methods must be added to the visitor interface.
+ * - Each node should have visitXXX, inXXX, outXXX methods.
+ * - The default visiting pattern (depth first) is implemented in the corresponding default visitors. They need to be updated when a node is added as well.
+ * - In the default visitor, inXXX and outXXX is called from visitXXX, where visitXXX calls accept on all its children. 
+ * - The abstract visitor does not need to be modified, except for the CompleteVisitor that require bridging between two visitors.
+ * 
+ * The default methods are used so that the visiting pattern can be implemented at the interface of each visitor. 
+ * This allows the complete visitor, which is made up of two visitors, to reuse the visiting code.  
+ * 
+ */
 interface AlphaVisitor {
 	op void visitAlphaRoot(AlphaRoot root)
 	
@@ -268,6 +281,11 @@ class AlphaRoot extends AlphaVisitable {
 	}
 }
 
+/**
+ * AlphaElement is introduced to allow systems, packages, constants, and exFuns, to appear in any order.
+ * The imports must be at the beginning of the file.
+ * 
+ */
 abstract class AlphaElement extends AlphaVisitable {
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitAlphaElement(this)
@@ -428,14 +446,23 @@ class UseEquation extends AlphaVisitable {
 	}
 }
 
-/** Alpha Expressions */
+/** Alpha Expressions 
+ *
+ * XCore does not provide a way to make private variables in the classes. The current work around 
+ * is to use long and obvious names for internal variables that are not meant to be accessed. In
+ * the AlphaExpression classes, these variables are prefixed by z__internal, where the leading
+ * 'z' makes the corresponding methods to show up at the bottom of the content assist.
+ * 
+ * For JNIISL objects, any getter should return a copy of the object to ensure that the object
+ * will not be taken by ISL.
+ * 
+ */
 
 abstract class AlphaExpression extends AlphaExpressionVisitable {
 	/*Internal object for always copying expression domain at getter */
 	JNIISLSet z__internal_cache_exprDom
 	/*Internal object for always copying context domain at getter */
 	JNIISLSet z__internal_cache_contextDom
-	String errorMessage
 	
 	op void setExpressionDomain(JNIISLSet dom) { this.setZ__internal_cache_exprDom(dom.coalesce) }
 	op JNIISLSet getExpressionDomain() { if (z__internal_cache_exprDom !== null) z__internal_cache_exprDom.copy else null }

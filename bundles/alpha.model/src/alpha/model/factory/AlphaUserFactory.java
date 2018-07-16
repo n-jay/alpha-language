@@ -19,6 +19,16 @@ import alpha.model.UnaryExpression;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
+/**
+ * AlphaUserFactory provides a set of convenience methods for creating nodes in Alpha IR.
+ * 
+ * The bare factory generated from EMF does not give much control or content checks. All
+ * nodes created in the Alpha transformations should use methods in this class.  
+ * 
+ * 
+ * @author tyuki
+ *
+ */
 public class AlphaUserFactory {
 	private AlphaUserFactory() {}
 	

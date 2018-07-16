@@ -37,6 +37,9 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * Utility methods for analysis and transformation of Alpha programs.
+ */
 @SuppressWarnings("all")
 public class AlphaUtil {
   public static AlphaRoot getContainerRoot(final EObject node) {
@@ -63,6 +66,11 @@ public class AlphaUtil {
     return AlphaUtil.getContainerSystem(node.eContainer());
   }
   
+  /**
+   * Selects an AlphaRoot that contains a given system name. The given system name may be
+   * fully qualified or just the bare name. If the bare name cannot uniquely identify a
+   * system, then it throws a RuntimeException.
+   */
   public static AlphaRoot selectAlphaRoot(final List<AlphaRoot> roots, final String systemName) {
     boolean _contains = systemName.contains(".");
     if (_contains) {
@@ -87,9 +95,15 @@ public class AlphaUtil {
         return IteratorExtensions.<AlphaSystem>filter(Iterators.<AlphaSystem>filter(it.eAllContents(), AlphaSystem.class), _function_3);
       };
       final Iterator<AlphaSystem> matching_1 = IteratorExtensions.<AlphaRoot, AlphaSystem>flatMap(roots.iterator(), _function_2);
-      boolean _hasNext = matching_1.hasNext();
-      if (_hasNext) {
-        return AlphaUtil.getContainerRoot(matching_1.next());
+      int _size_1 = IteratorExtensions.size(matching_1);
+      boolean _greaterThan_1 = (_size_1 > 1);
+      if (_greaterThan_1) {
+        throw new RuntimeException(("There are multiple systems with the name: " + systemName));
+      }
+      int _size_2 = IteratorExtensions.size(matching_1);
+      boolean _greaterThan_2 = (_size_2 > 0);
+      if (_greaterThan_2) {
+        return AlphaUtil.getContainerRoot(IteratorExtensions.<AlphaSystem>head(matching_1));
       }
     }
     throw new RuntimeException((("System " + systemName) + " was not found."));

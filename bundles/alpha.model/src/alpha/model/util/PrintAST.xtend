@@ -34,6 +34,10 @@ import java.util.LinkedList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 
+/**
+ * PrintAST is a dump of the Alpha program, mainly used for debugging.
+ * 
+ */
 class PrintAST extends AbstractAlphaCompleteVisitor {
 	
 	String indent = "";

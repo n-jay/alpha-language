@@ -87,14 +87,4 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 			}
 		}
 	}
-	
-
-//	private void registerIssue(String msg, Object expr) {
-//		
-//	}
-//	
-//	private void runISLoperations(AlphaExpression expr, Runnable r) {
-//		if (AlphaUtil.testNonNullExpressionDomain(AlphaUtil.getChildrenOfType(expr, AlphaExpression.class))) 
-//				callISLwithErrorHandling(r, (err)->registerIssue(err, expr));
-//	}
 }

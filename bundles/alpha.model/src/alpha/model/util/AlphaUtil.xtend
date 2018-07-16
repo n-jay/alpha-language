@@ -9,8 +9,6 @@ import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
@@ -25,6 +23,10 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 
+/**
+ * Utility methods for analysis and transformation of Alpha programs.
+ * 
+ */
 class AlphaUtil {
 	
 
@@ -48,6 +50,12 @@ class AlphaUtil {
 		return AlphaUtil.getContainerSystem(node.eContainer())
 	}
 	
+	/**
+	 * Selects an AlphaRoot that contains a given system name. The given system name may be
+	 * fully qualified or just the bare name. If the bare name cannot uniquely identify a 
+	 * system, then it throws a RuntimeException.
+	 * 
+	 */
 	static def AlphaRoot selectAlphaRoot(List<AlphaRoot> roots, String systemName) {
 		//qualified name
 		if (systemName.contains('.')) {
@@ -57,7 +65,8 @@ class AlphaUtil {
 		//just the system name
 		} else {
 			val matching = roots.iterator.flatMap[eAllContents.filter(AlphaSystem).filter[s|s.name.contentEquals(systemName)]]
-			if (matching.hasNext) return getContainerRoot(matching.next)
+			if (matching.size>1) throw new RuntimeException("There are multiple systems with the name: " + systemName);
+			if (matching.size>0) return getContainerRoot(matching.head)
 		}
 		
 		throw new RuntimeException("System " + systemName + " was not found.");

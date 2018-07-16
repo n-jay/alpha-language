@@ -11,6 +11,13 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  *
  * <!-- begin-model-doc -->
  * * Alpha Expressions
+ *  * XCore does not provide a way to make private variables in the classes. The current work around
+ * is to use long and obvious names for internal variables that are not meant to be accessed. In
+ * the AlphaExpression classes, these variables are prefixed by z__internal, where the leading
+ * 'z' makes the corresponding methods to show up at the bottom of the content assist.
+ * 
+ * For JNIISL objects, any getter should return a copy of the object to ensure that the object
+ * will not be taken by ISL.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -19,7 +26,6 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  * <ul>
  *   <li>{@link alpha.model.AlphaExpression#getZ__internal_cache_exprDom <em>Zinternal cache expr Dom</em>}</li>
  *   <li>{@link alpha.model.AlphaExpression#getZ__internal_cache_contextDom <em>Zinternal cache context Dom</em>}</li>
- *   <li>{@link alpha.model.AlphaExpression#getErrorMessage <em>Error Message</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getAlphaExpression()
@@ -76,32 +82,6 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * @generated
 	 */
 	void setZ__internal_cache_contextDom(JNIISLSet value);
-
-	/**
-	 * Returns the value of the '<em><b>Error Message</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Error Message</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Message</em>' attribute.
-	 * @see #setErrorMessage(String)
-	 * @see alpha.model.ModelPackage#getAlphaExpression_ErrorMessage()
-	 * @model unique="false"
-	 * @generated
-	 */
-	String getErrorMessage();
-
-	/**
-	 * Sets the value of the '{@link alpha.model.AlphaExpression#getErrorMessage <em>Error Message</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Error Message</em>' attribute.
-	 * @see #getErrorMessage()
-	 * @generated
-	 */
-	void setErrorMessage(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

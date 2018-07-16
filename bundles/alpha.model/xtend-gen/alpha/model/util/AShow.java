@@ -25,6 +25,14 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * AShow prints the given program in ArrayNotation.
+ * 
+ * It largely follows Show with two main differences:<ul>
+ * <li>Domains and functions are printed with ArrayNotation that relies on context.</li>
+ * <li>The available context information is tracked by overriding some of the cases.</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public class AShow extends Show {
   protected List<String> indexNameContext;

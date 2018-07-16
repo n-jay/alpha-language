@@ -16,10 +16,14 @@ import alpha.model.UseEquation;
 import alpha.model.issue.AlphaIssue.TYPE;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
+/**
+ * Convenience methods for creating various types of AlphaIssues.
+ * 
+ * @author tyuki
+ *
+ */
 public class AlphaIssueFactory {
-
-
-
+	
 	public static InvalidSyntaxIssue duplicateSystem(EObject source) {
 		return new InvalidSyntaxIssue(TYPE.ERROR, "Duplicate System", source, ModelPackage.Literals.ALPHA_SYSTEM__NAME);
 	}

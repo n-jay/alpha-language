@@ -17,6 +17,15 @@ import java.util.Stack
 import alpha.model.UseEquation
 import alpha.model.SelectExpression
 
+/**
+ * AShow prints the given program in ArrayNotation.
+ * 
+ * It largely follows Show with two main differences:<ul>
+ * <li>Domains and functions are printed with ArrayNotation that relies on context.</li>
+ * <li>The available context information is tracked by overriding some of the cases.</li>
+ * </ul>
+ * 
+ */
 class AShow extends Show {
 	
 	protected List<String> indexNameContext;
