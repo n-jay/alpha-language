@@ -25,3 +25,7 @@ builds/
 # gecos script log files and eclipse workspaces
 *.cs.glog
 workspace/
+
+# test files
+*/alpha.model.tests/resources/experimental/*
+
