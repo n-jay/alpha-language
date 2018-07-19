@@ -50,12 +50,8 @@ class AlphaValidator extends AbstractAlphaValidator {
 	
 	@Check
 	def checkRoot(AlphaRoot root) {
-		val issues = AlphaNameUniquenessChecker.check(root);
-		issues.filter[i|EcoreUtil.isAncestor(root, i.source)]
-				.forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)];
-				
-		val issues2 = AlphaInternalStateConstructor.compute(root);
-		issues2.forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
+		val issues = AlphaInternalStateConstructor.compute(root);
+		issues.filter[i|EcoreUtil.isAncestor(root, i.source)].forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]		
 	}
 	
 

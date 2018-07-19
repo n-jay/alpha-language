@@ -4,7 +4,6 @@
 package alpha.model.validation;
 
 import alpha.model.AlphaInternalStateConstructor;
-import alpha.model.AlphaNameUniquenessChecker;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.issue.AlphaIssue;
@@ -40,7 +39,7 @@ public class AlphaValidator extends AbstractAlphaValidator {
   
   @Check
   public void checkRoot(final AlphaRoot root) {
-    final List<AlphaIssue> issues = AlphaNameUniquenessChecker.check(root);
+    final List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(root);
     final Function1<AlphaIssue, Boolean> _function = (AlphaIssue i) -> {
       return Boolean.valueOf(EcoreUtil.isAncestor(root, i.getSource()));
     };
@@ -48,11 +47,6 @@ public class AlphaValidator extends AbstractAlphaValidator {
       this.flagEditor(i.getType(), i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
     };
     IterableExtensions.<AlphaIssue>filter(issues, _function).forEach(_function_1);
-    final List<AlphaIssue> issues2 = AlphaInternalStateConstructor.compute(root);
-    final Consumer<AlphaIssue> _function_2 = (AlphaIssue i) -> {
-      this.flagEditor(i.getType(), i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
-    };
-    issues2.forEach(_function_2);
   }
   
   @Check
