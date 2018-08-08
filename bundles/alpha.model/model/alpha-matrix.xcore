@@ -1,0 +1,129 @@
+@GenModel(
+	operationReflection="false",
+	loadInitialization="false",
+	literalsInterface="true")
+package alpha.model.matrix 
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
+
+type JNIISLSpace wraps JNIISLSpace
+
+/**
+ * Matrix is simply a 2D array of Long, represented as a list of MatrixRows.
+ * This representation is designed for representing functions, and hence each
+ * row represents the output dimension of a function.
+ * The number of columns are parameters+indices+1 for constant.
+ * 
+ * The utility of making it a class is in the book keeping of dimensions (space). 
+ * 
+ */
+class Matrix {
+	contains Space space
+	contains MatrixRow[] rows
+	
+	op boolean isConsistent() {
+		val nbCols = nbColumns;
+		for (r : rows) {
+			if (r.values.size != nbCols) return false
+		}
+		
+		return true
+	}
+	
+	op long getValue(int r, int c) {
+		rows.get(r).values.get(c);
+	}
+	
+	op void setValue(int r, int c, long v) {
+		rows.get(r).values.set(c, v);
+	}
+		
+	op int getNbRows() {
+		return rows.length
+	}
+
+	op int getNbColumns() {
+		return nbParams+nbIndices+1
+	}
+	
+	op int getNbParams() {
+		return space.nbParams
+	}
+	
+	op int getNbIndices() {
+		return space.nbIndices
+	}
+	
+	op String[] getParamNames() {
+		return space.paramNames
+	}
+	
+	op String[] getIndexNames() {
+		return space.indexNames
+	}
+	
+	op String toString() {
+		rows.join("\n");
+	}
+}
+
+class MatrixRow {
+	long[] values
+	
+	op long getValue(int c) {
+		values.get(c);
+	}
+	
+	op void setValue(int c, long v) {
+		values.set(c, v);
+	}
+	
+	op String toString() {
+		values.join("[ ", " ", " ]", [v|v.toString]);
+	}
+}
+
+class Space {
+	String[] paramNames
+	String[] indexNames
+	
+	op int getNbParams() {
+		return paramNames.length
+	}
+	
+	op int getNbIndices() {
+		return indexNames.length
+	}
+	
+	/**
+	 * ISLSpace for creating Aff. For isl_aff, set space is expected.
+	 * 
+	 */
+	op JNIISLSpace toJNIISLSetSpace() {
+		var space = JNIISLSpace.allocSet(nbParams, nbIndices);
+		for (i : 0..< nbParams) {
+			space = space.setName(JNIISLDimType.isl_dim_param, i, paramNames.get(i));
+		}
+		for (i : 0..< nbIndices) {
+			space = space.setName(JNIISLDimType.isl_dim_set, i, indexNames.get(i));
+		}
+		
+		return space;
+	}
+	
+	/**
+	 * ISLSpace for creating MultiAff. For isl_multi_aff, map space is expected.
+	 */
+	op JNIISLSpace toJNIISLMultiAffSpace(int nbExprs) {
+		var space = JNIISLSpace.alloc(nbParams, nbIndices, nbExprs);
+		for (i : 0..< nbParams) {
+			space = space.setName(JNIISLDimType.isl_dim_param, i, paramNames.get(i));
+		}
+		for (i : 0..< nbIndices) {
+			space = space.setName(JNIISLDimType.isl_dim_out, i, indexNames.get(i));
+		}
+		
+		return space;
+	}
+}

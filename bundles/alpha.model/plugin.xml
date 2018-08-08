@@ -14,4 +14,12 @@
             genModel="model/alpha.xcore"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated alpha-matrix -->
+      <package
+            uri="alpha.model.matrix"
+            class="alpha.model.matrix.MatrixPackage"
+            genModel="model/alpha-matrix.xcore"/>
+   </extension>
+
 </plugin>
