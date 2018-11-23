@@ -78,7 +78,6 @@ public interface PolyhedralObject extends CalculatorNode, AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getExpr().getType();'"
 	 * @generated
 	 */
 	POLY_OBJECT_TYPE getType();
@@ -87,7 +86,6 @@ public interface PolyhedralObject extends CalculatorNode, AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.util.AlphaUtil%&gt;.copy(this.getExpr().getISLObject());'"
 	 * @generated
 	 */
 	JNIObject getISLObject();
@@ -96,7 +94,6 @@ public interface PolyhedralObject extends CalculatorNode, AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitPolyhedralObject(this);'"
 	 * @generated
 	 */
 	void accept(AlphaVisitor visitor);

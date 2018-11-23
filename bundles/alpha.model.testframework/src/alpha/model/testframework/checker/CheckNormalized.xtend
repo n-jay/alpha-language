@@ -42,22 +42,22 @@ class CheckNormalized  extends ModelSwitch<Boolean> {
 		true
 	}
 	
-	override caseCaseExpression(CaseExpression ce) {
+	/*override*/ def caseCaseExpression(CaseExpression ce) {
 		if (ce.named || ce.eContainer instanceof StandardEquation || ce.eContainer instanceof ReduceExpression) {
 			return defaultCase(ce)
 		}
 		false
 	}
 	
-	override caseRestrictExpression(RestrictExpression re) {
+	/*override*/ def caseRestrictExpression(RestrictExpression re) {
 		if (re.eContainer instanceof StandardEquation || re.eContainer instanceof ReduceExpression || re.eContainer instanceof CaseExpression) {
 			return defaultCase(re)
 		}
 		false
 	}
 	
-	override caseDependenceExpression(DependenceExpression de) {
-		return de.expr instanceof VariableExpression || de.expr instanceof ConstantExpression
+	/*override*/ def caseDependenceExpression(DependenceExpression de) {
+		return Boolean.valueOf(de.expr instanceof VariableExpression || de.expr instanceof ConstantExpression)
 	}	
 	
 }

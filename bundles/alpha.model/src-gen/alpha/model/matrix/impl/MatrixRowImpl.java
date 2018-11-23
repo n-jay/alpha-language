@@ -5,8 +5,6 @@ package alpha.model.matrix.impl;
 import alpha.model.matrix.MatrixPackage;
 import alpha.model.matrix.MatrixRow;
 
-import java.lang.CharSequence;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;

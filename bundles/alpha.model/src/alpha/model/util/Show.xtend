@@ -54,13 +54,13 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
  * 
  * For now, Show will completely remove the calculator expression.
  */
-class Show extends ModelSwitch<String> {
+class Show extends ModelSwitch<CharSequence> {
 	
 	protected JNIISLSet parameterContext = null;
 
 	static def <T extends AlphaVisitable> print(T av) {
 		val show = new Show();
-		show.doSwitch(av)
+		show.doSwitch(av).toString()
 	}
 
 	/*
@@ -107,7 +107,7 @@ class Show extends ModelSwitch<String> {
 		'''«AlphaPrintingUtil.toAShowString(maff, instantiationDomain.indicesNames)»'''
 	}
 
-	override caseAlphaRoot(AlphaRoot root) {
+	/* override */ def caseAlphaRoot(AlphaRoot root) {
 		'''
 			«root.imports.map[doSwitch].join("\n")»
 			
@@ -115,19 +115,19 @@ class Show extends ModelSwitch<String> {
 		'''
 	}
 
-	override caseAlphaConstant(AlphaConstant ac) {
+	/* override */ def caseAlphaConstant(AlphaConstant ac) {
 		'''constant «ac.name» = «ac.value»'''
 	}
 
-	override caseExternalFunction(ExternalFunction ef) {
+	/* override */ def caseExternalFunction(ExternalFunction ef) {
 		'''external «ef.name»(«ef.cardinality»)'''
 	}
 
-	override caseImports(Imports i) {
+	/* override */ def caseImports(Imports i) {
 		'''import «i.importedNamespace»'''
 	}
 
-	override caseAlphaPackage(AlphaPackage ap) {
+	/* override */ def caseAlphaPackage(AlphaPackage ap) {
 		'''
 			package «ap.name» {
 				«ap.elements.map[doSwitch].join("\n")»
@@ -136,7 +136,7 @@ class Show extends ModelSwitch<String> {
 		'''
 	}
 
-	override caseAlphaSystem(AlphaSystem s) {
+	/* override */ def caseAlphaSystem(AlphaSystem s) {
 		parameterContext = s.parameterDomain;
 //	No define in Show syntax
 //				«IF !s.definedObjects.isEmpty»
@@ -168,15 +168,15 @@ class Show extends ModelSwitch<String> {
 		'''
 	}
 
-	override caseVariable(Variable v) {
+	/* override */ def caseVariable(Variable v) {
 		'''«v.name» : «v.domain.printVariableDeclarationDomain»'''
 	}
 		
-	override caseStandardEquation(StandardEquation se) {
+	/* override */ def caseStandardEquation(StandardEquation se) {
 		'''«se.variable.name» = «se.expr.doSwitch»;'''
 	}
 	
-	override caseUseEquation(UseEquation ue) {
+	/* override */ def caseUseEquation(UseEquation ue) {
 		val idom = if (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbDims > 0) 
 			'''over «ue.instantiationDomain.printInstantiationDomain» : ''' else ''''''
 		
@@ -187,11 +187,11 @@ class Show extends ModelSwitch<String> {
 	
 	/* AlphaExpression */
 	
-	override caseIfExpression(IfExpression ie) {
+	/* override */ def caseIfExpression(IfExpression ie) {
 		'''if «ie.condExpr.doSwitch» then «ie.thenExpr.doSwitch» else «ie.elseExpr.doSwitch»'''
 	}
 	
-	override caseRestrictExpression(RestrictExpression re) {
+	/* override */ def caseRestrictExpression(RestrictExpression re) {
 		val domStr = if (re.domainExpr instanceof JNIDomain || re.domainExpr instanceof JNIDomainInArrayNotation)
 		re.restrictDomain.printDomain else '''{«re.restrictDomain.printDomain»}''' 
 		
@@ -202,7 +202,7 @@ class Show extends ModelSwitch<String> {
 		}
 	}
 	
-	override caseAutoRestrictExpression(AutoRestrictExpression are) {
+	/* override */ def caseAutoRestrictExpression(AutoRestrictExpression are) {
 		if (are.eContainer instanceof UnaryExpression || are.eContainer instanceof BinaryExpression) {
 			'''(auto : «are.expr.doSwitch»)'''
 		} else {
@@ -210,14 +210,14 @@ class Show extends ModelSwitch<String> {
 		}
 	}
 	
-	override caseCaseExpression(CaseExpression ce) {
+	/* override */ def caseCaseExpression(CaseExpression ce) {
 		'''
 			case «IF ce.name !== null»«ce.name»«ENDIF» {
 				«ce.exprs.join("", ";\n", ";", [e|e.doSwitch])»
 			}'''
 	}
 
-	override caseDependenceExpression(DependenceExpression de) {
+	/* override */ def caseDependenceExpression(DependenceExpression de) {
 		if (de.expr instanceof IfExpression || de.expr instanceof RestrictExpression || de.expr instanceof AutoRestrictExpression|| de.expr instanceof UnaryExpression || de.expr instanceof BinaryExpression) {
 			'''«de.function.printFunction»@(«de.expr.doSwitch»)'''
 		} else {
@@ -225,37 +225,37 @@ class Show extends ModelSwitch<String> {
 		}
 	}
 	
-	override caseIndexExpression(IndexExpression ie) {
+	/* override */ def caseIndexExpression(IndexExpression ie) {
 		'''val «ie.function.printFunction»'''
 	}
 	
-	override caseReduceExpression(ReduceExpression re) {
+	/* override */ def caseReduceExpression(ReduceExpression re) {
 		re.printAbstractReduceExpression
 	}
 	
-	override caseExternalReduceExpression(ExternalReduceExpression ere) {
+	/* override */ def caseExternalReduceExpression(ExternalReduceExpression ere) {
 		ere.printAbstractReduceExpression
 	}
 	
-	override caseArgReduceExpression(ArgReduceExpression re) {
+	/* override */ def caseArgReduceExpression(ArgReduceExpression re) {
 		re.printAbstractReduceExpression
 	}
 	
-	override caseExternalArgReduceExpression(ExternalArgReduceExpression ere) {
+	/* override */ def caseExternalArgReduceExpression(ExternalArgReduceExpression ere) {
 		ere.printAbstractReduceExpression
 	}
 	
 	
-	protected def dispatch printReduceExpression(ReduceExpression re, String proj, String body) {
+	protected def dispatch printReduceExpression(ReduceExpression re, CharSequence proj, CharSequence body) {
 		'''reduce(«re.operator.printReductionOP», «proj», «body»)'''
 	}
-	protected def dispatch printReduceExpression(ExternalReduceExpression ere, String proj, String body) {
+	protected def dispatch printReduceExpression(ExternalReduceExpression ere, CharSequence proj, CharSequence body) {
 		'''reduce(«ere.externalFunction.name», «proj», «body»)'''
 	}
-	protected def dispatch printReduceExpression(ArgReduceExpression are, String proj, String body) {
+	protected def dispatch printReduceExpression(ArgReduceExpression are, CharSequence proj, CharSequence body) {
 		'''argreduce(«are.operator.printReductionOP», «proj», «body»)'''
 	}
-	protected def dispatch printReduceExpression(ExternalArgReduceExpression aere, String proj, String body) {
+	protected def dispatch printReduceExpression(ExternalArgReduceExpression aere, CharSequence proj, CharSequence body) {
 		'''argreduce(«aere.externalFunction.name», «proj», «body»)'''
 	}
 	
@@ -287,66 +287,66 @@ class Show extends ModelSwitch<String> {
 		are.printReduceExpression(proj, body).toString
 	}
 	
-	override caseConvolutionExpression(ConvolutionExpression ce) {
+	/* override */ def caseConvolutionExpression(ConvolutionExpression ce) {
 		'''conv(«ce.kernelDomain.printDomain», «ce.kernelExpression.doSwitch», «ce.dataExpression.doSwitch»)'''
 	}
 	
-	override caseSelectExpression(SelectExpression se) {
+	/* override */ def caseSelectExpression(SelectExpression se) {
 		'''select «se.selectRelation.printRelation» from «se.expr.doSwitch»'''
 	}
 	
-	override caseBinaryExpression(BinaryExpression be) {
+	/* override */ def caseBinaryExpression(BinaryExpression be) {
 		'''(«be.left.doSwitch» «be.operator» «be.right.doSwitch»)'''
 	}
 	
-	override caseMultiArgExpression(MultiArgExpression  mae) {
+	/* override */ def caseMultiArgExpression(MultiArgExpression  mae) {
 		'''«mae.operator»(«mae.exprs.map[doSwitch].join(", ")»)'''
 	}
 	
-	override caseExternalMultiArgExpression(ExternalMultiArgExpression  emae) {
+	/* override */ def caseExternalMultiArgExpression(ExternalMultiArgExpression  emae) {
 		'''«emae.externalFunction.name»(«emae.exprs.map[doSwitch].join(", ")»)'''
 	}
 	
-	override caseUnaryExpression(UnaryExpression ue) {
+	/* override */ def caseUnaryExpression(UnaryExpression ue) {
 		'''«ue.operator» «ue.expr.doSwitch»'''
 	}
 	
-	override caseVariableExpression(VariableExpression ve) {
+	/* override */ def caseVariableExpression(VariableExpression ve) {
 		ve.variable.name
 	}
 	
-	override caseBooleanExpression(BooleanExpression be) {
+	/* override */ def caseBooleanExpression(BooleanExpression be) {
 		be.value.toString
 	}
 	
-	override caseIntegerExpression(IntegerExpression ie) {
+	/* override */ def caseIntegerExpression(IntegerExpression ie) {
 		ie.value.toString
 	}
 	
-	override caseRealExpression(RealExpression re) {
+	/* override */ def caseRealExpression(RealExpression re) {
 		re.value.toString
 	}
 	
 	/* CalculatorExpression */
-	override caseBinaryCalculatorExpression(BinaryCalculatorExpression bce) {
+	/* override */ def caseBinaryCalculatorExpression(BinaryCalculatorExpression bce) {
 		'''(«bce.left.doSwitch» «bce.operator» «bce.right.doSwitch»)'''
 	}
 	
-	override caseUnaryCalculatorExpression(UnaryCalculatorExpression uce) {
+	/* override */ def caseUnaryCalculatorExpression(UnaryCalculatorExpression uce) {
 		'''«uce.operator» «uce.expr.doSwitch»)'''
 	}
 	
-	override caseVariableDomain(VariableDomain vd) {
+	/* override */ def caseVariableDomain(VariableDomain vd) {
 		'''{ «vd.variable.name» }'''
 	}
 	
-	override caseRectangularDomain(RectangularDomain rd) {
+	/* override */ def caseRectangularDomain(RectangularDomain rd) {
 		val inames = if (rd.indexNames !== null && rd.indexNames.length == rd.upperBounds.length)
 		'''as [«rd.indexNames.join(",")»]''' else '''''' 
 		'''[«rd.upperBounds.join(",")»] «inames»'''
 	}
 	
-	override caseDefinedObject(DefinedObject dobj) {
+	/* override */ def caseDefinedObject(DefinedObject dobj) {
 		dobj.object.name
 	}
 	

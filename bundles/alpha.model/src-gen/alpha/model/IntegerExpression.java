@@ -50,7 +50,6 @@ public interface IntegerExpression extends ConstantExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='int _value = this.getValue();\nreturn (&lt;%java.lang.Integer%&gt;.valueOf(_value) + \"\");'"
 	 * @generated
 	 */
 	String valueString();
@@ -59,7 +58,6 @@ public interface IntegerExpression extends ConstantExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitIntegerExpression(this);'"
 	 * @generated
 	 */
 	void accept(AlphaExpressionVisitor visitor);

@@ -95,7 +95,6 @@ public interface StandardEquation extends AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitStandardEquation(this);'"
 	 * @generated
 	 */
 	void accept(AlphaVisitor visitor);

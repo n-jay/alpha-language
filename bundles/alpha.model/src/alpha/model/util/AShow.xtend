@@ -36,7 +36,7 @@ class AShow extends Show {
 	
 	static def <T extends AlphaVisitable> print(T av) {
 		val ashow = new AShow();
-		ashow.doSwitch(av)
+		ashow.doSwitch(av).toString()
 	}
 	
 	override protected printDomain(JNIISLSet set) {

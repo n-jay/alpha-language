@@ -236,7 +236,7 @@ public class SpaceImpl extends MinimalEObjectImpl.Container implements Space {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (paramNames: ");
 		result.append(paramNames);
 		result.append(", indexNames: ");

@@ -104,7 +104,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 		val parentContext = parentContext(ae, ae.eContainer as AlphaCompleteVisitable, [i|registerIssue(i)]);
 
 		if (parentContext === null) {
-			// If parent context domain is not define, then do not report this as an issue, 
+			// If parent context domain is not defined, then do not report this as an issue, 
 			//  but gracefully continue without computing context domain
 			// Only the source of the error should report it. 
 			return;

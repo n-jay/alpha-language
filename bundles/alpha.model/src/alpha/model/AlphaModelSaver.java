@@ -18,19 +18,19 @@ import alpha.model.util.Show;
 public class AlphaModelSaver {
 
 	public static void Save(AlphaRoot root, File file) {
-		writeToFile(file, Show.print(root));
+		writeToFile(file, Show.print(root).toString());
 	}
 
 	public static void ASave(AlphaRoot root, File file) {
-		writeToFile(file, AShow.print(root));
+		writeToFile(file, AShow.print(root).toString());
 	}
 
 	public static void Save(AlphaRoot root, String filename) {
-		writeToFile(filename, Show.print(root));
+		writeToFile(filename, Show.print(root).toString());
 	}
 
 	public static void ASave(AlphaRoot root, String filename) {
-		writeToFile(filename, AShow.print(root));
+		writeToFile(filename, AShow.print(root).toString());
 	}
 
 	public static void writeToFile(String filename, String content) {

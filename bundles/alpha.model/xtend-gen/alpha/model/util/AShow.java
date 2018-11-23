@@ -45,7 +45,7 @@ public class AShow extends Show {
     String _xblockexpression = null;
     {
       final AShow ashow = new AShow();
-      _xblockexpression = ashow.doSwitch(av);
+      _xblockexpression = ashow.doSwitch(av).toString();
     }
     return _xblockexpression;
   }
@@ -64,8 +64,8 @@ public class AShow extends Show {
    * CalculatorExpressions are printed differently depending on the context.
    */
   @Override
-  public String caseStandardEquation(final StandardEquation se) {
-    String _xblockexpression = null;
+  public CharSequence caseStandardEquation(final StandardEquation se) {
+    CharSequence _xblockexpression = null;
     {
       this.indexNameContext = se.getVariable().getDomain().getIndicesNames();
       String _xifexpression = null;
@@ -84,17 +84,17 @@ public class AShow extends Show {
       _builder.append(_name);
       _builder.append(indices);
       _builder.append(" = ");
-      String _doSwitch = this.doSwitch(se.getExpr());
+      CharSequence _doSwitch = this.doSwitch(se.getExpr());
       _builder.append(_doSwitch);
       _builder.append(";");
-      _xblockexpression = _builder.toString();
+      _xblockexpression = _builder;
     }
     return _xblockexpression;
   }
   
   @Override
-  public String caseUseEquation(final UseEquation ue) {
-    String _xblockexpression = null;
+  public CharSequence caseUseEquation(final UseEquation ue) {
+    CharSequence _xblockexpression = null;
     {
       final Function1<AlphaExpression, List<String>> _function = (AlphaExpression e) -> {
         return e.getContextDomain().getIndicesNames();
@@ -149,23 +149,23 @@ public class AShow extends Show {
       StringConcatenation _builder_4 = new StringConcatenation();
       _builder_4.append(idom);
       _builder_4.append("(");
-      final Function1<AlphaExpression, String> _function_2 = (AlphaExpression it) -> {
+      final Function1<AlphaExpression, CharSequence> _function_2 = (AlphaExpression it) -> {
         return this.doSwitch(it);
       };
-      String _join_1 = IterableExtensions.join(ListExtensions.<AlphaExpression, String>map(ue.getOutputExprs(), _function_2), ", ");
+      String _join_1 = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getOutputExprs(), _function_2), ", ");
       _builder_4.append(_join_1);
       _builder_4.append(") = ");
       String _name = ue.getSystem().getName();
       _builder_4.append(_name);
       _builder_4.append(callParam);
       _builder_4.append("(");
-      final Function1<AlphaExpression, String> _function_3 = (AlphaExpression it) -> {
+      final Function1<AlphaExpression, CharSequence> _function_3 = (AlphaExpression it) -> {
         return this.doSwitch(it);
       };
-      String _join_2 = IterableExtensions.join(ListExtensions.<AlphaExpression, String>map(ue.getInputExprs(), _function_3), ", ");
+      String _join_2 = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getInputExprs(), _function_3), ", ");
       _builder_4.append(_join_2);
       _builder_4.append(");");
-      _xblockexpression = _builder_4.toString();
+      _xblockexpression = _builder_4;
     }
     return _xblockexpression;
   }
@@ -174,15 +174,15 @@ public class AShow extends Show {
    * AlphaExpression
    */
   @Override
-  public String caseDependenceExpression(final DependenceExpression de) {
-    String _xifexpression = null;
+  public CharSequence caseDependenceExpression(final DependenceExpression de) {
+    CharSequence _xifexpression = null;
     if (((de.getExpr() instanceof ConstantExpression) || (de.getExpr() instanceof VariableExpression))) {
       StringConcatenation _builder = new StringConcatenation();
-      String _doSwitch = this.doSwitch(de.getExpr());
+      CharSequence _doSwitch = this.doSwitch(de.getExpr());
       _builder.append(_doSwitch);
       String _printFunction = this.printFunction(de.getFunction());
       _builder.append(_printFunction);
-      _xifexpression = _builder.toString();
+      _xifexpression = _builder;
     } else {
       _xifexpression = this.show.doSwitch(de);
     }
@@ -190,7 +190,7 @@ public class AShow extends Show {
   }
   
   @Override
-  public String caseIndexExpression(final IndexExpression ie) {
+  public CharSequence caseIndexExpression(final IndexExpression ie) {
     return this.printFunction(ie.getFunction());
   }
   
@@ -215,7 +215,7 @@ public class AShow extends Show {
   }
   
   @Override
-  public String caseConvolutionExpression(final ConvolutionExpression ce) {
+  public CharSequence caseConvolutionExpression(final ConvolutionExpression ce) {
     final String kerDom = super.printDomain(ce.getKernelDomain());
     this.contextHistory.push(this.indexNameContext);
     final LinkedList<String> copy = new LinkedList<String>(this.indexNameContext);
@@ -225,10 +225,10 @@ public class AShow extends Show {
     _builder.append("conv(");
     _builder.append(kerDom);
     _builder.append(", ");
-    String _doSwitch = this.doSwitch(ce.getKernelExpression());
+    CharSequence _doSwitch = this.doSwitch(ce.getKernelExpression());
     _builder.append(_doSwitch);
     _builder.append(", ");
-    String _doSwitch_1 = this.doSwitch(ce.getDataExpression());
+    CharSequence _doSwitch_1 = this.doSwitch(ce.getDataExpression());
     _builder.append(_doSwitch_1);
     _builder.append(")");
     final String res = _builder.toString();
@@ -237,10 +237,10 @@ public class AShow extends Show {
   }
   
   @Override
-  public String caseSelectExpression(final SelectExpression se) {
+  public CharSequence caseSelectExpression(final SelectExpression se) {
     this.contextHistory.push(this.indexNameContext);
     this.indexNameContext = se.getSelectRelation().getRangeNames();
-    final String res = super.caseSelectExpression(se);
+    final CharSequence res = super.caseSelectExpression(se);
     this.indexNameContext = this.contextHistory.pop();
     return res;
   }

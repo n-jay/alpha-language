@@ -390,7 +390,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (alphaString: ");
 		result.append(alphaString);
 		result.append(", z__internal_cache_fuzzyMap: ");

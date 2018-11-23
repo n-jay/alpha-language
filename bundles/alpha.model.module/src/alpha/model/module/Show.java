@@ -25,7 +25,7 @@ public class Show extends AbstractAlphaModule<AlphaRoot> {
 	
 	@Override
 	public AlphaRoot compute() {
-		String s = alpha.model.util.Show.print((systemName != null)?root.getSystem(systemName):root);
+		CharSequence s = alpha.model.util.Show.print((systemName != null)?root.getSystem(systemName):root);
 		System.out.println(s);
 		
 		return root;

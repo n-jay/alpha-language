@@ -71,14 +71,14 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  * For now, Show will completely remove the calculator expression.
  */
 @SuppressWarnings("all")
-public class Show extends ModelSwitch<String> {
+public class Show extends ModelSwitch<CharSequence> {
   protected JNIISLSet parameterContext = null;
   
   public static <T extends AlphaVisitable> String print(final T av) {
     String _xblockexpression = null;
     {
       final Show show = new Show();
-      _xblockexpression = show.doSwitch(av);
+      _xblockexpression = show.doSwitch(av).toString();
     }
     return _xblockexpression;
   }
@@ -138,27 +138,31 @@ public class Show extends ModelSwitch<String> {
     return _xblockexpression;
   }
   
-  @Override
-  public String caseAlphaRoot(final AlphaRoot root) {
+  /**
+   * override
+   */
+  public CharSequence caseAlphaRoot(final AlphaRoot root) {
     StringConcatenation _builder = new StringConcatenation();
-    final Function1<Imports, String> _function = (Imports it) -> {
+    final Function1<Imports, CharSequence> _function = (Imports it) -> {
       return this.doSwitch(it);
     };
-    String _join = IterableExtensions.join(ListExtensions.<Imports, String>map(root.getImports(), _function), "\n");
+    String _join = IterableExtensions.join(ListExtensions.<Imports, CharSequence>map(root.getImports(), _function), "\n");
     _builder.append(_join);
     _builder.newLineIfNotEmpty();
     _builder.newLine();
-    final Function1<AlphaElement, String> _function_1 = (AlphaElement it) -> {
+    final Function1<AlphaElement, CharSequence> _function_1 = (AlphaElement it) -> {
       return this.doSwitch(it);
     };
-    String _join_1 = IterableExtensions.join(ListExtensions.<AlphaElement, String>map(root.getElements(), _function_1), "\n");
+    String _join_1 = IterableExtensions.join(ListExtensions.<AlphaElement, CharSequence>map(root.getElements(), _function_1), "\n");
     _builder.append(_join_1);
     _builder.newLineIfNotEmpty();
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseAlphaConstant(final AlphaConstant ac) {
+  /**
+   * override
+   */
+  public CharSequence caseAlphaConstant(final AlphaConstant ac) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("constant ");
     String _name = ac.getName();
@@ -166,11 +170,13 @@ public class Show extends ModelSwitch<String> {
     _builder.append(" = ");
     int _value = ac.getValue();
     _builder.append(_value);
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseExternalFunction(final ExternalFunction ef) {
+  /**
+   * override
+   */
+  public CharSequence caseExternalFunction(final ExternalFunction ef) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("external ");
     String _name = ef.getName();
@@ -179,20 +185,24 @@ public class Show extends ModelSwitch<String> {
     int _cardinality = ef.getCardinality();
     _builder.append(_cardinality);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseImports(final Imports i) {
+  /**
+   * override
+   */
+  public CharSequence caseImports(final Imports i) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("import ");
     String _importedNamespace = i.getImportedNamespace();
     _builder.append(_importedNamespace);
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseAlphaPackage(final AlphaPackage ap) {
+  /**
+   * override
+   */
+  public CharSequence caseAlphaPackage(final AlphaPackage ap) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package ");
     String _name = ap.getName();
@@ -200,21 +210,23 @@ public class Show extends ModelSwitch<String> {
     _builder.append(" {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
-    final Function1<AlphaElement, String> _function = (AlphaElement it) -> {
+    final Function1<AlphaElement, CharSequence> _function = (AlphaElement it) -> {
       return this.doSwitch(it);
     };
-    String _join = IterableExtensions.join(ListExtensions.<AlphaElement, String>map(ap.getElements(), _function), "\n");
+    String _join = IterableExtensions.join(ListExtensions.<AlphaElement, CharSequence>map(ap.getElements(), _function), "\n");
     _builder.append(_join, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseAlphaSystem(final AlphaSystem s) {
-    String _xblockexpression = null;
+  /**
+   * override
+   */
+  public CharSequence caseAlphaSystem(final AlphaSystem s) {
+    CharSequence _xblockexpression = null;
     {
       this.parameterContext = s.getParameterDomain();
       StringConcatenation _builder = new StringConcatenation();
@@ -234,10 +246,10 @@ public class Show extends ModelSwitch<String> {
           _builder.newLine();
           _builder.append("\t");
           _builder.append("\t");
-          final Function1<Variable, String> _function = (Variable it) -> {
+          final Function1<Variable, CharSequence> _function = (Variable it) -> {
             return this.doSwitch(it);
           };
-          String _join = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getInputs(), _function), "\n");
+          String _join = IterableExtensions.join(ListExtensions.<Variable, CharSequence>map(s.getInputs(), _function), "\n");
           _builder.append(_join, "\t\t");
           _builder.newLineIfNotEmpty();
         }
@@ -251,10 +263,10 @@ public class Show extends ModelSwitch<String> {
           _builder.newLine();
           _builder.append("\t");
           _builder.append("\t");
-          final Function1<Variable, String> _function_1 = (Variable it) -> {
+          final Function1<Variable, CharSequence> _function_1 = (Variable it) -> {
             return this.doSwitch(it);
           };
-          String _join_1 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getOutputs(), _function_1), "\n");
+          String _join_1 = IterableExtensions.join(ListExtensions.<Variable, CharSequence>map(s.getOutputs(), _function_1), "\n");
           _builder.append(_join_1, "\t\t");
           _builder.newLineIfNotEmpty();
         }
@@ -268,10 +280,10 @@ public class Show extends ModelSwitch<String> {
           _builder.newLine();
           _builder.append("\t");
           _builder.append("\t");
-          final Function1<Variable, String> _function_2 = (Variable it) -> {
+          final Function1<Variable, CharSequence> _function_2 = (Variable it) -> {
             return this.doSwitch(it);
           };
-          String _join_2 = IterableExtensions.join(ListExtensions.<Variable, String>map(s.getLocals(), _function_2), "\n");
+          String _join_2 = IterableExtensions.join(ListExtensions.<Variable, CharSequence>map(s.getLocals(), _function_2), "\n");
           _builder.append(_join_2, "\t\t");
           _builder.newLineIfNotEmpty();
         }
@@ -285,7 +297,7 @@ public class Show extends ModelSwitch<String> {
           String _printInstantiationDomain = this.printInstantiationDomain(s.getWhileDomain());
           _builder.append(_printInstantiationDomain, "\t");
           _builder.append(" while (");
-          String _doSwitch = this.doSwitch(s.getTestExpression());
+          CharSequence _doSwitch = this.doSwitch(s.getTestExpression());
           _builder.append(_doSwitch, "\t");
           _builder.append(")");
           _builder.newLineIfNotEmpty();
@@ -300,47 +312,53 @@ public class Show extends ModelSwitch<String> {
           _builder.append("\t");
           EList<UseEquation> _useEquations = s.getUseEquations();
           EList<StandardEquation> _equations = s.getEquations();
-          final Function1<AlphaVisitable, String> _function_3 = (AlphaVisitable it) -> {
+          final Function1<AlphaVisitable, CharSequence> _function_3 = (AlphaVisitable it) -> {
             return this.doSwitch(it);
           };
-          String _join_3 = IterableExtensions.join(IterableExtensions.<AlphaVisitable, String>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function_3), "\n\n");
+          String _join_3 = IterableExtensions.join(IterableExtensions.<AlphaVisitable, CharSequence>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function_3), "\n\n");
           _builder.append(_join_3, "\t\t");
           _builder.newLineIfNotEmpty();
         }
       }
       _builder.append(".");
       _builder.newLine();
-      _xblockexpression = _builder.toString();
+      _xblockexpression = _builder;
     }
     return _xblockexpression;
   }
   
-  @Override
-  public String caseVariable(final Variable v) {
+  /**
+   * override
+   */
+  public CharSequence caseVariable(final Variable v) {
     StringConcatenation _builder = new StringConcatenation();
     String _name = v.getName();
     _builder.append(_name);
     _builder.append(" : ");
     String _printVariableDeclarationDomain = this.printVariableDeclarationDomain(v.getDomain());
     _builder.append(_printVariableDeclarationDomain);
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseStandardEquation(final StandardEquation se) {
+  /**
+   * override
+   */
+  public CharSequence caseStandardEquation(final StandardEquation se) {
     StringConcatenation _builder = new StringConcatenation();
     String _name = se.getVariable().getName();
     _builder.append(_name);
     _builder.append(" = ");
-    String _doSwitch = this.doSwitch(se.getExpr());
+    CharSequence _doSwitch = this.doSwitch(se.getExpr());
     _builder.append(_doSwitch);
     _builder.append(";");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseUseEquation(final UseEquation ue) {
-    String _xblockexpression = null;
+  /**
+   * override
+   */
+  public CharSequence caseUseEquation(final UseEquation ue) {
+    CharSequence _xblockexpression = null;
     {
       String _xifexpression = null;
       if (((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbDims() > 0))) {
@@ -359,48 +377,49 @@ public class Show extends ModelSwitch<String> {
       StringConcatenation _builder_2 = new StringConcatenation();
       _builder_2.append(idom);
       _builder_2.append("(");
-      final Function1<AlphaExpression, String> _function = (AlphaExpression it) -> {
+      final Function1<AlphaExpression, CharSequence> _function = (AlphaExpression it) -> {
         return this.doSwitch(it);
       };
-      String _join = IterableExtensions.join(ListExtensions.<AlphaExpression, String>map(ue.getOutputExprs(), _function), ", ");
+      String _join = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getOutputExprs(), _function), ", ");
       _builder_2.append(_join);
       _builder_2.append(") = ");
       String _name = ue.getSystem().getName();
       _builder_2.append(_name);
       _builder_2.append(callParam);
       _builder_2.append("(");
-      final Function1<AlphaExpression, String> _function_1 = (AlphaExpression it) -> {
+      final Function1<AlphaExpression, CharSequence> _function_1 = (AlphaExpression it) -> {
         return this.doSwitch(it);
       };
-      String _join_1 = IterableExtensions.join(ListExtensions.<AlphaExpression, String>map(ue.getInputExprs(), _function_1), ", ");
+      String _join_1 = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getInputExprs(), _function_1), ", ");
       _builder_2.append(_join_1);
       _builder_2.append(");");
-      _xblockexpression = _builder_2.toString();
+      _xblockexpression = _builder_2;
     }
     return _xblockexpression;
   }
   
   /**
-   * AlphaExpression
+   * override
    */
-  @Override
-  public String caseIfExpression(final IfExpression ie) {
+  public CharSequence caseIfExpression(final IfExpression ie) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("if ");
-    String _doSwitch = this.doSwitch(ie.getCondExpr());
+    CharSequence _doSwitch = this.doSwitch(ie.getCondExpr());
     _builder.append(_doSwitch);
     _builder.append(" then ");
-    String _doSwitch_1 = this.doSwitch(ie.getThenExpr());
+    CharSequence _doSwitch_1 = this.doSwitch(ie.getThenExpr());
     _builder.append(_doSwitch_1);
     _builder.append(" else ");
-    String _doSwitch_2 = this.doSwitch(ie.getElseExpr());
+    CharSequence _doSwitch_2 = this.doSwitch(ie.getElseExpr());
     _builder.append(_doSwitch_2);
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseRestrictExpression(final RestrictExpression re) {
-    String _xblockexpression = null;
+  /**
+   * override
+   */
+  public CharSequence caseRestrictExpression(final RestrictExpression re) {
+    CharSequence _xblockexpression = null;
     {
       String _xifexpression = null;
       if (((re.getDomainExpr() instanceof JNIDomain) || (re.getDomainExpr() instanceof JNIDomainInArrayNotation))) {
@@ -414,51 +433,55 @@ public class Show extends ModelSwitch<String> {
         _xifexpression = _builder.toString();
       }
       final String domStr = _xifexpression;
-      String _xifexpression_1 = null;
+      CharSequence _xifexpression_1 = null;
       if (((re.eContainer() instanceof UnaryExpression) || (re.eContainer() instanceof BinaryExpression))) {
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("(");
         _builder_1.append(domStr);
         _builder_1.append(" : ");
-        String _doSwitch = this.doSwitch(re.getExpr());
+        CharSequence _doSwitch = this.doSwitch(re.getExpr());
         _builder_1.append(_doSwitch);
         _builder_1.append(")");
-        _xifexpression_1 = _builder_1.toString();
+        _xifexpression_1 = _builder_1;
       } else {
         StringConcatenation _builder_2 = new StringConcatenation();
         _builder_2.append(domStr);
         _builder_2.append(" : ");
-        String _doSwitch_1 = this.doSwitch(re.getExpr());
+        CharSequence _doSwitch_1 = this.doSwitch(re.getExpr());
         _builder_2.append(_doSwitch_1);
-        _xifexpression_1 = _builder_2.toString();
+        _xifexpression_1 = _builder_2;
       }
       _xblockexpression = _xifexpression_1;
     }
     return _xblockexpression;
   }
   
-  @Override
-  public String caseAutoRestrictExpression(final AutoRestrictExpression are) {
-    String _xifexpression = null;
+  /**
+   * override
+   */
+  public CharSequence caseAutoRestrictExpression(final AutoRestrictExpression are) {
+    CharSequence _xifexpression = null;
     if (((are.eContainer() instanceof UnaryExpression) || (are.eContainer() instanceof BinaryExpression))) {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("(auto : ");
-      String _doSwitch = this.doSwitch(are.getExpr());
+      CharSequence _doSwitch = this.doSwitch(are.getExpr());
       _builder.append(_doSwitch);
       _builder.append(")");
-      _xifexpression = _builder.toString();
+      _xifexpression = _builder;
     } else {
       StringConcatenation _builder_1 = new StringConcatenation();
       _builder_1.append("auto : ");
-      String _doSwitch_1 = this.doSwitch(are.getExpr());
+      CharSequence _doSwitch_1 = this.doSwitch(are.getExpr());
       _builder_1.append(_doSwitch_1);
-      _xifexpression = _builder_1.toString();
+      _xifexpression = _builder_1;
     }
     return _xifexpression;
   }
   
-  @Override
-  public String caseCaseExpression(final CaseExpression ce) {
+  /**
+   * override
+   */
+  public CharSequence caseCaseExpression(final CaseExpression ce) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("case ");
     {
@@ -479,63 +502,75 @@ public class Show extends ModelSwitch<String> {
     _builder.append(_join, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseDependenceExpression(final DependenceExpression de) {
-    String _xifexpression = null;
+  /**
+   * override
+   */
+  public CharSequence caseDependenceExpression(final DependenceExpression de) {
+    CharSequence _xifexpression = null;
     if ((((((de.getExpr() instanceof IfExpression) || (de.getExpr() instanceof RestrictExpression)) || (de.getExpr() instanceof AutoRestrictExpression)) || (de.getExpr() instanceof UnaryExpression)) || (de.getExpr() instanceof BinaryExpression))) {
       StringConcatenation _builder = new StringConcatenation();
       String _printFunction = this.printFunction(de.getFunction());
       _builder.append(_printFunction);
       _builder.append("@(");
-      String _doSwitch = this.doSwitch(de.getExpr());
+      CharSequence _doSwitch = this.doSwitch(de.getExpr());
       _builder.append(_doSwitch);
       _builder.append(")");
-      _xifexpression = _builder.toString();
+      _xifexpression = _builder;
     } else {
       StringConcatenation _builder_1 = new StringConcatenation();
       String _printFunction_1 = this.printFunction(de.getFunction());
       _builder_1.append(_printFunction_1);
       _builder_1.append("@");
-      String _doSwitch_1 = this.doSwitch(de.getExpr());
+      CharSequence _doSwitch_1 = this.doSwitch(de.getExpr());
       _builder_1.append(_doSwitch_1);
-      _xifexpression = _builder_1.toString();
+      _xifexpression = _builder_1;
     }
     return _xifexpression;
   }
   
-  @Override
-  public String caseIndexExpression(final IndexExpression ie) {
+  /**
+   * override
+   */
+  public CharSequence caseIndexExpression(final IndexExpression ie) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("val ");
     String _printFunction = this.printFunction(ie.getFunction());
     _builder.append(_printFunction);
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
+  /**
+   * override
+   */
   public String caseReduceExpression(final ReduceExpression re) {
     return this.printAbstractReduceExpression(re);
   }
   
-  @Override
+  /**
+   * override
+   */
   public String caseExternalReduceExpression(final ExternalReduceExpression ere) {
     return this.printAbstractReduceExpression(ere);
   }
   
-  @Override
+  /**
+   * override
+   */
   public String caseArgReduceExpression(final ArgReduceExpression re) {
     return this.printAbstractReduceExpression(re);
   }
   
-  @Override
+  /**
+   * override
+   */
   public String caseExternalArgReduceExpression(final ExternalArgReduceExpression ere) {
     return this.printAbstractReduceExpression(ere);
   }
   
-  protected CharSequence _printReduceExpression(final ReduceExpression re, final String proj, final String body) {
+  protected CharSequence _printReduceExpression(final ReduceExpression re, final CharSequence proj, final CharSequence body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("reduce(");
     String _printReductionOP = this.printReductionOP(re.getOperator());
@@ -548,7 +583,7 @@ public class Show extends ModelSwitch<String> {
     return _builder;
   }
   
-  protected CharSequence _printReduceExpression(final ExternalReduceExpression ere, final String proj, final String body) {
+  protected CharSequence _printReduceExpression(final ExternalReduceExpression ere, final CharSequence proj, final CharSequence body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("reduce(");
     String _name = ere.getExternalFunction().getName();
@@ -561,7 +596,7 @@ public class Show extends ModelSwitch<String> {
     return _builder;
   }
   
-  protected CharSequence _printReduceExpression(final ArgReduceExpression are, final String proj, final String body) {
+  protected CharSequence _printReduceExpression(final ArgReduceExpression are, final CharSequence proj, final CharSequence body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("argreduce(");
     String _printReductionOP = this.printReductionOP(are.getOperator());
@@ -574,7 +609,7 @@ public class Show extends ModelSwitch<String> {
     return _builder;
   }
   
-  protected CharSequence _printReduceExpression(final ExternalArgReduceExpression aere, final String proj, final String body) {
+  protected CharSequence _printReduceExpression(final ExternalArgReduceExpression aere, final CharSequence proj, final CharSequence body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("argreduce(");
     String _name = aere.getExternalFunction().getName();
@@ -591,7 +626,7 @@ public class Show extends ModelSwitch<String> {
     return AlphaPrintingUtil.toShowString(maff);
   }
   
-  protected String printReductionBody(final AlphaExpression expr) {
+  protected CharSequence printReductionBody(final AlphaExpression expr) {
     return this.doSwitch(expr);
   }
   
@@ -614,161 +649,186 @@ public class Show extends ModelSwitch<String> {
     String _xblockexpression = null;
     {
       final String proj = this.printProjectionFunction(are.getProjection());
-      final String body = this.printReductionBody(are.getBody());
+      final CharSequence body = this.printReductionBody(are.getBody());
       _xblockexpression = this.printReduceExpression(are, proj, body).toString();
     }
     return _xblockexpression;
   }
   
-  @Override
-  public String caseConvolutionExpression(final ConvolutionExpression ce) {
+  /**
+   * override
+   */
+  public CharSequence caseConvolutionExpression(final ConvolutionExpression ce) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("conv(");
     String _printDomain = this.printDomain(ce.getKernelDomain());
     _builder.append(_printDomain);
     _builder.append(", ");
-    String _doSwitch = this.doSwitch(ce.getKernelExpression());
+    CharSequence _doSwitch = this.doSwitch(ce.getKernelExpression());
     _builder.append(_doSwitch);
     _builder.append(", ");
-    String _doSwitch_1 = this.doSwitch(ce.getDataExpression());
+    CharSequence _doSwitch_1 = this.doSwitch(ce.getDataExpression());
     _builder.append(_doSwitch_1);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseSelectExpression(final SelectExpression se) {
+  /**
+   * override
+   */
+  public CharSequence caseSelectExpression(final SelectExpression se) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("select ");
     String _printRelation = this.printRelation(se.getSelectRelation());
     _builder.append(_printRelation);
     _builder.append(" from ");
-    String _doSwitch = this.doSwitch(se.getExpr());
+    CharSequence _doSwitch = this.doSwitch(se.getExpr());
     _builder.append(_doSwitch);
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseBinaryExpression(final BinaryExpression be) {
+  /**
+   * override
+   */
+  public CharSequence caseBinaryExpression(final BinaryExpression be) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("(");
-    String _doSwitch = this.doSwitch(be.getLeft());
+    CharSequence _doSwitch = this.doSwitch(be.getLeft());
     _builder.append(_doSwitch);
     _builder.append(" ");
     BINARY_OP _operator = be.getOperator();
     _builder.append(_operator);
     _builder.append(" ");
-    String _doSwitch_1 = this.doSwitch(be.getRight());
+    CharSequence _doSwitch_1 = this.doSwitch(be.getRight());
     _builder.append(_doSwitch_1);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseMultiArgExpression(final MultiArgExpression mae) {
+  /**
+   * override
+   */
+  public CharSequence caseMultiArgExpression(final MultiArgExpression mae) {
     StringConcatenation _builder = new StringConcatenation();
     REDUCTION_OP _operator = mae.getOperator();
     _builder.append(_operator);
     _builder.append("(");
-    final Function1<AlphaExpression, String> _function = (AlphaExpression it) -> {
+    final Function1<AlphaExpression, CharSequence> _function = (AlphaExpression it) -> {
       return this.doSwitch(it);
     };
-    String _join = IterableExtensions.join(ListExtensions.<AlphaExpression, String>map(mae.getExprs(), _function), ", ");
+    String _join = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(mae.getExprs(), _function), ", ");
     _builder.append(_join);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseExternalMultiArgExpression(final ExternalMultiArgExpression emae) {
+  /**
+   * override
+   */
+  public CharSequence caseExternalMultiArgExpression(final ExternalMultiArgExpression emae) {
     StringConcatenation _builder = new StringConcatenation();
     String _name = emae.getExternalFunction().getName();
     _builder.append(_name);
     _builder.append("(");
-    final Function1<AlphaExpression, String> _function = (AlphaExpression it) -> {
+    final Function1<AlphaExpression, CharSequence> _function = (AlphaExpression it) -> {
       return this.doSwitch(it);
     };
-    String _join = IterableExtensions.join(ListExtensions.<AlphaExpression, String>map(emae.getExprs(), _function), ", ");
+    String _join = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(emae.getExprs(), _function), ", ");
     _builder.append(_join);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseUnaryExpression(final UnaryExpression ue) {
+  /**
+   * override
+   */
+  public CharSequence caseUnaryExpression(final UnaryExpression ue) {
     StringConcatenation _builder = new StringConcatenation();
     UNARY_OP _operator = ue.getOperator();
     _builder.append(_operator);
     _builder.append(" ");
-    String _doSwitch = this.doSwitch(ue.getExpr());
+    CharSequence _doSwitch = this.doSwitch(ue.getExpr());
     _builder.append(_doSwitch);
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
+  /**
+   * override
+   */
   public String caseVariableExpression(final VariableExpression ve) {
     return ve.getVariable().getName();
   }
   
-  @Override
+  /**
+   * override
+   */
   public String caseBooleanExpression(final BooleanExpression be) {
     return Boolean.valueOf(be.isValue()).toString();
   }
   
-  @Override
+  /**
+   * override
+   */
   public String caseIntegerExpression(final IntegerExpression ie) {
     return Integer.valueOf(ie.getValue()).toString();
   }
   
-  @Override
+  /**
+   * override
+   */
   public String caseRealExpression(final RealExpression re) {
     return Float.valueOf(re.getValue()).toString();
   }
   
   /**
-   * CalculatorExpression
+   * override
    */
-  @Override
-  public String caseBinaryCalculatorExpression(final BinaryCalculatorExpression bce) {
+  public CharSequence caseBinaryCalculatorExpression(final BinaryCalculatorExpression bce) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("(");
-    String _doSwitch = this.doSwitch(bce.getLeft());
+    CharSequence _doSwitch = this.doSwitch(bce.getLeft());
     _builder.append(_doSwitch);
     _builder.append(" ");
     CALCULATOR_BINARY_OP _operator = bce.getOperator();
     _builder.append(_operator);
     _builder.append(" ");
-    String _doSwitch_1 = this.doSwitch(bce.getRight());
+    CharSequence _doSwitch_1 = this.doSwitch(bce.getRight());
     _builder.append(_doSwitch_1);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseUnaryCalculatorExpression(final UnaryCalculatorExpression uce) {
+  /**
+   * override
+   */
+  public CharSequence caseUnaryCalculatorExpression(final UnaryCalculatorExpression uce) {
     StringConcatenation _builder = new StringConcatenation();
     CALCULATOR_UNARY_OP _operator = uce.getOperator();
     _builder.append(_operator);
     _builder.append(" ");
-    String _doSwitch = this.doSwitch(uce.getExpr());
+    CharSequence _doSwitch = this.doSwitch(uce.getExpr());
     _builder.append(_doSwitch);
     _builder.append(")");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseVariableDomain(final VariableDomain vd) {
+  /**
+   * override
+   */
+  public CharSequence caseVariableDomain(final VariableDomain vd) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("{ ");
     String _name = vd.getVariable().getName();
     _builder.append(_name);
     _builder.append(" }");
-    return _builder.toString();
+    return _builder;
   }
   
-  @Override
-  public String caseRectangularDomain(final RectangularDomain rd) {
-    String _xblockexpression = null;
+  /**
+   * override
+   */
+  public CharSequence caseRectangularDomain(final RectangularDomain rd) {
+    CharSequence _xblockexpression = null;
     {
       String _xifexpression = null;
       if (((rd.getIndexNames() != null) && (((Object[])Conversions.unwrapArray(rd.getIndexNames(), Object.class)).length == ((Object[])Conversions.unwrapArray(rd.getUpperBounds(), Object.class)).length))) {
@@ -789,17 +849,19 @@ public class Show extends ModelSwitch<String> {
       _builder_2.append(_join_1);
       _builder_2.append("] ");
       _builder_2.append(inames);
-      _xblockexpression = _builder_2.toString();
+      _xblockexpression = _builder_2;
     }
     return _xblockexpression;
   }
   
-  @Override
+  /**
+   * override
+   */
   public String caseDefinedObject(final DefinedObject dobj) {
     return dobj.getObject().getName();
   }
   
-  protected CharSequence printReduceExpression(final AbstractReduceExpression aere, final String proj, final String body) {
+  protected CharSequence printReduceExpression(final AbstractReduceExpression aere, final CharSequence proj, final CharSequence body) {
     if (aere instanceof ExternalArgReduceExpression) {
       return _printReduceExpression((ExternalArgReduceExpression)aere, proj, body);
     } else if (aere instanceof ExternalReduceExpression) {

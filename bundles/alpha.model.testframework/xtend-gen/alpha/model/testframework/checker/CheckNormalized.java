@@ -59,7 +59,9 @@ public class CheckNormalized extends ModelSwitch<Boolean> {
     return Boolean.valueOf(_xblockexpression);
   }
   
-  @Override
+  /**
+   * override
+   */
   public Boolean caseCaseExpression(final CaseExpression ce) {
     boolean _xblockexpression = false;
     {
@@ -71,7 +73,9 @@ public class CheckNormalized extends ModelSwitch<Boolean> {
     return Boolean.valueOf(_xblockexpression);
   }
   
-  @Override
+  /**
+   * override
+   */
   public Boolean caseRestrictExpression(final RestrictExpression re) {
     boolean _xblockexpression = false;
     {
@@ -83,7 +87,9 @@ public class CheckNormalized extends ModelSwitch<Boolean> {
     return Boolean.valueOf(_xblockexpression);
   }
   
-  @Override
+  /**
+   * override
+   */
   public Boolean caseDependenceExpression(final DependenceExpression de) {
     return Boolean.valueOf(((de.getExpr() instanceof VariableExpression) || (de.getExpr() instanceof ConstantExpression)));
   }

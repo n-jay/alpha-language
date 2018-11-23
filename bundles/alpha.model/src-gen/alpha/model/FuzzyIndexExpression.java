@@ -51,7 +51,6 @@ public interface FuzzyIndexExpression extends AlphaExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _xifexpression = null;\n&lt;%alpha.model.FuzzyFunction%&gt; _fuzzyFunction = this.getFuzzyFunction();\nboolean _tripleNotEquals = (_fuzzyFunction != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getFuzzyFunction().getDependenceRelation();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLMap getDependenceRelation();
@@ -60,7 +59,6 @@ public interface FuzzyIndexExpression extends AlphaExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitFuzzyIndexExpression(this);'"
 	 * @generated
 	 */
 	void accept(AlphaExpressionVisitor visitor);
