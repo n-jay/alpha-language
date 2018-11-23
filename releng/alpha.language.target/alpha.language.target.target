@@ -37,7 +37,8 @@
 <unit id="org.eclipse.emf.validation.sdk.feature.group" range="[1.11.0, 2.0.0)"/>
 <unit id="org.eclipse.xtend.sdk.feature.group" range="[2.15.0,3.0.0)"/>
 <unit id="org.eclipse.xtext.sdk.feature.group" range="[2.15.0,3.0.0)"/>
-<repository location="http://download.eclipse.org/releases/2018-09/"/>
+<!--<repository location="http://download.eclipse.org/releases/2018-09/"/>-->
+<repository location="http://download.eclipse.org/eclipse/updates/4.9/R-4.9-201809060745/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" range="[1.5.0,2.0.0)"/>
