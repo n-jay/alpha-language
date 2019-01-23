@@ -423,26 +423,43 @@ class StandardEquation extends AlphaVisitable {
 	}
 }
 class UseEquation extends AlphaVisitable {
-	refers AlphaSystem system
 	contains CalculatorExpression instantiationDomainExpr
-	contains JNIFunctionInArrayNotation callParamsExpr
 	String[] subsystemDims
-	contains AlphaExpression[] inputExprs
-	contains AlphaExpression[] outputExprs
-	
+	contains UseExpression expr
 	
 	op JNIISLSet getInstantiationDomain() {
 		if (instantiationDomainExpr.^type != POLY_OBJECT_TYPE.SET) null
 		else instantiationDomainExpr.ISLObject as JNIISLSet
 	}
 	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitUseEquation(this)
+	}
+}
+
+abstract class UseExpression extends AlphaExpression {
+	
+}
+
+
+class SubSystemCaseExpression extends UseExpression {
+	contains UseExpression[] exprs
+}
+
+class SubSystemRestrictExpression extends UseExpression {
+	contains CalculatorExpression domainExpr
+	contains UseExpression expr
+}
+
+class SubSystemCallExpression extends UseExpression {
+	refers AlphaSystem system
+	contains JNIFunctionInArrayNotation callParamsExpr
+	contains AlphaExpression[] inputExprs
+	contains AlphaExpression[] outputExprs
+	
 	op JNIISLMultiAff getCallParams() {
 		if (callParamsExpr.^type != POLY_OBJECT_TYPE.FUNCTION) null
 		else callParamsExpr.ISLObject as JNIISLMultiAff
-	}
-	
-	op void accept(AlphaVisitor visitor) {
-		visitor.visitUseEquation(this)
 	}
 }
 

@@ -18,6 +18,7 @@ public interface CalculatorExpression extends CalculatorNode, CalculatorExpressi
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitCalculatorExpression(this);'"
 	 * @generated
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
@@ -30,6 +31,7 @@ public interface CalculatorExpression extends CalculatorNode, CalculatorExpressi
 	 * toString without using ISL objects
 	 * <!-- end-model-doc -->
 	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='throw new &lt;%java.lang.UnsupportedOperationException%&gt;();'"
 	 * @generated
 	 */
 	String plainToString();

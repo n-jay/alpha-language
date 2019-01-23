@@ -18,6 +18,7 @@ public interface ArgReduceExpression extends AbstractReduceExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitArgReduceExpression(this);'"
 	 * @generated
 	 */
 	void accept(AlphaExpressionVisitor visitor);

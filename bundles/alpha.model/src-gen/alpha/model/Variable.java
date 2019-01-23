@@ -78,6 +78,7 @@ public interface Variable extends AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%alpha.model.POLY_OBJECT_TYPE%&gt; _type = this.getDomainExpr().getType();\nboolean _notEquals = (!&lt;%com.google.common.base.Objects%&gt;.equal(_type, &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET));\nif (_notEquals)\n{\n\treturn null;\n}\ntry\n{\n\t&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\n\t&lt;%alpha.model.POLY_OBJECT_TYPE%&gt; _type_1 = this.getDomainExpr().getType();\n\tboolean _notEquals_1 = (!&lt;%com.google.common.base.Objects%&gt;.equal(_type_1, &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET));\n\tif (_notEquals_1)\n\t{\n\t\t_xifexpression = null;\n\t}\n\telse\n\t{\n\t\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getDomainExpr().getISLObject();\n\t\t_xifexpression = ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;) _iSLObject);\n\t}\n\treturn _xifexpression;\n}\ncatch (final Throwable _t) {\n\tif (_t instanceof &lt;%alpha.model.exception.CyclicDefinitionException%&gt;) {\n\t\treturn null;\n\t}\n\telse\n\t{\n\t\tthrow &lt;%org.eclipse.xtext.xbase.lib.Exceptions%&gt;.sneakyThrow(_t);\n\t}\n}'"
 	 * @generated
 	 */
 	JNIISLSet getDomain();
@@ -86,6 +87,7 @@ public interface Variable extends AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return ((this.eContainmentFeature() != null) &amp;&amp; (this.eContainmentFeature() == &lt;%alpha.model.ModelPackage.Literals%&gt;.ALPHA_SYSTEM__INPUTS));'"
 	 * @generated
 	 */
 	boolean isInput();
@@ -94,6 +96,7 @@ public interface Variable extends AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return ((this.eContainmentFeature() != null) &amp;&amp; (this.eContainmentFeature() == &lt;%alpha.model.ModelPackage.Literals%&gt;.ALPHA_SYSTEM__OUTPUTS));'"
 	 * @generated
 	 */
 	boolean isOutput();
@@ -102,6 +105,7 @@ public interface Variable extends AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return ((this.eContainmentFeature() != null) &amp;&amp; (this.eContainmentFeature() == &lt;%alpha.model.ModelPackage.Literals%&gt;.ALPHA_SYSTEM__LOCALS));'"
 	 * @generated
 	 */
 	boolean isLocal();
@@ -110,6 +114,7 @@ public interface Variable extends AlphaVisitable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitVariable(this);'"
 	 * @generated
 	 */
 	void accept(AlphaVisitor visitor);

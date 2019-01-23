@@ -358,44 +358,17 @@ public class Show extends ModelSwitch<CharSequence> {
    * override
    */
   public CharSequence caseUseEquation(final UseEquation ue) {
-    CharSequence _xblockexpression = null;
-    {
-      String _xifexpression = null;
-      if (((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbDims() > 0))) {
-        StringConcatenation _builder = new StringConcatenation();
-        _builder.append("over ");
-        String _printInstantiationDomain = this.printInstantiationDomain(ue.getInstantiationDomain());
-        _builder.append(_printInstantiationDomain);
-        _builder.append(" : ");
-        _xifexpression = _builder.toString();
-      } else {
-        StringConcatenation _builder_1 = new StringConcatenation();
-        _xifexpression = _builder_1.toString();
-      }
-      final String idom = _xifexpression;
-      final CharSequence callParam = this.printSubsystemCallParams(ue.getCallParamsExpr(), ue.getInstantiationDomain());
-      StringConcatenation _builder_2 = new StringConcatenation();
-      _builder_2.append(idom);
-      _builder_2.append("(");
-      final Function1<AlphaExpression, CharSequence> _function = (AlphaExpression it) -> {
-        return this.doSwitch(it);
-      };
-      String _join = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getOutputExprs(), _function), ", ");
-      _builder_2.append(_join);
-      _builder_2.append(") = ");
-      String _name = ue.getSystem().getName();
-      _builder_2.append(_name);
-      _builder_2.append(callParam);
-      _builder_2.append("(");
-      final Function1<AlphaExpression, CharSequence> _function_1 = (AlphaExpression it) -> {
-        return this.doSwitch(it);
-      };
-      String _join_1 = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getInputExprs(), _function_1), ", ");
-      _builder_2.append(_join_1);
-      _builder_2.append(");");
-      _xblockexpression = _builder_2;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field callParamsExpr is undefined for the type UseEquation"
+      + "\nThe method or field outputExprs is undefined for the type UseEquation"
+      + "\nThe method or field system is undefined for the type UseEquation"
+      + "\nThe method or field inputExprs is undefined for the type UseEquation"
+      + "\nprintSubsystemCallParams cannot be resolved"
+      + "\nmap cannot be resolved"
+      + "\njoin cannot be resolved"
+      + "\nname cannot be resolved"
+      + "\nmap cannot be resolved"
+      + "\njoin cannot be resolved");
   }
   
   /**
@@ -545,28 +518,28 @@ public class Show extends ModelSwitch<CharSequence> {
   /**
    * override
    */
-  public String caseReduceExpression(final ReduceExpression re) {
+  public CharSequence caseReduceExpression(final ReduceExpression re) {
     return this.printAbstractReduceExpression(re);
   }
   
   /**
    * override
    */
-  public String caseExternalReduceExpression(final ExternalReduceExpression ere) {
+  public CharSequence caseExternalReduceExpression(final ExternalReduceExpression ere) {
     return this.printAbstractReduceExpression(ere);
   }
   
   /**
    * override
    */
-  public String caseArgReduceExpression(final ArgReduceExpression re) {
+  public CharSequence caseArgReduceExpression(final ArgReduceExpression re) {
     return this.printAbstractReduceExpression(re);
   }
   
   /**
    * override
    */
-  public String caseExternalArgReduceExpression(final ExternalArgReduceExpression ere) {
+  public CharSequence caseExternalArgReduceExpression(final ExternalArgReduceExpression ere) {
     return this.printAbstractReduceExpression(ere);
   }
   
@@ -755,28 +728,28 @@ public class Show extends ModelSwitch<CharSequence> {
   /**
    * override
    */
-  public String caseVariableExpression(final VariableExpression ve) {
+  public CharSequence caseVariableExpression(final VariableExpression ve) {
     return ve.getVariable().getName();
   }
   
   /**
    * override
    */
-  public String caseBooleanExpression(final BooleanExpression be) {
+  public CharSequence caseBooleanExpression(final BooleanExpression be) {
     return Boolean.valueOf(be.isValue()).toString();
   }
   
   /**
    * override
    */
-  public String caseIntegerExpression(final IntegerExpression ie) {
+  public CharSequence caseIntegerExpression(final IntegerExpression ie) {
     return Integer.valueOf(ie.getValue()).toString();
   }
   
   /**
    * override
    */
-  public String caseRealExpression(final RealExpression re) {
+  public CharSequence caseRealExpression(final RealExpression re) {
     return Float.valueOf(re.getValue()).toString();
   }
   
@@ -857,7 +830,7 @@ public class Show extends ModelSwitch<CharSequence> {
   /**
    * override
    */
-  public String caseDefinedObject(final DefinedObject dobj) {
+  public CharSequence caseDefinedObject(final DefinedObject dobj) {
     return dobj.getObject().getName();
   }
   

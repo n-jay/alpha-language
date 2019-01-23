@@ -78,6 +78,7 @@ public interface AutoRestrictExpression extends AlphaExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_inferredDomain = this.getZ__internal_cache_inferredDomain();\nboolean _tripleNotEquals = (_z__internal_cache_inferredDomain != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getZ__internal_cache_inferredDomain().copy();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLSet getInferredDomain();
@@ -86,6 +87,7 @@ public interface AutoRestrictExpression extends AlphaExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model islsetDataType="alpha.model.JNIISLSet" islsetUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_inferredDomain(islset);'"
 	 * @generated
 	 */
 	void setInferredDomain(JNIISLSet islset);
@@ -94,6 +96,7 @@ public interface AutoRestrictExpression extends AlphaExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitAutoRestrictExpression(this);'"
 	 * @generated
 	 */
 	void accept(AlphaExpressionVisitor visitor);

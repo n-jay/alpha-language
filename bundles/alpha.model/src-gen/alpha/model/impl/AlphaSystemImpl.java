@@ -22,6 +22,8 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
+import java.lang.Iterable;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -654,7 +656,7 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuilder result = new StringBuilder(super.toString());
+		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(')');

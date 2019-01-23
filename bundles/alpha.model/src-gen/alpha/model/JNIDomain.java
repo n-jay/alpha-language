@@ -80,6 +80,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_islSet = this.getZ__internal_cache_islSet();\nboolean _tripleNotEquals = (_z__internal_cache_islSet != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getZ__internal_cache_islSet().copy();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLSet getISLSet();
@@ -88,6 +89,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model islsetDataType="alpha.model.JNIISLSet" islsetUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_islSet(islset);'"
 	 * @generated
 	 */
 	void setISLSet(JNIISLSet islset);
@@ -96,6 +98,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%alpha.model.POLY_OBJECT_TYPE%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_islSet = this.getZ__internal_cache_islSet();\nboolean _tripleNotEquals = (_z__internal_cache_islSet != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET;\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	POLY_OBJECT_TYPE getType();
@@ -104,6 +107,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getISLSet();'"
 	 * @generated
 	 */
 	JNIObject getISLObject();
@@ -112,6 +116,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_islSet = this.getZ__internal_cache_islSet();\nboolean _tripleNotEquals = (_z__internal_cache_islSet != null);\nif (_tripleNotEquals)\n{\n\treturn this.getZ__internal_cache_islSet().toString(&lt;%fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT%&gt;.ISL);\n}\nelse\n{\n\treturn \"null ISL object\";\n}'"
 	 * @generated
 	 */
 	String toString();
@@ -120,6 +125,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getIslString();'"
 	 * @generated
 	 */
 	String plainToString();
@@ -128,6 +134,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitJNIDomain(this);'"
 	 * @generated
 	 */
 	void accept(CalculatorExpressionVisitor visitor);

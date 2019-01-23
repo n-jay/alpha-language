@@ -75,6 +75,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.FUZZY_VARIABLE: return createFuzzyVariable();
 			case ModelPackage.STANDARD_EQUATION: return createStandardEquation();
 			case ModelPackage.USE_EQUATION: return createUseEquation();
+			case ModelPackage.SUB_SYSTEM_CASE_EXPRESSION: return createSubSystemCaseExpression();
+			case ModelPackage.SUB_SYSTEM_RESTRICT_EXPRESSION: return createSubSystemRestrictExpression();
+			case ModelPackage.SUB_SYSTEM_CALL_EXPRESSION: return createSubSystemCallExpression();
 			case ModelPackage.RESTRICT_EXPRESSION: return createRestrictExpression();
 			case ModelPackage.AUTO_RESTRICT_EXPRESSION: return createAutoRestrictExpression();
 			case ModelPackage.CASE_EXPRESSION: return createCaseExpression();
@@ -293,6 +296,36 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public UseEquation createUseEquation() {
 		UseEquationImpl useEquation = new UseEquationImpl();
 		return useEquation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubSystemCaseExpression createSubSystemCaseExpression() {
+		SubSystemCaseExpressionImpl subSystemCaseExpression = new SubSystemCaseExpressionImpl();
+		return subSystemCaseExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubSystemRestrictExpression createSubSystemRestrictExpression() {
+		SubSystemRestrictExpressionImpl subSystemRestrictExpression = new SubSystemRestrictExpressionImpl();
+		return subSystemRestrictExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubSystemCallExpression createSubSystemCallExpression() {
+		SubSystemCallExpressionImpl subSystemCallExpression = new SubSystemCallExpressionImpl();
+		return subSystemCallExpression;
 	}
 
 	/**

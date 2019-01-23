@@ -114,6 +114,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _z__internal_cache_islSet = this.getZ__internal_cache_islSet();\nboolean _tripleNotEquals = (_z__internal_cache_islSet != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getZ__internal_cache_islSet().copy();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLSet getISLSet();
@@ -122,6 +123,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model islsetDataType="alpha.model.JNIISLSet" islsetUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_islSet(islset);'"
 	 * @generated
 	 */
 	void setISLSet(JNIISLSet islset);
@@ -130,6 +132,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET;'"
 	 * @generated
 	 */
 	POLY_OBJECT_TYPE getType();
@@ -138,6 +141,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getISLSet();'"
 	 * @generated
 	 */
 	JNIObject getISLObject();
@@ -146,6 +150,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitRectangularDomain(this);'"
 	 * @generated
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
@@ -154,6 +159,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%java.lang.String%&gt; _xifexpression = null;\nint _length = ((&lt;%java.lang.Object%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getLowerBounds(), &lt;%java.lang.Object%&gt;.class)).length;\nint _length_1 = ((&lt;%java.lang.Object%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getUpperBounds(), &lt;%java.lang.Object%&gt;.class)).length;\nboolean _equals = (_length == _length_1);\nif (_equals)\n{\n\tint _length_2 = ((&lt;%java.lang.Object%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getLowerBounds(), &lt;%java.lang.Object%&gt;.class)).length;\n\tfinal &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%java.lang.Integer%&gt;, &lt;%java.lang.String%&gt;&gt; _function = new &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%java.lang.Integer%&gt;, &lt;%java.lang.String%&gt;&gt;()\n\t{\n\t\tpublic &lt;%java.lang.String%&gt; apply(final &lt;%java.lang.Integer%&gt; i)\n\t\t{\n\t\t\t&lt;%java.lang.String%&gt; _get = &lt;%this%&gt;.getLowerBounds().get((i).intValue());\n\t\t\t&lt;%java.lang.String%&gt; _plus = (_get + \":\");\n\t\t\t&lt;%java.lang.String%&gt; _get_1 = &lt;%this%&gt;.getUpperBounds().get((i).intValue());\n\t\t\treturn (_plus + _get_1);\n\t\t}\n\t};\n\t&lt;%java.lang.String%&gt; _join = &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.join(&lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.&lt;&lt;%java.lang.Integer%&gt;, &lt;%java.lang.String%&gt;&gt;map(new &lt;%org.eclipse.xtext.xbase.lib.ExclusiveRange%&gt;(0, _length_2, true), _function), \", \");\n\t&lt;%java.lang.String%&gt; _plus = (\"[\" + _join);\n\t_xifexpression = (_plus + \"]\");\n}\nelse\n{\n\t&lt;%java.lang.String%&gt; _join_1 = &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.join(this.getUpperBounds(), \", \");\n\t&lt;%java.lang.String%&gt; _plus_1 = (\"[\" + _join_1);\n\t_xifexpression = (_plus_1 + \"]\");\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	String plainToString();

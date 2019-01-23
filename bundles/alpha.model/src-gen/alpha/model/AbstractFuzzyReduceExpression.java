@@ -108,6 +108,7 @@ public interface AbstractFuzzyReduceExpression extends AlphaExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _xifexpression = null;\n&lt;%alpha.model.FuzzyFunction%&gt; _projectionFunction = this.getProjectionFunction();\nboolean _tripleNotEquals = (_projectionFunction != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getProjectionFunction().getDependenceRelation();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLMap getProjection();
@@ -116,6 +117,7 @@ public interface AbstractFuzzyReduceExpression extends AlphaExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitAbstractFuzzyReduceExpression(this);'"
 	 * @generated
 	 */
 	void accept(AlphaExpressionVisitor visitor);

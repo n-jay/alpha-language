@@ -211,13 +211,9 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   
   @Override
   public void inUseEquation(final UseEquation ue) {
-    this.defaultIn(ue);
-    this.printStr("+-- ", ue.getSystem().getName());
-    JNIISLSet _instantiationDomain = ue.getInstantiationDomain();
-    boolean _tripleNotEquals = (_instantiationDomain != null);
-    if (_tripleNotEquals) {
-      this.printStr("+-- ", ue.getInstantiationDomain());
-    }
+    throw new Error("Unresolved compilation problems:"
+      + "\nThe method or field system is undefined for the type UseEquation"
+      + "\nname cannot be resolved");
   }
   
   @Override

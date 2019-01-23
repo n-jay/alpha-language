@@ -82,6 +82,7 @@ public interface DefinedObject extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getObject().getType();'"
 	 * @generated
 	 */
 	POLY_OBJECT_TYPE getType();
@@ -90,6 +91,7 @@ public interface DefinedObject extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%alpha.model.PolyhedralObject%&gt; _object = this.getObject();\nboolean _tripleNotEquals = (_object != null);\nif (_tripleNotEquals)\n{\n\tboolean _isZ__internalCycleDetector = this.isZ__internalCycleDetector();\n\tif (_isZ__internalCycleDetector)\n\t{\n\t\t&lt;%java.lang.String%&gt; _name = this.getObject().getName();\n\t\t&lt;%java.lang.String%&gt; _plus = (\"Cycle detected in the definition of: \" + _name);\n\t\tthrow new &lt;%alpha.model.exception.CyclicDefinitionException%&gt;(_plus);\n\t}\n\tthis.setZ__internalCycleDetector(true);\n\tfinal &lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; res = this.getObject().getISLObject();\n\tthis.setZ__internalCycleDetector(false);\n\treturn res;\n}\nreturn null;'"
 	 * @generated
 	 */
 	JNIObject getISLObject();
@@ -98,6 +100,7 @@ public interface DefinedObject extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitDefinedObject(this);'"
 	 * @generated
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
@@ -106,6 +109,7 @@ public interface DefinedObject extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getObject().getName();'"
 	 * @generated
 	 */
 	String plainToString();

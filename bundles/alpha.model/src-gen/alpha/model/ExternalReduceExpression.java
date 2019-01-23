@@ -50,6 +50,7 @@ public interface ExternalReduceExpression extends ReduceExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitExternalReduceExpression(this);'"
 	 * @generated
 	 */
 	void accept(AlphaExpressionVisitor visitor);

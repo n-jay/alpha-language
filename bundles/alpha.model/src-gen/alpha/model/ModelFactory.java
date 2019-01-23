@@ -112,6 +112,33 @@ public interface ModelFactory extends EFactory {
 	UseEquation createUseEquation();
 
 	/**
+	 * Returns a new object of class '<em>Sub System Case Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Sub System Case Expression</em>'.
+	 * @generated
+	 */
+	SubSystemCaseExpression createSubSystemCaseExpression();
+
+	/**
+	 * Returns a new object of class '<em>Sub System Restrict Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Sub System Restrict Expression</em>'.
+	 * @generated
+	 */
+	SubSystemRestrictExpression createSubSystemRestrictExpression();
+
+	/**
+	 * Returns a new object of class '<em>Sub System Call Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Sub System Call Expression</em>'.
+	 * @generated
+	 */
+	SubSystemCallExpression createSubSystemCallExpression();
+
+	/**
 	 * Returns a new object of class '<em>Restrict Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -176,12 +176,31 @@ AISLFuzzyExpression:
 StandardEquation :
 	variable=[Variable] ('[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')?  '=' expr=AlphaExpression ';';
 	
-UseEquation :
-	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs += AlphaExpression (',' outputExprs += AlphaExpression)* )? ')'
+UseEquation:
+	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?)? ':')? 
+	expr=UseExpression
+	';';
+	
+UseExpression:
+	SubSystemCaseExpression | SubSystemRestrictExpression | SubSystemCallExpression
+;
+
+SubSystemCaseExpression:
+	'case' '{'
+		(exprs+=UseExpression ';' )+
+	'}'
+;	 
+	 
+SubSystemRestrictExpression:
+	domainExpr=(JNIDomain|JNIDomainInArrayNotation) ':' expr=UseExpression |
+	'{' domainExpr=CalculatorExpression '}' ':' expr=UseExpression ';'
+;	 
+	 
+SubSystemCallExpression :
+	'(' (outputExprs += AlphaExpression (',' outputExprs += AlphaExpression)* )? ')'
 	 '=' 
 	system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation
-	'(' (inputExprs  += AlphaExpression (',' inputExprs  += AlphaExpression)* )? ')' 
-	 ';';
+	'(' (inputExprs  += AlphaExpression (',' inputExprs  += AlphaExpression)* )? ')';
 	 	
 
 /* Alpha Expressions */

@@ -236,6 +236,7 @@ public interface AlphaSystem extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _inputs = this.getInputs();\n&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _outputs = this.getOutputs();\n&lt;%java.lang.Iterable%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _plus = &lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;concat(_inputs, _outputs);\n&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _locals = this.getLocals();\nreturn &lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;unmodifiableEList(&lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;asEList(((&lt;%alpha.model.Variable%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(&lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;concat(_plus, _locals), &lt;%alpha.model.Variable%&gt;.class))));'"
 	 * @generated
 	 */
 	EList<Variable> getVariables();
@@ -244,6 +245,7 @@ public interface AlphaSystem extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitAlphaSystem(this);'"
 	 * @generated
 	 */
 	void accept(AlphaVisitor visitor);
@@ -252,6 +254,7 @@ public interface AlphaSystem extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getParameterDomainExpr().getISLSet();'"
 	 * @generated
 	 */
 	JNIISLSet getParameterDomain();
@@ -260,6 +263,7 @@ public interface AlphaSystem extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\nif (((this.getWhileDomainExpr() == null) || (!&lt;%com.google.common.base.Objects%&gt;.equal(this.getWhileDomainExpr().getType(), &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET))))\n{\n\t_xifexpression = null;\n}\nelse\n{\n\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getWhileDomainExpr().getISLObject();\n\t_xifexpression = ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;) _iSLObject).copy();\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLSet getWhileDomain();

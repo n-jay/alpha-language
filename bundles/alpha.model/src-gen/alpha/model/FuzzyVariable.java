@@ -52,6 +52,7 @@ public interface FuzzyVariable extends Variable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\n&lt;%alpha.model.POLY_OBJECT_TYPE%&gt; _type = this.getRangeExpr().getType();\nboolean _notEquals = (!&lt;%com.google.common.base.Objects%&gt;.equal(_type, &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET));\nif (_notEquals)\n{\n\t_xifexpression = null;\n}\nelse\n{\n\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getRangeExpr().getISLObject();\n\t_xifexpression = ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;) _iSLObject);\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLSet getRange();
@@ -60,6 +61,7 @@ public interface FuzzyVariable extends Variable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _xblockexpression = null;\n{\n\tfinal &lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; dom = this.getDomain();\n\tfinal &lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; ran = this.getRange();\n\t&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _xifexpression = null;\n\tif (((dom == null) || (ran == null)))\n\t{\n\t\t_xifexpression = null;\n\t}\n\telse\n\t{\n\t\t_xifexpression = dom.product(ran).unwrap();\n\t}\n\t_xblockexpression = _xifexpression;\n}\nreturn _xblockexpression;'"
 	 * @generated
 	 */
 	JNIISLMap getRelation();
@@ -68,6 +70,7 @@ public interface FuzzyVariable extends Variable {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitFuzzyVariable(this);'"
 	 * @generated
 	 */
 	void accept(AlphaVisitor visitor);

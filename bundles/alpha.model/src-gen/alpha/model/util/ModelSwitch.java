@@ -224,6 +224,49 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.USE_EXPRESSION: {
+				UseExpression useExpression = (UseExpression)theEObject;
+				T result = caseUseExpression(useExpression);
+				if (result == null) result = caseAlphaExpression(useExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(useExpression);
+				if (result == null) result = caseAlphaCompleteVisitable(useExpression);
+				if (result == null) result = caseAlphaNode(useExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.SUB_SYSTEM_CASE_EXPRESSION: {
+				SubSystemCaseExpression subSystemCaseExpression = (SubSystemCaseExpression)theEObject;
+				T result = caseSubSystemCaseExpression(subSystemCaseExpression);
+				if (result == null) result = caseUseExpression(subSystemCaseExpression);
+				if (result == null) result = caseAlphaExpression(subSystemCaseExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(subSystemCaseExpression);
+				if (result == null) result = caseAlphaCompleteVisitable(subSystemCaseExpression);
+				if (result == null) result = caseAlphaNode(subSystemCaseExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.SUB_SYSTEM_RESTRICT_EXPRESSION: {
+				SubSystemRestrictExpression subSystemRestrictExpression = (SubSystemRestrictExpression)theEObject;
+				T result = caseSubSystemRestrictExpression(subSystemRestrictExpression);
+				if (result == null) result = caseUseExpression(subSystemRestrictExpression);
+				if (result == null) result = caseAlphaExpression(subSystemRestrictExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(subSystemRestrictExpression);
+				if (result == null) result = caseAlphaCompleteVisitable(subSystemRestrictExpression);
+				if (result == null) result = caseAlphaNode(subSystemRestrictExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.SUB_SYSTEM_CALL_EXPRESSION: {
+				SubSystemCallExpression subSystemCallExpression = (SubSystemCallExpression)theEObject;
+				T result = caseSubSystemCallExpression(subSystemCallExpression);
+				if (result == null) result = caseUseExpression(subSystemCallExpression);
+				if (result == null) result = caseAlphaExpression(subSystemCallExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(subSystemCallExpression);
+				if (result == null) result = caseAlphaCompleteVisitable(subSystemCallExpression);
+				if (result == null) result = caseAlphaNode(subSystemCallExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ModelPackage.ALPHA_EXPRESSION: {
 				AlphaExpression alphaExpression = (AlphaExpression)theEObject;
 				T result = caseAlphaExpression(alphaExpression);
@@ -991,6 +1034,66 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseUseEquation(UseEquation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Use Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Use Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUseExpression(UseExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Sub System Case Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Sub System Case Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubSystemCaseExpression(SubSystemCaseExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Sub System Restrict Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Sub System Restrict Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubSystemRestrictExpression(SubSystemRestrictExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Sub System Call Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Sub System Call Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSubSystemCallExpression(SubSystemCallExpression object) {
 		return null;
 	}
 

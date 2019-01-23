@@ -273,7 +273,7 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuilder result = new StringBuilder(super.toString());
+		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (z__internal_cache_exprDom: ");
 		result.append(z__internal_cache_exprDom);
 		result.append(", z__internal_cache_contextDom: ");
