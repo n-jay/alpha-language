@@ -1,0 +1,25 @@
+import example.inner.dot
+
+package example {
+	affine square_matmult [N] -> { : N>0}
+	inputs
+		A : [N,N]
+		B : [N,N]
+	outputs
+		C : [N,N]
+	let
+		over [N,N] as [i,j] with [k] : (C[i,j]) = dot[N](A[i,k],B[k,j]); 	 
+	.
+	
+	package inner {
+		affine dot [N] -> { : N>0}
+			inputs
+				A : [N]
+				B : [N]
+			outputs
+				C :
+			let
+				C = reduce(+, [i], A[i]*B[i]);
+		.
+	}	
+}
