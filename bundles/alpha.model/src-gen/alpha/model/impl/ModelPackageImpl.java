@@ -65,13 +65,10 @@ import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
-import alpha.model.SubSystemCallExpression;
-import alpha.model.SubSystemCaseExpression;
-import alpha.model.SubSystemRestrictExpression;
+import alpha.model.SystemBody;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.UnaryExpression;
 import alpha.model.UseEquation;
-import alpha.model.UseExpression;
 import alpha.model.Variable;
 import alpha.model.VariableDomain;
 import alpha.model.VariableExpression;
@@ -225,6 +222,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass systemBodyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass standardEquationEClass = null;
 
 	/**
@@ -233,34 +237,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass useEquationEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass useExpressionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass subSystemCaseExpressionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass subSystemRestrictExpressionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass subSystemCallExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -710,7 +686,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link ModelPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -724,7 +700,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		if (isInited) return (ModelPackage)EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ModelPackageImpl theModelPackage = (ModelPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModelPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ModelPackageImpl());
+		Object registeredModelPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		ModelPackageImpl theModelPackage = registeredModelPackage instanceof ModelPackageImpl ? (ModelPackageImpl)registeredModelPackage : new ModelPackageImpl();
 
 		isInited = true;
 
@@ -740,7 +717,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		// Mark meta-data to indicate it can't be changed
 		theModelPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, theModelPackage);
 		return theModelPackage;
@@ -1039,17 +1015,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAlphaSystem_UseEquations() {
+	public EReference getAlphaSystem_SystemBodies() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAlphaSystem_Equations() {
-		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1095,6 +1062,42 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 */
 	public EReference getFuzzyVariable_RangeExpr() {
 		return (EReference)fuzzyVariableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSystemBody() {
+		return systemBodyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSystemBody_ParameterDomainExpr() {
+		return (EReference)systemBodyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSystemBody_UseEquations() {
+		return (EReference)systemBodyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSystemBody_Equations() {
+		return (EReference)systemBodyEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1165,7 +1168,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getUseEquation_Expr() {
+	public EReference getUseEquation_System() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1174,8 +1177,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getUseExpression() {
-		return useExpressionEClass;
+	public EReference getUseEquation_CallParamsExpr() {
+		return (EReference)useEquationEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1183,8 +1186,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSubSystemCaseExpression() {
-		return subSystemCaseExpressionEClass;
+	public EReference getUseEquation_InputExprs() {
+		return (EReference)useEquationEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1192,80 +1195,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSubSystemCaseExpression_Exprs() {
-		return (EReference)subSystemCaseExpressionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSubSystemRestrictExpression() {
-		return subSystemRestrictExpressionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSubSystemRestrictExpression_DomainExpr() {
-		return (EReference)subSystemRestrictExpressionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSubSystemRestrictExpression_Expr() {
-		return (EReference)subSystemRestrictExpressionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSubSystemCallExpression() {
-		return subSystemCallExpressionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSubSystemCallExpression_System() {
-		return (EReference)subSystemCallExpressionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSubSystemCallExpression_CallParamsExpr() {
-		return (EReference)subSystemCallExpressionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSubSystemCallExpression_InputExprs() {
-		return (EReference)subSystemCallExpressionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSubSystemCallExpression_OutputExprs() {
-		return (EReference)subSystemCallExpressionEClass.getEStructuralFeatures().get(3);
+	public EReference getUseEquation_OutputExprs() {
+		return (EReference)useEquationEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2557,8 +2488,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__LOCALS);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__WHILE_DOMAIN_EXPR);
 		createEReference(alphaSystemEClass, ALPHA_SYSTEM__TEST_EXPRESSION);
-		createEReference(alphaSystemEClass, ALPHA_SYSTEM__USE_EQUATIONS);
-		createEReference(alphaSystemEClass, ALPHA_SYSTEM__EQUATIONS);
+		createEReference(alphaSystemEClass, ALPHA_SYSTEM__SYSTEM_BODIES);
 
 		variableEClass = createEClass(VARIABLE);
 		createEAttribute(variableEClass, VARIABLE__NAME);
@@ -2566,6 +2496,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		fuzzyVariableEClass = createEClass(FUZZY_VARIABLE);
 		createEReference(fuzzyVariableEClass, FUZZY_VARIABLE__RANGE_EXPR);
+
+		systemBodyEClass = createEClass(SYSTEM_BODY);
+		createEReference(systemBodyEClass, SYSTEM_BODY__PARAMETER_DOMAIN_EXPR);
+		createEReference(systemBodyEClass, SYSTEM_BODY__USE_EQUATIONS);
+		createEReference(systemBodyEClass, SYSTEM_BODY__EQUATIONS);
 
 		standardEquationEClass = createEClass(STANDARD_EQUATION);
 		createEReference(standardEquationEClass, STANDARD_EQUATION__VARIABLE);
@@ -2575,22 +2510,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		useEquationEClass = createEClass(USE_EQUATION);
 		createEReference(useEquationEClass, USE_EQUATION__INSTANTIATION_DOMAIN_EXPR);
 		createEAttribute(useEquationEClass, USE_EQUATION__SUBSYSTEM_DIMS);
-		createEReference(useEquationEClass, USE_EQUATION__EXPR);
-
-		useExpressionEClass = createEClass(USE_EXPRESSION);
-
-		subSystemCaseExpressionEClass = createEClass(SUB_SYSTEM_CASE_EXPRESSION);
-		createEReference(subSystemCaseExpressionEClass, SUB_SYSTEM_CASE_EXPRESSION__EXPRS);
-
-		subSystemRestrictExpressionEClass = createEClass(SUB_SYSTEM_RESTRICT_EXPRESSION);
-		createEReference(subSystemRestrictExpressionEClass, SUB_SYSTEM_RESTRICT_EXPRESSION__DOMAIN_EXPR);
-		createEReference(subSystemRestrictExpressionEClass, SUB_SYSTEM_RESTRICT_EXPRESSION__EXPR);
-
-		subSystemCallExpressionEClass = createEClass(SUB_SYSTEM_CALL_EXPRESSION);
-		createEReference(subSystemCallExpressionEClass, SUB_SYSTEM_CALL_EXPRESSION__SYSTEM);
-		createEReference(subSystemCallExpressionEClass, SUB_SYSTEM_CALL_EXPRESSION__CALL_PARAMS_EXPR);
-		createEReference(subSystemCallExpressionEClass, SUB_SYSTEM_CALL_EXPRESSION__INPUT_EXPRS);
-		createEReference(subSystemCallExpressionEClass, SUB_SYSTEM_CALL_EXPRESSION__OUTPUT_EXPRS);
+		createEReference(useEquationEClass, USE_EQUATION__SYSTEM);
+		createEReference(useEquationEClass, USE_EQUATION__CALL_PARAMS_EXPR);
+		createEReference(useEquationEClass, USE_EQUATION__INPUT_EXPRS);
+		createEReference(useEquationEClass, USE_EQUATION__OUTPUT_EXPRS);
 
 		alphaExpressionEClass = createEClass(ALPHA_EXPRESSION);
 		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM);
@@ -2824,12 +2747,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		alphaSystemEClass.getESuperTypes().add(this.getAlphaElement());
 		variableEClass.getESuperTypes().add(this.getAlphaVisitable());
 		fuzzyVariableEClass.getESuperTypes().add(this.getVariable());
+		systemBodyEClass.getESuperTypes().add(this.getAlphaVisitable());
 		standardEquationEClass.getESuperTypes().add(this.getAlphaVisitable());
 		useEquationEClass.getESuperTypes().add(this.getAlphaVisitable());
-		useExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
-		subSystemCaseExpressionEClass.getESuperTypes().add(this.getUseExpression());
-		subSystemRestrictExpressionEClass.getESuperTypes().add(this.getUseExpression());
-		subSystemCallExpressionEClass.getESuperTypes().add(this.getUseExpression());
 		alphaExpressionEClass.getESuperTypes().add(this.getAlphaExpressionVisitable());
 		restrictExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		autoRestrictExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
@@ -2915,6 +2835,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaVisitorEClass, null, "visitAlphaSystem", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaSystem(), "system", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaVisitorEClass, null, "visitSystemBody", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSystemBody(), "sysBody", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaVisitorEClass, null, "visitImports", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getImports(), "imports", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2951,6 +2874,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaVisitorEClass, null, "inAlphaSystem", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaSystem(), "system", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaVisitorEClass, null, "inSystemBody", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSystemBody(), "sysBody", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaVisitorEClass, null, "inImports", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getImports(), "imports", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2986,6 +2912,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaVisitorEClass, null, "outAlphaSystem", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaSystem(), "system", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outSystemBody", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSystemBody(), "sysBody", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaVisitorEClass, null, "outImports", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getImports(), "imports", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3379,8 +3308,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getAlphaSystem_Locals(), this.getVariable(), null, "locals", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_WhileDomainExpr(), this.getCalculatorExpression(), null, "whileDomainExpr", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_TestExpression(), this.getAlphaExpression(), null, "testExpression", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAlphaSystem_UseEquations(), this.getUseEquation(), null, "useEquations", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAlphaSystem_Equations(), this.getStandardEquation(), null, "equations", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAlphaSystem_SystemBodies(), this.getSystemBody(), null, "systemBodies", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(alphaSystemEClass, this.getVariable(), "getVariables", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
@@ -3416,6 +3344,16 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(fuzzyVariableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		initEClass(systemBodyEClass, SystemBody.class, "SystemBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSystemBody_ParameterDomainExpr(), this.getJNIDomain(), null, "parameterDomainExpr", null, 0, 1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSystemBody_UseEquations(), this.getUseEquation(), null, "useEquations", null, 0, -1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSystemBody_Equations(), this.getStandardEquation(), null, "equations", null, 0, -1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(systemBodyEClass, this.getJNIISLSet(), "getParameterDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(systemBodyEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(standardEquationEClass, StandardEquation.class, "StandardEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStandardEquation_Variable(), this.getVariable(), null, "variable", null, 0, 1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStandardEquation_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3427,29 +3365,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(useEquationEClass, UseEquation.class, "UseEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getUseEquation_InstantiationDomainExpr(), this.getCalculatorExpression(), null, "instantiationDomainExpr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUseEquation_SubsystemDims(), theEcorePackage.getEString(), "subsystemDims", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getUseEquation_Expr(), this.getUseExpression(), null, "expr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUseEquation_System(), this.getAlphaSystem(), null, "system", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUseEquation_CallParamsExpr(), this.getJNIFunctionInArrayNotation(), null, "callParamsExpr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUseEquation_InputExprs(), this.getAlphaExpression(), null, "inputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUseEquation_OutputExprs(), this.getAlphaExpression(), null, "outputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(useEquationEClass, this.getJNIISLMultiAff(), "getCallParams", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(useEquationEClass, this.getJNIISLSet(), "getInstantiationDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(useEquationEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		initEClass(useExpressionEClass, UseExpression.class, "UseExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(subSystemCaseExpressionEClass, SubSystemCaseExpression.class, "SubSystemCaseExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSubSystemCaseExpression_Exprs(), this.getUseExpression(), null, "exprs", null, 0, -1, SubSystemCaseExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(subSystemRestrictExpressionEClass, SubSystemRestrictExpression.class, "SubSystemRestrictExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSubSystemRestrictExpression_DomainExpr(), this.getCalculatorExpression(), null, "domainExpr", null, 0, 1, SubSystemRestrictExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSubSystemRestrictExpression_Expr(), this.getUseExpression(), null, "expr", null, 0, 1, SubSystemRestrictExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(subSystemCallExpressionEClass, SubSystemCallExpression.class, "SubSystemCallExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSubSystemCallExpression_System(), this.getAlphaSystem(), null, "system", null, 0, 1, SubSystemCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSubSystemCallExpression_CallParamsExpr(), this.getJNIFunctionInArrayNotation(), null, "callParamsExpr", null, 0, 1, SubSystemCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSubSystemCallExpression_InputExprs(), this.getAlphaExpression(), null, "inputExprs", null, 0, -1, SubSystemCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSubSystemCallExpression_OutputExprs(), this.getAlphaExpression(), null, "outputExprs", null, 0, -1, SubSystemCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(subSystemCallExpressionEClass, this.getJNIISLMultiAff(), "getCallParams", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaExpressionEClass, AlphaExpression.class, "AlphaExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAlphaExpression_Z__internal_cache_exprDom(), this.getJNIISLSet(), "z__internal_cache_exprDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

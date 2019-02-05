@@ -107,7 +107,6 @@ public interface BinaryExpression extends AlphaExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitBinaryExpression(this);'"
 	 * @generated
 	 */
 	void accept(AlphaExpressionVisitor visitor);

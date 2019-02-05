@@ -124,7 +124,6 @@ public interface FuzzyFunction extends AlphaNode {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _z__internal_cache_fuzzyMap = this.getZ__internal_cache_fuzzyMap();\nboolean _tripleNotEquals = (_z__internal_cache_fuzzyMap != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getZ__internal_cache_fuzzyMap().copy();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLMap getFuzzyMap();
@@ -133,7 +132,6 @@ public interface FuzzyFunction extends AlphaNode {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model fuzzyMapDataType="alpha.model.JNIISLMap" fuzzyMapUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_fuzzyMap(fuzzyMap);'"
 	 * @generated
 	 */
 	void setFuzzyMap(JNIISLMap fuzzyMap);
@@ -142,7 +140,6 @@ public interface FuzzyFunction extends AlphaNode {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _z__internal_cache_depRelation = this.getZ__internal_cache_depRelation();\nboolean _tripleNotEquals = (_z__internal_cache_depRelation != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getZ__internal_cache_depRelation().copy();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLMap getDependenceRelation();
@@ -151,7 +148,6 @@ public interface FuzzyFunction extends AlphaNode {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model depRelDataType="alpha.model.JNIISLMap" depRelUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_depRelation(depRel);'"
 	 * @generated
 	 */
 	void setDependenceRelation(JNIISLMap depRel);
@@ -160,7 +156,6 @@ public interface FuzzyFunction extends AlphaNode {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false" nameUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='final &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%alpha.model.FuzzyVariableUse%&gt;, &lt;%java.lang.Boolean%&gt;&gt; _function = new &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%alpha.model.FuzzyVariableUse%&gt;, &lt;%java.lang.Boolean%&gt;&gt;()\n{\n\tpublic &lt;%java.lang.Boolean%&gt; apply(final &lt;%alpha.model.FuzzyVariableUse%&gt; i)\n\t{\n\t\treturn &lt;%java.lang.Boolean%&gt;.valueOf(i.getFuzzyIndex().contentEquals(name));\n\t}\n};\nreturn &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.&lt;&lt;%alpha.model.FuzzyVariableUse%&gt;&gt;findFirst(this.getIndirections(), _function);'"
 	 * @generated
 	 */
 	FuzzyVariableUse getIndirectionByName(String name);

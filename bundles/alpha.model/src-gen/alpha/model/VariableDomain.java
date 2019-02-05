@@ -55,7 +55,6 @@ public interface VariableDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET;'"
 	 * @generated
 	 */
 	POLY_OBJECT_TYPE getType();
@@ -64,7 +63,6 @@ public interface VariableDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\n&lt;%alpha.model.Variable%&gt; _variable = this.getVariable();\nboolean _tripleNotEquals = (_variable != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getVariable().getDomain();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIObject getISLObject();
@@ -73,7 +71,6 @@ public interface VariableDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitVariableDomain(this);'"
 	 * @generated
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
@@ -82,7 +79,6 @@ public interface VariableDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%java.lang.String%&gt; _name = this.getVariable().getName();\n&lt;%java.lang.String%&gt; _plus = (\"{\" + _name);\nreturn (_plus + \"}\");'"
 	 * @generated
 	 */
 	String plainToString();

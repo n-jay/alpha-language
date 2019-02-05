@@ -23,8 +23,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link alpha.model.AlphaSystem#getLocals <em>Locals</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getWhileDomainExpr <em>While Domain Expr</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getTestExpression <em>Test Expression</em>}</li>
- *   <li>{@link alpha.model.AlphaSystem#getUseEquations <em>Use Equations</em>}</li>
- *   <li>{@link alpha.model.AlphaSystem#getEquations <em>Equations</em>}</li>
+ *   <li>{@link alpha.model.AlphaSystem#getSystemBodies <em>System Bodies</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getAlphaSystem()
@@ -201,42 +200,25 @@ public interface AlphaSystem extends AlphaElement {
 	void setTestExpression(AlphaExpression value);
 
 	/**
-	 * Returns the value of the '<em><b>Use Equations</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.UseEquation}.
+	 * Returns the value of the '<em><b>System Bodies</b></em>' containment reference list.
+	 * The list contents are of type {@link alpha.model.SystemBody}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Use Equations</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>System Bodies</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Use Equations</em>' containment reference list.
-	 * @see alpha.model.ModelPackage#getAlphaSystem_UseEquations()
+	 * @return the value of the '<em>System Bodies</em>' containment reference list.
+	 * @see alpha.model.ModelPackage#getAlphaSystem_SystemBodies()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<UseEquation> getUseEquations();
-
-	/**
-	 * Returns the value of the '<em><b>Equations</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.StandardEquation}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Equations</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Equations</em>' containment reference list.
-	 * @see alpha.model.ModelPackage#getAlphaSystem_Equations()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<StandardEquation> getEquations();
+	EList<SystemBody> getSystemBodies();
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _inputs = this.getInputs();\n&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _outputs = this.getOutputs();\n&lt;%java.lang.Iterable%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _plus = &lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;concat(_inputs, _outputs);\n&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.Variable%&gt;&gt; _locals = this.getLocals();\nreturn &lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;unmodifiableEList(&lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;asEList(((&lt;%alpha.model.Variable%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(&lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.Variable%&gt;&gt;concat(_plus, _locals), &lt;%alpha.model.Variable%&gt;.class))));'"
 	 * @generated
 	 */
 	EList<Variable> getVariables();
@@ -245,7 +227,6 @@ public interface AlphaSystem extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitAlphaSystem(this);'"
 	 * @generated
 	 */
 	void accept(AlphaVisitor visitor);
@@ -254,7 +235,6 @@ public interface AlphaSystem extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getParameterDomainExpr().getISLSet();'"
 	 * @generated
 	 */
 	JNIISLSet getParameterDomain();
@@ -263,7 +243,6 @@ public interface AlphaSystem extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt; _xifexpression = null;\nif (((this.getWhileDomainExpr() == null) || (!&lt;%com.google.common.base.Objects%&gt;.equal(this.getWhileDomainExpr().getType(), &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET))))\n{\n\t_xifexpression = null;\n}\nelse\n{\n\t&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _iSLObject = this.getWhileDomainExpr().getISLObject();\n\t_xifexpression = ((&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;) _iSLObject).copy();\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLSet getWhileDomain();

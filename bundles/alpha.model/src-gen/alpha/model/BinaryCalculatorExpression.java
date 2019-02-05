@@ -135,7 +135,6 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _z__internal_cache_islObject = this.getZ__internal_cache_islObject();\nif ((_z__internal_cache_islObject instanceof &lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLSet%&gt;))\n{\n\treturn &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.SET;\n}\n&lt;%fr.irisa.cairn.jnimap.runtime.JNIObject%&gt; _z__internal_cache_islObject_1 = this.getZ__internal_cache_islObject();\nif ((_z__internal_cache_islObject_1 instanceof &lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt;))\n{\n\treturn &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.MAP;\n}\nreturn null;'"
 	 * @generated
 	 */
 	POLY_OBJECT_TYPE getType();
@@ -144,7 +143,6 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%alpha.model.util.AlphaUtil%&gt;.copy(this.getZ__internal_cache_islObject());'"
 	 * @generated
 	 */
 	JNIObject getISLObject();
@@ -153,7 +151,6 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitBinaryCalculatorExpression(this);'"
 	 * @generated
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
@@ -162,7 +159,6 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%java.lang.String%&gt; _plainToString = this.getLeft().plainToString();\n&lt;%java.lang.String%&gt; _plus = (_plainToString + \" \");\n&lt;%alpha.model.CALCULATOR_BINARY_OP%&gt; _operator = this.getOperator();\n&lt;%java.lang.String%&gt; _plus_1 = (_plus + _operator);\n&lt;%java.lang.String%&gt; _plus_2 = (_plus_1 + \" \");\n&lt;%java.lang.String%&gt; _plainToString_1 = this.getRight().plainToString();\nreturn (_plus_2 + _plainToString_1);'"
 	 * @generated
 	 */
 	String plainToString();

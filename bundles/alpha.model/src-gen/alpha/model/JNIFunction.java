@@ -80,7 +80,6 @@ public interface JNIFunction extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLMultiAff" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff%&gt; _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();\nboolean _tripleNotEquals = (_z__internal_cache_islMAff != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = this.getZ__internal_cache_islMAff().copy();\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLMultiAff getISLMultiAff();
@@ -89,7 +88,6 @@ public interface JNIFunction extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model islMAffDataType="alpha.model.JNIISLMultiAff" islMAffUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.setZ__internal_cache_islMAff(islMAff);'"
 	 * @generated
 	 */
 	void setISLMultiAff(JNIISLMultiAff islMAff);
@@ -98,7 +96,6 @@ public interface JNIFunction extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%alpha.model.POLY_OBJECT_TYPE%&gt; _xifexpression = null;\n&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff%&gt; _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();\nboolean _tripleNotEquals = (_z__internal_cache_islMAff != null);\nif (_tripleNotEquals)\n{\n\t_xifexpression = &lt;%alpha.model.POLY_OBJECT_TYPE%&gt;.FUNCTION;\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	POLY_OBJECT_TYPE getType();
@@ -107,7 +104,6 @@ public interface JNIFunction extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIObject" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getISLMultiAff();'"
 	 * @generated
 	 */
 	JNIObject getISLObject();
@@ -116,7 +112,6 @@ public interface JNIFunction extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitJNIFunction(this);'"
 	 * @generated
 	 */
 	void accept(CalculatorExpressionVisitor visitor);
@@ -125,7 +120,6 @@ public interface JNIFunction extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getAlphaString();'"
 	 * @generated
 	 */
 	String plainToString();

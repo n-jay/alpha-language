@@ -64,6 +64,14 @@ public interface AlphaVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model sysBodyUnique="false"
+	 * @generated
+	 */
+	void visitSystemBody(SystemBody sysBody);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model importsUnique="false"
 	 * @generated
 	 */
@@ -164,6 +172,14 @@ public interface AlphaVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model sysBodyUnique="false"
+	 * @generated
+	 */
+	void inSystemBody(SystemBody sysBody);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model importsUnique="false"
 	 * @generated
 	 */
@@ -256,6 +272,14 @@ public interface AlphaVisitor extends EObject {
 	 * @generated
 	 */
 	void outAlphaSystem(AlphaSystem system);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model sysBodyUnique="false"
+	 * @generated
+	 */
+	void outSystemBody(SystemBody sysBody);
 
 	/**
 	 * <!-- begin-user-doc -->

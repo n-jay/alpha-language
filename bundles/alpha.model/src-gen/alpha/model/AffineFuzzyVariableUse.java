@@ -51,7 +51,6 @@ public interface AffineFuzzyVariableUse extends FuzzyVariableUse {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='&lt;%fr.irisa.cairn.jnimap.isl.jni.JNIISLMap%&gt; _xifexpression = null;\nif ((((this.getUseFunction() != null) &amp;&amp; (this.getFuzzyVariable() != null)) &amp;&amp; (this.getFuzzyVariable().getRelation() != null)))\n{\n\t_xifexpression = this.getUseFunction().getISLMultiAff().toMap().applyRange(this.getFuzzyVariable().getRelation());\n}\nelse\n{\n\t_xifexpression = null;\n}\nreturn _xifexpression;'"
 	 * @generated
 	 */
 	JNIISLMap getDependenceRelation();

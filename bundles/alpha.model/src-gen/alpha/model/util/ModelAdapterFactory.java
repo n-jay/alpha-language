@@ -136,28 +136,16 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createFuzzyVariableAdapter();
 			}
 			@Override
+			public Adapter caseSystemBody(SystemBody object) {
+				return createSystemBodyAdapter();
+			}
+			@Override
 			public Adapter caseStandardEquation(StandardEquation object) {
 				return createStandardEquationAdapter();
 			}
 			@Override
 			public Adapter caseUseEquation(UseEquation object) {
 				return createUseEquationAdapter();
-			}
-			@Override
-			public Adapter caseUseExpression(UseExpression object) {
-				return createUseExpressionAdapter();
-			}
-			@Override
-			public Adapter caseSubSystemCaseExpression(SubSystemCaseExpression object) {
-				return createSubSystemCaseExpressionAdapter();
-			}
-			@Override
-			public Adapter caseSubSystemRestrictExpression(SubSystemRestrictExpression object) {
-				return createSubSystemRestrictExpressionAdapter();
-			}
-			@Override
-			public Adapter caseSubSystemCallExpression(SubSystemCallExpression object) {
-				return createSubSystemCallExpressionAdapter();
 			}
 			@Override
 			public Adapter caseAlphaExpression(AlphaExpression object) {
@@ -610,6 +598,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.SystemBody <em>System Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.SystemBody
+	 * @generated
+	 */
+	public Adapter createSystemBodyAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link alpha.model.StandardEquation <em>Standard Equation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -634,62 +636,6 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createUseEquationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.model.UseExpression <em>Use Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.model.UseExpression
-	 * @generated
-	 */
-	public Adapter createUseExpressionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.model.SubSystemCaseExpression <em>Sub System Case Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.model.SubSystemCaseExpression
-	 * @generated
-	 */
-	public Adapter createSubSystemCaseExpressionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.model.SubSystemRestrictExpression <em>Sub System Restrict Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.model.SubSystemRestrictExpression
-	 * @generated
-	 */
-	public Adapter createSubSystemRestrictExpressionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.model.SubSystemCallExpression <em>Sub System Call Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.model.SubSystemCallExpression
-	 * @generated
-	 */
-	public Adapter createSubSystemCallExpressionAdapter() {
 		return null;
 	}
 

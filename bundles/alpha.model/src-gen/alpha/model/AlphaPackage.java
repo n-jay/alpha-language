@@ -68,7 +68,6 @@ public interface AlphaPackage extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.AlphaConstant%&gt;&gt;asEList(((&lt;%alpha.model.AlphaConstant%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(&lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.AlphaConstant%&gt;&gt;filter(this.getElements(), &lt;%alpha.model.AlphaConstant%&gt;.class), &lt;%alpha.model.AlphaConstant%&gt;.class)));'"
 	 * @generated
 	 */
 	EList<AlphaConstant> getConstants();
@@ -77,7 +76,6 @@ public interface AlphaPackage extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.ExternalFunction%&gt;&gt;asEList(((&lt;%alpha.model.ExternalFunction%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(&lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.ExternalFunction%&gt;&gt;filter(this.getElements(), &lt;%alpha.model.ExternalFunction%&gt;.class), &lt;%alpha.model.ExternalFunction%&gt;.class)));'"
 	 * @generated
 	 */
 	EList<ExternalFunction> getExternalFunctions();
@@ -86,7 +84,6 @@ public interface AlphaPackage extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.AlphaPackage%&gt;&gt;asEList(((&lt;%alpha.model.AlphaPackage%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(&lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.AlphaPackage%&gt;&gt;filter(this.getElements(), &lt;%alpha.model.AlphaPackage%&gt;.class), &lt;%alpha.model.AlphaPackage%&gt;.class)));'"
 	 * @generated
 	 */
 	EList<AlphaPackage> getPackages();
@@ -95,7 +92,6 @@ public interface AlphaPackage extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%org.eclipse.emf.common.util.ECollections%&gt;.&lt;&lt;%alpha.model.AlphaSystem%&gt;&gt;asEList(((&lt;%alpha.model.AlphaSystem%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(&lt;%com.google.common.collect.Iterables%&gt;.&lt;&lt;%alpha.model.AlphaSystem%&gt;&gt;filter(this.getElements(), &lt;%alpha.model.AlphaSystem%&gt;.class), &lt;%alpha.model.AlphaSystem%&gt;.class)));'"
 	 * @generated
 	 */
 	EList<AlphaSystem> getSystems();
@@ -104,7 +100,6 @@ public interface AlphaPackage extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='visitor.visitAlphaPackage(this);'"
 	 * @generated
 	 */
 	void accept(AlphaVisitor visitor);
