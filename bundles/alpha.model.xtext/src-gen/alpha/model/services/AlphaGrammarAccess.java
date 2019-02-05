@@ -264,29 +264,23 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTestExpressionAssignment_7_4 = (Assignment)cGroup_7.eContents().get(4);
 		private final RuleCall cTestExpressionAlphaExpressionParserRuleCall_7_4_0 = (RuleCall)cTestExpressionAssignment_7_4.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
-		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cLetKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cUseEquationsAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cUseEquationsUseEquationParserRuleCall_8_1_0 = (RuleCall)cUseEquationsAssignment_8_1.eContents().get(0);
-		private final Assignment cEquationsAssignment_8_2 = (Assignment)cGroup_8.eContents().get(2);
-		private final RuleCall cEquationsStandardEquationParserRuleCall_8_2_0 = (RuleCall)cEquationsAssignment_8_2.eContents().get(0);
+		private final Assignment cSystemBodiesAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cSystemBodiesSystemBodyParserRuleCall_8_0 = (RuleCall)cSystemBodiesAssignment_8.eContents().get(0);
 		private final Keyword cFullStopKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//AlphaSystem:
 		//	'affine' name=SystemName parameterDomainExpr=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
 		//	(inputs+=InputVariable | inputs+=FuzzyInputVariable)+)? ('outputs' (outputs+=OutputVariable |
 		//	outputs+=FuzzyOutputVariable)+)? ('locals' (locals+=LocalVariable | locals+=FuzzyLocalVariable)+)? ('over'
-		//	whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')? ('let'
-		//	useEquations+=UseEquation*
-		//	equations+=StandardEquation*)?
+		//	whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')?
+		//	systemBodies+=SystemBody*
 		//	'.';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'affine' name=SystemName parameterDomainExpr=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
 		//(inputs+=InputVariable | inputs+=FuzzyInputVariable)+)? ('outputs' (outputs+=OutputVariable |
 		//outputs+=FuzzyOutputVariable)+)? ('locals' (locals+=LocalVariable | locals+=FuzzyLocalVariable)+)? ('over'
-		//whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')? ('let' useEquations+=UseEquation*
-		//equations+=StandardEquation*)? '.'
+		//whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')? systemBodies+=SystemBody* '.'
 		public Group getGroup() { return cGroup; }
 		
 		//'affine'
@@ -406,26 +400,77 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//')'
 		public Keyword getRightParenthesisKeyword_7_5() { return cRightParenthesisKeyword_7_5; }
 		
-		//('let' useEquations+=UseEquation* equations+=StandardEquation*)?
-		public Group getGroup_8() { return cGroup_8; }
+		//systemBodies+=SystemBody*
+		public Assignment getSystemBodiesAssignment_8() { return cSystemBodiesAssignment_8; }
 		
-		//'let'
-		public Keyword getLetKeyword_8_0() { return cLetKeyword_8_0; }
-		
-		//useEquations+=UseEquation*
-		public Assignment getUseEquationsAssignment_8_1() { return cUseEquationsAssignment_8_1; }
-		
-		//UseEquation
-		public RuleCall getUseEquationsUseEquationParserRuleCall_8_1_0() { return cUseEquationsUseEquationParserRuleCall_8_1_0; }
-		
-		//equations+=StandardEquation*
-		public Assignment getEquationsAssignment_8_2() { return cEquationsAssignment_8_2; }
-		
-		//StandardEquation
-		public RuleCall getEquationsStandardEquationParserRuleCall_8_2_0() { return cEquationsStandardEquationParserRuleCall_8_2_0; }
+		//SystemBody
+		public RuleCall getSystemBodiesSystemBodyParserRuleCall_8_0() { return cSystemBodiesSystemBodyParserRuleCall_8_0; }
 		
 		//'.'
 		public Keyword getFullStopKeyword_9() { return cFullStopKeyword_9; }
+	}
+	public class SystemBodyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.SystemBody");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cSystemBodyAction_0 = (Action)cGroup.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Keyword cWhenKeyword_1_0_0 = (Keyword)cGroup_1_0.eContents().get(0);
+		private final Assignment cParameterDomainExprAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
+		private final RuleCall cParameterDomainExprJNIParamDomainInArrayNotationParserRuleCall_1_0_1_0 = (RuleCall)cParameterDomainExprAssignment_1_0_1.eContents().get(0);
+		private final Keyword cElseKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
+		private final Keyword cLetKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cUseEquationsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cUseEquationsUseEquationParserRuleCall_3_0 = (RuleCall)cUseEquationsAssignment_3.eContents().get(0);
+		private final Assignment cEquationsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cEquationsStandardEquationParserRuleCall_4_0 = (RuleCall)cEquationsAssignment_4.eContents().get(0);
+		
+		//SystemBody:
+		//	{SystemBody} ('when' parameterDomainExpr=JNIParamDomainInArrayNotation | 'else')?
+		//	'let'
+		//	useEquations+=UseEquation*
+		//	equations+=StandardEquation*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{SystemBody} ('when' parameterDomainExpr=JNIParamDomainInArrayNotation | 'else')? 'let' useEquations+=UseEquation*
+		//equations+=StandardEquation*
+		public Group getGroup() { return cGroup; }
+		
+		//{SystemBody}
+		public Action getSystemBodyAction_0() { return cSystemBodyAction_0; }
+		
+		//('when' parameterDomainExpr=JNIParamDomainInArrayNotation | 'else')?
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+		
+		//'when' parameterDomainExpr=JNIParamDomainInArrayNotation
+		public Group getGroup_1_0() { return cGroup_1_0; }
+		
+		//'when'
+		public Keyword getWhenKeyword_1_0_0() { return cWhenKeyword_1_0_0; }
+		
+		//parameterDomainExpr=JNIParamDomainInArrayNotation
+		public Assignment getParameterDomainExprAssignment_1_0_1() { return cParameterDomainExprAssignment_1_0_1; }
+		
+		//JNIParamDomainInArrayNotation
+		public RuleCall getParameterDomainExprJNIParamDomainInArrayNotationParserRuleCall_1_0_1_0() { return cParameterDomainExprJNIParamDomainInArrayNotationParserRuleCall_1_0_1_0; }
+		
+		//'else'
+		public Keyword getElseKeyword_1_1() { return cElseKeyword_1_1; }
+		
+		//'let'
+		public Keyword getLetKeyword_2() { return cLetKeyword_2; }
+		
+		//useEquations+=UseEquation*
+		public Assignment getUseEquationsAssignment_3() { return cUseEquationsAssignment_3; }
+		
+		//UseEquation
+		public RuleCall getUseEquationsUseEquationParserRuleCall_3_0() { return cUseEquationsUseEquationParserRuleCall_3_0; }
+		
+		//equations+=StandardEquation*
+		public Assignment getEquationsAssignment_4() { return cEquationsAssignment_4; }
+		
+		//StandardEquation
+		public RuleCall getEquationsStandardEquationParserRuleCall_4_0() { return cEquationsStandardEquationParserRuleCall_4_0; }
 	}
 	public class InputVariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.InputVariable");
@@ -745,6 +790,21 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AParamDomain
 		public RuleCall getIslStringAParamDomainParserRuleCall_0() { return cIslStringAParamDomainParserRuleCall_0; }
+	}
+	public class JNIParamDomainInArrayNotationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.JNIParamDomainInArrayNotation");
+		private final Assignment cIslStringAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cIslStringAParamDomainInArrayNotationParserRuleCall_0 = (RuleCall)cIslStringAssignment.eContents().get(0);
+		
+		//JNIParamDomainInArrayNotation JNIDomain:
+		//	islString=AParamDomainInArrayNotation;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//islString=AParamDomainInArrayNotation
+		public Assignment getIslStringAssignment() { return cIslStringAssignment; }
+		
+		//AParamDomainInArrayNotation
+		public RuleCall getIslStringAParamDomainInArrayNotationParserRuleCall_0() { return cIslStringAParamDomainInArrayNotationParserRuleCall_0; }
 	}
 	public class JNIRelationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.JNIRelation");
@@ -1195,6 +1255,33 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
+	}
+	public class AParamDomainInArrayNotationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AParamDomainInArrayNotation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cAISLStringParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//AParamDomainInArrayNotation:
+		//	'{' ':' AISLString '}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'{' ':' AISLString '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
+		
+		//':'
+		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
+		
+		//AISLString
+		public RuleCall getAISLStringParserRuleCall_2() { return cAISLStringParserRuleCall_2; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
 	}
 	public class AISLSetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLSet");
@@ -1756,348 +1843,190 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.UseEquation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final Keyword cOverKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
-		private final Assignment cInstantiationDomainExprAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final RuleCall cInstantiationDomainExprCalculatorExpressionParserRuleCall_0_1_0 = (RuleCall)cInstantiationDomainExprAssignment_0_1.eContents().get(0);
-		private final Group cGroup_0_2 = (Group)cGroup_0.eContents().get(2);
-		private final Keyword cWithKeyword_0_2_0 = (Keyword)cGroup_0_2.eContents().get(0);
-		private final Group cGroup_0_2_1 = (Group)cGroup_0_2.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_0_2_1_0 = (Keyword)cGroup_0_2_1.eContents().get(0);
-		private final Assignment cSubsystemDimsAssignment_0_2_1_1 = (Assignment)cGroup_0_2_1.eContents().get(1);
-		private final RuleCall cSubsystemDimsIndexNameParserRuleCall_0_2_1_1_0 = (RuleCall)cSubsystemDimsAssignment_0_2_1_1.eContents().get(0);
-		private final Group cGroup_0_2_1_2 = (Group)cGroup_0_2_1.eContents().get(2);
-		private final Keyword cCommaKeyword_0_2_1_2_0 = (Keyword)cGroup_0_2_1_2.eContents().get(0);
-		private final Assignment cSubsystemDimsAssignment_0_2_1_2_1 = (Assignment)cGroup_0_2_1_2.eContents().get(1);
-		private final RuleCall cSubsystemDimsIndexNameParserRuleCall_0_2_1_2_1_0 = (RuleCall)cSubsystemDimsAssignment_0_2_1_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_0_2_1_3 = (Keyword)cGroup_0_2_1.eContents().get(3);
-		private final Keyword cColonKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
-		private final Assignment cExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cExprUseExpressionParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Group cGroup_0_0 = (Group)cGroup_0.eContents().get(0);
+		private final Keyword cOverKeyword_0_0_0 = (Keyword)cGroup_0_0.eContents().get(0);
+		private final Assignment cInstantiationDomainExprAssignment_0_0_1 = (Assignment)cGroup_0_0.eContents().get(1);
+		private final RuleCall cInstantiationDomainExprCalculatorExpressionParserRuleCall_0_0_1_0 = (RuleCall)cInstantiationDomainExprAssignment_0_0_1.eContents().get(0);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Keyword cWithKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
+		private final Group cGroup_0_1_1 = (Group)cGroup_0_1.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_0_1_1_0 = (Keyword)cGroup_0_1_1.eContents().get(0);
+		private final Assignment cSubsystemDimsAssignment_0_1_1_1 = (Assignment)cGroup_0_1_1.eContents().get(1);
+		private final RuleCall cSubsystemDimsIndexNameParserRuleCall_0_1_1_1_0 = (RuleCall)cSubsystemDimsAssignment_0_1_1_1.eContents().get(0);
+		private final Group cGroup_0_1_1_2 = (Group)cGroup_0_1_1.eContents().get(2);
+		private final Keyword cCommaKeyword_0_1_1_2_0 = (Keyword)cGroup_0_1_1_2.eContents().get(0);
+		private final Assignment cSubsystemDimsAssignment_0_1_1_2_1 = (Assignment)cGroup_0_1_1_2.eContents().get(1);
+		private final RuleCall cSubsystemDimsIndexNameParserRuleCall_0_1_1_2_1_0 = (RuleCall)cSubsystemDimsAssignment_0_1_1_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_0_1_1_3 = (Keyword)cGroup_0_1_1.eContents().get(3);
+		private final Keyword cColonKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cOutputExprsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cOutputExprsAlphaExpressionParserRuleCall_2_0_0 = (RuleCall)cOutputExprsAssignment_2_0.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cOutputExprsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cOutputExprsAlphaExpressionParserRuleCall_2_1_1_0 = (RuleCall)cOutputExprsAssignment_2_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cEqualsSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cSystemAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cSystemAlphaSystemCrossReference_5_0 = (CrossReference)cSystemAssignment_5.eContents().get(0);
+		private final RuleCall cSystemAlphaSystemQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cSystemAlphaSystemCrossReference_5_0.eContents().get(1);
+		private final Assignment cCallParamsExprAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cCallParamsExprJNIFunctionInArrayNotationParserRuleCall_6_0 = (RuleCall)cCallParamsExprAssignment_6.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
+		private final Assignment cInputExprsAssignment_8_0 = (Assignment)cGroup_8.eContents().get(0);
+		private final RuleCall cInputExprsAlphaExpressionParserRuleCall_8_0_0 = (RuleCall)cInputExprsAssignment_8_0.eContents().get(0);
+		private final Group cGroup_8_1 = (Group)cGroup_8.eContents().get(1);
+		private final Keyword cCommaKeyword_8_1_0 = (Keyword)cGroup_8_1.eContents().get(0);
+		private final Assignment cInputExprsAssignment_8_1_1 = (Assignment)cGroup_8_1.eContents().get(1);
+		private final RuleCall cInputExprsAlphaExpressionParserRuleCall_8_1_1_0 = (RuleCall)cInputExprsAssignment_8_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Keyword cSemicolonKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//UseEquation:
-		//	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
+		//	(('over' instantiationDomainExpr=CalculatorExpression)? ('with' ('[' subsystemDims+=IndexName (','
 		//	subsystemDims+=IndexName)* ']')?)? ':')?
-		//	expr=UseExpression
-		//	';';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
-		//subsystemDims+=IndexName)* ']')?)? ':')? expr=UseExpression ';'
-		public Group getGroup() { return cGroup; }
-		
-		//('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
-		//subsystemDims+=IndexName)* ']')?)? ':')?
-		public Group getGroup_0() { return cGroup_0; }
-		
-		//'over'
-		public Keyword getOverKeyword_0_0() { return cOverKeyword_0_0; }
-		
-		//instantiationDomainExpr=CalculatorExpression
-		public Assignment getInstantiationDomainExprAssignment_0_1() { return cInstantiationDomainExprAssignment_0_1; }
-		
-		//CalculatorExpression
-		public RuleCall getInstantiationDomainExprCalculatorExpressionParserRuleCall_0_1_0() { return cInstantiationDomainExprCalculatorExpressionParserRuleCall_0_1_0; }
-		
-		//('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?)?
-		public Group getGroup_0_2() { return cGroup_0_2; }
-		
-		//'with'
-		public Keyword getWithKeyword_0_2_0() { return cWithKeyword_0_2_0; }
-		
-		//('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?
-		public Group getGroup_0_2_1() { return cGroup_0_2_1; }
-		
-		//'['
-		public Keyword getLeftSquareBracketKeyword_0_2_1_0() { return cLeftSquareBracketKeyword_0_2_1_0; }
-		
-		//subsystemDims+=IndexName
-		public Assignment getSubsystemDimsAssignment_0_2_1_1() { return cSubsystemDimsAssignment_0_2_1_1; }
-		
-		//IndexName
-		public RuleCall getSubsystemDimsIndexNameParserRuleCall_0_2_1_1_0() { return cSubsystemDimsIndexNameParserRuleCall_0_2_1_1_0; }
-		
-		//(',' subsystemDims+=IndexName)*
-		public Group getGroup_0_2_1_2() { return cGroup_0_2_1_2; }
-		
-		//','
-		public Keyword getCommaKeyword_0_2_1_2_0() { return cCommaKeyword_0_2_1_2_0; }
-		
-		//subsystemDims+=IndexName
-		public Assignment getSubsystemDimsAssignment_0_2_1_2_1() { return cSubsystemDimsAssignment_0_2_1_2_1; }
-		
-		//IndexName
-		public RuleCall getSubsystemDimsIndexNameParserRuleCall_0_2_1_2_1_0() { return cSubsystemDimsIndexNameParserRuleCall_0_2_1_2_1_0; }
-		
-		//']'
-		public Keyword getRightSquareBracketKeyword_0_2_1_3() { return cRightSquareBracketKeyword_0_2_1_3; }
-		
-		//':'
-		public Keyword getColonKeyword_0_3() { return cColonKeyword_0_3; }
-		
-		//expr=UseExpression
-		public Assignment getExprAssignment_1() { return cExprAssignment_1; }
-		
-		//UseExpression
-		public RuleCall getExprUseExpressionParserRuleCall_1_0() { return cExprUseExpressionParserRuleCall_1_0; }
-		
-		//';'
-		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
-	}
-	public class UseExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.UseExpression");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cSubSystemCaseExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cSubSystemRestrictExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cSubSystemCallExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		
-		//UseExpression:
-		//	SubSystemCaseExpression | SubSystemRestrictExpression | SubSystemCallExpression;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//SubSystemCaseExpression | SubSystemRestrictExpression | SubSystemCallExpression
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//SubSystemCaseExpression
-		public RuleCall getSubSystemCaseExpressionParserRuleCall_0() { return cSubSystemCaseExpressionParserRuleCall_0; }
-		
-		//SubSystemRestrictExpression
-		public RuleCall getSubSystemRestrictExpressionParserRuleCall_1() { return cSubSystemRestrictExpressionParserRuleCall_1; }
-		
-		//SubSystemCallExpression
-		public RuleCall getSubSystemCallExpressionParserRuleCall_2() { return cSubSystemCallExpressionParserRuleCall_2; }
-	}
-	public class SubSystemCaseExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.SubSystemCaseExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cCaseKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Assignment cExprsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final RuleCall cExprsUseExpressionParserRuleCall_2_0_0 = (RuleCall)cExprsAssignment_2_0.eContents().get(0);
-		private final Keyword cSemicolonKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
-		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		
-		//SubSystemCaseExpression:
-		//	'case' '{' (exprs+=UseExpression ';')+
-		//	'}';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//'case' '{' (exprs+=UseExpression ';')+ '}'
-		public Group getGroup() { return cGroup; }
-		
-		//'case'
-		public Keyword getCaseKeyword_0() { return cCaseKeyword_0; }
-		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
-		
-		//(exprs+=UseExpression ';')+
-		public Group getGroup_2() { return cGroup_2; }
-		
-		//exprs+=UseExpression
-		public Assignment getExprsAssignment_2_0() { return cExprsAssignment_2_0; }
-		
-		//UseExpression
-		public RuleCall getExprsUseExpressionParserRuleCall_2_0_0() { return cExprsUseExpressionParserRuleCall_2_0_0; }
-		
-		//';'
-		public Keyword getSemicolonKeyword_2_1() { return cSemicolonKeyword_2_1; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
-	}
-	public class SubSystemRestrictExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.SubSystemRestrictExpression");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cDomainExprAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final Alternatives cDomainExprAlternatives_0_0_0 = (Alternatives)cDomainExprAssignment_0_0.eContents().get(0);
-		private final RuleCall cDomainExprJNIDomainParserRuleCall_0_0_0_0 = (RuleCall)cDomainExprAlternatives_0_0_0.eContents().get(0);
-		private final RuleCall cDomainExprJNIDomainInArrayNotationParserRuleCall_0_0_0_1 = (RuleCall)cDomainExprAlternatives_0_0_0.eContents().get(1);
-		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cExprAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cExprUseExpressionParserRuleCall_0_2_0 = (RuleCall)cExprAssignment_0_2.eContents().get(0);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Keyword cLeftCurlyBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cDomainExprAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_1_1_0 = (RuleCall)cDomainExprAssignment_1_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
-		private final Keyword cColonKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
-		private final Assignment cExprAssignment_1_4 = (Assignment)cGroup_1.eContents().get(4);
-		private final RuleCall cExprUseExpressionParserRuleCall_1_4_0 = (RuleCall)cExprAssignment_1_4.eContents().get(0);
-		private final Keyword cSemicolonKeyword_1_5 = (Keyword)cGroup_1.eContents().get(5);
-		
-		//SubSystemRestrictExpression:
-		//	domainExpr=(JNIDomain | JNIDomainInArrayNotation) ':' expr=UseExpression |
-		//	'{' domainExpr=CalculatorExpression '}' ':' expr=UseExpression ';';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//domainExpr=(JNIDomain | JNIDomainInArrayNotation) ':' expr=UseExpression | '{' domainExpr=CalculatorExpression '}' ':'
-		//expr=UseExpression ';'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//domainExpr=(JNIDomain | JNIDomainInArrayNotation) ':' expr=UseExpression
-		public Group getGroup_0() { return cGroup_0; }
-		
-		//domainExpr=(JNIDomain | JNIDomainInArrayNotation)
-		public Assignment getDomainExprAssignment_0_0() { return cDomainExprAssignment_0_0; }
-		
-		//(JNIDomain | JNIDomainInArrayNotation)
-		public Alternatives getDomainExprAlternatives_0_0_0() { return cDomainExprAlternatives_0_0_0; }
-		
-		//JNIDomain
-		public RuleCall getDomainExprJNIDomainParserRuleCall_0_0_0_0() { return cDomainExprJNIDomainParserRuleCall_0_0_0_0; }
-		
-		//JNIDomainInArrayNotation
-		public RuleCall getDomainExprJNIDomainInArrayNotationParserRuleCall_0_0_0_1() { return cDomainExprJNIDomainInArrayNotationParserRuleCall_0_0_0_1; }
-		
-		//':'
-		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
-		
-		//expr=UseExpression
-		public Assignment getExprAssignment_0_2() { return cExprAssignment_0_2; }
-		
-		//UseExpression
-		public RuleCall getExprUseExpressionParserRuleCall_0_2_0() { return cExprUseExpressionParserRuleCall_0_2_0; }
-		
-		//'{' domainExpr=CalculatorExpression '}' ':' expr=UseExpression ';'
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_1_0() { return cLeftCurlyBracketKeyword_1_0; }
-		
-		//domainExpr=CalculatorExpression
-		public Assignment getDomainExprAssignment_1_1() { return cDomainExprAssignment_1_1; }
-		
-		//CalculatorExpression
-		public RuleCall getDomainExprCalculatorExpressionParserRuleCall_1_1_0() { return cDomainExprCalculatorExpressionParserRuleCall_1_1_0; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_1_2() { return cRightCurlyBracketKeyword_1_2; }
-		
-		//':'
-		public Keyword getColonKeyword_1_3() { return cColonKeyword_1_3; }
-		
-		//expr=UseExpression
-		public Assignment getExprAssignment_1_4() { return cExprAssignment_1_4; }
-		
-		//UseExpression
-		public RuleCall getExprUseExpressionParserRuleCall_1_4_0() { return cExprUseExpressionParserRuleCall_1_4_0; }
-		
-		//';'
-		public Keyword getSemicolonKeyword_1_5() { return cSemicolonKeyword_1_5; }
-	}
-	public class SubSystemCallExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.SubSystemCallExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Assignment cOutputExprsAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
-		private final RuleCall cOutputExprsAlphaExpressionParserRuleCall_1_0_0 = (RuleCall)cOutputExprsAssignment_1_0.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
-		private final Keyword cCommaKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
-		private final Assignment cOutputExprsAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
-		private final RuleCall cOutputExprsAlphaExpressionParserRuleCall_1_1_1_0 = (RuleCall)cOutputExprsAssignment_1_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cEqualsSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cSystemAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cSystemAlphaSystemCrossReference_4_0 = (CrossReference)cSystemAssignment_4.eContents().get(0);
-		private final RuleCall cSystemAlphaSystemQualifiedNameParserRuleCall_4_0_1 = (RuleCall)cSystemAlphaSystemCrossReference_4_0.eContents().get(1);
-		private final Assignment cCallParamsExprAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cCallParamsExprJNIFunctionInArrayNotationParserRuleCall_5_0 = (RuleCall)cCallParamsExprAssignment_5.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Assignment cInputExprsAssignment_7_0 = (Assignment)cGroup_7.eContents().get(0);
-		private final RuleCall cInputExprsAlphaExpressionParserRuleCall_7_0_0 = (RuleCall)cInputExprsAssignment_7_0.eContents().get(0);
-		private final Group cGroup_7_1 = (Group)cGroup_7.eContents().get(1);
-		private final Keyword cCommaKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
-		private final Assignment cInputExprsAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
-		private final RuleCall cInputExprsAlphaExpressionParserRuleCall_7_1_1_0 = (RuleCall)cInputExprsAssignment_7_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_8 = (Keyword)cGroup.eContents().get(8);
-		
-		//SubSystemCallExpression:
 		//	'(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
 		//	'='
 		//	system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation
-		//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')';
+		//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')'
+		//	';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')' '=' system=[AlphaSystem|QualifiedName]
-		//callParamsExpr=JNIFunctionInArrayNotation '(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')'
+		//(('over' instantiationDomainExpr=CalculatorExpression)? ('with' ('[' subsystemDims+=IndexName (','
+		//subsystemDims+=IndexName)* ']')?)? ':')? '(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
+		//'=' system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation '(' (inputExprs+=AlphaExpression (','
+		//inputExprs+=AlphaExpression)*)? ')' ';'
 		public Group getGroup() { return cGroup; }
 		
+		//(('over' instantiationDomainExpr=CalculatorExpression)? ('with' ('[' subsystemDims+=IndexName (','
+		//subsystemDims+=IndexName)* ']')?)? ':')?
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//('over' instantiationDomainExpr=CalculatorExpression)?
+		public Group getGroup_0_0() { return cGroup_0_0; }
+		
+		//'over'
+		public Keyword getOverKeyword_0_0_0() { return cOverKeyword_0_0_0; }
+		
+		//instantiationDomainExpr=CalculatorExpression
+		public Assignment getInstantiationDomainExprAssignment_0_0_1() { return cInstantiationDomainExprAssignment_0_0_1; }
+		
+		//CalculatorExpression
+		public RuleCall getInstantiationDomainExprCalculatorExpressionParserRuleCall_0_0_1_0() { return cInstantiationDomainExprCalculatorExpressionParserRuleCall_0_0_1_0; }
+		
+		//('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?)?
+		public Group getGroup_0_1() { return cGroup_0_1; }
+		
+		//'with'
+		public Keyword getWithKeyword_0_1_0() { return cWithKeyword_0_1_0; }
+		
+		//('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?
+		public Group getGroup_0_1_1() { return cGroup_0_1_1; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_0_1_1_0() { return cLeftSquareBracketKeyword_0_1_1_0; }
+		
+		//subsystemDims+=IndexName
+		public Assignment getSubsystemDimsAssignment_0_1_1_1() { return cSubsystemDimsAssignment_0_1_1_1; }
+		
+		//IndexName
+		public RuleCall getSubsystemDimsIndexNameParserRuleCall_0_1_1_1_0() { return cSubsystemDimsIndexNameParserRuleCall_0_1_1_1_0; }
+		
+		//(',' subsystemDims+=IndexName)*
+		public Group getGroup_0_1_1_2() { return cGroup_0_1_1_2; }
+		
+		//','
+		public Keyword getCommaKeyword_0_1_1_2_0() { return cCommaKeyword_0_1_1_2_0; }
+		
+		//subsystemDims+=IndexName
+		public Assignment getSubsystemDimsAssignment_0_1_1_2_1() { return cSubsystemDimsAssignment_0_1_1_2_1; }
+		
+		//IndexName
+		public RuleCall getSubsystemDimsIndexNameParserRuleCall_0_1_1_2_1_0() { return cSubsystemDimsIndexNameParserRuleCall_0_1_1_2_1_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_0_1_1_3() { return cRightSquareBracketKeyword_0_1_1_3; }
+		
+		//':'
+		public Keyword getColonKeyword_0_2() { return cColonKeyword_0_2; }
+		
 		//'('
-		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
 		//(outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)?
-		public Group getGroup_1() { return cGroup_1; }
+		public Group getGroup_2() { return cGroup_2; }
 		
 		//outputExprs+=AlphaExpression
-		public Assignment getOutputExprsAssignment_1_0() { return cOutputExprsAssignment_1_0; }
+		public Assignment getOutputExprsAssignment_2_0() { return cOutputExprsAssignment_2_0; }
 		
 		//AlphaExpression
-		public RuleCall getOutputExprsAlphaExpressionParserRuleCall_1_0_0() { return cOutputExprsAlphaExpressionParserRuleCall_1_0_0; }
+		public RuleCall getOutputExprsAlphaExpressionParserRuleCall_2_0_0() { return cOutputExprsAlphaExpressionParserRuleCall_2_0_0; }
 		
 		//(',' outputExprs+=AlphaExpression)*
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		public Group getGroup_2_1() { return cGroup_2_1; }
 		
 		//','
-		public Keyword getCommaKeyword_1_1_0() { return cCommaKeyword_1_1_0; }
+		public Keyword getCommaKeyword_2_1_0() { return cCommaKeyword_2_1_0; }
 		
 		//outputExprs+=AlphaExpression
-		public Assignment getOutputExprsAssignment_1_1_1() { return cOutputExprsAssignment_1_1_1; }
+		public Assignment getOutputExprsAssignment_2_1_1() { return cOutputExprsAssignment_2_1_1; }
 		
 		//AlphaExpression
-		public RuleCall getOutputExprsAlphaExpressionParserRuleCall_1_1_1_0() { return cOutputExprsAlphaExpressionParserRuleCall_1_1_1_0; }
+		public RuleCall getOutputExprsAlphaExpressionParserRuleCall_2_1_1_0() { return cOutputExprsAlphaExpressionParserRuleCall_2_1_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_2() { return cRightParenthesisKeyword_2; }
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_3() { return cEqualsSignKeyword_3; }
+		public Keyword getEqualsSignKeyword_4() { return cEqualsSignKeyword_4; }
 		
 		//system=[AlphaSystem|QualifiedName]
-		public Assignment getSystemAssignment_4() { return cSystemAssignment_4; }
+		public Assignment getSystemAssignment_5() { return cSystemAssignment_5; }
 		
 		//[AlphaSystem|QualifiedName]
-		public CrossReference getSystemAlphaSystemCrossReference_4_0() { return cSystemAlphaSystemCrossReference_4_0; }
+		public CrossReference getSystemAlphaSystemCrossReference_5_0() { return cSystemAlphaSystemCrossReference_5_0; }
 		
 		//QualifiedName
-		public RuleCall getSystemAlphaSystemQualifiedNameParserRuleCall_4_0_1() { return cSystemAlphaSystemQualifiedNameParserRuleCall_4_0_1; }
+		public RuleCall getSystemAlphaSystemQualifiedNameParserRuleCall_5_0_1() { return cSystemAlphaSystemQualifiedNameParserRuleCall_5_0_1; }
 		
 		//callParamsExpr=JNIFunctionInArrayNotation
-		public Assignment getCallParamsExprAssignment_5() { return cCallParamsExprAssignment_5; }
+		public Assignment getCallParamsExprAssignment_6() { return cCallParamsExprAssignment_6; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getCallParamsExprJNIFunctionInArrayNotationParserRuleCall_5_0() { return cCallParamsExprJNIFunctionInArrayNotationParserRuleCall_5_0; }
+		public RuleCall getCallParamsExprJNIFunctionInArrayNotationParserRuleCall_6_0() { return cCallParamsExprJNIFunctionInArrayNotationParserRuleCall_6_0; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_6() { return cLeftParenthesisKeyword_6; }
+		public Keyword getLeftParenthesisKeyword_7() { return cLeftParenthesisKeyword_7; }
 		
 		//(inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)?
-		public Group getGroup_7() { return cGroup_7; }
+		public Group getGroup_8() { return cGroup_8; }
 		
 		//inputExprs+=AlphaExpression
-		public Assignment getInputExprsAssignment_7_0() { return cInputExprsAssignment_7_0; }
+		public Assignment getInputExprsAssignment_8_0() { return cInputExprsAssignment_8_0; }
 		
 		//AlphaExpression
-		public RuleCall getInputExprsAlphaExpressionParserRuleCall_7_0_0() { return cInputExprsAlphaExpressionParserRuleCall_7_0_0; }
+		public RuleCall getInputExprsAlphaExpressionParserRuleCall_8_0_0() { return cInputExprsAlphaExpressionParserRuleCall_8_0_0; }
 		
 		//(',' inputExprs+=AlphaExpression)*
-		public Group getGroup_7_1() { return cGroup_7_1; }
+		public Group getGroup_8_1() { return cGroup_8_1; }
 		
 		//','
-		public Keyword getCommaKeyword_7_1_0() { return cCommaKeyword_7_1_0; }
+		public Keyword getCommaKeyword_8_1_0() { return cCommaKeyword_8_1_0; }
 		
 		//inputExprs+=AlphaExpression
-		public Assignment getInputExprsAssignment_7_1_1() { return cInputExprsAssignment_7_1_1; }
+		public Assignment getInputExprsAssignment_8_1_1() { return cInputExprsAssignment_8_1_1; }
 		
 		//AlphaExpression
-		public RuleCall getInputExprsAlphaExpressionParserRuleCall_7_1_1_0() { return cInputExprsAlphaExpressionParserRuleCall_7_1_1_0; }
+		public RuleCall getInputExprsAlphaExpressionParserRuleCall_8_1_1_0() { return cInputExprsAlphaExpressionParserRuleCall_8_1_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_8() { return cRightParenthesisKeyword_8; }
+		public Keyword getRightParenthesisKeyword_9() { return cRightParenthesisKeyword_9; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_10() { return cSemicolonKeyword_10; }
 	}
 	public class AlphaExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AlphaExpression");
@@ -4426,6 +4355,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final ImportsElements pImports;
 	private final AlphaPackageElements pAlphaPackage;
 	private final AlphaSystemElements pAlphaSystem;
+	private final SystemBodyElements pSystemBody;
 	private final InputVariableElements pInputVariable;
 	private final OutputVariableElements pOutputVariable;
 	private final LocalVariableElements pLocalVariable;
@@ -4435,6 +4365,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final JNIDomainElements pJNIDomain;
 	private final JNIDomainInArrayNotationElements pJNIDomainInArrayNotation;
 	private final JNIParamDomainElements pJNIParamDomain;
+	private final JNIParamDomainInArrayNotationElements pJNIParamDomainInArrayNotation;
 	private final JNIRelationElements pJNIRelation;
 	private final JNIFunctionElements pJNIFunction;
 	private final JNIFunctionInArrayNotationElements pJNIFunctionInArrayNotation;
@@ -4449,6 +4380,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final IndexNameElements pIndexName;
 	private final AIndexListElements pAIndexList;
 	private final AParamDomainElements pAParamDomain;
+	private final AParamDomainInArrayNotationElements pAParamDomainInArrayNotation;
 	private final AISLSetElements pAISLSet;
 	private final AISLBasicSetElements pAISLBasicSet;
 	private final AISLRelationElements pAISLRelation;
@@ -4461,10 +4393,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final AISLFuzzyExpressionElements pAISLFuzzyExpression;
 	private final StandardEquationElements pStandardEquation;
 	private final UseEquationElements pUseEquation;
-	private final UseExpressionElements pUseExpression;
-	private final SubSystemCaseExpressionElements pSubSystemCaseExpression;
-	private final SubSystemRestrictExpressionElements pSubSystemRestrictExpression;
-	private final SubSystemCallExpressionElements pSubSystemCallExpression;
 	private final AlphaExpressionElements pAlphaExpression;
 	private final AlphaTerminalExpressionElements pAlphaTerminalExpression;
 	private final ReductionsElements pReductions;
@@ -4539,6 +4467,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pImports = new ImportsElements();
 		this.pAlphaPackage = new AlphaPackageElements();
 		this.pAlphaSystem = new AlphaSystemElements();
+		this.pSystemBody = new SystemBodyElements();
 		this.pInputVariable = new InputVariableElements();
 		this.pOutputVariable = new OutputVariableElements();
 		this.pLocalVariable = new LocalVariableElements();
@@ -4548,6 +4477,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pJNIDomain = new JNIDomainElements();
 		this.pJNIDomainInArrayNotation = new JNIDomainInArrayNotationElements();
 		this.pJNIParamDomain = new JNIParamDomainElements();
+		this.pJNIParamDomainInArrayNotation = new JNIParamDomainInArrayNotationElements();
 		this.pJNIRelation = new JNIRelationElements();
 		this.pJNIFunction = new JNIFunctionElements();
 		this.pJNIFunctionInArrayNotation = new JNIFunctionInArrayNotationElements();
@@ -4562,6 +4492,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pIndexName = new IndexNameElements();
 		this.pAIndexList = new AIndexListElements();
 		this.pAParamDomain = new AParamDomainElements();
+		this.pAParamDomainInArrayNotation = new AParamDomainInArrayNotationElements();
 		this.pAISLSet = new AISLSetElements();
 		this.pAISLBasicSet = new AISLBasicSetElements();
 		this.pAISLRelation = new AISLRelationElements();
@@ -4574,10 +4505,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAISLFuzzyExpression = new AISLFuzzyExpressionElements();
 		this.pStandardEquation = new StandardEquationElements();
 		this.pUseEquation = new UseEquationElements();
-		this.pUseExpression = new UseExpressionElements();
-		this.pSubSystemCaseExpression = new SubSystemCaseExpressionElements();
-		this.pSubSystemRestrictExpression = new SubSystemRestrictExpressionElements();
-		this.pSubSystemCallExpression = new SubSystemCallExpressionElements();
 		this.pAlphaExpression = new AlphaExpressionElements();
 		this.pAlphaTerminalExpression = new AlphaTerminalExpressionElements();
 		this.pReductions = new ReductionsElements();
@@ -4722,9 +4649,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	//	'affine' name=SystemName parameterDomainExpr=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
 	//	(inputs+=InputVariable | inputs+=FuzzyInputVariable)+)? ('outputs' (outputs+=OutputVariable |
 	//	outputs+=FuzzyOutputVariable)+)? ('locals' (locals+=LocalVariable | locals+=FuzzyLocalVariable)+)? ('over'
-	//	whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')? ('let'
-	//	useEquations+=UseEquation*
-	//	equations+=StandardEquation*)?
+	//	whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')?
+	//	systemBodies+=SystemBody*
 	//	'.';
 	public AlphaSystemElements getAlphaSystemAccess() {
 		return pAlphaSystem;
@@ -4732,6 +4658,19 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getAlphaSystemRule() {
 		return getAlphaSystemAccess().getRule();
+	}
+	
+	//SystemBody:
+	//	{SystemBody} ('when' parameterDomainExpr=JNIParamDomainInArrayNotation | 'else')?
+	//	'let'
+	//	useEquations+=UseEquation*
+	//	equations+=StandardEquation*;
+	public SystemBodyElements getSystemBodyAccess() {
+		return pSystemBody;
+	}
+	
+	public ParserRule getSystemBodyRule() {
+		return getSystemBodyAccess().getRule();
 	}
 	
 	//InputVariable Variable:
@@ -4822,6 +4761,16 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getJNIParamDomainRule() {
 		return getJNIParamDomainAccess().getRule();
+	}
+	
+	//JNIParamDomainInArrayNotation JNIDomain:
+	//	islString=AParamDomainInArrayNotation;
+	public JNIParamDomainInArrayNotationElements getJNIParamDomainInArrayNotationAccess() {
+		return pJNIParamDomainInArrayNotation;
+	}
+	
+	public ParserRule getJNIParamDomainInArrayNotationRule() {
+		return getJNIParamDomainInArrayNotationAccess().getRule();
 	}
 	
 	//JNIRelation:
@@ -4971,6 +4920,16 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		return getAParamDomainAccess().getRule();
 	}
 	
+	//AParamDomainInArrayNotation:
+	//	'{' ':' AISLString '}';
+	public AParamDomainInArrayNotationElements getAParamDomainInArrayNotationAccess() {
+		return pAParamDomainInArrayNotation;
+	}
+	
+	public ParserRule getAParamDomainInArrayNotationRule() {
+		return getAParamDomainInArrayNotationAccess().getRule();
+	}
+	
 	//AISLSet:
 	//	'{' AISLBasicSet (';' AISLBasicSet)* '}';
 	public AISLSetElements getAISLSetAccess() {
@@ -5088,9 +5047,12 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//UseEquation:
-	//	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (','
+	//	(('over' instantiationDomainExpr=CalculatorExpression)? ('with' ('[' subsystemDims+=IndexName (','
 	//	subsystemDims+=IndexName)* ']')?)? ':')?
-	//	expr=UseExpression
+	//	'(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
+	//	'='
+	//	system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation
+	//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')'
 	//	';';
 	public UseEquationElements getUseEquationAccess() {
 		return pUseEquation;
@@ -5098,51 +5060,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getUseEquationRule() {
 		return getUseEquationAccess().getRule();
-	}
-	
-	//UseExpression:
-	//	SubSystemCaseExpression | SubSystemRestrictExpression | SubSystemCallExpression;
-	public UseExpressionElements getUseExpressionAccess() {
-		return pUseExpression;
-	}
-	
-	public ParserRule getUseExpressionRule() {
-		return getUseExpressionAccess().getRule();
-	}
-	
-	//SubSystemCaseExpression:
-	//	'case' '{' (exprs+=UseExpression ';')+
-	//	'}';
-	public SubSystemCaseExpressionElements getSubSystemCaseExpressionAccess() {
-		return pSubSystemCaseExpression;
-	}
-	
-	public ParserRule getSubSystemCaseExpressionRule() {
-		return getSubSystemCaseExpressionAccess().getRule();
-	}
-	
-	//SubSystemRestrictExpression:
-	//	domainExpr=(JNIDomain | JNIDomainInArrayNotation) ':' expr=UseExpression |
-	//	'{' domainExpr=CalculatorExpression '}' ':' expr=UseExpression ';';
-	public SubSystemRestrictExpressionElements getSubSystemRestrictExpressionAccess() {
-		return pSubSystemRestrictExpression;
-	}
-	
-	public ParserRule getSubSystemRestrictExpressionRule() {
-		return getSubSystemRestrictExpressionAccess().getRule();
-	}
-	
-	//SubSystemCallExpression:
-	//	'(' (outputExprs+=AlphaExpression (',' outputExprs+=AlphaExpression)*)? ')'
-	//	'='
-	//	system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation
-	//	'(' (inputExprs+=AlphaExpression (',' inputExprs+=AlphaExpression)*)? ')';
-	public SubSystemCallExpressionElements getSubSystemCallExpressionAccess() {
-		return pSubSystemCallExpression;
-	}
-	
-	public ParserRule getSubSystemCallExpressionRule() {
-		return getSubSystemCallExpressionAccess().getRule();
 	}
 	
 	///* Alpha Expressions */ AlphaExpression:

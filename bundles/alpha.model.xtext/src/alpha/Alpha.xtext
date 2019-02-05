@@ -33,11 +33,17 @@ AlphaSystem:
 		('outputs' (outputs+=OutputVariable | outputs+=FuzzyOutputVariable)+)?
 		('locals' (locals+=LocalVariable | locals+=FuzzyLocalVariable)+)?
 		('over' whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')' )?
-		('let' 
-				(useEquations+=UseEquation)*
-				(equations+=StandardEquation)*
-		)?
+		systemBodies+=SystemBody*
 	'.';
+	
+
+SystemBody: {SystemBody}
+	('when'  parameterDomainExpr=JNIParamDomainInArrayNotation | 'else' )?
+	 'let' 
+		(useEquations+=UseEquation)*
+		(equations+=StandardEquation)*
+	
+;
 	
 InputVariable returns Variable:
 	name=ID ':' (domainExpr=CalculatorExpression)? ';'?
@@ -68,6 +74,9 @@ JNIDomainInArrayNotation:
 
 JNIParamDomain returns JNIDomain:
 	islString=AParamDomain
+;
+JNIParamDomainInArrayNotation returns JNIDomain:
+	islString=AParamDomainInArrayNotation
 ;
 JNIRelation:
 	islString=AISLRelation
@@ -128,6 +137,9 @@ AIndexList:
 AParamDomain:
 	'[' AIndexList ']' '->' '{' ':' AISLString '}' 
 ;
+AParamDomainInArrayNotation:
+	'{' ':' AISLString '}' 
+;
 
 AISLSet:
 	'{' AISLBasicSet (';' AISLBasicSet)* '}'
@@ -177,30 +189,12 @@ StandardEquation :
 	variable=[Variable] ('[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')?  '=' expr=AlphaExpression ';';
 	
 UseEquation:
-	('over' instantiationDomainExpr=CalculatorExpression ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?)? ':')? 
-	expr=UseExpression
-	';';
-	
-UseExpression:
-	SubSystemCaseExpression | SubSystemRestrictExpression | SubSystemCallExpression
-;
-
-SubSystemCaseExpression:
-	'case' '{'
-		(exprs+=UseExpression ';' )+
-	'}'
-;	 
-	 
-SubSystemRestrictExpression:
-	domainExpr=(JNIDomain|JNIDomainInArrayNotation) ':' expr=UseExpression |
-	'{' domainExpr=CalculatorExpression '}' ':' expr=UseExpression ';'
-;	 
-	 
-SubSystemCallExpression :
+	(('over' instantiationDomainExpr=CalculatorExpression)? ('with' ('[' subsystemDims+=IndexName (',' subsystemDims+=IndexName)* ']')?)? ':')? 
 	'(' (outputExprs += AlphaExpression (',' outputExprs += AlphaExpression)* )? ')'
 	 '=' 
 	system=[AlphaSystem|QualifiedName] callParamsExpr=JNIFunctionInArrayNotation
-	'(' (inputExprs  += AlphaExpression (',' inputExprs  += AlphaExpression)* )? ')';
+	'(' (inputExprs  += AlphaExpression (',' inputExprs  += AlphaExpression)* )? ')'
+	';';
 	 	
 
 /* Alpha Expressions */

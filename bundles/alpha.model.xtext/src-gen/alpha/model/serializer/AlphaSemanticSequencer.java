@@ -49,9 +49,7 @@ import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
-import alpha.model.SubSystemCallExpression;
-import alpha.model.SubSystemCaseExpression;
-import alpha.model.SubSystemRestrictExpression;
+import alpha.model.SystemBody;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.UnaryExpression;
 import alpha.model.UseEquation;
@@ -198,6 +196,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 					sequence_JNIDomain(context, (JNIDomain) semanticObject); 
 					return; 
 				}
+				else if (rule == grammarAccess.getJNIParamDomainInArrayNotationRule()) {
+					sequence_JNIParamDomainInArrayNotation(context, (JNIDomain) semanticObject); 
+					return; 
+				}
 				else if (rule == grammarAccess.getJNIParamDomainRule()) {
 					sequence_JNIParamDomain(context, (JNIDomain) semanticObject); 
 					return; 
@@ -242,14 +244,8 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case ModelPackage.STANDARD_EQUATION:
 				sequence_StandardEquation(context, (StandardEquation) semanticObject); 
 				return; 
-			case ModelPackage.SUB_SYSTEM_CALL_EXPRESSION:
-				sequence_SubSystemCallExpression(context, (SubSystemCallExpression) semanticObject); 
-				return; 
-			case ModelPackage.SUB_SYSTEM_CASE_EXPRESSION:
-				sequence_SubSystemCaseExpression(context, (SubSystemCaseExpression) semanticObject); 
-				return; 
-			case ModelPackage.SUB_SYSTEM_RESTRICT_EXPRESSION:
-				sequence_SubSystemRestrictExpression(context, (SubSystemRestrictExpression) semanticObject); 
+			case ModelPackage.SYSTEM_BODY:
+				sequence_SystemBody(context, (SystemBody) semanticObject); 
 				return; 
 			case ModelPackage.UNARY_CALCULATOR_EXPRESSION:
 				sequence_UnaryCalculatorExpression(context, (UnaryCalculatorExpression) semanticObject); 
@@ -406,8 +402,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *         locals+=LocalVariable? 
 	 *         (locals+=FuzzyLocalVariable? locals+=LocalVariable?)* 
 	 *         (whileDomainExpr=CalculatorExpression testExpression=AlphaExpression)? 
-	 *         useEquations+=UseEquation* 
-	 *         equations+=StandardEquation*
+	 *         systemBodies+=SystemBody*
 	 *     )
 	 */
 	protected void sequence_AlphaSystem(ISerializationContext context, AlphaSystem semanticObject) {
@@ -1284,6 +1279,24 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     JNIParamDomainInArrayNotation returns JNIDomain
+	 *
+	 * Constraint:
+	 *     islString=AParamDomainInArrayNotation
+	 */
+	protected void sequence_JNIParamDomainInArrayNotation(ISerializationContext context, JNIDomain semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_DOMAIN__ISL_STRING) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_DOMAIN__ISL_STRING));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getJNIParamDomainInArrayNotationAccess().getIslStringAParamDomainInArrayNotationParserRuleCall_0(), semanticObject.getIslString());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     JNIParamDomain returns JNIDomain
 	 *
 	 * Constraint:
@@ -1570,44 +1583,12 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     UseExpression returns SubSystemCallExpression
-	 *     SubSystemCallExpression returns SubSystemCallExpression
+	 *     SystemBody returns SystemBody
 	 *
 	 * Constraint:
-	 *     (
-	 *         (outputExprs+=AlphaExpression outputExprs+=AlphaExpression*)? 
-	 *         system=[AlphaSystem|QualifiedName] 
-	 *         callParamsExpr=JNIFunctionInArrayNotation 
-	 *         (inputExprs+=AlphaExpression inputExprs+=AlphaExpression*)?
-	 *     )
+	 *     (parameterDomainExpr=JNIParamDomainInArrayNotation? useEquations+=UseEquation* equations+=StandardEquation*)
 	 */
-	protected void sequence_SubSystemCallExpression(ISerializationContext context, SubSystemCallExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     UseExpression returns SubSystemCaseExpression
-	 *     SubSystemCaseExpression returns SubSystemCaseExpression
-	 *
-	 * Constraint:
-	 *     exprs+=UseExpression+
-	 */
-	protected void sequence_SubSystemCaseExpression(ISerializationContext context, SubSystemCaseExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     UseExpression returns SubSystemRestrictExpression
-	 *     SubSystemRestrictExpression returns SubSystemRestrictExpression
-	 *
-	 * Constraint:
-	 *     (((domainExpr=JNIDomain | domainExpr=JNIDomainInArrayNotation) expr=UseExpression) | (domainExpr=CalculatorExpression expr=UseExpression))
-	 */
-	protected void sequence_SubSystemRestrictExpression(ISerializationContext context, SubSystemRestrictExpression semanticObject) {
+	protected void sequence_SystemBody(ISerializationContext context, SystemBody semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1678,7 +1659,14 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     UseEquation returns UseEquation
 	 *
 	 * Constraint:
-	 *     ((instantiationDomainExpr=CalculatorExpression (subsystemDims+=IndexName subsystemDims+=IndexName*)?)? expr=UseExpression)
+	 *     (
+	 *         instantiationDomainExpr=CalculatorExpression? 
+	 *         (subsystemDims+=IndexName subsystemDims+=IndexName*)? 
+	 *         (outputExprs+=AlphaExpression outputExprs+=AlphaExpression*)? 
+	 *         system=[AlphaSystem|QualifiedName] 
+	 *         callParamsExpr=JNIFunctionInArrayNotation 
+	 *         (inputExprs+=AlphaExpression inputExprs+=AlphaExpression*)?
+	 *     )
 	 */
 	protected void sequence_UseEquation(ISerializationContext context, UseEquation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

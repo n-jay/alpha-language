@@ -29,6 +29,7 @@ import com.google.inject.Inject
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import alpha.model.JNIFunctionInArrayNotation
+import alpha.model.SystemBody
 
 /**
  * Provides labels for EObjects.
@@ -58,6 +59,10 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 	
 	def text(AlphaSystem system) {
 		system.name + ' ' + system.parameterDomain.toString
+	}
+	
+	def text(SystemBody sysBody) {
+		sysBody.parameterDomain.toString
 	}
 	
 	def text(PolyhedralObject pobj) {

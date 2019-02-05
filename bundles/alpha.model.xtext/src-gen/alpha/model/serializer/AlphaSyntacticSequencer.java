@@ -11,6 +11,7 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
@@ -20,7 +21,6 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AlphaGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_AlphaSystem_LetKeyword_8_0_q;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a;
@@ -31,12 +31,13 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_InputVariable_SemicolonKeyword_3_q;
 	protected AbstractElementAlias match_LocalVariable_SemicolonKeyword_3_q;
 	protected AbstractElementAlias match_OutputVariable_SemicolonKeyword_3_q;
-	protected AbstractElementAlias match_UseEquation_WithKeyword_0_2_0_q;
+	protected AbstractElementAlias match_SystemBody_ElseKeyword_1_1_q;
+	protected AbstractElementAlias match_UseEquation_WithKeyword_0_1_0_q;
+	protected AbstractElementAlias match_UseEquation___WithKeyword_0_1_0_q_ColonKeyword_0_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AlphaGrammarAccess) access;
-		match_AlphaSystem_LetKeyword_8_0_q = new TokenAlias(false, true, grammarAccess.getAlphaSystemAccess().getLetKeyword_8_0());
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a = new TokenAlias(true, true, grammarAccess.getCalculatorExpressionTerminalAccess().getLeftParenthesisKeyword_6_0());
@@ -47,7 +48,9 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_InputVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getInputVariableAccess().getSemicolonKeyword_3());
 		match_LocalVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getLocalVariableAccess().getSemicolonKeyword_3());
 		match_OutputVariable_SemicolonKeyword_3_q = new TokenAlias(false, true, grammarAccess.getOutputVariableAccess().getSemicolonKeyword_3());
-		match_UseEquation_WithKeyword_0_2_0_q = new TokenAlias(false, true, grammarAccess.getUseEquationAccess().getWithKeyword_0_2_0());
+		match_SystemBody_ElseKeyword_1_1_q = new TokenAlias(false, true, grammarAccess.getSystemBodyAccess().getElseKeyword_1_1());
+		match_UseEquation_WithKeyword_0_1_0_q = new TokenAlias(false, true, grammarAccess.getUseEquationAccess().getWithKeyword_0_1_0());
+		match_UseEquation___WithKeyword_0_1_0_q_ColonKeyword_0_2__q = new GroupAlias(false, true, new TokenAlias(false, true, grammarAccess.getUseEquationAccess().getWithKeyword_0_1_0()), new TokenAlias(false, false, grammarAccess.getUseEquationAccess().getColonKeyword_0_2()));
 	}
 	
 	@Override
@@ -62,9 +65,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_AlphaSystem_LetKeyword_8_0_q.equals(syntax))
-				emit_AlphaSystem_LetKeyword_8_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a.equals(syntax))
+			if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a.equals(syntax))
 				emit_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p.equals(syntax))
 				emit_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -84,31 +85,16 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_LocalVariable_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_OutputVariable_SemicolonKeyword_3_q.equals(syntax))
 				emit_OutputVariable_SemicolonKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_UseEquation_WithKeyword_0_2_0_q.equals(syntax))
-				emit_UseEquation_WithKeyword_0_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_SystemBody_ElseKeyword_1_1_q.equals(syntax))
+				emit_SystemBody_ElseKeyword_1_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_UseEquation_WithKeyword_0_1_0_q.equals(syntax))
+				emit_UseEquation_WithKeyword_0_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_UseEquation___WithKeyword_0_1_0_q_ColonKeyword_0_2__q.equals(syntax))
+				emit_UseEquation___WithKeyword_0_1_0_q_ColonKeyword_0_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
-	/**
-	 * Ambiguous syntax:
-	 *     'let'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     definedObjects+=PolyhedralObject (ambiguity) '.' (rule end)
-	 *     inputs+=FuzzyInputVariable (ambiguity) '.' (rule end)
-	 *     inputs+=InputVariable (ambiguity) '.' (rule end)
-	 *     locals+=FuzzyLocalVariable (ambiguity) '.' (rule end)
-	 *     locals+=LocalVariable (ambiguity) '.' (rule end)
-	 *     outputs+=FuzzyOutputVariable (ambiguity) '.' (rule end)
-	 *     outputs+=OutputVariable (ambiguity) '.' (rule end)
-	 *     parameterDomainExpr=JNIParamDomain (ambiguity) '.' (rule end)
-	 *     testExpression=AlphaExpression ')' (ambiguity) '.' (rule end)
-	 */
-	protected void emit_AlphaSystem_LetKeyword_8_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
 	/**
 	 * Ambiguous syntax:
 	 *     '('*
@@ -267,12 +253,38 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
+	 *     'else'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) 'let' (rule start)
+	 *     (rule start) (ambiguity) 'let' equations+=StandardEquation
+	 *     (rule start) (ambiguity) 'let' useEquations+=UseEquation
+	 */
+	protected void emit_SystemBody_ElseKeyword_1_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
 	 *     'with'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     instantiationDomainExpr=CalculatorExpression (ambiguity) ':' expr=UseExpression
+	 *     instantiationDomainExpr=CalculatorExpression (ambiguity) ':' '(' ')' '=' system=[AlphaSystem|QualifiedName]
+	 *     instantiationDomainExpr=CalculatorExpression (ambiguity) ':' '(' outputExprs+=AlphaExpression
 	 */
-	protected void emit_UseEquation_WithKeyword_0_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_UseEquation_WithKeyword_0_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('with'? ':')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '(' ')' '=' system=[AlphaSystem|QualifiedName]
+	 *     (rule start) (ambiguity) '(' outputExprs+=AlphaExpression
+	 */
+	protected void emit_UseEquation___WithKeyword_0_1_0_q_ColonKeyword_0_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
