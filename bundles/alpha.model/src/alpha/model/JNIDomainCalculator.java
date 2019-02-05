@@ -103,6 +103,13 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 
 		super.visitAlphaSystem(system);
 	}
+	
+	@Override
+	public void inSystemBody(SystemBody sysBody) {
+		if (sysBody.getParameterDomainExpr() != null) {
+			issues.addAll(CalculatorExpressionEvaluator.calculate(sysBody.getParameterDomainExpr()));
+		}
+	}
 
 	@Override
 	public void visitVariable(Variable variable) {
