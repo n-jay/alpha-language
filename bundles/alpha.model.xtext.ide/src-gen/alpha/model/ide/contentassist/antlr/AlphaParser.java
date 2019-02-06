@@ -41,6 +41,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAISLStringAccess().getAlternatives(), "rule__AISLString__Alternatives");
 			builder.put(grammarAccess.getAISLExpressionAccess().getAlternatives(), "rule__AISLExpression__Alternatives");
 			builder.put(grammarAccess.getAISLFuzzyExpressionAccess().getAlternatives(), "rule__AISLFuzzyExpression__Alternatives");
+			builder.put(grammarAccess.getEquationAccess().getAlternatives(), "rule__Equation__Alternatives");
 			builder.put(grammarAccess.getAlphaExpressionAccess().getAlternatives(), "rule__AlphaExpression__Alternatives");
 			builder.put(grammarAccess.getAlphaTerminalExpressionAccess().getAlternatives(), "rule__AlphaTerminalExpression__Alternatives");
 			builder.put(grammarAccess.getReductionsAccess().getAlternatives(), "rule__Reductions__Alternatives");
@@ -206,8 +207,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAlphaSystemAccess().getTestExpressionAssignment_7_4(), "rule__AlphaSystem__TestExpressionAssignment_7_4");
 			builder.put(grammarAccess.getAlphaSystemAccess().getSystemBodiesAssignment_8(), "rule__AlphaSystem__SystemBodiesAssignment_8");
 			builder.put(grammarAccess.getSystemBodyAccess().getParameterDomainExprAssignment_1_0_1(), "rule__SystemBody__ParameterDomainExprAssignment_1_0_1");
-			builder.put(grammarAccess.getSystemBodyAccess().getUseEquationsAssignment_3(), "rule__SystemBody__UseEquationsAssignment_3");
-			builder.put(grammarAccess.getSystemBodyAccess().getEquationsAssignment_4(), "rule__SystemBody__EquationsAssignment_4");
+			builder.put(grammarAccess.getSystemBodyAccess().getEquationsAssignment_3(), "rule__SystemBody__EquationsAssignment_3");
 			builder.put(grammarAccess.getInputVariableAccess().getNameAssignment_0(), "rule__InputVariable__NameAssignment_0");
 			builder.put(grammarAccess.getInputVariableAccess().getDomainExprAssignment_2(), "rule__InputVariable__DomainExprAssignment_2");
 			builder.put(grammarAccess.getOutputVariableAccess().getNameAssignment_0(), "rule__OutputVariable__NameAssignment_0");

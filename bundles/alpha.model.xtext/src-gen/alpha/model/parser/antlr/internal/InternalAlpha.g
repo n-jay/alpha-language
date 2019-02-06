@@ -826,28 +826,9 @@ ruleSystemBody returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getSystemBodyAccess().getUseEquationsUseEquationParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getSystemBodyAccess().getEquationsEquationParserRuleCall_3_0());
 				}
-				lv_useEquations_5_0=ruleUseEquation
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getSystemBodyRule());
-					}
-					add(
-						$current,
-						"useEquations",
-						lv_useEquations_5_0,
-						"alpha.model.Alpha.UseEquation");
-					afterParserOrEnumRuleCall();
-				}
-			)
-		)*
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getSystemBodyAccess().getEquationsStandardEquationParserRuleCall_4_0());
-				}
-				lv_equations_6_0=ruleStandardEquation
+				lv_equations_5_0=ruleEquation
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getSystemBodyRule());
@@ -855,8 +836,8 @@ ruleSystemBody returns [EObject current=null]
 					add(
 						$current,
 						"equations",
-						lv_equations_6_0,
-						"alpha.model.Alpha.StandardEquation");
+						lv_equations_5_0,
+						"alpha.model.Alpha.Equation");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -3083,6 +3064,42 @@ ruleAISLFuzzyExpression returns [AntlrDatatypeRuleToken current=new AntlrDatatyp
 			newLeafNode(this_WS_10, grammarAccess.getAISLFuzzyExpressionAccess().getWSTerminalRuleCall_10());
 		}
 	)+
+;
+
+// Entry rule entryRuleEquation
+entryRuleEquation returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getEquationRule()); }
+	iv_ruleEquation=ruleEquation
+	{ $current=$iv_ruleEquation.current; }
+	EOF;
+
+// Rule Equation
+ruleEquation returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getEquationAccess().getStandardEquationParserRuleCall_0());
+		}
+		this_StandardEquation_0=ruleStandardEquation
+		{
+			$current = $this_StandardEquation_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getEquationAccess().getUseEquationParserRuleCall_1());
+		}
+		this_UseEquation_1=ruleUseEquation
+		{
+			$current = $this_UseEquation_1.current;
+			afterParserOrEnumRuleCall();
+		}
+	)
 ;
 
 // Entry rule entryRuleStandardEquation

@@ -10,10 +10,10 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.CalculatorExpression;
 import alpha.model.CaseExpression;
+import alpha.model.Equation;
 import alpha.model.PolyhedralObject;
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
-import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.services.AlphaGrammarAccess;
 import com.google.common.base.Objects;
@@ -179,24 +179,14 @@ public class AlphaFormatter extends AbstractFormatter2 {
   }
   
   protected void _format(final SystemBody sysBody, @Extension final IFormattableDocument document) {
-    EList<UseEquation> _useEquations = sysBody.getUseEquations();
-    for (final UseEquation eq : _useEquations) {
+    EList<Equation> _equations = sysBody.getEquations();
+    for (final Equation eq : _equations) {
       {
-        document.<UseEquation>format(eq);
+        document.<Equation>format(eq);
         final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
           it.newLine();
         };
-        document.<UseEquation>append(eq, _function);
-      }
-    }
-    EList<StandardEquation> _equations = sysBody.getEquations();
-    for (final StandardEquation eq_1 : _equations) {
-      {
-        document.<StandardEquation>format(eq_1);
-        final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
-          it.newLine();
-        };
-        document.<StandardEquation>append(eq_1, _function);
+        document.<Equation>append(eq, _function);
       }
     }
   }
@@ -266,14 +256,14 @@ public class AlphaFormatter extends AbstractFormatter2 {
     } else if (alphaPackage instanceof CaseExpression) {
       _format((CaseExpression)alphaPackage, document);
       return;
+    } else if (alphaPackage instanceof StandardEquation) {
+      _format((StandardEquation)alphaPackage, document);
+      return;
     } else if (alphaPackage instanceof AlphaExpression) {
       _format((AlphaExpression)alphaPackage, document);
       return;
     } else if (alphaPackage instanceof AlphaRoot) {
       _format((AlphaRoot)alphaPackage, document);
-      return;
-    } else if (alphaPackage instanceof StandardEquation) {
-      _format((StandardEquation)alphaPackage, document);
       return;
     } else if (alphaPackage instanceof SystemBody) {
       _format((SystemBody)alphaPackage, document);

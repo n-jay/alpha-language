@@ -40,8 +40,7 @@ AlphaSystem:
 SystemBody: {SystemBody}
 	('when'  parameterDomainExpr=JNIParamDomainInArrayNotation | 'else' )?
 	 'let' 
-		(useEquations+=UseEquation)*
-		(equations+=StandardEquation)*
+		(equations+=Equation)*
 	
 ;
 	
@@ -184,6 +183,10 @@ AISLFuzzyExpression:
 //AIndexAffineExpressionTerminal:
 //	(INT | INT? IndexName);
 
+
+Equation:
+	StandardEquation | UseEquation
+;
 
 StandardEquation :
 	variable=[Variable] ('[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')?  '=' expr=AlphaExpression ';';

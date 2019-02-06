@@ -1571,6 +1571,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     Equation returns StandardEquation
 	 *     StandardEquation returns StandardEquation
 	 *
 	 * Constraint:
@@ -1586,7 +1587,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     SystemBody returns SystemBody
 	 *
 	 * Constraint:
-	 *     (parameterDomainExpr=JNIParamDomainInArrayNotation? useEquations+=UseEquation* equations+=StandardEquation*)
+	 *     (parameterDomainExpr=JNIParamDomainInArrayNotation? equations+=Equation*)
 	 */
 	protected void sequence_SystemBody(ISerializationContext context, SystemBody semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1656,6 +1657,7 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     Equation returns UseEquation
 	 *     UseEquation returns UseEquation
 	 *
 	 * Constraint:

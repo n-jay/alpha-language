@@ -257,8 +257,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) 'let' (rule start)
-	 *     (rule start) (ambiguity) 'let' equations+=StandardEquation
-	 *     (rule start) (ambiguity) 'let' useEquations+=UseEquation
+	 *     (rule start) (ambiguity) 'let' equations+=Equation
 	 */
 	protected void emit_SystemBody_ElseKeyword_1_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

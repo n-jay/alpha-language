@@ -420,20 +420,16 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cParameterDomainExprJNIParamDomainInArrayNotationParserRuleCall_1_0_1_0 = (RuleCall)cParameterDomainExprAssignment_1_0_1.eContents().get(0);
 		private final Keyword cElseKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
 		private final Keyword cLetKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cUseEquationsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cUseEquationsUseEquationParserRuleCall_3_0 = (RuleCall)cUseEquationsAssignment_3.eContents().get(0);
-		private final Assignment cEquationsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cEquationsStandardEquationParserRuleCall_4_0 = (RuleCall)cEquationsAssignment_4.eContents().get(0);
+		private final Assignment cEquationsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cEquationsEquationParserRuleCall_3_0 = (RuleCall)cEquationsAssignment_3.eContents().get(0);
 		
 		//SystemBody:
 		//	{SystemBody} ('when' parameterDomainExpr=JNIParamDomainInArrayNotation | 'else')?
 		//	'let'
-		//	useEquations+=UseEquation*
-		//	equations+=StandardEquation*;
+		//	equations+=Equation*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{SystemBody} ('when' parameterDomainExpr=JNIParamDomainInArrayNotation | 'else')? 'let' useEquations+=UseEquation*
-		//equations+=StandardEquation*
+		//{SystemBody} ('when' parameterDomainExpr=JNIParamDomainInArrayNotation | 'else')? 'let' equations+=Equation*
 		public Group getGroup() { return cGroup; }
 		
 		//{SystemBody}
@@ -460,17 +456,11 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//'let'
 		public Keyword getLetKeyword_2() { return cLetKeyword_2; }
 		
-		//useEquations+=UseEquation*
-		public Assignment getUseEquationsAssignment_3() { return cUseEquationsAssignment_3; }
+		//equations+=Equation*
+		public Assignment getEquationsAssignment_3() { return cEquationsAssignment_3; }
 		
-		//UseEquation
-		public RuleCall getUseEquationsUseEquationParserRuleCall_3_0() { return cUseEquationsUseEquationParserRuleCall_3_0; }
-		
-		//equations+=StandardEquation*
-		public Assignment getEquationsAssignment_4() { return cEquationsAssignment_4; }
-		
-		//StandardEquation
-		public RuleCall getEquationsStandardEquationParserRuleCall_4_0() { return cEquationsStandardEquationParserRuleCall_4_0; }
+		//Equation
+		public RuleCall getEquationsEquationParserRuleCall_3_0() { return cEquationsEquationParserRuleCall_3_0; }
 	}
 	public class InputVariableElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.InputVariable");
@@ -1759,6 +1749,30 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//WS
 		public RuleCall getWSTerminalRuleCall_10() { return cWSTerminalRuleCall_10; }
 	}
+	public class EquationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.Equation");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cStandardEquationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cUseEquationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		////AIndexAffineExpression:	
+		////	 '-'? AIndexAffineExpressionTerminal (('+'|'-') AIndexAffineExpression)*;
+		////	
+		////AIndexAffineExpressionTerminal:
+		////	(INT | INT? IndexName);
+		//Equation:
+		//	StandardEquation | UseEquation;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//StandardEquation | UseEquation
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//StandardEquation
+		public RuleCall getStandardEquationParserRuleCall_0() { return cStandardEquationParserRuleCall_0; }
+		
+		//UseEquation
+		public RuleCall getUseEquationParserRuleCall_1() { return cUseEquationParserRuleCall_1; }
+	}
 	public class StandardEquationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.StandardEquation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1779,11 +1793,6 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExprAlphaExpressionParserRuleCall_3_0 = (RuleCall)cExprAssignment_3.eContents().get(0);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		////AIndexAffineExpression:	
-		////	 '-'? AIndexAffineExpressionTerminal (('+'|'-') AIndexAffineExpression)*;
-		////	
-		////AIndexAffineExpressionTerminal:
-		////	(INT | INT? IndexName);
 		//StandardEquation:
 		//	variable=[Variable] ('[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')? '=' expr=AlphaExpression ';';
 		@Override public ParserRule getRule() { return rule; }
@@ -4391,6 +4400,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final AISLBasicRelationElements pAISLBasicRelation;
 	private final AISLWrappedBasicRelationElements pAISLWrappedBasicRelation;
 	private final AISLFuzzyExpressionElements pAISLFuzzyExpression;
+	private final EquationElements pEquation;
 	private final StandardEquationElements pStandardEquation;
 	private final UseEquationElements pUseEquation;
 	private final AlphaExpressionElements pAlphaExpression;
@@ -4503,6 +4513,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAISLBasicRelation = new AISLBasicRelationElements();
 		this.pAISLWrappedBasicRelation = new AISLWrappedBasicRelationElements();
 		this.pAISLFuzzyExpression = new AISLFuzzyExpressionElements();
+		this.pEquation = new EquationElements();
 		this.pStandardEquation = new StandardEquationElements();
 		this.pUseEquation = new UseEquationElements();
 		this.pAlphaExpression = new AlphaExpressionElements();
@@ -4663,8 +4674,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	//SystemBody:
 	//	{SystemBody} ('when' parameterDomainExpr=JNIParamDomainInArrayNotation | 'else')?
 	//	'let'
-	//	useEquations+=UseEquation*
-	//	equations+=StandardEquation*;
+	//	equations+=Equation*;
 	public SystemBodyElements getSystemBodyAccess() {
 		return pSystemBody;
 	}
@@ -5036,6 +5046,16 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	////	
 	////AIndexAffineExpressionTerminal:
 	////	(INT | INT? IndexName);
+	//Equation:
+	//	StandardEquation | UseEquation;
+	public EquationElements getEquationAccess() {
+		return pEquation;
+	}
+	
+	public ParserRule getEquationRule() {
+		return getEquationAccess().getRule();
+	}
+	
 	//StandardEquation:
 	//	variable=[Variable] ('[' indexNames+=IndexName (',' indexNames+=IndexName)* ']')? '=' expr=AlphaExpression ';';
 	public StandardEquationElements getStandardEquationAccess() {

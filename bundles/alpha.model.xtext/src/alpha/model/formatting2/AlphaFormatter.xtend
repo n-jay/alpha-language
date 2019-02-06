@@ -20,6 +20,7 @@ import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import alpha.model.SystemBody
+import alpha.model.Equation
 
 class AlphaFormatter extends AbstractFormatter2 {
 	
@@ -112,12 +113,7 @@ class AlphaFormatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(SystemBody sysBody, extension IFormattableDocument document) {
-		for (UseEquation eq : sysBody.useEquations) {
-			eq.format
-			eq.append[newLine]
-		}
-		
-		for (StandardEquation eq : sysBody.equations) {
+		for (Equation eq : sysBody.equations) {
 			eq.format
 			eq.append[newLine]
 		}
