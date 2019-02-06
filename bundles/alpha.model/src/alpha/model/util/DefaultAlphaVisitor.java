@@ -7,6 +7,7 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
 import alpha.model.AlphaVisitor;
+import alpha.model.Equation;
 import alpha.model.ExternalFunction;
 import alpha.model.FuzzyVariable;
 import alpha.model.Imports;
@@ -67,7 +68,6 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	@Override
 	default void visitSystemBody(SystemBody sysBody) {
 		inSystemBody(sysBody);
-		sysBody.getUseEquations().forEach(a->a.accept(this));
 		sysBody.getEquations().forEach(a->a.accept(this));
 		outSystemBody(sysBody);
 	}
@@ -101,6 +101,12 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	default void visitExternalFunction(ExternalFunction ef) {
 		inExternalFunction(ef);
 		outExternalFunction(ef);
+	}
+	
+	@Override
+	default void visitEquation(Equation eq) {
+		inEquation(eq);
+		outEquation(eq);
 	}
 	
 	@Override
@@ -172,13 +178,18 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	}
 	
 	@Override
+	default void inEquation(Equation eq) {
+		defaultIn(eq);
+	}
+	
+	@Override
 	default void inUseEquation(UseEquation ue) {
-		defaultIn(ue);
+		inEquation(ue);
 	}
 	
 	@Override
 	default void inStandardEquation(StandardEquation se) {
-		defaultIn(se);
+		inEquation(se);
 	}
 
 	@Override
@@ -237,12 +248,17 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	}
 	
 	@Override
+	default void outEquation(Equation eq) {
+		defaultOut(eq);
+	}
+	
+	@Override
 	default void outUseEquation(UseEquation ue) {
-		defaultOut(ue);
+		outEquation(ue);
 	}
 	
 	@Override
 	default void outStandardEquation(StandardEquation se) {
-		defaultOut(se);
+		outEquation(se);
 	}
 }

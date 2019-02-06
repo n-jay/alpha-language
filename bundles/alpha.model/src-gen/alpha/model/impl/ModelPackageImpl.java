@@ -2866,6 +2866,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaVisitorEClass, null, "visitPolyhedralObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getPolyhedralObject(), "pobj", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaVisitorEClass, null, "visitEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getEquation(), "eq", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaVisitorEClass, null, "visitUseEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getUseEquation(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2905,6 +2908,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaVisitorEClass, null, "inPolyhedralObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getPolyhedralObject(), "pobj", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaVisitorEClass, null, "inEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getEquation(), "eq", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaVisitorEClass, null, "inUseEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getUseEquation(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -2943,6 +2949,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaVisitorEClass, null, "outPolyhedralObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getPolyhedralObject(), "pobj", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaVisitorEClass, null, "outEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getEquation(), "eq", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaVisitorEClass, null, "outUseEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getUseEquation(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);

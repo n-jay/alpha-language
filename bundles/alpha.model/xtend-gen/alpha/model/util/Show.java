@@ -51,13 +51,11 @@ import alpha.model.VariableDomain;
 import alpha.model.VariableExpression;
 import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.ModelSwitch;
-import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.Arrays;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -325,7 +323,9 @@ public class Show extends ModelSwitch<CharSequence> {
   public CharSequence caseSystemBody(final SystemBody sysBody) {
     StringConcatenation _builder = new StringConcatenation();
     {
-      if (((!sysBody.getUseEquations().isEmpty()) || (!sysBody.getEquations().isEmpty()))) {
+      boolean _isEmpty = sysBody.getEquations().isEmpty();
+      boolean _not = (!_isEmpty);
+      if (_not) {
         {
           JNIDomain _parameterDomainExpr = sysBody.getParameterDomainExpr();
           boolean _tripleNotEquals = (_parameterDomainExpr != null);
@@ -339,12 +339,10 @@ public class Show extends ModelSwitch<CharSequence> {
         _builder.append("let");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
-        EList<UseEquation> _useEquations = sysBody.getUseEquations();
-        EList<Equation> _equations = sysBody.getEquations();
         final Function1<Equation, CharSequence> _function = (Equation it) -> {
           return this.doSwitch(it);
         };
-        String _join = IterableExtensions.join(IterableExtensions.<Equation, CharSequence>map(Iterables.<Equation>concat(_useEquations, _equations), _function), "\n\n");
+        String _join = IterableExtensions.join(ListExtensions.<Equation, CharSequence>map(sysBody.getEquations(), _function), "\n\n");
         _builder.append(_join, "\t");
         _builder.newLineIfNotEmpty();
       }

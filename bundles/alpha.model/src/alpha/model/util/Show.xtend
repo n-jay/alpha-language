@@ -167,9 +167,9 @@ class Show extends ModelSwitch<CharSequence> {
 	}
 	
 	/* override */ def caseSystemBody(SystemBody sysBody) '''
-		«IF !sysBody.useEquations.isEmpty || !sysBody.equations.isEmpty»
+		«IF !sysBody.equations.isEmpty»
 			«IF sysBody.parameterDomainExpr !== null»when «sysBody.parameterDomainExpr.printParameterDomain» «ENDIF»let
-				«(sysBody.useEquations + sysBody.equations).map[doSwitch].join("\n\n")»
+				«(sysBody.equations).map[doSwitch].join("\n\n")»
 		«ENDIF»
 	'''
 

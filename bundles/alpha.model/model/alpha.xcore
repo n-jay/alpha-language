@@ -88,6 +88,7 @@ interface AlphaVisitor {
 	
 	op void visitPolyhedralObject(PolyhedralObject pobj)
 
+	op void visitEquation(Equation eq)
 	op void visitUseEquation(UseEquation ue)
 	op void visitStandardEquation(StandardEquation se)
 	
@@ -108,6 +109,8 @@ interface AlphaVisitor {
 	
 	op void inPolyhedralObject(PolyhedralObject pobj)
 
+
+	op void inEquation(Equation eq)
 	op void inUseEquation(UseEquation ue)
 	op void inStandardEquation(StandardEquation se)
 	
@@ -128,6 +131,7 @@ interface AlphaVisitor {
 	
 	op void outPolyhedralObject(PolyhedralObject pobj)
 
+	op void outEquation(Equation eq)
 	op void outUseEquation(UseEquation ue)
 	op void outStandardEquation(StandardEquation se)
 }

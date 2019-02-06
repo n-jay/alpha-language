@@ -124,6 +124,14 @@ public interface AlphaVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model eqUnique="false"
+	 * @generated
+	 */
+	void visitEquation(Equation eq);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model ueUnique="false"
 	 * @generated
 	 */
@@ -228,6 +236,14 @@ public interface AlphaVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model eqUnique="false"
+	 * @generated
+	 */
+	void inEquation(Equation eq);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model ueUnique="false"
 	 * @generated
 	 */
@@ -328,6 +344,14 @@ public interface AlphaVisitor extends EObject {
 	 * @generated
 	 */
 	void outPolyhedralObject(PolyhedralObject pobj);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model eqUnique="false"
+	 * @generated
+	 */
+	void outEquation(Equation eq);
 
 	/**
 	 * <!-- begin-user-doc -->
