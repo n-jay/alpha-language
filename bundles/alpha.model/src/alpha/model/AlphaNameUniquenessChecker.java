@@ -109,15 +109,17 @@ public class AlphaNameUniquenessChecker {
 			});
 		}
 
-		// Then check name conflicts between equations
-		{
+		// Then check name conflicts between equations within each system body
+		for (SystemBody sysBody : system.getSystemBodies()) {
 			Map<String, List<AlphaNode>> nameMap = new HashMap<>();
 
-			system.getEquations().stream().forEach(e -> {
+			sysBody.getEquations().stream().forEach(e -> {
 				checkAndAdd(e.getVariable().getName(), e, nameMap);
 			});
 
-			system.getUseEquations().stream().forEach(e -> {
+			//UseEquations can write to variables multiple times as long as the domains are disjoint
+			// only check against name conflict with StandardEquations
+			sysBody.getUseEquations().stream().forEach(e -> {
 				EcoreUtil.getAllContents(e.getOutputExprs()).forEachRemaining(l -> {
 					if (l instanceof VariableExpression) {
 						String name = ((VariableExpression) l).getVariable().getName();
@@ -128,6 +130,9 @@ public class AlphaNameUniquenessChecker {
 			});
 
 			nameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
+				//skip conflicts only within UseEquations
+				if (l.stream().allMatch(n -> n instanceof UseEquation)) return;
+				
 				for (AlphaNode node : l) {
 					if (node instanceof StandardEquation)
 						issues.add(AlphaIssueFactory.duplicateStandardEquation((StandardEquation) node));

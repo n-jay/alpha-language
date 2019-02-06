@@ -206,6 +206,15 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.SYSTEM_BODY: {
+				SystemBody systemBody = (SystemBody)theEObject;
+				T result = caseSystemBody(systemBody);
+				if (result == null) result = caseAlphaVisitable(systemBody);
+				if (result == null) result = caseAlphaCompleteVisitable(systemBody);
+				if (result == null) result = caseAlphaNode(systemBody);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ModelPackage.STANDARD_EQUATION: {
 				StandardEquation standardEquation = (StandardEquation)theEObject;
 				T result = caseStandardEquation(standardEquation);
@@ -961,6 +970,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFuzzyVariable(FuzzyVariable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>System Body</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>System Body</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSystemBody(SystemBody object) {
 		return null;
 	}
 

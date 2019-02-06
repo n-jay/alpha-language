@@ -22,15 +22,19 @@ import alpha.model.issue.AlphaIssue;
 public class AlphaInternalStateConstructor {
 
 	public static List<AlphaIssue> compute(AlphaRoot root) {
-		List<AlphaIssue> issues = JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.INTERFACE_ONLY);
-		issues.addAll(JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.EXPRESSION_ONLY));
-
-		issues.addAll(ExpressionDomainCalculator.calculate(root));
-		issues.addAll(ContextDomainCalculator.calculate(root));
-		issues.addAll(AlphaNameUniquenessChecker.check(root));
-		issues.addAll(UniquenessAndCompletenessCheck.check(root));
-
-		return issues;
+		try {
+			List<AlphaIssue> issues = JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.INTERFACE_ONLY);
+			issues.addAll(JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.EXPRESSION_ONLY));
+			issues.addAll(ExpressionDomainCalculator.calculate(root));
+			issues.addAll(ContextDomainCalculator.calculate(root));
+			issues.addAll(AlphaNameUniquenessChecker.check(root));
+			issues.addAll(UniquenessAndCompletenessCheck.check(root));
+	
+			return issues;
+		} catch (RuntimeException re) {
+			re.printStackTrace();
+			throw re;
+		}
 	}
 
 	public static List<AlphaIssue> compute(List<AlphaRoot> roots) {

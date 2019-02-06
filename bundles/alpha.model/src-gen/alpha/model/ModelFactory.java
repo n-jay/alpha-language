@@ -94,6 +94,15 @@ public interface ModelFactory extends EFactory {
 	FuzzyVariable createFuzzyVariable();
 
 	/**
+	 * Returns a new object of class '<em>System Body</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>System Body</em>'.
+	 * @generated
+	 */
+	SystemBody createSystemBody();
+
+	/**
 	 * Returns a new object of class '<em>Standard Equation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

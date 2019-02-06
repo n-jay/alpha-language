@@ -33,6 +33,7 @@ import alpha.model.VariableExpression
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
+import alpha.model.SystemBody
 
 /**
  * PrintAST is a dump of the Alpha program, mainly used for debugging.
@@ -135,6 +136,19 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	
 	override outAlphaSystem(AlphaSystem system) {
 		defaultOut(system);
+	}
+	
+	override inSystemBody(SystemBody sysBody) {
+		defaultIn(sysBody);
+		if (sysBody.parameterDomainExpr !== null) {
+			printStr("_", sysBody.parameterDomain);
+		} else {
+			printStr("_", "else");
+		}
+	}
+	
+	override outSystemBody(SystemBody sysBody) {
+		defaultOut(sysBody);
 	}
 
 	override inExternalFunction(ExternalFunction ef) {

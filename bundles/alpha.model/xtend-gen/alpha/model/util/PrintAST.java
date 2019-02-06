@@ -20,12 +20,14 @@ import alpha.model.FuzzyDependenceExpression;
 import alpha.model.FuzzyIndexExpression;
 import alpha.model.FuzzyVariable;
 import alpha.model.IndexExpression;
+import alpha.model.JNIDomain;
 import alpha.model.MultiArgExpression;
 import alpha.model.PolyhedralObject;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
+import alpha.model.SystemBody;
 import alpha.model.UnaryExpression;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
@@ -157,6 +159,23 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   @Override
   public void outAlphaSystem(final AlphaSystem system) {
     this.defaultOut(system);
+  }
+  
+  @Override
+  public void inSystemBody(final SystemBody sysBody) {
+    this.defaultIn(sysBody);
+    JNIDomain _parameterDomainExpr = sysBody.getParameterDomainExpr();
+    boolean _tripleNotEquals = (_parameterDomainExpr != null);
+    if (_tripleNotEquals) {
+      this.printStr("_", sysBody.getParameterDomain());
+    } else {
+      this.printStr("_", "else");
+    }
+  }
+  
+  @Override
+  public void outSystemBody(final SystemBody sysBody) {
+    this.defaultOut(sysBody);
   }
   
   @Override

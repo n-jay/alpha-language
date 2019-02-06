@@ -12,6 +12,7 @@ import alpha.model.FuzzyVariable;
 import alpha.model.Imports;
 import alpha.model.PolyhedralObject;
 import alpha.model.StandardEquation;
+import alpha.model.SystemBody;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
 
@@ -59,9 +60,16 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 		system.getInputs().forEach(a->a.accept(this));
 		system.getOutputs().forEach(a->a.accept(this));
 		system.getLocals().forEach(a->a.accept(this));
-		system.getUseEquations().forEach(a->a.accept(this));
-		system.getEquations().forEach(a->a.accept(this));
+		system.getSystemBodies().forEach(a->a.accept(this));
 		outAlphaSystem(system);
+	}
+	
+	@Override
+	default void visitSystemBody(SystemBody sysBody) {
+		inSystemBody(sysBody);
+		sysBody.getUseEquations().forEach(a->a.accept(this));
+		sysBody.getEquations().forEach(a->a.accept(this));
+		outSystemBody(sysBody);
 	}
 
 	@Override
@@ -129,6 +137,11 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	}
 
 	@Override
+	default void inSystemBody(SystemBody sysBody) {
+		defaultIn(sysBody);
+	}
+	
+	@Override
 	default void inImports(Imports imports) {
 		defaultIn(imports);
 	}
@@ -186,6 +199,11 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	@Override
 	default void outAlphaSystem(AlphaSystem system) {
 		outAlphaElement(system);
+	}
+	
+	@Override
+	default void outSystemBody(SystemBody sysBody) {
+		defaultOut(sysBody);
 	}
 
 	@Override

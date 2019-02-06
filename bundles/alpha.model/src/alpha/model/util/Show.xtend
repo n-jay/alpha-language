@@ -45,6 +45,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import alpha.model.SystemBody
 
 /**
  * Prints the Alpha program in Show notation. The show notation
@@ -160,13 +161,17 @@ class Show extends ModelSwitch<CharSequence> {
 				«IF s.whileDomainExpr !== null»
 					over «s.whileDomain.printInstantiationDomain» while («s.testExpression.doSwitch»)
 				«ENDIF»
-				«IF !s.useEquations.isEmpty || !s.equations.isEmpty»
-					let
-						«(s.useEquations + s.equations).map[doSwitch].join("\n\n")»
-				«ENDIF»
+				«s.systemBodies.map[doSwitch].join("\n")»
 			.
 		'''
 	}
+	
+	/* override */ def caseSystemBody(SystemBody sysBody) '''
+		«IF !sysBody.useEquations.isEmpty || !sysBody.equations.isEmpty»
+			«IF sysBody.parameterDomainExpr !== null»when «sysBody.parameterDomainExpr.printParameterDomain» «ENDIF»let
+				«(sysBody.useEquations + sysBody.equations).map[doSwitch].join("\n\n")»
+		«ENDIF»
+	'''
 
 	/* override */ def caseVariable(Variable v) {
 		'''«v.name» : «v.domain.printVariableDeclarationDomain»'''

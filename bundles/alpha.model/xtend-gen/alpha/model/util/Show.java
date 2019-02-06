@@ -40,6 +40,7 @@ import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
+import alpha.model.SystemBody;
 import alpha.model.UNARY_OP;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.UnaryExpression;
@@ -303,28 +304,51 @@ public class Show extends ModelSwitch<CharSequence> {
           _builder.newLineIfNotEmpty();
         }
       }
-      {
-        if (((!s.getUseEquations().isEmpty()) || (!s.getEquations().isEmpty()))) {
-          _builder.append("\t");
-          _builder.append("let");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t");
-          EList<UseEquation> _useEquations = s.getUseEquations();
-          EList<StandardEquation> _equations = s.getEquations();
-          final Function1<AlphaVisitable, CharSequence> _function_3 = (AlphaVisitable it) -> {
-            return this.doSwitch(it);
-          };
-          String _join_3 = IterableExtensions.join(IterableExtensions.<AlphaVisitable, CharSequence>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function_3), "\n\n");
-          _builder.append(_join_3, "\t\t");
-          _builder.newLineIfNotEmpty();
-        }
-      }
+      _builder.append("\t");
+      final Function1<SystemBody, CharSequence> _function_3 = (SystemBody it) -> {
+        return this.doSwitch(it);
+      };
+      String _join_3 = IterableExtensions.join(ListExtensions.<SystemBody, CharSequence>map(s.getSystemBodies(), _function_3), "\n");
+      _builder.append(_join_3, "\t");
+      _builder.newLineIfNotEmpty();
       _builder.append(".");
       _builder.newLine();
       _xblockexpression = _builder;
     }
     return _xblockexpression;
+  }
+  
+  /**
+   * override
+   */
+  public CharSequence caseSystemBody(final SystemBody sysBody) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      if (((!sysBody.getUseEquations().isEmpty()) || (!sysBody.getEquations().isEmpty()))) {
+        {
+          JNIDomain _parameterDomainExpr = sysBody.getParameterDomainExpr();
+          boolean _tripleNotEquals = (_parameterDomainExpr != null);
+          if (_tripleNotEquals) {
+            _builder.append("when ");
+            String _printParameterDomain = this.printParameterDomain(sysBody.getParameterDomainExpr());
+            _builder.append(_printParameterDomain);
+            _builder.append(" ");
+          }
+        }
+        _builder.append("let");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        EList<UseEquation> _useEquations = sysBody.getUseEquations();
+        EList<StandardEquation> _equations = sysBody.getEquations();
+        final Function1<AlphaVisitable, CharSequence> _function = (AlphaVisitable it) -> {
+          return this.doSwitch(it);
+        };
+        String _join = IterableExtensions.join(IterableExtensions.<AlphaVisitable, CharSequence>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function), "\n\n");
+        _builder.append(_join, "\t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    return _builder;
   }
   
   /**

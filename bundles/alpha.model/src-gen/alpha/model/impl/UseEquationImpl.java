@@ -43,10 +43,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.UseEquationImpl#getSystem <em>System</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getInstantiationDomainExpr <em>Instantiation Domain Expr</em>}</li>
- *   <li>{@link alpha.model.impl.UseEquationImpl#getCallParamsExpr <em>Call Params Expr</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getSubsystemDims <em>Subsystem Dims</em>}</li>
+ *   <li>{@link alpha.model.impl.UseEquationImpl#getSystem <em>System</em>}</li>
+ *   <li>{@link alpha.model.impl.UseEquationImpl#getCallParamsExpr <em>Call Params Expr</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getInputExprs <em>Input Exprs</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getOutputExprs <em>Output Exprs</em>}</li>
  * </ul>
@@ -54,16 +54,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class UseEquationImpl extends MinimalEObjectImpl.Container implements UseEquation {
-	/**
-	 * The cached value of the '{@link #getSystem() <em>System</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSystem()
-	 * @generated
-	 * @ordered
-	 */
-	protected AlphaSystem system;
-
 	/**
 	 * The cached value of the '{@link #getInstantiationDomainExpr() <em>Instantiation Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -75,16 +65,6 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	protected CalculatorExpression instantiationDomainExpr;
 
 	/**
-	 * The cached value of the '{@link #getCallParamsExpr() <em>Call Params Expr</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCallParamsExpr()
-	 * @generated
-	 * @ordered
-	 */
-	protected JNIFunctionInArrayNotation callParamsExpr;
-
-	/**
 	 * The cached value of the '{@link #getSubsystemDims() <em>Subsystem Dims</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -93,6 +73,26 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * @ordered
 	 */
 	protected EList<String> subsystemDims;
+
+	/**
+	 * The cached value of the '{@link #getSystem() <em>System</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSystem()
+	 * @generated
+	 * @ordered
+	 */
+	protected AlphaSystem system;
+
+	/**
+	 * The cached value of the '{@link #getCallParamsExpr() <em>Call Params Expr</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCallParamsExpr()
+	 * @generated
+	 * @ordered
+	 */
+	protected JNIFunctionInArrayNotation callParamsExpr;
 
 	/**
 	 * The cached value of the '{@link #getInputExprs() <em>Input Exprs</em>}' containment reference list.
@@ -131,44 +131,6 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	@Override
 	protected EClass eStaticClass() {
 		return ModelPackage.Literals.USE_EQUATION;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AlphaSystem getSystem() {
-		if (system != null && system.eIsProxy()) {
-			InternalEObject oldSystem = (InternalEObject)system;
-			system = (AlphaSystem)eResolveProxy(oldSystem);
-			if (system != oldSystem) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.USE_EQUATION__SYSTEM, oldSystem, system));
-			}
-		}
-		return system;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AlphaSystem basicGetSystem() {
-		return system;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSystem(AlphaSystem newSystem) {
-		AlphaSystem oldSystem = system;
-		system = newSystem;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__SYSTEM, oldSystem, system));
 	}
 
 	/**
@@ -219,6 +181,56 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<String> getSubsystemDims() {
+		if (subsystemDims == null) {
+			subsystemDims = new EDataTypeEList<String>(String.class, this, ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS);
+		}
+		return subsystemDims;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaSystem getSystem() {
+		if (system != null && system.eIsProxy()) {
+			InternalEObject oldSystem = (InternalEObject)system;
+			system = (AlphaSystem)eResolveProxy(oldSystem);
+			if (system != oldSystem) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.USE_EQUATION__SYSTEM, oldSystem, system));
+			}
+		}
+		return system;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaSystem basicGetSystem() {
+		return system;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSystem(AlphaSystem newSystem) {
+		AlphaSystem oldSystem = system;
+		system = newSystem;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__SYSTEM, oldSystem, system));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public JNIFunctionInArrayNotation getCallParamsExpr() {
 		return callParamsExpr;
 	}
@@ -262,18 +274,6 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<String> getSubsystemDims() {
-		if (subsystemDims == null) {
-			subsystemDims = new EDataTypeEList<String>(String.class, this, ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS);
-		}
-		return subsystemDims;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<AlphaExpression> getInputExprs() {
 		if (inputExprs == null) {
 			inputExprs = new EObjectContainmentEList<AlphaExpression>(AlphaExpression.class, this, ModelPackage.USE_EQUATION__INPUT_EXPRS);
@@ -298,25 +298,6 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getInstantiationDomain() {
-		JNIISLSet _xifexpression = null;
-		POLY_OBJECT_TYPE _type = this.getInstantiationDomainExpr().getType();
-		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
-		if (_notEquals) {
-			_xifexpression = null;
-		}
-		else {
-			JNIObject _iSLObject = this.getInstantiationDomainExpr().getISLObject();
-			_xifexpression = ((JNIISLSet) _iSLObject);
-		}
-		return _xifexpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public JNIISLMultiAff getCallParams() {
 		JNIISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getCallParamsExpr().getType();
@@ -327,6 +308,25 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 		else {
 			JNIObject _iSLObject = this.getCallParamsExpr().getISLObject();
 			_xifexpression = ((JNIISLMultiAff) _iSLObject);
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIISLSet getInstantiationDomain() {
+		JNIISLSet _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getInstantiationDomainExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getInstantiationDomainExpr().getISLObject();
+			_xifexpression = ((JNIISLSet) _iSLObject);
 		}
 		return _xifexpression;
 	}
@@ -368,15 +368,15 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
+				return getInstantiationDomainExpr();
+			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
+				return getSubsystemDims();
 			case ModelPackage.USE_EQUATION__SYSTEM:
 				if (resolve) return getSystem();
 				return basicGetSystem();
-			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
-				return getInstantiationDomainExpr();
 			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
 				return getCallParamsExpr();
-			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
-				return getSubsystemDims();
 			case ModelPackage.USE_EQUATION__INPUT_EXPRS:
 				return getInputExprs();
 			case ModelPackage.USE_EQUATION__OUTPUT_EXPRS:
@@ -394,18 +394,18 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.USE_EQUATION__SYSTEM:
-				setSystem((AlphaSystem)newValue);
-				return;
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				setInstantiationDomainExpr((CalculatorExpression)newValue);
-				return;
-			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
-				setCallParamsExpr((JNIFunctionInArrayNotation)newValue);
 				return;
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
 				getSubsystemDims().clear();
 				getSubsystemDims().addAll((Collection<? extends String>)newValue);
+				return;
+			case ModelPackage.USE_EQUATION__SYSTEM:
+				setSystem((AlphaSystem)newValue);
+				return;
+			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
+				setCallParamsExpr((JNIFunctionInArrayNotation)newValue);
 				return;
 			case ModelPackage.USE_EQUATION__INPUT_EXPRS:
 				getInputExprs().clear();
@@ -427,17 +427,17 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.USE_EQUATION__SYSTEM:
-				setSystem((AlphaSystem)null);
-				return;
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				setInstantiationDomainExpr((CalculatorExpression)null);
 				return;
-			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
-				setCallParamsExpr((JNIFunctionInArrayNotation)null);
-				return;
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
 				getSubsystemDims().clear();
+				return;
+			case ModelPackage.USE_EQUATION__SYSTEM:
+				setSystem((AlphaSystem)null);
+				return;
+			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
+				setCallParamsExpr((JNIFunctionInArrayNotation)null);
 				return;
 			case ModelPackage.USE_EQUATION__INPUT_EXPRS:
 				getInputExprs().clear();
@@ -457,14 +457,14 @@ public class UseEquationImpl extends MinimalEObjectImpl.Container implements Use
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.USE_EQUATION__SYSTEM:
-				return system != null;
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				return instantiationDomainExpr != null;
-			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
-				return callParamsExpr != null;
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
 				return subsystemDims != null && !subsystemDims.isEmpty();
+			case ModelPackage.USE_EQUATION__SYSTEM:
+				return system != null;
+			case ModelPackage.USE_EQUATION__CALL_PARAMS_EXPR:
+				return callParamsExpr != null;
 			case ModelPackage.USE_EQUATION__INPUT_EXPRS:
 				return inputExprs != null && !inputExprs.isEmpty();
 			case ModelPackage.USE_EQUATION__OUTPUT_EXPRS:

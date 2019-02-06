@@ -16,10 +16,10 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.UseEquation#getSystem <em>System</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getInstantiationDomainExpr <em>Instantiation Domain Expr</em>}</li>
- *   <li>{@link alpha.model.UseEquation#getCallParamsExpr <em>Call Params Expr</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getSubsystemDims <em>Subsystem Dims</em>}</li>
+ *   <li>{@link alpha.model.UseEquation#getSystem <em>System</em>}</li>
+ *   <li>{@link alpha.model.UseEquation#getCallParamsExpr <em>Call Params Expr</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getInputExprs <em>Input Exprs</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getOutputExprs <em>Output Exprs</em>}</li>
  * </ul>
@@ -29,32 +29,6 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface UseEquation extends AlphaVisitable {
-	/**
-	 * Returns the value of the '<em><b>System</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>System</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>System</em>' reference.
-	 * @see #setSystem(AlphaSystem)
-	 * @see alpha.model.ModelPackage#getUseEquation_System()
-	 * @model
-	 * @generated
-	 */
-	AlphaSystem getSystem();
-
-	/**
-	 * Sets the value of the '{@link alpha.model.UseEquation#getSystem <em>System</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>System</em>' reference.
-	 * @see #getSystem()
-	 * @generated
-	 */
-	void setSystem(AlphaSystem value);
-
 	/**
 	 * Returns the value of the '<em><b>Instantiation Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -82,6 +56,48 @@ public interface UseEquation extends AlphaVisitable {
 	void setInstantiationDomainExpr(CalculatorExpression value);
 
 	/**
+	 * Returns the value of the '<em><b>Subsystem Dims</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Subsystem Dims</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Subsystem Dims</em>' attribute list.
+	 * @see alpha.model.ModelPackage#getUseEquation_SubsystemDims()
+	 * @model unique="false"
+	 * @generated
+	 */
+	EList<String> getSubsystemDims();
+
+	/**
+	 * Returns the value of the '<em><b>System</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>System</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>System</em>' reference.
+	 * @see #setSystem(AlphaSystem)
+	 * @see alpha.model.ModelPackage#getUseEquation_System()
+	 * @model
+	 * @generated
+	 */
+	AlphaSystem getSystem();
+
+	/**
+	 * Sets the value of the '{@link alpha.model.UseEquation#getSystem <em>System</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>System</em>' reference.
+	 * @see #getSystem()
+	 * @generated
+	 */
+	void setSystem(AlphaSystem value);
+
+	/**
 	 * Returns the value of the '<em><b>Call Params Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -106,22 +122,6 @@ public interface UseEquation extends AlphaVisitable {
 	 * @generated
 	 */
 	void setCallParamsExpr(JNIFunctionInArrayNotation value);
-
-	/**
-	 * Returns the value of the '<em><b>Subsystem Dims</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Subsystem Dims</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subsystem Dims</em>' attribute list.
-	 * @see alpha.model.ModelPackage#getUseEquation_SubsystemDims()
-	 * @model unique="false"
-	 * @generated
-	 */
-	EList<String> getSubsystemDims();
 
 	/**
 	 * Returns the value of the '<em><b>Input Exprs</b></em>' containment reference list.
@@ -158,18 +158,18 @@ public interface UseEquation extends AlphaVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
-	 * @generated
-	 */
-	JNIISLSet getInstantiationDomain();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLMultiAff" unique="false"
 	 * @generated
 	 */
 	JNIISLMultiAff getCallParams();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
+	 * @generated
+	 */
+	JNIISLSet getInstantiationDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

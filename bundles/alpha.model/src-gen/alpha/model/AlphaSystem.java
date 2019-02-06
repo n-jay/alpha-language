@@ -23,8 +23,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link alpha.model.AlphaSystem#getLocals <em>Locals</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getWhileDomainExpr <em>While Domain Expr</em>}</li>
  *   <li>{@link alpha.model.AlphaSystem#getTestExpression <em>Test Expression</em>}</li>
- *   <li>{@link alpha.model.AlphaSystem#getUseEquations <em>Use Equations</em>}</li>
- *   <li>{@link alpha.model.AlphaSystem#getEquations <em>Equations</em>}</li>
+ *   <li>{@link alpha.model.AlphaSystem#getSystemBodies <em>System Bodies</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getAlphaSystem()
@@ -201,36 +200,20 @@ public interface AlphaSystem extends AlphaElement {
 	void setTestExpression(AlphaExpression value);
 
 	/**
-	 * Returns the value of the '<em><b>Use Equations</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.UseEquation}.
+	 * Returns the value of the '<em><b>System Bodies</b></em>' containment reference list.
+	 * The list contents are of type {@link alpha.model.SystemBody}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Use Equations</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>System Bodies</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Use Equations</em>' containment reference list.
-	 * @see alpha.model.ModelPackage#getAlphaSystem_UseEquations()
+	 * @return the value of the '<em>System Bodies</em>' containment reference list.
+	 * @see alpha.model.ModelPackage#getAlphaSystem_SystemBodies()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<UseEquation> getUseEquations();
-
-	/**
-	 * Returns the value of the '<em><b>Equations</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.StandardEquation}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Equations</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Equations</em>' containment reference list.
-	 * @see alpha.model.ModelPackage#getAlphaSystem_Equations()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<StandardEquation> getEquations();
+	EList<SystemBody> getSystemBodies();
 
 	/**
 	 * <!-- begin-user-doc -->

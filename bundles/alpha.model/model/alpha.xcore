@@ -74,6 +74,7 @@ interface AlphaVisitor {
 	op void visitAlphaElement(AlphaElement ap)
 	op void visitAlphaPackage(AlphaPackage ap)
 	op void visitAlphaSystem(AlphaSystem system)
+	op void visitSystemBody(SystemBody sysBody)
 	op void visitImports(Imports imports)
 	op void visitAlphaConstant(AlphaConstant ac)
 	op void visitExternalFunction(ExternalFunction ef)
@@ -96,6 +97,7 @@ interface AlphaVisitor {
 	op void inAlphaElement(AlphaElement ap)
 	op void inAlphaPackage(AlphaPackage ap)
 	op void inAlphaSystem(AlphaSystem system)
+	op void inSystemBody(SystemBody sysBody)
 	op void inImports(Imports imports)
 	op void inAlphaConstant(AlphaConstant ac)
 	op void inExternalFunction(ExternalFunction ef)
@@ -115,6 +117,7 @@ interface AlphaVisitor {
 	op void outAlphaElement(AlphaElement ap)
 	op void outAlphaPackage(AlphaPackage ap)
 	op void outAlphaSystem(AlphaSystem system)
+	op void outSystemBody(SystemBody sysBody)
 	op void outImports(Imports imports)
 	op void outAlphaConstant(AlphaConstant ac)
 	op void outExternalFunction(ExternalFunction ef)
@@ -342,8 +345,7 @@ class AlphaSystem extends AlphaElement {
 	contains CalculatorExpression whileDomainExpr
 	contains AlphaExpression testExpression
 	
-	contains UseEquation[] useEquations
-	contains StandardEquation[] equations
+	contains SystemBody[] systemBodies
 	
 	op Variable[] getVariables() {
 		(inputs+outputs+locals).asEList.unmodifiableEList
@@ -413,6 +415,21 @@ class FuzzyVariable extends Variable {
 	}
 }
 
+class SystemBody extends AlphaVisitable {
+	contains JNIDomain parameterDomainExpr
+	contains UseEquation[] useEquations
+	contains StandardEquation[] equations
+	
+	op JNIISLSet getParameterDomain() {
+		return parameterDomainExpr.ISLSet
+	}
+	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitSystemBody(this)
+	}
+}
+
+
 class StandardEquation extends AlphaVisitable {
 	refers Variable variable
 	String[] indexNames
@@ -423,22 +440,21 @@ class StandardEquation extends AlphaVisitable {
 	}
 }
 class UseEquation extends AlphaVisitable {
-	refers AlphaSystem system
 	contains CalculatorExpression instantiationDomainExpr
-	contains JNIFunctionInArrayNotation callParamsExpr
 	String[] subsystemDims
+	refers AlphaSystem system
+	contains JNIFunctionInArrayNotation callParamsExpr
 	contains AlphaExpression[] inputExprs
 	contains AlphaExpression[] outputExprs
-	
-	
-	op JNIISLSet getInstantiationDomain() {
-		if (instantiationDomainExpr.^type != POLY_OBJECT_TYPE.SET) null
-		else instantiationDomainExpr.ISLObject as JNIISLSet
-	}
 	
 	op JNIISLMultiAff getCallParams() {
 		if (callParamsExpr.^type != POLY_OBJECT_TYPE.FUNCTION) null
 		else callParamsExpr.ISLObject as JNIISLMultiAff
+	}
+	
+	op JNIISLSet getInstantiationDomain() {
+		if (instantiationDomainExpr.^type != POLY_OBJECT_TYPE.SET) null
+		else instantiationDomainExpr.ISLObject as JNIISLSet
 	}
 	
 	op void accept(AlphaVisitor visitor) {

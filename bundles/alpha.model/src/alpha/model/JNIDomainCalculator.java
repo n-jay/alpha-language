@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
+
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssue.TYPE;
 import alpha.model.issue.AlphaIssueFactory;
@@ -99,6 +102,13 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		}
 
 		super.visitAlphaSystem(system);
+	}
+	
+	@Override
+	public void inSystemBody(SystemBody sysBody) {
+		if (sysBody.getParameterDomainExpr() != null) {
+			issues.addAll(CalculatorExpressionEvaluator.calculate(sysBody.getParameterDomainExpr()));
+		}
 	}
 
 	@Override
@@ -202,6 +212,15 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 					issues.add(AlphaIssueFactory.expectingFunction(ue, null));
 					return;
 				}
+			}
+			
+			//FIXME
+			// If the parameter domain is null, it is highly likely that the system just got resolved
+			// (Need a better way to check if the system was just resolved, 
+			//  since calling eIsProxy always returns false when the system can be resolved, 
+			//  because getSystem invokes proxy resolution.) 
+			if (ue.getSystem().getParameterDomain() == null) {
+				JNIDomainCalculator.calculate(ue.getSystem(), DOMAIN_CALC_MODE.INTERFACE_ONLY);
 			}
 
 			if (ue.getSystem().getParameterDomain().getNbParams() != ue.getCallParams().getNbAff()) {

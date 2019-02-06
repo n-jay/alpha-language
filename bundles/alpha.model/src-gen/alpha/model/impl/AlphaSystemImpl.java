@@ -10,8 +10,7 @@ import alpha.model.JNIDomain;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.PolyhedralObject;
-import alpha.model.StandardEquation;
-import alpha.model.UseEquation;
+import alpha.model.SystemBody;
 import alpha.model.Variable;
 
 import com.google.common.base.Objects;
@@ -54,8 +53,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getLocals <em>Locals</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getWhileDomainExpr <em>While Domain Expr</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaSystemImpl#getTestExpression <em>Test Expression</em>}</li>
- *   <li>{@link alpha.model.impl.AlphaSystemImpl#getUseEquations <em>Use Equations</em>}</li>
- *   <li>{@link alpha.model.impl.AlphaSystemImpl#getEquations <em>Equations</em>}</li>
+ *   <li>{@link alpha.model.impl.AlphaSystemImpl#getSystemBodies <em>System Bodies</em>}</li>
  * </ul>
  *
  * @generated
@@ -152,24 +150,14 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	protected AlphaExpression testExpression;
 
 	/**
-	 * The cached value of the '{@link #getUseEquations() <em>Use Equations</em>}' containment reference list.
+	 * The cached value of the '{@link #getSystemBodies() <em>System Bodies</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUseEquations()
+	 * @see #getSystemBodies()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<UseEquation> useEquations;
-
-	/**
-	 * The cached value of the '{@link #getEquations() <em>Equations</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEquations()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<StandardEquation> equations;
+	protected EList<SystemBody> systemBodies;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -393,23 +381,11 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<UseEquation> getUseEquations() {
-		if (useEquations == null) {
-			useEquations = new EObjectContainmentEList<UseEquation>(UseEquation.class, this, ModelPackage.ALPHA_SYSTEM__USE_EQUATIONS);
+	public EList<SystemBody> getSystemBodies() {
+		if (systemBodies == null) {
+			systemBodies = new EObjectContainmentEList<SystemBody>(SystemBody.class, this, ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES);
 		}
-		return useEquations;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<StandardEquation> getEquations() {
-		if (equations == null) {
-			equations = new EObjectContainmentEList<StandardEquation>(StandardEquation.class, this, ModelPackage.ALPHA_SYSTEM__EQUATIONS);
-		}
-		return equations;
+		return systemBodies;
 	}
 
 	/**
@@ -482,10 +458,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return basicSetWhileDomainExpr(null, msgs);
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				return basicSetTestExpression(null, msgs);
-			case ModelPackage.ALPHA_SYSTEM__USE_EQUATIONS:
-				return ((InternalEList<?>)getUseEquations()).basicRemove(otherEnd, msgs);
-			case ModelPackage.ALPHA_SYSTEM__EQUATIONS:
-				return ((InternalEList<?>)getEquations()).basicRemove(otherEnd, msgs);
+			case ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES:
+				return ((InternalEList<?>)getSystemBodies()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -514,10 +488,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return getWhileDomainExpr();
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				return getTestExpression();
-			case ModelPackage.ALPHA_SYSTEM__USE_EQUATIONS:
-				return getUseEquations();
-			case ModelPackage.ALPHA_SYSTEM__EQUATIONS:
-				return getEquations();
+			case ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES:
+				return getSystemBodies();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -559,13 +531,9 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				setTestExpression((AlphaExpression)newValue);
 				return;
-			case ModelPackage.ALPHA_SYSTEM__USE_EQUATIONS:
-				getUseEquations().clear();
-				getUseEquations().addAll((Collection<? extends UseEquation>)newValue);
-				return;
-			case ModelPackage.ALPHA_SYSTEM__EQUATIONS:
-				getEquations().clear();
-				getEquations().addAll((Collection<? extends StandardEquation>)newValue);
+			case ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES:
+				getSystemBodies().clear();
+				getSystemBodies().addAll((Collection<? extends SystemBody>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -603,11 +571,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				setTestExpression((AlphaExpression)null);
 				return;
-			case ModelPackage.ALPHA_SYSTEM__USE_EQUATIONS:
-				getUseEquations().clear();
-				return;
-			case ModelPackage.ALPHA_SYSTEM__EQUATIONS:
-				getEquations().clear();
+			case ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES:
+				getSystemBodies().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -637,10 +602,8 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return whileDomainExpr != null;
 			case ModelPackage.ALPHA_SYSTEM__TEST_EXPRESSION:
 				return testExpression != null;
-			case ModelPackage.ALPHA_SYSTEM__USE_EQUATIONS:
-				return useEquations != null && !useEquations.isEmpty();
-			case ModelPackage.ALPHA_SYSTEM__EQUATIONS:
-				return equations != null && !equations.isEmpty();
+			case ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES:
+				return systemBodies != null && !systemBodies.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

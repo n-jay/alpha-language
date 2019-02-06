@@ -73,6 +73,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.ALPHA_SYSTEM: return createAlphaSystem();
 			case ModelPackage.VARIABLE: return createVariable();
 			case ModelPackage.FUZZY_VARIABLE: return createFuzzyVariable();
+			case ModelPackage.SYSTEM_BODY: return createSystemBody();
 			case ModelPackage.STANDARD_EQUATION: return createStandardEquation();
 			case ModelPackage.USE_EQUATION: return createUseEquation();
 			case ModelPackage.RESTRICT_EXPRESSION: return createRestrictExpression();
@@ -273,6 +274,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public FuzzyVariable createFuzzyVariable() {
 		FuzzyVariableImpl fuzzyVariable = new FuzzyVariableImpl();
 		return fuzzyVariable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SystemBody createSystemBody() {
+		SystemBodyImpl systemBody = new SystemBodyImpl();
+		return systemBody;
 	}
 
 	/**

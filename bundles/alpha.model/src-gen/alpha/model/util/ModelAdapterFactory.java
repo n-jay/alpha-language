@@ -136,6 +136,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createFuzzyVariableAdapter();
 			}
 			@Override
+			public Adapter caseSystemBody(SystemBody object) {
+				return createSystemBodyAdapter();
+			}
+			@Override
 			public Adapter caseStandardEquation(StandardEquation object) {
 				return createStandardEquationAdapter();
 			}
@@ -590,6 +594,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFuzzyVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.SystemBody <em>System Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.SystemBody
+	 * @generated
+	 */
+	public Adapter createSystemBodyAdapter() {
 		return null;
 	}
 

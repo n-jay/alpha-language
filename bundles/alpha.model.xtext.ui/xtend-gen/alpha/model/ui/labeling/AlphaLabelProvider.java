@@ -25,6 +25,7 @@ import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
+import alpha.model.SystemBody;
 import alpha.model.UnaryExpression;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
@@ -57,6 +58,10 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
     String _plus = (_name + " ");
     String _string = system.getParameterDomain().toString();
     return (_plus + _string);
+  }
+  
+  public String text(final SystemBody sysBody) {
+    return sysBody.getParameterDomain().toString();
   }
   
   public String text(final PolyhedralObject pobj) {
