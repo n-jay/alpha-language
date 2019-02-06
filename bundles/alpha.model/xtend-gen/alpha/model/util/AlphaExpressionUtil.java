@@ -7,8 +7,11 @@ import alpha.model.CalculatorExpression;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
+import alpha.model.Variable;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
+import alpha.model.issue.UnexpectedISLErrorIssue;
+import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
@@ -18,8 +21,10 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * Utility methods that concern AlphaExpressions.
@@ -74,23 +79,37 @@ public class AlphaExpressionUtil {
   }
   
   protected static JNIISLSet _parentContext(final AlphaExpression child, final UseEquation parent, final Consumer<AlphaIssue> f) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field inputExprs is undefined for the type UseEquation"
-      + "\nThe method or field outputExprs is undefined for the type UseEquation"
-      + "\nThe method or field system is undefined for the type UseEquation"
-      + "\nThe method or field system is undefined for the type UseEquation"
-      + "\nThe method or field callParams is undefined for the type UseEquation"
-      + "\nindexOf cannot be resolved"
-      + "\nindexOf cannot be resolved"
-      + "\n== cannot be resolved"
-      + "\n&& cannot be resolved"
-      + "\n== cannot be resolved"
-      + "\n!= cannot be resolved"
-      + "\ninputs cannot be resolved"
-      + "\nget cannot be resolved"
-      + "\noutputs cannot be resolved"
-      + "\nget cannot be resolved"
-      + "\ndomain cannot be resolved");
+    boolean _checkCalcExprType = AlphaExpressionUtil.checkCalcExprType(parent.getInstantiationDomainExpr(), POLY_OBJECT_TYPE.SET, f);
+    if (_checkCalcExprType) {
+      final int inputLoc = parent.getInputExprs().indexOf(child);
+      final int outputLoc = parent.getOutputExprs().indexOf(child);
+      if (((inputLoc == (-1)) && (outputLoc == (-1)))) {
+        return null;
+      }
+      Variable _xifexpression = null;
+      if ((inputLoc != (-1))) {
+        _xifexpression = parent.getSystem().getInputs().get(inputLoc);
+      } else {
+        _xifexpression = parent.getSystem().getOutputs().get(outputLoc);
+      }
+      final Variable calleeVar = _xifexpression;
+      boolean _testNonNullExpressionDomain = AlphaExpressionUtil.testNonNullExpressionDomain(AlphaExpressionUtil.<AlphaExpression>getChildrenOfType(child, AlphaExpression.class));
+      if (_testNonNullExpressionDomain) {
+        final Supplier<JNIISLSet> _function = () -> {
+          return AlphaExpressionUtil.extendCalleeDomainByInstantiationDomain(parent.getInstantiationDomain(), parent.getCallParams(), calleeVar.getDomain());
+        };
+        final Consumer<String> _function_1 = (String err) -> {
+          EObject _eContainer = child.eContainer();
+          EStructuralFeature _eContainingFeature = child.eContainingFeature();
+          new UnexpectedISLErrorIssue(err, _eContainer, _eContainingFeature);
+        };
+        final JNIISLSet exDom = AlphaUtil.<JNIISLSet>callISLwithErrorHandling(_function, _function_1);
+        return AlphaUtil.renameIndices(exDom, child.getExpressionDomain().getIndicesNames());
+      }
+    } else {
+      return null;
+    }
+    return null;
   }
   
   private static boolean checkCalcExprType(final CalculatorExpression cexpr, final POLY_OBJECT_TYPE expected, final Consumer<AlphaIssue> f) {
