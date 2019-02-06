@@ -148,12 +148,12 @@ public class AlphaExpressionUtil {
   }
   
   public static JNIISLSet parentContext(final AlphaExpression child, final AlphaCompleteVisitable parent, final Consumer<AlphaIssue> f) {
-    if (parent instanceof AlphaExpression) {
-      return _parentContext(child, (AlphaExpression)parent, f);
-    } else if (parent instanceof StandardEquation) {
+    if (parent instanceof StandardEquation) {
       return _parentContext(child, (StandardEquation)parent, f);
     } else if (parent instanceof UseEquation) {
       return _parentContext(child, (UseEquation)parent, f);
+    } else if (parent instanceof AlphaExpression) {
+      return _parentContext(child, (AlphaExpression)parent, f);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(child, parent, f).toString());

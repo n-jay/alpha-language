@@ -113,7 +113,7 @@ public class AlphaNameUniquenessChecker {
 		for (SystemBody sysBody : system.getSystemBodies()) {
 			Map<String, List<AlphaNode>> nameMap = new HashMap<>();
 
-			sysBody.getEquations().stream().forEach(e -> {
+			sysBody.getStandardEquations().stream().forEach(e -> {
 				checkAndAdd(e.getVariable().getName(), e, nameMap);
 			});
 

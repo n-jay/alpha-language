@@ -215,9 +215,19 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.EQUATION: {
+				Equation equation = (Equation)theEObject;
+				T result = caseEquation(equation);
+				if (result == null) result = caseAlphaVisitable(equation);
+				if (result == null) result = caseAlphaCompleteVisitable(equation);
+				if (result == null) result = caseAlphaNode(equation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ModelPackage.STANDARD_EQUATION: {
 				StandardEquation standardEquation = (StandardEquation)theEObject;
 				T result = caseStandardEquation(standardEquation);
+				if (result == null) result = caseEquation(standardEquation);
 				if (result == null) result = caseAlphaVisitable(standardEquation);
 				if (result == null) result = caseAlphaCompleteVisitable(standardEquation);
 				if (result == null) result = caseAlphaNode(standardEquation);
@@ -227,6 +237,7 @@ public class ModelSwitch<T> extends Switch<T> {
 			case ModelPackage.USE_EQUATION: {
 				UseEquation useEquation = (UseEquation)theEObject;
 				T result = caseUseEquation(useEquation);
+				if (result == null) result = caseEquation(useEquation);
 				if (result == null) result = caseAlphaVisitable(useEquation);
 				if (result == null) result = caseAlphaCompleteVisitable(useEquation);
 				if (result == null) result = caseAlphaNode(useEquation);
@@ -985,6 +996,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSystemBody(SystemBody object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Equation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Equation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEquation(Equation object) {
 		return null;
 	}
 

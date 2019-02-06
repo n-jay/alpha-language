@@ -3,8 +3,12 @@
 package alpha.model.impl;
 
 import alpha.model.AlphaVisitor;
+import alpha.model.Equation;
 import alpha.model.JNIDomain;
 import alpha.model.ModelPackage;
+
+import alpha.model.ModelPackage.Literals;
+
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
 import alpha.model.UseEquation;
@@ -16,6 +20,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -25,6 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -36,7 +42,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.impl.SystemBodyImpl#getParameterDomainExpr <em>Parameter Domain Expr</em>}</li>
- *   <li>{@link alpha.model.impl.SystemBodyImpl#getUseEquations <em>Use Equations</em>}</li>
  *   <li>{@link alpha.model.impl.SystemBodyImpl#getEquations <em>Equations</em>}</li>
  * </ul>
  *
@@ -54,16 +59,6 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	protected JNIDomain parameterDomainExpr;
 
 	/**
-	 * The cached value of the '{@link #getUseEquations() <em>Use Equations</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUseEquations()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<UseEquation> useEquations;
-
-	/**
 	 * The cached value of the '{@link #getEquations() <em>Equations</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -71,7 +66,7 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<StandardEquation> equations;
+	protected EList<Equation> equations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -140,21 +135,9 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<UseEquation> getUseEquations() {
-		if (useEquations == null) {
-			useEquations = new EObjectContainmentEList<UseEquation>(UseEquation.class, this, ModelPackage.SYSTEM_BODY__USE_EQUATIONS);
-		}
-		return useEquations;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<StandardEquation> getEquations() {
+	public EList<Equation> getEquations() {
 		if (equations == null) {
-			equations = new EObjectContainmentEList<StandardEquation>(StandardEquation.class, this, ModelPackage.SYSTEM_BODY__EQUATIONS);
+			equations = new EObjectContainmentEList<Equation>(Equation.class, this, ModelPackage.SYSTEM_BODY__EQUATIONS);
 		}
 		return equations;
 	}
@@ -166,6 +149,24 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	 */
 	public JNIISLSet getParameterDomain() {
 		return this.getParameterDomainExpr().getISLSet();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<UseEquation> getUseEquations() {
+		return ECollections.<UseEquation>asEList(((UseEquation[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(EcoreUtil.<UseEquation>getObjectsByType(this.getEquations(), Literals.USE_EQUATION), UseEquation.class)));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<StandardEquation> getStandardEquations() {
+		return ECollections.<StandardEquation>asEList(((StandardEquation[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(EcoreUtil.<StandardEquation>getObjectsByType(this.getEquations(), Literals.STANDARD_EQUATION), StandardEquation.class)));
 	}
 
 	/**
@@ -187,8 +188,6 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 		switch (featureID) {
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				return basicSetParameterDomainExpr(null, msgs);
-			case ModelPackage.SYSTEM_BODY__USE_EQUATIONS:
-				return ((InternalEList<?>)getUseEquations()).basicRemove(otherEnd, msgs);
 			case ModelPackage.SYSTEM_BODY__EQUATIONS:
 				return ((InternalEList<?>)getEquations()).basicRemove(otherEnd, msgs);
 		}
@@ -205,8 +204,6 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 		switch (featureID) {
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				return getParameterDomainExpr();
-			case ModelPackage.SYSTEM_BODY__USE_EQUATIONS:
-				return getUseEquations();
 			case ModelPackage.SYSTEM_BODY__EQUATIONS:
 				return getEquations();
 		}
@@ -225,13 +222,9 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				setParameterDomainExpr((JNIDomain)newValue);
 				return;
-			case ModelPackage.SYSTEM_BODY__USE_EQUATIONS:
-				getUseEquations().clear();
-				getUseEquations().addAll((Collection<? extends UseEquation>)newValue);
-				return;
 			case ModelPackage.SYSTEM_BODY__EQUATIONS:
 				getEquations().clear();
-				getEquations().addAll((Collection<? extends StandardEquation>)newValue);
+				getEquations().addAll((Collection<? extends Equation>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -247,9 +240,6 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 		switch (featureID) {
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				setParameterDomainExpr((JNIDomain)null);
-				return;
-			case ModelPackage.SYSTEM_BODY__USE_EQUATIONS:
-				getUseEquations().clear();
 				return;
 			case ModelPackage.SYSTEM_BODY__EQUATIONS:
 				getEquations().clear();
@@ -268,8 +258,6 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 		switch (featureID) {
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				return parameterDomainExpr != null;
-			case ModelPackage.SYSTEM_BODY__USE_EQUATIONS:
-				return useEquations != null && !useEquations.isEmpty();
 			case ModelPackage.SYSTEM_BODY__EQUATIONS:
 				return equations != null && !equations.isEmpty();
 		}

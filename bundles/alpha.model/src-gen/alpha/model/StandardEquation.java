@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface StandardEquation extends AlphaVisitable {
+public interface StandardEquation extends Equation {
 	/**
 	 * Returns the value of the '<em><b>Variable</b></em>' reference.
 	 * <!-- begin-user-doc -->

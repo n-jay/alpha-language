@@ -31,6 +31,7 @@ import alpha.model.ConstantExpression;
 import alpha.model.ConvolutionExpression;
 import alpha.model.DefinedObject;
 import alpha.model.DependenceExpression;
+import alpha.model.Equation;
 import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalFuzzyArgReduceExpression;
@@ -223,6 +224,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass systemBodyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass equationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1087,7 +1095,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSystemBody_UseEquations() {
+	public EReference getSystemBody_Equations() {
 		return (EReference)systemBodyEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1096,8 +1104,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSystemBody_Equations() {
-		return (EReference)systemBodyEClass.getEStructuralFeatures().get(2);
+	public EClass getEquation() {
+		return equationEClass;
 	}
 
 	/**
@@ -2499,8 +2507,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		systemBodyEClass = createEClass(SYSTEM_BODY);
 		createEReference(systemBodyEClass, SYSTEM_BODY__PARAMETER_DOMAIN_EXPR);
-		createEReference(systemBodyEClass, SYSTEM_BODY__USE_EQUATIONS);
 		createEReference(systemBodyEClass, SYSTEM_BODY__EQUATIONS);
+
+		equationEClass = createEClass(EQUATION);
 
 		standardEquationEClass = createEClass(STANDARD_EQUATION);
 		createEReference(standardEquationEClass, STANDARD_EQUATION__VARIABLE);
@@ -2748,8 +2757,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		variableEClass.getESuperTypes().add(this.getAlphaVisitable());
 		fuzzyVariableEClass.getESuperTypes().add(this.getVariable());
 		systemBodyEClass.getESuperTypes().add(this.getAlphaVisitable());
-		standardEquationEClass.getESuperTypes().add(this.getAlphaVisitable());
-		useEquationEClass.getESuperTypes().add(this.getAlphaVisitable());
+		equationEClass.getESuperTypes().add(this.getAlphaVisitable());
+		standardEquationEClass.getESuperTypes().add(this.getEquation());
+		useEquationEClass.getESuperTypes().add(this.getEquation());
 		alphaExpressionEClass.getESuperTypes().add(this.getAlphaExpressionVisitable());
 		restrictExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		autoRestrictExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
@@ -3346,13 +3356,18 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		initEClass(systemBodyEClass, SystemBody.class, "SystemBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSystemBody_ParameterDomainExpr(), this.getJNIDomain(), null, "parameterDomainExpr", null, 0, 1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSystemBody_UseEquations(), this.getUseEquation(), null, "useEquations", null, 0, -1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSystemBody_Equations(), this.getStandardEquation(), null, "equations", null, 0, -1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSystemBody_Equations(), this.getEquation(), null, "equations", null, 0, -1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(systemBodyEClass, this.getJNIISLSet(), "getParameterDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(systemBodyEClass, this.getUseEquation(), "getUseEquations", 0, -1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(systemBodyEClass, this.getStandardEquation(), "getStandardEquations", 0, -1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(systemBodyEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(equationEClass, Equation.class, "Equation", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(standardEquationEClass, StandardEquation.class, "StandardEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStandardEquation_Variable(), this.getVariable(), null, "variable", null, 0, 1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

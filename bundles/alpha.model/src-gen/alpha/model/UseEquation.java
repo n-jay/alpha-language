@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface UseEquation extends AlphaVisitable {
+public interface UseEquation extends Equation {
 	/**
 	 * Returns the value of the '<em><b>Instantiation Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

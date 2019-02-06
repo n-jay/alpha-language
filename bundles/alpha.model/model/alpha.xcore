@@ -417,11 +417,17 @@ class FuzzyVariable extends Variable {
 
 class SystemBody extends AlphaVisitable {
 	contains JNIDomain parameterDomainExpr
-	contains UseEquation[] useEquations
-	contains StandardEquation[] equations
+	contains Equation[] equations
 	
 	op JNIISLSet getParameterDomain() {
 		return parameterDomainExpr.ISLSet
+	}
+	
+	op UseEquation[] getUseEquations() {
+		equations.getObjectsByType(ModelPackage.Literals.USE_EQUATION).asEList
+	}
+	op StandardEquation[] getStandardEquations() {
+		equations.getObjectsByType(ModelPackage.Literals.STANDARD_EQUATION).asEList
 	}
 	
 	op void accept(AlphaVisitor visitor) {
@@ -429,8 +435,11 @@ class SystemBody extends AlphaVisitable {
 	}
 }
 
+abstract class Equation extends AlphaVisitable {
+	
+}
 
-class StandardEquation extends AlphaVisitable {
+class StandardEquation extends Equation {
 	refers Variable variable
 	String[] indexNames
 	contains AlphaExpression expr
@@ -439,7 +448,7 @@ class StandardEquation extends AlphaVisitable {
 		visitor.visitStandardEquation(this)
 	}
 }
-class UseEquation extends AlphaVisitable {
+class UseEquation extends Equation {
 	contains CalculatorExpression instantiationDomainExpr
 	String[] subsystemDims
 	refers AlphaSystem system

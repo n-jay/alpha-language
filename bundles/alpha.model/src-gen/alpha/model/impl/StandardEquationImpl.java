@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
@@ -38,7 +37,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  *
  * @generated
  */
-public class StandardEquationImpl extends MinimalEObjectImpl.Container implements StandardEquation {
+public class StandardEquationImpl extends EquationImpl implements StandardEquation {
 	/**
 	 * The cached value of the '{@link #getVariable() <em>Variable</em>}' reference.
 	 * <!-- begin-user-doc -->

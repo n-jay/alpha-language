@@ -16,7 +16,6 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.SystemBody#getParameterDomainExpr <em>Parameter Domain Expr</em>}</li>
- *   <li>{@link alpha.model.SystemBody#getUseEquations <em>Use Equations</em>}</li>
  *   <li>{@link alpha.model.SystemBody#getEquations <em>Equations</em>}</li>
  * </ul>
  *
@@ -52,24 +51,8 @@ public interface SystemBody extends AlphaVisitable {
 	void setParameterDomainExpr(JNIDomain value);
 
 	/**
-	 * Returns the value of the '<em><b>Use Equations</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.UseEquation}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Use Equations</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Use Equations</em>' containment reference list.
-	 * @see alpha.model.ModelPackage#getSystemBody_UseEquations()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<UseEquation> getUseEquations();
-
-	/**
 	 * Returns the value of the '<em><b>Equations</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.model.StandardEquation}.
+	 * The list contents are of type {@link alpha.model.Equation}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Equations</em>' containment reference list isn't clear,
@@ -81,7 +64,7 @@ public interface SystemBody extends AlphaVisitable {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<StandardEquation> getEquations();
+	EList<Equation> getEquations();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -90,6 +73,22 @@ public interface SystemBody extends AlphaVisitable {
 	 * @generated
 	 */
 	JNIISLSet getParameterDomain();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" unique="false"
+	 * @generated
+	 */
+	EList<UseEquation> getUseEquations();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" unique="false"
+	 * @generated
+	 */
+	EList<StandardEquation> getStandardEquations();
 
 	/**
 	 * <!-- begin-user-doc -->

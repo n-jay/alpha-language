@@ -21,6 +21,7 @@ import alpha.model.CaseExpression;
 import alpha.model.ConvolutionExpression;
 import alpha.model.DefinedObject;
 import alpha.model.DependenceExpression;
+import alpha.model.Equation;
 import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
@@ -339,11 +340,11 @@ public class Show extends ModelSwitch<CharSequence> {
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         EList<UseEquation> _useEquations = sysBody.getUseEquations();
-        EList<StandardEquation> _equations = sysBody.getEquations();
-        final Function1<AlphaVisitable, CharSequence> _function = (AlphaVisitable it) -> {
+        EList<Equation> _equations = sysBody.getEquations();
+        final Function1<Equation, CharSequence> _function = (Equation it) -> {
           return this.doSwitch(it);
         };
-        String _join = IterableExtensions.join(IterableExtensions.<AlphaVisitable, CharSequence>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function), "\n\n");
+        String _join = IterableExtensions.join(IterableExtensions.<Equation, CharSequence>map(Iterables.<Equation>concat(_useEquations, _equations), _function), "\n\n");
         _builder.append(_join, "\t");
         _builder.newLineIfNotEmpty();
       }
