@@ -40,6 +40,7 @@ import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
+import alpha.model.SystemBody;
 import alpha.model.UNARY_OP;
 import alpha.model.UnaryCalculatorExpression;
 import alpha.model.UnaryExpression;
@@ -303,28 +304,51 @@ public class Show extends ModelSwitch<CharSequence> {
           _builder.newLineIfNotEmpty();
         }
       }
-      {
-        if (((!s.getUseEquations().isEmpty()) || (!s.getEquations().isEmpty()))) {
-          _builder.append("\t");
-          _builder.append("let");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t");
-          EList<UseEquation> _useEquations = s.getUseEquations();
-          EList<StandardEquation> _equations = s.getEquations();
-          final Function1<AlphaVisitable, CharSequence> _function_3 = (AlphaVisitable it) -> {
-            return this.doSwitch(it);
-          };
-          String _join_3 = IterableExtensions.join(IterableExtensions.<AlphaVisitable, CharSequence>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function_3), "\n\n");
-          _builder.append(_join_3, "\t\t");
-          _builder.newLineIfNotEmpty();
-        }
-      }
+      _builder.append("\t");
+      final Function1<SystemBody, CharSequence> _function_3 = (SystemBody it) -> {
+        return this.doSwitch(it);
+      };
+      String _join_3 = IterableExtensions.join(ListExtensions.<SystemBody, CharSequence>map(s.getSystemBodies(), _function_3), "\n");
+      _builder.append(_join_3, "\t");
+      _builder.newLineIfNotEmpty();
       _builder.append(".");
       _builder.newLine();
       _xblockexpression = _builder;
     }
     return _xblockexpression;
+  }
+  
+  /**
+   * override
+   */
+  public CharSequence caseSystemBody(final SystemBody sysBody) {
+    StringConcatenation _builder = new StringConcatenation();
+    {
+      if (((!sysBody.getUseEquations().isEmpty()) || (!sysBody.getEquations().isEmpty()))) {
+        {
+          JNIDomain _parameterDomainExpr = sysBody.getParameterDomainExpr();
+          boolean _tripleNotEquals = (_parameterDomainExpr != null);
+          if (_tripleNotEquals) {
+            _builder.append("when ");
+            String _printParameterDomain = this.printParameterDomain(sysBody.getParameterDomainExpr());
+            _builder.append(_printParameterDomain);
+            _builder.append(" ");
+          }
+        }
+        _builder.append("let");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        EList<UseEquation> _useEquations = sysBody.getUseEquations();
+        EList<StandardEquation> _equations = sysBody.getEquations();
+        final Function1<AlphaVisitable, CharSequence> _function = (AlphaVisitable it) -> {
+          return this.doSwitch(it);
+        };
+        String _join = IterableExtensions.join(IterableExtensions.<AlphaVisitable, CharSequence>map(Iterables.<AlphaVisitable>concat(_useEquations, _equations), _function), "\n\n");
+        _builder.append(_join, "\t");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    return _builder;
   }
   
   /**
@@ -358,17 +382,44 @@ public class Show extends ModelSwitch<CharSequence> {
    * override
    */
   public CharSequence caseUseEquation(final UseEquation ue) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field callParamsExpr is undefined for the type UseEquation"
-      + "\nThe method or field outputExprs is undefined for the type UseEquation"
-      + "\nThe method or field system is undefined for the type UseEquation"
-      + "\nThe method or field inputExprs is undefined for the type UseEquation"
-      + "\nprintSubsystemCallParams cannot be resolved"
-      + "\nmap cannot be resolved"
-      + "\njoin cannot be resolved"
-      + "\nname cannot be resolved"
-      + "\nmap cannot be resolved"
-      + "\njoin cannot be resolved");
+    CharSequence _xblockexpression = null;
+    {
+      String _xifexpression = null;
+      if (((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbDims() > 0))) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("over ");
+        String _printInstantiationDomain = this.printInstantiationDomain(ue.getInstantiationDomain());
+        _builder.append(_printInstantiationDomain);
+        _builder.append(" : ");
+        _xifexpression = _builder.toString();
+      } else {
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _xifexpression = _builder_1.toString();
+      }
+      final String idom = _xifexpression;
+      final CharSequence callParam = this.printSubsystemCallParams(ue.getCallParamsExpr(), ue.getInstantiationDomain());
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.append(idom);
+      _builder_2.append("(");
+      final Function1<AlphaExpression, CharSequence> _function = (AlphaExpression it) -> {
+        return this.doSwitch(it);
+      };
+      String _join = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getOutputExprs(), _function), ", ");
+      _builder_2.append(_join);
+      _builder_2.append(") = ");
+      String _name = ue.getSystem().getName();
+      _builder_2.append(_name);
+      _builder_2.append(callParam);
+      _builder_2.append("(");
+      final Function1<AlphaExpression, CharSequence> _function_1 = (AlphaExpression it) -> {
+        return this.doSwitch(it);
+      };
+      String _join_1 = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getInputExprs(), _function_1), ", ");
+      _builder_2.append(_join_1);
+      _builder_2.append(");");
+      _xblockexpression = _builder_2;
+    }
+    return _xblockexpression;
   }
   
   /**
@@ -518,28 +569,28 @@ public class Show extends ModelSwitch<CharSequence> {
   /**
    * override
    */
-  public CharSequence caseReduceExpression(final ReduceExpression re) {
+  public String caseReduceExpression(final ReduceExpression re) {
     return this.printAbstractReduceExpression(re);
   }
   
   /**
    * override
    */
-  public CharSequence caseExternalReduceExpression(final ExternalReduceExpression ere) {
+  public String caseExternalReduceExpression(final ExternalReduceExpression ere) {
     return this.printAbstractReduceExpression(ere);
   }
   
   /**
    * override
    */
-  public CharSequence caseArgReduceExpression(final ArgReduceExpression re) {
+  public String caseArgReduceExpression(final ArgReduceExpression re) {
     return this.printAbstractReduceExpression(re);
   }
   
   /**
    * override
    */
-  public CharSequence caseExternalArgReduceExpression(final ExternalArgReduceExpression ere) {
+  public String caseExternalArgReduceExpression(final ExternalArgReduceExpression ere) {
     return this.printAbstractReduceExpression(ere);
   }
   
@@ -728,28 +779,28 @@ public class Show extends ModelSwitch<CharSequence> {
   /**
    * override
    */
-  public CharSequence caseVariableExpression(final VariableExpression ve) {
+  public String caseVariableExpression(final VariableExpression ve) {
     return ve.getVariable().getName();
   }
   
   /**
    * override
    */
-  public CharSequence caseBooleanExpression(final BooleanExpression be) {
+  public String caseBooleanExpression(final BooleanExpression be) {
     return Boolean.valueOf(be.isValue()).toString();
   }
   
   /**
    * override
    */
-  public CharSequence caseIntegerExpression(final IntegerExpression ie) {
+  public String caseIntegerExpression(final IntegerExpression ie) {
     return Integer.valueOf(ie.getValue()).toString();
   }
   
   /**
    * override
    */
-  public CharSequence caseRealExpression(final RealExpression re) {
+  public String caseRealExpression(final RealExpression re) {
     return Float.valueOf(re.getValue()).toString();
   }
   
@@ -830,7 +881,7 @@ public class Show extends ModelSwitch<CharSequence> {
   /**
    * override
    */
-  public CharSequence caseDefinedObject(final DefinedObject dobj) {
+  public String caseDefinedObject(final DefinedObject dobj) {
     return dobj.getObject().getName();
   }
   

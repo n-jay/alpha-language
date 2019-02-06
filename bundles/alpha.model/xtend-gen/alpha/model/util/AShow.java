@@ -1,6 +1,7 @@
 package alpha.model.util;
 
 import alpha.model.AbstractReduceExpression;
+import alpha.model.AlphaExpression;
 import alpha.model.AlphaVisitable;
 import alpha.model.ConstantExpression;
 import alpha.model.ConvolutionExpression;
@@ -20,7 +21,9 @@ import java.util.List;
 import java.util.Stack;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 /**
  * AShow prints the given program in ArrayNotation.
@@ -91,30 +94,80 @@ public class AShow extends Show {
   
   @Override
   public CharSequence caseUseEquation(final UseEquation ue) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field inputExprs is undefined for the type UseEquation"
-      + "\nThe method or field contextDomain is undefined for the type Object"
-      + "\nThe method or field callParamsExpr is undefined for the type UseEquation"
-      + "\nThe method or field outputExprs is undefined for the type UseEquation"
-      + "\nThe method or field system is undefined for the type UseEquation"
-      + "\nThe method or field inputExprs is undefined for the type UseEquation"
-      + "\nType mismatch: cannot convert from Object to Object[]"
-      + "\nThere is no context to infer the closure\'s argument types from. Consider typing the arguments or put the closures into a typed context."
-      + "\nThere is no context to infer the closure\'s argument types from. Consider typing the arguments or put the closures into a typed context."
-      + "\nmap cannot be resolved"
-      + "\nindicesNames cannot be resolved"
-      + "\nmaxBy cannot be resolved"
-      + "\nsubList cannot be resolved"
-      + "\nlength cannot be resolved"
-      + "\nlength cannot be resolved"
-      + "\n> cannot be resolved"
-      + "\njoin cannot be resolved"
-      + "\nprintSubsystemCallParams cannot be resolved"
-      + "\nmap cannot be resolved"
-      + "\njoin cannot be resolved"
-      + "\nname cannot be resolved"
-      + "\nmap cannot be resolved"
-      + "\njoin cannot be resolved");
+    CharSequence _xblockexpression = null;
+    {
+      final Function1<AlphaExpression, List<String>> _function = (AlphaExpression e) -> {
+        return e.getContextDomain().getIndicesNames();
+      };
+      final Function1<List<String>, Integer> _function_1 = (List<String> n) -> {
+        return Integer.valueOf(((Object[])Conversions.unwrapArray(n, Object.class)).length);
+      };
+      final List<String> names = IterableExtensions.<List<String>, Integer>maxBy(ListExtensions.<AlphaExpression, List<String>>map(ue.getInputExprs(), _function), _function_1);
+      final boolean idomDeclared = ((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbDims() > 0));
+      List<String> _xifexpression = null;
+      if (idomDeclared) {
+        _xifexpression = names.subList(ue.getInstantiationDomain().getNbDims(), ((Object[])Conversions.unwrapArray(names, Object.class)).length);
+      } else {
+        _xifexpression = null;
+      }
+      final List<String> withClause = _xifexpression;
+      String _xifexpression_1 = null;
+      int _length = 0;
+      if (((Object[])Conversions.unwrapArray(withClause, Object.class))!=null) {
+        _length=((Object[])Conversions.unwrapArray(withClause, Object.class)).length;
+      }
+      boolean _greaterThan = (_length > 0);
+      if (_greaterThan) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(" ");
+        _builder.append("with [");
+        String _join = IterableExtensions.join(withClause, ",");
+        _builder.append(_join, " ");
+        _builder.append("]");
+        _xifexpression_1 = _builder.toString();
+      } else {
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _xifexpression_1 = _builder_1.toString();
+      }
+      final String withStr = _xifexpression_1;
+      String _xifexpression_2 = null;
+      if (idomDeclared) {
+        StringConcatenation _builder_2 = new StringConcatenation();
+        _builder_2.append("over ");
+        String _printInstantiationDomain = this.printInstantiationDomain(ue.getInstantiationDomain());
+        _builder_2.append(_printInstantiationDomain);
+        _builder_2.append(withStr);
+        _builder_2.append(" : ");
+        _xifexpression_2 = _builder_2.toString();
+      } else {
+        StringConcatenation _builder_3 = new StringConcatenation();
+        _xifexpression_2 = _builder_3.toString();
+      }
+      final String idom = _xifexpression_2;
+      this.indexNameContext = names;
+      final CharSequence callParam = this.printSubsystemCallParams(ue.getCallParamsExpr(), ue.getInstantiationDomain());
+      StringConcatenation _builder_4 = new StringConcatenation();
+      _builder_4.append(idom);
+      _builder_4.append("(");
+      final Function1<AlphaExpression, CharSequence> _function_2 = (AlphaExpression it) -> {
+        return this.doSwitch(it);
+      };
+      String _join_1 = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getOutputExprs(), _function_2), ", ");
+      _builder_4.append(_join_1);
+      _builder_4.append(") = ");
+      String _name = ue.getSystem().getName();
+      _builder_4.append(_name);
+      _builder_4.append(callParam);
+      _builder_4.append("(");
+      final Function1<AlphaExpression, CharSequence> _function_3 = (AlphaExpression it) -> {
+        return this.doSwitch(it);
+      };
+      String _join_2 = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getInputExprs(), _function_3), ", ");
+      _builder_4.append(_join_2);
+      _builder_4.append(");");
+      _xblockexpression = _builder_4;
+    }
+    return _xblockexpression;
   }
   
   /**
