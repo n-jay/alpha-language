@@ -3,7 +3,7 @@ package tests.normalize.restrict {
 		inputs
 			A:{[i]:0<=i<2N}
 		outputs
-			B:
+			B:{}
 		let
 			// D1 : D2 : E -> (D1 and D2) : E
 			B = reduce(+, [i], {:0<=i<=N} : {:N<=i<2N} : A);
@@ -23,7 +23,7 @@ package tests.normalize.restrict {
 		inputs
 			A:{[i]:0<=i<2N}
 		outputs
-			B:
+			B:{}
 		let
 			// (D : A op B) -> D : (A op B)
 			B = reduce(+, [i], ({:i<N} : A + A));
@@ -33,7 +33,7 @@ package tests.normalize.restrict {
 		inputs
 			A:{[i]:0<=i<2N}
 		outputs
-			B:
+			B:{}
 		let
 			// (A op D : B) -> D : (A op B)
 			B = reduce(+, [i], (A + ({:i<N} : A)));
@@ -43,7 +43,7 @@ package tests.normalize.restrict {
 		inputs
 			A:{[i]:0<=i<3N}
 		outputs
-			B:
+			B:{}
 		let
 			// (D : A op B) -> D : (A op B)
 			// and
@@ -55,7 +55,7 @@ package tests.normalize.restrict {
 		inputs
 			A:{[i]:0<=i<2N}
 		outputs
-			B:
+			B:{}
 		let
 			// (op D : E) -> D : (op E)
 			B = reduce(+, [i], -({:i<N} : A));
@@ -66,7 +66,7 @@ package tests.normalize.restrict {
 		inputs
 			A:{[i]:0<=i<3N}
 		outputs
-			B:
+			B:{}
 		let
 			//  f(op, D1 : E1, D2 : E2) -> (D1 and D2 ...) : f(op, E1, E2, ...)
 			B = reduce(+, [i], max(({:i<N} : A),  ({:i<2N} : A)));
