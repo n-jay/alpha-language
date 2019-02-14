@@ -29,9 +29,18 @@ AlphaPackage:
 AlphaSystem:
 	'affine' name=SystemName parameterDomainExpr=JNIParamDomain
 		('define' (definedObjects+=PolyhedralObject)+)?
-		('inputs' (inputs+=InputVariable | inputs+=FuzzyInputVariable)+)?
-		('outputs' (outputs+=OutputVariable | outputs+=FuzzyOutputVariable)+)?
-		('locals' (locals+=LocalVariable | locals+=FuzzyLocalVariable)+)?
+		('inputs' ( inputs+=Variable | 
+					inputs+=VariableNameOnly ',' (inputs+=VariableNameOnly ',')* inputs+=Variable |
+					inputs+=FuzzyVariable |
+					inputs+=FuzzyVariableNameOnly ',' (inputs+=FuzzyVariableNameOnly ',')* inputs+=FuzzyVariable )+)?
+		('outputs' (outputs+=Variable | 
+					outputs+=VariableNameOnly ',' (outputs+=VariableNameOnly ',')* outputs+=Variable |
+					outputs+=FuzzyVariable |
+					outputs+=FuzzyVariableNameOnly ',' (outputs+=FuzzyVariableNameOnly ',')* outputs+=FuzzyVariable )+)?
+		('locals' ( locals+=Variable | 
+					locals+=VariableNameOnly ',' (locals+=VariableNameOnly ',')* locals+=Variable |
+					locals+=FuzzyVariable |
+					locals+=FuzzyVariableNameOnly ',' (locals+=FuzzyVariableNameOnly ',')* locals+=FuzzyVariable )+)?
 		('over' whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')' )?
 		systemBodies+=SystemBody*
 	'.';
@@ -43,27 +52,23 @@ SystemBody: {SystemBody}
 		(equations+=Equation)*
 	
 ;
-	
-InputVariable returns Variable:
-	name=ID ':' (domainExpr=CalculatorExpression)? ';'?
+
+Variable:
+	name=ID ':' domainExpr=CalculatorExpression ';'?
 ;
 
-OutputVariable returns Variable:
-	name=ID ':' (domainExpr=CalculatorExpression)? ';'?
+FuzzyVariable:
+	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?
 ;
-LocalVariable returns Variable:
-	name=ID ':' (domainExpr=CalculatorExpression)? ';'?
-;	
 
-FuzzyInputVariable returns FuzzyVariable:
-	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?
+VariableNameOnly returns Variable:
+	name=ID
 ;
-FuzzyOutputVariable returns FuzzyVariable:
-	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?
+
+FuzzyVariableNameOnly returns FuzzyVariable:
+	name=ID
 ;
-FuzzyLocalVariable returns FuzzyVariable:
-	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?
-;
+
 JNIDomain:
 	islString=AISLSet
 ;
@@ -141,7 +146,7 @@ AParamDomainInArrayNotation:
 ;
 
 AISLSet:
-	'{' AISLBasicSet (';' AISLBasicSet)* '}'
+	'{' AISLBasicSet (';' AISLBasicSet)* '}' | '{}'
 ;
 
 AISLBasicSet:

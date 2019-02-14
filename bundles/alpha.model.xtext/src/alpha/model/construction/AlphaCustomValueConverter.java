@@ -61,5 +61,26 @@ public class AlphaCustomValueConverter extends Ecore2XtextTerminalConverters {
 			
 		};
 	}
+	
+	@ValueConverter(rule = "AISLSet")
+	public IValueConverter<String> islSet() {
+		return new IValueConverter<String> () {
+
+			@Override
+			public String toValue(String string, INode node) throws ValueConverterException {
+				if (string.contentEquals("{}"))  return "{ [] : }"; 
+				
+				return string;
+			}
+
+			@Override
+			public String toString(String value) throws ValueConverterException {
+				return value;
+			}
+			
+		};
+	}
+	
+	
 
 }

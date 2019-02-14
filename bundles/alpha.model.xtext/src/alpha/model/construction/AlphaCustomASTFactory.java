@@ -1,7 +1,11 @@
 package alpha.model.construction;
 
+import java.util.Optional;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.parser.DefaultEcoreElementFactory;
 
 import alpha.model.ExternalMultiArgExpression;
@@ -51,16 +55,6 @@ public class AlphaCustomASTFactory extends DefaultEcoreElementFactory {
 
 	
 	protected class PostProcessor extends ModelSwitch<EObject> {
-	
-		@Override
-		public EObject caseVariable(Variable object) {
-			if (object.getDomainExpr() == null) {
-				JNIDomain scalarDom = ModelFactoryImpl.eINSTANCE.createJNIDomain();
-				scalarDom.setIslString("{ [] : }");
-				object.setDomainExpr(scalarDom);
-			}
-			return super.caseVariable(object);
-		}
 		
 		@Override
 		public EObject caseExternalMultiArgExpression(ExternalMultiArgExpression object) {

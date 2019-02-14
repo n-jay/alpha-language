@@ -238,23 +238,83 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cInputsKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
 		private final Assignment cInputsAssignment_4_1_0 = (Assignment)cAlternatives_4_1.eContents().get(0);
-		private final RuleCall cInputsInputVariableParserRuleCall_4_1_0_0 = (RuleCall)cInputsAssignment_4_1_0.eContents().get(0);
-		private final Assignment cInputsAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
-		private final RuleCall cInputsFuzzyInputVariableParserRuleCall_4_1_1_0 = (RuleCall)cInputsAssignment_4_1_1.eContents().get(0);
+		private final RuleCall cInputsVariableParserRuleCall_4_1_0_0 = (RuleCall)cInputsAssignment_4_1_0.eContents().get(0);
+		private final Group cGroup_4_1_1 = (Group)cAlternatives_4_1.eContents().get(1);
+		private final Assignment cInputsAssignment_4_1_1_0 = (Assignment)cGroup_4_1_1.eContents().get(0);
+		private final RuleCall cInputsVariableNameOnlyParserRuleCall_4_1_1_0_0 = (RuleCall)cInputsAssignment_4_1_1_0.eContents().get(0);
+		private final Keyword cCommaKeyword_4_1_1_1 = (Keyword)cGroup_4_1_1.eContents().get(1);
+		private final Group cGroup_4_1_1_2 = (Group)cGroup_4_1_1.eContents().get(2);
+		private final Assignment cInputsAssignment_4_1_1_2_0 = (Assignment)cGroup_4_1_1_2.eContents().get(0);
+		private final RuleCall cInputsVariableNameOnlyParserRuleCall_4_1_1_2_0_0 = (RuleCall)cInputsAssignment_4_1_1_2_0.eContents().get(0);
+		private final Keyword cCommaKeyword_4_1_1_2_1 = (Keyword)cGroup_4_1_1_2.eContents().get(1);
+		private final Assignment cInputsAssignment_4_1_1_3 = (Assignment)cGroup_4_1_1.eContents().get(3);
+		private final RuleCall cInputsVariableParserRuleCall_4_1_1_3_0 = (RuleCall)cInputsAssignment_4_1_1_3.eContents().get(0);
+		private final Assignment cInputsAssignment_4_1_2 = (Assignment)cAlternatives_4_1.eContents().get(2);
+		private final RuleCall cInputsFuzzyVariableParserRuleCall_4_1_2_0 = (RuleCall)cInputsAssignment_4_1_2.eContents().get(0);
+		private final Group cGroup_4_1_3 = (Group)cAlternatives_4_1.eContents().get(3);
+		private final Assignment cInputsAssignment_4_1_3_0 = (Assignment)cGroup_4_1_3.eContents().get(0);
+		private final RuleCall cInputsFuzzyVariableNameOnlyParserRuleCall_4_1_3_0_0 = (RuleCall)cInputsAssignment_4_1_3_0.eContents().get(0);
+		private final Keyword cCommaKeyword_4_1_3_1 = (Keyword)cGroup_4_1_3.eContents().get(1);
+		private final Group cGroup_4_1_3_2 = (Group)cGroup_4_1_3.eContents().get(2);
+		private final Assignment cInputsAssignment_4_1_3_2_0 = (Assignment)cGroup_4_1_3_2.eContents().get(0);
+		private final RuleCall cInputsFuzzyVariableNameOnlyParserRuleCall_4_1_3_2_0_0 = (RuleCall)cInputsAssignment_4_1_3_2_0.eContents().get(0);
+		private final Keyword cCommaKeyword_4_1_3_2_1 = (Keyword)cGroup_4_1_3_2.eContents().get(1);
+		private final Assignment cInputsAssignment_4_1_3_3 = (Assignment)cGroup_4_1_3.eContents().get(3);
+		private final RuleCall cInputsFuzzyVariableParserRuleCall_4_1_3_3_0 = (RuleCall)cInputsAssignment_4_1_3_3.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cOutputsKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Alternatives cAlternatives_5_1 = (Alternatives)cGroup_5.eContents().get(1);
 		private final Assignment cOutputsAssignment_5_1_0 = (Assignment)cAlternatives_5_1.eContents().get(0);
-		private final RuleCall cOutputsOutputVariableParserRuleCall_5_1_0_0 = (RuleCall)cOutputsAssignment_5_1_0.eContents().get(0);
-		private final Assignment cOutputsAssignment_5_1_1 = (Assignment)cAlternatives_5_1.eContents().get(1);
-		private final RuleCall cOutputsFuzzyOutputVariableParserRuleCall_5_1_1_0 = (RuleCall)cOutputsAssignment_5_1_1.eContents().get(0);
+		private final RuleCall cOutputsVariableParserRuleCall_5_1_0_0 = (RuleCall)cOutputsAssignment_5_1_0.eContents().get(0);
+		private final Group cGroup_5_1_1 = (Group)cAlternatives_5_1.eContents().get(1);
+		private final Assignment cOutputsAssignment_5_1_1_0 = (Assignment)cGroup_5_1_1.eContents().get(0);
+		private final RuleCall cOutputsVariableNameOnlyParserRuleCall_5_1_1_0_0 = (RuleCall)cOutputsAssignment_5_1_1_0.eContents().get(0);
+		private final Keyword cCommaKeyword_5_1_1_1 = (Keyword)cGroup_5_1_1.eContents().get(1);
+		private final Group cGroup_5_1_1_2 = (Group)cGroup_5_1_1.eContents().get(2);
+		private final Assignment cOutputsAssignment_5_1_1_2_0 = (Assignment)cGroup_5_1_1_2.eContents().get(0);
+		private final RuleCall cOutputsVariableNameOnlyParserRuleCall_5_1_1_2_0_0 = (RuleCall)cOutputsAssignment_5_1_1_2_0.eContents().get(0);
+		private final Keyword cCommaKeyword_5_1_1_2_1 = (Keyword)cGroup_5_1_1_2.eContents().get(1);
+		private final Assignment cOutputsAssignment_5_1_1_3 = (Assignment)cGroup_5_1_1.eContents().get(3);
+		private final RuleCall cOutputsVariableParserRuleCall_5_1_1_3_0 = (RuleCall)cOutputsAssignment_5_1_1_3.eContents().get(0);
+		private final Assignment cOutputsAssignment_5_1_2 = (Assignment)cAlternatives_5_1.eContents().get(2);
+		private final RuleCall cOutputsFuzzyVariableParserRuleCall_5_1_2_0 = (RuleCall)cOutputsAssignment_5_1_2.eContents().get(0);
+		private final Group cGroup_5_1_3 = (Group)cAlternatives_5_1.eContents().get(3);
+		private final Assignment cOutputsAssignment_5_1_3_0 = (Assignment)cGroup_5_1_3.eContents().get(0);
+		private final RuleCall cOutputsFuzzyVariableNameOnlyParserRuleCall_5_1_3_0_0 = (RuleCall)cOutputsAssignment_5_1_3_0.eContents().get(0);
+		private final Keyword cCommaKeyword_5_1_3_1 = (Keyword)cGroup_5_1_3.eContents().get(1);
+		private final Group cGroup_5_1_3_2 = (Group)cGroup_5_1_3.eContents().get(2);
+		private final Assignment cOutputsAssignment_5_1_3_2_0 = (Assignment)cGroup_5_1_3_2.eContents().get(0);
+		private final RuleCall cOutputsFuzzyVariableNameOnlyParserRuleCall_5_1_3_2_0_0 = (RuleCall)cOutputsAssignment_5_1_3_2_0.eContents().get(0);
+		private final Keyword cCommaKeyword_5_1_3_2_1 = (Keyword)cGroup_5_1_3_2.eContents().get(1);
+		private final Assignment cOutputsAssignment_5_1_3_3 = (Assignment)cGroup_5_1_3.eContents().get(3);
+		private final RuleCall cOutputsFuzzyVariableParserRuleCall_5_1_3_3_0 = (RuleCall)cOutputsAssignment_5_1_3_3.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cLocalsKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
 		private final Alternatives cAlternatives_6_1 = (Alternatives)cGroup_6.eContents().get(1);
 		private final Assignment cLocalsAssignment_6_1_0 = (Assignment)cAlternatives_6_1.eContents().get(0);
-		private final RuleCall cLocalsLocalVariableParserRuleCall_6_1_0_0 = (RuleCall)cLocalsAssignment_6_1_0.eContents().get(0);
-		private final Assignment cLocalsAssignment_6_1_1 = (Assignment)cAlternatives_6_1.eContents().get(1);
-		private final RuleCall cLocalsFuzzyLocalVariableParserRuleCall_6_1_1_0 = (RuleCall)cLocalsAssignment_6_1_1.eContents().get(0);
+		private final RuleCall cLocalsVariableParserRuleCall_6_1_0_0 = (RuleCall)cLocalsAssignment_6_1_0.eContents().get(0);
+		private final Group cGroup_6_1_1 = (Group)cAlternatives_6_1.eContents().get(1);
+		private final Assignment cLocalsAssignment_6_1_1_0 = (Assignment)cGroup_6_1_1.eContents().get(0);
+		private final RuleCall cLocalsVariableNameOnlyParserRuleCall_6_1_1_0_0 = (RuleCall)cLocalsAssignment_6_1_1_0.eContents().get(0);
+		private final Keyword cCommaKeyword_6_1_1_1 = (Keyword)cGroup_6_1_1.eContents().get(1);
+		private final Group cGroup_6_1_1_2 = (Group)cGroup_6_1_1.eContents().get(2);
+		private final Assignment cLocalsAssignment_6_1_1_2_0 = (Assignment)cGroup_6_1_1_2.eContents().get(0);
+		private final RuleCall cLocalsVariableNameOnlyParserRuleCall_6_1_1_2_0_0 = (RuleCall)cLocalsAssignment_6_1_1_2_0.eContents().get(0);
+		private final Keyword cCommaKeyword_6_1_1_2_1 = (Keyword)cGroup_6_1_1_2.eContents().get(1);
+		private final Assignment cLocalsAssignment_6_1_1_3 = (Assignment)cGroup_6_1_1.eContents().get(3);
+		private final RuleCall cLocalsVariableParserRuleCall_6_1_1_3_0 = (RuleCall)cLocalsAssignment_6_1_1_3.eContents().get(0);
+		private final Assignment cLocalsAssignment_6_1_2 = (Assignment)cAlternatives_6_1.eContents().get(2);
+		private final RuleCall cLocalsFuzzyVariableParserRuleCall_6_1_2_0 = (RuleCall)cLocalsAssignment_6_1_2.eContents().get(0);
+		private final Group cGroup_6_1_3 = (Group)cAlternatives_6_1.eContents().get(3);
+		private final Assignment cLocalsAssignment_6_1_3_0 = (Assignment)cGroup_6_1_3.eContents().get(0);
+		private final RuleCall cLocalsFuzzyVariableNameOnlyParserRuleCall_6_1_3_0_0 = (RuleCall)cLocalsAssignment_6_1_3_0.eContents().get(0);
+		private final Keyword cCommaKeyword_6_1_3_1 = (Keyword)cGroup_6_1_3.eContents().get(1);
+		private final Group cGroup_6_1_3_2 = (Group)cGroup_6_1_3.eContents().get(2);
+		private final Assignment cLocalsAssignment_6_1_3_2_0 = (Assignment)cGroup_6_1_3_2.eContents().get(0);
+		private final RuleCall cLocalsFuzzyVariableNameOnlyParserRuleCall_6_1_3_2_0_0 = (RuleCall)cLocalsAssignment_6_1_3_2_0.eContents().get(0);
+		private final Keyword cCommaKeyword_6_1_3_2_1 = (Keyword)cGroup_6_1_3_2.eContents().get(1);
+		private final Assignment cLocalsAssignment_6_1_3_3 = (Assignment)cGroup_6_1_3.eContents().get(3);
+		private final RuleCall cLocalsFuzzyVariableParserRuleCall_6_1_3_3_0 = (RuleCall)cLocalsAssignment_6_1_3_3.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cOverKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final Assignment cWhileDomainExprAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
@@ -270,17 +330,27 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AlphaSystem:
 		//	'affine' name=SystemName parameterDomainExpr=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
-		//	(inputs+=InputVariable | inputs+=FuzzyInputVariable)+)? ('outputs' (outputs+=OutputVariable |
-		//	outputs+=FuzzyOutputVariable)+)? ('locals' (locals+=LocalVariable | locals+=FuzzyLocalVariable)+)? ('over'
-		//	whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')?
+		//	(inputs+=Variable | inputs+=VariableNameOnly ',' (inputs+=VariableNameOnly ',')* inputs+=Variable |
+		//	inputs+=FuzzyVariable | inputs+=FuzzyVariableNameOnly ',' (inputs+=FuzzyVariableNameOnly ',')*
+		//	inputs+=FuzzyVariable)+)? ('outputs' (outputs+=Variable | outputs+=VariableNameOnly ',' (outputs+=VariableNameOnly
+		//	',')* outputs+=Variable | outputs+=FuzzyVariable | outputs+=FuzzyVariableNameOnly ',' (outputs+=FuzzyVariableNameOnly
+		//	',')* outputs+=FuzzyVariable)+)? ('locals' (locals+=Variable | locals+=VariableNameOnly ',' (locals+=VariableNameOnly
+		//	',')* locals+=Variable | locals+=FuzzyVariable | locals+=FuzzyVariableNameOnly ',' (locals+=FuzzyVariableNameOnly
+		//	',')* locals+=FuzzyVariable)+)? ('over' whileDomainExpr=CalculatorExpression 'while' '('
+		//	testExpression=AlphaExpression ')')?
 		//	systemBodies+=SystemBody*
 		//	'.';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'affine' name=SystemName parameterDomainExpr=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
-		//(inputs+=InputVariable | inputs+=FuzzyInputVariable)+)? ('outputs' (outputs+=OutputVariable |
-		//outputs+=FuzzyOutputVariable)+)? ('locals' (locals+=LocalVariable | locals+=FuzzyLocalVariable)+)? ('over'
-		//whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')? systemBodies+=SystemBody* '.'
+		//(inputs+=Variable | inputs+=VariableNameOnly ',' (inputs+=VariableNameOnly ',')* inputs+=Variable |
+		//inputs+=FuzzyVariable | inputs+=FuzzyVariableNameOnly ',' (inputs+=FuzzyVariableNameOnly ',')*
+		//inputs+=FuzzyVariable)+)? ('outputs' (outputs+=Variable | outputs+=VariableNameOnly ',' (outputs+=VariableNameOnly
+		//',')* outputs+=Variable | outputs+=FuzzyVariable | outputs+=FuzzyVariableNameOnly ',' (outputs+=FuzzyVariableNameOnly
+		//',')* outputs+=FuzzyVariable)+)? ('locals' (locals+=Variable | locals+=VariableNameOnly ',' (locals+=VariableNameOnly
+		//',')* locals+=Variable | locals+=FuzzyVariable | locals+=FuzzyVariableNameOnly ',' (locals+=FuzzyVariableNameOnly ',')*
+		//locals+=FuzzyVariable)+)? ('over' whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')?
+		//systemBodies+=SystemBody* '.'
 		public Group getGroup() { return cGroup; }
 		
 		//'affine'
@@ -310,68 +380,258 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//PolyhedralObject
 		public RuleCall getDefinedObjectsPolyhedralObjectParserRuleCall_3_1_0() { return cDefinedObjectsPolyhedralObjectParserRuleCall_3_1_0; }
 		
-		//('inputs' (inputs+=InputVariable | inputs+=FuzzyInputVariable)+)?
+		//('inputs' (inputs+=Variable | inputs+=VariableNameOnly ',' (inputs+=VariableNameOnly ',')* inputs+=Variable |
+		//inputs+=FuzzyVariable | inputs+=FuzzyVariableNameOnly ',' (inputs+=FuzzyVariableNameOnly ',')*
+		//inputs+=FuzzyVariable)+)?
 		public Group getGroup_4() { return cGroup_4; }
 		
 		//'inputs'
 		public Keyword getInputsKeyword_4_0() { return cInputsKeyword_4_0; }
 		
-		//(inputs+=InputVariable | inputs+=FuzzyInputVariable)+
+		//(inputs+=Variable | inputs+=VariableNameOnly ',' (inputs+=VariableNameOnly ',')* inputs+=Variable |
+		//inputs+=FuzzyVariable | inputs+=FuzzyVariableNameOnly ',' (inputs+=FuzzyVariableNameOnly ',')* inputs+=FuzzyVariable)+
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 		
-		//inputs+=InputVariable
+		//inputs+=Variable
 		public Assignment getInputsAssignment_4_1_0() { return cInputsAssignment_4_1_0; }
 		
-		//InputVariable
-		public RuleCall getInputsInputVariableParserRuleCall_4_1_0_0() { return cInputsInputVariableParserRuleCall_4_1_0_0; }
+		//Variable
+		public RuleCall getInputsVariableParserRuleCall_4_1_0_0() { return cInputsVariableParserRuleCall_4_1_0_0; }
 		
-		//inputs+=FuzzyInputVariable
-		public Assignment getInputsAssignment_4_1_1() { return cInputsAssignment_4_1_1; }
+		//inputs+=VariableNameOnly ',' (inputs+=VariableNameOnly ',')* inputs+=Variable
+		public Group getGroup_4_1_1() { return cGroup_4_1_1; }
 		
-		//FuzzyInputVariable
-		public RuleCall getInputsFuzzyInputVariableParserRuleCall_4_1_1_0() { return cInputsFuzzyInputVariableParserRuleCall_4_1_1_0; }
+		//inputs+=VariableNameOnly
+		public Assignment getInputsAssignment_4_1_1_0() { return cInputsAssignment_4_1_1_0; }
 		
-		//('outputs' (outputs+=OutputVariable | outputs+=FuzzyOutputVariable)+)?
+		//VariableNameOnly
+		public RuleCall getInputsVariableNameOnlyParserRuleCall_4_1_1_0_0() { return cInputsVariableNameOnlyParserRuleCall_4_1_1_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_4_1_1_1() { return cCommaKeyword_4_1_1_1; }
+		
+		//(inputs+=VariableNameOnly ',')*
+		public Group getGroup_4_1_1_2() { return cGroup_4_1_1_2; }
+		
+		//inputs+=VariableNameOnly
+		public Assignment getInputsAssignment_4_1_1_2_0() { return cInputsAssignment_4_1_1_2_0; }
+		
+		//VariableNameOnly
+		public RuleCall getInputsVariableNameOnlyParserRuleCall_4_1_1_2_0_0() { return cInputsVariableNameOnlyParserRuleCall_4_1_1_2_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_4_1_1_2_1() { return cCommaKeyword_4_1_1_2_1; }
+		
+		//inputs+=Variable
+		public Assignment getInputsAssignment_4_1_1_3() { return cInputsAssignment_4_1_1_3; }
+		
+		//Variable
+		public RuleCall getInputsVariableParserRuleCall_4_1_1_3_0() { return cInputsVariableParserRuleCall_4_1_1_3_0; }
+		
+		//inputs+=FuzzyVariable
+		public Assignment getInputsAssignment_4_1_2() { return cInputsAssignment_4_1_2; }
+		
+		//FuzzyVariable
+		public RuleCall getInputsFuzzyVariableParserRuleCall_4_1_2_0() { return cInputsFuzzyVariableParserRuleCall_4_1_2_0; }
+		
+		//inputs+=FuzzyVariableNameOnly ',' (inputs+=FuzzyVariableNameOnly ',')* inputs+=FuzzyVariable
+		public Group getGroup_4_1_3() { return cGroup_4_1_3; }
+		
+		//inputs+=FuzzyVariableNameOnly
+		public Assignment getInputsAssignment_4_1_3_0() { return cInputsAssignment_4_1_3_0; }
+		
+		//FuzzyVariableNameOnly
+		public RuleCall getInputsFuzzyVariableNameOnlyParserRuleCall_4_1_3_0_0() { return cInputsFuzzyVariableNameOnlyParserRuleCall_4_1_3_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_4_1_3_1() { return cCommaKeyword_4_1_3_1; }
+		
+		//(inputs+=FuzzyVariableNameOnly ',')*
+		public Group getGroup_4_1_3_2() { return cGroup_4_1_3_2; }
+		
+		//inputs+=FuzzyVariableNameOnly
+		public Assignment getInputsAssignment_4_1_3_2_0() { return cInputsAssignment_4_1_3_2_0; }
+		
+		//FuzzyVariableNameOnly
+		public RuleCall getInputsFuzzyVariableNameOnlyParserRuleCall_4_1_3_2_0_0() { return cInputsFuzzyVariableNameOnlyParserRuleCall_4_1_3_2_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_4_1_3_2_1() { return cCommaKeyword_4_1_3_2_1; }
+		
+		//inputs+=FuzzyVariable
+		public Assignment getInputsAssignment_4_1_3_3() { return cInputsAssignment_4_1_3_3; }
+		
+		//FuzzyVariable
+		public RuleCall getInputsFuzzyVariableParserRuleCall_4_1_3_3_0() { return cInputsFuzzyVariableParserRuleCall_4_1_3_3_0; }
+		
+		//('outputs' (outputs+=Variable | outputs+=VariableNameOnly ',' (outputs+=VariableNameOnly ',')* outputs+=Variable |
+		//outputs+=FuzzyVariable | outputs+=FuzzyVariableNameOnly ',' (outputs+=FuzzyVariableNameOnly ',')*
+		//outputs+=FuzzyVariable)+)?
 		public Group getGroup_5() { return cGroup_5; }
 		
 		//'outputs'
 		public Keyword getOutputsKeyword_5_0() { return cOutputsKeyword_5_0; }
 		
-		//(outputs+=OutputVariable | outputs+=FuzzyOutputVariable)+
+		//(outputs+=Variable | outputs+=VariableNameOnly ',' (outputs+=VariableNameOnly ',')* outputs+=Variable |
+		//outputs+=FuzzyVariable | outputs+=FuzzyVariableNameOnly ',' (outputs+=FuzzyVariableNameOnly ',')*
+		//outputs+=FuzzyVariable)+
 		public Alternatives getAlternatives_5_1() { return cAlternatives_5_1; }
 		
-		//outputs+=OutputVariable
+		//outputs+=Variable
 		public Assignment getOutputsAssignment_5_1_0() { return cOutputsAssignment_5_1_0; }
 		
-		//OutputVariable
-		public RuleCall getOutputsOutputVariableParserRuleCall_5_1_0_0() { return cOutputsOutputVariableParserRuleCall_5_1_0_0; }
+		//Variable
+		public RuleCall getOutputsVariableParserRuleCall_5_1_0_0() { return cOutputsVariableParserRuleCall_5_1_0_0; }
 		
-		//outputs+=FuzzyOutputVariable
-		public Assignment getOutputsAssignment_5_1_1() { return cOutputsAssignment_5_1_1; }
+		//outputs+=VariableNameOnly ',' (outputs+=VariableNameOnly ',')* outputs+=Variable
+		public Group getGroup_5_1_1() { return cGroup_5_1_1; }
 		
-		//FuzzyOutputVariable
-		public RuleCall getOutputsFuzzyOutputVariableParserRuleCall_5_1_1_0() { return cOutputsFuzzyOutputVariableParserRuleCall_5_1_1_0; }
+		//outputs+=VariableNameOnly
+		public Assignment getOutputsAssignment_5_1_1_0() { return cOutputsAssignment_5_1_1_0; }
 		
-		//('locals' (locals+=LocalVariable | locals+=FuzzyLocalVariable)+)?
+		//VariableNameOnly
+		public RuleCall getOutputsVariableNameOnlyParserRuleCall_5_1_1_0_0() { return cOutputsVariableNameOnlyParserRuleCall_5_1_1_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_5_1_1_1() { return cCommaKeyword_5_1_1_1; }
+		
+		//(outputs+=VariableNameOnly ',')*
+		public Group getGroup_5_1_1_2() { return cGroup_5_1_1_2; }
+		
+		//outputs+=VariableNameOnly
+		public Assignment getOutputsAssignment_5_1_1_2_0() { return cOutputsAssignment_5_1_1_2_0; }
+		
+		//VariableNameOnly
+		public RuleCall getOutputsVariableNameOnlyParserRuleCall_5_1_1_2_0_0() { return cOutputsVariableNameOnlyParserRuleCall_5_1_1_2_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_5_1_1_2_1() { return cCommaKeyword_5_1_1_2_1; }
+		
+		//outputs+=Variable
+		public Assignment getOutputsAssignment_5_1_1_3() { return cOutputsAssignment_5_1_1_3; }
+		
+		//Variable
+		public RuleCall getOutputsVariableParserRuleCall_5_1_1_3_0() { return cOutputsVariableParserRuleCall_5_1_1_3_0; }
+		
+		//outputs+=FuzzyVariable
+		public Assignment getOutputsAssignment_5_1_2() { return cOutputsAssignment_5_1_2; }
+		
+		//FuzzyVariable
+		public RuleCall getOutputsFuzzyVariableParserRuleCall_5_1_2_0() { return cOutputsFuzzyVariableParserRuleCall_5_1_2_0; }
+		
+		//outputs+=FuzzyVariableNameOnly ',' (outputs+=FuzzyVariableNameOnly ',')* outputs+=FuzzyVariable
+		public Group getGroup_5_1_3() { return cGroup_5_1_3; }
+		
+		//outputs+=FuzzyVariableNameOnly
+		public Assignment getOutputsAssignment_5_1_3_0() { return cOutputsAssignment_5_1_3_0; }
+		
+		//FuzzyVariableNameOnly
+		public RuleCall getOutputsFuzzyVariableNameOnlyParserRuleCall_5_1_3_0_0() { return cOutputsFuzzyVariableNameOnlyParserRuleCall_5_1_3_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_5_1_3_1() { return cCommaKeyword_5_1_3_1; }
+		
+		//(outputs+=FuzzyVariableNameOnly ',')*
+		public Group getGroup_5_1_3_2() { return cGroup_5_1_3_2; }
+		
+		//outputs+=FuzzyVariableNameOnly
+		public Assignment getOutputsAssignment_5_1_3_2_0() { return cOutputsAssignment_5_1_3_2_0; }
+		
+		//FuzzyVariableNameOnly
+		public RuleCall getOutputsFuzzyVariableNameOnlyParserRuleCall_5_1_3_2_0_0() { return cOutputsFuzzyVariableNameOnlyParserRuleCall_5_1_3_2_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_5_1_3_2_1() { return cCommaKeyword_5_1_3_2_1; }
+		
+		//outputs+=FuzzyVariable
+		public Assignment getOutputsAssignment_5_1_3_3() { return cOutputsAssignment_5_1_3_3; }
+		
+		//FuzzyVariable
+		public RuleCall getOutputsFuzzyVariableParserRuleCall_5_1_3_3_0() { return cOutputsFuzzyVariableParserRuleCall_5_1_3_3_0; }
+		
+		//('locals' (locals+=Variable | locals+=VariableNameOnly ',' (locals+=VariableNameOnly ',')* locals+=Variable |
+		//locals+=FuzzyVariable | locals+=FuzzyVariableNameOnly ',' (locals+=FuzzyVariableNameOnly ',')*
+		//locals+=FuzzyVariable)+)?
 		public Group getGroup_6() { return cGroup_6; }
 		
 		//'locals'
 		public Keyword getLocalsKeyword_6_0() { return cLocalsKeyword_6_0; }
 		
-		//(locals+=LocalVariable | locals+=FuzzyLocalVariable)+
+		//(locals+=Variable | locals+=VariableNameOnly ',' (locals+=VariableNameOnly ',')* locals+=Variable |
+		//locals+=FuzzyVariable | locals+=FuzzyVariableNameOnly ',' (locals+=FuzzyVariableNameOnly ',')* locals+=FuzzyVariable)+
 		public Alternatives getAlternatives_6_1() { return cAlternatives_6_1; }
 		
-		//locals+=LocalVariable
+		//locals+=Variable
 		public Assignment getLocalsAssignment_6_1_0() { return cLocalsAssignment_6_1_0; }
 		
-		//LocalVariable
-		public RuleCall getLocalsLocalVariableParserRuleCall_6_1_0_0() { return cLocalsLocalVariableParserRuleCall_6_1_0_0; }
+		//Variable
+		public RuleCall getLocalsVariableParserRuleCall_6_1_0_0() { return cLocalsVariableParserRuleCall_6_1_0_0; }
 		
-		//locals+=FuzzyLocalVariable
-		public Assignment getLocalsAssignment_6_1_1() { return cLocalsAssignment_6_1_1; }
+		//locals+=VariableNameOnly ',' (locals+=VariableNameOnly ',')* locals+=Variable
+		public Group getGroup_6_1_1() { return cGroup_6_1_1; }
 		
-		//FuzzyLocalVariable
-		public RuleCall getLocalsFuzzyLocalVariableParserRuleCall_6_1_1_0() { return cLocalsFuzzyLocalVariableParserRuleCall_6_1_1_0; }
+		//locals+=VariableNameOnly
+		public Assignment getLocalsAssignment_6_1_1_0() { return cLocalsAssignment_6_1_1_0; }
+		
+		//VariableNameOnly
+		public RuleCall getLocalsVariableNameOnlyParserRuleCall_6_1_1_0_0() { return cLocalsVariableNameOnlyParserRuleCall_6_1_1_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_6_1_1_1() { return cCommaKeyword_6_1_1_1; }
+		
+		//(locals+=VariableNameOnly ',')*
+		public Group getGroup_6_1_1_2() { return cGroup_6_1_1_2; }
+		
+		//locals+=VariableNameOnly
+		public Assignment getLocalsAssignment_6_1_1_2_0() { return cLocalsAssignment_6_1_1_2_0; }
+		
+		//VariableNameOnly
+		public RuleCall getLocalsVariableNameOnlyParserRuleCall_6_1_1_2_0_0() { return cLocalsVariableNameOnlyParserRuleCall_6_1_1_2_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_6_1_1_2_1() { return cCommaKeyword_6_1_1_2_1; }
+		
+		//locals+=Variable
+		public Assignment getLocalsAssignment_6_1_1_3() { return cLocalsAssignment_6_1_1_3; }
+		
+		//Variable
+		public RuleCall getLocalsVariableParserRuleCall_6_1_1_3_0() { return cLocalsVariableParserRuleCall_6_1_1_3_0; }
+		
+		//locals+=FuzzyVariable
+		public Assignment getLocalsAssignment_6_1_2() { return cLocalsAssignment_6_1_2; }
+		
+		//FuzzyVariable
+		public RuleCall getLocalsFuzzyVariableParserRuleCall_6_1_2_0() { return cLocalsFuzzyVariableParserRuleCall_6_1_2_0; }
+		
+		//locals+=FuzzyVariableNameOnly ',' (locals+=FuzzyVariableNameOnly ',')* locals+=FuzzyVariable
+		public Group getGroup_6_1_3() { return cGroup_6_1_3; }
+		
+		//locals+=FuzzyVariableNameOnly
+		public Assignment getLocalsAssignment_6_1_3_0() { return cLocalsAssignment_6_1_3_0; }
+		
+		//FuzzyVariableNameOnly
+		public RuleCall getLocalsFuzzyVariableNameOnlyParserRuleCall_6_1_3_0_0() { return cLocalsFuzzyVariableNameOnlyParserRuleCall_6_1_3_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_6_1_3_1() { return cCommaKeyword_6_1_3_1; }
+		
+		//(locals+=FuzzyVariableNameOnly ',')*
+		public Group getGroup_6_1_3_2() { return cGroup_6_1_3_2; }
+		
+		//locals+=FuzzyVariableNameOnly
+		public Assignment getLocalsAssignment_6_1_3_2_0() { return cLocalsAssignment_6_1_3_2_0; }
+		
+		//FuzzyVariableNameOnly
+		public RuleCall getLocalsFuzzyVariableNameOnlyParserRuleCall_6_1_3_2_0_0() { return cLocalsFuzzyVariableNameOnlyParserRuleCall_6_1_3_2_0_0; }
+		
+		//','
+		public Keyword getCommaKeyword_6_1_3_2_1() { return cCommaKeyword_6_1_3_2_1; }
+		
+		//locals+=FuzzyVariable
+		public Assignment getLocalsAssignment_6_1_3_3() { return cLocalsAssignment_6_1_3_3; }
+		
+		//FuzzyVariable
+		public RuleCall getLocalsFuzzyVariableParserRuleCall_6_1_3_3_0() { return cLocalsFuzzyVariableParserRuleCall_6_1_3_3_0; }
 		
 		//('over' whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')?
 		public Group getGroup_7() { return cGroup_7; }
@@ -462,8 +722,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//Equation
 		public RuleCall getEquationsEquationParserRuleCall_3_0() { return cEquationsEquationParserRuleCall_3_0; }
 	}
-	public class InputVariableElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.InputVariable");
+	public class VariableElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.Variable");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
@@ -472,11 +732,11 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cDomainExprAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//InputVariable Variable:
-		//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
+		//Variable:
+		//	name=ID ':' domainExpr=CalculatorExpression ';'?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID ':' domainExpr=CalculatorExpression? ';'?
+		//name=ID ':' domainExpr=CalculatorExpression ';'?
 		public Group getGroup() { return cGroup; }
 		
 		//name=ID
@@ -488,7 +748,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//':'
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 		
-		//domainExpr=CalculatorExpression?
+		//domainExpr=CalculatorExpression
 		public Assignment getDomainExprAssignment_2() { return cDomainExprAssignment_2; }
 		
 		//CalculatorExpression
@@ -497,78 +757,8 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//';'?
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
-	public class OutputVariableElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.OutputVariable");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cDomainExprAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		
-		//OutputVariable Variable:
-		//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//name=ID ':' domainExpr=CalculatorExpression? ';'?
-		public Group getGroup() { return cGroup; }
-		
-		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
-		
-		//':'
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
-		
-		//domainExpr=CalculatorExpression?
-		public Assignment getDomainExprAssignment_2() { return cDomainExprAssignment_2; }
-		
-		//CalculatorExpression
-		public RuleCall getDomainExprCalculatorExpressionParserRuleCall_2_0() { return cDomainExprCalculatorExpressionParserRuleCall_2_0; }
-		
-		//';'?
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
-	}
-	public class LocalVariableElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.LocalVariable");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_2_0 = (RuleCall)cDomainExprAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		
-		//LocalVariable Variable:
-		//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//name=ID ':' domainExpr=CalculatorExpression? ';'?
-		public Group getGroup() { return cGroup; }
-		
-		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
-		
-		//':'
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
-		
-		//domainExpr=CalculatorExpression?
-		public Assignment getDomainExprAssignment_2() { return cDomainExprAssignment_2; }
-		
-		//CalculatorExpression
-		public RuleCall getDomainExprCalculatorExpressionParserRuleCall_2_0() { return cDomainExprCalculatorExpressionParserRuleCall_2_0; }
-		
-		//';'?
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
-	}
-	public class FuzzyInputVariableElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyInputVariable");
+	public class FuzzyVariableElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyVariable");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cFuzzyKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
@@ -581,7 +771,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRangeExprCalculatorExpressionParserRuleCall_5_0 = (RuleCall)cRangeExprAssignment_5.eContents().get(0);
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//FuzzyInputVariable FuzzyVariable:
+		//FuzzyVariable:
 		//	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?;
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -618,107 +808,35 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//';'?
 		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
-	public class FuzzyOutputVariableElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyOutputVariable");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cFuzzyKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cDomainExprAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_3_0 = (RuleCall)cDomainExprAssignment_3.eContents().get(0);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cRangeExprAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cRangeExprCalculatorExpressionParserRuleCall_5_0 = (RuleCall)cRangeExprAssignment_5.eContents().get(0);
-		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
+	public class VariableNameOnlyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.VariableNameOnly");
+		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		//FuzzyOutputVariable FuzzyVariable:
-		//	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?;
+		//VariableNameOnly Variable:
+		//	name=ID;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?
-		public Group getGroup() { return cGroup; }
-		
-		//'fuzzy'
-		public Keyword getFuzzyKeyword_0() { return cFuzzyKeyword_0; }
-		
 		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment() { return cNameAssignment; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-		
-		//':'
-		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
-		
-		//domainExpr=CalculatorExpression
-		public Assignment getDomainExprAssignment_3() { return cDomainExprAssignment_3; }
-		
-		//CalculatorExpression
-		public RuleCall getDomainExprCalculatorExpressionParserRuleCall_3_0() { return cDomainExprCalculatorExpressionParserRuleCall_3_0; }
-		
-		//'->'
-		public Keyword getHyphenMinusGreaterThanSignKeyword_4() { return cHyphenMinusGreaterThanSignKeyword_4; }
-		
-		//rangeExpr=CalculatorExpression
-		public Assignment getRangeExprAssignment_5() { return cRangeExprAssignment_5; }
-		
-		//CalculatorExpression
-		public RuleCall getRangeExprCalculatorExpressionParserRuleCall_5_0() { return cRangeExprCalculatorExpressionParserRuleCall_5_0; }
-		
-		//';'?
-		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
+		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
 	}
-	public class FuzzyLocalVariableElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyLocalVariable");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cFuzzyKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cDomainExprAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cDomainExprCalculatorExpressionParserRuleCall_3_0 = (RuleCall)cDomainExprAssignment_3.eContents().get(0);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cRangeExprAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cRangeExprCalculatorExpressionParserRuleCall_5_0 = (RuleCall)cRangeExprAssignment_5.eContents().get(0);
-		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
+	public class FuzzyVariableNameOnlyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FuzzyVariableNameOnly");
+		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		//FuzzyLocalVariable FuzzyVariable:
-		//	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?;
+		//FuzzyVariableNameOnly FuzzyVariable:
+		//	name=ID;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?
-		public Group getGroup() { return cGroup; }
-		
-		//'fuzzy'
-		public Keyword getFuzzyKeyword_0() { return cFuzzyKeyword_0; }
-		
 		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment() { return cNameAssignment; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-		
-		//':'
-		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
-		
-		//domainExpr=CalculatorExpression
-		public Assignment getDomainExprAssignment_3() { return cDomainExprAssignment_3; }
-		
-		//CalculatorExpression
-		public RuleCall getDomainExprCalculatorExpressionParserRuleCall_3_0() { return cDomainExprCalculatorExpressionParserRuleCall_3_0; }
-		
-		//'->'
-		public Keyword getHyphenMinusGreaterThanSignKeyword_4() { return cHyphenMinusGreaterThanSignKeyword_4; }
-		
-		//rangeExpr=CalculatorExpression
-		public Assignment getRangeExprAssignment_5() { return cRangeExprAssignment_5; }
-		
-		//CalculatorExpression
-		public RuleCall getRangeExprCalculatorExpressionParserRuleCall_5_0() { return cRangeExprCalculatorExpressionParserRuleCall_5_0; }
-		
-		//';'?
-		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
+		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
 	}
 	public class JNIDomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.JNIDomain");
@@ -1275,38 +1393,46 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class AISLSetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLSet");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cAISLBasicSetParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cSemicolonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final RuleCall cAISLBasicSetParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
-		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final RuleCall cAISLBasicSetParserRuleCall_0_1 = (RuleCall)cGroup_0.eContents().get(1);
+		private final Group cGroup_0_2 = (Group)cGroup_0.eContents().get(2);
+		private final Keyword cSemicolonKeyword_0_2_0 = (Keyword)cGroup_0_2.eContents().get(0);
+		private final RuleCall cAISLBasicSetParserRuleCall_0_2_1 = (RuleCall)cGroup_0_2.eContents().get(1);
+		private final Keyword cRightCurlyBracketKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
+		private final Keyword cLeftCurlyBracketRightCurlyBracketKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		
 		//AISLSet:
-		//	'{' AISLBasicSet (';' AISLBasicSet)* '}';
+		//	'{' AISLBasicSet (';' AISLBasicSet)* '}' | '{}';
 		@Override public ParserRule getRule() { return rule; }
 		
+		//'{' AISLBasicSet (';' AISLBasicSet)* '}' | '{}'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
 		//'{' AISLBasicSet (';' AISLBasicSet)* '}'
-		public Group getGroup() { return cGroup; }
+		public Group getGroup_0() { return cGroup_0; }
 		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
+		public Keyword getLeftCurlyBracketKeyword_0_0() { return cLeftCurlyBracketKeyword_0_0; }
 		
 		//AISLBasicSet
-		public RuleCall getAISLBasicSetParserRuleCall_1() { return cAISLBasicSetParserRuleCall_1; }
+		public RuleCall getAISLBasicSetParserRuleCall_0_1() { return cAISLBasicSetParserRuleCall_0_1; }
 		
 		//(';' AISLBasicSet)*
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_0_2() { return cGroup_0_2; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_2_0() { return cSemicolonKeyword_2_0; }
+		public Keyword getSemicolonKeyword_0_2_0() { return cSemicolonKeyword_0_2_0; }
 		
 		//AISLBasicSet
-		public RuleCall getAISLBasicSetParserRuleCall_2_1() { return cAISLBasicSetParserRuleCall_2_1; }
+		public RuleCall getAISLBasicSetParserRuleCall_0_2_1() { return cAISLBasicSetParserRuleCall_0_2_1; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
+		public Keyword getRightCurlyBracketKeyword_0_3() { return cRightCurlyBracketKeyword_0_3; }
+		
+		//'{}'
+		public Keyword getLeftCurlyBracketRightCurlyBracketKeyword_1() { return cLeftCurlyBracketRightCurlyBracketKeyword_1; }
 	}
 	public class AISLBasicSetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLBasicSet");
@@ -4365,12 +4491,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	private final AlphaPackageElements pAlphaPackage;
 	private final AlphaSystemElements pAlphaSystem;
 	private final SystemBodyElements pSystemBody;
-	private final InputVariableElements pInputVariable;
-	private final OutputVariableElements pOutputVariable;
-	private final LocalVariableElements pLocalVariable;
-	private final FuzzyInputVariableElements pFuzzyInputVariable;
-	private final FuzzyOutputVariableElements pFuzzyOutputVariable;
-	private final FuzzyLocalVariableElements pFuzzyLocalVariable;
+	private final VariableElements pVariable;
+	private final FuzzyVariableElements pFuzzyVariable;
+	private final VariableNameOnlyElements pVariableNameOnly;
+	private final FuzzyVariableNameOnlyElements pFuzzyVariableNameOnly;
 	private final JNIDomainElements pJNIDomain;
 	private final JNIDomainInArrayNotationElements pJNIDomainInArrayNotation;
 	private final JNIParamDomainElements pJNIParamDomain;
@@ -4478,12 +4602,10 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAlphaPackage = new AlphaPackageElements();
 		this.pAlphaSystem = new AlphaSystemElements();
 		this.pSystemBody = new SystemBodyElements();
-		this.pInputVariable = new InputVariableElements();
-		this.pOutputVariable = new OutputVariableElements();
-		this.pLocalVariable = new LocalVariableElements();
-		this.pFuzzyInputVariable = new FuzzyInputVariableElements();
-		this.pFuzzyOutputVariable = new FuzzyOutputVariableElements();
-		this.pFuzzyLocalVariable = new FuzzyLocalVariableElements();
+		this.pVariable = new VariableElements();
+		this.pFuzzyVariable = new FuzzyVariableElements();
+		this.pVariableNameOnly = new VariableNameOnlyElements();
+		this.pFuzzyVariableNameOnly = new FuzzyVariableNameOnlyElements();
 		this.pJNIDomain = new JNIDomainElements();
 		this.pJNIDomainInArrayNotation = new JNIDomainInArrayNotationElements();
 		this.pJNIParamDomain = new JNIParamDomainElements();
@@ -4658,9 +4780,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//AlphaSystem:
 	//	'affine' name=SystemName parameterDomainExpr=JNIParamDomain ('define' definedObjects+=PolyhedralObject+)? ('inputs'
-	//	(inputs+=InputVariable | inputs+=FuzzyInputVariable)+)? ('outputs' (outputs+=OutputVariable |
-	//	outputs+=FuzzyOutputVariable)+)? ('locals' (locals+=LocalVariable | locals+=FuzzyLocalVariable)+)? ('over'
-	//	whileDomainExpr=CalculatorExpression 'while' '(' testExpression=AlphaExpression ')')?
+	//	(inputs+=Variable | inputs+=VariableNameOnly ',' (inputs+=VariableNameOnly ',')* inputs+=Variable |
+	//	inputs+=FuzzyVariable | inputs+=FuzzyVariableNameOnly ',' (inputs+=FuzzyVariableNameOnly ',')*
+	//	inputs+=FuzzyVariable)+)? ('outputs' (outputs+=Variable | outputs+=VariableNameOnly ',' (outputs+=VariableNameOnly
+	//	',')* outputs+=Variable | outputs+=FuzzyVariable | outputs+=FuzzyVariableNameOnly ',' (outputs+=FuzzyVariableNameOnly
+	//	',')* outputs+=FuzzyVariable)+)? ('locals' (locals+=Variable | locals+=VariableNameOnly ',' (locals+=VariableNameOnly
+	//	',')* locals+=Variable | locals+=FuzzyVariable | locals+=FuzzyVariableNameOnly ',' (locals+=FuzzyVariableNameOnly
+	//	',')* locals+=FuzzyVariable)+)? ('over' whileDomainExpr=CalculatorExpression 'while' '('
+	//	testExpression=AlphaExpression ')')?
 	//	systemBodies+=SystemBody*
 	//	'.';
 	public AlphaSystemElements getAlphaSystemAccess() {
@@ -4683,64 +4810,44 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		return getSystemBodyAccess().getRule();
 	}
 	
-	//InputVariable Variable:
-	//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
-	public InputVariableElements getInputVariableAccess() {
-		return pInputVariable;
+	//Variable:
+	//	name=ID ':' domainExpr=CalculatorExpression ';'?;
+	public VariableElements getVariableAccess() {
+		return pVariable;
 	}
 	
-	public ParserRule getInputVariableRule() {
-		return getInputVariableAccess().getRule();
+	public ParserRule getVariableRule() {
+		return getVariableAccess().getRule();
 	}
 	
-	//OutputVariable Variable:
-	//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
-	public OutputVariableElements getOutputVariableAccess() {
-		return pOutputVariable;
-	}
-	
-	public ParserRule getOutputVariableRule() {
-		return getOutputVariableAccess().getRule();
-	}
-	
-	//LocalVariable Variable:
-	//	name=ID ':' domainExpr=CalculatorExpression? ';'?;
-	public LocalVariableElements getLocalVariableAccess() {
-		return pLocalVariable;
-	}
-	
-	public ParserRule getLocalVariableRule() {
-		return getLocalVariableAccess().getRule();
-	}
-	
-	//FuzzyInputVariable FuzzyVariable:
+	//FuzzyVariable:
 	//	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?;
-	public FuzzyInputVariableElements getFuzzyInputVariableAccess() {
-		return pFuzzyInputVariable;
+	public FuzzyVariableElements getFuzzyVariableAccess() {
+		return pFuzzyVariable;
 	}
 	
-	public ParserRule getFuzzyInputVariableRule() {
-		return getFuzzyInputVariableAccess().getRule();
+	public ParserRule getFuzzyVariableRule() {
+		return getFuzzyVariableAccess().getRule();
 	}
 	
-	//FuzzyOutputVariable FuzzyVariable:
-	//	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?;
-	public FuzzyOutputVariableElements getFuzzyOutputVariableAccess() {
-		return pFuzzyOutputVariable;
+	//VariableNameOnly Variable:
+	//	name=ID;
+	public VariableNameOnlyElements getVariableNameOnlyAccess() {
+		return pVariableNameOnly;
 	}
 	
-	public ParserRule getFuzzyOutputVariableRule() {
-		return getFuzzyOutputVariableAccess().getRule();
+	public ParserRule getVariableNameOnlyRule() {
+		return getVariableNameOnlyAccess().getRule();
 	}
 	
-	//FuzzyLocalVariable FuzzyVariable:
-	//	'fuzzy' name=ID ':' domainExpr=CalculatorExpression '->' rangeExpr=CalculatorExpression ';'?;
-	public FuzzyLocalVariableElements getFuzzyLocalVariableAccess() {
-		return pFuzzyLocalVariable;
+	//FuzzyVariableNameOnly FuzzyVariable:
+	//	name=ID;
+	public FuzzyVariableNameOnlyElements getFuzzyVariableNameOnlyAccess() {
+		return pFuzzyVariableNameOnly;
 	}
 	
-	public ParserRule getFuzzyLocalVariableRule() {
-		return getFuzzyLocalVariableAccess().getRule();
+	public ParserRule getFuzzyVariableNameOnlyRule() {
+		return getFuzzyVariableNameOnlyAccess().getRule();
 	}
 	
 	//JNIDomain:
@@ -4941,7 +5048,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AISLSet:
-	//	'{' AISLBasicSet (';' AISLBasicSet)* '}';
+	//	'{' AISLBasicSet (';' AISLBasicSet)* '}' | '{}';
 	public AISLSetElements getAISLSetAccess() {
 		return pAISLSet;
 	}
