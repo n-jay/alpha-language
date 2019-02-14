@@ -74,7 +74,7 @@ class Show extends ModelSwitch<CharSequence> {
 	
 	protected def printVariableDeclarationDomain(JNIISLSet set) {
 		if (set.getNbDims(JNIISLDimType.isl_dim_set) == 0)
-			""
+			"{}"
 		else
 			AlphaPrintingUtil.toShowString(set, parameterContext)
 	}

@@ -95,7 +95,7 @@ public class Show extends ModelSwitch<CharSequence> {
     int _nbDims = set.getNbDims(JNIISLDimType.isl_dim_set);
     boolean _equals = (_nbDims == 0);
     if (_equals) {
-      _xifexpression = "";
+      _xifexpression = "{}";
     } else {
       _xifexpression = AlphaPrintingUtil.toShowString(set, this.parameterContext);
     }
