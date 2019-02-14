@@ -3,10 +3,10 @@ package alpha.model;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.EcoreUtil2;
 
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssue.TYPE;
@@ -99,9 +99,26 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			if (system.getWhileDomainExpr() != null) {
 				issues.addAll(CalculatorExpressionEvaluator.calculate(system.getWhileDomainExpr()));
 			}
+
+			resolveVariableDeclaration(system.getInputs());
+			resolveVariableDeclaration(system.getOutputs());
+			resolveVariableDeclaration(system.getLocals());
 		}
 
 		super.visitAlphaSystem(system);
+	}
+	
+	protected void resolveVariableDeclaration(List<Variable> variables) {
+		for (Variable v : variables) {
+			if (v.getDomainExpr() == null) {
+				int index = variables.indexOf(v);
+				Optional<Variable> definedVar = variables.subList(index, variables.size()).stream().filter(w->w.getDomainExpr() != null).findFirst();
+				
+				if (definedVar.isPresent()) {
+					v.setDomainExpr(EcoreUtil.copy(definedVar.get().getDomainExpr()));
+				}
+			}
+		}
 	}
 	
 	@Override
