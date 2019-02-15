@@ -13,6 +13,7 @@ import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
+import alpha.model.Variable;
 import alpha.model.issue.AlphaIssue.TYPE;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
@@ -108,10 +109,21 @@ public class AlphaIssueFactory {
 				String.format("Equation for %s is not defined with parameters %s for %s", eq.getVariable().getName(), paramDomain.toString(), domain.toString()), 
 				eq.getExpr(), null);
 	}
+	public static DomainConsistencyIssue incompleteUseEquation(Variable v, AlphaExpression expr, JNIISLSet domain) {
+		return new DomainConsistencyIssue(TYPE.ERROR, 
+				String.format("UseEquation(s) for %s does not define the variable for %s", v.getName(), domain.toString()), 
+				expr, null);
+	}
 	
 	public static DomainConsistencyIssue overlappingCaseBranch(AlphaExpression branch, JNIISLSet overlap) {
 		return new DomainConsistencyIssue(TYPE.ERROR, 
 				String.format("Context domain of cases brances are overlapped: %s", overlap.toString()), 
+				branch, null);
+	}
+	
+	public static DomainConsistencyIssue overlappingUseEquations(AlphaExpression branch, JNIISLSet overlap) {
+		return new DomainConsistencyIssue(TYPE.ERROR, 
+				String.format("The UseEquations define overlapping domains of the output: %s", overlap.toString()), 
 				branch, null);
 	}
 	

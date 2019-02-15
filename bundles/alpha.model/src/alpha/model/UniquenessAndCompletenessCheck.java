@@ -3,8 +3,13 @@ package alpha.model;
 import static alpha.model.util.AlphaUtil.callISLwithErrorHandling;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
 
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
@@ -24,6 +29,9 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  * The properties to be checked are:
  *   - expression domain of the root expression should cover the variable domain
  *   - branches of case expressions should have disjoint domains
+ *   - system bodies have disjoint parameter domains //TODO
+ *   - use equations have disjoint definitions for its outputs
+ *   - use equations should not partially define a variable
  * 
  * @author tyuki
  *
@@ -31,6 +39,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor {
 	
 	private List<AlphaIssue> issues = new LinkedList<>();
+	private Map<Variable, List<VariableExpression>> useDefs;
 
 	public static List<AlphaIssue> check(List<AlphaRoot> roots) {
 		UniquenessAndCompletenessCheck checker = new UniquenessAndCompletenessCheck();
@@ -44,6 +53,68 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 
 	public static List<AlphaIssue> check(AlphaRoot root) {
 		return check(Arrays.asList(root));
+	}
+	
+	@Override
+	public void inSystemBody(SystemBody sysBody) {
+		//initialize book-keeping records for UseEquation checks
+		useDefs = new HashMap<Variable, List<VariableExpression>>(); 
+	
+		super.inSystemBody(sysBody);
+	}
+	
+	@Override
+	public void outSystemBody(SystemBody sysBody) {
+		//check if use equations have disjoint definitions
+		for (Variable v : useDefs.keySet()) {
+			List<VariableExpression> vexprs = useDefs.get(v);
+			
+			JNIISLSet union = null;
+			JNIISLSet intersections = null;
+			vexprs.get(0).getContextDomain(); 
+			for (VariableExpression vexpr : vexprs) {
+				if (union == null) {
+					union = vexpr.getContextDomain();
+				} else {
+					if (!union.isDisjoint(vexpr.getContextDomain())) {
+						JNIISLSet intersection = vexpr.getContextDomain().intersect(union.copy());
+						if (intersections == null) intersections = intersection;
+						else intersections = intersections.union(intersection);
+					}
+					union = union.union(vexpr.getContextDomain());
+				}
+			}
+			
+			//check for disjoint
+			if (intersections != null) {
+				for (VariableExpression vexpr : vexprs) {
+					AlphaExpression expr = findAncestorOutputExpression(vexpr);
+					issues.add(AlphaIssueFactory.overlappingUseEquations(expr, intersections.copy()));
+				}
+			}
+			
+			//check for incomplete definition
+			if (!union.isEqual(v.getDomain())) {
+				JNIISLSet diff = v.getDomain().subtract(union);
+				for (VariableExpression vexpr : vexprs) {
+					AlphaExpression expr = findAncestorOutputExpression(vexpr);
+					issues.add(AlphaIssueFactory.incompleteUseEquation(v, expr, diff.copy()));
+				}
+			}
+		}
+		
+		super.outSystemBody(sysBody);
+	}
+	
+	private AlphaExpression findAncestorOutputExpression(VariableExpression vexpr) {
+		UseEquation eq  = (UseEquation) AlphaUtil.getContainerEquation(vexpr);
+		for (AlphaExpression expr : eq.getOutputExprs()) {
+			if (EcoreUtil.isAncestor(expr, vexpr)) {
+				return expr;
+			}
+		}
+		
+		throw new RuntimeException("Ancestor of a VariableExpression was not found in the container equation. The model is in an inconsistent state.");
 	}
 	
 	@Override
@@ -86,5 +157,29 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void inUseEquation(UseEquation ue) {
+		for(AlphaExpression expr : ue.getOutputExprs()) {
+			for (VariableExpression v : EcoreUtil2.getAllContentsOfType(expr, VariableExpression.class)) {
+				if (!useDefs.containsKey(v.getVariable())) {
+					useDefs.put(v.getVariable(), new LinkedList<>());
+				}
+				useDefs.get(v.getVariable()).add(v);
+			}
+			
+			//don't like the copy paste here, but getAllContents misses the case when the top-level expression is a VariableExpression
+			// using getAllContents at UseEquation causes AlphaExpressions for inputs to be mixed 
+			if (expr instanceof VariableExpression) {
+				VariableExpression v = (VariableExpression)expr;
+				if (!useDefs.containsKey(v.getVariable())) {
+					useDefs.put(v.getVariable(), new LinkedList<>());
+				}
+				useDefs.get(v.getVariable()).add(v);
+			}
+		}
+		
+		super.inUseEquation(ue);
 	}
 }
