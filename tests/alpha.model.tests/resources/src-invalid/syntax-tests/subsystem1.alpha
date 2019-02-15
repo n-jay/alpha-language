@@ -1,0 +1,25 @@
+/*
+ * Tests for SubSystems 1
+ * 
+ * All cases are expected to throw AlphaIssues
+ */
+package tests.syntax.invalid {
+	affine subsystem1a [N]->{ : }
+		inputs
+			A : [N]
+		outputs
+			B : [N]
+		let
+			(B) = subsystem1a[N](A);
+			(B) = subsystem1a[N](A);
+	.
+	
+	affine subsystem1b [N]->{ : }
+		inputs
+			A : [N]
+		outputs
+			B : [N]
+		let
+			(B) = subsystem1b[N-1](A);
+	.
+}
