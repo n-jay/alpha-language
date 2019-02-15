@@ -9,7 +9,7 @@ package tests.basic.CNN {
 		locals
 			feature:[W,H,F]
 		let
-			(feature) = CONVLayer[W,H,D,10,3](image, weights);
+			(feature) = CONVLayer[W,H,D,F,X](image, weights);
 	.
 
 	//CONV layer that takes:
