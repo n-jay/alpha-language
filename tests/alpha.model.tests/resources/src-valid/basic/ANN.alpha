@@ -18,7 +18,7 @@ package tests.basic.ANN {
 
 	//A single ANN
 	//consists of 1 hidden layer + 1 output layer
-	affine SingleLayerANN [N,M1,O] -> {: N>0}
+	affine SingleLayerANN [N,M1,O] -> {: N>0 and M1>0}
 		inputs
 			in : [N]
 			w1 : [N,M1]
