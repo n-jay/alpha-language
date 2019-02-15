@@ -51,7 +51,6 @@ import alpha.model.VariableDomain;
 import alpha.model.VariableExpression;
 import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.ModelSwitch;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
@@ -91,15 +90,7 @@ public class Show extends ModelSwitch<CharSequence> {
   }
   
   protected String printVariableDeclarationDomain(final JNIISLSet set) {
-    String _xifexpression = null;
-    int _nbDims = set.getNbDims(JNIISLDimType.isl_dim_set);
-    boolean _equals = (_nbDims == 0);
-    if (_equals) {
-      _xifexpression = "{}";
-    } else {
-      _xifexpression = AlphaPrintingUtil.toShowString(set, this.parameterContext);
-    }
-    return _xifexpression;
+    return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
   
   protected String printUECallParams(final JNIFunctionInArrayNotation f) {

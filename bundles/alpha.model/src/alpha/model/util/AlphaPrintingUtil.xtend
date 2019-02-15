@@ -102,6 +102,9 @@ class AlphaPrintingUtil {
 		toShowString(set, paramDom, null)
 	}
 	static def String toShowString(JNIISLSet set, JNIISLSet paramDom, List<String> names) {
+		if (set.getNbDims(JNIISLDimType.isl_dim_set) == 0)
+			return "{}"
+		
 		val setRenamed = if (names !== null) set.renameIndices(names) else set
 		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(JNIISLDimType.isl_dim_set, setRenamed.nbDims)) else setRenamed
 

@@ -202,6 +202,11 @@ public class AlphaPrintingUtil {
   }
   
   public static String toShowString(final JNIISLSet set, final JNIISLSet paramDom, final List<String> names) {
+    int _nbDims = set.getNbDims(JNIISLDimType.isl_dim_set);
+    boolean _equals = (_nbDims == 0);
+    if (_equals) {
+      return "{}";
+    }
     JNIISLSet _xifexpression = null;
     if ((names != null)) {
       _xifexpression = AlphaUtil.renameIndices(set, names);
