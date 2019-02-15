@@ -8,6 +8,8 @@ import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
+import alpha.model.Equation;
+import alpha.model.SystemBody;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
@@ -64,6 +66,30 @@ public class AlphaUtil {
       return null;
     }
     return AlphaUtil.getContainerSystem(node.eContainer());
+  }
+  
+  public static SystemBody getContainerSystemBody(final EObject node) {
+    if ((node instanceof SystemBody)) {
+      return ((SystemBody) node);
+    }
+    EObject _eContainer = node.eContainer();
+    boolean _tripleEquals = (_eContainer == null);
+    if (_tripleEquals) {
+      return null;
+    }
+    return AlphaUtil.getContainerSystemBody(node.eContainer());
+  }
+  
+  public static Equation getContainerEquation(final EObject node) {
+    if ((node instanceof Equation)) {
+      return ((Equation) node);
+    }
+    EObject _eContainer = node.eContainer();
+    boolean _tripleEquals = (_eContainer == null);
+    if (_tripleEquals) {
+      return null;
+    }
+    return AlphaUtil.getContainerEquation(node.eContainer());
   }
   
   /**

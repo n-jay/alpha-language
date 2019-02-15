@@ -7,6 +7,8 @@ import alpha.model.AlphaPackage
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
+import alpha.model.Equation
+import alpha.model.SystemBody
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
@@ -50,6 +52,25 @@ class AlphaUtil {
 		return AlphaUtil.getContainerSystem(node.eContainer())
 	}
 	
+	static def SystemBody getContainerSystemBody(EObject node) {
+		if (node instanceof SystemBody)
+			return node as SystemBody
+		
+		if (node.eContainer() === null)
+			return null
+		
+		return AlphaUtil.getContainerSystemBody(node.eContainer())
+	}
+	
+	static def Equation getContainerEquation(EObject node) {
+		if (node instanceof Equation)
+			return node as Equation
+		
+		if (node.eContainer() === null)
+			return null
+		
+		return AlphaUtil.getContainerEquation(node.eContainer())
+	}
 	/**
 	 * Selects an AlphaRoot that contains a given system name. The given system name may be
 	 * fully qualified or just the bare name. If the bare name cannot uniquely identify a 
