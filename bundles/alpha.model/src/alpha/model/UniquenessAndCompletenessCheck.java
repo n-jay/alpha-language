@@ -172,12 +172,13 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 		if (!varDom.getSpace().isEqual(defDom.getSpace())) return;
 
 		callISLwithErrorHandling(()->{
-			JNIISLSet undefDom = varDom.copy().subtract(defDom);
+			JNIISLSet varDomContext = varDom.intersectParams(se.getSystemBody().getParameterDomain());
+			JNIISLSet undefDom = varDomContext.copy().subtract(defDom);
 			
 			if (!undefDom.isEmpty()) {
 				JNIISLSet systemParam = AlphaUtil.getContainerSystem(se).getParameterDomain();
 				JNIISLSet undefDomParam = undefDom.copy().paramSet().gist(systemParam);
-				JNIISLSet undefDomGist = undefDom.gist(varDom);
+				JNIISLSet undefDomGist = undefDom.gist(varDomContext);
 
 				issues.add(AlphaIssueFactory.incompleteEquation(se, undefDomGist, undefDomParam));
 			}
