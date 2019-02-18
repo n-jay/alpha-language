@@ -131,6 +131,15 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	}
 	
 
+	/**
+	 * This method inspects parameter domain specifications of all SystemBodies in an AlphaSystem.
+	 * The main purpose is to compute the else-domain: the domain for SystemBody without specified context.
+	 * 
+	 * Computing the above takes similar steps as the AutoRestrictExpression. Only one of the 
+	 * SytemBodies are allowed to have unspecified domain. 
+	 * 
+	 * @param system
+	 */
 	private void completeSystemBody(AlphaSystem system) {
 		List<SystemBody> definedBodies = new LinkedList<>();
 		List<SystemBody> undefinedBodies = new LinkedList<>();
@@ -150,48 +159,21 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			return;
 		}
 		
-		//check for consistency
-		//  - overlap
-		//  - incomplete
-		//  - empty else let
-		{
-			JNIISLSet unionBodies = null;
-			JNIISLSet intersections = null;
-			for (SystemBody body : definedBodies) {
-				if (unionBodies == null) {
-					unionBodies = body.getParameterDomain();
-				} else {
-					if (!unionBodies.isDisjoint(body.getParameterDomain())) {
-						JNIISLSet intersection = unionBodies.union(body.getParameterDomain());
-						if (intersections == null) intersections = intersection;
-						else intersections = intersections.union(intersection);
-					}
-					unionBodies = unionBodies.union(body.getParameterDomain());
-				}
+		//then compute the else-domain
+		JNIISLSet unionBodies = null;
+		for (SystemBody body : definedBodies) {
+			if (unionBodies == null) {
+				unionBodies = body.getParameterDomain();
+			} else {
+				unionBodies = unionBodies.union(body.getParameterDomain());
 			}
-			
-			if (intersections != null) {
-				for (SystemBody body : definedBodies) {
-					issues.add(AlphaIssueFactory.overlappingSystemBodies(body, intersections.copy()));
-				}
-			}
-			
-			if (undefinedBodies.size() != 1 && !system.getParameterDomain().isStrictSubset(unionBodies)) {
-				issues.add(AlphaIssueFactory.incompleteSystem(system, system.getParameterDomain().subtract(unionBodies)));
-			}
-			
-			if (undefinedBodies.size() == 1) {
-				SystemBody elseBody = undefinedBodies.get(0);
-				JNIISLSet elseDomain = unionBodies==null?system.getParameterDomain():system.getParameterDomain().subtract(unionBodies);
-				
-				if (elseDomain.isEmpty()) {
-					issues.add(AlphaIssueFactory.emptySystemBody(elseBody));
-				} else {
-					JNIDomain domain = AlphaUserFactory.createJNIDomain(elseDomain);
-					elseBody.setParameterDomainExpr(domain);
-				}
-				
-			}
+		}
+
+		if (undefinedBodies.size() == 1) {
+			SystemBody elseBody = undefinedBodies.get(0);
+			JNIISLSet elseDomain = unionBodies==null?system.getParameterDomain():system.getParameterDomain().subtract(unionBodies);
+			JNIDomain domain = AlphaUserFactory.createJNIDomain(elseDomain);
+			elseBody.setParameterDomainExpr(domain);
 		}
 	}
 	

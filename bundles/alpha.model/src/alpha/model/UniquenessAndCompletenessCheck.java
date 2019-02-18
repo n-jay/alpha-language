@@ -11,6 +11,7 @@ import java.util.Map;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 
+import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.UnexpectedISLErrorIssue;
@@ -29,7 +30,9 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  * The properties to be checked are:
  *   - expression domain of the root expression should cover the variable domain
  *   - branches of case expressions should have disjoint domains
- *   - system bodies have disjoint parameter domains //TODO
+ *   - system bodies have disjoint parameter domains
+ *   - system bodies should cover the entire parameter domain
+ *   - system bodies should not be empty
  *   - use equations have disjoint definitions for its outputs
  *   - use equations should not partially define a variable
  * 
@@ -53,6 +56,46 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 
 	public static List<AlphaIssue> check(AlphaRoot root) {
 		return check(Arrays.asList(root));
+	}
+	
+	@Override
+	public void inAlphaSystem(AlphaSystem system) {
+		checkSystemBodyConsistency(system);
+		
+		super.inAlphaSystem(system);
+	}
+	
+	private void checkSystemBodyConsistency(AlphaSystem system) {
+		
+		JNIISLSet unionBodies = null;
+		JNIISLSet intersections = null;
+		for (SystemBody body : system.getSystemBodies()) {
+			if (unionBodies == null) {
+				unionBodies = body.getParameterDomain();
+			} else {
+				if (!unionBodies.isDisjoint(body.getParameterDomain())) {
+					JNIISLSet intersection = unionBodies.union(body.getParameterDomain());
+					if (intersections == null) intersections = intersection;
+					else intersections = intersections.union(intersection);
+				}
+				unionBodies = unionBodies.union(body.getParameterDomain());
+			}
+			if (body.getParameterDomain().isEmpty()) {
+				issues.add(AlphaIssueFactory.emptySystemBody(body));
+			}
+		}
+		
+		if (intersections != null) {
+			for (SystemBody body : system.getSystemBodies()) {
+				issues.add(AlphaIssueFactory.overlappingSystemBodies(body, intersections.copy()));
+			}
+		}
+		
+		if (!system.getParameterDomain().isEqual(unionBodies)) {
+			issues.add(AlphaIssueFactory.incompleteSystem(system, system.getParameterDomain().subtract(unionBodies)));
+		}
+		
+
 	}
 	
 	@Override
@@ -94,7 +137,10 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 			}
 			
 			//check for incomplete definition
-			if (!union.isEqual(v.getDomain())) {
+			JNIISLSet vDom = v.getDomain();
+			if (sysBody.getParameterDomain() != null) vDom = vDom.intersectParams(sysBody.getParameterDomain());
+			
+			if (!union.isEqual(vDom)) {
 				JNIISLSet diff = v.getDomain().subtract(union);
 				for (VariableExpression vexpr : vexprs) {
 					AlphaExpression expr = findAncestorOutputExpression(vexpr);
