@@ -137,6 +137,10 @@ class AlphaPrintingUtil {
 		bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "")]
 	}
 	
+	static def String toShowStringParamDom(JNIISLSet set) {
+		set.toString.replaceFirst("\\[.*\\]\\s->\\s*", "")
+	}
+	
 	/**
 	 * ISLMap to Alpha string
 	 * 

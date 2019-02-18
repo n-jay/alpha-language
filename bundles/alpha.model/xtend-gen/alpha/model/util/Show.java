@@ -86,7 +86,7 @@ public class Show extends ModelSwitch<CharSequence> {
    * CalculatorExpressions are printed differently depending on the context.
    */
   protected String printParameterDomain(final JNIDomain dom) {
-    return dom.getIslString();
+    return AlphaPrintingUtil.toShowStringParamDom(dom.getISLSet());
   }
   
   protected String printVariableDeclarationDomain(final JNIISLSet set) {

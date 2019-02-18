@@ -69,7 +69,7 @@ class Show extends ModelSwitch<CharSequence> {
 	 */
 	
 	protected def printParameterDomain(JNIDomain dom) {
-		dom.islString
+		AlphaPrintingUtil.toShowStringParamDom(dom.ISLSet)
 	}
 	
 	protected def printVariableDeclarationDomain(JNIISLSet set) {
