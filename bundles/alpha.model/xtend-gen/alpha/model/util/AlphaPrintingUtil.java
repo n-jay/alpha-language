@@ -282,7 +282,11 @@ public class AlphaPrintingUtil {
     return ListExtensions.<JNIISLConstraint, String>map(bset.getConstraints(), _function);
   }
   
-  public static String toShowStringParamDom(final JNIISLSet set) {
+  public static String toShowStringParameterDomain(final JNIISLSet set) {
+    return set.toString();
+  }
+  
+  public static String toShowStringSystemBodyDomain(final JNIISLSet set) {
     return set.toString().replaceFirst("\\[.*\\]\\s->\\s*", "");
   }
   

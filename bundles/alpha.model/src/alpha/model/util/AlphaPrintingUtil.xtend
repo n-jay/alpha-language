@@ -137,7 +137,10 @@ class AlphaPrintingUtil {
 		bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "")]
 	}
 	
-	static def String toShowStringParamDom(JNIISLSet set) {
+	static def String toShowStringParameterDomain(JNIISLSet set) {
+		set.toString
+	}
+	static def String toShowStringSystemBodyDomain(JNIISLSet set) {
 		set.toString.replaceFirst("\\[.*\\]\\s->\\s*", "")
 	}
 	

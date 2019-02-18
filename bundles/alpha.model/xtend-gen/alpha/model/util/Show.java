@@ -86,7 +86,11 @@ public class Show extends ModelSwitch<CharSequence> {
    * CalculatorExpressions are printed differently depending on the context.
    */
   protected String printParameterDomain(final JNIDomain dom) {
-    return AlphaPrintingUtil.toShowStringParamDom(dom.getISLSet());
+    return AlphaPrintingUtil.toShowStringParameterDomain(dom.getISLSet());
+  }
+  
+  protected String printSystemBodyDomain(final JNIDomain dom) {
+    return AlphaPrintingUtil.toShowStringSystemBodyDomain(dom.getISLSet());
   }
   
   protected String printVariableDeclarationDomain(final JNIISLSet set) {
@@ -322,8 +326,8 @@ public class Show extends ModelSwitch<CharSequence> {
           boolean _tripleNotEquals = (_parameterDomainExpr != null);
           if (_tripleNotEquals) {
             _builder.append("when ");
-            String _printParameterDomain = this.printParameterDomain(sysBody.getParameterDomainExpr());
-            _builder.append(_printParameterDomain);
+            String _printSystemBodyDomain = this.printSystemBodyDomain(sysBody.getParameterDomainExpr());
+            _builder.append(_printSystemBodyDomain);
             _builder.append(" ");
           }
         }

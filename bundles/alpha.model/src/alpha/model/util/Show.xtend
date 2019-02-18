@@ -69,7 +69,10 @@ class Show extends ModelSwitch<CharSequence> {
 	 */
 	
 	protected def printParameterDomain(JNIDomain dom) {
-		AlphaPrintingUtil.toShowStringParamDom(dom.ISLSet)
+		AlphaPrintingUtil.toShowStringParameterDomain(dom.ISLSet)
+	}
+	protected def printSystemBodyDomain(JNIDomain dom) {
+		AlphaPrintingUtil.toShowStringSystemBodyDomain(dom.ISLSet)
 	}
 	
 	protected def printVariableDeclarationDomain(JNIISLSet set) {
@@ -165,7 +168,7 @@ class Show extends ModelSwitch<CharSequence> {
 	
 	/* override */ def caseSystemBody(SystemBody sysBody) '''
 		«IF !sysBody.equations.isEmpty»
-			«IF sysBody.parameterDomainExpr !== null»when «sysBody.parameterDomainExpr.printParameterDomain» «ENDIF»let
+			«IF sysBody.parameterDomainExpr !== null»when «sysBody.parameterDomainExpr.printSystemBodyDomain» «ENDIF»let
 				«(sysBody.equations).map[doSwitch].join("\n\n")»
 		«ENDIF»
 	'''
