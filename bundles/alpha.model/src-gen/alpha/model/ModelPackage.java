@@ -599,13 +599,22 @@ public interface ModelPackage extends EPackage {
 	int SYSTEM_BODY = 17;
 
 	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_BODY__SYSTEM = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Parameter Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_BODY__PARAMETER_DOMAIN_EXPR = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+	int SYSTEM_BODY__PARAMETER_DOMAIN_EXPR = ALPHA_VISITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Equations</b></em>' containment reference list.
@@ -614,7 +623,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_BODY__EQUATIONS = ALPHA_VISITABLE_FEATURE_COUNT + 1;
+	int SYSTEM_BODY__EQUATIONS = ALPHA_VISITABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>System Body</em>' class.
@@ -623,7 +632,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_BODY_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 2;
+	int SYSTEM_BODY_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.EquationImpl <em>Equation</em>}' class.
@@ -3783,6 +3792,17 @@ public interface ModelPackage extends EPackage {
 	EClass getSystemBody();
 
 	/**
+	 * Returns the meta object for the container reference '{@link alpha.model.SystemBody#getSystem <em>System</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>System</em>'.
+	 * @see alpha.model.SystemBody#getSystem()
+	 * @see #getSystemBody()
+	 * @generated
+	 */
+	EReference getSystemBody_System();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link alpha.model.SystemBody#getParameterDomainExpr <em>Parameter Domain Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5733,6 +5753,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SYSTEM_BODY = eINSTANCE.getSystemBody();
+
+		/**
+		 * The meta object literal for the '<em><b>System</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYSTEM_BODY__SYSTEM = eINSTANCE.getSystemBody_System();
 
 		/**
 		 * The meta object literal for the '<em><b>Parameter Domain Expr</b></em>' containment reference feature.

@@ -1086,7 +1086,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSystemBody_ParameterDomainExpr() {
+	public EReference getSystemBody_System() {
 		return (EReference)systemBodyEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1095,8 +1095,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSystemBody_Equations() {
+	public EReference getSystemBody_ParameterDomainExpr() {
 		return (EReference)systemBodyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSystemBody_Equations() {
+		return (EReference)systemBodyEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2506,6 +2515,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(fuzzyVariableEClass, FUZZY_VARIABLE__RANGE_EXPR);
 
 		systemBodyEClass = createEClass(SYSTEM_BODY);
+		createEReference(systemBodyEClass, SYSTEM_BODY__SYSTEM);
 		createEReference(systemBodyEClass, SYSTEM_BODY__PARAMETER_DOMAIN_EXPR);
 		createEReference(systemBodyEClass, SYSTEM_BODY__EQUATIONS);
 
@@ -3327,7 +3337,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getAlphaSystem_Locals(), this.getVariable(), null, "locals", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_WhileDomainExpr(), this.getCalculatorExpression(), null, "whileDomainExpr", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_TestExpression(), this.getAlphaExpression(), null, "testExpression", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAlphaSystem_SystemBodies(), this.getSystemBody(), null, "systemBodies", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAlphaSystem_SystemBodies(), this.getSystemBody(), this.getSystemBody_System(), "systemBodies", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(alphaSystemEClass, this.getVariable(), "getVariables", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
@@ -3364,6 +3374,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(systemBodyEClass, SystemBody.class, "SystemBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSystemBody_System(), this.getAlphaSystem(), this.getAlphaSystem_SystemBodies(), "system", null, 0, 1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSystemBody_ParameterDomainExpr(), this.getJNIDomain(), null, "parameterDomainExpr", null, 0, 1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSystemBody_Equations(), this.getEquation(), null, "equations", null, 0, -1, SystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

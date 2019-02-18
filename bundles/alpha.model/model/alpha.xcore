@@ -349,7 +349,7 @@ class AlphaSystem extends AlphaElement {
 	contains CalculatorExpression whileDomainExpr
 	contains AlphaExpression testExpression
 	
-	contains SystemBody[] systemBodies
+	contains SystemBody[] systemBodies opposite system
 	
 	op Variable[] getVariables() {
 		(inputs+outputs+locals).asEList.unmodifiableEList
@@ -420,6 +420,7 @@ class FuzzyVariable extends Variable {
 }
 
 class SystemBody extends AlphaVisitable {
+	container AlphaSystem system opposite systemBodies
 	contains JNIDomain parameterDomainExpr
 	contains Equation[] equations
 	

@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -383,7 +384,7 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 */
 	public EList<SystemBody> getSystemBodies() {
 		if (systemBodies == null) {
-			systemBodies = new EObjectContainmentEList<SystemBody>(SystemBody.class, this, ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES);
+			systemBodies = new EObjectContainmentWithInverseEList<SystemBody>(SystemBody.class, this, ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES, ModelPackage.SYSTEM_BODY__SYSTEM);
 		}
 		return systemBodies;
 	}
@@ -434,6 +435,21 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 			_xifexpression = ((JNIISLSet) _iSLObject).copy();
 		}
 		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSystemBodies()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**

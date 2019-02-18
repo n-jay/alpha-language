@@ -2,6 +2,7 @@
  */
 package alpha.model.impl;
 
+import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitor;
 import alpha.model.Equation;
 import alpha.model.JNIDomain;
@@ -41,6 +42,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link alpha.model.impl.SystemBodyImpl#getSystem <em>System</em>}</li>
  *   <li>{@link alpha.model.impl.SystemBodyImpl#getParameterDomainExpr <em>Parameter Domain Expr</em>}</li>
  *   <li>{@link alpha.model.impl.SystemBodyImpl#getEquations <em>Equations</em>}</li>
  * </ul>
@@ -85,6 +87,57 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	@Override
 	protected EClass eStaticClass() {
 		return ModelPackage.Literals.SYSTEM_BODY;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaSystem getSystem() {
+		if (eContainerFeatureID() != ModelPackage.SYSTEM_BODY__SYSTEM) return null;
+		return (AlphaSystem)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaSystem basicGetSystem() {
+		if (eContainerFeatureID() != ModelPackage.SYSTEM_BODY__SYSTEM) return null;
+		return (AlphaSystem)eInternalContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetSystem(AlphaSystem newSystem, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newSystem, ModelPackage.SYSTEM_BODY__SYSTEM, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSystem(AlphaSystem newSystem) {
+		if (newSystem != eInternalContainer() || (eContainerFeatureID() != ModelPackage.SYSTEM_BODY__SYSTEM && newSystem != null)) {
+			if (EcoreUtil.isAncestor(this, newSystem))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newSystem != null)
+				msgs = ((InternalEObject)newSystem).eInverseAdd(this, ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES, AlphaSystem.class, msgs);
+			msgs = basicSetSystem(newSystem, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SYSTEM_BODY__SYSTEM, newSystem, newSystem));
 	}
 
 	/**
@@ -184,8 +237,26 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackage.SYSTEM_BODY__SYSTEM:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetSystem((AlphaSystem)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ModelPackage.SYSTEM_BODY__SYSTEM:
+				return basicSetSystem(null, msgs);
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				return basicSetParameterDomainExpr(null, msgs);
 			case ModelPackage.SYSTEM_BODY__EQUATIONS:
@@ -200,8 +271,25 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case ModelPackage.SYSTEM_BODY__SYSTEM:
+				return eInternalContainer().eInverseRemove(this, ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES, AlphaSystem.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ModelPackage.SYSTEM_BODY__SYSTEM:
+				if (resolve) return getSystem();
+				return basicGetSystem();
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				return getParameterDomainExpr();
 			case ModelPackage.SYSTEM_BODY__EQUATIONS:
@@ -219,6 +307,9 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ModelPackage.SYSTEM_BODY__SYSTEM:
+				setSystem((AlphaSystem)newValue);
+				return;
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				setParameterDomainExpr((JNIDomain)newValue);
 				return;
@@ -238,6 +329,9 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ModelPackage.SYSTEM_BODY__SYSTEM:
+				setSystem((AlphaSystem)null);
+				return;
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				setParameterDomainExpr((JNIDomain)null);
 				return;
@@ -256,6 +350,8 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ModelPackage.SYSTEM_BODY__SYSTEM:
+				return basicGetSystem() != null;
 			case ModelPackage.SYSTEM_BODY__PARAMETER_DOMAIN_EXPR:
 				return parameterDomainExpr != null;
 			case ModelPackage.SYSTEM_BODY__EQUATIONS:

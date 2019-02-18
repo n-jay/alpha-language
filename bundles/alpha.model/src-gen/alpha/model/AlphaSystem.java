@@ -202,6 +202,7 @@ public interface AlphaSystem extends AlphaElement {
 	/**
 	 * Returns the value of the '<em><b>System Bodies</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.SystemBody}.
+	 * It is bidirectional and its opposite is '{@link alpha.model.SystemBody#getSystem <em>System</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>System Bodies</em>' containment reference list isn't clear,
@@ -210,7 +211,8 @@ public interface AlphaSystem extends AlphaElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>System Bodies</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getAlphaSystem_SystemBodies()
-	 * @model containment="true"
+	 * @see alpha.model.SystemBody#getSystem
+	 * @model opposite="system" containment="true"
 	 * @generated
 	 */
 	EList<SystemBody> getSystemBodies();

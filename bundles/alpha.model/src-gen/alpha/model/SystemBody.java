@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link alpha.model.SystemBody#getSystem <em>System</em>}</li>
  *   <li>{@link alpha.model.SystemBody#getParameterDomainExpr <em>Parameter Domain Expr</em>}</li>
  *   <li>{@link alpha.model.SystemBody#getEquations <em>Equations</em>}</li>
  * </ul>
@@ -24,6 +25,34 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface SystemBody extends AlphaVisitable {
+	/**
+	 * Returns the value of the '<em><b>System</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link alpha.model.AlphaSystem#getSystemBodies <em>System Bodies</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>System</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>System</em>' container reference.
+	 * @see #setSystem(AlphaSystem)
+	 * @see alpha.model.ModelPackage#getSystemBody_System()
+	 * @see alpha.model.AlphaSystem#getSystemBodies
+	 * @model opposite="systemBodies" transient="false"
+	 * @generated
+	 */
+	AlphaSystem getSystem();
+
+	/**
+	 * Sets the value of the '{@link alpha.model.SystemBody#getSystem <em>System</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>System</em>' container reference.
+	 * @see #getSystem()
+	 * @generated
+	 */
+	void setSystem(AlphaSystem value);
+
 	/**
 	 * Returns the value of the '<em><b>Parameter Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
