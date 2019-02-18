@@ -1,0 +1,21 @@
+/*
+ * Tests for SystemBodies 1
+ * 
+ * All cases are expected to throw AlphaIssues
+ */
+package tests.syntax.invalid {
+
+	affine systemBody1a [N]->{:}
+		inputs
+			A : [N];
+		outputs
+			B : [N];
+		//multiple bodies without domain
+		let
+			B = A;
+		let
+			B = A;
+	
+	. 
+
+}
