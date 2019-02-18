@@ -70,6 +70,9 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 		JNIISLSet unionBodies = null;
 		JNIISLSet intersections = null;
 		for (SystemBody body : system.getSystemBodies()) {
+			//If the SystemBodyDomain is not defined, it failed in DomainCalculator already 
+			if (body.getParameterDomainExpr() == null) return;
+			
 			if (unionBodies == null) {
 				unionBodies = body.getParameterDomain();
 			} else {
@@ -91,7 +94,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 			}
 		}
 		
-		if (!system.getParameterDomain().isEqual(unionBodies)) {
+		if (unionBodies != null && !system.getParameterDomain().isEqual(unionBodies)) {
 			issues.add(AlphaIssueFactory.incompleteSystem(system, system.getParameterDomain().subtract(unionBodies)));
 		}
 		
@@ -170,6 +173,8 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 		if (defDom == null || varDom == null) return;
 		//This case is already checked at ContextDomainCalculator
 		if (!varDom.getSpace().isEqual(defDom.getSpace())) return;
+		//This case is already checked at JNIDomainCalculator
+		if (se.getSystemBody().getParameterDomainExpr() == null) return;
 
 		callISLwithErrorHandling(()->{
 			JNIISLSet varDomContext = varDom.intersectParams(se.getSystemBody().getParameterDomain());

@@ -77,9 +77,7 @@ public class AlphaExpressionUtil {
   
   protected static JNIISLSet _parentContext(final AlphaExpression child, final StandardEquation parent, final Consumer<AlphaIssue> f) {
     JNIISLSet _xifexpression = null;
-    JNIISLSet _parameterDomain = parent.getSystemBody().getParameterDomain();
-    boolean _tripleEquals = (_parameterDomain == null);
-    if (_tripleEquals) {
+    if (((parent.getSystemBody().getParameterDomainExpr() == null) || (parent.getSystemBody().getParameterDomain() == null))) {
       _xifexpression = null;
     } else {
       _xifexpression = parent.getVariable().getDomain().intersectParams(parent.getSystemBody().getParameterDomain());

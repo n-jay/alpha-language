@@ -16,6 +16,7 @@ import alpha.model.REDUCTION_OP;
 import alpha.model.RestrictExpression;
 import alpha.model.UNARY_OP;
 import alpha.model.UnaryExpression;
+import alpha.model.util.AlphaPrintingUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
@@ -39,7 +40,23 @@ public class AlphaUserFactory {
 		JNIDomain dom = fact.createJNIDomain();
 		
 		dom.setISLSet(set);
-		dom.setIslString(set.toString()); //TODO
+		dom.setIslString(AlphaPrintingUtil.toShowString(set));//TODO
+		
+		return dom;
+	}
+	public static JNIDomain createJNIParameterDomain(JNIISLSet set) {
+		JNIDomain dom = fact.createJNIDomain();
+		
+		dom.setISLSet(set);
+		dom.setIslString(AlphaPrintingUtil.toShowStringParameterDomain(set));//TODO
+		
+		return dom;
+	}
+	public static JNIDomain createJNISystemBodyDomain(JNIISLSet set) {
+		JNIDomain dom = fact.createJNIDomain();
+		
+		dom.setISLSet(set);
+		dom.setIslString(AlphaPrintingUtil.toShowStringSystemBodyDomain(set));//TODO
 		
 		return dom;
 	}

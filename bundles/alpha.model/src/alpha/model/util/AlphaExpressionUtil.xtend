@@ -54,7 +54,7 @@ class AlphaExpressionUtil {
 	}
 	
 	static dispatch def parentContext(AlphaExpression child, StandardEquation parent, Consumer<AlphaIssue> f) {
-		if (parent.systemBody.parameterDomain === null) null
+		if (parent.systemBody.parameterDomainExpr === null || parent.systemBody.parameterDomain === null) null
 		else parent.variable.domain.intersectParams(parent.systemBody.parameterDomain)
 	}
 

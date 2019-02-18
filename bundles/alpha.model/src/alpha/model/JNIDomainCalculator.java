@@ -172,7 +172,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		if (undefinedBodies.size() == 1) {
 			SystemBody elseBody = undefinedBodies.get(0);
 			JNIISLSet elseDomain = unionBodies==null?system.getParameterDomain():system.getParameterDomain().subtract(unionBodies);
-			JNIDomain domain = AlphaUserFactory.createJNIDomain(elseDomain);
+			JNIDomain domain = AlphaUserFactory.createJNISystemBodyDomain(elseDomain);
 			elseBody.setParameterDomainExpr(domain);
 		}
 	}
