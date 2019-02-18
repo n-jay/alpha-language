@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -190,7 +190,7 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	 */
 	public EList<Equation> getEquations() {
 		if (equations == null) {
-			equations = new EObjectContainmentEList<Equation>(Equation.class, this, ModelPackage.SYSTEM_BODY__EQUATIONS);
+			equations = new EObjectContainmentWithInverseEList<Equation>(Equation.class, this, ModelPackage.SYSTEM_BODY__EQUATIONS, ModelPackage.EQUATION__SYSTEM_BODY);
 		}
 		return equations;
 	}
@@ -236,6 +236,7 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -243,6 +244,8 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetSystem((AlphaSystem)otherEnd, msgs);
+			case ModelPackage.SYSTEM_BODY__EQUATIONS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getEquations()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}

@@ -422,7 +422,7 @@ class FuzzyVariable extends Variable {
 class SystemBody extends AlphaVisitable {
 	container AlphaSystem system opposite systemBodies
 	contains JNIDomain parameterDomainExpr
-	contains Equation[] equations
+	contains Equation[] equations opposite systemBody
 	
 	op JNIISLSet getParameterDomain() {
 		return parameterDomainExpr.ISLSet
@@ -441,7 +441,7 @@ class SystemBody extends AlphaVisitable {
 }
 
 abstract class Equation extends AlphaVisitable {
-	
+	container SystemBody systemBody opposite equations
 }
 
 class StandardEquation extends Equation {

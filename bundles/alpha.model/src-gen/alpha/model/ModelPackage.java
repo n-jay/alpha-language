@@ -645,13 +645,22 @@ public interface ModelPackage extends EPackage {
 	int EQUATION = 18;
 
 	/**
+	 * The feature id for the '<em><b>System Body</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EQUATION__SYSTEM_BODY = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Equation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EQUATION_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+	int EQUATION_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.StandardEquationImpl <em>Standard Equation</em>}' class.
@@ -662,6 +671,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int STANDARD_EQUATION = 19;
+
+	/**
+	 * The feature id for the '<em><b>System Body</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STANDARD_EQUATION__SYSTEM_BODY = EQUATION__SYSTEM_BODY;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
@@ -708,6 +726,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int USE_EQUATION = 20;
+
+	/**
+	 * The feature id for the '<em><b>System Body</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USE_EQUATION__SYSTEM_BODY = EQUATION__SYSTEM_BODY;
 
 	/**
 	 * The feature id for the '<em><b>Instantiation Domain Expr</b></em>' containment reference.
@@ -3835,6 +3862,17 @@ public interface ModelPackage extends EPackage {
 	EClass getEquation();
 
 	/**
+	 * Returns the meta object for the container reference '{@link alpha.model.Equation#getSystemBody <em>System Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>System Body</em>'.
+	 * @see alpha.model.Equation#getSystemBody()
+	 * @see #getEquation()
+	 * @generated
+	 */
+	EReference getEquation_SystemBody();
+
+	/**
 	 * Returns the meta object for class '{@link alpha.model.StandardEquation <em>Standard Equation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5787,6 +5825,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass EQUATION = eINSTANCE.getEquation();
+
+		/**
+		 * The meta object literal for the '<em><b>System Body</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EQUATION__SYSTEM_BODY = eINSTANCE.getEquation_SystemBody();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.StandardEquationImpl <em>Standard Equation</em>}' class.
