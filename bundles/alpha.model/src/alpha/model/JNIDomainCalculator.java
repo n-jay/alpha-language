@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssue.TYPE;
 import alpha.model.issue.AlphaIssueFactory;
@@ -80,10 +81,9 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	public JNIDomainCalculator(DOMAIN_CALC_MODE mode) {
 		this.mode = mode;
 	}
-
+	
 	@Override
-	public void visitAlphaSystem(AlphaSystem system) {
-
+	public void inAlphaSystem(AlphaSystem system) {
 		if (mode == DOMAIN_CALC_MODE.ALL || mode == DOMAIN_CALC_MODE.INTERFACE_ONLY) {
 			JNIDomain jniDomain = system.getParameterDomainExpr();
 			if (jniDomain == null || jniDomain.getIslString() == null)
@@ -104,8 +104,8 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			resolveVariableDeclaration(system.getOutputs());
 			resolveVariableDeclaration(system.getLocals());
 		}
-
-		super.visitAlphaSystem(system);
+		
+		super.inAlphaSystem(system);
 	}
 	
 	protected void resolveVariableDeclaration(List<Variable> variables) {
@@ -117,6 +117,80 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 				if (definedVar.isPresent()) {
 					v.setDomainExpr(EcoreUtil.copy(definedVar.get().getDomainExpr()));
 				}
+			}
+		}
+	}
+	
+	@Override
+	public void outAlphaSystem(AlphaSystem system) {
+		if (mode == DOMAIN_CALC_MODE.ALL || mode == DOMAIN_CALC_MODE.EXPRESSION_ONLY) {
+			completeSystemBody(system);
+		}
+		
+		super.outAlphaSystem(system);
+	}
+	
+
+	private void completeSystemBody(AlphaSystem system) {
+		List<SystemBody> definedBodies = new LinkedList<>();
+		List<SystemBody> undefinedBodies = new LinkedList<>();
+		
+		//first pass for syntactic checks
+		for (SystemBody body : system.getSystemBodies()) {
+			if (body.getParameterDomainExpr() != null) {
+				definedBodies.add(body);
+			} else {
+				undefinedBodies.add(body);
+			}
+		}
+		if (undefinedBodies.size() > 1) {
+			for (SystemBody body : undefinedBodies) {
+				issues.add(AlphaIssueFactory.multipleUnrestrictedSystemBody(body));
+			}
+			return;
+		}
+		
+		//check for consistency
+		//  - overlap
+		//  - incomplete
+		//  - empty else let
+		{
+			JNIISLSet unionBodies = null;
+			JNIISLSet intersections = null;
+			for (SystemBody body : definedBodies) {
+				if (unionBodies == null) {
+					unionBodies = body.getParameterDomain();
+				} else {
+					if (!unionBodies.isDisjoint(body.getParameterDomain())) {
+						JNIISLSet intersection = unionBodies.union(body.getParameterDomain());
+						if (intersections == null) intersections = intersection;
+						else intersections = intersections.union(intersection);
+					}
+					unionBodies = unionBodies.union(body.getParameterDomain());
+				}
+			}
+			
+			if (intersections != null) {
+				for (SystemBody body : definedBodies) {
+					issues.add(AlphaIssueFactory.overlappingSystemBodies(body, intersections.copy()));
+				}
+			}
+			
+			if (undefinedBodies.size() != 1 && !system.getParameterDomain().isStrictSubset(unionBodies)) {
+				issues.add(AlphaIssueFactory.incompleteSystem(system, system.getParameterDomain().subtract(unionBodies)));
+			}
+			
+			if (undefinedBodies.size() == 1) {
+				SystemBody elseBody = undefinedBodies.get(0);
+				JNIISLSet elseDomain = unionBodies==null?system.getParameterDomain():system.getParameterDomain().subtract(unionBodies);
+				
+				if (elseDomain.isEmpty()) {
+					issues.add(AlphaIssueFactory.emptySystemBody(elseBody));
+				} else {
+					JNIDomain domain = AlphaUserFactory.createJNIDomain(elseDomain);
+					elseBody.setParameterDomainExpr(domain);
+				}
+				
 			}
 		}
 	}

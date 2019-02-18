@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import alpha.model.AlphaExpression;
+import alpha.model.AlphaSystem;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.CalculatorExpression;
 import alpha.model.FuzzyFunction;
@@ -12,6 +13,7 @@ import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
+import alpha.model.SystemBody;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.issue.AlphaIssue.TYPE;
@@ -72,6 +74,10 @@ public class AlphaIssueFactory {
 	public static InvalidSyntaxIssue subsystemWithIncompatibleOutputs(UseEquation ue) {
 		return new InvalidSyntaxIssue(TYPE.ERROR, "Number of outputs does not match the callee.", ue, ModelPackage.Literals.USE_EQUATION__OUTPUT_EXPRS);
 	}
+	
+	public static InvalidSyntaxIssue multipleUnrestrictedSystemBody(SystemBody body) {
+		return new InvalidSyntaxIssue(TYPE.ERROR, "At most one SystemBody can be free (without when clause).", body, null);
+	}
 
 
 	public static CalculatorExpressionIssue expectingSet(UseEquation expr, EStructuralFeature feature) {
@@ -114,6 +120,11 @@ public class AlphaIssueFactory {
 				String.format("UseEquation(s) for %s does not define the variable for %s", v.getName(), domain.toString()), 
 				expr, null);
 	}
+	public static DomainConsistencyIssue incompleteSystem(AlphaSystem system, JNIISLSet domain) {
+		return new DomainConsistencyIssue(TYPE.ERROR, 
+				String.format("SystemBodies for %s does not cover the entire parameter domain. Missing: %s", system.getName(), domain.toString()), 
+				system, null);
+	}
 	
 	public static DomainConsistencyIssue overlappingCaseBranch(AlphaExpression branch, JNIISLSet overlap) {
 		return new DomainConsistencyIssue(TYPE.ERROR, 
@@ -127,8 +138,17 @@ public class AlphaIssueFactory {
 				branch, null);
 	}
 	
+	public static DomainConsistencyIssue overlappingSystemBodies(SystemBody body, JNIISLSet overlap) {
+		return new DomainConsistencyIssue(TYPE.ERROR, 
+				String.format("The SystemBodies define overlapping domains of the output: %s", overlap.toString()), 
+				body, null);
+	}
+	
 	public static DomainConsistencyIssue emptyAutoRestrict(AutoRestrictExpression auto ) {
 		return new DomainConsistencyIssue(TYPE.WARNING, "The inferrerd AutoRestrict domain is empty.", auto, null);
+	}
+	public static DomainConsistencyIssue emptySystemBody(SystemBody body ) {
+		return new DomainConsistencyIssue(TYPE.WARNING, "The inferrerd SystemBody domain is empty.", body, null);
 	}
 	
 	public static DomainConsistencyIssue umatchedRestrictDomainDimensions(RestrictExpression re) {
