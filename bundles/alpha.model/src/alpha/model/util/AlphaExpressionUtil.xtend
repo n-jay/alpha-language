@@ -46,6 +46,7 @@ class AlphaExpressionUtil {
 	 *  - parent is a  StandardEquation: take the variable domain
 	 *  - parent is an UseEquation: this depends on the corresponding input variable of the callee subsystem.
 	 *      In short, the context is the cross product of instantiation domain with the input variable domain.
+	 *  - for both Equations, the parameter domain of its enclosing SystemBody is intersected
 	 */
 	//default case, just pass the context of the parent
 	static dispatch def parentContext(AlphaExpression child, AlphaExpression parent, Consumer<AlphaIssue> f) {
@@ -53,14 +54,16 @@ class AlphaExpressionUtil {
 	}
 	
 	static dispatch def parentContext(AlphaExpression child, StandardEquation parent, Consumer<AlphaIssue> f) {
-		parent.variable.domain
+		if (parent.systemBody.parameterDomain === null) null
+		else parent.variable.domain.intersectParams(parent.systemBody.parameterDomain)
 	}
 
 	//For UseEquations, the context depends on the location of the child
 	// the instantiation domain is extended by the number of dimension with the corresponding input/output in the callee subsystem
 	//  
 	static dispatch def parentContext(AlphaExpression child, UseEquation parent, Consumer<AlphaIssue> f) {
-		if (checkCalcExprType(parent.instantiationDomainExpr, POLY_OBJECT_TYPE.SET, f)) {
+		if (checkCalcExprType(parent.instantiationDomainExpr, POLY_OBJECT_TYPE.SET, f) &&
+			parent.systemBody.parameterDomain !== null) {
 			
 			val inputLoc = parent.inputExprs.indexOf(child);
 			val outputLoc = parent.outputExprs.indexOf(child)
@@ -68,9 +71,11 @@ class AlphaExpressionUtil {
 			
 			val calleeVar = if (inputLoc!=-1) parent.system.inputs.get(inputLoc) else parent.system.outputs.get(outputLoc)
 			
+			val instantiationDomain = parent.instantiationDomain.intersectParams(parent.systemBody.parameterDomain);
+			
 			if (testNonNullExpressionDomain(getChildrenOfType(child, AlphaExpression))) {
 				val exDom = AlphaUtil.callISLwithErrorHandling(
-					[extendCalleeDomainByInstantiationDomain(parent.instantiationDomain, parent.callParams, calleeVar.domain)],
+					[extendCalleeDomainByInstantiationDomain(instantiationDomain, parent.callParams, calleeVar.domain)],
 					[err|new UnexpectedISLErrorIssue(err, child.eContainer(), child.eContainingFeature())]
 				);
 				//The context domain computed as above may contain indices with primes when the same index name is used in two systems.

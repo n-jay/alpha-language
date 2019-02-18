@@ -69,18 +69,27 @@ public class AlphaExpressionUtil {
    *  - parent is a  StandardEquation: take the variable domain
    *  - parent is an UseEquation: this depends on the corresponding input variable of the callee subsystem.
    *      In short, the context is the cross product of instantiation domain with the input variable domain.
+   *  - for both Equations, the parameter domain of its enclosing SystemBody is intersected
    */
   protected static JNIISLSet _parentContext(final AlphaExpression child, final AlphaExpression parent, final Consumer<AlphaIssue> f) {
     return parent.getContextDomain();
   }
   
   protected static JNIISLSet _parentContext(final AlphaExpression child, final StandardEquation parent, final Consumer<AlphaIssue> f) {
-    return parent.getVariable().getDomain();
+    JNIISLSet _xifexpression = null;
+    JNIISLSet _parameterDomain = parent.getSystemBody().getParameterDomain();
+    boolean _tripleEquals = (_parameterDomain == null);
+    if (_tripleEquals) {
+      _xifexpression = null;
+    } else {
+      _xifexpression = parent.getVariable().getDomain().intersectParams(parent.getSystemBody().getParameterDomain());
+    }
+    return _xifexpression;
   }
   
   protected static JNIISLSet _parentContext(final AlphaExpression child, final UseEquation parent, final Consumer<AlphaIssue> f) {
-    boolean _checkCalcExprType = AlphaExpressionUtil.checkCalcExprType(parent.getInstantiationDomainExpr(), POLY_OBJECT_TYPE.SET, f);
-    if (_checkCalcExprType) {
+    if ((AlphaExpressionUtil.checkCalcExprType(parent.getInstantiationDomainExpr(), POLY_OBJECT_TYPE.SET, f) && 
+      (parent.getSystemBody().getParameterDomain() != null))) {
       final int inputLoc = parent.getInputExprs().indexOf(child);
       final int outputLoc = parent.getOutputExprs().indexOf(child);
       if (((inputLoc == (-1)) && (outputLoc == (-1)))) {
@@ -93,10 +102,11 @@ public class AlphaExpressionUtil {
         _xifexpression = parent.getSystem().getOutputs().get(outputLoc);
       }
       final Variable calleeVar = _xifexpression;
+      final JNIISLSet instantiationDomain = parent.getInstantiationDomain().intersectParams(parent.getSystemBody().getParameterDomain());
       boolean _testNonNullExpressionDomain = AlphaExpressionUtil.testNonNullExpressionDomain(AlphaExpressionUtil.<AlphaExpression>getChildrenOfType(child, AlphaExpression.class));
       if (_testNonNullExpressionDomain) {
         final Supplier<JNIISLSet> _function = () -> {
-          return AlphaExpressionUtil.extendCalleeDomainByInstantiationDomain(parent.getInstantiationDomain(), parent.getCallParams(), calleeVar.getDomain());
+          return AlphaExpressionUtil.extendCalleeDomainByInstantiationDomain(instantiationDomain, parent.getCallParams(), calleeVar.getDomain());
         };
         final Consumer<String> _function_1 = (String err) -> {
           EObject _eContainer = child.eContainer();
