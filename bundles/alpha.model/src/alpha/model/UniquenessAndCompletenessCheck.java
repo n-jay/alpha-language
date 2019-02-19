@@ -18,6 +18,8 @@ import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 /**
@@ -215,6 +217,18 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	
 	@Override
 	public void inUseEquation(UseEquation ue) {
+		//check for simple infinite recursion
+		if (ue.getSystem().equals(ue.getSystemBody().getSystem())) {
+			JNIISLMultiAff callParams = ue.getCallParams();
+			int nbParams = callParams.getSpace().getNbDims(JNIISLDimType.isl_dim_param);
+			callParams = callParams.moveDims(JNIISLDimType.isl_dim_in, 0, JNIISLDimType.isl_dim_param, 0, nbParams);
+			
+			if (callParams.isIdentity()) {
+				issues.add(AlphaIssueFactory.infinitelyRecursiveUseEquation(ue));
+			}
+		}
+		
+		//book keeping for output consistency check
 		for(AlphaExpression expr : ue.getOutputExprs()) {
 			for (VariableExpression v : EcoreUtil2.getAllContentsOfType(expr, VariableExpression.class)) {
 				if (!useDefs.containsKey(v.getVariable())) {

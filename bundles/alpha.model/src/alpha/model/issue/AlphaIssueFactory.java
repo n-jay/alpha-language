@@ -78,6 +78,10 @@ public class AlphaIssueFactory {
 	public static InvalidSyntaxIssue multipleUnrestrictedSystemBody(SystemBody body) {
 		return new InvalidSyntaxIssue(TYPE.ERROR, "At most one SystemBody can be free (without when clause).", body, null);
 	}
+	
+	public static InvalidSyntaxIssue infinitelyRecursiveUseEquation(UseEquation ue) {
+		return new InvalidSyntaxIssue(TYPE.ERROR, "Self-recursion with identity call parameter is prohibited (infinite recursion).", ue, null);
+	}
 
 
 	public static CalculatorExpressionIssue expectingSet(UseEquation expr, EStructuralFeature feature) {
