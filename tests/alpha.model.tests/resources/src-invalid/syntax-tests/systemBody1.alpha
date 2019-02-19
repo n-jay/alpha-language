@@ -16,6 +16,30 @@ package tests.syntax.invalid {
 		let
 			B = A;
 	
+	.
+	
+	affine systemBody1b [N]->{:N>0}
+		inputs
+			A : [N];
+		outputs
+			B : [N];
+		when {:N>0} let
+			B = A;
+		//empty free body
+		let
+			B = A;
+	. 
+	
+	affine systemBody1c [N]->{:}
+		inputs
+			A : [N];
+		outputs
+			B : [N];
+		//incomplete definition
+		when {:N>0} let
+			B = A;
+		when {:N<0} let
+			B = A;
 	. 
 
 }
