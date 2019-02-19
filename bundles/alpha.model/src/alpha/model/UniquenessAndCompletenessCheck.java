@@ -117,8 +117,10 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 			
 			JNIISLSet union = null;
 			JNIISLSet intersections = null;
-			vexprs.get(0).getContextDomain(); 
+			
 			for (VariableExpression vexpr : vexprs) {
+				//if context domain is not defined, there were earlier issues
+				if (vexpr.getContextDomain() == null) break;
 				if (union == null) {
 					union = vexpr.getContextDomain();
 				} else {
