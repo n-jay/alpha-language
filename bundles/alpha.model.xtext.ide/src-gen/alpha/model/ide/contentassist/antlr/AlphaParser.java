@@ -41,6 +41,9 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAISLSetAccess().getAlternatives(), "rule__AISLSet__Alternatives");
 			builder.put(grammarAccess.getAISLStringAccess().getAlternatives(), "rule__AISLString__Alternatives");
 			builder.put(grammarAccess.getAISLExpressionAccess().getAlternatives(), "rule__AISLExpression__Alternatives");
+			builder.put(grammarAccess.getAISLExpressionLiteralAccess().getAlternatives(), "rule__AISLExpressionLiteral__Alternatives");
+			builder.put(grammarAccess.getAISLExpressionOperatorAccess().getAlternatives(), "rule__AISLExpressionOperator__Alternatives");
+			builder.put(grammarAccess.getAlphaFunctionTerminalExpressionAccess().getAlternatives(), "rule__AlphaFunctionTerminalExpression__Alternatives");
 			builder.put(grammarAccess.getAISLFuzzyExpressionAccess().getAlternatives(), "rule__AISLFuzzyExpression__Alternatives");
 			builder.put(grammarAccess.getEquationAccess().getAlternatives(), "rule__Equation__Alternatives");
 			builder.put(grammarAccess.getAlphaExpressionAccess().getAlternatives(), "rule__AlphaExpression__Alternatives");
@@ -123,7 +126,13 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAISLRelationAccess().getGroup_2(), "rule__AISLRelation__Group_2__0");
 			builder.put(grammarAccess.getAISLExpressionListAccess().getGroup(), "rule__AISLExpressionList__Group__0");
 			builder.put(grammarAccess.getAISLExpressionListAccess().getGroup_1(), "rule__AISLExpressionList__Group_1__0");
-			builder.put(grammarAccess.getAAlphaFunctionAccess().getGroup(), "rule__AAlphaFunction__Group__0");
+			builder.put(grammarAccess.getAlphaFunctionTerminalExpressionAccess().getGroup_1(), "rule__AlphaFunctionTerminalExpression__Group_1__0");
+			builder.put(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getGroup(), "rule__AlphaFunctionBinaryExpression__Group__0");
+			builder.put(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getGroup_1(), "rule__AlphaFunctionBinaryExpression__Group_1__0");
+			builder.put(grammarAccess.getAlphaFunctionLiteralAccess().getGroup(), "rule__AlphaFunctionLiteral__Group__0");
+			builder.put(grammarAccess.getAlphaFunctionAccess().getGroup(), "rule__AlphaFunction__Group__0");
+			builder.put(grammarAccess.getAlphaFunctionAccess().getGroup_3(), "rule__AlphaFunction__Group_3__0");
+			builder.put(grammarAccess.getAlphaFunctionAccess().getGroup_3_1(), "rule__AlphaFunction__Group_3_1__0");
 			builder.put(grammarAccess.getAISLBasicRelationAccess().getGroup(), "rule__AISLBasicRelation__Group__0");
 			builder.put(grammarAccess.getAISLWrappedBasicRelationAccess().getGroup(), "rule__AISLWrappedBasicRelation__Group__0");
 			builder.put(grammarAccess.getStandardEquationAccess().getGroup(), "rule__StandardEquation__Group__0");
@@ -247,7 +256,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getJNIParamDomainAccess().getIslStringAssignment(), "rule__JNIParamDomain__IslStringAssignment");
 			builder.put(grammarAccess.getJNIParamDomainInArrayNotationAccess().getIslStringAssignment(), "rule__JNIParamDomainInArrayNotation__IslStringAssignment");
 			builder.put(grammarAccess.getJNIRelationAccess().getIslStringAssignment(), "rule__JNIRelation__IslStringAssignment");
-			builder.put(grammarAccess.getJNIFunctionAccess().getAlphaStringAssignment(), "rule__JNIFunction__AlphaStringAssignment");
+			builder.put(grammarAccess.getJNIFunctionAccess().getAlphaFunctionAssignment(), "rule__JNIFunction__AlphaFunctionAssignment");
 			builder.put(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAssignment_2_0(), "rule__JNIFunctionInArrayNotation__ArrayNotationAssignment_2_0");
 			builder.put(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAssignment_2_1_1(), "rule__JNIFunctionInArrayNotation__ArrayNotationAssignment_2_1_1");
 			builder.put(grammarAccess.getFuzzyFunctionAccess().getAlphaStringAssignment_1(), "rule__FuzzyFunction__AlphaStringAssignment_1");
@@ -261,6 +270,12 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAffineFuzzyVariableUseAccess().getUseFunctionAssignment_3(), "rule__AffineFuzzyVariableUse__UseFunctionAssignment_3");
 			builder.put(grammarAccess.getFuzzyFunctionInArrayNotationAccess().getArrayNotationAssignment_2_0(), "rule__FuzzyFunctionInArrayNotation__ArrayNotationAssignment_2_0");
 			builder.put(grammarAccess.getFuzzyFunctionInArrayNotationAccess().getArrayNotationAssignment_2_1_1(), "rule__FuzzyFunctionInArrayNotation__ArrayNotationAssignment_2_1_1");
+			builder.put(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getOperatorAssignment_1_1(), "rule__AlphaFunctionBinaryExpression__OperatorAssignment_1_1");
+			builder.put(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getRightAssignment_1_2(), "rule__AlphaFunctionBinaryExpression__RightAssignment_1_2");
+			builder.put(grammarAccess.getAlphaFunctionLiteralAccess().getValueAssignment_1(), "rule__AlphaFunctionLiteral__ValueAssignment_1");
+			builder.put(grammarAccess.getAlphaFunctionAccess().getIndexListAssignment_1(), "rule__AlphaFunction__IndexListAssignment_1");
+			builder.put(grammarAccess.getAlphaFunctionAccess().getExprsAssignment_3_0(), "rule__AlphaFunction__ExprsAssignment_3_0");
+			builder.put(grammarAccess.getAlphaFunctionAccess().getExprsAssignment_3_1_1(), "rule__AlphaFunction__ExprsAssignment_3_1_1");
 			builder.put(grammarAccess.getStandardEquationAccess().getVariableAssignment_0(), "rule__StandardEquation__VariableAssignment_0");
 			builder.put(grammarAccess.getStandardEquationAccess().getIndexNamesAssignment_1_1(), "rule__StandardEquation__IndexNamesAssignment_1_1");
 			builder.put(grammarAccess.getStandardEquationAccess().getIndexNamesAssignment_1_2_1(), "rule__StandardEquation__IndexNamesAssignment_1_2_1");

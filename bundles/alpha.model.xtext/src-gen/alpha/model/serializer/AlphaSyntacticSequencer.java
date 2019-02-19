@@ -21,6 +21,8 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AlphaGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a;
+	protected AbstractElementAlias match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p;
 	protected AbstractElementAlias match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a;
@@ -34,6 +36,8 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AlphaGrammarAccess) access;
+		match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a = new TokenAlias(true, true, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getLeftParenthesisKeyword_1_0());
+		match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p = new TokenAlias(true, false, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getLeftParenthesisKeyword_1_0());
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a = new TokenAlias(true, true, grammarAccess.getCalculatorExpressionTerminalAccess().getLeftParenthesisKeyword_6_0());
@@ -57,7 +61,11 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a.equals(syntax))
+			if (match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a.equals(syntax))
+				emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p.equals(syntax))
+				emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a.equals(syntax))
 				emit_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p.equals(syntax))
 				emit_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -79,6 +87,29 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) value=AISLExpressionLiteral
+	 *     (rule start) (ambiguity) {AlphaFunctionBinaryExpression.left=}
+	 */
+	protected void emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) {AlphaFunctionBinaryExpression.left=}
+	 */
+	protected void emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Ambiguous syntax:
 	 *     '('*
@@ -143,7 +174,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' lowerBounds+=AISLExpression
 	 *     (rule start) (ambiguity) '[' upperBounds+=AISLExpression
 	 *     (rule start) (ambiguity) '{' variable=[Variable|ID]
-	 *     (rule start) (ambiguity) alphaString=AAlphaFunction
+	 *     (rule start) (ambiguity) alphaFunction=AlphaFunction
 	 *     (rule start) (ambiguity) islString=AISLRelation
 	 *     (rule start) (ambiguity) islString=AISLSet
 	 *     (rule start) (ambiguity) object=[PolyhedralObject|ID]

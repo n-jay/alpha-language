@@ -87,7 +87,7 @@ JNIRelation:
 ;
 
 JNIFunction:
-	alphaString=AAlphaFunction
+	alphaFunction=AlphaFunction
 ;
 
 JNIFunctionInArrayNotation:
@@ -161,19 +161,45 @@ AISLString:
 	(IndexName|INT|'+'|'-'|'*'|'/'|'%'|'and'|'or'|'['|']'|'('|')'|','|':'|'&'|'|'|WS|'>='|'>'|'='|'<'|'<=')*;
 	
 AISLExpression:
-	(IndexName|INT|'='|'+'|'-'|'*'|'/'|'%'|WS)+;
+	(IndexName|INT|'='|'+'|'-'|'*'|'/'|'%'|'('|')'|WS)+;
+	
+AISLExpressionLiteral:
+	(IndexName|INT|WS)+;
+AISLExpressionOperator:
+	'='|'+'|'-'|'*'|'/'|'%'
+;
 	
 AISLExpressionList:
 	(AISLExpression (',' AISLExpression)*)?;
 
-AAlphaFunction:
-	'(' AIndexList '->' AISLExpressionList ')'
+//AAlphaFunction:
+//	'[' AIndexList '->' AISLExpressionList ']'
+//;
+
+AlphaFunctionTerminalExpression returns AlphaFunctionExpression:
+	AlphaFunctionLiteral |
+	'(' AlphaFunctionBinaryExpression ')'
+;
+
+AlphaFunctionBinaryExpression returns AlphaFunctionExpression:
+	AlphaFunctionTerminalExpression ({AlphaFunctionBinaryExpression.left=current} operator=AISLExpressionOperator right=AlphaFunctionTerminalExpression)*
+;
+
+AlphaFunctionLiteral returns AlphaFunctionExpression:
+	{AlphaFunctionLiteral} value=AISLExpressionLiteral
+;
+
+AlphaFunctionExpression:
+	AlphaFunctionBinaryExpression
+;
+
+AlphaFunction:
+	'(' indexList=AIndexList '->' (exprs+=AlphaFunctionExpression (',' exprs+=AlphaFunctionExpression)*)?')'
 ;
 
 AISLBasicRelation:
 	'[' AISLExpressionList ']' '->' '[' AISLExpressionList ']' ':' AISLString
 ;
-
 
 AISLWrappedBasicRelation:
 	'[' '[' AIndexList ']' '->' '[' AISLExpressionList ']' ']' '->' '[' AISLExpressionList ']'

@@ -5,6 +5,9 @@ package alpha.model.serializer;
 
 import alpha.model.AffineFuzzyVariableUse;
 import alpha.model.AlphaConstant;
+import alpha.model.AlphaFunction;
+import alpha.model.AlphaFunctionBinaryExpression;
+import alpha.model.AlphaFunctionLiteral;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
@@ -88,6 +91,15 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case ModelPackage.ALPHA_CONSTANT:
 				sequence_AlphaConstant(context, (AlphaConstant) semanticObject); 
+				return; 
+			case ModelPackage.ALPHA_FUNCTION:
+				sequence_AlphaFunction(context, (AlphaFunction) semanticObject); 
+				return; 
+			case ModelPackage.ALPHA_FUNCTION_BINARY_EXPRESSION:
+				sequence_AlphaFunctionBinaryExpression(context, (AlphaFunctionBinaryExpression) semanticObject); 
+				return; 
+			case ModelPackage.ALPHA_FUNCTION_LITERAL:
+				sequence_AlphaFunctionLiteral(context, (AlphaFunctionLiteral) semanticObject); 
 				return; 
 			case ModelPackage.ALPHA_PACKAGE:
 				sequence_AlphaPackage(context, (AlphaPackage) semanticObject); 
@@ -349,6 +361,67 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		feeder.accept(grammarAccess.getAlphaConstantAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getAlphaConstantAccess().getValueINTTerminalRuleCall_3_0(), semanticObject.getValue());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaFunctionTerminalExpression returns AlphaFunctionBinaryExpression
+	 *     AlphaFunctionBinaryExpression returns AlphaFunctionBinaryExpression
+	 *     AlphaFunctionBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionBinaryExpression
+	 *     AlphaFunctionExpression returns AlphaFunctionBinaryExpression
+	 *
+	 * Constraint:
+	 *     (left=AlphaFunctionBinaryExpression_AlphaFunctionBinaryExpression_1_0 operator=AISLExpressionOperator right=AlphaFunctionTerminalExpression)
+	 */
+	protected void sequence_AlphaFunctionBinaryExpression(ISerializationContext context, AlphaFunctionBinaryExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__LEFT));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__RIGHT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getAlphaFunctionBinaryExpressionLeftAction_1_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getOperatorAISLExpressionOperatorParserRuleCall_1_1_0(), semanticObject.getOperator());
+		feeder.accept(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getRightAlphaFunctionTerminalExpressionParserRuleCall_1_2_0(), semanticObject.getRight());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaFunctionTerminalExpression returns AlphaFunctionLiteral
+	 *     AlphaFunctionBinaryExpression returns AlphaFunctionLiteral
+	 *     AlphaFunctionBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionLiteral
+	 *     AlphaFunctionLiteral returns AlphaFunctionLiteral
+	 *     AlphaFunctionExpression returns AlphaFunctionLiteral
+	 *
+	 * Constraint:
+	 *     value=AISLExpressionLiteral
+	 */
+	protected void sequence_AlphaFunctionLiteral(ISerializationContext context, AlphaFunctionLiteral semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_LITERAL__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_LITERAL__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAlphaFunctionLiteralAccess().getValueAISLExpressionLiteralParserRuleCall_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaFunction returns AlphaFunction
+	 *
+	 * Constraint:
+	 *     (indexList=AIndexList (exprs+=AlphaFunctionExpression exprs+=AlphaFunctionExpression*)?)
+	 */
+	protected void sequence_AlphaFunction(ISerializationContext context, AlphaFunction semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1232,15 +1305,15 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     CalculatorExpressionTerminal returns JNIFunction
 	 *
 	 * Constraint:
-	 *     alphaString=AAlphaFunction
+	 *     alphaFunction=AlphaFunction
 	 */
 	protected void sequence_JNIFunction(ISerializationContext context, JNIFunction semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_FUNCTION__ALPHA_STRING));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_FUNCTION__ALPHA_FUNCTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_FUNCTION__ALPHA_FUNCTION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getJNIFunctionAccess().getAlphaStringAAlphaFunctionParserRuleCall_0(), semanticObject.getAlphaString());
+		feeder.accept(grammarAccess.getJNIFunctionAccess().getAlphaFunctionAlphaFunctionParserRuleCall_0(), semanticObject.getAlphaFunction());
 		feeder.finish();
 	}
 	
