@@ -344,6 +344,22 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createDefinedObjectAdapter();
 			}
 			@Override
+			public Adapter caseAlphaFunction(AlphaFunction object) {
+				return createAlphaFunctionAdapter();
+			}
+			@Override
+			public Adapter caseAlphaFunctionExpression(AlphaFunctionExpression object) {
+				return createAlphaFunctionExpressionAdapter();
+			}
+			@Override
+			public Adapter caseAlphaFunctionBinaryExpression(AlphaFunctionBinaryExpression object) {
+				return createAlphaFunctionBinaryExpressionAdapter();
+			}
+			@Override
+			public Adapter caseAlphaFunctionLiteral(AlphaFunctionLiteral object) {
+				return createAlphaFunctionLiteralAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1326,6 +1342,62 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDefinedObjectAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AlphaFunction <em>Alpha Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AlphaFunction
+	 * @generated
+	 */
+	public Adapter createAlphaFunctionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AlphaFunctionExpression <em>Alpha Function Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AlphaFunctionExpression
+	 * @generated
+	 */
+	public Adapter createAlphaFunctionExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AlphaFunctionBinaryExpression <em>Alpha Function Binary Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AlphaFunctionBinaryExpression
+	 * @generated
+	 */
+	public Adapter createAlphaFunctionBinaryExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AlphaFunctionLiteral <em>Alpha Function Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AlphaFunctionLiteral
+	 * @generated
+	 */
+	public Adapter createAlphaFunctionLiteralAdapter() {
 		return null;
 	}
 

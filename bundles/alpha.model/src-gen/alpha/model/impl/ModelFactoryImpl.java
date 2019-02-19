@@ -117,6 +117,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.VARIABLE_DOMAIN: return createVariableDomain();
 			case ModelPackage.RECTANGULAR_DOMAIN: return createRectangularDomain();
 			case ModelPackage.DEFINED_OBJECT: return createDefinedObject();
+			case ModelPackage.ALPHA_FUNCTION: return createAlphaFunction();
+			case ModelPackage.ALPHA_FUNCTION_BINARY_EXPRESSION: return createAlphaFunctionBinaryExpression();
+			case ModelPackage.ALPHA_FUNCTION_LITERAL: return createAlphaFunctionLiteral();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -714,6 +717,36 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public DefinedObject createDefinedObject() {
 		DefinedObjectImpl definedObject = new DefinedObjectImpl();
 		return definedObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaFunction createAlphaFunction() {
+		AlphaFunctionImpl alphaFunction = new AlphaFunctionImpl();
+		return alphaFunction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaFunctionBinaryExpression createAlphaFunctionBinaryExpression() {
+		AlphaFunctionBinaryExpressionImpl alphaFunctionBinaryExpression = new AlphaFunctionBinaryExpressionImpl();
+		return alphaFunctionBinaryExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaFunctionLiteral createAlphaFunctionLiteral() {
+		AlphaFunctionLiteralImpl alphaFunctionLiteral = new AlphaFunctionLiteralImpl();
+		return alphaFunctionLiteral;
 	}
 
 	/**

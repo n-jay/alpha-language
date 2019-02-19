@@ -11,6 +11,10 @@ import alpha.model.AlphaElement;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaExpressionVisitor;
+import alpha.model.AlphaFunction;
+import alpha.model.AlphaFunctionBinaryExpression;
+import alpha.model.AlphaFunctionExpression;
+import alpha.model.AlphaFunctionLiteral;
 import alpha.model.AlphaNode;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
@@ -581,6 +585,34 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass definedObjectEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alphaFunctionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alphaFunctionExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alphaFunctionBinaryExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alphaFunctionLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2013,8 +2045,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJNIFunction_AlphaString() {
-		return (EAttribute)jniFunctionEClass.getEStructuralFeatures().get(0);
+	public EReference getJNIFunction_AlphaFunction() {
+		return (EReference)jniFunctionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2330,6 +2362,96 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 */
 	public EAttribute getDefinedObject_Z__internalCycleDetector() {
 		return (EAttribute)definedObjectEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAlphaFunction() {
+		return alphaFunctionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlphaFunction_IndexList() {
+		return (EAttribute)alphaFunctionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAlphaFunction_Exprs() {
+		return (EReference)alphaFunctionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAlphaFunctionExpression() {
+		return alphaFunctionExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAlphaFunctionBinaryExpression() {
+		return alphaFunctionBinaryExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAlphaFunctionBinaryExpression_Left() {
+		return (EReference)alphaFunctionBinaryExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAlphaFunctionBinaryExpression_Right() {
+		return (EReference)alphaFunctionBinaryExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlphaFunctionBinaryExpression_Operator() {
+		return (EAttribute)alphaFunctionBinaryExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAlphaFunctionLiteral() {
+		return alphaFunctionLiteralEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlphaFunctionLiteral_Value() {
+		return (EAttribute)alphaFunctionLiteralEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2667,7 +2789,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEAttribute(jniRelationEClass, JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP);
 
 		jniFunctionEClass = createEClass(JNI_FUNCTION);
-		createEAttribute(jniFunctionEClass, JNI_FUNCTION__ALPHA_STRING);
+		createEReference(jniFunctionEClass, JNI_FUNCTION__ALPHA_FUNCTION);
 		createEAttribute(jniFunctionEClass, JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF);
 
 		jniFunctionInArrayNotationEClass = createEClass(JNI_FUNCTION_IN_ARRAY_NOTATION);
@@ -2714,6 +2836,20 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		definedObjectEClass = createEClass(DEFINED_OBJECT);
 		createEReference(definedObjectEClass, DEFINED_OBJECT__OBJECT);
 		createEAttribute(definedObjectEClass, DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR);
+
+		alphaFunctionEClass = createEClass(ALPHA_FUNCTION);
+		createEAttribute(alphaFunctionEClass, ALPHA_FUNCTION__INDEX_LIST);
+		createEReference(alphaFunctionEClass, ALPHA_FUNCTION__EXPRS);
+
+		alphaFunctionExpressionEClass = createEClass(ALPHA_FUNCTION_EXPRESSION);
+
+		alphaFunctionBinaryExpressionEClass = createEClass(ALPHA_FUNCTION_BINARY_EXPRESSION);
+		createEReference(alphaFunctionBinaryExpressionEClass, ALPHA_FUNCTION_BINARY_EXPRESSION__LEFT);
+		createEReference(alphaFunctionBinaryExpressionEClass, ALPHA_FUNCTION_BINARY_EXPRESSION__RIGHT);
+		createEAttribute(alphaFunctionBinaryExpressionEClass, ALPHA_FUNCTION_BINARY_EXPRESSION__OPERATOR);
+
+		alphaFunctionLiteralEClass = createEClass(ALPHA_FUNCTION_LITERAL);
+		createEAttribute(alphaFunctionLiteralEClass, ALPHA_FUNCTION_LITERAL__VALUE);
 
 		// Create enums
 		unarY_OPEEnum = createEEnum(UNARY_OP);
@@ -2830,6 +2966,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		variableDomainEClass.getESuperTypes().add(this.getCalculatorExpression());
 		rectangularDomainEClass.getESuperTypes().add(this.getCalculatorExpression());
 		definedObjectEClass.getESuperTypes().add(this.getCalculatorExpression());
+		alphaFunctionBinaryExpressionEClass.getESuperTypes().add(this.getAlphaFunctionExpression());
+		alphaFunctionLiteralEClass.getESuperTypes().add(this.getAlphaFunctionExpression());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(alphaNodeEClass, AlphaNode.class, "AlphaNode", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3724,7 +3862,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(jniFunctionEClass, JNIFunction.class, "JNIFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJNIFunction_AlphaString(), theEcorePackage.getEString(), "alphaString", null, 0, 1, JNIFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJNIFunction_AlphaFunction(), this.getAlphaFunction(), null, "alphaFunction", null, 0, 1, JNIFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJNIFunction_Z__internal_cache_islMAff(), this.getJNIISLMultiAff(), "z__internal_cache_islMAff", null, 0, 1, JNIFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(jniFunctionEClass, this.getJNIISLMultiAff(), "getISLMultiAff", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3856,6 +3994,26 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(definedObjectEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(alphaFunctionEClass, AlphaFunction.class, "AlphaFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAlphaFunction_IndexList(), theEcorePackage.getEString(), "indexList", null, 0, 1, AlphaFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAlphaFunction_Exprs(), this.getAlphaFunctionExpression(), null, "exprs", null, 0, -1, AlphaFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(alphaFunctionExpressionEClass, AlphaFunctionExpression.class, "AlphaFunctionExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		addEOperation(alphaFunctionExpressionEClass, theEcorePackage.getEString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(alphaFunctionBinaryExpressionEClass, AlphaFunctionBinaryExpression.class, "AlphaFunctionBinaryExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAlphaFunctionBinaryExpression_Left(), this.getAlphaFunctionExpression(), null, "left", null, 0, 1, AlphaFunctionBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAlphaFunctionBinaryExpression_Right(), this.getAlphaFunctionExpression(), null, "right", null, 0, 1, AlphaFunctionBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaFunctionBinaryExpression_Operator(), theEcorePackage.getEString(), "operator", null, 0, 1, AlphaFunctionBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(alphaFunctionBinaryExpressionEClass, theEcorePackage.getEString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(alphaFunctionLiteralEClass, AlphaFunctionLiteral.class, "AlphaFunctionLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAlphaFunctionLiteral_Value(), theEcorePackage.getEString(), "value", null, 0, 1, AlphaFunctionLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(alphaFunctionLiteralEClass, theEcorePackage.getEString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(unarY_OPEEnum, alpha.model.UNARY_OP.class, "UNARY_OP");

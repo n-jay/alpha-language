@@ -725,6 +725,32 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.ALPHA_FUNCTION: {
+				AlphaFunction alphaFunction = (AlphaFunction)theEObject;
+				T result = caseAlphaFunction(alphaFunction);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.ALPHA_FUNCTION_EXPRESSION: {
+				AlphaFunctionExpression alphaFunctionExpression = (AlphaFunctionExpression)theEObject;
+				T result = caseAlphaFunctionExpression(alphaFunctionExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.ALPHA_FUNCTION_BINARY_EXPRESSION: {
+				AlphaFunctionBinaryExpression alphaFunctionBinaryExpression = (AlphaFunctionBinaryExpression)theEObject;
+				T result = caseAlphaFunctionBinaryExpression(alphaFunctionBinaryExpression);
+				if (result == null) result = caseAlphaFunctionExpression(alphaFunctionBinaryExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.ALPHA_FUNCTION_LITERAL: {
+				AlphaFunctionLiteral alphaFunctionLiteral = (AlphaFunctionLiteral)theEObject;
+				T result = caseAlphaFunctionLiteral(alphaFunctionLiteral);
+				if (result == null) result = caseAlphaFunctionExpression(alphaFunctionLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -1761,6 +1787,66 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseDefinedObject(DefinedObject object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Alpha Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Alpha Function</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAlphaFunction(AlphaFunction object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Alpha Function Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Alpha Function Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAlphaFunctionExpression(AlphaFunctionExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Alpha Function Binary Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Alpha Function Binary Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAlphaFunctionBinaryExpression(AlphaFunctionBinaryExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Alpha Function Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Alpha Function Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAlphaFunctionLiteral(AlphaFunctionLiteral object) {
 		return null;
 	}
 

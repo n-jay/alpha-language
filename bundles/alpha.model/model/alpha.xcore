@@ -14,6 +14,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.IQualifiedNameProvider
+import alpha.model.util.AlphaPrintingUtil
 
 //type JNIDomain wraps JNIDomain
 type JNIObject wraps JNIObject
@@ -939,7 +940,7 @@ class JNIRelation extends CalculatorExpression {
 }
 
 class JNIFunction extends CalculatorExpression {
-	String alphaString
+	contains AlphaFunction alphaFunction
 	JNIISLMultiAff z__internal_cache_islMAff
 	
 	op JNIISLMultiAff getISLMultiAff() { if (z__internal_cache_islMAff !== null) z__internal_cache_islMAff.copy else null }
@@ -953,7 +954,8 @@ class JNIFunction extends CalculatorExpression {
 	}
 	
 	op String plainToString() {
-		alphaString
+		if (ISLMultiAff === null) return ""
+		AlphaPrintingUtil.toShowString(ISLMultiAff)
 	}
 }
 
@@ -1142,4 +1144,36 @@ class DefinedObject extends CalculatorExpression {
 	op String plainToString() {
 		object.name
 	}
+}
+
+
+/*
+ * AlphaFunction is supposed to be just text in the Xtext grammar.
+ * However, the ambiguity involving parentheses cause issues.
+ * This can be resolved by actually parsing it as expressions.
+ * 
+ * It could be avoided by using square braces instead: [i,j->i,j]
+ *  but I prefer to use the classical Alpha syntax for functions.
+ */ 
+class AlphaFunction {
+	String indexList 
+	contains AlphaFunctionExpression[] exprs
+}
+
+abstract class AlphaFunctionExpression {
+	op String getISLString()
+}
+
+class AlphaFunctionBinaryExpression extends AlphaFunctionExpression {
+	contains AlphaFunctionExpression left
+	contains AlphaFunctionExpression right
+	String operator	
+	
+	op String getISLString() { String.format("(%s %s %s)", left.ISLString, operator, right.ISLString) }
+}
+
+class AlphaFunctionLiteral extends AlphaFunctionExpression {
+	String value
+	
+	op String getISLString() { value }
 }

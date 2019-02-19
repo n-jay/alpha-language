@@ -490,6 +490,33 @@ public interface ModelFactory extends EFactory {
 	DefinedObject createDefinedObject();
 
 	/**
+	 * Returns a new object of class '<em>Alpha Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Alpha Function</em>'.
+	 * @generated
+	 */
+	AlphaFunction createAlphaFunction();
+
+	/**
+	 * Returns a new object of class '<em>Alpha Function Binary Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Alpha Function Binary Expression</em>'.
+	 * @generated
+	 */
+	AlphaFunctionBinaryExpression createAlphaFunctionBinaryExpression();
+
+	/**
+	 * Returns a new object of class '<em>Alpha Function Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Alpha Function Literal</em>'.
+	 * @generated
+	 */
+	AlphaFunctionLiteral createAlphaFunctionLiteral();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

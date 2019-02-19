@@ -2718,13 +2718,13 @@ public interface ModelPackage extends EPackage {
 	int JNI_FUNCTION = 57;
 
 	/**
-	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
+	 * The feature id for the '<em><b>Alpha Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUNCTION__ALPHA_STRING = CALCULATOR_EXPRESSION_FEATURE_COUNT + 0;
+	int JNI_FUNCTION__ALPHA_FUNCTION = CALCULATOR_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache isl MAff</b></em>' attribute.
@@ -2755,13 +2755,13 @@ public interface ModelPackage extends EPackage {
 	int JNI_FUNCTION_IN_ARRAY_NOTATION = 58;
 
 	/**
-	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
+	 * The feature id for the '<em><b>Alpha Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JNI_FUNCTION_IN_ARRAY_NOTATION__ALPHA_STRING = JNI_FUNCTION__ALPHA_STRING;
+	int JNI_FUNCTION_IN_ARRAY_NOTATION__ALPHA_FUNCTION = JNI_FUNCTION__ALPHA_FUNCTION;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache isl MAff</b></em>' attribute.
@@ -3287,6 +3287,136 @@ public interface ModelPackage extends EPackage {
 	int DEFINED_OBJECT_FEATURE_COUNT = CALCULATOR_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link alpha.model.impl.AlphaFunctionImpl <em>Alpha Function</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.AlphaFunctionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunction()
+	 * @generated
+	 */
+	int ALPHA_FUNCTION = 69;
+
+	/**
+	 * The feature id for the '<em><b>Index List</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION__INDEX_LIST = 0;
+
+	/**
+	 * The feature id for the '<em><b>Exprs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION__EXPRS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Alpha Function</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.AlphaFunctionExpressionImpl <em>Alpha Function Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.AlphaFunctionExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunctionExpression()
+	 * @generated
+	 */
+	int ALPHA_FUNCTION_EXPRESSION = 70;
+
+	/**
+	 * The number of structural features of the '<em>Alpha Function Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.AlphaFunctionBinaryExpressionImpl <em>Alpha Function Binary Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.AlphaFunctionBinaryExpressionImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunctionBinaryExpression()
+	 * @generated
+	 */
+	int ALPHA_FUNCTION_BINARY_EXPRESSION = 71;
+
+	/**
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_BINARY_EXPRESSION__LEFT = ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_BINARY_EXPRESSION__RIGHT = ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_BINARY_EXPRESSION__OPERATOR = ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Alpha Function Binary Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_BINARY_EXPRESSION_FEATURE_COUNT = ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link alpha.model.impl.AlphaFunctionLiteralImpl <em>Alpha Function Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.AlphaFunctionLiteralImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunctionLiteral()
+	 * @generated
+	 */
+	int ALPHA_FUNCTION_LITERAL = 72;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_LITERAL__VALUE = ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Alpha Function Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_LITERAL_FEATURE_COUNT = ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link alpha.model.UNARY_OP <em>UNARY OP</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3294,7 +3424,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUNARY_OP()
 	 * @generated
 	 */
-	int UNARY_OP = 69;
+	int UNARY_OP = 73;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.BINARY_OP <em>BINARY OP</em>}' enum.
@@ -3304,7 +3434,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBINARY_OP()
 	 * @generated
 	 */
-	int BINARY_OP = 70;
+	int BINARY_OP = 74;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.REDUCTION_OP <em>REDUCTION OP</em>}' enum.
@@ -3314,7 +3444,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getREDUCTION_OP()
 	 * @generated
 	 */
-	int REDUCTION_OP = 71;
+	int REDUCTION_OP = 75;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.POLY_OBJECT_TYPE <em>POLY OBJECT TYPE</em>}' enum.
@@ -3324,7 +3454,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPOLY_OBJECT_TYPE()
 	 * @generated
 	 */
-	int POLY_OBJECT_TYPE = 72;
+	int POLY_OBJECT_TYPE = 76;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_UNARY_OP <em>CALCULATOR UNARY OP</em>}' enum.
@@ -3334,7 +3464,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_UNARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_UNARY_OP = 73;
+	int CALCULATOR_UNARY_OP = 77;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_BINARY_OP <em>CALCULATOR BINARY OP</em>}' enum.
@@ -3344,7 +3474,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_BINARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_BINARY_OP = 74;
+	int CALCULATOR_BINARY_OP = 78;
 
 	/**
 	 * The meta object id for the '<em>JNI Object</em>' data type.
@@ -3354,7 +3484,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIObject()
 	 * @generated
 	 */
-	int JNI_OBJECT = 75;
+	int JNI_OBJECT = 79;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Set</em>' data type.
@@ -3364,7 +3494,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLSet()
 	 * @generated
 	 */
-	int JNIISL_SET = 76;
+	int JNIISL_SET = 80;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Map</em>' data type.
@@ -3374,7 +3504,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMap()
 	 * @generated
 	 */
-	int JNIISL_MAP = 77;
+	int JNIISL_MAP = 81;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
@@ -3384,7 +3514,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
-	int JNIISL_MULTI_AFF = 78;
+	int JNIISL_MULTI_AFF = 82;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Union Map</em>' data type.
@@ -3394,7 +3524,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLUnionMap()
 	 * @generated
 	 */
-	int JNIISL_UNION_MAP = 79;
+	int JNIISL_UNION_MAP = 83;
 
 	/**
 	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
@@ -3404,7 +3534,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getISL_FORMAT()
 	 * @generated
 	 */
-	int ISL_FORMAT = 80;
+	int ISL_FORMAT = 84;
 
 
 	/**
@@ -4912,15 +5042,15 @@ public interface ModelPackage extends EPackage {
 	EClass getJNIFunction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.JNIFunction#getAlphaString <em>Alpha String</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.model.JNIFunction#getAlphaFunction <em>Alpha Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Alpha String</em>'.
-	 * @see alpha.model.JNIFunction#getAlphaString()
+	 * @return the meta object for the containment reference '<em>Alpha Function</em>'.
+	 * @see alpha.model.JNIFunction#getAlphaFunction()
 	 * @see #getJNIFunction()
 	 * @generated
 	 */
-	EAttribute getJNIFunction_AlphaString();
+	EReference getJNIFunction_AlphaFunction();
 
 	/**
 	 * Returns the meta object for the attribute '{@link alpha.model.JNIFunction#getZ__internal_cache_islMAff <em>Zinternal cache isl MAff</em>}'.
@@ -5295,6 +5425,112 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDefinedObject_Z__internalCycleDetector();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.AlphaFunction <em>Alpha Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Alpha Function</em>'.
+	 * @see alpha.model.AlphaFunction
+	 * @generated
+	 */
+	EClass getAlphaFunction();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.AlphaFunction#getIndexList <em>Index List</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Index List</em>'.
+	 * @see alpha.model.AlphaFunction#getIndexList()
+	 * @see #getAlphaFunction()
+	 * @generated
+	 */
+	EAttribute getAlphaFunction_IndexList();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link alpha.model.AlphaFunction#getExprs <em>Exprs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Exprs</em>'.
+	 * @see alpha.model.AlphaFunction#getExprs()
+	 * @see #getAlphaFunction()
+	 * @generated
+	 */
+	EReference getAlphaFunction_Exprs();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.AlphaFunctionExpression <em>Alpha Function Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Alpha Function Expression</em>'.
+	 * @see alpha.model.AlphaFunctionExpression
+	 * @generated
+	 */
+	EClass getAlphaFunctionExpression();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.AlphaFunctionBinaryExpression <em>Alpha Function Binary Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Alpha Function Binary Expression</em>'.
+	 * @see alpha.model.AlphaFunctionBinaryExpression
+	 * @generated
+	 */
+	EClass getAlphaFunctionBinaryExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.AlphaFunctionBinaryExpression#getLeft <em>Left</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Left</em>'.
+	 * @see alpha.model.AlphaFunctionBinaryExpression#getLeft()
+	 * @see #getAlphaFunctionBinaryExpression()
+	 * @generated
+	 */
+	EReference getAlphaFunctionBinaryExpression_Left();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.AlphaFunctionBinaryExpression#getRight <em>Right</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Right</em>'.
+	 * @see alpha.model.AlphaFunctionBinaryExpression#getRight()
+	 * @see #getAlphaFunctionBinaryExpression()
+	 * @generated
+	 */
+	EReference getAlphaFunctionBinaryExpression_Right();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.AlphaFunctionBinaryExpression#getOperator <em>Operator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Operator</em>'.
+	 * @see alpha.model.AlphaFunctionBinaryExpression#getOperator()
+	 * @see #getAlphaFunctionBinaryExpression()
+	 * @generated
+	 */
+	EAttribute getAlphaFunctionBinaryExpression_Operator();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.model.AlphaFunctionLiteral <em>Alpha Function Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Alpha Function Literal</em>'.
+	 * @see alpha.model.AlphaFunctionLiteral
+	 * @generated
+	 */
+	EClass getAlphaFunctionLiteral();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.AlphaFunctionLiteral#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see alpha.model.AlphaFunctionLiteral#getValue()
+	 * @see #getAlphaFunctionLiteral()
+	 * @generated
+	 */
+	EAttribute getAlphaFunctionLiteral_Value();
 
 	/**
 	 * Returns the meta object for enum '{@link alpha.model.UNARY_OP <em>UNARY OP</em>}'.
@@ -6697,12 +6933,12 @@ public interface ModelPackage extends EPackage {
 		EClass JNI_FUNCTION = eINSTANCE.getJNIFunction();
 
 		/**
-		 * The meta object literal for the '<em><b>Alpha String</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Alpha Function</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute JNI_FUNCTION__ALPHA_STRING = eINSTANCE.getJNIFunction_AlphaString();
+		EReference JNI_FUNCTION__ALPHA_FUNCTION = eINSTANCE.getJNIFunction_AlphaFunction();
 
 		/**
 		 * The meta object literal for the '<em><b>Zinternal cache isl MAff</b></em>' attribute feature.
@@ -7005,6 +7241,94 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR = eINSTANCE.getDefinedObject_Z__internalCycleDetector();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.AlphaFunctionImpl <em>Alpha Function</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.AlphaFunctionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunction()
+		 * @generated
+		 */
+		EClass ALPHA_FUNCTION = eINSTANCE.getAlphaFunction();
+
+		/**
+		 * The meta object literal for the '<em><b>Index List</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALPHA_FUNCTION__INDEX_LIST = eINSTANCE.getAlphaFunction_IndexList();
+
+		/**
+		 * The meta object literal for the '<em><b>Exprs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ALPHA_FUNCTION__EXPRS = eINSTANCE.getAlphaFunction_Exprs();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.AlphaFunctionExpressionImpl <em>Alpha Function Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.AlphaFunctionExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunctionExpression()
+		 * @generated
+		 */
+		EClass ALPHA_FUNCTION_EXPRESSION = eINSTANCE.getAlphaFunctionExpression();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.AlphaFunctionBinaryExpressionImpl <em>Alpha Function Binary Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.AlphaFunctionBinaryExpressionImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunctionBinaryExpression()
+		 * @generated
+		 */
+		EClass ALPHA_FUNCTION_BINARY_EXPRESSION = eINSTANCE.getAlphaFunctionBinaryExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ALPHA_FUNCTION_BINARY_EXPRESSION__LEFT = eINSTANCE.getAlphaFunctionBinaryExpression_Left();
+
+		/**
+		 * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ALPHA_FUNCTION_BINARY_EXPRESSION__RIGHT = eINSTANCE.getAlphaFunctionBinaryExpression_Right();
+
+		/**
+		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALPHA_FUNCTION_BINARY_EXPRESSION__OPERATOR = eINSTANCE.getAlphaFunctionBinaryExpression_Operator();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.AlphaFunctionLiteralImpl <em>Alpha Function Literal</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.AlphaFunctionLiteralImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunctionLiteral()
+		 * @generated
+		 */
+		EClass ALPHA_FUNCTION_LITERAL = eINSTANCE.getAlphaFunctionLiteral();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALPHA_FUNCTION_LITERAL__VALUE = eINSTANCE.getAlphaFunctionLiteral_Value();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.UNARY_OP <em>UNARY OP</em>}' enum.

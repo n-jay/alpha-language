@@ -2,18 +2,23 @@
  */
 package alpha.model.impl;
 
+import alpha.model.AlphaFunction;
 import alpha.model.CalculatorExpressionVisitor;
 import alpha.model.JNIFunction;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
+
+import alpha.model.util.AlphaPrintingUtil;
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -25,7 +30,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.JNIFunctionImpl#getAlphaString <em>Alpha String</em>}</li>
+ *   <li>{@link alpha.model.impl.JNIFunctionImpl#getAlphaFunction <em>Alpha Function</em>}</li>
  *   <li>{@link alpha.model.impl.JNIFunctionImpl#getZ__internal_cache_islMAff <em>Zinternal cache isl MAff</em>}</li>
  * </ul>
  *
@@ -33,24 +38,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunction {
 	/**
-	 * The default value of the '{@link #getAlphaString() <em>Alpha String</em>}' attribute.
+	 * The cached value of the '{@link #getAlphaFunction() <em>Alpha Function</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAlphaString()
+	 * @see #getAlphaFunction()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String ALPHA_STRING_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getAlphaString() <em>Alpha String</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAlphaString()
-	 * @generated
-	 * @ordered
-	 */
-	protected String alphaString = ALPHA_STRING_EDEFAULT;
+	protected AlphaFunction alphaFunction;
 
 	/**
 	 * The default value of the '{@link #getZ__internal_cache_islMAff() <em>Zinternal cache isl MAff</em>}' attribute.
@@ -96,8 +91,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getAlphaString() {
-		return alphaString;
+	public AlphaFunction getAlphaFunction() {
+		return alphaFunction;
 	}
 
 	/**
@@ -105,11 +100,33 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAlphaString(String newAlphaString) {
-		String oldAlphaString = alphaString;
-		alphaString = newAlphaString;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_FUNCTION__ALPHA_STRING, oldAlphaString, alphaString));
+	public NotificationChain basicSetAlphaFunction(AlphaFunction newAlphaFunction, NotificationChain msgs) {
+		AlphaFunction oldAlphaFunction = alphaFunction;
+		alphaFunction = newAlphaFunction;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION, oldAlphaFunction, newAlphaFunction);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAlphaFunction(AlphaFunction newAlphaFunction) {
+		if (newAlphaFunction != alphaFunction) {
+			NotificationChain msgs = null;
+			if (alphaFunction != null)
+				msgs = ((InternalEObject)alphaFunction).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION, null, msgs);
+			if (newAlphaFunction != null)
+				msgs = ((InternalEObject)newAlphaFunction).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION, null, msgs);
+			msgs = basicSetAlphaFunction(newAlphaFunction, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION, newAlphaFunction, newAlphaFunction));
 	}
 
 	/**
@@ -202,7 +219,30 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * @generated
 	 */
 	public String plainToString() {
-		return this.getAlphaString();
+		String _xblockexpression = null;
+		{
+			JNIISLMultiAff _iSLMultiAff = this.getISLMultiAff();
+			boolean _tripleEquals = (_iSLMultiAff == null);
+			if (_tripleEquals) {
+				return "";
+			}
+			_xblockexpression = AlphaPrintingUtil.toShowString(this.getISLMultiAff());
+		}
+		return _xblockexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION:
+				return basicSetAlphaFunction(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -213,8 +253,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.JNI_FUNCTION__ALPHA_STRING:
-				return getAlphaString();
+			case ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION:
+				return getAlphaFunction();
 			case ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF:
 				return getZ__internal_cache_islMAff();
 		}
@@ -229,8 +269,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.JNI_FUNCTION__ALPHA_STRING:
-				setAlphaString((String)newValue);
+			case ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION:
+				setAlphaFunction((AlphaFunction)newValue);
 				return;
 			case ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF:
 				setZ__internal_cache_islMAff((JNIISLMultiAff)newValue);
@@ -247,8 +287,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.JNI_FUNCTION__ALPHA_STRING:
-				setAlphaString(ALPHA_STRING_EDEFAULT);
+			case ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION:
+				setAlphaFunction((AlphaFunction)null);
 				return;
 			case ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF:
 				setZ__internal_cache_islMAff(ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT);
@@ -265,8 +305,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.JNI_FUNCTION__ALPHA_STRING:
-				return ALPHA_STRING_EDEFAULT == null ? alphaString != null : !ALPHA_STRING_EDEFAULT.equals(alphaString);
+			case ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION:
+				return alphaFunction != null;
 			case ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF:
 				return ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT == null ? z__internal_cache_islMAff != null : !ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT.equals(z__internal_cache_islMAff);
 		}
@@ -283,9 +323,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (alphaString: ");
-		result.append(alphaString);
-		result.append(", z__internal_cache_islMAff: ");
+		result.append(" (z__internal_cache_islMAff: ");
 		result.append(z__internal_cache_islMAff);
 		result.append(')');
 		return result.toString();

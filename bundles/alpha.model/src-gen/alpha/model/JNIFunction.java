@@ -15,7 +15,7 @@ import fr.irisa.cairn.jnimap.runtime.JNIObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.JNIFunction#getAlphaString <em>Alpha String</em>}</li>
+ *   <li>{@link alpha.model.JNIFunction#getAlphaFunction <em>Alpha Function</em>}</li>
  *   <li>{@link alpha.model.JNIFunction#getZ__internal_cache_islMAff <em>Zinternal cache isl MAff</em>}</li>
  * </ul>
  *
@@ -25,30 +25,30 @@ import fr.irisa.cairn.jnimap.runtime.JNIObject;
  */
 public interface JNIFunction extends CalculatorExpression {
 	/**
-	 * Returns the value of the '<em><b>Alpha String</b></em>' attribute.
+	 * Returns the value of the '<em><b>Alpha Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Alpha String</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Alpha Function</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Alpha String</em>' attribute.
-	 * @see #setAlphaString(String)
-	 * @see alpha.model.ModelPackage#getJNIFunction_AlphaString()
-	 * @model unique="false"
+	 * @return the value of the '<em>Alpha Function</em>' containment reference.
+	 * @see #setAlphaFunction(AlphaFunction)
+	 * @see alpha.model.ModelPackage#getJNIFunction_AlphaFunction()
+	 * @model containment="true"
 	 * @generated
 	 */
-	String getAlphaString();
+	AlphaFunction getAlphaFunction();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.JNIFunction#getAlphaString <em>Alpha String</em>}' attribute.
+	 * Sets the value of the '{@link alpha.model.JNIFunction#getAlphaFunction <em>Alpha Function</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Alpha String</em>' attribute.
-	 * @see #getAlphaString()
+	 * @param value the new value of the '<em>Alpha Function</em>' containment reference.
+	 * @see #getAlphaFunction()
 	 * @generated
 	 */
-	void setAlphaString(String value);
+	void setAlphaFunction(AlphaFunction value);
 
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache isl MAff</b></em>' attribute.
