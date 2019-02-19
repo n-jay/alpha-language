@@ -19,13 +19,13 @@ class AlphaPrintingUtil {
 	static def String toShowString(JNIISLMultiAff maff) {
 		if (maff === null) return null;
 		val lhs = maff.domainSpace.getNameList(JNIISLDimType.isl_dim_set).join(",")
-		val rhs = maff.affs.join(",", [a|a.toAlphaString(false)]);
+		val rhs = maff.affs.join(",", [a|a.toAlphaString]);
 		
 		return '''(«lhs»->«rhs»)'''
 	}
 	static def String toAShowString(JNIISLMultiAff maff) {
 		if (maff === null) return null;
-		val rhs = maff.affs.join(",", [a|a.toAlphaString(true)]);
+		val rhs = maff.affs.join(",", [a|a.toAlphaString]);
 		
 		return '''[«rhs»]'''
 	}
@@ -47,8 +47,8 @@ class AlphaPrintingUtil {
 	 *   - among positive/negative values, the order is parameters, indices, divs
 	 * 
 	 */
-	static def String toAlphaString(JNIISLAff aff, boolean arrayNotation) {
-		val commonD = if (arrayNotation) aff.denominator else 1
+	static def String toAlphaString(JNIISLAff aff) {
+		val commonD = aff.denominator
 		
 		val constant = aff.constantVal
 		val cstVal = (constant.numerator * commonD) / constant.denominator

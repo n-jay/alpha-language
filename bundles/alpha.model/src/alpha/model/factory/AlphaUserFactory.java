@@ -64,7 +64,6 @@ public class AlphaUserFactory {
 		JNIFunction fun = fact.createJNIFunction();
 		
 		fun.setISLMultiAff(maff);
-		fun.setAlphaString(maff.toString()); //TODO
 		
 		return fun;
 	}

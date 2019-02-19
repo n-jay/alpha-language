@@ -31,7 +31,7 @@ public class AlphaPrintingUtil {
     }
     final String lhs = IterableExtensions.join(maff.getDomainSpace().getNameList(JNIISLDimType.isl_dim_set), ",");
     final Function1<JNIISLAff, CharSequence> _function = (JNIISLAff a) -> {
-      return AlphaPrintingUtil.toAlphaString(a, false);
+      return AlphaPrintingUtil.toAlphaString(a);
     };
     final String rhs = IterableExtensions.<JNIISLAff>join(maff.getAffs(), ",", _function);
     StringConcatenation _builder = new StringConcatenation();
@@ -48,7 +48,7 @@ public class AlphaPrintingUtil {
       return null;
     }
     final Function1<JNIISLAff, CharSequence> _function = (JNIISLAff a) -> {
-      return AlphaPrintingUtil.toAlphaString(a, true);
+      return AlphaPrintingUtil.toAlphaString(a);
     };
     final String rhs = IterableExtensions.<JNIISLAff>join(maff.getAffs(), ",", _function);
     StringConcatenation _builder = new StringConcatenation();
@@ -77,16 +77,10 @@ public class AlphaPrintingUtil {
    *   - positive values first
    *   - among positive/negative values, the order is parameters, indices, divs
    */
-  public static String toAlphaString(final JNIISLAff aff, final boolean arrayNotation) {
+  public static String toAlphaString(final JNIISLAff aff) {
     String _xblockexpression = null;
     {
-      long _xifexpression = (long) 0;
-      if (arrayNotation) {
-        _xifexpression = aff.getDenominator();
-      } else {
-        _xifexpression = 1;
-      }
-      final long commonD = _xifexpression;
+      final long commonD = aff.getDenominator();
       final JNIISLVal constant = aff.getConstantVal();
       long _numerator = constant.getNumerator();
       long _multiply = (_numerator * commonD);
@@ -99,26 +93,26 @@ public class AlphaPrintingUtil {
       AlphaPrintingUtil.toAlphaStringHelper(aff, JNIISLDimType.isl_dim_div, commonD, posList, negList);
       final String pos = IterableExtensions.join(posList, "+");
       final String neg = IterableExtensions.join(negList, "");
-      Object _xifexpression_1 = null;
+      Object _xifexpression = null;
       if ((cstVal == 0)) {
-        _xifexpression_1 = "";
+        _xifexpression = "";
       } else {
-        Object _xifexpression_2 = null;
+        Object _xifexpression_1 = null;
         if (((cstVal > 0) && ((((Object[])Conversions.unwrapArray(posList, Object.class)).length + ((Object[])Conversions.unwrapArray(negList, Object.class)).length) > 0))) {
-          _xifexpression_2 = ("+" + Long.valueOf(cstVal));
+          _xifexpression_1 = ("+" + Long.valueOf(cstVal));
         } else {
-          _xifexpression_2 = Long.valueOf(cstVal);
+          _xifexpression_1 = Long.valueOf(cstVal);
         }
-        _xifexpression_1 = ((Object)_xifexpression_2);
+        _xifexpression = ((Object)_xifexpression_1);
       }
-      final Object cst = ((Object)_xifexpression_1);
-      String _xifexpression_3 = null;
+      final Object cst = ((Object)_xifexpression);
+      String _xifexpression_2 = null;
       if ((((((Object[])Conversions.unwrapArray(posList, Object.class)).length + ((Object[])Conversions.unwrapArray(negList, Object.class)).length) == 0) && (cstVal == 0))) {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("0");
-        _xifexpression_3 = _builder.toString();
+        _xifexpression_2 = _builder.toString();
       } else {
-        String _xifexpression_4 = null;
+        String _xifexpression_3 = null;
         if ((commonD != 1)) {
           StringConcatenation _builder_1 = new StringConcatenation();
           _builder_1.append("(");
@@ -127,17 +121,17 @@ public class AlphaPrintingUtil {
           _builder_1.append(((Object)cst));
           _builder_1.append(")/");
           _builder_1.append(commonD);
-          _xifexpression_4 = _builder_1.toString();
+          _xifexpression_3 = _builder_1.toString();
         } else {
           StringConcatenation _builder_2 = new StringConcatenation();
           _builder_2.append(pos);
           _builder_2.append(neg);
           _builder_2.append(((Object)cst));
-          _xifexpression_4 = _builder_2.toString();
+          _xifexpression_3 = _builder_2.toString();
         }
-        _xifexpression_3 = _xifexpression_4;
+        _xifexpression_2 = _xifexpression_3;
       }
-      _xblockexpression = _xifexpression_3;
+      _xblockexpression = _xifexpression_2;
     }
     return _xblockexpression;
   }

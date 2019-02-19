@@ -1,6 +1,7 @@
 package alpha.model;
 
 import alpha.model.AffineFuzzyVariableUse;
+import alpha.model.AlphaFunctionExpression;
 import alpha.model.AlphaNode;
 import alpha.model.ArgReduceExpression;
 import alpha.model.BinaryCalculatorExpression;
@@ -47,6 +48,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
@@ -405,11 +407,11 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   protected Boolean _parseJNIFunction(final JNIFunction jniFunction) {
     boolean _xtrycatchfinallyexpression = false;
     try {
-      final String[] alphaStr = jniFunction.getAlphaString().split("->");
-      int _indexOf = alphaStr[0].indexOf("(");
-      int _plus = (_indexOf + 1);
-      final String indexNames = alphaStr[0].substring(_plus);
-      final String expr = alphaStr[1].substring(0, alphaStr[1].lastIndexOf(")"));
+      final String indexNames = jniFunction.getAlphaFunction().getIndexList();
+      final Function1<AlphaFunctionExpression, CharSequence> _function = (AlphaFunctionExpression e) -> {
+        return e.getISLString();
+      };
+      final String expr = IterableExtensions.<AlphaFunctionExpression>join(jniFunction.getAlphaFunction().getExprs(), ",", _function);
       final StringBuffer completed = new StringBuffer("{ [");
       completed.append(indexNames);
       completed.append("] -> [");

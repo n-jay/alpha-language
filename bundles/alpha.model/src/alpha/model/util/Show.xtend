@@ -80,7 +80,7 @@ class Show extends ModelSwitch<CharSequence> {
 	}
 	
 	protected def printUECallParams(JNIFunctionInArrayNotation f) {
-		f.alphaString
+		f.plainToString
 	}
 	
 	protected def printInstantiationDomain(JNIISLSet set) {

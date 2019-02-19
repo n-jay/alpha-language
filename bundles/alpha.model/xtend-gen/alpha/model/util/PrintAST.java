@@ -33,6 +33,8 @@ import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
+import alpha.model.util.AlphaPrintingUtil;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -270,7 +272,11 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   @Override
   public void inDependenceExpression(final DependenceExpression de) {
     this.inAlphaExpression(de);
-    this.printStr("+-- ", de.getFunction());
+    JNIISLMultiAff _function = de.getFunction();
+    String _plus = (_function + "; ");
+    String _showString = AlphaPrintingUtil.toShowString(de.getFunction());
+    String _plus_1 = (_plus + _showString);
+    this.printStr("+-- ", _plus_1);
   }
   
   @Override

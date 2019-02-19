@@ -98,7 +98,7 @@ public class Show extends ModelSwitch<CharSequence> {
   }
   
   protected String printUECallParams(final JNIFunctionInArrayNotation f) {
-    return f.getAlphaString();
+    return f.plainToString();
   }
   
   protected String printInstantiationDomain(final JNIISLSet set) {

@@ -219,7 +219,7 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	
 	override inDependenceExpression(DependenceExpression de) {
 		inAlphaExpression(de)
-		printStr("+-- ", de.function);
+		printStr("+-- ", de.function + "; " + AlphaPrintingUtil.toShowString(de.function));
 	}
 	
 	override inFuzzyDependenceExpression(FuzzyDependenceExpression fde) {

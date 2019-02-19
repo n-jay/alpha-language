@@ -326,10 +326,8 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	 */
 	protected def dispatch parseJNIFunction(JNIFunction jniFunction) {
 		try {
-			val alphaStr = jniFunction.getAlphaString().split("->");
-
-			val indexNames = alphaStr.get(0).substring(alphaStr.get(0).indexOf('(') + 1);
-			val expr = alphaStr.get(1).substring(0, alphaStr.get(1).lastIndexOf(')'));
+			val indexNames = jniFunction.alphaFunction.indexList
+			val expr = jniFunction.alphaFunction.exprs.join(",", [e|e.ISLString])
 
 			val completed = new StringBuffer("{ [");
 			completed.append(indexNames);
