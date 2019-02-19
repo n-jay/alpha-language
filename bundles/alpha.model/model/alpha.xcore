@@ -12,6 +12,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import alpha.model.util.AlphaPrintingUtil
@@ -273,12 +274,12 @@ class AlphaRoot extends AlphaVisitable {
 		//qualified name
 		if (name.contains('.')) {
 			val IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider;
-			val matching = this.eAllContents.filter(AlphaSystem).filter[s|provider.getFullyQualifiedName(s).toString.contentEquals(name)]
-			if (matching.size > 0) return matching.head
+			val system =  EcoreUtil2.getAllContentsOfType(this, AlphaSystem).findFirst[s|provider.getFullyQualifiedName(s).toString.contentEquals(name)]
+			if (system !== null) return system
 		//just the system name
 		} else {
-			val matching = this.eAllContents.filter(AlphaSystem).filter[s|s.name.contentEquals(name)]
-			if (matching.size > 0) return matching.head
+			val system = EcoreUtil2.getAllContentsOfType(this, AlphaSystem).findFirst[s|s.name.contentEquals(name)]
+			if (system !== null) return system
 		}
 		
 		throw new RuntimeException("System " + name + " was not found.");

@@ -13,10 +13,8 @@ import alpha.model.Imports;
 import alpha.model.ModelPackage;
 
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -31,12 +29,14 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.EcoreUtil2;
+
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 
-import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
  * <!-- begin-user-doc -->
@@ -166,11 +166,9 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 					return Boolean.valueOf(provider.getFullyQualifiedName(s).toString().contentEquals(name));
 				}
 			};
-			final Iterator<AlphaSystem> matching = IteratorExtensions.<AlphaSystem>filter(Iterators.<AlphaSystem>filter(this.eAllContents(), AlphaSystem.class), _function);
-			int _size = IteratorExtensions.size(matching);
-			boolean _greaterThan = (_size > 0);
-			if (_greaterThan) {
-				return IteratorExtensions.<AlphaSystem>head(matching);
+			final AlphaSystem system = IterableExtensions.<AlphaSystem>findFirst(EcoreUtil2.<AlphaSystem>getAllContentsOfType(this, AlphaSystem.class), _function);
+			if ((system != null)) {
+				return system;
 			}
 		}
 		else {
@@ -179,11 +177,9 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 					return Boolean.valueOf(s.getName().contentEquals(name));
 				}
 			};
-			final Iterator<AlphaSystem> matching_1 = IteratorExtensions.<AlphaSystem>filter(Iterators.<AlphaSystem>filter(this.eAllContents(), AlphaSystem.class), _function_1);
-			int _size_1 = IteratorExtensions.size(matching_1);
-			boolean _greaterThan_1 = (_size_1 > 0);
-			if (_greaterThan_1) {
-				return IteratorExtensions.<AlphaSystem>head(matching_1);
+			final AlphaSystem system_1 = IterableExtensions.<AlphaSystem>findFirst(EcoreUtil2.<AlphaSystem>getAllContentsOfType(this, AlphaSystem.class), _function_1);
+			if ((system_1 != null)) {
+				return system_1;
 			}
 		}
 		throw new RuntimeException((("System " + name) + " was not found."));
