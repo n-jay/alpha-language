@@ -13,12 +13,14 @@ import alpha.model.UseEquation;
 import alpha.model.VariableExpression;
 import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.Show;
+import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -96,76 +98,60 @@ public class AShow extends Show {
   public CharSequence caseUseEquation(final UseEquation ue) {
     CharSequence _xblockexpression = null;
     {
+      EList<AlphaExpression> _inputExprs = ue.getInputExprs();
+      EList<AlphaExpression> _outputExprs = ue.getOutputExprs();
       final Function1<AlphaExpression, List<String>> _function = (AlphaExpression e) -> {
         return e.getContextDomain().getIndicesNames();
       };
       final Function1<List<String>, Integer> _function_1 = (List<String> n) -> {
         return Integer.valueOf(((Object[])Conversions.unwrapArray(n, Object.class)).length);
       };
-      final List<String> names = IterableExtensions.<List<String>, Integer>maxBy(ListExtensions.<AlphaExpression, List<String>>map(ue.getInputExprs(), _function), _function_1);
+      final List<String> names = IterableExtensions.<List<String>, Integer>maxBy(IterableExtensions.<AlphaExpression, List<String>>map(Iterables.<AlphaExpression>concat(_inputExprs, _outputExprs), _function), _function_1);
       final boolean idomDeclared = ((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbDims() > 0));
       List<String> _xifexpression = null;
       if (idomDeclared) {
         _xifexpression = names.subList(ue.getInstantiationDomain().getNbDims(), ((Object[])Conversions.unwrapArray(names, Object.class)).length);
       } else {
-        _xifexpression = null;
+        _xifexpression = names;
       }
-      final List<String> withClause = _xifexpression;
+      final List<String> withNames = _xifexpression;
       String _xifexpression_1 = null;
-      int _length = 0;
-      if (((Object[])Conversions.unwrapArray(withClause, Object.class))!=null) {
-        _length=((Object[])Conversions.unwrapArray(withClause, Object.class)).length;
-      }
-      boolean _greaterThan = (_length > 0);
-      if (_greaterThan) {
+      if (idomDeclared) {
         StringConcatenation _builder = new StringConcatenation();
-        _builder.append(" ");
-        _builder.append("with [");
-        String _join = IterableExtensions.join(withClause, ",");
-        _builder.append(_join, " ");
-        _builder.append("]");
+        _builder.append("over ");
+        String _printInstantiationDomain = this.printInstantiationDomain(ue.getInstantiationDomain());
+        _builder.append(_printInstantiationDomain);
         _xifexpression_1 = _builder.toString();
       } else {
         StringConcatenation _builder_1 = new StringConcatenation();
         _xifexpression_1 = _builder_1.toString();
       }
-      final String withStr = _xifexpression_1;
-      String _xifexpression_2 = null;
-      if (idomDeclared) {
-        StringConcatenation _builder_2 = new StringConcatenation();
-        _builder_2.append("over ");
-        String _printInstantiationDomain = this.printInstantiationDomain(ue.getInstantiationDomain());
-        _builder_2.append(_printInstantiationDomain);
-        _builder_2.append(withStr);
-        _builder_2.append(" : ");
-        _xifexpression_2 = _builder_2.toString();
-      } else {
-        StringConcatenation _builder_3 = new StringConcatenation();
-        _xifexpression_2 = _builder_3.toString();
-      }
-      final String idom = _xifexpression_2;
+      final String idom = _xifexpression_1;
       this.indexNameContext = names;
       final CharSequence callParam = this.printSubsystemCallParams(ue.getCallParamsExpr(), ue.getInstantiationDomain());
-      StringConcatenation _builder_4 = new StringConcatenation();
-      _builder_4.append(idom);
-      _builder_4.append("(");
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.append(idom);
+      _builder_2.append(" with [");
+      String _join = IterableExtensions.join(withNames, ",");
+      _builder_2.append(_join);
+      _builder_2.append("] : (");
       final Function1<AlphaExpression, CharSequence> _function_2 = (AlphaExpression it) -> {
         return this.doSwitch(it);
       };
       String _join_1 = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getOutputExprs(), _function_2), ", ");
-      _builder_4.append(_join_1);
-      _builder_4.append(") = ");
+      _builder_2.append(_join_1);
+      _builder_2.append(") = ");
       String _name = ue.getSystem().getName();
-      _builder_4.append(_name);
-      _builder_4.append(callParam);
-      _builder_4.append("(");
+      _builder_2.append(_name);
+      _builder_2.append(callParam);
+      _builder_2.append("(");
       final Function1<AlphaExpression, CharSequence> _function_3 = (AlphaExpression it) -> {
         return this.doSwitch(it);
       };
       String _join_2 = IterableExtensions.join(ListExtensions.<AlphaExpression, CharSequence>map(ue.getInputExprs(), _function_3), ", ");
-      _builder_4.append(_join_2);
-      _builder_4.append(");");
-      _xblockexpression = _builder_4;
+      _builder_2.append(_join_2);
+      _builder_2.append(");");
+      _xblockexpression = _builder_2;
     }
     return _xblockexpression;
   }

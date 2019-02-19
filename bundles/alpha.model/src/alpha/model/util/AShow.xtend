@@ -16,6 +16,7 @@ import java.util.List
 import java.util.Stack
 import alpha.model.UseEquation
 import alpha.model.SelectExpression
+import org.eclipse.xtext.EcoreUtil2
 
 /**
  * AShow prints the given program in ArrayNotation.
@@ -63,19 +64,22 @@ class AShow extends Show {
 	
 	
 	override caseUseEquation(UseEquation ue) {
-		val names = ue.inputExprs.map[e|e.contextDomain.indicesNames].maxBy[n|n.length]
+		val names = (ue.inputExprs + ue.outputExprs).map[e|e.contextDomain.indicesNames].maxBy[n|n.length]
 		val idomDeclared = (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbDims > 0)
+
+
+		val withNames = if (idomDeclared) 
+							names.subList(ue.instantiationDomain.nbDims, names.length)
+						else
+							names
 		
-		val withClause = if (idomDeclared) names.subList(ue.instantiationDomain.nbDims, names.length) else null
-		val withStr = if (withClause?.length > 0) ''' with [«withClause.join(",")»]'''else ''''''
-		
-		val idom = if (idomDeclared) '''over «ue.instantiationDomain.printInstantiationDomain»«withStr» : ''' else ''''''
+		val idom = if (idomDeclared) '''over «ue.instantiationDomain.printInstantiationDomain»''' else ''''''
 		
 		indexNameContext = names
 		
 		val callParam = ue.callParamsExpr.printSubsystemCallParams(ue.instantiationDomain)
 		
-		'''«idom»(«ue.outputExprs.map[doSwitch].join(", ")») = «ue.system.name»«callParam»(«ue.inputExprs.map[doSwitch].join(", ")»);'''
+		'''«idom» with [«withNames.join(",")»] : («ue.outputExprs.map[doSwitch].join(", ")») = «ue.system.name»«callParam»(«ue.inputExprs.map[doSwitch].join(", ")»);'''
 	}
 	
 	/* AlphaExpression */
