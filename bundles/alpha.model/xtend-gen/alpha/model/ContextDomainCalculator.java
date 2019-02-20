@@ -8,6 +8,7 @@ import alpha.model.AlphaVisitable;
 import alpha.model.ArgReduceExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.CaseExpression;
+import alpha.model.ConvolutionExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.ReduceExpression;
 import alpha.model.SelectExpression;
@@ -198,6 +199,13 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     return this.<JNIISLSet>runISLoperations(expr, _function);
   }
   
+  private JNIISLSet _processContext(final ConvolutionExpression expr, final JNIISLSet context) {
+    final Supplier<JNIISLSet> _function = () -> {
+      return context.flatProduct(expr.getKernelDomain());
+    };
+    return this.<JNIISLSet>runISLoperations(expr, _function);
+  }
+  
   private JNIISLSet _processContext(final AlphaNode expr, final JNIISLSet context) {
     return context;
   }
@@ -233,6 +241,8 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
       return _processContext((ArgReduceExpression)expr, context);
     } else if (expr instanceof ReduceExpression) {
       return _processContext((ReduceExpression)expr, context);
+    } else if (expr instanceof ConvolutionExpression) {
+      return _processContext((ConvolutionExpression)expr, context);
     } else if (expr instanceof DependenceExpression) {
       return _processContext((DependenceExpression)expr, context);
     } else if (expr instanceof SelectExpression) {

@@ -11,6 +11,7 @@ import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 /**
@@ -165,6 +166,24 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 			JNIISLSet proj = re.getBody().getExpressionDomain().apply(re.getProjection().toMap());
 			re.setExpressionDomain(proj);
 		});
+	}
+	
+	@Override
+	public void outConvolutionExpression(ConvolutionExpression ce) {
+		if (ce.getKernelDomain().getNbBasicSets() != 1)
+			throw new RuntimeException("Only a single basic set is allowed for convolution kernels.");
+
+		runISLoperations(ce, ()->{
+			JNIISLSet kernelExprDom = AlphaExpressionUtil.preimageByConvolutionDependences(
+					ce.getKernelDomain().getBasicSetAt(0), 
+					ce.getKernelExpression().getExpressionDomain());
+			JNIISLSet dataExprDom = AlphaExpressionUtil.preimageByConvolutionDependences(
+					ce.getKernelDomain().getBasicSetAt(0), 
+					ce.getDataExpression().getExpressionDomain());
+			ce.setExpressionDomain(kernelExprDom.intersect(dataExprDom));
+		});
+
+
 	}
 	
 	@Override

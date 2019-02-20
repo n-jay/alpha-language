@@ -138,6 +138,10 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 	private dispatch def processContext(ArgReduceExpression expr, JNIISLSet context) {
 		return runISLoperations(expr, [context.preimage(expr.projection)]);
 	}
+	
+	private dispatch def processContext(ConvolutionExpression expr, JNIISLSet context) {
+		return runISLoperations(expr, [context.flatProduct(expr.kernelDomain)]);
+	}
 
 	// default is not do anything
 	private dispatch def processContext(AlphaNode expr, JNIISLSet context) {
