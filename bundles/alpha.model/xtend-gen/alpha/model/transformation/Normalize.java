@@ -9,6 +9,7 @@ import alpha.model.AlphaVisitable;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.BinaryExpression;
 import alpha.model.CaseExpression;
+import alpha.model.ConvolutionExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.IfExpression;
 import alpha.model.IndexExpression;
@@ -19,6 +20,7 @@ import alpha.model.UnaryExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
+import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.Show;
 import com.google.common.base.Objects;
@@ -303,6 +305,19 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     ie.setElseExpr(newE);
     this.debug(ie);
     this.reapply(ie);
+    return null;
+  }
+  
+  protected String _dependenceExpressionRules(final DependenceExpression de, final ConvolutionExpression ce) {
+    this.debug("push-dep ConvExpr", "f @ conv (kernel, weight, data) -> conv(kernel, f\' @ weight, f\' @ data)");
+    EcoreUtil.replace(de, ce);
+    final JNIISLMultiAff newMaff = AlphaExpressionUtil.extendMultiAffWithIdentityDimensions(de.getFunction(), ce.getKernelDomain().getNbDims());
+    final DependenceExpression newKernelExpr = AlphaUserFactory.createDependenceExpression(newMaff.copy(), ce.getKernelExpression());
+    final DependenceExpression newDataExpr = AlphaUserFactory.createDependenceExpression(newMaff, ce.getDataExpression());
+    ce.setKernelExpression(newKernelExpr);
+    ce.setDataExpression(newDataExpr);
+    this.debug(ce);
+    this.reapply(ce);
     return null;
   }
   
@@ -769,6 +784,8 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       return _dependenceExpressionRules(de, (BinaryExpression)binExpr);
     } else if (binExpr instanceof CaseExpression) {
       return _dependenceExpressionRules(de, (CaseExpression)binExpr);
+    } else if (binExpr instanceof ConvolutionExpression) {
+      return _dependenceExpressionRules(de, (ConvolutionExpression)binExpr);
     } else if (binExpr instanceof DependenceExpression) {
       return _dependenceExpressionRules(de, (DependenceExpression)binExpr);
     } else if (binExpr instanceof IfExpression) {

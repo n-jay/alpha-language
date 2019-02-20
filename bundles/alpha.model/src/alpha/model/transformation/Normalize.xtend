@@ -33,6 +33,13 @@ import static alpha.model.factory.AlphaUserFactory.createRestrictExpression
 import static alpha.model.factory.AlphaUserFactory.createUnaryExpression
 import alpha.model.AutoRestrictExpression
 import alpha.model.util.PrintAST
+import alpha.model.ConvolutionExpression
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList
+import alpha.model.util.AlphaExpressionUtil
 
 /**
  * Normalization of Alpha programs.
@@ -294,6 +301,57 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		reapply(ie);
 	}
 
+	// f @ conv (kernel, weight, data) -> conv(kernel, f' @ weight, f' @ data)
+	//   f' = f extended with kernel domain dims
+	protected def dispatch dependenceExpressionRules(DependenceExpression de, ConvolutionExpression ce) {
+		
+		debug("push-dep ConvExpr", "f @ conv (kernel, weight, data) -> conv(kernel, f' @ weight, f' @ data)");
+		EcoreUtil.replace(de, ce);
+		
+//		val forig = de.function
+//		val fOutputDims = forig.getNbDims(JNIISLDimType.isl_dim_out)
+//		val kernelDims = ce.kernelDomain.nbDims
+//		var fprime = forig.copy
+//		var exSpace = fprime.space.copy
+//		exSpace = exSpace.addDims(JNIISLDimType.isl_dim_in, kernelDims)
+//		exSpace = exSpace.addDims(JNIISLDimType.isl_dim_out, kernelDims)
+//		var exMaff = JNIISLMultiAff.buildZero(exSpace.copy);
+//		
+//		var affList = JNIISLAffList.build(forig.context, fOutputDims + kernelDims)
+//		
+//		for (i : 0..<fOutputDims) {
+//			var affNew = exMaff.getAff(i)
+//			var affOrig = forig.getAff(i)
+//			
+//			affNew = affNew.constant = affOrig.constantVal
+//			for (d : 0..<forig.getNbDims(JNIISLDimType.isl_dim_param)) {
+//				affNew = affNew.setCoefficient(JNIISLDimType.isl_dim_param, d, affOrig.getCoefficientVal(JNIISLDimType.isl_dim_param, d))
+//			}
+//			for (d : 0..<forig.getNbDims(JNIISLDimType.isl_dim_in)) {
+//				affNew =affNew.setCoefficient(JNIISLDimType.isl_dim_in, d, affOrig.getCoefficientVal(JNIISLDimType.isl_dim_in, d))
+//			}
+//			affList = affList.add(affNew)
+//		}
+//		for (i : 0..<kernelDims) {
+//			var affNew = exMaff.getAff(i+fOutputDims)
+//			affNew = affNew.setCoefficient(JNIISLDimType.isl_dim_in, i+fOutputDims, 1);
+//			affList = affList.add(affNew)
+//		}
+//		var newMaff = JNIISLMultiAff.buildFromAffList(exSpace, affList);
+		val newMaff = AlphaExpressionUtil.extendMultiAffWithIdentityDimensions(de.function, ce.kernelDomain.nbDims)
+
+		val newKernelExpr = createDependenceExpression(newMaff.copy, ce.kernelExpression)
+		val newDataExpr = createDependenceExpression(newMaff, ce.dataExpression)
+		
+		ce.kernelExpression = newKernelExpr
+		ce.dataExpression = newDataExpr
+		
+		debug(ce);
+		
+		// the updated expression must be revisited 
+		reapply(ce);
+	}
+	
 	protected def dispatch dependenceExpressionRules(DependenceExpression de, AlphaExpression expr) {
 		// Nothing when there is no matching rule
 	}
