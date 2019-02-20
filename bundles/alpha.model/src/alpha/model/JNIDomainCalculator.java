@@ -141,6 +141,8 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	 * @param system
 	 */
 	private void completeSystemBody(AlphaSystem system) {
+		if (system.getParameterDomain() == null) return;
+		
 		List<SystemBody> definedBodies = new LinkedList<>();
 		List<SystemBody> undefinedBodies = new LinkedList<>();
 		
@@ -383,11 +385,9 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			return;
 		}
 
+		indexNameContext = copy;
 		JNIISLSet set = ce.getKernelDomain();
-		if (indexNameContext == null) {
-			indexNameContext = null;
-		} else {
-			indexNameContext = copy;
+		if (indexNameContext != null && set != null) {
 			indexNameContext.addAll(set.getIndicesNames());
 		}
 	}

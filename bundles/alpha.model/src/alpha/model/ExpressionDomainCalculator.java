@@ -170,7 +170,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	@Override
 	public void outConvolutionExpression(ConvolutionExpression ce) {
-		if (ce.getKernelDomain().getNbBasicSets() != 1)
+		if (ce.getKernelDomain() != null && ce.getKernelDomain().getNbBasicSets() != 1)
 			throw new RuntimeException("Only a single basic set is allowed for convolution kernels.");
 
 		runISLoperations(ce, ()->{
@@ -203,7 +203,8 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	@Override
 	public void outVariableExpression(VariableExpression ve) {
-		ve.setExpressionDomain(ve.getVariable().getDomain());
+		if (ve.getVariable().getDomain() != null)
+			ve.setExpressionDomain(ve.getVariable().getDomain());
 	}
 
 	@Override
