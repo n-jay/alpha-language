@@ -2,12 +2,12 @@
 // http://cs231n.github.io/convolutional-networks/
 package tests.basic.CNN {
 
-	affine CNN [W,H,D,X,F]->{:}
+	affine CNN [W,H,D,X,F]->{:W>X and H>X and D>0 and F>0 and X>0}
 		inputs
 			image : [W,H,D]
 			weights : [X,X,D,F]
 		locals
-			feature:[W,H,F]
+			feature:[W-X,H-X,F]
 		let
 			(feature) = CONVLayer[W,H,D,F,X](image, weights);
 	.
@@ -18,15 +18,15 @@ package tests.basic.CNN {
 	// D : depth of the image (color)
 	// F : number of filters in this layer
 	// X : size of the convolution kernel
-	affine CONVLayer [W,H,D,F,X]->{:}
+	affine CONVLayer [W,H,D,F,X]->{:W>X and H>X and D>0 and F>0 and X>0}
 		inputs
 			image : [W,H,D]
 			weights : [X,X,D,F]
 		outputs
-			out : [W,H,F]
+			out : [W-X,H-X,F]
 		let
 			//out[i,j,k] = conv({[x,y,z]: -X<=x<=X and -Y<=y<=Y and 0<=z<D}, weights[x,y,z,k], image[i+x,j+y,k+z]);
-			out[i,j,k] = conv( [X,X,D] as [x,y,z], weights[x,y,z,k], image[i+x,j+y,k+z]);
+			out[i,j,k] = conv( [X,X,D] as [x,y,z], weights[x,y,z,k], image[i+x,j+y,z]);
 	.
 
 
