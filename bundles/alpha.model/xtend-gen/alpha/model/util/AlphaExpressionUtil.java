@@ -13,10 +13,16 @@ import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLVertex;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLVertices;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -25,6 +31,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 
 /**
  * Utility methods that concern AlphaExpressions.
@@ -153,6 +160,89 @@ public class AlphaExpressionUtil {
     final JNIISLMap paramCallRel = callParams.toMap().intersectDomain(instantiationDomain);
     final JNIISLMap ctxMap = paramCallRel.applyRange(p2sEx);
     return ctxMap.toSet();
+  }
+  
+  /**
+   * Computes the domain where a convolution operation is completely defined. That is, for each point
+   * in the kernel domain, there must be a valid definition of the expression (= in expression domain).
+   * 
+   * It is essentially taking a preimage by the set of dependences specified through the kernel domain.
+   * However, I did not see a straight-forward way to take preimages of relations in ISL. This method
+   * computes preimage using vertices by assuming that the kernel domain is a single polyhedron (basic set).
+   * 
+   * Each vertex is plugged in to the expression domain to replace the indices corresponding to the dimensions
+   * extended with the kernel domain. Then the kernel domain dimensions are projected out to find the domain
+   * that is defined for the vertex.
+   * 
+   * If you don't use the vertices, the kernel dimensions are only constraint to some range, not to a single point.
+   * Taking the domain of such relation does not give the preimage, since a point in the domain is considered to
+   * be part of the set if it the relation holds for at least one value in the range.
+   */
+  public static JNIISLSet preimageByConvolutionDependences(final JNIISLBasicSet kernelDomain, final JNIISLSet bodyExprDom) {
+    final JNIISLVertices vertices = kernelDomain.computeVertices();
+    int _nbCell = vertices.getNbCell();
+    boolean _notEquals = (_nbCell != 1);
+    if (_notEquals) {
+      throw new RuntimeException("Expecting only one cell for vertices of kernel domain in convolutions.");
+    }
+    final int kernelDims = kernelDomain.getNbDims(JNIISLDimType.isl_dim_set);
+    int _nbDims = bodyExprDom.getNbDims();
+    final int offset = (_nbDims - kernelDims);
+    JNIISLSet res = null;
+    int _nbVertices = vertices.getNbVertices();
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _nbVertices, true);
+    for (final Integer v : _doubleDotLessThan) {
+      {
+        final JNIISLVertex vertex = vertices.getVertexAt((v).intValue());
+        final JNIISLMultiAff vMaff = vertex.getExpr();
+        final JNIISLBasicSet constraints = AlphaExpressionUtil.multiAffToConstraints(vMaff, bodyExprDom.getSpace(), offset);
+        final JNIISLSet dom = bodyExprDom.copy().intersect(constraints.toSet());
+        final JNIISLSet domProj = dom.projectOut(JNIISLDimType.isl_dim_set, offset, kernelDims);
+        if ((res == null)) {
+          res = domProj;
+        } else {
+          res = res.intersect(domProj);
+        }
+      }
+    }
+    return res;
+  }
+  
+  /**
+   * Helper for preimageByConvolutionDependences. Converts MultiAff to a set of constraints (basic set).
+   */
+  private static JNIISLBasicSet multiAffToConstraints(final JNIISLMultiAff maff, final JNIISLSpace space, final int offset) {
+    final int nbAff = maff.getNbAff();
+    int _nbDims = space.getNbDims(JNIISLDimType.isl_dim_set);
+    boolean _lessThan = (_nbDims < (offset + nbAff));
+    if (_lessThan) {
+      throw new RuntimeException(((("Incompatible space given for MultiAff to Constraint conversion: " + maff) + " @ ") + space));
+    }
+    JNIISLBasicSet constraints = JNIISLBasicSet.buildUniverse(space.copy());
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, nbAff, true);
+    for (final Integer a : _doubleDotLessThan) {
+      {
+        final JNIISLConstraint c = AlphaExpressionUtil.affToConstraint(maff.getAff((a).intValue()), space, (offset + (a).intValue()));
+        constraints = constraints.addConstraint(c);
+      }
+    }
+    return constraints;
+  }
+  
+  /**
+   * Helper for preimageByConvolutionDependences. Converts Aff to an equality constraint equating to a
+   * specified dimension.
+   */
+  private static JNIISLConstraint affToConstraint(final JNIISLAff aff, final JNIISLSpace space, final int dim) {
+    JNIISLConstraint c = JNIISLConstraint.buildEquality(space.copy());
+    c = c.setCoefficient(JNIISLDimType.isl_dim_set, dim, (-1));
+    int _nbDims = aff.getNbDims(JNIISLDimType.isl_dim_param);
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _nbDims, true);
+    for (final Integer d : _doubleDotLessThan) {
+      c = c.setCoefficient(JNIISLDimType.isl_dim_param, (d).intValue(), aff.getCoefficientVal(JNIISLDimType.isl_dim_param, (d).intValue()));
+    }
+    c = c.setConstant(aff.getConstantVal());
+    return c;
   }
   
   public static JNIISLSet parentContext(final AlphaExpression child, final AlphaCompleteVisitable parent, final Consumer<AlphaIssue> f) {

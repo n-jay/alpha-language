@@ -9,10 +9,14 @@ import alpha.model.UseEquation
 import alpha.model.issue.AlphaIssue
 import alpha.model.issue.AlphaIssueFactory
 import alpha.model.issue.UnexpectedISLErrorIssue
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
 import java.util.function.Consumer
 import java.util.stream.Stream
 
@@ -122,5 +126,78 @@ class AlphaExpressionUtil {
 		val ctxMap = paramCallRel.applyRange(p2sEx)
 		
 		return ctxMap.toSet
+	}
+	
+	/**
+	 * Computes the domain where a convolution operation is completely defined. That is, for each point
+	 * in the kernel domain, there must be a valid definition of the expression (= in expression domain).
+	 * 
+	 * It is essentially taking a preimage by the set of dependences specified through the kernel domain.
+	 * However, I did not see a straight-forward way to take preimages of relations in ISL. This method
+	 * computes preimage using vertices by assuming that the kernel domain is a single polyhedron (basic set).
+	 * 
+	 * Each vertex is plugged in to the expression domain to replace the indices corresponding to the dimensions
+	 * extended with the kernel domain. Then the kernel domain dimensions are projected out to find the domain
+	 * that is defined for the vertex.
+	 * 
+	 * If you don't use the vertices, the kernel dimensions are only constraint to some range, not to a single point.
+	 * Taking the domain of such relation does not give the preimage, since a point in the domain is considered to 
+	 * be part of the set if it the relation holds for at least one value in the range. 
+	 * 
+	 */
+	static def JNIISLSet preimageByConvolutionDependences(JNIISLBasicSet kernelDomain, JNIISLSet bodyExprDom ) {
+		val vertices = kernelDomain.computeVertices
+		if (vertices.nbCell != 1) throw new RuntimeException("Expecting only one cell for vertices of kernel domain in convolutions."); 
+	
+		val kernelDims = kernelDomain.getNbDims(JNIISLDimType.isl_dim_set);
+		val offset = bodyExprDom.nbDims - kernelDims;
+	
+		var JNIISLSet res = null
+		for (v : 0..<vertices.nbVertices) {
+			val vertex = vertices.getVertexAt(v);
+			val vMaff = vertex.expr
+			val constraints = multiAffToConstraints(vMaff, bodyExprDom.space, offset)
+			val dom = bodyExprDom.copy.intersect(constraints.toSet)
+			val domProj = dom.projectOut(JNIISLDimType.isl_dim_set, offset, kernelDims);
+			
+			if (res === null) res = domProj
+			else res = res.intersect(domProj);
+		}
+		
+		return res
+	}
+	
+	/**
+	 * Helper for preimageByConvolutionDependences. Converts MultiAff to a set of constraints (basic set).
+	 * 
+	 */
+	private static def JNIISLBasicSet multiAffToConstraints(JNIISLMultiAff maff, JNIISLSpace space, int offset) {
+		val nbAff = maff.nbAff
+		if (space.getNbDims(JNIISLDimType.isl_dim_set) < offset + nbAff)
+			throw new RuntimeException("Incompatible space given for MultiAff to Constraint conversion: " + maff + " @ " + space );
+			
+		var constraints = JNIISLBasicSet.buildUniverse(space.copy());
+		for (a : 0..<nbAff) {
+			val c = affToConstraint(maff.getAff(a), space, offset+a);
+			constraints = constraints.addConstraint(c);
+		}
+		
+		return constraints
+	}
+	
+	/**
+	 * Helper for preimageByConvolutionDependences. Converts Aff to an equality constraint equating to a 
+	 * specified dimension. 
+	 */
+	private static def JNIISLConstraint affToConstraint(JNIISLAff aff, JNIISLSpace space, int dim) {
+		var c = JNIISLConstraint.buildEquality(space.copy);
+		c = c.setCoefficient(JNIISLDimType.isl_dim_set, dim, -1)
+		
+		for (d : 0..<aff.getNbDims(JNIISLDimType.isl_dim_param)) {
+			c = c.setCoefficient(JNIISLDimType.isl_dim_param, d, aff.getCoefficientVal(JNIISLDimType.isl_dim_param, d));
+		}
+		c = c.setConstant(aff.getConstantVal());
+
+		return c
 	}
 }
