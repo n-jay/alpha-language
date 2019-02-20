@@ -14,6 +14,7 @@ import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
@@ -243,6 +244,58 @@ public class AlphaExpressionUtil {
     }
     c = c.setConstant(aff.getConstantVal());
     return c;
+  }
+  
+  /**
+   * Extends a dependence by adding additional input dimensions, that are
+   * mapped to the output space as identity.
+   * 
+   * Used for mapping external DependenceExpression into ConvolutionExpression
+   */
+  public static JNIISLMultiAff extendMultiAffWithIdentityDimensions(final JNIISLMultiAff orig, final int exDims) {
+    final int origInputDims = orig.getNbDims(JNIISLDimType.isl_dim_in);
+    final int origOutputDims = orig.getNbDims(JNIISLDimType.isl_dim_out);
+    JNIISLSpace exSpace = orig.getSpace().copy();
+    exSpace = exSpace.addDims(JNIISLDimType.isl_dim_in, exDims);
+    exSpace = exSpace.addDims(JNIISLDimType.isl_dim_out, exDims);
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(origInputDims, (origInputDims + exDims), true);
+    for (final Integer i : _doubleDotLessThan) {
+      exSpace = exSpace.setName(JNIISLDimType.isl_dim_in, (i).intValue(), ("i" + i));
+    }
+    ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(origOutputDims, (origOutputDims + exDims), true);
+    for (final Integer i_1 : _doubleDotLessThan_1) {
+      exSpace = exSpace.setName(JNIISLDimType.isl_dim_out, (i_1).intValue(), ("o" + i_1));
+    }
+    JNIISLMultiAff exMaff = JNIISLMultiAff.buildZero(exSpace.copy());
+    JNIISLAffList affList = JNIISLAffList.build(orig.getContext(), (origOutputDims + exDims));
+    ExclusiveRange _doubleDotLessThan_2 = new ExclusiveRange(0, origOutputDims, true);
+    for (final Integer i_2 : _doubleDotLessThan_2) {
+      {
+        JNIISLAff affNew = exMaff.getAff((i_2).intValue());
+        JNIISLAff affOrig = orig.getAff((i_2).intValue());
+        affNew = affNew.setConstant(affOrig.getConstantVal());
+        int _nbDims = orig.getNbDims(JNIISLDimType.isl_dim_param);
+        ExclusiveRange _doubleDotLessThan_3 = new ExclusiveRange(0, _nbDims, true);
+        for (final Integer d : _doubleDotLessThan_3) {
+          affNew = affNew.setCoefficient(JNIISLDimType.isl_dim_param, (d).intValue(), affOrig.getCoefficientVal(JNIISLDimType.isl_dim_param, (d).intValue()));
+        }
+        int _nbDims_1 = orig.getNbDims(JNIISLDimType.isl_dim_in);
+        ExclusiveRange _doubleDotLessThan_4 = new ExclusiveRange(0, _nbDims_1, true);
+        for (final Integer d_1 : _doubleDotLessThan_4) {
+          affNew = affNew.setCoefficient(JNIISLDimType.isl_dim_in, (d_1).intValue(), affOrig.getCoefficientVal(JNIISLDimType.isl_dim_in, (d_1).intValue()));
+        }
+        affList = affList.add(affNew);
+      }
+    }
+    ExclusiveRange _doubleDotLessThan_3 = new ExclusiveRange(0, exDims, true);
+    for (final Integer i_3 : _doubleDotLessThan_3) {
+      {
+        JNIISLAff affNew = exMaff.getAff(((i_3).intValue() + origOutputDims));
+        affNew = affNew.setCoefficient(JNIISLDimType.isl_dim_in, ((i_3).intValue() + origOutputDims), 1);
+        affList = affList.add(affNew);
+      }
+    }
+    return JNIISLMultiAff.buildFromAffList(exSpace, affList);
   }
   
   public static JNIISLSet parentContext(final AlphaExpression child, final AlphaCompleteVisitable parent, final Consumer<AlphaIssue> f) {

@@ -19,6 +19,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
 import java.util.function.Consumer
 import java.util.stream.Stream
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList
 
 /**
  * Utility methods that concern AlphaExpressions.
@@ -199,5 +200,51 @@ class AlphaExpressionUtil {
 		c = c.setConstant(aff.getConstantVal());
 
 		return c
+	}
+	
+	/**
+	 * Extends a dependence by adding additional input dimensions, that are 
+	 * mapped to the output space as identity.
+	 * 
+	 * Used for mapping external DependenceExpression into ConvolutionExpression
+	 * 
+	 */
+	static def extendMultiAffWithIdentityDimensions(JNIISLMultiAff orig, int exDims) {
+		val origInputDims = orig.getNbDims(JNIISLDimType.isl_dim_in);
+		val origOutputDims = orig.getNbDims(JNIISLDimType.isl_dim_out)
+		var exSpace = orig.space.copy
+		exSpace = exSpace.addDims(JNIISLDimType.isl_dim_in, exDims)
+		exSpace = exSpace.addDims(JNIISLDimType.isl_dim_out, exDims)
+		
+		for (i : origInputDims..<origInputDims+exDims) {
+			exSpace = exSpace.setName(JNIISLDimType.isl_dim_in, i, "i"+i)
+		}
+		for (i : origOutputDims..<origOutputDims+exDims) {
+			exSpace = exSpace.setName(JNIISLDimType.isl_dim_out, i, "o"+i)
+		}
+		
+		var exMaff = JNIISLMultiAff.buildZero(exSpace.copy);
+		var affList = JNIISLAffList.build(orig.context, origOutputDims + exDims)
+		
+		for (i : 0..<origOutputDims) {
+			var affNew = exMaff.getAff(i)
+			var affOrig = orig.getAff(i)
+			
+			affNew = affNew.constant = affOrig.constantVal
+			for (d : 0..<orig.getNbDims(JNIISLDimType.isl_dim_param)) {
+				affNew = affNew.setCoefficient(JNIISLDimType.isl_dim_param, d, affOrig.getCoefficientVal(JNIISLDimType.isl_dim_param, d))
+			}
+			for (d : 0..<orig.getNbDims(JNIISLDimType.isl_dim_in)) {
+				affNew =affNew.setCoefficient(JNIISLDimType.isl_dim_in, d, affOrig.getCoefficientVal(JNIISLDimType.isl_dim_in, d))
+			}
+			affList = affList.add(affNew)
+		}
+		for (i : 0..<exDims) {
+			var affNew = exMaff.getAff(i+origOutputDims)
+			affNew = affNew.setCoefficient(JNIISLDimType.isl_dim_in, i+origOutputDims, 1);
+			affList = affList.add(affNew)
+		}
+		
+		return JNIISLMultiAff.buildFromAffList(exSpace, affList);
 	}
 }
