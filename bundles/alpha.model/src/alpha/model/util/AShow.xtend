@@ -17,6 +17,7 @@ import java.util.Stack
 import alpha.model.UseEquation
 import alpha.model.SelectExpression
 import org.eclipse.xtext.EcoreUtil2
+import com.google.common.collect.Streams
 
 /**
  * AShow prints the given program in ArrayNotation.
@@ -46,6 +47,10 @@ class AShow extends Show {
 	
 	override printFunction(JNIISLMultiAff f) {
 		AlphaPrintingUtil.toAShowString(f, indexNameContext)
+	}
+	
+	protected def printDomainInShowSytanxWithIndexNameContext(JNIISLSet set) {
+		AlphaPrintingUtil.toShowString(set, parameterContext, indexNameContext)
 	}
 	
 	
@@ -112,13 +117,26 @@ class AShow extends Show {
 	}
 	
 	override caseConvolutionExpression(ConvolutionExpression ce) {
-		val kerDom = super.printDomain(ce.kernelDomain);
-		
+
+		val kernelDomainNames = ce.kernelDomain.indicesNames
+
+		//when domain names conflict, give default names
+		val conflict = Streams.zip(indexNameContext.stream, kernelDomainNames.stream, [e1,e2|e1.contentEquals(e2)]).reduce([b1,b2|b1||b2])
+		var List<String> printCtx
+		if (conflict.present && conflict.get) {
+			printCtx = 	(ce.contextDomain.nbDims..<ce.contextDomain.nbDims+ce.kernelDomain.nbDims).map[i|"i"+i].toList
+		} else {
+			printCtx = kernelDomainNames
+		}
+
 		contextHistory.push(indexNameContext)
+		val newCtx = new LinkedList<String>(indexNameContext);
+		newCtx.addAll(printCtx);
 		
-		val copy = new LinkedList<String>(indexNameContext);
-		copy.addAll(ce.kernelDomain.indicesNames);
-		indexNameContext = copy;
+		indexNameContext = printCtx
+		val kerDom = printDomainInShowSytanxWithIndexNameContext(ce.kernelDomain);
+		
+		indexNameContext = newCtx;
 		
 		val res = '''conv(«kerDom», «ce.kernelExpression.doSwitch», «ce.dataExpression.doSwitch»)'''
 		

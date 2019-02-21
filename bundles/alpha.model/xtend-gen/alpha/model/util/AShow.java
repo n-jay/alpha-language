@@ -14,15 +14,20 @@ import alpha.model.VariableExpression;
 import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.Show;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Streams;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
@@ -60,6 +65,10 @@ public class AShow extends Show {
   @Override
   public String printFunction(final JNIISLMultiAff f) {
     return AlphaPrintingUtil.toAShowString(f, this.indexNameContext);
+  }
+  
+  protected String printDomainInShowSytanxWithIndexNameContext(final JNIISLSet set) {
+    return AlphaPrintingUtil.toShowString(set, this.parameterContext, this.indexNameContext);
   }
   
   /**
@@ -202,11 +211,33 @@ public class AShow extends Show {
   
   @Override
   public CharSequence caseConvolutionExpression(final ConvolutionExpression ce) {
-    final String kerDom = super.printDomain(ce.getKernelDomain());
+    final List<String> kernelDomainNames = ce.getKernelDomain().getIndicesNames();
+    final BiFunction<String, String, Boolean> _function = (String e1, String e2) -> {
+      return Boolean.valueOf(e1.contentEquals(e2));
+    };
+    final BinaryOperator<Boolean> _function_1 = (Boolean b1, Boolean b2) -> {
+      return Boolean.valueOf(((b1).booleanValue() || (b2).booleanValue()));
+    };
+    final Optional<Boolean> conflict = Streams.<String, String, Boolean>zip(this.indexNameContext.stream(), kernelDomainNames.stream(), _function).reduce(_function_1);
+    List<String> printCtx = null;
+    if ((conflict.isPresent() && (conflict.get()).booleanValue())) {
+      int _nbDims = ce.getContextDomain().getNbDims();
+      int _nbDims_1 = ce.getContextDomain().getNbDims();
+      int _nbDims_2 = ce.getKernelDomain().getNbDims();
+      int _plus = (_nbDims_1 + _nbDims_2);
+      final Function1<Integer, String> _function_2 = (Integer i) -> {
+        return ("i" + i);
+      };
+      printCtx = IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(_nbDims, _plus, true), _function_2));
+    } else {
+      printCtx = kernelDomainNames;
+    }
     this.contextHistory.push(this.indexNameContext);
-    final LinkedList<String> copy = new LinkedList<String>(this.indexNameContext);
-    copy.addAll(ce.getKernelDomain().getIndicesNames());
-    this.indexNameContext = copy;
+    final LinkedList<String> newCtx = new LinkedList<String>(this.indexNameContext);
+    newCtx.addAll(printCtx);
+    this.indexNameContext = printCtx;
+    final String kerDom = this.printDomainInShowSytanxWithIndexNameContext(ce.getKernelDomain());
+    this.indexNameContext = newCtx;
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("conv(");
     _builder.append(kerDom);
