@@ -122,6 +122,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
    *   D : auto : E -> auto : E
    *   auto : auto : E -> auto : E
    *   auto : D : E -> auto : E
+   *   f @ conv (kernel, weight, data) -> conv(kernel, f' @ weight, f' @ data) (only when f is bijective)
    * 
    * Additional Rules:
    *  - remove restrict expression when it is redundant (expression domain is unchanged by the restrict)
@@ -309,6 +310,11 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
   }
   
   protected String _dependenceExpressionRules(final DependenceExpression de, final ConvolutionExpression ce) {
+    boolean _isBijective = de.getFunction().toMap().isBijective();
+    boolean _not = (!_isBijective);
+    if (_not) {
+      return "";
+    }
     this.debug("push-dep ConvExpr", "f @ conv (kernel, weight, data) -> conv(kernel, f\' @ weight, f\' @ data)");
     EcoreUtil.replace(de, ce);
     final JNIISLMultiAff newMaff = AlphaExpressionUtil.extendMultiAffWithIdentityDimensions(de.getFunction(), ce.getKernelDomain().getNbDims());
