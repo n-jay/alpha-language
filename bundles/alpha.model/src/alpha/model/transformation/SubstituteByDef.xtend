@@ -1,23 +1,22 @@
 package alpha.model.transformation
 
 import alpha.model.AlphaSystem
-import alpha.model.Variable
+import alpha.model.StandardEquation
 import alpha.model.util.AbstractAlphaCompleteVisitor
 
 class SubstituteByDef extends AbstractAlphaCompleteVisitor  {
+	protected StandardEquation transformedEquation
+	protected StandardEquation substitutedEquation
 	
-	protected Variable targetVariable
-	protected Variable substituteVariable
-	
-	private new(AlphaSystem system, Variable targetVariable, Variable substituteVariable) {
-		this.targetVariable = targetVariable
-		this.substituteVariable = substituteVariable
+	private new(AlphaSystem system, StandardEquation transformedEquation, StandardEquation substitutedEquation) {
+		this.transformedEquation = transformedEquation
+		this.substitutedEquation = substitutedEquation
 	}
 	
 	
 	static def void apply(AlphaSystem system, String varName, String varToSubstitute) {
 		
-		//TODO Get Variable objects from system
+		//TODO Get StandardEquation objects from system
 		
 		//TODO create instance of this class
 		

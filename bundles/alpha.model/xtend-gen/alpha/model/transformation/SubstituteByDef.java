@@ -1,18 +1,18 @@
 package alpha.model.transformation;
 
 import alpha.model.AlphaSystem;
-import alpha.model.Variable;
+import alpha.model.StandardEquation;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 
 @SuppressWarnings("all")
 public class SubstituteByDef extends AbstractAlphaCompleteVisitor {
-  protected Variable targetVariable;
+  protected StandardEquation transformedEquation;
   
-  protected Variable substituteVariable;
+  protected StandardEquation substitutedEquation;
   
-  private SubstituteByDef(final AlphaSystem system, final Variable targetVariable, final Variable substituteVariable) {
-    this.targetVariable = targetVariable;
-    this.substituteVariable = substituteVariable;
+  private SubstituteByDef(final AlphaSystem system, final StandardEquation transformedEquation, final StandardEquation substitutedEquation) {
+    this.transformedEquation = transformedEquation;
+    this.substitutedEquation = substitutedEquation;
   }
   
   public static void apply(final AlphaSystem system, final String varName, final String varToSubstitute) {
