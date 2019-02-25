@@ -12,6 +12,7 @@ import alpha.model.BinaryExpression;
 import alpha.model.CalculatorExpression;
 import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
+import alpha.model.ConvolutionExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalMultiArgExpression;
@@ -31,6 +32,7 @@ import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import com.google.inject.Inject;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
@@ -159,6 +161,11 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   public String text(final ExternalArgReduceExpression reduce) {
     String _name = reduce.getExternalFunction().getName();
     return ("argreduce " + _name);
+  }
+  
+  public String text(final ConvolutionExpression conv) {
+    JNIISLSet _kernelDomain = conv.getKernelDomain();
+    return ("conv " + _kernelDomain);
   }
   
   public String text(final UnaryExpression ue) {

@@ -30,6 +30,7 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import alpha.model.JNIFunctionInArrayNotation
 import alpha.model.SystemBody
+import alpha.model.ConvolutionExpression
 
 /**
  * Provides labels for EObjects.
@@ -121,6 +122,11 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 	def text(ExternalArgReduceExpression reduce) {
 		'argreduce ' + reduce.externalFunction.name
 	}
+	
+	def text(ConvolutionExpression conv) {
+		'conv ' + conv.kernelDomain
+	}
+	
 	def text(UnaryExpression ue) {
 		ue.operator.literal
 	}
