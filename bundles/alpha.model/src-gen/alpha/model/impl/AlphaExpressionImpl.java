@@ -10,7 +10,11 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -25,6 +29,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link alpha.model.impl.AlphaExpressionImpl#getZ__internal_cache_exprDom <em>Zinternal cache expr Dom</em>}</li>
  *   <li>{@link alpha.model.impl.AlphaExpressionImpl#getZ__internal_cache_contextDom <em>Zinternal cache context Dom</em>}</li>
+ *   <li>{@link alpha.model.impl.AlphaExpressionImpl#getExpressionID <em>Expression ID</em>}</li>
  * </ul>
  *
  * @generated
@@ -136,6 +141,27 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Integer> getExpressionID() {
+		BasicEList<Integer> _xifexpression = null;
+		EObject _eContainer = this.eContainer();
+		if ((_eContainer instanceof AlphaExpression)) {
+			EObject _eContainer_1 = this.eContainer();
+			EList<Integer> _expressionID = ((AlphaExpression) _eContainer_1).getExpressionID();
+			_xifexpression = new BasicEList<Integer>(_expressionID);
+		}
+		else {
+			_xifexpression = new BasicEList<Integer>();
+		}
+		final BasicEList<Integer> parentID = _xifexpression;
+		parentID.add(Integer.valueOf(this.eContainer().eContents().indexOf(this)));
+		return parentID;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void setExpressionDomain(final JNIISLSet dom) {
 		this.setZ__internal_cache_exprDom(dom.coalesce());
 	}
@@ -208,6 +234,8 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 				return getZ__internal_cache_exprDom();
 			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM:
 				return getZ__internal_cache_contextDom();
+			case ModelPackage.ALPHA_EXPRESSION__EXPRESSION_ID:
+				return getExpressionID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -260,6 +288,8 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 				return ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT == null ? z__internal_cache_exprDom != null : !ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT.equals(z__internal_cache_exprDom);
 			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM:
 				return ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT == null ? z__internal_cache_contextDom != null : !ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT.equals(z__internal_cache_contextDom);
+			case ModelPackage.ALPHA_EXPRESSION__EXPRESSION_ID:
+				return !getExpressionID().isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

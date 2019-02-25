@@ -4,6 +4,8 @@ package alpha.model;
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Alpha Expression</b></em>'.
@@ -26,6 +28,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  * <ul>
  *   <li>{@link alpha.model.AlphaExpression#getZ__internal_cache_exprDom <em>Zinternal cache expr Dom</em>}</li>
  *   <li>{@link alpha.model.AlphaExpression#getZ__internal_cache_contextDom <em>Zinternal cache context Dom</em>}</li>
+ *   <li>{@link alpha.model.AlphaExpression#getExpressionID <em>Expression ID</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getAlphaExpression()
@@ -82,6 +85,22 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * @generated
 	 */
 	void setZ__internal_cache_contextDom(JNIISLSet value);
+
+	/**
+	 * Returns the value of the '<em><b>Expression ID</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.Integer}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Expression ID</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Expression ID</em>' attribute list.
+	 * @see alpha.model.ModelPackage#getAlphaExpression_ExpressionID()
+	 * @model unique="false" transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<Integer> getExpressionID();
 
 	/**
 	 * <!-- begin-user-doc -->

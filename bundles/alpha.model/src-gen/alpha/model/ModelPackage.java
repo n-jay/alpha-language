@@ -828,13 +828,22 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Alpha Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 2;
+	int ALPHA_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.RestrictExpressionImpl <em>Restrict Expression</em>}' class.
@@ -863,6 +872,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int RESTRICT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESTRICT_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Domain Expr</b></em>' containment reference.
@@ -920,6 +938,15 @@ public interface ModelPackage extends EPackage {
 	int AUTO_RESTRICT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTO_RESTRICT_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -973,6 +1000,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int CASE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1030,6 +1066,15 @@ public interface ModelPackage extends EPackage {
 	int DEPENDENCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEPENDENCE_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Function Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1085,6 +1130,15 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_DEPENDENCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_DEPENDENCE_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Fuzzy Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1138,6 +1192,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int IF_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IF_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Cond Expr</b></em>' containment reference.
@@ -1204,6 +1267,15 @@ public interface ModelPackage extends EPackage {
 	int INDEX_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEX_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Function Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1250,6 +1322,15 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_INDEX_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_INDEX_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Fuzzy Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1294,6 +1375,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_REDUCE_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1360,6 +1450,15 @@ public interface ModelPackage extends EPackage {
 	int REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__EXPRESSION_ID = ABSTRACT_REDUCE_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1422,6 +1521,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXTERNAL_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_REDUCE_EXPRESSION__EXPRESSION_ID = REDUCE_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1497,6 +1605,15 @@ public interface ModelPackage extends EPackage {
 	int ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARG_REDUCE_EXPRESSION__EXPRESSION_ID = ABSTRACT_REDUCE_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1559,6 +1676,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXTERNAL_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__EXPRESSION_ID = ARG_REDUCE_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1634,6 +1760,15 @@ public interface ModelPackage extends EPackage {
 	int CONVOLUTION_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVOLUTION_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Kernel Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1698,6 +1833,15 @@ public interface ModelPackage extends EPackage {
 	int SELECT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SELECT_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Relation Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1753,6 +1897,15 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1799,6 +1952,15 @@ public interface ModelPackage extends EPackage {
 	int CONSTANT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The number of structural features of the '<em>Constant Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1834,6 +1996,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int INTEGER_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_EXPRESSION__EXPRESSION_ID = CONSTANT_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1882,6 +2053,15 @@ public interface ModelPackage extends EPackage {
 	int REAL_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REAL_EXPRESSION__EXPRESSION_ID = CONSTANT_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1928,6 +2108,15 @@ public interface ModelPackage extends EPackage {
 	int BOOLEAN_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = CONSTANT_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_EXPRESSION__EXPRESSION_ID = CONSTANT_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1972,6 +2161,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int UNARY_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2027,6 +2225,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int BINARY_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2093,6 +2300,15 @@ public interface ModelPackage extends EPackage {
 	int MULTI_ARG_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_ARG_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2146,6 +2362,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXTERNAL_MULTI_ARG_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = MULTI_ARG_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_MULTI_ARG_EXPRESSION__EXPRESSION_ID = MULTI_ARG_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2212,6 +2437,15 @@ public interface ModelPackage extends EPackage {
 	int ABSTRACT_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2276,6 +2510,15 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ABSTRACT_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_REDUCE_EXPRESSION__EXPRESSION_ID = ABSTRACT_FUZZY_REDUCE_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2338,6 +2581,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__EXPRESSION_ID = FUZZY_REDUCE_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -2413,6 +2665,15 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ABSTRACT_FUZZY_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
 
 	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION__EXPRESSION_ID = ABSTRACT_FUZZY_REDUCE_EXPRESSION__EXPRESSION_ID;
+
+	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2475,6 +2736,15 @@ public interface ModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = FUZZY_ARG_REDUCE_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM;
+
+	/**
+	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__EXPRESSION_ID = FUZZY_ARG_REDUCE_EXPRESSION__EXPRESSION_ID;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -4152,6 +4422,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAlphaExpression_Z__internal_cache_contextDom();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link alpha.model.AlphaExpression#getExpressionID <em>Expression ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Expression ID</em>'.
+	 * @see alpha.model.AlphaExpression#getExpressionID()
+	 * @see #getAlphaExpression()
+	 * @generated
+	 */
+	EAttribute getAlphaExpression_ExpressionID();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.RestrictExpression <em>Restrict Expression</em>}'.
@@ -6187,6 +6468,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = eINSTANCE.getAlphaExpression_Z__internal_cache_contextDom();
+
+		/**
+		 * The meta object literal for the '<em><b>Expression ID</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALPHA_EXPRESSION__EXPRESSION_ID = eINSTANCE.getAlphaExpression_ExpressionID();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.impl.RestrictExpressionImpl <em>Restrict Expression</em>}' class.

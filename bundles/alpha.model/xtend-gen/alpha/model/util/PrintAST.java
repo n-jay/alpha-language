@@ -36,9 +36,11 @@ import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaPrintingUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
@@ -117,18 +119,32 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   
   @Override
   public void defaultIn(final AlphaVisitable av) {
-    this._defaultIn(av);
+    this.defaultInImpl(av);
   }
   
   @Override
   public void defaultIn(final AlphaExpressionVisitable aev) {
-    this._defaultIn(aev);
+    this.defaultInImpl(aev);
   }
   
-  private String _defaultIn(final EObject obj) {
+  private String _defaultInImpl(final EObject obj) {
     String _xblockexpression = null;
     {
       this.printStr("_", obj.eClass().getName());
+      String _indent = this.indent;
+      _xblockexpression = this.indent = (_indent + PrintAST.INDENT_WITH_SIBILING);
+    }
+    return _xblockexpression;
+  }
+  
+  private String _defaultInImpl(final AlphaExpression obj) {
+    String _xblockexpression = null;
+    {
+      String _name = obj.eClass().getName();
+      String _plus = (_name + " ID:");
+      EList<Integer> _expressionID = obj.getExpressionID();
+      String _plus_1 = (_plus + _expressionID);
+      this.printStr("_", _plus_1);
       String _indent = this.indent;
       _xblockexpression = this.indent = (_indent + PrintAST.INDENT_WITH_SIBILING);
     }
@@ -372,5 +388,16 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void inSelectExpression(final SelectExpression se) {
     this.inAlphaExpression(se);
     this.printStr("+-- ", se.getSelectRelation());
+  }
+  
+  private String defaultInImpl(final EObject obj) {
+    if (obj instanceof AlphaExpression) {
+      return _defaultInImpl((AlphaExpression)obj);
+    } else if (obj != null) {
+      return _defaultInImpl(obj);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(obj).toString());
+    }
   }
 }

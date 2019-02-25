@@ -105,15 +105,20 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	}
 
 	override defaultIn(AlphaVisitable av) {
-		_defaultIn(av);
+		defaultInImpl(av);
 	}
 	
 	override defaultIn(AlphaExpressionVisitable aev) {
-		_defaultIn(aev);
+		defaultInImpl(aev);
 	}
 
-	private def _defaultIn(EObject obj) {
+	private dispatch def defaultInImpl(EObject obj) {
 		printStr("_", obj.eClass.name)
+		indent += INDENT_WITH_SIBILING;
+	}
+	
+	private dispatch def defaultInImpl(AlphaExpression obj) {
+		printStr("_", obj.eClass.name + " ID:" + obj.expressionID)
 		indent += INDENT_WITH_SIBILING;
 	}
 	

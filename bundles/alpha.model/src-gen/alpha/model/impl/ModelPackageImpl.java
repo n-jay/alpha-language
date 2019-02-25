@@ -1289,6 +1289,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getAlphaExpression_ExpressionID() {
+		return (EAttribute)alphaExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRestrictExpression() {
 		return restrictExpressionEClass;
 	}
@@ -2669,6 +2678,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		alphaExpressionEClass = createEClass(ALPHA_EXPRESSION);
 		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM);
 		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM);
+		createEAttribute(alphaExpressionEClass, ALPHA_EXPRESSION__EXPRESSION_ID);
 
 		restrictExpressionEClass = createEClass(RESTRICT_EXPRESSION);
 		createEReference(restrictExpressionEClass, RESTRICT_EXPRESSION__DOMAIN_EXPR);
@@ -3564,6 +3574,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(alphaExpressionEClass, AlphaExpression.class, "AlphaExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAlphaExpression_Z__internal_cache_exprDom(), this.getJNIISLSet(), "z__internal_cache_exprDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAlphaExpression_Z__internal_cache_contextDom(), this.getJNIISLSet(), "z__internal_cache_contextDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaExpression_ExpressionID(), theEcorePackage.getEInt(), "expressionID", null, 0, -1, AlphaExpression.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionEClass, null, "setExpressionDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getJNIISLSet(), "dom", 0, 1, !IS_UNIQUE, IS_ORDERED);

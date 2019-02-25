@@ -16,6 +16,7 @@ import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import alpha.model.util.AlphaPrintingUtil
+import org.eclipse.emf.common.util.BasicEList
 
 //type JNIDomain wraps JNIDomain
 type JNIObject wraps JNIObject
@@ -495,6 +496,16 @@ abstract class AlphaExpression extends AlphaExpressionVisitable {
 	JNIISLSet z__internal_cache_exprDom
 	/*Internal object for always copying context domain at getter */
 	JNIISLSet z__internal_cache_contextDom
+	
+	derived int[] expressionID get {
+		val parentID =  if (eContainer instanceof AlphaExpression) {
+			new BasicEList<Integer>((eContainer as AlphaExpression).expressionID);
+		} else {
+			new BasicEList<Integer>();
+		}
+		parentID.add(eContainer.eContents.indexOf(this))
+		return parentID
+	}
 	
 	op void setExpressionDomain(JNIISLSet dom) { this.setZ__internal_cache_exprDom(dom.coalesce) }
 	op JNIISLSet getExpressionDomain() { if (z__internal_cache_exprDom !== null) z__internal_cache_exprDom.copy else null }
