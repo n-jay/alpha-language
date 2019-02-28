@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Alpha Groovy Commands
 Bundle-SymbolicName: alpha.commands.groovy
 Bundle-Version: 0.1.0.qualifier
-Require-Bundle: alpha.model,
- alpha.commands
+Require-Bundle: alpha.commands;visibility:=reexport,
+ org.apache.log4j;visibility:=reexport
 Export-Package: alpha.commands.groovy
 Bundle-RequiredExecutionEnvironment: JavaSE-10
+Automatic-Module-Name: alpha.commands.groovy

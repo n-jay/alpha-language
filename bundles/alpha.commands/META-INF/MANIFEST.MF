@@ -5,5 +5,5 @@ Bundle-SymbolicName: alpha.commands
 Bundle-Version: 0.1.0.qualifier
 Automatic-Module-Name: alpha.commands
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: alpha.model,
- alpha.model.xtext
+Require-Bundle: alpha.model;visibility:=reexport,
+ alpha.model.xtext;visibility:=reexport
