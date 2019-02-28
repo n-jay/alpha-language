@@ -2,8 +2,7 @@ Manifest-Version: 1.0
 Automatic-Module-Name: alpha.commands.model.xtext
 Bundle-ManifestVersion: 2
 Bundle-Name: alpha.commands.model.xtext
-Bundle-Vendor: My Company
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.1.0.qualifier
 Bundle-SymbolicName: alpha.commands.model.xtext; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: alpha.commands.model,
