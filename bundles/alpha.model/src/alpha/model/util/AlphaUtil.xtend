@@ -81,11 +81,11 @@ class AlphaUtil {
 		//qualified name
 		if (systemName.contains('.')) {
 			val IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider;
-			val matching = roots.map[r|r.eAllContents].filter(AlphaSystem).filter[s|provider.getFullyQualifiedName(s).toString.contentEquals(systemName)]
-			if (matching.size>0) return getContainerRoot(matching.head)
+			val matching = roots.map[r|r.eAllContents].filter(AlphaSystem).filter[s|provider.getFullyQualifiedName(s).toString.contentEquals(systemName)].toList
+			if (matching.length>0) return getContainerRoot(matching.head)
 		//just the system name
 		} else {
-			val matching = roots.iterator.flatMap[eAllContents.filter(AlphaSystem).filter[s|s.name.contentEquals(systemName)]]
+			val matching = roots.iterator.flatMap[eAllContents.filter(AlphaSystem).filter[s|s.name.contentEquals(systemName)]].toList
 			if (matching.size>1) throw new RuntimeException("There are multiple systems with the name: " + systemName);
 			if (matching.size>0) return getContainerRoot(matching.head)
 		}

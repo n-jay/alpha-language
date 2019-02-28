@@ -107,9 +107,9 @@ public class AlphaUtil {
       final Function1<AlphaSystem, Boolean> _function_1 = (AlphaSystem s) -> {
         return Boolean.valueOf(provider.getFullyQualifiedName(s).toString().contentEquals(systemName));
       };
-      final Iterable<AlphaSystem> matching = IterableExtensions.<AlphaSystem>filter(Iterables.<AlphaSystem>filter(ListExtensions.<AlphaRoot, TreeIterator<EObject>>map(roots, _function), AlphaSystem.class), _function_1);
-      int _size = IterableExtensions.size(matching);
-      boolean _greaterThan = (_size > 0);
+      final List<AlphaSystem> matching = IterableExtensions.<AlphaSystem>toList(IterableExtensions.<AlphaSystem>filter(Iterables.<AlphaSystem>filter(ListExtensions.<AlphaRoot, TreeIterator<EObject>>map(roots, _function), AlphaSystem.class), _function_1));
+      int _length = ((Object[])Conversions.unwrapArray(matching, Object.class)).length;
+      boolean _greaterThan = (_length > 0);
       if (_greaterThan) {
         return AlphaUtil.getContainerRoot(IterableExtensions.<AlphaSystem>head(matching));
       }
@@ -120,16 +120,16 @@ public class AlphaUtil {
         };
         return IteratorExtensions.<AlphaSystem>filter(Iterators.<AlphaSystem>filter(it.eAllContents(), AlphaSystem.class), _function_3);
       };
-      final Iterator<AlphaSystem> matching_1 = IteratorExtensions.<AlphaRoot, AlphaSystem>flatMap(roots.iterator(), _function_2);
-      int _size_1 = IteratorExtensions.size(matching_1);
-      boolean _greaterThan_1 = (_size_1 > 1);
+      final List<AlphaSystem> matching_1 = IteratorExtensions.<AlphaSystem>toList(IteratorExtensions.<AlphaRoot, AlphaSystem>flatMap(roots.iterator(), _function_2));
+      int _size = matching_1.size();
+      boolean _greaterThan_1 = (_size > 1);
       if (_greaterThan_1) {
         throw new RuntimeException(("There are multiple systems with the name: " + systemName));
       }
-      int _size_2 = IteratorExtensions.size(matching_1);
-      boolean _greaterThan_2 = (_size_2 > 0);
+      int _size_1 = matching_1.size();
+      boolean _greaterThan_2 = (_size_1 > 0);
       if (_greaterThan_2) {
-        return AlphaUtil.getContainerRoot(IteratorExtensions.<AlphaSystem>head(matching_1));
+        return AlphaUtil.getContainerRoot(IterableExtensions.<AlphaSystem>head(matching_1));
       }
     }
     throw new RuntimeException((("System " + systemName) + " was not found."));
