@@ -37,8 +37,6 @@ import org.osgi.framework.Bundle;
 import com.google.common.base.Charsets;
 
 public class AlphaProjectWizard extends Wizard implements INewWizard {
-		
-		public static final String RESOURCES_ROOT = "resources/";
 
 		public String getPageName() { return "Alpha Project Wizard"; }
 		public String getPageDescription() { return "Creates a Java plug-in project for running Alpha scripts."; }
