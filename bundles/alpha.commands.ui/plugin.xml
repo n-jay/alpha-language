@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="alpha.commands"
+            name="Alpha">
+      </category>
+         
+      <wizard
+            category="alpha.commands"
+            class="alpha.commands.ui.AlphaProjectWizard"
+            hasPages="true"
+            icon="icons/alpha.gif"
+            id="alpha.commands.project"
+            name="Alpha Project"
+            project="true">
+      </wizard>
+         
+   </extension>
+</plugin>
