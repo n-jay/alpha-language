@@ -19,11 +19,11 @@ Export-Package: alpha.model,
  alpha.model.module,
  alpha.model.transformation,
  alpha.model.util
-Require-Bundle: org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xcore,
- org.eclipse.xtext,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.emf.ecore.xcore.lib,
+ org.eclipse.xtext;visibility:=reexport,
+ org.eclipse.xtext.xbase.lib;visibility:=reexport,
+ org.eclipse.emf.ecore.xcore.lib;visibility:=reexport,
  fr.irisa.cairn.jnimap.isl;visibility:=reexport
 Bundle-ActivationPolicy: lazy
