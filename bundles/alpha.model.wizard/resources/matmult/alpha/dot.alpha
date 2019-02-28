@@ -4,7 +4,7 @@ package example.matmult {
 			A : {[i] : 0<=i<N}
 			B : {A}
 		outputs
-			C :
+			C : {}
 		let
 			C = reduce(+, [i], A[i]*B[i]);
 	.

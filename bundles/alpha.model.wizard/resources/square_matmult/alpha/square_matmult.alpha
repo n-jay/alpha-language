@@ -17,7 +17,7 @@ package example {
 				A : [N]
 				B : [N]
 			outputs
-				C :
+				C : {}
 			let
 				C = reduce(+, [i], A[i]*B[i]);
 		.
