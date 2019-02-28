@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: alpha.commands.model.xtext
+Bundle-ManifestVersion: 2
+Bundle-Name: alpha.commands.model.xtext
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: alpha.commands.model.xtext; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: alpha.commands.model,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.xtend.lib;bundle-version="2.14.0",
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+ fr.irisa.cairn.xtend.protectedregion
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: alpha.commands.model,
+ alpha.commands.model.formatting2,
+ alpha.commands.model.serializer,
+ alpha.commands.model.scoping,
+ alpha.commands.model.parser.antlr,
+ alpha.commands.model.generator,
+ alpha.commands.model.validation,
+ alpha.commands.model.services,
+ alpha.commands.model.parser.antlr.internal
+Import-Package: org.apache.log4j

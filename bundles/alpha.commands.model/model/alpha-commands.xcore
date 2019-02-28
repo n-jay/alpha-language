@@ -1,0 +1,99 @@
+@GenModel(
+	operationReflection="false",
+	loadInitialization="false",
+	literalsInterface="true")
+package alpha.commands.model
+
+class AlphaCommandsRoot {
+	contains AlphaCommandCategory[] categories
+}
+
+class AlphaCommandCategory {
+	id String name
+	contains AlphaCommand[] commands opposite category
+}
+
+class AlphaCommand {
+	container AlphaCommandCategory category opposite commands
+
+	id String label
+	String name
+	contains AlphaCommandSignature signature
+	contains AlphaCommandSpecialization[] specializations opposite command
+	contains CommandBinding binding
+}
+
+class CommandBinding {
+	refers AlphaCommand bindTargetCommand
+	contains ArgumentBinding[] argumentBindings
+	contains ArgumentRenaming[] argumentRenamings
+}
+
+class ArgumentBinding {
+	refers AlphaCommandArgument bindTarget
+	refers AlphaCommandArgument[] bindSource
+}
+
+class ArgumentRenaming {
+	refers AlphaCommandArgument bindTarget
+	refers AlphaCommandArgument bindSource
+}
+
+
+class AlphaCommandSignature {
+	contains AlphaCommandArgument[] arguments
+	ArgumentType returnType = "void"
+}
+
+class AlphaCommandSpecialization {
+	container AlphaCommand command opposite specializations
+	contains CommandArgumentSpecialization[] arguments
+}
+
+class AlphaCommandArgument {
+	String name
+	ArgumentType argumentType
+}
+
+abstract class CommandArgumentSpecialization {
+	
+}
+
+class OverrideArgument extends CommandArgumentSpecialization {
+	String name
+	ArgumentType argumentType
+}
+
+
+class DefaultValueArgument extends CommandArgumentSpecialization {
+	String value
+}
+
+class SameAsParentArgument extends CommandArgumentSpecialization {
+}
+
+enum ArgumentType {
+	Void as "void"
+	AlphaNode
+	AlphaVisitable
+	AlphaRoot
+	AlphaSystem
+	SystemBody
+	Variable
+	Equation
+	StandardEquation
+	UseEquation
+	AlphaExpression
+	AbstractReduceExpression
+	BinaryExpression
+	AffineFunction
+	Domain
+	ParameterDomain
+	AlphaBundle as "List<AlphaRoot>"
+	String
+	StringList as "List<String>"
+	StringArray as "String[]"
+	Integer as "int"
+	IntegerList as "List<Integer>"
+	IntegerArray as "int[]"
+}

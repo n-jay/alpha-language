@@ -1,0 +1,56 @@
+
+Core {
+
+	ReadAlpha(String file) : AlphaRoot
+	ReadAlphaBundle(String file) : List<AlphaRoot>
+	Show(AlphaVisitable node)
+	AShow(AlphaVisitable node)
+	Save(AlphaRoot root, String filename)
+	ASave(AlphaRoot root, String filename)
+	Normalize(AlphaVisitable node)
+	DeepNormalize(AlphaVisitable node)
+
+}
+
+Utility {
+	WriteToFile(String filepath, String content)
+	GetRoot(List<AlphaRoot> bundle, String systemName) : AlphaRoot
+	GetSystem(AlphaRoot root, String systemName) : AlphaSystem
+	GetSystemBody(AlphaSystem system, int bodyID) : SystemBody
+	GetEquation(SystemBody body, String varName) : Equation
+	GetExpression(Equation eq, int[] exprID) : AlphaExpression
+	GetExpression(SystemBody body, String varName, int[] exprID) : AlphaExpression
+	GetExpression(AlphaSystem system, int bodyID, String varName, int[] exprID) : AlphaExpression
+	
+}
+
+Transformations {
+
+	ChangeOfBasis(AlphaSystem system, Variable var, AffineFunction f)
+		=> (_, String varName, String fStr)
+		
+	Split(AlphaSystem system, Variable var, Domain splitDom)
+		=> (_, String varName, String splitDom)
+		
+	SubstituteByDef(SystemBody body, StandardEquation targetEq, StandardEquation inlineEq)
+		=> (_, String targetEq, String inlineEq)
+
+}
+
+Reductions {
+	
+	@Bind(Ser2; system=(root,systemName))
+	SerializeReduction(AlphaRoot root, String systemName, int bodyID, String eqName, String exprID, AffineFunction schedule)
+		=> (_, _, _, _, _, String fStr)
+	
+	@Bind(Ser3; systemBody=(system,bodyID), eq=eqName, expr=exprID)
+	Ser2:SerializeReduction(AlphaSystem system, int bodyID, String eqName, String exprID, AffineFunction schedule)
+		=> (_, "0", _ , _, _)
+		=> (_, _, _ , _, String fStr)
+		=> (_, "0", _ , _, String fStr)
+		
+	
+	Ser3:SerializeReduction(SystemBody systemBody, StandardEquation eq, AlphaExpression expr, AffineFunction schedule)
+		=> (_, String eqName, String exprID, _)
+		=> (_, String eqName, String exprID, String fStr)
+}
