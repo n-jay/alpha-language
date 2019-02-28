@@ -1,17 +1,20 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Wizard
+Bundle-Name: Alpha Example Wizard
 Bundle-SymbolicName: alpha.model.wizard;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-Activator: alpha.model.wizard.Activator
 Require-Bundle: org.eclipse.ui,
+ org.eclipse.ui.ide,
  org.eclipse.core.runtime,
- alpha.model,
  org.eclipse.core.resources,
  org.eclipse.xtext,
  org.eclipse.xtext.ui,
  org.eclipse.jdt.core,
- org.eclipse.jdt.launching
+ org.eclipse.jdt.launching,
+ org.codehaus.groovy.eclipse.core,
+ org.eclipse.pde.ui,
+ alpha.commands.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: alpha.model.wizard
 Bundle-ActivationPolicy: lazy
