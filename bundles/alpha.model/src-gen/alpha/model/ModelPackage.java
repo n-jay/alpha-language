@@ -3806,6 +3806,16 @@ public interface ModelPackage extends EPackage {
 	 */
 	int ISL_FORMAT = 84;
 
+	/**
+	 * The meta object id for the '<em>List Variable Expression</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.util.List
+	 * @see alpha.model.impl.ModelPackageImpl#getListVariableExpression()
+	 * @generated
+	 */
+	int LIST_VARIABLE_EXPRESSION = 85;
+
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.AlphaNode <em>Alpha Node</em>}'.
@@ -5940,6 +5950,17 @@ public interface ModelPackage extends EPackage {
 	EDataType getISL_FORMAT();
 
 	/**
+	 * Returns the meta object for data type '{@link java.util.List <em>List Variable Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>List Variable Expression</em>'.
+	 * @see java.util.List
+	 * @model instanceClass="java.util.List&lt;alpha.model.VariableExpression&gt;"
+	 * @generated
+	 */
+	EDataType getListVariableExpression();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7738,6 +7759,16 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType ISL_FORMAT = eINSTANCE.getISL_FORMAT();
+
+		/**
+		 * The meta object literal for the '<em>List Variable Expression</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.util.List
+		 * @see alpha.model.impl.ModelPackageImpl#getListVariableExpression()
+		 * @generated
+		 */
+		EDataType LIST_VARIABLE_EXPRESSION = eINSTANCE.getListVariableExpression();
 
 	}
 

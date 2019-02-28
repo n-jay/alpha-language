@@ -80,6 +80,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='final int nbCols = this.getNbColumns();\n&lt;%org.eclipse.emf.common.util.EList%&gt;&lt;&lt;%alpha.model.matrix.MatrixRow%&gt;&gt; _rows = this.getRows();\nfor (final &lt;%alpha.model.matrix.MatrixRow%&gt; r : _rows)\n{\n\tint _size = r.getValues().size();\n\tboolean _notEquals = (_size != nbCols);\n\tif (_notEquals)\n\t{\n\t\treturn false;\n\t}\n}\nreturn true;'"
 	 * @generated
 	 */
 	boolean isConsistent();
@@ -88,6 +89,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false" rUnique="false" cUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (this.getRows().get(r).getValues().get(c)).longValue();'"
 	 * @generated
 	 */
 	long getValue(int r, int c);
@@ -96,6 +98,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model rUnique="false" cUnique="false" vUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.getRows().get(r).getValues().set(c, &lt;%java.lang.Long%&gt;.valueOf(v));'"
 	 * @generated
 	 */
 	void setValue(int r, int c, long v);
@@ -104,6 +107,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return ((&lt;%java.lang.Object%&gt;[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getRows(), &lt;%java.lang.Object%&gt;.class)).length;'"
 	 * @generated
 	 */
 	int getNbRows();
@@ -112,6 +116,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='int _nbParams = this.getNbParams();\nint _nbIndices = this.getNbIndices();\nint _plus = (_nbParams + _nbIndices);\nreturn (_plus + 1);'"
 	 * @generated
 	 */
 	int getNbColumns();
@@ -120,6 +125,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getSpace().getNbParams();'"
 	 * @generated
 	 */
 	int getNbParams();
@@ -128,6 +134,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getSpace().getNbIndices();'"
 	 * @generated
 	 */
 	int getNbIndices();
@@ -136,6 +143,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getSpace().getParamNames();'"
 	 * @generated
 	 */
 	EList<String> getParamNames();
@@ -144,6 +152,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return this.getSpace().getIndexNames();'"
 	 * @generated
 	 */
 	EList<String> getIndexNames();
@@ -152,6 +161,7 @@ public interface Matrix extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.join(this.getRows(), \"\\n\");'"
 	 * @generated
 	 */
 	String toString();

@@ -124,6 +124,14 @@ public interface SystemBody extends AlphaVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model unique="false" eqNameUnique="false"
+	 * @generated
+	 */
+	StandardEquation getStandardEquation(String eqName);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model visitorUnique="false"
 	 * @generated
 	 */

@@ -5,6 +5,8 @@ package alpha.model;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -170,6 +172,14 @@ public interface UseEquation extends Equation {
 	 * @generated
 	 */
 	JNIISLSet getInstantiationDomain();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.ListVariableExpression" unique="false"
+	 * @generated
+	 */
+	List<VariableExpression> getAllVariableExpressionsInOutputExpressions();
 
 	/**
 	 * <!-- begin-user-doc -->

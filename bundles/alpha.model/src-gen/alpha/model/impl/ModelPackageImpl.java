@@ -85,6 +85,8 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -697,6 +699,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EDataType isL_FORMATEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType listVariableExpressionEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -2576,6 +2585,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getListVariableExpression() {
+		return listVariableExpressionEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ModelFactory getModelFactory() {
 		return (ModelFactory)getEFactoryInstance();
 	}
@@ -2876,6 +2894,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniislMultiAffEDataType = createEDataType(JNIISL_MULTI_AFF);
 		jniislUnionMapEDataType = createEDataType(JNIISL_UNION_MAP);
 		isL_FORMATEDataType = createEDataType(ISL_FORMAT);
+		listVariableExpressionEDataType = createEDataType(LIST_VARIABLE_EXPRESSION);
 	}
 
 	/**
@@ -3499,12 +3518,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(alphaSystemEClass, this.getVariable(), "getVariables", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(alphaSystemEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
 		addEOperation(alphaSystemEClass, this.getJNIISLSet(), "getParameterDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(alphaSystemEClass, this.getJNIISLSet(), "getWhileDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaSystemEClass, this.getVariable(), "getVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "varName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaSystemEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariable_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3542,6 +3564,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(systemBodyEClass, this.getStandardEquation(), "getStandardEquations", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(systemBodyEClass, this.getStandardEquation(), "getStandardEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "eqName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(systemBodyEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -3567,6 +3592,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(useEquationEClass, this.getJNIISLMultiAff(), "getCallParams", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(useEquationEClass, this.getJNIISLSet(), "getInstantiationDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(useEquationEClass, this.getListVariableExpression(), "getAllVariableExpressionsInOutputExpressions", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(useEquationEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4088,6 +4115,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEDataType(jniislMultiAffEDataType, JNIISLMultiAff.class, "JNIISLMultiAff", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(jniislUnionMapEDataType, JNIISLUnionMap.class, "JNIISLUnionMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(isL_FORMATEDataType, fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT.class, "ISL_FORMAT", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(listVariableExpressionEDataType, List.class, "ListVariableExpression", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.List<alpha.model.VariableExpression>");
 
 		// Create resource
 		createResource(eNS_URI);

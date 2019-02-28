@@ -17,6 +17,8 @@ import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import alpha.model.util.AlphaPrintingUtil
 import org.eclipse.emf.common.util.BasicEList
+import java.util.List
+import java.util.LinkedList
 
 //type JNIDomain wraps JNIDomain
 type JNIObject wraps JNIObject
@@ -25,6 +27,7 @@ type JNIISLMap wraps JNIISLMap
 type JNIISLMultiAff wraps JNIISLMultiAff
 type JNIISLUnionMap wraps JNIISLUnionMap
 type ISL_FORMAT wraps ISL_FORMAT
+type ListVariableExpression wraps List<VariableExpression> 
 
 
 /*
@@ -358,10 +361,6 @@ class AlphaSystem extends AlphaElement {
 		(inputs+outputs+locals).asEList.unmodifiableEList
 	}
 	
-	op void accept(AlphaVisitor visitor) {
-		visitor.visitAlphaSystem(this)
-	}
-	
 	op JNIISLSet getParameterDomain() {
 		return parameterDomainExpr.ISLSet
 	}
@@ -369,6 +368,20 @@ class AlphaSystem extends AlphaElement {
 	op JNIISLSet getWhileDomain() {
 		if (whileDomainExpr === null || whileDomainExpr.^type != POLY_OBJECT_TYPE::SET) null 
 		else (whileDomainExpr.ISLObject as JNIISLSet).copy
+	}
+	
+	op Variable getVariable(String varName) {
+		val v = getVariables.findFirst[v|v.name.contentEquals(varName)]
+		
+		if (v === null) {
+			throw new RuntimeException(String.format("Variable %s does not exist in system %s ", varName, this.name));
+		}
+		
+		return v
+	}
+	
+	op void accept(AlphaVisitor visitor) {
+		visitor.visitAlphaSystem(this)
 	}
 }
 
@@ -438,6 +451,38 @@ class SystemBody extends AlphaVisitable {
 		equations.getObjectsByType(ModelPackage.Literals.STANDARD_EQUATION).asEList
 	}
 	
+//	op Variable getEquation(String eqName) {
+//		val v = standard.findFirst[eq|e.name.contentEquals(varName)]
+//		
+//		if (v === null) {
+//			throw new RuntimeException(String.format("Variable %s does not exist in system %s ", varName, this.name));
+//		}
+//		
+//		return v
+//	}
+
+	op StandardEquation getStandardEquation(String eqName) {
+		val v = standardEquations.findFirst[eq|eq.variable.name.contentEquals(eqName)]
+		
+		if (v === null) {
+			throw new RuntimeException(String.format("StanardEquation for %s does not exist in system %s ", eqName, this.system.name));
+		}
+		
+		return v
+	}
+//	
+//	op UseEquation getUseEquation(String eqName) {
+//		ue.
+//		
+////		val v = useEquations.filter[ue|EcoreUtil2.getAllContentsOfType(ue, VariableExpression).filter[ve|ve.variable.name]]
+////		
+////		if (v === null) {
+////			throw new RuntimeException(String.format("StanardEquation for %s does not exist in system %s ", eqName, this.system.name));
+////		}
+////		
+////		return v
+//	}
+	
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitSystemBody(this)
 	}
@@ -472,6 +517,18 @@ class UseEquation extends Equation {
 	op JNIISLSet getInstantiationDomain() {
 		if (instantiationDomainExpr.^type != POLY_OBJECT_TYPE.SET) null
 		else instantiationDomainExpr.ISLObject as JNIISLSet
+	}
+	
+	op ListVariableExpression getAllVariableExpressionsInOutputExpressions() {
+		var List<VariableExpression> list = new LinkedList<VariableExpression>();
+		for(expr : outputExprs) {
+			list.addAll(EcoreUtil2.getAllContentsOfType(expr, VariableExpression))
+			
+			if (expr instanceof VariableExpression) {
+				list.add(expr);
+			}
+		}
+		return list
 	}
 	
 	op void accept(AlphaVisitor visitor) {

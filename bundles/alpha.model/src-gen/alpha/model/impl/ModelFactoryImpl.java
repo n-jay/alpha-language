@@ -12,6 +12,8 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -157,6 +159,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return createJNIISLUnionMapFromString(eDataType, initialValue);
 			case ModelPackage.ISL_FORMAT:
 				return createISL_FORMATFromString(eDataType, initialValue);
+			case ModelPackage.LIST_VARIABLE_EXPRESSION:
+				return createListVariableExpressionFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -194,6 +198,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return convertJNIISLUnionMapToString(eDataType, instanceValue);
 			case ModelPackage.ISL_FORMAT:
 				return convertISL_FORMATToString(eDataType, instanceValue);
+			case ModelPackage.LIST_VARIABLE_EXPRESSION:
+				return convertListVariableExpressionToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -975,6 +981,25 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 */
 	public String convertISL_FORMATToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public List<VariableExpression> createListVariableExpressionFromString(EDataType eDataType, String initialValue) {
+		return (List<VariableExpression>)super.createFromString(initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertListVariableExpressionToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(instanceValue);
 	}
 
 	/**

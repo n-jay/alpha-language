@@ -43,6 +43,7 @@ public interface MatrixRow extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false" cUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (this.getValues().get(c)).longValue();'"
 	 * @generated
 	 */
 	long getValue(int c);
@@ -51,6 +52,7 @@ public interface MatrixRow extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model cUnique="false" vUnique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='this.getValues().set(c, &lt;%java.lang.Long%&gt;.valueOf(v));'"
 	 * @generated
 	 */
 	void setValue(int c, long v);
@@ -59,6 +61,7 @@ public interface MatrixRow extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model unique="false"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='final &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%java.lang.Long%&gt;, &lt;%java.lang.CharSequence%&gt;&gt; _function = new &lt;%org.eclipse.xtext.xbase.lib.Functions.Function1%&gt;&lt;&lt;%java.lang.Long%&gt;, &lt;%java.lang.CharSequence%&gt;&gt;()\n{\n\tpublic &lt;%java.lang.CharSequence%&gt; apply(final &lt;%java.lang.Long%&gt; v)\n\t{\n\t\treturn v.toString();\n\t}\n};\nreturn &lt;%org.eclipse.xtext.xbase.lib.IterableExtensions%&gt;.&lt;&lt;%java.lang.Long%&gt;&gt;join(this.getValues(), \"[ \", \" \", \" ]\", _function);'"
 	 * @generated
 	 */
 	String toString();

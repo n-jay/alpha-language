@@ -34,6 +34,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>System Body</b></em>'.
@@ -220,6 +224,25 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 	 */
 	public EList<StandardEquation> getStandardEquations() {
 		return ECollections.<StandardEquation>asEList(((StandardEquation[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(EcoreUtil.<StandardEquation>getObjectsByType(this.getEquations(), Literals.STANDARD_EQUATION), StandardEquation.class)));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StandardEquation getStandardEquation(final String eqName) {
+		final Function1<StandardEquation, Boolean> _function = new Function1<StandardEquation, Boolean>() {
+			public Boolean apply(final StandardEquation eq) {
+				return Boolean.valueOf(eq.getVariable().getName().contentEquals(eqName));
+			}
+		};
+		final StandardEquation v = IterableExtensions.<StandardEquation>findFirst(this.getStandardEquations(), _function);
+		if ((v == null)) {
+			String _format = String.format("StanardEquation for %s does not exist in system %s ", eqName, this.getSystem().getName());
+			throw new RuntimeException(_format);
+		}
+		return v;
 	}
 
 	/**

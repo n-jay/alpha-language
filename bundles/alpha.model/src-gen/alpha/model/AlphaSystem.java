@@ -228,14 +228,6 @@ public interface AlphaSystem extends AlphaElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model visitorUnique="false"
-	 * @generated
-	 */
-	void accept(AlphaVisitor visitor);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
@@ -248,5 +240,21 @@ public interface AlphaSystem extends AlphaElement {
 	 * @generated
 	 */
 	JNIISLSet getWhileDomain();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" varNameUnique="false"
+	 * @generated
+	 */
+	Variable getVariable(String varName);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model visitorUnique="false"
+	 * @generated
+	 */
+	void accept(AlphaVisitor visitor);
 
 } // AlphaSystem

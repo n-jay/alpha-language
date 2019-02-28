@@ -38,6 +38,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Alpha System</b></em>'.
@@ -407,15 +411,6 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void accept(final AlphaVisitor visitor) {
-		visitor.visitAlphaSystem(this);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public JNIISLSet getParameterDomain() {
 		return this.getParameterDomainExpr().getISLSet();
 	}
@@ -435,6 +430,34 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 			_xifexpression = ((JNIISLSet) _iSLObject).copy();
 		}
 		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Variable getVariable(final String varName) {
+		final Function1<Variable, Boolean> _function = new Function1<Variable, Boolean>() {
+			public Boolean apply(final Variable v) {
+				return Boolean.valueOf(v.getName().contentEquals(varName));
+			}
+		};
+		final Variable v = IterableExtensions.<Variable>findFirst(this.getVariables(), _function);
+		if ((v == null)) {
+			String _format = String.format("Variable %s does not exist in system %s ", varName, this.getName());
+			throw new RuntimeException(_format);
+		}
+		return v;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void accept(final AlphaVisitor visitor) {
+		visitor.visitAlphaSystem(this);
 	}
 
 	/**

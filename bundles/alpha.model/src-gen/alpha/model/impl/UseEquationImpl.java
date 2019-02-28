@@ -10,6 +10,7 @@ import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.UseEquation;
+import alpha.model.VariableExpression;
 
 import com.google.common.base.Objects;
 
@@ -19,6 +20,8 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -33,6 +36,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.xtext.EcoreUtil2;
 
 /**
  * <!-- begin-user-doc -->
@@ -328,6 +333,25 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 			_xifexpression = ((JNIISLSet) _iSLObject);
 		}
 		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<VariableExpression> getAllVariableExpressionsInOutputExpressions() {
+		List<VariableExpression> list = new LinkedList<VariableExpression>();
+		EList<AlphaExpression> _outputExprs = this.getOutputExprs();
+		for (final AlphaExpression expr : _outputExprs) {
+			{
+				list.addAll(EcoreUtil2.<VariableExpression>getAllContentsOfType(expr, VariableExpression.class));
+				if ((expr instanceof VariableExpression)) {
+					list.add(((VariableExpression)expr));
+				}
+			}
+		}
+		return list;
 	}
 
 	/**
