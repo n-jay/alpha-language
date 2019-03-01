@@ -14,7 +14,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching,
  org.codehaus.groovy.eclipse.core,
- org.eclipse.pde.ui
+ org.eclipse.pde.ui,
+ org.eclipse.jdt.ui
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: alpha.commands.ui.Activator
 Export-Package: alpha.commands.ui
