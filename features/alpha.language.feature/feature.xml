@@ -55,8 +55,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
    <plugin id="alpha.model.xtext.ui" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
 
-   <plugin id="alpha.model.module" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
-
    <plugin id="alpha.model.wizard" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
 
 </feature>
