@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Modules
-Bundle-SymbolicName: alpha.model.module;singleton:=true
-Bundle-Version: 0.1.0.qualifier
-Require-Bundle: alpha.model,
- fr.irisa.r2d2.gecos.framework,
- alpha.model.xtext,
- org.eclipse.ui
