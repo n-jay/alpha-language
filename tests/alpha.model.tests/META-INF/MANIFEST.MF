@@ -7,8 +7,7 @@ Automatic-Module-Name: alpha.model.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: alpha.model,
  alpha.model.xtext,
- alpha.model.testframework,
- fr.irisa.cairn.gecos.testframework.model,
  org.junit,
  com.google.guava,
- org.eclipse.xtext
+ org.eclipse.xtext,
+ alpha.commands

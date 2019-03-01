@@ -1,40 +1,47 @@
 package alpha.model.tests;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
-import com.tngtech.java.junit.dataprovider.UseDataProvider;
-
-import alpha.model.testframework.AlphaDefaultTestFlows;
-import alpha.model.testframework.AlphaTestTemplate;
-import alpha.model.testframework.AlphaTestVersion;
-import alpha.model.testframework.data.AlphaBundleData;
-import alpha.model.testframework.data.AlphaSingleFileData;
-import alpha.model.testframework.data.IAlphaData;
+import alpha.model.AlphaRoot;
+import alpha.model.tests.data.AlphaBundleTestInput;
+import alpha.model.tests.data.AlphaSingleFileTestInput;
+import alpha.model.tests.data.IAlphaTestInput;
 import alpha.model.tests.util.AlphaTestUtil;
-import alpha.model.util.Show;
-import fr.irisa.cairn.gecos.testframework.dataprovider.DataFromPathProvider;
-import fr.irisa.cairn.gecos.testframework.dataprovider.ResourcesLocation;
 
-public class AlphaShowTest extends AlphaTestTemplate<AlphaTestVersion> {
-	
-	
-	private void compute(AlphaTestVersion v) {
-		AlphaTestUtil.saveAndParse(v, (r->Show.print(r)));
+
+@RunWith(Parameterized.class)
+public class AlphaShowTest extends AbstractAlphaTest {
+
+	public AlphaShowTest(final IAlphaTestInput test) {
+		super(test);
 	}
-
+	
+	@Parameters(name="{0}")
+	public static Collection<Object[]> data() {
+		return AlphaTestUtil.gatherTestInputs(AlphaTestUtil.SRC_VALID).stream().map(f -> new Object[] { f }).collect(Collectors.toList());
+	}
+	
+	@Test
+	public void compute() {
+		doTest();
+	}
 	
 	@Override
-	protected void configure() {
-		super.configure();
-		
-		registerTestFlow(AlphaSingleFileData.class, AlphaDefaultTestFlows.alphaFileDataCheckProgramTestFlow());
-		registerTestFlow(AlphaBundleData.class, AlphaDefaultTestFlows.alphaFileDataCheckProgramTestFlow());
+	protected void doTest(AlphaSingleFileTestInput input) {
+		AlphaRoot root = AlphaTestUtil.parseAndCheck(input);
+		AlphaTestUtil.saveAndParse(root, (r->alpha.model.util.Show.print(r)));
 	}
-
-	@Test
-	@UseDataProvider(location = DataFromPathProvider.class, value = DataFromPathProvider.PROVIDER_NAME)
-	@ResourcesLocation(value = "resources/src-valid", dataClasses = {AlphaBundleData.class, AlphaSingleFileData.class})
-	public void showTest(IAlphaData d) {
-		runTest(d, v->compute(v));
+	
+	@Override
+	protected void doTest(AlphaBundleTestInput input) {
+		List<AlphaRoot> root = AlphaTestUtil.parseAndCheck(input);
+		AlphaTestUtil.saveAndParse(root, (r->alpha.model.util.Show.print(r)));
 	}
 }
