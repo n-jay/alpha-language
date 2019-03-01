@@ -16,7 +16,6 @@
     <module>alpha.model.xtext</module>
     <module>alpha.model.xtext.ide</module>
     <module>alpha.model.xtext.ui</module>
-    <module>alpha.model.testframework</module>
     <module>alpha.model.wizard</module>
     <module>alpha.commands</module>
     <module>alpha.commands.groovy</module>
