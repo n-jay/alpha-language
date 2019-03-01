@@ -12,12 +12,20 @@
 
   <modules>
     <module>alpha.model</module>
-    <module>alpha.model.module</module>
+<!--   <module>alpha.model.module</module>-->
     <module>alpha.model.xtext</module>
     <module>alpha.model.xtext.ide</module>
     <module>alpha.model.xtext.ui</module>
     <module>alpha.model.testframework</module>
     <module>alpha.model.wizard</module>
+    <module>alpha.commands</module>
+<!--    <module>alpha.commands.groovy</module>-->
+    <module>alpha.commands.model</module>
+    <module>alpha.commands.model.generator</module>
+    <module>alpha.commands.model.xtext</module>
+    <module>alpha.commands.model.xtext.ide</module>
+    <module>alpha.commands.model.xtext.ui</module>
+    <module>alpha.commands.ui</module>
   </modules>
 
 </project>

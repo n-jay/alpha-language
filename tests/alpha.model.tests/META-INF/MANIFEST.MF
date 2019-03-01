@@ -11,5 +11,4 @@ Require-Bundle: alpha.model,
  fr.irisa.cairn.gecos.testframework.model,
  org.junit,
  com.google.guava,
- org.eclipse.xtext,
- alpha.model.module
+ org.eclipse.xtext
