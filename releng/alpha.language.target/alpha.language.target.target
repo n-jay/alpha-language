@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?><target name="alpha.language.target" sequenceNumber="67">
 <locations>
-
 <!-- GeCoS -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.framework.feature.feature.group" range="[1.4.0,2.0.0)"/>
@@ -35,6 +34,12 @@
 <unit id="org.eclipse.xtext.sdk.feature.group" range="[2.15.0,3.0.0)"/>
 <!--<repository location="http://download.eclipse.org/releases/2018-09/201809191002/"/>-->
 <repository location="http://mirror.ibcp.fr/pub/eclipse/releases/2018-09/201809191002/"/>
+</location>
+
+<!-- Groovy -->
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.codehaus.groovy.eclipse.feature.feature.group" range="[3.2.0,4.0.0)"/>
+<repository location="https://dist.springsource.org/release/GRECLIPSE/e4.9"/>
 </location>
 </locations>
 </target>
