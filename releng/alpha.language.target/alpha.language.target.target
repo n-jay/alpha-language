@@ -3,20 +3,12 @@
 <locations>
 <!-- GeCoS -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.framework.feature.feature.group" range="[1.4.0,2.0.0)"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/framework/release/v1.4.0/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.jnimapper.feature.feature.group" range="[1.2.0,2.0.0)"/>
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-jnimapper/release/v1.2.0/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.emf.feature.feature.group" range="[1.0.0,2.0.0)"/>
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools/emf/release/v1.0.0/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.testframework.model.feature.feature.group" range="[2.1.0,3.0.0)"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/testframework/release/v2.1.0"/>
 </location>
 
 <!-- ISL -->
@@ -25,13 +17,15 @@
 <repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/release/v1.5.0/"/>
 </location>
 
-<!-- Xtend/Xtext -->
+<!-- Eclipse/Xtend/Xtext -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.jdt.feature.group" range="[3.15.0,4.0.0)"/>
 <unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" range="[1.5.0,2.0.0)"/>
 <unit id="org.eclipse.emf.sdk.feature.group" range="[2.15.0,3.0.0)"/>
 <unit id="org.eclipse.emf.validation.sdk.feature.group" range="[1.11.0, 2.0.0)"/>
 <unit id="org.eclipse.xtend.sdk.feature.group" range="[2.15.0,3.0.0)"/>
 <unit id="org.eclipse.xtext.sdk.feature.group" range="[2.15.0,3.0.0)"/>
+<unit id="org.eclipse.equinox.sdk.feature.group" range="[3.13.0,4.0.0)"/>
 <!--<repository location="http://download.eclipse.org/releases/2018-09/201809191002/"/>-->
 <repository location="http://mirror.ibcp.fr/pub/eclipse/releases/2018-09/201809191002/"/>
 </location>
