@@ -21,30 +21,36 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    </license>
 
    <requires>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.xtext.xbase.lib"/>
-      <import plugin="org.eclipse.emf.ecore.xcore.lib"/>
-      <import plugin="fr.irisa.cairn.jnimap.isl"/>
-      <import plugin="org.eclipse.xtext"/>
+      <import plugin="org.apache.log4j"/>
       <import plugin="org.apache.commons.logging"/>
-      <import plugin="org.eclipse.xtext.xbase"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.compare"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.ecore.xcore.lib"/>
       <import plugin="org.eclipse.equinox.common" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.xbase.lib" version="2.12.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+      <import plugin="org.eclipse.pde.ui"/>
+      <import plugin="org.codehaus.groovy.eclipse.core"/>
       <import plugin="org.antlr.runtime"/>
+      <import plugin="org.eclipse.xtext.xbase"/>
+      <import plugin="org.eclipse.xtext.xbase.lib" version="2.12.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.util"/>
       <import plugin="org.eclipse.xtend.lib" version="2.12.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.log4j"/>
+      <import plugin="org.eclipse.xtext"/>
       <import plugin="org.eclipse.xtext.ide"/>
       <import plugin="org.eclipse.xtext.xbase.ide"/>
       <import plugin="org.eclipse.xtext.ui"/>
       <import plugin="org.eclipse.xtext.ui.shared"/>
       <import plugin="org.eclipse.xtext.ui.codetemplates.ui"/>
-      <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.compare"/>
       <import plugin="org.eclipse.xtext.builder"/>
+      <import plugin="org.eclipse.xtext.xbase.lib"/>
+      <import plugin="fr.irisa.cairn.jnimap.isl"/>
    </requires>
 
    <plugin id="alpha.model" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
@@ -56,5 +62,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    <plugin id="alpha.model.xtext.ui" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
 
    <plugin id="alpha.model.wizard" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+
+   <plugin id="alpha.commands" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+
+   <plugin id="alpha.commands.groovy" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+
+   <plugin id="alpha.commands.ui" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
 
 </feature>
