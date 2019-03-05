@@ -9,7 +9,6 @@ import alpha.model.ContextDomainCalculator;
 import alpha.model.DependenceExpression;
 import alpha.model.Equation;
 import alpha.model.ExpressionDomainCalculator;
-import alpha.model.REDUCTION_OP;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
@@ -18,6 +17,7 @@ import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.util.AffineFunctionOperations;
+import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
@@ -166,7 +166,7 @@ public class SimplifyingReductions {
       ContextDomainCalculator.calculate(XsubEq);
     }
     final CaseExpression mainCaseExpr = AlphaUserFactory.createCaseExpression();
-    final BINARY_OP binaryOp = SimplifyingReductions.reductionOPtoBinaryOP(this.targetReduce.getOperator());
+    final BINARY_OP binaryOp = AlphaOperatorUtil.reductionOPtoBinaryOP(this.targetReduce.getOperator());
     final VariableExpression XaddRef = AlphaUserFactory.createVariableExpression(this.containerSystem.getVariable(XaddName));
     final VariableExpression Xref = AlphaUserFactory.createVariableExpression(this.reductionEquation.getVariable());
     final DependenceExpression reuseExpr = AlphaUserFactory.createDependenceExpression(reuseDepProjected.copy(), Xref);
@@ -189,7 +189,7 @@ public class SimplifyingReductions {
     boolean _isEmpty_2 = Dsub.isEmpty();
     boolean _not_1 = (!_isEmpty_2);
     if (_not_1) {
-      final BINARY_OP invOp = SimplifyingReductions.reductionOPtoBinaryInverseOP(this.targetReduce.getOperator());
+      final BINARY_OP invOp = AlphaOperatorUtil.reductionOPtoBinaryInverseOP(this.targetReduce.getOperator());
       final VariableExpression XsubRef = AlphaUserFactory.createVariableExpression(this.containerSystem.getVariable(XsubName));
       {
         final JNIISLSet restrictDom_1 = Dsub.copy().intersect(Dint.copy().subtract(Dadd.copy()));
@@ -268,64 +268,5 @@ public class SimplifyingReductions {
       _xblockexpression = AlphaUtil.renameIndices(f, this.reductionEquation.getVariable().getDomain().getIndicesNames());
     }
     return _xblockexpression;
-  }
-  
-  private static BINARY_OP reductionOPtoBinaryOP(final REDUCTION_OP op) {
-    BINARY_OP _switchResult = null;
-    if (op != null) {
-      switch (op) {
-        case MIN:
-          _switchResult = BINARY_OP.MIN;
-          break;
-        case MAX:
-          _switchResult = BINARY_OP.MAX;
-          break;
-        case PROD:
-          _switchResult = BINARY_OP.MUL;
-          break;
-        case SUM:
-          _switchResult = BINARY_OP.ADD;
-          break;
-        case AND:
-          _switchResult = BINARY_OP.AND;
-          break;
-        case OR:
-          _switchResult = BINARY_OP.OR;
-          break;
-        case XOR:
-          _switchResult = BINARY_OP.XOR;
-          break;
-        case EX:
-          throw new RuntimeException("[SimplifyingReductions] Reductions with external functions are not yet handled.");
-        default:
-          break;
-      }
-    }
-    return _switchResult;
-  }
-  
-  private static BINARY_OP reductionOPtoBinaryInverseOP(final REDUCTION_OP op) {
-    BINARY_OP _switchResult = null;
-    if (op != null) {
-      switch (op) {
-        case MIN:
-        case MAX:
-        case AND:
-        case OR:
-        case XOR:
-          throw new RuntimeException("[SimplifyingReductions] Operator does not have an inverse.");
-        case PROD:
-          _switchResult = BINARY_OP.DIV;
-          break;
-        case SUM:
-          _switchResult = BINARY_OP.SUB;
-          break;
-        case EX:
-          throw new RuntimeException("[SimplifyingReductions] Reductions with external functions are not yet handled.");
-        default:
-          break;
-      }
-    }
-    return _switchResult;
   }
 }

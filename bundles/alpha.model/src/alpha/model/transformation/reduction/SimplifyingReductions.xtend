@@ -1,23 +1,22 @@
 package alpha.model.transformation.reduction
 
+import alpha.model.AlphaSystem
+import alpha.model.ContextDomainCalculator
+import alpha.model.ExpressionDomainCalculator
 import alpha.model.ReduceExpression
 import alpha.model.StandardEquation
+import alpha.model.SystemBody
+import alpha.model.factory.AlphaUserFactory
+import alpha.model.util.AffineFunctionOperations
+import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLPoint
-import java.util.ArrayList
-import alpha.model.util.AffineFunctionOperations
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
-import alpha.model.factory.AlphaUserFactory
-import org.eclipse.emf.ecore.util.EcoreUtil
+import java.util.ArrayList
 import java.util.function.Function
-import alpha.model.AlphaSystem
-import alpha.model.SystemBody
-import alpha.model.BINARY_OP
-import alpha.model.REDUCTION_OP
-import alpha.model.ExpressionDomainCalculator
-import alpha.model.ContextDomainCalculator
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class SimplifyingReductions {
 	
@@ -159,7 +158,7 @@ class SimplifyingReductions {
 		val mainCaseExpr = AlphaUserFactory.createCaseExpression
 		
 		//common expressions
-		val binaryOp = reductionOPtoBinaryOP(targetReduce.operator)
+		val binaryOp = AlphaOperatorUtil.reductionOPtoBinaryOP(targetReduce.operator)
 		val XaddRef = AlphaUserFactory.createVariableExpression(containerSystem.getVariable(XaddName))
 		val Xref = AlphaUserFactory.createVariableExpression(reductionEquation.variable)
 		//Xreuse = projectedReuse @ X
@@ -195,7 +194,7 @@ class SimplifyingReductions {
 		
 		//Cases 4 and 5 are only when subtraction is necessary 
 		if (!Dsub.isEmpty) {
-			val invOp = reductionOPtoBinaryInverseOP(targetReduce.operator)
+			val invOp = AlphaOperatorUtil.reductionOPtoBinaryInverseOP(targetReduce.operator)
 			val XsubRef = AlphaUserFactory.createVariableExpression(containerSystem.getVariable(XsubName))
 			//Case 4
 			// (Dsub ^ (Dint - Dadd)) : Xreuse - Xsub
@@ -275,39 +274,5 @@ class SimplifyingReductions {
 		val f = AffineFunctionOperations.createUniformFunction(space, projectedB)
 		
 		AlphaUtil.renameIndices(f, reductionEquation.variable.domain.indicesNames)
-	}
-	
-	private static def BINARY_OP reductionOPtoBinaryOP(REDUCTION_OP op) {
-		switch (op) {
-			case MIN: { BINARY_OP.MIN }
-			case MAX: { BINARY_OP.MAX }
-			case PROD: { BINARY_OP.MUL }
-			case SUM: { BINARY_OP.ADD } 
-			case AND: { BINARY_OP.AND }
-			case OR: { BINARY_OP.OR }
-			case XOR: { BINARY_OP.XOR }
-			case EX: {
-				throw new RuntimeException("[SimplifyingReductions] Reductions with external functions are not yet handled.");
-			}
-			
-		}
-	}
-	
-	private static def BINARY_OP reductionOPtoBinaryInverseOP(REDUCTION_OP op) {
-		switch (op) {
-			case MIN,
-			case MAX, 
-			case AND,
-			case OR,
-			case XOR: { 
-				throw new RuntimeException("[SimplifyingReductions] Operator does not have an inverse.");
-			}
-			case PROD: { BINARY_OP.DIV }
-			case SUM: { BINARY_OP.SUB }
-			case EX: {
-				throw new RuntimeException("[SimplifyingReductions] Reductions with external functions are not yet handled.");
-			}
-			
-		}
 	}
 }
