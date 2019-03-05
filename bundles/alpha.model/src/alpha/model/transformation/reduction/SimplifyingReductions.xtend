@@ -1,4 +1,4 @@
-package alpha.model.transformation
+package alpha.model.transformation.reduction
 
 import alpha.model.ReduceExpression
 import alpha.model.StandardEquation
