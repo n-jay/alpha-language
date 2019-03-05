@@ -35,6 +35,7 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.Functions.Function3;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
@@ -44,6 +45,17 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class AlphaUtil {
+  public static Function3<AlphaSystem, String, String, String> duplicateNameResolver() {
+    final Function3<AlphaSystem, String, String, String> _function = (AlphaSystem s, String nameCandidate, String postfix) -> {
+      String currentName = nameCandidate;
+      while ((s.getVariable(currentName) != null)) {
+        currentName = (currentName + postfix);
+      }
+      return currentName;
+    };
+    return _function;
+  }
+  
   public static AlphaRoot getContainerRoot(final EObject node) {
     if ((node instanceof AlphaRoot)) {
       return ((AlphaRoot) node);

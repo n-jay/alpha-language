@@ -5,7 +5,6 @@ import java.util.List;
 
 import alpha.model.matrix.LinearAlgebraException;
 import alpha.model.matrix.Matrix;
-import alpha.model.matrix.MatrixFactory;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.matrix.MatrixRow;
 import alpha.model.matrix.factory.MatrixUserFactory;
@@ -236,13 +235,15 @@ public class AffineFunctionOperations {
 	public static JNIISLMultiAff createUniformFunction(JNIISLSpace space, List<Long> b) {
 		final List<String> params = space.getNameList(JNIISLDimType.isl_dim_param);
 		final List<String> indices = space.getNameList(JNIISLDimType.isl_dim_in);
-
+		
 		Matrix mat = MatrixUserFactory.createMatrix(params, indices);
 		final int nbColumns = mat.getNbColumns();
 		
-		for (int r = 0; r<mat.getNbRows(); r++) {
-			mat.setValue(r, r, 1);
-			mat.setValue(r, nbColumns-1, b.get(r));
+		for (int d=0; d<b.size(); d++) {
+			MatrixRow row = MatrixUserFactory.createMatrixRow(nbColumns);
+			row.setValue(d, 1);
+			row.setValue(nbColumns-1, b.get(d));
+			mat.getRows().add(row);
 		}
 		
 		return toMultiAff(mat);

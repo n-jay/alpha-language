@@ -31,6 +31,18 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
  */
 class AlphaUtil {
 	
+	
+	static def duplicateNameResolver() {
+		return [AlphaSystem s, String nameCandidate, String postfix|
+			var currentName = nameCandidate;
+			
+			while (s.getVariable(currentName) !== null) {
+				currentName = currentName + postfix
+			}
+			
+			return currentName
+		];
+	} 
 
 	static def AlphaRoot getContainerRoot(EObject node) {
 		if (node instanceof AlphaRoot)
