@@ -9,9 +9,9 @@ import alpha.model.VariableExpression
 import alpha.model.Variable
 import alpha.model.factory.AlphaUserFactory
 import alpha.model.matrix.factory.MatrixUserFactory
-import alpha.model.util.AffineFuntionOperations
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import org.eclipse.emf.ecore.util.EcoreUtil
+import alpha.model.util.AffineFunctionOperations
 
 class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
 	
@@ -19,7 +19,7 @@ class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
 		CoBfunction = f;
 		target = variable;
 		
-		CoBfunctionInverse = AffineFuntionOperations.inverseInContext(CoBfunction, null, f.space.getNameList(JNIISLDimType.isl_dim_in))
+		CoBfunctionInverse = AffineFunctionOperations.inverseInContext(CoBfunction, null, f.space.getNameList(JNIISLDimType.isl_dim_in))
 	}
 	
 	JNIISLMultiAff CoBfunction;

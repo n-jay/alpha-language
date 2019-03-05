@@ -3,7 +3,9 @@ package alpha.model.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import alpha.model.matrix.LinearAlgebraException;
 import alpha.model.matrix.Matrix;
+import alpha.model.matrix.MatrixFactory;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.matrix.MatrixRow;
 import alpha.model.matrix.factory.MatrixUserFactory;
@@ -34,7 +36,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLVal;
  * @author tyuki
  *
  */
-public class AffineFuntionOperations {
+public class AffineFunctionOperations {
 
 	
 
@@ -186,6 +188,97 @@ public class AffineFuntionOperations {
 		
 		
 		return toMultiAff(invMat);
+	}
+	
+	/**
+	 * Tests if an affine function is uniform by first converting it to matrix form
+	 * and then testing if the linear part of the matrix is identity.
+	 * 
+	 * @param f
+	 * @return
+	 */
+	public static boolean isUniform(JNIISLMultiAff f) {
+		if (f.getNbDims(JNIISLDimType.isl_dim_in) != f.getNbDims(JNIISLDimType.isl_dim_out))
+			return false;
+		
+		Matrix m = toMatrix(f);
+		
+		boolean uniform = true;
+		for (int r = 0; r < m.getNbRows(); r++) {
+			for (int c = 0; c < m.getNbRows(); c++) {
+				if (r==c) uniform &= m.getValue(r, c) == 1;
+				else uniform &= m.getValue(r, c) == 0;
+			}
+		}
+		
+		
+		return uniform;
+	}
+	
+	/**
+	 * Returns b of the Ax + b representation.
+	 * 
+	 * @param f
+	 * @return
+	 */
+	public static List<Long> getConstantVector(JNIISLMultiAff f) {
+		Matrix m = toMatrix(f);
+		
+		List<Long> b = new ArrayList<>(m.getNbRows());
+		final int lastC = m.getNbColumns()-1;
+		for (MatrixRow r : m.getRows()) {
+			b.add(r.getValue(lastC));
+		}
+		
+		return b;
+	}
+
+	public static JNIISLMultiAff createUniformFunction(JNIISLSpace space, List<Long> b) {
+		final List<String> params = space.getNameList(JNIISLDimType.isl_dim_param);
+		final List<String> indices = space.getNameList(JNIISLDimType.isl_dim_in);
+
+		Matrix mat = MatrixUserFactory.createMatrix(params, indices);
+		final int nbColumns = mat.getNbColumns();
+		
+		for (int r = 0; r<mat.getNbRows(); r++) {
+			mat.setValue(r, r, 1);
+			mat.setValue(r, nbColumns-1, b.get(r));
+		}
+		
+		return toMultiAff(mat);
+	}
+	
+	/**
+	 * Returns a function that is a negation of the input uniform function.
+	 * The method checks if the function is actually uniform or not along the way.
+	 * 
+	 * This method does not consume f.
+	 * 
+	 * @param f
+	 * @return
+	 */
+	public static JNIISLMultiAff negateUniformFunction(JNIISLMultiAff f) {
+		if (f.getNbDims(JNIISLDimType.isl_dim_in) != f.getNbDims(JNIISLDimType.isl_dim_out))
+			throw new RuntimeException("The input function is not uniform.");
+		
+		Matrix m = toMatrix(f);
+		
+		boolean uniform = true;
+		for (int r = 0; r < m.getNbRows(); r++) {
+			for (int c = 0; c < m.getNbRows(); c++) {
+				if (r==c) uniform &= m.getValue(r, c) == 1;
+				else uniform &= m.getValue(r, c) == 0;
+			}
+			int lastCol = m.getNbColumns()-1;
+			m.setValue(r, lastCol, -1*m.getValue(r, lastCol));
+		}
+		if (!uniform) {
+			throw new RuntimeException("The input function is not uniform.");
+		}
+		
+		
+		JNIISLMultiAff negF = toMultiAff(m);
+		return AlphaUtil.renameIndices(negF, f.getSpace().getNameList(JNIISLDimType.isl_dim_in));
 	}
 
 	/**

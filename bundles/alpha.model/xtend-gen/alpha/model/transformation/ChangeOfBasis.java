@@ -8,7 +8,7 @@ import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
-import alpha.model.util.AffineFuntionOperations;
+import alpha.model.util.AffineFunctionOperations;
 import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
@@ -22,7 +22,7 @@ public class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
   private ChangeOfBasis(final AlphaSystem system, final Variable variable, final JNIISLMultiAff f) {
     this.CoBfunction = f;
     this.target = variable;
-    this.CoBfunctionInverse = AffineFuntionOperations.inverseInContext(this.CoBfunction, null, f.getSpace().getNameList(JNIISLDimType.isl_dim_in));
+    this.CoBfunctionInverse = AffineFunctionOperations.inverseInContext(this.CoBfunction, null, f.getSpace().getNameList(JNIISLDimType.isl_dim_in));
   }
   
   private JNIISLMultiAff CoBfunction;
