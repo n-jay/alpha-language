@@ -2,21 +2,31 @@
  */
 package alpha.model.impl;
 
+import alpha.model.AlphaExpression;
 import alpha.model.AlphaVisitor;
 import alpha.model.Equation;
 import alpha.model.ModelPackage;
 import alpha.model.SystemBody;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 /**
  * <!-- begin-user-doc -->
@@ -100,6 +110,44 @@ public abstract class EquationImpl extends MinimalEObjectImpl.Container implemen
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EQUATION__SYSTEM_BODY, newSystemBody, newSystemBody));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaExpression getExpression(final Queue<Integer> exprID) {
+		AlphaExpression _xblockexpression = null;
+		{
+			final Integer next = exprID.poll();
+			AlphaExpression _xifexpression = null;
+			if ((next == null)) {
+				throw new RuntimeException("Invalid Expression ID");
+			}
+			else {
+				EObject _get = this.eContents().get((next).intValue());
+				_xifexpression = ((AlphaExpression) _get);
+			}
+			_xblockexpression = _xifexpression;
+		}
+		return _xblockexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaExpression getExpression(final String exprID) {
+		final Function1<String, Integer> _function = new Function1<String, Integer>() {
+			public Integer apply(final String e) {
+				return Integer.valueOf(Integer.parseInt(e));
+			}
+		};
+		List<Integer> _map = ListExtensions.<String, Integer>map(((List<String>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(exprID.split("\\s*,\\s*"))), _function);
+		LinkedList<Integer> _linkedList = new LinkedList<Integer>(_map);
+		return this.getExpression(_linkedList);
 	}
 
 	/**

@@ -13,6 +13,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import java.util.List;
+import java.util.Queue;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -161,6 +162,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return createISL_FORMATFromString(eDataType, initialValue);
 			case ModelPackage.LIST_VARIABLE_EXPRESSION:
 				return createListVariableExpressionFromString(eDataType, initialValue);
+			case ModelPackage.INTEGER_QUEUE:
+				return createIntegerQueueFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -200,6 +203,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return convertISL_FORMATToString(eDataType, instanceValue);
 			case ModelPackage.LIST_VARIABLE_EXPRESSION:
 				return convertListVariableExpressionToString(eDataType, instanceValue);
+			case ModelPackage.INTEGER_QUEUE:
+				return convertIntegerQueueToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -999,6 +1004,25 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * @generated
 	 */
 	public String convertListVariableExpressionToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public Queue<Integer> createIntegerQueueFromString(EDataType eDataType, String initialValue) {
+		return (Queue<Integer>)super.createFromString(initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertIntegerQueueToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(instanceValue);
 	}
 

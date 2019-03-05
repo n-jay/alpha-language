@@ -2,6 +2,7 @@
  */
 package alpha.model;
 
+import java.util.Queue;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,5 +48,21 @@ public interface Equation extends AlphaVisitable {
 	 * @generated
 	 */
 	void setSystemBody(SystemBody value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" exprIDDataType="alpha.model.IntegerQueue" exprIDUnique="false"
+	 * @generated
+	 */
+	AlphaExpression getExpression(Queue<Integer> exprID);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" exprIDUnique="false"
+	 * @generated
+	 */
+	AlphaExpression getExpression(String exprID);
 
 } // Equation

@@ -5,20 +5,21 @@
 package alpha.model
 
 import alpha.model.exception.CyclicDefinitionException
+import alpha.model.util.AlphaPrintingUtil
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
 import fr.irisa.cairn.jnimap.runtime.JNIObject
+import java.util.LinkedList
+import java.util.List
+import java.util.Queue
+import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.IQualifiedNameProvider
-import alpha.model.util.AlphaPrintingUtil
-import org.eclipse.emf.common.util.BasicEList
-import java.util.List
-import java.util.LinkedList
 
 //type JNIDomain wraps JNIDomain
 type JNIObject wraps JNIObject
@@ -28,6 +29,7 @@ type JNIISLMultiAff wraps JNIISLMultiAff
 type JNIISLUnionMap wraps JNIISLUnionMap
 type ISL_FORMAT wraps ISL_FORMAT
 type ListVariableExpression wraps List<VariableExpression> 
+type IntegerQueue wraps Queue<Integer>
 
 
 /*
@@ -490,6 +492,17 @@ class SystemBody extends AlphaVisitable {
 
 abstract class Equation extends AlphaVisitable {
 	container SystemBody systemBody opposite equations
+	
+	op AlphaExpression getExpression(IntegerQueue exprID) {
+		val next = exprID.poll;
+		
+		if (next === null) throw new RuntimeException("Invalid Expression ID")
+		else this.eContents.get(next) as AlphaExpression
+	}
+	
+	op AlphaExpression getExpression(String exprID) {
+		getExpression(new LinkedList<Integer>(exprID.split("\\s*,\\s*").map[e|Integer.parseInt(e)]))
+	}
 }
 
 class StandardEquation extends Equation {
@@ -569,6 +582,13 @@ abstract class AlphaExpression extends AlphaExpressionVisitable {
 	
 	op void setContextDomain(JNIISLSet dom) { this.setZ__internal_cache_contextDom(dom.coalesce) }
 	op JNIISLSet getContextDomain() { if (z__internal_cache_contextDom !== null)  z__internal_cache_contextDom.copy else null }
+	
+	op AlphaExpression getExpression(IntegerQueue exprID) {
+		val next = exprID.poll;
+		
+		if (next === null) this
+		else this.eContents.get(next) as AlphaExpression
+	}
 }
 
 class RestrictExpression extends AlphaExpression {

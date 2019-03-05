@@ -3816,6 +3816,16 @@ public interface ModelPackage extends EPackage {
 	 */
 	int LIST_VARIABLE_EXPRESSION = 85;
 
+	/**
+	 * The meta object id for the '<em>Integer Queue</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.util.Queue
+	 * @see alpha.model.impl.ModelPackageImpl#getIntegerQueue()
+	 * @generated
+	 */
+	int INTEGER_QUEUE = 86;
+
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.AlphaNode <em>Alpha Node</em>}'.
@@ -5961,6 +5971,17 @@ public interface ModelPackage extends EPackage {
 	EDataType getListVariableExpression();
 
 	/**
+	 * Returns the meta object for data type '{@link java.util.Queue <em>Integer Queue</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Integer Queue</em>'.
+	 * @see java.util.Queue
+	 * @model instanceClass="java.util.Queue&lt;java.lang.Integer&gt;"
+	 * @generated
+	 */
+	EDataType getIntegerQueue();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7769,6 +7790,16 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType LIST_VARIABLE_EXPRESSION = eINSTANCE.getListVariableExpression();
+
+		/**
+		 * The meta object literal for the '<em>Integer Queue</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.util.Queue
+		 * @see alpha.model.impl.ModelPackageImpl#getIntegerQueue()
+		 * @generated
+		 */
+		EDataType INTEGER_QUEUE = eINSTANCE.getIntegerQueue();
 
 	}
 

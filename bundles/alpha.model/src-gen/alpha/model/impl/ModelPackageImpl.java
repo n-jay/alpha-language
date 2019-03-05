@@ -86,6 +86,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import java.util.List;
+import java.util.Queue;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -706,6 +707,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EDataType listVariableExpressionEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType integerQueueEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -2594,6 +2602,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getIntegerQueue() {
+		return integerQueueEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ModelFactory getModelFactory() {
 		return (ModelFactory)getEFactoryInstance();
 	}
@@ -2895,6 +2912,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniislUnionMapEDataType = createEDataType(JNIISL_UNION_MAP);
 		isL_FORMATEDataType = createEDataType(ISL_FORMAT);
 		listVariableExpressionEDataType = createEDataType(LIST_VARIABLE_EXPRESSION);
+		integerQueueEDataType = createEDataType(INTEGER_QUEUE);
 	}
 
 	/**
@@ -3573,6 +3591,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(equationEClass, Equation.class, "Equation", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEquation_SystemBody(), this.getSystemBody(), this.getSystemBody_Equations(), "systemBody", null, 0, 1, Equation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		op = addEOperation(equationEClass, this.getAlphaExpression(), "getExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIntegerQueue(), "exprID", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(equationEClass, this.getAlphaExpression(), "getExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "exprID", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(standardEquationEClass, StandardEquation.class, "StandardEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStandardEquation_Variable(), this.getVariable(), null, "variable", null, 0, 1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getStandardEquation_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3612,6 +3636,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getJNIISLSet(), "dom", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(alphaExpressionEClass, this.getJNIISLSet(), "getContextDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionEClass, this.getAlphaExpression(), "getExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIntegerQueue(), "exprID", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(restrictExpressionEClass, RestrictExpression.class, "RestrictExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRestrictExpression_DomainExpr(), this.getCalculatorExpression(), null, "domainExpr", null, 0, 1, RestrictExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4116,6 +4143,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEDataType(jniislUnionMapEDataType, JNIISLUnionMap.class, "JNIISLUnionMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(isL_FORMATEDataType, fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT.class, "ISL_FORMAT", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(listVariableExpressionEDataType, List.class, "ListVariableExpression", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.List<alpha.model.VariableExpression>");
+		initEDataType(integerQueueEDataType, Queue.class, "IntegerQueue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.Queue<java.lang.Integer>");
 
 		// Create resource
 		createResource(eNS_URI);

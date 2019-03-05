@@ -8,6 +8,8 @@ import alpha.model.ModelPackage;
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
+import java.util.Queue;
+
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -209,6 +211,28 @@ public abstract class AlphaExpressionImpl extends MinimalEObjectImpl.Container i
 			_xifexpression = null;
 		}
 		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaExpression getExpression(final Queue<Integer> exprID) {
+		AlphaExpression _xblockexpression = null;
+		{
+			final Integer next = exprID.poll();
+			AlphaExpression _xifexpression = null;
+			if ((next == null)) {
+				_xifexpression = this;
+			}
+			else {
+				EObject _get = this.eContents().get((next).intValue());
+				_xifexpression = ((AlphaExpression) _get);
+			}
+			_xblockexpression = _xifexpression;
+		}
+		return _xblockexpression;
 	}
 
 	/**

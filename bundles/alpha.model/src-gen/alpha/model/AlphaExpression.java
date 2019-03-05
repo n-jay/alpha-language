@@ -4,6 +4,8 @@ package alpha.model;
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
+import java.util.Queue;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -133,5 +135,13 @@ public interface AlphaExpression extends AlphaExpressionVisitable {
 	 * @generated
 	 */
 	JNIISLSet getContextDomain();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" exprIDDataType="alpha.model.IntegerQueue" exprIDUnique="false"
+	 * @generated
+	 */
+	AlphaExpression getExpression(Queue<Integer> exprID);
 
 } // AlphaExpression
