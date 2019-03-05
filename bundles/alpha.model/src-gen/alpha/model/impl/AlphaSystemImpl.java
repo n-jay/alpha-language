@@ -443,12 +443,7 @@ public class AlphaSystemImpl extends AlphaElementImpl implements AlphaSystem {
 				return Boolean.valueOf(v.getName().contentEquals(varName));
 			}
 		};
-		final Variable v = IterableExtensions.<Variable>findFirst(this.getVariables(), _function);
-		if ((v == null)) {
-			String _format = String.format("Variable %s does not exist in system %s ", varName, this.getName());
-			throw new RuntimeException(_format);
-		}
-		return v;
+		return IterableExtensions.<Variable>findFirst(this.getVariables(), _function);
 	}
 
 	/**

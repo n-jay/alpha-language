@@ -373,13 +373,7 @@ class AlphaSystem extends AlphaElement {
 	}
 	
 	op Variable getVariable(String varName) {
-		val v = getVariables.findFirst[v|v.name.contentEquals(varName)]
-		
-		if (v === null) {
-			throw new RuntimeException(String.format("Variable %s does not exist in system %s ", varName, this.name));
-		}
-		
-		return v
+		return getVariables.findFirst[v|v.name.contentEquals(varName)]
 	}
 	
 	op void accept(AlphaVisitor visitor) {

@@ -26,7 +26,12 @@ public class ValueConverter {
 	}
 
 	public static Variable toVariable(AlphaSystem system, String varName) {
-		return system.getVariable(varName);
+		Variable v = system.getVariable(varName);
+		
+		if (v == null)
+			throw new RuntimeException(String.format("Variable %s does not exist in system %s ", varName, system.getName()));
+		
+		return v;
 	}
 
 	public static SystemBody toSystemBody(AlphaSystem system, int bodyID) {
