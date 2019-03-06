@@ -245,15 +245,15 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
   }
   
   protected String _dependenceExpressionRules(final DependenceExpression de, final RestrictExpression innerRE) {
-    String _xblockexpression = null;
-    {
-      this.debug("preimage", "f @ D : E -> f-1(D) : E");
-      final JNIISLSet preimage = innerRE.getRestrictDomain().preimage(de.getFunction());
-      innerRE.setDomainExpr(AlphaUserFactory.createJNIDomain(preimage));
-      EcoreUtil.replace(de, innerRE);
-      _xblockexpression = this.debug(innerRE);
-    }
-    return _xblockexpression;
+    this.debug("preimage", "f @ D : E -> f-1(D) : f@E");
+    final JNIISLSet preimage = innerRE.getRestrictDomain().preimage(de.getFunction());
+    innerRE.setDomainExpr(AlphaUserFactory.createJNIDomain(preimage));
+    innerRE.setExpr(AlphaUserFactory.createDependenceExpression(de.getFunction(), innerRE.getExpr()));
+    EcoreUtil.replace(de, innerRE);
+    this.debug(innerRE);
+    AlphaInternalStateConstructor.recomputeContextDomain(innerRE);
+    this.reapply(innerRE);
+    return null;
   }
   
   protected String _dependenceExpressionRules(final DependenceExpression de, final BinaryExpression binExpr) {

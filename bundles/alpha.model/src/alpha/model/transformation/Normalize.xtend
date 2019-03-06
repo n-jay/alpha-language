@@ -224,13 +224,18 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 
 	// f @ D : E -> f-1(D) : E
 	protected def dispatch dependenceExpressionRules(DependenceExpression de, RestrictExpression innerRE) {
-		debug("preimage", "f @ D : E -> f-1(D) : E");
+		debug("preimage", "f @ D : E -> f-1(D) : f@E");
 		
 		val preimage = innerRE.restrictDomain.preimage(de.function)
 		innerRE.domainExpr = createJNIDomain(preimage)
+		innerRE.expr = createDependenceExpression(de.function, innerRE.expr)
 		EcoreUtil.replace(de, innerRE);
-		
+	
 		debug(innerRE);
+		// the updated expression must be revisited 
+		// it also needs its domains recomputed for this rule
+		AlphaInternalStateConstructor.recomputeContextDomain(innerRE);
+		reapply(innerRE);
 	}
 
 	// f @ (A op B) -> (f @ A op f @ B)
