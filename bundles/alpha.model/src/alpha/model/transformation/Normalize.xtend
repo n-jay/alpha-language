@@ -131,7 +131,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 
 	final boolean DEEP;
 	
-	static boolean DEBUG = false
+	public static boolean DEBUG = false
 	
 	protected def debug(String ruleID, String rule) {
 		if (DEBUG) println(ruleID + ": " + rule)

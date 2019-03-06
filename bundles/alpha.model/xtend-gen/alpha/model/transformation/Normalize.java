@@ -130,7 +130,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
    */
   private final boolean DEEP;
   
-  private static boolean DEBUG = false;
+  public static boolean DEBUG = false;
   
   protected String debug(final String ruleID, final String rule) {
     String _xifexpression = null;
