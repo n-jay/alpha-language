@@ -8,6 +8,7 @@ import alpha.model.DependenceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.IfExpression;
+import alpha.model.IntegerExpression;
 import alpha.model.JNIDomain;
 import alpha.model.JNIFunction;
 import alpha.model.ModelFactory;
@@ -133,6 +134,14 @@ public class AlphaUserFactory {
 		ve.setVariable(v);
 		
 		return ve;
+	}
+	
+	public static IntegerExpression createIntegerExpression(int v) {
+		IntegerExpression ie = fact.createIntegerExpression();
+		
+		ie.setValue(v);
+		
+		return ie;
 	}
 
 	public static RestrictExpression createRestrictExpression(JNIISLSet dom) {
