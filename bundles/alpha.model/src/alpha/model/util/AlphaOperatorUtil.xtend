@@ -2,11 +2,15 @@ package alpha.model.util
 
 import alpha.model.BINARY_OP
 import alpha.model.REDUCTION_OP
+import alpha.model.AlphaExpression
+import alpha.model.BooleanExpression
+import alpha.model.IntegerExpression
+import alpha.model.RealExpression
 
 class AlphaOperatorUtil {
 	
 	
-	public static def BINARY_OP reductionOPtoBinaryOP(REDUCTION_OP op) {
+	static def BINARY_OP reductionOPtoBinaryOP(REDUCTION_OP op) {
 		switch (op) {
 			case MIN: { BINARY_OP.MIN }
 			case MAX: { BINARY_OP.MAX }
@@ -22,7 +26,7 @@ class AlphaOperatorUtil {
 		}
 	}
 	
-	public static def BINARY_OP reductionOPtoBinaryInverseOP(REDUCTION_OP op) {
+	static def BINARY_OP reductionOPtoBinaryInverseOP(REDUCTION_OP op) {
 		switch (op) {
 			case MIN,
 			case MAX, 
@@ -38,5 +42,50 @@ class AlphaOperatorUtil {
 			}
 			
 		}
+	}
+	
+	static def boolean isIdentity(BINARY_OP op, AlphaExpression expr) {
+		switch (op) {
+			case MIN,
+			case MAX: {
+				//FIXME should add inf and -inf
+				return false
+			}
+			case MUL,
+			case DIV,
+			case MOD: {
+				if (expr instanceof IntegerExpression) {
+					return expr.value == 1
+				}
+				if (expr instanceof RealExpression) {
+					return expr.value == 1
+				}
+			}
+			case ADD,
+			case SUB: {
+				if (expr instanceof IntegerExpression) {
+					return expr.value == 0
+				}
+				if (expr instanceof RealExpression) {
+					return expr.value == 0
+				}
+			}
+			case AND: {
+				if (expr instanceof BooleanExpression) {
+					return expr.value
+				}
+			}
+			case OR: {
+				if (expr instanceof BooleanExpression) {
+					return !expr.value
+				}
+			}
+			default: {
+				return false
+			}
+			
+		}
+		
+		false
 	}
 }

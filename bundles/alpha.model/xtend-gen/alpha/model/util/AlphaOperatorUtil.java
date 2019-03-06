@@ -1,7 +1,11 @@
 package alpha.model.util;
 
+import alpha.model.AlphaExpression;
 import alpha.model.BINARY_OP;
+import alpha.model.BooleanExpression;
+import alpha.model.IntegerExpression;
 import alpha.model.REDUCTION_OP;
+import alpha.model.RealExpression;
 
 @SuppressWarnings("all")
 public class AlphaOperatorUtil {
@@ -62,5 +66,58 @@ public class AlphaOperatorUtil {
       }
     }
     return _switchResult;
+  }
+  
+  public static boolean isIdentity(final BINARY_OP op, final AlphaExpression expr) {
+    boolean _xblockexpression = false;
+    {
+      if (op != null) {
+        switch (op) {
+          case MIN:
+          case MAX:
+            return false;
+          case MUL:
+          case DIV:
+          case MOD:
+            if ((expr instanceof IntegerExpression)) {
+              int _value = ((IntegerExpression)expr).getValue();
+              return (_value == 1);
+            }
+            if ((expr instanceof RealExpression)) {
+              float _value_1 = ((RealExpression)expr).getValue();
+              return (_value_1 == 1);
+            }
+            break;
+          case ADD:
+          case SUB:
+            if ((expr instanceof IntegerExpression)) {
+              int _value_2 = ((IntegerExpression)expr).getValue();
+              return (_value_2 == 0);
+            }
+            if ((expr instanceof RealExpression)) {
+              float _value_3 = ((RealExpression)expr).getValue();
+              return (_value_3 == 0);
+            }
+            break;
+          case AND:
+            if ((expr instanceof BooleanExpression)) {
+              return ((BooleanExpression)expr).isValue();
+            }
+            break;
+          case OR:
+            if ((expr instanceof BooleanExpression)) {
+              boolean _isValue = ((BooleanExpression)expr).isValue();
+              return (!_isValue);
+            }
+            break;
+          default:
+            return false;
+        }
+      } else {
+        return false;
+      }
+      _xblockexpression = false;
+    }
+    return _xblockexpression;
   }
 }
