@@ -1,14 +1,13 @@
 package alpha.model.transformation.reduction;
 
 import alpha.model.AlphaExpression;
+import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.AlphaSystem;
 import alpha.model.BINARY_OP;
 import alpha.model.BinaryExpression;
 import alpha.model.CaseExpression;
-import alpha.model.ContextDomainCalculator;
 import alpha.model.DependenceExpression;
 import alpha.model.Equation;
-import alpha.model.ExpressionDomainCalculator;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
@@ -144,8 +143,7 @@ public class SimplifyingReductions {
       final StandardEquation XaddEq = AlphaUserFactory.createStandardEquation(XaddVar, Xadd);
       this.containerSystem.getLocals().add(XaddVar);
       this.containerSystemBody.getEquations().add(XaddEq);
-      ExpressionDomainCalculator.calculate(XaddEq);
-      ContextDomainCalculator.calculate(XaddEq);
+      AlphaInternalStateConstructor.recomputeContextDomain(XaddEq);
     }
     final String XsubName = SimplifyingReductions.defineXsubEquationName.apply(this);
     boolean _isEmpty_1 = Dsub.isEmpty();
@@ -162,8 +160,7 @@ public class SimplifyingReductions {
       final StandardEquation XsubEq = AlphaUserFactory.createStandardEquation(XsubVar, Xsub);
       this.containerSystem.getLocals().add(XsubVar);
       this.containerSystemBody.getEquations().add(XsubEq);
-      ExpressionDomainCalculator.calculate(XsubEq);
-      ContextDomainCalculator.calculate(XsubEq);
+      AlphaInternalStateConstructor.recomputeContextDomain(XsubEq);
     }
     final CaseExpression mainCaseExpr = AlphaUserFactory.createCaseExpression();
     final BINARY_OP binaryOp = AlphaOperatorUtil.reductionOPtoBinaryOP(this.targetReduce.getOperator());
@@ -206,8 +203,7 @@ public class SimplifyingReductions {
       }
     }
     EcoreUtil.replace(this.targetReduce, mainCaseExpr);
-    ExpressionDomainCalculator.calculate(this.reductionEquation);
-    ContextDomainCalculator.calculate(this.reductionEquation);
+    AlphaInternalStateConstructor.recomputeContextDomain(this.reductionEquation);
   }
   
   /**

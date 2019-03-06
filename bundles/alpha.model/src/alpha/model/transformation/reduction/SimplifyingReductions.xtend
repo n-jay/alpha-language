@@ -1,8 +1,7 @@
 package alpha.model.transformation.reduction
 
+import alpha.model.AlphaInternalStateConstructor
 import alpha.model.AlphaSystem
-import alpha.model.ContextDomainCalculator
-import alpha.model.ExpressionDomainCalculator
 import alpha.model.ReduceExpression
 import alpha.model.StandardEquation
 import alpha.model.SystemBody
@@ -128,9 +127,7 @@ class SimplifyingReductions {
 			val XaddEq = AlphaUserFactory.createStandardEquation(XaddVar, Xadd);
 			containerSystem.locals.add(XaddVar)
 			containerSystemBody.equations.add(XaddEq)
-			
-			ExpressionDomainCalculator.calculate(XaddEq)
-			ContextDomainCalculator.calculate(XaddEq)
+			AlphaInternalStateConstructor.recomputeContextDomain(XaddEq)
 		}
 		
 		//Xsub = reduce( op, proj, proj^-1(Dint) : (DE - DE') : E )
@@ -148,9 +145,7 @@ class SimplifyingReductions {
 			val XsubEq = AlphaUserFactory.createStandardEquation(XsubVar, Xsub);
 			containerSystem.locals.add(XsubVar)
 			containerSystemBody.equations.add(XsubEq)
-			
-			ExpressionDomainCalculator.calculate(XsubEq)
-			ContextDomainCalculator.calculate(XsubEq)
+			AlphaInternalStateConstructor.recomputeContextDomain(XsubEq)
 		}
 		
 		
@@ -219,9 +214,7 @@ class SimplifyingReductions {
 		}
 		
 		EcoreUtil.replace(targetReduce, mainCaseExpr)
-		
-		ExpressionDomainCalculator.calculate(reductionEquation)
-		ContextDomainCalculator.calculate(reductionEquation)
+		AlphaInternalStateConstructor.recomputeContextDomain(reductionEquation)
 	}
 	
 	/**
