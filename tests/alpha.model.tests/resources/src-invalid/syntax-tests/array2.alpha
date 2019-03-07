@@ -32,4 +32,3 @@ package tests.syntax.invalid {
 			B[i,j] = select {[x]->[x]:} from A[x]; //number of input dims in select relation must match its context 
 	.
 }
-	}
