@@ -21,7 +21,10 @@ class AlphaPrintingUtil {
 		val lhs = maff.domainSpace.getNameList(JNIISLDimType.isl_dim_set).join(",")
 		val rhs = maff.affs.join(",", [a|a.toAlphaString]);
 		
-		return '''(«lhs»->«rhs»)'''
+		//due to a problem in Xtext parser, RHS starting with '-' need a space
+		val offset = if (rhs.startsWith("-")) " " else ""
+		
+		return '''(«lhs»->«offset»«rhs»)'''
 	}
 	static def String toAShowString(JNIISLMultiAff maff) {
 		if (maff === null) return null;

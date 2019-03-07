@@ -34,10 +34,19 @@ public class AlphaPrintingUtil {
       return AlphaPrintingUtil.toAlphaString(a);
     };
     final String rhs = IterableExtensions.<JNIISLAff>join(maff.getAffs(), ",", _function);
+    String _xifexpression = null;
+    boolean _startsWith = rhs.startsWith("-");
+    if (_startsWith) {
+      _xifexpression = " ";
+    } else {
+      _xifexpression = "";
+    }
+    final String offset = _xifexpression;
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("(");
     _builder.append(lhs);
     _builder.append("->");
+    _builder.append(offset);
     _builder.append(rhs);
     _builder.append(")");
     return _builder.toString();
