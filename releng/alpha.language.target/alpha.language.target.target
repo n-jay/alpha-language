@@ -14,7 +14,7 @@
 <!-- ISL -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" range="[1.6.1,2.0.0)"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/release/v1.6.1/"/>
+<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/release/v1.7.0/"/>
 </location>
 
 <!-- Eclipse/Xtend/Xtext -->
