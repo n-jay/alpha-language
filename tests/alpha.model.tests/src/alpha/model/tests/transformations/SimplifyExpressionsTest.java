@@ -12,6 +12,7 @@ import alpha.model.AlphaRoot;
 import alpha.model.BinaryExpression;
 import alpha.model.IndexExpression;
 import alpha.model.ReduceExpression;
+import alpha.model.UniquenessAndCompletenessCheck;
 import alpha.model.transformation.SimplifyExpressions;
 
 public class SimplifyExpressionsTest {
@@ -39,6 +40,7 @@ public class SimplifyExpressionsTest {
 		SimplifyExpressions.apply(root);
 		
 		assertTrue(EcoreUtil2.getAllContentsOfType(root, BinaryExpression.class).isEmpty());
+		assertTrue(UniquenessAndCompletenessCheck.check(root).isEmpty());
 	}
 	
 	private void constantIndexTest(String filename) throws IOException {
@@ -47,6 +49,7 @@ public class SimplifyExpressionsTest {
 		SimplifyExpressions.apply(root);
 		
 		assertTrue(EcoreUtil2.getAllContentsOfType(root, IndexExpression.class).isEmpty());
+		assertTrue(UniquenessAndCompletenessCheck.check(root).isEmpty());
 	}
 	
 	private void scalarReductionTest(String filename) throws IOException {
@@ -55,5 +58,6 @@ public class SimplifyExpressionsTest {
 		SimplifyExpressions.apply(root);
 		
 		assertTrue(EcoreUtil2.getAllContentsOfType(root, ReduceExpression.class).isEmpty());
+		assertTrue(UniquenessAndCompletenessCheck.check(root).isEmpty());
 	}
 }
