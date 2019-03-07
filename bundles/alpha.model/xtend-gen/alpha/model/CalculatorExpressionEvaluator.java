@@ -407,7 +407,15 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   protected Boolean _parseJNIFunction(final JNIFunction jniFunction) {
     boolean _xtrycatchfinallyexpression = false;
     try {
-      final String indexNames = jniFunction.getAlphaFunction().getIndexList();
+      String _xifexpression = null;
+      String _indexList = jniFunction.getAlphaFunction().getIndexList();
+      boolean _tripleNotEquals = (_indexList != null);
+      if (_tripleNotEquals) {
+        _xifexpression = jniFunction.getAlphaFunction().getIndexList();
+      } else {
+        _xifexpression = "";
+      }
+      final String indexNames = _xifexpression;
       final Function1<AlphaFunctionExpression, CharSequence> _function = (AlphaFunctionExpression e) -> {
         return e.getISLString();
       };
@@ -425,15 +433,15 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         final RuntimeException re = (RuntimeException)_t;
         boolean _xblockexpression = false;
         {
-          String _xifexpression = null;
+          String _xifexpression_1 = null;
           String _message = re.getMessage();
           boolean _tripleEquals = (_message == null);
           if (_tripleEquals) {
-            _xifexpression = re.getClass().getName();
+            _xifexpression_1 = re.getClass().getName();
           } else {
-            _xifexpression = re.getMessage();
+            _xifexpression_1 = re.getMessage();
           }
-          final String msg = _xifexpression;
+          final String msg = _xifexpression_1;
           _xblockexpression = this.registerIssue(msg, jniFunction);
         }
         _xtrycatchfinallyexpression = _xblockexpression;
