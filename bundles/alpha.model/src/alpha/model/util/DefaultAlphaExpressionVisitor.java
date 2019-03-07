@@ -1,5 +1,8 @@
 package alpha.model.util;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import alpha.model.AbstractFuzzyReduceExpression;
 import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
@@ -189,7 +192,9 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	default void visitMultiArgExpression(MultiArgExpression mae) {
 		inMultiArgExpression(mae);
 		if (mae.getExprs() != null) {
-			mae.getExprs().forEach(a->accept(a));
+			//copy to avoid concurrent mods
+			List<AlphaExpression> copy = new LinkedList<>(mae.getExprs());
+			copy.forEach(a->accept(a));
 		}
 		outMultiArgExpression(mae);
 	}
@@ -251,7 +256,9 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	default void visitExternalMultiArgExpression(ExternalMultiArgExpression emae) {
 		inExternalMultiArgExpression(emae);
 		if (emae.getExprs() != null) {
-			emae.getExprs().forEach(a->accept(a));
+			//copy to avoid concurrent mods
+			List<AlphaExpression> copy = new LinkedList<>(emae.getExprs());
+			copy.forEach(a->accept(a));
 		}
 		outExternalMultiArgExpression(emae);
 	}
