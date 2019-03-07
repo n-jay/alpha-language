@@ -6,6 +6,9 @@ import alpha.model.ReduceExpression
 import alpha.model.StandardEquation
 import alpha.model.SystemBody
 import alpha.model.factory.AlphaUserFactory
+import alpha.model.transformation.Normalize
+import alpha.model.transformation.PropagateSimpleEquations
+import alpha.model.transformation.SimplifyExpressions
 import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
@@ -20,6 +23,14 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 class SimplifyingReductions {
 	
 	public static boolean DEBUG = false;
+
+	/**
+	 * Setting this variable to true disables all the
+	 * post processing simplifications. Intended to be
+	 * used for debugging purposes or to check the
+	 * result of SR against the theorem in the paper. 
+	 */
+	public static boolean DISABLE_POST_PROCESSING = false;
 	
 	public static Function<SimplifyingReductions, String> defineXaddEquationName = [sr|
 		val origName = sr.reductionEquation.variable.name
@@ -215,6 +226,13 @@ class SimplifyingReductions {
 		
 		EcoreUtil.replace(targetReduce, mainCaseExpr)
 		AlphaInternalStateConstructor.recomputeContextDomain(reductionEquation)
+		
+		if (!DISABLE_POST_PROCESSING) {
+			SimplifyExpressions.apply(containerSystemBody)
+			Normalize.apply(containerSystemBody)
+			PropagateSimpleEquations.apply(containerSystemBody)
+			Normalize.apply(containerSystemBody)
+		}
 	}
 	
 	/**

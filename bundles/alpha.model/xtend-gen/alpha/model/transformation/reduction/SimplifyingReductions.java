@@ -15,6 +15,9 @@ import alpha.model.SystemBody;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
+import alpha.model.transformation.Normalize;
+import alpha.model.transformation.PropagateSimpleEquations;
+import alpha.model.transformation.SimplifyExpressions;
 import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
@@ -35,6 +38,14 @@ import org.eclipse.xtext.xbase.lib.InputOutput;
 @SuppressWarnings("all")
 public class SimplifyingReductions {
   public static boolean DEBUG = false;
+  
+  /**
+   * Setting this variable to true disables all the
+   * post processing simplifications. Intended to be
+   * used for debugging purposes or to check the
+   * result of SR against the theorem in the paper.
+   */
+  public static boolean DISABLE_POST_PROCESSING = false;
   
   public static Function<SimplifyingReductions, String> defineXaddEquationName = ((Function<SimplifyingReductions, String>) (SimplifyingReductions sr) -> {
     String _xblockexpression = null;
@@ -204,6 +215,12 @@ public class SimplifyingReductions {
     }
     EcoreUtil.replace(this.targetReduce, mainCaseExpr);
     AlphaInternalStateConstructor.recomputeContextDomain(this.reductionEquation);
+    if ((!SimplifyingReductions.DISABLE_POST_PROCESSING)) {
+      SimplifyExpressions.apply(this.containerSystemBody);
+      Normalize.apply(this.containerSystemBody);
+      PropagateSimpleEquations.apply(this.containerSystemBody);
+      Normalize.apply(this.containerSystemBody);
+    }
   }
   
   /**
