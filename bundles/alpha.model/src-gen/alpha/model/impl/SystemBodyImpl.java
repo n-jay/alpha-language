@@ -13,6 +13,9 @@ import alpha.model.ModelPackage.Literals;
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
 import alpha.model.UseEquation;
+import alpha.model.Variable;
+
+import com.google.common.base.Objects;
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
@@ -237,12 +240,22 @@ public class SystemBodyImpl extends MinimalEObjectImpl.Container implements Syst
 				return Boolean.valueOf(eq.getVariable().getName().contentEquals(eqName));
 			}
 		};
-		final StandardEquation v = IterableExtensions.<StandardEquation>findFirst(this.getStandardEquations(), _function);
-		if ((v == null)) {
-			String _format = String.format("StanardEquation for %s does not exist in system %s ", eqName, this.getSystem().getName());
-			throw new RuntimeException(_format);
-		}
-		return v;
+		return IterableExtensions.<StandardEquation>findFirst(this.getStandardEquations(), _function);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StandardEquation getStandardEquation(final Variable v) {
+		final Function1<StandardEquation, Boolean> _function = new Function1<StandardEquation, Boolean>() {
+			public Boolean apply(final StandardEquation eq) {
+				Variable _variable = eq.getVariable();
+				return Boolean.valueOf(Objects.equal(_variable, v));
+			}
+		};
+		return IterableExtensions.<StandardEquation>findFirst(this.getStandardEquations(), _function);
 	}
 
 	/**

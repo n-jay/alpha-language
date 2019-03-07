@@ -12,8 +12,6 @@ import alpha.model.ExternalFunction;
 import alpha.model.Imports;
 import alpha.model.ModelPackage;
 
-import com.google.common.collect.Iterables;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -122,7 +120,7 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * @generated
 	 */
 	public EList<AlphaConstant> getConstants() {
-		return ECollections.<AlphaConstant>asEList(((AlphaConstant[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<AlphaConstant>filter(this.getElements(), AlphaConstant.class), AlphaConstant.class)));
+		return ECollections.<AlphaConstant>asEList(EcoreUtil2.<AlphaConstant>getAllContentsOfType(this, AlphaConstant.class));
 	}
 
 	/**
@@ -131,7 +129,7 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * @generated
 	 */
 	public EList<ExternalFunction> getExternalFunctions() {
-		return ECollections.<ExternalFunction>asEList(((ExternalFunction[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<ExternalFunction>filter(this.getElements(), ExternalFunction.class), ExternalFunction.class)));
+		return ECollections.<ExternalFunction>asEList(EcoreUtil2.<ExternalFunction>getAllContentsOfType(this, ExternalFunction.class));
 	}
 
 	/**
@@ -140,7 +138,7 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * @generated
 	 */
 	public EList<AlphaPackage> getPackages() {
-		return ECollections.<AlphaPackage>asEList(((AlphaPackage[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<AlphaPackage>filter(this.getElements(), AlphaPackage.class), AlphaPackage.class)));
+		return ECollections.<AlphaPackage>asEList(EcoreUtil2.<AlphaPackage>getAllContentsOfType(this, AlphaPackage.class));
 	}
 
 	/**
@@ -149,7 +147,7 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * @generated
 	 */
 	public EList<AlphaSystem> getSystems() {
-		return ECollections.<AlphaSystem>asEList(((AlphaSystem[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<AlphaSystem>filter(this.getElements(), AlphaSystem.class), AlphaSystem.class)));
+		return ECollections.<AlphaSystem>asEList(EcoreUtil2.<AlphaSystem>getAllContentsOfType(this, AlphaSystem.class));
 	}
 
 	/**

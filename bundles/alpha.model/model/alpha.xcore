@@ -271,10 +271,10 @@ class AlphaRoot extends AlphaVisitable {
 	contains Imports[] imports
 	contains AlphaElement[] elements
 	
-	op AlphaConstant[] getConstants() { elements.filter(AlphaConstant).asEList }
-	op ExternalFunction[] getExternalFunctions() { elements.filter(ExternalFunction).asEList }
-	op AlphaPackage[] getPackages() { elements.filter(AlphaPackage).asEList }
-	op AlphaSystem[] getSystems() { elements.filter(AlphaSystem).asEList }
+	op AlphaConstant[] getConstants() { EcoreUtil2.getAllContentsOfType(this, AlphaConstant).asEList }
+	op ExternalFunction[] getExternalFunctions() { EcoreUtil2.getAllContentsOfType(this, ExternalFunction).asEList }
+	op AlphaPackage[] getPackages() { EcoreUtil2.getAllContentsOfType(this, AlphaPackage).asEList }
+	op AlphaSystem[] getSystems() { EcoreUtil2.getAllContentsOfType(this, AlphaSystem).asEList }
 	
 	op AlphaSystem getSystem(String name) {
 		//qualified name
@@ -458,13 +458,11 @@ class SystemBody extends AlphaVisitable {
 //	}
 
 	op StandardEquation getStandardEquation(String eqName) {
-		val v = standardEquations.findFirst[eq|eq.variable.name.contentEquals(eqName)]
-		
-		if (v === null) {
-			throw new RuntimeException(String.format("StanardEquation for %s does not exist in system %s ", eqName, this.system.name));
-		}
-		
-		return v
+		standardEquations.findFirst[eq|eq.variable.name.contentEquals(eqName)]
+	}
+	
+	op StandardEquation getStandardEquation(Variable v) {
+		standardEquations.findFirst[eq|eq.variable == v]
 	}
 //	
 //	op UseEquation getUseEquation(String eqName) {

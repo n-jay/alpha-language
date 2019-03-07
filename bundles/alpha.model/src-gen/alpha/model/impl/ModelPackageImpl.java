@@ -3585,6 +3585,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(systemBodyEClass, this.getStandardEquation(), "getStandardEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEString(), "eqName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(systemBodyEClass, this.getStandardEquation(), "getStandardEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getVariable(), "v", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(systemBodyEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
