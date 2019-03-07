@@ -10,7 +10,7 @@ package tests.valid.trans.simplify.expressions {
 		outputs
 			X : {}
 		let
-			X = (0 + Y)
+			X = (0 + Y);
 	.
 	
 	affine binaryIdentity1b [N] -> { : N>0}
@@ -19,7 +19,7 @@ package tests.valid.trans.simplify.expressions {
 		outputs
 			X : {}
 		let
-			X = (Y + 0)
+			X = (Y + 0);
 	.
 	
 	affine binaryIdentity1c [N] -> { : N>0}
@@ -28,7 +28,7 @@ package tests.valid.trans.simplify.expressions {
 		outputs
 			X : {}
 		let
-			X = (1 * Y)
+			X = (1 * Y);
 	.
 	
 	affine binaryIdentity1d [N] -> { : N>0}
@@ -37,7 +37,7 @@ package tests.valid.trans.simplify.expressions {
 		outputs
 			X : {}
 		let
-			X = (Y * 1)
+			X = (Y * 1);
 	.
 	
 	affine binaryIdentity1e [N] -> { : N>0}
@@ -46,7 +46,7 @@ package tests.valid.trans.simplify.expressions {
 		outputs
 			X : {}
 		let
-			X = (0 + Y * 1)
+			X = (0 + Y * 1);
 	.
 	
 	affine binaryIdentity1f [N] -> { : N>0}
@@ -55,7 +55,7 @@ package tests.valid.trans.simplify.expressions {
 		outputs
 			X : {}
 		let
-			X = (1 * Y + 0)
+			X = (1 * Y + 0);
 	.
 	
 	
