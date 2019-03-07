@@ -5,7 +5,6 @@ package alpha.model.validation;
 
 import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.AlphaRoot;
-import alpha.model.AlphaSystem;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.validation.AbstractAlphaValidator;
 import com.google.common.base.Objects;
@@ -15,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -39,18 +39,16 @@ public class AlphaValidator extends AbstractAlphaValidator {
   
   @Check
   public void checkRoot(final AlphaRoot root) {
-    final List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(root);
-    final Function1<AlphaIssue, Boolean> _function = (AlphaIssue i) -> {
-      return Boolean.valueOf(EcoreUtil.isAncestor(root, i.getSource()));
-    };
-    final Consumer<AlphaIssue> _function_1 = (AlphaIssue i) -> {
-      this.flagEditor(i.getType(), i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
-    };
-    IterableExtensions.<AlphaIssue>filter(issues, _function).forEach(_function_1);
-  }
-  
-  @Check
-  public Object checkSystem(final AlphaSystem system) {
-    return null;
+    boolean _shouldCheck = this.getCheckMode().shouldCheck(CheckType.EXPENSIVE);
+    if (_shouldCheck) {
+      final List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(root);
+      final Function1<AlphaIssue, Boolean> _function = (AlphaIssue i) -> {
+        return Boolean.valueOf(EcoreUtil.isAncestor(root, i.getSource()));
+      };
+      final Consumer<AlphaIssue> _function_1 = (AlphaIssue i) -> {
+        this.flagEditor(i.getType(), i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
+      };
+      IterableExtensions.<AlphaIssue>filter(issues, _function).forEach(_function_1);
+    }
   }
 }

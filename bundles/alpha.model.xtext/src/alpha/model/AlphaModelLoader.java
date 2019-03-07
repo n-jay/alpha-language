@@ -159,7 +159,9 @@ public class AlphaModelLoader {
 	public static List<Issue> validate(AlphaVisitable alpha) {
 		Resource resource = alpha.eResource();
 		IResourceValidator validator = ((XtextResource) resource).getResourceServiceProvider().getResourceValidator();
-		List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
+		
+		//CheckMode.EXPENSIVE triggers CheckProgram
+		List<Issue> issues = validator.validate(resource, CheckMode.NORMAL_AND_FAST, CancelIndicator.NullImpl);
 		return issues;
 	}
 	

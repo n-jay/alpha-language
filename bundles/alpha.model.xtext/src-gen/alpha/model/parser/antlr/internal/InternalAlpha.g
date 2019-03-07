@@ -2903,33 +2903,42 @@ ruleAISLExpressionLiteral returns [AntlrDatatypeRuleToken current=new AntlrDatat
 	leaveRule();
 }:
 	(
-		{
-			newCompositeNode(grammarAccess.getAISLExpressionLiteralAccess().getIndexNameParserRuleCall_0());
-		}
-		this_IndexName_0=ruleIndexName
-		{
-			$current.merge(this_IndexName_0);
-		}
-		{
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		this_INT_1=RULE_INT
-		{
-			$current.merge(this_INT_1);
-		}
-		{
-			newLeafNode(this_INT_1, grammarAccess.getAISLExpressionLiteralAccess().getINTTerminalRuleCall_1());
-		}
-		    |
-		this_WS_2=RULE_WS
-		{
-			$current.merge(this_WS_2);
-		}
-		{
-			newLeafNode(this_WS_2, grammarAccess.getAISLExpressionLiteralAccess().getWSTerminalRuleCall_2());
-		}
-	)+
+		(
+			kw='-'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getAISLExpressionLiteralAccess().getHyphenMinusKeyword_0());
+			}
+		)?
+		(
+			{
+				newCompositeNode(grammarAccess.getAISLExpressionLiteralAccess().getIndexNameParserRuleCall_1_0());
+			}
+			this_IndexName_1=ruleIndexName
+			{
+				$current.merge(this_IndexName_1);
+			}
+			{
+				afterParserOrEnumRuleCall();
+			}
+			    |
+			this_INT_2=RULE_INT
+			{
+				$current.merge(this_INT_2);
+			}
+			{
+				newLeafNode(this_INT_2, grammarAccess.getAISLExpressionLiteralAccess().getINTTerminalRuleCall_1_1());
+			}
+			    |
+			this_WS_3=RULE_WS
+			{
+				$current.merge(this_WS_3);
+			}
+			{
+				newLeafNode(this_WS_3, grammarAccess.getAISLExpressionLiteralAccess().getWSTerminalRuleCall_1_2());
+			}
+		)+
+	)
 ;
 
 // Entry rule entryRuleAISLExpressionOperator

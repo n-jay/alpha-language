@@ -41,7 +41,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAISLSetAccess().getAlternatives(), "rule__AISLSet__Alternatives");
 			builder.put(grammarAccess.getAISLStringAccess().getAlternatives(), "rule__AISLString__Alternatives");
 			builder.put(grammarAccess.getAISLExpressionAccess().getAlternatives(), "rule__AISLExpression__Alternatives");
-			builder.put(grammarAccess.getAISLExpressionLiteralAccess().getAlternatives(), "rule__AISLExpressionLiteral__Alternatives");
+			builder.put(grammarAccess.getAISLExpressionLiteralAccess().getAlternatives_1(), "rule__AISLExpressionLiteral__Alternatives_1");
 			builder.put(grammarAccess.getAISLExpressionOperatorAccess().getAlternatives(), "rule__AISLExpressionOperator__Alternatives");
 			builder.put(grammarAccess.getAlphaFunctionTerminalExpressionAccess().getAlternatives(), "rule__AlphaFunctionTerminalExpression__Alternatives");
 			builder.put(grammarAccess.getAISLFuzzyExpressionAccess().getAlternatives(), "rule__AISLFuzzyExpression__Alternatives");
@@ -124,6 +124,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAISLBasicSetAccess().getGroup(), "rule__AISLBasicSet__Group__0");
 			builder.put(grammarAccess.getAISLRelationAccess().getGroup(), "rule__AISLRelation__Group__0");
 			builder.put(grammarAccess.getAISLRelationAccess().getGroup_2(), "rule__AISLRelation__Group_2__0");
+			builder.put(grammarAccess.getAISLExpressionLiteralAccess().getGroup(), "rule__AISLExpressionLiteral__Group__0");
 			builder.put(grammarAccess.getAISLExpressionListAccess().getGroup(), "rule__AISLExpressionList__Group__0");
 			builder.put(grammarAccess.getAISLExpressionListAccess().getGroup_1(), "rule__AISLExpressionList__Group_1__0");
 			builder.put(grammarAccess.getAlphaFunctionTerminalExpressionAccess().getGroup_1(), "rule__AlphaFunctionTerminalExpression__Group_1__0");

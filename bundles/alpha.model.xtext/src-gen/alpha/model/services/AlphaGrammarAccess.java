@@ -1662,26 +1662,34 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class AISLExpressionLiteralElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLExpressionLiteral");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cIndexNameParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cINTTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cWSTerminalRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cHyphenMinusKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final RuleCall cIndexNameParserRuleCall_1_0 = (RuleCall)cAlternatives_1.eContents().get(0);
+		private final RuleCall cINTTerminalRuleCall_1_1 = (RuleCall)cAlternatives_1.eContents().get(1);
+		private final RuleCall cWSTerminalRuleCall_1_2 = (RuleCall)cAlternatives_1.eContents().get(2);
 		
 		//AISLExpressionLiteral:
-		//	(IndexName | INT | WS)+;
+		//	'-'? (IndexName | INT | WS)+;
 		@Override public ParserRule getRule() { return rule; }
 		
+		//'-'? (IndexName | INT | WS)+
+		public Group getGroup() { return cGroup; }
+		
+		//'-'?
+		public Keyword getHyphenMinusKeyword_0() { return cHyphenMinusKeyword_0; }
+		
 		//(IndexName | INT | WS)+
-		public Alternatives getAlternatives() { return cAlternatives; }
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 		
 		//IndexName
-		public RuleCall getIndexNameParserRuleCall_0() { return cIndexNameParserRuleCall_0; }
+		public RuleCall getIndexNameParserRuleCall_1_0() { return cIndexNameParserRuleCall_1_0; }
 		
 		//INT
-		public RuleCall getINTTerminalRuleCall_1() { return cINTTerminalRuleCall_1; }
+		public RuleCall getINTTerminalRuleCall_1_1() { return cINTTerminalRuleCall_1_1; }
 		
 		//WS
-		public RuleCall getWSTerminalRuleCall_2() { return cWSTerminalRuleCall_2; }
+		public RuleCall getWSTerminalRuleCall_1_2() { return cWSTerminalRuleCall_1_2; }
 	}
 	public class AISLExpressionOperatorElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AISLExpressionOperator");
@@ -5315,7 +5323,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AISLExpressionLiteral:
-	//	(IndexName | INT | WS)+;
+	//	'-'? (IndexName | INT | WS)+;
 	public AISLExpressionLiteralElements getAISLExpressionLiteralAccess() {
 		return pAISLExpressionLiteral;
 	}

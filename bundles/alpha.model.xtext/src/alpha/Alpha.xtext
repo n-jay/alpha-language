@@ -164,7 +164,7 @@ AISLExpression:
 	(IndexName|INT|'='|'+'|'-'|'*'|'/'|'%'|'('|')'|WS)+;
 	
 AISLExpressionLiteral:
-	(IndexName|INT|WS)+;
+	'-'?(IndexName|INT|WS)+;
 AISLExpressionOperator:
 	'='|'+'|'-'|'*'|'/'|'%'
 ;
