@@ -5,6 +5,6 @@ package tests.SR {
 		outputs
 			C : [N]
 		let
-			C[i] = reduce(+, [j], {:i-W<=j<=i} A[j]);
+			C[i] = reduce(+, [j], {:i-W<=j<=i} : A[j]);
 	.
 }
