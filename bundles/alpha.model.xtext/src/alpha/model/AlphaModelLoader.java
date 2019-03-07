@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,10 @@ import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceFactory;
 import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.util.CancelIndicator;
+import org.eclipse.xtext.validation.CheckMode;
+import org.eclipse.xtext.validation.IResourceValidator;
+import org.eclipse.xtext.validation.Issue;
 
 import com.google.inject.Injector;
 
@@ -56,6 +61,11 @@ public class AlphaModelLoader {
 
 		EObject root = res.getContents().get(0);
 		AlphaRoot toplevel = (AlphaRoot) root;
+		List<Issue> xtextIssues = validate(toplevel);
+		if (!xtextIssues.isEmpty()) {
+			throw new RuntimeException(xtextIssues.toString());
+		}
+		
 		List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(toplevel);
 		if (!issues.isEmpty()) {
 			throw new AlphaIssueException(issues);
@@ -123,6 +133,7 @@ public class AlphaModelLoader {
 		}
 		EcoreUtil.resolveAll(set);
 
+		List<Issue> xtextIssues = new LinkedList<>();
 		for (File file : files) {
 			final Resource res = set.getResource(URI.createFileURI(file.getPath()), true);
 			if (res.getContents().size() == 0) continue;
@@ -130,8 +141,13 @@ public class AlphaModelLoader {
 			EObject root = res.getContents().get(0);
 			AlphaRoot toplevel = (AlphaRoot) root;
 			roots.add(toplevel);
+			xtextIssues.addAll(validate(toplevel));
 		}
 
+		if (!xtextIssues.isEmpty()) {
+			throw new RuntimeException(xtextIssues.toString());
+		}
+		
 		List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(roots);
 		if (!issues.isEmpty()) {
 			throw new AlphaIssueException(issues);
@@ -140,6 +156,12 @@ public class AlphaModelLoader {
 		return roots;
 	}
 
+	public static List<Issue> validate(AlphaVisitable alpha) {
+		Resource resource = alpha.eResource();
+		IResourceValidator validator = ((XtextResource) resource).getResourceServiceProvider().getResourceValidator();
+		List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
+		return issues;
+	}
 	
 	public static void formatFile(String filename) throws IOException {
 		AlphaRoot prog = loadModel(filename);
