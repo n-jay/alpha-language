@@ -35,7 +35,7 @@ public class AlphaOperatorUtil {
           _switchResult = BINARY_OP.XOR;
           break;
         case EX:
-          throw new RuntimeException("[SimplifyingReductions] Reductions with external functions are not yet handled.");
+          throw new RuntimeException("[AlphaOperatorUtil] ExternalFunctions cannot be used as BinaryOP.");
         default:
           break;
       }
@@ -52,7 +52,7 @@ public class AlphaOperatorUtil {
         case AND:
         case OR:
         case XOR:
-          throw new RuntimeException("[SimplifyingReductions] Operator does not have an inverse.");
+          throw new RuntimeException("[AlphaOperatorUtil] Operator does not have an inverse.");
         case PROD:
           _switchResult = BINARY_OP.DIV;
           break;
@@ -60,7 +60,7 @@ public class AlphaOperatorUtil {
           _switchResult = BINARY_OP.SUB;
           break;
         case EX:
-          throw new RuntimeException("[SimplifyingReductions] Reductions with external functions are not yet handled.");
+          throw new RuntimeException("[AlphaOperatorUtil] ExternalFunctions cannot be used as BinaryOP.");
         default:
           break;
       }

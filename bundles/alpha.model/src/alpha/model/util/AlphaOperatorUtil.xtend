@@ -1,10 +1,12 @@
 package alpha.model.util
 
-import alpha.model.BINARY_OP
-import alpha.model.REDUCTION_OP
 import alpha.model.AlphaExpression
+import alpha.model.BINARY_OP
+import alpha.model.BinaryExpression
 import alpha.model.BooleanExpression
 import alpha.model.IntegerExpression
+import alpha.model.MultiArgExpression
+import alpha.model.REDUCTION_OP
 import alpha.model.RealExpression
 
 class AlphaOperatorUtil {
@@ -20,7 +22,7 @@ class AlphaOperatorUtil {
 			case OR: { BINARY_OP.OR }
 			case XOR: { BINARY_OP.XOR }
 			case EX: {
-				throw new RuntimeException("[SimplifyingReductions] Reductions with external functions are not yet handled.");
+				throw new RuntimeException("[AlphaOperatorUtil] ExternalFunctions cannot be used as BinaryOP.");
 			}
 			
 		}
@@ -33,12 +35,12 @@ class AlphaOperatorUtil {
 			case AND,
 			case OR,
 			case XOR: { 
-				throw new RuntimeException("[SimplifyingReductions] Operator does not have an inverse.");
+				throw new RuntimeException("[AlphaOperatorUtil] Operator does not have an inverse.");
 			}
 			case PROD: { BINARY_OP.DIV }
 			case SUM: { BINARY_OP.SUB }
 			case EX: {
-				throw new RuntimeException("[SimplifyingReductions] Reductions with external functions are not yet handled.");
+				throw new RuntimeException("[AlphaOperatorUtil] ExternalFunctions cannot be used as BinaryOP.");
 			}
 			
 		}
