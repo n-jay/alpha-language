@@ -1,5 +1,6 @@
 package alpha.model.transformation;
 
+import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
@@ -117,6 +118,12 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
    * 	debug("rule18b", "if(cond, case E; esac, else) -> esac if (cond, E, else); case", "");
    * 	debug("rule18c", "if(cond, then, case E; esac) -> esac if (cond, then, E); case", "");
    * 	debug("rule19", "exFunc(op, dom : E) -> dom : exFunc(op, E)", "");
+   * 
+   * New Rule:
+   *   reduce(op1, f1, D : reduce(op2, f2, E)) -> reduce(op1, f1, reduce(op2, f2, f2^-1(D) : E))
+   *      - this rule was added to expose nested reductions without restrict in between;
+   *        restrict cannot be pushed out from reductions in general, and restrict are
+   *        usually not pushed downwards. This rule is an exception.
    * 
    * Rules for New Syntax:
    *   D : auto : E -> auto : E
@@ -377,6 +384,21 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.debug(ce);
     AlphaInternalStateConstructor.recomputeContextDomain(ce);
     this.reapply(ce);
+    return null;
+  }
+  
+  protected String _restrictExpressionRules(final RestrictExpression re, final AbstractReduceExpression are) {
+    EObject _eContainer = re.eContainer();
+    if ((_eContainer instanceof AbstractReduceExpression)) {
+      this.debug("push restrict", "reduce (op1, f1, D : reduce(op2, f2, E)) -> reduce(op1, f1, reduce(op2, f2, f2^-1(D) : E))");
+      final JNIISLSet preimage = re.getRestrictDomain().preimage(are.getProjection());
+      final RestrictExpression restrictExpr = AlphaUserFactory.createRestrictExpression(preimage, are.getBody());
+      are.setBody(restrictExpr);
+      EcoreUtil.replace(re, are);
+      this.debug(are);
+      AlphaInternalStateConstructor.recomputeContextDomain(are);
+      this.reapply(are);
+    }
     return null;
   }
   
@@ -813,7 +835,9 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
   }
   
   protected String restrictExpressionRules(final RestrictExpression re, final AlphaExpression are) {
-    if (are instanceof AutoRestrictExpression) {
+    if (are instanceof AbstractReduceExpression) {
+      return _restrictExpressionRules(re, (AbstractReduceExpression)are);
+    } else if (are instanceof AutoRestrictExpression) {
       return _restrictExpressionRules(re, (AutoRestrictExpression)are);
     } else if (are instanceof CaseExpression) {
       return _restrictExpressionRules(re, (CaseExpression)are);

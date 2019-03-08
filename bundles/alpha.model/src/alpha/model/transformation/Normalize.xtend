@@ -1,12 +1,15 @@
 package alpha.model.transformation
 
+import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaCompleteVisitable
 import alpha.model.AlphaExpression
 import alpha.model.AlphaExpressionVisitable
 import alpha.model.AlphaInternalStateConstructor
 import alpha.model.AlphaVisitable
+import alpha.model.AutoRestrictExpression
 import alpha.model.BinaryExpression
 import alpha.model.CaseExpression
+import alpha.model.ConvolutionExpression
 import alpha.model.DependenceExpression
 import alpha.model.IfExpression
 import alpha.model.IndexExpression
@@ -15,6 +18,7 @@ import alpha.model.MultiArgExpression
 import alpha.model.RestrictExpression
 import alpha.model.UnaryExpression
 import alpha.model.util.AbstractAlphaCompleteVisitor
+import alpha.model.util.AlphaExpressionUtil
 import alpha.model.util.AlphaUtil
 import alpha.model.util.Show
 import java.util.ArrayList
@@ -31,15 +35,7 @@ import static alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static alpha.model.factory.AlphaUserFactory.createRestrictExpression
 import static alpha.model.factory.AlphaUserFactory.createUnaryExpression
-import alpha.model.AutoRestrictExpression
-import alpha.model.util.PrintAST
-import alpha.model.ConvolutionExpression
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList
-import alpha.model.util.AlphaExpressionUtil
+import alpha.model.factory.AlphaUserFactory
 
 /**
  * Normalization of Alpha programs.
@@ -117,6 +113,12 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 	 *	debug("rule18b", "if(cond, case E; esac, else) -> esac if (cond, E, else); case", "");
 	 *	debug("rule18c", "if(cond, then, case E; esac) -> esac if (cond, then, E); case", "");
 	 *	debug("rule19", "exFunc(op, dom : E) -> dom : exFunc(op, E)", "");
+	 * 
+	 * New Rule:
+	 *   reduce(op1, f1, D : reduce(op2, f2, E)) -> reduce(op1, f1, reduce(op2, f2, f2^-1(D) : E))
+	 *      - this rule was added to expose nested reductions without restrict in between; 
+	 *        restrict cannot be pushed out from reductions in general, and restrict are 
+	 *        usually not pushed downwards. This rule is an exception.
 	 * 
 	 * Rules for New Syntax:
 	 *   D : auto : E -> auto : E
@@ -375,7 +377,22 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		AlphaInternalStateConstructor.recomputeContextDomain(ce);
 		reapply(ce);
 	}
-
+	
+	// reduce (op1, f1, D : reduce(op2, f2, E)) -> reduce(op1, f1, reduce(op2, f2, f2^-1(D) : E))
+	protected def dispatch restrictExpressionRules(RestrictExpression re, AbstractReduceExpression are) {
+		if (re.eContainer instanceof AbstractReduceExpression) {
+			debug("push restrict", "reduce (op1, f1, D : reduce(op2, f2, E)) -> reduce(op1, f1, reduce(op2, f2, f2^-1(D) : E))");
+			val preimage = re.restrictDomain.preimage(are.projection)
+			val restrictExpr = AlphaUserFactory.createRestrictExpression(preimage, are.body)
+			are.body = restrictExpr
+			EcoreUtil.replace(re, are)
+			
+			debug(are);
+			// the updated expression must be revisited 
+			AlphaInternalStateConstructor.recomputeContextDomain(are);
+			reapply(are);
+		}
+	}
 	protected def dispatch restrictExpressionRules(RestrictExpression re, AlphaExpression expr) {
 		// Nothing if there is no matching rule
 	}
