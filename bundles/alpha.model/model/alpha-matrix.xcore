@@ -21,6 +21,7 @@ type JNIISLSpace wraps JNIISLSpace
 class Matrix {
 	contains Space space
 	contains MatrixRow[] rows
+	boolean linearPartOnly = "false"
 	
 	op boolean isConsistent() {
 		val nbCols = nbColumns;
@@ -44,7 +45,10 @@ class Matrix {
 	}
 
 	op int getNbColumns() {
-		return nbParams+nbIndices+1
+		if (linearPartOnly)
+			nbParams+nbIndices
+		else
+			nbParams+nbIndices+1
 	}
 	
 	op int getNbParams() {

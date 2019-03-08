@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link alpha.model.matrix.Matrix#getSpace <em>Space</em>}</li>
  *   <li>{@link alpha.model.matrix.Matrix#getRows <em>Rows</em>}</li>
+ *   <li>{@link alpha.model.matrix.Matrix#isLinearPartOnly <em>Linear Part Only</em>}</li>
  * </ul>
  *
  * @see alpha.model.matrix.MatrixPackage#getMatrix()
@@ -75,6 +76,33 @@ public interface Matrix extends EObject {
 	 * @generated
 	 */
 	EList<MatrixRow> getRows();
+
+	/**
+	 * Returns the value of the '<em><b>Linear Part Only</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Linear Part Only</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Linear Part Only</em>' attribute.
+	 * @see #setLinearPartOnly(boolean)
+	 * @see alpha.model.matrix.MatrixPackage#getMatrix_LinearPartOnly()
+	 * @model default="false" unique="false"
+	 * @generated
+	 */
+	boolean isLinearPartOnly();
+
+	/**
+	 * Sets the value of the '{@link alpha.model.matrix.Matrix#isLinearPartOnly <em>Linear Part Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Linear Part Only</em>' attribute.
+	 * @see #isLinearPartOnly()
+	 * @generated
+	 */
+	void setLinearPartOnly(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -1744,13 +1744,14 @@ public class MatrixOperations {
 		long[] vectTemp = new long[genKernA.length];
 		for (int j=0; j<genKernA[0].length; j++) {
 			// We take one of the generator vector of Ker(A): vectTemp
-			for (int i=0; i<genKernA.length; i++)
+			for (int i=0; i<genKernA.length; i++) {
 				vectTemp[i] = genKernA[i][j];
+			}
 			
 			// We check if (B.vectTemp = 0), ie vectTemp \in Ker(B)
-			vectTemp = matrixVectMultiplication(B, vectTemp);
-			for (int i=0; i<vectTemp.length; i++) {
-				if (vectTemp[i] != 0)
+			long[] checkRes = matrixVectMultiplication(B, vectTemp);
+			for (int i=0; i<checkRes.length; i++) {
+				if (checkRes[i] != 0)
 					return false;
 			}
 		}

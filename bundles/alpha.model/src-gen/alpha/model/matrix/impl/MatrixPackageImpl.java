@@ -151,6 +151,15 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getMatrix_LinearPartOnly() {
+		return (EAttribute)matrixEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMatrixRow() {
 		return matrixRowEClass;
 	}
@@ -231,6 +240,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 		matrixEClass = createEClass(MATRIX);
 		createEReference(matrixEClass, MATRIX__SPACE);
 		createEReference(matrixEClass, MATRIX__ROWS);
+		createEAttribute(matrixEClass, MATRIX__LINEAR_PART_ONLY);
 
 		matrixRowEClass = createEClass(MATRIX_ROW);
 		createEAttribute(matrixRowEClass, MATRIX_ROW__VALUES);
@@ -279,6 +289,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 		initEClass(matrixEClass, Matrix.class, "Matrix", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMatrix_Space(), this.getSpace(), null, "space", null, 0, 1, Matrix.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMatrix_Rows(), this.getMatrixRow(), null, "rows", null, 0, -1, Matrix.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMatrix_LinearPartOnly(), theEcorePackage.getEBoolean(), "linearPartOnly", "false", 0, 1, Matrix.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(matrixEClass, theEcorePackage.getEBoolean(), "isConsistent", 0, 1, !IS_UNIQUE, IS_ORDERED);
 

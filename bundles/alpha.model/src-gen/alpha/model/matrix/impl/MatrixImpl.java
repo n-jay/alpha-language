@@ -35,6 +35,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  * <ul>
  *   <li>{@link alpha.model.matrix.impl.MatrixImpl#getSpace <em>Space</em>}</li>
  *   <li>{@link alpha.model.matrix.impl.MatrixImpl#getRows <em>Rows</em>}</li>
+ *   <li>{@link alpha.model.matrix.impl.MatrixImpl#isLinearPartOnly <em>Linear Part Only</em>}</li>
  * </ul>
  *
  * @generated
@@ -59,6 +60,26 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * @ordered
 	 */
 	protected EList<MatrixRow> rows;
+
+	/**
+	 * The default value of the '{@link #isLinearPartOnly() <em>Linear Part Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLinearPartOnly()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean LINEAR_PART_ONLY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isLinearPartOnly() <em>Linear Part Only</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLinearPartOnly()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean linearPartOnly = LINEAR_PART_ONLY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -139,6 +160,27 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isLinearPartOnly() {
+		return linearPartOnly;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLinearPartOnly(boolean newLinearPartOnly) {
+		boolean oldLinearPartOnly = linearPartOnly;
+		linearPartOnly = newLinearPartOnly;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MatrixPackage.MATRIX__LINEAR_PART_ONLY, oldLinearPartOnly, linearPartOnly));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isConsistent() {
 		final int nbCols = this.getNbColumns();
 		EList<MatrixRow> _rows = this.getRows();
@@ -185,10 +227,20 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * @generated
 	 */
 	public int getNbColumns() {
-		int _nbParams = this.getNbParams();
-		int _nbIndices = this.getNbIndices();
-		int _plus = (_nbParams + _nbIndices);
-		return (_plus + 1);
+		int _xifexpression = (int) 0;
+		boolean _isLinearPartOnly = this.isLinearPartOnly();
+		if (_isLinearPartOnly) {
+			int _nbParams = this.getNbParams();
+			int _nbIndices = this.getNbIndices();
+			_xifexpression = (_nbParams + _nbIndices);
+		}
+		else {
+			int _nbParams_1 = this.getNbParams();
+			int _nbIndices_1 = this.getNbIndices();
+			int _plus = (_nbParams_1 + _nbIndices_1);
+			_xifexpression = (_plus + 1);
+		}
+		return _xifexpression;
 	}
 
 	/**
@@ -264,6 +316,8 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 				return getSpace();
 			case MatrixPackage.MATRIX__ROWS:
 				return getRows();
+			case MatrixPackage.MATRIX__LINEAR_PART_ONLY:
+				return isLinearPartOnly();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -284,6 +338,9 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 				getRows().clear();
 				getRows().addAll((Collection<? extends MatrixRow>)newValue);
 				return;
+			case MatrixPackage.MATRIX__LINEAR_PART_ONLY:
+				setLinearPartOnly((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -302,6 +359,9 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 			case MatrixPackage.MATRIX__ROWS:
 				getRows().clear();
 				return;
+			case MatrixPackage.MATRIX__LINEAR_PART_ONLY:
+				setLinearPartOnly(LINEAR_PART_ONLY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -318,6 +378,8 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 				return space != null;
 			case MatrixPackage.MATRIX__ROWS:
 				return rows != null && !rows.isEmpty();
+			case MatrixPackage.MATRIX__LINEAR_PART_ONLY:
+				return linearPartOnly != LINEAR_PART_ONLY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

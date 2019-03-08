@@ -86,13 +86,22 @@ public interface MatrixPackage extends EPackage {
 	int MATRIX__ROWS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Linear Part Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MATRIX__LINEAR_PART_ONLY = 2;
+
+	/**
 	 * The number of structural features of the '<em>Matrix</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MATRIX_FEATURE_COUNT = 2;
+	int MATRIX_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.matrix.impl.MatrixRowImpl <em>Row</em>}' class.
@@ -201,6 +210,17 @@ public interface MatrixPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMatrix_Rows();
+
+	/**
+	 * Returns the meta object for the attribute '{@link alpha.model.matrix.Matrix#isLinearPartOnly <em>Linear Part Only</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Linear Part Only</em>'.
+	 * @see alpha.model.matrix.Matrix#isLinearPartOnly()
+	 * @see #getMatrix()
+	 * @generated
+	 */
+	EAttribute getMatrix_LinearPartOnly();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.matrix.MatrixRow <em>Row</em>}'.
@@ -313,6 +333,14 @@ public interface MatrixPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MATRIX__ROWS = eINSTANCE.getMatrix_Rows();
+
+		/**
+		 * The meta object literal for the '<em><b>Linear Part Only</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MATRIX__LINEAR_PART_ONLY = eINSTANCE.getMatrix_LinearPartOnly();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.matrix.impl.MatrixRowImpl <em>Row</em>}' class.

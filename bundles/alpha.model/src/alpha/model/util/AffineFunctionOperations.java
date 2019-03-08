@@ -48,12 +48,31 @@ public class AffineFunctionOperations {
 	 * @return
 	 */
 	public static Matrix toMatrix(JNIISLMultiAff maff) {
+		return toMatrix(maff, false);
+	}
+	
+	public static Matrix toLinearPartOnlyMatrix(JNIISLMultiAff maff) {
+		return toMatrix(maff, true);
+	}
+	
+
+	/**
+	 * Converts JNIISLMultiAff into Matrix. The matrix is [A|b] of the
+	 * Ax + b representation of the function. When the linearPartOnly
+	 * flag is true it only returns the A matrix.
+	 * 
+	 * @param maff
+	 * @param linearPartOnly
+	 * @return
+	 */
+	private static Matrix toMatrix(JNIISLMultiAff maff, boolean linearPartOnly) {
 		final List<String> params = maff.getSpace().getNameList(JNIISLDimType.isl_dim_param);
 		final List<String> indices = maff.getSpace().getNameList(JNIISLDimType.isl_dim_in);
 		final int nbParam = params.size();
 		final int nbIndices =  indices.size();
 
-		Matrix mat = MatrixUserFactory.createMatrix(params, indices);
+		Matrix mat = linearPartOnly?MatrixUserFactory.createLinearPartOnlyMatrix(params, indices):MatrixUserFactory.createMatrix(params, indices);
+				
 		final int nbColumns = mat.getNbColumns();
 		
 		//Add the implicit parameters
@@ -80,8 +99,10 @@ public class AffineFunctionOperations {
 				row[i+nbParam] = val.asLong();
 			}
 			//constant
-			long constant = aff.getConstantVal().asLong();
-			row[nbParam+nbIndices] = constant;
+			if (!linearPartOnly) {
+				long constant = aff.getConstantVal().asLong();
+				row[nbParam+nbIndices] = constant;
+			}
 			
 			mat.getRows().add(MatrixUserFactory.createMatrixRow(row));
 			
@@ -281,6 +302,36 @@ public class AffineFunctionOperations {
 		JNIISLMultiAff negF = toMultiAff(m);
 		return AlphaUtil.renameIndices(negF, f.getSpace().getNameList(JNIISLDimType.isl_dim_in));
 	}
+	
+	/**
+	 * Tests if f1 is in the kernel of f2
+	 * 
+	 * @param f1
+	 * @param f2
+	 * @return
+	 */
+	public static boolean isInKernelOf(JNIISLMultiAff f1, JNIISLMultiAff f2) {
+		if (!f1.getSpace().isEqual(f2.getSpace())) 
+			throw new RuntimeException("[MatrixOperations] Incompatible space given to isKernelOf: " + f1 + " " + f2);
+		
+		final int nbParam = f1.getNbDims(JNIISLDimType.isl_dim_param);
+		long[][] f1Array = toArray(toLinearPartOnlyMatrix(f1));
+		long[][] f2Array = toArray(toLinearPartOnlyMatrix(f2));
+		long[][] f2Kernel = MatrixOperations.transpose(MatrixOperations.nullspace(f2Array));
+		
+		//add implicit parameters
+		f2Kernel = MatrixOperations.rowBind(f2Kernel, MatrixOperations.submatrixRow(f1Array, 0, nbParam-1));
+		
+		//kernel rank + parameters is the baseline
+		final int origRank = f2Kernel.length;
+		
+		//if rank does not increase with the dependence expressions, then the dependences are in the kernel
+		f2Kernel = MatrixOperations.rowBind(f2Kernel, MatrixOperations.submatrixRow(f1Array, nbParam, f1Array.length-1));
+		
+		final int rank = MatrixOperations.getRank(f2Kernel);
+		
+		return origRank == rank;
+	}
 
 	/**
 	 * Converts {@link Matrix} to MultiAff.
@@ -316,7 +367,8 @@ public class AffineFunctionOperations {
 			for (int i = 0; i < nbIndices; i++) {
 				aff = aff.setCoefficient(JNIISLDimType.isl_dim_in, i, (int)row.getValue(i+nbParams));
 			}
-			aff = aff.setConstant((int)row.getValue(nbParams+nbIndices));
+			if (!mat.isLinearPartOnly())
+				aff = aff.setConstant((int)row.getValue(nbParams+nbIndices));
 			affList = affList.add(aff);
 		}
 		

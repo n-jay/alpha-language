@@ -38,6 +38,16 @@ public class MatrixUserFactory {
 		
 		return mat;
 	}
+
+	public static Matrix createLinearPartOnlyMatrix(String[] paramNames, String[] indexNames) {
+		return createLinearPartOnlyMatrix(Arrays.asList(paramNames), Arrays.asList(indexNames));
+	}
+
+	public static Matrix createLinearPartOnlyMatrix(List<String> paramNames, List<String> indexNames) {
+		Matrix mat = createMatrix(paramNames, indexNames);
+		mat.setLinearPartOnly(true);
+		return mat;
+	}
 	
 	/**
 	 * Create a matrix row with given initial values.
