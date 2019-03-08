@@ -1,0 +1,52 @@
+package alpha.model.transformation.reduction;
+
+import alpha.model.AbstractReduceExpression;
+import alpha.model.ReduceExpression;
+import alpha.model.factory.AlphaUserFactory;
+import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools;
+import java.util.function.Supplier;
+import org.eclipse.xtext.xbase.lib.Exceptions;
+
+/**
+ * ReductionDecomposition splits a reduction into two.
+ * A reduction of the form:
+ *   reduce(op, f, E)
+ * is transformed into:
+ *   reduce(op, f2, reduce(op, f1, E))
+ * where f = f2 o f1.
+ */
+@SuppressWarnings("all")
+public class ReductionDecomposition {
+  private ReductionDecomposition() {
+  }
+  
+  /**
+   * Applies ReductionDecomposition using the input functions.
+   * Input f1 becomes the projection function of the inner reduction.
+   */
+  public static void apply(final AbstractReduceExpression are, final JNIISLMultiAff f1, final JNIISLMultiAff f2) {
+    Boolean _xtrycatchfinallyexpression = null;
+    try {
+      final Supplier<Boolean> _function = () -> {
+        return Boolean.valueOf(f2.copy().pullback(f1.copy()).isPlainEqual(are.getProjection()));
+      };
+      _xtrycatchfinallyexpression = JNIISLTools.<Boolean>recordError(_function);
+    } catch (final Throwable _t) {
+      if (_t instanceof ISLErrorException) {
+        final ISLErrorException isle = (ISLErrorException)_t;
+        throw new IllegalArgumentException(("[ReductionDecomposition] ISL error while testing for validity of input functions: " + isle.islErrorMessage));
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
+    final Boolean validDecomposition = _xtrycatchfinallyexpression;
+    if ((!(validDecomposition).booleanValue())) {
+      throw new IllegalArgumentException("[ReductionDecomposition] The composition of input functions must match the original projection. ");
+    }
+    final ReduceExpression innerARE = AlphaUserFactory.createReduceExpression(are.getOperator(), f1, are.getBody());
+    are.setBody(innerARE);
+    are.setProjectionExpr(AlphaUserFactory.createJNIFunction(f2));
+  }
+}
