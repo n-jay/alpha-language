@@ -127,7 +127,7 @@ public abstract class EquationImpl extends MinimalEObjectImpl.Container implemen
 			}
 			else {
 				EObject _get = this.eContents().get((next).intValue());
-				_xifexpression = ((AlphaExpression) _get);
+				_xifexpression = ((AlphaExpression) _get).getExpression(exprID);
 			}
 			_xblockexpression = _xifexpression;
 		}

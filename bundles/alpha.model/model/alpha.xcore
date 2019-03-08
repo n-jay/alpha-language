@@ -489,7 +489,7 @@ abstract class Equation extends AlphaVisitable {
 		val next = exprID.poll;
 		
 		if (next === null) throw new RuntimeException("Invalid Expression ID")
-		else this.eContents.get(next) as AlphaExpression
+		else (this.eContents.get(next) as AlphaExpression).getExpression(exprID);
 	}
 	
 	op AlphaExpression getExpression(String exprID) {
@@ -579,7 +579,7 @@ abstract class AlphaExpression extends AlphaExpressionVisitable {
 		val next = exprID.poll;
 		
 		if (next === null) this
-		else this.eContents.get(next) as AlphaExpression
+		else (this.eContents.get(next) as AlphaExpression).getExpression(exprID);
 	}
 }
 
