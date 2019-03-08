@@ -3,7 +3,6 @@ package alpha.model.transformation.reduction;
 import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaSystem;
-import alpha.model.CalculatorExpressionEvaluator;
 import alpha.model.REDUCTION_OP;
 import alpha.model.SystemBody;
 import alpha.model.factory.AlphaUserFactory;
@@ -81,7 +80,6 @@ public class ReductionComposition {
     final JNIISLMultiAff composedProj = are.getProjection().pullback(innerARE.getProjection());
     are.setProjectionExpr(AlphaUserFactory.createJNIFunction(composedProj));
     are.setBody(innerARE.getBody());
-    CalculatorExpressionEvaluator.calculate(are.getProjectionExpr(), null);
     return 1;
   }
 }

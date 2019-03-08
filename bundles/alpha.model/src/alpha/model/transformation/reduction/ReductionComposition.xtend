@@ -2,7 +2,6 @@ package alpha.model.transformation.reduction
 
 import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaSystem
-import alpha.model.CalculatorExpressionEvaluator
 import alpha.model.SystemBody
 import alpha.model.factory.AlphaUserFactory
 import org.eclipse.xtext.EcoreUtil2
@@ -62,8 +61,6 @@ class ReductionComposition {
 		
 		are.projectionExpr = AlphaUserFactory.createJNIFunction(composedProj)
 		are.body = innerARE.body
-		
-		CalculatorExpressionEvaluator.calculate(are.projectionExpr, null)
 		
 		return 1;
 	}
