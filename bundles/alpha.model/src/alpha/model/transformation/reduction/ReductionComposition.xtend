@@ -43,7 +43,7 @@ class ReductionComposition {
 	 */
 	static def apply(AbstractReduceExpression are) {
 		if (transform(are) != 1) {
-			throw new RuntimeException("ReductionComposition is not applicable to the specified expression. It must have another reduction with the same operator as its body.");
+			throw new IllegalArgumentException("[ReductionComposition] Target AbstractReduceExpression must have another reduction with the same operator as its body.");
 		}
 	}
 	
