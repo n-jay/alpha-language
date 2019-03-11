@@ -79,6 +79,7 @@ ArgumentType returns ArgumentType:
 	"AlphaExpression" |
 	"AbstractReduceExpression" |
 	"BinaryExpression" |
+	"DependenceExpression" |
 	"AffineFunction" |
 	"Domain" |
 	"ParameterDomain" |

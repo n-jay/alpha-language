@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalCommandsParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'{'", "'}'", "':'", "'@Bind'", "'('", "';'", "','", "')'", "'='", "'=>'", "'_'", "'Void'", "'AlphaNode'", "'AlphaVisitable'", "'AlphaRoot'", "'AlphaSystem'", "'SystemBody'", "'Variable'", "'Equation'", "'StandardEquation'", "'UseEquation'", "'AlphaExpression'", "'AbstractReduceExpression'", "'BinaryExpression'", "'AffineFunction'", "'Domain'", "'ParameterDomain'", "'List<AlphaRoot>'", "'String'", "'List<String>'", "'String[]'", "'int'", "'List<Integer>'", "'int[]'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'{'", "'}'", "':'", "'@Bind'", "'('", "';'", "','", "')'", "'='", "'=>'", "'_'", "'Void'", "'AlphaNode'", "'AlphaVisitable'", "'AlphaRoot'", "'AlphaSystem'", "'SystemBody'", "'Variable'", "'Equation'", "'StandardEquation'", "'UseEquation'", "'AlphaExpression'", "'AbstractReduceExpression'", "'BinaryExpression'", "'DependenceExpression'", "'AffineFunction'", "'Domain'", "'ParameterDomain'", "'List<AlphaRoot>'", "'String'", "'List<String>'", "'String[]'", "'int'", "'List<Integer>'", "'int[]'"
     };
     public static final int T__19=19;
     public static final int T__15=15;
@@ -61,6 +61,7 @@ public class InternalCommandsParser extends AbstractInternalAntlrParser {
     public static final int RULE_WS=9;
     public static final int RULE_ANY_OTHER=10;
     public static final int T__44=44;
+    public static final int T__45=45;
     public static final int T__40=40;
     public static final int T__41=41;
     public static final int T__42=42;
@@ -1437,7 +1438,7 @@ public class InternalCommandsParser extends AbstractInternalAntlrParser {
             int alt11=2;
             int LA11_0 = input.LA(1);
 
-            if ( ((LA11_0>=22 && LA11_0<=44)) ) {
+            if ( ((LA11_0>=22 && LA11_0<=45)) ) {
                 alt11=1;
             }
             switch (alt11) {
@@ -1701,7 +1702,7 @@ public class InternalCommandsParser extends AbstractInternalAntlrParser {
             int alt14=2;
             int LA14_0 = input.LA(1);
 
-            if ( (LA14_0==RULE_STRING||(LA14_0>=21 && LA14_0<=44)) ) {
+            if ( (LA14_0==RULE_STRING||(LA14_0>=21 && LA14_0<=45)) ) {
                 alt14=1;
             }
             switch (alt14) {
@@ -2045,6 +2046,7 @@ public class InternalCommandsParser extends AbstractInternalAntlrParser {
             case 42:
             case 43:
             case 44:
+            case 45:
                 {
                 alt15=1;
                 }
@@ -2510,7 +2512,7 @@ public class InternalCommandsParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleArgumentType"
-    // InternalCommands.g:961:1: ruleArgumentType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'Void' | kw= 'AlphaNode' | kw= 'AlphaVisitable' | kw= 'AlphaRoot' | kw= 'AlphaSystem' | kw= 'SystemBody' | kw= 'Variable' | kw= 'Equation' | kw= 'StandardEquation' | kw= 'UseEquation' | kw= 'AlphaExpression' | kw= 'AbstractReduceExpression' | kw= 'BinaryExpression' | kw= 'AffineFunction' | kw= 'Domain' | kw= 'ParameterDomain' | kw= 'List<AlphaRoot>' | kw= 'String' | kw= 'List<String>' | kw= 'String[]' | kw= 'int' | kw= 'List<Integer>' | kw= 'int[]' ) ;
+    // InternalCommands.g:961:1: ruleArgumentType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'Void' | kw= 'AlphaNode' | kw= 'AlphaVisitable' | kw= 'AlphaRoot' | kw= 'AlphaSystem' | kw= 'SystemBody' | kw= 'Variable' | kw= 'Equation' | kw= 'StandardEquation' | kw= 'UseEquation' | kw= 'AlphaExpression' | kw= 'AbstractReduceExpression' | kw= 'BinaryExpression' | kw= 'DependenceExpression' | kw= 'AffineFunction' | kw= 'Domain' | kw= 'ParameterDomain' | kw= 'List<AlphaRoot>' | kw= 'String' | kw= 'List<String>' | kw= 'String[]' | kw= 'int' | kw= 'List<Integer>' | kw= 'int[]' ) ;
     public final AntlrDatatypeRuleToken ruleArgumentType() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -2520,11 +2522,11 @@ public class InternalCommandsParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalCommands.g:967:2: ( (kw= 'Void' | kw= 'AlphaNode' | kw= 'AlphaVisitable' | kw= 'AlphaRoot' | kw= 'AlphaSystem' | kw= 'SystemBody' | kw= 'Variable' | kw= 'Equation' | kw= 'StandardEquation' | kw= 'UseEquation' | kw= 'AlphaExpression' | kw= 'AbstractReduceExpression' | kw= 'BinaryExpression' | kw= 'AffineFunction' | kw= 'Domain' | kw= 'ParameterDomain' | kw= 'List<AlphaRoot>' | kw= 'String' | kw= 'List<String>' | kw= 'String[]' | kw= 'int' | kw= 'List<Integer>' | kw= 'int[]' ) )
-            // InternalCommands.g:968:2: (kw= 'Void' | kw= 'AlphaNode' | kw= 'AlphaVisitable' | kw= 'AlphaRoot' | kw= 'AlphaSystem' | kw= 'SystemBody' | kw= 'Variable' | kw= 'Equation' | kw= 'StandardEquation' | kw= 'UseEquation' | kw= 'AlphaExpression' | kw= 'AbstractReduceExpression' | kw= 'BinaryExpression' | kw= 'AffineFunction' | kw= 'Domain' | kw= 'ParameterDomain' | kw= 'List<AlphaRoot>' | kw= 'String' | kw= 'List<String>' | kw= 'String[]' | kw= 'int' | kw= 'List<Integer>' | kw= 'int[]' )
+            // InternalCommands.g:967:2: ( (kw= 'Void' | kw= 'AlphaNode' | kw= 'AlphaVisitable' | kw= 'AlphaRoot' | kw= 'AlphaSystem' | kw= 'SystemBody' | kw= 'Variable' | kw= 'Equation' | kw= 'StandardEquation' | kw= 'UseEquation' | kw= 'AlphaExpression' | kw= 'AbstractReduceExpression' | kw= 'BinaryExpression' | kw= 'DependenceExpression' | kw= 'AffineFunction' | kw= 'Domain' | kw= 'ParameterDomain' | kw= 'List<AlphaRoot>' | kw= 'String' | kw= 'List<String>' | kw= 'String[]' | kw= 'int' | kw= 'List<Integer>' | kw= 'int[]' ) )
+            // InternalCommands.g:968:2: (kw= 'Void' | kw= 'AlphaNode' | kw= 'AlphaVisitable' | kw= 'AlphaRoot' | kw= 'AlphaSystem' | kw= 'SystemBody' | kw= 'Variable' | kw= 'Equation' | kw= 'StandardEquation' | kw= 'UseEquation' | kw= 'AlphaExpression' | kw= 'AbstractReduceExpression' | kw= 'BinaryExpression' | kw= 'DependenceExpression' | kw= 'AffineFunction' | kw= 'Domain' | kw= 'ParameterDomain' | kw= 'List<AlphaRoot>' | kw= 'String' | kw= 'List<String>' | kw= 'String[]' | kw= 'int' | kw= 'List<Integer>' | kw= 'int[]' )
             {
-            // InternalCommands.g:968:2: (kw= 'Void' | kw= 'AlphaNode' | kw= 'AlphaVisitable' | kw= 'AlphaRoot' | kw= 'AlphaSystem' | kw= 'SystemBody' | kw= 'Variable' | kw= 'Equation' | kw= 'StandardEquation' | kw= 'UseEquation' | kw= 'AlphaExpression' | kw= 'AbstractReduceExpression' | kw= 'BinaryExpression' | kw= 'AffineFunction' | kw= 'Domain' | kw= 'ParameterDomain' | kw= 'List<AlphaRoot>' | kw= 'String' | kw= 'List<String>' | kw= 'String[]' | kw= 'int' | kw= 'List<Integer>' | kw= 'int[]' )
-            int alt17=23;
+            // InternalCommands.g:968:2: (kw= 'Void' | kw= 'AlphaNode' | kw= 'AlphaVisitable' | kw= 'AlphaRoot' | kw= 'AlphaSystem' | kw= 'SystemBody' | kw= 'Variable' | kw= 'Equation' | kw= 'StandardEquation' | kw= 'UseEquation' | kw= 'AlphaExpression' | kw= 'AbstractReduceExpression' | kw= 'BinaryExpression' | kw= 'DependenceExpression' | kw= 'AffineFunction' | kw= 'Domain' | kw= 'ParameterDomain' | kw= 'List<AlphaRoot>' | kw= 'String' | kw= 'List<String>' | kw= 'String[]' | kw= 'int' | kw= 'List<Integer>' | kw= 'int[]' )
+            int alt17=24;
             switch ( input.LA(1) ) {
             case 22:
                 {
@@ -2639,6 +2641,11 @@ public class InternalCommandsParser extends AbstractInternalAntlrParser {
             case 44:
                 {
                 alt17=23;
+                }
+                break;
+            case 45:
+                {
+                alt17=24;
                 }
                 break;
             default:
@@ -2793,111 +2800,122 @@ public class InternalCommandsParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 14 :
-                    // InternalCommands.g:1047:3: kw= 'AffineFunction'
+                    // InternalCommands.g:1047:3: kw= 'DependenceExpression'
                     {
                     kw=(Token)match(input,35,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_13());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDependenceExpressionKeyword_13());
                     		
 
                     }
                     break;
                 case 15 :
-                    // InternalCommands.g:1053:3: kw= 'Domain'
+                    // InternalCommands.g:1053:3: kw= 'AffineFunction'
                     {
                     kw=(Token)match(input,36,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDomainKeyword_14());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_14());
                     		
 
                     }
                     break;
                 case 16 :
-                    // InternalCommands.g:1059:3: kw= 'ParameterDomain'
+                    // InternalCommands.g:1059:3: kw= 'Domain'
                     {
                     kw=(Token)match(input,37,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_15());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDomainKeyword_15());
                     		
 
                     }
                     break;
                 case 17 :
-                    // InternalCommands.g:1065:3: kw= 'List<AlphaRoot>'
+                    // InternalCommands.g:1065:3: kw= 'ParameterDomain'
                     {
                     kw=(Token)match(input,38,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_16());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_16());
                     		
 
                     }
                     break;
                 case 18 :
-                    // InternalCommands.g:1071:3: kw= 'String'
+                    // InternalCommands.g:1071:3: kw= 'List<AlphaRoot>'
                     {
                     kw=(Token)match(input,39,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_17());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_17());
                     		
 
                     }
                     break;
                 case 19 :
-                    // InternalCommands.g:1077:3: kw= 'List<String>'
+                    // InternalCommands.g:1077:3: kw= 'String'
                     {
                     kw=(Token)match(input,40,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListStringKeyword_18());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_18());
                     		
 
                     }
                     break;
                 case 20 :
-                    // InternalCommands.g:1083:3: kw= 'String[]'
+                    // InternalCommands.g:1083:3: kw= 'List<String>'
                     {
                     kw=(Token)match(input,41,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_19());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListStringKeyword_19());
                     		
 
                     }
                     break;
                 case 21 :
-                    // InternalCommands.g:1089:3: kw= 'int'
+                    // InternalCommands.g:1089:3: kw= 'String[]'
                     {
                     kw=(Token)match(input,42,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_20());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_20());
                     		
 
                     }
                     break;
                 case 22 :
-                    // InternalCommands.g:1095:3: kw= 'List<Integer>'
+                    // InternalCommands.g:1095:3: kw= 'int'
                     {
                     kw=(Token)match(input,43,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_21());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_21());
                     		
 
                     }
                     break;
                 case 23 :
-                    // InternalCommands.g:1101:3: kw= 'int[]'
+                    // InternalCommands.g:1101:3: kw= 'List<Integer>'
                     {
                     kw=(Token)match(input,44,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_22());
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_22());
+                    		
+
+                    }
+                    break;
+                case 24 :
+                    // InternalCommands.g:1107:3: kw= 'int[]'
+                    {
+                    kw=(Token)match(input,45,FOLLOW_2); 
+
+                    			current.merge(kw);
+                    			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_23());
                     		
 
                     }
@@ -2940,10 +2958,10 @@ public class InternalCommandsParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000010000L});
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000060000L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x00001FFFFFC40000L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x00001FFFFFC00000L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x00003FFFFFC40000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x00003FFFFFC00000L});
     public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x00001FFFFFE40020L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x00001FFFFFE00020L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x00003FFFFFE40020L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x00003FFFFFE00020L});
 
 }

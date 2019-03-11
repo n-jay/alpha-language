@@ -149,6 +149,16 @@ public enum ArgumentType implements Enumerator {
 	BINARY_EXPRESSION(0, "BinaryExpression", "BinaryExpression"),
 
 	/**
+	 * The '<em><b>Dependence Expression</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DEPENDENCE_EXPRESSION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DEPENDENCE_EXPRESSION(0, "DependenceExpression", "DependenceExpression"),
+
+	/**
 	 * The '<em><b>Affine Function</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -444,6 +454,21 @@ public enum ArgumentType implements Enumerator {
 	public static final int BINARY_EXPRESSION_VALUE = 0;
 
 	/**
+	 * The '<em><b>Dependence Expression</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Dependence Expression</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #DEPENDENCE_EXPRESSION
+	 * @model name="DependenceExpression"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DEPENDENCE_EXPRESSION_VALUE = 0;
+
+	/**
 	 * The '<em><b>Affine Function</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -614,6 +639,7 @@ public enum ArgumentType implements Enumerator {
 			ALPHA_EXPRESSION,
 			ABSTRACT_REDUCE_EXPRESSION,
 			BINARY_EXPRESSION,
+			DEPENDENCE_EXPRESSION,
 			AFFINE_FUNCTION,
 			DOMAIN,
 			PARAMETER_DOMAIN,

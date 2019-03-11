@@ -86,6 +86,7 @@ enum ArgumentType {
 	AlphaExpression
 	AbstractReduceExpression
 	BinaryExpression
+	DependenceExpression
 	AffineFunction
 	Domain
 	ParameterDomain
