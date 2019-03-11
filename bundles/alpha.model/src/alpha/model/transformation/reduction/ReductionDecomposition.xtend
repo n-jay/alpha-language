@@ -5,6 +5,7 @@ import alpha.model.factory.AlphaUserFactory
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools
+import alpha.model.AlphaInternalStateConstructor
 
 /**
  * ReductionDecomposition splits a reduction into two.
@@ -37,5 +38,7 @@ class ReductionDecomposition {
 		val innerARE = AlphaUserFactory.createReduceExpression(are.operator, f1, are.body)
 		are.body = innerARE
 		are.projectionExpr = AlphaUserFactory.createJNIFunction(f2)
+		
+		AlphaInternalStateConstructor.recomputeContextDomain(innerARE)
 	}
 }
