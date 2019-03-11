@@ -16,16 +16,8 @@ package alpha.model;
  *
  *
  * @see alpha.model.ModelPackage#getAlphaElement()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
 public interface AlphaElement extends AlphaVisitable {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model visitorUnique="false"
-	 * @generated
-	 */
-	void accept(AlphaVisitor visitor);
-
 } // AlphaElement

@@ -10,7 +10,7 @@ package alpha.model;
  *
  *
  * @see alpha.model.ModelPackage#getConstantExpression()
- * @model abstract="true"
+ * @model interface="true" abstract="true"
  * @generated
  */
 public interface ConstantExpression extends AlphaExpression {
@@ -21,13 +21,5 @@ public interface ConstantExpression extends AlphaExpression {
 	 * @generated
 	 */
 	String valueString();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model visitorUnique="false"
-	 * @generated
-	 */
-	void accept(AlphaExpressionVisitor visitor);
 
 } // ConstantExpression

@@ -41,7 +41,7 @@ public class ArgReduceExpressionImpl extends AbstractReduceExpressionImpl implem
 	 * @generated
 	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
-		visitor.visitArgReduceExpression(this);
+		visitor.visitAbstractReduceExpression(this);
 	}
 
 } //ArgReduceExpressionImpl

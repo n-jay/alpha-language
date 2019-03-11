@@ -82,42 +82,10 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model reUnique="false"
-	 * @generated
-	 */
-	void visitReduceExpression(ReduceExpression re);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model areUnique="false"
-	 * @generated
-	 */
-	void visitArgReduceExpression(ArgReduceExpression are);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model afreUnique="false"
 	 * @generated
 	 */
 	void visitAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model freUnique="false"
-	 * @generated
-	 */
-	void visitFuzzyReduceExpression(FuzzyReduceExpression fre);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model fareUnique="false"
-	 * @generated
-	 */
-	void visitFuzzyArgReduceExpression(FuzzyArgReduceExpression fare);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -186,14 +154,6 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model ceUnique="false"
-	 * @generated
-	 */
-	void visitConstantExpression(ConstantExpression ce);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model ieUnique="false"
 	 * @generated
 	 */
@@ -214,46 +174,6 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void visitBooleanExpression(BooleanExpression be);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model ereUnique="false"
-	 * @generated
-	 */
-	void visitExternalReduceExpression(ExternalReduceExpression ere);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model eareUnique="false"
-	 * @generated
-	 */
-	void visitExternalArgReduceExpression(ExternalArgReduceExpression eare);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model emaeUnique="false"
-	 * @generated
-	 */
-	void visitExternalMultiArgExpression(ExternalMultiArgExpression emae);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model efreUnique="false"
-	 * @generated
-	 */
-	void visitExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model efareUnique="false"
-	 * @generated
-	 */
-	void visitExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare);
 
 	/**
 	 * <!-- begin-user-doc -->

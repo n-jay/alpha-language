@@ -124,47 +124,58 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	
 	@Override
 	default void visitAbstractReduceExpression(AbstractReduceExpression are) {
-		inAbstractReduceExpression(are);
+		if (are instanceof ExternalReduceExpression)
+			inExternalReduceExpression((ExternalReduceExpression)are);
+		else if (are instanceof ExternalArgReduceExpression)
+			inExternalArgReduceExpression((ExternalArgReduceExpression)are);
+		else if (are instanceof ReduceExpression)
+			inReduceExpression((ReduceExpression)are);
+		else if (are instanceof ArgReduceExpression)
+			inArgReduceExpression((ArgReduceExpression)are);
+		else
+			inAbstractReduceExpression(are);
+		
 		accept(are.getBody());
-		outAbstractReduceExpression(are);
-	}
-	
-	@Override
-	default void visitReduceExpression(ReduceExpression re) {
-		inReduceExpression(re);
-		accept(re.getBody());
-		outReduceExpression(re);
-	}
-	
-	@Override
-	default void visitArgReduceExpression(ArgReduceExpression are) {
-		inArgReduceExpression(are);
-		accept(are.getBody());
-		outArgReduceExpression(are);
-	}
 
+		if (are instanceof ExternalReduceExpression)
+			outExternalReduceExpression((ExternalReduceExpression)are);
+		else if (are instanceof ExternalArgReduceExpression)
+			outExternalArgReduceExpression((ExternalArgReduceExpression)are);
+		else if (are instanceof ReduceExpression)
+			outReduceExpression((ReduceExpression)are);
+		else if (are instanceof ArgReduceExpression)
+			outArgReduceExpression((ArgReduceExpression)are);
+		else
+			outAbstractReduceExpression(are);
+	}
 	
 	@Override
 	default void visitAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre) {
-		inAbstractFuzzyReduceExpression(afre);
+		if (afre instanceof ExternalReduceExpression)
+			inExternalFuzzyReduceExpression((ExternalFuzzyReduceExpression)afre);
+		else if (afre instanceof ExternalArgReduceExpression)
+			inExternalFuzzyArgReduceExpression((ExternalFuzzyArgReduceExpression)afre);
+		else if (afre instanceof FuzzyReduceExpression)
+			inFuzzyReduceExpression((FuzzyReduceExpression)afre);
+		else if (afre instanceof FuzzyArgReduceExpression)
+			inFuzzyArgReduceExpression((FuzzyArgReduceExpression)afre);
+		else
+			inAbstractFuzzyReduceExpression(afre);
+		
 		accept(afre.getBody());
-		outAbstractFuzzyReduceExpression(afre);
-	}
-	
-	@Override
-	default void visitFuzzyReduceExpression(FuzzyReduceExpression fre) {
-		inFuzzyReduceExpression(fre);
-		accept(fre.getBody());
-		outFuzzyReduceExpression(fre);
-	}
-	
-	@Override
-	default void visitFuzzyArgReduceExpression(FuzzyArgReduceExpression fare) {
-		inFuzzyArgReduceExpression(fare);
-		accept(fare.getBody());
-		outFuzzyArgReduceExpression(fare);
-	}
 
+		if (afre instanceof ExternalReduceExpression)
+			outExternalFuzzyReduceExpression((ExternalFuzzyReduceExpression)afre);
+		else if (afre instanceof ExternalArgReduceExpression)
+			outExternalFuzzyArgReduceExpression((ExternalFuzzyArgReduceExpression)afre);
+		else if (afre instanceof FuzzyReduceExpression)
+			outFuzzyReduceExpression((FuzzyReduceExpression)afre);
+		else if (afre instanceof FuzzyArgReduceExpression)
+			outFuzzyArgReduceExpression((FuzzyArgReduceExpression)afre);
+		else
+			outAbstractFuzzyReduceExpression(afre);
+	}
+	
 	@Override
 	default void visitConvolutionExpression(ConvolutionExpression ce) {
 		inConvolutionExpression(ce);
@@ -190,13 +201,21 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 
 	@Override
 	default void visitMultiArgExpression(MultiArgExpression mae) {
-		inMultiArgExpression(mae);
+		if (mae instanceof ExternalMultiArgExpression)
+			inExternalMultiArgExpression((ExternalMultiArgExpression)mae);
+		else
+			inMultiArgExpression(mae);
+		
 		if (mae.getExprs() != null) {
 			//copy to avoid concurrent mods
 			List<AlphaExpression> copy = new LinkedList<>(mae.getExprs());
 			copy.forEach(a->accept(a));
 		}
-		outMultiArgExpression(mae);
+		
+		if (mae instanceof ExternalMultiArgExpression)
+			outExternalMultiArgExpression((ExternalMultiArgExpression)mae);
+		else
+			outMultiArgExpression(mae);
 	}
 	
 	@Override
@@ -226,69 +245,21 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	}
 
 	@Override
-	default void visitConstantExpression(ConstantExpression ce) {
-		inConstantExpression(ce);
-		outConstantExpression(ce);
-	}
-
-	@Override
 	default void visitIntegerExpression(IntegerExpression ie) {
 		inIntegerExpression(ie);
-		visitConstantExpression(ie);
 		outIntegerExpression(ie);
 	}
 
 	@Override
 	default void visitRealExpression(RealExpression re) {
 		inRealExpression(re);
-		visitConstantExpression(re);
 		outRealExpression(re);
 	}
 
 	@Override
 	default void visitBooleanExpression(BooleanExpression be) {
 		inBooleanExpression(be);
-		visitConstantExpression(be);
 		outBooleanExpression(be);
-	}
-
-	@Override
-	default void visitExternalMultiArgExpression(ExternalMultiArgExpression emae) {
-		inExternalMultiArgExpression(emae);
-		if (emae.getExprs() != null) {
-			//copy to avoid concurrent mods
-			List<AlphaExpression> copy = new LinkedList<>(emae.getExprs());
-			copy.forEach(a->accept(a));
-		}
-		outExternalMultiArgExpression(emae);
-	}
-
-	@Override
-	default void visitExternalReduceExpression(ExternalReduceExpression ere) {
-		inExternalReduceExpression(ere);
-		accept(ere.getBody());
-		outExternalReduceExpression(ere);
-	}
-
-	@Override
-	default void visitExternalArgReduceExpression(ExternalArgReduceExpression eare) {
-		inExternalArgReduceExpression(eare);
-		accept(eare.getBody());
-		outExternalArgReduceExpression(eare);
-	}
-
-	@Override
-	default void visitExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre) {
-		inExternalFuzzyReduceExpression(efre);
-		accept(efre.getBody());
-		outExternalFuzzyReduceExpression(efre);
-	}
-
-	@Override
-	default void visitExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare) {
-		inExternalFuzzyArgReduceExpression(efare);
-		accept(efare.getBody());
-		outExternalFuzzyArgReduceExpression(efare);
 	}
 	
 	@Override

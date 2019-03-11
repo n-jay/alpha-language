@@ -32,12 +32,37 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 class AlphaUtil {
 	
 	
+	/**
+	 * Given a name candidate, ensures that it does not conflict
+	 * with existing variables. If a variable is in conflict,
+	 * the specified String is appended until there is no conlict.
+	 */
 	static def duplicateNameResolver() {
 		return [AlphaSystem s, String nameCandidate, String postfix|
 			var currentName = nameCandidate;
 			
 			while (s.getVariable(currentName) !== null) {
 				currentName = currentName + postfix
+			}
+			
+			return currentName
+		];
+	}
+	
+	/**
+	 * Given a name candidate, ensures that it does not conflict
+	 * with existing variables. If a variable is in conflict,
+	 * an integer is added to the end, where the value increases
+	 * until there is no conflict.
+	 */
+	static def duplicateNameResolverWithCounter() {
+		return [AlphaSystem s, String nameCandidate|
+			var currentName = nameCandidate;
+			
+			var count = 2;
+			while (s.getVariable(currentName) !== null) {
+				currentName = nameCandidate + count
+				count++;
 			}
 			
 			return currentName

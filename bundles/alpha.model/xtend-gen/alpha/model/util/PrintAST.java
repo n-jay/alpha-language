@@ -215,7 +215,7 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   }
   
   @Override
-  public void visitVariable(final Variable v) {
+  public void outVariable(final Variable v) {
     this.defaultIn(v);
     this.printStr("+-- ", v.getName());
     this.printStr("+-- ", v.getDomain());
@@ -223,7 +223,7 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   }
   
   @Override
-  public void visitFuzzyVariable(final FuzzyVariable v) {
+  public void outFuzzyVariable(final FuzzyVariable v) {
     this.defaultIn(v);
     this.printStr("+-- ", v.getName());
     this.printStr("+-- ", v.getDomain());

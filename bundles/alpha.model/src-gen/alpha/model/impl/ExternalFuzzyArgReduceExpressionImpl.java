@@ -101,7 +101,7 @@ public class ExternalFuzzyArgReduceExpressionImpl extends FuzzyArgReduceExpressi
 	 * @generated
 	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
-		visitor.visitExternalFuzzyArgReduceExpression(this);
+		visitor.visitAbstractFuzzyReduceExpression(this);
 	}
 
 	/**

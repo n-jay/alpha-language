@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class RealExpressionImpl extends ConstantExpressionImpl implements RealExpression {
+public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpression {
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->

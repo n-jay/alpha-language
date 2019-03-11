@@ -248,10 +248,10 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_ROOT_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link alpha.model.impl.AlphaElementImpl <em>Alpha Element</em>}' class.
+	 * The meta object id for the '{@link alpha.model.AlphaElement <em>Alpha Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see alpha.model.impl.AlphaElementImpl
+	 * @see alpha.model.AlphaElement
 	 * @see alpha.model.impl.ModelPackageImpl#getAlphaElement()
 	 * @generated
 	 */
@@ -1924,10 +1924,10 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link alpha.model.impl.ConstantExpressionImpl <em>Constant Expression</em>}' class.
+	 * The meta object id for the '{@link alpha.model.ConstantExpression <em>Constant Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see alpha.model.impl.ConstantExpressionImpl
+	 * @see alpha.model.ConstantExpression
 	 * @see alpha.model.impl.ModelPackageImpl#getConstantExpression()
 	 * @generated
 	 */
@@ -6110,10 +6110,10 @@ public interface ModelPackage extends EPackage {
 		EReference ALPHA_ROOT__ELEMENTS = eINSTANCE.getAlphaRoot_Elements();
 
 		/**
-		 * The meta object literal for the '{@link alpha.model.impl.AlphaElementImpl <em>Alpha Element</em>}' class.
+		 * The meta object literal for the '{@link alpha.model.AlphaElement <em>Alpha Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see alpha.model.impl.AlphaElementImpl
+		 * @see alpha.model.AlphaElement
 		 * @see alpha.model.impl.ModelPackageImpl#getAlphaElement()
 		 * @generated
 		 */
@@ -6888,10 +6888,10 @@ public interface ModelPackage extends EPackage {
 		EReference VARIABLE_EXPRESSION__VARIABLE = eINSTANCE.getVariableExpression_Variable();
 
 		/**
-		 * The meta object literal for the '{@link alpha.model.impl.ConstantExpressionImpl <em>Constant Expression</em>}' class.
+		 * The meta object literal for the '{@link alpha.model.ConstantExpression <em>Constant Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see alpha.model.impl.ConstantExpressionImpl
+		 * @see alpha.model.ConstantExpression
 		 * @see alpha.model.impl.ModelPackageImpl#getConstantExpression()
 		 * @generated
 		 */

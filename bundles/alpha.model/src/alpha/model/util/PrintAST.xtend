@@ -166,14 +166,14 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 		printStr("+--", ac.name, "=", ac.value+"")
 	}
 	
-	override visitVariable(Variable v) {
+	override outVariable(Variable v) {
 		defaultIn(v);
 		printStr("+-- ", v.getName());
 		printStr("+-- ", v.domain);
 		defaultOut(v);
 	}
 	
-	override visitFuzzyVariable(FuzzyVariable v) {
+	override outFuzzyVariable(FuzzyVariable v) {
 		defaultIn(v);
 		printStr("+-- ", v.getName());
 		printStr("+-- ", v.domain);

@@ -43,14 +43,6 @@ public interface AlphaVisitor extends EObject {
 	 * @model apUnique="false"
 	 * @generated
 	 */
-	void visitAlphaElement(AlphaElement ap);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model apUnique="false"
-	 * @generated
-	 */
 	void visitAlphaPackage(AlphaPackage ap);
 
 	/**
@@ -108,26 +100,10 @@ public interface AlphaVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model variableUnique="false"
-	 * @generated
-	 */
-	void visitFuzzyVariable(FuzzyVariable variable);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model pobjUnique="false"
 	 * @generated
 	 */
 	void visitPolyhedralObject(PolyhedralObject pobj);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model eqUnique="false"
-	 * @generated
-	 */
-	void visitEquation(Equation eq);
 
 	/**
 	 * <!-- begin-user-doc -->

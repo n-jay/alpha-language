@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class IntegerExpressionImpl extends ConstantExpressionImpl implements IntegerExpression {
+public class IntegerExpressionImpl extends AlphaExpressionImpl implements IntegerExpression {
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->

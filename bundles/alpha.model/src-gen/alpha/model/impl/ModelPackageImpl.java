@@ -3041,9 +3041,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaVisitorEClass, null, "visitAlphaRoot", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaRoot(), "root", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(alphaVisitorEClass, null, "visitAlphaElement", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getAlphaElement(), "ap", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
 		op = addEOperation(alphaVisitorEClass, null, "visitAlphaPackage", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaPackage(), "ap", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -3065,14 +3062,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaVisitorEClass, null, "visitVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(alphaVisitorEClass, null, "visitFuzzyVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getFuzzyVariable(), "variable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
 		op = addEOperation(alphaVisitorEClass, null, "visitPolyhedralObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getPolyhedralObject(), "pobj", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaVisitorEClass, null, "visitEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getEquation(), "eq", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaVisitorEClass, null, "visitUseEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getUseEquation(), "ue", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3190,20 +3181,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitAbstractReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAbstractReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getReduceExpression(), "re", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getArgReduceExpression(), "are", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitAbstractFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAbstractFuzzyReduceExpression(), "afre", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getFuzzyReduceExpression(), "fre", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitFuzzyArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getFuzzyArgReduceExpression(), "fare", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitConvolutionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getConvolutionExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3229,9 +3208,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitVariableExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariableExpression(), "ve", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitConstantExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getConstantExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitIntegerExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIntegerExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -3240,21 +3216,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitBooleanExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getBooleanExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getExternalReduceExpression(), "ere", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getExternalArgReduceExpression(), "eare", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalMultiArgExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getExternalMultiArgExpression(), "emae", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalFuzzyReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getExternalFuzzyReduceExpression(), "efre", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(alphaExpressionVisitorEClass, null, "visitExternalFuzzyArgReduceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getExternalFuzzyArgReduceExpression(), "efare", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inAlphaExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpression(), "ae", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3483,10 +3444,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaRootEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		initEClass(alphaElementEClass, AlphaElement.class, "AlphaElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		op = addEOperation(alphaElementEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		initEClass(alphaElementEClass, AlphaElement.class, "AlphaElement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(importsEClass, Imports.class, "Imports", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImports_ImportedNamespace(), theEcorePackage.getEString(), "importedNamespace", null, 0, 1, Imports.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3772,12 +3730,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(variableExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		initEClass(constantExpressionEClass, ConstantExpression.class, "ConstantExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(constantExpressionEClass, ConstantExpression.class, "ConstantExpression", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		addEOperation(constantExpressionEClass, theEcorePackage.getEString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(constantExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(integerExpressionEClass, IntegerExpression.class, "IntegerExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIntegerExpression_Value(), theEcorePackage.getEInt(), "value", null, 0, 1, IntegerExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

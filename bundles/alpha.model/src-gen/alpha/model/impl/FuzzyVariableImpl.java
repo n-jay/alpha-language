@@ -156,7 +156,7 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * @generated
 	 */
 	public void accept(final AlphaVisitor visitor) {
-		visitor.visitFuzzyVariable(this);
+		visitor.visitVariable(this);
 	}
 
 	/**

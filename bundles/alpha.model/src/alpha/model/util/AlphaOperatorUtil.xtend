@@ -8,6 +8,7 @@ import alpha.model.IntegerExpression
 import alpha.model.MultiArgExpression
 import alpha.model.REDUCTION_OP
 import alpha.model.RealExpression
+import alpha.model.AbstractReduceExpression
 
 class AlphaOperatorUtil {
 	
@@ -90,4 +91,34 @@ class AlphaOperatorUtil {
 		
 		false
 	}
+	
+	/**
+	 * Tests if op1 distributes over op2.
+	 * 
+	 * isDistributiveOver(BINARY_OP.MUL, BINARY_OP.ADD) is true
+	 * but
+	 * isDistributiveOver(BINARY_OP.ADD, BINARY_OP.MUL) is false
+	 */
+	static def isDistributiveOver(BINARY_OP op1, BINARY_OP op2) {
+		if (op1==BINARY_OP.MUL && op2==BINARY_OP.ADD) return true
+		if (op1==BINARY_OP.MAX && op2==BINARY_OP.MIN) return true
+		if (op1==BINARY_OP.MIN && op2==BINARY_OP.MAX) return true
+		if (op1==BINARY_OP.ADD && op2==BINARY_OP.MAX) return true
+		if (op1==BINARY_OP.ADD && op2==BINARY_OP.MIN) return true
+		
+		
+		false	
+	}
+	
+	/**
+	 * Expects BinaryExpression, MultiArgExpression, or AbstractReduceExpression and returns
+	 * BINARY_OP after converting the OP if it was MultiArgExpression/AbstractReduceExpression.
+	 * 
+	 */
+	static def dispatch getBinaryOP(AlphaExpression expr) { 
+		throw new IllegalArgumentException("[AlphaOperatorUtil] Expecting BinaryExpression or MultiArgExpression.");
+	}
+	static def dispatch getBinaryOP(BinaryExpression expr) { expr.operator	}
+	static def dispatch getBinaryOP(MultiArgExpression expr) { reductionOPtoBinaryOP(expr.operator) }
+	static def dispatch getBinaryOP(AbstractReduceExpression expr) { reductionOPtoBinaryOP(expr.operator) }
 }

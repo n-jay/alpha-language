@@ -187,7 +187,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	}
 
 	@Override
-	public void visitVariable(Variable variable) {
+	public void inVariable(Variable variable) {
 		CalculatorExpression expr = variable.getDomainExpr();
 		if (expr == null)
 			return;
@@ -200,8 +200,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	}
 	
 	@Override
-	public void visitFuzzyVariable(FuzzyVariable variable) {
-		super.visitFuzzyVariable(variable);
+	public void inFuzzyVariable(FuzzyVariable variable) {
 		CalculatorExpression expr = variable.getRangeExpr();
 		if (expr == null)
 			return;

@@ -1,11 +1,16 @@
 package alpha.model.util;
 
+import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.BINARY_OP;
+import alpha.model.BinaryExpression;
 import alpha.model.BooleanExpression;
 import alpha.model.IntegerExpression;
+import alpha.model.MultiArgExpression;
 import alpha.model.REDUCTION_OP;
 import alpha.model.RealExpression;
+import com.google.common.base.Objects;
+import java.util.Arrays;
 
 @SuppressWarnings("all")
 public class AlphaOperatorUtil {
@@ -119,5 +124,70 @@ public class AlphaOperatorUtil {
       _xblockexpression = false;
     }
     return _xblockexpression;
+  }
+  
+  /**
+   * Tests if op1 distributes over op2.
+   * 
+   * isDistributiveOver(BINARY_OP.MUL, BINARY_OP.ADD) is true
+   * but
+   * isDistributiveOver(BINARY_OP.ADD, BINARY_OP.MUL) is false
+   */
+  public static boolean isDistributiveOver(final BINARY_OP op1, final BINARY_OP op2) {
+    boolean _xblockexpression = false;
+    {
+      if ((Objects.equal(op1, BINARY_OP.MUL) && Objects.equal(op2, BINARY_OP.ADD))) {
+        return true;
+      }
+      if ((Objects.equal(op1, BINARY_OP.MAX) && Objects.equal(op2, BINARY_OP.MIN))) {
+        return true;
+      }
+      if ((Objects.equal(op1, BINARY_OP.MIN) && Objects.equal(op2, BINARY_OP.MAX))) {
+        return true;
+      }
+      if ((Objects.equal(op1, BINARY_OP.ADD) && Objects.equal(op2, BINARY_OP.MAX))) {
+        return true;
+      }
+      if ((Objects.equal(op1, BINARY_OP.ADD) && Objects.equal(op2, BINARY_OP.MIN))) {
+        return true;
+      }
+      _xblockexpression = false;
+    }
+    return _xblockexpression;
+  }
+  
+  /**
+   * Expects BinaryExpression, MultiArgExpression, or AbstractReduceExpression and returns
+   * BINARY_OP after converting the OP if it was MultiArgExpression/AbstractReduceExpression.
+   */
+  protected static BINARY_OP _getBinaryOP(final AlphaExpression expr) {
+    throw new IllegalArgumentException("[AlphaOperatorUtil] Expecting BinaryExpression or MultiArgExpression.");
+  }
+  
+  protected static BINARY_OP _getBinaryOP(final BinaryExpression expr) {
+    return expr.getOperator();
+  }
+  
+  protected static BINARY_OP _getBinaryOP(final MultiArgExpression expr) {
+    return AlphaOperatorUtil.reductionOPtoBinaryOP(expr.getOperator());
+  }
+  
+  protected static BINARY_OP _getBinaryOP(final AbstractReduceExpression expr) {
+    return AlphaOperatorUtil.reductionOPtoBinaryOP(expr.getOperator());
+  }
+  
+  public static BINARY_OP getBinaryOP(final AlphaExpression expr) {
+    if (expr instanceof AbstractReduceExpression) {
+      return _getBinaryOP((AbstractReduceExpression)expr);
+    } else if (expr instanceof BinaryExpression) {
+      return _getBinaryOP((BinaryExpression)expr);
+    } else if (expr instanceof MultiArgExpression) {
+      return _getBinaryOP((MultiArgExpression)expr);
+    } else if (expr != null) {
+      return _getBinaryOP(expr);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(expr).toString());
+    }
   }
 }

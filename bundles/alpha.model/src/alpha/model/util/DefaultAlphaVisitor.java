@@ -37,11 +37,6 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	}
 	
 	@Override
-	default void visitAlphaElement(AlphaElement ap) {
-		throw new UnsupportedOperationException("visitAlphaElement should never be called");
-	}
-	
-	@Override
 	default void visitAlphaPackage(AlphaPackage ap) {
 		inAlphaPackage(ap);
 		ap.getElements().forEach(a->a.accept(this));
@@ -74,15 +69,15 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 
 	@Override
 	default void visitVariable(Variable variable) {
-		inVariable(variable);
-		outVariable(variable);
-	}
-	
-	@Override
-	default void visitFuzzyVariable(FuzzyVariable variable) {
-		inFuzzyVariable(variable);
-		visitVariable(variable);
-		outFuzzyVariable(variable);
+		if (variable instanceof FuzzyVariable)
+			inFuzzyVariable((FuzzyVariable)variable);
+		else
+			inVariable(variable);
+		
+		if (variable instanceof FuzzyVariable)
+			outFuzzyVariable((FuzzyVariable)variable);
+		else
+			outVariable(variable);
 	}
 
 	@Override
@@ -101,12 +96,6 @@ public interface DefaultAlphaVisitor extends AlphaVisitor {
 	default void visitExternalFunction(ExternalFunction ef) {
 		inExternalFunction(ef);
 		outExternalFunction(ef);
-	}
-	
-	@Override
-	default void visitEquation(Equation eq) {
-		inEquation(eq);
-		outEquation(eq);
 	}
 	
 	@Override

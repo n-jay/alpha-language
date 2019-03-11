@@ -79,7 +79,6 @@ interface CalculatorExpressionVisitable extends AlphaNode {
 interface AlphaVisitor {
 	op void visitAlphaRoot(AlphaRoot root)
 	
-	op void visitAlphaElement(AlphaElement ap)
 	op void visitAlphaPackage(AlphaPackage ap)
 	op void visitAlphaSystem(AlphaSystem system)
 	op void visitSystemBody(SystemBody sysBody)
@@ -92,11 +91,8 @@ interface AlphaVisitor {
 	 */
 	op void visitVariable(Variable variable)
 	
-	op void visitFuzzyVariable(FuzzyVariable variable)
-	
 	op void visitPolyhedralObject(PolyhedralObject pobj)
 
-	op void visitEquation(Equation eq)
 	op void visitUseEquation(UseEquation ue)
 	op void visitStandardEquation(StandardEquation se)
 	
@@ -154,11 +150,7 @@ interface AlphaExpressionVisitor {
 	op void visitDependenceExpression(DependenceExpression de)
 	op void visitFuzzyDependenceExpression(FuzzyDependenceExpression fde)
 	op void visitAbstractReduceExpression(AbstractReduceExpression are)
-	op void visitReduceExpression(ReduceExpression re)
-	op void visitArgReduceExpression(ArgReduceExpression are)
 	op void visitAbstractFuzzyReduceExpression(AbstractFuzzyReduceExpression afre)
-	op void visitFuzzyReduceExpression(FuzzyReduceExpression fre)
-	op void visitFuzzyArgReduceExpression(FuzzyArgReduceExpression fare)
 	op void visitConvolutionExpression(ConvolutionExpression ce)
 	op void visitUnaryExpression(UnaryExpression ue)
 	op void visitBinaryExpression(BinaryExpression be)
@@ -169,17 +161,9 @@ interface AlphaExpressionVisitor {
 	op void visitFuzzyIndexExpression(FuzzyIndexExpression fie)
 	op void visitVariableExpression(VariableExpression ve)
 	
-	op void visitConstantExpression(ConstantExpression ce)
 	op void visitIntegerExpression(IntegerExpression ie)
 	op void visitRealExpression(RealExpression re)
 	op void visitBooleanExpression(BooleanExpression be)
-	
-	op void visitExternalReduceExpression(ExternalReduceExpression ere)
-	op void visitExternalArgReduceExpression(ExternalArgReduceExpression eare)
-	op void visitExternalMultiArgExpression(ExternalMultiArgExpression emae)
-	op void visitExternalFuzzyReduceExpression(ExternalFuzzyReduceExpression efre)
-	op void visitExternalFuzzyArgReduceExpression(ExternalFuzzyArgReduceExpression efare)
-	
 	
 	op void inAlphaExpression(AlphaExpression ae)
 	
@@ -301,10 +285,7 @@ class AlphaRoot extends AlphaVisitable {
  * The imports must be at the beginning of the file.
  * 
  */
-abstract class AlphaElement extends AlphaVisitable {
-	op void accept(AlphaVisitor visitor) {
-		visitor.visitAlphaElement(this)
-	}
+interface AlphaElement extends AlphaVisitable {
 }
 
 class Imports extends AlphaVisitable {
@@ -427,7 +408,7 @@ class FuzzyVariable extends Variable {
 	}
 	
 	op void accept(AlphaVisitor visitor) {
-	 	visitor.visitFuzzyVariable(this)
+	 	visitor.visitVariable(this)
 	}
 }
 
@@ -697,27 +678,27 @@ abstract class AbstractReduceExpression extends AlphaExpression {
 class ReduceExpression extends AbstractReduceExpression {
 	
 	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitReduceExpression(this)
+		visitor.visitAbstractReduceExpression(this)
 	}
 }
 class ExternalReduceExpression extends ReduceExpression {
 	refers ExternalFunction externalFunction
 	
 	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitExternalReduceExpression(this)
+		visitor.visitAbstractReduceExpression(this)
 	}
 }
 class ArgReduceExpression extends AbstractReduceExpression {
 	
 	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitArgReduceExpression(this)
+		visitor.visitAbstractReduceExpression(this)
 	}
 }
 class ExternalArgReduceExpression extends ArgReduceExpression {
 	refers ExternalFunction externalFunction
 	
 	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitExternalArgReduceExpression(this)
+		visitor.visitAbstractReduceExpression(this)
 	}
 }
 class ConvolutionExpression extends AlphaExpression {
@@ -754,13 +735,9 @@ class VariableExpression extends AlphaExpression {
 		visitor.visitVariableExpression(this)
 	}
 }
-abstract class ConstantExpression extends AlphaExpression {
+interface ConstantExpression extends AlphaExpression {
 	
 	op String valueString()
-	
-	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitConstantExpression(this)
-	}
 }
 class IntegerExpression extends ConstantExpression {
 	int value
@@ -818,7 +795,7 @@ class ExternalMultiArgExpression extends MultiArgExpression {
 	refers ExternalFunction externalFunction 
 	
 	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitExternalMultiArgExpression(this)
+		visitor.visitMultiArgExpression(this)
 	}
 }
 
@@ -838,27 +815,27 @@ abstract class AbstractFuzzyReduceExpression extends AlphaExpression {
 class FuzzyReduceExpression extends AbstractFuzzyReduceExpression {
 	
 	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitFuzzyReduceExpression(this)
+		visitor.visitAbstractFuzzyReduceExpression(this)
 	}
 }
 class ExternalFuzzyReduceExpression extends FuzzyReduceExpression {
 	refers ExternalFunction externalFunction
 	
 	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitExternalFuzzyReduceExpression(this)
+		visitor.visitAbstractFuzzyReduceExpression(this)
 	}
 }
 class FuzzyArgReduceExpression extends AbstractFuzzyReduceExpression {
 	
 	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitFuzzyArgReduceExpression(this)
+		visitor.visitAbstractFuzzyReduceExpression(this)
 	}
 }
 class ExternalFuzzyArgReduceExpression extends FuzzyArgReduceExpression {
 	refers ExternalFunction externalFunction
 	
 	op void accept(AlphaExpressionVisitor visitor) {
-		visitor.visitExternalFuzzyArgReduceExpression(this)
+		visitor.visitAbstractFuzzyReduceExpression(this)
 	}
 }
 

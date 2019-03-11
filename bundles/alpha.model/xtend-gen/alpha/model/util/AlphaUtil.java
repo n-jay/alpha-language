@@ -35,6 +35,7 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.Functions.Function3;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
@@ -45,11 +46,37 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class AlphaUtil {
+  /**
+   * Given a name candidate, ensures that it does not conflict
+   * with existing variables. If a variable is in conflict,
+   * the specified String is appended until there is no conlict.
+   */
   public static Function3<AlphaSystem, String, String, String> duplicateNameResolver() {
     final Function3<AlphaSystem, String, String, String> _function = (AlphaSystem s, String nameCandidate, String postfix) -> {
       String currentName = nameCandidate;
       while ((s.getVariable(currentName) != null)) {
         currentName = (currentName + postfix);
+      }
+      return currentName;
+    };
+    return _function;
+  }
+  
+  /**
+   * Given a name candidate, ensures that it does not conflict
+   * with existing variables. If a variable is in conflict,
+   * an integer is added to the end, where the value increases
+   * until there is no conflict.
+   */
+  public static Function2<AlphaSystem, String, String> duplicateNameResolverWithCounter() {
+    final Function2<AlphaSystem, String, String> _function = (AlphaSystem s, String nameCandidate) -> {
+      String currentName = nameCandidate;
+      int count = 2;
+      while ((s.getVariable(currentName) != null)) {
+        {
+          currentName = (nameCandidate + Integer.valueOf(count));
+          count++;
+        }
       }
       return currentName;
     };

@@ -11,15 +11,15 @@ public abstract class AbstractAlphaCompleteVisitor extends EObjectImpl implement
 	@Override
 	public void visitStandardEquation(StandardEquation se) {
 		inStandardEquation(se);
-		DefaultAlphaExpressionVisitor.super.accept(se.getExpr());
+		accept(se.getExpr());
 		outStandardEquation(se);
 	}
 	
 	@Override
 	public void visitUseEquation(UseEquation ue) {
 		inUseEquation(ue);
-		ue.getInputExprs().forEach(a->DefaultAlphaExpressionVisitor.super.accept(a));
-		ue.getOutputExprs().forEach(a->DefaultAlphaExpressionVisitor.super.accept(a));
+		ue.getInputExprs().forEach(a->accept(a));
+		ue.getOutputExprs().forEach(a->accept(a));
 		outUseEquation(ue);
 	}
 

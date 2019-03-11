@@ -101,7 +101,7 @@ public class ExternalMultiArgExpressionImpl extends MultiArgExpressionImpl imple
 	 * @generated
 	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
-		visitor.visitExternalMultiArgExpression(this);
+		visitor.visitMultiArgExpression(this);
 	}
 
 	/**

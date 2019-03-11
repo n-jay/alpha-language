@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class BooleanExpressionImpl extends ConstantExpressionImpl implements BooleanExpression {
+public class BooleanExpressionImpl extends AlphaExpressionImpl implements BooleanExpression {
 	/**
 	 * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->

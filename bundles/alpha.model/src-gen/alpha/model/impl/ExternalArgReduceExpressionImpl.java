@@ -101,7 +101,7 @@ public class ExternalArgReduceExpressionImpl extends ArgReduceExpressionImpl imp
 	 * @generated
 	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
-		visitor.visitExternalArgReduceExpression(this);
+		visitor.visitAbstractReduceExpression(this);
 	}
 
 	/**
