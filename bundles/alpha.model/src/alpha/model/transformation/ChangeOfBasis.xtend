@@ -1,17 +1,16 @@
 package alpha.model.transformation
 
-import alpha.model.util.AbstractAlphaCompleteVisitor
 import alpha.model.AlphaSystem
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import alpha.model.StandardEquation
 import alpha.model.UseEquation
-import alpha.model.VariableExpression
 import alpha.model.Variable
+import alpha.model.VariableExpression
 import alpha.model.factory.AlphaUserFactory
-import alpha.model.matrix.factory.MatrixUserFactory
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import org.eclipse.emf.ecore.util.EcoreUtil
+import alpha.model.util.AbstractAlphaCompleteVisitor
 import alpha.model.util.AffineFunctionOperations
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
 	
@@ -26,12 +25,7 @@ class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
 	JNIISLMultiAff CoBfunctionInverse;
 	Variable target;
 	
-	static def void apply(AlphaSystem system, String varName, JNIISLMultiAff f) {
-		//f.
-		
-		val variable = system.variables.findFirst[v|v.name.contentEquals(varName)];
-		if (variable === null) throw new RuntimeException(String.format("Variable %s not found.", varName));
-		
+	static def void apply(AlphaSystem system, Variable variable, JNIISLMultiAff f) {
 		val CoB = new ChangeOfBasis(system, variable, f);
 		system.accept(CoB);
 	}

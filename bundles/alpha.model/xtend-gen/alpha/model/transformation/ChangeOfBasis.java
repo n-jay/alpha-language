@@ -14,8 +14,6 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
@@ -31,15 +29,7 @@ public class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
   
   private Variable target;
   
-  public static void apply(final AlphaSystem system, final String varName, final JNIISLMultiAff f) {
-    final Function1<Variable, Boolean> _function = (Variable v) -> {
-      return Boolean.valueOf(v.getName().contentEquals(varName));
-    };
-    final Variable variable = IterableExtensions.<Variable>findFirst(system.getVariables(), _function);
-    if ((variable == null)) {
-      String _format = String.format("Variable %s not found.", varName);
-      throw new RuntimeException(_format);
-    }
+  public static void apply(final AlphaSystem system, final Variable variable, final JNIISLMultiAff f) {
     final ChangeOfBasis CoB = new ChangeOfBasis(system, variable, f);
     system.accept(CoB);
   }
