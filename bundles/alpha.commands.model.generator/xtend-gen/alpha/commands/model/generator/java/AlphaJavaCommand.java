@@ -306,17 +306,35 @@ public class AlphaJavaCommand {
   }
   
   protected CharSequence _getCallPreparation(final DefaultValueArgument cas, final AlphaCommandArgument orig) {
-    StringConcatenation _builder = new StringConcatenation();
-    String _typeName = this.commonEx.typeName(orig.getArgumentType());
-    _builder.append(_typeName);
-    _builder.append(" ");
-    String _name = orig.getName();
-    _builder.append(_name);
-    _builder.append(" = ");
-    String _value = cas.getValue();
-    _builder.append(_value);
-    _builder.append(";");
-    return _builder;
+    CharSequence _xifexpression = null;
+    ArgumentType _argumentType = orig.getArgumentType();
+    boolean _equals = Objects.equal(_argumentType, ArgumentType.STRING);
+    if (_equals) {
+      StringConcatenation _builder = new StringConcatenation();
+      String _typeName = this.commonEx.typeName(orig.getArgumentType());
+      _builder.append(_typeName);
+      _builder.append(" ");
+      String _name = orig.getName();
+      _builder.append(_name);
+      _builder.append(" = \"");
+      String _value = cas.getValue();
+      _builder.append(_value);
+      _builder.append("\";");
+      _xifexpression = _builder;
+    } else {
+      StringConcatenation _builder_1 = new StringConcatenation();
+      String _typeName_1 = this.commonEx.typeName(orig.getArgumentType());
+      _builder_1.append(_typeName_1);
+      _builder_1.append(" ");
+      String _name_1 = orig.getName();
+      _builder_1.append(_name_1);
+      _builder_1.append(" = ");
+      String _value_1 = cas.getValue();
+      _builder_1.append(_value_1);
+      _builder_1.append(";");
+      _xifexpression = _builder_1;
+    }
+    return _xifexpression;
   }
   
   protected CharSequence _getCallPreparation(final SameAsParentArgument cas, final AlphaCommandArgument orig) {
@@ -369,6 +387,7 @@ public class AlphaJavaCommand {
           case ALPHA_EXPRESSION:
           case ABSTRACT_REDUCE_EXPRESSION:
           case BINARY_EXPRESSION:
+          case DEPENDENCE_EXPRESSION:
             final Function1<AlphaCommandArgument, Boolean> _function_4 = (AlphaCommandArgument a) -> {
               return Boolean.valueOf(((Objects.equal(a.getArgumentType(), ArgumentType.EQUATION) || 
                 Objects.equal(a.getArgumentType(), ArgumentType.STANDARD_EQUATION)) || 
@@ -436,8 +455,8 @@ public class AlphaJavaCommand {
   private CharSequence valueConverterMethodName(final AlphaCommandArgument orig) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("ValueConverter.to");
-    String _typeName = this.commonEx.typeName(orig);
-    _builder.append(_typeName);
+    String _name = orig.getArgumentType().getName();
+    _builder.append(_name);
     return _builder;
   }
   

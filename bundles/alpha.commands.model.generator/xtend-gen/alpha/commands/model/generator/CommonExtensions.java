@@ -172,6 +172,7 @@ public class CommonExtensions {
         case ALPHA_EXPRESSION:
         case ABSTRACT_REDUCE_EXPRESSION:
         case BINARY_EXPRESSION:
+        case DEPENDENCE_EXPRESSION:
           StringConcatenation _builder = new StringConcatenation();
           _builder.append("alpha.model.");
           String _literal = type.getLiteral();

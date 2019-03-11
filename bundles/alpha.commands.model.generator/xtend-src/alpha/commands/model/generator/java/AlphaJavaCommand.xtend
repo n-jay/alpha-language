@@ -114,7 +114,10 @@ class AlphaJavaCommand {
 	}
 	
 	def dispatch getCallPreparation(DefaultValueArgument cas, AlphaCommandArgument orig) {
-		'''«orig.argumentType.typeName» «orig.name» = «cas.value»;'''
+		if (orig.argumentType == ArgumentType.STRING)
+			'''«orig.argumentType.typeName» «orig.name» = "«cas.value»";'''
+		else
+			'''«orig.argumentType.typeName» «orig.name» = «cas.value»;'''
 	}
 
 	def dispatch getCallPreparation(SameAsParentArgument cas, AlphaCommandArgument orig) {
@@ -146,7 +149,8 @@ class AlphaJavaCommand {
 			}
 			case ALPHA_EXPRESSION,
 			case ABSTRACT_REDUCE_EXPRESSION,
-			case BINARY_EXPRESSION: {
+			case BINARY_EXPRESSION,
+			case DEPENDENCE_EXPRESSION: {
 				origArgs.filter[
 					a|a.argumentType == ArgumentType.EQUATION||
 					a.argumentType == ArgumentType.STANDARD_EQUATION||
@@ -181,7 +185,7 @@ class AlphaJavaCommand {
 	}
 
 	def private valueConverterMethodName(AlphaCommandArgument orig) {
-		'''ValueConverter.to«orig.typeName»'''
+		'''ValueConverter.to«orig.argumentType.getName»'''
 	}
 	
 	
