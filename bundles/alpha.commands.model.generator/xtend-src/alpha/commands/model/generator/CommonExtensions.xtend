@@ -87,7 +87,8 @@ class CommonExtensions {
 			case ALPHA_EXPRESSION,
 			case ABSTRACT_REDUCE_EXPRESSION,
 			case BINARY_EXPRESSION,
-			case DEPENDENCE_EXPRESSION: {
+			case DEPENDENCE_EXPRESSION,
+			case REDUCE_EXPRESSION: {
 				#{'''alpha.model.«type.literal»'''}
 			}
 			case AFFINE_FUNCTION: {

@@ -150,7 +150,8 @@ class AlphaJavaCommand {
 			case ALPHA_EXPRESSION,
 			case ABSTRACT_REDUCE_EXPRESSION,
 			case BINARY_EXPRESSION,
-			case DEPENDENCE_EXPRESSION: {
+			case DEPENDENCE_EXPRESSION,
+			case REDUCE_EXPRESSION: {
 				origArgs.filter[
 					a|a.argumentType == ArgumentType.EQUATION||
 					a.argumentType == ArgumentType.STANDARD_EQUATION||

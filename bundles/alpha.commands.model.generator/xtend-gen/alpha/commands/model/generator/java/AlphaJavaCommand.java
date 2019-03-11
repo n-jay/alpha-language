@@ -388,6 +388,7 @@ public class AlphaJavaCommand {
           case ABSTRACT_REDUCE_EXPRESSION:
           case BINARY_EXPRESSION:
           case DEPENDENCE_EXPRESSION:
+          case REDUCE_EXPRESSION:
             final Function1<AlphaCommandArgument, Boolean> _function_4 = (AlphaCommandArgument a) -> {
               return Boolean.valueOf(((Objects.equal(a.getArgumentType(), ArgumentType.EQUATION) || 
                 Objects.equal(a.getArgumentType(), ArgumentType.STANDARD_EQUATION)) || 
