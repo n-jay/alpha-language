@@ -2,18 +2,14 @@ package alpha.commands.model.generator.java
 
 import alpha.commands.model.AlphaCommand
 import alpha.commands.model.AlphaCommandArgument
-import alpha.commands.model.AlphaCommandSignature
 import alpha.commands.model.AlphaCommandSpecialization
 import alpha.commands.model.ArgumentBinding
 import alpha.commands.model.ArgumentRenaming
 import alpha.commands.model.ArgumentType
-import alpha.commands.model.CommandArgumentSpecialization
 import alpha.commands.model.DefaultValueArgument
 import alpha.commands.model.OverrideArgument
 import alpha.commands.model.SameAsParentArgument
 import alpha.commands.model.generator.CommonExtensions
-import com.google.common.collect.Streams
-import java.util.function.BiFunction
 import org.eclipse.xtext.EcoreUtil2
 
 class AlphaJavaCommand {
@@ -134,9 +130,14 @@ class AlphaJavaCommand {
 			case ALPHA_SYSTEM: {
 				origArgs.filter[a|a.argumentType == ArgumentType.ALPHA_ROOT]
 			}
-			case SYSTEM_BODY,
-			case VARIABLE: {
+			case SYSTEM_BODY: {
 				origArgs.filter[a|a.argumentType == ArgumentType.ALPHA_SYSTEM]
+			}
+			case VARIABLE: {
+				origArgs.filter[a|
+					a.argumentType == ArgumentType.ALPHA_SYSTEM||
+					a.argumentType == ArgumentType.SYSTEM_BODY
+				]
 			}
 			case EQUATION,
 			case STANDARD_EQUATION,
