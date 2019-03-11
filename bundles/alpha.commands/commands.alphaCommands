@@ -9,7 +9,6 @@ Core {
 	ASave(AlphaRoot root, String filename)
 	Normalize(AlphaVisitable node)
 	DeepNormalize(AlphaVisitable node)
-
 }
 
 Utility {
@@ -17,40 +16,105 @@ Utility {
 	GetRoot(List<AlphaRoot> bundle, String systemName) : AlphaRoot
 	GetSystem(AlphaRoot root, String systemName) : AlphaSystem
 	GetSystemBody(AlphaSystem system, int bodyID) : SystemBody
-	GetEquation(SystemBody body, String varName) : Equation
-	GetExpression(Equation eq, int[] exprID) : AlphaExpression
-	GetExpression(SystemBody body, String varName, int[] exprID) : AlphaExpression
-	GetExpression(AlphaSystem system, int bodyID, String varName, int[] exprID) : AlphaExpression
-	
+		=> (_, "0")
+	GetEquation(SystemBody body, String varName) : StandardEquation
+	GetExpr1:GetExpression(Equation eq, String 	exprID) : AlphaExpression
+		=> (_, "0")
+	@Bind(GetExpr1; eq=(body, varName))
+	GetExpr2:GetExpression(SystemBody body, String varName, String exprID) : AlphaExpression
+		=> (_, _, "0")
+	@Bind(GetExpr2; body=(system, bodyID))
+	GetExpression(AlphaSystem system, int bodyID, String varName, String exprID) : AlphaExpression
+		=> (_, "0", _, _)
+		=> (_, _, _, "0")
+		=> (_, "0", _, "0")
+	RenameVariable(AlphaSystem system, String oldName, String newName)
 }
 
 Transformations {
+	SimplifyExpressions(AlphaVisitable node)
+	PropagateSimpleEquations(AlphaSystem system)
+	@Bind(PSE; body=(system, bodyID))
+	PropagateSimpleEquations(AlphaSystem system, int bodyID)
+	PSE:PropagateSimpleEquations(SystemBody body)
+	RemoveUnusedEquations(AlphaRoot root)
+	RemoveUnusedEquations(AlphaSystem system)
 
 	ChangeOfBasis(AlphaSystem system, Variable var, AffineFunction f)
 		=> (_, String varName, String fStr)
 		
 	Split(AlphaSystem system, Variable var, Domain splitDom)
 		=> (_, String varName, String splitDom)
-		
-	SubstituteByDef(SystemBody body, StandardEquation targetEq, StandardEquation inlineEq)
-		=> (_, String targetEq, String inlineEq)
-
+	
+	//System-wide SubstituteByDef
+	SubstituteByDef(AlphaSystem system, Variable inlineVar)
+		=> (_, String inlineVarStr)
+	SubstituteByDef(SystemBody body, Variable inlineVar)
+		=> (_, String inlineVarStr)
+	
+	//SubstituteByDef for a specific equation
+	SubstituteByDef(SystemBody body, StandardEquation targetEq, Variable inlineVar)
+		=> (_, String targetEq, String inlineVarStr)
 }
 
 Reductions {
+	//System-wide ReductionComposition
+	ReductionComposition(AlphaSystem system)
+	ReductionComposition(SystemBody body)
 	
-	@Bind(Ser2; system=(root,systemName))
-	SerializeReduction(AlphaRoot root, String systemName, int bodyID, String eqName, String exprID, AffineFunction schedule)
-		=> (_, _, _, _, _, String fStr)
+	//ReductionComposition for a specific expression
+	@Bind(RComp2; eq=(body, targetEq))
+	ReductionComposition(SystemBody body, String targetEq, String exprID)
+		=> (_, _, "0")
+	@Bind(RComp1; reduction=(eq, exprID))
+	RComp2:ReductionComposition(StandardEquation eq, String exprID)
+		=> (_, "0")
+	RComp1:ReductionComposition(AbstractReduceExpression reduction)
+
+	//ReductionDecomposition
+	@Bind(RDecomp2; eq=(body, targetEq))
+	ReducionDecomposition(SystemBody body, String targetEq, String exprID, AffineFunction f1, AffineFunction f2)
+		=> (_, _, _, String f1Str, String f2Str)
+	@Bind(RDecomp1; reduction=(eq, exprID))
+	RDecomp2:ReducionDecomposition(StandardEquation eq, String exprID, AffineFunction f1, AffineFunction f2)
+		=> (_, "0", _, _)
+		=> (_, _, String f1Str, String f2Str)
+		=> (_, "0", String f1Str, String f2Str)
+	RDecomp1:ReductionDecomposition(AbstractReduceExpression reduction, AffineFunction f1, AffineFunction f2)
+		=> (_, String f1Str, String f2Str)
 	
-	@Bind(Ser3; systemBody=(system,bodyID), eq=eqName, expr=exprID)
-	Ser2:SerializeReduction(AlphaSystem system, int bodyID, String eqName, String exprID, AffineFunction schedule)
-		=> (_, "0", _ , _, _)
-		=> (_, _, _ , _, String fStr)
-		=> (_, "0", _ , _, String fStr)
-		
 	
-	Ser3:SerializeReduction(SystemBody systemBody, StandardEquation eq, AlphaExpression expr, AffineFunction schedule)
-		=> (_, String eqName, String exprID, _)
-		=> (_, String eqName, String exprID, String fStr)
+	//FactorOutFromReduction
+	@Bind(RFactor2; eq=(body, targetEq))
+	FactorOutFromReduction(SystemBody body, String targetEq, String exprID)
+		=> (_, _, "0")
+	@Bind(RFactor1; expr=(eq, exprID))
+	RFactor2:FactorOutFromReduction(StandardEquation eq, String exprID)
+		=> (_, "0")
+	RFactor1:FactorOutFromReduction(DependenceExpression expr)
+	
+	//NormalizeReduction
+	NormalizeReduction(AlphaVisitable node)
+	@Bind(NR2; eq=(body,targetEq))
+	NormalizeReduction(SystemBody body, String targetEq, String exprID)
+		=> (_, _, "0")
+	@Bind(NR1; reduction=(eq,exprID))
+	NR2:NormalizeReduction(StandardEquation eq, String exprID)
+		=> (_, "0")
+	NR1:NormalizeReduction(AbstractReduceExpression reduction)
+	
+	//SimplifyingReductions
+	@Bind(SR2; eq=(body, targetEq))
+	SimplifyingReductions(SystemBody body, String targetEq, String exprID, AffineFunction reuseDep)
+		=> (_, _, _, String reuseDepStr)
+		=> (_, _, "0", _)
+		=> (_, _, "0", String reuseDepStr)
+	@Bind(SR1; reduction=(eq, exprID))
+	SR2:SimplifyingReductions(StandardEquation eq, String exprID, AffineFunction reuseDep)
+		=> (_, _, String reuseDepStr)
+		=> (_, "0", _)
+		=> (_, "0", String reuseDepStr)
+	SR1:SimplifyingReductions(ReduceExpression reduction, AffineFunction reuseDep)
+		=> (_, String reuseDepStr)
+	
 }

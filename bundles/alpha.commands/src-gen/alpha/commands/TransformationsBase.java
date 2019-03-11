@@ -4,18 +4,45 @@ package alpha.commands;
 //Add custom imports here
 /*PROTECTED REGION END*/
 
+import alpha.model.AlphaVisitable;
 import alpha.model.AlphaSystem;
+import alpha.model.SystemBody;
+import alpha.model.AlphaRoot;
 import alpha.model.Variable;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
-import alpha.model.SystemBody;
 import alpha.model.StandardEquation;
 
 
 public class TransformationsBase {
+	public static void SimplifyExpressions(AlphaVisitable node) {
+		/*PROTECTED REGION ID(Transformations.SimplifyExpressions_) ENABLED START*/
+		alpha.model.transformation.SimplifyExpressions.apply(node);
+		/*PROTECTED REGION END*/
+	}
+	public static void PropagateSimpleEquations(AlphaSystem system) {
+		/*PROTECTED REGION ID(Transformations.PropagateSimpleEquations_) ENABLED START*/
+		alpha.model.transformation.PropagateSimpleEquations.apply(system);
+		/*PROTECTED REGION END*/
+	}
+	public static void PropagateSimpleEquations(SystemBody body) {
+		/*PROTECTED REGION ID(Transformations.PropagateSimpleEquations_PSE) ENABLED START*/
+		alpha.model.transformation.PropagateSimpleEquations.apply(body);
+		/*PROTECTED REGION END*/
+	}
+	public static void RemoveUnusedEquations(AlphaRoot root) {
+		/*PROTECTED REGION ID(Transformations.RemoveUnusedEquations_) ENABLED START*/
+		alpha.model.transformation.RemoveUnusedEquations.apply(root);
+		/*PROTECTED REGION END*/
+	}
+	public static void RemoveUnusedEquations(AlphaSystem system) {
+		/*PROTECTED REGION ID(Transformations.RemoveUnusedEquations__1) ENABLED START*/
+		alpha.model.transformation.RemoveUnusedEquations.apply(system);
+		/*PROTECTED REGION END*/
+	}
 	public static void ChangeOfBasis(AlphaSystem system, Variable var, JNIISLMultiAff f) {
 		/*PROTECTED REGION ID(Transformations.ChangeOfBasis_) ENABLED START*/
-		throw new UnsupportedOperationException("Not implemented.");
+		alpha.model.transformation.ChangeOfBasis.apply(system, var, f);
 		/*PROTECTED REGION END*/
 	}
 	public static void Split(AlphaSystem system, Variable var, JNIISLSet splitDom) {
@@ -23,9 +50,19 @@ public class TransformationsBase {
 		throw new UnsupportedOperationException("Not implemented.");
 		/*PROTECTED REGION END*/
 	}
-	public static void SubstituteByDef(SystemBody body, StandardEquation targetEq, StandardEquation inlineEq) {
+	public static void SubstituteByDef(AlphaSystem system, Variable inlineVar) {
 		/*PROTECTED REGION ID(Transformations.SubstituteByDef_) ENABLED START*/
-		throw new UnsupportedOperationException("Not implemented.");
+		alpha.model.transformation.SubstituteByDef.apply(system, inlineVar);
+		/*PROTECTED REGION END*/
+	}
+	public static void SubstituteByDef(SystemBody body, Variable inlineVar) {
+		/*PROTECTED REGION ID(Transformations.SubstituteByDef__1) ENABLED START*/
+		alpha.model.transformation.SubstituteByDef.apply(body, inlineVar);
+		/*PROTECTED REGION END*/
+	}
+	public static void SubstituteByDef(SystemBody body, StandardEquation targetEq, Variable inlineVar) {
+		/*PROTECTED REGION ID(Transformations.SubstituteByDef__2) ENABLED START*/
+		alpha.model.transformation.SubstituteByDef.apply(body, targetEq, inlineVar);
 		/*PROTECTED REGION END*/
 	}
 }

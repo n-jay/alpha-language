@@ -1,22 +1,22 @@
 package alpha.commands;
 
-import java.util.List;
-
-import alpha.model.AlphaExpression;
-
 /*PROTECTED REGION ID(UtilityBase_Imports) ENABLED START*/
 //Add custom imports here
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import alpha.model.util.AlphaUtil;
 /*PROTECTED REGION END*/
 
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
-import alpha.model.Equation;
 import alpha.model.SystemBody;
-import alpha.model.util.AlphaUtil;
+import alpha.model.StandardEquation;
+import alpha.model.AlphaExpression;
+import alpha.model.AlphaRoot;
+import java.util.List;
+import alpha.model.Equation;
 
 
 public class UtilityBase {
@@ -56,23 +56,18 @@ public class UtilityBase {
 		return system.getSystemBodies().get(bodyID);
 		/*PROTECTED REGION END*/
 	}
-	public static Equation GetEquation(SystemBody body, String varName) {
+	public static StandardEquation GetEquation(SystemBody body, String varName) {
 		/*PROTECTED REGION ID(Utility.GetEquation_) ENABLED START*/
 		return body.getStandardEquation(varName);
 		/*PROTECTED REGION END*/
 	}
-	public static AlphaExpression GetExpression(Equation eq, int[] exprID) {
-		/*PROTECTED REGION ID(Utility.GetExpression_) ENABLED START*/
+	public static AlphaExpression GetExpression(Equation eq, String exprID) {
+		/*PROTECTED REGION ID(Utility.GetExpression_GetExpr1) ENABLED START*/
 		throw new UnsupportedOperationException("Not implemented.");
 		/*PROTECTED REGION END*/
 	}
-	public static AlphaExpression GetExpression(SystemBody body, String varName, int[] exprID) {
-		/*PROTECTED REGION ID(Utility.GetExpression__1) ENABLED START*/
-		throw new UnsupportedOperationException("Not implemented.");
-		/*PROTECTED REGION END*/
-	}
-	public static AlphaExpression GetExpression(AlphaSystem system, int bodyID, String varName, int[] exprID) {
-		/*PROTECTED REGION ID(Utility.GetExpression__2) ENABLED START*/
+	public static void RenameVariable(AlphaSystem system, String oldName, String newName) {
+		/*PROTECTED REGION ID(Utility.RenameVariable_) ENABLED START*/
 		throw new UnsupportedOperationException("Not implemented.");
 		/*PROTECTED REGION END*/
 	}

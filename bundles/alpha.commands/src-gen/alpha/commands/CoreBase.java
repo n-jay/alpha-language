@@ -7,7 +7,6 @@ import alpha.model.AlphaModelLoader;
 /*PROTECTED REGION END*/
 
 import alpha.model.AlphaRoot;
-
 import java.util.List;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaVisitable;
@@ -48,18 +47,12 @@ public class CoreBase {
 	}
 	public static void Save(AlphaRoot root, String filename) {
 		/*PROTECTED REGION ID(Core.Save_) ENABLED START*/
-//		try {
-//			AlphaModelLoader.
-//			AlphaRoot root = AlphaModelLoader.loadModel(file);
-//			return root;
-//		} catch (IOException e) {
-//			throw new RuntimeException("IOException: " + e.getMessage());
-//		}
+		Utility.WriteToFile(filename, alpha.model.util.Show.print(root));
 		/*PROTECTED REGION END*/
 	}
 	public static void ASave(AlphaRoot root, String filename) {
 		/*PROTECTED REGION ID(Core.ASave_) ENABLED START*/
-		throw new UnsupportedOperationException("Not implemented.");
+		Utility.WriteToFile(filename, alpha.model.util.AShow.print(root));
 		/*PROTECTED REGION END*/
 	}
 	public static void Normalize(AlphaVisitable node) {
