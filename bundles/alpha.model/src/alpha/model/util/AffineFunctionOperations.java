@@ -312,7 +312,7 @@ public class AffineFunctionOperations {
 	 */
 	public static boolean isInKernelOf(JNIISLMultiAff f1, JNIISLMultiAff f2) {
 		if (!f1.getSpace().isEqual(f2.getSpace())) 
-			throw new RuntimeException("[MatrixOperations] Incompatible space given to isKernelOf: " + f1 + " " + f2);
+			throw new RuntimeException("[AffineFunctionOperations] Incompatible space given to isKernelOf: " + f1 + " " + f2);
 		
 		final int nbParam = f1.getNbDims(JNIISLDimType.isl_dim_param);
 		long[][] f1Array = toArray(toLinearPartOnlyMatrix(f1));
@@ -331,6 +331,20 @@ public class AffineFunctionOperations {
 		final int rank = MatrixOperations.getRank(f2Kernel);
 		
 		return origRank == rank;
+	}
+
+	/**
+	 * Check if Ker(f1) \in Ker(f2).
+	 * Throw an exception if Ker(f1) and Ker(f2) lives on different space
+	 */
+	public static boolean kernelInclusion(JNIISLMultiAff f1, JNIISLMultiAff f2) {
+		if (!f1.getSpace().isEqual(f2.getSpace())) 
+			throw new RuntimeException("[AffineFunctionOperations] Incompatible space given to haveOverlappingKernels: " + f1 + " " + f2);
+
+		long[][] f1Array = toArray(toLinearPartOnlyMatrix(f1));
+		long[][] f2Array = toArray(toLinearPartOnlyMatrix(f2));
+		
+		return MatrixOperations.inclusionKernel(f1Array, f2Array);
 	}
 
 	/**
