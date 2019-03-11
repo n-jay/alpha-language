@@ -1050,64 +1050,70 @@ ruleArgumentType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
 			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDependenceExpressionKeyword_13());
 		}
 		    |
+		kw='ReduceExpression'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_14());
+		}
+		    |
 		kw='AffineFunction'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_14());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_15());
 		}
 		    |
 		kw='Domain'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDomainKeyword_15());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDomainKeyword_16());
 		}
 		    |
 		kw='ParameterDomain'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_16());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_17());
 		}
 		    |
 		kw='List<AlphaRoot>'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_17());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_18());
 		}
 		    |
 		kw='String'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_18());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_19());
 		}
 		    |
 		kw='List<String>'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListStringKeyword_19());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListStringKeyword_20());
 		}
 		    |
 		kw='String[]'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_20());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_21());
 		}
 		    |
 		kw='int'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_21());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_22());
 		}
 		    |
 		kw='List<Integer>'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_22());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_23());
 		}
 		    |
 		kw='int[]'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_23());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_24());
 		}
 	)
 ;

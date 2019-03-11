@@ -159,6 +159,16 @@ public enum ArgumentType implements Enumerator {
 	DEPENDENCE_EXPRESSION(0, "DependenceExpression", "DependenceExpression"),
 
 	/**
+	 * The '<em><b>Reduce Expression</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #REDUCE_EXPRESSION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	REDUCE_EXPRESSION(0, "ReduceExpression", "ReduceExpression"),
+
+	/**
 	 * The '<em><b>Affine Function</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -469,6 +479,21 @@ public enum ArgumentType implements Enumerator {
 	public static final int DEPENDENCE_EXPRESSION_VALUE = 0;
 
 	/**
+	 * The '<em><b>Reduce Expression</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Reduce Expression</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #REDUCE_EXPRESSION
+	 * @model name="ReduceExpression"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int REDUCE_EXPRESSION_VALUE = 0;
+
+	/**
 	 * The '<em><b>Affine Function</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -640,6 +665,7 @@ public enum ArgumentType implements Enumerator {
 			ABSTRACT_REDUCE_EXPRESSION,
 			BINARY_EXPRESSION,
 			DEPENDENCE_EXPRESSION,
+			REDUCE_EXPRESSION,
 			AFFINE_FUNCTION,
 			DOMAIN,
 			PARAMETER_DOMAIN,

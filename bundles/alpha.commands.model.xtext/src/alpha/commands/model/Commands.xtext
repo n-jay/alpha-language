@@ -80,6 +80,7 @@ ArgumentType returns ArgumentType:
 	"AbstractReduceExpression" |
 	"BinaryExpression" |
 	"DependenceExpression" |
+	"ReduceExpression" |
 	"AffineFunction" |
 	"Domain" |
 	"ParameterDomain" |
