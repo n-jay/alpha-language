@@ -159,7 +159,21 @@ class AlphaJavaCommand {
 				]
 			}
 			case AFFINE_FUNCTION,
-			case DOMAIN,
+			case DOMAIN: {
+				origArgs.filter[
+					a|
+					a.argumentType == ArgumentType.ALPHA_SYSTEM||
+					a.argumentType == ArgumentType.SYSTEM_BODY||
+					a.argumentType == ArgumentType.EQUATION||
+					a.argumentType == ArgumentType.STANDARD_EQUATION||
+					a.argumentType == ArgumentType.USE_EQUATION||
+					a.argumentType == ArgumentType.ALPHA_EXPRESSION||
+					a.argumentType == ArgumentType.ABSTRACT_REDUCE_EXPRESSION||
+					a.argumentType == ArgumentType.BINARY_EXPRESSION||
+					a.argumentType == ArgumentType.DEPENDENCE_EXPRESSION||
+					a.argumentType == ArgumentType.REDUCE_EXPRESSION
+				]
+			}
 			case INTEGER,
 			case INTEGER_LIST,
 			case INTEGER_ARRAY: {

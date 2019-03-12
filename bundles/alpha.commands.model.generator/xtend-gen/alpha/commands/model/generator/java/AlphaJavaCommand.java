@@ -398,6 +398,20 @@ public class AlphaJavaCommand {
             break;
           case AFFINE_FUNCTION:
           case DOMAIN:
+            final Function1<AlphaCommandArgument, Boolean> _function_5 = (AlphaCommandArgument a) -> {
+              return Boolean.valueOf((((((((((Objects.equal(a.getArgumentType(), ArgumentType.ALPHA_SYSTEM) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.SYSTEM_BODY)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.EQUATION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.STANDARD_EQUATION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.USE_EQUATION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.ALPHA_EXPRESSION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.ABSTRACT_REDUCE_EXPRESSION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.BINARY_EXPRESSION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.DEPENDENCE_EXPRESSION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.REDUCE_EXPRESSION)));
+            };
+            _switchResult = IterableExtensions.<AlphaCommandArgument>filter(origArgs, _function_5);
+            break;
           case INTEGER:
           case INTEGER_LIST:
           case INTEGER_ARRAY:
