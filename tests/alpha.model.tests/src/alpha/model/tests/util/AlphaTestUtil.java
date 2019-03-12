@@ -23,6 +23,8 @@ public class AlphaTestUtil {
 
 	public static final Path SRC_VALID = new File("resources/src-valid/").toPath();
 	public static final Path SRC_INVALID = new File("resources/src-invalid/").toPath();
+	public static final Path SCRIPT_VALID = new File("resources/script-valid/").toPath();
+	public static final Path SCRIPT_INVALID = new File("resources/script-invalid/").toPath();
 	public static final int COMMON_DEPTH = 4;
 
 	private static String tempFileName(int count) {
