@@ -10,4 +10,7 @@ Require-Bundle: alpha.model,
  org.junit,
  com.google.guava,
  org.eclipse.xtext,
- alpha.commands
+ org.codehaus.groovy.eclipse.ui,
+ org.eclipse.jdt.groovy.core,
+ alpha.commands,
+ alpha.commands.groovy
