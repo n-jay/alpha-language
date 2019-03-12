@@ -264,16 +264,22 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	 */
 	override visitJNIDomain(JNIDomain jniDomain) {
 		try {
-			var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniDomain), parseJNIDomain(jniDomain)));
-			val pdom = getParameterDomain(jniDomain);
-			
-			jniset = jniset.intersectParams(pdom.copy());
-			
+			var jniset = parseDomain(AlphaUtil.getContainerSystem(jniDomain), parseJNIDomain(jniDomain));
 			jniDomain.setISLSet(jniset);
 		} catch (RuntimeException re) {
 			val msg = if (re.message === null) re.class.name else re.message
 			registerIssue(msg, jniDomain);
 		}
+	}
+	
+	/**
+	 * Parses a domain in the context of the given system.
+	 */
+	static def parseDomain(AlphaSystem system, String domainStr) {
+			var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system,domainStr));
+			val pdom = getParameterDomain(system);
+			
+			return jniset.intersectParams(pdom.copy());
 	}
 
 	private def dispatch parseJNIDomain(JNIDomain jniDomain) {
@@ -328,20 +334,40 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		try {
 			val indexNames = if (jniFunction.alphaFunction.indexList !== null) jniFunction.alphaFunction.indexList else ""
 			val expr = jniFunction.alphaFunction.exprs.join(",", [e|e.ISLString])
-
-			val completed = new StringBuffer("{ [");
-			completed.append(indexNames);
-			completed.append("] -> [");
-			completed.append(expr);
-			completed.append("] }");
-
-			val jnimaff = ISLFactory.islMultiAff(
-				AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
+			val jnimaff = parseAffineFunction(AlphaUtil.getContainerSystem(jniFunction), indexNames, expr);
 			jniFunction.setISLMultiAff(jnimaff);
 		} catch (RuntimeException re) {
 			val msg = if(re.message === null) re.class.name else re.message
 			registerIssue(msg, jniFunction);
 		}
+	}
+	
+	/**
+	 * Parses an affine function in the context of the given system.
+	 * This method is exposed for use in scripts.
+	 */
+	static def  parseAffineFunction(AlphaSystem system, String fStr) {
+		var str = fStr
+		str = str.replace('(', ' ')
+		str = str.replace(')', ' ')
+		val splitStr = str.split("->")
+		if (splitStr.size != 2)
+			throw new IllegalArgumentException("Input does not match the format for AffineFunctions: " + fStr + " expecting \"(<index names> -> <affine expressions>)\"");
+		parseAffineFunction(system, splitStr.get(0), splitStr.get(1));
+	}
+	
+	/**
+	 * Method responsible for parsing affine functions.
+	 * All parsing of affine functions, expect for dependences in ArrayNotation, are done through this method.
+	 */
+	private static def parseAffineFunction(AlphaSystem system, String lhsStr, String rhsStr) {
+			val completed = new StringBuffer("{ [");
+			completed.append(lhsStr);
+			completed.append("] -> [");
+			completed.append(rhsStr);
+			completed.append("] }");
+
+			return ISLFactory.islMultiAff(AlphaUtil.toContextFreeISLString(system, completed.toString()));
 	}
 
 	/**

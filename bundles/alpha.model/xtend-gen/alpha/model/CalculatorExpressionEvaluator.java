@@ -3,6 +3,7 @@ package alpha.model;
 import alpha.model.AffineFuzzyVariableUse;
 import alpha.model.AlphaFunctionExpression;
 import alpha.model.AlphaNode;
+import alpha.model.AlphaSystem;
 import alpha.model.ArgReduceExpression;
 import alpha.model.BinaryCalculatorExpression;
 import alpha.model.CALCULATOR_BINARY_OP;
@@ -314,9 +315,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIDomain(final JNIDomain jniDomain) {
     try {
-      JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniDomain), this.parseJNIDomain(jniDomain)));
-      final JNIISLSet pdom = AlphaUtil.getParameterDomain(jniDomain);
-      jniset = jniset.intersectParams(pdom.copy());
+      JNIISLSet jniset = CalculatorExpressionEvaluator.parseDomain(AlphaUtil.getContainerSystem(jniDomain), this.parseJNIDomain(jniDomain));
       jniDomain.setISLSet(jniset);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -335,6 +334,15 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         throw Exceptions.sneakyThrow(_t);
       }
     }
+  }
+  
+  /**
+   * Parses a domain in the context of the given system.
+   */
+  public static JNIISLSet parseDomain(final AlphaSystem system, final String domainStr) {
+    JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, domainStr));
+    final JNIISLSet pdom = AlphaUtil.getParameterDomain(system);
+    return jniset.intersectParams(pdom.copy());
   }
   
   private String _parseJNIDomain(final JNIDomain jniDomain) {
@@ -420,13 +428,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         return e.getISLString();
       };
       final String expr = IterableExtensions.<AlphaFunctionExpression>join(jniFunction.getAlphaFunction().getExprs(), ",", _function);
-      final StringBuffer completed = new StringBuffer("{ [");
-      completed.append(indexNames);
-      completed.append("] -> [");
-      completed.append(expr);
-      completed.append("] }");
-      final JNIISLMultiAff jnimaff = ISLFactory.islMultiAff(
-        AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniFunction), completed.toString()));
+      final JNIISLMultiAff jnimaff = CalculatorExpressionEvaluator.parseAffineFunction(AlphaUtil.getContainerSystem(jniFunction), indexNames, expr);
       jniFunction.setISLMultiAff(jnimaff);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -450,6 +452,40 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       }
     }
     return Boolean.valueOf(_xtrycatchfinallyexpression);
+  }
+  
+  /**
+   * Parses an affine function in the context of the given system.
+   * This method is exposed for use in scripts.
+   */
+  public static JNIISLMultiAff parseAffineFunction(final AlphaSystem system, final String fStr) {
+    JNIISLMultiAff _xblockexpression = null;
+    {
+      String str = fStr;
+      str = str.replace("(", " ");
+      str = str.replace(")", " ");
+      final String[] splitStr = str.split("->");
+      int _size = ((List<String>)Conversions.doWrapArray(splitStr)).size();
+      boolean _notEquals = (_size != 2);
+      if (_notEquals) {
+        throw new IllegalArgumentException((("Input does not match the format for AffineFunctions: " + fStr) + " expecting \"(<index names> -> <affine expressions>)\""));
+      }
+      _xblockexpression = CalculatorExpressionEvaluator.parseAffineFunction(system, splitStr[0], splitStr[1]);
+    }
+    return _xblockexpression;
+  }
+  
+  /**
+   * Method responsible for parsing affine functions.
+   * All parsing of affine functions, expect for dependences in ArrayNotation, are done through this method.
+   */
+  private static JNIISLMultiAff parseAffineFunction(final AlphaSystem system, final String lhsStr, final String rhsStr) {
+    final StringBuffer completed = new StringBuffer("{ [");
+    completed.append(lhsStr);
+    completed.append("] -> [");
+    completed.append(rhsStr);
+    completed.append("] }");
+    return ISLFactory.islMultiAff(AlphaUtil.toContextFreeISLString(system, completed.toString()));
   }
   
   /**
