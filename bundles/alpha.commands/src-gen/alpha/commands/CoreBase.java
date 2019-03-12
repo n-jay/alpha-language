@@ -4,6 +4,7 @@ package alpha.commands;
 //Add custom imports here
 import java.io.IOException;
 import alpha.model.AlphaModelLoader;
+import alpha.model.issue.AlphaIssue;
 /*PROTECTED REGION END*/
 
 import alpha.model.AlphaRoot;
@@ -63,6 +64,14 @@ public class CoreBase {
 	public static void DeepNormalize(AlphaVisitable node) {
 		/*PROTECTED REGION ID(Core.DeepNormalize_) ENABLED START*/
 		alpha.model.transformation.Normalize.apply(node, true);
+		/*PROTECTED REGION END*/
+	}
+	public static void CheckProgram(AlphaRoot root) {
+		/*PROTECTED REGION ID(Core.CheckProgram_) ENABLED START*/
+		List<AlphaIssue> issues = alpha.model.UniquenessAndCompletenessCheck.check(root);
+		if (!issues.isEmpty()) {
+			throw new RuntimeException("CheckProgram failed: " + issues);
+		}
 		/*PROTECTED REGION END*/
 	}
 }

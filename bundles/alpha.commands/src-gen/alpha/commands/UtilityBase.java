@@ -12,6 +12,7 @@ import alpha.model.util.AlphaUtil;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.SystemBody;
+import alpha.model.Variable;
 import alpha.model.StandardEquation;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaRoot;
@@ -63,12 +64,13 @@ public class UtilityBase {
 	}
 	public static AlphaExpression GetExpression(Equation eq, String exprID) {
 		/*PROTECTED REGION ID(Utility.GetExpression_GetExpr1) ENABLED START*/
-		throw new UnsupportedOperationException("Not implemented.");
+		return eq.getExpression(exprID);
 		/*PROTECTED REGION END*/
 	}
 	public static void RenameVariable(AlphaSystem system, String oldName, String newName) {
 		/*PROTECTED REGION ID(Utility.RenameVariable_) ENABLED START*/
-		throw new UnsupportedOperationException("Not implemented.");
+		Variable v = system.getVariable(oldName);
+		v.setName(newName);
 		/*PROTECTED REGION END*/
 	}
 }

@@ -32,8 +32,8 @@ public class Reductions extends ReductionsBase {
 		ReducionDecomposition(eq, exprID, f1, f2);
 	}
 	public static void ReducionDecomposition(SystemBody body, String targetEq, String exprID, String f1Str, String f2Str) {
-		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(f1Str);
-		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(f2Str);
+		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(body, f1Str);
+		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(body, f2Str);
 		ReducionDecomposition(body, targetEq, exprID, f1, f2);
 	}
 	public static void ReducionDecomposition(StandardEquation eq, String exprID, JNIISLMultiAff f1, JNIISLMultiAff f2) {
@@ -45,19 +45,19 @@ public class Reductions extends ReductionsBase {
 		ReducionDecomposition(eq, exprID, f1, f2);
 	}
 	public static void ReducionDecomposition(StandardEquation eq, String exprID, String f1Str, String f2Str) {
-		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(f1Str);
-		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(f2Str);
+		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(eq, f1Str);
+		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(eq, f2Str);
 		ReducionDecomposition(eq, exprID, f1, f2);
 	}
 	public static void ReducionDecomposition(StandardEquation eq, String f1Str, String f2Str) {
 		String exprID = "0";
-		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(f1Str);
-		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(f2Str);
+		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(eq, f1Str);
+		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(eq, f2Str);
 		ReducionDecomposition(eq, exprID, f1, f2);
 	}
 	public static void ReductionDecomposition(AbstractReduceExpression reduction, String f1Str, String f2Str) {
-		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(f1Str);
-		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(f2Str);
+		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(reduction, f1Str);
+		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(reduction, f2Str);
 		ReductionDecomposition(reduction, f1, f2);
 	}
 	public static void FactorOutFromReduction(SystemBody body, String targetEq, String exprID) {
@@ -97,7 +97,7 @@ public class Reductions extends ReductionsBase {
 		SimplifyingReductions(eq, exprID, reuseDep);
 	}
 	public static void SimplifyingReductions(SystemBody body, String targetEq, String exprID, String reuseDepStr) {
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(reuseDepStr);
+		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(body, reuseDepStr);
 		SimplifyingReductions(body, targetEq, exprID, reuseDep);
 	}
 	public static void SimplifyingReductions(SystemBody body, String targetEq, JNIISLMultiAff reuseDep) {
@@ -106,7 +106,7 @@ public class Reductions extends ReductionsBase {
 	}
 	public static void SimplifyingReductions(SystemBody body, String targetEq, String reuseDepStr) {
 		String exprID = "0";
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(reuseDepStr);
+		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(body, reuseDepStr);
 		SimplifyingReductions(body, targetEq, exprID, reuseDep);
 	}
 	public static void SimplifyingReductions(StandardEquation eq, String exprID, JNIISLMultiAff reuseDep) {
@@ -114,7 +114,7 @@ public class Reductions extends ReductionsBase {
 		SimplifyingReductions(reduction, reuseDep);
 	}
 	public static void SimplifyingReductions(StandardEquation eq, String exprID, String reuseDepStr) {
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(reuseDepStr);
+		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(eq, reuseDepStr);
 		SimplifyingReductions(eq, exprID, reuseDep);
 	}
 	public static void SimplifyingReductions(StandardEquation eq, JNIISLMultiAff reuseDep) {
@@ -123,11 +123,11 @@ public class Reductions extends ReductionsBase {
 	}
 	public static void SimplifyingReductions(StandardEquation eq, String reuseDepStr) {
 		String exprID = "0";
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(reuseDepStr);
+		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(eq, reuseDepStr);
 		SimplifyingReductions(eq, exprID, reuseDep);
 	}
 	public static void SimplifyingReductions(ReduceExpression reduction, String reuseDepStr) {
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(reuseDepStr);
+		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(reduction, reuseDepStr);
 		SimplifyingReductions(reduction, reuseDep);
 	}
 }

@@ -4,24 +4,37 @@ import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
+import alpha.model.CalculatorExpressionEvaluator;
 import alpha.model.DependenceExpression;
 import alpha.model.Equation;
 import alpha.model.ReduceExpression;
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
 import alpha.model.Variable;
+import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 public class ValueConverter {
-
-	public static JNIISLMultiAff toAffineFunction(String fStr) {
-		return ISLFactory.islMultiAff(fStr);
+	
+	public static JNIISLMultiAff toAffineFunction(AlphaSystem system, String fStr) {
+		return CalculatorExpressionEvaluator.parseAffineFunction(system, fStr);
+	}
+	
+	public static JNIISLMultiAff toAffineFunction(SystemBody body, String fStr) {
+		return toAffineFunction(body.getSystem(), fStr);
 	}
 
-	public static JNIISLSet toDomain(String setStr) {
-		return ISLFactory.islSet(setStr);
+	public static JNIISLMultiAff toAffineFunction(Equation eq, String fStr) {
+		return toAffineFunction(AlphaUtil.getContainerSystem(eq), fStr);
+	}
+	public static JNIISLMultiAff toAffineFunction(AlphaExpression expr, String fStr) {
+		return toAffineFunction(AlphaUtil.getContainerSystem(expr), fStr);
+	}
+
+	public static JNIISLSet toDomain(AlphaSystem system, String domStr) {
+		return CalculatorExpressionEvaluator.parseDomain(system, domStr);
 	}
 
 	public static AlphaSystem toAlphaSystem(AlphaRoot root, String systemName) {

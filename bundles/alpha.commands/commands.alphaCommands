@@ -9,6 +9,7 @@ Core {
 	ASave(AlphaRoot root, String filename)
 	Normalize(AlphaVisitable node)
 	DeepNormalize(AlphaVisitable node)
+	CheckProgram(AlphaRoot root)
 }
 
 Utility {

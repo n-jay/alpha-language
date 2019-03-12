@@ -1,8 +1,8 @@
 package alpha.commands.groovy
 
 import alpha.model.AlphaRoot
-import java.util.List
 import alpha.model.AlphaRoot
+import java.util.List
 import alpha.model.AlphaVisitable
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
@@ -54,6 +54,9 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	}
 	void DeepNormalize(AlphaVisitable node) {
 		alpha.commands.Core.DeepNormalize(node)
+	}
+	void CheckProgram(AlphaRoot root) {
+		alpha.commands.Core.CheckProgram(root)
 	}
 	void WriteToFile(String filepath, String content) {
 		alpha.commands.Utility.WriteToFile(filepath, content)
