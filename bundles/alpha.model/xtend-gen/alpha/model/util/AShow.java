@@ -1,8 +1,10 @@
 package alpha.model.util;
 
 import alpha.model.AbstractReduceExpression;
+import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaExpression;
-import alpha.model.AlphaVisitable;
+import alpha.model.AlphaExpressionVisitable;
+import alpha.model.AlphaSystemElement;
 import alpha.model.ConstantExpression;
 import alpha.model.ConvolutionExpression;
 import alpha.model.DependenceExpression;
@@ -12,6 +14,7 @@ import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
 import alpha.model.VariableExpression;
 import alpha.model.util.AlphaPrintingUtil;
+import alpha.model.util.AlphaUtil;
 import alpha.model.util.Show;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
@@ -25,6 +28,7 @@ import java.util.Stack;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
@@ -46,15 +50,51 @@ public class AShow extends Show {
   
   protected Stack<List<String>> contextHistory = new Stack<List<String>>();
   
+  private final AlphaCompleteVisitable haltTarget;
+  
+  private List<String> indexNameContextWhenHalted;
+  
   private Show show = new Show();
   
-  public static <T extends AlphaVisitable> String print(final T av) {
+  private AShow() {
+    this.haltTarget = null;
+  }
+  
+  private AShow(final AlphaCompleteVisitable target) {
+    this.haltTarget = target;
+  }
+  
+  public static String print(final AlphaCompleteVisitable av) {
     String _xblockexpression = null;
     {
       final AShow ashow = new AShow();
+      if (((av instanceof AlphaSystemElement) || (av instanceof AlphaExpressionVisitable))) {
+        final AShow contextCollector = new AShow(av);
+        contextCollector.doSwitch(AlphaUtil.getContainerSystem(av));
+        ashow.parameterContext = contextCollector.parameterContext;
+        ashow.indexNameContext = contextCollector.indexNameContextWhenHalted;
+      }
       _xblockexpression = ashow.doSwitch(av).toString();
     }
     return _xblockexpression;
+  }
+  
+  @Override
+  public CharSequence doSwitch(final EObject obj) {
+    CharSequence _xifexpression = null;
+    if (((this.haltTarget != null) && (this.haltTarget == obj))) {
+      CharSequence _xblockexpression = null;
+      {
+        LinkedList<String> _linkedList = new LinkedList<String>(this.indexNameContext);
+        this.indexNameContextWhenHalted = _linkedList;
+        StringConcatenation _builder = new StringConcatenation();
+        _xblockexpression = _builder;
+      }
+      _xifexpression = _xblockexpression;
+    } else {
+      _xifexpression = super.doSwitch(obj);
+    }
+    return _xifexpression;
   }
   
   @Override

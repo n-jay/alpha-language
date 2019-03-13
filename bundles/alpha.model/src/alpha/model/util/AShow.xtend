@@ -1,23 +1,25 @@
 package alpha.model.util
 
 import alpha.model.AbstractReduceExpression
-import alpha.model.AlphaVisitable
+import alpha.model.AlphaCompleteVisitable
 import alpha.model.ConstantExpression
 import alpha.model.ConvolutionExpression
 import alpha.model.DependenceExpression
 import alpha.model.IndexExpression
+import alpha.model.SelectExpression
 import alpha.model.StandardEquation
+import alpha.model.UseEquation
 import alpha.model.VariableExpression
+import com.google.common.collect.Streams
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import java.util.LinkedList
 import java.util.List
 import java.util.Stack
-import alpha.model.UseEquation
-import alpha.model.SelectExpression
-import org.eclipse.xtext.EcoreUtil2
-import com.google.common.collect.Streams
+import org.eclipse.emf.ecore.EObject
+import alpha.model.AlphaSystemElement
+import alpha.model.AlphaExpressionVisitable
 
 /**
  * AShow prints the given program in ArrayNotation.
@@ -33,12 +35,39 @@ class AShow extends Show {
 	protected List<String> indexNameContext;
 	protected Stack<List<String>> contextHistory = new Stack
 	
+	//This variable is used to stop the visiting once it is encountered.
+	//It's use is to support printing of sub-trees. First pass visits from the container system
+	// to the target while collecting context information. Then the second pass uses the 
+	// collected context to print the target sub-tree.
+	final AlphaCompleteVisitable haltTarget;
+	List<String> indexNameContextWhenHalted;
+	
 	//When AShow is not possible, switches to Show
 	Show show = new Show
 	
-	static def <T extends AlphaVisitable> print(T av) {
+	private new() { haltTarget = null }
+	private new(AlphaCompleteVisitable target) { haltTarget = target }
+	
+	static def print(AlphaCompleteVisitable av) {
 		val ashow = new AShow();
+		
+		if (av instanceof AlphaSystemElement || av instanceof AlphaExpressionVisitable) {
+			val contextCollector = new AShow(av);
+			contextCollector.doSwitch(AlphaUtil.getContainerSystem(av))
+			ashow.parameterContext = contextCollector.parameterContext
+			ashow.indexNameContext = contextCollector.indexNameContextWhenHalted
+		}
+		
 		ashow.doSwitch(av).toString()
+	}
+	
+	override doSwitch(EObject obj) {
+		if (haltTarget !== null && haltTarget === obj) {
+			indexNameContextWhenHalted = new LinkedList<String>(indexNameContext)
+			''''''
+		} else {
+			super.doSwitch(obj)
+		}
 	}
 	
 	override protected printDomain(JNIISLSet set) {
@@ -52,8 +81,6 @@ class AShow extends Show {
 	protected def printDomainInShowSytanxWithIndexNameContext(JNIISLSet set) {
 		AlphaPrintingUtil.toShowString(set, parameterContext, indexNameContext)
 	}
-	
-	
 	
 	/*
 	 * CalculatorExpressions are printed differently depending on the context.
@@ -155,5 +182,4 @@ class AShow extends Show {
 		
 		return res;
 	}
-	
 }
