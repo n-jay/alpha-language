@@ -3,7 +3,7 @@ package tests.transformations.SR
 import groovy.transform.BaseScript
 @BaseScript alpha.commands.groovy.AlphaScript alphaScript
 
-root = ReadAlpha("resources/simplifying-reductions/conv1D.alpha")
+root = ReadAlpha("resources/src-valid/simplifying-reductions/conv1D.alpha")
 system = GetSystem(root, "conv1D")
 body = GetSystemBody(system)
 
