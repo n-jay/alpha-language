@@ -49,17 +49,16 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	protected List<Integer> nodeIdTracker = new LinkedList; 
 	protected int depth = 0; 
 	
-	static def String print(AlphaRoot program) {
+	static def dispatch String print(AlphaVisitable node) {
 		val printer = new PrintAST
-		program.accept(printer);
+		node.accept(printer);
 		return printer._output.toString();
 	}
-	static def String print(AlphaSystem system) {
-		val printer = new PrintAST;
-		system.accept(printer);
+	static def dispatch String print(AlphaExpressionVisitable node) {
+		val printer = new PrintAST
+		node.accept(printer);
 		return printer._output.toString();
 	}
-	
 	
 	protected def printInt(String prefix, long v) {
 		printStr(prefix, v+"");

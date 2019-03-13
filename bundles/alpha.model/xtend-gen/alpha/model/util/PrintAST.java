@@ -1,9 +1,9 @@
 package alpha.model.util;
 
+import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
-import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaVisitable;
 import alpha.model.ArgReduceExpression;
@@ -62,15 +62,15 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   
   protected int depth = 0;
   
-  public static String print(final AlphaRoot program) {
+  protected static String _print(final AlphaVisitable node) {
     final PrintAST printer = new PrintAST();
-    program.accept(printer);
+    node.accept(printer);
     return printer._output.toString();
   }
   
-  public static String print(final AlphaSystem system) {
+  protected static String _print(final AlphaExpressionVisitable node) {
     final PrintAST printer = new PrintAST();
-    system.accept(printer);
+    node.accept(printer);
     return printer._output.toString();
   }
   
@@ -388,6 +388,17 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void inSelectExpression(final SelectExpression se) {
     this.inAlphaExpression(se);
     this.printStr("+-- ", se.getSelectRelation());
+  }
+  
+  public static String print(final AlphaCompleteVisitable node) {
+    if (node instanceof AlphaExpressionVisitable) {
+      return _print((AlphaExpressionVisitable)node);
+    } else if (node instanceof AlphaVisitable) {
+      return _print((AlphaVisitable)node);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(node).toString());
+    }
   }
   
   private String defaultInImpl(final EObject obj) {
