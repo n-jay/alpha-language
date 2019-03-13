@@ -978,142 +978,154 @@ ruleArgumentType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
 			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaNodeKeyword_1());
 		}
 		    |
+		kw='AlphaCompleteVisitable'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaCompleteVisitableKeyword_2());
+		}
+		    |
 		kw='AlphaVisitable'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaVisitableKeyword_2());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaVisitableKeyword_3());
+		}
+		    |
+		kw='AlphaExpressionVisitable'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaExpressionVisitableKeyword_4());
 		}
 		    |
 		kw='AlphaRoot'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaRootKeyword_3());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaRootKeyword_5());
 		}
 		    |
 		kw='AlphaSystem'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaSystemKeyword_4());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaSystemKeyword_6());
 		}
 		    |
 		kw='SystemBody'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getSystemBodyKeyword_5());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getSystemBodyKeyword_7());
 		}
 		    |
 		kw='Variable'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getVariableKeyword_6());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getVariableKeyword_8());
 		}
 		    |
 		kw='Equation'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getEquationKeyword_7());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getEquationKeyword_9());
 		}
 		    |
 		kw='StandardEquation'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStandardEquationKeyword_8());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStandardEquationKeyword_10());
 		}
 		    |
 		kw='UseEquation'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getUseEquationKeyword_9());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getUseEquationKeyword_11());
 		}
 		    |
 		kw='AlphaExpression'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaExpressionKeyword_10());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAlphaExpressionKeyword_12());
 		}
 		    |
 		kw='AbstractReduceExpression'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAbstractReduceExpressionKeyword_11());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAbstractReduceExpressionKeyword_13());
 		}
 		    |
 		kw='BinaryExpression'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getBinaryExpressionKeyword_12());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getBinaryExpressionKeyword_14());
 		}
 		    |
 		kw='DependenceExpression'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDependenceExpressionKeyword_13());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDependenceExpressionKeyword_15());
 		}
 		    |
 		kw='ReduceExpression'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_14());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_16());
 		}
 		    |
 		kw='AffineFunction'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_15());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_17());
 		}
 		    |
 		kw='Domain'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDomainKeyword_16());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getDomainKeyword_18());
 		}
 		    |
 		kw='ParameterDomain'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_17());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_19());
 		}
 		    |
 		kw='List<AlphaRoot>'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_18());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_20());
 		}
 		    |
 		kw='String'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_19());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_21());
 		}
 		    |
 		kw='List<String>'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListStringKeyword_20());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListStringKeyword_22());
 		}
 		    |
 		kw='String[]'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_21());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getStringKeyword_23());
 		}
 		    |
 		kw='int'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_22());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_24());
 		}
 		    |
 		kw='List<Integer>'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_23());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_25());
 		}
 		    |
 		kw='int[]'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_24());
+			newLeafNode(kw, grammarAccess.getArgumentTypeAccess().getIntKeyword_26());
 		}
 	)
 ;

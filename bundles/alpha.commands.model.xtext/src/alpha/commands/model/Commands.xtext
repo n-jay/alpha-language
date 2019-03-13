@@ -68,7 +68,9 @@ SameAsParentArgument:
 ArgumentType returns ArgumentType:
 	"Void" |
 	"AlphaNode" |
+	"AlphaCompleteVisitable"  |
 	"AlphaVisitable"  |
+	"AlphaExpressionVisitable"  |
 	"AlphaRoot"  |
 	"AlphaSystem" |
 	"SystemBody" |

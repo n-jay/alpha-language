@@ -174,6 +174,9 @@ class AlphaJavaCommand {
 					a.argumentType == ArgumentType.REDUCE_EXPRESSION
 				]
 			}
+			case ALPHA_COMPLETE_VISITABLE,
+			case ALPHA_VISITABLE,
+			case ALPHA_EXPRESSION_VISITABLE,
 			case INTEGER,
 			case INTEGER_LIST,
 			case INTEGER_ARRAY: {

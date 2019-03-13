@@ -161,7 +161,9 @@ public class CommonExtensions {
           _switchResult = Collections.<CharSequence>unmodifiableSet(CollectionLiterals.<CharSequence>newHashSet());
           break;
         case ALPHA_NODE:
+        case ALPHA_COMPLETE_VISITABLE:
         case ALPHA_VISITABLE:
+        case ALPHA_EXPRESSION_VISITABLE:
         case ALPHA_ROOT:
         case ALPHA_SYSTEM:
         case SYSTEM_BODY:

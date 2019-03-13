@@ -412,6 +412,9 @@ public class AlphaJavaCommand {
             };
             _switchResult = IterableExtensions.<AlphaCommandArgument>filter(origArgs, _function_5);
             break;
+          case ALPHA_COMPLETE_VISITABLE:
+          case ALPHA_VISITABLE:
+          case ALPHA_EXPRESSION_VISITABLE:
           case INTEGER:
           case INTEGER_LIST:
           case INTEGER_ARRAY:

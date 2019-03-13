@@ -75,7 +75,9 @@ class SameAsParentArgument extends CommandArgumentSpecialization {
 enum ArgumentType {
 	Void as "void"
 	AlphaNode
+	AlphaCompleteVisitable
 	AlphaVisitable
+	AlphaExpressionVisitable
 	AlphaRoot
 	AlphaSystem
 	SystemBody

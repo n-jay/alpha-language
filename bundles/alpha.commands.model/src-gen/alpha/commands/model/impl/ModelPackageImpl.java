@@ -722,7 +722,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEEnum(argumentTypeEEnum, ArgumentType.class, "ArgumentType");
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.VOID);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.ALPHA_NODE);
+		addEEnumLiteral(argumentTypeEEnum, ArgumentType.ALPHA_COMPLETE_VISITABLE);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.ALPHA_VISITABLE);
+		addEEnumLiteral(argumentTypeEEnum, ArgumentType.ALPHA_EXPRESSION_VISITABLE);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.ALPHA_ROOT);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.ALPHA_SYSTEM);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.SYSTEM_BODY);

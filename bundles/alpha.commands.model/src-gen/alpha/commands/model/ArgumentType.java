@@ -39,6 +39,16 @@ public enum ArgumentType implements Enumerator {
 	ALPHA_NODE(0, "AlphaNode", "AlphaNode"),
 
 	/**
+	 * The '<em><b>Alpha Complete Visitable</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ALPHA_COMPLETE_VISITABLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ALPHA_COMPLETE_VISITABLE(0, "AlphaCompleteVisitable", "AlphaCompleteVisitable"),
+
+	/**
 	 * The '<em><b>Alpha Visitable</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -47,6 +57,16 @@ public enum ArgumentType implements Enumerator {
 	 * @ordered
 	 */
 	ALPHA_VISITABLE(0, "AlphaVisitable", "AlphaVisitable"),
+
+	/**
+	 * The '<em><b>Alpha Expression Visitable</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ALPHA_EXPRESSION_VISITABLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ALPHA_EXPRESSION_VISITABLE(0, "AlphaExpressionVisitable", "AlphaExpressionVisitable"),
 
 	/**
 	 * The '<em><b>Alpha Root</b></em>' literal object.
@@ -299,6 +319,21 @@ public enum ArgumentType implements Enumerator {
 	public static final int ALPHA_NODE_VALUE = 0;
 
 	/**
+	 * The '<em><b>Alpha Complete Visitable</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Alpha Complete Visitable</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ALPHA_COMPLETE_VISITABLE
+	 * @model name="AlphaCompleteVisitable"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ALPHA_COMPLETE_VISITABLE_VALUE = 0;
+
+	/**
 	 * The '<em><b>Alpha Visitable</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -312,6 +347,21 @@ public enum ArgumentType implements Enumerator {
 	 * @ordered
 	 */
 	public static final int ALPHA_VISITABLE_VALUE = 0;
+
+	/**
+	 * The '<em><b>Alpha Expression Visitable</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Alpha Expression Visitable</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ALPHA_EXPRESSION_VISITABLE
+	 * @model name="AlphaExpressionVisitable"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ALPHA_EXPRESSION_VISITABLE_VALUE = 0;
 
 	/**
 	 * The '<em><b>Alpha Root</b></em>' literal value.
@@ -653,7 +703,9 @@ public enum ArgumentType implements Enumerator {
 		new ArgumentType[] {
 			VOID,
 			ALPHA_NODE,
+			ALPHA_COMPLETE_VISITABLE,
 			ALPHA_VISITABLE,
+			ALPHA_EXPRESSION_VISITABLE,
 			ALPHA_ROOT,
 			ALPHA_SYSTEM,
 			SYSTEM_BODY,
