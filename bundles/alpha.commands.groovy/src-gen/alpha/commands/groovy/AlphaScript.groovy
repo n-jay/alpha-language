@@ -4,14 +4,14 @@ import alpha.model.AlphaRoot
 import alpha.model.AlphaRoot
 import java.util.List
 import alpha.model.AlphaVisitable
-import alpha.model.AlphaSystem
+import alpha.model.AlphaCompleteVisitable
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.SystemBody
 import alpha.model.StandardEquation
 import alpha.model.AlphaExpression
-import alpha.model.AlphaRoot
 import java.util.List
+import alpha.model.AlphaRoot
 import alpha.model.Equation
 import alpha.model.AlphaVisitable
 import alpha.model.AlphaSystem
@@ -59,11 +59,8 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void CheckProgram(AlphaRoot root) {
 		alpha.commands.Core.CheckProgram(root)
 	}
-	void PrintAST(AlphaRoot root) {
-		alpha.commands.Core.PrintAST(root)
-	}
-	void PrintAST(AlphaSystem system) {
-		alpha.commands.Core.PrintAST(system)
+	void PrintAST(AlphaCompleteVisitable node) {
+		alpha.commands.Core.PrintAST(node)
 	}
 	void WriteToFile(String filepath, String content) {
 		alpha.commands.Utility.WriteToFile(filepath, content)

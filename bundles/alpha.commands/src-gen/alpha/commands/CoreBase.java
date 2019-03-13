@@ -8,10 +8,10 @@ import alpha.model.issue.AlphaIssue;
 /*PROTECTED REGION END*/
 
 import alpha.model.AlphaRoot;
-import java.util.List;
 import alpha.model.AlphaRoot;
+import java.util.List;
 import alpha.model.AlphaVisitable;
-import alpha.model.AlphaSystem;
+import alpha.model.AlphaCompleteVisitable;
 
 
 public class CoreBase {
@@ -75,15 +75,9 @@ public class CoreBase {
 		}
 		/*PROTECTED REGION END*/
 	}
-	public static void PrintAST(AlphaRoot root) {
+	public static void PrintAST(AlphaCompleteVisitable node) {
 		/*PROTECTED REGION ID(Core.PrintAST_) ENABLED START*/
-		CharSequence s = alpha.model.util.PrintAST.print(root);
-		System.out.println(s);
-		/*PROTECTED REGION END*/
-	}
-	public static void PrintAST(AlphaSystem system) {
-		/*PROTECTED REGION ID(Core.PrintAST__1) ENABLED START*/
-		CharSequence s = alpha.model.util.PrintAST.print(system);
+		CharSequence s = alpha.model.util.PrintAST.print(node);
 		System.out.println(s);
 		/*PROTECTED REGION END*/
 	}

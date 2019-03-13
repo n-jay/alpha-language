@@ -10,8 +10,7 @@ Core {
 	Normalize(AlphaVisitable node)
 	DeepNormalize(AlphaVisitable node)
 	CheckProgram(AlphaRoot root)
-	PrintAST(AlphaRoot root)
-	PrintAST(AlphaSystem system)
+	PrintAST(AlphaCompleteVisitable node)
 }
 
 Utility {
