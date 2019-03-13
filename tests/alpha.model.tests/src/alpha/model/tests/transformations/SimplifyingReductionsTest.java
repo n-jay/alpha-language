@@ -19,7 +19,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 
 public class SimplifyingReductionsTest {
 	
-	private static final String ROOT_DIR = "resources/simplifying-reductions/";
+	private static final String ROOT_DIR = "resources/src-valid/simplifying-reductions/";
 
 	@Test
 	public void testPrefixSum() throws IOException {
