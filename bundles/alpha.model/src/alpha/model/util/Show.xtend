@@ -1,12 +1,14 @@
 package alpha.model.util
 
 import alpha.model.AbstractReduceExpression
+import alpha.model.AlphaCompleteVisitable
 import alpha.model.AlphaConstant
 import alpha.model.AlphaExpression
+import alpha.model.AlphaExpressionVisitable
 import alpha.model.AlphaPackage
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
-import alpha.model.AlphaVisitable
+import alpha.model.AlphaSystemElement
 import alpha.model.ArgReduceExpression
 import alpha.model.AutoRestrictExpression
 import alpha.model.BinaryCalculatorExpression
@@ -35,17 +37,16 @@ import alpha.model.ReduceExpression
 import alpha.model.RestrictExpression
 import alpha.model.SelectExpression
 import alpha.model.StandardEquation
+import alpha.model.SystemBody
 import alpha.model.UnaryCalculatorExpression
 import alpha.model.UnaryExpression
 import alpha.model.UseEquation
 import alpha.model.Variable
 import alpha.model.VariableDomain
 import alpha.model.VariableExpression
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
-import alpha.model.SystemBody
 
 /**
  * Prints the Alpha program in Show notation. The show notation
@@ -59,8 +60,14 @@ class Show extends ModelSwitch<CharSequence> {
 	
 	protected JNIISLSet parameterContext = null;
 
-	static def <T extends AlphaVisitable> print(T av) {
+	static def <T extends AlphaCompleteVisitable> print(T av) {
 		val show = new Show();
+		
+		//when printing a sub-tree within a system, find the parameter domain before visiting
+		if (av instanceof AlphaSystemElement || av instanceof AlphaExpressionVisitable) {
+			show.parameterContext = AlphaUtil.getContainerSystem(av).parameterDomain
+		}
+		
 		show.doSwitch(av).toString()
 	}
 

@@ -1,13 +1,15 @@
 package alpha.model.util;
 
 import alpha.model.AbstractReduceExpression;
+import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaElement;
 import alpha.model.AlphaExpression;
+import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
-import alpha.model.AlphaVisitable;
+import alpha.model.AlphaSystemElement;
 import alpha.model.ArgReduceExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.BINARY_OP;
@@ -50,6 +52,7 @@ import alpha.model.Variable;
 import alpha.model.VariableDomain;
 import alpha.model.VariableExpression;
 import alpha.model.util.AlphaPrintingUtil;
+import alpha.model.util.AlphaUtil;
 import alpha.model.util.ModelSwitch;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
@@ -73,10 +76,13 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 public class Show extends ModelSwitch<CharSequence> {
   protected JNIISLSet parameterContext = null;
   
-  public static <T extends AlphaVisitable> String print(final T av) {
+  public static <T extends AlphaCompleteVisitable> String print(final T av) {
     String _xblockexpression = null;
     {
       final Show show = new Show();
+      if (((av instanceof AlphaSystemElement) || (av instanceof AlphaExpressionVisitable))) {
+        show.parameterContext = AlphaUtil.getContainerSystem(av).getParameterDomain();
+      }
       _xblockexpression = show.doSwitch(av).toString();
     }
     return _xblockexpression;
