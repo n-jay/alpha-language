@@ -7,12 +7,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import alpha.model.util.AlphaUtil;
+import alpha.model.Variable;
 /*PROTECTED REGION END*/
 
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.SystemBody;
-import alpha.model.Variable;
 import alpha.model.StandardEquation;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaRoot;

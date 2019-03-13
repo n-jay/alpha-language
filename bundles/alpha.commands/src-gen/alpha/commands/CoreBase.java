@@ -11,6 +11,7 @@ import alpha.model.AlphaRoot;
 import java.util.List;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaVisitable;
+import alpha.model.AlphaSystem;
 
 
 public class CoreBase {
@@ -72,6 +73,18 @@ public class CoreBase {
 		if (!issues.isEmpty()) {
 			throw new RuntimeException("CheckProgram failed: " + issues);
 		}
+		/*PROTECTED REGION END*/
+	}
+	public static void PrintAST(AlphaRoot root) {
+		/*PROTECTED REGION ID(Core.PrintAST_) ENABLED START*/
+		CharSequence s = alpha.model.util.PrintAST.print(root);
+		System.out.println(s);
+		/*PROTECTED REGION END*/
+	}
+	public static void PrintAST(AlphaSystem system) {
+		/*PROTECTED REGION ID(Core.PrintAST__1) ENABLED START*/
+		CharSequence s = alpha.model.util.PrintAST.print(system);
+		System.out.println(s);
 		/*PROTECTED REGION END*/
 	}
 }

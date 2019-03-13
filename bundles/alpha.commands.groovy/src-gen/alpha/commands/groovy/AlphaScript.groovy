@@ -4,6 +4,7 @@ import alpha.model.AlphaRoot
 import alpha.model.AlphaRoot
 import java.util.List
 import alpha.model.AlphaVisitable
+import alpha.model.AlphaSystem
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.SystemBody
@@ -57,6 +58,12 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	}
 	void CheckProgram(AlphaRoot root) {
 		alpha.commands.Core.CheckProgram(root)
+	}
+	void PrintAST(AlphaRoot root) {
+		alpha.commands.Core.PrintAST(root)
+	}
+	void PrintAST(AlphaSystem system) {
+		alpha.commands.Core.PrintAST(system)
 	}
 	void WriteToFile(String filepath, String content) {
 		alpha.commands.Utility.WriteToFile(filepath, content)
