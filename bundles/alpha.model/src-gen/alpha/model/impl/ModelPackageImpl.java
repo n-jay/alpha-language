@@ -19,6 +19,7 @@ import alpha.model.AlphaNode;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
+import alpha.model.AlphaSystemElement;
 import alpha.model.AlphaVisitable;
 import alpha.model.AlphaVisitor;
 import alpha.model.ArgReduceExpression;
@@ -140,6 +141,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass calculatorExpressionVisitableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alphaSystemElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -822,6 +830,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 */
 	public EClass getCalculatorExpressionVisitable() {
 		return calculatorExpressionVisitableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAlphaSystemElement() {
+		return alphaSystemElementEClass;
 	}
 
 	/**
@@ -2644,6 +2661,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		calculatorExpressionVisitableEClass = createEClass(CALCULATOR_EXPRESSION_VISITABLE);
 
+		alphaSystemElementEClass = createEClass(ALPHA_SYSTEM_ELEMENT);
+
 		alphaVisitorEClass = createEClass(ALPHA_VISITOR);
 
 		alphaExpressionVisitorEClass = createEClass(ALPHA_EXPRESSION_VISITOR);
@@ -2958,9 +2977,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		externalFunctionEClass.getESuperTypes().add(this.getAlphaElement());
 		alphaSystemEClass.getESuperTypes().add(this.getAlphaElement());
 		variableEClass.getESuperTypes().add(this.getAlphaVisitable());
+		variableEClass.getESuperTypes().add(this.getAlphaSystemElement());
 		fuzzyVariableEClass.getESuperTypes().add(this.getVariable());
 		systemBodyEClass.getESuperTypes().add(this.getAlphaVisitable());
+		systemBodyEClass.getESuperTypes().add(this.getAlphaSystemElement());
 		equationEClass.getESuperTypes().add(this.getAlphaVisitable());
+		equationEClass.getESuperTypes().add(this.getAlphaSystemElement());
 		standardEquationEClass.getESuperTypes().add(this.getEquation());
 		useEquationEClass.getESuperTypes().add(this.getEquation());
 		alphaExpressionEClass.getESuperTypes().add(this.getAlphaExpressionVisitable());
@@ -2995,6 +3017,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		externalFuzzyArgReduceExpressionEClass.getESuperTypes().add(this.getFuzzyArgReduceExpression());
 		polyhedralObjectEClass.getESuperTypes().add(this.getCalculatorNode());
 		polyhedralObjectEClass.getESuperTypes().add(this.getAlphaVisitable());
+		polyhedralObjectEClass.getESuperTypes().add(this.getAlphaSystemElement());
 		calculatorExpressionEClass.getESuperTypes().add(this.getCalculatorNode());
 		calculatorExpressionEClass.getESuperTypes().add(this.getCalculatorExpressionVisitable());
 		jniDomainEClass.getESuperTypes().add(this.getCalculatorExpression());
@@ -3035,6 +3058,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(calculatorExpressionVisitableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(alphaSystemElementEClass, AlphaSystemElement.class, "AlphaSystemElement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(alphaVisitorEClass, AlphaVisitor.class, "AlphaVisitor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

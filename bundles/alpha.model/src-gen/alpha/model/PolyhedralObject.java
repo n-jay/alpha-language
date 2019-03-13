@@ -21,7 +21,7 @@ import fr.irisa.cairn.jnimap.runtime.JNIObject;
  * @model
  * @generated
  */
-public interface PolyhedralObject extends CalculatorNode, AlphaVisitable {
+public interface PolyhedralObject extends CalculatorNode, AlphaVisitable, AlphaSystemElement {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

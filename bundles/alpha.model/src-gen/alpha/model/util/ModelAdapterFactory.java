@@ -88,6 +88,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createCalculatorExpressionVisitableAdapter();
 			}
 			@Override
+			public Adapter caseAlphaSystemElement(AlphaSystemElement object) {
+				return createAlphaSystemElementAdapter();
+			}
+			@Override
 			public Adapter caseAlphaVisitor(AlphaVisitor object) {
 				return createAlphaVisitorAdapter();
 			}
@@ -446,6 +450,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCalculatorExpressionVisitableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AlphaSystemElement <em>Alpha System Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AlphaSystemElement
+	 * @generated
+	 */
+	public Adapter createAlphaSystemElementAdapter() {
 		return null;
 	}
 

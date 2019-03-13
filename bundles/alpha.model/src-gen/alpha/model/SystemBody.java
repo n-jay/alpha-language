@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SystemBody extends AlphaVisitable {
+public interface SystemBody extends AlphaVisitable, AlphaSystemElement {
 	/**
 	 * Returns the value of the '<em><b>System</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link alpha.model.AlphaSystem#getSystemBodies <em>System Bodies</em>}'.

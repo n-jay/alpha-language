@@ -102,6 +102,12 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.ALPHA_SYSTEM_ELEMENT: {
+				AlphaSystemElement alphaSystemElement = (AlphaSystemElement)theEObject;
+				T result = caseAlphaSystemElement(alphaSystemElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ModelPackage.ALPHA_VISITOR: {
 				AlphaVisitor alphaVisitor = (AlphaVisitor)theEObject;
 				T result = caseAlphaVisitor(alphaVisitor);
@@ -191,6 +197,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				Variable variable = (Variable)theEObject;
 				T result = caseVariable(variable);
 				if (result == null) result = caseAlphaVisitable(variable);
+				if (result == null) result = caseAlphaSystemElement(variable);
 				if (result == null) result = caseAlphaCompleteVisitable(variable);
 				if (result == null) result = caseAlphaNode(variable);
 				if (result == null) result = defaultCase(theEObject);
@@ -201,6 +208,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseFuzzyVariable(fuzzyVariable);
 				if (result == null) result = caseVariable(fuzzyVariable);
 				if (result == null) result = caseAlphaVisitable(fuzzyVariable);
+				if (result == null) result = caseAlphaSystemElement(fuzzyVariable);
 				if (result == null) result = caseAlphaCompleteVisitable(fuzzyVariable);
 				if (result == null) result = caseAlphaNode(fuzzyVariable);
 				if (result == null) result = defaultCase(theEObject);
@@ -210,6 +218,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				SystemBody systemBody = (SystemBody)theEObject;
 				T result = caseSystemBody(systemBody);
 				if (result == null) result = caseAlphaVisitable(systemBody);
+				if (result == null) result = caseAlphaSystemElement(systemBody);
 				if (result == null) result = caseAlphaCompleteVisitable(systemBody);
 				if (result == null) result = caseAlphaNode(systemBody);
 				if (result == null) result = defaultCase(theEObject);
@@ -219,6 +228,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				Equation equation = (Equation)theEObject;
 				T result = caseEquation(equation);
 				if (result == null) result = caseAlphaVisitable(equation);
+				if (result == null) result = caseAlphaSystemElement(equation);
 				if (result == null) result = caseAlphaCompleteVisitable(equation);
 				if (result == null) result = caseAlphaNode(equation);
 				if (result == null) result = defaultCase(theEObject);
@@ -229,6 +239,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseStandardEquation(standardEquation);
 				if (result == null) result = caseEquation(standardEquation);
 				if (result == null) result = caseAlphaVisitable(standardEquation);
+				if (result == null) result = caseAlphaSystemElement(standardEquation);
 				if (result == null) result = caseAlphaCompleteVisitable(standardEquation);
 				if (result == null) result = caseAlphaNode(standardEquation);
 				if (result == null) result = defaultCase(theEObject);
@@ -239,6 +250,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseUseEquation(useEquation);
 				if (result == null) result = caseEquation(useEquation);
 				if (result == null) result = caseAlphaVisitable(useEquation);
+				if (result == null) result = caseAlphaSystemElement(useEquation);
 				if (result == null) result = caseAlphaCompleteVisitable(useEquation);
 				if (result == null) result = caseAlphaNode(useEquation);
 				if (result == null) result = defaultCase(theEObject);
@@ -570,6 +582,7 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = casePolyhedralObject(polyhedralObject);
 				if (result == null) result = caseCalculatorNode(polyhedralObject);
 				if (result == null) result = caseAlphaVisitable(polyhedralObject);
+				if (result == null) result = caseAlphaSystemElement(polyhedralObject);
 				if (result == null) result = caseAlphaCompleteVisitable(polyhedralObject);
 				if (result == null) result = caseAlphaNode(polyhedralObject);
 				if (result == null) result = defaultCase(theEObject);
@@ -827,6 +840,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCalculatorExpressionVisitable(CalculatorExpressionVisitable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Alpha System Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Alpha System Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAlphaSystemElement(AlphaSystemElement object) {
 		return null;
 	}
 

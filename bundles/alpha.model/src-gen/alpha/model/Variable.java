@@ -21,7 +21,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  * @model
  * @generated
  */
-public interface Variable extends AlphaVisitable {
+public interface Variable extends AlphaVisitable, AlphaSystemElement {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

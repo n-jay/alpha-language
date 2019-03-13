@@ -58,10 +58,10 @@ interface AlphaVisitable extends AlphaCompleteVisitable {
 interface AlphaExpressionVisitable extends AlphaCompleteVisitable {
 	op void accept(AlphaExpressionVisitor visitor)
 }
-
 interface CalculatorExpressionVisitable extends AlphaNode {
 	op void accept(CalculatorExpressionVisitor visitor)
 }
+interface AlphaSystemElement {}
 
 /**
  * Notes on visitors.
@@ -363,7 +363,7 @@ class AlphaSystem extends AlphaElement {
 }
 
 
-class Variable extends AlphaVisitable {
+class Variable extends AlphaVisitable, AlphaSystemElement {
 	String name
 	contains CalculatorExpression domainExpr
 	
@@ -412,7 +412,7 @@ class FuzzyVariable extends Variable {
 	}
 }
 
-class SystemBody extends AlphaVisitable {
+class SystemBody extends AlphaVisitable, AlphaSystemElement {
 	container AlphaSystem system opposite systemBodies
 	contains JNIDomain parameterDomainExpr
 	contains Equation[] equations opposite systemBody
@@ -463,7 +463,7 @@ class SystemBody extends AlphaVisitable {
 	}
 }
 
-abstract class Equation extends AlphaVisitable {
+abstract class Equation extends AlphaVisitable, AlphaSystemElement {
 	container SystemBody systemBody opposite equations
 	
 	op AlphaExpression getExpression(IntegerQueue exprID) {
@@ -911,7 +911,7 @@ interface CalculatorNode {
 	op JNIObject getISLObject()
 }
 
-class PolyhedralObject extends CalculatorNode, AlphaVisitable {
+class PolyhedralObject extends CalculatorNode, AlphaVisitable, AlphaSystemElement {
 	String name
 	contains CalculatorExpression expr
 	
