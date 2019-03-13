@@ -5,8 +5,8 @@ import alpha.model.AlphaSystem;
 import alpha.model.SystemBody;
 import alpha.model.StandardEquation;
 import alpha.model.AlphaExpression;
-import alpha.model.AlphaRoot;
 import java.util.List;
+import alpha.model.AlphaRoot;
 import alpha.model.Equation;
 
 

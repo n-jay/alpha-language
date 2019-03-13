@@ -3,8 +3,8 @@ Core {
 
 	ReadAlpha(String file) : AlphaRoot
 	ReadAlphaBundle(String file) : List<AlphaRoot>
-	Show(AlphaVisitable node)
-	AShow(AlphaVisitable node)
+	Show(AlphaCompleteVisitable node)
+	AShow(AlphaCompleteVisitable node)
 	Save(AlphaRoot root, String filename)
 	ASave(AlphaRoot root, String filename)
 	Normalize(AlphaVisitable node)

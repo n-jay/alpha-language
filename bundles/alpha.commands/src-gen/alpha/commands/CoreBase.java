@@ -8,10 +8,10 @@ import alpha.model.issue.AlphaIssue;
 /*PROTECTED REGION END*/
 
 import alpha.model.AlphaRoot;
-import alpha.model.AlphaRoot;
 import java.util.List;
-import alpha.model.AlphaVisitable;
+import alpha.model.AlphaRoot;
 import alpha.model.AlphaCompleteVisitable;
+import alpha.model.AlphaVisitable;
 
 
 public class CoreBase {
@@ -35,13 +35,13 @@ public class CoreBase {
 		}
 		/*PROTECTED REGION END*/
 	}
-	public static void Show(AlphaVisitable node) {
+	public static void Show(AlphaCompleteVisitable node) {
 		/*PROTECTED REGION ID(Core.Show_) ENABLED START*/
 		CharSequence s = alpha.model.util.Show.print(node);
 		System.out.println(s);
 		/*PROTECTED REGION END*/
 	}
-	public static void AShow(AlphaVisitable node) {
+	public static void AShow(AlphaCompleteVisitable node) {
 		/*PROTECTED REGION ID(Core.AShow_) ENABLED START*/
 		CharSequence s = alpha.model.util.AShow.print(node);
 		System.out.println(s);

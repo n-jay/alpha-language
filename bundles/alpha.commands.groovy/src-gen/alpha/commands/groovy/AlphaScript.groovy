@@ -3,8 +3,8 @@ package alpha.commands.groovy
 import alpha.model.AlphaRoot
 import alpha.model.AlphaRoot
 import java.util.List
-import alpha.model.AlphaVisitable
 import alpha.model.AlphaCompleteVisitable
+import alpha.model.AlphaVisitable
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.SystemBody
@@ -38,10 +38,10 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	List<AlphaRoot> ReadAlphaBundle(String file) {
 		alpha.commands.Core.ReadAlphaBundle(file)
 	}
-	void Show(AlphaVisitable node) {
+	void Show(AlphaCompleteVisitable node) {
 		alpha.commands.Core.Show(node)
 	}
-	void AShow(AlphaVisitable node) {
+	void AShow(AlphaCompleteVisitable node) {
 		alpha.commands.Core.AShow(node)
 	}
 	void Save(AlphaRoot root, String filename) {
