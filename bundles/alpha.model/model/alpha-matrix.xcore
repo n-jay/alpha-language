@@ -5,15 +5,21 @@
 package alpha.model.matrix 
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList
 
 type JNIISLSpace wraps JNIISLSpace
-
+type JNIISLMultiAff wraps JNIISLMultiAff
+type LongMatrix wraps long[][]
 /**
  * Matrix is simply a 2D array of Long, represented as a list of MatrixRows.
  * This representation is designed for representing functions, and hence each
  * row represents the output dimension of a function.
- * The number of columns are parameters+indices+1 for constant.
+ * The number of columns are parameters+indices+1 for constant. Optionally, the constant
+ * column may be omitted to only reprsent the linear part of the function.
  * 
  * The utility of making it a class is in the book keeping of dimensions (space). 
  * 
@@ -70,6 +76,69 @@ class Matrix {
 	op String toString() {
 		rows.join("\n");
 	}
+	
+	
+	/**
+	 * Converts {@link Matrix} to 2D long array. 
+	 */
+	op LongMatrix toArray() {
+		if (!isConsistent()) throw new RuntimeException("Inconsistent matrix: number of columns do not match its space.");
+		
+		val array = newLongArrayOfSize(getNbRows(), getNbColumns());
+		
+		var r = 0;
+		for (row : getRows()) {
+			var c = 0;
+			for (v : row.getValues()) {
+				array.set(r, c, v)
+				c++;
+			}
+			r++;
+		}
+		
+		return array;
+	}
+	
+	
+	/**
+	 * Converts {@link Matrix} to MultiAff.
+	 * 
+	 * @param mat
+	 * @return
+	 */
+	op JNIISLMultiAff toMultiAff() {
+		val nbDims = nbRows - nbParams;
+
+		//check the first nbParams rows correspond to implicit parameter equality (made explicit in matrix representation) 
+		for (r : 0..<nbParams) {
+			val row = rows.get(r);
+			for (c : 0..<row.values.size) {
+				if (!(c==r && row.getValue(c) == 1) && !(c != r && row.getValue(c) == 0)) {
+					throw new RuntimeException("Unexpected input matrix. The first nbParams rows are assumed to be implicit parameter equalities.");
+				}
+			}
+		}
+
+		val islSpace = space.toJNIISLSetSpace();
+		var affList = JNIISLAffList.build(JNIISLContext.getCtx(), nbDims);
+		var JNIISLSpace affSpace = null;
+		
+		for (row : rows.subList(nbParams, nbRows)) {
+			var aff = JNIISLAff.buildZero(islSpace.copy.toLocalSpace);
+			if (affSpace === null) affSpace = aff.space.copy
+			for (p : 0..<nbParams) {
+				aff = aff.setCoefficient(JNIISLDimType.isl_dim_param, p, row.getValue(p) as int);
+			}
+			for (i : 0..<nbIndices) {
+				aff = aff.setCoefficient(JNIISLDimType.isl_dim_in, i, row.getValue(i+nbParams) as int);
+			}
+			if (!isLinearPartOnly())
+				aff = aff.setConstant(row.getValue(nbParams+nbIndices) as int);
+			affList = affList.add(aff);
+		}
+		
+		return JNIISLMultiAff.buildFromAffList(space.toJNIISLMultiAffSpace(nbDims), affList);
+	}
 }
 
 class MatrixRow {
@@ -125,7 +194,7 @@ class Space {
 			space = space.setName(JNIISLDimType.isl_dim_param, i, paramNames.get(i));
 		}
 		for (i : 0..< nbIndices) {
-			space = space.setName(JNIISLDimType.isl_dim_out, i, indexNames.get(i));
+			space = space.setName(JNIISLDimType.isl_dim_in, i, indexNames.get(i));
 		}
 		
 		return space;

@@ -88,6 +88,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PolyhedralObject getObject() {
 		if (object != null && object.eIsProxy()) {
 			InternalEObject oldObject = (InternalEObject)object;
@@ -114,6 +115,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setObject(PolyhedralObject newObject) {
 		PolyhedralObject oldObject = object;
 		object = newObject;
@@ -126,6 +128,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isZ__internalCycleDetector() {
 		return z__internalCycleDetector;
 	}
@@ -135,6 +138,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setZ__internalCycleDetector(boolean newZ__internalCycleDetector) {
 		boolean oldZ__internalCycleDetector = z__internalCycleDetector;
 		z__internalCycleDetector = newZ__internalCycleDetector;
@@ -147,6 +151,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public POLY_OBJECT_TYPE getType() {
 		return this.getObject().getType();
 	}
@@ -156,6 +161,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIObject getISLObject() {
 		PolyhedralObject _object = this.getObject();
 		boolean _tripleNotEquals = (_object != null);
@@ -179,6 +185,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final CalculatorExpressionVisitor visitor) {
 		visitor.visitDefinedObject(this);
 	}
@@ -188,6 +195,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String plainToString() {
 		return this.getObject().getName();
 	}

@@ -94,6 +94,7 @@ public class CommandBindingImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaCommand getBindTargetCommand() {
 		if (bindTargetCommand != null && bindTargetCommand.eIsProxy()) {
 			InternalEObject oldBindTargetCommand = (InternalEObject)bindTargetCommand;
@@ -120,6 +121,7 @@ public class CommandBindingImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBindTargetCommand(AlphaCommand newBindTargetCommand) {
 		AlphaCommand oldBindTargetCommand = bindTargetCommand;
 		bindTargetCommand = newBindTargetCommand;
@@ -132,6 +134,7 @@ public class CommandBindingImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArgumentBinding> getArgumentBindings() {
 		if (argumentBindings == null) {
 			argumentBindings = new EObjectContainmentEList<ArgumentBinding>(ArgumentBinding.class, this, ModelPackage.COMMAND_BINDING__ARGUMENT_BINDINGS);
@@ -144,6 +147,7 @@ public class CommandBindingImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ArgumentRenaming> getArgumentRenamings() {
 		if (argumentRenamings == null) {
 			argumentRenamings = new EObjectContainmentEList<ArgumentRenaming>(ArgumentRenaming.class, this, ModelPackage.COMMAND_BINDING__ARGUMENT_RENAMINGS);

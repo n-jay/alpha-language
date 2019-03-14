@@ -92,6 +92,7 @@ public class MultiArgExpressionImpl extends AlphaExpressionImpl implements Multi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public REDUCTION_OP getOperator() {
 		return operator;
 	}
@@ -101,6 +102,7 @@ public class MultiArgExpressionImpl extends AlphaExpressionImpl implements Multi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperator(REDUCTION_OP newOperator) {
 		REDUCTION_OP oldOperator = operator;
 		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
@@ -113,6 +115,7 @@ public class MultiArgExpressionImpl extends AlphaExpressionImpl implements Multi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AlphaExpression> getExprs() {
 		if (exprs == null) {
 			exprs = new EObjectContainmentEList<AlphaExpression>(AlphaExpression.class, this, ModelPackage.MULTI_ARG_EXPRESSION__EXPRS);
@@ -125,6 +128,7 @@ public class MultiArgExpressionImpl extends AlphaExpressionImpl implements Multi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitMultiArgExpression(this);
 	}

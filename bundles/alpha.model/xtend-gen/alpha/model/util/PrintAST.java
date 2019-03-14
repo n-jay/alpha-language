@@ -52,9 +52,9 @@ import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 public class PrintAST extends AbstractAlphaCompleteVisitor {
   private String indent = "";
   
-  protected final static String INDENT_WITH_SIBILING = "   |";
+  protected static final String INDENT_WITH_SIBILING = "   |";
   
-  protected final static String INDENT_LAST_CHILD = "    ";
+  protected static final String INDENT_LAST_CHILD = "    ";
   
   protected StringBuffer _output = new StringBuffer();
   

@@ -92,6 +92,7 @@ public class StandardEquationImpl extends EquationImpl implements StandardEquati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Variable getVariable() {
 		if (variable != null && variable.eIsProxy()) {
 			InternalEObject oldVariable = (InternalEObject)variable;
@@ -118,6 +119,7 @@ public class StandardEquationImpl extends EquationImpl implements StandardEquati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVariable(Variable newVariable) {
 		Variable oldVariable = variable;
 		variable = newVariable;
@@ -130,6 +132,7 @@ public class StandardEquationImpl extends EquationImpl implements StandardEquati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getIndexNames() {
 		if (indexNames == null) {
 			indexNames = new EDataTypeEList<String>(String.class, this, ModelPackage.STANDARD_EQUATION__INDEX_NAMES);
@@ -142,6 +145,7 @@ public class StandardEquationImpl extends EquationImpl implements StandardEquati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getExpr() {
 		return expr;
 	}
@@ -166,6 +170,7 @@ public class StandardEquationImpl extends EquationImpl implements StandardEquati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExpr(AlphaExpression newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;
@@ -185,6 +190,7 @@ public class StandardEquationImpl extends EquationImpl implements StandardEquati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitStandardEquation(this);
 	}

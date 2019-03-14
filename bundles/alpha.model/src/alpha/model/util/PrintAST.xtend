@@ -3,7 +3,6 @@ package alpha.model.util
 import alpha.model.AlphaConstant
 import alpha.model.AlphaExpression
 import alpha.model.AlphaExpressionVisitable
-import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
 import alpha.model.ArgReduceExpression

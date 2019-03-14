@@ -98,6 +98,7 @@ public class AlphaPackageImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -107,6 +108,7 @@ public class AlphaPackageImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -119,6 +121,7 @@ public class AlphaPackageImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AlphaElement> getElements() {
 		if (elements == null) {
 			elements = new EObjectContainmentEList<AlphaElement>(AlphaElement.class, this, ModelPackage.ALPHA_PACKAGE__ELEMENTS);
@@ -131,6 +134,7 @@ public class AlphaPackageImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AlphaConstant> getConstants() {
 		return ECollections.<AlphaConstant>asEList(((AlphaConstant[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<AlphaConstant>filter(this.getElements(), AlphaConstant.class), AlphaConstant.class)));
 	}
@@ -140,6 +144,7 @@ public class AlphaPackageImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ExternalFunction> getExternalFunctions() {
 		return ECollections.<ExternalFunction>asEList(((ExternalFunction[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<ExternalFunction>filter(this.getElements(), ExternalFunction.class), ExternalFunction.class)));
 	}
@@ -149,6 +154,7 @@ public class AlphaPackageImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AlphaPackage> getPackages() {
 		return ECollections.<AlphaPackage>asEList(((AlphaPackage[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<AlphaPackage>filter(this.getElements(), AlphaPackage.class), AlphaPackage.class)));
 	}
@@ -158,6 +164,7 @@ public class AlphaPackageImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AlphaSystem> getSystems() {
 		return ECollections.<AlphaSystem>asEList(((AlphaSystem[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(Iterables.<AlphaSystem>filter(this.getElements(), AlphaSystem.class), AlphaSystem.class)));
 	}
@@ -167,6 +174,7 @@ public class AlphaPackageImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitAlphaPackage(this);
 	}

@@ -104,6 +104,7 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public REDUCTION_OP getOperator() {
 		return operator;
 	}
@@ -113,6 +114,7 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperator(REDUCTION_OP newOperator) {
 		REDUCTION_OP oldOperator = operator;
 		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
@@ -125,6 +127,7 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIFunction getProjectionExpr() {
 		return projectionExpr;
 	}
@@ -149,6 +152,7 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProjectionExpr(JNIFunction newProjectionExpr) {
 		if (newProjectionExpr != projectionExpr) {
 			NotificationChain msgs = null;
@@ -168,6 +172,7 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getBody() {
 		return body;
 	}
@@ -192,6 +197,7 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBody(AlphaExpression newBody) {
 		if (newBody != body) {
 			NotificationChain msgs = null;
@@ -211,6 +217,7 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLMultiAff getProjection() {
 		JNIISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getProjectionExpr().getType();
@@ -230,6 +237,7 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractReduceExpression(this);
 	}

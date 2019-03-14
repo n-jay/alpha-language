@@ -21,13 +21,28 @@ public class MatrixUserFactory {
 	}
 	
 	/**
-	 * Create a matrix with number of columns derived from the parameters and indices. 
+	 * Create a matrix with number of columns derived from the parameters and indices.
+	 * Assumes that there will be an additional column for the constants.
 	 * 
 	 * @param paramNames
 	 * @param indexNames
 	 * @return
 	 */
 	public static Matrix createMatrix(List<String> paramNames, List<String> indexNames) {
+		return createMatrix(paramNames, indexNames, false);
+	}
+	
+
+	/**
+	 * Create a matrix with number of columns derived from the parameters and indices.
+	 * The boolean argument controls if an additional columns for constants are included or not.
+	 * 
+	 * @param paramNames
+	 * @param indexNames
+	 * @param linearPartOnly
+	 * @return
+	 */
+	public static Matrix createMatrix(List<String> paramNames, List<String> indexNames, boolean linearPartOnly) {
 		Matrix mat = MatrixFactory.eINSTANCE.createMatrix();
 		Space space = MatrixFactory.eINSTANCE.createSpace();
 		
@@ -35,17 +50,8 @@ public class MatrixUserFactory {
 		space.getIndexNames().addAll(indexNames);
 
 		mat.setSpace(space);
+		mat.setLinearPartOnly(linearPartOnly);
 		
-		return mat;
-	}
-
-	public static Matrix createLinearPartOnlyMatrix(String[] paramNames, String[] indexNames) {
-		return createLinearPartOnlyMatrix(Arrays.asList(paramNames), Arrays.asList(indexNames));
-	}
-
-	public static Matrix createLinearPartOnlyMatrix(List<String> paramNames, List<String> indexNames) {
-		Matrix mat = createMatrix(paramNames, indexNames);
-		mat.setLinearPartOnly(true);
 		return mat;
 	}
 	

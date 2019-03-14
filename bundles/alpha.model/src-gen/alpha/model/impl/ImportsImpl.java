@@ -71,6 +71,7 @@ public class ImportsImpl extends MinimalEObjectImpl.Container implements Imports
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getImportedNamespace() {
 		return importedNamespace;
 	}
@@ -80,6 +81,7 @@ public class ImportsImpl extends MinimalEObjectImpl.Container implements Imports
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setImportedNamespace(String newImportedNamespace) {
 		String oldImportedNamespace = importedNamespace;
 		importedNamespace = newImportedNamespace;
@@ -92,6 +94,7 @@ public class ImportsImpl extends MinimalEObjectImpl.Container implements Imports
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitImports(this);
 	}

@@ -62,6 +62,7 @@ public class ExternalArgReduceExpressionImpl extends ArgReduceExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExternalFunction getExternalFunction() {
 		if (externalFunction != null && externalFunction.eIsProxy()) {
 			InternalEObject oldExternalFunction = (InternalEObject)externalFunction;
@@ -88,6 +89,7 @@ public class ExternalArgReduceExpressionImpl extends ArgReduceExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExternalFunction(ExternalFunction newExternalFunction) {
 		ExternalFunction oldExternalFunction = externalFunction;
 		externalFunction = newExternalFunction;
@@ -100,6 +102,7 @@ public class ExternalArgReduceExpressionImpl extends ArgReduceExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractReduceExpression(this);
 	}

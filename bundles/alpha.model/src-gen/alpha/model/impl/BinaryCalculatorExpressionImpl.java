@@ -125,6 +125,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CALCULATOR_BINARY_OP getOperator() {
 		return operator;
 	}
@@ -134,6 +135,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperator(CALCULATOR_BINARY_OP newOperator) {
 		CALCULATOR_BINARY_OP oldOperator = operator;
 		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
@@ -146,6 +148,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CalculatorExpression getLeft() {
 		return left;
 	}
@@ -170,6 +173,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLeft(CalculatorExpression newLeft) {
 		if (newLeft != left) {
 			NotificationChain msgs = null;
@@ -189,6 +193,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CalculatorExpression getRight() {
 		return right;
 	}
@@ -213,6 +218,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRight(CalculatorExpression newRight) {
 		if (newRight != right) {
 			NotificationChain msgs = null;
@@ -232,6 +238,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIObject getZ__internal_cache_islObject() {
 		return z__internal_cache_islObject;
 	}
@@ -241,6 +248,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setZ__internal_cache_islObject(JNIObject newZ__internal_cache_islObject) {
 		JNIObject oldZ__internal_cache_islObject = z__internal_cache_islObject;
 		z__internal_cache_islObject = newZ__internal_cache_islObject;
@@ -253,6 +261,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public POLY_OBJECT_TYPE getType() {
 		JNIObject _z__internal_cache_islObject = this.getZ__internal_cache_islObject();
 		if ((_z__internal_cache_islObject instanceof JNIISLSet)) {
@@ -270,6 +279,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIObject getISLObject() {
 		return AlphaUtil.copy(this.getZ__internal_cache_islObject());
 	}
@@ -279,6 +289,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final CalculatorExpressionVisitor visitor) {
 		visitor.visitBinaryCalculatorExpression(this);
 	}
@@ -288,6 +299,7 @@ public class BinaryCalculatorExpressionImpl extends CalculatorExpressionImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String plainToString() {
 		String _plainToString = this.getLeft().plainToString();
 		String _plus = (_plainToString + " ");

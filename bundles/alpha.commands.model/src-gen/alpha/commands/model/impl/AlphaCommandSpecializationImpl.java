@@ -73,6 +73,7 @@ public class AlphaCommandSpecializationImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaCommand getCommand() {
 		if (eContainerFeatureID() != ModelPackage.ALPHA_COMMAND_SPECIALIZATION__COMMAND) return null;
 		return (AlphaCommand)eContainer();
@@ -103,6 +104,7 @@ public class AlphaCommandSpecializationImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCommand(AlphaCommand newCommand) {
 		if (newCommand != eInternalContainer() || (eContainerFeatureID() != ModelPackage.ALPHA_COMMAND_SPECIALIZATION__COMMAND && newCommand != null)) {
 			if (EcoreUtil.isAncestor(this, newCommand))
@@ -124,6 +126,7 @@ public class AlphaCommandSpecializationImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<CommandArgumentSpecialization> getArguments() {
 		if (arguments == null) {
 			arguments = new EObjectContainmentEList<CommandArgumentSpecialization>(CommandArgumentSpecialization.class, this, ModelPackage.ALPHA_COMMAND_SPECIALIZATION__ARGUMENTS);

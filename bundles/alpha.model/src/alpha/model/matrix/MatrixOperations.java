@@ -2,8 +2,11 @@ package alpha.model.matrix;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+
+import alpha.model.matrix.factory.MatrixUserFactory;
 
 /**
  * Number of primitive matrix operations that work on 2D long arrays
@@ -2888,5 +2891,111 @@ public class MatrixOperations {
 		}
 		
 		return vectSol;
+	}
+	
+	
+	/**
+	 * Takes a syntactic intersection of two sets of basis vectors.
+	 * The output contains basis vectors that are common to the two inputs.
+	 * 
+	 * The input basis vectors are assumed to be transposed. 
+	 * (Each row of the matrix is a basis vector)
+	 * 
+	 * @param basisA
+	 * @param basisB
+	 * @return
+	 */
+	public static long[][] plainIntersection(long [][] basisA, long[][] basisB) {
+		if (basisA == null || basisB == null) return null;
+		
+		List<long[]> match = new ArrayList<>();
+		for (long[] vecA : basisA) {
+			for (long[] vecB : basisB) {
+				if (isEqual(vecA, vecB)) {
+					match.add(vecA);
+					break;
+				}
+			}
+		}
+		
+		if (match.isEmpty()) return null;
+		
+		long[][] res = new long[match.size()][];
+		for (int r = 0; r < match.size(); r++) {
+			res[r] = Arrays.copyOf(match.get(r), match.get(r).length);
+		}
+		return res;
+	}
+	
+
+	
+	
+	/**
+	 * Converts a 2D long array to {@link Matrix}.
+	 * 
+	 * @param array
+	 * @param paramNames
+	 * @param indexNames
+	 * @return
+	 */
+	public static Matrix toMatrix(long[][] array, List<String> paramNames, List<String> indexNames) {
+		return toMatrix(array, paramNames, indexNames, false, false);
+	}
+
+	
+	/**
+	 * Converts a 2D long array to {@link Matrix}.
+	 * 
+	 * @param array
+	 * @param paramNames
+	 * @param indexNames
+	 * @return
+	 */
+	public static Matrix toMatrix(long[][] array, List<String> paramNames, List<String> indexNames, boolean linearPartOnly, boolean addImplicitParameterEqualities) {
+
+		if ((array.length > 0 ) && 
+				((linearPartOnly && paramNames.size() + indexNames.size() != array[0].length) || 
+				(!linearPartOnly && paramNames.size() + indexNames.size() + 1 != array[0].length))) {
+			throw new RuntimeException("Size of the matrix does not match the number of params/indices.\n" + paramNames + indexNames +"\n"+ MatrixOperations.toString(array));
+		}
+		
+		final Matrix mat = MatrixUserFactory.createMatrix(paramNames, indexNames, linearPartOnly);
+		
+		if (addImplicitParameterEqualities) {
+			for (int r = 0; r < paramNames.size(); r++) {
+				long[] row = new long[mat.getNbColumns()];
+				row[r] = 1;
+				mat.getRows().add(MatrixUserFactory.createMatrixRow(row));
+			}
+		}
+		
+		if (array.length == 0) return mat;
+		
+		for (int r = 0; r < array.length; r++) {
+			mat.getRows().add(MatrixUserFactory.createMatrixRow(array[r]));
+		}
+		
+		return mat;
+	}
+	
+	/**
+	 * Creates an identity matrix. If the specified size is not square,
+	 * the identity for the square region, padded with zeros are returned.
+	 * 
+	 * 
+	 * @param nbRows
+	 * @param nbCols
+	 * @return
+	 */
+	public static long[][] createIdentity(int nbRows, int nbCols) {
+		long[][] array = new long[nbRows][nbCols];
+
+		int min = Math.min(nbRows, nbCols);
+		
+		for (int r = 0; r < min; r++) {
+			array[r][r] = 1;
+		}
+		
+		return array;
 	}
 }

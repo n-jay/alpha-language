@@ -96,6 +96,7 @@ public class BinaryExpressionImpl extends AlphaExpressionImpl implements BinaryE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BINARY_OP getOperator() {
 		return operator;
 	}
@@ -105,6 +106,7 @@ public class BinaryExpressionImpl extends AlphaExpressionImpl implements BinaryE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperator(BINARY_OP newOperator) {
 		BINARY_OP oldOperator = operator;
 		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
@@ -117,6 +119,7 @@ public class BinaryExpressionImpl extends AlphaExpressionImpl implements BinaryE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getLeft() {
 		return left;
 	}
@@ -141,6 +144,7 @@ public class BinaryExpressionImpl extends AlphaExpressionImpl implements BinaryE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLeft(AlphaExpression newLeft) {
 		if (newLeft != left) {
 			NotificationChain msgs = null;
@@ -160,6 +164,7 @@ public class BinaryExpressionImpl extends AlphaExpressionImpl implements BinaryE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getRight() {
 		return right;
 	}
@@ -184,6 +189,7 @@ public class BinaryExpressionImpl extends AlphaExpressionImpl implements BinaryE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRight(AlphaExpression newRight) {
 		if (newRight != right) {
 			NotificationChain msgs = null;
@@ -203,6 +209,7 @@ public class BinaryExpressionImpl extends AlphaExpressionImpl implements BinaryE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitBinaryExpression(this);
 	}

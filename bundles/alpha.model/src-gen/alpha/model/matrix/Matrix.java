@@ -2,6 +2,8 @@
  */
 package alpha.model.matrix;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -16,7 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * Matrix is simply a 2D array of Long, represented as a list of MatrixRows.
  * This representation is designed for representing functions, and hence each
  * row represents the output dimension of a function.
- * The number of columns are parameters+indices+1 for constant.
+ * The number of columns are parameters+indices+1 for constant. Optionally, the constant
+ * column may be omitted to only reprsent the linear part of the function.
  * 
  * The utility of making it a class is in the book keeping of dimensions (space).
  * <!-- end-model-doc -->
@@ -183,5 +186,32 @@ public interface Matrix extends EObject {
 	 * @generated
 	 */
 	String toString();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * *
+	 * Converts {@link Matrix} to 2D long array.
+	 * <!-- end-model-doc -->
+	 * @model dataType="alpha.model.matrix.LongMatrix" unique="false"
+	 * @generated
+	 */
+	long[][] toArray();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * *
+	 * Converts {@link Matrix} to MultiAff.
+	 * 
+	 * @param mat
+	 * @return
+	 * <!-- end-model-doc -->
+	 * @model dataType="alpha.model.matrix.JNIISLMultiAff" unique="false"
+	 * @generated
+	 */
+	JNIISLMultiAff toMultiAff();
 
 } // Matrix

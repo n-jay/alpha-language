@@ -139,6 +139,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAlphaString() {
 		return alphaString;
 	}
@@ -148,6 +149,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAlphaString(String newAlphaString) {
 		String oldAlphaString = alphaString;
 		alphaString = newAlphaString;
@@ -160,6 +162,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FuzzyVariableUse> getIndirections() {
 		if (indirections == null) {
 			indirections = new EObjectContainmentEList<FuzzyVariableUse>(FuzzyVariableUse.class, this, ModelPackage.FUZZY_FUNCTION__INDIRECTIONS);
@@ -172,6 +175,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLMap getZ__internal_cache_fuzzyMap() {
 		return z__internal_cache_fuzzyMap;
 	}
@@ -181,6 +185,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setZ__internal_cache_fuzzyMap(JNIISLMap newZ__internal_cache_fuzzyMap) {
 		JNIISLMap oldZ__internal_cache_fuzzyMap = z__internal_cache_fuzzyMap;
 		z__internal_cache_fuzzyMap = newZ__internal_cache_fuzzyMap;
@@ -193,6 +198,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLMap getZ__internal_cache_depRelation() {
 		return z__internal_cache_depRelation;
 	}
@@ -202,6 +208,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setZ__internal_cache_depRelation(JNIISLMap newZ__internal_cache_depRelation) {
 		JNIISLMap oldZ__internal_cache_depRelation = z__internal_cache_depRelation;
 		z__internal_cache_depRelation = newZ__internal_cache_depRelation;
@@ -214,6 +221,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLMap getFuzzyMap() {
 		JNIISLMap _xifexpression = null;
 		JNIISLMap _z__internal_cache_fuzzyMap = this.getZ__internal_cache_fuzzyMap();
@@ -232,6 +240,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFuzzyMap(final JNIISLMap fuzzyMap) {
 		this.setZ__internal_cache_fuzzyMap(fuzzyMap);
 	}
@@ -241,6 +250,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLMap getDependenceRelation() {
 		JNIISLMap _xifexpression = null;
 		JNIISLMap _z__internal_cache_depRelation = this.getZ__internal_cache_depRelation();
@@ -259,6 +269,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDependenceRelation(final JNIISLMap depRel) {
 		this.setZ__internal_cache_depRelation(depRel);
 	}
@@ -268,6 +279,7 @@ public class FuzzyFunctionImpl extends MinimalEObjectImpl.Container implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FuzzyVariableUse getIndirectionByName(final String name) {
 		final Function1<FuzzyVariableUse, Boolean> _function = new Function1<FuzzyVariableUse, Boolean>() {
 			public Boolean apply(final FuzzyVariableUse i) {

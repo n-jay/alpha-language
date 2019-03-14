@@ -9,10 +9,8 @@ import alpha.model.matrix.MatrixOperations;
 import alpha.model.matrix.MatrixRow;
 import alpha.model.matrix.factory.MatrixUserFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
@@ -71,7 +69,7 @@ public class AffineFunctionOperations {
 		final int nbParam = params.size();
 		final int nbIndices =  indices.size();
 
-		Matrix mat = linearPartOnly?MatrixUserFactory.createLinearPartOnlyMatrix(params, indices):MatrixUserFactory.createMatrix(params, indices);
+		Matrix mat = MatrixUserFactory.createMatrix(params, indices, linearPartOnly);
 				
 		final int nbColumns = mat.getNbColumns();
 		
@@ -184,12 +182,12 @@ public class AffineFunctionOperations {
 		
 		final long[][] invArray;
 		if (context == null) {
-			long[][] matArray = toArray(thisMat);
+			long[][] matArray = thisMat.toArray();
 			invArray = MatrixOperations.getInverseInContext(matArray, null);
 		} else {
 			Matrix eqMat = toEqualityMatrix(context);
-			long[][] matArray = toArray(thisMat);
-			long[][] eqArray = toArray(eqMat);
+			long[][] matArray = thisMat.toArray();
+			long[][] eqArray = eqMat.toArray();
 			invArray = MatrixOperations.getInverseInContext(matArray, eqArray);
 		}
 	
@@ -204,10 +202,10 @@ public class AffineFunctionOperations {
 		} else if (names.size() != numInvIndices) {
 			throw new RuntimeException("Number of index names for the inverse function does not match the number of dimensions.");
 		}
-		Matrix invMat = toMatrix(invArray, thisMat.getSpace().getParamNames(), names);
+		Matrix invMat = MatrixOperations.toMatrix(invArray, thisMat.getSpace().getParamNames(), names);
 		
 		
-		return toMultiAff(invMat);
+		return invMat.toMultiAff();
 	}
 	
 	/**
@@ -267,7 +265,22 @@ public class AffineFunctionOperations {
 			mat.getRows().add(row);
 		}
 		
-		return toMultiAff(mat);
+		return mat.toMultiAff();
+	}
+	
+	/**
+	 * Computes the kernel of the given affine function.
+	 * 
+	 * The output is a set of basis vectors that span the null space.
+	 * (Each column of the output matrix is a basis vector)
+	 * 
+	 * @param f
+	 * @return
+	 */
+	public static long[][] computeKernel(JNIISLMultiAff f) {
+		Matrix mat = AffineFunctionOperations.toLinearPartOnlyMatrix(f);
+		long[][] array = mat.toArray();
+		return MatrixOperations.nullspace(array);
 	}
 	
 	/**
@@ -299,7 +312,7 @@ public class AffineFunctionOperations {
 		}
 		
 		
-		JNIISLMultiAff negF = toMultiAff(m);
+		JNIISLMultiAff negF = m.toMultiAff();
 		return AlphaUtil.renameIndices(negF, f.getSpace().getNameList(JNIISLDimType.isl_dim_in));
 	}
 	
@@ -315,8 +328,8 @@ public class AffineFunctionOperations {
 			throw new RuntimeException("[AffineFunctionOperations] Incompatible space given to isKernelOf: " + f1 + " " + f2);
 		
 		final int nbParam = f1.getNbDims(JNIISLDimType.isl_dim_param);
-		long[][] f1Array = toArray(toLinearPartOnlyMatrix(f1));
-		long[][] f2Array = toArray(toLinearPartOnlyMatrix(f2));
+		long[][] f1Array = toLinearPartOnlyMatrix(f1).toArray();
+		long[][] f2Array = toLinearPartOnlyMatrix(f2).toArray();
 		long[][] f2Kernel = MatrixOperations.transpose(MatrixOperations.nullspace(f2Array));
 		
 		//add implicit parameters
@@ -341,107 +354,10 @@ public class AffineFunctionOperations {
 		if (!f1.getSpace().isEqual(f2.getSpace())) 
 			throw new RuntimeException("[AffineFunctionOperations] Incompatible space given to haveOverlappingKernels: " + f1 + " " + f2);
 
-		long[][] f1Array = toArray(toLinearPartOnlyMatrix(f1));
-		long[][] f2Array = toArray(toLinearPartOnlyMatrix(f2));
+		long[][] f1Array = toLinearPartOnlyMatrix(f1).toArray();
+		long[][] f2Array = toLinearPartOnlyMatrix(f2).toArray();
 		
 		return MatrixOperations.inclusionKernel(f1Array, f2Array);
 	}
 
-	/**
-	 * Converts {@link Matrix} to MultiAff.
-	 * 
-	 * @param mat
-	 * @return
-	 */
-	private static JNIISLMultiAff toMultiAff(Matrix mat) {
-		final int nbParams = mat.getNbParams();
-		final int nbIndices = mat.getNbIndices();
-		final int nbDims = mat.getNbRows() - nbParams;
-
-		//check the first nbParams rows correspond to implicit parameter equality (made explicit in matrix representation) 
-		for (int r = 0; r < nbParams; r++) {
-			MatrixRow row = mat.getRows().get(r);
-			for (int c = 0; c<row.getValues().size(); c++) {
-				if (!(c==r && row.getValue(c) == 1) && !(c != r && row.getValue(c) == 0)) {
-					throw new RuntimeException("Unexpected input matrix. The first nbParams rows are assumed to be implicit parameter equalities.");
-				}
-			}
-		}
-
-		JNIISLSpace space = mat.getSpace().toJNIISLSetSpace();
-		JNIISLAffList affList = JNIISLAffList.build(JNIISLContext.getCtx(), nbDims);
-		JNIISLSpace affSpace = null;
-		
-		for (MatrixRow row : mat.getRows().subList(nbParams, mat.getNbRows())) {
-			JNIISLAff aff = JNIISLAff.buildZero(space.copy().toLocalSpace());
-			if (affSpace == null) affSpace = aff.getSpace().copy();
-			for (int p = 0; p < nbParams; p++) {
-				aff = aff.setCoefficient(JNIISLDimType.isl_dim_param, p, (int)row.getValue(p));
-			}
-			for (int i = 0; i < nbIndices; i++) {
-				aff = aff.setCoefficient(JNIISLDimType.isl_dim_in, i, (int)row.getValue(i+nbParams));
-			}
-			if (!mat.isLinearPartOnly())
-				aff = aff.setConstant((int)row.getValue(nbParams+nbIndices));
-			affList = affList.add(aff);
-		}
-		
-		return JNIISLMultiAff.buildFromAffList(mat.getSpace().toJNIISLMultiAffSpace(nbDims), affList);
-	}
-	
-	
-	/**
-	 * Converts a 2D long array to {@link Matrix}. This method could not be made part of Matrix in Xcore due 
-	 * to limitations in Xcore not handling 2D arrays of primitive types.
-	 * 
-	 * @param array
-	 * @param paramNames
-	 * @param indexNames
-	 * @return
-	 */
-	public static Matrix toMatrix(long[][] array, List<String> paramNames, List<String> indexNames) {
-
-		Matrix mat = MatrixUserFactory.createMatrix(paramNames, indexNames);
-		
-		if (array.length == 0) return mat;
-		
-		if (paramNames.size() + indexNames.size() + 1 != array[0].length) {
-			throw new RuntimeException("Size of the matrix does not match the number of params/indices.\n" + paramNames + indexNames +"\n"+ MatrixOperations.toString(array));
-		}
-		
-		for (int r = 0; r < array.length; r++) {
-			MatrixRow row = MatrixUserFactory.createMatrixRow(array[r]);
-			mat.getRows().add(row);
-		}
-		
-		return mat;
-	}
-	
-	/**
-	 * Converts {@link Matrix} to 2D long array. This method could not be made part of Matrix in Xcore due 
-	 * to limitations in Xcore not handling 2D arrays of primitive types.
-	 * 
-	 * @param mat
-	 * @return
-	 */
-	public static long[][] toArray(Matrix mat) {
-		if (!mat.isConsistent()) throw new RuntimeException("Inconsistent matrix: number of columns do not match its space.");
-		
-		long[][] array = new long[mat.getNbRows()][mat.getNbColumns()];
-		
-		
-		int r = 0;
-		for (MatrixRow row : mat.getRows()) {
-			int c = 0;
-			for (long v : row.getValues()) {
-				array[r][c] = v;
-				c++;
-			}
-			r++;
-		}
-		
-		return array;
-		
-	}
-	
 }

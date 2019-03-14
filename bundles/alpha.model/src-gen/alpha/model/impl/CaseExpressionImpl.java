@@ -91,6 +91,7 @@ public class CaseExpressionImpl extends AlphaExpressionImpl implements CaseExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -100,6 +101,7 @@ public class CaseExpressionImpl extends AlphaExpressionImpl implements CaseExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -112,6 +114,7 @@ public class CaseExpressionImpl extends AlphaExpressionImpl implements CaseExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AlphaExpression> getExprs() {
 		if (exprs == null) {
 			exprs = new EObjectContainmentEList<AlphaExpression>(AlphaExpression.class, this, ModelPackage.CASE_EXPRESSION__EXPRS);
@@ -124,6 +127,7 @@ public class CaseExpressionImpl extends AlphaExpressionImpl implements CaseExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNamed() {
 		return ((this.getName() != null) && (this.getName().length() > 0));
 	}
@@ -133,6 +137,7 @@ public class CaseExpressionImpl extends AlphaExpressionImpl implements CaseExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitCaseExpression(this);
 	}

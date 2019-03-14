@@ -4,6 +4,7 @@ package alpha.model.matrix.impl;
 
 import alpha.model.matrix.*;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
 
 import org.eclipse.emf.ecore.EClass;
@@ -77,6 +78,10 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 		switch (eDataType.getClassifierID()) {
 			case MatrixPackage.JNIISL_SPACE:
 				return createJNIISLSpaceFromString(eDataType, initialValue);
+			case MatrixPackage.JNIISL_MULTI_AFF:
+				return createJNIISLMultiAffFromString(eDataType, initialValue);
+			case MatrixPackage.LONG_MATRIX:
+				return createLongMatrixFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -92,6 +97,10 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 		switch (eDataType.getClassifierID()) {
 			case MatrixPackage.JNIISL_SPACE:
 				return convertJNIISLSpaceToString(eDataType, instanceValue);
+			case MatrixPackage.JNIISL_MULTI_AFF:
+				return convertJNIISLMultiAffToString(eDataType, instanceValue);
+			case MatrixPackage.LONG_MATRIX:
+				return convertLongMatrixToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -102,6 +111,7 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Matrix createMatrix() {
 		MatrixImpl matrix = new MatrixImpl();
 		return matrix;
@@ -112,6 +122,7 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MatrixRow createMatrixRow() {
 		MatrixRowImpl matrixRow = new MatrixRowImpl();
 		return matrixRow;
@@ -122,6 +133,7 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Space createSpace() {
 		SpaceImpl space = new SpaceImpl();
 		return space;
@@ -150,6 +162,43 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JNIISLMultiAff createJNIISLMultiAffFromString(EDataType eDataType, String initialValue) {
+		return (JNIISLMultiAff)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJNIISLMultiAffToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public long[][] createLongMatrixFromString(EDataType eDataType, String initialValue) {
+		return (long[][])super.createFromString(initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLongMatrixToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public MatrixPackage getMatrixPackage() {
 		return (MatrixPackage)getEPackage();
 	}

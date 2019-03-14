@@ -68,6 +68,7 @@ public class AlphaCommandsRootImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AlphaCommandCategory> getCategories() {
 		if (categories == null) {
 			categories = new EObjectContainmentEList<AlphaCommandCategory>(AlphaCommandCategory.class, this, ModelPackage.ALPHA_COMMANDS_ROOT__CATEGORIES);

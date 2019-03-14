@@ -8,6 +8,7 @@ import alpha.model.matrix.MatrixPackage;
 import alpha.model.matrix.MatrixRow;
 import alpha.model.matrix.Space;
 
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -54,6 +55,20 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * @generated
 	 */
 	private EDataType jniislSpaceEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType jniislMultiAffEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType longMatrixEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -124,6 +139,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMatrix() {
 		return matrixEClass;
 	}
@@ -133,6 +149,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMatrix_Space() {
 		return (EReference)matrixEClass.getEStructuralFeatures().get(0);
 	}
@@ -142,6 +159,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMatrix_Rows() {
 		return (EReference)matrixEClass.getEStructuralFeatures().get(1);
 	}
@@ -151,6 +169,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMatrix_LinearPartOnly() {
 		return (EAttribute)matrixEClass.getEStructuralFeatures().get(2);
 	}
@@ -160,6 +179,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMatrixRow() {
 		return matrixRowEClass;
 	}
@@ -169,6 +189,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMatrixRow_Values() {
 		return (EAttribute)matrixRowEClass.getEStructuralFeatures().get(0);
 	}
@@ -178,6 +199,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSpace() {
 		return spaceEClass;
 	}
@@ -187,6 +209,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSpace_ParamNames() {
 		return (EAttribute)spaceEClass.getEStructuralFeatures().get(0);
 	}
@@ -196,6 +219,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSpace_IndexNames() {
 		return (EAttribute)spaceEClass.getEStructuralFeatures().get(1);
 	}
@@ -205,6 +229,7 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getJNIISLSpace() {
 		return jniislSpaceEDataType;
 	}
@@ -214,6 +239,27 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EDataType getJNIISLMultiAff() {
+		return jniislMultiAffEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EDataType getLongMatrix() {
+		return longMatrixEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public MatrixFactory getMatrixFactory() {
 		return (MatrixFactory)getEFactoryInstance();
 	}
@@ -251,6 +297,8 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 
 		// Create data types
 		jniislSpaceEDataType = createEDataType(JNIISL_SPACE);
+		jniislMultiAffEDataType = createEDataType(JNIISL_MULTI_AFF);
+		longMatrixEDataType = createEDataType(LONG_MATRIX);
 	}
 
 	/**
@@ -316,6 +364,10 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 
 		addEOperation(matrixEClass, theEcorePackage.getEString(), "toString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(matrixEClass, this.getLongMatrix(), "toArray", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(matrixEClass, this.getJNIISLMultiAff(), "toMultiAff", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(matrixRowEClass, MatrixRow.class, "MatrixRow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMatrixRow_Values(), theEcorePackage.getELong(), "values", null, 0, -1, MatrixRow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -343,6 +395,8 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 
 		// Initialize data types
 		initEDataType(jniislSpaceEDataType, JNIISLSpace.class, "JNIISLSpace", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislMultiAffEDataType, JNIISLMultiAff.class, "JNIISLMultiAff", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(longMatrixEDataType, long[][].class, "LongMatrix", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

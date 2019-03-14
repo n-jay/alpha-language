@@ -73,6 +73,7 @@ public class ArgumentRenamingImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaCommandArgument getBindTarget() {
 		if (bindTarget != null && bindTarget.eIsProxy()) {
 			InternalEObject oldBindTarget = (InternalEObject)bindTarget;
@@ -99,6 +100,7 @@ public class ArgumentRenamingImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBindTarget(AlphaCommandArgument newBindTarget) {
 		AlphaCommandArgument oldBindTarget = bindTarget;
 		bindTarget = newBindTarget;
@@ -111,6 +113,7 @@ public class ArgumentRenamingImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaCommandArgument getBindSource() {
 		if (bindSource != null && bindSource.eIsProxy()) {
 			InternalEObject oldBindSource = (InternalEObject)bindSource;
@@ -137,6 +140,7 @@ public class ArgumentRenamingImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBindSource(AlphaCommandArgument newBindSource) {
 		AlphaCommandArgument oldBindSource = bindSource;
 		bindSource = newBindSource;

@@ -202,6 +202,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAlphaCommandsRoot() {
 		return alphaCommandsRootEClass;
 	}
@@ -211,6 +212,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAlphaCommandsRoot_Categories() {
 		return (EReference)alphaCommandsRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -220,6 +222,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAlphaCommandCategory() {
 		return alphaCommandCategoryEClass;
 	}
@@ -229,6 +232,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlphaCommandCategory_Name() {
 		return (EAttribute)alphaCommandCategoryEClass.getEStructuralFeatures().get(0);
 	}
@@ -238,6 +242,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAlphaCommandCategory_Commands() {
 		return (EReference)alphaCommandCategoryEClass.getEStructuralFeatures().get(1);
 	}
@@ -247,6 +252,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAlphaCommand() {
 		return alphaCommandEClass;
 	}
@@ -256,6 +262,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAlphaCommand_Category() {
 		return (EReference)alphaCommandEClass.getEStructuralFeatures().get(0);
 	}
@@ -265,6 +272,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlphaCommand_Label() {
 		return (EAttribute)alphaCommandEClass.getEStructuralFeatures().get(1);
 	}
@@ -274,6 +282,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlphaCommand_Name() {
 		return (EAttribute)alphaCommandEClass.getEStructuralFeatures().get(2);
 	}
@@ -283,6 +292,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAlphaCommand_Signature() {
 		return (EReference)alphaCommandEClass.getEStructuralFeatures().get(3);
 	}
@@ -292,6 +302,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAlphaCommand_Specializations() {
 		return (EReference)alphaCommandEClass.getEStructuralFeatures().get(4);
 	}
@@ -301,6 +312,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAlphaCommand_Binding() {
 		return (EReference)alphaCommandEClass.getEStructuralFeatures().get(5);
 	}
@@ -310,6 +322,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCommandBinding() {
 		return commandBindingEClass;
 	}
@@ -319,6 +332,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCommandBinding_BindTargetCommand() {
 		return (EReference)commandBindingEClass.getEStructuralFeatures().get(0);
 	}
@@ -328,6 +342,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCommandBinding_ArgumentBindings() {
 		return (EReference)commandBindingEClass.getEStructuralFeatures().get(1);
 	}
@@ -337,6 +352,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCommandBinding_ArgumentRenamings() {
 		return (EReference)commandBindingEClass.getEStructuralFeatures().get(2);
 	}
@@ -346,6 +362,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getArgumentBinding() {
 		return argumentBindingEClass;
 	}
@@ -355,6 +372,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getArgumentBinding_BindTarget() {
 		return (EReference)argumentBindingEClass.getEStructuralFeatures().get(0);
 	}
@@ -364,6 +382,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getArgumentBinding_BindSource() {
 		return (EReference)argumentBindingEClass.getEStructuralFeatures().get(1);
 	}
@@ -373,6 +392,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getArgumentRenaming() {
 		return argumentRenamingEClass;
 	}
@@ -382,6 +402,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getArgumentRenaming_BindTarget() {
 		return (EReference)argumentRenamingEClass.getEStructuralFeatures().get(0);
 	}
@@ -391,6 +412,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getArgumentRenaming_BindSource() {
 		return (EReference)argumentRenamingEClass.getEStructuralFeatures().get(1);
 	}
@@ -400,6 +422,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAlphaCommandSignature() {
 		return alphaCommandSignatureEClass;
 	}
@@ -409,6 +432,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAlphaCommandSignature_Arguments() {
 		return (EReference)alphaCommandSignatureEClass.getEStructuralFeatures().get(0);
 	}
@@ -418,6 +442,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlphaCommandSignature_ReturnType() {
 		return (EAttribute)alphaCommandSignatureEClass.getEStructuralFeatures().get(1);
 	}
@@ -427,6 +452,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAlphaCommandSpecialization() {
 		return alphaCommandSpecializationEClass;
 	}
@@ -436,6 +462,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAlphaCommandSpecialization_Command() {
 		return (EReference)alphaCommandSpecializationEClass.getEStructuralFeatures().get(0);
 	}
@@ -445,6 +472,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAlphaCommandSpecialization_Arguments() {
 		return (EReference)alphaCommandSpecializationEClass.getEStructuralFeatures().get(1);
 	}
@@ -454,6 +482,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAlphaCommandArgument() {
 		return alphaCommandArgumentEClass;
 	}
@@ -463,6 +492,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlphaCommandArgument_Name() {
 		return (EAttribute)alphaCommandArgumentEClass.getEStructuralFeatures().get(0);
 	}
@@ -472,6 +502,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAlphaCommandArgument_ArgumentType() {
 		return (EAttribute)alphaCommandArgumentEClass.getEStructuralFeatures().get(1);
 	}
@@ -481,6 +512,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCommandArgumentSpecialization() {
 		return commandArgumentSpecializationEClass;
 	}
@@ -490,6 +522,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOverrideArgument() {
 		return overrideArgumentEClass;
 	}
@@ -499,6 +532,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOverrideArgument_Name() {
 		return (EAttribute)overrideArgumentEClass.getEStructuralFeatures().get(0);
 	}
@@ -508,6 +542,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOverrideArgument_ArgumentType() {
 		return (EAttribute)overrideArgumentEClass.getEStructuralFeatures().get(1);
 	}
@@ -517,6 +552,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDefaultValueArgument() {
 		return defaultValueArgumentEClass;
 	}
@@ -526,6 +562,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDefaultValueArgument_Value() {
 		return (EAttribute)defaultValueArgumentEClass.getEStructuralFeatures().get(0);
 	}
@@ -535,6 +572,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSameAsParentArgument() {
 		return sameAsParentArgumentEClass;
 	}
@@ -544,6 +582,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getArgumentType() {
 		return argumentTypeEEnum;
 	}
@@ -553,6 +592,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelFactory getModelFactory() {
 		return (ModelFactory)getEFactoryInstance();
 	}

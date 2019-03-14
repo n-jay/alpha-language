@@ -3,6 +3,10 @@ package alpha.model.issue;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import alpha.model.AutoRestrictExpression;
+import alpha.model.CaseExpression;
+import alpha.model.UseEquation;
+
 /**
  * InvalidSyntaxIssue indicates sub-programs that is a valid syntax according to
  * the Xtext grammar, but are disallowed. Examples are:<ul>

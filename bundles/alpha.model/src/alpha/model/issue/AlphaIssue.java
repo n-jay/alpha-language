@@ -2,6 +2,7 @@ package alpha.model.issue;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.xtext.validation.AbstractDeclarativeValidator;
 
 /**
  * AlphaIssue is intended to report errors during IR construction to Xtext editor.

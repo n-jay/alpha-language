@@ -92,6 +92,7 @@ public class ExternalFunctionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -101,6 +102,7 @@ public class ExternalFunctionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -113,6 +115,7 @@ public class ExternalFunctionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getCardinality() {
 		return cardinality;
 	}
@@ -122,6 +125,7 @@ public class ExternalFunctionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCardinality(int newCardinality) {
 		int oldCardinality = cardinality;
 		cardinality = newCardinality;
@@ -134,6 +138,7 @@ public class ExternalFunctionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitExternalFunction(this);
 	}

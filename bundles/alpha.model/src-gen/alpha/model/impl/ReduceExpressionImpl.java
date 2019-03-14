@@ -40,6 +40,7 @@ public class ReduceExpressionImpl extends AbstractReduceExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractReduceExpression(this);
 	}

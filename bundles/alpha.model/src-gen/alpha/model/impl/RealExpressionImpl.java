@@ -70,6 +70,7 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public float getValue() {
 		return value;
 	}
@@ -79,6 +80,7 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(float newValue) {
 		float oldValue = value;
 		value = newValue;
@@ -91,6 +93,7 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String valueString() {
 		float _value = this.getValue();
 		return (Float.valueOf(_value) + "");
@@ -101,6 +104,7 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitRealExpression(this);
 	}

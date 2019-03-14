@@ -66,6 +66,7 @@ public abstract class EquationImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemBody getSystemBody() {
 		if (eContainerFeatureID() != ModelPackage.EQUATION__SYSTEM_BODY) return null;
 		return (SystemBody)eContainer();
@@ -96,6 +97,7 @@ public abstract class EquationImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSystemBody(SystemBody newSystemBody) {
 		if (newSystemBody != eInternalContainer() || (eContainerFeatureID() != ModelPackage.EQUATION__SYSTEM_BODY && newSystemBody != null)) {
 			if (EcoreUtil.isAncestor(this, newSystemBody))
@@ -117,6 +119,7 @@ public abstract class EquationImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getExpression(final Queue<Integer> exprID) {
 		AlphaExpression _xblockexpression = null;
 		{
@@ -139,6 +142,7 @@ public abstract class EquationImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getExpression(final String exprID) {
 		final Function1<String, Integer> _function = new Function1<String, Integer>() {
 			public Integer apply(final String e) {
@@ -155,6 +159,7 @@ public abstract class EquationImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(AlphaVisitor visitor) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

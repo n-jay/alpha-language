@@ -97,6 +97,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getIslString() {
 		return islString;
 	}
@@ -106,6 +107,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIslString(String newIslString) {
 		String oldIslString = islString;
 		islString = newIslString;
@@ -118,6 +120,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLSet getZ__internal_cache_islSet() {
 		return z__internal_cache_islSet;
 	}
@@ -127,6 +130,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setZ__internal_cache_islSet(JNIISLSet newZ__internal_cache_islSet) {
 		JNIISLSet oldZ__internal_cache_islSet = z__internal_cache_islSet;
 		z__internal_cache_islSet = newZ__internal_cache_islSet;
@@ -139,6 +143,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLSet getISLSet() {
 		JNIISLSet _xifexpression = null;
 		JNIISLSet _z__internal_cache_islSet = this.getZ__internal_cache_islSet();
@@ -157,6 +162,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setISLSet(final JNIISLSet islset) {
 		this.setZ__internal_cache_islSet(islset);
 	}
@@ -166,6 +172,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public POLY_OBJECT_TYPE getType() {
 		POLY_OBJECT_TYPE _xifexpression = null;
 		JNIISLSet _z__internal_cache_islSet = this.getZ__internal_cache_islSet();
@@ -184,6 +191,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIObject getISLObject() {
 		return this.getISLSet();
 	}
@@ -193,6 +201,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		JNIISLSet _z__internal_cache_islSet = this.getZ__internal_cache_islSet();
 		boolean _tripleNotEquals = (_z__internal_cache_islSet != null);
@@ -209,6 +218,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String plainToString() {
 		return this.getIslString();
 	}
@@ -218,6 +228,7 @@ public class JNIDomainImpl extends CalculatorExpressionImpl implements JNIDomain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final CalculatorExpressionVisitor visitor) {
 		visitor.visitJNIDomain(this);
 	}

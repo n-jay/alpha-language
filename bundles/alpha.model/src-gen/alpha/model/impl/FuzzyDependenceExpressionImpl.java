@@ -77,6 +77,7 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FuzzyFunction getFuzzyFunction() {
 		return fuzzyFunction;
 	}
@@ -101,6 +102,7 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFuzzyFunction(FuzzyFunction newFuzzyFunction) {
 		if (newFuzzyFunction != fuzzyFunction) {
 			NotificationChain msgs = null;
@@ -120,6 +122,7 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getExpr() {
 		return expr;
 	}
@@ -144,6 +147,7 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExpr(AlphaExpression newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;
@@ -163,6 +167,7 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLMap getDependenceRelation() {
 		JNIISLMap _xifexpression = null;
 		FuzzyFunction _fuzzyFunction = this.getFuzzyFunction();
@@ -181,6 +186,7 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitFuzzyDependenceExpression(this);
 	}

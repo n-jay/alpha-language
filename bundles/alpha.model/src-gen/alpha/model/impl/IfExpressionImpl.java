@@ -85,6 +85,7 @@ public class IfExpressionImpl extends AlphaExpressionImpl implements IfExpressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getCondExpr() {
 		return condExpr;
 	}
@@ -109,6 +110,7 @@ public class IfExpressionImpl extends AlphaExpressionImpl implements IfExpressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCondExpr(AlphaExpression newCondExpr) {
 		if (newCondExpr != condExpr) {
 			NotificationChain msgs = null;
@@ -128,6 +130,7 @@ public class IfExpressionImpl extends AlphaExpressionImpl implements IfExpressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getThenExpr() {
 		return thenExpr;
 	}
@@ -152,6 +155,7 @@ public class IfExpressionImpl extends AlphaExpressionImpl implements IfExpressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setThenExpr(AlphaExpression newThenExpr) {
 		if (newThenExpr != thenExpr) {
 			NotificationChain msgs = null;
@@ -171,6 +175,7 @@ public class IfExpressionImpl extends AlphaExpressionImpl implements IfExpressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getElseExpr() {
 		return elseExpr;
 	}
@@ -195,6 +200,7 @@ public class IfExpressionImpl extends AlphaExpressionImpl implements IfExpressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setElseExpr(AlphaExpression newElseExpr) {
 		if (newElseExpr != elseExpr) {
 			NotificationChain msgs = null;
@@ -214,6 +220,7 @@ public class IfExpressionImpl extends AlphaExpressionImpl implements IfExpressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitIfExpression(this);
 	}

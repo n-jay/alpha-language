@@ -94,6 +94,7 @@ public class AlphaFunctionBinaryExpressionImpl extends AlphaFunctionExpressionIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaFunctionExpression getLeft() {
 		return left;
 	}
@@ -118,6 +119,7 @@ public class AlphaFunctionBinaryExpressionImpl extends AlphaFunctionExpressionIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLeft(AlphaFunctionExpression newLeft) {
 		if (newLeft != left) {
 			NotificationChain msgs = null;
@@ -137,6 +139,7 @@ public class AlphaFunctionBinaryExpressionImpl extends AlphaFunctionExpressionIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaFunctionExpression getRight() {
 		return right;
 	}
@@ -161,6 +164,7 @@ public class AlphaFunctionBinaryExpressionImpl extends AlphaFunctionExpressionIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRight(AlphaFunctionExpression newRight) {
 		if (newRight != right) {
 			NotificationChain msgs = null;
@@ -180,6 +184,7 @@ public class AlphaFunctionBinaryExpressionImpl extends AlphaFunctionExpressionIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getOperator() {
 		return operator;
 	}
@@ -189,6 +194,7 @@ public class AlphaFunctionBinaryExpressionImpl extends AlphaFunctionExpressionIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperator(String newOperator) {
 		String oldOperator = operator;
 		operator = newOperator;
@@ -201,6 +207,7 @@ public class AlphaFunctionBinaryExpressionImpl extends AlphaFunctionExpressionIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getISLString() {
 		return String.format("(%s %s %s)", this.getLeft().getISLString(), this.getOperator(), this.getRight().getISLString());
 	}

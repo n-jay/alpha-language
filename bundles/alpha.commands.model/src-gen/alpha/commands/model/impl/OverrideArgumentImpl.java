@@ -91,6 +91,7 @@ public class OverrideArgumentImpl extends CommandArgumentSpecializationImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -100,6 +101,7 @@ public class OverrideArgumentImpl extends CommandArgumentSpecializationImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -112,6 +114,7 @@ public class OverrideArgumentImpl extends CommandArgumentSpecializationImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArgumentType getArgumentType() {
 		return argumentType;
 	}
@@ -121,6 +124,7 @@ public class OverrideArgumentImpl extends CommandArgumentSpecializationImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setArgumentType(ArgumentType newArgumentType) {
 		ArgumentType oldArgumentType = argumentType;
 		argumentType = newArgumentType == null ? ARGUMENT_TYPE_EDEFAULT : newArgumentType;

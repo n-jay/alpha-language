@@ -92,6 +92,7 @@ public class AlphaCommandSignatureImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AlphaCommandArgument> getArguments() {
 		if (arguments == null) {
 			arguments = new EObjectContainmentEList<AlphaCommandArgument>(AlphaCommandArgument.class, this, ModelPackage.ALPHA_COMMAND_SIGNATURE__ARGUMENTS);
@@ -104,6 +105,7 @@ public class AlphaCommandSignatureImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArgumentType getReturnType() {
 		return returnType;
 	}
@@ -113,6 +115,7 @@ public class AlphaCommandSignatureImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReturnType(ArgumentType newReturnType) {
 		ArgumentType oldReturnType = returnType;
 		returnType = newReturnType == null ? RETURN_TYPE_EDEFAULT : newReturnType;

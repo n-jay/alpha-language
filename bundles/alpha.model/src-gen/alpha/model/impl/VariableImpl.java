@@ -99,6 +99,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -108,6 +109,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -120,6 +122,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CalculatorExpression getDomainExpr() {
 		return domainExpr;
 	}
@@ -144,6 +147,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDomainExpr(CalculatorExpression newDomainExpr) {
 		if (newDomainExpr != domainExpr) {
 			NotificationChain msgs = null;
@@ -163,6 +167,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLSet getDomain() {
 		POLY_OBJECT_TYPE _type = this.getDomainExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
@@ -197,6 +202,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isInput() {
 		return ((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__INPUTS));
 	}
@@ -206,6 +212,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOutput() {
 		return ((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__OUTPUTS));
 	}
@@ -215,6 +222,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isLocal() {
 		return ((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__LOCALS));
 	}
@@ -224,6 +232,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitVariable(this);
 	}

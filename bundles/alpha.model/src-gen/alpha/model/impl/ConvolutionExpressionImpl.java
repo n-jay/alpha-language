@@ -93,6 +93,7 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CalculatorExpression getKernelDomainExpr() {
 		return kernelDomainExpr;
 	}
@@ -117,6 +118,7 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKernelDomainExpr(CalculatorExpression newKernelDomainExpr) {
 		if (newKernelDomainExpr != kernelDomainExpr) {
 			NotificationChain msgs = null;
@@ -136,6 +138,7 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getKernelExpression() {
 		return kernelExpression;
 	}
@@ -160,6 +163,7 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKernelExpression(AlphaExpression newKernelExpression) {
 		if (newKernelExpression != kernelExpression) {
 			NotificationChain msgs = null;
@@ -179,6 +183,7 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaExpression getDataExpression() {
 		return dataExpression;
 	}
@@ -203,6 +208,7 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataExpression(AlphaExpression newDataExpression) {
 		if (newDataExpression != dataExpression) {
 			NotificationChain msgs = null;
@@ -222,6 +228,7 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLSet getKernelDomain() {
 		JNIISLSet _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getKernelDomainExpr().getType();
@@ -241,6 +248,7 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitConvolutionExpression(this);
 	}

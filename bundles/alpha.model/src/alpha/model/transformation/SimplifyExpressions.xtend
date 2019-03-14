@@ -3,6 +3,7 @@ package alpha.model.transformation
 import alpha.model.AlphaCompleteVisitable
 import alpha.model.AlphaExpression
 import alpha.model.AlphaExpressionVisitable
+import alpha.model.AlphaInternalStateConstructor
 import alpha.model.AlphaVisitable
 import alpha.model.BINARY_OP
 import alpha.model.BinaryExpression
@@ -13,14 +14,7 @@ import alpha.model.util.AbstractAlphaCompleteVisitor
 import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
 import alpha.model.util.Show
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import org.eclipse.emf.ecore.util.EcoreUtil
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWAff
-import alpha.model.ExpressionDomainCalculator
-import alpha.model.ContextDomainCalculator
-import alpha.model.AlphaInternalStateConstructor
 
 /**
  * Simplification of Alpha programs.

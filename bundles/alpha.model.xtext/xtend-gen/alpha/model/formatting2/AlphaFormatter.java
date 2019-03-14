@@ -86,7 +86,7 @@ public class AlphaFormatter extends AbstractFormatter2 {
     return this.textRegionExtensions.regionFor(element).feature(obj);
   }
   
-  private final static ArrayList<String> SysKWs = CollectionLiterals.<String>newArrayList("define", "inputs", "outputs", "locals", "fuzzy", "over", "let", ".");
+  private static final ArrayList<String> SysKWs = CollectionLiterals.<String>newArrayList("define", "inputs", "outputs", "locals", "fuzzy", "over", "let", ".");
   
   private String getNextApplicableKeyword(final AlphaSystem system, final String keyword) {
     boolean _switchResult = false;

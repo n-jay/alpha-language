@@ -70,6 +70,7 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
@@ -79,6 +80,7 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(int newValue) {
 		int oldValue = value;
 		value = newValue;
@@ -91,6 +93,7 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String valueString() {
 		int _value = this.getValue();
 		return (Integer.valueOf(_value) + "");
@@ -101,6 +104,7 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitIntegerExpression(this);
 	}

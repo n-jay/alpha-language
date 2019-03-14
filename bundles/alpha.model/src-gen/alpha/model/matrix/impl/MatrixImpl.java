@@ -7,7 +7,17 @@ import alpha.model.matrix.MatrixPackage;
 import alpha.model.matrix.MatrixRow;
 import alpha.model.matrix.Space;
 
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
+
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -23,6 +33,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
@@ -105,6 +116,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Space getSpace() {
 		return space;
 	}
@@ -129,6 +141,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSpace(Space newSpace) {
 		if (newSpace != space) {
 			NotificationChain msgs = null;
@@ -148,6 +161,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<MatrixRow> getRows() {
 		if (rows == null) {
 			rows = new EObjectContainmentEList<MatrixRow>(MatrixRow.class, this, MatrixPackage.MATRIX__ROWS);
@@ -160,6 +174,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isLinearPartOnly() {
 		return linearPartOnly;
 	}
@@ -169,6 +184,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLinearPartOnly(boolean newLinearPartOnly) {
 		boolean oldLinearPartOnly = linearPartOnly;
 		linearPartOnly = newLinearPartOnly;
@@ -181,6 +197,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isConsistent() {
 		final int nbCols = this.getNbColumns();
 		EList<MatrixRow> _rows = this.getRows();
@@ -199,6 +216,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getValue(final int r, final int c) {
 		return (this.getRows().get(r).getValues().get(c)).longValue();
 	}
@@ -208,6 +226,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(final int r, final int c, final long v) {
 		this.getRows().get(r).getValues().set(c, Long.valueOf(v));
 	}
@@ -217,6 +236,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getNbRows() {
 		return ((Object[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getRows(), Object.class)).length;
 	}
@@ -226,6 +246,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getNbColumns() {
 		int _xifexpression = (int) 0;
 		boolean _isLinearPartOnly = this.isLinearPartOnly();
@@ -248,6 +269,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getNbParams() {
 		return this.getSpace().getNbParams();
 	}
@@ -257,6 +279,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getNbIndices() {
 		return this.getSpace().getNbIndices();
 	}
@@ -266,6 +289,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getParamNames() {
 		return this.getSpace().getParamNames();
 	}
@@ -275,6 +299,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getIndexNames() {
 		return this.getSpace().getIndexNames();
 	}
@@ -284,8 +309,103 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		return IterableExtensions.join(this.getRows(), "\n");
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public long[][] toArray() {
+		boolean _isConsistent = this.isConsistent();
+		boolean _not = (!_isConsistent);
+		if (_not) {
+			throw new RuntimeException("Inconsistent matrix: number of columns do not match its space.");
+		}
+		final long[][] array = new long[this.getNbRows()][this.getNbColumns()];
+		int r = 0;
+		EList<MatrixRow> _rows = this.getRows();
+		for (final MatrixRow row : _rows) {
+			{
+				int c = 0;
+				EList<Long> _values = row.getValues();
+				for (final Long v : _values) {
+					{
+						array[r][c] = (v).longValue();
+						c++;
+					}
+				}
+				r++;
+			}
+		}
+		return array;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public JNIISLMultiAff toMultiAff() {
+		int _nbRows = this.getNbRows();
+		int _nbParams = this.getNbParams();
+		final int nbDims = (_nbRows - _nbParams);
+		int _nbParams_1 = this.getNbParams();
+		ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _nbParams_1, true);
+		for (final Integer r : _doubleDotLessThan) {
+			{
+				final MatrixRow row = this.getRows().get((r).intValue());
+				int _size = row.getValues().size();
+				ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, _size, true);
+				for (final Integer c : _doubleDotLessThan_1) {
+					if (((!(Objects.equal(c, r) && (row.getValue((c).intValue()) == 1))) && (!((!Objects.equal(c, r)) && (row.getValue((c).intValue()) == 0))))) {
+						throw new RuntimeException("Unexpected input matrix. The first nbParams rows are assumed to be implicit parameter equalities.");
+					}
+				}
+			}
+		}
+		final JNIISLSpace islSpace = this.getSpace().toJNIISLSetSpace();
+		JNIISLAffList affList = JNIISLAffList.build(JNIISLContext.getCtx(), nbDims);
+		JNIISLSpace affSpace = null;
+		List<MatrixRow> _subList = this.getRows().subList(this.getNbParams(), this.getNbRows());
+		for (final MatrixRow row : _subList) {
+			{
+				JNIISLAff aff = JNIISLAff.buildZero(islSpace.copy().toLocalSpace());
+				if ((affSpace == null)) {
+					affSpace = aff.getSpace().copy();
+				}
+				int _nbParams_2 = this.getNbParams();
+				ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, _nbParams_2, true);
+				for (final Integer p : _doubleDotLessThan_1) {
+					long _value = row.getValue((p).intValue());
+					aff = aff.setCoefficient(JNIISLDimType.isl_dim_param, (p).intValue(), ((int) _value));
+				}
+				int _nbIndices = this.getNbIndices();
+				ExclusiveRange _doubleDotLessThan_2 = new ExclusiveRange(0, _nbIndices, true);
+				for (final Integer i : _doubleDotLessThan_2) {
+					int _nbParams_3 = this.getNbParams();
+					int _plus = ((i).intValue() + _nbParams_3);
+					long _value_1 = row.getValue(_plus);
+					aff = aff.setCoefficient(JNIISLDimType.isl_dim_in, (i).intValue(), ((int) _value_1));
+				}
+				boolean _isLinearPartOnly = this.isLinearPartOnly();
+				boolean _not = (!_isLinearPartOnly);
+				if (_not) {
+					int _nbParams_4 = this.getNbParams();
+					int _nbIndices_1 = this.getNbIndices();
+					int _plus_1 = (_nbParams_4 + _nbIndices_1);
+					long _value_2 = row.getValue(_plus_1);
+					aff = aff.setConstant(((int) _value_2));
+				}
+				affList = affList.add(aff);
+			}
+		}
+		return JNIISLMultiAff.buildFromAffList(this.getSpace().toJNIISLMultiAffSpace(nbDims), affList);
 	}
 
 	/**

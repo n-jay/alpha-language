@@ -91,6 +91,7 @@ public class AlphaFunctionImpl extends MinimalEObjectImpl.Container implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getIndexList() {
 		return indexList;
 	}
@@ -100,6 +101,7 @@ public class AlphaFunctionImpl extends MinimalEObjectImpl.Container implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIndexList(String newIndexList) {
 		String oldIndexList = indexList;
 		indexList = newIndexList;
@@ -112,6 +114,7 @@ public class AlphaFunctionImpl extends MinimalEObjectImpl.Container implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<AlphaFunctionExpression> getExprs() {
 		if (exprs == null) {
 			exprs = new EObjectContainmentEList<AlphaFunctionExpression>(AlphaFunctionExpression.class, this, ModelPackage.ALPHA_FUNCTION__EXPRS);

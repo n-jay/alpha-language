@@ -64,6 +64,7 @@ public class AffineFuzzyVariableUseImpl extends FuzzyVariableUseImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIFunctionInArrayNotation getUseFunction() {
 		return useFunction;
 	}
@@ -88,6 +89,7 @@ public class AffineFuzzyVariableUseImpl extends FuzzyVariableUseImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUseFunction(JNIFunctionInArrayNotation newUseFunction) {
 		if (newUseFunction != useFunction) {
 			NotificationChain msgs = null;
@@ -107,6 +109,7 @@ public class AffineFuzzyVariableUseImpl extends FuzzyVariableUseImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIISLMap getDependenceRelation() {
 		JNIISLMap _xifexpression = null;
 		if ((((this.getUseFunction() != null) && (this.getFuzzyVariable() != null)) && (this.getFuzzyVariable().getRelation() != null))) {

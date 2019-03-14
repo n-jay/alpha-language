@@ -178,6 +178,25 @@ public interface MatrixPackage extends EPackage {
 	 */
 	int JNIISL_SPACE = 3;
 
+	/**
+	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+	 * @see alpha.model.matrix.impl.MatrixPackageImpl#getJNIISLMultiAff()
+	 * @generated
+	 */
+	int JNIISL_MULTI_AFF = 4;
+
+	/**
+	 * The meta object id for the '<em>Long Matrix</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.matrix.impl.MatrixPackageImpl#getLongMatrix()
+	 * @generated
+	 */
+	int LONG_MATRIX = 5;
+
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.matrix.Matrix <em>Matrix</em>}'.
@@ -285,6 +304,27 @@ public interface MatrixPackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getJNIISLSpace();
+
+	/**
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff <em>JNIISL Multi Aff</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>JNIISL Multi Aff</em>'.
+	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff"
+	 * @generated
+	 */
+	EDataType getJNIISLMultiAff();
+
+	/**
+	 * Returns the meta object for data type '<em>Long Matrix</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Long Matrix</em>'.
+	 * @model instanceClass="long[][]"
+	 * @generated
+	 */
+	EDataType getLongMatrix();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -395,6 +435,25 @@ public interface MatrixPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType JNIISL_SPACE = eINSTANCE.getJNIISLSpace();
+
+		/**
+		 * The meta object literal for the '<em>JNIISL Multi Aff</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+		 * @see alpha.model.matrix.impl.MatrixPackageImpl#getJNIISLMultiAff()
+		 * @generated
+		 */
+		EDataType JNIISL_MULTI_AFF = eINSTANCE.getJNIISLMultiAff();
+
+		/**
+		 * The meta object literal for the '<em>Long Matrix</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.matrix.impl.MatrixPackageImpl#getLongMatrix()
+		 * @generated
+		 */
+		EDataType LONG_MATRIX = eINSTANCE.getLongMatrix();
 
 	}
 

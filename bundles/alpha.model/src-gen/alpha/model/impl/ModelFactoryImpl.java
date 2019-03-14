@@ -215,6 +215,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaRoot createAlphaRoot() {
 		AlphaRootImpl alphaRoot = new AlphaRootImpl();
 		return alphaRoot;
@@ -225,6 +226,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Imports createImports() {
 		ImportsImpl imports = new ImportsImpl();
 		return imports;
@@ -235,6 +237,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaPackage createAlphaPackage() {
 		AlphaPackageImpl alphaPackage = new AlphaPackageImpl();
 		return alphaPackage;
@@ -245,6 +248,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaConstant createAlphaConstant() {
 		AlphaConstantImpl alphaConstant = new AlphaConstantImpl();
 		return alphaConstant;
@@ -255,6 +259,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExternalFunction createExternalFunction() {
 		ExternalFunctionImpl externalFunction = new ExternalFunctionImpl();
 		return externalFunction;
@@ -265,6 +270,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaSystem createAlphaSystem() {
 		AlphaSystemImpl alphaSystem = new AlphaSystemImpl();
 		return alphaSystem;
@@ -275,6 +281,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Variable createVariable() {
 		VariableImpl variable = new VariableImpl();
 		return variable;
@@ -285,6 +292,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FuzzyVariable createFuzzyVariable() {
 		FuzzyVariableImpl fuzzyVariable = new FuzzyVariableImpl();
 		return fuzzyVariable;
@@ -295,6 +303,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SystemBody createSystemBody() {
 		SystemBodyImpl systemBody = new SystemBodyImpl();
 		return systemBody;
@@ -305,6 +314,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StandardEquation createStandardEquation() {
 		StandardEquationImpl standardEquation = new StandardEquationImpl();
 		return standardEquation;
@@ -315,6 +325,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UseEquation createUseEquation() {
 		UseEquationImpl useEquation = new UseEquationImpl();
 		return useEquation;
@@ -325,6 +336,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RestrictExpression createRestrictExpression() {
 		RestrictExpressionImpl restrictExpression = new RestrictExpressionImpl();
 		return restrictExpression;
@@ -335,6 +347,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AutoRestrictExpression createAutoRestrictExpression() {
 		AutoRestrictExpressionImpl autoRestrictExpression = new AutoRestrictExpressionImpl();
 		return autoRestrictExpression;
@@ -345,6 +358,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CaseExpression createCaseExpression() {
 		CaseExpressionImpl caseExpression = new CaseExpressionImpl();
 		return caseExpression;
@@ -355,6 +369,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DependenceExpression createDependenceExpression() {
 		DependenceExpressionImpl dependenceExpression = new DependenceExpressionImpl();
 		return dependenceExpression;
@@ -365,6 +380,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FuzzyDependenceExpression createFuzzyDependenceExpression() {
 		FuzzyDependenceExpressionImpl fuzzyDependenceExpression = new FuzzyDependenceExpressionImpl();
 		return fuzzyDependenceExpression;
@@ -375,6 +391,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IfExpression createIfExpression() {
 		IfExpressionImpl ifExpression = new IfExpressionImpl();
 		return ifExpression;
@@ -385,6 +402,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IndexExpression createIndexExpression() {
 		IndexExpressionImpl indexExpression = new IndexExpressionImpl();
 		return indexExpression;
@@ -395,6 +413,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FuzzyIndexExpression createFuzzyIndexExpression() {
 		FuzzyIndexExpressionImpl fuzzyIndexExpression = new FuzzyIndexExpressionImpl();
 		return fuzzyIndexExpression;
@@ -405,6 +424,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ReduceExpression createReduceExpression() {
 		ReduceExpressionImpl reduceExpression = new ReduceExpressionImpl();
 		return reduceExpression;
@@ -415,6 +435,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExternalReduceExpression createExternalReduceExpression() {
 		ExternalReduceExpressionImpl externalReduceExpression = new ExternalReduceExpressionImpl();
 		return externalReduceExpression;
@@ -425,6 +446,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArgReduceExpression createArgReduceExpression() {
 		ArgReduceExpressionImpl argReduceExpression = new ArgReduceExpressionImpl();
 		return argReduceExpression;
@@ -435,6 +457,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExternalArgReduceExpression createExternalArgReduceExpression() {
 		ExternalArgReduceExpressionImpl externalArgReduceExpression = new ExternalArgReduceExpressionImpl();
 		return externalArgReduceExpression;
@@ -445,6 +468,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConvolutionExpression createConvolutionExpression() {
 		ConvolutionExpressionImpl convolutionExpression = new ConvolutionExpressionImpl();
 		return convolutionExpression;
@@ -455,6 +479,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SelectExpression createSelectExpression() {
 		SelectExpressionImpl selectExpression = new SelectExpressionImpl();
 		return selectExpression;
@@ -465,6 +490,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VariableExpression createVariableExpression() {
 		VariableExpressionImpl variableExpression = new VariableExpressionImpl();
 		return variableExpression;
@@ -475,6 +501,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IntegerExpression createIntegerExpression() {
 		IntegerExpressionImpl integerExpression = new IntegerExpressionImpl();
 		return integerExpression;
@@ -485,6 +512,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RealExpression createRealExpression() {
 		RealExpressionImpl realExpression = new RealExpressionImpl();
 		return realExpression;
@@ -495,6 +523,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BooleanExpression createBooleanExpression() {
 		BooleanExpressionImpl booleanExpression = new BooleanExpressionImpl();
 		return booleanExpression;
@@ -505,6 +534,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnaryExpression createUnaryExpression() {
 		UnaryExpressionImpl unaryExpression = new UnaryExpressionImpl();
 		return unaryExpression;
@@ -515,6 +545,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BinaryExpression createBinaryExpression() {
 		BinaryExpressionImpl binaryExpression = new BinaryExpressionImpl();
 		return binaryExpression;
@@ -525,6 +556,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MultiArgExpression createMultiArgExpression() {
 		MultiArgExpressionImpl multiArgExpression = new MultiArgExpressionImpl();
 		return multiArgExpression;
@@ -535,6 +567,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExternalMultiArgExpression createExternalMultiArgExpression() {
 		ExternalMultiArgExpressionImpl externalMultiArgExpression = new ExternalMultiArgExpressionImpl();
 		return externalMultiArgExpression;
@@ -545,6 +578,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FuzzyReduceExpression createFuzzyReduceExpression() {
 		FuzzyReduceExpressionImpl fuzzyReduceExpression = new FuzzyReduceExpressionImpl();
 		return fuzzyReduceExpression;
@@ -555,6 +589,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExternalFuzzyReduceExpression createExternalFuzzyReduceExpression() {
 		ExternalFuzzyReduceExpressionImpl externalFuzzyReduceExpression = new ExternalFuzzyReduceExpressionImpl();
 		return externalFuzzyReduceExpression;
@@ -565,6 +600,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FuzzyArgReduceExpression createFuzzyArgReduceExpression() {
 		FuzzyArgReduceExpressionImpl fuzzyArgReduceExpression = new FuzzyArgReduceExpressionImpl();
 		return fuzzyArgReduceExpression;
@@ -575,6 +611,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExternalFuzzyArgReduceExpression createExternalFuzzyArgReduceExpression() {
 		ExternalFuzzyArgReduceExpressionImpl externalFuzzyArgReduceExpression = new ExternalFuzzyArgReduceExpressionImpl();
 		return externalFuzzyArgReduceExpression;
@@ -585,6 +622,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PolyhedralObject createPolyhedralObject() {
 		PolyhedralObjectImpl polyhedralObject = new PolyhedralObjectImpl();
 		return polyhedralObject;
@@ -595,6 +633,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIDomain createJNIDomain() {
 		JNIDomainImpl jniDomain = new JNIDomainImpl();
 		return jniDomain;
@@ -605,6 +644,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIDomainInArrayNotation createJNIDomainInArrayNotation() {
 		JNIDomainInArrayNotationImpl jniDomainInArrayNotation = new JNIDomainInArrayNotationImpl();
 		return jniDomainInArrayNotation;
@@ -615,6 +655,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIRelation createJNIRelation() {
 		JNIRelationImpl jniRelation = new JNIRelationImpl();
 		return jniRelation;
@@ -625,6 +666,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIFunction createJNIFunction() {
 		JNIFunctionImpl jniFunction = new JNIFunctionImpl();
 		return jniFunction;
@@ -635,6 +677,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JNIFunctionInArrayNotation createJNIFunctionInArrayNotation() {
 		JNIFunctionInArrayNotationImpl jniFunctionInArrayNotation = new JNIFunctionInArrayNotationImpl();
 		return jniFunctionInArrayNotation;
@@ -645,6 +688,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FuzzyFunction createFuzzyFunction() {
 		FuzzyFunctionImpl fuzzyFunction = new FuzzyFunctionImpl();
 		return fuzzyFunction;
@@ -655,6 +699,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NestedFuzzyFunction createNestedFuzzyFunction() {
 		NestedFuzzyFunctionImpl nestedFuzzyFunction = new NestedFuzzyFunctionImpl();
 		return nestedFuzzyFunction;
@@ -665,6 +710,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AffineFuzzyVariableUse createAffineFuzzyVariableUse() {
 		AffineFuzzyVariableUseImpl affineFuzzyVariableUse = new AffineFuzzyVariableUseImpl();
 		return affineFuzzyVariableUse;
@@ -675,6 +721,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FuzzyFunctionInArrayNotation createFuzzyFunctionInArrayNotation() {
 		FuzzyFunctionInArrayNotationImpl fuzzyFunctionInArrayNotation = new FuzzyFunctionInArrayNotationImpl();
 		return fuzzyFunctionInArrayNotation;
@@ -685,6 +732,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnaryCalculatorExpression createUnaryCalculatorExpression() {
 		UnaryCalculatorExpressionImpl unaryCalculatorExpression = new UnaryCalculatorExpressionImpl();
 		return unaryCalculatorExpression;
@@ -695,6 +743,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BinaryCalculatorExpression createBinaryCalculatorExpression() {
 		BinaryCalculatorExpressionImpl binaryCalculatorExpression = new BinaryCalculatorExpressionImpl();
 		return binaryCalculatorExpression;
@@ -705,6 +754,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VariableDomain createVariableDomain() {
 		VariableDomainImpl variableDomain = new VariableDomainImpl();
 		return variableDomain;
@@ -715,6 +765,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RectangularDomain createRectangularDomain() {
 		RectangularDomainImpl rectangularDomain = new RectangularDomainImpl();
 		return rectangularDomain;
@@ -725,6 +776,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DefinedObject createDefinedObject() {
 		DefinedObjectImpl definedObject = new DefinedObjectImpl();
 		return definedObject;
@@ -735,6 +787,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaFunction createAlphaFunction() {
 		AlphaFunctionImpl alphaFunction = new AlphaFunctionImpl();
 		return alphaFunction;
@@ -745,6 +798,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaFunctionBinaryExpression createAlphaFunctionBinaryExpression() {
 		AlphaFunctionBinaryExpressionImpl alphaFunctionBinaryExpression = new AlphaFunctionBinaryExpressionImpl();
 		return alphaFunctionBinaryExpression;
@@ -755,6 +809,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlphaFunctionLiteral createAlphaFunctionLiteral() {
 		AlphaFunctionLiteralImpl alphaFunctionLiteral = new AlphaFunctionLiteralImpl();
 		return alphaFunctionLiteral;
@@ -1031,6 +1086,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelPackage getModelPackage() {
 		return (ModelPackage)getEPackage();
 	}
