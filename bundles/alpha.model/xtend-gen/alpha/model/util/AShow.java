@@ -73,6 +73,9 @@ public class AShow extends Show {
         contextCollector.doSwitch(AlphaUtil.getContainerSystem(av));
         ashow.parameterContext = contextCollector.parameterContext;
         ashow.indexNameContext = contextCollector.indexNameContextWhenHalted;
+        if ((ashow.indexNameContext == null)) {
+          return new Show().doSwitch(av).toString();
+        }
       }
       _xblockexpression = ashow.doSwitch(av).toString();
     }
