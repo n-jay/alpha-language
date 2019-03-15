@@ -1639,6 +1639,44 @@ public class MatrixOperations {
 		}
 	}
 
+	public static String matrixToString(long[][] A) {
+		StringBuffer sb = new StringBuffer();
+		
+		if (A == null) {
+			sb.append("[]");
+			return sb.toString();
+		}
+
+		boolean first = true;
+		for (long[] row : A) {
+			if (!first) sb.append("\n");
+			sb.append(vectorToString(row));
+			first = false;
+		}
+		
+		
+		return sb.toString();
+	}
+	
+	public static String vectorToString(long[] vec) {
+		StringBuffer sb = new StringBuffer();
+
+		if (vec == null || vec.length == 0) {
+			sb.append("[]");
+			return sb.toString();
+		}
+
+		sb.append("[");
+		for (int i = 0; i < vec.length - 1; i++) {
+			sb.append(vec[i]);
+			sb.append(", ");
+		}
+		sb.append(vec[vec.length - 1]);
+		sb.append("]");
+		
+		return sb.toString();
+	}
+	
 	/**
 	 * Prints out the given matrix to System.out.
 	 * 
