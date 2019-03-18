@@ -2,9 +2,9 @@ package alpha.model.transformation.reduction;
 
 import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaInternalStateConstructor;
-import alpha.model.ReduceExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
+import alpha.model.transformation.reduction.ReductionUtil;
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools;
@@ -50,7 +50,7 @@ public class ReductionDecomposition {
       if ((!(validDecomposition).booleanValue())) {
         throw new IllegalArgumentException("[ReductionDecomposition] The composition of input functions must match the original projection. ");
       }
-      final ReduceExpression innerARE = AlphaUserFactory.createReduceExpression(are.getOperator(), f1, are.getBody());
+      final AbstractReduceExpression innerARE = ReductionUtil.constructConcreteReduction(are, are.getOperator(), f1, are.getBody());
       are.setBody(innerARE);
       are.setProjectionExpr(AlphaUserFactory.createJNIFunction(f2));
       _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(innerARE);

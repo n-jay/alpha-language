@@ -1,11 +1,11 @@
 package alpha.model.transformation.reduction
 
 import alpha.model.AbstractReduceExpression
+import alpha.model.AlphaInternalStateConstructor
 import alpha.model.factory.AlphaUserFactory
 import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools
-import alpha.model.AlphaInternalStateConstructor
 
 /**
  * ReductionDecomposition splits a reduction into two.
@@ -35,7 +35,7 @@ class ReductionDecomposition {
 			throw new IllegalArgumentException("[ReductionDecomposition] The composition of input functions must match the original projection. ");
 		}
 		
-		val innerARE = AlphaUserFactory.createReduceExpression(are.operator, f1, are.body)
+		val innerARE = ReductionUtil.constructConcreteReduction(are, are.operator, f1, are.body)
 		are.body = innerARE
 		are.projectionExpr = AlphaUserFactory.createJNIFunction(f2)
 		
