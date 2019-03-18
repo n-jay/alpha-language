@@ -59,7 +59,7 @@ class PermutationCaseReduce {
 	 * This method throws an exception when it is not applicable to the specified expression.
 	 */
 	static def apply(AbstractReduceExpression are) {
-		if (transform(are) != 1) {
+		if (transform(are) < 1) {
 			throw new IllegalArgumentException("[PermutationCaseReduce] Target AbstractReduceExpression must have a CaseExpression as its body.");
 		}
 	}

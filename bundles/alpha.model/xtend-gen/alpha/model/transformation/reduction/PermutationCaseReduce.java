@@ -76,8 +76,8 @@ public class PermutationCaseReduce {
    */
   public static void apply(final AbstractReduceExpression are) {
     int _transform = PermutationCaseReduce.transform(are);
-    boolean _notEquals = (_transform != 1);
-    if (_notEquals) {
+    boolean _lessThan = (_transform < 1);
+    if (_lessThan) {
       throw new IllegalArgumentException("[PermutationCaseReduce] Target AbstractReduceExpression must have a CaseExpression as its body.");
     }
   }
