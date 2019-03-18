@@ -161,7 +161,7 @@ public class AlphaModelLoader {
 		IResourceValidator validator = ((XtextResource) resource).getResourceServiceProvider().getResourceValidator();
 		
 		//CheckMode.EXPENSIVE triggers CheckProgram
-		List<Issue> issues = validator.validate(resource, CheckMode.NORMAL_AND_FAST, CancelIndicator.NullImpl);
+		List<Issue> issues = validator.validate(resource, CheckMode.FAST_ONLY, CancelIndicator.NullImpl);
 		return issues;
 	}
 	

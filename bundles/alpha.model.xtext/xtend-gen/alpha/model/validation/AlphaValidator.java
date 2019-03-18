@@ -37,18 +37,15 @@ public class AlphaValidator extends AbstractAlphaValidator {
     }
   }
   
-  @Check
+  @Check(CheckType.NORMAL)
   public void checkRoot(final AlphaRoot root) {
-    boolean _shouldCheck = this.getCheckMode().shouldCheck(CheckType.EXPENSIVE);
-    if (_shouldCheck) {
-      final List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(root);
-      final Function1<AlphaIssue, Boolean> _function = (AlphaIssue i) -> {
-        return Boolean.valueOf(EcoreUtil.isAncestor(root, i.getSource()));
-      };
-      final Consumer<AlphaIssue> _function_1 = (AlphaIssue i) -> {
-        this.flagEditor(i.getType(), i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
-      };
-      IterableExtensions.<AlphaIssue>filter(issues, _function).forEach(_function_1);
-    }
+    final List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(root);
+    final Function1<AlphaIssue, Boolean> _function = (AlphaIssue i) -> {
+      return Boolean.valueOf(EcoreUtil.isAncestor(root, i.getSource()));
+    };
+    final Consumer<AlphaIssue> _function_1 = (AlphaIssue i) -> {
+      this.flagEditor(i.getType(), i.getMessage(), i.getSource(), i.getFeature(), ValidationMessageAcceptor.INSIGNIFICANT_INDEX);
+    };
+    IterableExtensions.<AlphaIssue>filter(issues, _function).forEach(_function_1);
   }
 }

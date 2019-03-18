@@ -33,11 +33,9 @@ class AlphaValidator extends AbstractAlphaValidator {
 		}	
 	}
 	
-	@Check
+	@Check(NORMAL)
 	def checkRoot(AlphaRoot root) {
-		if (checkMode.shouldCheck(CheckType.EXPENSIVE)) {
-			val issues = AlphaInternalStateConstructor.compute(root);
-			issues.filter[i|EcoreUtil.isAncestor(root, i.source)].forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
-		}		
+		val issues = AlphaInternalStateConstructor.compute(root);
+		issues.filter[i|EcoreUtil.isAncestor(root, i.source)].forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
 	}
 }
