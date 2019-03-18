@@ -129,6 +129,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 	 * Additional Rules:
 	 *  - remove restrict expression when it is redundant (expression domain is unchanged by the restrict)
 	 *  - remove branches of case expressions that have empty context domain
+	 *  - replaces case with its child if it only has a branch
 	 */
 
 	final boolean DEEP;
@@ -587,6 +588,11 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		val emptyExprs = new LinkedList<AlphaExpression>
 		ce.exprs.forEach[e| if (e.contextDomain.isEmpty) emptyExprs.add(e)]
 		ce.exprs.removeAll(emptyExprs)
+		
+		//remove case if it has single branch
+		if (ce.exprs.size == 1) {
+			EcoreUtil.replace(ce, ce.exprs.get(0))
+		}
 		
 	}
 	

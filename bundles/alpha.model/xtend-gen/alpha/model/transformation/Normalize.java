@@ -134,6 +134,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
    * Additional Rules:
    *  - remove restrict expression when it is redundant (expression domain is unchanged by the restrict)
    *  - remove branches of case expressions that have empty context domain
+   *  - replaces case with its child if it only has a branch
    */
   private final boolean DEEP;
   
@@ -620,6 +621,11 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     };
     ce.getExprs().forEach(_function_2);
     ce.getExprs().removeAll(emptyExprs);
+    int _size = ce.getExprs().size();
+    boolean _equals = (_size == 1);
+    if (_equals) {
+      EcoreUtil.replace(ce, ce.getExprs().get(0));
+    }
   }
   
   @Override
