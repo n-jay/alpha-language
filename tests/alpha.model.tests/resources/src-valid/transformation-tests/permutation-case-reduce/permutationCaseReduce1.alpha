@@ -1,4 +1,9 @@
-package tests.valid.trans.permutationCaseReduce {
+/**
+ * Test for PermutationCaseReduce.
+ *
+ * All reductions should not have CaseExpression as its body after the transformation.
+ */
+ package tests.valid.trans.permutationCaseReduce {
 	
 affine permutationCaseReduce1a [N] -> { : N>0}
 	inputs
