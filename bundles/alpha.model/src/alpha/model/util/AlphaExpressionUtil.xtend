@@ -10,6 +10,7 @@ import alpha.model.issue.AlphaIssue
 import alpha.model.issue.AlphaIssueFactory
 import alpha.model.issue.UnexpectedISLErrorIssue
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
@@ -18,8 +19,10 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
 import java.util.function.Consumer
+import java.util.function.Function
 import java.util.stream.Stream
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList
+import alpha.model.AutoRestrictExpression
+import alpha.model.factory.AlphaUserFactory
 
 /**
  * Utility methods that concern AlphaExpressions.
@@ -247,4 +250,18 @@ class AlphaExpressionUtil {
 		
 		return JNIISLMultiAff.buildFromAffList(exSpace, affList);
 	}
+	
+	public static final Function<AlphaExpression, AlphaExpression> filterAutoRestrict = [expr|
+		if (expr instanceof AutoRestrictExpression) {
+			val are = expr as AutoRestrictExpression
+			val re = AlphaUserFactory.createRestrictExpression(are.inferredDomain, are.expr);
+			re.expressionDomain = are.expressionDomain
+			re.contextDomain = are.contextDomain
+			re
+		} else {
+			expr
+		}
+	];
+	
+	
 }

@@ -3,11 +3,14 @@ package alpha.model.util;
 import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaNode;
+import alpha.model.AutoRestrictExpression;
 import alpha.model.CalculatorExpression;
 import alpha.model.POLY_OBJECT_TYPE;
+import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
+import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.UnexpectedISLErrorIssue;
@@ -297,6 +300,24 @@ public class AlphaExpressionUtil {
     }
     return JNIISLMultiAff.buildFromAffList(exSpace, affList);
   }
+  
+  public static final Function<AlphaExpression, AlphaExpression> filterAutoRestrict = ((Function<AlphaExpression, AlphaExpression>) (AlphaExpression expr) -> {
+    AlphaExpression _xifexpression = null;
+    if ((expr instanceof AutoRestrictExpression)) {
+      RestrictExpression _xblockexpression = null;
+      {
+        final AutoRestrictExpression are = ((AutoRestrictExpression) expr);
+        final RestrictExpression re = AlphaUserFactory.createRestrictExpression(are.getInferredDomain(), are.getExpr());
+        re.setExpressionDomain(are.getExpressionDomain());
+        re.setContextDomain(are.getContextDomain());
+        _xblockexpression = re;
+      }
+      _xifexpression = _xblockexpression;
+    } else {
+      _xifexpression = expr;
+    }
+    return _xifexpression;
+  });
   
   public static JNIISLSet parentContext(final AlphaExpression child, final AlphaCompleteVisitable parent, final Consumer<AlphaIssue> f) {
     if (parent instanceof StandardEquation) {
