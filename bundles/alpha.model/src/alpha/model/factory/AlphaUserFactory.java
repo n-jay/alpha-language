@@ -1,6 +1,7 @@
 package alpha.model.factory;
 
 import alpha.model.AlphaExpression;
+import alpha.model.ArgReduceExpression;
 import alpha.model.BINARY_OP;
 import alpha.model.BinaryExpression;
 import alpha.model.CaseExpression;
@@ -233,6 +234,17 @@ public class AlphaUserFactory {
 		nullCheck(op, projection, expr);
 		
 		ReduceExpression re = fact.createReduceExpression();
+		
+		re.setOperator(op);
+		re.setProjectionExpr(createJNIFunction(projection));
+		re.setBody(expr);
+		
+		return re;
+	}
+	public static ArgReduceExpression createArgReduceExpression(REDUCTION_OP op, JNIISLMultiAff projection, AlphaExpression expr) {
+		nullCheck(op, projection, expr);
+		
+		ArgReduceExpression re = fact.createArgReduceExpression();
 		
 		re.setOperator(op);
 		re.setProjectionExpr(createJNIFunction(projection));
