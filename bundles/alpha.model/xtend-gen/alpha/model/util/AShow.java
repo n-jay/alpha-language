@@ -88,8 +88,13 @@ public class AShow extends Show {
     if (((this.haltTarget != null) && (this.haltTarget == obj))) {
       CharSequence _xblockexpression = null;
       {
-        LinkedList<String> _linkedList = new LinkedList<String>(this.indexNameContext);
-        this.indexNameContextWhenHalted = _linkedList;
+        LinkedList<String> _xifexpression_1 = null;
+        if ((this.haltTarget instanceof AlphaSystemElement)) {
+          _xifexpression_1 = new LinkedList<String>();
+        } else {
+          _xifexpression_1 = new LinkedList<String>(this.indexNameContext);
+        }
+        this.indexNameContextWhenHalted = _xifexpression_1;
         StringConcatenation _builder = new StringConcatenation();
         _xblockexpression = _builder;
       }

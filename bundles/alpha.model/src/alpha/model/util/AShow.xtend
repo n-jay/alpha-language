@@ -68,7 +68,13 @@ class AShow extends Show {
 	
 	override doSwitch(EObject obj) {
 		if (haltTarget !== null && haltTarget === obj) {
-			indexNameContextWhenHalted = new LinkedList<String>(indexNameContext)
+			//when the halt target is not Equations, then there is no context except for parameter domain
+			// setting this to null (incorrectly) triggers Show 
+			indexNameContextWhenHalted = 
+			if (haltTarget instanceof AlphaSystemElement)
+				new LinkedList<String>()
+			else
+				new LinkedList<String>(indexNameContext)
 			''''''
 		} else {
 			super.doSwitch(obj)
