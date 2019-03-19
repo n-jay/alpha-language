@@ -29,9 +29,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.EcoreUtil2;
 
-import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
-import org.eclipse.xtext.naming.IQualifiedNameProvider;
-
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -165,10 +162,9 @@ public class AlphaRootImpl extends MinimalEObjectImpl.Container implements Alpha
 	public AlphaSystem getSystem(final String name) {
 		boolean _contains = name.contains(".");
 		if (_contains) {
-			final IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider();
 			final Function1<AlphaSystem, Boolean> _function = new Function1<AlphaSystem, Boolean>() {
 				public Boolean apply(final AlphaSystem s) {
-					return Boolean.valueOf(provider.getFullyQualifiedName(s).toString().contentEquals(name));
+					return Boolean.valueOf(s.getFullyQualifiedName().contentEquals(name));
 				}
 			};
 			final AlphaSystem system = IterableExtensions.<AlphaSystem>findFirst(EcoreUtil2.<AlphaSystem>getAllContentsOfType(this, AlphaSystem.class), _function);

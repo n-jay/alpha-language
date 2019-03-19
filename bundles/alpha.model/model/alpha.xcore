@@ -263,8 +263,7 @@ class AlphaRoot extends AlphaVisitable {
 	op AlphaSystem getSystem(String name) {
 		//qualified name
 		if (name.contains('.')) {
-			val IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider;
-			val system =  EcoreUtil2.getAllContentsOfType(this, AlphaSystem).findFirst[s|provider.getFullyQualifiedName(s).toString.contentEquals(name)]
+			val system =  EcoreUtil2.getAllContentsOfType(this, AlphaSystem).findFirst[s|s.getFullyQualifiedName.contentEquals(name)]
 			if (system !== null) return system
 		//just the system name
 		} else {
@@ -355,6 +354,11 @@ class AlphaSystem extends AlphaElement {
 	
 	op Variable getVariable(String varName) {
 		return getVariables.findFirst[v|v.name.contentEquals(varName)]
+	}
+	
+	op String getFullyQualifiedName() {
+		val IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider;
+		provider.getFullyQualifiedName(this).toString
 	}
 	
 	op void accept(AlphaVisitor visitor) {

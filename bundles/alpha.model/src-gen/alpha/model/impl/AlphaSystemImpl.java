@@ -39,6 +39,9 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
+
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -462,6 +465,21 @@ public class AlphaSystemImpl extends MinimalEObjectImpl.Container implements Alp
 			}
 		};
 		return IterableExtensions.<Variable>findFirst(this.getVariables(), _function);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getFullyQualifiedName() {
+		String _xblockexpression = null;
+		{
+			final IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider();
+			_xblockexpression = provider.getFullyQualifiedName(this).toString();
+		}
+		return _xblockexpression;
 	}
 
 	/**
