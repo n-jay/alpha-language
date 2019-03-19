@@ -56,8 +56,6 @@ public class DomainOperations {
 		long[][] eqArray = toLongArrayFromEqualityMatrix(eqMat, true);
 		
 		long[][] array = MatrixOperations.rowBind(ineqArray, eqArray);
-		MatrixOperations.printMatrix(array);
-		
 		
 		return MatrixOperations.nullspace(array);
 	}
