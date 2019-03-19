@@ -86,6 +86,10 @@ public class DomainOperations {
 	
 	public static long[][] toLongArrayFromEqualityMatrix(JNIISLMatrix mat, boolean linearPartOnly) {
 		long[][] pos = toLongArray(mat, linearPartOnly);
+		
+		if (pos.length == 0)
+			return pos;
+		
 		long[][] array = MatrixOperations.rowBind(pos, MatrixOperations.scalarMultiplication(pos, -1));
 		
 		return array;
