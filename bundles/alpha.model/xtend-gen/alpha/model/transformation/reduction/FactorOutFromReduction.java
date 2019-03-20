@@ -13,12 +13,15 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaOperatorUtil;
 import com.google.common.base.Objects;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.Arrays;
 import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 
 /**
  * FactorOutFromReduction moves an expression within a reduction outwards.
@@ -65,6 +68,21 @@ public class FactorOutFromReduction {
     List<AlphaIssue> _xblockexpression = null;
     {
       this.traverse(this.targetExpr, this.targetExpr.eContainer());
+      boolean _xblockexpression_1 = false;
+      {
+        final JNIISLSet ctx = this.targetReduce.getBody().getContextDomain();
+        final int nbDims = ctx.getNbDims(JNIISLDimType.isl_dim_set);
+        boolean bounded = true;
+        ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, nbDims, true);
+        for (final Integer d : _doubleDotLessThan) {
+          bounded = (bounded && ctx.hasAnyLowerBound(JNIISLDimType.isl_dim_set, (d).intValue()));
+        }
+        _xblockexpression_1 = bounded;
+      }
+      final boolean bounded = _xblockexpression_1;
+      if ((!bounded)) {
+        throw new IllegalArgumentException("[FactorOutFromReduction] The reduction body enclosing the target expression has unbounded context domain.");
+      }
       if ((this.enclosingOperation == null)) {
         throw new IllegalArgumentException("[FactorOutFromReduction] Target expression is not enclosed in a BinaryExpression or MultiArgExpression.");
       }

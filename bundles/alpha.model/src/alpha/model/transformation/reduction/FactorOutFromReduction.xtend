@@ -13,6 +13,7 @@ import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaOperatorUtil
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 
 /**
  * FactorOutFromReduction moves an expression within a reduction outwards.
@@ -51,7 +52,21 @@ class FactorOutFromReduction {
 	
 	private def transform() {
 		targetExpr.traverse(targetExpr.eContainer);
-
+		
+		val bounded = {
+			val ctx = targetReduce.body.contextDomain;
+			val nbDims = ctx.getNbDims(JNIISLDimType.isl_dim_set);
+			var bounded = true
+			for (d : 0..<nbDims) {
+				bounded = bounded && ctx.hasAnyLowerBound(JNIISLDimType.isl_dim_set, d)
+			}
+			bounded
+		}
+		
+		if (!bounded) {
+			throw new IllegalArgumentException("[FactorOutFromReduction] The reduction body enclosing the target expression has unbounded context domain.");
+		}
+		
 		if (enclosingOperation === null)
 			throw new IllegalArgumentException("[FactorOutFromReduction] Target expression is not enclosed in a BinaryExpression or MultiArgExpression.");
 		
@@ -137,5 +152,5 @@ class FactorOutFromReduction {
 		}
 		
 		mae.traverse(mae.eContainer)
-	}	
+	}
 }
