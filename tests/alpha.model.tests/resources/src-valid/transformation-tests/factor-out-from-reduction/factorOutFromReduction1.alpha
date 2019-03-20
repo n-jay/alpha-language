@@ -1,0 +1,31 @@
+/**
+ * Test for FactorOutOfReduction.
+ *
+ * All reductions should only have a Binary/MultiArgExpression as its content to uniquely identify the target.
+ * The first expression of the Binary/MultiArgExpression is factored out.
+ * All reductions should be enclosed in a BinaryExpression or MultiArgExpression after the transformation.
+ */
+package tests.valid.trans.factorOutOfReduction {
+
+affine factorOutOfReduction1a [N] -> { : N>0}
+	inputs
+		Y : {}
+		Z : [N]
+	outputs
+		X : {}
+	let
+		X = reduce(+, [i], Y[] * Z[i]);
+.
+ 
+affine factorOutOfReduction1b [N] -> { : N>0}
+	inputs
+		Y : {}
+		Z : [N]
+	outputs
+		X : {}
+	let
+		X = reduce(+, [i], prod(Y[], Z[i], 1[]));
+.
+ 
+
+}
