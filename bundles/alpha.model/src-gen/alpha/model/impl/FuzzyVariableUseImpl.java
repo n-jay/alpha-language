@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +29,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public abstract class FuzzyVariableUseImpl extends MinimalEObjectImpl.Container implements FuzzyVariableUse {
+public abstract class FuzzyVariableUseImpl extends AlphaNodeImpl implements FuzzyVariableUse {
 	/**
 	 * The default value of the '{@link #getFuzzyIndex() <em>Fuzzy Index</em>}' attribute.
 	 * <!-- begin-user-doc -->

@@ -2,6 +2,7 @@
  */
 package alpha.model;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,5 +21,5 @@ package alpha.model;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface AlphaCompleteVisitable extends AlphaNode {
+public interface AlphaCompleteVisitable extends EObject {
 } // AlphaCompleteVisitable

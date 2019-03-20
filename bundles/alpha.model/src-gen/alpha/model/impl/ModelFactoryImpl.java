@@ -68,6 +68,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case ModelPackage.ALPHA_NODE: return createAlphaNode();
 			case ModelPackage.ALPHA_ROOT: return createAlphaRoot();
 			case ModelPackage.IMPORTS: return createImports();
 			case ModelPackage.ALPHA_PACKAGE: return createAlphaPackage();
@@ -208,6 +209,17 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AlphaNode createAlphaNode() {
+		AlphaNodeImpl alphaNode = new AlphaNodeImpl();
+		return alphaNode;
 	}
 
 	/**

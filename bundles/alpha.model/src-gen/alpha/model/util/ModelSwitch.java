@@ -75,7 +75,6 @@ public class ModelSwitch<T> extends Switch<T> {
 			case ModelPackage.ALPHA_COMPLETE_VISITABLE: {
 				AlphaCompleteVisitable alphaCompleteVisitable = (AlphaCompleteVisitable)theEObject;
 				T result = caseAlphaCompleteVisitable(alphaCompleteVisitable);
-				if (result == null) result = caseAlphaNode(alphaCompleteVisitable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -83,7 +82,6 @@ public class ModelSwitch<T> extends Switch<T> {
 				AlphaVisitable alphaVisitable = (AlphaVisitable)theEObject;
 				T result = caseAlphaVisitable(alphaVisitable);
 				if (result == null) result = caseAlphaCompleteVisitable(alphaVisitable);
-				if (result == null) result = caseAlphaNode(alphaVisitable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -91,14 +89,12 @@ public class ModelSwitch<T> extends Switch<T> {
 				AlphaExpressionVisitable alphaExpressionVisitable = (AlphaExpressionVisitable)theEObject;
 				T result = caseAlphaExpressionVisitable(alphaExpressionVisitable);
 				if (result == null) result = caseAlphaCompleteVisitable(alphaExpressionVisitable);
-				if (result == null) result = caseAlphaNode(alphaExpressionVisitable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.CALCULATOR_EXPRESSION_VISITABLE: {
 				CalculatorExpressionVisitable calculatorExpressionVisitable = (CalculatorExpressionVisitable)theEObject;
 				T result = caseCalculatorExpressionVisitable(calculatorExpressionVisitable);
-				if (result == null) result = caseAlphaNode(calculatorExpressionVisitable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -129,27 +125,27 @@ public class ModelSwitch<T> extends Switch<T> {
 			case ModelPackage.ALPHA_ROOT: {
 				AlphaRoot alphaRoot = (AlphaRoot)theEObject;
 				T result = caseAlphaRoot(alphaRoot);
+				if (result == null) result = caseAlphaNode(alphaRoot);
 				if (result == null) result = caseAlphaVisitable(alphaRoot);
 				if (result == null) result = caseAlphaCompleteVisitable(alphaRoot);
-				if (result == null) result = caseAlphaNode(alphaRoot);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.ALPHA_ELEMENT: {
 				AlphaElement alphaElement = (AlphaElement)theEObject;
 				T result = caseAlphaElement(alphaElement);
+				if (result == null) result = caseAlphaNode(alphaElement);
 				if (result == null) result = caseAlphaVisitable(alphaElement);
 				if (result == null) result = caseAlphaCompleteVisitable(alphaElement);
-				if (result == null) result = caseAlphaNode(alphaElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.IMPORTS: {
 				Imports imports = (Imports)theEObject;
 				T result = caseImports(imports);
+				if (result == null) result = caseAlphaNode(imports);
 				if (result == null) result = caseAlphaVisitable(imports);
 				if (result == null) result = caseAlphaCompleteVisitable(imports);
-				if (result == null) result = caseAlphaNode(imports);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -157,9 +153,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				AlphaPackage alphaPackage = (AlphaPackage)theEObject;
 				T result = caseAlphaPackage(alphaPackage);
 				if (result == null) result = caseAlphaElement(alphaPackage);
+				if (result == null) result = caseAlphaNode(alphaPackage);
 				if (result == null) result = caseAlphaVisitable(alphaPackage);
 				if (result == null) result = caseAlphaCompleteVisitable(alphaPackage);
-				if (result == null) result = caseAlphaNode(alphaPackage);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -167,9 +163,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				AlphaConstant alphaConstant = (AlphaConstant)theEObject;
 				T result = caseAlphaConstant(alphaConstant);
 				if (result == null) result = caseAlphaElement(alphaConstant);
+				if (result == null) result = caseAlphaNode(alphaConstant);
 				if (result == null) result = caseAlphaVisitable(alphaConstant);
 				if (result == null) result = caseAlphaCompleteVisitable(alphaConstant);
-				if (result == null) result = caseAlphaNode(alphaConstant);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -177,9 +173,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				ExternalFunction externalFunction = (ExternalFunction)theEObject;
 				T result = caseExternalFunction(externalFunction);
 				if (result == null) result = caseAlphaElement(externalFunction);
+				if (result == null) result = caseAlphaNode(externalFunction);
 				if (result == null) result = caseAlphaVisitable(externalFunction);
 				if (result == null) result = caseAlphaCompleteVisitable(externalFunction);
-				if (result == null) result = caseAlphaNode(externalFunction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -187,19 +183,19 @@ public class ModelSwitch<T> extends Switch<T> {
 				AlphaSystem alphaSystem = (AlphaSystem)theEObject;
 				T result = caseAlphaSystem(alphaSystem);
 				if (result == null) result = caseAlphaElement(alphaSystem);
+				if (result == null) result = caseAlphaNode(alphaSystem);
 				if (result == null) result = caseAlphaVisitable(alphaSystem);
 				if (result == null) result = caseAlphaCompleteVisitable(alphaSystem);
-				if (result == null) result = caseAlphaNode(alphaSystem);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.VARIABLE: {
 				Variable variable = (Variable)theEObject;
 				T result = caseVariable(variable);
+				if (result == null) result = caseAlphaNode(variable);
 				if (result == null) result = caseAlphaVisitable(variable);
 				if (result == null) result = caseAlphaSystemElement(variable);
 				if (result == null) result = caseAlphaCompleteVisitable(variable);
-				if (result == null) result = caseAlphaNode(variable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -207,30 +203,30 @@ public class ModelSwitch<T> extends Switch<T> {
 				FuzzyVariable fuzzyVariable = (FuzzyVariable)theEObject;
 				T result = caseFuzzyVariable(fuzzyVariable);
 				if (result == null) result = caseVariable(fuzzyVariable);
+				if (result == null) result = caseAlphaNode(fuzzyVariable);
 				if (result == null) result = caseAlphaVisitable(fuzzyVariable);
 				if (result == null) result = caseAlphaSystemElement(fuzzyVariable);
 				if (result == null) result = caseAlphaCompleteVisitable(fuzzyVariable);
-				if (result == null) result = caseAlphaNode(fuzzyVariable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.SYSTEM_BODY: {
 				SystemBody systemBody = (SystemBody)theEObject;
 				T result = caseSystemBody(systemBody);
+				if (result == null) result = caseAlphaNode(systemBody);
 				if (result == null) result = caseAlphaVisitable(systemBody);
 				if (result == null) result = caseAlphaSystemElement(systemBody);
 				if (result == null) result = caseAlphaCompleteVisitable(systemBody);
-				if (result == null) result = caseAlphaNode(systemBody);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.EQUATION: {
 				Equation equation = (Equation)theEObject;
 				T result = caseEquation(equation);
+				if (result == null) result = caseAlphaNode(equation);
 				if (result == null) result = caseAlphaVisitable(equation);
 				if (result == null) result = caseAlphaSystemElement(equation);
 				if (result == null) result = caseAlphaCompleteVisitable(equation);
-				if (result == null) result = caseAlphaNode(equation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -238,10 +234,10 @@ public class ModelSwitch<T> extends Switch<T> {
 				StandardEquation standardEquation = (StandardEquation)theEObject;
 				T result = caseStandardEquation(standardEquation);
 				if (result == null) result = caseEquation(standardEquation);
+				if (result == null) result = caseAlphaNode(standardEquation);
 				if (result == null) result = caseAlphaVisitable(standardEquation);
 				if (result == null) result = caseAlphaSystemElement(standardEquation);
 				if (result == null) result = caseAlphaCompleteVisitable(standardEquation);
-				if (result == null) result = caseAlphaNode(standardEquation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -249,19 +245,19 @@ public class ModelSwitch<T> extends Switch<T> {
 				UseEquation useEquation = (UseEquation)theEObject;
 				T result = caseUseEquation(useEquation);
 				if (result == null) result = caseEquation(useEquation);
+				if (result == null) result = caseAlphaNode(useEquation);
 				if (result == null) result = caseAlphaVisitable(useEquation);
 				if (result == null) result = caseAlphaSystemElement(useEquation);
 				if (result == null) result = caseAlphaCompleteVisitable(useEquation);
-				if (result == null) result = caseAlphaNode(useEquation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.ALPHA_EXPRESSION: {
 				AlphaExpression alphaExpression = (AlphaExpression)theEObject;
 				T result = caseAlphaExpression(alphaExpression);
+				if (result == null) result = caseAlphaNode(alphaExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(alphaExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(alphaExpression);
-				if (result == null) result = caseAlphaNode(alphaExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -269,9 +265,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				RestrictExpression restrictExpression = (RestrictExpression)theEObject;
 				T result = caseRestrictExpression(restrictExpression);
 				if (result == null) result = caseAlphaExpression(restrictExpression);
+				if (result == null) result = caseAlphaNode(restrictExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(restrictExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(restrictExpression);
-				if (result == null) result = caseAlphaNode(restrictExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -279,9 +275,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				AutoRestrictExpression autoRestrictExpression = (AutoRestrictExpression)theEObject;
 				T result = caseAutoRestrictExpression(autoRestrictExpression);
 				if (result == null) result = caseAlphaExpression(autoRestrictExpression);
+				if (result == null) result = caseAlphaNode(autoRestrictExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(autoRestrictExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(autoRestrictExpression);
-				if (result == null) result = caseAlphaNode(autoRestrictExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -289,9 +285,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				CaseExpression caseExpression = (CaseExpression)theEObject;
 				T result = caseCaseExpression(caseExpression);
 				if (result == null) result = caseAlphaExpression(caseExpression);
+				if (result == null) result = caseAlphaNode(caseExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(caseExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(caseExpression);
-				if (result == null) result = caseAlphaNode(caseExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -299,9 +295,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				DependenceExpression dependenceExpression = (DependenceExpression)theEObject;
 				T result = caseDependenceExpression(dependenceExpression);
 				if (result == null) result = caseAlphaExpression(dependenceExpression);
+				if (result == null) result = caseAlphaNode(dependenceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(dependenceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(dependenceExpression);
-				if (result == null) result = caseAlphaNode(dependenceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -309,9 +305,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				FuzzyDependenceExpression fuzzyDependenceExpression = (FuzzyDependenceExpression)theEObject;
 				T result = caseFuzzyDependenceExpression(fuzzyDependenceExpression);
 				if (result == null) result = caseAlphaExpression(fuzzyDependenceExpression);
+				if (result == null) result = caseAlphaNode(fuzzyDependenceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(fuzzyDependenceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(fuzzyDependenceExpression);
-				if (result == null) result = caseAlphaNode(fuzzyDependenceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -319,9 +315,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				IfExpression ifExpression = (IfExpression)theEObject;
 				T result = caseIfExpression(ifExpression);
 				if (result == null) result = caseAlphaExpression(ifExpression);
+				if (result == null) result = caseAlphaNode(ifExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(ifExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(ifExpression);
-				if (result == null) result = caseAlphaNode(ifExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -329,9 +325,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				IndexExpression indexExpression = (IndexExpression)theEObject;
 				T result = caseIndexExpression(indexExpression);
 				if (result == null) result = caseAlphaExpression(indexExpression);
+				if (result == null) result = caseAlphaNode(indexExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(indexExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(indexExpression);
-				if (result == null) result = caseAlphaNode(indexExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -339,9 +335,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				FuzzyIndexExpression fuzzyIndexExpression = (FuzzyIndexExpression)theEObject;
 				T result = caseFuzzyIndexExpression(fuzzyIndexExpression);
 				if (result == null) result = caseAlphaExpression(fuzzyIndexExpression);
+				if (result == null) result = caseAlphaNode(fuzzyIndexExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(fuzzyIndexExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(fuzzyIndexExpression);
-				if (result == null) result = caseAlphaNode(fuzzyIndexExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -349,9 +345,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				AbstractReduceExpression abstractReduceExpression = (AbstractReduceExpression)theEObject;
 				T result = caseAbstractReduceExpression(abstractReduceExpression);
 				if (result == null) result = caseAlphaExpression(abstractReduceExpression);
+				if (result == null) result = caseAlphaNode(abstractReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(abstractReduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(abstractReduceExpression);
-				if (result == null) result = caseAlphaNode(abstractReduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -360,9 +356,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseReduceExpression(reduceExpression);
 				if (result == null) result = caseAbstractReduceExpression(reduceExpression);
 				if (result == null) result = caseAlphaExpression(reduceExpression);
+				if (result == null) result = caseAlphaNode(reduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(reduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(reduceExpression);
-				if (result == null) result = caseAlphaNode(reduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -372,9 +368,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = caseReduceExpression(externalReduceExpression);
 				if (result == null) result = caseAbstractReduceExpression(externalReduceExpression);
 				if (result == null) result = caseAlphaExpression(externalReduceExpression);
+				if (result == null) result = caseAlphaNode(externalReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(externalReduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(externalReduceExpression);
-				if (result == null) result = caseAlphaNode(externalReduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -383,9 +379,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseArgReduceExpression(argReduceExpression);
 				if (result == null) result = caseAbstractReduceExpression(argReduceExpression);
 				if (result == null) result = caseAlphaExpression(argReduceExpression);
+				if (result == null) result = caseAlphaNode(argReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(argReduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(argReduceExpression);
-				if (result == null) result = caseAlphaNode(argReduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -395,9 +391,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = caseArgReduceExpression(externalArgReduceExpression);
 				if (result == null) result = caseAbstractReduceExpression(externalArgReduceExpression);
 				if (result == null) result = caseAlphaExpression(externalArgReduceExpression);
+				if (result == null) result = caseAlphaNode(externalArgReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(externalArgReduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(externalArgReduceExpression);
-				if (result == null) result = caseAlphaNode(externalArgReduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -405,9 +401,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				ConvolutionExpression convolutionExpression = (ConvolutionExpression)theEObject;
 				T result = caseConvolutionExpression(convolutionExpression);
 				if (result == null) result = caseAlphaExpression(convolutionExpression);
+				if (result == null) result = caseAlphaNode(convolutionExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(convolutionExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(convolutionExpression);
-				if (result == null) result = caseAlphaNode(convolutionExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -415,9 +411,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				SelectExpression selectExpression = (SelectExpression)theEObject;
 				T result = caseSelectExpression(selectExpression);
 				if (result == null) result = caseAlphaExpression(selectExpression);
+				if (result == null) result = caseAlphaNode(selectExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(selectExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(selectExpression);
-				if (result == null) result = caseAlphaNode(selectExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -425,9 +421,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				VariableExpression variableExpression = (VariableExpression)theEObject;
 				T result = caseVariableExpression(variableExpression);
 				if (result == null) result = caseAlphaExpression(variableExpression);
+				if (result == null) result = caseAlphaNode(variableExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(variableExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(variableExpression);
-				if (result == null) result = caseAlphaNode(variableExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -435,9 +431,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				ConstantExpression constantExpression = (ConstantExpression)theEObject;
 				T result = caseConstantExpression(constantExpression);
 				if (result == null) result = caseAlphaExpression(constantExpression);
+				if (result == null) result = caseAlphaNode(constantExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(constantExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(constantExpression);
-				if (result == null) result = caseAlphaNode(constantExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -446,9 +442,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseIntegerExpression(integerExpression);
 				if (result == null) result = caseConstantExpression(integerExpression);
 				if (result == null) result = caseAlphaExpression(integerExpression);
+				if (result == null) result = caseAlphaNode(integerExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(integerExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(integerExpression);
-				if (result == null) result = caseAlphaNode(integerExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -457,9 +453,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseRealExpression(realExpression);
 				if (result == null) result = caseConstantExpression(realExpression);
 				if (result == null) result = caseAlphaExpression(realExpression);
+				if (result == null) result = caseAlphaNode(realExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(realExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(realExpression);
-				if (result == null) result = caseAlphaNode(realExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -468,9 +464,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseBooleanExpression(booleanExpression);
 				if (result == null) result = caseConstantExpression(booleanExpression);
 				if (result == null) result = caseAlphaExpression(booleanExpression);
+				if (result == null) result = caseAlphaNode(booleanExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(booleanExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(booleanExpression);
-				if (result == null) result = caseAlphaNode(booleanExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -478,9 +474,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				UnaryExpression unaryExpression = (UnaryExpression)theEObject;
 				T result = caseUnaryExpression(unaryExpression);
 				if (result == null) result = caseAlphaExpression(unaryExpression);
+				if (result == null) result = caseAlphaNode(unaryExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(unaryExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(unaryExpression);
-				if (result == null) result = caseAlphaNode(unaryExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -488,9 +484,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				BinaryExpression binaryExpression = (BinaryExpression)theEObject;
 				T result = caseBinaryExpression(binaryExpression);
 				if (result == null) result = caseAlphaExpression(binaryExpression);
+				if (result == null) result = caseAlphaNode(binaryExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(binaryExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(binaryExpression);
-				if (result == null) result = caseAlphaNode(binaryExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -498,9 +494,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				MultiArgExpression multiArgExpression = (MultiArgExpression)theEObject;
 				T result = caseMultiArgExpression(multiArgExpression);
 				if (result == null) result = caseAlphaExpression(multiArgExpression);
+				if (result == null) result = caseAlphaNode(multiArgExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(multiArgExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(multiArgExpression);
-				if (result == null) result = caseAlphaNode(multiArgExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -509,9 +505,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseExternalMultiArgExpression(externalMultiArgExpression);
 				if (result == null) result = caseMultiArgExpression(externalMultiArgExpression);
 				if (result == null) result = caseAlphaExpression(externalMultiArgExpression);
+				if (result == null) result = caseAlphaNode(externalMultiArgExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(externalMultiArgExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(externalMultiArgExpression);
-				if (result == null) result = caseAlphaNode(externalMultiArgExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -519,9 +515,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				AbstractFuzzyReduceExpression abstractFuzzyReduceExpression = (AbstractFuzzyReduceExpression)theEObject;
 				T result = caseAbstractFuzzyReduceExpression(abstractFuzzyReduceExpression);
 				if (result == null) result = caseAlphaExpression(abstractFuzzyReduceExpression);
+				if (result == null) result = caseAlphaNode(abstractFuzzyReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(abstractFuzzyReduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(abstractFuzzyReduceExpression);
-				if (result == null) result = caseAlphaNode(abstractFuzzyReduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -530,9 +526,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseFuzzyReduceExpression(fuzzyReduceExpression);
 				if (result == null) result = caseAbstractFuzzyReduceExpression(fuzzyReduceExpression);
 				if (result == null) result = caseAlphaExpression(fuzzyReduceExpression);
+				if (result == null) result = caseAlphaNode(fuzzyReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(fuzzyReduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(fuzzyReduceExpression);
-				if (result == null) result = caseAlphaNode(fuzzyReduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -542,9 +538,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = caseFuzzyReduceExpression(externalFuzzyReduceExpression);
 				if (result == null) result = caseAbstractFuzzyReduceExpression(externalFuzzyReduceExpression);
 				if (result == null) result = caseAlphaExpression(externalFuzzyReduceExpression);
+				if (result == null) result = caseAlphaNode(externalFuzzyReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(externalFuzzyReduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(externalFuzzyReduceExpression);
-				if (result == null) result = caseAlphaNode(externalFuzzyReduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -553,9 +549,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseFuzzyArgReduceExpression(fuzzyArgReduceExpression);
 				if (result == null) result = caseAbstractFuzzyReduceExpression(fuzzyArgReduceExpression);
 				if (result == null) result = caseAlphaExpression(fuzzyArgReduceExpression);
+				if (result == null) result = caseAlphaNode(fuzzyArgReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(fuzzyArgReduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(fuzzyArgReduceExpression);
-				if (result == null) result = caseAlphaNode(fuzzyArgReduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -565,9 +561,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = caseFuzzyArgReduceExpression(externalFuzzyArgReduceExpression);
 				if (result == null) result = caseAbstractFuzzyReduceExpression(externalFuzzyArgReduceExpression);
 				if (result == null) result = caseAlphaExpression(externalFuzzyArgReduceExpression);
+				if (result == null) result = caseAlphaNode(externalFuzzyArgReduceExpression);
 				if (result == null) result = caseAlphaExpressionVisitable(externalFuzzyArgReduceExpression);
 				if (result == null) result = caseAlphaCompleteVisitable(externalFuzzyArgReduceExpression);
-				if (result == null) result = caseAlphaNode(externalFuzzyArgReduceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -580,20 +576,20 @@ public class ModelSwitch<T> extends Switch<T> {
 			case ModelPackage.POLYHEDRAL_OBJECT: {
 				PolyhedralObject polyhedralObject = (PolyhedralObject)theEObject;
 				T result = casePolyhedralObject(polyhedralObject);
+				if (result == null) result = caseAlphaNode(polyhedralObject);
 				if (result == null) result = caseCalculatorNode(polyhedralObject);
 				if (result == null) result = caseAlphaVisitable(polyhedralObject);
 				if (result == null) result = caseAlphaSystemElement(polyhedralObject);
 				if (result == null) result = caseAlphaCompleteVisitable(polyhedralObject);
-				if (result == null) result = caseAlphaNode(polyhedralObject);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ModelPackage.CALCULATOR_EXPRESSION: {
 				CalculatorExpression calculatorExpression = (CalculatorExpression)theEObject;
 				T result = caseCalculatorExpression(calculatorExpression);
+				if (result == null) result = caseAlphaNode(calculatorExpression);
 				if (result == null) result = caseCalculatorNode(calculatorExpression);
 				if (result == null) result = caseCalculatorExpressionVisitable(calculatorExpression);
-				if (result == null) result = caseAlphaNode(calculatorExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -601,9 +597,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				JNIDomain jniDomain = (JNIDomain)theEObject;
 				T result = caseJNIDomain(jniDomain);
 				if (result == null) result = caseCalculatorExpression(jniDomain);
+				if (result == null) result = caseAlphaNode(jniDomain);
 				if (result == null) result = caseCalculatorNode(jniDomain);
 				if (result == null) result = caseCalculatorExpressionVisitable(jniDomain);
-				if (result == null) result = caseAlphaNode(jniDomain);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -612,9 +608,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseJNIDomainInArrayNotation(jniDomainInArrayNotation);
 				if (result == null) result = caseJNIDomain(jniDomainInArrayNotation);
 				if (result == null) result = caseCalculatorExpression(jniDomainInArrayNotation);
+				if (result == null) result = caseAlphaNode(jniDomainInArrayNotation);
 				if (result == null) result = caseCalculatorNode(jniDomainInArrayNotation);
 				if (result == null) result = caseCalculatorExpressionVisitable(jniDomainInArrayNotation);
-				if (result == null) result = caseAlphaNode(jniDomainInArrayNotation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -622,9 +618,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				JNIRelation jniRelation = (JNIRelation)theEObject;
 				T result = caseJNIRelation(jniRelation);
 				if (result == null) result = caseCalculatorExpression(jniRelation);
+				if (result == null) result = caseAlphaNode(jniRelation);
 				if (result == null) result = caseCalculatorNode(jniRelation);
 				if (result == null) result = caseCalculatorExpressionVisitable(jniRelation);
-				if (result == null) result = caseAlphaNode(jniRelation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -632,9 +628,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				JNIFunction jniFunction = (JNIFunction)theEObject;
 				T result = caseJNIFunction(jniFunction);
 				if (result == null) result = caseCalculatorExpression(jniFunction);
+				if (result == null) result = caseAlphaNode(jniFunction);
 				if (result == null) result = caseCalculatorNode(jniFunction);
 				if (result == null) result = caseCalculatorExpressionVisitable(jniFunction);
-				if (result == null) result = caseAlphaNode(jniFunction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -643,9 +639,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				T result = caseJNIFunctionInArrayNotation(jniFunctionInArrayNotation);
 				if (result == null) result = caseJNIFunction(jniFunctionInArrayNotation);
 				if (result == null) result = caseCalculatorExpression(jniFunctionInArrayNotation);
+				if (result == null) result = caseAlphaNode(jniFunctionInArrayNotation);
 				if (result == null) result = caseCalculatorNode(jniFunctionInArrayNotation);
 				if (result == null) result = caseCalculatorExpressionVisitable(jniFunctionInArrayNotation);
-				if (result == null) result = caseAlphaNode(jniFunctionInArrayNotation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -692,9 +688,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				UnaryCalculatorExpression unaryCalculatorExpression = (UnaryCalculatorExpression)theEObject;
 				T result = caseUnaryCalculatorExpression(unaryCalculatorExpression);
 				if (result == null) result = caseCalculatorExpression(unaryCalculatorExpression);
+				if (result == null) result = caseAlphaNode(unaryCalculatorExpression);
 				if (result == null) result = caseCalculatorNode(unaryCalculatorExpression);
 				if (result == null) result = caseCalculatorExpressionVisitable(unaryCalculatorExpression);
-				if (result == null) result = caseAlphaNode(unaryCalculatorExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -702,9 +698,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				BinaryCalculatorExpression binaryCalculatorExpression = (BinaryCalculatorExpression)theEObject;
 				T result = caseBinaryCalculatorExpression(binaryCalculatorExpression);
 				if (result == null) result = caseCalculatorExpression(binaryCalculatorExpression);
+				if (result == null) result = caseAlphaNode(binaryCalculatorExpression);
 				if (result == null) result = caseCalculatorNode(binaryCalculatorExpression);
 				if (result == null) result = caseCalculatorExpressionVisitable(binaryCalculatorExpression);
-				if (result == null) result = caseAlphaNode(binaryCalculatorExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -712,9 +708,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				VariableDomain variableDomain = (VariableDomain)theEObject;
 				T result = caseVariableDomain(variableDomain);
 				if (result == null) result = caseCalculatorExpression(variableDomain);
+				if (result == null) result = caseAlphaNode(variableDomain);
 				if (result == null) result = caseCalculatorNode(variableDomain);
 				if (result == null) result = caseCalculatorExpressionVisitable(variableDomain);
-				if (result == null) result = caseAlphaNode(variableDomain);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -722,9 +718,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				RectangularDomain rectangularDomain = (RectangularDomain)theEObject;
 				T result = caseRectangularDomain(rectangularDomain);
 				if (result == null) result = caseCalculatorExpression(rectangularDomain);
+				if (result == null) result = caseAlphaNode(rectangularDomain);
 				if (result == null) result = caseCalculatorNode(rectangularDomain);
 				if (result == null) result = caseCalculatorExpressionVisitable(rectangularDomain);
-				if (result == null) result = caseAlphaNode(rectangularDomain);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -732,9 +728,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				DefinedObject definedObject = (DefinedObject)theEObject;
 				T result = caseDefinedObject(definedObject);
 				if (result == null) result = caseCalculatorExpression(definedObject);
+				if (result == null) result = caseAlphaNode(definedObject);
 				if (result == null) result = caseCalculatorNode(definedObject);
 				if (result == null) result = caseCalculatorExpressionVisitable(definedObject);
-				if (result == null) result = caseAlphaNode(definedObject);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

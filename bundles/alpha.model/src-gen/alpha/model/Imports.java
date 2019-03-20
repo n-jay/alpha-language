@@ -19,7 +19,7 @@ package alpha.model;
  * @model
  * @generated
  */
-public interface Imports extends AlphaVisitable {
+public interface Imports extends AlphaNode, AlphaVisitable {
 	/**
 	 * Returns the value of the '<em><b>Imported Namespace</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -56,7 +55,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  *
  * @generated
  */
-public class SystemBodyImpl extends MinimalEObjectImpl.Container implements SystemBody {
+public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	/**
 	 * The cached value of the '{@link #getParameterDomainExpr() <em>Parameter Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->

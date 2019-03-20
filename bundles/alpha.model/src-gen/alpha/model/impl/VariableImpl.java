@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
@@ -44,7 +43,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
  *
  * @generated
  */
-public class VariableImpl extends MinimalEObjectImpl.Container implements Variable {
+public class VariableImpl extends AlphaNodeImpl implements Variable {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->

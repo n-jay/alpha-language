@@ -37,7 +37,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface AlphaExpression extends AlphaExpressionVisitable {
+public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->

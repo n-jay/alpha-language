@@ -2,6 +2,10 @@
  */
 package alpha.model;
 
+import java.util.Queue;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,10 +22,48 @@ import org.eclipse.emf.ecore.EObject;
  *   VariableDomain and DefinedObject should only refer to textually preceding definitions
  * <!-- end-model-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link alpha.model.AlphaNode#getNodeID <em>Node ID</em>}</li>
+ * </ul>
  *
  * @see alpha.model.ModelPackage#getAlphaNode()
- * @model interface="true" abstract="true"
+ * @model
  * @generated
  */
 public interface AlphaNode extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Node ID</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.Integer}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Node ID</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Node ID</em>' attribute list.
+	 * @see alpha.model.ModelPackage#getAlphaNode_NodeID()
+	 * @model unique="false" transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<Integer> getNodeID();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" nodeIDDataType="alpha.model.IntegerQueue" nodeIDUnique="false"
+	 * @generated
+	 */
+	AlphaNode getNode(Queue<Integer> nodeID);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" nodeIDUnique="false"
+	 * @generated
+	 */
+	AlphaNode getNode(String nodeID);
+
 } // AlphaNode

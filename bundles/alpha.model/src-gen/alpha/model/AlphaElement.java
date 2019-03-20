@@ -19,5 +19,5 @@ package alpha.model;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface AlphaElement extends AlphaVisitable {
+public interface AlphaElement extends AlphaNode, AlphaVisitable {
 } // AlphaElement

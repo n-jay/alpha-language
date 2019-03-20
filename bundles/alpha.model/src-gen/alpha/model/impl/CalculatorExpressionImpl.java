@@ -11,8 +11,6 @@ import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Calculator Expression</b></em>'.
@@ -20,7 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public abstract class CalculatorExpressionImpl extends MinimalEObjectImpl.Container implements CalculatorExpression {
+public abstract class CalculatorExpressionImpl extends AlphaNodeImpl implements CalculatorExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -1,6 +1,5 @@
 package alpha.model.util;
 
-import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaNode;
 import alpha.model.AutoRestrictExpression;
@@ -319,7 +318,7 @@ public class AlphaExpressionUtil {
     return _xifexpression;
   });
   
-  public static JNIISLSet parentContext(final AlphaExpression child, final AlphaCompleteVisitable parent, final Consumer<AlphaIssue> f) {
+  public static JNIISLSet parentContext(final AlphaExpression child, final EObject parent, final Consumer<AlphaIssue> f) {
     if (parent instanceof StandardEquation) {
       return _parentContext(child, (StandardEquation)parent, f);
     } else if (parent instanceof UseEquation) {

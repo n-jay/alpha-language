@@ -59,14 +59,23 @@ public interface ModelPackage extends EPackage {
 	ModelPackage eINSTANCE = alpha.model.impl.ModelPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link alpha.model.AlphaNode <em>Alpha Node</em>}' class.
+	 * The meta object id for the '{@link alpha.model.impl.AlphaNodeImpl <em>Alpha Node</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see alpha.model.AlphaNode
+	 * @see alpha.model.impl.AlphaNodeImpl
 	 * @see alpha.model.impl.ModelPackageImpl#getAlphaNode()
 	 * @generated
 	 */
 	int ALPHA_NODE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_NODE__NODE_ID = 0;
 
 	/**
 	 * The number of structural features of the '<em>Alpha Node</em>' class.
@@ -75,7 +84,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_NODE_FEATURE_COUNT = 0;
+	int ALPHA_NODE_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.AlphaCompleteVisitable <em>Alpha Complete Visitable</em>}' class.
@@ -94,7 +103,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_COMPLETE_VISITABLE_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 0;
+	int ALPHA_COMPLETE_VISITABLE_FEATURE_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.AlphaVisitable <em>Alpha Visitable</em>}' class.
@@ -151,7 +160,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CALCULATOR_EXPRESSION_VISITABLE_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 0;
+	int CALCULATOR_EXPRESSION_VISITABLE_FEATURE_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.AlphaSystemElement <em>Alpha System Element</em>}' class.
@@ -240,13 +249,22 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_ROOT = 9;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_ROOT__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_ROOT__IMPORTS = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+	int ALPHA_ROOT__IMPORTS = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -255,7 +273,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_ROOT__ELEMENTS = ALPHA_VISITABLE_FEATURE_COUNT + 1;
+	int ALPHA_ROOT__ELEMENTS = ALPHA_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Alpha Root</em>' class.
@@ -264,7 +282,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_ROOT_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 2;
+	int ALPHA_ROOT_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.AlphaElement <em>Alpha Element</em>}' class.
@@ -277,13 +295,22 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_ELEMENT = 10;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_ELEMENT__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The number of structural features of the '<em>Alpha Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_ELEMENT_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+	int ALPHA_ELEMENT_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.ImportsImpl <em>Imports</em>}' class.
@@ -296,13 +323,22 @@ public interface ModelPackage extends EPackage {
 	int IMPORTS = 11;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORTS__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IMPORTS__IMPORTED_NAMESPACE = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+	int IMPORTS__IMPORTED_NAMESPACE = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Imports</em>' class.
@@ -311,7 +347,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPORTS_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 1;
+	int IMPORTS_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.AlphaPackageImpl <em>Alpha Package</em>}' class.
@@ -322,6 +358,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int ALPHA_PACKAGE = 12;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_PACKAGE__NODE_ID = ALPHA_ELEMENT__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -361,6 +406,15 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_CONSTANT = 13;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_CONSTANT__NODE_ID = ALPHA_ELEMENT__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -398,6 +452,15 @@ public interface ModelPackage extends EPackage {
 	int EXTERNAL_FUNCTION = 14;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUNCTION__NODE_ID = ALPHA_ELEMENT__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -433,6 +496,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int ALPHA_SYSTEM = 15;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_SYSTEM__NODE_ID = ALPHA_ELEMENT__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -535,13 +607,22 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE = 16;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__NAME = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+	int VARIABLE__NAME = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Domain Expr</b></em>' containment reference.
@@ -550,7 +631,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__DOMAIN_EXPR = ALPHA_VISITABLE_FEATURE_COUNT + 1;
+	int VARIABLE__DOMAIN_EXPR = ALPHA_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Variable</em>' class.
@@ -559,7 +640,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 2;
+	int VARIABLE_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.FuzzyVariableImpl <em>Fuzzy Variable</em>}' class.
@@ -570,6 +651,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int FUZZY_VARIABLE = 17;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_VARIABLE__NODE_ID = VARIABLE__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -618,13 +708,22 @@ public interface ModelPackage extends EPackage {
 	int SYSTEM_BODY = 18;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_BODY__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>System</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_BODY__SYSTEM = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+	int SYSTEM_BODY__SYSTEM = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Parameter Domain Expr</b></em>' containment reference.
@@ -633,7 +732,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_BODY__PARAMETER_DOMAIN_EXPR = ALPHA_VISITABLE_FEATURE_COUNT + 1;
+	int SYSTEM_BODY__PARAMETER_DOMAIN_EXPR = ALPHA_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Equations</b></em>' containment reference list.
@@ -642,7 +741,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_BODY__EQUATIONS = ALPHA_VISITABLE_FEATURE_COUNT + 2;
+	int SYSTEM_BODY__EQUATIONS = ALPHA_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>System Body</em>' class.
@@ -651,7 +750,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_BODY_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 3;
+	int SYSTEM_BODY_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.EquationImpl <em>Equation</em>}' class.
@@ -664,13 +763,22 @@ public interface ModelPackage extends EPackage {
 	int EQUATION = 19;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EQUATION__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>System Body</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EQUATION__SYSTEM_BODY = ALPHA_VISITABLE_FEATURE_COUNT + 0;
+	int EQUATION__SYSTEM_BODY = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Equation</em>' class.
@@ -679,7 +787,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EQUATION_FEATURE_COUNT = ALPHA_VISITABLE_FEATURE_COUNT + 1;
+	int EQUATION_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.StandardEquationImpl <em>Standard Equation</em>}' class.
@@ -690,6 +798,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int STANDARD_EQUATION = 20;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STANDARD_EQUATION__NODE_ID = EQUATION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>System Body</b></em>' container reference.
@@ -745,6 +862,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int USE_EQUATION = 21;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USE_EQUATION__NODE_ID = EQUATION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>System Body</b></em>' container reference.
@@ -829,13 +955,22 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_EXPRESSION = 22;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_EXPRESSION__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 0;
+	int ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache context Dom</b></em>' attribute.
@@ -844,7 +979,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 1;
+	int ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM = ALPHA_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Expression ID</b></em>' attribute list.
@@ -853,7 +988,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION__EXPRESSION_ID = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 2;
+	int ALPHA_EXPRESSION__EXPRESSION_ID = ALPHA_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Alpha Expression</em>' class.
@@ -862,7 +997,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALPHA_EXPRESSION_FEATURE_COUNT = ALPHA_EXPRESSION_VISITABLE_FEATURE_COUNT + 3;
+	int ALPHA_EXPRESSION_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.RestrictExpressionImpl <em>Restrict Expression</em>}' class.
@@ -873,6 +1008,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int RESTRICT_EXPRESSION = 23;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESTRICT_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -939,6 +1083,15 @@ public interface ModelPackage extends EPackage {
 	int AUTO_RESTRICT_EXPRESSION = 24;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTO_RESTRICT_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1001,6 +1154,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int CASE_EXPRESSION = 25;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1067,6 +1229,15 @@ public interface ModelPackage extends EPackage {
 	int DEPENDENCE_EXPRESSION = 26;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEPENDENCE_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1131,6 +1302,15 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_DEPENDENCE_EXPRESSION = 27;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_DEPENDENCE_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1193,6 +1373,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int IF_EXPRESSION = 28;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IF_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1268,6 +1457,15 @@ public interface ModelPackage extends EPackage {
 	int INDEX_EXPRESSION = 29;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEX_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1323,6 +1521,15 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_INDEX_EXPRESSION = 30;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_INDEX_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1376,6 +1583,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int ABSTRACT_REDUCE_EXPRESSION = 31;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_REDUCE_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1451,6 +1667,15 @@ public interface ModelPackage extends EPackage {
 	int REDUCE_EXPRESSION = 32;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCE_EXPRESSION__NODE_ID = ABSTRACT_REDUCE_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1522,6 +1747,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int EXTERNAL_REDUCE_EXPRESSION = 33;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_REDUCE_EXPRESSION__NODE_ID = REDUCE_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1606,6 +1840,15 @@ public interface ModelPackage extends EPackage {
 	int ARG_REDUCE_EXPRESSION = 34;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARG_REDUCE_EXPRESSION__NODE_ID = ABSTRACT_REDUCE_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1677,6 +1920,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int EXTERNAL_ARG_REDUCE_EXPRESSION = 35;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_ARG_REDUCE_EXPRESSION__NODE_ID = ARG_REDUCE_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -1761,6 +2013,15 @@ public interface ModelPackage extends EPackage {
 	int CONVOLUTION_EXPRESSION = 36;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONVOLUTION_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1834,6 +2095,15 @@ public interface ModelPackage extends EPackage {
 	int SELECT_EXPRESSION = 37;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SELECT_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1898,6 +2168,15 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE_EXPRESSION = 38;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1953,6 +2232,15 @@ public interface ModelPackage extends EPackage {
 	int CONSTANT_EXPRESSION = 39;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTANT_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1997,6 +2285,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int INTEGER_EXPRESSION = 40;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_EXPRESSION__NODE_ID = CONSTANT_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2054,6 +2351,15 @@ public interface ModelPackage extends EPackage {
 	int REAL_EXPRESSION = 41;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REAL_EXPRESSION__NODE_ID = CONSTANT_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2109,6 +2415,15 @@ public interface ModelPackage extends EPackage {
 	int BOOLEAN_EXPRESSION = 42;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_EXPRESSION__NODE_ID = CONSTANT_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2162,6 +2477,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int UNARY_EXPRESSION = 43;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2226,6 +2550,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int BINARY_EXPRESSION = 44;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2301,6 +2634,15 @@ public interface ModelPackage extends EPackage {
 	int MULTI_ARG_EXPRESSION = 45;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_ARG_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2363,6 +2705,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int EXTERNAL_MULTI_ARG_EXPRESSION = 46;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_MULTI_ARG_EXPRESSION__NODE_ID = MULTI_ARG_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2438,6 +2789,15 @@ public interface ModelPackage extends EPackage {
 	int ABSTRACT_FUZZY_REDUCE_EXPRESSION = 47;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FUZZY_REDUCE_EXPRESSION__NODE_ID = ALPHA_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2511,6 +2871,15 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_REDUCE_EXPRESSION = 48;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_REDUCE_EXPRESSION__NODE_ID = ABSTRACT_FUZZY_REDUCE_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2582,6 +2951,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int EXTERNAL_FUZZY_REDUCE_EXPRESSION = 49;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_REDUCE_EXPRESSION__NODE_ID = FUZZY_REDUCE_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2666,6 +3044,15 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_ARG_REDUCE_EXPRESSION = 50;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_ARG_REDUCE_EXPRESSION__NODE_ID = ABSTRACT_FUZZY_REDUCE_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2737,6 +3124,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION = 51;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTERNAL_FUZZY_ARG_REDUCE_EXPRESSION__NODE_ID = FUZZY_ARG_REDUCE_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Zinternal cache expr Dom</b></em>' attribute.
@@ -2840,13 +3236,22 @@ public interface ModelPackage extends EPackage {
 	int POLYHEDRAL_OBJECT = 53;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYHEDRAL_OBJECT__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYHEDRAL_OBJECT__NAME = CALCULATOR_NODE_FEATURE_COUNT + 0;
+	int POLYHEDRAL_OBJECT__NAME = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -2855,7 +3260,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int POLYHEDRAL_OBJECT__EXPR = CALCULATOR_NODE_FEATURE_COUNT + 1;
+	int POLYHEDRAL_OBJECT__EXPR = ALPHA_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Polyhedral Object</em>' class.
@@ -2864,7 +3269,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int POLYHEDRAL_OBJECT_FEATURE_COUNT = CALCULATOR_NODE_FEATURE_COUNT + 2;
+	int POLYHEDRAL_OBJECT_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.CalculatorExpressionImpl <em>Calculator Expression</em>}' class.
@@ -2877,13 +3282,22 @@ public interface ModelPackage extends EPackage {
 	int CALCULATOR_EXPRESSION = 54;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALCULATOR_EXPRESSION__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The number of structural features of the '<em>Calculator Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALCULATOR_EXPRESSION_FEATURE_COUNT = CALCULATOR_NODE_FEATURE_COUNT + 0;
+	int CALCULATOR_EXPRESSION_FEATURE_COUNT = ALPHA_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.impl.JNIDomainImpl <em>JNI Domain</em>}' class.
@@ -2894,6 +3308,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int JNI_DOMAIN = 55;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_DOMAIN__NODE_ID = CALCULATOR_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -2933,6 +3356,15 @@ public interface ModelPackage extends EPackage {
 	int JNI_DOMAIN_IN_ARRAY_NOTATION = 56;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_DOMAIN_IN_ARRAY_NOTATION__NODE_ID = JNI_DOMAIN__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2968,6 +3400,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int JNI_RELATION = 57;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_RELATION__NODE_ID = CALCULATOR_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Isl String</b></em>' attribute.
@@ -3007,6 +3448,15 @@ public interface ModelPackage extends EPackage {
 	int JNI_FUNCTION = 58;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_FUNCTION__NODE_ID = CALCULATOR_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Alpha Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3042,6 +3492,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int JNI_FUNCTION_IN_ARRAY_NOTATION = 59;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_FUNCTION_IN_ARRAY_NOTATION__NODE_ID = JNI_FUNCTION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Alpha Function</b></em>' containment reference.
@@ -3088,6 +3547,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int FUZZY_FUNCTION = 60;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_FUNCTION__NODE_ID = ALPHA_NODE__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -3145,6 +3613,15 @@ public interface ModelPackage extends EPackage {
 	int FUZZY_VARIABLE_USE = 61;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_VARIABLE_USE__NODE_ID = ALPHA_NODE__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Fuzzy Index</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3180,6 +3657,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int NESTED_FUZZY_FUNCTION = 62;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NESTED_FUZZY_FUNCTION__NODE_ID = FUZZY_FUNCTION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -3255,6 +3741,15 @@ public interface ModelPackage extends EPackage {
 	int AFFINE_FUZZY_VARIABLE_USE = 63;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AFFINE_FUZZY_VARIABLE_USE__NODE_ID = FUZZY_VARIABLE_USE__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Fuzzy Index</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3299,6 +3794,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int FUZZY_FUNCTION_IN_ARRAY_NOTATION = 64;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUZZY_FUNCTION_IN_ARRAY_NOTATION__NODE_ID = FUZZY_FUNCTION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Alpha String</b></em>' attribute.
@@ -3365,6 +3869,15 @@ public interface ModelPackage extends EPackage {
 	int UNARY_CALCULATOR_EXPRESSION = 65;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_CALCULATOR_EXPRESSION__NODE_ID = CALCULATOR_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3409,6 +3922,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int BINARY_CALCULATOR_EXPRESSION = 66;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_CALCULATOR_EXPRESSION__NODE_ID = CALCULATOR_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -3466,6 +3988,15 @@ public interface ModelPackage extends EPackage {
 	int VARIABLE_DOMAIN = 67;
 
 	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_DOMAIN__NODE_ID = CALCULATOR_EXPRESSION__NODE_ID;
+
+	/**
 	 * The feature id for the '<em><b>Variable</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3492,6 +4023,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int RECTANGULAR_DOMAIN = 68;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGULAR_DOMAIN__NODE_ID = CALCULATOR_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Lower Bounds</b></em>' attribute list.
@@ -3547,6 +4087,15 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	int DEFINED_OBJECT = 69;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEFINED_OBJECT__NODE_ID = CALCULATOR_EXPRESSION__NODE_ID;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' reference.
@@ -3855,6 +4404,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getAlphaNode();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link alpha.model.AlphaNode#getNodeID <em>Node ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Node ID</em>'.
+	 * @see alpha.model.AlphaNode#getNodeID()
+	 * @see #getAlphaNode()
+	 * @generated
+	 */
+	EAttribute getAlphaNode_NodeID();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.AlphaCompleteVisitable <em>Alpha Complete Visitable</em>}'.
@@ -6033,14 +6593,22 @@ public interface ModelPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link alpha.model.AlphaNode <em>Alpha Node</em>}' class.
+		 * The meta object literal for the '{@link alpha.model.impl.AlphaNodeImpl <em>Alpha Node</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see alpha.model.AlphaNode
+		 * @see alpha.model.impl.AlphaNodeImpl
 		 * @see alpha.model.impl.ModelPackageImpl#getAlphaNode()
 		 * @generated
 		 */
 		EClass ALPHA_NODE = eINSTANCE.getAlphaNode();
+
+		/**
+		 * The meta object literal for the '<em><b>Node ID</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALPHA_NODE__NODE_ID = eINSTANCE.getAlphaNode_NodeID();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.AlphaCompleteVisitable <em>Alpha Complete Visitable</em>}' class.

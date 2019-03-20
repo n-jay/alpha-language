@@ -13,7 +13,7 @@ package alpha.model;
  * @model abstract="true"
  * @generated
  */
-public interface CalculatorExpression extends CalculatorNode, CalculatorExpressionVisitable {
+public interface CalculatorExpression extends AlphaNode, CalculatorNode, CalculatorExpressionVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

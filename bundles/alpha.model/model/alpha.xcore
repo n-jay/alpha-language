@@ -41,7 +41,29 @@ type IntegerQueue wraps Queue<Integer>
  *   VariableDomain and DefinedObject should only refer to textually preceding definitions
  */
 
-interface AlphaNode {}
+class AlphaNode {
+	derived int[] nodeID get {
+		val parentID = if (eContainer instanceof AlphaNode) {
+			new BasicEList<Integer>((eContainer as AlphaNode).nodeID);
+		} else {
+			new BasicEList<Integer>();
+		}
+		if (eContainer !== null)
+			parentID.add(eContainer.eContents.indexOf(this))
+		return parentID
+	}
+	
+	op AlphaNode getNode(IntegerQueue nodeID) {
+		val next = nodeID.poll;
+		
+		if (next === null) this
+		else (this.eContents.get(next) as AlphaNode).getNode(nodeID);
+	}
+	
+	op AlphaNode getNode(String nodeID) {
+		getNode(new LinkedList<Integer>(nodeID.replace('[', '').replace(']', '').split("\\s*,\\s*").map[e|Integer.parseInt(e)]))
+	}
+}
 
 
 /**
@@ -50,7 +72,7 @@ interface AlphaNode {}
  * coupled with JNIISL.
  * 
  */
-interface AlphaCompleteVisitable extends AlphaNode {} 
+interface AlphaCompleteVisitable {}
 
 interface AlphaVisitable extends AlphaCompleteVisitable {
 	op void accept(AlphaVisitor visitor)
@@ -58,7 +80,7 @@ interface AlphaVisitable extends AlphaCompleteVisitable {
 interface AlphaExpressionVisitable extends AlphaCompleteVisitable {
 	op void accept(AlphaExpressionVisitor visitor)
 }
-interface CalculatorExpressionVisitable extends AlphaNode {
+interface CalculatorExpressionVisitable {
 	op void accept(CalculatorExpressionVisitor visitor)
 }
 interface AlphaSystemElement {}
@@ -251,7 +273,7 @@ interface CalculatorExpressionVisitor {
 	op void visitDefinedObject(DefinedObject dobj)
 }
 
-class AlphaRoot extends AlphaVisitable {
+class AlphaRoot extends AlphaNode, AlphaVisitable {
 	contains Imports[] imports
 	contains AlphaElement[] elements
 	
@@ -284,10 +306,10 @@ class AlphaRoot extends AlphaVisitable {
  * The imports must be at the beginning of the file.
  * 
  */
-interface AlphaElement extends AlphaVisitable {
+interface AlphaElement extends AlphaNode, AlphaVisitable {
 }
 
-class Imports extends AlphaVisitable {
+class Imports extends AlphaNode, AlphaVisitable {
 	String importedNamespace
 	
 	op void accept(AlphaVisitor visitor) {
@@ -367,7 +389,7 @@ class AlphaSystem extends AlphaElement {
 }
 
 
-class Variable extends AlphaVisitable, AlphaSystemElement {
+class Variable extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 	String name
 	contains CalculatorExpression domainExpr
 	
@@ -416,7 +438,7 @@ class FuzzyVariable extends Variable {
 	}
 }
 
-class SystemBody extends AlphaVisitable, AlphaSystemElement {
+class SystemBody extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 	container AlphaSystem system opposite systemBodies
 	contains JNIDomain parameterDomainExpr
 	contains Equation[] equations opposite systemBody
@@ -467,7 +489,7 @@ class SystemBody extends AlphaVisitable, AlphaSystemElement {
 	}
 }
 
-abstract class Equation extends AlphaVisitable, AlphaSystemElement {
+abstract class Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 	container SystemBody systemBody opposite equations
 	
 	op AlphaExpression getExpression(IntegerQueue exprID) {
@@ -478,7 +500,7 @@ abstract class Equation extends AlphaVisitable, AlphaSystemElement {
 	}
 	
 	op AlphaExpression getExpression(String exprID) {
-		getExpression(new LinkedList<Integer>(exprID.split("\\s*,\\s*").map[e|Integer.parseInt(e)]))
+		getExpression(new LinkedList<Integer>(exprID.replace('[', '').replace(']', '').split("\\s*,\\s*").map[e|Integer.parseInt(e)]))
 	}
 }
 
@@ -538,14 +560,14 @@ class UseEquation extends Equation {
  * 
  */
 
-abstract class AlphaExpression extends AlphaExpressionVisitable {
+abstract class AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	/*Internal object for always copying expression domain at getter */
 	JNIISLSet z__internal_cache_exprDom
 	/*Internal object for always copying context domain at getter */
 	JNIISLSet z__internal_cache_contextDom
 	
 	derived int[] expressionID get {
-		val parentID =  if (eContainer instanceof AlphaExpression) {
+		val parentID = if (eContainer instanceof AlphaExpression) {
 			new BasicEList<Integer>((eContainer as AlphaExpression).expressionID);
 		} else {
 			new BasicEList<Integer>();
@@ -915,7 +937,7 @@ interface CalculatorNode {
 	op JNIObject getISLObject()
 }
 
-class PolyhedralObject extends CalculatorNode, AlphaVisitable, AlphaSystemElement {
+class PolyhedralObject extends AlphaNode, CalculatorNode, AlphaVisitable, AlphaSystemElement {
 	String name
 	contains CalculatorExpression expr
 	
@@ -929,7 +951,7 @@ class PolyhedralObject extends CalculatorNode, AlphaVisitable, AlphaSystemElemen
 	}
 }
 
-abstract class CalculatorExpression extends CalculatorNode, CalculatorExpressionVisitable {
+abstract class CalculatorExpression extends AlphaNode, CalculatorNode, CalculatorExpressionVisitable {
 //	String errorMessage
 	
 	op void accept(CalculatorExpressionVisitor visitor) {

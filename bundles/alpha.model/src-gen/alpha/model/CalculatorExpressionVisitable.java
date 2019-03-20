@@ -2,6 +2,7 @@
  */
 package alpha.model;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,7 +14,7 @@ package alpha.model;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface CalculatorExpressionVisitable extends AlphaNode {
+public interface CalculatorExpressionVisitable extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

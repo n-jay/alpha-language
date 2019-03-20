@@ -22,6 +22,15 @@ public interface ModelFactory extends EFactory {
 	ModelFactory eINSTANCE = alpha.model.impl.ModelFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Alpha Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Alpha Node</em>'.
+	 * @generated
+	 */
+	AlphaNode createAlphaNode();
+
+	/**
 	 * Returns a new object of class '<em>Alpha Root</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

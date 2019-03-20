@@ -803,6 +803,16 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getAlphaNode_NodeID() {
+		return (EAttribute)alphaNodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getAlphaCompleteVisitable() {
 		return alphaCompleteVisitableEClass;
 	}
@@ -2857,6 +2867,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Create classes and their features
 		alphaNodeEClass = createEClass(ALPHA_NODE);
+		createEAttribute(alphaNodeEClass, ALPHA_NODE__NODE_ID);
 
 		alphaCompleteVisitableEClass = createEClass(ALPHA_COMPLETE_VISITABLE);
 
@@ -3170,26 +3181,31 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		alphaCompleteVisitableEClass.getESuperTypes().add(this.getAlphaNode());
 		alphaVisitableEClass.getESuperTypes().add(this.getAlphaCompleteVisitable());
 		alphaExpressionVisitableEClass.getESuperTypes().add(this.getAlphaCompleteVisitable());
-		calculatorExpressionVisitableEClass.getESuperTypes().add(this.getAlphaNode());
+		alphaRootEClass.getESuperTypes().add(this.getAlphaNode());
 		alphaRootEClass.getESuperTypes().add(this.getAlphaVisitable());
+		alphaElementEClass.getESuperTypes().add(this.getAlphaNode());
 		alphaElementEClass.getESuperTypes().add(this.getAlphaVisitable());
+		importsEClass.getESuperTypes().add(this.getAlphaNode());
 		importsEClass.getESuperTypes().add(this.getAlphaVisitable());
 		alphaPackageEClass.getESuperTypes().add(this.getAlphaElement());
 		alphaConstantEClass.getESuperTypes().add(this.getAlphaElement());
 		externalFunctionEClass.getESuperTypes().add(this.getAlphaElement());
 		alphaSystemEClass.getESuperTypes().add(this.getAlphaElement());
+		variableEClass.getESuperTypes().add(this.getAlphaNode());
 		variableEClass.getESuperTypes().add(this.getAlphaVisitable());
 		variableEClass.getESuperTypes().add(this.getAlphaSystemElement());
 		fuzzyVariableEClass.getESuperTypes().add(this.getVariable());
+		systemBodyEClass.getESuperTypes().add(this.getAlphaNode());
 		systemBodyEClass.getESuperTypes().add(this.getAlphaVisitable());
 		systemBodyEClass.getESuperTypes().add(this.getAlphaSystemElement());
+		equationEClass.getESuperTypes().add(this.getAlphaNode());
 		equationEClass.getESuperTypes().add(this.getAlphaVisitable());
 		equationEClass.getESuperTypes().add(this.getAlphaSystemElement());
 		standardEquationEClass.getESuperTypes().add(this.getEquation());
 		useEquationEClass.getESuperTypes().add(this.getEquation());
+		alphaExpressionEClass.getESuperTypes().add(this.getAlphaNode());
 		alphaExpressionEClass.getESuperTypes().add(this.getAlphaExpressionVisitable());
 		restrictExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		autoRestrictExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
@@ -3220,9 +3236,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		externalFuzzyReduceExpressionEClass.getESuperTypes().add(this.getFuzzyReduceExpression());
 		fuzzyArgReduceExpressionEClass.getESuperTypes().add(this.getAbstractFuzzyReduceExpression());
 		externalFuzzyArgReduceExpressionEClass.getESuperTypes().add(this.getFuzzyArgReduceExpression());
+		polyhedralObjectEClass.getESuperTypes().add(this.getAlphaNode());
 		polyhedralObjectEClass.getESuperTypes().add(this.getCalculatorNode());
 		polyhedralObjectEClass.getESuperTypes().add(this.getAlphaVisitable());
 		polyhedralObjectEClass.getESuperTypes().add(this.getAlphaSystemElement());
+		calculatorExpressionEClass.getESuperTypes().add(this.getAlphaNode());
 		calculatorExpressionEClass.getESuperTypes().add(this.getCalculatorNode());
 		calculatorExpressionEClass.getESuperTypes().add(this.getCalculatorExpressionVisitable());
 		jniDomainEClass.getESuperTypes().add(this.getCalculatorExpression());
@@ -3245,13 +3263,20 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		alphaFunctionLiteralEClass.getESuperTypes().add(this.getAlphaFunctionExpression());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(alphaNodeEClass, AlphaNode.class, "AlphaNode", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(alphaNodeEClass, AlphaNode.class, "AlphaNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAlphaNode_NodeID(), theEcorePackage.getEInt(), "nodeID", null, 0, -1, AlphaNode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+		EOperation op = addEOperation(alphaNodeEClass, this.getAlphaNode(), "getNode", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getIntegerQueue(), "nodeID", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaNodeEClass, this.getAlphaNode(), "getNode", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEString(), "nodeID", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaCompleteVisitableEClass, AlphaCompleteVisitable.class, "AlphaCompleteVisitable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(alphaVisitableEClass, AlphaVisitable.class, "AlphaVisitable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		EOperation op = addEOperation(alphaVisitableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(alphaVisitableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaExpressionVisitableEClass, AlphaExpressionVisitable.class, "AlphaExpressionVisitable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

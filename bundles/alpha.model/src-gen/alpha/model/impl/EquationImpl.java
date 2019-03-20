@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -41,7 +40,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  *
  * @generated
  */
-public abstract class EquationImpl extends MinimalEObjectImpl.Container implements Equation {
+public abstract class EquationImpl extends AlphaNodeImpl implements Equation {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -149,7 +148,7 @@ public abstract class EquationImpl extends MinimalEObjectImpl.Container implemen
 				return Integer.valueOf(Integer.parseInt(e));
 			}
 		};
-		List<Integer> _map = ListExtensions.<String, Integer>map(((List<String>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(exprID.split("\\s*,\\s*"))), _function);
+		List<Integer> _map = ListExtensions.<String, Integer>map(((List<String>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(exprID.replace("[", "").replace("]", "").split("\\s*,\\s*"))), _function);
 		LinkedList<Integer> _linkedList = new LinkedList<Integer>(_map);
 		return this.getExpression(_linkedList);
 	}

@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface AlphaRoot extends AlphaVisitable {
+public interface AlphaRoot extends AlphaNode, AlphaVisitable {
 	/**
 	 * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.Imports}.

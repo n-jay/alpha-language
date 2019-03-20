@@ -1,6 +1,5 @@
 package alpha.model.util;
 
-import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaNode;
@@ -374,7 +373,7 @@ public class AlphaUtil {
     return res;
   }
   
-  private static Iterable<AlphaConstant> gatherAlphaConstants(final AlphaVisitable ap) {
+  private static Iterable<AlphaConstant> gatherAlphaConstants(final EObject ap) {
     if (ap instanceof AlphaPackage) {
       return _gatherAlphaConstants((AlphaPackage)ap);
     } else if (ap instanceof AlphaRoot) {
@@ -402,7 +401,7 @@ public class AlphaUtil {
     }
   }
   
-  public static JNIISLSet getScalarDomain(final AlphaCompleteVisitable system) {
+  public static JNIISLSet getScalarDomain(final EObject system) {
     if (system instanceof AlphaSystem) {
       return _getScalarDomain((AlphaSystem)system);
     } else if (system instanceof AlphaExpression) {
