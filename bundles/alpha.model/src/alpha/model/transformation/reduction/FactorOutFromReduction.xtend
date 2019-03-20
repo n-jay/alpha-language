@@ -14,6 +14,7 @@ import alpha.model.util.AlphaOperatorUtil
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
+import alpha.model.transformation.Normalize
 
 /**
  * FactorOutFromReduction moves an expression within a reduction outwards.
@@ -99,6 +100,7 @@ class FactorOutFromReduction {
 		}
 		
 		AlphaInternalStateConstructor.recomputeContextDomain(newBinExpr)
+		Normalize.apply(newBinExpr)
 	} 
 	
 	private def dispatch void traverse(AlphaExpression child, EObject obj) {

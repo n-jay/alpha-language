@@ -9,7 +9,7 @@ import alpha.model.DependenceExpression;
 import alpha.model.MultiArgExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.factory.AlphaUserFactory;
-import alpha.model.issue.AlphaIssue;
+import alpha.model.transformation.Normalize;
 import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaOperatorUtil;
 import com.google.common.base.Objects;
@@ -17,7 +17,6 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.Arrays;
-import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -55,78 +54,71 @@ public class FactorOutFromReduction {
   
   private BINARY_OP enclosingOperationOP;
   
-  public static List<AlphaIssue> apply(final DependenceExpression expr) {
-    List<AlphaIssue> _xblockexpression = null;
-    {
-      final FactorOutFromReduction T = new FactorOutFromReduction(expr);
-      _xblockexpression = T.transform();
-    }
-    return _xblockexpression;
+  public static void apply(final DependenceExpression expr) {
+    final FactorOutFromReduction T = new FactorOutFromReduction(expr);
+    T.transform();
   }
   
-  private List<AlphaIssue> transform() {
-    List<AlphaIssue> _xblockexpression = null;
+  private void transform() {
+    this.traverse(this.targetExpr, this.targetExpr.eContainer());
+    boolean _xblockexpression = false;
     {
-      this.traverse(this.targetExpr, this.targetExpr.eContainer());
-      boolean _xblockexpression_1 = false;
-      {
-        final JNIISLSet ctx = this.targetReduce.getBody().getContextDomain();
-        final int nbDims = ctx.getNbDims(JNIISLDimType.isl_dim_set);
-        boolean bounded = true;
-        ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, nbDims, true);
-        for (final Integer d : _doubleDotLessThan) {
-          bounded = (bounded && ctx.hasAnyLowerBound(JNIISLDimType.isl_dim_set, (d).intValue()));
-        }
-        _xblockexpression_1 = bounded;
+      final JNIISLSet ctx = this.targetReduce.getBody().getContextDomain();
+      final int nbDims = ctx.getNbDims(JNIISLDimType.isl_dim_set);
+      boolean bounded = true;
+      ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, nbDims, true);
+      for (final Integer d : _doubleDotLessThan) {
+        bounded = (bounded && ctx.hasAnyLowerBound(JNIISLDimType.isl_dim_set, (d).intValue()));
       }
-      final boolean bounded = _xblockexpression_1;
-      if ((!bounded)) {
-        throw new IllegalArgumentException("[FactorOutFromReduction] The reduction body enclosing the target expression has unbounded context domain.");
-      }
-      if ((this.enclosingOperation == null)) {
-        throw new IllegalArgumentException("[FactorOutFromReduction] Target expression is not enclosed in a BinaryExpression or MultiArgExpression.");
-      }
-      boolean _isDistributiveOver = AlphaOperatorUtil.isDistributiveOver(this.enclosingOperationOP, AlphaOperatorUtil.getBinaryOP(this.targetReduce));
-      boolean _not = (!_isDistributiveOver);
-      if (_not) {
-        throw new IllegalArgumentException("[FactorOutFromReduction] Target expression cannot be distributed out of the reduction.");
-      }
-      boolean _kernelInclusion = AffineFunctionOperations.kernelInclusion(this.targetReduce.getProjection(), this.targetExpr.getFunction());
-      boolean _not_1 = (!_kernelInclusion);
-      if (_not_1) {
-        throw new IllegalArgumentException("[FactorOutFromReduction] The nullspace of the target expression must include the nullspace of the projection function.");
-      }
-      final JNIISLMultiAff inverseProjection = AffineFunctionOperations.inverseInContext(this.targetReduce.getProjection(), this.targetExpr.getContextDomain().lexMin(), null);
-      final BinaryExpression newBinExpr = AlphaUserFactory.createBinaryExpression(this.enclosingOperationOP);
-      EcoreUtil.replace(this.targetReduce, newBinExpr);
-      final RestrictExpression factoredExpr = AlphaUserFactory.createRestrictExpression(this.targetExpr.getContextDomain(), this.targetExpr);
-      final DependenceExpression inverseDepExpr = AlphaUserFactory.createDependenceExpression(inverseProjection, factoredExpr);
-      newBinExpr.setLeft(inverseDepExpr);
-      newBinExpr.setRight(this.targetReduce);
-      if ((this.enclosingOperation instanceof BinaryExpression)) {
-        AlphaExpression _xifexpression = null;
-        if ((this.childExprID == 0)) {
-          _xifexpression = ((BinaryExpression)this.enclosingOperation).getRight();
-        } else {
-          _xifexpression = ((BinaryExpression)this.enclosingOperation).getLeft();
-        }
-        final AlphaExpression remainingExpr = _xifexpression;
-        EcoreUtil.replace(this.enclosingOperation, remainingExpr);
-      } else {
-        if ((this.enclosingOperation instanceof MultiArgExpression)) {
-          ((MultiArgExpression)this.enclosingOperation).getExprs().remove(this.childExprID);
-          int _length = ((Object[])Conversions.unwrapArray(((MultiArgExpression)this.enclosingOperation).getExprs(), Object.class)).length;
-          boolean _equals = (_length == 1);
-          if (_equals) {
-            EcoreUtil.replace(this.enclosingOperation, ((MultiArgExpression)this.enclosingOperation).getExprs().get(0));
-          }
-        } else {
-          throw new RuntimeException(("[FactorOutFromReduction] Unexpected type for enclosingOperation: " + this.enclosingOperation));
-        }
-      }
-      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(newBinExpr);
+      _xblockexpression = bounded;
     }
-    return _xblockexpression;
+    final boolean bounded = _xblockexpression;
+    if ((!bounded)) {
+      throw new IllegalArgumentException("[FactorOutFromReduction] The reduction body enclosing the target expression has unbounded context domain.");
+    }
+    if ((this.enclosingOperation == null)) {
+      throw new IllegalArgumentException("[FactorOutFromReduction] Target expression is not enclosed in a BinaryExpression or MultiArgExpression.");
+    }
+    boolean _isDistributiveOver = AlphaOperatorUtil.isDistributiveOver(this.enclosingOperationOP, AlphaOperatorUtil.getBinaryOP(this.targetReduce));
+    boolean _not = (!_isDistributiveOver);
+    if (_not) {
+      throw new IllegalArgumentException("[FactorOutFromReduction] Target expression cannot be distributed out of the reduction.");
+    }
+    boolean _kernelInclusion = AffineFunctionOperations.kernelInclusion(this.targetReduce.getProjection(), this.targetExpr.getFunction());
+    boolean _not_1 = (!_kernelInclusion);
+    if (_not_1) {
+      throw new IllegalArgumentException("[FactorOutFromReduction] The nullspace of the target expression must include the nullspace of the projection function.");
+    }
+    final JNIISLMultiAff inverseProjection = AffineFunctionOperations.inverseInContext(this.targetReduce.getProjection(), this.targetExpr.getContextDomain().lexMin(), null);
+    final BinaryExpression newBinExpr = AlphaUserFactory.createBinaryExpression(this.enclosingOperationOP);
+    EcoreUtil.replace(this.targetReduce, newBinExpr);
+    final RestrictExpression factoredExpr = AlphaUserFactory.createRestrictExpression(this.targetExpr.getContextDomain(), this.targetExpr);
+    final DependenceExpression inverseDepExpr = AlphaUserFactory.createDependenceExpression(inverseProjection, factoredExpr);
+    newBinExpr.setLeft(inverseDepExpr);
+    newBinExpr.setRight(this.targetReduce);
+    if ((this.enclosingOperation instanceof BinaryExpression)) {
+      AlphaExpression _xifexpression = null;
+      if ((this.childExprID == 0)) {
+        _xifexpression = ((BinaryExpression)this.enclosingOperation).getRight();
+      } else {
+        _xifexpression = ((BinaryExpression)this.enclosingOperation).getLeft();
+      }
+      final AlphaExpression remainingExpr = _xifexpression;
+      EcoreUtil.replace(this.enclosingOperation, remainingExpr);
+    } else {
+      if ((this.enclosingOperation instanceof MultiArgExpression)) {
+        ((MultiArgExpression)this.enclosingOperation).getExprs().remove(this.childExprID);
+        int _length = ((Object[])Conversions.unwrapArray(((MultiArgExpression)this.enclosingOperation).getExprs(), Object.class)).length;
+        boolean _equals = (_length == 1);
+        if (_equals) {
+          EcoreUtil.replace(this.enclosingOperation, ((MultiArgExpression)this.enclosingOperation).getExprs().get(0));
+        }
+      } else {
+        throw new RuntimeException(("[FactorOutFromReduction] Unexpected type for enclosingOperation: " + this.enclosingOperation));
+      }
+    }
+    AlphaInternalStateConstructor.recomputeContextDomain(newBinExpr);
+    Normalize.apply(newBinExpr);
   }
   
   private void _traverse(final AlphaExpression child, final EObject obj) {
