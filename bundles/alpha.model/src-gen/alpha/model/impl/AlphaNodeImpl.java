@@ -109,6 +109,17 @@ public class AlphaNodeImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * @generated
 	 */
 	@Override
+	public AlphaNode getNode(final EList<Integer> nodeID) {
+		LinkedList<Integer> _linkedList = new LinkedList<Integer>(nodeID);
+		return this.getNode(_linkedList);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public AlphaNode getNode(final String nodeID) {
 		final Function1<String, Integer> _function = new Function1<String, Integer>() {
 			public Integer apply(final String e) {

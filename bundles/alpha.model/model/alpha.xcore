@@ -60,6 +60,10 @@ class AlphaNode {
 		else (this.eContents.get(next) as AlphaNode).getNode(nodeID);
 	}
 	
+	op AlphaNode getNode(int[] nodeID) {
+		getNode(new LinkedList(nodeID))
+	}
+	
 	op AlphaNode getNode(String nodeID) {
 		getNode(new LinkedList<Integer>(nodeID.replace('[', '').replace(']', '').split("\\s*,\\s*").map[e|Integer.parseInt(e)]))
 	}
@@ -497,6 +501,10 @@ abstract class Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 		
 		if (next === null) throw new RuntimeException("Invalid Expression ID")
 		else (this.eContents.get(next) as AlphaExpression).getExpression(exprID);
+	}
+	
+	op AlphaExpression getExpression(int[] exprID) {
+		getExpression(new LinkedList(exprID))
 	}
 	
 	op AlphaExpression getExpression(String exprID) {

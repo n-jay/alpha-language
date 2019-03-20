@@ -4,6 +4,8 @@ package alpha.model;
 
 import java.util.Queue;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Equation</b></em>'.
@@ -56,6 +58,14 @@ public interface Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement 
 	 * @generated
 	 */
 	AlphaExpression getExpression(Queue<Integer> exprID);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" exprIDUnique="false" exprIDMany="true"
+	 * @generated
+	 */
+	AlphaExpression getExpression(EList<Integer> exprID);
 
 	/**
 	 * <!-- begin-user-doc -->

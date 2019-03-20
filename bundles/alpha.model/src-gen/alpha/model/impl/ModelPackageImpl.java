@@ -3270,6 +3270,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getIntegerQueue(), "nodeID", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaNodeEClass, this.getAlphaNode(), "getNode", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEInt(), "nodeID", 0, -1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaNodeEClass, this.getAlphaNode(), "getNode", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEString(), "nodeID", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaCompleteVisitableEClass, AlphaCompleteVisitable.class, "AlphaCompleteVisitable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3811,6 +3814,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(equationEClass, this.getAlphaExpression(), "getExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIntegerQueue(), "exprID", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(equationEClass, this.getAlphaExpression(), "getExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theEcorePackage.getEInt(), "exprID", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(equationEClass, this.getAlphaExpression(), "getExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEString(), "exprID", 0, 1, !IS_UNIQUE, IS_ORDERED);

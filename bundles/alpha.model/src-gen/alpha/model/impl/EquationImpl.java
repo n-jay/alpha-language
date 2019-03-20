@@ -15,6 +15,8 @@ import java.util.Queue;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -134,6 +136,17 @@ public abstract class EquationImpl extends AlphaNodeImpl implements Equation {
 			_xblockexpression = _xifexpression;
 		}
 		return _xblockexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AlphaExpression getExpression(final EList<Integer> exprID) {
+		LinkedList<Integer> _linkedList = new LinkedList<Integer>(exprID);
+		return this.getExpression(_linkedList);
 	}
 
 	/**
