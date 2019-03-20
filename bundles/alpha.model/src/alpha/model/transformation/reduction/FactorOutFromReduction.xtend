@@ -45,7 +45,11 @@ class FactorOutFromReduction {
 	int childExprID
 	BINARY_OP enclosingOperationOP
 	
-	
+	/**
+	 * Applies FactorOutFromReduction to the specified expression.
+	 * 
+	 * Returns the resulting BinaryExpression
+	 */
 	static def apply(DependenceExpression expr) {
 		val T = new FactorOutFromReduction(expr)
 		T.transform
@@ -101,6 +105,8 @@ class FactorOutFromReduction {
 		
 		AlphaInternalStateConstructor.recomputeContextDomain(newBinExpr)
 		Normalize.apply(newBinExpr)
+		
+		return newBinExpr
 	} 
 	
 	private def dispatch void traverse(AlphaExpression child, EObject obj) {

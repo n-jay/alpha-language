@@ -38,17 +38,37 @@ public class HoistOutOfReduction {
     this.targetExpr = expr;
   }
   
-  public static void apply(final BinaryExpression expr) {
-    final HoistOutOfReduction T = new HoistOutOfReduction(expr);
-    T.transform();
+  /**
+   * Applies HoistOutOfReduction to the specified expression.
+   * 
+   * Returns the BinaryExpression that was hoisted out from the reduction.
+   */
+  public static BinaryExpression apply(final BinaryExpression expr) {
+    BinaryExpression _xblockexpression = null;
+    {
+      final HoistOutOfReduction T = new HoistOutOfReduction(expr);
+      AlphaExpression _transform = T.transform();
+      _xblockexpression = ((BinaryExpression) _transform);
+    }
+    return _xblockexpression;
   }
   
-  public static void apply(final MultiArgExpression expr) {
-    final HoistOutOfReduction T = new HoistOutOfReduction(expr);
-    T.transform();
+  /**
+   * Applies HoistOutOfReduction to the specified expression.
+   * 
+   * Returns the MultiArgExpression that was hoisted out from the reduction.
+   */
+  public static MultiArgExpression apply(final MultiArgExpression expr) {
+    MultiArgExpression _xblockexpression = null;
+    {
+      final HoistOutOfReduction T = new HoistOutOfReduction(expr);
+      AlphaExpression _transform = T.transform();
+      _xblockexpression = ((MultiArgExpression) _transform);
+    }
+    return _xblockexpression;
   }
   
-  private void transform() {
+  private AlphaExpression transform() {
     final BINARY_OP targetExprOp = AlphaOperatorUtil.getBinaryOP(this.targetExpr);
     this.traverse(this.targetExpr.eContainer());
     BINARY_OP _reductionOPtoBinaryOP = AlphaOperatorUtil.reductionOPtoBinaryOP(this.targetReduce.getOperator());
@@ -60,6 +80,7 @@ public class HoistOutOfReduction {
     EcoreUtil.replace(this.targetReduce, replacement);
     AlphaInternalStateConstructor.recomputeContextDomain(replacement);
     Normalize.apply(replacement);
+    return replacement;
   }
   
   private AlphaExpression _createReplacement(final BinaryExpression binExpr) {

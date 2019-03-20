@@ -54,12 +54,21 @@ public class FactorOutFromReduction {
   
   private BINARY_OP enclosingOperationOP;
   
-  public static void apply(final DependenceExpression expr) {
-    final FactorOutFromReduction T = new FactorOutFromReduction(expr);
-    T.transform();
+  /**
+   * Applies FactorOutFromReduction to the specified expression.
+   * 
+   * Returns the resulting BinaryExpression
+   */
+  public static BinaryExpression apply(final DependenceExpression expr) {
+    BinaryExpression _xblockexpression = null;
+    {
+      final FactorOutFromReduction T = new FactorOutFromReduction(expr);
+      _xblockexpression = T.transform();
+    }
+    return _xblockexpression;
   }
   
-  private void transform() {
+  private BinaryExpression transform() {
     this.traverse(this.targetExpr, this.targetExpr.eContainer());
     boolean _xblockexpression = false;
     {
@@ -119,6 +128,7 @@ public class FactorOutFromReduction {
     }
     AlphaInternalStateConstructor.recomputeContextDomain(newBinExpr);
     Normalize.apply(newBinExpr);
+    return newBinExpr;
   }
   
   private void _traverse(final AlphaExpression child, final EObject obj) {

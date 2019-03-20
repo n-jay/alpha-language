@@ -32,14 +32,24 @@ class HoistOutOfReduction {
 		targetExpr = expr
 	}	
 	
+	/**
+	 * Applies HoistOutOfReduction to the specified expression.
+	 * 
+	 * Returns the BinaryExpression that was hoisted out from the reduction.
+	 */
 	static def apply(BinaryExpression expr) {
 		val T = new HoistOutOfReduction(expr)
-		T.transform
+		T.transform as BinaryExpression
 	}
 	
+	/**
+	 * Applies HoistOutOfReduction to the specified expression.
+	 * 
+	 * Returns the MultiArgExpression that was hoisted out from the reduction.
+	 */
 	static def apply(MultiArgExpression expr) {
 		val T = new HoistOutOfReduction(expr)
-		T.transform
+		T.transform as MultiArgExpression
 	}
 	
 	private def transform() {
@@ -56,6 +66,8 @@ class HoistOutOfReduction {
 		EcoreUtil.replace(targetReduce, replacement)
 		AlphaInternalStateConstructor.recomputeContextDomain(replacement)
 		Normalize.apply(replacement)
+		
+		return replacement
 	}
 	
 	private dispatch def createReplacement(BinaryExpression binExpr) {
