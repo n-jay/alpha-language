@@ -2,7 +2,6 @@ package alpha.model.tests;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +16,7 @@ import alpha.model.tests.util.AlphaTestUtil;
 
 
 @RunWith(Parameterized.class)
-public class AlphaShowTest extends AbstractAlphaTest {
+public class AlphaShowTest extends GenericAlphaSystemTest {
 
 	public AlphaShowTest(final IAlphaTestInput test) {
 		super(test);
@@ -25,7 +24,7 @@ public class AlphaShowTest extends AbstractAlphaTest {
 	
 	@Parameters(name="{0}")
 	public static Collection<Object[]> data() {
-		return AlphaTestUtil.gatherTestInputs(AlphaTestUtil.SRC_VALID).stream().map(f -> new Object[] { f }).collect(Collectors.toList());
+		return getData(AlphaTestUtil.SRC_VALID);
 	}
 	
 	@Test

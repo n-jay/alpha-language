@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -18,37 +17,10 @@ import alpha.model.tests.data.AlphaBundleTestInput;
 import alpha.model.tests.data.AlphaSingleFileTestInput;
 import alpha.model.tests.data.IAlphaTestInput;
 import alpha.model.tests.util.AlphaTestUtil;
-	
-//	@Override
-//	protected void configure() {
-//		super.configure();
-//		
-//		registerTestFlow(AlphaSingleFileData.class, AlphaDefaultTestFlows.alphaFileDataCheckProgramTestFlow());
-//		registerTestFlow(AlphaBundleData.class, AlphaDefaultTestFlows.alphaFileDataCheckProgramTestFlow());
-//	}
-//
-//	@Test
-//	@UseDataProvider(location = DataFromPathProvider.class, value = DataFromPathProvider.PROVIDER_NAME)
-//	@ResourcesLocation(value = "resources/src-valid", dataClasses = {AlphaBundleData.class, AlphaSingleFileData.class})
-//	public void validSyntax(IAlphaData d) {
-//		runTest(d);
-//	}
-//	
-//
-//	@Test
-//	@UseDataProvider(location = DataFromPathProvider.class, value = DataFromPathProvider.PROVIDER_NAME)
-//	@ResourcesLocation(value = "resources/src-invalid", dataClasses = {AlphaBundleData.class, AlphaSingleFileData.class})
-//	public void invalidSyntax(IAlphaData d) {
-//		expectedExceptions.register(ThrowableMatchers.isAndHasCause(CreationFailure.class, AlphaIssueException.class));
-//		
-//		runTest(d);
-//	}
-	
 
 @RunWith(Parameterized.class)
-public class AlphaCheckProgramTest extends AbstractAlphaTest {
+public class AlphaCheckProgramTest extends GenericAlphaSystemTest {
 	
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 	
@@ -65,12 +37,7 @@ public class AlphaCheckProgramTest extends AbstractAlphaTest {
 		return Stream.concat(AlphaTestUtil.gatherTestInputs(AlphaTestUtil.SRC_VALID).stream().map(f -> new Object[] { f, true }),
 						AlphaTestUtil.gatherTestInputs(AlphaTestUtil.SRC_INVALID).stream().map(f -> new Object[] { f, false })).collect(Collectors.toList());
 	}
-	
-	@Test
-	public void compute() {
-		doTest();
-	}
-	
+
 	@Override
 	protected void doTest(AlphaSingleFileTestInput input) {
 		AlphaRoot root = AlphaTestUtil.parseAndCheck(input);
