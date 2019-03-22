@@ -52,7 +52,7 @@ public class FactorOutFromReduction {
   
   private int childExprID;
   
-  private BINARY_OP enclosingOperationOP;
+  private BINARY_OP enclosingOperationOP = null;
   
   /**
    * Applies FactorOutFromReduction to the specified expression.
@@ -68,11 +68,19 @@ public class FactorOutFromReduction {
     return _xblockexpression;
   }
   
-  private BinaryExpression transform() {
-    this.traverse(this.targetExpr, this.targetExpr.eContainer());
+  /**
+   * Tests for legality of the transformation. Throw IllegalArgumentException when
+   * the transformation is illegal.
+   * 
+   * It is exposed as a public static method to be used by {@link Distributivity}
+   */
+  public static void testLegality(final AbstractReduceExpression targetReduce, final BINARY_OP enclosingOperationOP, final DependenceExpression targetExpr) {
+    if ((((targetReduce == null) || (enclosingOperationOP == null)) || (targetExpr == null))) {
+      throw new IllegalArgumentException("[FactorOutFromReduction] One or more inputs are null.");
+    }
     boolean _xblockexpression = false;
     {
-      final JNIISLSet ctx = this.targetReduce.getBody().getContextDomain();
+      final JNIISLSet ctx = targetReduce.getBody().getContextDomain();
       final int nbDims = ctx.getNbDims(JNIISLDimType.isl_dim_set);
       boolean bounded = true;
       ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, nbDims, true);
@@ -85,19 +93,24 @@ public class FactorOutFromReduction {
     if ((!bounded)) {
       throw new IllegalArgumentException("[FactorOutFromReduction] The reduction body enclosing the target expression has unbounded context domain.");
     }
-    if ((this.enclosingOperation == null)) {
+    if ((enclosingOperationOP == null)) {
       throw new IllegalArgumentException("[FactorOutFromReduction] Target expression is not enclosed in a BinaryExpression or MultiArgExpression.");
     }
-    boolean _isDistributiveOver = AlphaOperatorUtil.isDistributiveOver(this.enclosingOperationOP, AlphaOperatorUtil.getBinaryOP(this.targetReduce));
+    boolean _isDistributiveOver = AlphaOperatorUtil.isDistributiveOver(enclosingOperationOP, AlphaOperatorUtil.getBinaryOP(targetReduce));
     boolean _not = (!_isDistributiveOver);
     if (_not) {
       throw new IllegalArgumentException("[FactorOutFromReduction] Target expression cannot be distributed out of the reduction.");
     }
-    boolean _kernelInclusion = AffineFunctionOperations.kernelInclusion(this.targetReduce.getProjection(), this.targetExpr.getFunction());
+    boolean _kernelInclusion = AffineFunctionOperations.kernelInclusion(targetReduce.getProjection(), targetExpr.getFunction());
     boolean _not_1 = (!_kernelInclusion);
     if (_not_1) {
       throw new IllegalArgumentException("[FactorOutFromReduction] The nullspace of the target expression must include the nullspace of the projection function.");
     }
+  }
+  
+  private BinaryExpression transform() {
+    this.traverse(this.targetExpr, this.targetExpr.eContainer());
+    FactorOutFromReduction.testLegality(this.targetReduce, this.enclosingOperationOP, this.targetExpr);
     final JNIISLMultiAff inverseProjection = AffineFunctionOperations.inverseInContext(this.targetReduce.getProjection(), this.targetExpr.getContextDomain().lexMin(), null);
     final BinaryExpression newBinExpr = AlphaUserFactory.createBinaryExpression(this.enclosingOperationOP);
     EcoreUtil.replace(this.targetReduce, newBinExpr);

@@ -9,12 +9,12 @@ import alpha.model.DependenceExpression
 import alpha.model.MultiArgExpression
 import alpha.model.RestrictExpression
 import alpha.model.factory.AlphaUserFactory
+import alpha.model.transformation.Normalize
 import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaOperatorUtil
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import alpha.model.transformation.Normalize
 
 /**
  * FactorOutFromReduction moves an expression within a reduction outwards.
@@ -43,7 +43,7 @@ class FactorOutFromReduction {
 	//enclosingOperation should be BinaryExpression or MultiArgExpression
 	AlphaExpression enclosingOperation
 	int childExprID
-	BINARY_OP enclosingOperationOP
+	BINARY_OP enclosingOperationOP = null
 	
 	/**
 	 * Applies FactorOutFromReduction to the specified expression.
@@ -55,8 +55,15 @@ class FactorOutFromReduction {
 		T.transform
 	}
 	
-	private def transform() {
-		targetExpr.traverse(targetExpr.eContainer);
+	/**
+	 * Tests for legality of the transformation. Throw IllegalArgumentException when
+	 * the transformation is illegal.
+	 * 
+	 * It is exposed as a public static method to be used by {@link Distributivity}
+	 */
+	static def testLegality(AbstractReduceExpression targetReduce, BINARY_OP enclosingOperationOP, DependenceExpression targetExpr) {
+		if (targetReduce === null || enclosingOperationOP === null || targetExpr === null)
+			throw new IllegalArgumentException("[FactorOutFromReduction] One or more inputs are null.");	
 		
 		val bounded = {
 			val ctx = targetReduce.body.contextDomain;
@@ -68,11 +75,10 @@ class FactorOutFromReduction {
 			bounded
 		}
 		
-		if (!bounded) {
+		if (!bounded)
 			throw new IllegalArgumentException("[FactorOutFromReduction] The reduction body enclosing the target expression has unbounded context domain.");
-		}
 		
-		if (enclosingOperation === null)
+		if (enclosingOperationOP === null)
 			throw new IllegalArgumentException("[FactorOutFromReduction] Target expression is not enclosed in a BinaryExpression or MultiArgExpression.");
 		
 		if (!AlphaOperatorUtil.isDistributiveOver(enclosingOperationOP, AlphaOperatorUtil.getBinaryOP(targetReduce)))
@@ -80,6 +86,13 @@ class FactorOutFromReduction {
 			
 		if (!AffineFunctionOperations.kernelInclusion(targetReduce.projection, targetExpr.function))
 			throw new IllegalArgumentException("[FactorOutFromReduction] The nullspace of the target expression must include the nullspace of the projection function.");
+	
+	} 
+	
+	private def transform() {
+		targetExpr.traverse(targetExpr.eContainer);
+		
+		testLegality(targetReduce, enclosingOperationOP, targetExpr)
 		
 		val inverseProjection = AffineFunctionOperations.inverseInContext(targetReduce.projection, targetExpr.contextDomain.lexMin, null)
 		
