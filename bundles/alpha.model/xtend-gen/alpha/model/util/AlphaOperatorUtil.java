@@ -161,7 +161,7 @@ public class AlphaOperatorUtil {
   }
   
   public static boolean isDistributiveOver(final REDUCTION_OP op1, final REDUCTION_OP op2) {
-    return AlphaOperatorUtil.isDistributiveOver(AlphaOperatorUtil.reductionOPtoBinaryOP(op2), AlphaOperatorUtil.reductionOPtoBinaryOP(op2));
+    return AlphaOperatorUtil.isDistributiveOver(AlphaOperatorUtil.reductionOPtoBinaryOP(op1), AlphaOperatorUtil.reductionOPtoBinaryOP(op2));
   }
   
   /**
