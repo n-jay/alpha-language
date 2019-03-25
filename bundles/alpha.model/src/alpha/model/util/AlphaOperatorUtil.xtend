@@ -109,6 +109,12 @@ class AlphaOperatorUtil {
 		
 		false	
 	}
+	static def isDistributiveOver(BINARY_OP op1, REDUCTION_OP op2) {
+		return isDistributiveOver(op1, reductionOPtoBinaryOP(op2))
+	}
+	static def isDistributiveOver(REDUCTION_OP op1, REDUCTION_OP op2) {
+		return isDistributiveOver(reductionOPtoBinaryOP(op2), reductionOPtoBinaryOP(op2))
+	}
 	
 	/**
 	 * Expects BinaryExpression, MultiArgExpression, or AbstractReduceExpression and returns

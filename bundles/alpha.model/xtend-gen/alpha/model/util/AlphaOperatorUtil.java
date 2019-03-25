@@ -156,6 +156,14 @@ public class AlphaOperatorUtil {
     return _xblockexpression;
   }
   
+  public static boolean isDistributiveOver(final BINARY_OP op1, final REDUCTION_OP op2) {
+    return AlphaOperatorUtil.isDistributiveOver(op1, AlphaOperatorUtil.reductionOPtoBinaryOP(op2));
+  }
+  
+  public static boolean isDistributiveOver(final REDUCTION_OP op1, final REDUCTION_OP op2) {
+    return AlphaOperatorUtil.isDistributiveOver(AlphaOperatorUtil.reductionOPtoBinaryOP(op2), AlphaOperatorUtil.reductionOPtoBinaryOP(op2));
+  }
+  
   /**
    * Expects BinaryExpression, MultiArgExpression, or AbstractReduceExpression and returns
    * BINARY_OP after converting the OP if it was MultiArgExpression/AbstractReduceExpression.
