@@ -4,8 +4,6 @@ import java.util.Collection;
 
 import org.eclipse.xtext.EcoreUtil2;
 import org.junit.Assert;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import alpha.model.AlphaSystem;
