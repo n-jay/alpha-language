@@ -169,16 +169,16 @@ public class FactorOutFromReduction {
   }
   
   private void _traverse(final AlphaExpression child, final BinaryExpression bexpr) {
-    int _xifexpression = (int) 0;
-    AlphaExpression _left = bexpr.getLeft();
-    boolean _equals = Objects.equal(_left, child);
-    if (_equals) {
-      _xifexpression = 0;
-    } else {
-      _xifexpression = 1;
-    }
-    this.childExprID = _xifexpression;
     if ((this.enclosingOperation == null)) {
+      int _xifexpression = (int) 0;
+      AlphaExpression _left = bexpr.getLeft();
+      boolean _equals = Objects.equal(_left, child);
+      if (_equals) {
+        _xifexpression = 0;
+      } else {
+        _xifexpression = 1;
+      }
+      this.childExprID = _xifexpression;
       this.enclosingOperation = bexpr;
       this.enclosingOperationOP = AlphaOperatorUtil.getBinaryOP(this.enclosingOperation);
     } else {

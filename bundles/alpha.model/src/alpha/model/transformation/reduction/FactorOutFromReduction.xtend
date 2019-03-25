@@ -83,7 +83,7 @@ class FactorOutFromReduction {
 		
 		if (!AlphaOperatorUtil.isDistributiveOver(enclosingOperationOP, AlphaOperatorUtil.getBinaryOP(targetReduce)))
 			throw new IllegalArgumentException("[FactorOutFromReduction] Target expression cannot be distributed out of the reduction.");
-			
+		
 		if (!AffineFunctionOperations.kernelInclusion(targetReduce.projection, targetExpr.function))
 			throw new IllegalArgumentException("[FactorOutFromReduction] The nullspace of the target expression must include the nullspace of the projection function.");
 	
@@ -146,9 +146,8 @@ class FactorOutFromReduction {
 	}
 	
 	private def dispatch void traverse(AlphaExpression child, BinaryExpression bexpr) {
-		childExprID = if(bexpr.left==child) 0 else 1
-		
 		if (enclosingOperation === null) {
+			childExprID = if(bexpr.left==child) 0 else 1
 			enclosingOperation = bexpr;
 			enclosingOperationOP = AlphaOperatorUtil.getBinaryOP(enclosingOperation);
 		} else {
