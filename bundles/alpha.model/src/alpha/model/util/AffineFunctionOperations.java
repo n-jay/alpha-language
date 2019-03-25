@@ -351,8 +351,8 @@ public class AffineFunctionOperations {
 	 * Throw an exception if Ker(f1) and Ker(f2) lives on different space
 	 */
 	public static boolean kernelInclusion(JNIISLMultiAff f1, JNIISLMultiAff f2) {
-		if (!f1.getSpace().isEqual(f2.getSpace())) 
-			throw new RuntimeException("[AffineFunctionOperations] Incompatible space given to haveOverlappingKernels: " + f1 + " " + f2);
+		if (!f1.getDomainSpace().isEqual(f2.getDomainSpace())) 
+			throw new RuntimeException("[AffineFunctionOperations] Incompatible space given to kernelInclusion: " + f1 + " " + f2);
 
 		long[][] f1Array = toLinearPartOnlyMatrix(f1).toArray();
 		long[][] f2Array = toLinearPartOnlyMatrix(f2).toArray();
