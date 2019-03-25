@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.eclipse.xtext.EcoreUtil2;
 import org.junit.Assert;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import alpha.model.AbstractReduceExpression;
@@ -17,9 +15,7 @@ import alpha.model.MultiArgExpression;
 import alpha.model.tests.GenericAlphaSystemTest;
 import alpha.model.tests.data.IAlphaTestInput;
 import alpha.model.transformation.reduction.FactorOutFromReduction;
-import alpha.model.util.AShow;
 
-@RunWith(Parameterized.class)
 public class FactorOutFromReductionTest extends GenericAlphaSystemTest {
 
 	private static final String ROOT_DIR = "resources/src-valid/transformation-tests/factor-out-from-reduction/";
@@ -46,7 +42,6 @@ public class FactorOutFromReductionTest extends GenericAlphaSystemTest {
 		} else {
 			FactorOutFromReduction.apply((DependenceExpression)maexprs.get(0).getExprs().get(0));
 		}
-		System.out.println(AShow.print(system));
 		EcoreUtil2.getAllContentsOfType(system, AbstractReduceExpression.class).
 		forEach(x->Assert.assertTrue(
 				EcoreUtil2.getAllContentsOfType(x, BinaryExpression.class).isEmpty() &&

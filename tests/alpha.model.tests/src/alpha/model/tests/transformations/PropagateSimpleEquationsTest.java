@@ -4,8 +4,6 @@ import java.util.Collection;
 
 import org.eclipse.xtext.EcoreUtil2;
 import org.junit.Assert;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import alpha.model.AlphaSystem;
@@ -14,7 +12,6 @@ import alpha.model.tests.GenericAlphaSystemTest;
 import alpha.model.tests.data.IAlphaTestInput;
 import alpha.model.transformation.PropagateSimpleEquations;
 
-@RunWith(Parameterized.class)
 public class PropagateSimpleEquationsTest extends GenericAlphaSystemTest {
 
 	private static final String ROOT_DIR = "resources/src-valid/transformation-tests/propagate-simple-equations/";

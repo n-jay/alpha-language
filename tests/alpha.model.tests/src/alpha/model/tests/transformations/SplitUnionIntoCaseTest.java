@@ -14,7 +14,6 @@ import alpha.model.tests.GenericAlphaSystemTest;
 import alpha.model.tests.data.IAlphaTestInput;
 import alpha.model.transformation.SplitUnionIntoCase;
 
-@RunWith(Parameterized.class)
 public class SplitUnionIntoCaseTest extends GenericAlphaSystemTest {
 
 	private static final String ROOT_DIR = "resources/src-valid/transformation-tests/split-union-into-case/";
