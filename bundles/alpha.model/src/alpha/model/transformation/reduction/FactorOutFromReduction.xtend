@@ -108,7 +108,7 @@ class FactorOutFromReduction {
 			val remainingExpr = if (childExprID==0) enclosingOperation.right else enclosingOperation.left
 			EcoreUtil.replace(enclosingOperation, remainingExpr)
 		} else if (enclosingOperation instanceof MultiArgExpression) {
-			enclosingOperation.exprs.remove(childExprID)
+			//the factored expression is already removed from exprs due to containment
 			if (enclosingOperation.exprs.length == 1) {
 				EcoreUtil.replace(enclosingOperation, enclosingOperation.exprs.get(0))
 			}
@@ -160,9 +160,8 @@ class FactorOutFromReduction {
 	}
 	
 	private def dispatch void traverse(AlphaExpression child, MultiArgExpression mae) {
-		childExprID = mae.exprs.indexOf(child)
-		
 		if (enclosingOperation === null) {
+			childExprID = mae.exprs.indexOf(child)
 			enclosingOperation = mae;
 			enclosingOperationOP = AlphaOperatorUtil.getBinaryOP(enclosingOperation);
 		} else {

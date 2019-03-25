@@ -129,7 +129,6 @@ public class FactorOutFromReduction {
       EcoreUtil.replace(this.enclosingOperation, remainingExpr);
     } else {
       if ((this.enclosingOperation instanceof MultiArgExpression)) {
-        ((MultiArgExpression)this.enclosingOperation).getExprs().remove(this.childExprID);
         int _length = ((Object[])Conversions.unwrapArray(((MultiArgExpression)this.enclosingOperation).getExprs(), Object.class)).length;
         boolean _equals = (_length == 1);
         if (_equals) {
@@ -192,8 +191,8 @@ public class FactorOutFromReduction {
   }
   
   private void _traverse(final AlphaExpression child, final MultiArgExpression mae) {
-    this.childExprID = mae.getExprs().indexOf(child);
     if ((this.enclosingOperation == null)) {
+      this.childExprID = mae.getExprs().indexOf(child);
       this.enclosingOperation = mae;
       this.enclosingOperationOP = AlphaOperatorUtil.getBinaryOP(this.enclosingOperation);
     } else {
