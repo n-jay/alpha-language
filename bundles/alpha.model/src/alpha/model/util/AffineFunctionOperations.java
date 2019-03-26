@@ -392,10 +392,13 @@ public class AffineFunctionOperations {
 	 * @return
 	 */
 	public static JNIISLMultiAff constructAffineFunctionWithSpecifiedKernel(List<String> params, List<String> indices, long[][] kernelT) {
+		if (kernelT == null || kernelT.length == 0)
+			throw new IllegalArgumentException();
+		final int ncols = kernelT[0].length - params.size();
 		long[][] paramIdentity = MatrixOperations.createIdentity(params.size(), kernelT[0].length);
 		long[][] exSEp = MatrixOperations.rowBind(paramIdentity, kernelT);
 		long[][] fp = MatrixOperations.transpose(MatrixOperations.nullspace(exSEp));
-		Matrix mat = MatrixOperations.toMatrix(fp, params, indices.subList(0, fp.length), true, true);
+		Matrix mat = MatrixOperations.toMatrix(fp, params, indices.subList(0, ncols), true, true);
 		return (mat).toMultiAff();
 	}
 }
