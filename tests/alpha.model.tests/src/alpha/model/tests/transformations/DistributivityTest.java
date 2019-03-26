@@ -14,7 +14,6 @@ import alpha.model.StandardEquation;
 import alpha.model.tests.GenericAlphaSystemTest;
 import alpha.model.tests.data.IAlphaTestInput;
 import alpha.model.transformation.reduction.Distributivity;
-import alpha.model.util.AShow;
 
 public class DistributivityTest extends GenericAlphaSystemTest {
 
@@ -39,7 +38,6 @@ public class DistributivityTest extends GenericAlphaSystemTest {
 			Distributivity.apply((AbstractReduceExpression)x.getExpr());
 		});
 		
-		System.out.println(AShow.print(system));
 		EcoreUtil2.getAllContentsOfType(system, AbstractReduceExpression.class).
 		forEach(x->Assert.assertTrue(
 				EcoreUtil2.getAllContentsOfType(x, BinaryExpression.class).isEmpty() &&
