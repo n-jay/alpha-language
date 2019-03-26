@@ -80,6 +80,8 @@ public class MatrixOperations {
 
 
 	public static long[][] transpose(long[][] A) {
+		if (A == null) return null;
+		
 		long[][] tA = new long[A[0].length][A.length];
 
 		for (int i = 0; i < A.length; i++) {
