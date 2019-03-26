@@ -44,7 +44,7 @@ class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
 
 	protected Map<AlphaExpression, long[][]> shareSpace;
 	
-	new () { shareSpace = new TreeMap<AlphaExpression, long[][]>( new Comparator<AlphaExpression>() {
+	private new () { shareSpace = new TreeMap<AlphaExpression, long[][]>( new Comparator<AlphaExpression>() {
 		
 		override compare(AlphaExpression o1, AlphaExpression o2) {
 			val idcmp = o1.expressionID.toString.compareTo(o2.expressionID.toString)
@@ -143,12 +143,8 @@ class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
 			// T that exhibits the same kernel, T is computed by taking the kernel of the share space
 			// by viewing it as a function (hence parameter identity needs to be added)
 			val params = AlphaUtil.getParameterDomain(de).parametersNames
-			val paramIdentity = MatrixOperations.createIdentity(params.size, SEp.get(0).length);
-			val exSEp = MatrixOperations.rowBind(paramIdentity, SEp)
-			val fp = MatrixOperations.transpose(MatrixOperations.nullspace(exSEp))
-			val indices = de.contextDomain.indicesNames.subList(0, de.function.nbAff)
-			val mat = MatrixOperations.toMatrix(fp, params, indices, true, true)
-			val maff = (mat).toMultiAff
+			val indices = de.contextDomain.indicesNames
+			val maff = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, SEp)
 			maff.pullback(de.function)
 		}
 		

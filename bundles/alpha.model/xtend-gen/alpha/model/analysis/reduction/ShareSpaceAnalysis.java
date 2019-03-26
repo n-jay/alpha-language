@@ -17,7 +17,6 @@ import alpha.model.SystemBody;
 import alpha.model.UnaryExpression;
 import alpha.model.VariableExpression;
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult;
-import alpha.model.matrix.Matrix;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AffineFunctionOperations;
@@ -49,7 +48,7 @@ import java.util.TreeMap;
 public class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
   protected Map<AlphaExpression, long[][]> shareSpace;
   
-  public ShareSpaceAnalysis() {
+  private ShareSpaceAnalysis() {
     TreeMap<AlphaExpression, long[][]> _treeMap = new TreeMap<AlphaExpression, long[][]>(new Comparator<AlphaExpression>() {
       @Override
       public int compare(final AlphaExpression o1, final AlphaExpression o2) {
@@ -154,12 +153,8 @@ public class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
       JNIISLMultiAff _xblockexpression = null;
       {
         final List<String> params = AlphaUtil.getParameterDomain(de).getParametersNames();
-        final long[][] paramIdentity = MatrixOperations.createIdentity(params.size(), SEp[0].length);
-        final long[][] exSEp = MatrixOperations.rowBind(paramIdentity, SEp);
-        final long[][] fp = MatrixOperations.transpose(MatrixOperations.nullspace(exSEp));
-        final List<String> indices = de.getContextDomain().getIndicesNames().subList(0, de.getFunction().getNbAff());
-        final Matrix mat = MatrixOperations.toMatrix(fp, params, indices, true, true);
-        final JNIISLMultiAff maff = mat.toMultiAff();
+        final List<String> indices = de.getContextDomain().getIndicesNames();
+        final JNIISLMultiAff maff = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, SEp);
         _xblockexpression = maff.pullback(de.getFunction());
       }
       _xifexpression = _xblockexpression;
