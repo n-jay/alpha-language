@@ -360,4 +360,42 @@ public class AffineFunctionOperations {
 		return MatrixOperations.inclusionKernel(f1Array, f2Array);
 	}
 
+	/**
+	 * Given target function f and another function x, computes a function y such that
+	 *   f = y o x 
+	 * 
+	 * How this method computes y is specialized for non-bijective functions,
+	 * which is the case for projection functions in reductions. It is computed from
+	 * the nullspace of the function that should be non-trivial for projections.
+	 * 
+	 * It assumes that the kernel of f spans a larger space than the kernel of x. A
+	 * function y' is computed to span the space not covered by the kernel of x. Then
+	 * the domain of y' is projected with x to be consistent (dimension-wise). The 
+	 * projection should be legal 
+	 * 
+	 * @param f
+	 * @param x
+	 * @return y
+	 */
+	public static JNIISLMultiAff deduceDecompositionFromKernels(JNIISLMultiAff f, JNIISLMultiAff x) {
+		return null;
+	}
+	
+	/**
+	 * Given a matrix representing basis vectors, constructs an affine function that have the given space
+	 * as its kernel. The input kernel is assumed to be in the transposed form where each row is a vector.
+	 * This method also requires the list of parameters and index names to be provided.
+	 * 
+	 * @param params
+	 * @param indices
+	 * @param kernelT
+	 * @return
+	 */
+	public static JNIISLMultiAff constructAffineFunctionWithSpecifiedKernel(List<String> params, List<String> indices, long[][] kernelT) {
+		long[][] paramIdentity = MatrixOperations.createIdentity(params.size(), kernelT[0].length);
+		long[][] exSEp = MatrixOperations.rowBind(paramIdentity, kernelT);
+		long[][] fp = MatrixOperations.transpose(MatrixOperations.nullspace(exSEp));
+		Matrix mat = MatrixOperations.toMatrix(fp, params, indices.subList(0, fp.length), true, true);
+		return (mat).toMultiAff();
+	}
 }
