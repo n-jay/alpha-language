@@ -34,7 +34,7 @@ public class FactorOutFromReductionTest extends GenericAlphaSystemTest {
 		List<BinaryExpression> bexprs = EcoreUtil2.getAllContentsOfType(system, BinaryExpression.class);
 		List<MultiArgExpression> maexprs = EcoreUtil2.getAllContentsOfType(system, MultiArgExpression.class);
 		
-		Assert.assertTrue("FactorOutOfReductionTest assumes each system as exactly one candidate target to apply the transformation.", 
+		Assert.assertTrue("Assumes each system as exactly one candidate target to apply the transformation.", 
 				bexprs.size() + maexprs.size() == 1);
 		
 		if (bexprs.size() == 1) {
@@ -43,8 +43,14 @@ public class FactorOutFromReductionTest extends GenericAlphaSystemTest {
 			FactorOutFromReduction.apply((DependenceExpression)maexprs.get(0).getExprs().get(0));
 		}
 		EcoreUtil2.getAllContentsOfType(system, AbstractReduceExpression.class).
-		forEach(x->Assert.assertTrue(
-				EcoreUtil2.getAllContentsOfType(x, BinaryExpression.class).isEmpty() &&
-				EcoreUtil2.getAllContentsOfType(x, MultiArgExpression.class).isEmpty()));
+		forEach(x->{
+			Assert.assertTrue("Assumes all reductions to not have any Binary/MultiArgExpression after the transformation.",
+			EcoreUtil2.getAllContentsOfType(x, BinaryExpression.class).isEmpty() &&
+			EcoreUtil2.getAllContentsOfType(x, MultiArgExpression.class).isEmpty());
+
+			Assert.assertTrue("Assumes all reductions to have BinaryMultiArgExpression as its parent.",
+			x.eContainer() instanceof BinaryExpression ||
+			x.eContainer() instanceof MultiArgExpression);
+		});
 	}
 }
