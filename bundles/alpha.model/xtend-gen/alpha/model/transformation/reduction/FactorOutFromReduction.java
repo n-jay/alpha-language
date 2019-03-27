@@ -96,7 +96,7 @@ public class FactorOutFromReduction {
     FactorOutFromReduction.testLegality(this.targetReduce, this.enclosingOperationOP, this.targetExpr);
     final BinaryExpression newBinExpr = AlphaUserFactory.createBinaryExpression(this.enclosingOperationOP);
     EcoreUtil.replace(this.targetReduce, newBinExpr);
-    final JNIISLMultiAff projectedDep = AffineFunctionOperations.mapToMultiAff(this.targetExpr.getFunction().toMap().applyDomain(this.targetReduce.getProjection().toMap()));
+    final JNIISLMultiAff projectedDep = AffineFunctionOperations.projectFunctionDomain(this.targetExpr.getFunction(), this.targetReduce.getProjection());
     final DependenceExpression newDepExpr = AlphaUserFactory.createDependenceExpression(projectedDep, this.targetExpr.getExpr());
     final JNIISLSet projectedContext = this.targetExpr.getContextDomain().apply(this.targetReduce.getProjection().toMap());
     final RestrictExpression factoredExpr = AlphaUserFactory.createRestrictExpression(projectedContext, newDepExpr);

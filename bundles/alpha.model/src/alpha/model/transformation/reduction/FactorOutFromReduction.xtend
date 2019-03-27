@@ -85,7 +85,7 @@ class FactorOutFromReduction {
 		
 		//Dependence of the factored expression is projected by the projection function
 		// applyDomain in ISL should work as long as the ker(projection) \in ker(dep) is true
-		val projectedDep = AffineFunctionOperations.mapToMultiAff(targetExpr.function.toMap.applyDomain(targetReduce.projection.toMap))
+		val projectedDep = AffineFunctionOperations.projectFunctionDomain(targetExpr.function, targetReduce.projection)
 		val newDepExpr = AlphaUserFactory.createDependenceExpression(projectedDep, targetExpr.expr)
 		
 		//The factored expression is restricted by its original context domain
