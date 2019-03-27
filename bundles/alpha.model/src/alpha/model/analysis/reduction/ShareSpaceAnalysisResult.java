@@ -24,6 +24,14 @@ public class ShareSpaceAnalysisResult {
 		this.shareSpace = shareSpace;
 	}
 	
+	public boolean hasNonTrivialShareSpace() {
+		return shareSpace.values().stream().filter(x->x!=null).count() > 0;
+	}
+	
+	public long[][] getShareSpace(AlphaExpression expr) {
+		return shareSpace.get(expr);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -36,7 +44,7 @@ public class ShareSpaceAnalysisResult {
 				sb.append(Streams.concat(ctxDom.getParametersNames().stream(),
 								ctxDom.getIndicesNames().stream()).collect(Collectors.joining(" ", "[", "]")));
 				sb.append("\n");
-				sb.append(MatrixOperations.matrixToString(e.getValue()));
+				sb.append(MatrixOperations.toString(e.getValue()));
 				sb.append("\n");
 			}
 		}
