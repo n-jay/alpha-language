@@ -12,7 +12,9 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLVal;
@@ -393,12 +395,50 @@ public class AffineFunctionOperations {
 	 */
 	public static JNIISLMultiAff constructAffineFunctionWithSpecifiedKernel(List<String> params, List<String> indices, long[][] kernelT) {
 		if (kernelT == null || kernelT.length == 0)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("[AffineFunctionOperations] Expecting non-trivial kernel.");
+		if (params == null || indices == null || params.size() + indices.size() < kernelT[0].length)
+			throw new IllegalArgumentException("[AffineFunctionOperations] Required parameter and/or index names are not provided.");
+		
 		final int ncols = kernelT[0].length - params.size();
 		long[][] paramIdentity = MatrixOperations.createIdentity(params.size(), kernelT[0].length);
 		long[][] exSEp = MatrixOperations.rowBind(paramIdentity, kernelT);
 		long[][] fp = MatrixOperations.transpose(MatrixOperations.nullspace(exSEp));
 		Matrix mat = MatrixOperations.toMatrix(fp, params, indices.subList(0, ncols), true, true);
 		return (mat).toMultiAff();
+	}
+	
+	/**
+	 * Computes the projection of the domain of f by the projection function p.
+	 * This requires ker(p) \in ker(f) to be valid.
+	 * 
+	 * Since the dimension names after projection are set to null by ISL, 
+	 * default index names are set to avoid null dimension names.
+	 * 
+	 * @param f
+	 * @param p
+	 * @return
+	 */
+	public static JNIISLMultiAff projectFunctionDomain(JNIISLMultiAff f, JNIISLMultiAff p) {
+		JNIISLMap projectedF = f.toMap().applyDomain(p.toMap());
+		for (int i = 0; i < projectedF.getNbIns(); i++) {
+			projectedF = projectedF.setDimName(JNIISLDimType.isl_dim_in, i, "i"+i);
+		}
+		return AffineFunctionOperations.mapToMultiAff(projectedF);
+	}
+	
+	/**
+	 * Checks the map corresponds to a function and returns the function.
+	 * This method should be moved to JNIISL with the next update.
+	 * FIXME
+	 * 
+	 * @param map
+	 * @return
+	 */
+	private static JNIISLMultiAff mapToMultiAff(JNIISLMap map) {
+		JNIISLPWMultiAff pwmaff = map.toPWMultiAff();
+		if (pwmaff.getNbPieces() != 1)
+			throw new IllegalArgumentException("[AffineFunctionOperations] Expecting map with a single piece.");
+		
+		return pwmaff.getPiece(0).getMaff();
 	}
 }
