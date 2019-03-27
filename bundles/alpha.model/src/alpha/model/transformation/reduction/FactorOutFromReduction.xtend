@@ -12,10 +12,8 @@ import alpha.model.factory.AlphaUserFactory
 import alpha.model.transformation.Normalize
 import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaOperatorUtil
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
-import alpha.model.util.Show
 
 /**
  * FactorOutFromReduction moves an expression within a reduction outwards.
@@ -65,19 +63,6 @@ class FactorOutFromReduction {
 	static def testLegality(AbstractReduceExpression targetReduce, BINARY_OP enclosingOperationOP, DependenceExpression targetExpr) {
 		if (targetReduce === null || enclosingOperationOP === null || targetExpr === null)
 			throw new IllegalArgumentException("[FactorOutFromReduction] One or more inputs are null.");	
-		
-		val bounded = {
-			val ctx = targetReduce.body.contextDomain;
-			val nbDims = ctx.getNbDims(JNIISLDimType.isl_dim_set);
-			var bounded = true
-			for (d : 0..<nbDims) {
-				bounded = bounded && ctx.hasAnyLowerBound(JNIISLDimType.isl_dim_set, d)
-			}
-			bounded
-		}
-		
-		if (!bounded)
-			throw new IllegalArgumentException("[FactorOutFromReduction] The reduction body enclosing the target expression has unbounded context domain.");
 		
 		if (enclosingOperationOP === null)
 			throw new IllegalArgumentException("[FactorOutFromReduction] Target expression is not enclosed in a BinaryExpression or MultiArgExpression.");
