@@ -184,8 +184,10 @@ class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
 	}
 	private def intersectShareSpaces(List<AlphaExpression> exprs) {
 		var long[][] SE = null
+		
 		for (expr : exprs) {
-			SE = MatrixOperations.plainIntersection(SE, shareSpace.get(expr))
+			SE = if (SE === null) shareSpace.get(expr)
+			else MatrixOperations.plainIntersection(SE, shareSpace.get(expr))
 		}
 		return SE
 	}

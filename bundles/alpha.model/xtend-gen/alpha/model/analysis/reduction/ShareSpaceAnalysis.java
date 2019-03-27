@@ -199,7 +199,13 @@ public class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
   private long[][] intersectShareSpaces(final List<AlphaExpression> exprs) {
     long[][] SE = null;
     for (final AlphaExpression expr : exprs) {
-      SE = MatrixOperations.plainIntersection(SE, this.shareSpace.get(expr));
+      long[][] _xifexpression = null;
+      if ((SE == null)) {
+        _xifexpression = this.shareSpace.get(expr);
+      } else {
+        _xifexpression = MatrixOperations.plainIntersection(SE, this.shareSpace.get(expr));
+      }
+      SE = _xifexpression;
     }
     return SE;
   }
