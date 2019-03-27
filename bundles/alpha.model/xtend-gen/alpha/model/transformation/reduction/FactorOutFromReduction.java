@@ -111,12 +111,13 @@ public class FactorOutFromReduction {
   private BinaryExpression transform() {
     this.traverse(this.targetExpr, this.targetExpr.eContainer());
     FactorOutFromReduction.testLegality(this.targetReduce, this.enclosingOperationOP, this.targetExpr);
-    final JNIISLMultiAff inverseProjection = AffineFunctionOperations.inverseInContext(this.targetReduce.getProjection(), this.targetExpr.getContextDomain().lexMin(), null);
     final BinaryExpression newBinExpr = AlphaUserFactory.createBinaryExpression(this.enclosingOperationOP);
     EcoreUtil.replace(this.targetReduce, newBinExpr);
-    final RestrictExpression factoredExpr = AlphaUserFactory.createRestrictExpression(this.targetExpr.getContextDomain(), this.targetExpr);
-    final DependenceExpression inverseDepExpr = AlphaUserFactory.createDependenceExpression(inverseProjection, factoredExpr);
-    newBinExpr.setLeft(inverseDepExpr);
+    final JNIISLMultiAff projectedDep = AffineFunctionOperations.mapToMultiAff(this.targetExpr.getFunction().toMap().applyDomain(this.targetReduce.getProjection().toMap()));
+    final DependenceExpression newDepExpr = AlphaUserFactory.createDependenceExpression(projectedDep, this.targetExpr.getExpr());
+    final JNIISLSet projectedContext = this.targetExpr.getContextDomain().apply(this.targetReduce.getProjection().toMap());
+    final RestrictExpression factoredExpr = AlphaUserFactory.createRestrictExpression(projectedContext, newDepExpr);
+    newBinExpr.setLeft(factoredExpr);
     newBinExpr.setRight(this.targetReduce);
     if ((this.enclosingOperation instanceof BinaryExpression)) {
       AlphaExpression _xifexpression = null;
@@ -129,6 +130,7 @@ public class FactorOutFromReduction {
       EcoreUtil.replace(this.enclosingOperation, remainingExpr);
     } else {
       if ((this.enclosingOperation instanceof MultiArgExpression)) {
+        ((MultiArgExpression)this.enclosingOperation).getExprs().remove(this.childExprID);
         int _length = ((Object[])Conversions.unwrapArray(((MultiArgExpression)this.enclosingOperation).getExprs(), Object.class)).length;
         boolean _equals = (_length == 1);
         if (_equals) {

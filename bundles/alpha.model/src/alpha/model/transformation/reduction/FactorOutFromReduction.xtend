@@ -15,6 +15,7 @@ import alpha.model.util.AlphaOperatorUtil
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
+import alpha.model.util.Show
 
 /**
  * FactorOutFromReduction moves an expression within a reduction outwards.
@@ -94,28 +95,32 @@ class FactorOutFromReduction {
 		
 		testLegality(targetReduce, enclosingOperationOP, targetExpr)
 		
-		val inverseProjection = AffineFunctionOperations.inverseInContext(targetReduce.projection, targetExpr.contextDomain.lexMin, null)
-		
 		val newBinExpr = AlphaUserFactory.createBinaryExpression(enclosingOperationOP);
 		EcoreUtil.replace(targetReduce, newBinExpr)
 		
-		val factoredExpr = AlphaUserFactory.createRestrictExpression(targetExpr.contextDomain, targetExpr)
-		val inverseDepExpr = AlphaUserFactory.createDependenceExpression(inverseProjection, factoredExpr)
-		newBinExpr.left = inverseDepExpr
+		//Dependence of the factored expression is projected by the projection function
+		// applyDomain in ISL should work as long as the ker(projection) \in ker(dep) is true
+		val projectedDep = AffineFunctionOperations.mapToMultiAff(targetExpr.function.toMap.applyDomain(targetReduce.projection.toMap))
+		val newDepExpr = AlphaUserFactory.createDependenceExpression(projectedDep, targetExpr.expr)
+		
+		//The factored expression is restricted by its original context domain
+		// this will reflect any RestrictExpression that may have been in the path from reduction to the target
+		val projectedContext = targetExpr.contextDomain.apply(targetReduce.projection.toMap)
+		val factoredExpr = AlphaUserFactory.createRestrictExpression(projectedContext, newDepExpr)
+		newBinExpr.left = factoredExpr
 		newBinExpr.right = targetReduce
 		
 		if (enclosingOperation instanceof BinaryExpression) {
 			val remainingExpr = if (childExprID==0) enclosingOperation.right else enclosingOperation.left
 			EcoreUtil.replace(enclosingOperation, remainingExpr)
 		} else if (enclosingOperation instanceof MultiArgExpression) {
-			//the factored expression is already removed from exprs due to containment
+			enclosingOperation.exprs.remove(childExprID)
 			if (enclosingOperation.exprs.length == 1) {
 				EcoreUtil.replace(enclosingOperation, enclosingOperation.exprs.get(0))
 			}
 		} else {
 			throw new RuntimeException("[FactorOutFromReduction] Unexpected type for enclosingOperation: " + enclosingOperation);
 		}
-		
 		AlphaInternalStateConstructor.recomputeContextDomain(newBinExpr)
 		Normalize.apply(newBinExpr)
 		
