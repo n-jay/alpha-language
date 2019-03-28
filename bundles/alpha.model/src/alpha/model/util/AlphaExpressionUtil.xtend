@@ -62,8 +62,15 @@ class AlphaExpressionUtil {
 	}
 	
 	static dispatch def parentContext(AlphaExpression child, StandardEquation parent, Consumer<AlphaIssue> f) {
-		if (parent.systemBody.parameterDomainExpr === null || parent.systemBody.parameterDomain === null) null
-		else parent.variable.domain.intersectParams(parent.systemBody.parameterDomain)
+		//If something is wrong to the extent some required values are null, 
+		//  then it should be caught in previous checks
+		if (parent === null || parent.systemBody === null ||
+			parent.systemBody.parameterDomainExpr === null || 
+			parent.systemBody.parameterDomain === null ||
+			parent.variable === null ||
+			parent.variable.domain === null) return null
+		
+		parent.variable.domain.intersectParams(parent.systemBody.parameterDomain)
 	}
 
 	//For UseEquations, the context depends on the location of the child

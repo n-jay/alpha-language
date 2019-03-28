@@ -16,6 +16,8 @@ import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.JNIPolynomial;
+import alpha.model.JNIPolynomialInArrayNotation;
 import alpha.model.JNIRelation;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
@@ -34,6 +36,7 @@ import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.ArrayList;
@@ -51,6 +54,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 /**
  * This class is responsible for constructing ISL objects for:<ul>
@@ -587,6 +591,64 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   }
   
   @Override
+  public void visitJNIPolynomial(final JNIPolynomial jniPolynomial) {
+    try {
+      JNIISLPWQPolynomial jniPWQP = CalculatorExpressionEvaluator.parsePolynomial(AlphaUtil.getContainerSystem(jniPolynomial), this.parseJNIPolynomial(jniPolynomial));
+      jniPolynomial.setISLQPolynomialPiece(jniPWQP);
+    } catch (final Throwable _t) {
+      if (_t instanceof RuntimeException) {
+        final RuntimeException re = (RuntimeException)_t;
+        String _xifexpression = null;
+        String _message = re.getMessage();
+        boolean _tripleEquals = (_message == null);
+        if (_tripleEquals) {
+          _xifexpression = re.getClass().getName();
+        } else {
+          _xifexpression = re.getMessage();
+        }
+        final String msg = _xifexpression;
+        this.registerIssue(msg, jniPolynomial);
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
+  }
+  
+  /**
+   * Parses a polynomial in the context of the given system.
+   */
+  public static JNIISLPWQPolynomial parsePolynomial(final AlphaSystem system, final String pwqpStr) {
+    JNIISLPWQPolynomial jniPWQP = ISLFactory.islPWQPolynomial(AlphaUtil.toContextFreeISLString(system, pwqpStr));
+    final JNIISLSet pdom = AlphaUtil.getParameterDomain(system);
+    return jniPWQP.intersectParams(pdom.copy());
+  }
+  
+  /**
+   * Dispatch method to construct the input islString for both Show and AShow notation.
+   * 
+   * The output of this method does not have the parameter part. It is added later at parsePolynomial.
+   */
+  private String _parseJNIPolynomial(final JNIPolynomial jniPolynomial) {
+    return jniPolynomial.getIslString();
+  }
+  
+  private String _parseJNIPolynomial(final JNIPolynomialInArrayNotation jniPolynomial) {
+    if ((this.indexNameContext == null)) {
+      String _islString = jniPolynomial.getIslString();
+      String _plus = ("Empty context found when trying to parse JNIPolynomial: " + _islString);
+      throw new OutOfContextArrayNotationException(_plus);
+    }
+    final String contextString = String.format("[%s]->", IterableExtensions.join(this.indexNameContext, ","));
+    final StringBuffer pwqpStr = new StringBuffer("{ ");
+    final Function1<String, String> _function = (String s) -> {
+      return (contextString + s);
+    };
+    pwqpStr.append(IterableExtensions.join(ListExtensions.<String, String>map(jniPolynomial.getArrayNotation(), _function), "; "));
+    pwqpStr.append(" }");
+    return pwqpStr.toString();
+  }
+  
+  @Override
   public void visitVariableDomain(final VariableDomain vdom) {
     Variable _variable = vdom.getVariable();
     boolean _tripleNotEquals = (_variable != null);
@@ -751,6 +813,17 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(jniFunction, parent).toString());
+    }
+  }
+  
+  private String parseJNIPolynomial(final JNIPolynomial jniPolynomial) {
+    if (jniPolynomial instanceof JNIPolynomialInArrayNotation) {
+      return _parseJNIPolynomial((JNIPolynomialInArrayNotation)jniPolynomial);
+    } else if (jniPolynomial != null) {
+      return _parseJNIPolynomial(jniPolynomial);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(jniPolynomial).toString());
     }
   }
 }

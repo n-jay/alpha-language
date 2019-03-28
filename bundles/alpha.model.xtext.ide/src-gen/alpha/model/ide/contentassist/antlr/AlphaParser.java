@@ -41,6 +41,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAISLSetAccess().getAlternatives(), "rule__AISLSet__Alternatives");
 			builder.put(grammarAccess.getAISLStringAccess().getAlternatives(), "rule__AISLString__Alternatives");
 			builder.put(grammarAccess.getAISLExpressionAccess().getAlternatives(), "rule__AISLExpression__Alternatives");
+			builder.put(grammarAccess.getAISLPolynomialExpressionAccess().getAlternatives(), "rule__AISLPolynomialExpression__Alternatives");
 			builder.put(grammarAccess.getAISLExpressionLiteralAccess().getAlternatives_1(), "rule__AISLExpressionLiteral__Alternatives_1");
 			builder.put(grammarAccess.getAISLExpressionOperatorAccess().getAlternatives(), "rule__AISLExpressionOperator__Alternatives");
 			builder.put(grammarAccess.getAlphaFunctionTerminalExpressionAccess().getAlternatives(), "rule__AlphaFunctionTerminalExpression__Alternatives");
@@ -54,6 +55,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getDependenceExpressionAccess().getAlternatives(), "rule__DependenceExpression__Alternatives");
 			builder.put(grammarAccess.getFuzzyDependenceExpressionAccess().getAlternatives(), "rule__FuzzyDependenceExpression__Alternatives");
 			builder.put(grammarAccess.getIndexExpressionAccess().getAlternatives(), "rule__IndexExpression__Alternatives");
+			builder.put(grammarAccess.getPolynomialIndexExpressionAccess().getAlternatives(), "rule__PolynomialIndexExpression__Alternatives");
 			builder.put(grammarAccess.getFuzzyIndexExpressionAccess().getAlternatives(), "rule__FuzzyIndexExpression__Alternatives");
 			builder.put(grammarAccess.getReduceExpressionAccess().getProjectionExprAlternatives_4_0(), "rule__ReduceExpression__ProjectionExprAlternatives_4_0");
 			builder.put(grammarAccess.getExternalReduceExpressionAccess().getProjectionExprAlternatives_4_0(), "rule__ExternalReduceExpression__ProjectionExprAlternatives_4_0");
@@ -104,6 +106,8 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getJNIFunctionInArrayNotationAccess().getGroup(), "rule__JNIFunctionInArrayNotation__Group__0");
 			builder.put(grammarAccess.getJNIFunctionInArrayNotationAccess().getGroup_2(), "rule__JNIFunctionInArrayNotation__Group_2__0");
 			builder.put(grammarAccess.getJNIFunctionInArrayNotationAccess().getGroup_2_1(), "rule__JNIFunctionInArrayNotation__Group_2_1__0");
+			builder.put(grammarAccess.getJNIPolynomialInArrayNotationAccess().getGroup(), "rule__JNIPolynomialInArrayNotation__Group__0");
+			builder.put(grammarAccess.getJNIPolynomialInArrayNotationAccess().getGroup_2(), "rule__JNIPolynomialInArrayNotation__Group_2__0");
 			builder.put(grammarAccess.getFuzzyFunctionAccess().getGroup(), "rule__FuzzyFunction__Group__0");
 			builder.put(grammarAccess.getFuzzyFunctionAccess().getGroup_2(), "rule__FuzzyFunction__Group_2__0");
 			builder.put(grammarAccess.getNestedFuzzyFunctionAccess().getGroup(), "rule__NestedFuzzyFunction__Group__0");
@@ -124,6 +128,11 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAISLBasicSetAccess().getGroup(), "rule__AISLBasicSet__Group__0");
 			builder.put(grammarAccess.getAISLRelationAccess().getGroup(), "rule__AISLRelation__Group__0");
 			builder.put(grammarAccess.getAISLRelationAccess().getGroup_2(), "rule__AISLRelation__Group_2__0");
+			builder.put(grammarAccess.getAISLQPolynomialAccess().getGroup(), "rule__AISLQPolynomial__Group__0");
+			builder.put(grammarAccess.getAISLQPolynomialBodyAccess().getGroup(), "rule__AISLQPolynomialBody__Group__0");
+			builder.put(grammarAccess.getAISLQPolynomialBodyAccess().getGroup_1(), "rule__AISLQPolynomialBody__Group_1__0");
+			builder.put(grammarAccess.getAISLPWQPolynomialAccess().getGroup(), "rule__AISLPWQPolynomial__Group__0");
+			builder.put(grammarAccess.getAISLPWQPolynomialAccess().getGroup_2(), "rule__AISLPWQPolynomial__Group_2__0");
 			builder.put(grammarAccess.getAISLExpressionLiteralAccess().getGroup(), "rule__AISLExpressionLiteral__Group__0");
 			builder.put(grammarAccess.getAISLExpressionListAccess().getGroup(), "rule__AISLExpressionList__Group__0");
 			builder.put(grammarAccess.getAISLExpressionListAccess().getGroup_1(), "rule__AISLExpressionList__Group_1__0");
@@ -162,6 +171,9 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getFuzzyDependenceExpressionAccess().getGroup_0(), "rule__FuzzyDependenceExpression__Group_0__0");
 			builder.put(grammarAccess.getFuzzyDependenceExpressionAccess().getGroup_1(), "rule__FuzzyDependenceExpression__Group_1__0");
 			builder.put(grammarAccess.getIndexExpressionAccess().getGroup_0(), "rule__IndexExpression__Group_0__0");
+			builder.put(grammarAccess.getIndexExpressionAccess().getGroup_1(), "rule__IndexExpression__Group_1__0");
+			builder.put(grammarAccess.getPolynomialIndexExpressionAccess().getGroup_0(), "rule__PolynomialIndexExpression__Group_0__0");
+			builder.put(grammarAccess.getPolynomialIndexExpressionAccess().getGroup_1(), "rule__PolynomialIndexExpression__Group_1__0");
 			builder.put(grammarAccess.getFuzzyIndexExpressionAccess().getGroup_0(), "rule__FuzzyIndexExpression__Group_0__0");
 			builder.put(grammarAccess.getReduceExpressionAccess().getGroup(), "rule__ReduceExpression__Group__0");
 			builder.put(grammarAccess.getExternalReduceExpressionAccess().getGroup(), "rule__ExternalReduceExpression__Group__0");
@@ -260,6 +272,9 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getJNIFunctionAccess().getAlphaFunctionAssignment(), "rule__JNIFunction__AlphaFunctionAssignment");
 			builder.put(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAssignment_2_0(), "rule__JNIFunctionInArrayNotation__ArrayNotationAssignment_2_0");
 			builder.put(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAssignment_2_1_1(), "rule__JNIFunctionInArrayNotation__ArrayNotationAssignment_2_1_1");
+			builder.put(grammarAccess.getJNIPolynomialAccess().getIslStringAssignment(), "rule__JNIPolynomial__IslStringAssignment");
+			builder.put(grammarAccess.getJNIPolynomialInArrayNotationAccess().getArrayNotationAssignment_1(), "rule__JNIPolynomialInArrayNotation__ArrayNotationAssignment_1");
+			builder.put(grammarAccess.getJNIPolynomialInArrayNotationAccess().getArrayNotationAssignment_2_1(), "rule__JNIPolynomialInArrayNotation__ArrayNotationAssignment_2_1");
 			builder.put(grammarAccess.getFuzzyFunctionAccess().getAlphaStringAssignment_1(), "rule__FuzzyFunction__AlphaStringAssignment_1");
 			builder.put(grammarAccess.getFuzzyFunctionAccess().getIndirectionsAssignment_2_1(), "rule__FuzzyFunction__IndirectionsAssignment_2_1");
 			builder.put(grammarAccess.getNestedFuzzyFunctionAccess().getFuzzyIndexAssignment_0(), "rule__NestedFuzzyFunction__FuzzyIndexAssignment_0");
@@ -311,7 +326,9 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getFuzzyDependenceExpressionAccess().getExprAssignment_1_0(), "rule__FuzzyDependenceExpression__ExprAssignment_1_0");
 			builder.put(grammarAccess.getFuzzyDependenceExpressionAccess().getFuzzyFunctionAssignment_1_1(), "rule__FuzzyDependenceExpression__FuzzyFunctionAssignment_1_1");
 			builder.put(grammarAccess.getIndexExpressionAccess().getFunctionExprAssignment_0_1(), "rule__IndexExpression__FunctionExprAssignment_0_1");
-			builder.put(grammarAccess.getIndexExpressionAccess().getFunctionExprAssignment_1(), "rule__IndexExpression__FunctionExprAssignment_1");
+			builder.put(grammarAccess.getIndexExpressionAccess().getFunctionExprAssignment_1_1(), "rule__IndexExpression__FunctionExprAssignment_1_1");
+			builder.put(grammarAccess.getPolynomialIndexExpressionAccess().getPolynomialExprAssignment_0_1(), "rule__PolynomialIndexExpression__PolynomialExprAssignment_0_1");
+			builder.put(grammarAccess.getPolynomialIndexExpressionAccess().getPolynomialExprAssignment_1_1(), "rule__PolynomialIndexExpression__PolynomialExprAssignment_1_1");
 			builder.put(grammarAccess.getFuzzyIndexExpressionAccess().getFuzzyFunctionAssignment_0_1(), "rule__FuzzyIndexExpression__FuzzyFunctionAssignment_0_1");
 			builder.put(grammarAccess.getFuzzyIndexExpressionAccess().getFuzzyFunctionAssignment_1(), "rule__FuzzyIndexExpression__FuzzyFunctionAssignment_1");
 			builder.put(grammarAccess.getReduceExpressionAccess().getOperatorAssignment_2(), "rule__ReduceExpression__OperatorAssignment_2");

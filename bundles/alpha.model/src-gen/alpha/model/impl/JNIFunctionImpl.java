@@ -8,8 +8,6 @@ import alpha.model.JNIFunction;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 
-import alpha.model.util.AlphaPrintingUtil;
-
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
@@ -229,16 +227,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 */
 	@Override
 	public String plainToString() {
-		String _xblockexpression = null;
-		{
-			JNIISLMultiAff _iSLMultiAff = this.getISLMultiAff();
-			boolean _tripleEquals = (_iSLMultiAff == null);
-			if (_tripleEquals) {
-				return "";
-			}
-			_xblockexpression = AlphaPrintingUtil.toShowString(this.getISLMultiAff());
-		}
-		return _xblockexpression;
+		return this.getAlphaFunction().plainToString();
 	}
 
 	/**

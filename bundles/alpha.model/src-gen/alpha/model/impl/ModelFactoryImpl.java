@@ -7,8 +7,8 @@ import alpha.model.*;
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -87,6 +87,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.FUZZY_DEPENDENCE_EXPRESSION: return createFuzzyDependenceExpression();
 			case ModelPackage.IF_EXPRESSION: return createIfExpression();
 			case ModelPackage.INDEX_EXPRESSION: return createIndexExpression();
+			case ModelPackage.POLYNOMIAL_INDEX_EXPRESSION: return createPolynomialIndexExpression();
 			case ModelPackage.FUZZY_INDEX_EXPRESSION: return createFuzzyIndexExpression();
 			case ModelPackage.REDUCE_EXPRESSION: return createReduceExpression();
 			case ModelPackage.EXTERNAL_REDUCE_EXPRESSION: return createExternalReduceExpression();
@@ -112,6 +113,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.JNI_RELATION: return createJNIRelation();
 			case ModelPackage.JNI_FUNCTION: return createJNIFunction();
 			case ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION: return createJNIFunctionInArrayNotation();
+			case ModelPackage.JNI_POLYNOMIAL: return createJNIPolynomial();
+			case ModelPackage.JNI_POLYNOMIAL_IN_ARRAY_NOTATION: return createJNIPolynomialInArrayNotation();
 			case ModelPackage.FUZZY_FUNCTION: return createFuzzyFunction();
 			case ModelPackage.NESTED_FUZZY_FUNCTION: return createNestedFuzzyFunction();
 			case ModelPackage.AFFINE_FUZZY_VARIABLE_USE: return createAffineFuzzyVariableUse();
@@ -157,8 +160,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return createJNIISLMapFromString(eDataType, initialValue);
 			case ModelPackage.JNIISL_MULTI_AFF:
 				return createJNIISLMultiAffFromString(eDataType, initialValue);
-			case ModelPackage.JNIISL_UNION_MAP:
-				return createJNIISLUnionMapFromString(eDataType, initialValue);
+			case ModelPackage.JNIISLPWQ_POLYNOMIAL:
+				return createJNIISLPWQPolynomialFromString(eDataType, initialValue);
 			case ModelPackage.ISL_FORMAT:
 				return createISL_FORMATFromString(eDataType, initialValue);
 			case ModelPackage.LIST_VARIABLE_EXPRESSION:
@@ -198,8 +201,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return convertJNIISLMapToString(eDataType, instanceValue);
 			case ModelPackage.JNIISL_MULTI_AFF:
 				return convertJNIISLMultiAffToString(eDataType, instanceValue);
-			case ModelPackage.JNIISL_UNION_MAP:
-				return convertJNIISLUnionMapToString(eDataType, instanceValue);
+			case ModelPackage.JNIISLPWQ_POLYNOMIAL:
+				return convertJNIISLPWQPolynomialToString(eDataType, instanceValue);
 			case ModelPackage.ISL_FORMAT:
 				return convertISL_FORMATToString(eDataType, instanceValue);
 			case ModelPackage.LIST_VARIABLE_EXPRESSION:
@@ -418,6 +421,17 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public IndexExpression createIndexExpression() {
 		IndexExpressionImpl indexExpression = new IndexExpressionImpl();
 		return indexExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PolynomialIndexExpression createPolynomialIndexExpression() {
+		PolynomialIndexExpressionImpl polynomialIndexExpression = new PolynomialIndexExpressionImpl();
+		return polynomialIndexExpression;
 	}
 
 	/**
@@ -693,6 +707,28 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public JNIFunctionInArrayNotation createJNIFunctionInArrayNotation() {
 		JNIFunctionInArrayNotationImpl jniFunctionInArrayNotation = new JNIFunctionInArrayNotationImpl();
 		return jniFunctionInArrayNotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public JNIPolynomial createJNIPolynomial() {
+		JNIPolynomialImpl jniPolynomial = new JNIPolynomialImpl();
+		return jniPolynomial;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public JNIPolynomialInArrayNotation createJNIPolynomialInArrayNotation() {
+		JNIPolynomialInArrayNotationImpl jniPolynomialInArrayNotation = new JNIPolynomialInArrayNotationImpl();
+		return jniPolynomialInArrayNotation;
 	}
 
 	/**
@@ -1024,8 +1060,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLUnionMap createJNIISLUnionMapFromString(EDataType eDataType, String initialValue) {
-		return (JNIISLUnionMap)super.createFromString(eDataType, initialValue);
+	public JNIISLPWQPolynomial createJNIISLPWQPolynomialFromString(EDataType eDataType, String initialValue) {
+		return (JNIISLPWQPolynomial)super.createFromString(eDataType, initialValue);
 	}
 
 	/**
@@ -1033,7 +1069,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertJNIISLUnionMapToString(EDataType eDataType, Object instanceValue) {
+	public String convertJNIISLPWQPolynomialToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

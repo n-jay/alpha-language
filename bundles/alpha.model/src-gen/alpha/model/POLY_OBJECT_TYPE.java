@@ -49,7 +49,17 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FUNCTION(0, "FUNCTION", "FUNCTION");
+	FUNCTION(0, "FUNCTION", "FUNCTION"),
+
+	/**
+	 * The '<em><b>POLYNOMIAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #POLYNOMIAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	POLYNOMIAL(0, "POLYNOMIAL", "POLYNOMIAL");
 
 	/**
 	 * The '<em><b>SET</b></em>' literal value.
@@ -97,6 +107,21 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 	public static final int FUNCTION_VALUE = 0;
 
 	/**
+	 * The '<em><b>POLYNOMIAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>POLYNOMIAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #POLYNOMIAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int POLYNOMIAL_VALUE = 0;
+
+	/**
 	 * An array of all the '<em><b>POLY OBJECT TYPE</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,6 +132,7 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 			SET,
 			MAP,
 			FUNCTION,
+			POLYNOMIAL,
 		};
 
 	/**

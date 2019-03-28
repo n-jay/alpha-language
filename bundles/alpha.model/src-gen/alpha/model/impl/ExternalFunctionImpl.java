@@ -12,6 +12,9 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>External Function</b></em>'.
@@ -130,6 +133,21 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 		cardinality = newCardinality;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EXTERNAL_FUNCTION__CARDINALITY, oldCardinality, cardinality));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getFullyQualifiedName() {
+		String _xblockexpression = null;
+		{
+			final IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider();
+			_xblockexpression = provider.getFullyQualifiedName(this).toString();
+		}
+		return _xblockexpression;
 	}
 
 	/**

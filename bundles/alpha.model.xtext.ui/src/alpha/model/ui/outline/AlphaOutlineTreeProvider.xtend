@@ -4,12 +4,11 @@
 package alpha.model.ui.outline
 
 import alpha.model.CalculatorExpression
+import alpha.model.DependenceExpression
 import alpha.model.RestrictExpression
-import alpha.model.impl.RestrictExpressionImpl
+import alpha.model.VariableExpression
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
-import alpha.model.VariableExpression
-import alpha.model.DependenceExpression
 
 /**
  * Customization of the default outline structure.

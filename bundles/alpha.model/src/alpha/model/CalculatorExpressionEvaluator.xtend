@@ -449,7 +449,46 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		return parseJNIFunctionAsFunction(jniFunction);
 	}
 	
+	
+	override visitJNIPolynomial(JNIPolynomial jniPolynomial) {
+		try {
+			var jniPWQP = parsePolynomial(AlphaUtil.getContainerSystem(jniPolynomial), parseJNIPolynomial(jniPolynomial));
+			jniPolynomial.ISLQPolynomialPiece = jniPWQP
+		} catch (RuntimeException re) {
+			val msg = if (re.message === null) re.class.name else re.message
+			registerIssue(msg, jniPolynomial);
+		}
+	}
+	
+	/**
+	 * Parses a polynomial in the context of the given system.
+	 */
+	static def parsePolynomial(AlphaSystem system, String pwqpStr) {
+			var jniPWQP = ISLFactory.islPWQPolynomial(AlphaUtil.toContextFreeISLString(system,pwqpStr));
+			val pdom = getParameterDomain(system);
+			
+			return jniPWQP.intersectParams(pdom.copy());
+	}
 
+	/**
+	 * Dispatch method to construct the input islString for both Show and AShow notation.
+	 * 
+	 * The output of this method does not have the parameter part. It is added later at parsePolynomial.
+	 */
+	private def dispatch parseJNIPolynomial(JNIPolynomial jniPolynomial) {
+		jniPolynomial.getIslString();
+	}
+
+	private def dispatch parseJNIPolynomial(JNIPolynomialInArrayNotation jniPolynomial) {
+		if (indexNameContext === null) throw new OutOfContextArrayNotationException("Empty context found when trying to parse JNIPolynomial: " + jniPolynomial.islString);
+		
+		val contextString = String.format("[%s]->", indexNameContext.join(","))
+		val pwqpStr = new StringBuffer("{ ");
+		pwqpStr.append(jniPolynomial.arrayNotation.map[s|contextString + s].join("; "))
+		pwqpStr.append(" }");
+		
+		return pwqpStr.toString
+	}
 	
 	override visitVariableDomain(VariableDomain vdom) {
 		// try to evaluate the variable to detect cycles
@@ -496,7 +535,6 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 
 			var jniset = ISLFactory.islSet(completed.toString());
 			jniset = jniset.intersectParams(pdom.copy());
-
 			rdom.setISLSet(jniset);
 		} catch (RuntimeException re) {
 			registerIssue(re.message, rdom);

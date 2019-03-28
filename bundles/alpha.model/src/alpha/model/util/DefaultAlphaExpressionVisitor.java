@@ -30,6 +30,7 @@ import alpha.model.IfExpression;
 import alpha.model.IndexExpression;
 import alpha.model.IntegerExpression;
 import alpha.model.MultiArgExpression;
+import alpha.model.PolynomialIndexExpression;
 import alpha.model.RealExpression;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
@@ -230,6 +231,12 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 		inIndexExpression(ie);
 		outIndexExpression(ie);
 	}
+	
+	@Override
+	default void visitPolynomialIndexExpression(PolynomialIndexExpression pie) {
+		inPolynomialIndexExpression(pie);
+		outPolynomialIndexExpression(pie);
+	}
 
 	@Override
 	default void visitFuzzyIndexExpression(FuzzyIndexExpression fie) {
@@ -356,6 +363,11 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	@Override
 	default void inIndexExpression(IndexExpression ie) {
 		inAlphaExpression(ie);
+	}
+
+	@Override
+	default void inPolynomialIndexExpression(PolynomialIndexExpression pie) {
+		inAlphaExpression(pie);
 	}
 	
 	@Override
@@ -506,6 +518,11 @@ public interface DefaultAlphaExpressionVisitor extends AlphaExpressionVisitor {
 	@Override
 	default void outIndexExpression(IndexExpression ie) {
 		outAlphaExpression(ie);
+	}
+
+	@Override
+	default void outPolynomialIndexExpression(PolynomialIndexExpression pie) {
+		outAlphaExpression(pie);
 	}
 	
 	@Override

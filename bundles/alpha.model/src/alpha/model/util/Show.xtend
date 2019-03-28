@@ -30,6 +30,7 @@ import alpha.model.JNIDomain
 import alpha.model.JNIDomainInArrayNotation
 import alpha.model.JNIFunctionInArrayNotation
 import alpha.model.MultiArgExpression
+import alpha.model.PolynomialIndexExpression
 import alpha.model.REDUCTION_OP
 import alpha.model.RealExpression
 import alpha.model.RectangularDomain
@@ -46,6 +47,7 @@ import alpha.model.VariableDomain
 import alpha.model.VariableExpression
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 
 /**
@@ -108,6 +110,10 @@ class Show extends ModelSwitch<CharSequence> {
 	
 	protected def printRelation(JNIISLMap rel) {
 		AlphaPrintingUtil.toShowString(rel)
+	}
+	
+	protected def printPolynomial(JNIISLPWQPolynomial p) {
+		AlphaPrintingUtil.toShowString(p)
 	}
 	
 	protected def printSubsystemCallParams(JNIFunctionInArrayNotation f, JNIISLSet instantiationDomain) {
@@ -239,6 +245,10 @@ class Show extends ModelSwitch<CharSequence> {
 	
 	/* override */ def caseIndexExpression(IndexExpression ie) {
 		'''val «ie.function.printFunction»'''
+	}
+	
+	/* override */ def casePolynomialIndexExpression(PolynomialIndexExpression pie) {
+		'''val «pie.polynomial.printPolynomial»'''
 	}
 	
 	/* override */ def caseReduceExpression(ReduceExpression re) {

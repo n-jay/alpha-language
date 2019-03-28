@@ -41,11 +41,14 @@ import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.JNIPolynomial;
+import alpha.model.JNIPolynomialInArrayNotation;
 import alpha.model.JNIRelation;
 import alpha.model.ModelPackage;
 import alpha.model.MultiArgExpression;
 import alpha.model.NestedFuzzyFunction;
 import alpha.model.PolyhedralObject;
+import alpha.model.PolynomialIndexExpression;
 import alpha.model.RealExpression;
 import alpha.model.RectangularDomain;
 import alpha.model.ReduceExpression;
@@ -222,6 +225,12 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION:
 				sequence_JNIFunctionInArrayNotation(context, (JNIFunctionInArrayNotation) semanticObject); 
 				return; 
+			case ModelPackage.JNI_POLYNOMIAL:
+				sequence_JNIPolynomial(context, (JNIPolynomial) semanticObject); 
+				return; 
+			case ModelPackage.JNI_POLYNOMIAL_IN_ARRAY_NOTATION:
+				sequence_JNIPolynomialInArrayNotation(context, (JNIPolynomialInArrayNotation) semanticObject); 
+				return; 
 			case ModelPackage.JNI_RELATION:
 				sequence_JNIRelation(context, (JNIRelation) semanticObject); 
 				return; 
@@ -233,6 +242,9 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case ModelPackage.POLYHEDRAL_OBJECT:
 				sequence_PolyhedralObject(context, (PolyhedralObject) semanticObject); 
+				return; 
+			case ModelPackage.POLYNOMIAL_INDEX_EXPRESSION:
+				sequence_PolynomialIndexExpression(context, (PolynomialIndexExpression) semanticObject); 
 				return; 
 			case ModelPackage.REAL_EXPRESSION:
 				sequence_RealExpression(context, (RealExpression) semanticObject); 
@@ -1356,6 +1368,36 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     JNIPolynomialInArrayNotation returns JNIPolynomialInArrayNotation
+	 *
+	 * Constraint:
+	 *     (arrayNotation+=AISLQPolynomialBody arrayNotation+=AISLQPolynomialBody*)
+	 */
+	protected void sequence_JNIPolynomialInArrayNotation(ISerializationContext context, JNIPolynomialInArrayNotation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     JNIPolynomial returns JNIPolynomial
+	 *
+	 * Constraint:
+	 *     islString=AISLPWQPolynomial
+	 */
+	protected void sequence_JNIPolynomial(ISerializationContext context, JNIPolynomial semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.JNI_POLYNOMIAL__ISL_STRING) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.JNI_POLYNOMIAL__ISL_STRING));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getJNIPolynomialAccess().getIslStringAISLPWQPolynomialParserRuleCall_0(), semanticObject.getIslString());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     JNIRelation returns JNIRelation
 	 *     CalculatorExpression returns JNIRelation
 	 *     CalculatorExpression.BinaryCalculatorExpression_1_0 returns JNIRelation
@@ -1434,6 +1476,33 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		feeder.accept(grammarAccess.getPolyhedralObjectAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getPolyhedralObjectAccess().getExprCalculatorExpressionParserRuleCall_2_0(), semanticObject.getExpr());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaExpression returns PolynomialIndexExpression
+	 *     AlphaTerminalExpression returns PolynomialIndexExpression
+	 *     PolynomialIndexExpression returns PolynomialIndexExpression
+	 *     OrExpression returns PolynomialIndexExpression
+	 *     OrExpression.BinaryExpression_1_0 returns PolynomialIndexExpression
+	 *     AndExpression returns PolynomialIndexExpression
+	 *     AndExpression.BinaryExpression_1_0 returns PolynomialIndexExpression
+	 *     RelationalExpression returns PolynomialIndexExpression
+	 *     RelationalExpression.BinaryExpression_1_0 returns PolynomialIndexExpression
+	 *     AdditiveExpression returns PolynomialIndexExpression
+	 *     AdditiveExpression.BinaryExpression_1_0 returns PolynomialIndexExpression
+	 *     MultiplicativeExpression returns PolynomialIndexExpression
+	 *     MultiplicativeExpression.BinaryExpression_1_0 returns PolynomialIndexExpression
+	 *     MinMaxExpression returns PolynomialIndexExpression
+	 *     MinMaxExpression.BinaryExpression_1_0 returns PolynomialIndexExpression
+	 *     UnaryOrTerminalExpression returns PolynomialIndexExpression
+	 *
+	 * Constraint:
+	 *     (polynomialExpr=JNIPolynomial | polynomialExpr=JNIPolynomialInArrayNotation)
+	 */
+	protected void sequence_PolynomialIndexExpression(ISerializationContext context, PolynomialIndexExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

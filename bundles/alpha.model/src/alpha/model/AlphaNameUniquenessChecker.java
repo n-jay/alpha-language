@@ -6,11 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
-import org.eclipse.xtext.naming.IQualifiedNameProvider;
 
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
@@ -28,52 +24,39 @@ import alpha.model.util.AlphaUtil;
  */
 public class AlphaNameUniquenessChecker {
 
-	private static final IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider();
-
 	public static List<AlphaIssue> check(List<AlphaRoot> roots) {
 		List<AlphaIssue> issues = new LinkedList<>();
 
 		if (roots.isEmpty())
 			return issues;
 
-		ResourceSet rset = roots.get(0).eResource().getResourceSet();
-
-		if (!roots.stream().allMatch(r -> r.eResource().getResourceSet() == rset)) {
-			throw new RuntimeException("Expecting Alpha programs in the same resource set.");
-		}
-
 		//check consistency for system and external functions
 		Map<String, List<AlphaSystem>> systemNameMap = new HashMap<>();
 		Map<String, List<ExternalFunction>> exFunNameMap = new HashMap<>();
 		
-		// Collect all systems by its qualified name
-		TreeIterator<Object> iterator = EcoreUtil.getAllProperContents(rset, false);
-
-		while (iterator.hasNext()) {
-			Object current = iterator.next();
-			if (current instanceof AlphaSystem) {
-				iterator.prune();
-				String qname = provider.getFullyQualifiedName((AlphaSystem) current).toString();
-				checkAndAdd(qname, (AlphaSystem) current, systemNameMap);
-				issues.addAll(check((AlphaSystem) current));
-			} else if (current instanceof ExternalFunction) {
-				iterator.prune();
-				String qname = provider.getFullyQualifiedName((ExternalFunction) current).toString();
-				checkAndAdd(qname, (ExternalFunction) current, exFunNameMap);
+		// Collect all systems/external functions by its qualified name
+		for (AlphaRoot root : roots) {
+			for (AlphaSystem system : root.getSystems()) {
+				checkAndAdd(system.getFullyQualifiedName(), system, systemNameMap);
+				issues.addAll(check(system));
+			}
+			for (ExternalFunction ef : root.getExternalFunctions()) {
+				String qname = ef.getFullyQualifiedName();
+				checkAndAdd(qname, ef, exFunNameMap);
 			}
 		}
 
 		//duplicate system
 		systemNameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
 			for (AlphaSystem system : l) {
-				issues.add(AlphaIssueFactory.duplicateSystem(system));
+				issues.add(AlphaIssueFactory.duplicateSystem(system, l));
 			}
 		});
 		
 		//duplicate external function
 		exFunNameMap.values().stream().filter(l -> l.size() > 1).forEach(l -> {
 			for (ExternalFunction exFun : l) {
-				issues.add(AlphaIssueFactory.duplicateExternalFunction(exFun));
+				issues.add(AlphaIssueFactory.duplicateExternalFunction(exFun, l));
 			}
 		});
 

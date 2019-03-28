@@ -188,6 +188,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createIndexExpressionAdapter();
 			}
 			@Override
+			public Adapter casePolynomialIndexExpression(PolynomialIndexExpression object) {
+				return createPolynomialIndexExpressionAdapter();
+			}
+			@Override
 			public Adapter caseFuzzyIndexExpression(FuzzyIndexExpression object) {
 				return createFuzzyIndexExpressionAdapter();
 			}
@@ -306,6 +310,14 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseJNIFunctionInArrayNotation(JNIFunctionInArrayNotation object) {
 				return createJNIFunctionInArrayNotationAdapter();
+			}
+			@Override
+			public Adapter caseJNIPolynomial(JNIPolynomial object) {
+				return createJNIPolynomialAdapter();
+			}
+			@Override
+			public Adapter caseJNIPolynomialInArrayNotation(JNIPolynomialInArrayNotation object) {
+				return createJNIPolynomialInArrayNotationAdapter();
 			}
 			@Override
 			public Adapter caseFuzzyFunction(FuzzyFunction object) {
@@ -804,6 +816,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.PolynomialIndexExpression <em>Polynomial Index Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.PolynomialIndexExpression
+	 * @generated
+	 */
+	public Adapter createPolynomialIndexExpressionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link alpha.model.FuzzyIndexExpression <em>Fuzzy Index Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1220,6 +1246,34 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createJNIFunctionInArrayNotationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.JNIPolynomial <em>JNI Polynomial</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.JNIPolynomial
+	 * @generated
+	 */
+	public Adapter createJNIPolynomialAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.JNIPolynomialInArrayNotation <em>JNI Polynomial In Array Notation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.JNIPolynomialInArrayNotation
+	 * @generated
+	 */
+	public Adapter createJNIPolynomialInArrayNotationAdapter() {
 		return null;
 	}
 

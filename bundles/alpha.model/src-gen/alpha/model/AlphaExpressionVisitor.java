@@ -138,6 +138,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model pieUnique="false"
+	 * @generated
+	 */
+	void visitPolynomialIndexExpression(PolynomialIndexExpression pie);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model fieUnique="false"
 	 * @generated
 	 */
@@ -326,6 +334,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void inIndexExpression(IndexExpression ie);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model pieUnique="false"
+	 * @generated
+	 */
+	void inPolynomialIndexExpression(PolynomialIndexExpression pie);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -566,6 +582,14 @@ public interface AlphaExpressionVisitor extends EObject {
 	 * @generated
 	 */
 	void outIndexExpression(IndexExpression ie);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model pieUnique="false"
+	 * @generated
+	 */
+	void outPolynomialIndexExpression(PolynomialIndexExpression pie);
 
 	/**
 	 * <!-- begin-user-doc -->

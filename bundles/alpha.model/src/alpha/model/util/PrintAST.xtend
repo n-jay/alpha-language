@@ -19,12 +19,14 @@ import alpha.model.FuzzyDependenceExpression
 import alpha.model.FuzzyIndexExpression
 import alpha.model.FuzzyVariable
 import alpha.model.IndexExpression
+import alpha.model.PolynomialIndexExpression
 import alpha.model.MultiArgExpression
 import alpha.model.PolyhedralObject
 import alpha.model.ReduceExpression
 import alpha.model.RestrictExpression
 import alpha.model.SelectExpression
 import alpha.model.StandardEquation
+import alpha.model.SystemBody
 import alpha.model.UnaryExpression
 import alpha.model.UseEquation
 import alpha.model.Variable
@@ -32,7 +34,6 @@ import alpha.model.VariableExpression
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
-import alpha.model.SystemBody
 
 /**
  * PrintAST is a dump of the Alpha program, mainly used for debugging.
@@ -239,6 +240,11 @@ class PrintAST extends AbstractAlphaCompleteVisitor {
 	override inIndexExpression(IndexExpression ie) {
 		inAlphaExpression(ie)
 		printStr("+-- ", ie.function);
+	}
+	
+	override inPolynomialIndexExpression(PolynomialIndexExpression pie) {
+		inAlphaExpression(pie)
+		printStr("+-- ", pie.polynomial);
 	}
 	
 	override inFuzzyIndexExpression(FuzzyIndexExpression fie) {

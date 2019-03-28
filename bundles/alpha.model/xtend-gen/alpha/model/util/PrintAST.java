@@ -23,6 +23,7 @@ import alpha.model.IndexExpression;
 import alpha.model.JNIDomain;
 import alpha.model.MultiArgExpression;
 import alpha.model.PolyhedralObject;
+import alpha.model.PolynomialIndexExpression;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
@@ -312,6 +313,12 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void inIndexExpression(final IndexExpression ie) {
     this.inAlphaExpression(ie);
     this.printStr("+-- ", ie.getFunction());
+  }
+  
+  @Override
+  public void inPolynomialIndexExpression(final PolynomialIndexExpression pie) {
+    this.inAlphaExpression(pie);
+    this.printStr("+-- ", pie.getPolynomial());
   }
   
   @Override

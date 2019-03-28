@@ -3,18 +3,22 @@
  */
 package alpha.model.validation
 
+import alpha.model.AlphaInternalStateConstructor
 import alpha.model.AlphaNameUniquenessChecker
 import alpha.model.AlphaRoot
-import alpha.model.AlphaSystem
-import alpha.model.JNIDomainCalculator
 import alpha.model.issue.AlphaIssue
+import com.google.inject.Inject
+import com.google.inject.Provider
+import java.util.LinkedList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EStructuralFeature
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.resource.IContainer
+import org.eclipse.xtext.resource.IResourceDescription
+import org.eclipse.xtext.resource.IResourceDescriptions
+import org.eclipse.xtext.resource.XtextResourceSet
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ValidationMessageAcceptor
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import alpha.model.AlphaInternalStateConstructor
-import org.eclipse.xtext.validation.CheckType
 
 /**
  * This class contains custom validation rules. 
@@ -22,6 +26,13 @@ import org.eclipse.xtext.validation.CheckType
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class AlphaValidator extends AbstractAlphaValidator {
+	@Inject
+    IContainer.Manager containerManager;
+    @Inject
+    IResourceDescriptions resourceDescriptions
+    @Inject
+    Provider<XtextResourceSet> resourceSetProvider;
+
 	
 	//helper to switch between error/warning 
 	private def flagEditor(AlphaIssue.TYPE type, String message, EObject source, EStructuralFeature feature, int index) {
@@ -35,7 +46,25 @@ class AlphaValidator extends AbstractAlphaValidator {
 	
 	@Check(NORMAL)
 	def checkRoot(AlphaRoot root) {
-		val issues = AlphaInternalStateConstructor.compute(root);
-		issues.filter[i|EcoreUtil.isAncestor(root, i.source)].forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
+	 	var alpha_description = resourceDescriptions.getResourceDescription(root.eResource.URI)
+        var visibleContainers = containerManager.getVisibleContainers(alpha_description, resourceDescriptions)
+		val rootList = new LinkedList<AlphaRoot>();
+		rootList.add(root);
+		
+        for (visibleContainer : visibleContainers) {
+			for (IResourceDescription res : visibleContainer.resourceDescriptions) {
+				if (res.URI != root.eResource.URI && res.URI.fileExtension.contentEquals("alpha")) {
+					val r = resourceSetProvider.get.getResource(res.URI, true)
+					try {
+						val ar = r.contents.get(0) as AlphaRoot
+						rootList.add(ar)
+					} catch (ClassCastException cce) {}
+				}
+            }
+        }
+
+		val issues = AlphaInternalStateConstructor.compute(root) + AlphaNameUniquenessChecker.check(rootList);
+		issues.filter[i|EcoreUtil.isAncestor(root, i.source)].
+			forEach[i|flagEditor(i.type, i.message, i.source, i.feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX)]
 	}
 }

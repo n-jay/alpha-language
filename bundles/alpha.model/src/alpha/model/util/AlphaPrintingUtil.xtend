@@ -10,6 +10,7 @@ import java.util.LinkedList
 import java.util.List
 
 import static extension alpha.model.util.AlphaUtil.renameIndices
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
 
 class AlphaPrintingUtil {
 	
@@ -158,5 +159,20 @@ class AlphaPrintingUtil {
 		map.basicMaps.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceFirst("\\}", "")]
 	}
 	
+	/**
+	 * ISLPWQPolynomial to Alpha string
+	 * 
+	 */
+	static def toShowString(JNIISLPWQPolynomial poly) {
+		poly.toString.replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{")
+	}
+	static def toAShowString(JNIISLPWQPolynomial poly, List<String> context) {
+		toAShowString(poly.renameIndices(context))
+	}
+	private static def toAShowString(JNIISLPWQPolynomial poly) {
+		//trying to just replace '[..] ->' with '' somehow removes '{' too
+		// below is a workaround, but this should be revisited FIXME
+		poly.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "")
+	}
 	
 }

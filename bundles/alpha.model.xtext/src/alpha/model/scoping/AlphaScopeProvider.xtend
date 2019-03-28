@@ -15,9 +15,6 @@ import org.eclipse.emf.ecore.EReference
 class AlphaScopeProvider extends AbstractAlphaScopeProvider {
 	
 	override getScope(EObject context, EReference reference) {
-		
-		
-		
 		super.getScope(context, reference)
 	}
 

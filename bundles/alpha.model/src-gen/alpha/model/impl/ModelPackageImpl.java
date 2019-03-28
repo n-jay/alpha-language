@@ -59,12 +59,15 @@ import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunction;
 import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.JNIPolynomial;
+import alpha.model.JNIPolynomialInArrayNotation;
 import alpha.model.JNIRelation;
 import alpha.model.ModelFactory;
 import alpha.model.ModelPackage;
 import alpha.model.MultiArgExpression;
 import alpha.model.NestedFuzzyFunction;
 import alpha.model.PolyhedralObject;
+import alpha.model.PolynomialIndexExpression;
 import alpha.model.RealExpression;
 import alpha.model.RectangularDomain;
 import alpha.model.ReduceExpression;
@@ -81,8 +84,8 @@ import alpha.model.VariableExpression;
 
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -322,6 +325,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass polynomialIndexExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass fuzzyIndexExpressionEClass = null;
 
 	/**
@@ -532,6 +542,20 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass jniPolynomialEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jniPolynomialInArrayNotationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass fuzzyFunctionEClass = null;
 
 	/**
@@ -700,7 +724,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EDataType jniislUnionMapEDataType = null;
+	private EDataType jniislpwqPolynomialEDataType = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1613,6 +1637,26 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getPolynomialIndexExpression() {
+		return polynomialIndexExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getPolynomialIndexExpression_PolynomialExpr() {
+		return (EReference)polynomialIndexExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getFuzzyIndexExpression() {
 		return fuzzyIndexExpressionEClass;
 	}
@@ -2283,6 +2327,56 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getJNIPolynomial() {
+		return jniPolynomialEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getJNIPolynomial_IslString() {
+		return (EAttribute)jniPolynomialEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getJNIPolynomial_Z__internal_cache_islPWQP() {
+		return (EAttribute)jniPolynomialEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getJNIPolynomialInArrayNotation() {
+		return jniPolynomialInArrayNotationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getJNIPolynomialInArrayNotation_ArrayNotation() {
+		return (EAttribute)jniPolynomialInArrayNotationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getFuzzyFunction() {
 		return fuzzyFunctionEClass;
 	}
@@ -2803,8 +2897,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	@Override
-	public EDataType getJNIISLUnionMap() {
-		return jniislUnionMapEDataType;
+	public EDataType getJNIISLPWQPolynomial() {
+		return jniislpwqPolynomialEDataType;
 	}
 
 	/**
@@ -2978,6 +3072,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		indexExpressionEClass = createEClass(INDEX_EXPRESSION);
 		createEReference(indexExpressionEClass, INDEX_EXPRESSION__FUNCTION_EXPR);
 
+		polynomialIndexExpressionEClass = createEClass(POLYNOMIAL_INDEX_EXPRESSION);
+		createEReference(polynomialIndexExpressionEClass, POLYNOMIAL_INDEX_EXPRESSION__POLYNOMIAL_EXPR);
+
 		fuzzyIndexExpressionEClass = createEClass(FUZZY_INDEX_EXPRESSION);
 		createEReference(fuzzyIndexExpressionEClass, FUZZY_INDEX_EXPRESSION__FUZZY_FUNCTION);
 
@@ -3075,6 +3172,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniFunctionInArrayNotationEClass = createEClass(JNI_FUNCTION_IN_ARRAY_NOTATION);
 		createEAttribute(jniFunctionInArrayNotationEClass, JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
 
+		jniPolynomialEClass = createEClass(JNI_POLYNOMIAL);
+		createEAttribute(jniPolynomialEClass, JNI_POLYNOMIAL__ISL_STRING);
+		createEAttribute(jniPolynomialEClass, JNI_POLYNOMIAL__ZINTERNAL_CACHE_ISL_PWQP);
+
+		jniPolynomialInArrayNotationEClass = createEClass(JNI_POLYNOMIAL_IN_ARRAY_NOTATION);
+		createEAttribute(jniPolynomialInArrayNotationEClass, JNI_POLYNOMIAL_IN_ARRAY_NOTATION__ARRAY_NOTATION);
+
 		fuzzyFunctionEClass = createEClass(FUZZY_FUNCTION);
 		createEAttribute(fuzzyFunctionEClass, FUZZY_FUNCTION__ALPHA_STRING);
 		createEReference(fuzzyFunctionEClass, FUZZY_FUNCTION__INDIRECTIONS);
@@ -3144,7 +3248,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniislSetEDataType = createEDataType(JNIISL_SET);
 		jniislMapEDataType = createEDataType(JNIISL_MAP);
 		jniislMultiAffEDataType = createEDataType(JNIISL_MULTI_AFF);
-		jniislUnionMapEDataType = createEDataType(JNIISL_UNION_MAP);
+		jniislpwqPolynomialEDataType = createEDataType(JNIISLPWQ_POLYNOMIAL);
 		isL_FORMATEDataType = createEDataType(ISL_FORMAT);
 		listVariableExpressionEDataType = createEDataType(LIST_VARIABLE_EXPRESSION);
 		integerQueueEDataType = createEDataType(INTEGER_QUEUE);
@@ -3214,6 +3318,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		fuzzyDependenceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		ifExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		indexExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
+		polynomialIndexExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		fuzzyIndexExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		abstractReduceExpressionEClass.getESuperTypes().add(this.getAlphaExpression());
 		reduceExpressionEClass.getESuperTypes().add(this.getAbstractReduceExpression());
@@ -3248,6 +3353,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		jniRelationEClass.getESuperTypes().add(this.getCalculatorExpression());
 		jniFunctionEClass.getESuperTypes().add(this.getCalculatorExpression());
 		jniFunctionInArrayNotationEClass.getESuperTypes().add(this.getJNIFunction());
+		jniPolynomialEClass.getESuperTypes().add(this.getCalculatorExpression());
+		jniPolynomialInArrayNotationEClass.getESuperTypes().add(this.getJNIPolynomial());
 		fuzzyFunctionEClass.getESuperTypes().add(this.getAlphaNode());
 		fuzzyVariableUseEClass.getESuperTypes().add(this.getAlphaNode());
 		nestedFuzzyFunctionEClass.getESuperTypes().add(this.getFuzzyFunction());
@@ -3460,6 +3567,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIndexExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "visitPolynomialIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getPolynomialIndexExpression(), "pie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaExpressionVisitorEClass, null, "visitFuzzyIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFuzzyIndexExpression(), "fie", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -3531,6 +3641,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIndexExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(alphaExpressionVisitorEClass, null, "inPolynomialIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getPolynomialIndexExpression(), "pie", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionVisitorEClass, null, "inFuzzyIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFuzzyIndexExpression(), "fie", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3622,6 +3735,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIndexExpression(), "ie", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(alphaExpressionVisitorEClass, null, "outPolynomialIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getPolynomialIndexExpression(), "pie", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(alphaExpressionVisitorEClass, null, "outFuzzyIndexExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getFuzzyIndexExpression(), "fie", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -3674,6 +3790,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitJNIFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getJNIFunction(), "jniFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitJNIPolynomial", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getJNIPolynomial(), "jniPolynomial", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(calculatorExpressionVisitorEClass, null, "visitVariableDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariableDomain(), "vdom", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3735,6 +3854,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(externalFunctionEClass, ExternalFunction.class, "ExternalFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getExternalFunction_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ExternalFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExternalFunction_Cardinality(), theEcorePackage.getEInt(), "cardinality", null, 0, 1, ExternalFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(externalFunctionEClass, theEcorePackage.getEString(), "getFullyQualifiedName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(externalFunctionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3926,6 +4047,14 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(indexExpressionEClass, this.getJNIISLMultiAff(), "getFunction", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(indexExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(polynomialIndexExpressionEClass, PolynomialIndexExpression.class, "PolynomialIndexExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPolynomialIndexExpression_PolynomialExpr(), this.getJNIPolynomial(), null, "polynomialExpr", null, 0, 1, PolynomialIndexExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(polynomialIndexExpressionEClass, this.getJNIISLPWQPolynomial(), "getPolynomial", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(polynomialIndexExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(fuzzyIndexExpressionEClass, FuzzyIndexExpression.class, "FuzzyIndexExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4170,6 +4299,29 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(jniFunctionInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		initEClass(jniPolynomialEClass, JNIPolynomial.class, "JNIPolynomial", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJNIPolynomial_IslString(), theEcorePackage.getEString(), "islString", null, 0, 1, JNIPolynomial.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJNIPolynomial_Z__internal_cache_islPWQP(), this.getJNIISLPWQPolynomial(), "z__internal_cache_islPWQP", null, 0, 1, JNIPolynomial.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(jniPolynomialEClass, this.getJNIISLPWQPolynomial(), "getISLPWQPolynomial", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(jniPolynomialEClass, null, "setISLQPolynomialPiece", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getJNIISLPWQPolynomial(), "islQP", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jniPolynomialEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jniPolynomialEClass, this.getJNIObject(), "getISLObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(jniPolynomialEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(jniPolynomialEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(jniPolynomialInArrayNotationEClass, JNIPolynomialInArrayNotation.class, "JNIPolynomialInArrayNotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJNIPolynomialInArrayNotation_ArrayNotation(), theEcorePackage.getEString(), "arrayNotation", null, 0, -1, JNIPolynomialInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(jniPolynomialInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(fuzzyFunctionEClass, FuzzyFunction.class, "FuzzyFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFuzzyFunction_AlphaString(), theEcorePackage.getEString(), "alphaString", null, 0, 1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFuzzyFunction_Indirections(), this.getFuzzyVariableUse(), null, "indirections", null, 0, -1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4285,6 +4437,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getAlphaFunction_IndexList(), theEcorePackage.getEString(), "indexList", null, 0, 1, AlphaFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaFunction_Exprs(), this.getAlphaFunctionExpression(), null, "exprs", null, 0, -1, AlphaFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		addEOperation(alphaFunctionEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(alphaFunctionExpressionEClass, AlphaFunctionExpression.class, "AlphaFunctionExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		addEOperation(alphaFunctionExpressionEClass, theEcorePackage.getEString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4338,6 +4492,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.SET);
 		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.MAP);
 		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.FUNCTION);
+		addEEnumLiteral(polY_OBJECT_TYPEEEnum, alpha.model.POLY_OBJECT_TYPE.POLYNOMIAL);
 
 		initEEnum(calculatoR_UNARY_OPEEnum, alpha.model.CALCULATOR_UNARY_OP.class, "CALCULATOR_UNARY_OP");
 		addEEnumLiteral(calculatoR_UNARY_OPEEnum, alpha.model.CALCULATOR_UNARY_OP.GET_DOMAIN);
@@ -4361,7 +4516,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEDataType(jniislSetEDataType, JNIISLSet.class, "JNIISLSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(jniislMapEDataType, JNIISLMap.class, "JNIISLMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(jniislMultiAffEDataType, JNIISLMultiAff.class, "JNIISLMultiAff", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(jniislUnionMapEDataType, JNIISLUnionMap.class, "JNIISLUnionMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislpwqPolynomialEDataType, JNIISLPWQPolynomial.class, "JNIISLPWQPolynomial", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(isL_FORMATEDataType, fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT.class, "ISL_FORMAT", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(listVariableExpressionEDataType, List.class, "ListVariableExpression", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.List<alpha.model.VariableExpression>");
 		initEDataType(integerQueueEDataType, Queue.class, "IntegerQueue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.Queue<java.lang.Integer>");

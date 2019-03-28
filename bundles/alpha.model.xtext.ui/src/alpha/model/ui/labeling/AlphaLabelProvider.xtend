@@ -3,6 +3,7 @@
  */
 package alpha.model.ui.labeling
 
+import alpha.model.AlphaNode
 import alpha.model.AlphaSystem
 import alpha.model.ArgReduceExpression
 import alpha.model.AutoRestrictExpression
@@ -31,6 +32,7 @@ import alpha.model.VariableExpression
 import com.google.inject.Inject
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
+import alpha.model.PolynomialIndexExpression
 
 /**
  * Provides labels for EObjects.
@@ -45,6 +47,9 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	// Labels and icons can be computed like this:
+	def text(AlphaNode node) {
+		node.eClass.name
+	}
 	
 	def text(Variable v) {
 		v.name + ' : ' + v.domain.toString
@@ -70,7 +75,6 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 		seq.variable.name + ' = '
 	}
 	
-	
 	def text(RestrictExpression re) {
 		if (re.domainExpr !== null) {
 			re.domainExpr.plainToString
@@ -78,9 +82,11 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 			'restrict with null domain'
 		}
 	}
+	
 	def text(AutoRestrictExpression are) {
 		'auto'
 	}
+	
 	def text(CaseExpression cexpr) {
 		if (cexpr.name !== null && cexpr.name.length > 0) {
 			'case (' + cexpr.name ')'
@@ -88,9 +94,11 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 			'case'
 		}
 	}
+	
 	def text(IfExpression ifexpr) {
 		'if-then-else'
 	}
+	
 	def text(DependenceExpression dep) {
 		if (dep.function instanceof JNIFunctionInArrayNotation) {
 				(dep.expr as VariableExpression).variable.name + dep.functionExpr.plainToString 
@@ -102,15 +110,19 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 			}	
 		}
 	}
+	
 	def text(ReduceExpression reduce) {
 		'reduce ' + reduce.operator.literal
 	}
+	
 	def text(ExternalReduceExpression reduce) {
 		'reduce ' + reduce.externalFunction.name
 	}
+	
 	def text(ArgReduceExpression reduce) {
 		'argreduce ' + reduce.operator.literal
 	}
+	
 	def text(ExternalArgReduceExpression reduce) {
 		'argreduce ' + reduce.externalFunction.name
 	}
@@ -120,26 +132,37 @@ class AlphaLabelProvider extends DefaultEObjectLabelProvider {
 	}
 	
 	def text(UnaryExpression ue) {
-		ue.operator.literal
+		'UnaryExpression ' + ue.operator.literal
 	}
+	
 	def text(BinaryExpression be) {
-		be.operator.literal
+		'BinaryExpression ' + be.operator.literal
 	}
+	
 	def text(MultiArgExpression mae) {
-		mae.operator.literal
+		'MultiArgExpression ' + mae.operator.literal
 	}
+	
 	def text(ExternalMultiArgExpression emae) {
-		emae.externalFunction.name
+		'ExternalFunction ' + emae.externalFunction.name
 	}
+	
 	def text(SelectExpression se) {
 		'select'
 	}
+	
 	def text(IndexExpression ie) {
 		'val ' + ie.functionExpr.plainToString
 	}
+	
+	def text(PolynomialIndexExpression pie) {
+		'val ' + pie.polynomialExpr.plainToString
+	}
+	
 	def text(VariableExpression ve) {
 		ve.variable.name
 	}
+	
 	def text(ConstantExpression ce) {
 		ce
 	}

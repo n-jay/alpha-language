@@ -4,7 +4,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
 
 import alpha.model.AutoRestrictExpression;
-import alpha.model.RestrictExpression;
 
 public class AlphaEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	

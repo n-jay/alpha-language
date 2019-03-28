@@ -4,18 +4,29 @@
 package alpha.model.validation;
 
 import alpha.model.AlphaInternalStateConstructor;
+import alpha.model.AlphaNameUniquenessChecker;
 import alpha.model.AlphaRoot;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.validation.AbstractAlphaValidator;
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IContainer;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
@@ -26,6 +37,15 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  */
 @SuppressWarnings("all")
 public class AlphaValidator extends AbstractAlphaValidator {
+  @Inject
+  private IContainer.Manager containerManager;
+  
+  @Inject
+  private IResourceDescriptions resourceDescriptions;
+  
+  @Inject
+  private Provider<XtextResourceSet> resourceSetProvider;
+  
   private void flagEditor(final AlphaIssue.TYPE type, final String message, final EObject source, final EStructuralFeature feature, final int index) {
     boolean _equals = Objects.equal(type, AlphaIssue.TYPE.ERROR);
     if (_equals) {
@@ -39,7 +59,31 @@ public class AlphaValidator extends AbstractAlphaValidator {
   
   @Check(CheckType.NORMAL)
   public void checkRoot(final AlphaRoot root) {
-    final List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(root);
+    IResourceDescription alpha_description = this.resourceDescriptions.getResourceDescription(root.eResource().getURI());
+    List<IContainer> visibleContainers = this.containerManager.getVisibleContainers(alpha_description, this.resourceDescriptions);
+    final LinkedList<AlphaRoot> rootList = new LinkedList<AlphaRoot>();
+    rootList.add(root);
+    for (final IContainer visibleContainer : visibleContainers) {
+      Iterable<IResourceDescription> _resourceDescriptions = visibleContainer.getResourceDescriptions();
+      for (final IResourceDescription res : _resourceDescriptions) {
+        if (((!Objects.equal(res.getURI(), root.eResource().getURI())) && res.getURI().fileExtension().contentEquals("alpha"))) {
+          final Resource r = this.resourceSetProvider.get().getResource(res.getURI(), true);
+          try {
+            EObject _get = r.getContents().get(0);
+            final AlphaRoot ar = ((AlphaRoot) _get);
+            rootList.add(ar);
+          } catch (final Throwable _t) {
+            if (_t instanceof ClassCastException) {
+            } else {
+              throw Exceptions.sneakyThrow(_t);
+            }
+          }
+        }
+      }
+    }
+    List<AlphaIssue> _compute = AlphaInternalStateConstructor.compute(root);
+    List<AlphaIssue> _check = AlphaNameUniquenessChecker.check(rootList);
+    final Iterable<AlphaIssue> issues = Iterables.<AlphaIssue>concat(_compute, _check);
     final Function1<AlphaIssue, Boolean> _function = (AlphaIssue i) -> {
       return Boolean.valueOf(EcoreUtil.isAncestor(root, i.getSource()));
     };

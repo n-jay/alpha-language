@@ -331,6 +331,16 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.POLYNOMIAL_INDEX_EXPRESSION: {
+				PolynomialIndexExpression polynomialIndexExpression = (PolynomialIndexExpression)theEObject;
+				T result = casePolynomialIndexExpression(polynomialIndexExpression);
+				if (result == null) result = caseAlphaExpression(polynomialIndexExpression);
+				if (result == null) result = caseAlphaNode(polynomialIndexExpression);
+				if (result == null) result = caseAlphaExpressionVisitable(polynomialIndexExpression);
+				if (result == null) result = caseAlphaCompleteVisitable(polynomialIndexExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ModelPackage.FUZZY_INDEX_EXPRESSION: {
 				FuzzyIndexExpression fuzzyIndexExpression = (FuzzyIndexExpression)theEObject;
 				T result = caseFuzzyIndexExpression(fuzzyIndexExpression);
@@ -642,6 +652,27 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAlphaNode(jniFunctionInArrayNotation);
 				if (result == null) result = caseCalculatorNode(jniFunctionInArrayNotation);
 				if (result == null) result = caseCalculatorExpressionVisitable(jniFunctionInArrayNotation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.JNI_POLYNOMIAL: {
+				JNIPolynomial jniPolynomial = (JNIPolynomial)theEObject;
+				T result = caseJNIPolynomial(jniPolynomial);
+				if (result == null) result = caseCalculatorExpression(jniPolynomial);
+				if (result == null) result = caseAlphaNode(jniPolynomial);
+				if (result == null) result = caseCalculatorNode(jniPolynomial);
+				if (result == null) result = caseCalculatorExpressionVisitable(jniPolynomial);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ModelPackage.JNI_POLYNOMIAL_IN_ARRAY_NOTATION: {
+				JNIPolynomialInArrayNotation jniPolynomialInArrayNotation = (JNIPolynomialInArrayNotation)theEObject;
+				T result = caseJNIPolynomialInArrayNotation(jniPolynomialInArrayNotation);
+				if (result == null) result = caseJNIPolynomial(jniPolynomialInArrayNotation);
+				if (result == null) result = caseCalculatorExpression(jniPolynomialInArrayNotation);
+				if (result == null) result = caseAlphaNode(jniPolynomialInArrayNotation);
+				if (result == null) result = caseCalculatorNode(jniPolynomialInArrayNotation);
+				if (result == null) result = caseCalculatorExpressionVisitable(jniPolynomialInArrayNotation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1215,6 +1246,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Polynomial Index Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Polynomial Index Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePolynomialIndexExpression(PolynomialIndexExpression object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Fuzzy Index Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1661,6 +1707,36 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseJNIFunctionInArrayNotation(JNIFunctionInArrayNotation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>JNI Polynomial</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>JNI Polynomial</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJNIPolynomial(JNIPolynomial object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>JNI Polynomial In Array Notation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>JNI Polynomial In Array Notation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJNIPolynomialInArrayNotation(JNIPolynomialInArrayNotation object) {
 		return null;
 	}
 

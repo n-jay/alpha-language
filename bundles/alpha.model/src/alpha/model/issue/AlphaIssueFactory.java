@@ -1,5 +1,8 @@
 package alpha.model.issue;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -7,6 +10,7 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaSystem;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.CalculatorExpression;
+import alpha.model.ExternalFunction;
 import alpha.model.FuzzyFunction;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
@@ -27,12 +31,14 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
  */
 public class AlphaIssueFactory {
 	
-	public static InvalidSyntaxIssue duplicateSystem(EObject source) {
-		return new InvalidSyntaxIssue(TYPE.ERROR, "Duplicate System", source, ModelPackage.Literals.ALPHA_SYSTEM__NAME);
+	public static InvalidSyntaxIssue duplicateSystem(EObject source, List<AlphaSystem> list) {
+		String locations = list.stream().map(s->s.eResource().getURI().toString()).collect( Collectors.joining( "\n" ) );
+		return new InvalidSyntaxIssue(TYPE.ERROR, "Duplicate Systems:\n" + locations, source, ModelPackage.Literals.ALPHA_SYSTEM__NAME);
 	}
 	
-	public static InvalidSyntaxIssue duplicateExternalFunction(EObject source) {
-		return new InvalidSyntaxIssue(TYPE.ERROR, "Duplicate External Function", source, ModelPackage.Literals.EXTERNAL_FUNCTION__NAME);
+	public static InvalidSyntaxIssue duplicateExternalFunction(EObject source, List<ExternalFunction> list) {
+		String locations = list.stream().map(s->s.eResource().getURI().toString()).collect( Collectors.joining( "\n" ) );
+		return new InvalidSyntaxIssue(TYPE.ERROR, "Duplicate External Functions:\n" + locations, source, ModelPackage.Literals.EXTERNAL_FUNCTION__NAME);
 	}
 
 	public static InvalidSyntaxIssue duplicateAlphaConstant(EObject source) {

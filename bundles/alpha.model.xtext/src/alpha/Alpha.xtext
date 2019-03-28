@@ -94,6 +94,12 @@ JNIFunctionInArrayNotation:
 	'[' {JNIFunctionInArrayNotation} (arrayNotation+=AISLExpression (',' arrayNotation+=AISLExpression)*)? ']'
 ;
 
+JNIPolynomial:
+	islString=AISLPWQPolynomial;
+
+JNIPolynomialInArrayNotation:	
+	'{' arrayNotation+=AISLQPolynomialBody (';' arrayNotation+=AISLQPolynomialBody)* '}';
+	
 FuzzyFunction:
 	'(' alphaString=AISLWrappedBasicRelation (';' indirections+=FuzzyVariableUse)* ')'
 ;
@@ -157,12 +163,27 @@ AISLRelation:
 	'{' AISLBasicRelation (';' AISLBasicRelation)* '}'
 ;
 
+AISLQPolynomial:
+	'[' AISLExpressionList ']' '->' AISLQPolynomialBody
+;
+
+AISLQPolynomialBody:
+	AISLPolynomialExpression (':' AISLString)?
+;
+
+AISLPWQPolynomial:
+	'{' AISLQPolynomial (';' AISLQPolynomial)* '}'
+;
+
 AISLString:
 	(IndexName|INT|'+'|'-'|'*'|'/'|'%'|'and'|'or'|'['|']'|'('|')'|','|':'|'&'|'|'|WS|'>='|'>'|'='|'<'|'<=')*;
 	
 AISLExpression:
 	(IndexName|INT|'='|'+'|'-'|'*'|'/'|'%'|'('|')'|WS)+;
-	
+
+AISLPolynomialExpression:
+	(IndexName|INT|'+'|'-'|'*'|'/'|'('|')'|'^')+;
+
 AISLExpressionLiteral:
 	'-'?(IndexName|INT|WS)+;
 AISLExpressionOperator:
@@ -247,6 +268,7 @@ AlphaTerminalExpression returns AlphaExpression:
 	DependenceExpression |
 	FuzzyDependenceExpression |
 	IndexExpression | 
+	PolynomialIndexExpression |	
 	FuzzyIndexExpression |
 	Reductions |
 	ConvolutionExpression |
@@ -295,8 +317,12 @@ FuzzyDependenceExpression:
 	expr=VariableExpression fuzzyFunction=FuzzyFunctionInArrayNotation;
 		
 IndexExpression:
-	'val' functionExpr=JNIFunction |
-	functionExpr=JNIFunctionInArrayNotation;
+	('val' functionExpr=JNIFunction) |
+	('val' functionExpr=JNIFunctionInArrayNotation);
+	
+PolynomialIndexExpression:
+	('val' polynomialExpr=JNIPolynomial )|
+	('val' polynomialExpr=JNIPolynomialInArrayNotation);
 	
 FuzzyIndexExpression:
 	'val' fuzzyFunction=FuzzyFunction |

@@ -5,13 +5,12 @@
 package alpha.model
 
 import alpha.model.exception.CyclicDefinitionException
-import alpha.model.util.AlphaPrintingUtil
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
 import fr.irisa.cairn.jnimap.runtime.JNIObject
 import java.util.LinkedList
 import java.util.List
@@ -26,7 +25,7 @@ type JNIObject wraps JNIObject
 type JNIISLSet wraps JNIISLSet
 type JNIISLMap wraps JNIISLMap
 type JNIISLMultiAff wraps JNIISLMultiAff
-type JNIISLUnionMap wraps JNIISLUnionMap
+type JNIISLPWQPolynomial wraps JNIISLPWQPolynomial
 type ISL_FORMAT wraps ISL_FORMAT
 type ListVariableExpression wraps List<VariableExpression> 
 type IntegerQueue wraps Queue<Integer>
@@ -184,6 +183,7 @@ interface AlphaExpressionVisitor {
 	op void visitSelectExpression(SelectExpression se)
 	
 	op void visitIndexExpression(IndexExpression ie)
+	op void visitPolynomialIndexExpression(PolynomialIndexExpression pie)
 	op void visitFuzzyIndexExpression(FuzzyIndexExpression fie)
 	op void visitVariableExpression(VariableExpression ve)
 	
@@ -212,6 +212,7 @@ interface AlphaExpressionVisitor {
 	op void inSelectExpression(SelectExpression se)
 	
 	op void inIndexExpression(IndexExpression ie)
+	op void inPolynomialIndexExpression(PolynomialIndexExpression pie)
 	op void inFuzzyIndexExpression(FuzzyIndexExpression fie)
 	op void inVariableExpression(VariableExpression ve)
 	
@@ -247,6 +248,7 @@ interface AlphaExpressionVisitor {
 	op void outSelectExpression(SelectExpression se)
 	
 	op void outIndexExpression(IndexExpression ie)
+	op void outPolynomialIndexExpression(PolynomialIndexExpression pie)
 	op void outFuzzyIndexExpression(FuzzyIndexExpression fie)
 	op void outVariableExpression(VariableExpression ve)
 	
@@ -271,6 +273,7 @@ interface CalculatorExpressionVisitor {
 	op void visitJNIDomain(JNIDomain jniDomain)
 	op void visitJNIRelation(JNIRelation jniRelation)
 	op void visitJNIFunction(JNIFunction jniFunction)
+	op void visitJNIPolynomial(JNIPolynomial jniPolynomial)
 	
 	op void visitVariableDomain(VariableDomain vdom)
 	op void visitRectangularDomain(RectangularDomain rdom)
@@ -347,6 +350,11 @@ class AlphaConstant extends AlphaElement {
 class ExternalFunction extends AlphaElement {
 	String name
 	int cardinality
+	
+	op String getFullyQualifiedName() {
+		val IQualifiedNameProvider provider = new DefaultDeclarativeQualifiedNameProvider;
+		provider.getFullyQualifiedName(this).toString
+	}
 	
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitExternalFunction(this)
@@ -681,7 +689,18 @@ class IndexExpression extends AlphaExpression {
 		visitor.visitIndexExpression(this)
 	}
 }
-
+class PolynomialIndexExpression extends AlphaExpression {
+	contains JNIPolynomial polynomialExpr
+	
+	op JNIISLPWQPolynomial getPolynomial() {
+		if (polynomialExpr.^type != POLY_OBJECT_TYPE.POLYNOMIAL ) null
+		else polynomialExpr.ISLObject as JNIISLPWQPolynomial
+	}
+	
+	op void accept(AlphaExpressionVisitor visitor) {
+		visitor.visitPolynomialIndexExpression(this)
+	}
+}
 class FuzzyIndexExpression extends AlphaExpression {	
 	contains FuzzyFunction fuzzyFunction
 	
@@ -919,6 +938,7 @@ enum POLY_OBJECT_TYPE {
 	SET
 	MAP
 	FUNCTION
+	POLYNOMIAL
 }
 
 enum CALCULATOR_UNARY_OP {
@@ -1046,12 +1066,38 @@ class JNIFunction extends CalculatorExpression {
 	}
 	
 	op String plainToString() {
-		if (ISLMultiAff === null) return ""
-		AlphaPrintingUtil.toShowString(ISLMultiAff)
+		alphaFunction.plainToString()
 	}
 }
 
 class JNIFunctionInArrayNotation extends JNIFunction {
+	String[] arrayNotation
+	
+	op String plainToString() {
+		'[' + arrayNotation.join(",") + ']'
+	}
+}
+
+class JNIPolynomial extends CalculatorExpression {
+	String islString
+	JNIISLPWQPolynomial z__internal_cache_islPWQP
+	
+	op JNIISLPWQPolynomial getISLPWQPolynomial() { if (z__internal_cache_islPWQP !== null) z__internal_cache_islPWQP.copy else null }
+	op void setISLQPolynomialPiece(JNIISLPWQPolynomial islQP) { z__internal_cache_islPWQP = islQP }
+	
+	op POLY_OBJECT_TYPE getType() { if (z__internal_cache_islPWQP !== null) POLY_OBJECT_TYPE::POLYNOMIAL else null }
+	op JNIObject getISLObject() { ISLPWQPolynomial }
+	
+	op void accept(CalculatorExpressionVisitor visitor) {
+		visitor.visitJNIPolynomial(this);
+	}
+	
+	op String plainToString() {
+		islString
+	}
+}
+
+class JNIPolynomialInArrayNotation extends JNIPolynomial {
 	String[] arrayNotation
 	
 	op String plainToString() {
@@ -1074,7 +1120,6 @@ class FuzzyFunction extends AlphaNode {
 	op FuzzyVariableUse getIndirectionByName(String name) {
 		indirections.findFirst[i|i.fuzzyIndex.contentEquals(name)]	
 	}
-	
 }
 
 abstract class FuzzyVariableUse extends AlphaNode {
@@ -1250,6 +1295,10 @@ class DefinedObject extends CalculatorExpression {
 class AlphaFunction {
 	String indexList 
 	contains AlphaFunctionExpression[] exprs
+	
+	op String plainToString() {
+		String.format("[%s]->[%s]", indexList, exprs.join(",", [e|e.getISLString]))
+	}
 }
 
 abstract class AlphaFunctionExpression {

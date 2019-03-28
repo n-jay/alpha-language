@@ -1804,6 +1804,113 @@ ruleJNIFunctionInArrayNotation returns [EObject current=null]
 	)
 ;
 
+// Entry rule entryRuleJNIPolynomial
+entryRuleJNIPolynomial returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getJNIPolynomialRule()); }
+	iv_ruleJNIPolynomial=ruleJNIPolynomial
+	{ $current=$iv_ruleJNIPolynomial.current; }
+	EOF;
+
+// Rule JNIPolynomial
+ruleJNIPolynomial returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				newCompositeNode(grammarAccess.getJNIPolynomialAccess().getIslStringAISLPWQPolynomialParserRuleCall_0());
+			}
+			lv_islString_0_0=ruleAISLPWQPolynomial
+			{
+				if ($current==null) {
+					$current = createModelElementForParent(grammarAccess.getJNIPolynomialRule());
+				}
+				set(
+					$current,
+					"islString",
+					lv_islString_0_0,
+					"alpha.model.Alpha.AISLPWQPolynomial");
+				afterParserOrEnumRuleCall();
+			}
+		)
+	)
+;
+
+// Entry rule entryRuleJNIPolynomialInArrayNotation
+entryRuleJNIPolynomialInArrayNotation returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getJNIPolynomialInArrayNotationRule()); }
+	iv_ruleJNIPolynomialInArrayNotation=ruleJNIPolynomialInArrayNotation
+	{ $current=$iv_ruleJNIPolynomialInArrayNotation.current; }
+	EOF;
+
+// Rule JNIPolynomialInArrayNotation
+ruleJNIPolynomialInArrayNotation returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='{'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getJNIPolynomialInArrayNotationAccess().getLeftCurlyBracketKeyword_0());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getJNIPolynomialInArrayNotationAccess().getArrayNotationAISLQPolynomialBodyParserRuleCall_1_0());
+				}
+				lv_arrayNotation_1_0=ruleAISLQPolynomialBody
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getJNIPolynomialInArrayNotationRule());
+					}
+					add(
+						$current,
+						"arrayNotation",
+						lv_arrayNotation_1_0,
+						"alpha.model.Alpha.AISLQPolynomialBody");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		(
+			otherlv_2=';'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getJNIPolynomialInArrayNotationAccess().getSemicolonKeyword_2_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getJNIPolynomialInArrayNotationAccess().getArrayNotationAISLQPolynomialBodyParserRuleCall_2_1_0());
+					}
+					lv_arrayNotation_3_0=ruleAISLQPolynomialBody
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getJNIPolynomialInArrayNotationRule());
+						}
+						add(
+							$current,
+							"arrayNotation",
+							lv_arrayNotation_3_0,
+							"alpha.model.Alpha.AISLQPolynomialBody");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)*
+		otherlv_4='}'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getJNIPolynomialInArrayNotationAccess().getRightCurlyBracketKeyword_3());
+		}
+	)
+;
+
 // Entry rule entryRuleFuzzyFunction
 entryRuleFuzzyFunction returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getFuzzyFunctionRule()); }
@@ -2629,6 +2736,162 @@ ruleAISLRelation returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
 	)
 ;
 
+// Entry rule entryRuleAISLQPolynomial
+entryRuleAISLQPolynomial returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getAISLQPolynomialRule()); }
+	iv_ruleAISLQPolynomial=ruleAISLQPolynomial
+	{ $current=$iv_ruleAISLQPolynomial.current.getText(); }
+	EOF;
+
+// Rule AISLQPolynomial
+ruleAISLQPolynomial returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		kw='['
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLQPolynomialAccess().getLeftSquareBracketKeyword_0());
+		}
+		{
+			newCompositeNode(grammarAccess.getAISLQPolynomialAccess().getAISLExpressionListParserRuleCall_1());
+		}
+		this_AISLExpressionList_1=ruleAISLExpressionList
+		{
+			$current.merge(this_AISLExpressionList_1);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		kw=']'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLQPolynomialAccess().getRightSquareBracketKeyword_2());
+		}
+		kw='->'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLQPolynomialAccess().getHyphenMinusGreaterThanSignKeyword_3());
+		}
+		{
+			newCompositeNode(grammarAccess.getAISLQPolynomialAccess().getAISLQPolynomialBodyParserRuleCall_4());
+		}
+		this_AISLQPolynomialBody_4=ruleAISLQPolynomialBody
+		{
+			$current.merge(this_AISLQPolynomialBody_4);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+	)
+;
+
+// Entry rule entryRuleAISLQPolynomialBody
+entryRuleAISLQPolynomialBody returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getAISLQPolynomialBodyRule()); }
+	iv_ruleAISLQPolynomialBody=ruleAISLQPolynomialBody
+	{ $current=$iv_ruleAISLQPolynomialBody.current.getText(); }
+	EOF;
+
+// Rule AISLQPolynomialBody
+ruleAISLQPolynomialBody returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getAISLQPolynomialBodyAccess().getAISLPolynomialExpressionParserRuleCall_0());
+		}
+		this_AISLPolynomialExpression_0=ruleAISLPolynomialExpression
+		{
+			$current.merge(this_AISLPolynomialExpression_0);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		(
+			kw=':'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getAISLQPolynomialBodyAccess().getColonKeyword_1_0());
+			}
+			{
+				newCompositeNode(grammarAccess.getAISLQPolynomialBodyAccess().getAISLStringParserRuleCall_1_1());
+			}
+			this_AISLString_2=ruleAISLString
+			{
+				$current.merge(this_AISLString_2);
+			}
+			{
+				afterParserOrEnumRuleCall();
+			}
+		)?
+	)
+;
+
+// Entry rule entryRuleAISLPWQPolynomial
+entryRuleAISLPWQPolynomial returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getAISLPWQPolynomialRule()); }
+	iv_ruleAISLPWQPolynomial=ruleAISLPWQPolynomial
+	{ $current=$iv_ruleAISLPWQPolynomial.current.getText(); }
+	EOF;
+
+// Rule AISLPWQPolynomial
+ruleAISLPWQPolynomial returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		kw='{'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLPWQPolynomialAccess().getLeftCurlyBracketKeyword_0());
+		}
+		{
+			newCompositeNode(grammarAccess.getAISLPWQPolynomialAccess().getAISLQPolynomialParserRuleCall_1());
+		}
+		this_AISLQPolynomial_1=ruleAISLQPolynomial
+		{
+			$current.merge(this_AISLQPolynomial_1);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		(
+			kw=';'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getAISLPWQPolynomialAccess().getSemicolonKeyword_2_0());
+			}
+			{
+				newCompositeNode(grammarAccess.getAISLPWQPolynomialAccess().getAISLQPolynomialParserRuleCall_2_1());
+			}
+			this_AISLQPolynomial_3=ruleAISLQPolynomial
+			{
+				$current.merge(this_AISLQPolynomial_3);
+			}
+			{
+				afterParserOrEnumRuleCall();
+			}
+		)*
+		kw='}'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLPWQPolynomialAccess().getRightCurlyBracketKeyword_3());
+		}
+	)
+;
+
 // Entry rule entryRuleAISLString
 entryRuleAISLString returns [String current=null]:
 	{ newCompositeNode(grammarAccess.getAISLStringRule()); }
@@ -2883,6 +3146,85 @@ ruleAISLExpression returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRule
 		}
 		{
 			newLeafNode(this_WS_10, grammarAccess.getAISLExpressionAccess().getWSTerminalRuleCall_10());
+		}
+	)+
+;
+
+// Entry rule entryRuleAISLPolynomialExpression
+entryRuleAISLPolynomialExpression returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getAISLPolynomialExpressionRule()); }
+	iv_ruleAISLPolynomialExpression=ruleAISLPolynomialExpression
+	{ $current=$iv_ruleAISLPolynomialExpression.current.getText(); }
+	EOF;
+
+// Rule AISLPolynomialExpression
+ruleAISLPolynomialExpression returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getAISLPolynomialExpressionAccess().getIndexNameParserRuleCall_0());
+		}
+		this_IndexName_0=ruleIndexName
+		{
+			$current.merge(this_IndexName_0);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		this_INT_1=RULE_INT
+		{
+			$current.merge(this_INT_1);
+		}
+		{
+			newLeafNode(this_INT_1, grammarAccess.getAISLPolynomialExpressionAccess().getINTTerminalRuleCall_1());
+		}
+		    |
+		kw='+'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLPolynomialExpressionAccess().getPlusSignKeyword_2());
+		}
+		    |
+		kw='-'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLPolynomialExpressionAccess().getHyphenMinusKeyword_3());
+		}
+		    |
+		kw='*'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLPolynomialExpressionAccess().getAsteriskKeyword_4());
+		}
+		    |
+		kw='/'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLPolynomialExpressionAccess().getSolidusKeyword_5());
+		}
+		    |
+		kw='('
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLPolynomialExpressionAccess().getLeftParenthesisKeyword_6());
+		}
+		    |
+		kw=')'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLPolynomialExpressionAccess().getRightParenthesisKeyword_7());
+		}
+		    |
+		kw='^'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLPolynomialExpressionAccess().getCircumflexAccentKeyword_8());
 		}
 	)+
 ;
@@ -4152,56 +4494,65 @@ ruleAlphaTerminalExpression returns [EObject current=null]
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getFuzzyIndexExpressionParserRuleCall_7());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getPolynomialIndexExpressionParserRuleCall_7());
 		}
-		this_FuzzyIndexExpression_9=ruleFuzzyIndexExpression
+		this_PolynomialIndexExpression_9=rulePolynomialIndexExpression
 		{
-			$current = $this_FuzzyIndexExpression_9.current;
+			$current = $this_PolynomialIndexExpression_9.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getReductionsParserRuleCall_8());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getFuzzyIndexExpressionParserRuleCall_8());
 		}
-		this_Reductions_10=ruleReductions
+		this_FuzzyIndexExpression_10=ruleFuzzyIndexExpression
 		{
-			$current = $this_Reductions_10.current;
+			$current = $this_FuzzyIndexExpression_10.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getConvolutionExpressionParserRuleCall_9());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getReductionsParserRuleCall_9());
 		}
-		this_ConvolutionExpression_11=ruleConvolutionExpression
+		this_Reductions_11=ruleReductions
 		{
-			$current = $this_ConvolutionExpression_11.current;
+			$current = $this_Reductions_11.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getMultiArgExpressionParserRuleCall_10());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getConvolutionExpressionParserRuleCall_10());
 		}
-		this_MultiArgExpression_12=ruleMultiArgExpression
+		this_ConvolutionExpression_12=ruleConvolutionExpression
 		{
-			$current = $this_MultiArgExpression_12.current;
+			$current = $this_ConvolutionExpression_12.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getExternalMultiArgExpressionParserRuleCall_11());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getMultiArgExpressionParserRuleCall_11());
 		}
-		this_ExternalMultiArgExpression_13=ruleExternalMultiArgExpression
+		this_MultiArgExpression_13=ruleMultiArgExpression
 		{
-			$current = $this_ExternalMultiArgExpression_13.current;
+			$current = $this_MultiArgExpression_13.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getSelectExpressionParserRuleCall_12());
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getExternalMultiArgExpressionParserRuleCall_12());
 		}
-		this_SelectExpression_14=ruleSelectExpression
+		this_ExternalMultiArgExpression_14=ruleExternalMultiArgExpression
 		{
-			$current = $this_SelectExpression_14.current;
+			$current = $this_ExternalMultiArgExpression_14.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getAlphaTerminalExpressionAccess().getSelectExpressionParserRuleCall_13());
+		}
+		this_SelectExpression_15=ruleSelectExpression
+		{
+			$current = $this_SelectExpression_15.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -4931,22 +5282,98 @@ ruleIndexExpression returns [EObject current=null]
 		)
 		    |
 		(
+			otherlv_2='val'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getIndexExpressionAccess().getValKeyword_1_0());
+			}
 			(
-				{
-					newCompositeNode(grammarAccess.getIndexExpressionAccess().getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_0());
-				}
-				lv_functionExpr_2_0=ruleJNIFunctionInArrayNotation
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getIndexExpressionRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getIndexExpressionAccess().getFunctionExprJNIFunctionInArrayNotationParserRuleCall_1_1_0());
 					}
-					set(
-						$current,
-						"functionExpr",
-						lv_functionExpr_2_0,
-						"alpha.model.Alpha.JNIFunctionInArrayNotation");
-					afterParserOrEnumRuleCall();
-				}
+					lv_functionExpr_3_0=ruleJNIFunctionInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getIndexExpressionRule());
+						}
+						set(
+							$current,
+							"functionExpr",
+							lv_functionExpr_3_0,
+							"alpha.model.Alpha.JNIFunctionInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)
+	)
+;
+
+// Entry rule entryRulePolynomialIndexExpression
+entryRulePolynomialIndexExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getPolynomialIndexExpressionRule()); }
+	iv_rulePolynomialIndexExpression=rulePolynomialIndexExpression
+	{ $current=$iv_rulePolynomialIndexExpression.current; }
+	EOF;
+
+// Rule PolynomialIndexExpression
+rulePolynomialIndexExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			otherlv_0='val'
+			{
+				newLeafNode(otherlv_0, grammarAccess.getPolynomialIndexExpressionAccess().getValKeyword_0_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getPolynomialIndexExpressionAccess().getPolynomialExprJNIPolynomialParserRuleCall_0_1_0());
+					}
+					lv_polynomialExpr_1_0=ruleJNIPolynomial
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getPolynomialIndexExpressionRule());
+						}
+						set(
+							$current,
+							"polynomialExpr",
+							lv_polynomialExpr_1_0,
+							"alpha.model.Alpha.JNIPolynomial");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)
+		    |
+		(
+			otherlv_2='val'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getPolynomialIndexExpressionAccess().getValKeyword_1_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getPolynomialIndexExpressionAccess().getPolynomialExprJNIPolynomialInArrayNotationParserRuleCall_1_1_0());
+					}
+					lv_polynomialExpr_3_0=ruleJNIPolynomialInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getPolynomialIndexExpressionRule());
+						}
+						set(
+							$current,
+							"polynomialExpr",
+							lv_polynomialExpr_3_0,
+							"alpha.model.Alpha.JNIPolynomialInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)
 	)

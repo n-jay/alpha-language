@@ -8,7 +8,6 @@ import alpha.model.AlphaSystemElement;
 import alpha.model.ConstantExpression;
 import alpha.model.ConvolutionExpression;
 import alpha.model.DependenceExpression;
-import alpha.model.IndexExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
@@ -20,6 +19,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -113,6 +113,11 @@ public class AShow extends Show {
   @Override
   public String printFunction(final JNIISLMultiAff f) {
     return AlphaPrintingUtil.toAShowString(f, this.indexNameContext);
+  }
+  
+  @Override
+  protected String printPolynomial(final JNIISLPWQPolynomial p) {
+    return AlphaPrintingUtil.toAShowString(p, this.indexNameContext);
   }
   
   protected String printDomainInShowSytanxWithIndexNameContext(final JNIISLSet set) {
@@ -230,11 +235,6 @@ public class AShow extends Show {
       _xifexpression = this.show.doSwitch(de);
     }
     return _xifexpression;
-  }
-  
-  @Override
-  public CharSequence caseIndexExpression(final IndexExpression ie) {
-    return this.printFunction(ie.getFunction());
   }
   
   @Override

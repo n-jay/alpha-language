@@ -66,6 +66,14 @@ public interface CalculatorExpressionVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model jniPolynomialUnique="false"
+	 * @generated
+	 */
+	void visitJNIPolynomial(JNIPolynomial jniPolynomial);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model vdomUnique="false"
 	 * @generated
 	 */

@@ -2,10 +2,11 @@ package alpha.model.util
 
 import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaCompleteVisitable
+import alpha.model.AlphaExpressionVisitable
+import alpha.model.AlphaSystemElement
 import alpha.model.ConstantExpression
 import alpha.model.ConvolutionExpression
 import alpha.model.DependenceExpression
-import alpha.model.IndexExpression
 import alpha.model.SelectExpression
 import alpha.model.StandardEquation
 import alpha.model.UseEquation
@@ -13,13 +14,12 @@ import alpha.model.VariableExpression
 import com.google.common.collect.Streams
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import java.util.LinkedList
 import java.util.List
 import java.util.Stack
 import org.eclipse.emf.ecore.EObject
-import alpha.model.AlphaSystemElement
-import alpha.model.AlphaExpressionVisitable
 
 /**
  * AShow prints the given program in ArrayNotation.
@@ -89,6 +89,10 @@ class AShow extends Show {
 		AlphaPrintingUtil.toAShowString(f, indexNameContext)
 	}
 	
+	override protected printPolynomial(JNIISLPWQPolynomial p) {
+		AlphaPrintingUtil.toAShowString(p, indexNameContext)
+	}
+	
 	protected def printDomainInShowSytanxWithIndexNameContext(JNIISLSet set) {
 		AlphaPrintingUtil.toShowString(set, parameterContext, indexNameContext)
 	}
@@ -132,10 +136,6 @@ class AShow extends Show {
 		} else {
 			show.doSwitch(de)
 		}
-	}
-	
-	override caseIndexExpression(IndexExpression ie) {
-		ie.function.printFunction
 	}
 	
 	override protected printProjectionFunction(JNIISLMultiAff maff) {

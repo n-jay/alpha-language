@@ -36,6 +36,7 @@ import alpha.model.JNIDomain;
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.MultiArgExpression;
+import alpha.model.PolynomialIndexExpression;
 import alpha.model.REDUCTION_OP;
 import alpha.model.RealExpression;
 import alpha.model.RectangularDomain;
@@ -56,6 +57,7 @@ import alpha.model.util.AlphaUtil;
 import alpha.model.util.ModelSwitch;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.Arrays;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -125,6 +127,10 @@ public class Show extends ModelSwitch<CharSequence> {
   
   protected String printRelation(final JNIISLMap rel) {
     return AlphaPrintingUtil.toShowString(rel);
+  }
+  
+  protected String printPolynomial(final JNIISLPWQPolynomial p) {
+    return AlphaPrintingUtil.toShowString(p);
   }
   
   protected CharSequence printSubsystemCallParams(final JNIFunctionInArrayNotation f, final JNIISLSet instantiationDomain) {
@@ -563,6 +569,17 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append("val ");
     String _printFunction = this.printFunction(ie.getFunction());
     _builder.append(_printFunction);
+    return _builder;
+  }
+  
+  /**
+   * override
+   */
+  public CharSequence casePolynomialIndexExpression(final PolynomialIndexExpression pie) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("val ");
+    String _printPolynomial = this.printPolynomial(pie.getPolynomial());
+    _builder.append(_printPolynomial);
     return _builder;
   }
   

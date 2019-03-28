@@ -86,13 +86,18 @@ public class AlphaExpressionUtil {
   }
   
   protected static JNIISLSet _parentContext(final AlphaExpression child, final StandardEquation parent, final Consumer<AlphaIssue> f) {
-    JNIISLSet _xifexpression = null;
-    if (((parent.getSystemBody().getParameterDomainExpr() == null) || (parent.getSystemBody().getParameterDomain() == null))) {
-      _xifexpression = null;
-    } else {
-      _xifexpression = parent.getVariable().getDomain().intersectParams(parent.getSystemBody().getParameterDomain());
+    JNIISLSet _xblockexpression = null;
+    {
+      if (((((((parent == null) || (parent.getSystemBody() == null)) || 
+        (parent.getSystemBody().getParameterDomainExpr() == null)) || 
+        (parent.getSystemBody().getParameterDomain() == null)) || 
+        (parent.getVariable() == null)) || 
+        (parent.getVariable().getDomain() == null))) {
+        return null;
+      }
+      _xblockexpression = parent.getVariable().getDomain().intersectParams(parent.getSystemBody().getParameterDomain());
     }
-    return _xifexpression;
+    return _xblockexpression;
   }
   
   protected static JNIISLSet _parentContext(final AlphaExpression child, final UseEquation parent, final Consumer<AlphaIssue> f) {

@@ -4,6 +4,7 @@
 package alpha.model.ui.labeling;
 
 import alpha.model.AlphaExpression;
+import alpha.model.AlphaNode;
 import alpha.model.AlphaSystem;
 import alpha.model.ArgReduceExpression;
 import alpha.model.AutoRestrictExpression;
@@ -22,6 +23,7 @@ import alpha.model.IndexExpression;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.MultiArgExpression;
 import alpha.model.PolyhedralObject;
+import alpha.model.PolynomialIndexExpression;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
@@ -46,6 +48,10 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   @Inject
   public AlphaLabelProvider(final AdapterFactoryLabelProvider delegate) {
     super(delegate);
+  }
+  
+  public String text(final AlphaNode node) {
+    return node.eClass().getName();
   }
   
   public String text(final Variable v) {
@@ -169,19 +175,23 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   }
   
   public String text(final UnaryExpression ue) {
-    return ue.getOperator().getLiteral();
+    String _literal = ue.getOperator().getLiteral();
+    return ("UnaryExpression " + _literal);
   }
   
   public String text(final BinaryExpression be) {
-    return be.getOperator().getLiteral();
+    String _literal = be.getOperator().getLiteral();
+    return ("BinaryExpression " + _literal);
   }
   
   public String text(final MultiArgExpression mae) {
-    return mae.getOperator().getLiteral();
+    String _literal = mae.getOperator().getLiteral();
+    return ("MultiArgExpression " + _literal);
   }
   
   public String text(final ExternalMultiArgExpression emae) {
-    return emae.getExternalFunction().getName();
+    String _name = emae.getExternalFunction().getName();
+    return ("ExternalFunction " + _name);
   }
   
   public String text(final SelectExpression se) {
@@ -190,6 +200,11 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   
   public String text(final IndexExpression ie) {
     String _plainToString = ie.getFunctionExpr().plainToString();
+    return ("val " + _plainToString);
+  }
+  
+  public String text(final PolynomialIndexExpression pie) {
+    String _plainToString = pie.getPolynomialExpr().plainToString();
     return ("val " + _plainToString);
   }
   

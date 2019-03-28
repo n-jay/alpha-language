@@ -266,6 +266,10 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			indexNameContext = AlphaUtil.getWhileIndexNames(ue);
 
 			int initialIssueCount = issues.size();
+			
+			//System may not be set due to parsing error 
+			if (ue.getSystem() == null)
+				return;
 
 			// compute the instantiation domain and its indices are the base set of indices
 			if (ue.getInstantiationDomainExpr() != null) {
@@ -439,6 +443,11 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 	@Override
 	public void inIndexExpression(IndexExpression ie) {
 		issues.addAll(CalculatorExpressionEvaluator.calculate(ie.getFunctionExpr(), indexNameContext));
+	}
+	
+	@Override
+	public void inPolynomialIndexExpression(PolynomialIndexExpression pie) {
+		issues.addAll(CalculatorExpressionEvaluator.calculate(pie.getPolynomialExpr(), indexNameContext));
 	}
 	
 	@Override

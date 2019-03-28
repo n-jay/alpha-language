@@ -22,6 +22,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Alpha Function</b></em>'.
@@ -120,6 +124,21 @@ public class AlphaFunctionImpl extends MinimalEObjectImpl.Container implements A
 			exprs = new EObjectContainmentEList<AlphaFunctionExpression>(AlphaFunctionExpression.class, this, ModelPackage.ALPHA_FUNCTION__EXPRS);
 		}
 		return exprs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String plainToString() {
+		final Function1<AlphaFunctionExpression, CharSequence> _function = new Function1<AlphaFunctionExpression, CharSequence>() {
+			public CharSequence apply(final AlphaFunctionExpression e) {
+				return e.getISLString();
+			}
+		};
+		return String.format("[%s]->[%s]", this.getIndexList(), IterableExtensions.<AlphaFunctionExpression>join(this.getExprs(), ",", _function));
 	}
 
 	/**

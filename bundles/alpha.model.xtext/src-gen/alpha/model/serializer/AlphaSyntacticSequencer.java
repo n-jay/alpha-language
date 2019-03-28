@@ -126,7 +126,10 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) 'reduce' '(' operator=AREDUCTION_OP
 	 *     (rule start) (ambiguity) 'select' relationExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) 'val' functionExpr=JNIFunction
+	 *     (rule start) (ambiguity) 'val' functionExpr=JNIFunctionInArrayNotation
 	 *     (rule start) (ambiguity) 'val' fuzzyFunction=FuzzyFunction
+	 *     (rule start) (ambiguity) 'val' polynomialExpr=JNIPolynomial
+	 *     (rule start) (ambiguity) 'val' polynomialExpr=JNIPolynomialInArrayNotation
 	 *     (rule start) (ambiguity) '{' domainExpr=CalculatorExpression
 	 *     (rule start) (ambiguity) domainExpr=JNIDomain
 	 *     (rule start) (ambiguity) domainExpr=JNIDomainInArrayNotation
@@ -134,7 +137,6 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) expr=VariableExpression
 	 *     (rule start) (ambiguity) externalFunction=[ExternalFunction|QualifiedName]
 	 *     (rule start) (ambiguity) functionExpr=JNIFunction
-	 *     (rule start) (ambiguity) functionExpr=JNIFunctionInArrayNotation
 	 *     (rule start) (ambiguity) fuzzyFunction=FuzzyFunction
 	 *     (rule start) (ambiguity) fuzzyFunction=FuzzyFunctionInArrayNotation
 	 *     (rule start) (ambiguity) operator=AREDUCTION_OP

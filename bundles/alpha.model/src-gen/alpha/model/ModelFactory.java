@@ -193,6 +193,15 @@ public interface ModelFactory extends EFactory {
 	IndexExpression createIndexExpression();
 
 	/**
+	 * Returns a new object of class '<em>Polynomial Index Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Polynomial Index Expression</em>'.
+	 * @generated
+	 */
+	PolynomialIndexExpression createPolynomialIndexExpression();
+
+	/**
 	 * Returns a new object of class '<em>Fuzzy Index Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -416,6 +425,24 @@ public interface ModelFactory extends EFactory {
 	 * @generated
 	 */
 	JNIFunctionInArrayNotation createJNIFunctionInArrayNotation();
+
+	/**
+	 * Returns a new object of class '<em>JNI Polynomial</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>JNI Polynomial</em>'.
+	 * @generated
+	 */
+	JNIPolynomial createJNIPolynomial();
+
+	/**
+	 * Returns a new object of class '<em>JNI Polynomial In Array Notation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>JNI Polynomial In Array Notation</em>'.
+	 * @generated
+	 */
+	JNIPolynomialInArrayNotation createJNIPolynomialInArrayNotation();
 
 	/**
 	 * Returns a new object of class '<em>Fuzzy Function</em>'.

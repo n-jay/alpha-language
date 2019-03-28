@@ -143,6 +143,14 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	}
 	
 	@Override
+	public void outPolynomialIndexExpression(PolynomialIndexExpression pie) {
+		if (pie.getPolynomial() != null)
+			runISLoperations(pie, ()->{
+				pie.setExpressionDomain(JNIISLSet.buildUniverse(pie.getPolynomial().getDomainSpace()));
+			});
+	}
+	
+	@Override
 	public void outFuzzyIndexExpression(FuzzyIndexExpression fie) {
 		if (fie.getDependenceRelation() != null)
 			runISLoperations(fie, ()->{

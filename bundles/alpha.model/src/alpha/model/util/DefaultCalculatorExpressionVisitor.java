@@ -6,6 +6,7 @@ import alpha.model.CalculatorExpressionVisitor;
 import alpha.model.DefinedObject;
 import alpha.model.JNIDomain;
 import alpha.model.JNIFunction;
+import alpha.model.JNIPolynomial;
 import alpha.model.JNIRelation;
 import alpha.model.RectangularDomain;
 import alpha.model.UnaryCalculatorExpression;
@@ -38,6 +39,9 @@ public interface DefaultCalculatorExpressionVisitor extends CalculatorExpression
 
 	@Override
 	default void visitJNIFunction(JNIFunction jniFunction) {}
+	
+	@Override
+	default void visitJNIPolynomial(JNIPolynomial jniPolynomial) {}
 	
 	@Override
 	default void visitVariableDomain(VariableDomain vdom) {}
