@@ -3,8 +3,6 @@ package alpha.model.tests;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import alpha.model.AlphaRoot;
@@ -13,7 +11,6 @@ import alpha.model.tests.data.AlphaSingleFileTestInput;
 import alpha.model.tests.data.IAlphaTestInput;
 import alpha.model.tests.util.AlphaTestUtil;
 
-@RunWith(Parameterized.class)
 public class AlphaAShowTest extends GenericAlphaSystemTest {
 
 	public AlphaAShowTest(final IAlphaTestInput test) {

@@ -30,6 +30,6 @@ affine cholesky [N]->{:N>2}
 		};
 		Temp[i,j,k] = case {
 			{: k=0 } : L[i,0]*L[j,0];
-			{: k>0 } : Temp[i,j,k-1] + L[i,k]*L[j,k]+[0];
+			{: k>0 } : Temp[i,j,k-1] + L[i,k]*L[j,k]+val[0];
 		};
 .

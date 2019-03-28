@@ -7,8 +7,6 @@ import java.util.stream.Stream;
 
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import alpha.model.AlphaRoot;
@@ -18,7 +16,6 @@ import alpha.model.tests.data.AlphaSingleFileTestInput;
 import alpha.model.tests.data.IAlphaTestInput;
 import alpha.model.tests.util.AlphaTestUtil;
 
-@RunWith(Parameterized.class)
 public class AlphaCheckProgramTest extends GenericAlphaSystemTest {
 	
     @Rule

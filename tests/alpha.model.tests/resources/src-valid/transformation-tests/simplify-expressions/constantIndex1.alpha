@@ -10,7 +10,7 @@
 		outputs
 			X : {}
 		let
-			X = [0];
+			X = val[0];
 	.
 	
 	affine contantIndex1b [N] -> { : N>0}
@@ -19,7 +19,7 @@
 		outputs
 			X : {}
 		let
-			X = [1];
+			X = val[1];
 	.
 	
 	affine contantIndex1c [N] -> { : N>0}
@@ -28,7 +28,7 @@
 		outputs
 			X : {}
 		let
-			X = [-1];
+			X = val[-1];
 	.
 	
 	affine contantIndex1d [N] -> { : N>0}
@@ -37,6 +37,6 @@
 		outputs
 			X : {}
 		let
-			X = [3+2-1+0];
+			X = val[3+2-1+0];
 	.
 }
