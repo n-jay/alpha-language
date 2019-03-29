@@ -11,6 +11,7 @@ import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import org.eclipse.xtext.EcoreUtil2
+import alpha.model.util.AlphaOperatorUtil
 
 /**
  * Idempotence is one of the transformations that can be applied with
@@ -39,6 +40,9 @@ class Idempotence {
 	}
 	
 	private static def transform(AbstractReduceExpression are) {
+		if (!AlphaOperatorUtil.isIdempotent(are.operator)) {
+			throw new IllegalArgumentException("[Idempotence] The operator of the specified reduction is not idempotent.");
+		}
 		//Idempotence requires the body to be normalized
 		// this is for projecting all dependences by f_c
 		Normalize.apply(are.body)

@@ -117,6 +117,24 @@ class AlphaOperatorUtil {
 	}
 	
 	/**
+	 * Returns true if the operator is idempotent, i.e., x op x = x
+	 * 
+	 */
+	static def isIdempotent(REDUCTION_OP op) {
+		switch (op) {
+			case MIN,
+			case MAX,
+			case AND,
+			case OR: {
+				true
+			}
+			default: {
+				false
+			}
+		}
+	}
+	
+	/**
 	 * Expects BinaryExpression, MultiArgExpression, or AbstractReduceExpression and returns
 	 * BINARY_OP after converting the OP if it was MultiArgExpression/AbstractReduceExpression.
 	 * 

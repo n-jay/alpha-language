@@ -12,6 +12,7 @@ import alpha.model.matrix.MatrixOperations;
 import alpha.model.transformation.Normalize;
 import alpha.model.transformation.reduction.ReductionUtil;
 import alpha.model.util.AffineFunctionOperations;
+import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
@@ -48,6 +49,11 @@ public class Idempotence {
   private static List<AlphaIssue> transform(final AbstractReduceExpression are) {
     List<AlphaIssue> _xblockexpression = null;
     {
+      boolean _isIdempotent = AlphaOperatorUtil.isIdempotent(are.getOperator());
+      boolean _not = (!_isIdempotent);
+      if (_not) {
+        throw new IllegalArgumentException("[Idempotence] The operator of the specified reduction is not idempotent.");
+      }
       Normalize.apply(are.getBody());
       final ShareSpaceAnalysisResult SSAR = ShareSpaceAnalysis.apply(are);
       final long[][] areSS = SSAR.getShareSpace(are.getBody());

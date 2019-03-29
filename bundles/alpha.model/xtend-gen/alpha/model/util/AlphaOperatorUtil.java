@@ -165,6 +165,29 @@ public class AlphaOperatorUtil {
   }
   
   /**
+   * Returns true if the operator is idempotent, i.e., x op x = x
+   */
+  public static boolean isIdempotent(final REDUCTION_OP op) {
+    boolean _switchResult = false;
+    if (op != null) {
+      switch (op) {
+        case MIN:
+        case MAX:
+        case AND:
+        case OR:
+          _switchResult = true;
+          break;
+        default:
+          _switchResult = false;
+          break;
+      }
+    } else {
+      _switchResult = false;
+    }
+    return _switchResult;
+  }
+  
+  /**
    * Expects BinaryExpression, MultiArgExpression, or AbstractReduceExpression and returns
    * BINARY_OP after converting the OP if it was MultiArgExpression/AbstractReduceExpression.
    */
