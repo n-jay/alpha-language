@@ -99,6 +99,9 @@
             <include>**/Test*.class</include>
             <include>**/*Test.class</include>
           </includes> 
+          <excludes>
+            <exclude>**/HigherOrderOperatorTest.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
 
