@@ -3,10 +3,8 @@ package alpha.model.transformation.reduction;
 import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaInternalStateConstructor;
-import alpha.model.DependenceExpression;
 import alpha.model.analysis.reduction.ShareSpaceAnalysis;
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult;
-import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.transformation.Normalize;
@@ -17,7 +15,6 @@ import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import java.util.List;
-import java.util.function.Consumer;
 import org.eclipse.xtext.EcoreUtil2;
 
 /**
@@ -69,12 +66,7 @@ public class Idempotence {
       final List<String> indices = are.getBody().getContextDomain().getIndicesNames();
       final JNIISLMultiAff Fc = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, kerFc);
       final JNIISLMultiAff Fpprime = AffineFunctionOperations.projectFunctionDomain(are.getProjection(), Fc.copy());
-      final Consumer<DependenceExpression> _function = (DependenceExpression de) -> {
-        final JNIISLMultiAff projectedDep = AffineFunctionOperations.projectFunctionDomain(de.getFunction(), Fc.copy());
-        final DependenceExpression newDepExpr = AlphaUserFactory.createDependenceExpression(projectedDep, de.getExpr());
-        EcoreUtil2.replace(de, newDepExpr);
-      };
-      EcoreUtil2.<DependenceExpression>getAllContentsOfType(are, DependenceExpression.class).forEach(_function);
+      ReductionUtil.projectReductionBody(are, Fc.copy());
       AlphaExpression _xifexpression = null;
       int _nbDims = Fpprime.getNbDims(JNIISLDimType.isl_dim_in);
       int _nbDims_1 = Fpprime.getNbDims(JNIISLDimType.isl_dim_out);

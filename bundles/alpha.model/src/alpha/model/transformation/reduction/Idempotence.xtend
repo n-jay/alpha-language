@@ -2,16 +2,14 @@ package alpha.model.transformation.reduction
 
 import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaInternalStateConstructor
-import alpha.model.DependenceExpression
 import alpha.model.analysis.reduction.ShareSpaceAnalysis
-import alpha.model.factory.AlphaUserFactory
 import alpha.model.matrix.MatrixOperations
 import alpha.model.transformation.Normalize
 import alpha.model.util.AffineFunctionOperations
+import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import org.eclipse.xtext.EcoreUtil2
-import alpha.model.util.AlphaOperatorUtil
 
 /**
  * Idempotence is one of the transformations that can be applied with
@@ -64,11 +62,7 @@ class Idempotence {
 		
 		val Fpprime = AffineFunctionOperations.projectFunctionDomain(are.projection, Fc.copy)
 		
-		EcoreUtil2.getAllContentsOfType(are, DependenceExpression).forEach[de|
-			val projectedDep = AffineFunctionOperations.projectFunctionDomain(de.function, Fc.copy);
-			val newDepExpr = AlphaUserFactory.createDependenceExpression(projectedDep, de.expr)
-			EcoreUtil2.replace(de, newDepExpr)
-		]
+		ReductionUtil.projectReductionBody(are, Fc.copy)
 		
 		val replacement = if (Fpprime.getNbDims(JNIISLDimType.isl_dim_in) == Fpprime.getNbDims(JNIISLDimType.isl_dim_out)) {
 			are.body

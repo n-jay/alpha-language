@@ -3,11 +3,17 @@ package alpha.model.transformation.reduction;
 import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.ArgReduceExpression;
+import alpha.model.DependenceExpression;
 import alpha.model.REDUCTION_OP;
 import alpha.model.ReduceExpression;
+import alpha.model.RestrictExpression;
 import alpha.model.factory.AlphaUserFactory;
+import alpha.model.util.AffineFunctionOperations;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import java.util.Arrays;
+import java.util.function.Consumer;
+import org.eclipse.xtext.EcoreUtil2;
 
 @SuppressWarnings("all")
 public class ReductionUtil {
@@ -20,6 +26,35 @@ public class ReductionUtil {
   
   protected static AbstractReduceExpression _constructConcreteReduction(final ArgReduceExpression base, final REDUCTION_OP op, final JNIISLMultiAff projection, final AlphaExpression body) {
     return AlphaUserFactory.createArgReduceExpression(op, projection, body);
+  }
+  
+  /**
+   * Takes a reduction and a function that have overlapping nullspace as the reduction body
+   * and projects the entire reduction by the given function.
+   * 
+   * Given a function Fc
+   *   - reduce(op, f, E)
+   * where ker(Fc) \in reuse(E), returns
+   *   - reduce(op, f', E')
+   * where
+   *   - f = f' o Fc
+   *   - E' = E with all domains and (domain of) dependences projected by Fc.
+   * 
+   * Assumes that input is normalized, and Fc satisfies the requirement.
+   */
+  public static void projectReductionBody(final AbstractReduceExpression are, final JNIISLMultiAff Fc) {
+    final Consumer<DependenceExpression> _function = (DependenceExpression de) -> {
+      final JNIISLMultiAff projectedDep = AffineFunctionOperations.projectFunctionDomain(de.getFunction(), Fc.copy());
+      final DependenceExpression newDepExpr = AlphaUserFactory.createDependenceExpression(projectedDep, de.getExpr());
+      EcoreUtil2.replace(de, newDepExpr);
+    };
+    EcoreUtil2.<DependenceExpression>getAllContentsOfType(are, DependenceExpression.class).forEach(_function);
+    final Consumer<RestrictExpression> _function_1 = (RestrictExpression re) -> {
+      final JNIISLSet projectedDom = re.getRestrictDomain().apply(Fc.copy().toMap());
+      final RestrictExpression newRestrictExpr = AlphaUserFactory.createRestrictExpression(projectedDom, re.getExpr());
+      EcoreUtil2.replace(re, newRestrictExpr);
+    };
+    EcoreUtil2.<RestrictExpression>getAllContentsOfType(are, RestrictExpression.class).forEach(_function_1);
   }
   
   public static AbstractReduceExpression constructConcreteReduction(final AbstractReduceExpression base, final REDUCTION_OP op, final JNIISLMultiAff projection, final AlphaExpression body) {
