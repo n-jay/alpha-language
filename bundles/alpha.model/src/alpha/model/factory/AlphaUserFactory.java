@@ -4,17 +4,22 @@ import alpha.model.AlphaExpression;
 import alpha.model.ArgReduceExpression;
 import alpha.model.BINARY_OP;
 import alpha.model.BinaryExpression;
+import alpha.model.BooleanExpression;
 import alpha.model.CaseExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.IfExpression;
+import alpha.model.IndexExpression;
 import alpha.model.IntegerExpression;
 import alpha.model.JNIDomain;
 import alpha.model.JNIFunction;
+import alpha.model.JNIPolynomial;
 import alpha.model.ModelFactory;
 import alpha.model.MultiArgExpression;
+import alpha.model.PolynomialIndexExpression;
 import alpha.model.REDUCTION_OP;
+import alpha.model.RealExpression;
 import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
@@ -24,6 +29,7 @@ import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.util.AlphaPrintingUtil;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 
 /**
@@ -49,44 +55,47 @@ public class AlphaUserFactory {
 		}
 	}
 	
-	
 	public static JNIDomain createJNIDomain(JNIISLSet set) {
 		nullCheck(set);
 		
 		JNIDomain dom = fact.createJNIDomain();
-		
 		dom.setISLSet(set);
 		dom.setIslString(AlphaPrintingUtil.toShowString(set));//TODO
-		
 		return dom;
 	}
+	
 	public static JNIDomain createJNIParameterDomain(JNIISLSet set) {
 		nullCheck(set);
 		
 		JNIDomain dom = fact.createJNIDomain();
-		
 		dom.setISLSet(set);
 		dom.setIslString(AlphaPrintingUtil.toShowStringParameterDomain(set));//TODO
-		
 		return dom;
 	}
+	
 	public static JNIDomain createJNISystemBodyDomain(JNIISLSet set) {
 		nullCheck(set);
 		
 		JNIDomain dom = fact.createJNIDomain();
-		
 		dom.setISLSet(set);
 		dom.setIslString(AlphaPrintingUtil.toShowStringSystemBodyDomain(set));//TODO
-		
 		return dom;
 	}
+	
+	public static  JNIPolynomial createJNIPolynomial(JNIISLPWQPolynomial pwqp) {
+		nullCheck(pwqp);
+		
+		JNIPolynomial poly = fact.createJNIPolynomial();
+		poly.setISLPWQPolynomial(pwqp);
+		poly.setIslString(AlphaPrintingUtil.toShowString(pwqp));//TODO
+		return poly;
+	}
+	
 	public static  JNIFunction createJNIFunction(JNIISLMultiAff maff) {
 		nullCheck(maff);
 		
 		JNIFunction fun = fact.createJNIFunction();
-		
 		fun.setISLMultiAff(maff);
-		
 		return fun;
 	}
 	
@@ -94,7 +103,6 @@ public class AlphaUserFactory {
 		nullCheck(name, domain);
 		
 		Variable v = fact.createVariable();
-		
 		v.setName(name);
 		v.setDomainExpr(createJNIDomain(domain));
 
@@ -105,7 +113,6 @@ public class AlphaUserFactory {
 		nullCheck(v, expr);
 		
 		StandardEquation eq = fact.createStandardEquation();
-		
 		eq.setVariable(v);
 		eq.setExpr(expr);
 		
@@ -119,6 +126,7 @@ public class AlphaUserFactory {
 		de.setFunctionExpr(createJNIFunction(maff));
 		return de;
 	}
+	
 	public static DependenceExpression createDependenceExpression(JNIISLMultiAff maff, AlphaExpression expr) {
 		nullCheck(maff, expr);
 		
@@ -131,18 +139,42 @@ public class AlphaUserFactory {
 		nullCheck(v);
 		
 		VariableExpression ve = fact.createVariableExpression();
-		
 		ve.setVariable(v);
-		
 		return ve;
 	}
 	
 	public static IntegerExpression createIntegerExpression(int v) {
 		IntegerExpression ie = fact.createIntegerExpression();
-		
 		ie.setValue(v);
-		
 		return ie;
+	}
+	
+	public static RealExpression createRealExpression(float v) {
+		RealExpression re = fact.createRealExpression();
+		re.setValue(v);
+		return re;
+	}
+	
+	public static BooleanExpression createBooleanExpression(boolean v) {
+		BooleanExpression be = fact.createBooleanExpression();
+		be.setValue(v);
+		return be;
+	}
+	
+	public static IndexExpression createIndexExpression(JNIISLMultiAff maff) {
+		nullCheck(maff);
+		
+		IndexExpression ie = fact.createIndexExpression();
+		ie.setFunctionExpr(createJNIFunction(maff));
+		return ie;
+	}
+	
+	public static PolynomialIndexExpression createPolynomialIndexExpression(JNIISLPWQPolynomial pwqp) {
+		nullCheck(pwqp);
+		
+		PolynomialIndexExpression pie = fact.createPolynomialIndexExpression();
+		pie.setPolynomialExpr(createJNIPolynomial(pwqp));
+		return pie;
 	}
 
 	public static RestrictExpression createRestrictExpression(JNIISLSet dom) {
@@ -152,6 +184,7 @@ public class AlphaUserFactory {
 		re.setDomainExpr(createJNIDomain(dom));
 		return re;
 	}
+	
 	public static RestrictExpression createRestrictExpression(JNIISLSet dom, AlphaExpression expr) {
 		nullCheck(dom, expr);
 	
@@ -175,6 +208,7 @@ public class AlphaUserFactory {
 		be.setRight(right);
 		return be;
 	}
+	
 	public static UnaryExpression createUnaryExpression(UNARY_OP op) {
 		nullCheck(op);
 
@@ -205,6 +239,7 @@ public class AlphaUserFactory {
 		mae.setExternalFunction(ef);
 		return mae;
 	}
+	
 	public static IfExpression createIfExpression() {
 		return fact.createIfExpression();		
 	}
@@ -219,6 +254,7 @@ public class AlphaUserFactory {
 		
 		return ie;
 	}
+	
 	public static CaseExpression createCaseExpression() {
 		return fact.createCaseExpression();		
 	}
@@ -234,22 +270,18 @@ public class AlphaUserFactory {
 		nullCheck(op, projection, expr);
 		
 		ReduceExpression re = fact.createReduceExpression();
-		
 		re.setOperator(op);
 		re.setProjectionExpr(createJNIFunction(projection));
 		re.setBody(expr);
-		
 		return re;
 	}
 	public static ArgReduceExpression createArgReduceExpression(REDUCTION_OP op, JNIISLMultiAff projection, AlphaExpression expr) {
 		nullCheck(op, projection, expr);
 		
 		ArgReduceExpression re = fact.createArgReduceExpression();
-		
 		re.setOperator(op);
 		re.setProjectionExpr(createJNIFunction(projection));
 		re.setBody(expr);
-		
 		return re;
 	}
 }
