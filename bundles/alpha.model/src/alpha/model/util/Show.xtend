@@ -211,7 +211,7 @@ class Show extends ModelSwitch<CharSequence> {
 	
 	/* override */ def caseRestrictExpression(RestrictExpression re) {
 		val domStr = if (re.domainExpr instanceof JNIDomain || re.domainExpr instanceof JNIDomainInArrayNotation)
-		re.restrictDomain.gist(re.contextDomain).printDomain else '''{«re.restrictDomain.printDomain»}''' 
+		re.restrictDomain.printDomain else '''{«re.restrictDomain.printDomain»}''' 
 		
 		if (re.eContainer instanceof UnaryExpression || re.eContainer instanceof BinaryExpression) {
 			'''(«domStr» : «re.expr.doSwitch»)'''

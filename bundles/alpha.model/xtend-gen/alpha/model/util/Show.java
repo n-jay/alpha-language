@@ -453,7 +453,7 @@ public class Show extends ModelSwitch<CharSequence> {
     {
       String _xifexpression = null;
       if (((re.getDomainExpr() instanceof JNIDomain) || (re.getDomainExpr() instanceof JNIDomainInArrayNotation))) {
-        _xifexpression = this.printDomain(re.getRestrictDomain().gist(re.getContextDomain()));
+        _xifexpression = this.printDomain(re.getRestrictDomain());
       } else {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("{");
