@@ -135,6 +135,21 @@ class AlphaOperatorUtil {
 	}
 	
 	/**
+	 * Returns true if the operator has a higher order operator.
+	 * 
+	 */
+	static def hasHigherOrderOperator(REDUCTION_OP op) {
+		switch (op) {
+			case SUM: {
+				true
+			}
+			default: {
+				false
+			}
+		}
+	}
+	
+	/**
 	 * Expects BinaryExpression, MultiArgExpression, or AbstractReduceExpression and returns
 	 * BINARY_OP after converting the OP if it was MultiArgExpression/AbstractReduceExpression.
 	 * 

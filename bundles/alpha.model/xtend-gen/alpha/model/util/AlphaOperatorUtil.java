@@ -188,6 +188,26 @@ public class AlphaOperatorUtil {
   }
   
   /**
+   * Returns true if the operator has a higher order operator.
+   */
+  public static boolean hasHigherOrderOperator(final REDUCTION_OP op) {
+    boolean _switchResult = false;
+    if (op != null) {
+      switch (op) {
+        case SUM:
+          _switchResult = true;
+          break;
+        default:
+          _switchResult = false;
+          break;
+      }
+    } else {
+      _switchResult = false;
+    }
+    return _switchResult;
+  }
+  
+  /**
    * Expects BinaryExpression, MultiArgExpression, or AbstractReduceExpression and returns
    * BINARY_OP after converting the OP if it was MultiArgExpression/AbstractReduceExpression.
    */
