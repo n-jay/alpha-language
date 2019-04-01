@@ -28,5 +28,7 @@ Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.xtext.xbase.lib;visibility:=reexport,
  org.eclipse.emf.ecore.xcore.lib;visibility:=reexport,
  fr.irisa.cairn.jnimap.isl;visibility:=reexport,
- org.eclipse.xtend.typesystem.emf;visibility:=reexport
+ org.eclipse.xtend.typesystem.emf;visibility:=reexport,
+ fr.irisa.cairn.jnimap.polylib;resolution:=optional,
+ fr.irisa.cairn.jnimap.barvinok;resolution:=optional
 Bundle-ActivationPolicy: lazy

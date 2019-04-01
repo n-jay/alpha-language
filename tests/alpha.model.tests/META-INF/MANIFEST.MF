@@ -13,4 +13,6 @@ Require-Bundle: alpha.model,
  org.codehaus.groovy.eclipse.ui,
  org.eclipse.jdt.groovy.core,
  alpha.commands,
- alpha.commands.groovy
+ alpha.commands.groovy,
+ fr.irisa.cairn.jnimap.barvinok;resolution:=optional,
+ fr.irisa.cairn.jnimap.polylib;resolution:=optional
