@@ -90,7 +90,7 @@ public interface JNIPolynomial extends CalculatorExpression {
 	 * @model islQPDataType="alpha.model.JNIISLPWQPolynomial" islQPUnique="false"
 	 * @generated
 	 */
-	void setISLQPolynomialPiece(JNIISLPWQPolynomial islQP);
+	void setISLPWQPolynomial(JNIISLPWQPolynomial islQP);
 
 	/**
 	 * <!-- begin-user-doc -->

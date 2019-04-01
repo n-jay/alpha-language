@@ -1083,7 +1083,7 @@ class JNIPolynomial extends CalculatorExpression {
 	JNIISLPWQPolynomial z__internal_cache_islPWQP
 	
 	op JNIISLPWQPolynomial getISLPWQPolynomial() { if (z__internal_cache_islPWQP !== null) z__internal_cache_islPWQP.copy else null }
-	op void setISLQPolynomialPiece(JNIISLPWQPolynomial islQP) { z__internal_cache_islPWQP = islQP }
+	op void setISLPWQPolynomial(JNIISLPWQPolynomial islQP) { z__internal_cache_islPWQP = islQP }
 	
 	op POLY_OBJECT_TYPE getType() { if (z__internal_cache_islPWQP !== null) POLY_OBJECT_TYPE::POLYNOMIAL else null }
 	op JNIObject getISLObject() { ISLPWQPolynomial }

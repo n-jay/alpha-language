@@ -162,7 +162,7 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * @generated
 	 */
 	@Override
-	public void setISLQPolynomialPiece(final JNIISLPWQPolynomial islQP) {
+	public void setISLPWQPolynomial(final JNIISLPWQPolynomial islQP) {
 		this.setZ__internal_cache_islPWQP(islQP);
 	}
 
