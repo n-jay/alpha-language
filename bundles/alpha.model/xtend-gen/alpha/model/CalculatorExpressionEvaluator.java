@@ -594,7 +594,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   public void visitJNIPolynomial(final JNIPolynomial jniPolynomial) {
     try {
       JNIISLPWQPolynomial jniPWQP = CalculatorExpressionEvaluator.parsePolynomial(AlphaUtil.getContainerSystem(jniPolynomial), this.parseJNIPolynomial(jniPolynomial));
-      jniPolynomial.setISLQPolynomialPiece(jniPWQP);
+      jniPolynomial.setISLPWQPolynomial(jniPWQP);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;

@@ -453,7 +453,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	override visitJNIPolynomial(JNIPolynomial jniPolynomial) {
 		try {
 			var jniPWQP = parsePolynomial(AlphaUtil.getContainerSystem(jniPolynomial), parseJNIPolynomial(jniPolynomial));
-			jniPolynomial.ISLQPolynomialPiece = jniPWQP
+			jniPolynomial.ISLPWQPolynomial = jniPWQP
 		} catch (RuntimeException re) {
 			val msg = if (re.message === null) re.class.name else re.message
 			registerIssue(msg, jniPolynomial);
