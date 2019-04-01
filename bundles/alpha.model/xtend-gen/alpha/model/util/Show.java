@@ -453,7 +453,7 @@ public class Show extends ModelSwitch<CharSequence> {
     {
       String _xifexpression = null;
       if (((re.getDomainExpr() instanceof JNIDomain) || (re.getDomainExpr() instanceof JNIDomainInArrayNotation))) {
-        _xifexpression = this.printDomain(re.getRestrictDomain());
+        _xifexpression = this.printDomain(re.getRestrictDomain().gist(re.getContextDomain()));
       } else {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("{");
@@ -578,7 +578,7 @@ public class Show extends ModelSwitch<CharSequence> {
   public CharSequence casePolynomialIndexExpression(final PolynomialIndexExpression pie) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("val ");
-    String _printPolynomial = this.printPolynomial(pie.getPolynomial());
+    String _printPolynomial = this.printPolynomial(pie.getPolynomial().gist(pie.getContextDomain()));
     _builder.append(_printPolynomial);
     return _builder;
   }
