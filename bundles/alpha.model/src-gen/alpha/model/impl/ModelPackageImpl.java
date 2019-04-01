@@ -4305,7 +4305,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(jniPolynomialEClass, this.getJNIISLPWQPolynomial(), "getISLPWQPolynomial", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(jniPolynomialEClass, null, "setISLQPolynomialPiece", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(jniPolynomialEClass, null, "setISLPWQPolynomial", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getJNIISLPWQPolynomial(), "islQP", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(jniPolynomialEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
