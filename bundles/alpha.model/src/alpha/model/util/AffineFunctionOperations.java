@@ -361,27 +361,6 @@ public class AffineFunctionOperations {
 		
 		return MatrixOperations.inclusionKernel(f1Array, f2Array);
 	}
-
-	/**
-	 * Given target function f and another function x, computes a function y such that
-	 *   f = y o x 
-	 * 
-	 * How this method computes y is specialized for non-bijective functions,
-	 * which is the case for projection functions in reductions. It is computed from
-	 * the nullspace of the function that should be non-trivial for projections.
-	 * 
-	 * It assumes that the kernel of f spans a larger space than the kernel of x. A
-	 * function y' is computed to span the space not covered by the kernel of x. Then
-	 * the domain of y' is projected with x to be consistent (dimension-wise). The 
-	 * projection should be legal 
-	 * 
-	 * @param f
-	 * @param x
-	 * @return y
-	 */
-	public static JNIISLMultiAff deduceDecompositionFromKernels(JNIISLMultiAff f, JNIISLMultiAff x) {
-		return null;
-	}
 	
 	/**
 	 * Given a matrix representing basis vectors, constructs an affine function that have the given space
