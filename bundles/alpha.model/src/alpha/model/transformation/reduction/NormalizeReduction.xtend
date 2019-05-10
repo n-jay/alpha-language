@@ -33,6 +33,7 @@ class NormalizeReduction extends AbstractAlphaCompleteVisitor {
 	/**
 	 * Applies the transformation to the specified expression.
 	 * 
+	 * Returns the equation that contains the extracted ReduceExpression 
 	 */
 	static def apply(AbstractReduceExpression are) {
 		if (AlphaUtil.getContainerEquation(are) instanceof StandardEquation) {
@@ -78,6 +79,8 @@ class NormalizeReduction extends AbstractAlphaCompleteVisitor {
 		
 		AlphaInternalStateConstructor.recomputeContextDomain(equation)
 		AlphaInternalStateConstructor.recomputeContextDomain(newEq)
+		
+		return newEq
 	}
 	
 	/**

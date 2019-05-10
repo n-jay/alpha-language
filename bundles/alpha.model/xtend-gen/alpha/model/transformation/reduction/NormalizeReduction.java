@@ -11,7 +11,6 @@ import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
-import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaUtil;
 import java.util.LinkedList;
@@ -42,9 +41,11 @@ public class NormalizeReduction extends AbstractAlphaCompleteVisitor {
   
   /**
    * Applies the transformation to the specified expression.
+   * 
+   * Returns the equation that contains the extracted ReduceExpression
    */
-  public static List<AlphaIssue> apply(final AbstractReduceExpression are) {
-    List<AlphaIssue> _xifexpression = null;
+  public static StandardEquation apply(final AbstractReduceExpression are) {
+    StandardEquation _xifexpression = null;
     Equation _containerEquation = AlphaUtil.getContainerEquation(are);
     if ((_containerEquation instanceof StandardEquation)) {
       _xifexpression = NormalizeReduction.transform(are);
@@ -72,24 +73,21 @@ public class NormalizeReduction extends AbstractAlphaCompleteVisitor {
     return (!_isEmpty);
   }
   
-  private static List<AlphaIssue> transform(final AbstractReduceExpression are) {
-    List<AlphaIssue> _xblockexpression = null;
-    {
-      Equation _containerEquation = AlphaUtil.getContainerEquation(are);
-      final StandardEquation equation = ((StandardEquation) _containerEquation);
-      final SystemBody systemBody = equation.getSystemBody();
-      final AlphaSystem system = systemBody.getSystem();
-      final String newEqName = NormalizeReduction.defineNormalizeReductionEquationName.apply(equation);
-      final Variable newVar = AlphaUserFactory.createVariable(newEqName, are.getContextDomain());
-      system.getLocals().add(newVar);
-      final VariableExpression varExpr = AlphaUserFactory.createVariableExpression(newVar);
-      EcoreUtil.replace(are, varExpr);
-      final StandardEquation newEq = AlphaUserFactory.createStandardEquation(newVar, are);
-      systemBody.getEquations().add(newEq);
-      AlphaInternalStateConstructor.recomputeContextDomain(equation);
-      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(newEq);
-    }
-    return _xblockexpression;
+  private static StandardEquation transform(final AbstractReduceExpression are) {
+    Equation _containerEquation = AlphaUtil.getContainerEquation(are);
+    final StandardEquation equation = ((StandardEquation) _containerEquation);
+    final SystemBody systemBody = equation.getSystemBody();
+    final AlphaSystem system = systemBody.getSystem();
+    final String newEqName = NormalizeReduction.defineNormalizeReductionEquationName.apply(equation);
+    final Variable newVar = AlphaUserFactory.createVariable(newEqName, are.getContextDomain());
+    system.getLocals().add(newVar);
+    final VariableExpression varExpr = AlphaUserFactory.createVariableExpression(newVar);
+    EcoreUtil.replace(are, varExpr);
+    final StandardEquation newEq = AlphaUserFactory.createStandardEquation(newVar, are);
+    systemBody.getEquations().add(newEq);
+    AlphaInternalStateConstructor.recomputeContextDomain(equation);
+    AlphaInternalStateConstructor.recomputeContextDomain(newEq);
+    return newEq;
   }
   
   /**
