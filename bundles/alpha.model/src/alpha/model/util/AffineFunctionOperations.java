@@ -253,9 +253,26 @@ public class AffineFunctionOperations {
 		return b;
 	}
 
+	public static JNIISLMultiAff createUniformFunction(JNIISLSpace space, long[] b) {
+		List<Long> bVec = new ArrayList<Long>(b.length);
+		for (long v : b) {
+			bVec.add(v);
+		}
+		
+		return createUniformFunction(space, bVec);
+	}
+	
 	public static JNIISLMultiAff createUniformFunction(JNIISLSpace space, List<Long> b) {
 		final List<String> params = space.getNameList(JNIISLDimType.isl_dim_param);
 		final List<String> indices = space.getNameList(JNIISLDimType.isl_dim_in);
+		
+		if (indices.contains(null)) {
+			final int size = indices.size();
+			indices.clear();
+			for (int d = 0; d < size; d++) {
+				indices.add("i"+d);
+			}
+		}
 		
 		Matrix mat = MatrixUserFactory.createMatrix(params, indices);
 		final int nbColumns = mat.getNbColumns();
