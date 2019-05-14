@@ -24,6 +24,7 @@
     <module>alpha.commands.model.xtext.ide</module>
     <module>alpha.commands.model.xtext.ui</module>
     <module>alpha.commands.ui</module>
+    <module>alpha.interactive</module>
   </modules>
 
 </project>
