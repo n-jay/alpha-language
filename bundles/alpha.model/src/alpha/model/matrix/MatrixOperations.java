@@ -2959,7 +2959,7 @@ public class MatrixOperations {
 	 */
 	public static Matrix toMatrix(long[][] array, List<String> paramNames, List<String> indexNames, boolean linearPartOnly, boolean addImplicitParameterEqualities) {
 
-		if ((array.length > 0 ) && 
+		if ((array != null && array.length > 0 ) && 
 				((linearPartOnly && paramNames.size() + indexNames.size() != array[0].length) || 
 				(!linearPartOnly && paramNames.size() + indexNames.size() + 1 != array[0].length))) {
 			throw new RuntimeException("Size of the matrix does not match the number of params/indices.\n" + paramNames + indexNames +"\n"+ MatrixOperations.toString(array));
@@ -2975,7 +2975,7 @@ public class MatrixOperations {
 			}
 		}
 		
-		if (array.length == 0) return mat;
+		if (array == null || array.length == 0) return mat;
 		
 		for (int r = 0; r < array.length; r++) {
 			mat.getRows().add(MatrixUserFactory.createMatrixRow(array[r]));
