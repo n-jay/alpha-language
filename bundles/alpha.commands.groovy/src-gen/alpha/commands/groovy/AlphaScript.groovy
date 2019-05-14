@@ -1,34 +1,19 @@
 package alpha.commands.groovy
 
-import alpha.model.AlphaRoot
-import alpha.model.AlphaRoot
-import java.util.List
+import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaCompleteVisitable
-import alpha.model.AlphaVisitable
-import alpha.model.AlphaRoot
-import alpha.model.AlphaSystem
-import alpha.model.SystemBody
-import alpha.model.StandardEquation
 import alpha.model.AlphaExpression
-import java.util.List
 import alpha.model.AlphaRoot
-import alpha.model.Equation
-import alpha.model.AlphaVisitable
 import alpha.model.AlphaSystem
+import alpha.model.AlphaVisitable
+import alpha.model.DependenceExpression
+import alpha.model.Equation
+import alpha.model.ReduceExpression
+import alpha.model.StandardEquation
 import alpha.model.SystemBody
-import alpha.model.AlphaRoot
 import alpha.model.Variable
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
-import alpha.model.StandardEquation
-import alpha.model.AlphaSystem
-import alpha.model.SystemBody
-import alpha.model.StandardEquation
-import alpha.model.AbstractReduceExpression
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import alpha.model.DependenceExpression
-import alpha.model.AlphaVisitable
-import alpha.model.ReduceExpression
 
 abstract class AlphaScript extends AbstractAlphaScript {
 
