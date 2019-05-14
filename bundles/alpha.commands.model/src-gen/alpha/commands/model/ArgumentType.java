@@ -291,10 +291,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Void</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Void</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #VOID
 	 * @model name="Void" literal="void"
@@ -306,10 +302,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Alpha Node</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Alpha Node</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ALPHA_NODE
 	 * @model name="AlphaNode"
@@ -321,10 +313,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Alpha Complete Visitable</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Alpha Complete Visitable</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ALPHA_COMPLETE_VISITABLE
 	 * @model name="AlphaCompleteVisitable"
@@ -336,10 +324,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Alpha Visitable</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Alpha Visitable</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ALPHA_VISITABLE
 	 * @model name="AlphaVisitable"
@@ -351,10 +335,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Alpha Expression Visitable</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Alpha Expression Visitable</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ALPHA_EXPRESSION_VISITABLE
 	 * @model name="AlphaExpressionVisitable"
@@ -366,10 +346,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Alpha Root</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Alpha Root</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ALPHA_ROOT
 	 * @model name="AlphaRoot"
@@ -381,10 +357,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Alpha System</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Alpha System</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ALPHA_SYSTEM
 	 * @model name="AlphaSystem"
@@ -396,10 +368,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>System Body</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>System Body</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SYSTEM_BODY
 	 * @model name="SystemBody"
@@ -411,10 +379,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Variable</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Variable</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #VARIABLE
 	 * @model name="Variable"
@@ -426,10 +390,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Equation</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Equation</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #EQUATION
 	 * @model name="Equation"
@@ -441,10 +401,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Standard Equation</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Standard Equation</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #STANDARD_EQUATION
 	 * @model name="StandardEquation"
@@ -456,10 +412,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Use Equation</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Use Equation</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #USE_EQUATION
 	 * @model name="UseEquation"
@@ -471,10 +423,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Alpha Expression</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Alpha Expression</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ALPHA_EXPRESSION
 	 * @model name="AlphaExpression"
@@ -486,10 +434,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Abstract Reduce Expression</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Abstract Reduce Expression</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ABSTRACT_REDUCE_EXPRESSION
 	 * @model name="AbstractReduceExpression"
@@ -501,10 +445,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Binary Expression</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Binary Expression</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #BINARY_EXPRESSION
 	 * @model name="BinaryExpression"
@@ -516,10 +456,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Dependence Expression</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Dependence Expression</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #DEPENDENCE_EXPRESSION
 	 * @model name="DependenceExpression"
@@ -531,10 +467,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Reduce Expression</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Reduce Expression</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #REDUCE_EXPRESSION
 	 * @model name="ReduceExpression"
@@ -546,10 +478,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Affine Function</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Affine Function</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #AFFINE_FUNCTION
 	 * @model name="AffineFunction"
@@ -561,10 +489,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Domain</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Domain</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #DOMAIN
 	 * @model name="Domain"
@@ -576,10 +500,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Parameter Domain</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Parameter Domain</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #PARAMETER_DOMAIN
 	 * @model name="ParameterDomain"
@@ -591,10 +511,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Alpha Bundle</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Alpha Bundle</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ALPHA_BUNDLE
 	 * @model name="AlphaBundle" literal="List&lt;AlphaRoot&gt;"
@@ -606,10 +522,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>String</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>String</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #STRING
 	 * @model name="String"
@@ -621,10 +533,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>String List</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>String List</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #STRING_LIST
 	 * @model name="StringList" literal="List&lt;String&gt;"
@@ -636,10 +544,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>String Array</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>String Array</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #STRING_ARRAY
 	 * @model name="StringArray" literal="String[]"
@@ -651,10 +555,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Integer</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Integer</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INTEGER
 	 * @model name="Integer" literal="int"
@@ -666,10 +566,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Integer List</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Integer List</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INTEGER_LIST
 	 * @model name="IntegerList" literal="List&lt;Integer&gt;"
@@ -681,10 +577,6 @@ public enum ArgumentType implements Enumerator {
 	/**
 	 * The '<em><b>Integer Array</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Integer Array</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INTEGER_ARRAY
 	 * @model name="IntegerArray" literal="int[]"

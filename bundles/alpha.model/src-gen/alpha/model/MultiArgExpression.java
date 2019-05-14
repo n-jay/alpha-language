@@ -26,10 +26,6 @@ public interface MultiArgExpression extends AlphaExpression {
 	 * Returns the value of the '<em><b>Operator</b></em>' attribute.
 	 * The literals are from the enumeration {@link alpha.model.REDUCTION_OP}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Operator</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Operator</em>' attribute.
 	 * @see alpha.model.REDUCTION_OP
@@ -55,10 +51,6 @@ public interface MultiArgExpression extends AlphaExpression {
 	 * Returns the value of the '<em><b>Exprs</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.AlphaExpression}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Exprs</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Exprs</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getMultiArgExpression_Exprs()

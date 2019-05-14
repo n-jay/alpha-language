@@ -34,10 +34,6 @@ public interface UseEquation extends Equation {
 	/**
 	 * Returns the value of the '<em><b>Instantiation Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Instantiation Domain Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Instantiation Domain Expr</em>' containment reference.
 	 * @see #setInstantiationDomainExpr(CalculatorExpression)
@@ -61,10 +57,6 @@ public interface UseEquation extends Equation {
 	 * Returns the value of the '<em><b>Subsystem Dims</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Subsystem Dims</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Subsystem Dims</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getUseEquation_SubsystemDims()
@@ -76,10 +68,6 @@ public interface UseEquation extends Equation {
 	/**
 	 * Returns the value of the '<em><b>System</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>System</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>System</em>' reference.
 	 * @see #setSystem(AlphaSystem)
@@ -102,10 +90,6 @@ public interface UseEquation extends Equation {
 	/**
 	 * Returns the value of the '<em><b>Call Params Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Call Params Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Call Params Expr</em>' containment reference.
 	 * @see #setCallParamsExpr(JNIFunctionInArrayNotation)
@@ -129,10 +113,6 @@ public interface UseEquation extends Equation {
 	 * Returns the value of the '<em><b>Input Exprs</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.AlphaExpression}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Input Exprs</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Input Exprs</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getUseEquation_InputExprs()
@@ -145,10 +125,6 @@ public interface UseEquation extends Equation {
 	 * Returns the value of the '<em><b>Output Exprs</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.AlphaExpression}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Output Exprs</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Output Exprs</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getUseEquation_OutputExprs()

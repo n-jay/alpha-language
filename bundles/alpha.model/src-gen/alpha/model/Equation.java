@@ -27,10 +27,6 @@ public interface Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement 
 	 * Returns the value of the '<em><b>System Body</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link alpha.model.SystemBody#getEquations <em>Equations</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>System Body</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>System Body</em>' container reference.
 	 * @see #setSystemBody(SystemBody)

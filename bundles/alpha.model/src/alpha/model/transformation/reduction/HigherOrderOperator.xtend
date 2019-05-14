@@ -4,6 +4,7 @@ import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaInternalStateConstructor
 import alpha.model.BINARY_OP
 import alpha.model.analysis.reduction.ShareSpaceAnalysis
+import alpha.model.analysis.reduction.ShareSpaceAnalysisResult
 import alpha.model.factory.AlphaUserFactory
 import alpha.model.matrix.MatrixOperations
 import alpha.model.transformation.Normalize
@@ -62,6 +63,28 @@ class HigherOrderOperator {
 	
 	static def apply(AbstractReduceExpression are) {
 		transform(are)
+	}
+	
+	/**
+	 * Legality test that should match the one in transform. 
+	 * Exposed to be used by SimplifyingReductionExploration.
+	 * 
+	 * It is quite similar to Idempotence, may be it can be merged somewhere.
+	 */
+	static def testLegality(AbstractReduceExpression are, ShareSpaceAnalysisResult SSAR) {
+		if (!AlphaOperatorUtil.hasHigherOrderOperator(are.operator)) {
+			return false
+		}
+		
+		val areSS = SSAR.getShareSpace(are.body)
+		if (areSS === null)
+			return false;
+		
+		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.projection))
+		val kerFc = MatrixOperations.plainIntersection(kerFp, areSS)
+		
+		if (kerFc === null)
+			return false;
 	}
 	
 	private static def transform(AbstractReduceExpression are) {

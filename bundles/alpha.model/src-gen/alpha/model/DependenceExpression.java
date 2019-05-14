@@ -25,10 +25,6 @@ public interface DependenceExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Function Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Function Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Function Expr</em>' containment reference.
 	 * @see #setFunctionExpr(JNIFunction)
@@ -51,10 +47,6 @@ public interface DependenceExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expr</em>' containment reference.
 	 * @see #setExpr(AlphaExpression)

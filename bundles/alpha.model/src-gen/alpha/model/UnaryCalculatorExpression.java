@@ -27,10 +27,6 @@ public interface UnaryCalculatorExpression extends CalculatorExpression {
 	 * Returns the value of the '<em><b>Operator</b></em>' attribute.
 	 * The literals are from the enumeration {@link alpha.model.CALCULATOR_UNARY_OP}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Operator</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Operator</em>' attribute.
 	 * @see alpha.model.CALCULATOR_UNARY_OP
@@ -55,10 +51,6 @@ public interface UnaryCalculatorExpression extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expr</em>' containment reference.
 	 * @see #setExpr(CalculatorExpression)
@@ -81,10 +73,6 @@ public interface UnaryCalculatorExpression extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache isl Object</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Zinternal cache isl Object</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache isl Object</em>' attribute.
 	 * @see #setZ__internal_cache_islObject(JNIObject)

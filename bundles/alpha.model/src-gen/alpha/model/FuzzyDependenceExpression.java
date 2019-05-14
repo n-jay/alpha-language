@@ -25,10 +25,6 @@ public interface FuzzyDependenceExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Fuzzy Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Fuzzy Function</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Fuzzy Function</em>' containment reference.
 	 * @see #setFuzzyFunction(FuzzyFunction)
@@ -51,10 +47,6 @@ public interface FuzzyDependenceExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expr</em>' containment reference.
 	 * @see #setExpr(AlphaExpression)

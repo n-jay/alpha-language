@@ -34,10 +34,6 @@ public interface AlphaSystem extends AlphaElement {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -60,10 +56,6 @@ public interface AlphaSystem extends AlphaElement {
 	/**
 	 * Returns the value of the '<em><b>Parameter Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parameter Domain Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Parameter Domain Expr</em>' containment reference.
 	 * @see #setParameterDomainExpr(JNIDomain)
@@ -87,10 +79,6 @@ public interface AlphaSystem extends AlphaElement {
 	 * Returns the value of the '<em><b>Defined Objects</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.PolyhedralObject}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Defined Objects</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Defined Objects</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getAlphaSystem_DefinedObjects()
@@ -103,10 +91,6 @@ public interface AlphaSystem extends AlphaElement {
 	 * Returns the value of the '<em><b>Inputs</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.Variable}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Inputs</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Inputs</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getAlphaSystem_Inputs()
@@ -119,10 +103,6 @@ public interface AlphaSystem extends AlphaElement {
 	 * Returns the value of the '<em><b>Outputs</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.Variable}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Outputs</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Outputs</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getAlphaSystem_Outputs()
@@ -135,10 +115,6 @@ public interface AlphaSystem extends AlphaElement {
 	 * Returns the value of the '<em><b>Locals</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.Variable}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Locals</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Locals</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getAlphaSystem_Locals()
@@ -150,10 +126,6 @@ public interface AlphaSystem extends AlphaElement {
 	/**
 	 * Returns the value of the '<em><b>While Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>While Domain Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>While Domain Expr</em>' containment reference.
 	 * @see #setWhileDomainExpr(CalculatorExpression)
@@ -176,10 +148,6 @@ public interface AlphaSystem extends AlphaElement {
 	/**
 	 * Returns the value of the '<em><b>Test Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Test Expression</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Test Expression</em>' containment reference.
 	 * @see #setTestExpression(AlphaExpression)
@@ -204,10 +172,6 @@ public interface AlphaSystem extends AlphaElement {
 	 * The list contents are of type {@link alpha.model.SystemBody}.
 	 * It is bidirectional and its opposite is '{@link alpha.model.SystemBody#getSystem <em>System</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>System Bodies</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>System Bodies</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getAlphaSystem_SystemBodies()

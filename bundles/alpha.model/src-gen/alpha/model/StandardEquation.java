@@ -26,10 +26,6 @@ public interface StandardEquation extends Equation {
 	/**
 	 * Returns the value of the '<em><b>Variable</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Variable</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Variable</em>' reference.
 	 * @see #setVariable(Variable)
@@ -53,10 +49,6 @@ public interface StandardEquation extends Equation {
 	 * Returns the value of the '<em><b>Index Names</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Index Names</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Index Names</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getStandardEquation_IndexNames()
@@ -68,10 +60,6 @@ public interface StandardEquation extends Equation {
 	/**
 	 * Returns the value of the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expr</em>' containment reference.
 	 * @see #setExpr(AlphaExpression)

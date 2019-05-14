@@ -28,10 +28,6 @@ public interface AlphaCommandSpecialization extends EObject {
 	 * Returns the value of the '<em><b>Command</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link alpha.commands.model.AlphaCommand#getSpecializations <em>Specializations</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Command</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Command</em>' container reference.
 	 * @see #setCommand(AlphaCommand)
@@ -56,10 +52,6 @@ public interface AlphaCommandSpecialization extends EObject {
 	 * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.commands.model.CommandArgumentSpecialization}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Arguments</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Arguments</em>' containment reference list.
 	 * @see alpha.commands.model.ModelPackage#getAlphaCommandSpecialization_Arguments()

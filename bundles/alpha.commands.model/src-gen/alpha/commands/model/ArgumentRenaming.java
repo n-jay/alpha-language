@@ -25,10 +25,6 @@ public interface ArgumentRenaming extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Bind Target</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Bind Target</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Bind Target</em>' reference.
 	 * @see #setBindTarget(AlphaCommandArgument)
@@ -51,10 +47,6 @@ public interface ArgumentRenaming extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Bind Source</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Bind Source</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Bind Source</em>' reference.
 	 * @see #setBindSource(AlphaCommandArgument)

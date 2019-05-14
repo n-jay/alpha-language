@@ -41,10 +41,6 @@ public interface Matrix extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Space</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Space</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Space</em>' containment reference.
 	 * @see #setSpace(Space)
@@ -68,10 +64,6 @@ public interface Matrix extends EObject {
 	 * Returns the value of the '<em><b>Rows</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.matrix.MatrixRow}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Rows</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Rows</em>' containment reference list.
 	 * @see alpha.model.matrix.MatrixPackage#getMatrix_Rows()
@@ -84,10 +76,6 @@ public interface Matrix extends EObject {
 	 * Returns the value of the '<em><b>Linear Part Only</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Linear Part Only</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Linear Part Only</em>' attribute.
 	 * @see #setLinearPartOnly(boolean)

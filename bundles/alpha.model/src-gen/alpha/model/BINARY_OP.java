@@ -181,10 +181,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>MIN</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>MIN</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MIN
 	 * @model literal="min"
@@ -196,10 +192,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>MAX</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>MAX</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MAX
 	 * @model literal="max"
@@ -211,10 +203,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>MUL</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>MUL</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MUL
 	 * @model literal="*"
@@ -226,10 +214,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>DIV</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>DIV</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #DIV
 	 * @model literal="/"
@@ -241,10 +225,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>MOD</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>MOD</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MOD
 	 * @model literal="%"
@@ -256,10 +236,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>ADD</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>ADD</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ADD
 	 * @model literal="+"
@@ -271,10 +247,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>SUB</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>SUB</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SUB
 	 * @model literal="-"
@@ -286,10 +258,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>AND</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>AND</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #AND
 	 * @model literal="and"
@@ -301,10 +269,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>OR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OR</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #OR
 	 * @model literal="or"
@@ -316,10 +280,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>XOR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>XOR</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #XOR
 	 * @model literal="xor"
@@ -331,10 +291,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>EQ</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>EQ</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #EQ
 	 * @model literal="="
@@ -346,10 +302,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>NE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>NE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NE
 	 * @model literal="!="
@@ -361,10 +313,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>GE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>GE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #GE
 	 * @model literal="&gt;="
@@ -376,10 +324,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>GT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>GT</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #GT
 	 * @model literal="&gt;"
@@ -391,10 +335,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>LE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>LE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #LE
 	 * @model literal="&lt;="
@@ -406,10 +346,6 @@ public enum BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>LT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>LT</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #LT
 	 * @model literal="&lt;"

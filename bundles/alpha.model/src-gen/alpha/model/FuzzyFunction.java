@@ -29,10 +29,6 @@ public interface FuzzyFunction extends AlphaNode {
 	/**
 	 * Returns the value of the '<em><b>Alpha String</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Alpha String</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Alpha String</em>' attribute.
 	 * @see #setAlphaString(String)
@@ -56,10 +52,6 @@ public interface FuzzyFunction extends AlphaNode {
 	 * Returns the value of the '<em><b>Indirections</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.FuzzyVariableUse}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Indirections</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Indirections</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getFuzzyFunction_Indirections()
@@ -71,10 +63,6 @@ public interface FuzzyFunction extends AlphaNode {
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache fuzzy Map</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Zinternal cache fuzzy Map</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache fuzzy Map</em>' attribute.
 	 * @see #setZ__internal_cache_fuzzyMap(JNIISLMap)
@@ -97,10 +85,6 @@ public interface FuzzyFunction extends AlphaNode {
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache dep Relation</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Zinternal cache dep Relation</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache dep Relation</em>' attribute.
 	 * @see #setZ__internal_cache_depRelation(JNIISLMap)

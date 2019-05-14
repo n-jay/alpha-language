@@ -72,6 +72,30 @@ public class HigherOrderOperator {
     HigherOrderOperator.transform(are);
   }
   
+  /**
+   * Legality test that should match the one in transform.
+   * Exposed to be used by SimplifyingReductionExploration.
+   * 
+   * It is quite similar to Idempotence, may be it can be merged somewhere.
+   */
+  public static boolean testLegality(final AbstractReduceExpression are, final ShareSpaceAnalysisResult SSAR) {
+    boolean _hasHigherOrderOperator = AlphaOperatorUtil.hasHigherOrderOperator(are.getOperator());
+    boolean _not = (!_hasHigherOrderOperator);
+    if (_not) {
+      return false;
+    }
+    final long[][] areSS = SSAR.getShareSpace(are.getBody());
+    if ((areSS == null)) {
+      return false;
+    }
+    final long[][] kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.getProjection()));
+    final long[][] kerFc = MatrixOperations.plainIntersection(kerFp, areSS);
+    if ((kerFc == null)) {
+      return false;
+    }
+    return false;
+  }
+  
   private static void transform(final AbstractReduceExpression are) {
     boolean _hasHigherOrderOperator = AlphaOperatorUtil.hasHigherOrderOperator(are.getOperator());
     boolean _not = (!_hasHigherOrderOperator);

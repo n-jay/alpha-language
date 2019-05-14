@@ -43,6 +43,31 @@ public class Idempotence {
     return Idempotence.transform(are);
   }
   
+  /**
+   * Legality test that should match the one in transform.
+   * Exposed to be used by SimplifyingReductionExploration.
+   * 
+   * Since it is tricky to share the same code, the check code is copy & pasted.
+   * It would be better if they can be merged.
+   */
+  public static boolean testLegality(final AbstractReduceExpression are, final ShareSpaceAnalysisResult SSAR) {
+    boolean _isIdempotent = AlphaOperatorUtil.isIdempotent(are.getOperator());
+    boolean _not = (!_isIdempotent);
+    if (_not) {
+      return false;
+    }
+    final long[][] areSS = SSAR.getShareSpace(are.getBody());
+    if ((areSS == null)) {
+      return false;
+    }
+    final long[][] kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.getProjection()));
+    final long[][] kerFc = MatrixOperations.plainIntersection(kerFp, areSS);
+    if ((kerFc == null)) {
+      return false;
+    }
+    return false;
+  }
+  
   private static List<AlphaIssue> transform(final AbstractReduceExpression are) {
     List<AlphaIssue> _xblockexpression = null;
     {

@@ -25,10 +25,6 @@ public interface IfExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Cond Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Cond Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cond Expr</em>' containment reference.
 	 * @see #setCondExpr(AlphaExpression)
@@ -51,10 +47,6 @@ public interface IfExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Then Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Then Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Then Expr</em>' containment reference.
 	 * @see #setThenExpr(AlphaExpression)
@@ -77,10 +69,6 @@ public interface IfExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Else Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Else Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Else Expr</em>' containment reference.
 	 * @see #setElseExpr(AlphaExpression)

@@ -29,10 +29,6 @@ public interface DefinedObject extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Object</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Object</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Object</em>' reference.
 	 * @see #setObject(PolyhedralObject)
@@ -55,10 +51,6 @@ public interface DefinedObject extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Zinternal Cycle Detector</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Zinternal Cycle Detector</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal Cycle Detector</em>' attribute.
 	 * @see #setZ__internalCycleDetector(boolean)

@@ -101,10 +101,6 @@ public enum REDUCTION_OP implements Enumerator {
 	/**
 	 * The '<em><b>MIN</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>MIN</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MIN
 	 * @model literal="min"
@@ -116,10 +112,6 @@ public enum REDUCTION_OP implements Enumerator {
 	/**
 	 * The '<em><b>MAX</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>MAX</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MAX
 	 * @model literal="max"
@@ -131,10 +123,6 @@ public enum REDUCTION_OP implements Enumerator {
 	/**
 	 * The '<em><b>PROD</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>PROD</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #PROD
 	 * @model literal="prod"
@@ -146,10 +134,6 @@ public enum REDUCTION_OP implements Enumerator {
 	/**
 	 * The '<em><b>SUM</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>SUM</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SUM
 	 * @model literal="sum"
@@ -161,10 +145,6 @@ public enum REDUCTION_OP implements Enumerator {
 	/**
 	 * The '<em><b>AND</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>AND</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #AND
 	 * @model literal="and"
@@ -176,10 +156,6 @@ public enum REDUCTION_OP implements Enumerator {
 	/**
 	 * The '<em><b>OR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OR</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #OR
 	 * @model literal="or"
@@ -191,10 +167,6 @@ public enum REDUCTION_OP implements Enumerator {
 	/**
 	 * The '<em><b>XOR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>XOR</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #XOR
 	 * @model literal="xor"
@@ -206,10 +178,6 @@ public enum REDUCTION_OP implements Enumerator {
 	/**
 	 * The '<em><b>EX</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>EX</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #EX
 	 * @model literal="external"

@@ -27,10 +27,6 @@ public interface JNIRelation extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Isl String</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Isl String</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Isl String</em>' attribute.
 	 * @see #setIslString(String)
@@ -53,10 +49,6 @@ public interface JNIRelation extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache isl Map</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Zinternal cache isl Map</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache isl Map</em>' attribute.
 	 * @see #setZ__internal_cache_islMap(JNIISLMap)

@@ -64,10 +64,6 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 	/**
 	 * The '<em><b>SET</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>SET</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SET
 	 * @model
@@ -79,10 +75,6 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 	/**
 	 * The '<em><b>MAP</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>MAP</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MAP
 	 * @model
@@ -94,10 +86,6 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 	/**
 	 * The '<em><b>FUNCTION</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>FUNCTION</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #FUNCTION
 	 * @model
@@ -109,10 +97,6 @@ public enum POLY_OBJECT_TYPE implements Enumerator {
 	/**
 	 * The '<em><b>POLYNOMIAL</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>POLYNOMIAL</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #POLYNOMIAL
 	 * @model

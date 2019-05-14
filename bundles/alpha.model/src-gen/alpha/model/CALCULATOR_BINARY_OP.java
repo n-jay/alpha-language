@@ -91,10 +91,6 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>INTERSECT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>INTERSECT</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INTERSECT
 	 * @model literal="*"
@@ -106,10 +102,6 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>UNION</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>UNION</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #UNION
 	 * @model literal="+"
@@ -121,10 +113,6 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>CROSS PRODUCT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>CROSS PRODUCT</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #CROSS_PRODUCT
 	 * @model literal="cross"
@@ -136,10 +124,6 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>SET DIFFERENCE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>SET DIFFERENCE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SET_DIFFERENCE
 	 * @model literal="-"
@@ -151,10 +135,6 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>JOIN</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>JOIN</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #JOIN
 	 * @model literal="@"
@@ -166,10 +146,6 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>INTERSECT RANGE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>INTERSECT RANGE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INTERSECT_RANGE
 	 * @model literal="-&gt;*"
@@ -181,10 +157,6 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>SUBTRACT RANGE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>SUBTRACT RANGE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SUBTRACT_RANGE
 	 * @model literal="-&gt;-"

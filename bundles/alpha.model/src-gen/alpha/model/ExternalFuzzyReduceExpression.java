@@ -23,10 +23,6 @@ public interface ExternalFuzzyReduceExpression extends FuzzyReduceExpression {
 	/**
 	 * Returns the value of the '<em><b>External Function</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>External Function</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>External Function</em>' reference.
 	 * @see #setExternalFunction(ExternalFunction)

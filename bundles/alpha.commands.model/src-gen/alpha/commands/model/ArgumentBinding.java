@@ -27,10 +27,6 @@ public interface ArgumentBinding extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Bind Target</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Bind Target</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Bind Target</em>' reference.
 	 * @see #setBindTarget(AlphaCommandArgument)
@@ -54,10 +50,6 @@ public interface ArgumentBinding extends EObject {
 	 * Returns the value of the '<em><b>Bind Source</b></em>' reference list.
 	 * The list contents are of type {@link alpha.commands.model.AlphaCommandArgument}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Bind Source</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Bind Source</em>' reference list.
 	 * @see alpha.commands.model.ModelPackage#getArgumentBinding_BindSource()

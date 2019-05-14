@@ -40,10 +40,6 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * Returns the value of the '<em><b>Lower Bounds</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Lower Bounds</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Lower Bounds</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getRectangularDomain_LowerBounds()
@@ -56,10 +52,6 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * Returns the value of the '<em><b>Upper Bounds</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Upper Bounds</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Upper Bounds</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getRectangularDomain_UpperBounds()
@@ -72,10 +64,6 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * Returns the value of the '<em><b>Index Names</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Index Names</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Index Names</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getRectangularDomain_IndexNames()
@@ -87,10 +75,6 @@ public interface RectangularDomain extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache isl Set</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Zinternal cache isl Set</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache isl Set</em>' attribute.
 	 * @see #setZ__internal_cache_islSet(JNIISLSet)

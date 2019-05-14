@@ -25,10 +25,6 @@ public interface JNIPolynomialInArrayNotation extends JNIPolynomial {
 	 * Returns the value of the '<em><b>Array Notation</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Array Notation</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Array Notation</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getJNIPolynomialInArrayNotation_ArrayNotation()

@@ -25,10 +25,6 @@ public interface FuzzyVariableUse extends AlphaNode {
 	/**
 	 * Returns the value of the '<em><b>Fuzzy Index</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Fuzzy Index</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Fuzzy Index</em>' attribute.
 	 * @see #setFuzzyIndex(String)
@@ -51,10 +47,6 @@ public interface FuzzyVariableUse extends AlphaNode {
 	/**
 	 * Returns the value of the '<em><b>Fuzzy Variable</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Fuzzy Variable</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Fuzzy Variable</em>' reference.
 	 * @see #setFuzzyVariable(FuzzyVariable)

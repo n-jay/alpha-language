@@ -81,10 +81,6 @@ public enum CALCULATOR_UNARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>GET DOMAIN</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>GET DOMAIN</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #GET_DOMAIN
 	 * @model literal="domain"
@@ -96,10 +92,6 @@ public enum CALCULATOR_UNARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>GET RANGE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>GET RANGE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #GET_RANGE
 	 * @model literal="range"
@@ -111,10 +103,6 @@ public enum CALCULATOR_UNARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>COMPLEMENT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>COMPLEMENT</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #COMPLEMENT
 	 * @model literal="complement"
@@ -126,10 +114,6 @@ public enum CALCULATOR_UNARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>POLYHEDRAL HULL</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>POLYHEDRAL HULL</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #POLYHEDRAL_HULL
 	 * @model literal="poly-hull"
@@ -141,10 +125,6 @@ public enum CALCULATOR_UNARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>AFFINE HULL</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>AFFINE HULL</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #AFFINE_HULL
 	 * @model literal="affine-hull"
@@ -156,10 +136,6 @@ public enum CALCULATOR_UNARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>REVERSE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>REVERSE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #REVERSE
 	 * @model literal="reverse"

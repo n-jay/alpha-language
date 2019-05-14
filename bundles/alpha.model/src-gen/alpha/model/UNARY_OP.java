@@ -41,10 +41,6 @@ public enum UNARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>NOT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>NOT</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NOT
 	 * @model literal="not"
@@ -56,10 +52,6 @@ public enum UNARY_OP implements Enumerator {
 	/**
 	 * The '<em><b>NEGATE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>NEGATE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NEGATE
 	 * @model literal="-"

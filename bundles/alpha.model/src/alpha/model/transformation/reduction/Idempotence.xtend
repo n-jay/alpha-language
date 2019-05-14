@@ -10,6 +10,7 @@ import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import org.eclipse.xtext.EcoreUtil2
+import alpha.model.analysis.reduction.ShareSpaceAnalysisResult
 
 /**
  * Idempotence is one of the transformations that can be applied with
@@ -35,6 +36,29 @@ class Idempotence {
 	
 	static def apply(AbstractReduceExpression are) {
 		transform(are)
+	}
+
+	/**
+	 * Legality test that should match the one in transform.
+	 * Exposed to be used by SimplifyingReductionExploration.
+	 * 
+	 * Since it is tricky to share the same code, the check code is copy & pasted.
+	 * It would be better if they can be merged.
+	 */	
+	static def testLegality(AbstractReduceExpression are, ShareSpaceAnalysisResult SSAR) {
+		if (!AlphaOperatorUtil.isIdempotent(are.operator)) {
+			return false;
+		}
+		val areSS = SSAR.getShareSpace(are.body)
+		if (areSS === null)
+			return false;
+
+		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.projection))
+		val kerFc = MatrixOperations.plainIntersection(kerFp, areSS)
+		
+		if (kerFc === null)
+			return false;
+	
 	}
 	
 	private static def transform(AbstractReduceExpression are) {

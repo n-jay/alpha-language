@@ -25,10 +25,6 @@ public interface SelectExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Relation Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Relation Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Relation Expr</em>' containment reference.
 	 * @see #setRelationExpr(CalculatorExpression)
@@ -51,10 +47,6 @@ public interface SelectExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expr</em>' containment reference.
 	 * @see #setExpr(AlphaExpression)

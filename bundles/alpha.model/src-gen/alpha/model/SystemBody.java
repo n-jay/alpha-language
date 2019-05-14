@@ -29,10 +29,6 @@ public interface SystemBody extends AlphaNode, AlphaVisitable, AlphaSystemElemen
 	 * Returns the value of the '<em><b>System</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link alpha.model.AlphaSystem#getSystemBodies <em>System Bodies</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>System</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>System</em>' container reference.
 	 * @see #setSystem(AlphaSystem)
@@ -56,10 +52,6 @@ public interface SystemBody extends AlphaNode, AlphaVisitable, AlphaSystemElemen
 	/**
 	 * Returns the value of the '<em><b>Parameter Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parameter Domain Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Parameter Domain Expr</em>' containment reference.
 	 * @see #setParameterDomainExpr(JNIDomain)
@@ -84,10 +76,6 @@ public interface SystemBody extends AlphaNode, AlphaVisitable, AlphaSystemElemen
 	 * The list contents are of type {@link alpha.model.Equation}.
 	 * It is bidirectional and its opposite is '{@link alpha.model.Equation#getSystemBody <em>System Body</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Equations</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Equations</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getSystemBody_Equations()

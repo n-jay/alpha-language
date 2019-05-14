@@ -27,10 +27,6 @@ public interface AlphaCommandsRoot extends EObject {
 	 * Returns the value of the '<em><b>Categories</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.commands.model.AlphaCommandCategory}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Categories</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Categories</em>' containment reference list.
 	 * @see alpha.commands.model.ModelPackage#getAlphaCommandsRoot_Categories()

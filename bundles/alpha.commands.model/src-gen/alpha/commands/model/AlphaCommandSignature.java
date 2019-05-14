@@ -28,10 +28,6 @@ public interface AlphaCommandSignature extends EObject {
 	 * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.commands.model.AlphaCommandArgument}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Arguments</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Arguments</em>' containment reference list.
 	 * @see alpha.commands.model.ModelPackage#getAlphaCommandSignature_Arguments()
@@ -45,10 +41,6 @@ public interface AlphaCommandSignature extends EObject {
 	 * The default value is <code>"void"</code>.
 	 * The literals are from the enumeration {@link alpha.commands.model.ArgumentType}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Return Type</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Return Type</em>' attribute.
 	 * @see alpha.commands.model.ArgumentType

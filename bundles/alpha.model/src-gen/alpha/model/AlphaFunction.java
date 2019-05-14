@@ -36,10 +36,6 @@ public interface AlphaFunction extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Index List</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Index List</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Index List</em>' attribute.
 	 * @see #setIndexList(String)
@@ -63,10 +59,6 @@ public interface AlphaFunction extends EObject {
 	 * Returns the value of the '<em><b>Exprs</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.model.AlphaFunctionExpression}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Exprs</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Exprs</em>' containment reference list.
 	 * @see alpha.model.ModelPackage#getAlphaFunction_Exprs()

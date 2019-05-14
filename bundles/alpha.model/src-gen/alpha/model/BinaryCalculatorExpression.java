@@ -28,10 +28,6 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	 * Returns the value of the '<em><b>Operator</b></em>' attribute.
 	 * The literals are from the enumeration {@link alpha.model.CALCULATOR_BINARY_OP}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Operator</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Operator</em>' attribute.
 	 * @see alpha.model.CALCULATOR_BINARY_OP
@@ -56,10 +52,6 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Left</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Left</em>' containment reference.
 	 * @see #setLeft(CalculatorExpression)
@@ -82,10 +74,6 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Right</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Right</em>' containment reference.
 	 * @see #setRight(CalculatorExpression)
@@ -108,10 +96,6 @@ public interface BinaryCalculatorExpression extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache isl Object</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Zinternal cache isl Object</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache isl Object</em>' attribute.
 	 * @see #setZ__internal_cache_islObject(JNIObject)

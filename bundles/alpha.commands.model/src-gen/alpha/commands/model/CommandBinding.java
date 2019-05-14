@@ -28,10 +28,6 @@ public interface CommandBinding extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Bind Target Command</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Bind Target Command</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Bind Target Command</em>' reference.
 	 * @see #setBindTargetCommand(AlphaCommand)
@@ -55,10 +51,6 @@ public interface CommandBinding extends EObject {
 	 * Returns the value of the '<em><b>Argument Bindings</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.commands.model.ArgumentBinding}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Argument Bindings</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Argument Bindings</em>' containment reference list.
 	 * @see alpha.commands.model.ModelPackage#getCommandBinding_ArgumentBindings()
@@ -71,10 +63,6 @@ public interface CommandBinding extends EObject {
 	 * Returns the value of the '<em><b>Argument Renamings</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.commands.model.ArgumentRenaming}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Argument Renamings</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Argument Renamings</em>' containment reference list.
 	 * @see alpha.commands.model.ModelPackage#getCommandBinding_ArgumentRenamings()

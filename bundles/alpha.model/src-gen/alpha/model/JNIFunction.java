@@ -27,10 +27,6 @@ public interface JNIFunction extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Alpha Function</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Alpha Function</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Alpha Function</em>' containment reference.
 	 * @see #setAlphaFunction(AlphaFunction)
@@ -53,10 +49,6 @@ public interface JNIFunction extends CalculatorExpression {
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache isl MAff</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Zinternal cache isl MAff</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache isl MAff</em>' attribute.
 	 * @see #setZ__internal_cache_islMAff(JNIISLMultiAff)

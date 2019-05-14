@@ -32,10 +32,6 @@ public interface AlphaCommand extends EObject {
 	 * Returns the value of the '<em><b>Category</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link alpha.commands.model.AlphaCommandCategory#getCommands <em>Commands</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Category</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Category</em>' container reference.
 	 * @see #setCategory(AlphaCommandCategory)
@@ -59,10 +55,6 @@ public interface AlphaCommand extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Label</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Label</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
@@ -85,10 +77,6 @@ public interface AlphaCommand extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -111,10 +99,6 @@ public interface AlphaCommand extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Signature</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Signature</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Signature</em>' containment reference.
 	 * @see #setSignature(AlphaCommandSignature)
@@ -139,10 +123,6 @@ public interface AlphaCommand extends EObject {
 	 * The list contents are of type {@link alpha.commands.model.AlphaCommandSpecialization}.
 	 * It is bidirectional and its opposite is '{@link alpha.commands.model.AlphaCommandSpecialization#getCommand <em>Command</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Specializations</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Specializations</em>' containment reference list.
 	 * @see alpha.commands.model.ModelPackage#getAlphaCommand_Specializations()
@@ -155,10 +135,6 @@ public interface AlphaCommand extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Binding</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Binding</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Binding</em>' containment reference.
 	 * @see #setBinding(CommandBinding)

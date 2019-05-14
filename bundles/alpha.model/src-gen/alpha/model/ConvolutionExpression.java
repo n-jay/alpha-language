@@ -26,10 +26,6 @@ public interface ConvolutionExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Kernel Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Kernel Domain Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Kernel Domain Expr</em>' containment reference.
 	 * @see #setKernelDomainExpr(CalculatorExpression)
@@ -52,10 +48,6 @@ public interface ConvolutionExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Kernel Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Kernel Expression</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Kernel Expression</em>' containment reference.
 	 * @see #setKernelExpression(AlphaExpression)
@@ -78,10 +70,6 @@ public interface ConvolutionExpression extends AlphaExpression {
 	/**
 	 * Returns the value of the '<em><b>Data Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Data Expression</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Data Expression</em>' containment reference.
 	 * @see #setDataExpression(AlphaExpression)

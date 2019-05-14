@@ -30,10 +30,6 @@ public interface Space extends EObject {
 	 * Returns the value of the '<em><b>Param Names</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Param Names</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Param Names</em>' attribute list.
 	 * @see alpha.model.matrix.MatrixPackage#getSpace_ParamNames()
@@ -46,10 +42,6 @@ public interface Space extends EObject {
 	 * Returns the value of the '<em><b>Index Names</b></em>' attribute list.
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Index Names</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Index Names</em>' attribute list.
 	 * @see alpha.model.matrix.MatrixPackage#getSpace_IndexNames()
