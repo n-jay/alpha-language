@@ -1,11 +1,14 @@
 package alpha.model.transformation.reduction
 
+import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaInternalStateConstructor
 import alpha.model.AlphaSystem
 import alpha.model.ReduceExpression
 import alpha.model.StandardEquation
 import alpha.model.SystemBody
+import alpha.model.analysis.reduction.ShareSpaceAnalysisResult
 import alpha.model.factory.AlphaUserFactory
+import alpha.model.matrix.MatrixOperations
 import alpha.model.transformation.Normalize
 import alpha.model.transformation.PropagateSimpleEquations
 import alpha.model.transformation.SimplifyExpressions
@@ -17,8 +20,10 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLPoint
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
 import java.util.ArrayList
+import java.util.LinkedList
 import java.util.function.Function
 import org.eclipse.emf.ecore.util.EcoreUtil
+import alpha.model.util.DomainOperations
 
 class SimplifyingReductions {
 	
@@ -77,11 +82,24 @@ class SimplifyingReductions {
 		if (targetReduce.body.contextDomain.nbDims != reuseDep.getNbDims(JNIISLDimType.isl_dim_in)) {
 			throw new RuntimeException("Given reuse dependence does not match the dimensionality of the reduction body.");
 		}
+		
+		val kerQ = DomainOperations.kernelOfLinearPart(targetReduce.body.contextDomain)
+		if (kerQ !== null) {
+			throw new RuntimeException("The body of the target ReduceExpression has non-empty ker(Q); kernel of the linear part of the domain. This case is currently not handled.");
+		}
 	}
 	
 	static def void apply(ReduceExpression reduce, JNIISLMultiAff reuseDep) {
 		val sr = new SimplifyingReductions(reduce, reuseDep);
 		sr.simplify
+	}
+	
+	static def void apply(ReduceExpression reduce, long[] reuseDepNoParams) {
+		val space = JNIISLSpace.idMapDimFromSetDim(reduce.body.expressionDomain.space.copy)
+		val reuseDep = MatrixOperations.bindVector(newLongArrayOfSize(space.getNbDims(JNIISLDimType.isl_dim_param)), reuseDepNoParams);
+		val maff = AffineFunctionOperations.createUniformFunction(space.copy, reuseDep);
+		
+		apply(reduce, maff);
 	}
 	
 	protected def void simplify() {
@@ -281,9 +299,36 @@ class SimplifyingReductions {
 			projectedB.add(aff.eval(point.copy).asLong)
 		}
 
-		val space = JNIISLSpace.idMapDimFromSetDim(reductionEquation.variable.domain.space)
+		val domSpace = reductionEquation.variable.domain.space
+		val space = JNIISLSpace.idMapDimFromSetDim(domSpace)
 		val f = AffineFunctionOperations.createUniformFunction(space, projectedB)
 		
 		AlphaUtil.renameIndices(f, reductionEquation.variable.domain.indicesNames)
+	}
+	
+	/**
+	 * Creates a list of JNIISLMultiAff that are valid reuse vectors given the share space.
+	 * Exposed to be used by SimplifyingReductionExploration.
+	 * 
+	 */
+	static def generateCandidateReuseVectors(AbstractReduceExpression are, ShareSpaceAnalysisResult SSAR) {
+		val vectors = new LinkedList<long[]>();
+		
+		val areSS = SSAR.getShareSpace(are.body)
+		if (areSS === null)
+			return vectors;
+			
+		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.projection))
+		
+		if (MatrixOperations.plainIntersection(areSS, kerFp) !== null) {
+			return vectors;
+		}
+		
+		for (row : areSS) {
+			vectors.add(MatrixOperations.scalarMultiplication(row, -1));
+			vectors.add(row);
+		}
+		
+		return vectors;
 	}
 }

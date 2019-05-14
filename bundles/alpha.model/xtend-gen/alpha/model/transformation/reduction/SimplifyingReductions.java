@@ -1,5 +1,6 @@
 package alpha.model.transformation.reduction;
 
+import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.AlphaSystem;
@@ -14,13 +15,16 @@ import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
+import alpha.model.analysis.reduction.ShareSpaceAnalysisResult;
 import alpha.model.factory.AlphaUserFactory;
+import alpha.model.matrix.MatrixOperations;
 import alpha.model.transformation.Normalize;
 import alpha.model.transformation.PropagateSimpleEquations;
 import alpha.model.transformation.SimplifyExpressions;
 import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
+import alpha.model.util.DomainOperations;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
@@ -28,6 +32,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLPoint;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 import org.eclipse.emf.ecore.EObject;
@@ -109,11 +114,22 @@ public class SimplifyingReductions {
     if (_notEquals) {
       throw new RuntimeException("Given reuse dependence does not match the dimensionality of the reduction body.");
     }
+    final long[][] kerQ = DomainOperations.kernelOfLinearPart(this.targetReduce.getBody().getContextDomain());
+    if ((kerQ != null)) {
+      throw new RuntimeException("The body of the target ReduceExpression has non-empty ker(Q); kernel of the linear part of the domain. This case is currently not handled.");
+    }
   }
   
   public static void apply(final ReduceExpression reduce, final JNIISLMultiAff reuseDep) {
     final SimplifyingReductions sr = new SimplifyingReductions(reduce, reuseDep);
     sr.simplify();
+  }
+  
+  public static void apply(final ReduceExpression reduce, final long[] reuseDepNoParams) {
+    final JNIISLSpace space = JNIISLSpace.idMapDimFromSetDim(reduce.getBody().getExpressionDomain().getSpace().copy());
+    final long[] reuseDep = MatrixOperations.bindVector(new long[space.getNbDims(JNIISLDimType.isl_dim_param)], reuseDepNoParams);
+    final JNIISLMultiAff maff = AffineFunctionOperations.createUniformFunction(space.copy(), reuseDep);
+    SimplifyingReductions.apply(reduce, maff);
   }
   
   protected void simplify() {
@@ -276,10 +292,36 @@ public class SimplifyingReductions {
       for (final JNIISLAff aff : _affs) {
         projectedB.add(Long.valueOf(aff.eval(point.copy()).asLong()));
       }
-      final JNIISLSpace space = JNIISLSpace.idMapDimFromSetDim(this.reductionEquation.getVariable().getDomain().getSpace());
+      final JNIISLSpace domSpace = this.reductionEquation.getVariable().getDomain().getSpace();
+      final JNIISLSpace space = JNIISLSpace.idMapDimFromSetDim(domSpace);
       final JNIISLMultiAff f = AffineFunctionOperations.createUniformFunction(space, projectedB);
       _xblockexpression = AlphaUtil.renameIndices(f, this.reductionEquation.getVariable().getDomain().getIndicesNames());
     }
     return _xblockexpression;
+  }
+  
+  /**
+   * Creates a list of JNIISLMultiAff that are valid reuse vectors given the share space.
+   * Exposed to be used by SimplifyingReductionExploration.
+   */
+  public static LinkedList<long[]> generateCandidateReuseVectors(final AbstractReduceExpression are, final ShareSpaceAnalysisResult SSAR) {
+    final LinkedList<long[]> vectors = new LinkedList<long[]>();
+    final long[][] areSS = SSAR.getShareSpace(are.getBody());
+    if ((areSS == null)) {
+      return vectors;
+    }
+    final long[][] kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.getProjection()));
+    long[][] _plainIntersection = MatrixOperations.plainIntersection(areSS, kerFp);
+    boolean _tripleNotEquals = (_plainIntersection != null);
+    if (_tripleNotEquals) {
+      return vectors;
+    }
+    for (final long[] row : areSS) {
+      {
+        vectors.add(MatrixOperations.scalarMultiplication(row, (-1)));
+        vectors.add(row);
+      }
+    }
+    return vectors;
   }
 }
