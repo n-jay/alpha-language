@@ -1,5 +1,6 @@
 package alpha.model.analysis.reduction;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,10 @@ public class ShareSpaceAnalysisResult {
 	
 	public boolean hasNonTrivialShareSpace() {
 		return shareSpace.values().stream().filter(x->x!=null).count() > 0;
+	}
+	
+	public List<Map.Entry<AlphaExpression,long[][]>> getExpressionsWithReuse() {
+		return shareSpace.entrySet().stream().filter(e->(e.getValue() != null)).collect(Collectors.toList());
 	}
 	
 	public long[][] getShareSpace(AlphaExpression expr) {
