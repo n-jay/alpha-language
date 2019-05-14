@@ -1721,6 +1721,8 @@ public class MatrixOperations {
 		
 		int firstZCol = lastNZCol+1;
 		
+		if (UA[0].length-firstZCol == 0) return null;
+		
 		// The searched vector correspond to the columns of U, starting from firstZCol
 		long[][] KerA = new long[UA.length][UA[0].length-firstZCol];
 		for (int i=0; i<UA.length; i++) {
@@ -3001,5 +3003,17 @@ public class MatrixOperations {
 		}
 		
 		return array;
+	}
+	
+	public static long[] bindVector(long[] vecA, long[] vecB) {
+		long[] res = new long[vecA.length + vecB.length];
+		for (int i = 0; i < vecA.length; i++) {
+			res[i] = vecA[i];
+		}
+		for (int i = 0; i < vecB.length; i++) {
+			res[i+vecA.length] = vecB[i];
+		}
+		
+		return res;
 	}
 }
