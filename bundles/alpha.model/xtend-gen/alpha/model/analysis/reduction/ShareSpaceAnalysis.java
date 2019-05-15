@@ -161,9 +161,7 @@ public class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
     }
     final JNIISLMultiAff f = _xifexpression;
     final long[][] kernel = AffineFunctionOperations.computeKernel(f);
-    int _length = kernel.length;
-    boolean _equals = (_length == 0);
-    if (_equals) {
+    if (((kernel == null) || (kernel.length == 0))) {
       this.shareSpace.put(de, null);
     } else {
       this.shareSpace.put(de, MatrixOperations.transpose(kernel));

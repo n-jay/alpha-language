@@ -149,7 +149,7 @@ class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
 		}
 		
 		val kernel = AffineFunctionOperations.computeKernel(f)
-		if (kernel.length == 0) {
+		if (kernel === null || kernel.length == 0) {
 			shareSpace.put(de, null)
 		} else {
 			shareSpace.put(de, MatrixOperations.transpose(kernel))
