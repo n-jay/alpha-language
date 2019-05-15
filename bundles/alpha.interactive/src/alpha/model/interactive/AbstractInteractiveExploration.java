@@ -212,8 +212,12 @@ public abstract class AbstractInteractiveExploration {
 		if (stateRecord.isEmpty()) {
 			throw new UnsupportedOperationException("There is no more state to roll back.");
 		}
-		
-		restoreState(stateRecord.pop());
+
+		if (stateRecord.size() > 1) {
+			restoreState(stateRecord.pop());
+		} else {
+			restoreState(stateRecord.peek());
+		}
 	}
 
 	/**
@@ -247,7 +251,7 @@ public abstract class AbstractInteractiveExploration {
 	 */
 	private final void restoreState(TransformationState state) {
 		setWC(state.root);
-		properties = state.properties;
+		properties = new TreeMap<>(state.properties);
 		reflectProperties();
 	}
 	

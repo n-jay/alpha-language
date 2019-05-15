@@ -1,7 +1,9 @@
 package alpha.model.interactive;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import alpha.model.AlphaRoot;
 
@@ -13,7 +15,7 @@ public class TransformationState {
 	
 	public TransformationState(AlphaRoot root, Map<String, Object> properties, List<String> commands) {
 		this.root = root;
-		this.properties = properties;
+		this.properties = Collections.unmodifiableMap(new TreeMap<>(properties));
 		this.commands = commands;
 	}
 }
