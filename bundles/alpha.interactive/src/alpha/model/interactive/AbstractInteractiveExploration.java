@@ -191,7 +191,7 @@ public abstract class AbstractInteractiveExploration {
 		//AlphaNodes are tracked by its ID and corresponding copy is set 
 		Map<String, EList<Integer>> nodeIds = new TreeMap<>();
 		for (Map.Entry<String, Object> entry : properties.entrySet()) {
-			if (entry instanceof AlphaNode) {
+			if (entry.getValue() instanceof AlphaNode) {
 				nodeIds.put(entry.getKey(), ((AlphaNode)entry.getValue()).getNodeID());
 			}
 		}
