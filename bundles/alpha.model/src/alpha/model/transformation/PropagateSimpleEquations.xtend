@@ -42,7 +42,7 @@ class PropagateSimpleEquations {
 		val simpleEquations = body.standardEquations.filter[eq|eq.expr.isSimple]
 		
 		if (simpleEquations !== null) {
-			simpleEquations.forEach[seq|SubstituteByDef.apply(body, null, seq.variable)]
+			simpleEquations.forEach[seq|SubstituteByDef.apply(body, seq.variable)]
 			RemoveUnusedEquations.apply(body.system)
 		}
 		

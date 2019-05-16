@@ -54,7 +54,7 @@ public class PropagateSimpleEquations {
     final Iterable<StandardEquation> simpleEquations = IterableExtensions.<StandardEquation>filter(body.getStandardEquations(), _function);
     if ((simpleEquations != null)) {
       final Consumer<StandardEquation> _function_1 = (StandardEquation seq) -> {
-        SubstituteByDef.apply(body, null, seq.getVariable());
+        SubstituteByDef.apply(body, seq.getVariable());
       };
       simpleEquations.forEach(_function_1);
       RemoveUnusedEquations.apply(body.getSystem());
