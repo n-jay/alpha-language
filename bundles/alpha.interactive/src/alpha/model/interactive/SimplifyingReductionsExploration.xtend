@@ -7,15 +7,21 @@ import alpha.model.ReduceExpression
 import alpha.model.RestrictExpression
 import alpha.model.StandardEquation
 import alpha.model.UseEquation
+import alpha.model.Variable
+import alpha.model.VariableExpression
 import alpha.model.analysis.reduction.ShareSpaceAnalysis
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult
 import alpha.model.matrix.MatrixOperations
 import alpha.model.transformation.Normalize
 import alpha.model.transformation.SplitUnionIntoCase
+import alpha.model.transformation.SubstituteByDef
 import alpha.model.transformation.reduction.Distributivity
 import alpha.model.transformation.reduction.HigherOrderOperator
 import alpha.model.transformation.reduction.Idempotence
+import alpha.model.transformation.reduction.NormalizeReduction
 import alpha.model.transformation.reduction.PermutationCaseReduce
+import alpha.model.transformation.reduction.ReductionComposition
+import alpha.model.transformation.reduction.ReductionDecomposition
 import alpha.model.transformation.reduction.SameOperatorSimplification
 import alpha.model.transformation.reduction.SimplifyingReductions
 import alpha.model.util.AShow
@@ -26,8 +32,6 @@ import java.util.HashSet
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.xtext.EcoreUtil2
-import alpha.model.transformation.reduction.ReductionDecomposition
-import alpha.model.transformation.reduction.NormalizeReduction
 
 class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 
@@ -51,7 +55,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		while (state != STATE.EXIT) {
 			try {
 				commandHistory = new LinkedList();
-				
+
 				switch (state) {
 					case INITIAL: {
 						selectReduceExpression();
@@ -63,7 +67,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 						sideEffectFreeTransformations();
 					}
 					case DP_STEP_TRANSFORMATIONS: {
-						DPStepTransformations();
+						StepTransformations();
 					}
 					case EXIT: {
 						//do nothing
@@ -78,12 +82,21 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 			} catch (RuntimeException re) {
 				errStream.println("Exception: " + re.class);
 				errStream.println(re.message);
+				re.printStackTrace
 				errStream.println("Restoring previous state.");
 				restoreState
 			}
 		}
 		
+		outStream.println("Final program:");
 		outStream.println(AShow.print(currentSystem));
+		outStream.println("");
+		outStream.print("Press enter/return to output transformation script")
+		inStream.readLine
+	
+		for (String c : getCommandSequence()) {
+			outStream.println(c);
+		}
 	}
 	
 	/**
@@ -95,29 +108,22 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 		val candidates = EcoreUtil2.getAllContentsOfType(body, AbstractReduceExpression);
 		
-		val nbAREs = candidates.size();
+		val options = new LinkedList<ExplorationStep>();
 		
-		if (nbAREs == 0) {
-			outStream.println("No more ReduceExpression left. Finishing exploration.");
-			state = STATE.EXIT
-			return;
+		options.addAll(candidates.map[e|new StepSelectReduction(e)])
+		
+		//Default option: revert & finish
+		options.add(new StepBacktrack());
+		options.add(new StepFinish());
+		
+		outStream.println("");
+		outStream.println("Select a ReduceExpression to work on:");
+		for (i : 0..< options.size) {
+			val opt = options.get(i);
+			outStream.println(String.format("%d: %s", i, opt.description));
 		}
-		
-		val selected = if (nbAREs == 1 && SKIP_SINGLE_CHOICE_QUESTIONS) { 0 }
-		else {
-			outStream.println(AShow.print(body));
-			outStream.println("");
-			outStream.println("Select a ReduceExpression to work on:");
-			for (i : 0..< nbAREs) {
-				val are = candidates.get(i);
-				outStream.println(String.format("%d: %s (in %s)", i, AShow.print(are), AlphaUtil.getContainerEquation(are).equationName));
-			}
-			acceptInteger(0, nbAREs)
-		}
-		
-		targetRE = candidates.get(selected) 
-		state = STATE.REDUCTION_SELECTED
-		outStream.println(String.format("TargetReduction: %s", AShow.print(targetRE)));				
+		val selected = acceptInteger(0, options.size)
+		performAction(options.get(selected));	
 	}
 	
 	/**
@@ -220,36 +226,44 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	 * Lists all possible DP step that can be taken. 
 	 * 
 	 */
-	private def DPStepTransformations() {
+	private def StepTransformations() {
 		Normalize.apply(targetRE.body)
 		
 		val nbParams = targetRE.expressionDomain.nbParams
 		val SSAR = ShareSpaceAnalysis.apply(targetRE)
 		
-		val options = new LinkedList<DPStepOption>();
+		val options = new LinkedList<ExplorationStep>();
 		
 		val vectors = SimplifyingReductions.generateCandidateReuseVectors(targetRE, SSAR);
 		for (vec : vectors) {
-			options.add(new DPStepSimplifyingReduction(vec, nbParams));
+			options.add(new StepSimplifyingReduction(vec, nbParams));
 		}
 		
 		//Idempotent
 		if (Idempotence.testLegality(targetRE, SSAR)) {
-			options.add(new DPStepIdempotence());
+			options.add(new StepIdempotence());
 		}
 		
 		//Higher-Order Operator
 		if (HigherOrderOperator.testLegality(targetRE, SSAR)) {
-			options.add(new DPStepHigherOrderOperator());
+			options.add(new StepHigherOrderOperator());
+		}
+		
+		//Composition
+		if (ReductionComposition.testLegality(targetRE)) {
+			options.add(new StepReductionComposition());
 		}
 		
 		//Decomposition with side-effects
 		options.addAll(SSAR.findDecompositionCandidates)
 		
+		//Inline
+		options.addAll(targetRE.findInlineCandidates)
+		
 		//Default option: revert & finish
-		options.add(new DPStepPrintShareSpace(SSAR));
-		options.add(new DPStepBacktrack());
-		options.add(new DPStepFinish());
+		options.add(new StepPrintShareSpace(SSAR));
+		options.add(new StepBacktrack());
+		options.add(new StepFinish());
 		
 		
 		outStream.println("");
@@ -262,7 +276,13 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		performAction(options.get(selected));
 	}
 	
-	private def dispatch performAction(DPStepSimplifyingReduction step) {
+	private def dispatch performAction(StepSelectReduction step) {
+		targetRE = step.are 
+		state = STATE.REDUCTION_SELECTED
+		outStream.println(String.format("TargetReduction: %s", AShow.print(targetRE)));			
+	}
+	
+	private def dispatch performAction(StepSimplifyingReduction step) {
 		if (!(targetRE.eContainer instanceof StandardEquation)) {
 			val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
 			//expression ID must be obtained before transformation
@@ -286,7 +306,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 	}
 	
-	private def dispatch performAction(DPStepIdempotence step) {
+	private def dispatch performAction(StepIdempotence step) {
 		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
 		//expression ID must be obtained before transformation
 		val exprID = targetRE.expressionID
@@ -303,7 +323,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		commandHistory.add(String.format("Idempotence(GetExpression(body, %s, %s)", eqName, exprID))
 	}
 	
-	private def dispatch performAction(DPStepHigherOrderOperator step) {
+	private def dispatch performAction(StepHigherOrderOperator step) {
 		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
 		//expression ID must be obtained before transformation
 		val exprID = targetRE.expressionID
@@ -320,7 +340,23 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		commandHistory.add(String.format("HigherOrderOperator(GetExpression(body, %s, %s)", eqName, exprID))
 	}
 	
-	private def dispatch performAction(DPStepReductionDecomposition step) {
+	private def dispatch performAction(StepReductionComposition step) {
+		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
+		//expression ID must be obtained before transformation
+		val exprID = targetRE.expressionID
+		
+		ReductionComposition.apply(targetRE);
+		
+		outStream.println("");
+		outStream.println(String.format("Applied ReductionComposition: %s", AShow.print(targetRE)));
+		outStream.print("Press enter/return to continue...")
+		inStream.readLine
+		
+		state = STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS
+		commandHistory.add(String.format("ReductionComposition(GetExpression(body, %s, %s))", eqName, exprID))
+	}
+	
+	private def dispatch performAction(StepReductionDecomposition step) {
 		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
 		//expression ID must be obtained before transformation
 		val exprID = targetRE.expressionID
@@ -348,7 +384,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 				REs.add(intersection)
 		}
 		
-		val candidates = new LinkedList<DPStepReductionDecomposition>();
+		val candidates = new LinkedList<StepReductionDecomposition>();
 		
 
 		val params = targetRE.body.expressionDomain.parametersNames
@@ -356,22 +392,37 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		for (RE : REs) {
 			val Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
 			val Fpp = AffineFunctionOperations.projectFunctionDomain(targetRE.projection, Fp.copy)
-			candidates.add(new DPStepReductionDecomposition(Fp, Fpp));
+			candidates.add(new StepReductionDecomposition(Fp, Fpp));
 		}
 		
 		return candidates;
 	}
 	
+	private def dispatch performAction(StepInlineVariable step) {
+		//expression ID must be obtained before transformation
+		val exprID = targetRE.expressionID
+		
+		SubstituteByDef.apply(targetRE, step.variable);
+		Normalize.apply(targetRE)
+		
+		outStream.println("");
+		outStream.println(String.format("Applied SubstituteByDef: %s", AShow.print(targetRE)));
+		outStream.print("Press enter/return to continue...")
+		inStream.readLine
+		
+		state = STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS
+		commandHistory.add(String.format("SubstituteByDef(GetExpression(body, %s), %s)", exprID, step.variable.name))
+	}
 	
-	private def dispatch performAction(DPStepBacktrack step) {
+	private def dispatch performAction(StepBacktrack step) {
 		do {
 			rollbackState
 		} while (state != STATE.INITIAL && state != STATE.REDUCTION_SELECTED && state != STATE.DP_STEP_TRANSFORMATIONS)
 	}
-	private def dispatch performAction(DPStepFinish step) {
+	private def dispatch performAction(StepFinish step) {
 		state = STATE.EXIT
 	}
-	private def dispatch performAction(DPStepPrintShareSpace step) {
+	private def dispatch performAction(StepPrintShareSpace step) {
 		outStream.println(step.SSAR);
 	}
 	
@@ -389,14 +440,32 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	override protected reflectProperties() {
 		state = if (getProperty("state") !== null) getProperty("state") as STATE else STATE.INITIAL;
 		targetRE = if (getProperty("targetRE") !== null) getProperty("targetRE") as AbstractReduceExpression else null
+		
+		//consistency check
+		if (targetRE !== null && AlphaUtil.getContainerSystemBody(targetRE) !== currentBody) {
+			throw new RuntimeException("Main loop state is inconsistent.");
+		}
 	}
 	
-	private static abstract class DPStepOption {
+	private static abstract class ExplorationStep {
 	
 		abstract def String description();
 	}
 	
-	private static class DPStepSimplifyingReduction extends DPStepOption {
+	private static class StepSelectReduction extends ExplorationStep {
+		AbstractReduceExpression are;
+		
+		new (AbstractReduceExpression are) {
+			this.are = are
+		}
+		
+		override description() {
+			String.format("%s (in %s)", AShow.print(are), AlphaUtil.getContainerEquation(are).equationName)
+		}
+		
+	}
+	
+	private static class StepSimplifyingReduction extends ExplorationStep {
 		long[] reuseDepNoParams;
 		
 		new(long[] reuseDep, int nbParams) {
@@ -409,21 +478,29 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 	}
 	
-	private static class DPStepIdempotence extends DPStepOption {
+	private static class StepIdempotence extends ExplorationStep {
 		
 		override description() {
 			String.format("Apply Idempotence");
 		}
 	}
 	
-	private static class DPStepHigherOrderOperator extends DPStepOption {
+	private static class StepHigherOrderOperator extends ExplorationStep {
 		
 		override description() {
 			String.format("Apply HigherOrderOperator");
 		}
 	}
 	
-	private static class DPStepReductionDecomposition extends DPStepOption {
+	private static class StepReductionComposition extends ExplorationStep {
+		
+		override description() {
+			"Apply ReductionComposition"
+		}
+		
+	}
+	
+	private static class StepReductionDecomposition extends ExplorationStep {
 		
 		JNIISLMultiAff innerProjection
 		JNIISLMultiAff outerProjection
@@ -438,21 +515,19 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		}
 	}
 	
-	private static class DPStepBacktrack extends DPStepOption {
+	private static class StepInlineVariable extends ExplorationStep {
+		Variable variable;
+		
+		new(Variable v) {
+			variable = v
+		}
 		
 		override description() {
-			String.format("Revert to previous state.");
+			String.format("Inline %s", variable.name);
 		}
 	}
 	
-	private static class DPStepFinish extends DPStepOption {
-		
-		override description() {
-			String.format("Finish exploration.");
-		}
-	}
-	
-	private static class DPStepPrintShareSpace extends DPStepOption {
+	private static class StepPrintShareSpace extends ExplorationStep {
 		ShareSpaceAnalysisResult SSAR;
 		new (ShareSpaceAnalysisResult SSAR) {
 			this.SSAR = SSAR;
@@ -463,12 +538,32 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		}
 	}
 	
+	private static class StepBacktrack extends ExplorationStep {
+		
+		override description() {
+			String.format("Revert to previous state.");
+		}
+	}
+	
+	private static class StepFinish extends ExplorationStep {
+		
+		override description() {
+			String.format("Finish exploration.");
+		}
+	}
+	
+	private static def findInlineCandidates(AbstractReduceExpression are) {
+		EcoreUtil2.getAllContentsOfType(are, VariableExpression).filter[ve|ve.variable.local || ve.variable.output].map[
+			ve|new StepInlineVariable(ve.variable)
+		]
+	}
+	
 	////////////////
-	private dispatch def getEquationName(StandardEquation eq) {
+	private static dispatch def getEquationName(StandardEquation eq) {
 		eq.variable.name
 	}
 	
-	private dispatch def getEquationName(UseEquation eq) {
+	private static dispatch def getEquationName(UseEquation eq) {
 		'''UseEquation'''
 	}
 }

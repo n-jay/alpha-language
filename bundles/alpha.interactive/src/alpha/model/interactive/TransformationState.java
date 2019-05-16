@@ -18,4 +18,9 @@ public class TransformationState {
 		this.properties = Collections.unmodifiableMap(new TreeMap<>(properties));
 		this.commands = commands;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s State=%s", root, properties.get("state"));
+	}
 }

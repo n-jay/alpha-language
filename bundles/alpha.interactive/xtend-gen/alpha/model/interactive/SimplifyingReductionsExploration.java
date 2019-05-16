@@ -10,17 +10,21 @@ import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
 import alpha.model.UseEquation;
+import alpha.model.Variable;
+import alpha.model.VariableExpression;
 import alpha.model.analysis.reduction.ShareSpaceAnalysis;
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult;
 import alpha.model.interactive.AbstractInteractiveExploration;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.transformation.Normalize;
 import alpha.model.transformation.SplitUnionIntoCase;
+import alpha.model.transformation.SubstituteByDef;
 import alpha.model.transformation.reduction.Distributivity;
 import alpha.model.transformation.reduction.HigherOrderOperator;
 import alpha.model.transformation.reduction.Idempotence;
 import alpha.model.transformation.reduction.NormalizeReduction;
 import alpha.model.transformation.reduction.PermutationCaseReduce;
+import alpha.model.transformation.reduction.ReductionComposition;
 import alpha.model.transformation.reduction.ReductionDecomposition;
 import alpha.model.transformation.reduction.SameOperatorSimplification;
 import alpha.model.transformation.reduction.SimplifyingReductions;
@@ -28,6 +32,7 @@ import alpha.model.util.AShow;
 import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -41,6 +46,9 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
 public class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
@@ -56,14 +64,27 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     EXIT;
   }
   
-  private static abstract class DPStepOption {
+  private static abstract class ExplorationStep {
     public abstract String description();
   }
   
-  private static class DPStepSimplifyingReduction extends SimplifyingReductionsExploration.DPStepOption {
+  private static class StepSelectReduction extends SimplifyingReductionsExploration.ExplorationStep {
+    private AbstractReduceExpression are;
+    
+    public StepSelectReduction(final AbstractReduceExpression are) {
+      this.are = are;
+    }
+    
+    @Override
+    public String description() {
+      return String.format("%s (in %s)", AShow.print(this.are), SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.are)));
+    }
+  }
+  
+  private static class StepSimplifyingReduction extends SimplifyingReductionsExploration.ExplorationStep {
     private long[] reuseDepNoParams;
     
-    public DPStepSimplifyingReduction(final long[] reuseDep, final int nbParams) {
+    public StepSimplifyingReduction(final long[] reuseDep, final int nbParams) {
       ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, nbParams, true);
       this.reuseDepNoParams = MatrixOperations.removeColumns(reuseDep, ((int[])Conversions.unwrapArray(_doubleDotLessThan, int.class)));
     }
@@ -74,26 +95,33 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     }
   }
   
-  private static class DPStepIdempotence extends SimplifyingReductionsExploration.DPStepOption {
+  private static class StepIdempotence extends SimplifyingReductionsExploration.ExplorationStep {
     @Override
     public String description() {
       return String.format("Apply Idempotence");
     }
   }
   
-  private static class DPStepHigherOrderOperator extends SimplifyingReductionsExploration.DPStepOption {
+  private static class StepHigherOrderOperator extends SimplifyingReductionsExploration.ExplorationStep {
     @Override
     public String description() {
       return String.format("Apply HigherOrderOperator");
     }
   }
   
-  private static class DPStepReductionDecomposition extends SimplifyingReductionsExploration.DPStepOption {
+  private static class StepReductionComposition extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
+    public String description() {
+      return "Apply ReductionComposition";
+    }
+  }
+  
+  private static class StepReductionDecomposition extends SimplifyingReductionsExploration.ExplorationStep {
     private JNIISLMultiAff innerProjection;
     
     private JNIISLMultiAff outerProjection;
     
-    public DPStepReductionDecomposition(final JNIISLMultiAff innerF, final JNIISLMultiAff outerF) {
+    public StepReductionDecomposition(final JNIISLMultiAff innerF, final JNIISLMultiAff outerF) {
       this.innerProjection = innerF;
       this.outerProjection = outerF;
     }
@@ -104,30 +132,43 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     }
   }
   
-  private static class DPStepBacktrack extends SimplifyingReductionsExploration.DPStepOption {
+  private static class StepInlineVariable extends SimplifyingReductionsExploration.ExplorationStep {
+    private Variable variable;
+    
+    public StepInlineVariable(final Variable v) {
+      this.variable = v;
+    }
+    
     @Override
     public String description() {
-      return String.format("Revert to previous state.");
+      return String.format("Inline %s", this.variable.getName());
     }
   }
   
-  private static class DPStepFinish extends SimplifyingReductionsExploration.DPStepOption {
-    @Override
-    public String description() {
-      return String.format("Finish exploration.");
-    }
-  }
-  
-  private static class DPStepPrintShareSpace extends SimplifyingReductionsExploration.DPStepOption {
+  private static class StepPrintShareSpace extends SimplifyingReductionsExploration.ExplorationStep {
     private ShareSpaceAnalysisResult SSAR;
     
-    public DPStepPrintShareSpace(final ShareSpaceAnalysisResult SSAR) {
+    public StepPrintShareSpace(final ShareSpaceAnalysisResult SSAR) {
       this.SSAR = SSAR;
     }
     
     @Override
     public String description() {
       return String.format("Print Share Space");
+    }
+  }
+  
+  private static class StepBacktrack extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
+    public String description() {
+      return String.format("Revert to previous state.");
+    }
+  }
+  
+  private static class StepFinish extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
+    public String description() {
+      return String.format("Finish exploration.");
     }
   }
   
@@ -149,92 +190,100 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
   
   @Override
   public void mainLoop() {
-    AbstractInteractiveExploration.SKIP_SINGLE_CHOICE_QUESTIONS = false;
-    while ((!Objects.equal(this.state, SimplifyingReductionsExploration.STATE.EXIT))) {
-      try {
-        LinkedList<String> _linkedList = new LinkedList<String>();
-        this.commandHistory = _linkedList;
-        final SimplifyingReductionsExploration.STATE state = this.state;
-        if (state != null) {
-          switch (state) {
-            case INITIAL:
-              this.selectReduceExpression();
-              break;
-            case REDUCTION_SELECTED:
-              this.expressionDomainCheck();
-              break;
-            case SIDE_EFFECT_FREE_TRANSFORMATIONS:
-              this.sideEffectFreeTransformations();
-              break;
-            case DP_STEP_TRANSFORMATIONS:
-              this.DPStepTransformations();
-              break;
-            case EXIT:
-              break;
-            default:
-              break;
+    try {
+      AbstractInteractiveExploration.SKIP_SINGLE_CHOICE_QUESTIONS = false;
+      while ((!Objects.equal(this.state, SimplifyingReductionsExploration.STATE.EXIT))) {
+        try {
+          LinkedList<String> _linkedList = new LinkedList<String>();
+          this.commandHistory = _linkedList;
+          final SimplifyingReductionsExploration.STATE state = this.state;
+          if (state != null) {
+            switch (state) {
+              case INITIAL:
+                this.selectReduceExpression();
+                break;
+              case REDUCTION_SELECTED:
+                this.expressionDomainCheck();
+                break;
+              case SIDE_EFFECT_FREE_TRANSFORMATIONS:
+                this.sideEffectFreeTransformations();
+                break;
+              case DP_STEP_TRANSFORMATIONS:
+                this.StepTransformations();
+                break;
+              case EXIT:
+                break;
+              default:
+                break;
+            }
+          }
+          boolean _isEmpty = this.commandHistory.isEmpty();
+          boolean _not = (!_isEmpty);
+          if (_not) {
+            this.setProperty("state", this.state);
+            this.setProperty("targetRE", this.targetRE);
+            this.recordState(this.commandHistory);
+          }
+        } catch (final Throwable _t) {
+          if (_t instanceof RuntimeException) {
+            final RuntimeException re = (RuntimeException)_t;
+            Class<? extends RuntimeException> _class = re.getClass();
+            String _plus = ("Exception: " + _class);
+            this.errStream.println(_plus);
+            this.errStream.println(re.getMessage());
+            re.printStackTrace();
+            this.errStream.println("Restoring previous state.");
+            this.restoreState();
+          } else {
+            throw Exceptions.sneakyThrow(_t);
           }
         }
-        boolean _isEmpty = this.commandHistory.isEmpty();
-        boolean _not = (!_isEmpty);
-        if (_not) {
-          this.setProperty("state", this.state);
-          this.setProperty("targetRE", this.targetRE);
-          this.recordState(this.commandHistory);
-        }
-      } catch (final Throwable _t) {
-        if (_t instanceof RuntimeException) {
-          final RuntimeException re = (RuntimeException)_t;
-          Class<? extends RuntimeException> _class = re.getClass();
-          String _plus = ("Exception: " + _class);
-          this.errStream.println(_plus);
-          this.errStream.println(re.getMessage());
-          this.errStream.println("Restoring previous state.");
-          this.restoreState();
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
       }
+      this.outStream.println("Final program:");
+      this.outStream.println(AShow.print(this.getCurrentSystem()));
+      this.outStream.println("");
+      this.outStream.print("Press enter/return to output transformation script");
+      this.inStream.readLine();
+      List<String> _commandSequence = this.getCommandSequence();
+      for (final String c : _commandSequence) {
+        this.outStream.println(c);
+      }
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
     }
-    this.outStream.println(AShow.print(this.getCurrentSystem()));
   }
   
   /**
    * Lists all reductions in the selected SystemBody to work with.
    */
-  private void selectReduceExpression() {
-    final SystemBody body = this.getCurrentBody();
-    final List<AbstractReduceExpression> candidates = EcoreUtil2.<AbstractReduceExpression>getAllContentsOfType(body, AbstractReduceExpression.class);
-    final int nbAREs = candidates.size();
-    if ((nbAREs == 0)) {
-      this.outStream.println("No more ReduceExpression left. Finishing exploration.");
-      this.state = SimplifyingReductionsExploration.STATE.EXIT;
-      return;
-    }
-    int _xifexpression = (int) 0;
-    if (((nbAREs == 1) && AbstractInteractiveExploration.SKIP_SINGLE_CHOICE_QUESTIONS)) {
-      _xifexpression = 0;
-    } else {
-      int _xblockexpression = (int) 0;
-      {
-        this.outStream.println(AShow.print(body));
-        this.outStream.println("");
-        this.outStream.println("Select a ReduceExpression to work on:");
-        ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, nbAREs, true);
-        for (final Integer i : _doubleDotLessThan) {
-          {
-            final AbstractReduceExpression are = candidates.get((i).intValue());
-            this.outStream.println(String.format("%d: %s (in %s)", i, AShow.print(are), this.getEquationName(AlphaUtil.getContainerEquation(are))));
-          }
+  private Object selectReduceExpression() {
+    Object _xblockexpression = null;
+    {
+      final SystemBody body = this.getCurrentBody();
+      final List<AbstractReduceExpression> candidates = EcoreUtil2.<AbstractReduceExpression>getAllContentsOfType(body, AbstractReduceExpression.class);
+      final LinkedList<SimplifyingReductionsExploration.ExplorationStep> options = new LinkedList<SimplifyingReductionsExploration.ExplorationStep>();
+      final Function1<AbstractReduceExpression, SimplifyingReductionsExploration.StepSelectReduction> _function = (AbstractReduceExpression e) -> {
+        return new SimplifyingReductionsExploration.StepSelectReduction(e);
+      };
+      options.addAll(ListExtensions.<AbstractReduceExpression, SimplifyingReductionsExploration.StepSelectReduction>map(candidates, _function));
+      SimplifyingReductionsExploration.StepBacktrack _stepBacktrack = new SimplifyingReductionsExploration.StepBacktrack();
+      options.add(_stepBacktrack);
+      SimplifyingReductionsExploration.StepFinish _stepFinish = new SimplifyingReductionsExploration.StepFinish();
+      options.add(_stepFinish);
+      this.outStream.println("");
+      this.outStream.println("Select a ReduceExpression to work on:");
+      int _size = options.size();
+      ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
+      for (final Integer i : _doubleDotLessThan) {
+        {
+          final SimplifyingReductionsExploration.ExplorationStep opt = options.get((i).intValue());
+          this.outStream.println(String.format("%d: %s", i, opt.description()));
         }
-        _xblockexpression = this.acceptInteger(0, nbAREs);
       }
-      _xifexpression = _xblockexpression;
+      final int selected = this.acceptInteger(0, options.size());
+      _xblockexpression = this.performAction(options.get(selected));
     }
-    final int selected = _xifexpression;
-    this.targetRE = candidates.get(selected);
-    this.state = SimplifyingReductionsExploration.STATE.REDUCTION_SELECTED;
-    this.outStream.println(String.format("TargetReduction: %s", AShow.print(this.targetRE)));
+    return _xblockexpression;
   }
   
   /**
@@ -247,7 +296,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
    */
   private void expressionDomainCheck() {
     try {
-      final CharSequence eqName = this.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
+      final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
       final EList<Integer> exprID = this.targetRE.getExpressionID();
       AlphaExpression _body = this.targetRE.getBody();
       if ((_body instanceof CaseExpression)) {
@@ -302,7 +351,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
    */
   private void sideEffectFreeTransformations() {
     try {
-      final CharSequence eqName = this.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
+      final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
       final EList<Integer> exprID = this.targetRE.getBody().getExpressionID();
       final int sosCount = SameOperatorSimplification.apply(this.targetRE);
       if ((sosCount > 0)) {
@@ -336,42 +385,48 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
   /**
    * Lists all possible DP step that can be taken.
    */
-  private Object DPStepTransformations() {
+  private Object StepTransformations() {
     Object _xblockexpression = null;
     {
       Normalize.apply(this.targetRE.getBody());
       final int nbParams = this.targetRE.getExpressionDomain().getNbParams();
       final ShareSpaceAnalysisResult SSAR = ShareSpaceAnalysis.apply(this.targetRE);
-      final LinkedList<SimplifyingReductionsExploration.DPStepOption> options = new LinkedList<SimplifyingReductionsExploration.DPStepOption>();
+      final LinkedList<SimplifyingReductionsExploration.ExplorationStep> options = new LinkedList<SimplifyingReductionsExploration.ExplorationStep>();
       final LinkedList<long[]> vectors = SimplifyingReductions.generateCandidateReuseVectors(this.targetRE, SSAR);
       for (final long[] vec : vectors) {
-        SimplifyingReductionsExploration.DPStepSimplifyingReduction _dPStepSimplifyingReduction = new SimplifyingReductionsExploration.DPStepSimplifyingReduction(vec, nbParams);
-        options.add(_dPStepSimplifyingReduction);
+        SimplifyingReductionsExploration.StepSimplifyingReduction _stepSimplifyingReduction = new SimplifyingReductionsExploration.StepSimplifyingReduction(vec, nbParams);
+        options.add(_stepSimplifyingReduction);
       }
       boolean _testLegality = Idempotence.testLegality(this.targetRE, SSAR);
       if (_testLegality) {
-        SimplifyingReductionsExploration.DPStepIdempotence _dPStepIdempotence = new SimplifyingReductionsExploration.DPStepIdempotence();
-        options.add(_dPStepIdempotence);
+        SimplifyingReductionsExploration.StepIdempotence _stepIdempotence = new SimplifyingReductionsExploration.StepIdempotence();
+        options.add(_stepIdempotence);
       }
       boolean _testLegality_1 = HigherOrderOperator.testLegality(this.targetRE, SSAR);
       if (_testLegality_1) {
-        SimplifyingReductionsExploration.DPStepHigherOrderOperator _dPStepHigherOrderOperator = new SimplifyingReductionsExploration.DPStepHigherOrderOperator();
-        options.add(_dPStepHigherOrderOperator);
+        SimplifyingReductionsExploration.StepHigherOrderOperator _stepHigherOrderOperator = new SimplifyingReductionsExploration.StepHigherOrderOperator();
+        options.add(_stepHigherOrderOperator);
+      }
+      boolean _testLegality_2 = ReductionComposition.testLegality(this.targetRE);
+      if (_testLegality_2) {
+        SimplifyingReductionsExploration.StepReductionComposition _stepReductionComposition = new SimplifyingReductionsExploration.StepReductionComposition();
+        options.add(_stepReductionComposition);
       }
       options.addAll(this.findDecompositionCandidates(SSAR));
-      SimplifyingReductionsExploration.DPStepPrintShareSpace _dPStepPrintShareSpace = new SimplifyingReductionsExploration.DPStepPrintShareSpace(SSAR);
-      options.add(_dPStepPrintShareSpace);
-      SimplifyingReductionsExploration.DPStepBacktrack _dPStepBacktrack = new SimplifyingReductionsExploration.DPStepBacktrack();
-      options.add(_dPStepBacktrack);
-      SimplifyingReductionsExploration.DPStepFinish _dPStepFinish = new SimplifyingReductionsExploration.DPStepFinish();
-      options.add(_dPStepFinish);
+      Iterables.<SimplifyingReductionsExploration.ExplorationStep>addAll(options, SimplifyingReductionsExploration.findInlineCandidates(this.targetRE));
+      SimplifyingReductionsExploration.StepPrintShareSpace _stepPrintShareSpace = new SimplifyingReductionsExploration.StepPrintShareSpace(SSAR);
+      options.add(_stepPrintShareSpace);
+      SimplifyingReductionsExploration.StepBacktrack _stepBacktrack = new SimplifyingReductionsExploration.StepBacktrack();
+      options.add(_stepBacktrack);
+      SimplifyingReductionsExploration.StepFinish _stepFinish = new SimplifyingReductionsExploration.StepFinish();
+      options.add(_stepFinish);
       this.outStream.println("");
       this.outStream.println("Select an action:");
       int _size = options.size();
       ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
       for (final Integer i : _doubleDotLessThan) {
         {
-          final SimplifyingReductionsExploration.DPStepOption opt = options.get((i).intValue());
+          final SimplifyingReductionsExploration.ExplorationStep opt = options.get((i).intValue());
           this.outStream.println(String.format("%d: %s", i, opt.description()));
         }
       }
@@ -381,20 +436,27 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     return _xblockexpression;
   }
   
-  private Object _performAction(final SimplifyingReductionsExploration.DPStepSimplifyingReduction step) {
+  private Object _performAction(final SimplifyingReductionsExploration.StepSelectReduction step) {
+    this.targetRE = step.are;
+    this.state = SimplifyingReductionsExploration.STATE.REDUCTION_SELECTED;
+    this.outStream.println(String.format("TargetReduction: %s", AShow.print(this.targetRE)));
+    return null;
+  }
+  
+  private Object _performAction(final SimplifyingReductionsExploration.StepSimplifyingReduction step) {
     boolean _xblockexpression = false;
     {
       EObject _eContainer = this.targetRE.eContainer();
       boolean _not = (!(_eContainer instanceof StandardEquation));
       if (_not) {
-        final CharSequence eqName = this.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
+        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
         final EList<Integer> exprID = this.targetRE.getExpressionID();
         final StandardEquation eq = NormalizeReduction.apply(this.targetRE);
         this.commandHistory.add(String.format("NormalizeReduction(GetExpression(body, %s, %s)", eqName, exprID));
         AlphaExpression _expr = eq.getExpr();
         this.targetRE = ((AbstractReduceExpression) _expr);
       }
-      final CharSequence eqName_1 = this.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
+      final CharSequence eqName_1 = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
       final EList<Integer> exprID_1 = this.targetRE.getExpressionID();
       SimplifyingReductions.apply(((ReduceExpression) this.targetRE), step.reuseDepNoParams);
       this.outStream.println(String.format("Applied SimplifyingReductions."));
@@ -405,11 +467,11 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     return Boolean.valueOf(_xblockexpression);
   }
   
-  private Object _performAction(final SimplifyingReductionsExploration.DPStepIdempotence step) {
+  private Object _performAction(final SimplifyingReductionsExploration.StepIdempotence step) {
     try {
       boolean _xblockexpression = false;
       {
-        final CharSequence eqName = this.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
+        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
         final EList<Integer> exprID = this.targetRE.getExpressionID();
         Idempotence.apply(this.targetRE);
         this.outStream.println("");
@@ -426,11 +488,11 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     }
   }
   
-  private Object _performAction(final SimplifyingReductionsExploration.DPStepHigherOrderOperator step) {
+  private Object _performAction(final SimplifyingReductionsExploration.StepHigherOrderOperator step) {
     try {
       boolean _xblockexpression = false;
       {
-        final CharSequence eqName = this.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
+        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
         final EList<Integer> exprID = this.targetRE.getExpressionID();
         HigherOrderOperator.apply(this.targetRE);
         this.outStream.println("");
@@ -447,11 +509,31 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     }
   }
   
-  private Object _performAction(final SimplifyingReductionsExploration.DPStepReductionDecomposition step) {
+  private Object _performAction(final SimplifyingReductionsExploration.StepReductionComposition step) {
     try {
       boolean _xblockexpression = false;
       {
-        final CharSequence eqName = this.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
+        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
+        final EList<Integer> exprID = this.targetRE.getExpressionID();
+        ReductionComposition.apply(this.targetRE);
+        this.outStream.println("");
+        this.outStream.println(String.format("Applied ReductionComposition: %s", AShow.print(this.targetRE)));
+        this.outStream.print("Press enter/return to continue...");
+        this.inStream.readLine();
+        this.state = SimplifyingReductionsExploration.STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS;
+        _xblockexpression = this.commandHistory.add(String.format("ReductionComposition(GetExpression(body, %s, %s))", eqName, exprID));
+      }
+      return Boolean.valueOf(_xblockexpression);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  private Object _performAction(final SimplifyingReductionsExploration.StepReductionDecomposition step) {
+    try {
+      boolean _xblockexpression = false;
+      {
+        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
         final EList<Integer> exprID = this.targetRE.getExpressionID();
         ReductionDecomposition.apply(this.targetRE, step.innerProjection, step.outerProjection);
         this.outStream.println("");
@@ -468,7 +550,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     }
   }
   
-  private LinkedList<SimplifyingReductionsExploration.DPStepReductionDecomposition> findDecompositionCandidates(final ShareSpaceAnalysisResult SSAR) {
+  private LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition> findDecompositionCandidates(final ShareSpaceAnalysisResult SSAR) {
     final List<Map.Entry<AlphaExpression, long[][]>> exprREs = SSAR.getExpressionsWithReuse();
     final long[][] kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(this.targetRE.getProjection()));
     final HashSet<long[][]> REs = new HashSet<long[][]>();
@@ -480,32 +562,52 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         }
       }
     }
-    final LinkedList<SimplifyingReductionsExploration.DPStepReductionDecomposition> candidates = new LinkedList<SimplifyingReductionsExploration.DPStepReductionDecomposition>();
+    final LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition> candidates = new LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition>();
     final List<String> params = this.targetRE.getBody().getExpressionDomain().getParametersNames();
     final List<String> indices = this.targetRE.getBody().getExpressionDomain().getIndicesNames();
     for (final long[][] RE : REs) {
       {
         final JNIISLMultiAff Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
         final JNIISLMultiAff Fpp = AffineFunctionOperations.projectFunctionDomain(this.targetRE.getProjection(), Fp.copy());
-        SimplifyingReductionsExploration.DPStepReductionDecomposition _dPStepReductionDecomposition = new SimplifyingReductionsExploration.DPStepReductionDecomposition(Fp, Fpp);
-        candidates.add(_dPStepReductionDecomposition);
+        SimplifyingReductionsExploration.StepReductionDecomposition _stepReductionDecomposition = new SimplifyingReductionsExploration.StepReductionDecomposition(Fp, Fpp);
+        candidates.add(_stepReductionDecomposition);
       }
     }
     return candidates;
   }
   
-  private Object _performAction(final SimplifyingReductionsExploration.DPStepBacktrack step) {
+  private Object _performAction(final SimplifyingReductionsExploration.StepInlineVariable step) {
+    try {
+      boolean _xblockexpression = false;
+      {
+        final EList<Integer> exprID = this.targetRE.getExpressionID();
+        SubstituteByDef.apply(this.targetRE, step.variable);
+        Normalize.apply(this.targetRE);
+        this.outStream.println("");
+        this.outStream.println(String.format("Applied SubstituteByDef: %s", AShow.print(this.targetRE)));
+        this.outStream.print("Press enter/return to continue...");
+        this.inStream.readLine();
+        this.state = SimplifyingReductionsExploration.STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS;
+        _xblockexpression = this.commandHistory.add(String.format("SubstituteByDef(GetExpression(body, %s), %s)", exprID, step.variable.getName()));
+      }
+      return Boolean.valueOf(_xblockexpression);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  private Object _performAction(final SimplifyingReductionsExploration.StepBacktrack step) {
     do {
       this.rollbackState();
     } while((((!Objects.equal(this.state, SimplifyingReductionsExploration.STATE.INITIAL)) && (!Objects.equal(this.state, SimplifyingReductionsExploration.STATE.REDUCTION_SELECTED))) && (!Objects.equal(this.state, SimplifyingReductionsExploration.STATE.DP_STEP_TRANSFORMATIONS))));
     return null;
   }
   
-  private Object _performAction(final SimplifyingReductionsExploration.DPStepFinish step) {
+  private Object _performAction(final SimplifyingReductionsExploration.StepFinish step) {
     return this.state = SimplifyingReductionsExploration.STATE.EXIT;
   }
   
-  private Object _performAction(final SimplifyingReductionsExploration.DPStepPrintShareSpace step) {
+  private Object _performAction(final SimplifyingReductionsExploration.StepPrintShareSpace step) {
     this.outStream.println(step.SSAR);
     return null;
   }
@@ -537,40 +639,60 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       _xifexpression_1 = null;
     }
     this.targetRE = _xifexpression_1;
+    if (((this.targetRE != null) && (AlphaUtil.getContainerSystemBody(this.targetRE) != this.getCurrentBody()))) {
+      throw new RuntimeException("Main loop state is inconsistent.");
+    }
   }
   
-  private CharSequence _getEquationName(final StandardEquation eq) {
+  private static Iterable<SimplifyingReductionsExploration.StepInlineVariable> findInlineCandidates(final AbstractReduceExpression are) {
+    final Function1<VariableExpression, Boolean> _function = (VariableExpression ve) -> {
+      return Boolean.valueOf((ve.getVariable().isLocal() || ve.getVariable().isOutput()));
+    };
+    final Function1<VariableExpression, SimplifyingReductionsExploration.StepInlineVariable> _function_1 = (VariableExpression ve) -> {
+      Variable _variable = ve.getVariable();
+      return new SimplifyingReductionsExploration.StepInlineVariable(_variable);
+    };
+    return IterableExtensions.<VariableExpression, SimplifyingReductionsExploration.StepInlineVariable>map(IterableExtensions.<VariableExpression>filter(EcoreUtil2.<VariableExpression>getAllContentsOfType(are, VariableExpression.class), _function), _function_1);
+  }
+  
+  private static CharSequence _getEquationName(final StandardEquation eq) {
     return eq.getVariable().getName();
   }
   
-  private CharSequence _getEquationName(final UseEquation eq) {
+  private static CharSequence _getEquationName(final UseEquation eq) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("UseEquation");
     return _builder;
   }
   
-  private Object performAction(final SimplifyingReductionsExploration.DPStepOption step) {
-    if (step instanceof SimplifyingReductionsExploration.DPStepBacktrack) {
-      return _performAction((SimplifyingReductionsExploration.DPStepBacktrack)step);
-    } else if (step instanceof SimplifyingReductionsExploration.DPStepFinish) {
-      return _performAction((SimplifyingReductionsExploration.DPStepFinish)step);
-    } else if (step instanceof SimplifyingReductionsExploration.DPStepHigherOrderOperator) {
-      return _performAction((SimplifyingReductionsExploration.DPStepHigherOrderOperator)step);
-    } else if (step instanceof SimplifyingReductionsExploration.DPStepIdempotence) {
-      return _performAction((SimplifyingReductionsExploration.DPStepIdempotence)step);
-    } else if (step instanceof SimplifyingReductionsExploration.DPStepPrintShareSpace) {
-      return _performAction((SimplifyingReductionsExploration.DPStepPrintShareSpace)step);
-    } else if (step instanceof SimplifyingReductionsExploration.DPStepReductionDecomposition) {
-      return _performAction((SimplifyingReductionsExploration.DPStepReductionDecomposition)step);
-    } else if (step instanceof SimplifyingReductionsExploration.DPStepSimplifyingReduction) {
-      return _performAction((SimplifyingReductionsExploration.DPStepSimplifyingReduction)step);
+  private Object performAction(final SimplifyingReductionsExploration.ExplorationStep step) {
+    if (step instanceof SimplifyingReductionsExploration.StepBacktrack) {
+      return _performAction((SimplifyingReductionsExploration.StepBacktrack)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepFinish) {
+      return _performAction((SimplifyingReductionsExploration.StepFinish)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepHigherOrderOperator) {
+      return _performAction((SimplifyingReductionsExploration.StepHigherOrderOperator)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepIdempotence) {
+      return _performAction((SimplifyingReductionsExploration.StepIdempotence)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepInlineVariable) {
+      return _performAction((SimplifyingReductionsExploration.StepInlineVariable)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepPrintShareSpace) {
+      return _performAction((SimplifyingReductionsExploration.StepPrintShareSpace)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepReductionComposition) {
+      return _performAction((SimplifyingReductionsExploration.StepReductionComposition)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepReductionDecomposition) {
+      return _performAction((SimplifyingReductionsExploration.StepReductionDecomposition)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepSelectReduction) {
+      return _performAction((SimplifyingReductionsExploration.StepSelectReduction)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepSimplifyingReduction) {
+      return _performAction((SimplifyingReductionsExploration.StepSimplifyingReduction)step);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(step).toString());
     }
   }
   
-  private CharSequence getEquationName(final Equation eq) {
+  private static CharSequence getEquationName(final Equation eq) {
     if (eq instanceof StandardEquation) {
       return _getEquationName((StandardEquation)eq);
     } else if (eq instanceof UseEquation) {

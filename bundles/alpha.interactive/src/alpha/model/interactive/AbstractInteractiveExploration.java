@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -188,6 +189,16 @@ public abstract class AbstractInteractiveExploration {
 		TransformationState state = new TransformationState(wcProgram, properties, commands);
 		stateRecord.push(state);
 		
+		copyState();
+		
+		reflectProperties();
+	}
+	
+	/**
+	 * Copies the working copy of the program and updates objects in the properties.
+	 * 
+	 */
+	private void copyState() {
 		//AlphaNodes are tracked by its ID and corresponding copy is set 
 		Map<String, EList<Integer>> nodeIds = new TreeMap<>();
 		for (Map.Entry<String, Object> entry : properties.entrySet()) {
@@ -201,7 +212,6 @@ public abstract class AbstractInteractiveExploration {
 		for (Map.Entry<String, EList<Integer>> entry : nodeIds.entrySet()) {
 			properties.put(entry.getKey(), wcProgram.getNode(entry.getValue()));
 		}
-		reflectProperties();
 	}
 
 	/**
@@ -212,7 +222,7 @@ public abstract class AbstractInteractiveExploration {
 		if (stateRecord.isEmpty()) {
 			throw new UnsupportedOperationException("There is no more state to roll back.");
 		}
-
+		
 		if (stateRecord.size() > 1) {
 			restoreState(stateRecord.pop());
 		} else {
@@ -252,6 +262,7 @@ public abstract class AbstractInteractiveExploration {
 	private final void restoreState(TransformationState state) {
 		setWC(state.root);
 		properties = new TreeMap<>(state.properties);
+		copyState();
 		reflectProperties();
 	}
 	
@@ -261,6 +272,12 @@ public abstract class AbstractInteractiveExploration {
 	
 	protected Object setProperty(String key, Object obj) {
 		return properties.put(key, obj);
+	}
+	
+	protected List<String> getCommandSequence() {
+		final List<String> commands = new LinkedList<>();
+		stateRecord.stream().forEach(s->commands.addAll(s.commands));
+		return commands;
 	}
 	
 	abstract protected void mainLoop();
