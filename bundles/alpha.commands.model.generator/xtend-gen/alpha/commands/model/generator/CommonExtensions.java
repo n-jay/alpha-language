@@ -176,6 +176,7 @@ public class CommonExtensions {
         case AUTO_RESTRICT_EXPRESSION:
         case BINARY_EXPRESSION:
         case DEPENDENCE_EXPRESSION:
+        case MULTI_ARG_EXPRESSION:
         case REDUCE_EXPRESSION:
         case RESTRICT_EXPRESSION:
           StringConcatenation _builder = new StringConcatenation();
