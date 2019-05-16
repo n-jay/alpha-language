@@ -15,8 +15,8 @@ import alpha.model.AlphaSystem;
 import alpha.model.SystemBody;
 import alpha.model.StandardEquation;
 import alpha.model.AlphaExpression;
-import java.util.List;
 import alpha.model.AlphaRoot;
+import java.util.List;
 import alpha.model.Equation;
 
 
@@ -65,6 +65,11 @@ public class UtilityBase {
 	public static AlphaExpression GetExpression(Equation eq, String exprID) {
 		/*PROTECTED REGION ID(Utility.GetExpression_GetExpr1) ENABLED START*/
 		return eq.getExpression(exprID);
+		/*PROTECTED REGION END*/
+	}
+	public static AlphaExpression GetNode(AlphaRoot root, String nodeID) {
+		/*PROTECTED REGION ID(Utility.GetNode_) ENABLED START*/
+		throw new UnsupportedOperationException("Not implemented.");
 		/*PROTECTED REGION END*/
 	}
 	public static void RenameVariable(AlphaSystem system, String oldName, String newName) {

@@ -8,10 +8,9 @@ import alpha.model.issue.AlphaIssue;
 /*PROTECTED REGION END*/
 
 import alpha.model.AlphaRoot;
-import java.util.List;
 import alpha.model.AlphaRoot;
+import java.util.List;
 import alpha.model.AlphaCompleteVisitable;
-import alpha.model.AlphaVisitable;
 
 
 public class CoreBase {
@@ -55,16 +54,6 @@ public class CoreBase {
 	public static void ASave(AlphaRoot root, String filename) {
 		/*PROTECTED REGION ID(Core.ASave_) ENABLED START*/
 		Utility.WriteToFile(filename, alpha.model.util.AShow.print(root));
-		/*PROTECTED REGION END*/
-	}
-	public static void Normalize(AlphaVisitable node) {
-		/*PROTECTED REGION ID(Core.Normalize_) ENABLED START*/
-		alpha.model.transformation.Normalize.apply(node, false);
-		/*PROTECTED REGION END*/
-	}
-	public static void DeepNormalize(AlphaVisitable node) {
-		/*PROTECTED REGION ID(Core.DeepNormalize_) ENABLED START*/
-		alpha.model.transformation.Normalize.apply(node, true);
 		/*PROTECTED REGION END*/
 	}
 	public static void CheckProgram(AlphaRoot root) {

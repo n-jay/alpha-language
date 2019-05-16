@@ -1,19 +1,36 @@
 package alpha.commands.groovy
 
-import alpha.model.AbstractReduceExpression
+import alpha.model.AlphaRoot
+import java.util.List
+import alpha.model.AlphaRoot
 import alpha.model.AlphaCompleteVisitable
-import alpha.model.AlphaExpression
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
-import alpha.model.AlphaVisitable
-import alpha.model.DependenceExpression
-import alpha.model.Equation
-import alpha.model.ReduceExpression
-import alpha.model.StandardEquation
 import alpha.model.SystemBody
+import alpha.model.StandardEquation
+import alpha.model.AlphaExpression
+import alpha.model.AlphaRoot
+import java.util.List
+import alpha.model.Equation
+import alpha.model.AlphaSystem
 import alpha.model.Variable
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import alpha.model.AlphaVisitable
+import alpha.model.SystemBody
+import alpha.model.AlphaRoot
+import alpha.model.RestrictExpression
+import alpha.model.AutoRestrictExpression
+import alpha.model.StandardEquation
+import alpha.model.AlphaExpression
+import alpha.model.SystemBody
+import alpha.model.StandardEquation
+import alpha.model.AbstractReduceExpression
+import alpha.model.DependenceExpression
+import alpha.model.AlphaExpression
+import alpha.model.AlphaVisitable
+import alpha.model.AlphaSystem
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import alpha.model.ReduceExpression
 
 abstract class AlphaScript extends AbstractAlphaScript {
 
@@ -34,12 +51,6 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	}
 	void ASave(AlphaRoot root, String filename) {
 		alpha.commands.Core.ASave(root, filename)
-	}
-	void Normalize(AlphaVisitable node) {
-		alpha.commands.Core.Normalize(node)
-	}
-	void DeepNormalize(AlphaVisitable node) {
-		alpha.commands.Core.DeepNormalize(node)
 	}
 	void CheckProgram(AlphaRoot root) {
 		alpha.commands.Core.CheckProgram(root)
@@ -89,11 +100,23 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	AlphaExpression GetExpression(AlphaSystem system, String varName) {
 		alpha.commands.Utility.GetExpression(system, varName)
 	}
+	AlphaExpression GetNode(AlphaRoot root, String nodeID) {
+		alpha.commands.Utility.GetNode(root, nodeID)
+	}
 	void RenameVariable(AlphaSystem system, String oldName, String newName) {
 		alpha.commands.Utility.RenameVariable(system, oldName, newName)
 	}
-	void SimplifyExpressions(AlphaVisitable node) {
-		alpha.commands.Transformations.SimplifyExpressions(node)
+	void ChangeOfBasis(AlphaSystem system, Variable var, JNIISLMultiAff f) {
+		alpha.commands.Transformations.ChangeOfBasis(system, var, f)
+	}
+	void ChangeOfBasis(AlphaSystem system, String varName, String fStr) {
+		alpha.commands.Transformations.ChangeOfBasis(system, varName, fStr)
+	}
+	void Normalize(AlphaVisitable node) {
+		alpha.commands.Transformations.Normalize(node)
+	}
+	void DeepNormalize(AlphaVisitable node) {
+		alpha.commands.Transformations.DeepNormalize(node)
 	}
 	void PropagateSimpleEquations(AlphaSystem system) {
 		alpha.commands.Transformations.PropagateSimpleEquations(system)
@@ -110,17 +133,23 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void RemoveUnusedEquations(AlphaSystem system) {
 		alpha.commands.Transformations.RemoveUnusedEquations(system)
 	}
-	void ChangeOfBasis(AlphaSystem system, Variable var, JNIISLMultiAff f) {
-		alpha.commands.Transformations.ChangeOfBasis(system, var, f)
+	void SimplifyExpressions(AlphaVisitable node) {
+		alpha.commands.Transformations.SimplifyExpressions(node)
 	}
-	void ChangeOfBasis(AlphaSystem system, String varName, String fStr) {
-		alpha.commands.Transformations.ChangeOfBasis(system, varName, fStr)
+	void SplitUnionIntoCase(AlphaSystem system) {
+		alpha.commands.Transformations.SplitUnionIntoCase(system)
 	}
-	void Split(AlphaSystem system, Variable var, JNIISLSet splitDom) {
-		alpha.commands.Transformations.Split(system, var, splitDom)
+	void SplitUnionIntoCase(AlphaSystem system, int bodyID) {
+		alpha.commands.Transformations.SplitUnionIntoCase(system, bodyID)
 	}
-	void Split(AlphaSystem system, String varName, String s_splitDom) {
-		alpha.commands.Transformations.Split(system, varName, s_splitDom)
+	void SplitUnionIntoCase(SystemBody body) {
+		alpha.commands.Transformations.SplitUnionIntoCase(body)
+	}
+	void SplitUnionIntoCase(RestrictExpression re) {
+		alpha.commands.Transformations.SplitUnionIntoCase(re)
+	}
+	void SplitUnionIntoCase(AutoRestrictExpression re) {
+		alpha.commands.Transformations.SplitUnionIntoCase(re)
 	}
 	void SubstituteByDef(AlphaSystem system, Variable inlineVar) {
 		alpha.commands.Transformations.SubstituteByDef(system, inlineVar)
@@ -134,11 +163,125 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void SubstituteByDef(SystemBody body, String inlineVarStr) {
 		alpha.commands.Transformations.SubstituteByDef(body, inlineVarStr)
 	}
-	void SubstituteByDef(SystemBody body, StandardEquation targetEq, Variable inlineVar) {
-		alpha.commands.Transformations.SubstituteByDef(body, targetEq, inlineVar)
+	void SubstituteByDef(StandardEquation targetEq, Variable inlineVar) {
+		alpha.commands.Transformations.SubstituteByDef(targetEq, inlineVar)
 	}
-	void SubstituteByDef(SystemBody body, String s_targetEq, String inlineVarStr) {
-		alpha.commands.Transformations.SubstituteByDef(body, s_targetEq, inlineVarStr)
+	void SubstituteByDef(AlphaExpression targetExpr, Variable inlineVar) {
+		alpha.commands.Transformations.SubstituteByDef(targetExpr, inlineVar)
+	}
+	void Distributivity(SystemBody body, String targetEq, String exprID) {
+		alpha.commands.Reductions.Distributivity(body, targetEq, exprID)
+	}
+	void Distributivity(SystemBody body, String targetEq) {
+		alpha.commands.Reductions.Distributivity(body, targetEq)
+	}
+	void Distributivity(StandardEquation eq, String exprID) {
+		alpha.commands.Reductions.Distributivity(eq, exprID)
+	}
+	void Distributivity(StandardEquation eq) {
+		alpha.commands.Reductions.Distributivity(eq)
+	}
+	void Distributivity(AbstractReduceExpression are) {
+		alpha.commands.Reductions.Distributivity(are)
+	}
+	void FactorOutFromReduction(SystemBody body, String targetEq, String exprID) {
+		alpha.commands.Reductions.FactorOutFromReduction(body, targetEq, exprID)
+	}
+	void FactorOutFromReduction(SystemBody body, String targetEq) {
+		alpha.commands.Reductions.FactorOutFromReduction(body, targetEq)
+	}
+	void FactorOutFromReduction(StandardEquation eq, String exprID) {
+		alpha.commands.Reductions.FactorOutFromReduction(eq, exprID)
+	}
+	void FactorOutFromReduction(StandardEquation eq) {
+		alpha.commands.Reductions.FactorOutFromReduction(eq)
+	}
+	void FactorOutFromReduction(DependenceExpression expr) {
+		alpha.commands.Reductions.FactorOutFromReduction(expr)
+	}
+	void HigherOrderOperator(SystemBody body, String targetEq, String exprID) {
+		alpha.commands.Reductions.HigherOrderOperator(body, targetEq, exprID)
+	}
+	void HigherOrderOperator(SystemBody body, String targetEq) {
+		alpha.commands.Reductions.HigherOrderOperator(body, targetEq)
+	}
+	void HigherOrderOperator(StandardEquation eq, String exprID) {
+		alpha.commands.Reductions.HigherOrderOperator(eq, exprID)
+	}
+	void HigherOrderOperator(StandardEquation eq) {
+		alpha.commands.Reductions.HigherOrderOperator(eq)
+	}
+	void HigherOrderOperator(AbstractReduceExpression are) {
+		alpha.commands.Reductions.HigherOrderOperator(are)
+	}
+	void HoistOutOfReduction(SystemBody body, String targetEq, String exprID) {
+		alpha.commands.Reductions.HoistOutOfReduction(body, targetEq, exprID)
+	}
+	void HoistOutOfReduction(SystemBody body, String targetEq) {
+		alpha.commands.Reductions.HoistOutOfReduction(body, targetEq)
+	}
+	void HoistOutOfReduction(StandardEquation eq, String exprID) {
+		alpha.commands.Reductions.HoistOutOfReduction(eq, exprID)
+	}
+	void HoistOutOfReduction(StandardEquation eq) {
+		alpha.commands.Reductions.HoistOutOfReduction(eq)
+	}
+	void HoistOutOfReduction(AlphaExpression expr) {
+		alpha.commands.Reductions.HoistOutOfReduction(expr)
+	}
+	void Idempotence(SystemBody body, String targetEq, String exprID) {
+		alpha.commands.Reductions.Idempotence(body, targetEq, exprID)
+	}
+	void Idempotence(SystemBody body, String targetEq) {
+		alpha.commands.Reductions.Idempotence(body, targetEq)
+	}
+	void Idempotence(StandardEquation eq, String exprID) {
+		alpha.commands.Reductions.Idempotence(eq, exprID)
+	}
+	void Idempotence(StandardEquation eq) {
+		alpha.commands.Reductions.Idempotence(eq)
+	}
+	void Idempotence(AbstractReduceExpression are) {
+		alpha.commands.Reductions.Idempotence(are)
+	}
+	void NormalizeReduction(AlphaVisitable node) {
+		alpha.commands.Reductions.NormalizeReduction(node)
+	}
+	void NormalizeReduction(SystemBody body, String targetEq, String exprID) {
+		alpha.commands.Reductions.NormalizeReduction(body, targetEq, exprID)
+	}
+	void NormalizeReduction(SystemBody body, String targetEq) {
+		alpha.commands.Reductions.NormalizeReduction(body, targetEq)
+	}
+	void NormalizeReduction(StandardEquation eq, String exprID) {
+		alpha.commands.Reductions.NormalizeReduction(eq, exprID)
+	}
+	void NormalizeReduction(StandardEquation eq) {
+		alpha.commands.Reductions.NormalizeReduction(eq)
+	}
+	void NormalizeReduction(AbstractReduceExpression reduction) {
+		alpha.commands.Reductions.NormalizeReduction(reduction)
+	}
+	void PermutationCaseReduce(AlphaSystem system) {
+		alpha.commands.Reductions.PermutationCaseReduce(system)
+	}
+	void PermutationCaseReduce(SystemBody body) {
+		alpha.commands.Reductions.PermutationCaseReduce(body)
+	}
+	void PermutationCaseReduce(SystemBody body, String targetEq, String exprID) {
+		alpha.commands.Reductions.PermutationCaseReduce(body, targetEq, exprID)
+	}
+	void PermutationCaseReduce(SystemBody body, String targetEq) {
+		alpha.commands.Reductions.PermutationCaseReduce(body, targetEq)
+	}
+	void PermutationCaseReduce(StandardEquation eq, String exprID) {
+		alpha.commands.Reductions.PermutationCaseReduce(eq, exprID)
+	}
+	void PermutationCaseReduce(StandardEquation eq) {
+		alpha.commands.Reductions.PermutationCaseReduce(eq)
+	}
+	void PermutationCaseReduce(AbstractReduceExpression are) {
+		alpha.commands.Reductions.PermutationCaseReduce(are)
 	}
 	void ReductionComposition(AlphaSystem system) {
 		alpha.commands.Reductions.ReductionComposition(system)
@@ -185,38 +328,20 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void ReductionDecomposition(AbstractReduceExpression reduction, String f1Str, String f2Str) {
 		alpha.commands.Reductions.ReductionDecomposition(reduction, f1Str, f2Str)
 	}
-	void FactorOutFromReduction(SystemBody body, String targetEq, String exprID) {
-		alpha.commands.Reductions.FactorOutFromReduction(body, targetEq, exprID)
+	void SameOperatorSimplification(SystemBody body, String targetEq, String exprID) {
+		alpha.commands.Reductions.SameOperatorSimplification(body, targetEq, exprID)
 	}
-	void FactorOutFromReduction(SystemBody body, String targetEq) {
-		alpha.commands.Reductions.FactorOutFromReduction(body, targetEq)
+	void SameOperatorSimplification(SystemBody body, String targetEq) {
+		alpha.commands.Reductions.SameOperatorSimplification(body, targetEq)
 	}
-	void FactorOutFromReduction(StandardEquation eq, String exprID) {
-		alpha.commands.Reductions.FactorOutFromReduction(eq, exprID)
+	void SameOperatorSimplification(StandardEquation eq, String exprID) {
+		alpha.commands.Reductions.SameOperatorSimplification(eq, exprID)
 	}
-	void FactorOutFromReduction(StandardEquation eq) {
-		alpha.commands.Reductions.FactorOutFromReduction(eq)
+	void SameOperatorSimplification(StandardEquation eq) {
+		alpha.commands.Reductions.SameOperatorSimplification(eq)
 	}
-	void FactorOutFromReduction(DependenceExpression expr) {
-		alpha.commands.Reductions.FactorOutFromReduction(expr)
-	}
-	void NormalizeReduction(AlphaVisitable node) {
-		alpha.commands.Reductions.NormalizeReduction(node)
-	}
-	void NormalizeReduction(SystemBody body, String targetEq, String exprID) {
-		alpha.commands.Reductions.NormalizeReduction(body, targetEq, exprID)
-	}
-	void NormalizeReduction(SystemBody body, String targetEq) {
-		alpha.commands.Reductions.NormalizeReduction(body, targetEq)
-	}
-	void NormalizeReduction(StandardEquation eq, String exprID) {
-		alpha.commands.Reductions.NormalizeReduction(eq, exprID)
-	}
-	void NormalizeReduction(StandardEquation eq) {
-		alpha.commands.Reductions.NormalizeReduction(eq)
-	}
-	void NormalizeReduction(AbstractReduceExpression reduction) {
-		alpha.commands.Reductions.NormalizeReduction(reduction)
+	void SameOperatorSimplification(AbstractReduceExpression reduction) {
+		alpha.commands.Reductions.SameOperatorSimplification(reduction)
 	}
 	void SimplifyingReductions(SystemBody body, String targetEq, String exprID, JNIISLMultiAff reuseDep) {
 		alpha.commands.Reductions.SimplifyingReductions(body, targetEq, exprID, reuseDep)

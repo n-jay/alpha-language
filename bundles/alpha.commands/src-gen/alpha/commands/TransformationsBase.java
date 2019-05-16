@@ -4,20 +4,32 @@ package alpha.commands;
 //Add custom imports here
 /*PROTECTED REGION END*/
 
-import alpha.model.AlphaVisitable;
 import alpha.model.AlphaSystem;
-import alpha.model.SystemBody;
-import alpha.model.AlphaRoot;
 import alpha.model.Variable;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import alpha.model.AlphaVisitable;
+import alpha.model.SystemBody;
+import alpha.model.AlphaRoot;
+import alpha.model.RestrictExpression;
+import alpha.model.AutoRestrictExpression;
 import alpha.model.StandardEquation;
+import alpha.model.AlphaExpression;
 
 
 public class TransformationsBase {
-	public static void SimplifyExpressions(AlphaVisitable node) {
-		/*PROTECTED REGION ID(Transformations.SimplifyExpressions_) ENABLED START*/
-		alpha.model.transformation.SimplifyExpressions.apply(node);
+	public static void ChangeOfBasis(AlphaSystem system, Variable var, JNIISLMultiAff f) {
+		/*PROTECTED REGION ID(Transformations.ChangeOfBasis_) ENABLED START*/
+		alpha.model.transformation.ChangeOfBasis.apply(system, var, f);
+		/*PROTECTED REGION END*/
+	}
+	public static void Normalize(AlphaVisitable node) {
+		/*PROTECTED REGION ID(Transformations.Normalize_) ENABLED START*/
+		alpha.model.transformation.Normalize.apply(node);
+		/*PROTECTED REGION END*/
+	}
+	public static void DeepNormalize(AlphaVisitable node) {
+		/*PROTECTED REGION ID(Transformations.DeepNormalize_) ENABLED START*/
+		alpha.model.transformation.Normalize.apply(node, true);
 		/*PROTECTED REGION END*/
 	}
 	public static void PropagateSimpleEquations(AlphaSystem system) {
@@ -40,14 +52,29 @@ public class TransformationsBase {
 		alpha.model.transformation.RemoveUnusedEquations.apply(system);
 		/*PROTECTED REGION END*/
 	}
-	public static void ChangeOfBasis(AlphaSystem system, Variable var, JNIISLMultiAff f) {
-		/*PROTECTED REGION ID(Transformations.ChangeOfBasis_) ENABLED START*/
-		alpha.model.transformation.ChangeOfBasis.apply(system, var, f);
+	public static void SimplifyExpressions(AlphaVisitable node) {
+		/*PROTECTED REGION ID(Transformations.SimplifyExpressions_) ENABLED START*/
+		alpha.model.transformation.SimplifyExpressions.apply(node);
 		/*PROTECTED REGION END*/
 	}
-	public static void Split(AlphaSystem system, Variable var, JNIISLSet splitDom) {
-		/*PROTECTED REGION ID(Transformations.Split_) ENABLED START*/
-		throw new UnsupportedOperationException("Not implemented.");
+	public static void SplitUnionIntoCase(AlphaSystem system) {
+		/*PROTECTED REGION ID(Transformations.SplitUnionIntoCase_) ENABLED START*/
+		alpha.model.transformation.SplitUnionIntoCase.apply(system);
+		/*PROTECTED REGION END*/
+	}
+	public static void SplitUnionIntoCase(SystemBody body) {
+		/*PROTECTED REGION ID(Transformations.SplitUnionIntoCase_SUIC) ENABLED START*/
+		alpha.model.transformation.SplitUnionIntoCase.apply(body);
+		/*PROTECTED REGION END*/
+	}
+	public static void SplitUnionIntoCase(RestrictExpression re) {
+		/*PROTECTED REGION ID(Transformations.SplitUnionIntoCase__3) ENABLED START*/
+		alpha.model.transformation.SplitUnionIntoCase.apply(re);
+		/*PROTECTED REGION END*/
+	}
+	public static void SplitUnionIntoCase(AutoRestrictExpression re) {
+		/*PROTECTED REGION ID(Transformations.SplitUnionIntoCase__4) ENABLED START*/
+		alpha.model.transformation.SplitUnionIntoCase.apply(re);
 		/*PROTECTED REGION END*/
 	}
 	public static void SubstituteByDef(AlphaSystem system, Variable inlineVar) {
@@ -60,9 +87,14 @@ public class TransformationsBase {
 		alpha.model.transformation.SubstituteByDef.apply(body, inlineVar);
 		/*PROTECTED REGION END*/
 	}
-	public static void SubstituteByDef(SystemBody body, StandardEquation targetEq, Variable inlineVar) {
+	public static void SubstituteByDef(StandardEquation targetEq, Variable inlineVar) {
 		/*PROTECTED REGION ID(Transformations.SubstituteByDef__2) ENABLED START*/
-		alpha.model.transformation.SubstituteByDef.apply(body, targetEq, inlineVar);
+		alpha.model.transformation.SubstituteByDef.apply(targetEq, inlineVar);
+		/*PROTECTED REGION END*/
+	}
+	public static void SubstituteByDef(AlphaExpression targetExpr, Variable inlineVar) {
+		/*PROTECTED REGION ID(Transformations.SubstituteByDef__3) ENABLED START*/
+		alpha.model.transformation.SubstituteByDef.apply(targetExpr, inlineVar);
 		/*PROTECTED REGION END*/
 	}
 }
