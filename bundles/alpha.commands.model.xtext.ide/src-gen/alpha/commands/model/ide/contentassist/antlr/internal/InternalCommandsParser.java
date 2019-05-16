@@ -22,8 +22,9 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalCommandsParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Void'", "'AlphaNode'", "'AlphaCompleteVisitable'", "'AlphaVisitable'", "'AlphaExpressionVisitable'", "'AlphaRoot'", "'AlphaSystem'", "'SystemBody'", "'Variable'", "'Equation'", "'StandardEquation'", "'UseEquation'", "'AlphaExpression'", "'AbstractReduceExpression'", "'BinaryExpression'", "'DependenceExpression'", "'ReduceExpression'", "'AffineFunction'", "'Domain'", "'ParameterDomain'", "'List<AlphaRoot>'", "'String'", "'List<String>'", "'String[]'", "'int'", "'List<Integer>'", "'int[]'", "'{'", "'}'", "':'", "'@Bind'", "'('", "';'", "')'", "','", "'='", "'=>'", "'_'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Void'", "'AlphaNode'", "'AlphaCompleteVisitable'", "'AlphaVisitable'", "'AlphaExpressionVisitable'", "'AlphaRoot'", "'AlphaSystem'", "'SystemBody'", "'Variable'", "'Equation'", "'StandardEquation'", "'UseEquation'", "'AlphaExpression'", "'AbstractReduceExpression'", "'AutoRestrictExpression'", "'BinaryExpression'", "'DependenceExpression'", "'ReduceExpression'", "'RestrictExpression'", "'AffineFunction'", "'Domain'", "'ParameterDomain'", "'List<AlphaRoot>'", "'String'", "'List<String>'", "'String[]'", "'int'", "'List<Integer>'", "'int[]'", "'{'", "'}'", "':'", "'@Bind'", "'('", "';'", "')'", "','", "'='", "'=>'", "'_'"
     };
+    public static final int T__50=50;
     public static final int T__19=19;
     public static final int T__15=15;
     public static final int T__16=16;
@@ -62,6 +63,7 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
     public static final int RULE_WS=9;
     public static final int RULE_ANY_OTHER=10;
     public static final int T__48=48;
+    public static final int T__49=49;
     public static final int T__44=44;
     public static final int T__45=45;
     public static final int T__46=46;
@@ -1216,10 +1218,10 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
             if ( (LA2_0==RULE_ID) ) {
                 int LA2_1 = input.LA(2);
 
-                if ( (LA2_1==46) ) {
+                if ( (LA2_1==48) ) {
                     int LA2_2 = input.LA(3);
 
-                    if ( (LA2_2==42) ) {
+                    if ( (LA2_2==44) ) {
                         alt2=1;
                     }
                     else if ( (LA2_2==RULE_ID) ) {
@@ -1327,13 +1329,13 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
             if ( (LA3_0==RULE_ID) ) {
                 int LA3_1 = input.LA(2);
 
-                if ( (LA3_1==46) ) {
+                if ( (LA3_1==48) ) {
                     int LA3_2 = input.LA(3);
 
                     if ( (LA3_2==RULE_ID) ) {
                         alt3=2;
                     }
-                    else if ( (LA3_2==42) ) {
+                    else if ( (LA3_2==44) ) {
                         alt3=1;
                     }
                     else {
@@ -1461,6 +1463,8 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
             case 35:
             case 36:
             case 37:
+            case 38:
+            case 39:
                 {
                 alt4=1;
                 }
@@ -1470,7 +1474,7 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                 alt4=2;
                 }
                 break;
-            case 48:
+            case 50:
                 {
                 alt4=3;
                 }
@@ -1558,14 +1562,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentType__Alternatives"
-    // InternalCommands.g:471:1: rule__ArgumentType__Alternatives : ( ( 'Void' ) | ( 'AlphaNode' ) | ( 'AlphaCompleteVisitable' ) | ( 'AlphaVisitable' ) | ( 'AlphaExpressionVisitable' ) | ( 'AlphaRoot' ) | ( 'AlphaSystem' ) | ( 'SystemBody' ) | ( 'Variable' ) | ( 'Equation' ) | ( 'StandardEquation' ) | ( 'UseEquation' ) | ( 'AlphaExpression' ) | ( 'AbstractReduceExpression' ) | ( 'BinaryExpression' ) | ( 'DependenceExpression' ) | ( 'ReduceExpression' ) | ( 'AffineFunction' ) | ( 'Domain' ) | ( 'ParameterDomain' ) | ( 'List<AlphaRoot>' ) | ( 'String' ) | ( 'List<String>' ) | ( 'String[]' ) | ( 'int' ) | ( 'List<Integer>' ) | ( 'int[]' ) );
+    // InternalCommands.g:471:1: rule__ArgumentType__Alternatives : ( ( 'Void' ) | ( 'AlphaNode' ) | ( 'AlphaCompleteVisitable' ) | ( 'AlphaVisitable' ) | ( 'AlphaExpressionVisitable' ) | ( 'AlphaRoot' ) | ( 'AlphaSystem' ) | ( 'SystemBody' ) | ( 'Variable' ) | ( 'Equation' ) | ( 'StandardEquation' ) | ( 'UseEquation' ) | ( 'AlphaExpression' ) | ( 'AbstractReduceExpression' ) | ( 'AutoRestrictExpression' ) | ( 'BinaryExpression' ) | ( 'DependenceExpression' ) | ( 'ReduceExpression' ) | ( 'RestrictExpression' ) | ( 'AffineFunction' ) | ( 'Domain' ) | ( 'ParameterDomain' ) | ( 'List<AlphaRoot>' ) | ( 'String' ) | ( 'List<String>' ) | ( 'String[]' ) | ( 'int' ) | ( 'List<Integer>' ) | ( 'int[]' ) );
     public final void rule__ArgumentType__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:475:1: ( ( 'Void' ) | ( 'AlphaNode' ) | ( 'AlphaCompleteVisitable' ) | ( 'AlphaVisitable' ) | ( 'AlphaExpressionVisitable' ) | ( 'AlphaRoot' ) | ( 'AlphaSystem' ) | ( 'SystemBody' ) | ( 'Variable' ) | ( 'Equation' ) | ( 'StandardEquation' ) | ( 'UseEquation' ) | ( 'AlphaExpression' ) | ( 'AbstractReduceExpression' ) | ( 'BinaryExpression' ) | ( 'DependenceExpression' ) | ( 'ReduceExpression' ) | ( 'AffineFunction' ) | ( 'Domain' ) | ( 'ParameterDomain' ) | ( 'List<AlphaRoot>' ) | ( 'String' ) | ( 'List<String>' ) | ( 'String[]' ) | ( 'int' ) | ( 'List<Integer>' ) | ( 'int[]' ) )
-            int alt5=27;
+            // InternalCommands.g:475:1: ( ( 'Void' ) | ( 'AlphaNode' ) | ( 'AlphaCompleteVisitable' ) | ( 'AlphaVisitable' ) | ( 'AlphaExpressionVisitable' ) | ( 'AlphaRoot' ) | ( 'AlphaSystem' ) | ( 'SystemBody' ) | ( 'Variable' ) | ( 'Equation' ) | ( 'StandardEquation' ) | ( 'UseEquation' ) | ( 'AlphaExpression' ) | ( 'AbstractReduceExpression' ) | ( 'AutoRestrictExpression' ) | ( 'BinaryExpression' ) | ( 'DependenceExpression' ) | ( 'ReduceExpression' ) | ( 'RestrictExpression' ) | ( 'AffineFunction' ) | ( 'Domain' ) | ( 'ParameterDomain' ) | ( 'List<AlphaRoot>' ) | ( 'String' ) | ( 'List<String>' ) | ( 'String[]' ) | ( 'int' ) | ( 'List<Integer>' ) | ( 'int[]' ) )
+            int alt5=29;
             switch ( input.LA(1) ) {
             case 11:
                 {
@@ -1700,6 +1704,16 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
             case 37:
                 {
                 alt5=27;
+                }
+                break;
+            case 38:
+                {
+                alt5=28;
+                }
+                break;
+            case 39:
+                {
+                alt5=29;
                 }
                 break;
             default:
@@ -1921,14 +1935,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 15 :
-                    // InternalCommands.g:560:2: ( 'BinaryExpression' )
+                    // InternalCommands.g:560:2: ( 'AutoRestrictExpression' )
                     {
-                    // InternalCommands.g:560:2: ( 'BinaryExpression' )
-                    // InternalCommands.g:561:3: 'BinaryExpression'
+                    // InternalCommands.g:560:2: ( 'AutoRestrictExpression' )
+                    // InternalCommands.g:561:3: 'AutoRestrictExpression'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getBinaryExpressionKeyword_14()); 
+                     before(grammarAccess.getArgumentTypeAccess().getAutoRestrictExpressionKeyword_14()); 
                     match(input,25,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getBinaryExpressionKeyword_14()); 
+                     after(grammarAccess.getArgumentTypeAccess().getAutoRestrictExpressionKeyword_14()); 
 
                     }
 
@@ -1936,14 +1950,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 16 :
-                    // InternalCommands.g:566:2: ( 'DependenceExpression' )
+                    // InternalCommands.g:566:2: ( 'BinaryExpression' )
                     {
-                    // InternalCommands.g:566:2: ( 'DependenceExpression' )
-                    // InternalCommands.g:567:3: 'DependenceExpression'
+                    // InternalCommands.g:566:2: ( 'BinaryExpression' )
+                    // InternalCommands.g:567:3: 'BinaryExpression'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getDependenceExpressionKeyword_15()); 
+                     before(grammarAccess.getArgumentTypeAccess().getBinaryExpressionKeyword_15()); 
                     match(input,26,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getDependenceExpressionKeyword_15()); 
+                     after(grammarAccess.getArgumentTypeAccess().getBinaryExpressionKeyword_15()); 
 
                     }
 
@@ -1951,14 +1965,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 17 :
-                    // InternalCommands.g:572:2: ( 'ReduceExpression' )
+                    // InternalCommands.g:572:2: ( 'DependenceExpression' )
                     {
-                    // InternalCommands.g:572:2: ( 'ReduceExpression' )
-                    // InternalCommands.g:573:3: 'ReduceExpression'
+                    // InternalCommands.g:572:2: ( 'DependenceExpression' )
+                    // InternalCommands.g:573:3: 'DependenceExpression'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_16()); 
+                     before(grammarAccess.getArgumentTypeAccess().getDependenceExpressionKeyword_16()); 
                     match(input,27,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_16()); 
+                     after(grammarAccess.getArgumentTypeAccess().getDependenceExpressionKeyword_16()); 
 
                     }
 
@@ -1966,14 +1980,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 18 :
-                    // InternalCommands.g:578:2: ( 'AffineFunction' )
+                    // InternalCommands.g:578:2: ( 'ReduceExpression' )
                     {
-                    // InternalCommands.g:578:2: ( 'AffineFunction' )
-                    // InternalCommands.g:579:3: 'AffineFunction'
+                    // InternalCommands.g:578:2: ( 'ReduceExpression' )
+                    // InternalCommands.g:579:3: 'ReduceExpression'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_17()); 
+                     before(grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_17()); 
                     match(input,28,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_17()); 
+                     after(grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_17()); 
 
                     }
 
@@ -1981,14 +1995,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 19 :
-                    // InternalCommands.g:584:2: ( 'Domain' )
+                    // InternalCommands.g:584:2: ( 'RestrictExpression' )
                     {
-                    // InternalCommands.g:584:2: ( 'Domain' )
-                    // InternalCommands.g:585:3: 'Domain'
+                    // InternalCommands.g:584:2: ( 'RestrictExpression' )
+                    // InternalCommands.g:585:3: 'RestrictExpression'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getDomainKeyword_18()); 
+                     before(grammarAccess.getArgumentTypeAccess().getRestrictExpressionKeyword_18()); 
                     match(input,29,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getDomainKeyword_18()); 
+                     after(grammarAccess.getArgumentTypeAccess().getRestrictExpressionKeyword_18()); 
 
                     }
 
@@ -1996,14 +2010,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 20 :
-                    // InternalCommands.g:590:2: ( 'ParameterDomain' )
+                    // InternalCommands.g:590:2: ( 'AffineFunction' )
                     {
-                    // InternalCommands.g:590:2: ( 'ParameterDomain' )
-                    // InternalCommands.g:591:3: 'ParameterDomain'
+                    // InternalCommands.g:590:2: ( 'AffineFunction' )
+                    // InternalCommands.g:591:3: 'AffineFunction'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_19()); 
+                     before(grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_19()); 
                     match(input,30,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_19()); 
+                     after(grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_19()); 
 
                     }
 
@@ -2011,14 +2025,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 21 :
-                    // InternalCommands.g:596:2: ( 'List<AlphaRoot>' )
+                    // InternalCommands.g:596:2: ( 'Domain' )
                     {
-                    // InternalCommands.g:596:2: ( 'List<AlphaRoot>' )
-                    // InternalCommands.g:597:3: 'List<AlphaRoot>'
+                    // InternalCommands.g:596:2: ( 'Domain' )
+                    // InternalCommands.g:597:3: 'Domain'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_20()); 
+                     before(grammarAccess.getArgumentTypeAccess().getDomainKeyword_20()); 
                     match(input,31,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_20()); 
+                     after(grammarAccess.getArgumentTypeAccess().getDomainKeyword_20()); 
 
                     }
 
@@ -2026,14 +2040,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 22 :
-                    // InternalCommands.g:602:2: ( 'String' )
+                    // InternalCommands.g:602:2: ( 'ParameterDomain' )
                     {
-                    // InternalCommands.g:602:2: ( 'String' )
-                    // InternalCommands.g:603:3: 'String'
+                    // InternalCommands.g:602:2: ( 'ParameterDomain' )
+                    // InternalCommands.g:603:3: 'ParameterDomain'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getStringKeyword_21()); 
+                     before(grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_21()); 
                     match(input,32,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getStringKeyword_21()); 
+                     after(grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_21()); 
 
                     }
 
@@ -2041,14 +2055,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 23 :
-                    // InternalCommands.g:608:2: ( 'List<String>' )
+                    // InternalCommands.g:608:2: ( 'List<AlphaRoot>' )
                     {
-                    // InternalCommands.g:608:2: ( 'List<String>' )
-                    // InternalCommands.g:609:3: 'List<String>'
+                    // InternalCommands.g:608:2: ( 'List<AlphaRoot>' )
+                    // InternalCommands.g:609:3: 'List<AlphaRoot>'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getListStringKeyword_22()); 
+                     before(grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_22()); 
                     match(input,33,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getListStringKeyword_22()); 
+                     after(grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_22()); 
 
                     }
 
@@ -2056,10 +2070,10 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 24 :
-                    // InternalCommands.g:614:2: ( 'String[]' )
+                    // InternalCommands.g:614:2: ( 'String' )
                     {
-                    // InternalCommands.g:614:2: ( 'String[]' )
-                    // InternalCommands.g:615:3: 'String[]'
+                    // InternalCommands.g:614:2: ( 'String' )
+                    // InternalCommands.g:615:3: 'String'
                     {
                      before(grammarAccess.getArgumentTypeAccess().getStringKeyword_23()); 
                     match(input,34,FOLLOW_2); 
@@ -2071,14 +2085,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 25 :
-                    // InternalCommands.g:620:2: ( 'int' )
+                    // InternalCommands.g:620:2: ( 'List<String>' )
                     {
-                    // InternalCommands.g:620:2: ( 'int' )
-                    // InternalCommands.g:621:3: 'int'
+                    // InternalCommands.g:620:2: ( 'List<String>' )
+                    // InternalCommands.g:621:3: 'List<String>'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getIntKeyword_24()); 
+                     before(grammarAccess.getArgumentTypeAccess().getListStringKeyword_24()); 
                     match(input,35,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getIntKeyword_24()); 
+                     after(grammarAccess.getArgumentTypeAccess().getListStringKeyword_24()); 
 
                     }
 
@@ -2086,14 +2100,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 26 :
-                    // InternalCommands.g:626:2: ( 'List<Integer>' )
+                    // InternalCommands.g:626:2: ( 'String[]' )
                     {
-                    // InternalCommands.g:626:2: ( 'List<Integer>' )
-                    // InternalCommands.g:627:3: 'List<Integer>'
+                    // InternalCommands.g:626:2: ( 'String[]' )
+                    // InternalCommands.g:627:3: 'String[]'
                     {
-                     before(grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_25()); 
+                     before(grammarAccess.getArgumentTypeAccess().getStringKeyword_25()); 
                     match(input,36,FOLLOW_2); 
-                     after(grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_25()); 
+                     after(grammarAccess.getArgumentTypeAccess().getStringKeyword_25()); 
 
                     }
 
@@ -2101,14 +2115,44 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
                     }
                     break;
                 case 27 :
-                    // InternalCommands.g:632:2: ( 'int[]' )
+                    // InternalCommands.g:632:2: ( 'int' )
                     {
-                    // InternalCommands.g:632:2: ( 'int[]' )
-                    // InternalCommands.g:633:3: 'int[]'
+                    // InternalCommands.g:632:2: ( 'int' )
+                    // InternalCommands.g:633:3: 'int'
                     {
                      before(grammarAccess.getArgumentTypeAccess().getIntKeyword_26()); 
                     match(input,37,FOLLOW_2); 
                      after(grammarAccess.getArgumentTypeAccess().getIntKeyword_26()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 28 :
+                    // InternalCommands.g:638:2: ( 'List<Integer>' )
+                    {
+                    // InternalCommands.g:638:2: ( 'List<Integer>' )
+                    // InternalCommands.g:639:3: 'List<Integer>'
+                    {
+                     before(grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_27()); 
+                    match(input,38,FOLLOW_2); 
+                     after(grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_27()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 29 :
+                    // InternalCommands.g:644:2: ( 'int[]' )
+                    {
+                    // InternalCommands.g:644:2: ( 'int[]' )
+                    // InternalCommands.g:645:3: 'int[]'
+                    {
+                     before(grammarAccess.getArgumentTypeAccess().getIntKeyword_28()); 
+                    match(input,39,FOLLOW_2); 
+                     after(grammarAccess.getArgumentTypeAccess().getIntKeyword_28()); 
 
                     }
 
@@ -2133,14 +2177,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__Group__0"
-    // InternalCommands.g:642:1: rule__AlphaCommandCategory__Group__0 : rule__AlphaCommandCategory__Group__0__Impl rule__AlphaCommandCategory__Group__1 ;
+    // InternalCommands.g:654:1: rule__AlphaCommandCategory__Group__0 : rule__AlphaCommandCategory__Group__0__Impl rule__AlphaCommandCategory__Group__1 ;
     public final void rule__AlphaCommandCategory__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:646:1: ( rule__AlphaCommandCategory__Group__0__Impl rule__AlphaCommandCategory__Group__1 )
-            // InternalCommands.g:647:2: rule__AlphaCommandCategory__Group__0__Impl rule__AlphaCommandCategory__Group__1
+            // InternalCommands.g:658:1: ( rule__AlphaCommandCategory__Group__0__Impl rule__AlphaCommandCategory__Group__1 )
+            // InternalCommands.g:659:2: rule__AlphaCommandCategory__Group__0__Impl rule__AlphaCommandCategory__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__AlphaCommandCategory__Group__0__Impl();
@@ -2171,21 +2215,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__Group__0__Impl"
-    // InternalCommands.g:654:1: rule__AlphaCommandCategory__Group__0__Impl : ( ( rule__AlphaCommandCategory__NameAssignment_0 ) ) ;
+    // InternalCommands.g:666:1: rule__AlphaCommandCategory__Group__0__Impl : ( ( rule__AlphaCommandCategory__NameAssignment_0 ) ) ;
     public final void rule__AlphaCommandCategory__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:658:1: ( ( ( rule__AlphaCommandCategory__NameAssignment_0 ) ) )
-            // InternalCommands.g:659:1: ( ( rule__AlphaCommandCategory__NameAssignment_0 ) )
+            // InternalCommands.g:670:1: ( ( ( rule__AlphaCommandCategory__NameAssignment_0 ) ) )
+            // InternalCommands.g:671:1: ( ( rule__AlphaCommandCategory__NameAssignment_0 ) )
             {
-            // InternalCommands.g:659:1: ( ( rule__AlphaCommandCategory__NameAssignment_0 ) )
-            // InternalCommands.g:660:2: ( rule__AlphaCommandCategory__NameAssignment_0 )
+            // InternalCommands.g:671:1: ( ( rule__AlphaCommandCategory__NameAssignment_0 ) )
+            // InternalCommands.g:672:2: ( rule__AlphaCommandCategory__NameAssignment_0 )
             {
              before(grammarAccess.getAlphaCommandCategoryAccess().getNameAssignment_0()); 
-            // InternalCommands.g:661:2: ( rule__AlphaCommandCategory__NameAssignment_0 )
-            // InternalCommands.g:661:3: rule__AlphaCommandCategory__NameAssignment_0
+            // InternalCommands.g:673:2: ( rule__AlphaCommandCategory__NameAssignment_0 )
+            // InternalCommands.g:673:3: rule__AlphaCommandCategory__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandCategory__NameAssignment_0();
@@ -2218,14 +2262,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__Group__1"
-    // InternalCommands.g:669:1: rule__AlphaCommandCategory__Group__1 : rule__AlphaCommandCategory__Group__1__Impl rule__AlphaCommandCategory__Group__2 ;
+    // InternalCommands.g:681:1: rule__AlphaCommandCategory__Group__1 : rule__AlphaCommandCategory__Group__1__Impl rule__AlphaCommandCategory__Group__2 ;
     public final void rule__AlphaCommandCategory__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:673:1: ( rule__AlphaCommandCategory__Group__1__Impl rule__AlphaCommandCategory__Group__2 )
-            // InternalCommands.g:674:2: rule__AlphaCommandCategory__Group__1__Impl rule__AlphaCommandCategory__Group__2
+            // InternalCommands.g:685:1: ( rule__AlphaCommandCategory__Group__1__Impl rule__AlphaCommandCategory__Group__2 )
+            // InternalCommands.g:686:2: rule__AlphaCommandCategory__Group__1__Impl rule__AlphaCommandCategory__Group__2
             {
             pushFollow(FOLLOW_5);
             rule__AlphaCommandCategory__Group__1__Impl();
@@ -2256,20 +2300,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__Group__1__Impl"
-    // InternalCommands.g:681:1: rule__AlphaCommandCategory__Group__1__Impl : ( '{' ) ;
+    // InternalCommands.g:693:1: rule__AlphaCommandCategory__Group__1__Impl : ( '{' ) ;
     public final void rule__AlphaCommandCategory__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:685:1: ( ( '{' ) )
-            // InternalCommands.g:686:1: ( '{' )
+            // InternalCommands.g:697:1: ( ( '{' ) )
+            // InternalCommands.g:698:1: ( '{' )
             {
-            // InternalCommands.g:686:1: ( '{' )
-            // InternalCommands.g:687:2: '{'
+            // InternalCommands.g:698:1: ( '{' )
+            // InternalCommands.g:699:2: '{'
             {
              before(grammarAccess.getAlphaCommandCategoryAccess().getLeftCurlyBracketKeyword_1()); 
-            match(input,38,FOLLOW_2); 
+            match(input,40,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandCategoryAccess().getLeftCurlyBracketKeyword_1()); 
 
             }
@@ -2293,14 +2337,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__Group__2"
-    // InternalCommands.g:696:1: rule__AlphaCommandCategory__Group__2 : rule__AlphaCommandCategory__Group__2__Impl rule__AlphaCommandCategory__Group__3 ;
+    // InternalCommands.g:708:1: rule__AlphaCommandCategory__Group__2 : rule__AlphaCommandCategory__Group__2__Impl rule__AlphaCommandCategory__Group__3 ;
     public final void rule__AlphaCommandCategory__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:700:1: ( rule__AlphaCommandCategory__Group__2__Impl rule__AlphaCommandCategory__Group__3 )
-            // InternalCommands.g:701:2: rule__AlphaCommandCategory__Group__2__Impl rule__AlphaCommandCategory__Group__3
+            // InternalCommands.g:712:1: ( rule__AlphaCommandCategory__Group__2__Impl rule__AlphaCommandCategory__Group__3 )
+            // InternalCommands.g:713:2: rule__AlphaCommandCategory__Group__2__Impl rule__AlphaCommandCategory__Group__3
             {
             pushFollow(FOLLOW_5);
             rule__AlphaCommandCategory__Group__2__Impl();
@@ -2331,33 +2375,33 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__Group__2__Impl"
-    // InternalCommands.g:708:1: rule__AlphaCommandCategory__Group__2__Impl : ( ( rule__AlphaCommandCategory__CommandsAssignment_2 )* ) ;
+    // InternalCommands.g:720:1: rule__AlphaCommandCategory__Group__2__Impl : ( ( rule__AlphaCommandCategory__CommandsAssignment_2 )* ) ;
     public final void rule__AlphaCommandCategory__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:712:1: ( ( ( rule__AlphaCommandCategory__CommandsAssignment_2 )* ) )
-            // InternalCommands.g:713:1: ( ( rule__AlphaCommandCategory__CommandsAssignment_2 )* )
+            // InternalCommands.g:724:1: ( ( ( rule__AlphaCommandCategory__CommandsAssignment_2 )* ) )
+            // InternalCommands.g:725:1: ( ( rule__AlphaCommandCategory__CommandsAssignment_2 )* )
             {
-            // InternalCommands.g:713:1: ( ( rule__AlphaCommandCategory__CommandsAssignment_2 )* )
-            // InternalCommands.g:714:2: ( rule__AlphaCommandCategory__CommandsAssignment_2 )*
+            // InternalCommands.g:725:1: ( ( rule__AlphaCommandCategory__CommandsAssignment_2 )* )
+            // InternalCommands.g:726:2: ( rule__AlphaCommandCategory__CommandsAssignment_2 )*
             {
              before(grammarAccess.getAlphaCommandCategoryAccess().getCommandsAssignment_2()); 
-            // InternalCommands.g:715:2: ( rule__AlphaCommandCategory__CommandsAssignment_2 )*
+            // InternalCommands.g:727:2: ( rule__AlphaCommandCategory__CommandsAssignment_2 )*
             loop6:
             do {
                 int alt6=2;
                 int LA6_0 = input.LA(1);
 
-                if ( (LA6_0==RULE_ID||LA6_0==41) ) {
+                if ( (LA6_0==RULE_ID||LA6_0==43) ) {
                     alt6=1;
                 }
 
 
                 switch (alt6) {
             	case 1 :
-            	    // InternalCommands.g:715:3: rule__AlphaCommandCategory__CommandsAssignment_2
+            	    // InternalCommands.g:727:3: rule__AlphaCommandCategory__CommandsAssignment_2
             	    {
             	    pushFollow(FOLLOW_6);
             	    rule__AlphaCommandCategory__CommandsAssignment_2();
@@ -2396,14 +2440,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__Group__3"
-    // InternalCommands.g:723:1: rule__AlphaCommandCategory__Group__3 : rule__AlphaCommandCategory__Group__3__Impl ;
+    // InternalCommands.g:735:1: rule__AlphaCommandCategory__Group__3 : rule__AlphaCommandCategory__Group__3__Impl ;
     public final void rule__AlphaCommandCategory__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:727:1: ( rule__AlphaCommandCategory__Group__3__Impl )
-            // InternalCommands.g:728:2: rule__AlphaCommandCategory__Group__3__Impl
+            // InternalCommands.g:739:1: ( rule__AlphaCommandCategory__Group__3__Impl )
+            // InternalCommands.g:740:2: rule__AlphaCommandCategory__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandCategory__Group__3__Impl();
@@ -2429,20 +2473,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__Group__3__Impl"
-    // InternalCommands.g:734:1: rule__AlphaCommandCategory__Group__3__Impl : ( '}' ) ;
+    // InternalCommands.g:746:1: rule__AlphaCommandCategory__Group__3__Impl : ( '}' ) ;
     public final void rule__AlphaCommandCategory__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:738:1: ( ( '}' ) )
-            // InternalCommands.g:739:1: ( '}' )
+            // InternalCommands.g:750:1: ( ( '}' ) )
+            // InternalCommands.g:751:1: ( '}' )
             {
-            // InternalCommands.g:739:1: ( '}' )
-            // InternalCommands.g:740:2: '}'
+            // InternalCommands.g:751:1: ( '}' )
+            // InternalCommands.g:752:2: '}'
             {
              before(grammarAccess.getAlphaCommandCategoryAccess().getRightCurlyBracketKeyword_3()); 
-            match(input,39,FOLLOW_2); 
+            match(input,41,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandCategoryAccess().getRightCurlyBracketKeyword_3()); 
 
             }
@@ -2466,14 +2510,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__0"
-    // InternalCommands.g:750:1: rule__AlphaCommand__Group__0 : rule__AlphaCommand__Group__0__Impl rule__AlphaCommand__Group__1 ;
+    // InternalCommands.g:762:1: rule__AlphaCommand__Group__0 : rule__AlphaCommand__Group__0__Impl rule__AlphaCommand__Group__1 ;
     public final void rule__AlphaCommand__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:754:1: ( rule__AlphaCommand__Group__0__Impl rule__AlphaCommand__Group__1 )
-            // InternalCommands.g:755:2: rule__AlphaCommand__Group__0__Impl rule__AlphaCommand__Group__1
+            // InternalCommands.g:766:1: ( rule__AlphaCommand__Group__0__Impl rule__AlphaCommand__Group__1 )
+            // InternalCommands.g:767:2: rule__AlphaCommand__Group__0__Impl rule__AlphaCommand__Group__1
             {
             pushFollow(FOLLOW_7);
             rule__AlphaCommand__Group__0__Impl();
@@ -2504,29 +2548,29 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__0__Impl"
-    // InternalCommands.g:762:1: rule__AlphaCommand__Group__0__Impl : ( ( rule__AlphaCommand__BindingAssignment_0 )? ) ;
+    // InternalCommands.g:774:1: rule__AlphaCommand__Group__0__Impl : ( ( rule__AlphaCommand__BindingAssignment_0 )? ) ;
     public final void rule__AlphaCommand__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:766:1: ( ( ( rule__AlphaCommand__BindingAssignment_0 )? ) )
-            // InternalCommands.g:767:1: ( ( rule__AlphaCommand__BindingAssignment_0 )? )
+            // InternalCommands.g:778:1: ( ( ( rule__AlphaCommand__BindingAssignment_0 )? ) )
+            // InternalCommands.g:779:1: ( ( rule__AlphaCommand__BindingAssignment_0 )? )
             {
-            // InternalCommands.g:767:1: ( ( rule__AlphaCommand__BindingAssignment_0 )? )
-            // InternalCommands.g:768:2: ( rule__AlphaCommand__BindingAssignment_0 )?
+            // InternalCommands.g:779:1: ( ( rule__AlphaCommand__BindingAssignment_0 )? )
+            // InternalCommands.g:780:2: ( rule__AlphaCommand__BindingAssignment_0 )?
             {
              before(grammarAccess.getAlphaCommandAccess().getBindingAssignment_0()); 
-            // InternalCommands.g:769:2: ( rule__AlphaCommand__BindingAssignment_0 )?
+            // InternalCommands.g:781:2: ( rule__AlphaCommand__BindingAssignment_0 )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
-            if ( (LA7_0==41) ) {
+            if ( (LA7_0==43) ) {
                 alt7=1;
             }
             switch (alt7) {
                 case 1 :
-                    // InternalCommands.g:769:3: rule__AlphaCommand__BindingAssignment_0
+                    // InternalCommands.g:781:3: rule__AlphaCommand__BindingAssignment_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__AlphaCommand__BindingAssignment_0();
@@ -2562,14 +2606,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__1"
-    // InternalCommands.g:777:1: rule__AlphaCommand__Group__1 : rule__AlphaCommand__Group__1__Impl rule__AlphaCommand__Group__2 ;
+    // InternalCommands.g:789:1: rule__AlphaCommand__Group__1 : rule__AlphaCommand__Group__1__Impl rule__AlphaCommand__Group__2 ;
     public final void rule__AlphaCommand__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:781:1: ( rule__AlphaCommand__Group__1__Impl rule__AlphaCommand__Group__2 )
-            // InternalCommands.g:782:2: rule__AlphaCommand__Group__1__Impl rule__AlphaCommand__Group__2
+            // InternalCommands.g:793:1: ( rule__AlphaCommand__Group__1__Impl rule__AlphaCommand__Group__2 )
+            // InternalCommands.g:794:2: rule__AlphaCommand__Group__1__Impl rule__AlphaCommand__Group__2
             {
             pushFollow(FOLLOW_7);
             rule__AlphaCommand__Group__1__Impl();
@@ -2600,33 +2644,33 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__1__Impl"
-    // InternalCommands.g:789:1: rule__AlphaCommand__Group__1__Impl : ( ( rule__AlphaCommand__Group_1__0 )? ) ;
+    // InternalCommands.g:801:1: rule__AlphaCommand__Group__1__Impl : ( ( rule__AlphaCommand__Group_1__0 )? ) ;
     public final void rule__AlphaCommand__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:793:1: ( ( ( rule__AlphaCommand__Group_1__0 )? ) )
-            // InternalCommands.g:794:1: ( ( rule__AlphaCommand__Group_1__0 )? )
+            // InternalCommands.g:805:1: ( ( ( rule__AlphaCommand__Group_1__0 )? ) )
+            // InternalCommands.g:806:1: ( ( rule__AlphaCommand__Group_1__0 )? )
             {
-            // InternalCommands.g:794:1: ( ( rule__AlphaCommand__Group_1__0 )? )
-            // InternalCommands.g:795:2: ( rule__AlphaCommand__Group_1__0 )?
+            // InternalCommands.g:806:1: ( ( rule__AlphaCommand__Group_1__0 )? )
+            // InternalCommands.g:807:2: ( rule__AlphaCommand__Group_1__0 )?
             {
              before(grammarAccess.getAlphaCommandAccess().getGroup_1()); 
-            // InternalCommands.g:796:2: ( rule__AlphaCommand__Group_1__0 )?
+            // InternalCommands.g:808:2: ( rule__AlphaCommand__Group_1__0 )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
             if ( (LA8_0==RULE_ID) ) {
                 int LA8_1 = input.LA(2);
 
-                if ( (LA8_1==40) ) {
+                if ( (LA8_1==42) ) {
                     alt8=1;
                 }
             }
             switch (alt8) {
                 case 1 :
-                    // InternalCommands.g:796:3: rule__AlphaCommand__Group_1__0
+                    // InternalCommands.g:808:3: rule__AlphaCommand__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__AlphaCommand__Group_1__0();
@@ -2662,14 +2706,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__2"
-    // InternalCommands.g:804:1: rule__AlphaCommand__Group__2 : rule__AlphaCommand__Group__2__Impl rule__AlphaCommand__Group__3 ;
+    // InternalCommands.g:816:1: rule__AlphaCommand__Group__2 : rule__AlphaCommand__Group__2__Impl rule__AlphaCommand__Group__3 ;
     public final void rule__AlphaCommand__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:808:1: ( rule__AlphaCommand__Group__2__Impl rule__AlphaCommand__Group__3 )
-            // InternalCommands.g:809:2: rule__AlphaCommand__Group__2__Impl rule__AlphaCommand__Group__3
+            // InternalCommands.g:820:1: ( rule__AlphaCommand__Group__2__Impl rule__AlphaCommand__Group__3 )
+            // InternalCommands.g:821:2: rule__AlphaCommand__Group__2__Impl rule__AlphaCommand__Group__3
             {
             pushFollow(FOLLOW_8);
             rule__AlphaCommand__Group__2__Impl();
@@ -2700,21 +2744,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__2__Impl"
-    // InternalCommands.g:816:1: rule__AlphaCommand__Group__2__Impl : ( ( rule__AlphaCommand__NameAssignment_2 ) ) ;
+    // InternalCommands.g:828:1: rule__AlphaCommand__Group__2__Impl : ( ( rule__AlphaCommand__NameAssignment_2 ) ) ;
     public final void rule__AlphaCommand__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:820:1: ( ( ( rule__AlphaCommand__NameAssignment_2 ) ) )
-            // InternalCommands.g:821:1: ( ( rule__AlphaCommand__NameAssignment_2 ) )
+            // InternalCommands.g:832:1: ( ( ( rule__AlphaCommand__NameAssignment_2 ) ) )
+            // InternalCommands.g:833:1: ( ( rule__AlphaCommand__NameAssignment_2 ) )
             {
-            // InternalCommands.g:821:1: ( ( rule__AlphaCommand__NameAssignment_2 ) )
-            // InternalCommands.g:822:2: ( rule__AlphaCommand__NameAssignment_2 )
+            // InternalCommands.g:833:1: ( ( rule__AlphaCommand__NameAssignment_2 ) )
+            // InternalCommands.g:834:2: ( rule__AlphaCommand__NameAssignment_2 )
             {
              before(grammarAccess.getAlphaCommandAccess().getNameAssignment_2()); 
-            // InternalCommands.g:823:2: ( rule__AlphaCommand__NameAssignment_2 )
-            // InternalCommands.g:823:3: rule__AlphaCommand__NameAssignment_2
+            // InternalCommands.g:835:2: ( rule__AlphaCommand__NameAssignment_2 )
+            // InternalCommands.g:835:3: rule__AlphaCommand__NameAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommand__NameAssignment_2();
@@ -2747,14 +2791,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__3"
-    // InternalCommands.g:831:1: rule__AlphaCommand__Group__3 : rule__AlphaCommand__Group__3__Impl rule__AlphaCommand__Group__4 ;
+    // InternalCommands.g:843:1: rule__AlphaCommand__Group__3 : rule__AlphaCommand__Group__3__Impl rule__AlphaCommand__Group__4 ;
     public final void rule__AlphaCommand__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:835:1: ( rule__AlphaCommand__Group__3__Impl rule__AlphaCommand__Group__4 )
-            // InternalCommands.g:836:2: rule__AlphaCommand__Group__3__Impl rule__AlphaCommand__Group__4
+            // InternalCommands.g:847:1: ( rule__AlphaCommand__Group__3__Impl rule__AlphaCommand__Group__4 )
+            // InternalCommands.g:848:2: rule__AlphaCommand__Group__3__Impl rule__AlphaCommand__Group__4
             {
             pushFollow(FOLLOW_9);
             rule__AlphaCommand__Group__3__Impl();
@@ -2785,21 +2829,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__3__Impl"
-    // InternalCommands.g:843:1: rule__AlphaCommand__Group__3__Impl : ( ( rule__AlphaCommand__SignatureAssignment_3 ) ) ;
+    // InternalCommands.g:855:1: rule__AlphaCommand__Group__3__Impl : ( ( rule__AlphaCommand__SignatureAssignment_3 ) ) ;
     public final void rule__AlphaCommand__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:847:1: ( ( ( rule__AlphaCommand__SignatureAssignment_3 ) ) )
-            // InternalCommands.g:848:1: ( ( rule__AlphaCommand__SignatureAssignment_3 ) )
+            // InternalCommands.g:859:1: ( ( ( rule__AlphaCommand__SignatureAssignment_3 ) ) )
+            // InternalCommands.g:860:1: ( ( rule__AlphaCommand__SignatureAssignment_3 ) )
             {
-            // InternalCommands.g:848:1: ( ( rule__AlphaCommand__SignatureAssignment_3 ) )
-            // InternalCommands.g:849:2: ( rule__AlphaCommand__SignatureAssignment_3 )
+            // InternalCommands.g:860:1: ( ( rule__AlphaCommand__SignatureAssignment_3 ) )
+            // InternalCommands.g:861:2: ( rule__AlphaCommand__SignatureAssignment_3 )
             {
              before(grammarAccess.getAlphaCommandAccess().getSignatureAssignment_3()); 
-            // InternalCommands.g:850:2: ( rule__AlphaCommand__SignatureAssignment_3 )
-            // InternalCommands.g:850:3: rule__AlphaCommand__SignatureAssignment_3
+            // InternalCommands.g:862:2: ( rule__AlphaCommand__SignatureAssignment_3 )
+            // InternalCommands.g:862:3: rule__AlphaCommand__SignatureAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommand__SignatureAssignment_3();
@@ -2832,14 +2876,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__4"
-    // InternalCommands.g:858:1: rule__AlphaCommand__Group__4 : rule__AlphaCommand__Group__4__Impl ;
+    // InternalCommands.g:870:1: rule__AlphaCommand__Group__4 : rule__AlphaCommand__Group__4__Impl ;
     public final void rule__AlphaCommand__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:862:1: ( rule__AlphaCommand__Group__4__Impl )
-            // InternalCommands.g:863:2: rule__AlphaCommand__Group__4__Impl
+            // InternalCommands.g:874:1: ( rule__AlphaCommand__Group__4__Impl )
+            // InternalCommands.g:875:2: rule__AlphaCommand__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommand__Group__4__Impl();
@@ -2865,33 +2909,33 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group__4__Impl"
-    // InternalCommands.g:869:1: rule__AlphaCommand__Group__4__Impl : ( ( rule__AlphaCommand__SpecializationsAssignment_4 )* ) ;
+    // InternalCommands.g:881:1: rule__AlphaCommand__Group__4__Impl : ( ( rule__AlphaCommand__SpecializationsAssignment_4 )* ) ;
     public final void rule__AlphaCommand__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:873:1: ( ( ( rule__AlphaCommand__SpecializationsAssignment_4 )* ) )
-            // InternalCommands.g:874:1: ( ( rule__AlphaCommand__SpecializationsAssignment_4 )* )
+            // InternalCommands.g:885:1: ( ( ( rule__AlphaCommand__SpecializationsAssignment_4 )* ) )
+            // InternalCommands.g:886:1: ( ( rule__AlphaCommand__SpecializationsAssignment_4 )* )
             {
-            // InternalCommands.g:874:1: ( ( rule__AlphaCommand__SpecializationsAssignment_4 )* )
-            // InternalCommands.g:875:2: ( rule__AlphaCommand__SpecializationsAssignment_4 )*
+            // InternalCommands.g:886:1: ( ( rule__AlphaCommand__SpecializationsAssignment_4 )* )
+            // InternalCommands.g:887:2: ( rule__AlphaCommand__SpecializationsAssignment_4 )*
             {
              before(grammarAccess.getAlphaCommandAccess().getSpecializationsAssignment_4()); 
-            // InternalCommands.g:876:2: ( rule__AlphaCommand__SpecializationsAssignment_4 )*
+            // InternalCommands.g:888:2: ( rule__AlphaCommand__SpecializationsAssignment_4 )*
             loop9:
             do {
                 int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( (LA9_0==47) ) {
+                if ( (LA9_0==49) ) {
                     alt9=1;
                 }
 
 
                 switch (alt9) {
             	case 1 :
-            	    // InternalCommands.g:876:3: rule__AlphaCommand__SpecializationsAssignment_4
+            	    // InternalCommands.g:888:3: rule__AlphaCommand__SpecializationsAssignment_4
             	    {
             	    pushFollow(FOLLOW_10);
             	    rule__AlphaCommand__SpecializationsAssignment_4();
@@ -2930,14 +2974,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group_1__0"
-    // InternalCommands.g:885:1: rule__AlphaCommand__Group_1__0 : rule__AlphaCommand__Group_1__0__Impl rule__AlphaCommand__Group_1__1 ;
+    // InternalCommands.g:897:1: rule__AlphaCommand__Group_1__0 : rule__AlphaCommand__Group_1__0__Impl rule__AlphaCommand__Group_1__1 ;
     public final void rule__AlphaCommand__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:889:1: ( rule__AlphaCommand__Group_1__0__Impl rule__AlphaCommand__Group_1__1 )
-            // InternalCommands.g:890:2: rule__AlphaCommand__Group_1__0__Impl rule__AlphaCommand__Group_1__1
+            // InternalCommands.g:901:1: ( rule__AlphaCommand__Group_1__0__Impl rule__AlphaCommand__Group_1__1 )
+            // InternalCommands.g:902:2: rule__AlphaCommand__Group_1__0__Impl rule__AlphaCommand__Group_1__1
             {
             pushFollow(FOLLOW_11);
             rule__AlphaCommand__Group_1__0__Impl();
@@ -2968,21 +3012,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group_1__0__Impl"
-    // InternalCommands.g:897:1: rule__AlphaCommand__Group_1__0__Impl : ( ( rule__AlphaCommand__LabelAssignment_1_0 ) ) ;
+    // InternalCommands.g:909:1: rule__AlphaCommand__Group_1__0__Impl : ( ( rule__AlphaCommand__LabelAssignment_1_0 ) ) ;
     public final void rule__AlphaCommand__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:901:1: ( ( ( rule__AlphaCommand__LabelAssignment_1_0 ) ) )
-            // InternalCommands.g:902:1: ( ( rule__AlphaCommand__LabelAssignment_1_0 ) )
+            // InternalCommands.g:913:1: ( ( ( rule__AlphaCommand__LabelAssignment_1_0 ) ) )
+            // InternalCommands.g:914:1: ( ( rule__AlphaCommand__LabelAssignment_1_0 ) )
             {
-            // InternalCommands.g:902:1: ( ( rule__AlphaCommand__LabelAssignment_1_0 ) )
-            // InternalCommands.g:903:2: ( rule__AlphaCommand__LabelAssignment_1_0 )
+            // InternalCommands.g:914:1: ( ( rule__AlphaCommand__LabelAssignment_1_0 ) )
+            // InternalCommands.g:915:2: ( rule__AlphaCommand__LabelAssignment_1_0 )
             {
              before(grammarAccess.getAlphaCommandAccess().getLabelAssignment_1_0()); 
-            // InternalCommands.g:904:2: ( rule__AlphaCommand__LabelAssignment_1_0 )
-            // InternalCommands.g:904:3: rule__AlphaCommand__LabelAssignment_1_0
+            // InternalCommands.g:916:2: ( rule__AlphaCommand__LabelAssignment_1_0 )
+            // InternalCommands.g:916:3: rule__AlphaCommand__LabelAssignment_1_0
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommand__LabelAssignment_1_0();
@@ -3015,14 +3059,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group_1__1"
-    // InternalCommands.g:912:1: rule__AlphaCommand__Group_1__1 : rule__AlphaCommand__Group_1__1__Impl ;
+    // InternalCommands.g:924:1: rule__AlphaCommand__Group_1__1 : rule__AlphaCommand__Group_1__1__Impl ;
     public final void rule__AlphaCommand__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:916:1: ( rule__AlphaCommand__Group_1__1__Impl )
-            // InternalCommands.g:917:2: rule__AlphaCommand__Group_1__1__Impl
+            // InternalCommands.g:928:1: ( rule__AlphaCommand__Group_1__1__Impl )
+            // InternalCommands.g:929:2: rule__AlphaCommand__Group_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommand__Group_1__1__Impl();
@@ -3048,20 +3092,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__Group_1__1__Impl"
-    // InternalCommands.g:923:1: rule__AlphaCommand__Group_1__1__Impl : ( ':' ) ;
+    // InternalCommands.g:935:1: rule__AlphaCommand__Group_1__1__Impl : ( ':' ) ;
     public final void rule__AlphaCommand__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:927:1: ( ( ':' ) )
-            // InternalCommands.g:928:1: ( ':' )
+            // InternalCommands.g:939:1: ( ( ':' ) )
+            // InternalCommands.g:940:1: ( ':' )
             {
-            // InternalCommands.g:928:1: ( ':' )
-            // InternalCommands.g:929:2: ':'
+            // InternalCommands.g:940:1: ( ':' )
+            // InternalCommands.g:941:2: ':'
             {
              before(grammarAccess.getAlphaCommandAccess().getColonKeyword_1_1()); 
-            match(input,40,FOLLOW_2); 
+            match(input,42,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandAccess().getColonKeyword_1_1()); 
 
             }
@@ -3085,14 +3129,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__0"
-    // InternalCommands.g:939:1: rule__CommandBinding__Group__0 : rule__CommandBinding__Group__0__Impl rule__CommandBinding__Group__1 ;
+    // InternalCommands.g:951:1: rule__CommandBinding__Group__0 : rule__CommandBinding__Group__0__Impl rule__CommandBinding__Group__1 ;
     public final void rule__CommandBinding__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:943:1: ( rule__CommandBinding__Group__0__Impl rule__CommandBinding__Group__1 )
-            // InternalCommands.g:944:2: rule__CommandBinding__Group__0__Impl rule__CommandBinding__Group__1
+            // InternalCommands.g:955:1: ( rule__CommandBinding__Group__0__Impl rule__CommandBinding__Group__1 )
+            // InternalCommands.g:956:2: rule__CommandBinding__Group__0__Impl rule__CommandBinding__Group__1
             {
             pushFollow(FOLLOW_8);
             rule__CommandBinding__Group__0__Impl();
@@ -3123,20 +3167,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__0__Impl"
-    // InternalCommands.g:951:1: rule__CommandBinding__Group__0__Impl : ( '@Bind' ) ;
+    // InternalCommands.g:963:1: rule__CommandBinding__Group__0__Impl : ( '@Bind' ) ;
     public final void rule__CommandBinding__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:955:1: ( ( '@Bind' ) )
-            // InternalCommands.g:956:1: ( '@Bind' )
+            // InternalCommands.g:967:1: ( ( '@Bind' ) )
+            // InternalCommands.g:968:1: ( '@Bind' )
             {
-            // InternalCommands.g:956:1: ( '@Bind' )
-            // InternalCommands.g:957:2: '@Bind'
+            // InternalCommands.g:968:1: ( '@Bind' )
+            // InternalCommands.g:969:2: '@Bind'
             {
              before(grammarAccess.getCommandBindingAccess().getBindKeyword_0()); 
-            match(input,41,FOLLOW_2); 
+            match(input,43,FOLLOW_2); 
              after(grammarAccess.getCommandBindingAccess().getBindKeyword_0()); 
 
             }
@@ -3160,14 +3204,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__1"
-    // InternalCommands.g:966:1: rule__CommandBinding__Group__1 : rule__CommandBinding__Group__1__Impl rule__CommandBinding__Group__2 ;
+    // InternalCommands.g:978:1: rule__CommandBinding__Group__1 : rule__CommandBinding__Group__1__Impl rule__CommandBinding__Group__2 ;
     public final void rule__CommandBinding__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:970:1: ( rule__CommandBinding__Group__1__Impl rule__CommandBinding__Group__2 )
-            // InternalCommands.g:971:2: rule__CommandBinding__Group__1__Impl rule__CommandBinding__Group__2
+            // InternalCommands.g:982:1: ( rule__CommandBinding__Group__1__Impl rule__CommandBinding__Group__2 )
+            // InternalCommands.g:983:2: rule__CommandBinding__Group__1__Impl rule__CommandBinding__Group__2
             {
             pushFollow(FOLLOW_12);
             rule__CommandBinding__Group__1__Impl();
@@ -3198,20 +3242,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__1__Impl"
-    // InternalCommands.g:978:1: rule__CommandBinding__Group__1__Impl : ( '(' ) ;
+    // InternalCommands.g:990:1: rule__CommandBinding__Group__1__Impl : ( '(' ) ;
     public final void rule__CommandBinding__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:982:1: ( ( '(' ) )
-            // InternalCommands.g:983:1: ( '(' )
+            // InternalCommands.g:994:1: ( ( '(' ) )
+            // InternalCommands.g:995:1: ( '(' )
             {
-            // InternalCommands.g:983:1: ( '(' )
-            // InternalCommands.g:984:2: '('
+            // InternalCommands.g:995:1: ( '(' )
+            // InternalCommands.g:996:2: '('
             {
              before(grammarAccess.getCommandBindingAccess().getLeftParenthesisKeyword_1()); 
-            match(input,42,FOLLOW_2); 
+            match(input,44,FOLLOW_2); 
              after(grammarAccess.getCommandBindingAccess().getLeftParenthesisKeyword_1()); 
 
             }
@@ -3235,14 +3279,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__2"
-    // InternalCommands.g:993:1: rule__CommandBinding__Group__2 : rule__CommandBinding__Group__2__Impl rule__CommandBinding__Group__3 ;
+    // InternalCommands.g:1005:1: rule__CommandBinding__Group__2 : rule__CommandBinding__Group__2__Impl rule__CommandBinding__Group__3 ;
     public final void rule__CommandBinding__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:997:1: ( rule__CommandBinding__Group__2__Impl rule__CommandBinding__Group__3 )
-            // InternalCommands.g:998:2: rule__CommandBinding__Group__2__Impl rule__CommandBinding__Group__3
+            // InternalCommands.g:1009:1: ( rule__CommandBinding__Group__2__Impl rule__CommandBinding__Group__3 )
+            // InternalCommands.g:1010:2: rule__CommandBinding__Group__2__Impl rule__CommandBinding__Group__3
             {
             pushFollow(FOLLOW_13);
             rule__CommandBinding__Group__2__Impl();
@@ -3273,21 +3317,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__2__Impl"
-    // InternalCommands.g:1005:1: rule__CommandBinding__Group__2__Impl : ( ( rule__CommandBinding__BindTargetCommandAssignment_2 ) ) ;
+    // InternalCommands.g:1017:1: rule__CommandBinding__Group__2__Impl : ( ( rule__CommandBinding__BindTargetCommandAssignment_2 ) ) ;
     public final void rule__CommandBinding__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1009:1: ( ( ( rule__CommandBinding__BindTargetCommandAssignment_2 ) ) )
-            // InternalCommands.g:1010:1: ( ( rule__CommandBinding__BindTargetCommandAssignment_2 ) )
+            // InternalCommands.g:1021:1: ( ( ( rule__CommandBinding__BindTargetCommandAssignment_2 ) ) )
+            // InternalCommands.g:1022:1: ( ( rule__CommandBinding__BindTargetCommandAssignment_2 ) )
             {
-            // InternalCommands.g:1010:1: ( ( rule__CommandBinding__BindTargetCommandAssignment_2 ) )
-            // InternalCommands.g:1011:2: ( rule__CommandBinding__BindTargetCommandAssignment_2 )
+            // InternalCommands.g:1022:1: ( ( rule__CommandBinding__BindTargetCommandAssignment_2 ) )
+            // InternalCommands.g:1023:2: ( rule__CommandBinding__BindTargetCommandAssignment_2 )
             {
              before(grammarAccess.getCommandBindingAccess().getBindTargetCommandAssignment_2()); 
-            // InternalCommands.g:1012:2: ( rule__CommandBinding__BindTargetCommandAssignment_2 )
-            // InternalCommands.g:1012:3: rule__CommandBinding__BindTargetCommandAssignment_2
+            // InternalCommands.g:1024:2: ( rule__CommandBinding__BindTargetCommandAssignment_2 )
+            // InternalCommands.g:1024:3: rule__CommandBinding__BindTargetCommandAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__CommandBinding__BindTargetCommandAssignment_2();
@@ -3320,14 +3364,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__3"
-    // InternalCommands.g:1020:1: rule__CommandBinding__Group__3 : rule__CommandBinding__Group__3__Impl rule__CommandBinding__Group__4 ;
+    // InternalCommands.g:1032:1: rule__CommandBinding__Group__3 : rule__CommandBinding__Group__3__Impl rule__CommandBinding__Group__4 ;
     public final void rule__CommandBinding__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1024:1: ( rule__CommandBinding__Group__3__Impl rule__CommandBinding__Group__4 )
-            // InternalCommands.g:1025:2: rule__CommandBinding__Group__3__Impl rule__CommandBinding__Group__4
+            // InternalCommands.g:1036:1: ( rule__CommandBinding__Group__3__Impl rule__CommandBinding__Group__4 )
+            // InternalCommands.g:1037:2: rule__CommandBinding__Group__3__Impl rule__CommandBinding__Group__4
             {
             pushFollow(FOLLOW_12);
             rule__CommandBinding__Group__3__Impl();
@@ -3358,20 +3402,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__3__Impl"
-    // InternalCommands.g:1032:1: rule__CommandBinding__Group__3__Impl : ( ';' ) ;
+    // InternalCommands.g:1044:1: rule__CommandBinding__Group__3__Impl : ( ';' ) ;
     public final void rule__CommandBinding__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1036:1: ( ( ';' ) )
-            // InternalCommands.g:1037:1: ( ';' )
+            // InternalCommands.g:1048:1: ( ( ';' ) )
+            // InternalCommands.g:1049:1: ( ';' )
             {
-            // InternalCommands.g:1037:1: ( ';' )
-            // InternalCommands.g:1038:2: ';'
+            // InternalCommands.g:1049:1: ( ';' )
+            // InternalCommands.g:1050:2: ';'
             {
              before(grammarAccess.getCommandBindingAccess().getSemicolonKeyword_3()); 
-            match(input,43,FOLLOW_2); 
+            match(input,45,FOLLOW_2); 
              after(grammarAccess.getCommandBindingAccess().getSemicolonKeyword_3()); 
 
             }
@@ -3395,14 +3439,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__4"
-    // InternalCommands.g:1047:1: rule__CommandBinding__Group__4 : rule__CommandBinding__Group__4__Impl rule__CommandBinding__Group__5 ;
+    // InternalCommands.g:1059:1: rule__CommandBinding__Group__4 : rule__CommandBinding__Group__4__Impl rule__CommandBinding__Group__5 ;
     public final void rule__CommandBinding__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1051:1: ( rule__CommandBinding__Group__4__Impl rule__CommandBinding__Group__5 )
-            // InternalCommands.g:1052:2: rule__CommandBinding__Group__4__Impl rule__CommandBinding__Group__5
+            // InternalCommands.g:1063:1: ( rule__CommandBinding__Group__4__Impl rule__CommandBinding__Group__5 )
+            // InternalCommands.g:1064:2: rule__CommandBinding__Group__4__Impl rule__CommandBinding__Group__5
             {
             pushFollow(FOLLOW_14);
             rule__CommandBinding__Group__4__Impl();
@@ -3433,21 +3477,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__4__Impl"
-    // InternalCommands.g:1059:1: rule__CommandBinding__Group__4__Impl : ( ( rule__CommandBinding__Alternatives_4 ) ) ;
+    // InternalCommands.g:1071:1: rule__CommandBinding__Group__4__Impl : ( ( rule__CommandBinding__Alternatives_4 ) ) ;
     public final void rule__CommandBinding__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1063:1: ( ( ( rule__CommandBinding__Alternatives_4 ) ) )
-            // InternalCommands.g:1064:1: ( ( rule__CommandBinding__Alternatives_4 ) )
+            // InternalCommands.g:1075:1: ( ( ( rule__CommandBinding__Alternatives_4 ) ) )
+            // InternalCommands.g:1076:1: ( ( rule__CommandBinding__Alternatives_4 ) )
             {
-            // InternalCommands.g:1064:1: ( ( rule__CommandBinding__Alternatives_4 ) )
-            // InternalCommands.g:1065:2: ( rule__CommandBinding__Alternatives_4 )
+            // InternalCommands.g:1076:1: ( ( rule__CommandBinding__Alternatives_4 ) )
+            // InternalCommands.g:1077:2: ( rule__CommandBinding__Alternatives_4 )
             {
              before(grammarAccess.getCommandBindingAccess().getAlternatives_4()); 
-            // InternalCommands.g:1066:2: ( rule__CommandBinding__Alternatives_4 )
-            // InternalCommands.g:1066:3: rule__CommandBinding__Alternatives_4
+            // InternalCommands.g:1078:2: ( rule__CommandBinding__Alternatives_4 )
+            // InternalCommands.g:1078:3: rule__CommandBinding__Alternatives_4
             {
             pushFollow(FOLLOW_2);
             rule__CommandBinding__Alternatives_4();
@@ -3480,14 +3524,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__5"
-    // InternalCommands.g:1074:1: rule__CommandBinding__Group__5 : rule__CommandBinding__Group__5__Impl rule__CommandBinding__Group__6 ;
+    // InternalCommands.g:1086:1: rule__CommandBinding__Group__5 : rule__CommandBinding__Group__5__Impl rule__CommandBinding__Group__6 ;
     public final void rule__CommandBinding__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1078:1: ( rule__CommandBinding__Group__5__Impl rule__CommandBinding__Group__6 )
-            // InternalCommands.g:1079:2: rule__CommandBinding__Group__5__Impl rule__CommandBinding__Group__6
+            // InternalCommands.g:1090:1: ( rule__CommandBinding__Group__5__Impl rule__CommandBinding__Group__6 )
+            // InternalCommands.g:1091:2: rule__CommandBinding__Group__5__Impl rule__CommandBinding__Group__6
             {
             pushFollow(FOLLOW_14);
             rule__CommandBinding__Group__5__Impl();
@@ -3518,33 +3562,33 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__5__Impl"
-    // InternalCommands.g:1086:1: rule__CommandBinding__Group__5__Impl : ( ( rule__CommandBinding__Group_5__0 )* ) ;
+    // InternalCommands.g:1098:1: rule__CommandBinding__Group__5__Impl : ( ( rule__CommandBinding__Group_5__0 )* ) ;
     public final void rule__CommandBinding__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1090:1: ( ( ( rule__CommandBinding__Group_5__0 )* ) )
-            // InternalCommands.g:1091:1: ( ( rule__CommandBinding__Group_5__0 )* )
+            // InternalCommands.g:1102:1: ( ( ( rule__CommandBinding__Group_5__0 )* ) )
+            // InternalCommands.g:1103:1: ( ( rule__CommandBinding__Group_5__0 )* )
             {
-            // InternalCommands.g:1091:1: ( ( rule__CommandBinding__Group_5__0 )* )
-            // InternalCommands.g:1092:2: ( rule__CommandBinding__Group_5__0 )*
+            // InternalCommands.g:1103:1: ( ( rule__CommandBinding__Group_5__0 )* )
+            // InternalCommands.g:1104:2: ( rule__CommandBinding__Group_5__0 )*
             {
              before(grammarAccess.getCommandBindingAccess().getGroup_5()); 
-            // InternalCommands.g:1093:2: ( rule__CommandBinding__Group_5__0 )*
+            // InternalCommands.g:1105:2: ( rule__CommandBinding__Group_5__0 )*
             loop10:
             do {
                 int alt10=2;
                 int LA10_0 = input.LA(1);
 
-                if ( (LA10_0==45) ) {
+                if ( (LA10_0==47) ) {
                     alt10=1;
                 }
 
 
                 switch (alt10) {
             	case 1 :
-            	    // InternalCommands.g:1093:3: rule__CommandBinding__Group_5__0
+            	    // InternalCommands.g:1105:3: rule__CommandBinding__Group_5__0
             	    {
             	    pushFollow(FOLLOW_15);
             	    rule__CommandBinding__Group_5__0();
@@ -3583,14 +3627,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__6"
-    // InternalCommands.g:1101:1: rule__CommandBinding__Group__6 : rule__CommandBinding__Group__6__Impl ;
+    // InternalCommands.g:1113:1: rule__CommandBinding__Group__6 : rule__CommandBinding__Group__6__Impl ;
     public final void rule__CommandBinding__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1105:1: ( rule__CommandBinding__Group__6__Impl )
-            // InternalCommands.g:1106:2: rule__CommandBinding__Group__6__Impl
+            // InternalCommands.g:1117:1: ( rule__CommandBinding__Group__6__Impl )
+            // InternalCommands.g:1118:2: rule__CommandBinding__Group__6__Impl
             {
             pushFollow(FOLLOW_2);
             rule__CommandBinding__Group__6__Impl();
@@ -3616,20 +3660,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group__6__Impl"
-    // InternalCommands.g:1112:1: rule__CommandBinding__Group__6__Impl : ( ')' ) ;
+    // InternalCommands.g:1124:1: rule__CommandBinding__Group__6__Impl : ( ')' ) ;
     public final void rule__CommandBinding__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1116:1: ( ( ')' ) )
-            // InternalCommands.g:1117:1: ( ')' )
+            // InternalCommands.g:1128:1: ( ( ')' ) )
+            // InternalCommands.g:1129:1: ( ')' )
             {
-            // InternalCommands.g:1117:1: ( ')' )
-            // InternalCommands.g:1118:2: ')'
+            // InternalCommands.g:1129:1: ( ')' )
+            // InternalCommands.g:1130:2: ')'
             {
              before(grammarAccess.getCommandBindingAccess().getRightParenthesisKeyword_6()); 
-            match(input,44,FOLLOW_2); 
+            match(input,46,FOLLOW_2); 
              after(grammarAccess.getCommandBindingAccess().getRightParenthesisKeyword_6()); 
 
             }
@@ -3653,14 +3697,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group_5__0"
-    // InternalCommands.g:1128:1: rule__CommandBinding__Group_5__0 : rule__CommandBinding__Group_5__0__Impl rule__CommandBinding__Group_5__1 ;
+    // InternalCommands.g:1140:1: rule__CommandBinding__Group_5__0 : rule__CommandBinding__Group_5__0__Impl rule__CommandBinding__Group_5__1 ;
     public final void rule__CommandBinding__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1132:1: ( rule__CommandBinding__Group_5__0__Impl rule__CommandBinding__Group_5__1 )
-            // InternalCommands.g:1133:2: rule__CommandBinding__Group_5__0__Impl rule__CommandBinding__Group_5__1
+            // InternalCommands.g:1144:1: ( rule__CommandBinding__Group_5__0__Impl rule__CommandBinding__Group_5__1 )
+            // InternalCommands.g:1145:2: rule__CommandBinding__Group_5__0__Impl rule__CommandBinding__Group_5__1
             {
             pushFollow(FOLLOW_12);
             rule__CommandBinding__Group_5__0__Impl();
@@ -3691,20 +3735,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group_5__0__Impl"
-    // InternalCommands.g:1140:1: rule__CommandBinding__Group_5__0__Impl : ( ',' ) ;
+    // InternalCommands.g:1152:1: rule__CommandBinding__Group_5__0__Impl : ( ',' ) ;
     public final void rule__CommandBinding__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1144:1: ( ( ',' ) )
-            // InternalCommands.g:1145:1: ( ',' )
+            // InternalCommands.g:1156:1: ( ( ',' ) )
+            // InternalCommands.g:1157:1: ( ',' )
             {
-            // InternalCommands.g:1145:1: ( ',' )
-            // InternalCommands.g:1146:2: ','
+            // InternalCommands.g:1157:1: ( ',' )
+            // InternalCommands.g:1158:2: ','
             {
              before(grammarAccess.getCommandBindingAccess().getCommaKeyword_5_0()); 
-            match(input,45,FOLLOW_2); 
+            match(input,47,FOLLOW_2); 
              after(grammarAccess.getCommandBindingAccess().getCommaKeyword_5_0()); 
 
             }
@@ -3728,14 +3772,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group_5__1"
-    // InternalCommands.g:1155:1: rule__CommandBinding__Group_5__1 : rule__CommandBinding__Group_5__1__Impl ;
+    // InternalCommands.g:1167:1: rule__CommandBinding__Group_5__1 : rule__CommandBinding__Group_5__1__Impl ;
     public final void rule__CommandBinding__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1159:1: ( rule__CommandBinding__Group_5__1__Impl )
-            // InternalCommands.g:1160:2: rule__CommandBinding__Group_5__1__Impl
+            // InternalCommands.g:1171:1: ( rule__CommandBinding__Group_5__1__Impl )
+            // InternalCommands.g:1172:2: rule__CommandBinding__Group_5__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__CommandBinding__Group_5__1__Impl();
@@ -3761,21 +3805,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__Group_5__1__Impl"
-    // InternalCommands.g:1166:1: rule__CommandBinding__Group_5__1__Impl : ( ( rule__CommandBinding__Alternatives_5_1 ) ) ;
+    // InternalCommands.g:1178:1: rule__CommandBinding__Group_5__1__Impl : ( ( rule__CommandBinding__Alternatives_5_1 ) ) ;
     public final void rule__CommandBinding__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1170:1: ( ( ( rule__CommandBinding__Alternatives_5_1 ) ) )
-            // InternalCommands.g:1171:1: ( ( rule__CommandBinding__Alternatives_5_1 ) )
+            // InternalCommands.g:1182:1: ( ( ( rule__CommandBinding__Alternatives_5_1 ) ) )
+            // InternalCommands.g:1183:1: ( ( rule__CommandBinding__Alternatives_5_1 ) )
             {
-            // InternalCommands.g:1171:1: ( ( rule__CommandBinding__Alternatives_5_1 ) )
-            // InternalCommands.g:1172:2: ( rule__CommandBinding__Alternatives_5_1 )
+            // InternalCommands.g:1183:1: ( ( rule__CommandBinding__Alternatives_5_1 ) )
+            // InternalCommands.g:1184:2: ( rule__CommandBinding__Alternatives_5_1 )
             {
              before(grammarAccess.getCommandBindingAccess().getAlternatives_5_1()); 
-            // InternalCommands.g:1173:2: ( rule__CommandBinding__Alternatives_5_1 )
-            // InternalCommands.g:1173:3: rule__CommandBinding__Alternatives_5_1
+            // InternalCommands.g:1185:2: ( rule__CommandBinding__Alternatives_5_1 )
+            // InternalCommands.g:1185:3: rule__CommandBinding__Alternatives_5_1
             {
             pushFollow(FOLLOW_2);
             rule__CommandBinding__Alternatives_5_1();
@@ -3808,14 +3852,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__0"
-    // InternalCommands.g:1182:1: rule__ArgumentBinding__Group__0 : rule__ArgumentBinding__Group__0__Impl rule__ArgumentBinding__Group__1 ;
+    // InternalCommands.g:1194:1: rule__ArgumentBinding__Group__0 : rule__ArgumentBinding__Group__0__Impl rule__ArgumentBinding__Group__1 ;
     public final void rule__ArgumentBinding__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1186:1: ( rule__ArgumentBinding__Group__0__Impl rule__ArgumentBinding__Group__1 )
-            // InternalCommands.g:1187:2: rule__ArgumentBinding__Group__0__Impl rule__ArgumentBinding__Group__1
+            // InternalCommands.g:1198:1: ( rule__ArgumentBinding__Group__0__Impl rule__ArgumentBinding__Group__1 )
+            // InternalCommands.g:1199:2: rule__ArgumentBinding__Group__0__Impl rule__ArgumentBinding__Group__1
             {
             pushFollow(FOLLOW_16);
             rule__ArgumentBinding__Group__0__Impl();
@@ -3846,21 +3890,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__0__Impl"
-    // InternalCommands.g:1194:1: rule__ArgumentBinding__Group__0__Impl : ( ( rule__ArgumentBinding__BindTargetAssignment_0 ) ) ;
+    // InternalCommands.g:1206:1: rule__ArgumentBinding__Group__0__Impl : ( ( rule__ArgumentBinding__BindTargetAssignment_0 ) ) ;
     public final void rule__ArgumentBinding__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1198:1: ( ( ( rule__ArgumentBinding__BindTargetAssignment_0 ) ) )
-            // InternalCommands.g:1199:1: ( ( rule__ArgumentBinding__BindTargetAssignment_0 ) )
+            // InternalCommands.g:1210:1: ( ( ( rule__ArgumentBinding__BindTargetAssignment_0 ) ) )
+            // InternalCommands.g:1211:1: ( ( rule__ArgumentBinding__BindTargetAssignment_0 ) )
             {
-            // InternalCommands.g:1199:1: ( ( rule__ArgumentBinding__BindTargetAssignment_0 ) )
-            // InternalCommands.g:1200:2: ( rule__ArgumentBinding__BindTargetAssignment_0 )
+            // InternalCommands.g:1211:1: ( ( rule__ArgumentBinding__BindTargetAssignment_0 ) )
+            // InternalCommands.g:1212:2: ( rule__ArgumentBinding__BindTargetAssignment_0 )
             {
              before(grammarAccess.getArgumentBindingAccess().getBindTargetAssignment_0()); 
-            // InternalCommands.g:1201:2: ( rule__ArgumentBinding__BindTargetAssignment_0 )
-            // InternalCommands.g:1201:3: rule__ArgumentBinding__BindTargetAssignment_0
+            // InternalCommands.g:1213:2: ( rule__ArgumentBinding__BindTargetAssignment_0 )
+            // InternalCommands.g:1213:3: rule__ArgumentBinding__BindTargetAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__ArgumentBinding__BindTargetAssignment_0();
@@ -3893,14 +3937,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__1"
-    // InternalCommands.g:1209:1: rule__ArgumentBinding__Group__1 : rule__ArgumentBinding__Group__1__Impl rule__ArgumentBinding__Group__2 ;
+    // InternalCommands.g:1221:1: rule__ArgumentBinding__Group__1 : rule__ArgumentBinding__Group__1__Impl rule__ArgumentBinding__Group__2 ;
     public final void rule__ArgumentBinding__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1213:1: ( rule__ArgumentBinding__Group__1__Impl rule__ArgumentBinding__Group__2 )
-            // InternalCommands.g:1214:2: rule__ArgumentBinding__Group__1__Impl rule__ArgumentBinding__Group__2
+            // InternalCommands.g:1225:1: ( rule__ArgumentBinding__Group__1__Impl rule__ArgumentBinding__Group__2 )
+            // InternalCommands.g:1226:2: rule__ArgumentBinding__Group__1__Impl rule__ArgumentBinding__Group__2
             {
             pushFollow(FOLLOW_8);
             rule__ArgumentBinding__Group__1__Impl();
@@ -3931,20 +3975,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__1__Impl"
-    // InternalCommands.g:1221:1: rule__ArgumentBinding__Group__1__Impl : ( '=' ) ;
+    // InternalCommands.g:1233:1: rule__ArgumentBinding__Group__1__Impl : ( '=' ) ;
     public final void rule__ArgumentBinding__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1225:1: ( ( '=' ) )
-            // InternalCommands.g:1226:1: ( '=' )
+            // InternalCommands.g:1237:1: ( ( '=' ) )
+            // InternalCommands.g:1238:1: ( '=' )
             {
-            // InternalCommands.g:1226:1: ( '=' )
-            // InternalCommands.g:1227:2: '='
+            // InternalCommands.g:1238:1: ( '=' )
+            // InternalCommands.g:1239:2: '='
             {
              before(grammarAccess.getArgumentBindingAccess().getEqualsSignKeyword_1()); 
-            match(input,46,FOLLOW_2); 
+            match(input,48,FOLLOW_2); 
              after(grammarAccess.getArgumentBindingAccess().getEqualsSignKeyword_1()); 
 
             }
@@ -3968,14 +4012,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__2"
-    // InternalCommands.g:1236:1: rule__ArgumentBinding__Group__2 : rule__ArgumentBinding__Group__2__Impl rule__ArgumentBinding__Group__3 ;
+    // InternalCommands.g:1248:1: rule__ArgumentBinding__Group__2 : rule__ArgumentBinding__Group__2__Impl rule__ArgumentBinding__Group__3 ;
     public final void rule__ArgumentBinding__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1240:1: ( rule__ArgumentBinding__Group__2__Impl rule__ArgumentBinding__Group__3 )
-            // InternalCommands.g:1241:2: rule__ArgumentBinding__Group__2__Impl rule__ArgumentBinding__Group__3
+            // InternalCommands.g:1252:1: ( rule__ArgumentBinding__Group__2__Impl rule__ArgumentBinding__Group__3 )
+            // InternalCommands.g:1253:2: rule__ArgumentBinding__Group__2__Impl rule__ArgumentBinding__Group__3
             {
             pushFollow(FOLLOW_12);
             rule__ArgumentBinding__Group__2__Impl();
@@ -4006,20 +4050,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__2__Impl"
-    // InternalCommands.g:1248:1: rule__ArgumentBinding__Group__2__Impl : ( '(' ) ;
+    // InternalCommands.g:1260:1: rule__ArgumentBinding__Group__2__Impl : ( '(' ) ;
     public final void rule__ArgumentBinding__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1252:1: ( ( '(' ) )
-            // InternalCommands.g:1253:1: ( '(' )
+            // InternalCommands.g:1264:1: ( ( '(' ) )
+            // InternalCommands.g:1265:1: ( '(' )
             {
-            // InternalCommands.g:1253:1: ( '(' )
-            // InternalCommands.g:1254:2: '('
+            // InternalCommands.g:1265:1: ( '(' )
+            // InternalCommands.g:1266:2: '('
             {
              before(grammarAccess.getArgumentBindingAccess().getLeftParenthesisKeyword_2()); 
-            match(input,42,FOLLOW_2); 
+            match(input,44,FOLLOW_2); 
              after(grammarAccess.getArgumentBindingAccess().getLeftParenthesisKeyword_2()); 
 
             }
@@ -4043,14 +4087,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__3"
-    // InternalCommands.g:1263:1: rule__ArgumentBinding__Group__3 : rule__ArgumentBinding__Group__3__Impl rule__ArgumentBinding__Group__4 ;
+    // InternalCommands.g:1275:1: rule__ArgumentBinding__Group__3 : rule__ArgumentBinding__Group__3__Impl rule__ArgumentBinding__Group__4 ;
     public final void rule__ArgumentBinding__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1267:1: ( rule__ArgumentBinding__Group__3__Impl rule__ArgumentBinding__Group__4 )
-            // InternalCommands.g:1268:2: rule__ArgumentBinding__Group__3__Impl rule__ArgumentBinding__Group__4
+            // InternalCommands.g:1279:1: ( rule__ArgumentBinding__Group__3__Impl rule__ArgumentBinding__Group__4 )
+            // InternalCommands.g:1280:2: rule__ArgumentBinding__Group__3__Impl rule__ArgumentBinding__Group__4
             {
             pushFollow(FOLLOW_14);
             rule__ArgumentBinding__Group__3__Impl();
@@ -4081,21 +4125,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__3__Impl"
-    // InternalCommands.g:1275:1: rule__ArgumentBinding__Group__3__Impl : ( ( rule__ArgumentBinding__BindSourceAssignment_3 ) ) ;
+    // InternalCommands.g:1287:1: rule__ArgumentBinding__Group__3__Impl : ( ( rule__ArgumentBinding__BindSourceAssignment_3 ) ) ;
     public final void rule__ArgumentBinding__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1279:1: ( ( ( rule__ArgumentBinding__BindSourceAssignment_3 ) ) )
-            // InternalCommands.g:1280:1: ( ( rule__ArgumentBinding__BindSourceAssignment_3 ) )
+            // InternalCommands.g:1291:1: ( ( ( rule__ArgumentBinding__BindSourceAssignment_3 ) ) )
+            // InternalCommands.g:1292:1: ( ( rule__ArgumentBinding__BindSourceAssignment_3 ) )
             {
-            // InternalCommands.g:1280:1: ( ( rule__ArgumentBinding__BindSourceAssignment_3 ) )
-            // InternalCommands.g:1281:2: ( rule__ArgumentBinding__BindSourceAssignment_3 )
+            // InternalCommands.g:1292:1: ( ( rule__ArgumentBinding__BindSourceAssignment_3 ) )
+            // InternalCommands.g:1293:2: ( rule__ArgumentBinding__BindSourceAssignment_3 )
             {
              before(grammarAccess.getArgumentBindingAccess().getBindSourceAssignment_3()); 
-            // InternalCommands.g:1282:2: ( rule__ArgumentBinding__BindSourceAssignment_3 )
-            // InternalCommands.g:1282:3: rule__ArgumentBinding__BindSourceAssignment_3
+            // InternalCommands.g:1294:2: ( rule__ArgumentBinding__BindSourceAssignment_3 )
+            // InternalCommands.g:1294:3: rule__ArgumentBinding__BindSourceAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__ArgumentBinding__BindSourceAssignment_3();
@@ -4128,14 +4172,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__4"
-    // InternalCommands.g:1290:1: rule__ArgumentBinding__Group__4 : rule__ArgumentBinding__Group__4__Impl rule__ArgumentBinding__Group__5 ;
+    // InternalCommands.g:1302:1: rule__ArgumentBinding__Group__4 : rule__ArgumentBinding__Group__4__Impl rule__ArgumentBinding__Group__5 ;
     public final void rule__ArgumentBinding__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1294:1: ( rule__ArgumentBinding__Group__4__Impl rule__ArgumentBinding__Group__5 )
-            // InternalCommands.g:1295:2: rule__ArgumentBinding__Group__4__Impl rule__ArgumentBinding__Group__5
+            // InternalCommands.g:1306:1: ( rule__ArgumentBinding__Group__4__Impl rule__ArgumentBinding__Group__5 )
+            // InternalCommands.g:1307:2: rule__ArgumentBinding__Group__4__Impl rule__ArgumentBinding__Group__5
             {
             pushFollow(FOLLOW_14);
             rule__ArgumentBinding__Group__4__Impl();
@@ -4166,33 +4210,33 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__4__Impl"
-    // InternalCommands.g:1302:1: rule__ArgumentBinding__Group__4__Impl : ( ( rule__ArgumentBinding__Group_4__0 )* ) ;
+    // InternalCommands.g:1314:1: rule__ArgumentBinding__Group__4__Impl : ( ( rule__ArgumentBinding__Group_4__0 )* ) ;
     public final void rule__ArgumentBinding__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1306:1: ( ( ( rule__ArgumentBinding__Group_4__0 )* ) )
-            // InternalCommands.g:1307:1: ( ( rule__ArgumentBinding__Group_4__0 )* )
+            // InternalCommands.g:1318:1: ( ( ( rule__ArgumentBinding__Group_4__0 )* ) )
+            // InternalCommands.g:1319:1: ( ( rule__ArgumentBinding__Group_4__0 )* )
             {
-            // InternalCommands.g:1307:1: ( ( rule__ArgumentBinding__Group_4__0 )* )
-            // InternalCommands.g:1308:2: ( rule__ArgumentBinding__Group_4__0 )*
+            // InternalCommands.g:1319:1: ( ( rule__ArgumentBinding__Group_4__0 )* )
+            // InternalCommands.g:1320:2: ( rule__ArgumentBinding__Group_4__0 )*
             {
              before(grammarAccess.getArgumentBindingAccess().getGroup_4()); 
-            // InternalCommands.g:1309:2: ( rule__ArgumentBinding__Group_4__0 )*
+            // InternalCommands.g:1321:2: ( rule__ArgumentBinding__Group_4__0 )*
             loop11:
             do {
                 int alt11=2;
                 int LA11_0 = input.LA(1);
 
-                if ( (LA11_0==45) ) {
+                if ( (LA11_0==47) ) {
                     alt11=1;
                 }
 
 
                 switch (alt11) {
             	case 1 :
-            	    // InternalCommands.g:1309:3: rule__ArgumentBinding__Group_4__0
+            	    // InternalCommands.g:1321:3: rule__ArgumentBinding__Group_4__0
             	    {
             	    pushFollow(FOLLOW_15);
             	    rule__ArgumentBinding__Group_4__0();
@@ -4231,14 +4275,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__5"
-    // InternalCommands.g:1317:1: rule__ArgumentBinding__Group__5 : rule__ArgumentBinding__Group__5__Impl ;
+    // InternalCommands.g:1329:1: rule__ArgumentBinding__Group__5 : rule__ArgumentBinding__Group__5__Impl ;
     public final void rule__ArgumentBinding__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1321:1: ( rule__ArgumentBinding__Group__5__Impl )
-            // InternalCommands.g:1322:2: rule__ArgumentBinding__Group__5__Impl
+            // InternalCommands.g:1333:1: ( rule__ArgumentBinding__Group__5__Impl )
+            // InternalCommands.g:1334:2: rule__ArgumentBinding__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ArgumentBinding__Group__5__Impl();
@@ -4264,20 +4308,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group__5__Impl"
-    // InternalCommands.g:1328:1: rule__ArgumentBinding__Group__5__Impl : ( ')' ) ;
+    // InternalCommands.g:1340:1: rule__ArgumentBinding__Group__5__Impl : ( ')' ) ;
     public final void rule__ArgumentBinding__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1332:1: ( ( ')' ) )
-            // InternalCommands.g:1333:1: ( ')' )
+            // InternalCommands.g:1344:1: ( ( ')' ) )
+            // InternalCommands.g:1345:1: ( ')' )
             {
-            // InternalCommands.g:1333:1: ( ')' )
-            // InternalCommands.g:1334:2: ')'
+            // InternalCommands.g:1345:1: ( ')' )
+            // InternalCommands.g:1346:2: ')'
             {
              before(grammarAccess.getArgumentBindingAccess().getRightParenthesisKeyword_5()); 
-            match(input,44,FOLLOW_2); 
+            match(input,46,FOLLOW_2); 
              after(grammarAccess.getArgumentBindingAccess().getRightParenthesisKeyword_5()); 
 
             }
@@ -4301,14 +4345,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group_4__0"
-    // InternalCommands.g:1344:1: rule__ArgumentBinding__Group_4__0 : rule__ArgumentBinding__Group_4__0__Impl rule__ArgumentBinding__Group_4__1 ;
+    // InternalCommands.g:1356:1: rule__ArgumentBinding__Group_4__0 : rule__ArgumentBinding__Group_4__0__Impl rule__ArgumentBinding__Group_4__1 ;
     public final void rule__ArgumentBinding__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1348:1: ( rule__ArgumentBinding__Group_4__0__Impl rule__ArgumentBinding__Group_4__1 )
-            // InternalCommands.g:1349:2: rule__ArgumentBinding__Group_4__0__Impl rule__ArgumentBinding__Group_4__1
+            // InternalCommands.g:1360:1: ( rule__ArgumentBinding__Group_4__0__Impl rule__ArgumentBinding__Group_4__1 )
+            // InternalCommands.g:1361:2: rule__ArgumentBinding__Group_4__0__Impl rule__ArgumentBinding__Group_4__1
             {
             pushFollow(FOLLOW_12);
             rule__ArgumentBinding__Group_4__0__Impl();
@@ -4339,20 +4383,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group_4__0__Impl"
-    // InternalCommands.g:1356:1: rule__ArgumentBinding__Group_4__0__Impl : ( ',' ) ;
+    // InternalCommands.g:1368:1: rule__ArgumentBinding__Group_4__0__Impl : ( ',' ) ;
     public final void rule__ArgumentBinding__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1360:1: ( ( ',' ) )
-            // InternalCommands.g:1361:1: ( ',' )
+            // InternalCommands.g:1372:1: ( ( ',' ) )
+            // InternalCommands.g:1373:1: ( ',' )
             {
-            // InternalCommands.g:1361:1: ( ',' )
-            // InternalCommands.g:1362:2: ','
+            // InternalCommands.g:1373:1: ( ',' )
+            // InternalCommands.g:1374:2: ','
             {
              before(grammarAccess.getArgumentBindingAccess().getCommaKeyword_4_0()); 
-            match(input,45,FOLLOW_2); 
+            match(input,47,FOLLOW_2); 
              after(grammarAccess.getArgumentBindingAccess().getCommaKeyword_4_0()); 
 
             }
@@ -4376,14 +4420,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group_4__1"
-    // InternalCommands.g:1371:1: rule__ArgumentBinding__Group_4__1 : rule__ArgumentBinding__Group_4__1__Impl ;
+    // InternalCommands.g:1383:1: rule__ArgumentBinding__Group_4__1 : rule__ArgumentBinding__Group_4__1__Impl ;
     public final void rule__ArgumentBinding__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1375:1: ( rule__ArgumentBinding__Group_4__1__Impl )
-            // InternalCommands.g:1376:2: rule__ArgumentBinding__Group_4__1__Impl
+            // InternalCommands.g:1387:1: ( rule__ArgumentBinding__Group_4__1__Impl )
+            // InternalCommands.g:1388:2: rule__ArgumentBinding__Group_4__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ArgumentBinding__Group_4__1__Impl();
@@ -4409,21 +4453,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__Group_4__1__Impl"
-    // InternalCommands.g:1382:1: rule__ArgumentBinding__Group_4__1__Impl : ( ( rule__ArgumentBinding__BindSourceAssignment_4_1 ) ) ;
+    // InternalCommands.g:1394:1: rule__ArgumentBinding__Group_4__1__Impl : ( ( rule__ArgumentBinding__BindSourceAssignment_4_1 ) ) ;
     public final void rule__ArgumentBinding__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1386:1: ( ( ( rule__ArgumentBinding__BindSourceAssignment_4_1 ) ) )
-            // InternalCommands.g:1387:1: ( ( rule__ArgumentBinding__BindSourceAssignment_4_1 ) )
+            // InternalCommands.g:1398:1: ( ( ( rule__ArgumentBinding__BindSourceAssignment_4_1 ) ) )
+            // InternalCommands.g:1399:1: ( ( rule__ArgumentBinding__BindSourceAssignment_4_1 ) )
             {
-            // InternalCommands.g:1387:1: ( ( rule__ArgumentBinding__BindSourceAssignment_4_1 ) )
-            // InternalCommands.g:1388:2: ( rule__ArgumentBinding__BindSourceAssignment_4_1 )
+            // InternalCommands.g:1399:1: ( ( rule__ArgumentBinding__BindSourceAssignment_4_1 ) )
+            // InternalCommands.g:1400:2: ( rule__ArgumentBinding__BindSourceAssignment_4_1 )
             {
              before(grammarAccess.getArgumentBindingAccess().getBindSourceAssignment_4_1()); 
-            // InternalCommands.g:1389:2: ( rule__ArgumentBinding__BindSourceAssignment_4_1 )
-            // InternalCommands.g:1389:3: rule__ArgumentBinding__BindSourceAssignment_4_1
+            // InternalCommands.g:1401:2: ( rule__ArgumentBinding__BindSourceAssignment_4_1 )
+            // InternalCommands.g:1401:3: rule__ArgumentBinding__BindSourceAssignment_4_1
             {
             pushFollow(FOLLOW_2);
             rule__ArgumentBinding__BindSourceAssignment_4_1();
@@ -4456,14 +4500,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentRenaming__Group__0"
-    // InternalCommands.g:1398:1: rule__ArgumentRenaming__Group__0 : rule__ArgumentRenaming__Group__0__Impl rule__ArgumentRenaming__Group__1 ;
+    // InternalCommands.g:1410:1: rule__ArgumentRenaming__Group__0 : rule__ArgumentRenaming__Group__0__Impl rule__ArgumentRenaming__Group__1 ;
     public final void rule__ArgumentRenaming__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1402:1: ( rule__ArgumentRenaming__Group__0__Impl rule__ArgumentRenaming__Group__1 )
-            // InternalCommands.g:1403:2: rule__ArgumentRenaming__Group__0__Impl rule__ArgumentRenaming__Group__1
+            // InternalCommands.g:1414:1: ( rule__ArgumentRenaming__Group__0__Impl rule__ArgumentRenaming__Group__1 )
+            // InternalCommands.g:1415:2: rule__ArgumentRenaming__Group__0__Impl rule__ArgumentRenaming__Group__1
             {
             pushFollow(FOLLOW_16);
             rule__ArgumentRenaming__Group__0__Impl();
@@ -4494,21 +4538,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentRenaming__Group__0__Impl"
-    // InternalCommands.g:1410:1: rule__ArgumentRenaming__Group__0__Impl : ( ( rule__ArgumentRenaming__BindTargetAssignment_0 ) ) ;
+    // InternalCommands.g:1422:1: rule__ArgumentRenaming__Group__0__Impl : ( ( rule__ArgumentRenaming__BindTargetAssignment_0 ) ) ;
     public final void rule__ArgumentRenaming__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1414:1: ( ( ( rule__ArgumentRenaming__BindTargetAssignment_0 ) ) )
-            // InternalCommands.g:1415:1: ( ( rule__ArgumentRenaming__BindTargetAssignment_0 ) )
+            // InternalCommands.g:1426:1: ( ( ( rule__ArgumentRenaming__BindTargetAssignment_0 ) ) )
+            // InternalCommands.g:1427:1: ( ( rule__ArgumentRenaming__BindTargetAssignment_0 ) )
             {
-            // InternalCommands.g:1415:1: ( ( rule__ArgumentRenaming__BindTargetAssignment_0 ) )
-            // InternalCommands.g:1416:2: ( rule__ArgumentRenaming__BindTargetAssignment_0 )
+            // InternalCommands.g:1427:1: ( ( rule__ArgumentRenaming__BindTargetAssignment_0 ) )
+            // InternalCommands.g:1428:2: ( rule__ArgumentRenaming__BindTargetAssignment_0 )
             {
              before(grammarAccess.getArgumentRenamingAccess().getBindTargetAssignment_0()); 
-            // InternalCommands.g:1417:2: ( rule__ArgumentRenaming__BindTargetAssignment_0 )
-            // InternalCommands.g:1417:3: rule__ArgumentRenaming__BindTargetAssignment_0
+            // InternalCommands.g:1429:2: ( rule__ArgumentRenaming__BindTargetAssignment_0 )
+            // InternalCommands.g:1429:3: rule__ArgumentRenaming__BindTargetAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__ArgumentRenaming__BindTargetAssignment_0();
@@ -4541,14 +4585,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentRenaming__Group__1"
-    // InternalCommands.g:1425:1: rule__ArgumentRenaming__Group__1 : rule__ArgumentRenaming__Group__1__Impl rule__ArgumentRenaming__Group__2 ;
+    // InternalCommands.g:1437:1: rule__ArgumentRenaming__Group__1 : rule__ArgumentRenaming__Group__1__Impl rule__ArgumentRenaming__Group__2 ;
     public final void rule__ArgumentRenaming__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1429:1: ( rule__ArgumentRenaming__Group__1__Impl rule__ArgumentRenaming__Group__2 )
-            // InternalCommands.g:1430:2: rule__ArgumentRenaming__Group__1__Impl rule__ArgumentRenaming__Group__2
+            // InternalCommands.g:1441:1: ( rule__ArgumentRenaming__Group__1__Impl rule__ArgumentRenaming__Group__2 )
+            // InternalCommands.g:1442:2: rule__ArgumentRenaming__Group__1__Impl rule__ArgumentRenaming__Group__2
             {
             pushFollow(FOLLOW_12);
             rule__ArgumentRenaming__Group__1__Impl();
@@ -4579,20 +4623,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentRenaming__Group__1__Impl"
-    // InternalCommands.g:1437:1: rule__ArgumentRenaming__Group__1__Impl : ( '=' ) ;
+    // InternalCommands.g:1449:1: rule__ArgumentRenaming__Group__1__Impl : ( '=' ) ;
     public final void rule__ArgumentRenaming__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1441:1: ( ( '=' ) )
-            // InternalCommands.g:1442:1: ( '=' )
+            // InternalCommands.g:1453:1: ( ( '=' ) )
+            // InternalCommands.g:1454:1: ( '=' )
             {
-            // InternalCommands.g:1442:1: ( '=' )
-            // InternalCommands.g:1443:2: '='
+            // InternalCommands.g:1454:1: ( '=' )
+            // InternalCommands.g:1455:2: '='
             {
              before(grammarAccess.getArgumentRenamingAccess().getEqualsSignKeyword_1()); 
-            match(input,46,FOLLOW_2); 
+            match(input,48,FOLLOW_2); 
              after(grammarAccess.getArgumentRenamingAccess().getEqualsSignKeyword_1()); 
 
             }
@@ -4616,14 +4660,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentRenaming__Group__2"
-    // InternalCommands.g:1452:1: rule__ArgumentRenaming__Group__2 : rule__ArgumentRenaming__Group__2__Impl ;
+    // InternalCommands.g:1464:1: rule__ArgumentRenaming__Group__2 : rule__ArgumentRenaming__Group__2__Impl ;
     public final void rule__ArgumentRenaming__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1456:1: ( rule__ArgumentRenaming__Group__2__Impl )
-            // InternalCommands.g:1457:2: rule__ArgumentRenaming__Group__2__Impl
+            // InternalCommands.g:1468:1: ( rule__ArgumentRenaming__Group__2__Impl )
+            // InternalCommands.g:1469:2: rule__ArgumentRenaming__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ArgumentRenaming__Group__2__Impl();
@@ -4649,21 +4693,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentRenaming__Group__2__Impl"
-    // InternalCommands.g:1463:1: rule__ArgumentRenaming__Group__2__Impl : ( ( rule__ArgumentRenaming__BindSourceAssignment_2 ) ) ;
+    // InternalCommands.g:1475:1: rule__ArgumentRenaming__Group__2__Impl : ( ( rule__ArgumentRenaming__BindSourceAssignment_2 ) ) ;
     public final void rule__ArgumentRenaming__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1467:1: ( ( ( rule__ArgumentRenaming__BindSourceAssignment_2 ) ) )
-            // InternalCommands.g:1468:1: ( ( rule__ArgumentRenaming__BindSourceAssignment_2 ) )
+            // InternalCommands.g:1479:1: ( ( ( rule__ArgumentRenaming__BindSourceAssignment_2 ) ) )
+            // InternalCommands.g:1480:1: ( ( rule__ArgumentRenaming__BindSourceAssignment_2 ) )
             {
-            // InternalCommands.g:1468:1: ( ( rule__ArgumentRenaming__BindSourceAssignment_2 ) )
-            // InternalCommands.g:1469:2: ( rule__ArgumentRenaming__BindSourceAssignment_2 )
+            // InternalCommands.g:1480:1: ( ( rule__ArgumentRenaming__BindSourceAssignment_2 ) )
+            // InternalCommands.g:1481:2: ( rule__ArgumentRenaming__BindSourceAssignment_2 )
             {
              before(grammarAccess.getArgumentRenamingAccess().getBindSourceAssignment_2()); 
-            // InternalCommands.g:1470:2: ( rule__ArgumentRenaming__BindSourceAssignment_2 )
-            // InternalCommands.g:1470:3: rule__ArgumentRenaming__BindSourceAssignment_2
+            // InternalCommands.g:1482:2: ( rule__ArgumentRenaming__BindSourceAssignment_2 )
+            // InternalCommands.g:1482:3: rule__ArgumentRenaming__BindSourceAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__ArgumentRenaming__BindSourceAssignment_2();
@@ -4696,14 +4740,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__0"
-    // InternalCommands.g:1479:1: rule__AlphaCommandSignature__Group__0 : rule__AlphaCommandSignature__Group__0__Impl rule__AlphaCommandSignature__Group__1 ;
+    // InternalCommands.g:1491:1: rule__AlphaCommandSignature__Group__0 : rule__AlphaCommandSignature__Group__0__Impl rule__AlphaCommandSignature__Group__1 ;
     public final void rule__AlphaCommandSignature__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1483:1: ( rule__AlphaCommandSignature__Group__0__Impl rule__AlphaCommandSignature__Group__1 )
-            // InternalCommands.g:1484:2: rule__AlphaCommandSignature__Group__0__Impl rule__AlphaCommandSignature__Group__1
+            // InternalCommands.g:1495:1: ( rule__AlphaCommandSignature__Group__0__Impl rule__AlphaCommandSignature__Group__1 )
+            // InternalCommands.g:1496:2: rule__AlphaCommandSignature__Group__0__Impl rule__AlphaCommandSignature__Group__1
             {
             pushFollow(FOLLOW_8);
             rule__AlphaCommandSignature__Group__0__Impl();
@@ -4734,21 +4778,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__0__Impl"
-    // InternalCommands.g:1491:1: rule__AlphaCommandSignature__Group__0__Impl : ( () ) ;
+    // InternalCommands.g:1503:1: rule__AlphaCommandSignature__Group__0__Impl : ( () ) ;
     public final void rule__AlphaCommandSignature__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1495:1: ( ( () ) )
-            // InternalCommands.g:1496:1: ( () )
+            // InternalCommands.g:1507:1: ( ( () ) )
+            // InternalCommands.g:1508:1: ( () )
             {
-            // InternalCommands.g:1496:1: ( () )
-            // InternalCommands.g:1497:2: ()
+            // InternalCommands.g:1508:1: ( () )
+            // InternalCommands.g:1509:2: ()
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getAlphaCommandSignatureAction_0()); 
-            // InternalCommands.g:1498:2: ()
-            // InternalCommands.g:1498:3: 
+            // InternalCommands.g:1510:2: ()
+            // InternalCommands.g:1510:3: 
             {
             }
 
@@ -4771,14 +4815,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__1"
-    // InternalCommands.g:1506:1: rule__AlphaCommandSignature__Group__1 : rule__AlphaCommandSignature__Group__1__Impl rule__AlphaCommandSignature__Group__2 ;
+    // InternalCommands.g:1518:1: rule__AlphaCommandSignature__Group__1 : rule__AlphaCommandSignature__Group__1__Impl rule__AlphaCommandSignature__Group__2 ;
     public final void rule__AlphaCommandSignature__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1510:1: ( rule__AlphaCommandSignature__Group__1__Impl rule__AlphaCommandSignature__Group__2 )
-            // InternalCommands.g:1511:2: rule__AlphaCommandSignature__Group__1__Impl rule__AlphaCommandSignature__Group__2
+            // InternalCommands.g:1522:1: ( rule__AlphaCommandSignature__Group__1__Impl rule__AlphaCommandSignature__Group__2 )
+            // InternalCommands.g:1523:2: rule__AlphaCommandSignature__Group__1__Impl rule__AlphaCommandSignature__Group__2
             {
             pushFollow(FOLLOW_17);
             rule__AlphaCommandSignature__Group__1__Impl();
@@ -4809,20 +4853,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__1__Impl"
-    // InternalCommands.g:1518:1: rule__AlphaCommandSignature__Group__1__Impl : ( '(' ) ;
+    // InternalCommands.g:1530:1: rule__AlphaCommandSignature__Group__1__Impl : ( '(' ) ;
     public final void rule__AlphaCommandSignature__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1522:1: ( ( '(' ) )
-            // InternalCommands.g:1523:1: ( '(' )
+            // InternalCommands.g:1534:1: ( ( '(' ) )
+            // InternalCommands.g:1535:1: ( '(' )
             {
-            // InternalCommands.g:1523:1: ( '(' )
-            // InternalCommands.g:1524:2: '('
+            // InternalCommands.g:1535:1: ( '(' )
+            // InternalCommands.g:1536:2: '('
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getLeftParenthesisKeyword_1()); 
-            match(input,42,FOLLOW_2); 
+            match(input,44,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandSignatureAccess().getLeftParenthesisKeyword_1()); 
 
             }
@@ -4846,14 +4890,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__2"
-    // InternalCommands.g:1533:1: rule__AlphaCommandSignature__Group__2 : rule__AlphaCommandSignature__Group__2__Impl rule__AlphaCommandSignature__Group__3 ;
+    // InternalCommands.g:1545:1: rule__AlphaCommandSignature__Group__2 : rule__AlphaCommandSignature__Group__2__Impl rule__AlphaCommandSignature__Group__3 ;
     public final void rule__AlphaCommandSignature__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1537:1: ( rule__AlphaCommandSignature__Group__2__Impl rule__AlphaCommandSignature__Group__3 )
-            // InternalCommands.g:1538:2: rule__AlphaCommandSignature__Group__2__Impl rule__AlphaCommandSignature__Group__3
+            // InternalCommands.g:1549:1: ( rule__AlphaCommandSignature__Group__2__Impl rule__AlphaCommandSignature__Group__3 )
+            // InternalCommands.g:1550:2: rule__AlphaCommandSignature__Group__2__Impl rule__AlphaCommandSignature__Group__3
             {
             pushFollow(FOLLOW_17);
             rule__AlphaCommandSignature__Group__2__Impl();
@@ -4884,29 +4928,29 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__2__Impl"
-    // InternalCommands.g:1545:1: rule__AlphaCommandSignature__Group__2__Impl : ( ( rule__AlphaCommandSignature__Group_2__0 )? ) ;
+    // InternalCommands.g:1557:1: rule__AlphaCommandSignature__Group__2__Impl : ( ( rule__AlphaCommandSignature__Group_2__0 )? ) ;
     public final void rule__AlphaCommandSignature__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1549:1: ( ( ( rule__AlphaCommandSignature__Group_2__0 )? ) )
-            // InternalCommands.g:1550:1: ( ( rule__AlphaCommandSignature__Group_2__0 )? )
+            // InternalCommands.g:1561:1: ( ( ( rule__AlphaCommandSignature__Group_2__0 )? ) )
+            // InternalCommands.g:1562:1: ( ( rule__AlphaCommandSignature__Group_2__0 )? )
             {
-            // InternalCommands.g:1550:1: ( ( rule__AlphaCommandSignature__Group_2__0 )? )
-            // InternalCommands.g:1551:2: ( rule__AlphaCommandSignature__Group_2__0 )?
+            // InternalCommands.g:1562:1: ( ( rule__AlphaCommandSignature__Group_2__0 )? )
+            // InternalCommands.g:1563:2: ( rule__AlphaCommandSignature__Group_2__0 )?
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getGroup_2()); 
-            // InternalCommands.g:1552:2: ( rule__AlphaCommandSignature__Group_2__0 )?
+            // InternalCommands.g:1564:2: ( rule__AlphaCommandSignature__Group_2__0 )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
-            if ( ((LA12_0>=11 && LA12_0<=37)) ) {
+            if ( ((LA12_0>=11 && LA12_0<=39)) ) {
                 alt12=1;
             }
             switch (alt12) {
                 case 1 :
-                    // InternalCommands.g:1552:3: rule__AlphaCommandSignature__Group_2__0
+                    // InternalCommands.g:1564:3: rule__AlphaCommandSignature__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__AlphaCommandSignature__Group_2__0();
@@ -4942,14 +4986,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__3"
-    // InternalCommands.g:1560:1: rule__AlphaCommandSignature__Group__3 : rule__AlphaCommandSignature__Group__3__Impl rule__AlphaCommandSignature__Group__4 ;
+    // InternalCommands.g:1572:1: rule__AlphaCommandSignature__Group__3 : rule__AlphaCommandSignature__Group__3__Impl rule__AlphaCommandSignature__Group__4 ;
     public final void rule__AlphaCommandSignature__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1564:1: ( rule__AlphaCommandSignature__Group__3__Impl rule__AlphaCommandSignature__Group__4 )
-            // InternalCommands.g:1565:2: rule__AlphaCommandSignature__Group__3__Impl rule__AlphaCommandSignature__Group__4
+            // InternalCommands.g:1576:1: ( rule__AlphaCommandSignature__Group__3__Impl rule__AlphaCommandSignature__Group__4 )
+            // InternalCommands.g:1577:2: rule__AlphaCommandSignature__Group__3__Impl rule__AlphaCommandSignature__Group__4
             {
             pushFollow(FOLLOW_11);
             rule__AlphaCommandSignature__Group__3__Impl();
@@ -4980,20 +5024,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__3__Impl"
-    // InternalCommands.g:1572:1: rule__AlphaCommandSignature__Group__3__Impl : ( ')' ) ;
+    // InternalCommands.g:1584:1: rule__AlphaCommandSignature__Group__3__Impl : ( ')' ) ;
     public final void rule__AlphaCommandSignature__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1576:1: ( ( ')' ) )
-            // InternalCommands.g:1577:1: ( ')' )
+            // InternalCommands.g:1588:1: ( ( ')' ) )
+            // InternalCommands.g:1589:1: ( ')' )
             {
-            // InternalCommands.g:1577:1: ( ')' )
-            // InternalCommands.g:1578:2: ')'
+            // InternalCommands.g:1589:1: ( ')' )
+            // InternalCommands.g:1590:2: ')'
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getRightParenthesisKeyword_3()); 
-            match(input,44,FOLLOW_2); 
+            match(input,46,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandSignatureAccess().getRightParenthesisKeyword_3()); 
 
             }
@@ -5017,14 +5061,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__4"
-    // InternalCommands.g:1587:1: rule__AlphaCommandSignature__Group__4 : rule__AlphaCommandSignature__Group__4__Impl ;
+    // InternalCommands.g:1599:1: rule__AlphaCommandSignature__Group__4 : rule__AlphaCommandSignature__Group__4__Impl ;
     public final void rule__AlphaCommandSignature__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1591:1: ( rule__AlphaCommandSignature__Group__4__Impl )
-            // InternalCommands.g:1592:2: rule__AlphaCommandSignature__Group__4__Impl
+            // InternalCommands.g:1603:1: ( rule__AlphaCommandSignature__Group__4__Impl )
+            // InternalCommands.g:1604:2: rule__AlphaCommandSignature__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSignature__Group__4__Impl();
@@ -5050,29 +5094,29 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group__4__Impl"
-    // InternalCommands.g:1598:1: rule__AlphaCommandSignature__Group__4__Impl : ( ( rule__AlphaCommandSignature__Group_4__0 )? ) ;
+    // InternalCommands.g:1610:1: rule__AlphaCommandSignature__Group__4__Impl : ( ( rule__AlphaCommandSignature__Group_4__0 )? ) ;
     public final void rule__AlphaCommandSignature__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1602:1: ( ( ( rule__AlphaCommandSignature__Group_4__0 )? ) )
-            // InternalCommands.g:1603:1: ( ( rule__AlphaCommandSignature__Group_4__0 )? )
+            // InternalCommands.g:1614:1: ( ( ( rule__AlphaCommandSignature__Group_4__0 )? ) )
+            // InternalCommands.g:1615:1: ( ( rule__AlphaCommandSignature__Group_4__0 )? )
             {
-            // InternalCommands.g:1603:1: ( ( rule__AlphaCommandSignature__Group_4__0 )? )
-            // InternalCommands.g:1604:2: ( rule__AlphaCommandSignature__Group_4__0 )?
+            // InternalCommands.g:1615:1: ( ( rule__AlphaCommandSignature__Group_4__0 )? )
+            // InternalCommands.g:1616:2: ( rule__AlphaCommandSignature__Group_4__0 )?
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getGroup_4()); 
-            // InternalCommands.g:1605:2: ( rule__AlphaCommandSignature__Group_4__0 )?
+            // InternalCommands.g:1617:2: ( rule__AlphaCommandSignature__Group_4__0 )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
-            if ( (LA13_0==40) ) {
+            if ( (LA13_0==42) ) {
                 alt13=1;
             }
             switch (alt13) {
                 case 1 :
-                    // InternalCommands.g:1605:3: rule__AlphaCommandSignature__Group_4__0
+                    // InternalCommands.g:1617:3: rule__AlphaCommandSignature__Group_4__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__AlphaCommandSignature__Group_4__0();
@@ -5108,14 +5152,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_2__0"
-    // InternalCommands.g:1614:1: rule__AlphaCommandSignature__Group_2__0 : rule__AlphaCommandSignature__Group_2__0__Impl rule__AlphaCommandSignature__Group_2__1 ;
+    // InternalCommands.g:1626:1: rule__AlphaCommandSignature__Group_2__0 : rule__AlphaCommandSignature__Group_2__0__Impl rule__AlphaCommandSignature__Group_2__1 ;
     public final void rule__AlphaCommandSignature__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1618:1: ( rule__AlphaCommandSignature__Group_2__0__Impl rule__AlphaCommandSignature__Group_2__1 )
-            // InternalCommands.g:1619:2: rule__AlphaCommandSignature__Group_2__0__Impl rule__AlphaCommandSignature__Group_2__1
+            // InternalCommands.g:1630:1: ( rule__AlphaCommandSignature__Group_2__0__Impl rule__AlphaCommandSignature__Group_2__1 )
+            // InternalCommands.g:1631:2: rule__AlphaCommandSignature__Group_2__0__Impl rule__AlphaCommandSignature__Group_2__1
             {
             pushFollow(FOLLOW_18);
             rule__AlphaCommandSignature__Group_2__0__Impl();
@@ -5146,21 +5190,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_2__0__Impl"
-    // InternalCommands.g:1626:1: rule__AlphaCommandSignature__Group_2__0__Impl : ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 ) ) ;
+    // InternalCommands.g:1638:1: rule__AlphaCommandSignature__Group_2__0__Impl : ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 ) ) ;
     public final void rule__AlphaCommandSignature__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1630:1: ( ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 ) ) )
-            // InternalCommands.g:1631:1: ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 ) )
+            // InternalCommands.g:1642:1: ( ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 ) ) )
+            // InternalCommands.g:1643:1: ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 ) )
             {
-            // InternalCommands.g:1631:1: ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 ) )
-            // InternalCommands.g:1632:2: ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 )
+            // InternalCommands.g:1643:1: ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 ) )
+            // InternalCommands.g:1644:2: ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 )
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getArgumentsAssignment_2_0()); 
-            // InternalCommands.g:1633:2: ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 )
-            // InternalCommands.g:1633:3: rule__AlphaCommandSignature__ArgumentsAssignment_2_0
+            // InternalCommands.g:1645:2: ( rule__AlphaCommandSignature__ArgumentsAssignment_2_0 )
+            // InternalCommands.g:1645:3: rule__AlphaCommandSignature__ArgumentsAssignment_2_0
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSignature__ArgumentsAssignment_2_0();
@@ -5193,14 +5237,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_2__1"
-    // InternalCommands.g:1641:1: rule__AlphaCommandSignature__Group_2__1 : rule__AlphaCommandSignature__Group_2__1__Impl ;
+    // InternalCommands.g:1653:1: rule__AlphaCommandSignature__Group_2__1 : rule__AlphaCommandSignature__Group_2__1__Impl ;
     public final void rule__AlphaCommandSignature__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1645:1: ( rule__AlphaCommandSignature__Group_2__1__Impl )
-            // InternalCommands.g:1646:2: rule__AlphaCommandSignature__Group_2__1__Impl
+            // InternalCommands.g:1657:1: ( rule__AlphaCommandSignature__Group_2__1__Impl )
+            // InternalCommands.g:1658:2: rule__AlphaCommandSignature__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSignature__Group_2__1__Impl();
@@ -5226,33 +5270,33 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_2__1__Impl"
-    // InternalCommands.g:1652:1: rule__AlphaCommandSignature__Group_2__1__Impl : ( ( rule__AlphaCommandSignature__Group_2_1__0 )* ) ;
+    // InternalCommands.g:1664:1: rule__AlphaCommandSignature__Group_2__1__Impl : ( ( rule__AlphaCommandSignature__Group_2_1__0 )* ) ;
     public final void rule__AlphaCommandSignature__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1656:1: ( ( ( rule__AlphaCommandSignature__Group_2_1__0 )* ) )
-            // InternalCommands.g:1657:1: ( ( rule__AlphaCommandSignature__Group_2_1__0 )* )
+            // InternalCommands.g:1668:1: ( ( ( rule__AlphaCommandSignature__Group_2_1__0 )* ) )
+            // InternalCommands.g:1669:1: ( ( rule__AlphaCommandSignature__Group_2_1__0 )* )
             {
-            // InternalCommands.g:1657:1: ( ( rule__AlphaCommandSignature__Group_2_1__0 )* )
-            // InternalCommands.g:1658:2: ( rule__AlphaCommandSignature__Group_2_1__0 )*
+            // InternalCommands.g:1669:1: ( ( rule__AlphaCommandSignature__Group_2_1__0 )* )
+            // InternalCommands.g:1670:2: ( rule__AlphaCommandSignature__Group_2_1__0 )*
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getGroup_2_1()); 
-            // InternalCommands.g:1659:2: ( rule__AlphaCommandSignature__Group_2_1__0 )*
+            // InternalCommands.g:1671:2: ( rule__AlphaCommandSignature__Group_2_1__0 )*
             loop14:
             do {
                 int alt14=2;
                 int LA14_0 = input.LA(1);
 
-                if ( (LA14_0==45) ) {
+                if ( (LA14_0==47) ) {
                     alt14=1;
                 }
 
 
                 switch (alt14) {
             	case 1 :
-            	    // InternalCommands.g:1659:3: rule__AlphaCommandSignature__Group_2_1__0
+            	    // InternalCommands.g:1671:3: rule__AlphaCommandSignature__Group_2_1__0
             	    {
             	    pushFollow(FOLLOW_15);
             	    rule__AlphaCommandSignature__Group_2_1__0();
@@ -5291,14 +5335,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_2_1__0"
-    // InternalCommands.g:1668:1: rule__AlphaCommandSignature__Group_2_1__0 : rule__AlphaCommandSignature__Group_2_1__0__Impl rule__AlphaCommandSignature__Group_2_1__1 ;
+    // InternalCommands.g:1680:1: rule__AlphaCommandSignature__Group_2_1__0 : rule__AlphaCommandSignature__Group_2_1__0__Impl rule__AlphaCommandSignature__Group_2_1__1 ;
     public final void rule__AlphaCommandSignature__Group_2_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1672:1: ( rule__AlphaCommandSignature__Group_2_1__0__Impl rule__AlphaCommandSignature__Group_2_1__1 )
-            // InternalCommands.g:1673:2: rule__AlphaCommandSignature__Group_2_1__0__Impl rule__AlphaCommandSignature__Group_2_1__1
+            // InternalCommands.g:1684:1: ( rule__AlphaCommandSignature__Group_2_1__0__Impl rule__AlphaCommandSignature__Group_2_1__1 )
+            // InternalCommands.g:1685:2: rule__AlphaCommandSignature__Group_2_1__0__Impl rule__AlphaCommandSignature__Group_2_1__1
             {
             pushFollow(FOLLOW_19);
             rule__AlphaCommandSignature__Group_2_1__0__Impl();
@@ -5329,20 +5373,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_2_1__0__Impl"
-    // InternalCommands.g:1680:1: rule__AlphaCommandSignature__Group_2_1__0__Impl : ( ',' ) ;
+    // InternalCommands.g:1692:1: rule__AlphaCommandSignature__Group_2_1__0__Impl : ( ',' ) ;
     public final void rule__AlphaCommandSignature__Group_2_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1684:1: ( ( ',' ) )
-            // InternalCommands.g:1685:1: ( ',' )
+            // InternalCommands.g:1696:1: ( ( ',' ) )
+            // InternalCommands.g:1697:1: ( ',' )
             {
-            // InternalCommands.g:1685:1: ( ',' )
-            // InternalCommands.g:1686:2: ','
+            // InternalCommands.g:1697:1: ( ',' )
+            // InternalCommands.g:1698:2: ','
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getCommaKeyword_2_1_0()); 
-            match(input,45,FOLLOW_2); 
+            match(input,47,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandSignatureAccess().getCommaKeyword_2_1_0()); 
 
             }
@@ -5366,14 +5410,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_2_1__1"
-    // InternalCommands.g:1695:1: rule__AlphaCommandSignature__Group_2_1__1 : rule__AlphaCommandSignature__Group_2_1__1__Impl ;
+    // InternalCommands.g:1707:1: rule__AlphaCommandSignature__Group_2_1__1 : rule__AlphaCommandSignature__Group_2_1__1__Impl ;
     public final void rule__AlphaCommandSignature__Group_2_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1699:1: ( rule__AlphaCommandSignature__Group_2_1__1__Impl )
-            // InternalCommands.g:1700:2: rule__AlphaCommandSignature__Group_2_1__1__Impl
+            // InternalCommands.g:1711:1: ( rule__AlphaCommandSignature__Group_2_1__1__Impl )
+            // InternalCommands.g:1712:2: rule__AlphaCommandSignature__Group_2_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSignature__Group_2_1__1__Impl();
@@ -5399,21 +5443,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_2_1__1__Impl"
-    // InternalCommands.g:1706:1: rule__AlphaCommandSignature__Group_2_1__1__Impl : ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 ) ) ;
+    // InternalCommands.g:1718:1: rule__AlphaCommandSignature__Group_2_1__1__Impl : ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 ) ) ;
     public final void rule__AlphaCommandSignature__Group_2_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1710:1: ( ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 ) ) )
-            // InternalCommands.g:1711:1: ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 ) )
+            // InternalCommands.g:1722:1: ( ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 ) ) )
+            // InternalCommands.g:1723:1: ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 ) )
             {
-            // InternalCommands.g:1711:1: ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 ) )
-            // InternalCommands.g:1712:2: ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 )
+            // InternalCommands.g:1723:1: ( ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 ) )
+            // InternalCommands.g:1724:2: ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 )
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getArgumentsAssignment_2_1_1()); 
-            // InternalCommands.g:1713:2: ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 )
-            // InternalCommands.g:1713:3: rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1
+            // InternalCommands.g:1725:2: ( rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 )
+            // InternalCommands.g:1725:3: rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1();
@@ -5446,14 +5490,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_4__0"
-    // InternalCommands.g:1722:1: rule__AlphaCommandSignature__Group_4__0 : rule__AlphaCommandSignature__Group_4__0__Impl rule__AlphaCommandSignature__Group_4__1 ;
+    // InternalCommands.g:1734:1: rule__AlphaCommandSignature__Group_4__0 : rule__AlphaCommandSignature__Group_4__0__Impl rule__AlphaCommandSignature__Group_4__1 ;
     public final void rule__AlphaCommandSignature__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1726:1: ( rule__AlphaCommandSignature__Group_4__0__Impl rule__AlphaCommandSignature__Group_4__1 )
-            // InternalCommands.g:1727:2: rule__AlphaCommandSignature__Group_4__0__Impl rule__AlphaCommandSignature__Group_4__1
+            // InternalCommands.g:1738:1: ( rule__AlphaCommandSignature__Group_4__0__Impl rule__AlphaCommandSignature__Group_4__1 )
+            // InternalCommands.g:1739:2: rule__AlphaCommandSignature__Group_4__0__Impl rule__AlphaCommandSignature__Group_4__1
             {
             pushFollow(FOLLOW_19);
             rule__AlphaCommandSignature__Group_4__0__Impl();
@@ -5484,20 +5528,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_4__0__Impl"
-    // InternalCommands.g:1734:1: rule__AlphaCommandSignature__Group_4__0__Impl : ( ':' ) ;
+    // InternalCommands.g:1746:1: rule__AlphaCommandSignature__Group_4__0__Impl : ( ':' ) ;
     public final void rule__AlphaCommandSignature__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1738:1: ( ( ':' ) )
-            // InternalCommands.g:1739:1: ( ':' )
+            // InternalCommands.g:1750:1: ( ( ':' ) )
+            // InternalCommands.g:1751:1: ( ':' )
             {
-            // InternalCommands.g:1739:1: ( ':' )
-            // InternalCommands.g:1740:2: ':'
+            // InternalCommands.g:1751:1: ( ':' )
+            // InternalCommands.g:1752:2: ':'
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getColonKeyword_4_0()); 
-            match(input,40,FOLLOW_2); 
+            match(input,42,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandSignatureAccess().getColonKeyword_4_0()); 
 
             }
@@ -5521,14 +5565,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_4__1"
-    // InternalCommands.g:1749:1: rule__AlphaCommandSignature__Group_4__1 : rule__AlphaCommandSignature__Group_4__1__Impl ;
+    // InternalCommands.g:1761:1: rule__AlphaCommandSignature__Group_4__1 : rule__AlphaCommandSignature__Group_4__1__Impl ;
     public final void rule__AlphaCommandSignature__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1753:1: ( rule__AlphaCommandSignature__Group_4__1__Impl )
-            // InternalCommands.g:1754:2: rule__AlphaCommandSignature__Group_4__1__Impl
+            // InternalCommands.g:1765:1: ( rule__AlphaCommandSignature__Group_4__1__Impl )
+            // InternalCommands.g:1766:2: rule__AlphaCommandSignature__Group_4__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSignature__Group_4__1__Impl();
@@ -5554,21 +5598,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__Group_4__1__Impl"
-    // InternalCommands.g:1760:1: rule__AlphaCommandSignature__Group_4__1__Impl : ( ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 ) ) ;
+    // InternalCommands.g:1772:1: rule__AlphaCommandSignature__Group_4__1__Impl : ( ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 ) ) ;
     public final void rule__AlphaCommandSignature__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1764:1: ( ( ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 ) ) )
-            // InternalCommands.g:1765:1: ( ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 ) )
+            // InternalCommands.g:1776:1: ( ( ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 ) ) )
+            // InternalCommands.g:1777:1: ( ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 ) )
             {
-            // InternalCommands.g:1765:1: ( ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 ) )
-            // InternalCommands.g:1766:2: ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 )
+            // InternalCommands.g:1777:1: ( ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 ) )
+            // InternalCommands.g:1778:2: ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 )
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getReturnTypeAssignment_4_1()); 
-            // InternalCommands.g:1767:2: ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 )
-            // InternalCommands.g:1767:3: rule__AlphaCommandSignature__ReturnTypeAssignment_4_1
+            // InternalCommands.g:1779:2: ( rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 )
+            // InternalCommands.g:1779:3: rule__AlphaCommandSignature__ReturnTypeAssignment_4_1
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSignature__ReturnTypeAssignment_4_1();
@@ -5601,14 +5645,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__0"
-    // InternalCommands.g:1776:1: rule__AlphaCommandSpecialization__Group__0 : rule__AlphaCommandSpecialization__Group__0__Impl rule__AlphaCommandSpecialization__Group__1 ;
+    // InternalCommands.g:1788:1: rule__AlphaCommandSpecialization__Group__0 : rule__AlphaCommandSpecialization__Group__0__Impl rule__AlphaCommandSpecialization__Group__1 ;
     public final void rule__AlphaCommandSpecialization__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1780:1: ( rule__AlphaCommandSpecialization__Group__0__Impl rule__AlphaCommandSpecialization__Group__1 )
-            // InternalCommands.g:1781:2: rule__AlphaCommandSpecialization__Group__0__Impl rule__AlphaCommandSpecialization__Group__1
+            // InternalCommands.g:1792:1: ( rule__AlphaCommandSpecialization__Group__0__Impl rule__AlphaCommandSpecialization__Group__1 )
+            // InternalCommands.g:1793:2: rule__AlphaCommandSpecialization__Group__0__Impl rule__AlphaCommandSpecialization__Group__1
             {
             pushFollow(FOLLOW_9);
             rule__AlphaCommandSpecialization__Group__0__Impl();
@@ -5639,21 +5683,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__0__Impl"
-    // InternalCommands.g:1788:1: rule__AlphaCommandSpecialization__Group__0__Impl : ( () ) ;
+    // InternalCommands.g:1800:1: rule__AlphaCommandSpecialization__Group__0__Impl : ( () ) ;
     public final void rule__AlphaCommandSpecialization__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1792:1: ( ( () ) )
-            // InternalCommands.g:1793:1: ( () )
+            // InternalCommands.g:1804:1: ( ( () ) )
+            // InternalCommands.g:1805:1: ( () )
             {
-            // InternalCommands.g:1793:1: ( () )
-            // InternalCommands.g:1794:2: ()
+            // InternalCommands.g:1805:1: ( () )
+            // InternalCommands.g:1806:2: ()
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getAlphaCommandSpecializationAction_0()); 
-            // InternalCommands.g:1795:2: ()
-            // InternalCommands.g:1795:3: 
+            // InternalCommands.g:1807:2: ()
+            // InternalCommands.g:1807:3: 
             {
             }
 
@@ -5676,14 +5720,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__1"
-    // InternalCommands.g:1803:1: rule__AlphaCommandSpecialization__Group__1 : rule__AlphaCommandSpecialization__Group__1__Impl rule__AlphaCommandSpecialization__Group__2 ;
+    // InternalCommands.g:1815:1: rule__AlphaCommandSpecialization__Group__1 : rule__AlphaCommandSpecialization__Group__1__Impl rule__AlphaCommandSpecialization__Group__2 ;
     public final void rule__AlphaCommandSpecialization__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1807:1: ( rule__AlphaCommandSpecialization__Group__1__Impl rule__AlphaCommandSpecialization__Group__2 )
-            // InternalCommands.g:1808:2: rule__AlphaCommandSpecialization__Group__1__Impl rule__AlphaCommandSpecialization__Group__2
+            // InternalCommands.g:1819:1: ( rule__AlphaCommandSpecialization__Group__1__Impl rule__AlphaCommandSpecialization__Group__2 )
+            // InternalCommands.g:1820:2: rule__AlphaCommandSpecialization__Group__1__Impl rule__AlphaCommandSpecialization__Group__2
             {
             pushFollow(FOLLOW_8);
             rule__AlphaCommandSpecialization__Group__1__Impl();
@@ -5714,20 +5758,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__1__Impl"
-    // InternalCommands.g:1815:1: rule__AlphaCommandSpecialization__Group__1__Impl : ( '=>' ) ;
+    // InternalCommands.g:1827:1: rule__AlphaCommandSpecialization__Group__1__Impl : ( '=>' ) ;
     public final void rule__AlphaCommandSpecialization__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1819:1: ( ( '=>' ) )
-            // InternalCommands.g:1820:1: ( '=>' )
+            // InternalCommands.g:1831:1: ( ( '=>' ) )
+            // InternalCommands.g:1832:1: ( '=>' )
             {
-            // InternalCommands.g:1820:1: ( '=>' )
-            // InternalCommands.g:1821:2: '=>'
+            // InternalCommands.g:1832:1: ( '=>' )
+            // InternalCommands.g:1833:2: '=>'
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getEqualsSignGreaterThanSignKeyword_1()); 
-            match(input,47,FOLLOW_2); 
+            match(input,49,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandSpecializationAccess().getEqualsSignGreaterThanSignKeyword_1()); 
 
             }
@@ -5751,14 +5795,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__2"
-    // InternalCommands.g:1830:1: rule__AlphaCommandSpecialization__Group__2 : rule__AlphaCommandSpecialization__Group__2__Impl rule__AlphaCommandSpecialization__Group__3 ;
+    // InternalCommands.g:1842:1: rule__AlphaCommandSpecialization__Group__2 : rule__AlphaCommandSpecialization__Group__2__Impl rule__AlphaCommandSpecialization__Group__3 ;
     public final void rule__AlphaCommandSpecialization__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1834:1: ( rule__AlphaCommandSpecialization__Group__2__Impl rule__AlphaCommandSpecialization__Group__3 )
-            // InternalCommands.g:1835:2: rule__AlphaCommandSpecialization__Group__2__Impl rule__AlphaCommandSpecialization__Group__3
+            // InternalCommands.g:1846:1: ( rule__AlphaCommandSpecialization__Group__2__Impl rule__AlphaCommandSpecialization__Group__3 )
+            // InternalCommands.g:1847:2: rule__AlphaCommandSpecialization__Group__2__Impl rule__AlphaCommandSpecialization__Group__3
             {
             pushFollow(FOLLOW_20);
             rule__AlphaCommandSpecialization__Group__2__Impl();
@@ -5789,20 +5833,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__2__Impl"
-    // InternalCommands.g:1842:1: rule__AlphaCommandSpecialization__Group__2__Impl : ( '(' ) ;
+    // InternalCommands.g:1854:1: rule__AlphaCommandSpecialization__Group__2__Impl : ( '(' ) ;
     public final void rule__AlphaCommandSpecialization__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1846:1: ( ( '(' ) )
-            // InternalCommands.g:1847:1: ( '(' )
+            // InternalCommands.g:1858:1: ( ( '(' ) )
+            // InternalCommands.g:1859:1: ( '(' )
             {
-            // InternalCommands.g:1847:1: ( '(' )
-            // InternalCommands.g:1848:2: '('
+            // InternalCommands.g:1859:1: ( '(' )
+            // InternalCommands.g:1860:2: '('
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getLeftParenthesisKeyword_2()); 
-            match(input,42,FOLLOW_2); 
+            match(input,44,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandSpecializationAccess().getLeftParenthesisKeyword_2()); 
 
             }
@@ -5826,14 +5870,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__3"
-    // InternalCommands.g:1857:1: rule__AlphaCommandSpecialization__Group__3 : rule__AlphaCommandSpecialization__Group__3__Impl rule__AlphaCommandSpecialization__Group__4 ;
+    // InternalCommands.g:1869:1: rule__AlphaCommandSpecialization__Group__3 : rule__AlphaCommandSpecialization__Group__3__Impl rule__AlphaCommandSpecialization__Group__4 ;
     public final void rule__AlphaCommandSpecialization__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1861:1: ( rule__AlphaCommandSpecialization__Group__3__Impl rule__AlphaCommandSpecialization__Group__4 )
-            // InternalCommands.g:1862:2: rule__AlphaCommandSpecialization__Group__3__Impl rule__AlphaCommandSpecialization__Group__4
+            // InternalCommands.g:1873:1: ( rule__AlphaCommandSpecialization__Group__3__Impl rule__AlphaCommandSpecialization__Group__4 )
+            // InternalCommands.g:1874:2: rule__AlphaCommandSpecialization__Group__3__Impl rule__AlphaCommandSpecialization__Group__4
             {
             pushFollow(FOLLOW_20);
             rule__AlphaCommandSpecialization__Group__3__Impl();
@@ -5864,29 +5908,29 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__3__Impl"
-    // InternalCommands.g:1869:1: rule__AlphaCommandSpecialization__Group__3__Impl : ( ( rule__AlphaCommandSpecialization__Group_3__0 )? ) ;
+    // InternalCommands.g:1881:1: rule__AlphaCommandSpecialization__Group__3__Impl : ( ( rule__AlphaCommandSpecialization__Group_3__0 )? ) ;
     public final void rule__AlphaCommandSpecialization__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1873:1: ( ( ( rule__AlphaCommandSpecialization__Group_3__0 )? ) )
-            // InternalCommands.g:1874:1: ( ( rule__AlphaCommandSpecialization__Group_3__0 )? )
+            // InternalCommands.g:1885:1: ( ( ( rule__AlphaCommandSpecialization__Group_3__0 )? ) )
+            // InternalCommands.g:1886:1: ( ( rule__AlphaCommandSpecialization__Group_3__0 )? )
             {
-            // InternalCommands.g:1874:1: ( ( rule__AlphaCommandSpecialization__Group_3__0 )? )
-            // InternalCommands.g:1875:2: ( rule__AlphaCommandSpecialization__Group_3__0 )?
+            // InternalCommands.g:1886:1: ( ( rule__AlphaCommandSpecialization__Group_3__0 )? )
+            // InternalCommands.g:1887:2: ( rule__AlphaCommandSpecialization__Group_3__0 )?
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getGroup_3()); 
-            // InternalCommands.g:1876:2: ( rule__AlphaCommandSpecialization__Group_3__0 )?
+            // InternalCommands.g:1888:2: ( rule__AlphaCommandSpecialization__Group_3__0 )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
-            if ( (LA15_0==RULE_STRING||(LA15_0>=11 && LA15_0<=37)||LA15_0==48) ) {
+            if ( (LA15_0==RULE_STRING||(LA15_0>=11 && LA15_0<=39)||LA15_0==50) ) {
                 alt15=1;
             }
             switch (alt15) {
                 case 1 :
-                    // InternalCommands.g:1876:3: rule__AlphaCommandSpecialization__Group_3__0
+                    // InternalCommands.g:1888:3: rule__AlphaCommandSpecialization__Group_3__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__AlphaCommandSpecialization__Group_3__0();
@@ -5922,14 +5966,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__4"
-    // InternalCommands.g:1884:1: rule__AlphaCommandSpecialization__Group__4 : rule__AlphaCommandSpecialization__Group__4__Impl ;
+    // InternalCommands.g:1896:1: rule__AlphaCommandSpecialization__Group__4 : rule__AlphaCommandSpecialization__Group__4__Impl ;
     public final void rule__AlphaCommandSpecialization__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1888:1: ( rule__AlphaCommandSpecialization__Group__4__Impl )
-            // InternalCommands.g:1889:2: rule__AlphaCommandSpecialization__Group__4__Impl
+            // InternalCommands.g:1900:1: ( rule__AlphaCommandSpecialization__Group__4__Impl )
+            // InternalCommands.g:1901:2: rule__AlphaCommandSpecialization__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSpecialization__Group__4__Impl();
@@ -5955,20 +5999,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group__4__Impl"
-    // InternalCommands.g:1895:1: rule__AlphaCommandSpecialization__Group__4__Impl : ( ')' ) ;
+    // InternalCommands.g:1907:1: rule__AlphaCommandSpecialization__Group__4__Impl : ( ')' ) ;
     public final void rule__AlphaCommandSpecialization__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1899:1: ( ( ')' ) )
-            // InternalCommands.g:1900:1: ( ')' )
+            // InternalCommands.g:1911:1: ( ( ')' ) )
+            // InternalCommands.g:1912:1: ( ')' )
             {
-            // InternalCommands.g:1900:1: ( ')' )
-            // InternalCommands.g:1901:2: ')'
+            // InternalCommands.g:1912:1: ( ')' )
+            // InternalCommands.g:1913:2: ')'
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getRightParenthesisKeyword_4()); 
-            match(input,44,FOLLOW_2); 
+            match(input,46,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandSpecializationAccess().getRightParenthesisKeyword_4()); 
 
             }
@@ -5992,14 +6036,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group_3__0"
-    // InternalCommands.g:1911:1: rule__AlphaCommandSpecialization__Group_3__0 : rule__AlphaCommandSpecialization__Group_3__0__Impl rule__AlphaCommandSpecialization__Group_3__1 ;
+    // InternalCommands.g:1923:1: rule__AlphaCommandSpecialization__Group_3__0 : rule__AlphaCommandSpecialization__Group_3__0__Impl rule__AlphaCommandSpecialization__Group_3__1 ;
     public final void rule__AlphaCommandSpecialization__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1915:1: ( rule__AlphaCommandSpecialization__Group_3__0__Impl rule__AlphaCommandSpecialization__Group_3__1 )
-            // InternalCommands.g:1916:2: rule__AlphaCommandSpecialization__Group_3__0__Impl rule__AlphaCommandSpecialization__Group_3__1
+            // InternalCommands.g:1927:1: ( rule__AlphaCommandSpecialization__Group_3__0__Impl rule__AlphaCommandSpecialization__Group_3__1 )
+            // InternalCommands.g:1928:2: rule__AlphaCommandSpecialization__Group_3__0__Impl rule__AlphaCommandSpecialization__Group_3__1
             {
             pushFollow(FOLLOW_18);
             rule__AlphaCommandSpecialization__Group_3__0__Impl();
@@ -6030,21 +6074,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group_3__0__Impl"
-    // InternalCommands.g:1923:1: rule__AlphaCommandSpecialization__Group_3__0__Impl : ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 ) ) ;
+    // InternalCommands.g:1935:1: rule__AlphaCommandSpecialization__Group_3__0__Impl : ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 ) ) ;
     public final void rule__AlphaCommandSpecialization__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1927:1: ( ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 ) ) )
-            // InternalCommands.g:1928:1: ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 ) )
+            // InternalCommands.g:1939:1: ( ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 ) ) )
+            // InternalCommands.g:1940:1: ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 ) )
             {
-            // InternalCommands.g:1928:1: ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 ) )
-            // InternalCommands.g:1929:2: ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 )
+            // InternalCommands.g:1940:1: ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 ) )
+            // InternalCommands.g:1941:2: ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 )
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getArgumentsAssignment_3_0()); 
-            // InternalCommands.g:1930:2: ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 )
-            // InternalCommands.g:1930:3: rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0
+            // InternalCommands.g:1942:2: ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 )
+            // InternalCommands.g:1942:3: rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0();
@@ -6077,14 +6121,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group_3__1"
-    // InternalCommands.g:1938:1: rule__AlphaCommandSpecialization__Group_3__1 : rule__AlphaCommandSpecialization__Group_3__1__Impl ;
+    // InternalCommands.g:1950:1: rule__AlphaCommandSpecialization__Group_3__1 : rule__AlphaCommandSpecialization__Group_3__1__Impl ;
     public final void rule__AlphaCommandSpecialization__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1942:1: ( rule__AlphaCommandSpecialization__Group_3__1__Impl )
-            // InternalCommands.g:1943:2: rule__AlphaCommandSpecialization__Group_3__1__Impl
+            // InternalCommands.g:1954:1: ( rule__AlphaCommandSpecialization__Group_3__1__Impl )
+            // InternalCommands.g:1955:2: rule__AlphaCommandSpecialization__Group_3__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSpecialization__Group_3__1__Impl();
@@ -6110,33 +6154,33 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group_3__1__Impl"
-    // InternalCommands.g:1949:1: rule__AlphaCommandSpecialization__Group_3__1__Impl : ( ( rule__AlphaCommandSpecialization__Group_3_1__0 )* ) ;
+    // InternalCommands.g:1961:1: rule__AlphaCommandSpecialization__Group_3__1__Impl : ( ( rule__AlphaCommandSpecialization__Group_3_1__0 )* ) ;
     public final void rule__AlphaCommandSpecialization__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1953:1: ( ( ( rule__AlphaCommandSpecialization__Group_3_1__0 )* ) )
-            // InternalCommands.g:1954:1: ( ( rule__AlphaCommandSpecialization__Group_3_1__0 )* )
+            // InternalCommands.g:1965:1: ( ( ( rule__AlphaCommandSpecialization__Group_3_1__0 )* ) )
+            // InternalCommands.g:1966:1: ( ( rule__AlphaCommandSpecialization__Group_3_1__0 )* )
             {
-            // InternalCommands.g:1954:1: ( ( rule__AlphaCommandSpecialization__Group_3_1__0 )* )
-            // InternalCommands.g:1955:2: ( rule__AlphaCommandSpecialization__Group_3_1__0 )*
+            // InternalCommands.g:1966:1: ( ( rule__AlphaCommandSpecialization__Group_3_1__0 )* )
+            // InternalCommands.g:1967:2: ( rule__AlphaCommandSpecialization__Group_3_1__0 )*
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getGroup_3_1()); 
-            // InternalCommands.g:1956:2: ( rule__AlphaCommandSpecialization__Group_3_1__0 )*
+            // InternalCommands.g:1968:2: ( rule__AlphaCommandSpecialization__Group_3_1__0 )*
             loop16:
             do {
                 int alt16=2;
                 int LA16_0 = input.LA(1);
 
-                if ( (LA16_0==45) ) {
+                if ( (LA16_0==47) ) {
                     alt16=1;
                 }
 
 
                 switch (alt16) {
             	case 1 :
-            	    // InternalCommands.g:1956:3: rule__AlphaCommandSpecialization__Group_3_1__0
+            	    // InternalCommands.g:1968:3: rule__AlphaCommandSpecialization__Group_3_1__0
             	    {
             	    pushFollow(FOLLOW_15);
             	    rule__AlphaCommandSpecialization__Group_3_1__0();
@@ -6175,14 +6219,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group_3_1__0"
-    // InternalCommands.g:1965:1: rule__AlphaCommandSpecialization__Group_3_1__0 : rule__AlphaCommandSpecialization__Group_3_1__0__Impl rule__AlphaCommandSpecialization__Group_3_1__1 ;
+    // InternalCommands.g:1977:1: rule__AlphaCommandSpecialization__Group_3_1__0 : rule__AlphaCommandSpecialization__Group_3_1__0__Impl rule__AlphaCommandSpecialization__Group_3_1__1 ;
     public final void rule__AlphaCommandSpecialization__Group_3_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1969:1: ( rule__AlphaCommandSpecialization__Group_3_1__0__Impl rule__AlphaCommandSpecialization__Group_3_1__1 )
-            // InternalCommands.g:1970:2: rule__AlphaCommandSpecialization__Group_3_1__0__Impl rule__AlphaCommandSpecialization__Group_3_1__1
+            // InternalCommands.g:1981:1: ( rule__AlphaCommandSpecialization__Group_3_1__0__Impl rule__AlphaCommandSpecialization__Group_3_1__1 )
+            // InternalCommands.g:1982:2: rule__AlphaCommandSpecialization__Group_3_1__0__Impl rule__AlphaCommandSpecialization__Group_3_1__1
             {
             pushFollow(FOLLOW_21);
             rule__AlphaCommandSpecialization__Group_3_1__0__Impl();
@@ -6213,20 +6257,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group_3_1__0__Impl"
-    // InternalCommands.g:1977:1: rule__AlphaCommandSpecialization__Group_3_1__0__Impl : ( ',' ) ;
+    // InternalCommands.g:1989:1: rule__AlphaCommandSpecialization__Group_3_1__0__Impl : ( ',' ) ;
     public final void rule__AlphaCommandSpecialization__Group_3_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1981:1: ( ( ',' ) )
-            // InternalCommands.g:1982:1: ( ',' )
+            // InternalCommands.g:1993:1: ( ( ',' ) )
+            // InternalCommands.g:1994:1: ( ',' )
             {
-            // InternalCommands.g:1982:1: ( ',' )
-            // InternalCommands.g:1983:2: ','
+            // InternalCommands.g:1994:1: ( ',' )
+            // InternalCommands.g:1995:2: ','
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getCommaKeyword_3_1_0()); 
-            match(input,45,FOLLOW_2); 
+            match(input,47,FOLLOW_2); 
              after(grammarAccess.getAlphaCommandSpecializationAccess().getCommaKeyword_3_1_0()); 
 
             }
@@ -6250,14 +6294,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group_3_1__1"
-    // InternalCommands.g:1992:1: rule__AlphaCommandSpecialization__Group_3_1__1 : rule__AlphaCommandSpecialization__Group_3_1__1__Impl ;
+    // InternalCommands.g:2004:1: rule__AlphaCommandSpecialization__Group_3_1__1 : rule__AlphaCommandSpecialization__Group_3_1__1__Impl ;
     public final void rule__AlphaCommandSpecialization__Group_3_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:1996:1: ( rule__AlphaCommandSpecialization__Group_3_1__1__Impl )
-            // InternalCommands.g:1997:2: rule__AlphaCommandSpecialization__Group_3_1__1__Impl
+            // InternalCommands.g:2008:1: ( rule__AlphaCommandSpecialization__Group_3_1__1__Impl )
+            // InternalCommands.g:2009:2: rule__AlphaCommandSpecialization__Group_3_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSpecialization__Group_3_1__1__Impl();
@@ -6283,21 +6327,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__Group_3_1__1__Impl"
-    // InternalCommands.g:2003:1: rule__AlphaCommandSpecialization__Group_3_1__1__Impl : ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 ) ) ;
+    // InternalCommands.g:2015:1: rule__AlphaCommandSpecialization__Group_3_1__1__Impl : ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 ) ) ;
     public final void rule__AlphaCommandSpecialization__Group_3_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2007:1: ( ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 ) ) )
-            // InternalCommands.g:2008:1: ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 ) )
+            // InternalCommands.g:2019:1: ( ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 ) ) )
+            // InternalCommands.g:2020:1: ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 ) )
             {
-            // InternalCommands.g:2008:1: ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 ) )
-            // InternalCommands.g:2009:2: ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 )
+            // InternalCommands.g:2020:1: ( ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 ) )
+            // InternalCommands.g:2021:2: ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 )
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getArgumentsAssignment_3_1_1()); 
-            // InternalCommands.g:2010:2: ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 )
-            // InternalCommands.g:2010:3: rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1
+            // InternalCommands.g:2022:2: ( rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 )
+            // InternalCommands.g:2022:3: rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1();
@@ -6330,14 +6374,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandArgument__Group__0"
-    // InternalCommands.g:2019:1: rule__AlphaCommandArgument__Group__0 : rule__AlphaCommandArgument__Group__0__Impl rule__AlphaCommandArgument__Group__1 ;
+    // InternalCommands.g:2031:1: rule__AlphaCommandArgument__Group__0 : rule__AlphaCommandArgument__Group__0__Impl rule__AlphaCommandArgument__Group__1 ;
     public final void rule__AlphaCommandArgument__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2023:1: ( rule__AlphaCommandArgument__Group__0__Impl rule__AlphaCommandArgument__Group__1 )
-            // InternalCommands.g:2024:2: rule__AlphaCommandArgument__Group__0__Impl rule__AlphaCommandArgument__Group__1
+            // InternalCommands.g:2035:1: ( rule__AlphaCommandArgument__Group__0__Impl rule__AlphaCommandArgument__Group__1 )
+            // InternalCommands.g:2036:2: rule__AlphaCommandArgument__Group__0__Impl rule__AlphaCommandArgument__Group__1
             {
             pushFollow(FOLLOW_12);
             rule__AlphaCommandArgument__Group__0__Impl();
@@ -6368,21 +6412,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandArgument__Group__0__Impl"
-    // InternalCommands.g:2031:1: rule__AlphaCommandArgument__Group__0__Impl : ( ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 ) ) ;
+    // InternalCommands.g:2043:1: rule__AlphaCommandArgument__Group__0__Impl : ( ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 ) ) ;
     public final void rule__AlphaCommandArgument__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2035:1: ( ( ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 ) ) )
-            // InternalCommands.g:2036:1: ( ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 ) )
+            // InternalCommands.g:2047:1: ( ( ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 ) ) )
+            // InternalCommands.g:2048:1: ( ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 ) )
             {
-            // InternalCommands.g:2036:1: ( ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 ) )
-            // InternalCommands.g:2037:2: ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 )
+            // InternalCommands.g:2048:1: ( ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 ) )
+            // InternalCommands.g:2049:2: ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 )
             {
              before(grammarAccess.getAlphaCommandArgumentAccess().getArgumentTypeAssignment_0()); 
-            // InternalCommands.g:2038:2: ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 )
-            // InternalCommands.g:2038:3: rule__AlphaCommandArgument__ArgumentTypeAssignment_0
+            // InternalCommands.g:2050:2: ( rule__AlphaCommandArgument__ArgumentTypeAssignment_0 )
+            // InternalCommands.g:2050:3: rule__AlphaCommandArgument__ArgumentTypeAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandArgument__ArgumentTypeAssignment_0();
@@ -6415,14 +6459,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandArgument__Group__1"
-    // InternalCommands.g:2046:1: rule__AlphaCommandArgument__Group__1 : rule__AlphaCommandArgument__Group__1__Impl ;
+    // InternalCommands.g:2058:1: rule__AlphaCommandArgument__Group__1 : rule__AlphaCommandArgument__Group__1__Impl ;
     public final void rule__AlphaCommandArgument__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2050:1: ( rule__AlphaCommandArgument__Group__1__Impl )
-            // InternalCommands.g:2051:2: rule__AlphaCommandArgument__Group__1__Impl
+            // InternalCommands.g:2062:1: ( rule__AlphaCommandArgument__Group__1__Impl )
+            // InternalCommands.g:2063:2: rule__AlphaCommandArgument__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandArgument__Group__1__Impl();
@@ -6448,21 +6492,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandArgument__Group__1__Impl"
-    // InternalCommands.g:2057:1: rule__AlphaCommandArgument__Group__1__Impl : ( ( rule__AlphaCommandArgument__NameAssignment_1 ) ) ;
+    // InternalCommands.g:2069:1: rule__AlphaCommandArgument__Group__1__Impl : ( ( rule__AlphaCommandArgument__NameAssignment_1 ) ) ;
     public final void rule__AlphaCommandArgument__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2061:1: ( ( ( rule__AlphaCommandArgument__NameAssignment_1 ) ) )
-            // InternalCommands.g:2062:1: ( ( rule__AlphaCommandArgument__NameAssignment_1 ) )
+            // InternalCommands.g:2073:1: ( ( ( rule__AlphaCommandArgument__NameAssignment_1 ) ) )
+            // InternalCommands.g:2074:1: ( ( rule__AlphaCommandArgument__NameAssignment_1 ) )
             {
-            // InternalCommands.g:2062:1: ( ( rule__AlphaCommandArgument__NameAssignment_1 ) )
-            // InternalCommands.g:2063:2: ( rule__AlphaCommandArgument__NameAssignment_1 )
+            // InternalCommands.g:2074:1: ( ( rule__AlphaCommandArgument__NameAssignment_1 ) )
+            // InternalCommands.g:2075:2: ( rule__AlphaCommandArgument__NameAssignment_1 )
             {
              before(grammarAccess.getAlphaCommandArgumentAccess().getNameAssignment_1()); 
-            // InternalCommands.g:2064:2: ( rule__AlphaCommandArgument__NameAssignment_1 )
-            // InternalCommands.g:2064:3: rule__AlphaCommandArgument__NameAssignment_1
+            // InternalCommands.g:2076:2: ( rule__AlphaCommandArgument__NameAssignment_1 )
+            // InternalCommands.g:2076:3: rule__AlphaCommandArgument__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__AlphaCommandArgument__NameAssignment_1();
@@ -6495,14 +6539,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__OverrideArgument__Group__0"
-    // InternalCommands.g:2073:1: rule__OverrideArgument__Group__0 : rule__OverrideArgument__Group__0__Impl rule__OverrideArgument__Group__1 ;
+    // InternalCommands.g:2085:1: rule__OverrideArgument__Group__0 : rule__OverrideArgument__Group__0__Impl rule__OverrideArgument__Group__1 ;
     public final void rule__OverrideArgument__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2077:1: ( rule__OverrideArgument__Group__0__Impl rule__OverrideArgument__Group__1 )
-            // InternalCommands.g:2078:2: rule__OverrideArgument__Group__0__Impl rule__OverrideArgument__Group__1
+            // InternalCommands.g:2089:1: ( rule__OverrideArgument__Group__0__Impl rule__OverrideArgument__Group__1 )
+            // InternalCommands.g:2090:2: rule__OverrideArgument__Group__0__Impl rule__OverrideArgument__Group__1
             {
             pushFollow(FOLLOW_12);
             rule__OverrideArgument__Group__0__Impl();
@@ -6533,21 +6577,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__OverrideArgument__Group__0__Impl"
-    // InternalCommands.g:2085:1: rule__OverrideArgument__Group__0__Impl : ( ( rule__OverrideArgument__ArgumentTypeAssignment_0 ) ) ;
+    // InternalCommands.g:2097:1: rule__OverrideArgument__Group__0__Impl : ( ( rule__OverrideArgument__ArgumentTypeAssignment_0 ) ) ;
     public final void rule__OverrideArgument__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2089:1: ( ( ( rule__OverrideArgument__ArgumentTypeAssignment_0 ) ) )
-            // InternalCommands.g:2090:1: ( ( rule__OverrideArgument__ArgumentTypeAssignment_0 ) )
+            // InternalCommands.g:2101:1: ( ( ( rule__OverrideArgument__ArgumentTypeAssignment_0 ) ) )
+            // InternalCommands.g:2102:1: ( ( rule__OverrideArgument__ArgumentTypeAssignment_0 ) )
             {
-            // InternalCommands.g:2090:1: ( ( rule__OverrideArgument__ArgumentTypeAssignment_0 ) )
-            // InternalCommands.g:2091:2: ( rule__OverrideArgument__ArgumentTypeAssignment_0 )
+            // InternalCommands.g:2102:1: ( ( rule__OverrideArgument__ArgumentTypeAssignment_0 ) )
+            // InternalCommands.g:2103:2: ( rule__OverrideArgument__ArgumentTypeAssignment_0 )
             {
              before(grammarAccess.getOverrideArgumentAccess().getArgumentTypeAssignment_0()); 
-            // InternalCommands.g:2092:2: ( rule__OverrideArgument__ArgumentTypeAssignment_0 )
-            // InternalCommands.g:2092:3: rule__OverrideArgument__ArgumentTypeAssignment_0
+            // InternalCommands.g:2104:2: ( rule__OverrideArgument__ArgumentTypeAssignment_0 )
+            // InternalCommands.g:2104:3: rule__OverrideArgument__ArgumentTypeAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__OverrideArgument__ArgumentTypeAssignment_0();
@@ -6580,14 +6624,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__OverrideArgument__Group__1"
-    // InternalCommands.g:2100:1: rule__OverrideArgument__Group__1 : rule__OverrideArgument__Group__1__Impl ;
+    // InternalCommands.g:2112:1: rule__OverrideArgument__Group__1 : rule__OverrideArgument__Group__1__Impl ;
     public final void rule__OverrideArgument__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2104:1: ( rule__OverrideArgument__Group__1__Impl )
-            // InternalCommands.g:2105:2: rule__OverrideArgument__Group__1__Impl
+            // InternalCommands.g:2116:1: ( rule__OverrideArgument__Group__1__Impl )
+            // InternalCommands.g:2117:2: rule__OverrideArgument__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__OverrideArgument__Group__1__Impl();
@@ -6613,20 +6657,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__OverrideArgument__Group__1__Impl"
-    // InternalCommands.g:2111:1: rule__OverrideArgument__Group__1__Impl : ( ( rule__OverrideArgument__NameAssignment_1 )? ) ;
+    // InternalCommands.g:2123:1: rule__OverrideArgument__Group__1__Impl : ( ( rule__OverrideArgument__NameAssignment_1 )? ) ;
     public final void rule__OverrideArgument__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2115:1: ( ( ( rule__OverrideArgument__NameAssignment_1 )? ) )
-            // InternalCommands.g:2116:1: ( ( rule__OverrideArgument__NameAssignment_1 )? )
+            // InternalCommands.g:2127:1: ( ( ( rule__OverrideArgument__NameAssignment_1 )? ) )
+            // InternalCommands.g:2128:1: ( ( rule__OverrideArgument__NameAssignment_1 )? )
             {
-            // InternalCommands.g:2116:1: ( ( rule__OverrideArgument__NameAssignment_1 )? )
-            // InternalCommands.g:2117:2: ( rule__OverrideArgument__NameAssignment_1 )?
+            // InternalCommands.g:2128:1: ( ( rule__OverrideArgument__NameAssignment_1 )? )
+            // InternalCommands.g:2129:2: ( rule__OverrideArgument__NameAssignment_1 )?
             {
              before(grammarAccess.getOverrideArgumentAccess().getNameAssignment_1()); 
-            // InternalCommands.g:2118:2: ( rule__OverrideArgument__NameAssignment_1 )?
+            // InternalCommands.g:2130:2: ( rule__OverrideArgument__NameAssignment_1 )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -6635,7 +6679,7 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
             }
             switch (alt17) {
                 case 1 :
-                    // InternalCommands.g:2118:3: rule__OverrideArgument__NameAssignment_1
+                    // InternalCommands.g:2130:3: rule__OverrideArgument__NameAssignment_1
                     {
                     pushFollow(FOLLOW_2);
                     rule__OverrideArgument__NameAssignment_1();
@@ -6671,14 +6715,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SameAsParentArgument__Group__0"
-    // InternalCommands.g:2127:1: rule__SameAsParentArgument__Group__0 : rule__SameAsParentArgument__Group__0__Impl rule__SameAsParentArgument__Group__1 ;
+    // InternalCommands.g:2139:1: rule__SameAsParentArgument__Group__0 : rule__SameAsParentArgument__Group__0__Impl rule__SameAsParentArgument__Group__1 ;
     public final void rule__SameAsParentArgument__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2131:1: ( rule__SameAsParentArgument__Group__0__Impl rule__SameAsParentArgument__Group__1 )
-            // InternalCommands.g:2132:2: rule__SameAsParentArgument__Group__0__Impl rule__SameAsParentArgument__Group__1
+            // InternalCommands.g:2143:1: ( rule__SameAsParentArgument__Group__0__Impl rule__SameAsParentArgument__Group__1 )
+            // InternalCommands.g:2144:2: rule__SameAsParentArgument__Group__0__Impl rule__SameAsParentArgument__Group__1
             {
             pushFollow(FOLLOW_21);
             rule__SameAsParentArgument__Group__0__Impl();
@@ -6709,21 +6753,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SameAsParentArgument__Group__0__Impl"
-    // InternalCommands.g:2139:1: rule__SameAsParentArgument__Group__0__Impl : ( () ) ;
+    // InternalCommands.g:2151:1: rule__SameAsParentArgument__Group__0__Impl : ( () ) ;
     public final void rule__SameAsParentArgument__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2143:1: ( ( () ) )
-            // InternalCommands.g:2144:1: ( () )
+            // InternalCommands.g:2155:1: ( ( () ) )
+            // InternalCommands.g:2156:1: ( () )
             {
-            // InternalCommands.g:2144:1: ( () )
-            // InternalCommands.g:2145:2: ()
+            // InternalCommands.g:2156:1: ( () )
+            // InternalCommands.g:2157:2: ()
             {
              before(grammarAccess.getSameAsParentArgumentAccess().getSameAsParentArgumentAction_0()); 
-            // InternalCommands.g:2146:2: ()
-            // InternalCommands.g:2146:3: 
+            // InternalCommands.g:2158:2: ()
+            // InternalCommands.g:2158:3: 
             {
             }
 
@@ -6746,14 +6790,14 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SameAsParentArgument__Group__1"
-    // InternalCommands.g:2154:1: rule__SameAsParentArgument__Group__1 : rule__SameAsParentArgument__Group__1__Impl ;
+    // InternalCommands.g:2166:1: rule__SameAsParentArgument__Group__1 : rule__SameAsParentArgument__Group__1__Impl ;
     public final void rule__SameAsParentArgument__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2158:1: ( rule__SameAsParentArgument__Group__1__Impl )
-            // InternalCommands.g:2159:2: rule__SameAsParentArgument__Group__1__Impl
+            // InternalCommands.g:2170:1: ( rule__SameAsParentArgument__Group__1__Impl )
+            // InternalCommands.g:2171:2: rule__SameAsParentArgument__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__SameAsParentArgument__Group__1__Impl();
@@ -6779,20 +6823,20 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__SameAsParentArgument__Group__1__Impl"
-    // InternalCommands.g:2165:1: rule__SameAsParentArgument__Group__1__Impl : ( '_' ) ;
+    // InternalCommands.g:2177:1: rule__SameAsParentArgument__Group__1__Impl : ( '_' ) ;
     public final void rule__SameAsParentArgument__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2169:1: ( ( '_' ) )
-            // InternalCommands.g:2170:1: ( '_' )
+            // InternalCommands.g:2181:1: ( ( '_' ) )
+            // InternalCommands.g:2182:1: ( '_' )
             {
-            // InternalCommands.g:2170:1: ( '_' )
-            // InternalCommands.g:2171:2: '_'
+            // InternalCommands.g:2182:1: ( '_' )
+            // InternalCommands.g:2183:2: '_'
             {
              before(grammarAccess.getSameAsParentArgumentAccess().get_Keyword_1()); 
-            match(input,48,FOLLOW_2); 
+            match(input,50,FOLLOW_2); 
              after(grammarAccess.getSameAsParentArgumentAccess().get_Keyword_1()); 
 
             }
@@ -6816,17 +6860,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandsRoot__CategoriesAssignment"
-    // InternalCommands.g:2181:1: rule__AlphaCommandsRoot__CategoriesAssignment : ( ruleAlphaCommandCategory ) ;
+    // InternalCommands.g:2193:1: rule__AlphaCommandsRoot__CategoriesAssignment : ( ruleAlphaCommandCategory ) ;
     public final void rule__AlphaCommandsRoot__CategoriesAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2185:1: ( ( ruleAlphaCommandCategory ) )
-            // InternalCommands.g:2186:2: ( ruleAlphaCommandCategory )
+            // InternalCommands.g:2197:1: ( ( ruleAlphaCommandCategory ) )
+            // InternalCommands.g:2198:2: ( ruleAlphaCommandCategory )
             {
-            // InternalCommands.g:2186:2: ( ruleAlphaCommandCategory )
-            // InternalCommands.g:2187:3: ruleAlphaCommandCategory
+            // InternalCommands.g:2198:2: ( ruleAlphaCommandCategory )
+            // InternalCommands.g:2199:3: ruleAlphaCommandCategory
             {
              before(grammarAccess.getAlphaCommandsRootAccess().getCategoriesAlphaCommandCategoryParserRuleCall_0()); 
             pushFollow(FOLLOW_2);
@@ -6857,17 +6901,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__NameAssignment_0"
-    // InternalCommands.g:2196:1: rule__AlphaCommandCategory__NameAssignment_0 : ( RULE_ID ) ;
+    // InternalCommands.g:2208:1: rule__AlphaCommandCategory__NameAssignment_0 : ( RULE_ID ) ;
     public final void rule__AlphaCommandCategory__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2200:1: ( ( RULE_ID ) )
-            // InternalCommands.g:2201:2: ( RULE_ID )
+            // InternalCommands.g:2212:1: ( ( RULE_ID ) )
+            // InternalCommands.g:2213:2: ( RULE_ID )
             {
-            // InternalCommands.g:2201:2: ( RULE_ID )
-            // InternalCommands.g:2202:3: RULE_ID
+            // InternalCommands.g:2213:2: ( RULE_ID )
+            // InternalCommands.g:2214:3: RULE_ID
             {
              before(grammarAccess.getAlphaCommandCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -6894,17 +6938,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandCategory__CommandsAssignment_2"
-    // InternalCommands.g:2211:1: rule__AlphaCommandCategory__CommandsAssignment_2 : ( ruleAlphaCommand ) ;
+    // InternalCommands.g:2223:1: rule__AlphaCommandCategory__CommandsAssignment_2 : ( ruleAlphaCommand ) ;
     public final void rule__AlphaCommandCategory__CommandsAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2215:1: ( ( ruleAlphaCommand ) )
-            // InternalCommands.g:2216:2: ( ruleAlphaCommand )
+            // InternalCommands.g:2227:1: ( ( ruleAlphaCommand ) )
+            // InternalCommands.g:2228:2: ( ruleAlphaCommand )
             {
-            // InternalCommands.g:2216:2: ( ruleAlphaCommand )
-            // InternalCommands.g:2217:3: ruleAlphaCommand
+            // InternalCommands.g:2228:2: ( ruleAlphaCommand )
+            // InternalCommands.g:2229:3: ruleAlphaCommand
             {
              before(grammarAccess.getAlphaCommandCategoryAccess().getCommandsAlphaCommandParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -6935,17 +6979,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__BindingAssignment_0"
-    // InternalCommands.g:2226:1: rule__AlphaCommand__BindingAssignment_0 : ( ruleCommandBinding ) ;
+    // InternalCommands.g:2238:1: rule__AlphaCommand__BindingAssignment_0 : ( ruleCommandBinding ) ;
     public final void rule__AlphaCommand__BindingAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2230:1: ( ( ruleCommandBinding ) )
-            // InternalCommands.g:2231:2: ( ruleCommandBinding )
+            // InternalCommands.g:2242:1: ( ( ruleCommandBinding ) )
+            // InternalCommands.g:2243:2: ( ruleCommandBinding )
             {
-            // InternalCommands.g:2231:2: ( ruleCommandBinding )
-            // InternalCommands.g:2232:3: ruleCommandBinding
+            // InternalCommands.g:2243:2: ( ruleCommandBinding )
+            // InternalCommands.g:2244:3: ruleCommandBinding
             {
              before(grammarAccess.getAlphaCommandAccess().getBindingCommandBindingParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -6976,17 +7020,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__LabelAssignment_1_0"
-    // InternalCommands.g:2241:1: rule__AlphaCommand__LabelAssignment_1_0 : ( RULE_ID ) ;
+    // InternalCommands.g:2253:1: rule__AlphaCommand__LabelAssignment_1_0 : ( RULE_ID ) ;
     public final void rule__AlphaCommand__LabelAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2245:1: ( ( RULE_ID ) )
-            // InternalCommands.g:2246:2: ( RULE_ID )
+            // InternalCommands.g:2257:1: ( ( RULE_ID ) )
+            // InternalCommands.g:2258:2: ( RULE_ID )
             {
-            // InternalCommands.g:2246:2: ( RULE_ID )
-            // InternalCommands.g:2247:3: RULE_ID
+            // InternalCommands.g:2258:2: ( RULE_ID )
+            // InternalCommands.g:2259:3: RULE_ID
             {
              before(grammarAccess.getAlphaCommandAccess().getLabelIDTerminalRuleCall_1_0_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7013,17 +7057,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__NameAssignment_2"
-    // InternalCommands.g:2256:1: rule__AlphaCommand__NameAssignment_2 : ( RULE_ID ) ;
+    // InternalCommands.g:2268:1: rule__AlphaCommand__NameAssignment_2 : ( RULE_ID ) ;
     public final void rule__AlphaCommand__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2260:1: ( ( RULE_ID ) )
-            // InternalCommands.g:2261:2: ( RULE_ID )
+            // InternalCommands.g:2272:1: ( ( RULE_ID ) )
+            // InternalCommands.g:2273:2: ( RULE_ID )
             {
-            // InternalCommands.g:2261:2: ( RULE_ID )
-            // InternalCommands.g:2262:3: RULE_ID
+            // InternalCommands.g:2273:2: ( RULE_ID )
+            // InternalCommands.g:2274:3: RULE_ID
             {
              before(grammarAccess.getAlphaCommandAccess().getNameIDTerminalRuleCall_2_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7050,17 +7094,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__SignatureAssignment_3"
-    // InternalCommands.g:2271:1: rule__AlphaCommand__SignatureAssignment_3 : ( ruleAlphaCommandSignature ) ;
+    // InternalCommands.g:2283:1: rule__AlphaCommand__SignatureAssignment_3 : ( ruleAlphaCommandSignature ) ;
     public final void rule__AlphaCommand__SignatureAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2275:1: ( ( ruleAlphaCommandSignature ) )
-            // InternalCommands.g:2276:2: ( ruleAlphaCommandSignature )
+            // InternalCommands.g:2287:1: ( ( ruleAlphaCommandSignature ) )
+            // InternalCommands.g:2288:2: ( ruleAlphaCommandSignature )
             {
-            // InternalCommands.g:2276:2: ( ruleAlphaCommandSignature )
-            // InternalCommands.g:2277:3: ruleAlphaCommandSignature
+            // InternalCommands.g:2288:2: ( ruleAlphaCommandSignature )
+            // InternalCommands.g:2289:3: ruleAlphaCommandSignature
             {
              before(grammarAccess.getAlphaCommandAccess().getSignatureAlphaCommandSignatureParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -7091,17 +7135,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommand__SpecializationsAssignment_4"
-    // InternalCommands.g:2286:1: rule__AlphaCommand__SpecializationsAssignment_4 : ( ruleAlphaCommandSpecialization ) ;
+    // InternalCommands.g:2298:1: rule__AlphaCommand__SpecializationsAssignment_4 : ( ruleAlphaCommandSpecialization ) ;
     public final void rule__AlphaCommand__SpecializationsAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2290:1: ( ( ruleAlphaCommandSpecialization ) )
-            // InternalCommands.g:2291:2: ( ruleAlphaCommandSpecialization )
+            // InternalCommands.g:2302:1: ( ( ruleAlphaCommandSpecialization ) )
+            // InternalCommands.g:2303:2: ( ruleAlphaCommandSpecialization )
             {
-            // InternalCommands.g:2291:2: ( ruleAlphaCommandSpecialization )
-            // InternalCommands.g:2292:3: ruleAlphaCommandSpecialization
+            // InternalCommands.g:2303:2: ( ruleAlphaCommandSpecialization )
+            // InternalCommands.g:2304:3: ruleAlphaCommandSpecialization
             {
              before(grammarAccess.getAlphaCommandAccess().getSpecializationsAlphaCommandSpecializationParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -7132,21 +7176,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__BindTargetCommandAssignment_2"
-    // InternalCommands.g:2301:1: rule__CommandBinding__BindTargetCommandAssignment_2 : ( ( RULE_ID ) ) ;
+    // InternalCommands.g:2313:1: rule__CommandBinding__BindTargetCommandAssignment_2 : ( ( RULE_ID ) ) ;
     public final void rule__CommandBinding__BindTargetCommandAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2305:1: ( ( ( RULE_ID ) ) )
-            // InternalCommands.g:2306:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2317:1: ( ( ( RULE_ID ) ) )
+            // InternalCommands.g:2318:2: ( ( RULE_ID ) )
             {
-            // InternalCommands.g:2306:2: ( ( RULE_ID ) )
-            // InternalCommands.g:2307:3: ( RULE_ID )
+            // InternalCommands.g:2318:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2319:3: ( RULE_ID )
             {
              before(grammarAccess.getCommandBindingAccess().getBindTargetCommandAlphaCommandCrossReference_2_0()); 
-            // InternalCommands.g:2308:3: ( RULE_ID )
-            // InternalCommands.g:2309:4: RULE_ID
+            // InternalCommands.g:2320:3: ( RULE_ID )
+            // InternalCommands.g:2321:4: RULE_ID
             {
              before(grammarAccess.getCommandBindingAccess().getBindTargetCommandAlphaCommandIDTerminalRuleCall_2_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7177,17 +7221,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__ArgumentBindingsAssignment_4_0"
-    // InternalCommands.g:2320:1: rule__CommandBinding__ArgumentBindingsAssignment_4_0 : ( ruleArgumentBinding ) ;
+    // InternalCommands.g:2332:1: rule__CommandBinding__ArgumentBindingsAssignment_4_0 : ( ruleArgumentBinding ) ;
     public final void rule__CommandBinding__ArgumentBindingsAssignment_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2324:1: ( ( ruleArgumentBinding ) )
-            // InternalCommands.g:2325:2: ( ruleArgumentBinding )
+            // InternalCommands.g:2336:1: ( ( ruleArgumentBinding ) )
+            // InternalCommands.g:2337:2: ( ruleArgumentBinding )
             {
-            // InternalCommands.g:2325:2: ( ruleArgumentBinding )
-            // InternalCommands.g:2326:3: ruleArgumentBinding
+            // InternalCommands.g:2337:2: ( ruleArgumentBinding )
+            // InternalCommands.g:2338:3: ruleArgumentBinding
             {
              before(grammarAccess.getCommandBindingAccess().getArgumentBindingsArgumentBindingParserRuleCall_4_0_0()); 
             pushFollow(FOLLOW_2);
@@ -7218,17 +7262,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__ArgumentRenamingsAssignment_4_1"
-    // InternalCommands.g:2335:1: rule__CommandBinding__ArgumentRenamingsAssignment_4_1 : ( ruleArgumentRenaming ) ;
+    // InternalCommands.g:2347:1: rule__CommandBinding__ArgumentRenamingsAssignment_4_1 : ( ruleArgumentRenaming ) ;
     public final void rule__CommandBinding__ArgumentRenamingsAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2339:1: ( ( ruleArgumentRenaming ) )
-            // InternalCommands.g:2340:2: ( ruleArgumentRenaming )
+            // InternalCommands.g:2351:1: ( ( ruleArgumentRenaming ) )
+            // InternalCommands.g:2352:2: ( ruleArgumentRenaming )
             {
-            // InternalCommands.g:2340:2: ( ruleArgumentRenaming )
-            // InternalCommands.g:2341:3: ruleArgumentRenaming
+            // InternalCommands.g:2352:2: ( ruleArgumentRenaming )
+            // InternalCommands.g:2353:3: ruleArgumentRenaming
             {
              before(grammarAccess.getCommandBindingAccess().getArgumentRenamingsArgumentRenamingParserRuleCall_4_1_0()); 
             pushFollow(FOLLOW_2);
@@ -7259,17 +7303,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__ArgumentBindingsAssignment_5_1_0"
-    // InternalCommands.g:2350:1: rule__CommandBinding__ArgumentBindingsAssignment_5_1_0 : ( ruleArgumentBinding ) ;
+    // InternalCommands.g:2362:1: rule__CommandBinding__ArgumentBindingsAssignment_5_1_0 : ( ruleArgumentBinding ) ;
     public final void rule__CommandBinding__ArgumentBindingsAssignment_5_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2354:1: ( ( ruleArgumentBinding ) )
-            // InternalCommands.g:2355:2: ( ruleArgumentBinding )
+            // InternalCommands.g:2366:1: ( ( ruleArgumentBinding ) )
+            // InternalCommands.g:2367:2: ( ruleArgumentBinding )
             {
-            // InternalCommands.g:2355:2: ( ruleArgumentBinding )
-            // InternalCommands.g:2356:3: ruleArgumentBinding
+            // InternalCommands.g:2367:2: ( ruleArgumentBinding )
+            // InternalCommands.g:2368:3: ruleArgumentBinding
             {
              before(grammarAccess.getCommandBindingAccess().getArgumentBindingsArgumentBindingParserRuleCall_5_1_0_0()); 
             pushFollow(FOLLOW_2);
@@ -7300,17 +7344,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__CommandBinding__ArgumentRenamingsAssignment_5_1_1"
-    // InternalCommands.g:2365:1: rule__CommandBinding__ArgumentRenamingsAssignment_5_1_1 : ( ruleArgumentRenaming ) ;
+    // InternalCommands.g:2377:1: rule__CommandBinding__ArgumentRenamingsAssignment_5_1_1 : ( ruleArgumentRenaming ) ;
     public final void rule__CommandBinding__ArgumentRenamingsAssignment_5_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2369:1: ( ( ruleArgumentRenaming ) )
-            // InternalCommands.g:2370:2: ( ruleArgumentRenaming )
+            // InternalCommands.g:2381:1: ( ( ruleArgumentRenaming ) )
+            // InternalCommands.g:2382:2: ( ruleArgumentRenaming )
             {
-            // InternalCommands.g:2370:2: ( ruleArgumentRenaming )
-            // InternalCommands.g:2371:3: ruleArgumentRenaming
+            // InternalCommands.g:2382:2: ( ruleArgumentRenaming )
+            // InternalCommands.g:2383:3: ruleArgumentRenaming
             {
              before(grammarAccess.getCommandBindingAccess().getArgumentRenamingsArgumentRenamingParserRuleCall_5_1_1_0()); 
             pushFollow(FOLLOW_2);
@@ -7341,21 +7385,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__BindTargetAssignment_0"
-    // InternalCommands.g:2380:1: rule__ArgumentBinding__BindTargetAssignment_0 : ( ( RULE_ID ) ) ;
+    // InternalCommands.g:2392:1: rule__ArgumentBinding__BindTargetAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__ArgumentBinding__BindTargetAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2384:1: ( ( ( RULE_ID ) ) )
-            // InternalCommands.g:2385:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2396:1: ( ( ( RULE_ID ) ) )
+            // InternalCommands.g:2397:2: ( ( RULE_ID ) )
             {
-            // InternalCommands.g:2385:2: ( ( RULE_ID ) )
-            // InternalCommands.g:2386:3: ( RULE_ID )
+            // InternalCommands.g:2397:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2398:3: ( RULE_ID )
             {
              before(grammarAccess.getArgumentBindingAccess().getBindTargetAlphaCommandArgumentCrossReference_0_0()); 
-            // InternalCommands.g:2387:3: ( RULE_ID )
-            // InternalCommands.g:2388:4: RULE_ID
+            // InternalCommands.g:2399:3: ( RULE_ID )
+            // InternalCommands.g:2400:4: RULE_ID
             {
              before(grammarAccess.getArgumentBindingAccess().getBindTargetAlphaCommandArgumentIDTerminalRuleCall_0_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7386,21 +7430,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__BindSourceAssignment_3"
-    // InternalCommands.g:2399:1: rule__ArgumentBinding__BindSourceAssignment_3 : ( ( RULE_ID ) ) ;
+    // InternalCommands.g:2411:1: rule__ArgumentBinding__BindSourceAssignment_3 : ( ( RULE_ID ) ) ;
     public final void rule__ArgumentBinding__BindSourceAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2403:1: ( ( ( RULE_ID ) ) )
-            // InternalCommands.g:2404:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2415:1: ( ( ( RULE_ID ) ) )
+            // InternalCommands.g:2416:2: ( ( RULE_ID ) )
             {
-            // InternalCommands.g:2404:2: ( ( RULE_ID ) )
-            // InternalCommands.g:2405:3: ( RULE_ID )
+            // InternalCommands.g:2416:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2417:3: ( RULE_ID )
             {
              before(grammarAccess.getArgumentBindingAccess().getBindSourceAlphaCommandArgumentCrossReference_3_0()); 
-            // InternalCommands.g:2406:3: ( RULE_ID )
-            // InternalCommands.g:2407:4: RULE_ID
+            // InternalCommands.g:2418:3: ( RULE_ID )
+            // InternalCommands.g:2419:4: RULE_ID
             {
              before(grammarAccess.getArgumentBindingAccess().getBindSourceAlphaCommandArgumentIDTerminalRuleCall_3_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7431,21 +7475,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentBinding__BindSourceAssignment_4_1"
-    // InternalCommands.g:2418:1: rule__ArgumentBinding__BindSourceAssignment_4_1 : ( ( RULE_ID ) ) ;
+    // InternalCommands.g:2430:1: rule__ArgumentBinding__BindSourceAssignment_4_1 : ( ( RULE_ID ) ) ;
     public final void rule__ArgumentBinding__BindSourceAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2422:1: ( ( ( RULE_ID ) ) )
-            // InternalCommands.g:2423:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2434:1: ( ( ( RULE_ID ) ) )
+            // InternalCommands.g:2435:2: ( ( RULE_ID ) )
             {
-            // InternalCommands.g:2423:2: ( ( RULE_ID ) )
-            // InternalCommands.g:2424:3: ( RULE_ID )
+            // InternalCommands.g:2435:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2436:3: ( RULE_ID )
             {
              before(grammarAccess.getArgumentBindingAccess().getBindSourceAlphaCommandArgumentCrossReference_4_1_0()); 
-            // InternalCommands.g:2425:3: ( RULE_ID )
-            // InternalCommands.g:2426:4: RULE_ID
+            // InternalCommands.g:2437:3: ( RULE_ID )
+            // InternalCommands.g:2438:4: RULE_ID
             {
              before(grammarAccess.getArgumentBindingAccess().getBindSourceAlphaCommandArgumentIDTerminalRuleCall_4_1_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7476,21 +7520,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentRenaming__BindTargetAssignment_0"
-    // InternalCommands.g:2437:1: rule__ArgumentRenaming__BindTargetAssignment_0 : ( ( RULE_ID ) ) ;
+    // InternalCommands.g:2449:1: rule__ArgumentRenaming__BindTargetAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__ArgumentRenaming__BindTargetAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2441:1: ( ( ( RULE_ID ) ) )
-            // InternalCommands.g:2442:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2453:1: ( ( ( RULE_ID ) ) )
+            // InternalCommands.g:2454:2: ( ( RULE_ID ) )
             {
-            // InternalCommands.g:2442:2: ( ( RULE_ID ) )
-            // InternalCommands.g:2443:3: ( RULE_ID )
+            // InternalCommands.g:2454:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2455:3: ( RULE_ID )
             {
              before(grammarAccess.getArgumentRenamingAccess().getBindTargetAlphaCommandArgumentCrossReference_0_0()); 
-            // InternalCommands.g:2444:3: ( RULE_ID )
-            // InternalCommands.g:2445:4: RULE_ID
+            // InternalCommands.g:2456:3: ( RULE_ID )
+            // InternalCommands.g:2457:4: RULE_ID
             {
              before(grammarAccess.getArgumentRenamingAccess().getBindTargetAlphaCommandArgumentIDTerminalRuleCall_0_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7521,21 +7565,21 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ArgumentRenaming__BindSourceAssignment_2"
-    // InternalCommands.g:2456:1: rule__ArgumentRenaming__BindSourceAssignment_2 : ( ( RULE_ID ) ) ;
+    // InternalCommands.g:2468:1: rule__ArgumentRenaming__BindSourceAssignment_2 : ( ( RULE_ID ) ) ;
     public final void rule__ArgumentRenaming__BindSourceAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2460:1: ( ( ( RULE_ID ) ) )
-            // InternalCommands.g:2461:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2472:1: ( ( ( RULE_ID ) ) )
+            // InternalCommands.g:2473:2: ( ( RULE_ID ) )
             {
-            // InternalCommands.g:2461:2: ( ( RULE_ID ) )
-            // InternalCommands.g:2462:3: ( RULE_ID )
+            // InternalCommands.g:2473:2: ( ( RULE_ID ) )
+            // InternalCommands.g:2474:3: ( RULE_ID )
             {
              before(grammarAccess.getArgumentRenamingAccess().getBindSourceAlphaCommandArgumentCrossReference_2_0()); 
-            // InternalCommands.g:2463:3: ( RULE_ID )
-            // InternalCommands.g:2464:4: RULE_ID
+            // InternalCommands.g:2475:3: ( RULE_ID )
+            // InternalCommands.g:2476:4: RULE_ID
             {
              before(grammarAccess.getArgumentRenamingAccess().getBindSourceAlphaCommandArgumentIDTerminalRuleCall_2_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7566,17 +7610,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__ArgumentsAssignment_2_0"
-    // InternalCommands.g:2475:1: rule__AlphaCommandSignature__ArgumentsAssignment_2_0 : ( ruleAlphaCommandArgument ) ;
+    // InternalCommands.g:2487:1: rule__AlphaCommandSignature__ArgumentsAssignment_2_0 : ( ruleAlphaCommandArgument ) ;
     public final void rule__AlphaCommandSignature__ArgumentsAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2479:1: ( ( ruleAlphaCommandArgument ) )
-            // InternalCommands.g:2480:2: ( ruleAlphaCommandArgument )
+            // InternalCommands.g:2491:1: ( ( ruleAlphaCommandArgument ) )
+            // InternalCommands.g:2492:2: ( ruleAlphaCommandArgument )
             {
-            // InternalCommands.g:2480:2: ( ruleAlphaCommandArgument )
-            // InternalCommands.g:2481:3: ruleAlphaCommandArgument
+            // InternalCommands.g:2492:2: ( ruleAlphaCommandArgument )
+            // InternalCommands.g:2493:3: ruleAlphaCommandArgument
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getArgumentsAlphaCommandArgumentParserRuleCall_2_0_0()); 
             pushFollow(FOLLOW_2);
@@ -7607,17 +7651,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1"
-    // InternalCommands.g:2490:1: rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 : ( ruleAlphaCommandArgument ) ;
+    // InternalCommands.g:2502:1: rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1 : ( ruleAlphaCommandArgument ) ;
     public final void rule__AlphaCommandSignature__ArgumentsAssignment_2_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2494:1: ( ( ruleAlphaCommandArgument ) )
-            // InternalCommands.g:2495:2: ( ruleAlphaCommandArgument )
+            // InternalCommands.g:2506:1: ( ( ruleAlphaCommandArgument ) )
+            // InternalCommands.g:2507:2: ( ruleAlphaCommandArgument )
             {
-            // InternalCommands.g:2495:2: ( ruleAlphaCommandArgument )
-            // InternalCommands.g:2496:3: ruleAlphaCommandArgument
+            // InternalCommands.g:2507:2: ( ruleAlphaCommandArgument )
+            // InternalCommands.g:2508:3: ruleAlphaCommandArgument
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getArgumentsAlphaCommandArgumentParserRuleCall_2_1_1_0()); 
             pushFollow(FOLLOW_2);
@@ -7648,17 +7692,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSignature__ReturnTypeAssignment_4_1"
-    // InternalCommands.g:2505:1: rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 : ( ruleArgumentType ) ;
+    // InternalCommands.g:2517:1: rule__AlphaCommandSignature__ReturnTypeAssignment_4_1 : ( ruleArgumentType ) ;
     public final void rule__AlphaCommandSignature__ReturnTypeAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2509:1: ( ( ruleArgumentType ) )
-            // InternalCommands.g:2510:2: ( ruleArgumentType )
+            // InternalCommands.g:2521:1: ( ( ruleArgumentType ) )
+            // InternalCommands.g:2522:2: ( ruleArgumentType )
             {
-            // InternalCommands.g:2510:2: ( ruleArgumentType )
-            // InternalCommands.g:2511:3: ruleArgumentType
+            // InternalCommands.g:2522:2: ( ruleArgumentType )
+            // InternalCommands.g:2523:3: ruleArgumentType
             {
              before(grammarAccess.getAlphaCommandSignatureAccess().getReturnTypeArgumentTypeParserRuleCall_4_1_0()); 
             pushFollow(FOLLOW_2);
@@ -7689,17 +7733,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0"
-    // InternalCommands.g:2520:1: rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 : ( ruleCommandArgumentSpecialization ) ;
+    // InternalCommands.g:2532:1: rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0 : ( ruleCommandArgumentSpecialization ) ;
     public final void rule__AlphaCommandSpecialization__ArgumentsAssignment_3_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2524:1: ( ( ruleCommandArgumentSpecialization ) )
-            // InternalCommands.g:2525:2: ( ruleCommandArgumentSpecialization )
+            // InternalCommands.g:2536:1: ( ( ruleCommandArgumentSpecialization ) )
+            // InternalCommands.g:2537:2: ( ruleCommandArgumentSpecialization )
             {
-            // InternalCommands.g:2525:2: ( ruleCommandArgumentSpecialization )
-            // InternalCommands.g:2526:3: ruleCommandArgumentSpecialization
+            // InternalCommands.g:2537:2: ( ruleCommandArgumentSpecialization )
+            // InternalCommands.g:2538:3: ruleCommandArgumentSpecialization
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getArgumentsCommandArgumentSpecializationParserRuleCall_3_0_0()); 
             pushFollow(FOLLOW_2);
@@ -7730,17 +7774,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1"
-    // InternalCommands.g:2535:1: rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 : ( ruleCommandArgumentSpecialization ) ;
+    // InternalCommands.g:2547:1: rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1 : ( ruleCommandArgumentSpecialization ) ;
     public final void rule__AlphaCommandSpecialization__ArgumentsAssignment_3_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2539:1: ( ( ruleCommandArgumentSpecialization ) )
-            // InternalCommands.g:2540:2: ( ruleCommandArgumentSpecialization )
+            // InternalCommands.g:2551:1: ( ( ruleCommandArgumentSpecialization ) )
+            // InternalCommands.g:2552:2: ( ruleCommandArgumentSpecialization )
             {
-            // InternalCommands.g:2540:2: ( ruleCommandArgumentSpecialization )
-            // InternalCommands.g:2541:3: ruleCommandArgumentSpecialization
+            // InternalCommands.g:2552:2: ( ruleCommandArgumentSpecialization )
+            // InternalCommands.g:2553:3: ruleCommandArgumentSpecialization
             {
              before(grammarAccess.getAlphaCommandSpecializationAccess().getArgumentsCommandArgumentSpecializationParserRuleCall_3_1_1_0()); 
             pushFollow(FOLLOW_2);
@@ -7771,17 +7815,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandArgument__ArgumentTypeAssignment_0"
-    // InternalCommands.g:2550:1: rule__AlphaCommandArgument__ArgumentTypeAssignment_0 : ( ruleArgumentType ) ;
+    // InternalCommands.g:2562:1: rule__AlphaCommandArgument__ArgumentTypeAssignment_0 : ( ruleArgumentType ) ;
     public final void rule__AlphaCommandArgument__ArgumentTypeAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2554:1: ( ( ruleArgumentType ) )
-            // InternalCommands.g:2555:2: ( ruleArgumentType )
+            // InternalCommands.g:2566:1: ( ( ruleArgumentType ) )
+            // InternalCommands.g:2567:2: ( ruleArgumentType )
             {
-            // InternalCommands.g:2555:2: ( ruleArgumentType )
-            // InternalCommands.g:2556:3: ruleArgumentType
+            // InternalCommands.g:2567:2: ( ruleArgumentType )
+            // InternalCommands.g:2568:3: ruleArgumentType
             {
              before(grammarAccess.getAlphaCommandArgumentAccess().getArgumentTypeArgumentTypeParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -7812,17 +7856,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__AlphaCommandArgument__NameAssignment_1"
-    // InternalCommands.g:2565:1: rule__AlphaCommandArgument__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalCommands.g:2577:1: rule__AlphaCommandArgument__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__AlphaCommandArgument__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2569:1: ( ( RULE_ID ) )
-            // InternalCommands.g:2570:2: ( RULE_ID )
+            // InternalCommands.g:2581:1: ( ( RULE_ID ) )
+            // InternalCommands.g:2582:2: ( RULE_ID )
             {
-            // InternalCommands.g:2570:2: ( RULE_ID )
-            // InternalCommands.g:2571:3: RULE_ID
+            // InternalCommands.g:2582:2: ( RULE_ID )
+            // InternalCommands.g:2583:3: RULE_ID
             {
              before(grammarAccess.getAlphaCommandArgumentAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7849,17 +7893,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__OverrideArgument__ArgumentTypeAssignment_0"
-    // InternalCommands.g:2580:1: rule__OverrideArgument__ArgumentTypeAssignment_0 : ( ruleArgumentType ) ;
+    // InternalCommands.g:2592:1: rule__OverrideArgument__ArgumentTypeAssignment_0 : ( ruleArgumentType ) ;
     public final void rule__OverrideArgument__ArgumentTypeAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2584:1: ( ( ruleArgumentType ) )
-            // InternalCommands.g:2585:2: ( ruleArgumentType )
+            // InternalCommands.g:2596:1: ( ( ruleArgumentType ) )
+            // InternalCommands.g:2597:2: ( ruleArgumentType )
             {
-            // InternalCommands.g:2585:2: ( ruleArgumentType )
-            // InternalCommands.g:2586:3: ruleArgumentType
+            // InternalCommands.g:2597:2: ( ruleArgumentType )
+            // InternalCommands.g:2598:3: ruleArgumentType
             {
              before(grammarAccess.getOverrideArgumentAccess().getArgumentTypeArgumentTypeParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -7890,17 +7934,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__OverrideArgument__NameAssignment_1"
-    // InternalCommands.g:2595:1: rule__OverrideArgument__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalCommands.g:2607:1: rule__OverrideArgument__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__OverrideArgument__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2599:1: ( ( RULE_ID ) )
-            // InternalCommands.g:2600:2: ( RULE_ID )
+            // InternalCommands.g:2611:1: ( ( RULE_ID ) )
+            // InternalCommands.g:2612:2: ( RULE_ID )
             {
-            // InternalCommands.g:2600:2: ( RULE_ID )
-            // InternalCommands.g:2601:3: RULE_ID
+            // InternalCommands.g:2612:2: ( RULE_ID )
+            // InternalCommands.g:2613:3: RULE_ID
             {
              before(grammarAccess.getOverrideArgumentAccess().getNameIDTerminalRuleCall_1_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -7927,17 +7971,17 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__DefaultValueArgument__ValueAssignment"
-    // InternalCommands.g:2610:1: rule__DefaultValueArgument__ValueAssignment : ( RULE_STRING ) ;
+    // InternalCommands.g:2622:1: rule__DefaultValueArgument__ValueAssignment : ( RULE_STRING ) ;
     public final void rule__DefaultValueArgument__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalCommands.g:2614:1: ( ( RULE_STRING ) )
-            // InternalCommands.g:2615:2: ( RULE_STRING )
+            // InternalCommands.g:2626:1: ( ( RULE_STRING ) )
+            // InternalCommands.g:2627:2: ( RULE_STRING )
             {
-            // InternalCommands.g:2615:2: ( RULE_STRING )
-            // InternalCommands.g:2616:3: RULE_STRING
+            // InternalCommands.g:2627:2: ( RULE_STRING )
+            // InternalCommands.g:2628:3: RULE_STRING
             {
              before(grammarAccess.getDefaultValueArgumentAccess().getValueSTRINGTerminalRuleCall_0()); 
             match(input,RULE_STRING,FOLLOW_2); 
@@ -7970,23 +8014,23 @@ public class InternalCommandsParser extends AbstractInternalContentAssistParser 
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000028000000010L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000020000000012L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000020000000010L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000800000000000L});
-    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000800000000002L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x00000A0000000010L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000080000000012L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000080000000010L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0002000000000002L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000040000000000L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000080000000000L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000300000000000L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000200000000002L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000103FFFFFF800L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000200000000000L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000003FFFFFF800L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0001103FFFFFF820L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0001003FFFFFF820L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000C00000000000L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000800000000002L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0001000000000000L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x000040FFFFFFF800L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000800000000000L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x000000FFFFFFF800L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x000440FFFFFFF820L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x000400FFFFFFF820L});
 
 }

@@ -80,9 +80,11 @@ ArgumentType returns ArgumentType:
 	"UseEquation" |
 	"AlphaExpression" |
 	"AbstractReduceExpression" |
+	"AutoRestrictExpression" |
 	"BinaryExpression" |
 	"DependenceExpression" |
 	"ReduceExpression" |
+	"RestrictExpression" |
 	"AffineFunction" |
 	"Domain" |
 	"ParameterDomain" |

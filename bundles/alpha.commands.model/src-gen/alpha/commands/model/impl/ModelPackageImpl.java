@@ -774,9 +774,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.USE_EQUATION);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.ALPHA_EXPRESSION);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.ABSTRACT_REDUCE_EXPRESSION);
+		addEEnumLiteral(argumentTypeEEnum, ArgumentType.AUTO_RESTRICT_EXPRESSION);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.BINARY_EXPRESSION);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.DEPENDENCE_EXPRESSION);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.REDUCE_EXPRESSION);
+		addEEnumLiteral(argumentTypeEEnum, ArgumentType.RESTRICT_EXPRESSION);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.AFFINE_FUNCTION);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.DOMAIN);
 		addEEnumLiteral(argumentTypeEEnum, ArgumentType.PARAMETER_DOMAIN);

@@ -159,6 +159,16 @@ public enum ArgumentType implements Enumerator {
 	ABSTRACT_REDUCE_EXPRESSION(0, "AbstractReduceExpression", "AbstractReduceExpression"),
 
 	/**
+	 * The '<em><b>Auto Restrict Expression</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #AUTO_RESTRICT_EXPRESSION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	AUTO_RESTRICT_EXPRESSION(0, "AutoRestrictExpression", "AutoRestrictExpression"),
+
+	/**
 	 * The '<em><b>Binary Expression</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -187,6 +197,16 @@ public enum ArgumentType implements Enumerator {
 	 * @ordered
 	 */
 	REDUCE_EXPRESSION(0, "ReduceExpression", "ReduceExpression"),
+
+	/**
+	 * The '<em><b>Restrict Expression</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RESTRICT_EXPRESSION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	RESTRICT_EXPRESSION(0, "RestrictExpression", "RestrictExpression"),
 
 	/**
 	 * The '<em><b>Affine Function</b></em>' literal object.
@@ -443,6 +463,17 @@ public enum ArgumentType implements Enumerator {
 	public static final int ABSTRACT_REDUCE_EXPRESSION_VALUE = 0;
 
 	/**
+	 * The '<em><b>Auto Restrict Expression</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #AUTO_RESTRICT_EXPRESSION
+	 * @model name="AutoRestrictExpression"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int AUTO_RESTRICT_EXPRESSION_VALUE = 0;
+
+	/**
 	 * The '<em><b>Binary Expression</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -474,6 +505,17 @@ public enum ArgumentType implements Enumerator {
 	 * @ordered
 	 */
 	public static final int REDUCE_EXPRESSION_VALUE = 0;
+
+	/**
+	 * The '<em><b>Restrict Expression</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RESTRICT_EXPRESSION
+	 * @model name="RestrictExpression"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int RESTRICT_EXPRESSION_VALUE = 0;
 
 	/**
 	 * The '<em><b>Affine Function</b></em>' literal value.
@@ -607,9 +649,11 @@ public enum ArgumentType implements Enumerator {
 			USE_EQUATION,
 			ALPHA_EXPRESSION,
 			ABSTRACT_REDUCE_EXPRESSION,
+			AUTO_RESTRICT_EXPRESSION,
 			BINARY_EXPRESSION,
 			DEPENDENCE_EXPRESSION,
 			REDUCE_EXPRESSION,
+			RESTRICT_EXPRESSION,
 			AFFINE_FUNCTION,
 			DOMAIN,
 			PARAMETER_DOMAIN,
