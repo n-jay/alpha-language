@@ -90,6 +90,7 @@ enum ArgumentType {
 	AutoRestrictExpression
 	BinaryExpression
 	DependenceExpression
+	MultiArgExpression
 	ReduceExpression
 	RestrictExpression
 	AffineFunction

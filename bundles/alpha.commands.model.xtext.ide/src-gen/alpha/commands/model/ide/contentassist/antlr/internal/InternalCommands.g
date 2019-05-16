@@ -576,75 +576,81 @@ rule__ArgumentType__Alternatives
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_17()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getMultiArgExpressionKeyword_17()); }
+		'MultiArgExpression'
+		{ after(grammarAccess.getArgumentTypeAccess().getMultiArgExpressionKeyword_17()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_18()); }
 		'ReduceExpression'
-		{ after(grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_17()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getReduceExpressionKeyword_18()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getRestrictExpressionKeyword_18()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getRestrictExpressionKeyword_19()); }
 		'RestrictExpression'
-		{ after(grammarAccess.getArgumentTypeAccess().getRestrictExpressionKeyword_18()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getRestrictExpressionKeyword_19()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_19()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_20()); }
 		'AffineFunction'
-		{ after(grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_19()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getAffineFunctionKeyword_20()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getDomainKeyword_20()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getDomainKeyword_21()); }
 		'Domain'
-		{ after(grammarAccess.getArgumentTypeAccess().getDomainKeyword_20()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getDomainKeyword_21()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_21()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_22()); }
 		'ParameterDomain'
-		{ after(grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_21()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getParameterDomainKeyword_22()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_22()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_23()); }
 		'List<AlphaRoot>'
-		{ after(grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_22()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getListAlphaRootKeyword_23()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getStringKeyword_23()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getStringKeyword_24()); }
 		'String'
-		{ after(grammarAccess.getArgumentTypeAccess().getStringKeyword_23()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getStringKeyword_24()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getListStringKeyword_24()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getListStringKeyword_25()); }
 		'List<String>'
-		{ after(grammarAccess.getArgumentTypeAccess().getListStringKeyword_24()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getListStringKeyword_25()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getStringKeyword_25()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getStringKeyword_26()); }
 		'String[]'
-		{ after(grammarAccess.getArgumentTypeAccess().getStringKeyword_25()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getStringKeyword_26()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getIntKeyword_26()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getIntKeyword_27()); }
 		'int'
-		{ after(grammarAccess.getArgumentTypeAccess().getIntKeyword_26()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getIntKeyword_27()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_27()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_28()); }
 		'List<Integer>'
-		{ after(grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_27()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getListIntegerKeyword_28()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getArgumentTypeAccess().getIntKeyword_28()); }
+		{ before(grammarAccess.getArgumentTypeAccess().getIntKeyword_29()); }
 		'int[]'
-		{ after(grammarAccess.getArgumentTypeAccess().getIntKeyword_28()); }
+		{ after(grammarAccess.getArgumentTypeAccess().getIntKeyword_29()); }
 	)
 ;
 finally {

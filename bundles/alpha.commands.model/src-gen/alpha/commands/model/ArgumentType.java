@@ -189,6 +189,16 @@ public enum ArgumentType implements Enumerator {
 	DEPENDENCE_EXPRESSION(0, "DependenceExpression", "DependenceExpression"),
 
 	/**
+	 * The '<em><b>Multi Arg Expression</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MULTI_ARG_EXPRESSION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	MULTI_ARG_EXPRESSION(0, "MultiArgExpression", "MultiArgExpression"),
+
+	/**
 	 * The '<em><b>Reduce Expression</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -496,6 +506,17 @@ public enum ArgumentType implements Enumerator {
 	public static final int DEPENDENCE_EXPRESSION_VALUE = 0;
 
 	/**
+	 * The '<em><b>Multi Arg Expression</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MULTI_ARG_EXPRESSION
+	 * @model name="MultiArgExpression"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int MULTI_ARG_EXPRESSION_VALUE = 0;
+
+	/**
 	 * The '<em><b>Reduce Expression</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -652,6 +673,7 @@ public enum ArgumentType implements Enumerator {
 			AUTO_RESTRICT_EXPRESSION,
 			BINARY_EXPRESSION,
 			DEPENDENCE_EXPRESSION,
+			MULTI_ARG_EXPRESSION,
 			REDUCE_EXPRESSION,
 			RESTRICT_EXPRESSION,
 			AFFINE_FUNCTION,

@@ -593,18 +593,19 @@ public class CommandsGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAutoRestrictExpressionKeyword_14 = (Keyword)cAlternatives.eContents().get(14);
 		private final Keyword cBinaryExpressionKeyword_15 = (Keyword)cAlternatives.eContents().get(15);
 		private final Keyword cDependenceExpressionKeyword_16 = (Keyword)cAlternatives.eContents().get(16);
-		private final Keyword cReduceExpressionKeyword_17 = (Keyword)cAlternatives.eContents().get(17);
-		private final Keyword cRestrictExpressionKeyword_18 = (Keyword)cAlternatives.eContents().get(18);
-		private final Keyword cAffineFunctionKeyword_19 = (Keyword)cAlternatives.eContents().get(19);
-		private final Keyword cDomainKeyword_20 = (Keyword)cAlternatives.eContents().get(20);
-		private final Keyword cParameterDomainKeyword_21 = (Keyword)cAlternatives.eContents().get(21);
-		private final Keyword cListAlphaRootKeyword_22 = (Keyword)cAlternatives.eContents().get(22);
-		private final Keyword cStringKeyword_23 = (Keyword)cAlternatives.eContents().get(23);
-		private final Keyword cListStringKeyword_24 = (Keyword)cAlternatives.eContents().get(24);
-		private final Keyword cStringKeyword_25 = (Keyword)cAlternatives.eContents().get(25);
-		private final Keyword cIntKeyword_26 = (Keyword)cAlternatives.eContents().get(26);
-		private final Keyword cListIntegerKeyword_27 = (Keyword)cAlternatives.eContents().get(27);
-		private final Keyword cIntKeyword_28 = (Keyword)cAlternatives.eContents().get(28);
+		private final Keyword cMultiArgExpressionKeyword_17 = (Keyword)cAlternatives.eContents().get(17);
+		private final Keyword cReduceExpressionKeyword_18 = (Keyword)cAlternatives.eContents().get(18);
+		private final Keyword cRestrictExpressionKeyword_19 = (Keyword)cAlternatives.eContents().get(19);
+		private final Keyword cAffineFunctionKeyword_20 = (Keyword)cAlternatives.eContents().get(20);
+		private final Keyword cDomainKeyword_21 = (Keyword)cAlternatives.eContents().get(21);
+		private final Keyword cParameterDomainKeyword_22 = (Keyword)cAlternatives.eContents().get(22);
+		private final Keyword cListAlphaRootKeyword_23 = (Keyword)cAlternatives.eContents().get(23);
+		private final Keyword cStringKeyword_24 = (Keyword)cAlternatives.eContents().get(24);
+		private final Keyword cListStringKeyword_25 = (Keyword)cAlternatives.eContents().get(25);
+		private final Keyword cStringKeyword_26 = (Keyword)cAlternatives.eContents().get(26);
+		private final Keyword cIntKeyword_27 = (Keyword)cAlternatives.eContents().get(27);
+		private final Keyword cListIntegerKeyword_28 = (Keyword)cAlternatives.eContents().get(28);
+		private final Keyword cIntKeyword_29 = (Keyword)cAlternatives.eContents().get(29);
 		
 		//ArgumentType ArgumentType:
 		//	"Void" |
@@ -624,6 +625,7 @@ public class CommandsGrammarAccess extends AbstractGrammarElementFinder {
 		//	"AutoRestrictExpression" |
 		//	"BinaryExpression" |
 		//	"DependenceExpression" |
+		//	"MultiArgExpression" |
 		//	"ReduceExpression" |
 		//	"RestrictExpression" |
 		//	"AffineFunction" |
@@ -641,8 +643,8 @@ public class CommandsGrammarAccess extends AbstractGrammarElementFinder {
 		//"Void" | "AlphaNode" | "AlphaCompleteVisitable" | "AlphaVisitable" | "AlphaExpressionVisitable" | "AlphaRoot" |
 		//"AlphaSystem" | "SystemBody" | "Variable" | "Equation" | "StandardEquation" | "UseEquation" | "AlphaExpression" |
 		//"AbstractReduceExpression" | "AutoRestrictExpression" | "BinaryExpression" | "DependenceExpression" |
-		//"ReduceExpression" | "RestrictExpression" | "AffineFunction" | "Domain" | "ParameterDomain" | "List<AlphaRoot>" |
-		//"String" | "List<String>" | "String[]" | "int" | "List<Integer>" | "int[]"
+		//"MultiArgExpression" | "ReduceExpression" | "RestrictExpression" | "AffineFunction" | "Domain" | "ParameterDomain" |
+		//"List<AlphaRoot>" | "String" | "List<String>" | "String[]" | "int" | "List<Integer>" | "int[]"
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//"Void"
@@ -696,41 +698,44 @@ public class CommandsGrammarAccess extends AbstractGrammarElementFinder {
 		//"DependenceExpression"
 		public Keyword getDependenceExpressionKeyword_16() { return cDependenceExpressionKeyword_16; }
 		
+		//"MultiArgExpression"
+		public Keyword getMultiArgExpressionKeyword_17() { return cMultiArgExpressionKeyword_17; }
+		
 		//"ReduceExpression"
-		public Keyword getReduceExpressionKeyword_17() { return cReduceExpressionKeyword_17; }
+		public Keyword getReduceExpressionKeyword_18() { return cReduceExpressionKeyword_18; }
 		
 		//"RestrictExpression"
-		public Keyword getRestrictExpressionKeyword_18() { return cRestrictExpressionKeyword_18; }
+		public Keyword getRestrictExpressionKeyword_19() { return cRestrictExpressionKeyword_19; }
 		
 		//"AffineFunction"
-		public Keyword getAffineFunctionKeyword_19() { return cAffineFunctionKeyword_19; }
+		public Keyword getAffineFunctionKeyword_20() { return cAffineFunctionKeyword_20; }
 		
 		//"Domain"
-		public Keyword getDomainKeyword_20() { return cDomainKeyword_20; }
+		public Keyword getDomainKeyword_21() { return cDomainKeyword_21; }
 		
 		//"ParameterDomain"
-		public Keyword getParameterDomainKeyword_21() { return cParameterDomainKeyword_21; }
+		public Keyword getParameterDomainKeyword_22() { return cParameterDomainKeyword_22; }
 		
 		//"List<AlphaRoot>"
-		public Keyword getListAlphaRootKeyword_22() { return cListAlphaRootKeyword_22; }
+		public Keyword getListAlphaRootKeyword_23() { return cListAlphaRootKeyword_23; }
 		
 		//"String"
-		public Keyword getStringKeyword_23() { return cStringKeyword_23; }
+		public Keyword getStringKeyword_24() { return cStringKeyword_24; }
 		
 		//"List<String>"
-		public Keyword getListStringKeyword_24() { return cListStringKeyword_24; }
+		public Keyword getListStringKeyword_25() { return cListStringKeyword_25; }
 		
 		//"String[]"
-		public Keyword getStringKeyword_25() { return cStringKeyword_25; }
+		public Keyword getStringKeyword_26() { return cStringKeyword_26; }
 		
 		//"int"
-		public Keyword getIntKeyword_26() { return cIntKeyword_26; }
+		public Keyword getIntKeyword_27() { return cIntKeyword_27; }
 		
 		//"List<Integer>"
-		public Keyword getListIntegerKeyword_27() { return cListIntegerKeyword_27; }
+		public Keyword getListIntegerKeyword_28() { return cListIntegerKeyword_28; }
 		
 		//"int[]"
-		public Keyword getIntKeyword_28() { return cIntKeyword_28; }
+		public Keyword getIntKeyword_29() { return cIntKeyword_29; }
 	}
 	
 	
@@ -957,6 +962,7 @@ public class CommandsGrammarAccess extends AbstractGrammarElementFinder {
 	//	"AutoRestrictExpression" |
 	//	"BinaryExpression" |
 	//	"DependenceExpression" |
+	//	"MultiArgExpression" |
 	//	"ReduceExpression" |
 	//	"RestrictExpression" |
 	//	"AffineFunction" |
