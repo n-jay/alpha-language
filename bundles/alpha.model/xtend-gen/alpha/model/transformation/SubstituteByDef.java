@@ -11,6 +11,7 @@ import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
+import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
 import java.util.function.Consumer;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -31,15 +32,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  */
 @SuppressWarnings("all")
 public class SubstituteByDef extends AbstractAlphaCompleteVisitor {
-  protected SystemBody systemBody;
-  
-  protected StandardEquation targetEquation;
-  
   protected StandardEquation substituteEquation;
   
-  private SubstituteByDef(final SystemBody systemBody, final StandardEquation targetEquation, final StandardEquation substituteEquation) {
-    this.systemBody = systemBody;
-    this.targetEquation = targetEquation;
+  private SubstituteByDef(final StandardEquation substituteEquation) {
     this.substituteEquation = substituteEquation;
   }
   
@@ -52,31 +47,33 @@ public class SubstituteByDef extends AbstractAlphaCompleteVisitor {
   
   public static void apply(final AlphaSystem system, final StandardEquation targetEq, final Variable substituteVar) {
     final Consumer<SystemBody> _function = (SystemBody body) -> {
-      SubstituteByDef.apply(body, targetEq, substituteVar);
+      SubstituteByDef.apply(targetEq, substituteVar);
     };
     system.getSystemBodies().forEach(_function);
   }
   
   public static void apply(final SystemBody body, final Variable substituteVar) {
-    SubstituteByDef.apply(body, null, substituteVar);
+    final StandardEquation subEq = body.getStandardEquation(substituteVar);
+    final SubstituteByDef visitor = new SubstituteByDef(subEq);
+    visitor.accept(body);
   }
   
-  public static void apply(final SystemBody body, final StandardEquation targetEq, final Variable substituteVar) {
+  public static void apply(final StandardEquation targetEq, final Variable substituteVar) {
+    final SystemBody body = AlphaUtil.getContainerSystemBody(targetEq);
     final StandardEquation subEq = body.getStandardEquation(substituteVar);
-    final SubstituteByDef visitor = new SubstituteByDef(body, targetEq, subEq);
-    visitor.accept(body);
+    final SubstituteByDef visitor = new SubstituteByDef(subEq);
+    visitor.accept(targetEq);
+  }
+  
+  public static void apply(final AlphaExpression targetExpr, final Variable substituteVar) {
+    final SystemBody body = AlphaUtil.getContainerSystemBody(targetExpr);
+    final StandardEquation subEq = body.getStandardEquation(substituteVar);
+    final SubstituteByDef visitor = new SubstituteByDef(subEq);
+    visitor.accept(targetExpr);
   }
   
   @Override
   public void visitUseEquation(final UseEquation ue) {
-    return;
-  }
-  
-  @Override
-  public void visitStandardEquation(final StandardEquation se) {
-    if (((this.targetEquation == null) || Objects.equal(se, this.targetEquation))) {
-      super.visitStandardEquation(se);
-    }
     return;
   }
   
