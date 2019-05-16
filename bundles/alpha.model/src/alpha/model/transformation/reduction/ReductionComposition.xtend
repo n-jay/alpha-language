@@ -51,11 +51,9 @@ class ReductionComposition {
 	 * Implementation of the transformation.
 	 */
 	private static def transform(AbstractReduceExpression are) {
-		if (!(are.body instanceof AbstractReduceExpression)) return 0;
+		if (!testLegality(are)) return 0;
 		
 		val innerARE = are.body as AbstractReduceExpression
-		
-		if (are.operator != innerARE.operator) return 0;
 		
 		val composedProj = are.projection.pullback(innerARE.projection)
 		
@@ -63,5 +61,19 @@ class ReductionComposition {
 		are.body = innerARE.body
 		
 		return 1;
+	}
+	
+	/**
+	 * Tests if ReductionComposition is applicable.
+	 * Exposed to be used by SimplifyReductionExploration.
+	 */
+	static def testLegality(AbstractReduceExpression are) {
+		if (!(are.body instanceof AbstractReduceExpression)) return false
+		
+		val innerARE = are.body as AbstractReduceExpression
+		
+		if (are.operator != innerARE.operator) return false
+		
+		return true
 	}
 }

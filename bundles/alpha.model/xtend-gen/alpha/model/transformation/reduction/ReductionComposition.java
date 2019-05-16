@@ -64,10 +64,28 @@ public class ReductionComposition {
    * Implementation of the transformation.
    */
   private static int transform(final AbstractReduceExpression are) {
+    boolean _testLegality = ReductionComposition.testLegality(are);
+    boolean _not = (!_testLegality);
+    if (_not) {
+      return 0;
+    }
+    AlphaExpression _body = are.getBody();
+    final AbstractReduceExpression innerARE = ((AbstractReduceExpression) _body);
+    final JNIISLMultiAff composedProj = are.getProjection().pullback(innerARE.getProjection());
+    are.setProjectionExpr(AlphaUserFactory.createJNIFunction(composedProj));
+    are.setBody(innerARE.getBody());
+    return 1;
+  }
+  
+  /**
+   * Tests if ReductionComposition is applicable.
+   * Exposed to be used by SimplifyReductionExploration.
+   */
+  public static boolean testLegality(final AbstractReduceExpression are) {
     AlphaExpression _body = are.getBody();
     boolean _not = (!(_body instanceof AbstractReduceExpression));
     if (_not) {
-      return 0;
+      return false;
     }
     AlphaExpression _body_1 = are.getBody();
     final AbstractReduceExpression innerARE = ((AbstractReduceExpression) _body_1);
@@ -75,11 +93,8 @@ public class ReductionComposition {
     REDUCTION_OP _operator_1 = innerARE.getOperator();
     boolean _notEquals = (!Objects.equal(_operator, _operator_1));
     if (_notEquals) {
-      return 0;
+      return false;
     }
-    final JNIISLMultiAff composedProj = are.getProjection().pullback(innerARE.getProjection());
-    are.setProjectionExpr(AlphaUserFactory.createJNIFunction(composedProj));
-    are.setBody(innerARE.getBody());
-    return 1;
+    return true;
   }
 }
