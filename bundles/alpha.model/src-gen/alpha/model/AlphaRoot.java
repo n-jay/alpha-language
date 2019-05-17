@@ -94,4 +94,20 @@ public interface AlphaRoot extends AlphaNode, AlphaVisitable {
 	 */
 	void accept(AlphaVisitor visitor);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" nodeIDUnique="false" nodeIDMany="true"
+	 * @generated
+	 */
+	AlphaNode getNode(EList<Integer> nodeID);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false" nodeIDUnique="false"
+	 * @generated
+	 */
+	AlphaNode getNode(String nodeID);
+
 } // AlphaRoot

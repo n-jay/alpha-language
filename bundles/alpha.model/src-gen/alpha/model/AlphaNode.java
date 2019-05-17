@@ -49,25 +49,19 @@ public interface AlphaNode extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * *
+	 * Returns a node in the AST as a result of following the path specified by
+	 * the given vector. Each element of the vector is the index of the list
+	 * returned by eContents.
+	 * 
+	 * Note that the nodeID is computed has AlphaRoot as its root. Thus,
+	 * getNode must be called at AlphaNode to retrieve the right node.
+	 * (It is best if the visibility can be restricted, but this is not supported by current Xcore.)
+	 * <!-- end-model-doc -->
 	 * @model unique="false" nodeIDDataType="alpha.model.IntegerQueue" nodeIDUnique="false"
 	 * @generated
 	 */
 	AlphaNode getNode(Queue<Integer> nodeID);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model unique="false" nodeIDUnique="false" nodeIDMany="true"
-	 * @generated
-	 */
-	AlphaNode getNode(EList<Integer> nodeID);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model unique="false" nodeIDUnique="false"
-	 * @generated
-	 */
-	AlphaNode getNode(String nodeID);
 
 } // AlphaNode

@@ -52,19 +52,20 @@ class AlphaNode {
 		return parentID
 	}
 	
+	/**
+	 * Returns a node in the AST as a result of following the path specified by
+	 * the given vector. Each element of the vector is the index of the list
+	 * returned by eContents.
+	 * 
+	 * Note that the nodeID is computed has AlphaRoot as its root. Thus,
+	 * getNode must be called at AlphaNode to retrieve the right node.
+	 * (It is best if the visibility can be restricted, but this is not supported by current Xcore.)
+	 */
 	op AlphaNode getNode(IntegerQueue nodeID) {
 		val next = nodeID.poll;
 		
 		if (next === null) this
 		else (this.eContents.get(next) as AlphaNode).getNode(nodeID);
-	}
-	
-	op AlphaNode getNode(int[] nodeID) {
-		getNode(new LinkedList(nodeID))
-	}
-	
-	op AlphaNode getNode(String nodeID) {
-		getNode(new LinkedList(AlphaUtil.parseIntArray(nodeID)))
 	}
 }
 
@@ -305,6 +306,14 @@ class AlphaRoot extends AlphaNode, AlphaVisitable {
 	
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitAlphaRoot(this)
+	}
+	
+	op AlphaNode getNode(int[] nodeID) {
+		getNode(new LinkedList(nodeID))
+	}
+	
+	op AlphaNode getNode(String nodeID) {
+		getNode(new LinkedList(AlphaUtil.parseIntArray(nodeID)))
 	}
 }
 

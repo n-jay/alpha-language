@@ -5,10 +5,6 @@ package alpha.model.impl;
 import alpha.model.AlphaNode;
 import alpha.model.ModelPackage;
 
-import alpha.model.util.AlphaUtil;
-
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Queue;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -99,29 +95,6 @@ public class AlphaNodeImpl extends MinimalEObjectImpl.Container implements Alpha
 			_xblockexpression = _xifexpression;
 		}
 		return _xblockexpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public AlphaNode getNode(final EList<Integer> nodeID) {
-		LinkedList<Integer> _linkedList = new LinkedList<Integer>(nodeID);
-		return this.getNode(_linkedList);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public AlphaNode getNode(final String nodeID) {
-		int[] _parseIntArray = AlphaUtil.parseIntArray(nodeID);
-		LinkedList<Integer> _linkedList = new LinkedList<Integer>((Collection<? extends Integer>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(_parseIntArray));
-		return this.getNode(_linkedList);
 	}
 
 	/**

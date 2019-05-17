@@ -4,6 +4,7 @@ package alpha.model.impl;
 
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaElement;
+import alpha.model.AlphaNode;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
@@ -12,7 +13,10 @@ import alpha.model.ExternalFunction;
 import alpha.model.Imports;
 import alpha.model.ModelPackage;
 
+import alpha.model.util.AlphaUtil;
+
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -192,6 +196,29 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitAlphaRoot(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AlphaNode getNode(final EList<Integer> nodeID) {
+		LinkedList<Integer> _linkedList = new LinkedList<Integer>(nodeID);
+		return this.getNode(_linkedList);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AlphaNode getNode(final String nodeID) {
+		int[] _parseIntArray = AlphaUtil.parseIntArray(nodeID);
+		LinkedList<Integer> _linkedList = new LinkedList<Integer>((Collection<? extends Integer>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(_parseIntArray));
+		return this.getNode(_linkedList);
 	}
 
 	/**
