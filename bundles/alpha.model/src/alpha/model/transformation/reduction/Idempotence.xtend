@@ -96,5 +96,6 @@ class Idempotence {
 
 		EcoreUtil2.replace(are, replacement)
 		AlphaInternalStateConstructor.recomputeContextDomain(replacement)
+		Normalize.apply(replacement)
 	}
 }
