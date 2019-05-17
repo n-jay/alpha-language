@@ -34,7 +34,10 @@ import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
+import fr.irisa.cairn.jnimap.barvinok.jni.BarvinokFunctions;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLQPolynomial;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -143,6 +146,20 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     @Override
     public String description() {
       return String.format("Inline %s", this.variable.getName());
+    }
+  }
+  
+  private static class StepPrintSystemBody extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
+    public String description() {
+      return String.format("Print current SystemBody");
+    }
+  }
+  
+  private static class StepPrintCardinality extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
+    public String description() {
+      return String.format("Print Cardinality of the reduction bodies");
     }
   }
   
@@ -275,6 +292,10 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         return new SimplifyingReductionsExploration.StepSelectReduction(e);
       };
       options.addAll(ListExtensions.<AbstractReduceExpression, SimplifyingReductionsExploration.StepSelectReduction>map(candidates, _function));
+      SimplifyingReductionsExploration.StepPrintSystemBody _stepPrintSystemBody = new SimplifyingReductionsExploration.StepPrintSystemBody();
+      options.add(_stepPrintSystemBody);
+      SimplifyingReductionsExploration.StepPrintCardinality _stepPrintCardinality = new SimplifyingReductionsExploration.StepPrintCardinality();
+      options.add(_stepPrintCardinality);
       SimplifyingReductionsExploration.StepBacktrack _stepBacktrack = new SimplifyingReductionsExploration.StepBacktrack();
       options.add(_stepBacktrack);
       SimplifyingReductionsExploration.StepFinish _stepFinish = new SimplifyingReductionsExploration.StepFinish();
@@ -305,9 +326,9 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
    */
   private void expressionDomainCheck() {
     try {
-      final String getExprCommand = this.getExpressionCommandString();
       AlphaExpression _body = this.targetRE.getBody();
       if ((_body instanceof CaseExpression)) {
+        final String getExprCommand = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
         this.outStream.println("");
         this.outStream.println("Selected reduction has a CaseExpression as its body. Applying PermutationCaseReduce.");
         this.outStream.print("Press enter/return to continue...");
@@ -321,6 +342,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       int _nbBasicSets = this.targetRE.getBody().getExpressionDomain().getNbBasicSets();
       boolean _greaterThan = (_nbBasicSets > 1);
       if (_greaterThan) {
+        final String getExprCommand_1 = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE.getBody());
         this.outStream.println("");
         this.outStream.println("The expression domain of reduction body is not a single polyhedron. Applying SplitUnionIntoCase.");
         this.outStream.print("Press enter/return to continue...");
@@ -344,7 +366,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         }
         this.state = SimplifyingReductionsExploration.STATE.INITIAL;
         this.targetRE = null;
-        this.commandHistory.add(String.format("SplitUnionIntoCase(%s)", getExprCommand));
+        this.commandHistory.add(String.format("SplitUnionIntoCase(%s)", getExprCommand_1));
         return;
       }
       this.state = SimplifyingReductionsExploration.STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS;
@@ -359,7 +381,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
    */
   private void sideEffectFreeTransformations() {
     try {
-      final String getExprCommand = this.getExpressionCommandString();
+      final String getExprCommand = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
       final int sosCount = SameOperatorSimplification.apply(this.targetRE);
       if ((sosCount > 0)) {
         this.outStream.println("");
@@ -420,6 +442,10 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       }
       options.addAll(this.findDecompositionCandidates(SSAR));
       Iterables.<SimplifyingReductionsExploration.ExplorationStep>addAll(options, SimplifyingReductionsExploration.findInlineCandidates(this.targetRE));
+      SimplifyingReductionsExploration.StepPrintSystemBody _stepPrintSystemBody = new SimplifyingReductionsExploration.StepPrintSystemBody();
+      options.add(_stepPrintSystemBody);
+      SimplifyingReductionsExploration.StepPrintCardinality _stepPrintCardinality = new SimplifyingReductionsExploration.StepPrintCardinality();
+      options.add(_stepPrintCardinality);
       SimplifyingReductionsExploration.StepPrintShareSpace _stepPrintShareSpace = new SimplifyingReductionsExploration.StepPrintShareSpace(SSAR);
       options.add(_stepPrintShareSpace);
       SimplifyingReductionsExploration.StepBacktrack _stepBacktrack = new SimplifyingReductionsExploration.StepBacktrack();
@@ -455,13 +481,13 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       EObject _eContainer = this.targetRE.eContainer();
       boolean _not = (!(_eContainer instanceof StandardEquation));
       if (_not) {
-        final String getExprCommand = this.getExpressionCommandString();
+        final String getExprCommand = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
         final StandardEquation eq = NormalizeReduction.apply(this.targetRE);
         this.commandHistory.add(String.format("NormalizeReduction(%s)", getExprCommand));
         AlphaExpression _expr = eq.getExpr();
         this.targetRE = ((AbstractReduceExpression) _expr);
       }
-      final String getExprCommand_1 = this.getExpressionCommandString();
+      final String getExprCommand_1 = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
       SimplifyingReductions.apply(((ReduceExpression) this.targetRE), step.reuseDepNoParams);
       this.outStream.println(String.format("Applied SimplifyingReductions."));
       this.state = SimplifyingReductionsExploration.STATE.INITIAL;
@@ -475,7 +501,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final String getExprCommand = this.getExpressionCommandString();
+        final String getExprCommand = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
         Idempotence.apply(this.targetRE);
         this.outStream.println("");
         this.outStream.println(String.format("Applied Idempotence: %s", AShow.print(this.targetRE)));
@@ -495,7 +521,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final String getExprCommand = this.getExpressionCommandString();
+        final String getExprCommand = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
         HigherOrderOperator.apply(this.targetRE);
         this.outStream.println("");
         this.outStream.println(String.format("Applied HigherOrderOperator: %s", AShow.print(this.targetRE)));
@@ -515,7 +541,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final String getExprCommand = this.getExpressionCommandString();
+        final String getExprCommand = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
         ReductionComposition.apply(this.targetRE);
         Normalize.apply(this.getCurrentBody());
         this.outStream.println("");
@@ -536,7 +562,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final String getExprCommand = this.getExpressionCommandString();
+        final String getExprCommand = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
         ReductionDecomposition.apply(this.targetRE, step.innerProjection, step.outerProjection);
         Normalize.apply(this.getCurrentBody());
         this.outStream.println("");
@@ -586,7 +612,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final String getExprCommand = this.getExpressionCommandString();
+        final String getExprCommand = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
         SubstituteByDef.apply(this.targetRE, step.variable);
         Normalize.apply(this.targetRE);
         this.outStream.println("");
@@ -603,6 +629,32 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     }
   }
   
+  private Object _performAction(final SimplifyingReductionsExploration.StepPrintSystemBody step) {
+    this.outStream.println(AShow.print(this.getCurrentBody()));
+    return null;
+  }
+  
+  private Object _performAction(final SimplifyingReductionsExploration.StepPrintCardinality step) {
+    final List<AbstractReduceExpression> candidates = EcoreUtil2.<AbstractReduceExpression>getAllContentsOfType(this.getCurrentBody(), AbstractReduceExpression.class);
+    for (final AbstractReduceExpression candidate : candidates) {
+      int _nbBasicSets = candidate.getBody().getContextDomain().getNbBasicSets();
+      boolean _greaterThan = (_nbBasicSets > 1);
+      if (_greaterThan) {
+        this.outStream.println(String.format("N/A; context domain involves union. : card(%s)", AShow.print(candidate)));
+      } else {
+        final JNIISLPWQPolynomial card = BarvinokFunctions.card(candidate.getBody().getContextDomain());
+        final JNIISLQPolynomial qp = card.getPieceAt(0).getQp();
+        this.outStream.println(String.format("%s : card(%s)", AlphaPrintingUtil.toShowString(qp), AShow.print(candidate)));
+      }
+    }
+    return null;
+  }
+  
+  private Object _performAction(final SimplifyingReductionsExploration.StepPrintShareSpace step) {
+    this.outStream.println(step.SSAR);
+    return null;
+  }
+  
   private Object _performAction(final SimplifyingReductionsExploration.StepBacktrack step) {
     do {
       this.rollbackState();
@@ -614,14 +666,9 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     return this.state = SimplifyingReductionsExploration.STATE.EXIT;
   }
   
-  private Object _performAction(final SimplifyingReductionsExploration.StepPrintShareSpace step) {
-    this.outStream.println(step.SSAR);
-    return null;
-  }
-  
-  private String getExpressionCommandString() {
-    final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
-    final EList<Integer> exprID = this.targetRE.getExpressionID();
+  private static String getExpressionCommandString(final AlphaExpression target) {
+    final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(target));
+    final EList<Integer> exprID = target.getExpressionID();
     return String.format("GetExpression(body, \"%s\", \"%s\")", eqName, exprID);
   }
   
@@ -689,8 +736,12 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       return _performAction((SimplifyingReductionsExploration.StepIdempotence)step);
     } else if (step instanceof SimplifyingReductionsExploration.StepInlineVariable) {
       return _performAction((SimplifyingReductionsExploration.StepInlineVariable)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepPrintCardinality) {
+      return _performAction((SimplifyingReductionsExploration.StepPrintCardinality)step);
     } else if (step instanceof SimplifyingReductionsExploration.StepPrintShareSpace) {
       return _performAction((SimplifyingReductionsExploration.StepPrintShareSpace)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepPrintSystemBody) {
+      return _performAction((SimplifyingReductionsExploration.StepPrintSystemBody)step);
     } else if (step instanceof SimplifyingReductionsExploration.StepReductionComposition) {
       return _performAction((SimplifyingReductionsExploration.StepReductionComposition)step);
     } else if (step instanceof SimplifyingReductionsExploration.StepReductionDecomposition) {

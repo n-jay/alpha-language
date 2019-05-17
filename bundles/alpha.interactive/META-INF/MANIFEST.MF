@@ -5,5 +5,6 @@ Bundle-SymbolicName: alpha.interactive
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: alpha.model,
- alpha.commands
+ alpha.commands,
+ fr.irisa.cairn.jnimap.barvinok
 Export-Package: alpha.model.interactive

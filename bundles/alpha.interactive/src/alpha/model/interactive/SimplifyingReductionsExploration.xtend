@@ -33,6 +33,8 @@ import java.util.LinkedList
 import java.util.List
 import org.eclipse.xtext.EcoreUtil2
 import alpha.model.util.AlphaPrintingUtil
+import fr.irisa.cairn.jnimap.barvinok.jni.BarvinokFunctions
+import alpha.model.AlphaExpression
 
 class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 
@@ -121,7 +123,8 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 		options.addAll(candidates.map[e|new StepSelectReduction(e)])
 		
-		//Default option: revert & finish
+		options.add(new StepPrintSystemBody());
+		options.add(new StepPrintCardinality());
 		options.add(new StepBacktrack());
 		options.add(new StepFinish());
 		
@@ -144,9 +147,10 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	 * reduction body is unbounded.
 	 */
 	private def expressionDomainCheck() {
-		val getExprCommand = getExpressionCommandString
 		
 		if (targetRE.body instanceof CaseExpression) {
+			val getExprCommand = targetRE.getExpressionCommandString
+			
 			outStream.println("");
 			outStream.println("Selected reduction has a CaseExpression as its body. Applying PermutationCaseReduce.")
 			outStream.print("Press enter/return to continue...")
@@ -160,6 +164,8 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		}
 		
 		if (targetRE.body.expressionDomain.nbBasicSets > 1) {
+			val getExprCommand = targetRE.body.expressionCommandString
+			
 			outStream.println("");
 			outStream.println("The expression domain of reduction body is not a single polyhedron. Applying SplitUnionIntoCase.");
 			outStream.print("Press enter/return to continue...")
@@ -192,7 +198,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	 * 
 	 */
 	private def sideEffectFreeTransformations() {
-		val getExprCommand = getExpressionCommandString
+		val getExprCommand = targetRE.getExpressionCommandString
 		
 		//reduction decomposition without side-effect (not implemented)
 		//same operator simplification
@@ -263,7 +269,9 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		//Inline
 		options.addAll(targetRE.findInlineCandidates)
 		
-		//Default option: revert & finish
+		//Default Options
+		options.add(new StepPrintSystemBody());
+		options.add(new StepPrintCardinality());
 		options.add(new StepPrintShareSpace(SSAR));
 		options.add(new StepBacktrack());
 		options.add(new StepFinish());
@@ -287,14 +295,14 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	
 	private def dispatch performAction(StepSimplifyingReduction step) {
 		if (!(targetRE.eContainer instanceof StandardEquation)) {
-			val getExprCommand = getExpressionCommandString
+			val getExprCommand = targetRE.getExpressionCommandString
 		
 			val eq = NormalizeReduction.apply(targetRE)
 			commandHistory.add(String.format("NormalizeReduction(%s)", getExprCommand))
 			targetRE = eq.expr as AbstractReduceExpression
 		}
 
-		val getExprCommand = getExpressionCommandString
+		val getExprCommand = targetRE.getExpressionCommandString
 		
 		SimplifyingReductions.apply(targetRE as ReduceExpression, step.reuseDepNoParams);
 		
@@ -306,7 +314,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	}
 	
 	private def dispatch performAction(StepIdempotence step) {
-		val getExprCommand = getExpressionCommandString
+		val getExprCommand = targetRE.getExpressionCommandString
 		
 		Idempotence.apply(targetRE);
 		
@@ -321,7 +329,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	}
 	
 	private def dispatch performAction(StepHigherOrderOperator step) {
-		val getExprCommand = getExpressionCommandString
+		val getExprCommand = targetRE.getExpressionCommandString
 		
 		HigherOrderOperator.apply(targetRE);
 		
@@ -336,7 +344,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	}
 	
 	private def dispatch performAction(StepReductionComposition step) {
-		val getExprCommand = getExpressionCommandString
+		val getExprCommand = targetRE.getExpressionCommandString
 		
 		ReductionComposition.apply(targetRE);
 		Normalize.apply(currentBody)
@@ -352,7 +360,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	}
 	
 	private def dispatch performAction(StepReductionDecomposition step) {
-		val getExprCommand = getExpressionCommandString
+		val getExprCommand = targetRE.getExpressionCommandString
 		
 		ReductionDecomposition.apply(targetRE, step.innerProjection,  step.outerProjection);
 		Normalize.apply(currentBody)
@@ -398,7 +406,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	}
 	
 	private def dispatch performAction(StepInlineVariable step) {
-		val getExprCommand = getExpressionCommandString
+		val getExprCommand = targetRE.getExpressionCommandString
 		
 		SubstituteByDef.apply(targetRE, step.variable);
 		Normalize.apply(targetRE)
@@ -413,6 +421,26 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		commandHistory.add(String.format("Normalize(%s)", getExprCommand))
 	}
 	
+	private def dispatch performAction(StepPrintSystemBody step) {
+		outStream.println(AShow.print(currentBody));
+	}
+	
+	private def dispatch performAction(StepPrintCardinality step) {
+		val candidates = EcoreUtil2.getAllContentsOfType(currentBody, AbstractReduceExpression);
+		
+		for (candidate : candidates) {
+			if (candidate.body.contextDomain.nbBasicSets > 1) {
+				outStream.println(String.format("N/A; context domain involves union. : card(%s)", AShow.print(candidate)));
+			} else {
+				val card = BarvinokFunctions.card(candidate.body.contextDomain)
+				val qp = card.getPieceAt(0).qp
+				outStream.println(String.format("%s : card(%s)", AlphaPrintingUtil.toShowString(qp), AShow.print(candidate)));
+			}			
+		}
+	}
+	private def dispatch performAction(StepPrintShareSpace step) {
+		outStream.println(step.SSAR);
+	}
 	private def dispatch performAction(StepBacktrack step) {
 		do {
 			rollbackState
@@ -421,14 +449,11 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	private def dispatch performAction(StepFinish step) {
 		state = STATE.EXIT
 	}
-	private def dispatch performAction(StepPrintShareSpace step) {
-		outStream.println(step.SSAR);
-	}
 	
-	private def getExpressionCommandString() {
-		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
+	private static def getExpressionCommandString(AlphaExpression target) {
+		val eqName = AlphaUtil.getContainerEquation(target).equationName
 		//expression ID must be obtained before transformation
-		val exprID = targetRE.expressionID
+		val exprID = target.expressionID
 		
 		return String.format("GetExpression(body, \"%s\", \"%s\")", eqName, exprID)
 	}
@@ -531,6 +556,18 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 		override description() {
 			String.format("Inline %s", variable.name);
+		}
+	}
+	
+	private static class StepPrintSystemBody extends ExplorationStep {
+		override description() {
+			String.format("Print current SystemBody");
+		}
+	}
+	
+	private static class StepPrintCardinality extends ExplorationStep {
+		override description() {
+			String.format("Print Cardinality of the reduction bodies");
 		}
 	}
 	
