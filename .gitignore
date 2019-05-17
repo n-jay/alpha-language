@@ -28,4 +28,5 @@ workspace/
 
 # test files
 */alpha.model.tests/resources/experimental/*
+*/alpha.model.tests/src/alpha/model/tests/Driver*
 
