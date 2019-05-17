@@ -32,6 +32,7 @@ import java.util.HashSet
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.xtext.EcoreUtil2
+import alpha.model.util.AlphaPrintingUtil
 
 class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 
@@ -94,9 +95,17 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		outStream.print("Press enter/return to output transformation script")
 		inStream.readLine
 	
+		outStream.println();
+		outStream.println("import groovy.transform.BaseScript");
+		outStream.println("@BaseScript alpha.commands.groovy.AlphaScript alphaScript");
+		outStream.println();
 		for (String c : getCommandSequence()) {
 			outStream.println(c);
 		}
+		outStream.println();
+		outStream.println("CheckProgram(root)");
+		outStream.println("AShow(system)");
+		outStream.println();
 	}
 	
 	/**
@@ -135,9 +144,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	 * reduction body is unbounded.
 	 */
 	private def expressionDomainCheck() {
-		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
-		//expression ID must be obtained before transformation
-		val exprID = targetRE.expressionID
+		val getExprCommand = getExpressionCommandString
 		
 		if (targetRE.body instanceof CaseExpression) {
 			outStream.println("");
@@ -148,7 +155,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 			PermutationCaseReduce.apply(targetRE)
 			state = STATE.INITIAL
 			targetRE = null
-			commandHistory.add(String.format("PermutationCaseReduce(GetExpression(body, %s, %s)", eqName, exprID))
+			commandHistory.add(String.format("PermutationCaseReduce(%s)", getExprCommand))
 			return;
 		}
 		
@@ -172,7 +179,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 			
 			state = STATE.INITIAL
 			targetRE = null
-			commandHistory.add(String.format("SplitUnionIntoCase(GetExpression(body, %s, %s)", eqName, exprID))
+			commandHistory.add(String.format("SplitUnionIntoCase(%s)", getExprCommand))
 			return;
 		}
 		
@@ -185,9 +192,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	 * 
 	 */
 	private def sideEffectFreeTransformations() {
-		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
-		//expression ID must be obtained before transformation
-		val exprID = targetRE.body.expressionID
+		val getExprCommand = getExpressionCommandString
 		
 		//reduction decomposition without side-effect (not implemented)
 		//same operator simplification
@@ -200,7 +205,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 			
 			state = STATE.INITIAL
 			targetRE = null
-			commandHistory.add(String.format("SameOperatorSimplification(GetExpression(body, %s, %s)", eqName, exprID))
+			commandHistory.add(String.format("SameOperatorSimplification(%s)", getExprCommand))
 			return;
 		}
 		//distributivity
@@ -213,7 +218,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 			
 			state = STATE.INITIAL
 			targetRE = null
-			commandHistory.add(String.format("Distributivity(GetExpression(body, %s, %s)", eqName, exprID))
+			commandHistory.add(String.format("Distributivity(%s)", getExprCommand))
 			return
 		}
 		
@@ -227,8 +232,6 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	 * 
 	 */
 	private def StepTransformations() {
-		Normalize.apply(targetRE.body)
-		
 		val nbParams = targetRE.expressionDomain.nbParams
 		val SSAR = ShareSpaceAnalysis.apply(targetRE)
 		
@@ -284,32 +287,26 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	
 	private def dispatch performAction(StepSimplifyingReduction step) {
 		if (!(targetRE.eContainer instanceof StandardEquation)) {
-			val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
-			//expression ID must be obtained before transformation
-			val exprID = targetRE.expressionID
+			val getExprCommand = getExpressionCommandString
 		
 			val eq = NormalizeReduction.apply(targetRE)
-			commandHistory.add(String.format("NormalizeReduction(GetExpression(body, %s, %s)", eqName, exprID))
+			commandHistory.add(String.format("NormalizeReduction(%s)", getExprCommand))
 			targetRE = eq.expr as AbstractReduceExpression
 		}
 
-		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
-		//expression ID must be obtained before transformation
-		val exprID = targetRE.expressionID
+		val getExprCommand = getExpressionCommandString
 		
 		SimplifyingReductions.apply(targetRE as ReduceExpression, step.reuseDepNoParams);
 		
 		outStream.println(String.format("Applied SimplifyingReductions."));
 		state = STATE.INITIAL
 		targetRE = null
-		commandHistory.add(String.format("SimplifyingReductions(GetExpression(body, %s, %s, \"%s\")", eqName, exprID, MatrixOperations.toString(step.reuseDepNoParams)))
+		commandHistory.add(String.format("SimplifyingReductions(%s, \"%s\")", getExprCommand, MatrixOperations.toString(step.reuseDepNoParams)))
 		
 	}
 	
 	private def dispatch performAction(StepIdempotence step) {
-		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
-		//expression ID must be obtained before transformation
-		val exprID = targetRE.expressionID
+		val getExprCommand = getExpressionCommandString
 		
 		Idempotence.apply(targetRE);
 		
@@ -320,13 +317,11 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 		state = STATE.INITIAL
 		targetRE = null
-		commandHistory.add(String.format("Idempotence(GetExpression(body, %s, %s)", eqName, exprID))
+		commandHistory.add(String.format("Idempotence(%s)",getExprCommand))
 	}
 	
 	private def dispatch performAction(StepHigherOrderOperator step) {
-		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
-		//expression ID must be obtained before transformation
-		val exprID = targetRE.expressionID
+		val getExprCommand = getExpressionCommandString
 		
 		HigherOrderOperator.apply(targetRE);
 		
@@ -337,15 +332,14 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 		state = STATE.INITIAL
 		targetRE = null
-		commandHistory.add(String.format("HigherOrderOperator(GetExpression(body, %s, %s)", eqName, exprID))
+		commandHistory.add(String.format("HigherOrderOperator(%s)", getExprCommand))
 	}
 	
 	private def dispatch performAction(StepReductionComposition step) {
-		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
-		//expression ID must be obtained before transformation
-		val exprID = targetRE.expressionID
+		val getExprCommand = getExpressionCommandString
 		
 		ReductionComposition.apply(targetRE);
+		Normalize.apply(currentBody)
 		
 		outStream.println("");
 		outStream.println(String.format("Applied ReductionComposition: %s", AShow.print(targetRE)));
@@ -353,15 +347,15 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		inStream.readLine
 		
 		state = STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS
-		commandHistory.add(String.format("ReductionComposition(GetExpression(body, %s, %s))", eqName, exprID))
+		commandHistory.add(String.format("ReductionComposition(%s)", getExprCommand))
+		commandHistory.add(String.format("Normalize(body)"))
 	}
 	
 	private def dispatch performAction(StepReductionDecomposition step) {
-		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
-		//expression ID must be obtained before transformation
-		val exprID = targetRE.expressionID
+		val getExprCommand = getExpressionCommandString
 		
 		ReductionDecomposition.apply(targetRE, step.innerProjection,  step.outerProjection);
+		Normalize.apply(currentBody)
 		
 		outStream.println("");
 		outStream.println(String.format("Applied ReductionDecomposition: %s", AShow.print(targetRE)));
@@ -370,7 +364,12 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 		state = STATE.INITIAL
 		targetRE = null
-		commandHistory.add(String.format("ReductionDecomposition(GetExpression(body, %s, %s, \"%s\", \"%s\")", eqName, exprID, step.innerProjection, step.outerProjection))
+		
+		commandHistory.add(String.format("ReductionDecomposition(%s, \"%s\", \"%s\")", getExprCommand,
+				AlphaPrintingUtil.toShowString(step.innerProjection),
+				AlphaPrintingUtil.toShowString( step.outerProjection)
+		))
+		commandHistory.add(String.format("Normalize(body)"))
 	}
 	
 	private def findDecompositionCandidates(ShareSpaceAnalysisResult SSAR) {
@@ -399,8 +398,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	}
 	
 	private def dispatch performAction(StepInlineVariable step) {
-		//expression ID must be obtained before transformation
-		val exprID = targetRE.expressionID
+		val getExprCommand = getExpressionCommandString
 		
 		SubstituteByDef.apply(targetRE, step.variable);
 		Normalize.apply(targetRE)
@@ -411,7 +409,8 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		inStream.readLine
 		
 		state = STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS
-		commandHistory.add(String.format("SubstituteByDef(GetExpression(body, %s), %s)", exprID, step.variable.name))
+		commandHistory.add(String.format("SubstituteByDef(%s, \"%s\")", getExprCommand, step.variable.name))
+		commandHistory.add(String.format("Normalize(%s)", getExprCommand))
 	}
 	
 	private def dispatch performAction(StepBacktrack step) {
@@ -424,6 +423,14 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	}
 	private def dispatch performAction(StepPrintShareSpace step) {
 		outStream.println(step.SSAR);
+	}
+	
+	private def getExpressionCommandString() {
+		val eqName = AlphaUtil.getContainerEquation(targetRE).equationName
+		//expression ID must be obtained before transformation
+		val exprID = targetRE.expressionID
+		
+		return String.format("GetExpression(body, \"%s\", \"%s\")", eqName, exprID)
 	}
 	
 	private static enum STATE {

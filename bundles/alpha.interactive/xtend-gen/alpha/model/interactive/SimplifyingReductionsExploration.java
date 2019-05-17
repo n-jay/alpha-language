@@ -30,6 +30,7 @@ import alpha.model.transformation.reduction.SameOperatorSimplification;
 import alpha.model.transformation.reduction.SimplifyingReductions;
 import alpha.model.util.AShow;
 import alpha.model.util.AffineFunctionOperations;
+import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
@@ -244,10 +245,18 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       this.outStream.println("");
       this.outStream.print("Press enter/return to output transformation script");
       this.inStream.readLine();
+      this.outStream.println();
+      this.outStream.println("import groovy.transform.BaseScript");
+      this.outStream.println("@BaseScript alpha.commands.groovy.AlphaScript alphaScript");
+      this.outStream.println();
       List<String> _commandSequence = this.getCommandSequence();
       for (final String c : _commandSequence) {
         this.outStream.println(c);
       }
+      this.outStream.println();
+      this.outStream.println("CheckProgram(root)");
+      this.outStream.println("AShow(system)");
+      this.outStream.println();
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -296,8 +305,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
    */
   private void expressionDomainCheck() {
     try {
-      final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
-      final EList<Integer> exprID = this.targetRE.getExpressionID();
+      final String getExprCommand = this.getExpressionCommandString();
       AlphaExpression _body = this.targetRE.getBody();
       if ((_body instanceof CaseExpression)) {
         this.outStream.println("");
@@ -307,7 +315,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         PermutationCaseReduce.apply(this.targetRE);
         this.state = SimplifyingReductionsExploration.STATE.INITIAL;
         this.targetRE = null;
-        this.commandHistory.add(String.format("PermutationCaseReduce(GetExpression(body, %s, %s)", eqName, exprID));
+        this.commandHistory.add(String.format("PermutationCaseReduce(%s)", getExprCommand));
         return;
       }
       int _nbBasicSets = this.targetRE.getBody().getExpressionDomain().getNbBasicSets();
@@ -336,7 +344,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         }
         this.state = SimplifyingReductionsExploration.STATE.INITIAL;
         this.targetRE = null;
-        this.commandHistory.add(String.format("SplitUnionIntoCase(GetExpression(body, %s, %s)", eqName, exprID));
+        this.commandHistory.add(String.format("SplitUnionIntoCase(%s)", getExprCommand));
         return;
       }
       this.state = SimplifyingReductionsExploration.STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS;
@@ -351,8 +359,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
    */
   private void sideEffectFreeTransformations() {
     try {
-      final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
-      final EList<Integer> exprID = this.targetRE.getBody().getExpressionID();
+      final String getExprCommand = this.getExpressionCommandString();
       final int sosCount = SameOperatorSimplification.apply(this.targetRE);
       if ((sosCount > 0)) {
         this.outStream.println("");
@@ -361,7 +368,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         this.inStream.readLine();
         this.state = SimplifyingReductionsExploration.STATE.INITIAL;
         this.targetRE = null;
-        this.commandHistory.add(String.format("SameOperatorSimplification(GetExpression(body, %s, %s)", eqName, exprID));
+        this.commandHistory.add(String.format("SameOperatorSimplification(%s)", getExprCommand));
         return;
       }
       final int distCount = Distributivity.apply(this.targetRE);
@@ -372,7 +379,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         this.inStream.readLine();
         this.state = SimplifyingReductionsExploration.STATE.INITIAL;
         this.targetRE = null;
-        this.commandHistory.add(String.format("Distributivity(GetExpression(body, %s, %s)", eqName, exprID));
+        this.commandHistory.add(String.format("Distributivity(%s)", getExprCommand));
         return;
       }
       this.outStream.println("No side-effect free transformations to apply.");
@@ -388,7 +395,6 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
   private Object StepTransformations() {
     Object _xblockexpression = null;
     {
-      Normalize.apply(this.targetRE.getBody());
       final int nbParams = this.targetRE.getExpressionDomain().getNbParams();
       final ShareSpaceAnalysisResult SSAR = ShareSpaceAnalysis.apply(this.targetRE);
       final LinkedList<SimplifyingReductionsExploration.ExplorationStep> options = new LinkedList<SimplifyingReductionsExploration.ExplorationStep>();
@@ -449,20 +455,18 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       EObject _eContainer = this.targetRE.eContainer();
       boolean _not = (!(_eContainer instanceof StandardEquation));
       if (_not) {
-        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
-        final EList<Integer> exprID = this.targetRE.getExpressionID();
+        final String getExprCommand = this.getExpressionCommandString();
         final StandardEquation eq = NormalizeReduction.apply(this.targetRE);
-        this.commandHistory.add(String.format("NormalizeReduction(GetExpression(body, %s, %s)", eqName, exprID));
+        this.commandHistory.add(String.format("NormalizeReduction(%s)", getExprCommand));
         AlphaExpression _expr = eq.getExpr();
         this.targetRE = ((AbstractReduceExpression) _expr);
       }
-      final CharSequence eqName_1 = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
-      final EList<Integer> exprID_1 = this.targetRE.getExpressionID();
+      final String getExprCommand_1 = this.getExpressionCommandString();
       SimplifyingReductions.apply(((ReduceExpression) this.targetRE), step.reuseDepNoParams);
       this.outStream.println(String.format("Applied SimplifyingReductions."));
       this.state = SimplifyingReductionsExploration.STATE.INITIAL;
       this.targetRE = null;
-      _xblockexpression = this.commandHistory.add(String.format("SimplifyingReductions(GetExpression(body, %s, %s, \"%s\")", eqName_1, exprID_1, MatrixOperations.toString(step.reuseDepNoParams)));
+      _xblockexpression = this.commandHistory.add(String.format("SimplifyingReductions(%s, \"%s\")", getExprCommand_1, MatrixOperations.toString(step.reuseDepNoParams)));
     }
     return Boolean.valueOf(_xblockexpression);
   }
@@ -471,8 +475,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
-        final EList<Integer> exprID = this.targetRE.getExpressionID();
+        final String getExprCommand = this.getExpressionCommandString();
         Idempotence.apply(this.targetRE);
         this.outStream.println("");
         this.outStream.println(String.format("Applied Idempotence: %s", AShow.print(this.targetRE)));
@@ -480,7 +483,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         this.inStream.readLine();
         this.state = SimplifyingReductionsExploration.STATE.INITIAL;
         this.targetRE = null;
-        _xblockexpression = this.commandHistory.add(String.format("Idempotence(GetExpression(body, %s, %s)", eqName, exprID));
+        _xblockexpression = this.commandHistory.add(String.format("Idempotence(%s)", getExprCommand));
       }
       return Boolean.valueOf(_xblockexpression);
     } catch (Throwable _e) {
@@ -492,8 +495,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
-        final EList<Integer> exprID = this.targetRE.getExpressionID();
+        final String getExprCommand = this.getExpressionCommandString();
         HigherOrderOperator.apply(this.targetRE);
         this.outStream.println("");
         this.outStream.println(String.format("Applied HigherOrderOperator: %s", AShow.print(this.targetRE)));
@@ -501,7 +503,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         this.inStream.readLine();
         this.state = SimplifyingReductionsExploration.STATE.INITIAL;
         this.targetRE = null;
-        _xblockexpression = this.commandHistory.add(String.format("HigherOrderOperator(GetExpression(body, %s, %s)", eqName, exprID));
+        _xblockexpression = this.commandHistory.add(String.format("HigherOrderOperator(%s)", getExprCommand));
       }
       return Boolean.valueOf(_xblockexpression);
     } catch (Throwable _e) {
@@ -513,15 +515,16 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
-        final EList<Integer> exprID = this.targetRE.getExpressionID();
+        final String getExprCommand = this.getExpressionCommandString();
         ReductionComposition.apply(this.targetRE);
+        Normalize.apply(this.getCurrentBody());
         this.outStream.println("");
         this.outStream.println(String.format("Applied ReductionComposition: %s", AShow.print(this.targetRE)));
         this.outStream.print("Press enter/return to continue...");
         this.inStream.readLine();
         this.state = SimplifyingReductionsExploration.STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS;
-        _xblockexpression = this.commandHistory.add(String.format("ReductionComposition(GetExpression(body, %s, %s))", eqName, exprID));
+        this.commandHistory.add(String.format("ReductionComposition(%s)", getExprCommand));
+        _xblockexpression = this.commandHistory.add(String.format("Normalize(body)"));
       }
       return Boolean.valueOf(_xblockexpression);
     } catch (Throwable _e) {
@@ -533,16 +536,19 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
-        final EList<Integer> exprID = this.targetRE.getExpressionID();
+        final String getExprCommand = this.getExpressionCommandString();
         ReductionDecomposition.apply(this.targetRE, step.innerProjection, step.outerProjection);
+        Normalize.apply(this.getCurrentBody());
         this.outStream.println("");
         this.outStream.println(String.format("Applied ReductionDecomposition: %s", AShow.print(this.targetRE)));
         this.outStream.print("Press enter/return to continue...");
         this.inStream.readLine();
         this.state = SimplifyingReductionsExploration.STATE.INITIAL;
         this.targetRE = null;
-        _xblockexpression = this.commandHistory.add(String.format("ReductionDecomposition(GetExpression(body, %s, %s, \"%s\", \"%s\")", eqName, exprID, step.innerProjection, step.outerProjection));
+        this.commandHistory.add(String.format("ReductionDecomposition(%s, \"%s\", \"%s\")", getExprCommand, 
+          AlphaPrintingUtil.toShowString(step.innerProjection), 
+          AlphaPrintingUtil.toShowString(step.outerProjection)));
+        _xblockexpression = this.commandHistory.add(String.format("Normalize(body)"));
       }
       return Boolean.valueOf(_xblockexpression);
     } catch (Throwable _e) {
@@ -580,7 +586,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     try {
       boolean _xblockexpression = false;
       {
-        final EList<Integer> exprID = this.targetRE.getExpressionID();
+        final String getExprCommand = this.getExpressionCommandString();
         SubstituteByDef.apply(this.targetRE, step.variable);
         Normalize.apply(this.targetRE);
         this.outStream.println("");
@@ -588,7 +594,8 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         this.outStream.print("Press enter/return to continue...");
         this.inStream.readLine();
         this.state = SimplifyingReductionsExploration.STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS;
-        _xblockexpression = this.commandHistory.add(String.format("SubstituteByDef(GetExpression(body, %s), %s)", exprID, step.variable.getName()));
+        this.commandHistory.add(String.format("SubstituteByDef(%s, \"%s\")", getExprCommand, step.variable.getName()));
+        _xblockexpression = this.commandHistory.add(String.format("Normalize(%s)", getExprCommand));
       }
       return Boolean.valueOf(_xblockexpression);
     } catch (Throwable _e) {
@@ -610,6 +617,12 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
   private Object _performAction(final SimplifyingReductionsExploration.StepPrintShareSpace step) {
     this.outStream.println(step.SSAR);
     return null;
+  }
+  
+  private String getExpressionCommandString() {
+    final CharSequence eqName = SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.targetRE));
+    final EList<Integer> exprID = this.targetRE.getExpressionID();
+    return String.format("GetExpression(body, \"%s\", \"%s\")", eqName, exprID);
   }
   
   @Override
