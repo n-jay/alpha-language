@@ -138,8 +138,12 @@ class AlphaJavaCommand {
 			}
 			case VARIABLE: {
 				origArgs.filter[a|
-					a.argumentType == ArgumentType.ALPHA_SYSTEM||
-					a.argumentType == ArgumentType.SYSTEM_BODY
+					a.argumentType == ArgumentType.ALPHA_SYSTEM ||
+					a.argumentType == ArgumentType.SYSTEM_BODY ||
+					a.argumentType == ArgumentType.EQUATION ||
+					a.argumentType == ArgumentType.STANDARD_EQUATION ||
+					a.argumentType == ArgumentType.USE_EQUATION ||
+					a.argumentType == ArgumentType.ALPHA_EXPRESSION
 				]
 			}
 			case EQUATION,

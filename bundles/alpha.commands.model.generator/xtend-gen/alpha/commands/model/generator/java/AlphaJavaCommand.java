@@ -370,8 +370,12 @@ public class AlphaJavaCommand {
             break;
           case VARIABLE:
             final Function1<AlphaCommandArgument, Boolean> _function_2 = (AlphaCommandArgument a) -> {
-              return Boolean.valueOf((Objects.equal(a.getArgumentType(), ArgumentType.ALPHA_SYSTEM) || 
-                Objects.equal(a.getArgumentType(), ArgumentType.SYSTEM_BODY)));
+              return Boolean.valueOf((((((Objects.equal(a.getArgumentType(), ArgumentType.ALPHA_SYSTEM) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.SYSTEM_BODY)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.EQUATION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.STANDARD_EQUATION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.USE_EQUATION)) || 
+                Objects.equal(a.getArgumentType(), ArgumentType.ALPHA_EXPRESSION)));
             };
             _switchResult = IterableExtensions.<AlphaCommandArgument>filter(origArgs, _function_2);
             break;
