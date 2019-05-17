@@ -516,7 +516,7 @@ abstract class Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 	}
 	
 	op AlphaExpression getExpression(String exprID) {
-		getExpression(new LinkedList<Integer>(exprID.replace('[', '').replace(']', '').split("\\s*,\\s*").map[e|Integer.parseInt(e)]))
+		getExpression(new LinkedList<Integer>(exprID.replace('[', '').replace(']', '').split("\\s*,\\s*").map[e|Integer.parseInt(e.trim)]))
 	}
 }
 

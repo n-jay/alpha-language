@@ -158,7 +158,7 @@ public abstract class EquationImpl extends AlphaNodeImpl implements Equation {
 	public AlphaExpression getExpression(final String exprID) {
 		final Function1<String, Integer> _function = new Function1<String, Integer>() {
 			public Integer apply(final String e) {
-				return Integer.valueOf(Integer.parseInt(e));
+				return Integer.valueOf(Integer.parseInt(e.trim()));
 			}
 		};
 		List<Integer> _map = ListExtensions.<String, Integer>map(((List<String>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(exprID.replace("[", "").replace("]", "").split("\\s*,\\s*"))), _function);
