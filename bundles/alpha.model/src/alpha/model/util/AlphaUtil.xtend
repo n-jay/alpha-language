@@ -14,6 +14,8 @@ import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLQPolynomial
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
@@ -24,7 +26,6 @@ import java.util.function.Supplier
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.IQualifiedNameProvider
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
 
 /**
  * Utility methods for analysis and transformation of Alpha programs.
@@ -287,6 +288,16 @@ class AlphaUtil {
 		val n = pwqp.getNbDims(JNIISLDimType.isl_dim_in)
 		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
 		var res = pwqp;
+		for (i : 0..<n) {
+			res = res.setDimName(JNIISLDimType.isl_dim_in, i, names.get(i))
+		}
+			
+		return res
+	}
+	static def renameIndices(JNIISLQPolynomial qp, List<String> names) {
+		val n = qp.getNbDims(JNIISLDimType.isl_dim_in)
+		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
+		var res = qp;
 		for (i : 0..<n) {
 			res = res.setDimName(JNIISLDimType.isl_dim_in, i, names.get(i))
 		}

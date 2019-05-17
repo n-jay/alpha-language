@@ -9,6 +9,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLQPolynomial;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLVal;
@@ -322,6 +323,21 @@ public class AlphaPrintingUtil {
   }
   
   private static String toAShowString(final JNIISLPWQPolynomial poly) {
+    return poly.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "");
+  }
+  
+  /**
+   * ISLQPolynomial to Alpha string
+   */
+  public static String toShowString(final JNIISLQPolynomial poly) {
+    return poly.toString().replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{");
+  }
+  
+  public static String toAShowString(final JNIISLQPolynomial poly, final List<String> context) {
+    return AlphaPrintingUtil.toAShowString(AlphaUtil.renameIndices(poly, context));
+  }
+  
+  private static String toAShowString(final JNIISLQPolynomial poly) {
     return poly.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "");
   }
 }

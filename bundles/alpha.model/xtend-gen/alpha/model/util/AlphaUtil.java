@@ -17,6 +17,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLQPolynomial;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
@@ -383,6 +384,21 @@ public class AlphaUtil {
       throw new RuntimeException("Need n or more index names to rename n-d space.");
     }
     JNIISLPWQPolynomial res = pwqp;
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      res = res.setDimName(JNIISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
+    }
+    return res;
+  }
+  
+  public static JNIISLQPolynomial renameIndices(final JNIISLQPolynomial qp, final List<String> names) {
+    final int n = qp.getNbDims(JNIISLDimType.isl_dim_in);
+    int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
+    boolean _greaterThan = (n > _length);
+    if (_greaterThan) {
+      throw new RuntimeException("Need n or more index names to rename n-d space.");
+    }
+    JNIISLQPolynomial res = qp;
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
     for (final Integer i : _doubleDotLessThan) {
       res = res.setDimName(JNIISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));

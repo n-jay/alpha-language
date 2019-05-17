@@ -11,6 +11,7 @@ import java.util.List
 
 import static extension alpha.model.util.AlphaUtil.renameIndices
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLQPolynomial
 
 class AlphaPrintingUtil {
 	
@@ -170,6 +171,22 @@ class AlphaPrintingUtil {
 		toAShowString(poly.renameIndices(context))
 	}
 	private static def toAShowString(JNIISLPWQPolynomial poly) {
+		//trying to just replace '[..] ->' with '' somehow removes '{' too
+		// below is a workaround, but this should be revisited FIXME
+		poly.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "")
+	}
+	
+	/**
+	 * ISLQPolynomial to Alpha string
+	 * 
+	 */
+	static def toShowString(JNIISLQPolynomial poly) {
+		poly.toString.replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{")
+	}
+	static def toAShowString(JNIISLQPolynomial poly, List<String> context) {
+		toAShowString(poly.renameIndices(context))
+	}
+	private static def toAShowString(JNIISLQPolynomial poly) {
 		//trying to just replace '[..] ->' with '' somehow removes '{' too
 		// below is a workaround, but this should be revisited FIXME
 		poly.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "")
