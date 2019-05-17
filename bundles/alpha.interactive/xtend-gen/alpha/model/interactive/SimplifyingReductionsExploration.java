@@ -17,6 +17,7 @@ import alpha.model.analysis.reduction.ShareSpaceAnalysisResult;
 import alpha.model.interactive.AbstractInteractiveExploration;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.transformation.Normalize;
+import alpha.model.transformation.SimplifyExpressions;
 import alpha.model.transformation.SplitUnionIntoCase;
 import alpha.model.transformation.SubstituteByDef;
 import alpha.model.transformation.reduction.Distributivity;
@@ -146,6 +147,20 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     @Override
     public String description() {
       return String.format("Inline %s", this.variable.getName());
+    }
+  }
+  
+  private static class StepSimplifyExpressions extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
+    public String description() {
+      return "Apply SimplifyExpression to current SystemBody";
+    }
+  }
+  
+  private static class StepSplitUnionIntoCase extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
+    public String description() {
+      return "Apply SplitUnionIntoCase to current SystemBody";
     }
   }
   
@@ -296,6 +311,10 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       options.add(_stepPrintSystemBody);
       SimplifyingReductionsExploration.StepPrintCardinality _stepPrintCardinality = new SimplifyingReductionsExploration.StepPrintCardinality();
       options.add(_stepPrintCardinality);
+      SimplifyingReductionsExploration.StepSimplifyExpressions _stepSimplifyExpressions = new SimplifyingReductionsExploration.StepSimplifyExpressions();
+      options.add(_stepSimplifyExpressions);
+      SimplifyingReductionsExploration.StepSplitUnionIntoCase _stepSplitUnionIntoCase = new SimplifyingReductionsExploration.StepSplitUnionIntoCase();
+      options.add(_stepSplitUnionIntoCase);
       SimplifyingReductionsExploration.StepBacktrack _stepBacktrack = new SimplifyingReductionsExploration.StepBacktrack();
       options.add(_stepBacktrack);
       SimplifyingReductionsExploration.StepFinish _stepFinish = new SimplifyingReductionsExploration.StepFinish();
@@ -342,9 +361,10 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       int _nbBasicSets = this.targetRE.getBody().getExpressionDomain().getNbBasicSets();
       boolean _greaterThan = (_nbBasicSets > 1);
       if (_greaterThan) {
-        final String getExprCommand_1 = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE.getBody());
+        final String getExprCommand_1 = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE);
+        final String getExprCommandBody = SimplifyingReductionsExploration.getExpressionCommandString(this.targetRE.getBody());
         this.outStream.println("");
-        this.outStream.println("The expression domain of reduction body is not a single polyhedron. Applying SplitUnionIntoCase.");
+        this.outStream.println("The expression domain of reduction body is not a single polyhedron. Applying SplitUnionIntoCase + PermutationCaseReduce.");
         this.outStream.print("Press enter/return to continue...");
         this.inStream.readLine();
         AlphaExpression _body_1 = this.targetRE.getBody();
@@ -353,12 +373,14 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
           _matched=true;
           AlphaExpression _body_2 = this.targetRE.getBody();
           SplitUnionIntoCase.apply(((RestrictExpression) _body_2));
+          PermutationCaseReduce.apply(this.targetRE);
         }
         if (!_matched) {
           if (_body_1 instanceof AutoRestrictExpression) {
             _matched=true;
             AlphaExpression _body_2 = this.targetRE.getBody();
             SplitUnionIntoCase.apply(((AutoRestrictExpression) _body_2));
+            PermutationCaseReduce.apply(this.targetRE);
           }
         }
         if (!_matched) {
@@ -366,7 +388,8 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         }
         this.state = SimplifyingReductionsExploration.STATE.INITIAL;
         this.targetRE = null;
-        this.commandHistory.add(String.format("SplitUnionIntoCase(%s)", getExprCommand_1));
+        this.commandHistory.add(String.format("SplitUnionIntoCase(%s)", getExprCommandBody));
+        this.commandHistory.add(String.format("PermutationCaseReduce(%s)", getExprCommand_1));
         return;
       }
       this.state = SimplifyingReductionsExploration.STATE.SIDE_EFFECT_FREE_TRANSFORMATIONS;
@@ -629,6 +652,30 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     }
   }
   
+  private Object _performAction(final SimplifyingReductionsExploration.StepSimplifyExpressions step) {
+    boolean _xblockexpression = false;
+    {
+      SimplifyExpressions.apply(this.getCurrentBody());
+      Normalize.apply(this.getCurrentBody());
+      this.outStream.println("");
+      this.outStream.println(String.format("Applied SimplifyExpressions"));
+      this.commandHistory.add(String.format("SimplifyExpressions(body)"));
+      _xblockexpression = this.commandHistory.add(String.format("Normalize(body)"));
+    }
+    return Boolean.valueOf(_xblockexpression);
+  }
+  
+  private Object _performAction(final SimplifyingReductionsExploration.StepSplitUnionIntoCase step) {
+    boolean _xblockexpression = false;
+    {
+      SplitUnionIntoCase.apply(this.getCurrentBody());
+      this.outStream.println("");
+      this.outStream.println(String.format("Applied SplitUnionIntoCase"));
+      _xblockexpression = this.commandHistory.add(String.format("SplitUnionIntoCase(body)"));
+    }
+    return Boolean.valueOf(_xblockexpression);
+  }
+  
   private Object _performAction(final SimplifyingReductionsExploration.StepPrintSystemBody step) {
     this.outStream.println(AShow.print(this.getCurrentBody()));
     return null;
@@ -748,8 +795,12 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       return _performAction((SimplifyingReductionsExploration.StepReductionDecomposition)step);
     } else if (step instanceof SimplifyingReductionsExploration.StepSelectReduction) {
       return _performAction((SimplifyingReductionsExploration.StepSelectReduction)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepSimplifyExpressions) {
+      return _performAction((SimplifyingReductionsExploration.StepSimplifyExpressions)step);
     } else if (step instanceof SimplifyingReductionsExploration.StepSimplifyingReduction) {
       return _performAction((SimplifyingReductionsExploration.StepSimplifyingReduction)step);
+    } else if (step instanceof SimplifyingReductionsExploration.StepSplitUnionIntoCase) {
+      return _performAction((SimplifyingReductionsExploration.StepSplitUnionIntoCase)step);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(step).toString());

@@ -35,6 +35,7 @@ import org.eclipse.xtext.EcoreUtil2
 import alpha.model.util.AlphaPrintingUtil
 import fr.irisa.cairn.jnimap.barvinok.jni.BarvinokFunctions
 import alpha.model.AlphaExpression
+import alpha.model.transformation.SimplifyExpressions
 
 class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 
@@ -125,6 +126,8 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 		options.add(new StepPrintSystemBody());
 		options.add(new StepPrintCardinality());
+		options.add(new StepSimplifyExpressions());
+		options.add(new StepSplitUnionIntoCase());
 		options.add(new StepBacktrack());
 		options.add(new StepFinish());
 		
@@ -164,19 +167,22 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		}
 		
 		if (targetRE.body.expressionDomain.nbBasicSets > 1) {
-			val getExprCommand = targetRE.body.expressionCommandString
+			val getExprCommand = targetRE.expressionCommandString
+			val getExprCommandBody = targetRE.body.expressionCommandString
 			
 			outStream.println("");
-			outStream.println("The expression domain of reduction body is not a single polyhedron. Applying SplitUnionIntoCase.");
+			outStream.println("The expression domain of reduction body is not a single polyhedron. Applying SplitUnionIntoCase + PermutationCaseReduce.");
 			outStream.print("Press enter/return to continue...")
 			inStream.readLine
 			
 			switch (targetRE.body) {
 				RestrictExpression : {
 					SplitUnionIntoCase.apply(targetRE.body as RestrictExpression)
+					PermutationCaseReduce.apply(targetRE)
 				}
 				AutoRestrictExpression : {
 					SplitUnionIntoCase.apply(targetRE.body as AutoRestrictExpression)
+					PermutationCaseReduce.apply(targetRE)
 				}
 				default : {
 					throw new UnsupportedOperationException("Expecting the body of reduction to be a restrict. The program may not be normalized.");
@@ -185,7 +191,8 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 			
 			state = STATE.INITIAL
 			targetRE = null
-			commandHistory.add(String.format("SplitUnionIntoCase(%s)", getExprCommand))
+			commandHistory.add(String.format("SplitUnionIntoCase(%s)", getExprCommandBody))
+			commandHistory.add(String.format("PermutationCaseReduce(%s)", getExprCommand))
 			return;
 		}
 		
@@ -421,6 +428,26 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		commandHistory.add(String.format("Normalize(%s)", getExprCommand))
 	}
 	
+	private def dispatch performAction(StepSimplifyExpressions step) {
+		SimplifyExpressions.apply(currentBody)
+		Normalize.apply(currentBody)
+		
+		outStream.println("");
+		outStream.println(String.format("Applied SimplifyExpressions"));
+		
+		commandHistory.add(String.format("SimplifyExpressions(body)"))
+		commandHistory.add(String.format("Normalize(body)"))
+	}
+	
+	private def dispatch performAction(StepSplitUnionIntoCase step) {
+		SplitUnionIntoCase.apply(currentBody)
+		
+		outStream.println("");
+		outStream.println(String.format("Applied SplitUnionIntoCase"));
+		
+		commandHistory.add(String.format("SplitUnionIntoCase(body)"))
+	}
+	
 	private def dispatch performAction(StepPrintSystemBody step) {
 		outStream.println(AShow.print(currentBody));
 	}
@@ -556,6 +583,18 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		
 		override description() {
 			String.format("Inline %s", variable.name);
+		}
+	}
+	
+	private static class StepSimplifyExpressions extends ExplorationStep {
+		override description() {
+			"Apply SimplifyExpression to current SystemBody"
+		}
+	}
+	
+	private static class StepSplitUnionIntoCase extends ExplorationStep {
+		override description() {
+			"Apply SplitUnionIntoCase to current SystemBody"
 		}
 	}
 	
