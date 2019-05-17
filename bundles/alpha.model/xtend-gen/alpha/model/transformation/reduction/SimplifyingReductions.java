@@ -37,8 +37,11 @@ import java.util.List;
 import java.util.function.Function;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
 public class SimplifyingReductions {
@@ -123,6 +126,13 @@ public class SimplifyingReductions {
   public static void apply(final ReduceExpression reduce, final JNIISLMultiAff reuseDep) {
     final SimplifyingReductions sr = new SimplifyingReductions(reduce, reuseDep);
     sr.simplify();
+  }
+  
+  public static void apply(final ReduceExpression reduce, final int[] reuseDepNoParams) {
+    final Function1<Integer, Long> _function = (Integer v) -> {
+      return Long.valueOf(((long) (v).intValue()));
+    };
+    SimplifyingReductions.apply(reduce, ((long[])Conversions.unwrapArray(ListExtensions.<Integer, Long>map(((List<Integer>)Conversions.doWrapArray(reuseDepNoParams)), _function), long.class)));
   }
   
   public static void apply(final ReduceExpression reduce, final long[] reuseDepNoParams) {

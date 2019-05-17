@@ -1,5 +1,8 @@
 package alpha.commands;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import alpha.model.AbstractReduceExpression;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaRoot;
@@ -93,6 +96,10 @@ public class ValueConverter {
 		if (expr instanceof ReduceExpression) return (ReduceExpression)expr;
 		
 		throw new RuntimeException("[ValueConverter] The specified expression is not a reduction: " + expr);
+	}
+
+	public static int[] toIntegerArray(String str) {
+		return Arrays.stream(str.replace("[", "").replace("]", "").split("\\s*,\\s*")).mapToInt(s->Integer.parseInt(s)).toArray();
 	}
 
 }

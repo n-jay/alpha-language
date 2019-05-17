@@ -189,42 +189,42 @@ public class Reductions extends ReductionsBase {
 		String exprID = "0";
 		SameOperatorSimplification(eq, exprID);
 	}
-	public static void SimplifyingReductions(SystemBody body, String targetEq, String exprID, JNIISLMultiAff reuseDep) {
+	public static void SimplifyingReductions(SystemBody body, String targetEq, String exprID, int[] reuseVec) {
 		StandardEquation eq = ValueConverter.toStandardEquation(body, targetEq);
-		SimplifyingReductions(eq, exprID, reuseDep);
+		SimplifyingReductions(eq, exprID, reuseVec);
 	}
-	public static void SimplifyingReductions(SystemBody body, String targetEq, String exprID, String reuseDepStr) {
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(body, reuseDepStr);
-		SimplifyingReductions(body, targetEq, exprID, reuseDep);
+	public static void SimplifyingReductions(SystemBody body, String targetEq, String exprID, String reuseVecStr) {
+		int[] reuseVec = ValueConverter.toIntegerArray(reuseVecStr);
+		SimplifyingReductions(body, targetEq, exprID, reuseVec);
 	}
-	public static void SimplifyingReductions(SystemBody body, String targetEq, JNIISLMultiAff reuseDep) {
+	public static void SimplifyingReductions(SystemBody body, String targetEq, int[] reuseVec) {
 		String exprID = "0";
-		SimplifyingReductions(body, targetEq, exprID, reuseDep);
+		SimplifyingReductions(body, targetEq, exprID, reuseVec);
 	}
-	public static void SimplifyingReductions(SystemBody body, String targetEq, String reuseDepStr) {
+	public static void SimplifyingReductions(SystemBody body, String targetEq, String reuseVecStr) {
 		String exprID = "0";
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(body, reuseDepStr);
-		SimplifyingReductions(body, targetEq, exprID, reuseDep);
+		int[] reuseVec = ValueConverter.toIntegerArray(reuseVecStr);
+		SimplifyingReductions(body, targetEq, exprID, reuseVec);
 	}
-	public static void SimplifyingReductions(StandardEquation eq, String exprID, JNIISLMultiAff reuseDep) {
+	public static void SimplifyingReductions(StandardEquation eq, String exprID, int[] reuseVec) {
 		ReduceExpression reduction = ValueConverter.toReduceExpression(eq, exprID);
-		SimplifyingReductions(reduction, reuseDep);
+		SimplifyingReductions(reduction, reuseVec);
 	}
-	public static void SimplifyingReductions(StandardEquation eq, String exprID, String reuseDepStr) {
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(eq, reuseDepStr);
-		SimplifyingReductions(eq, exprID, reuseDep);
+	public static void SimplifyingReductions(StandardEquation eq, String exprID, String reuseVecStr) {
+		int[] reuseVec = ValueConverter.toIntegerArray(reuseVecStr);
+		SimplifyingReductions(eq, exprID, reuseVec);
 	}
-	public static void SimplifyingReductions(StandardEquation eq, JNIISLMultiAff reuseDep) {
+	public static void SimplifyingReductions(StandardEquation eq, int[] reuseVec) {
 		String exprID = "0";
-		SimplifyingReductions(eq, exprID, reuseDep);
+		SimplifyingReductions(eq, exprID, reuseVec);
 	}
-	public static void SimplifyingReductions(StandardEquation eq, String reuseDepStr) {
+	public static void SimplifyingReductions(StandardEquation eq, String reuseVecStr) {
 		String exprID = "0";
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(eq, reuseDepStr);
-		SimplifyingReductions(eq, exprID, reuseDep);
+		int[] reuseVec = ValueConverter.toIntegerArray(reuseVecStr);
+		SimplifyingReductions(eq, exprID, reuseVec);
 	}
-	public static void SimplifyingReductions(ReduceExpression reduction, String reuseDepStr) {
-		JNIISLMultiAff reuseDep = ValueConverter.toAffineFunction(reduction, reuseDepStr);
-		SimplifyingReductions(reduction, reuseDep);
+	public static void SimplifyingReductions(ReduceExpression reduction, String reuseVecStr) {
+		int[] reuseVec = ValueConverter.toIntegerArray(reuseVecStr);
+		SimplifyingReductions(reduction, reuseVec);
 	}
 }

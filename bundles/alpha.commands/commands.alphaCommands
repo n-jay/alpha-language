@@ -187,16 +187,16 @@ Reductions {
 	 * SimplifyingReductions
 	 */
 	@Bind(SR2; eq=(body, targetEq))
-	SimplifyingReductions(SystemBody body, String targetEq, String exprID, AffineFunction reuseDep)
-		=> (_, _, _, String reuseDepStr)
+	SimplifyingReductions(SystemBody body, String targetEq, String exprID, int[] reuseVec)
+		=> (_, _, _, String reuseVecStr)
 		=> (_, _, "0", _)
-		=> (_, _, "0", String reuseDepStr)
+		=> (_, _, "0", String reuseVecStr)
 	@Bind(SR1; reduction=(eq, exprID))
-	SR2:SimplifyingReductions(StandardEquation eq, String exprID, AffineFunction reuseDep)
-		=> (_, _, String reuseDepStr)
+	SR2:SimplifyingReductions(StandardEquation eq, String exprID, int[] reuseVec)
+		=> (_, _, String reuseVecStr)
 		=> (_, "0", _)
-		=> (_, "0", String reuseDepStr)
-	SR1:SimplifyingReductions(ReduceExpression reduction, AffineFunction reuseDep)
-		=> (_, String reuseDepStr)
+		=> (_, "0", String reuseVecStr)
+	SR1:SimplifyingReductions(ReduceExpression reduction, int[] reuseVec)
+		=> (_, String reuseVecStr)
 	
 }

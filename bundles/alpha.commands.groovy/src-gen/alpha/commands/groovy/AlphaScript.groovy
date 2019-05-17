@@ -1,16 +1,16 @@
 package alpha.commands.groovy
 
 import alpha.model.AlphaRoot
-import java.util.List
 import alpha.model.AlphaRoot
+import java.util.List
 import alpha.model.AlphaCompleteVisitable
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.SystemBody
 import alpha.model.StandardEquation
 import alpha.model.AlphaExpression
-import alpha.model.AlphaRoot
 import java.util.List
+import alpha.model.AlphaRoot
 import alpha.model.Equation
 import alpha.model.AlphaSystem
 import alpha.model.Variable
@@ -343,35 +343,35 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void SameOperatorSimplification(AbstractReduceExpression reduction) {
 		alpha.commands.Reductions.SameOperatorSimplification(reduction)
 	}
-	void SimplifyingReductions(SystemBody body, String targetEq, String exprID, JNIISLMultiAff reuseDep) {
-		alpha.commands.Reductions.SimplifyingReductions(body, targetEq, exprID, reuseDep)
+	void SimplifyingReductions(SystemBody body, String targetEq, String exprID, int[] reuseVec) {
+		alpha.commands.Reductions.SimplifyingReductions(body, targetEq, exprID, reuseVec)
 	}
-	void SimplifyingReductions(SystemBody body, String targetEq, String exprID, String reuseDepStr) {
-		alpha.commands.Reductions.SimplifyingReductions(body, targetEq, exprID, reuseDepStr)
+	void SimplifyingReductions(SystemBody body, String targetEq, String exprID, String reuseVecStr) {
+		alpha.commands.Reductions.SimplifyingReductions(body, targetEq, exprID, reuseVecStr)
 	}
-	void SimplifyingReductions(SystemBody body, String targetEq, JNIISLMultiAff reuseDep) {
-		alpha.commands.Reductions.SimplifyingReductions(body, targetEq, reuseDep)
+	void SimplifyingReductions(SystemBody body, String targetEq, int[] reuseVec) {
+		alpha.commands.Reductions.SimplifyingReductions(body, targetEq, reuseVec)
 	}
-	void SimplifyingReductions(SystemBody body, String targetEq, String reuseDepStr) {
-		alpha.commands.Reductions.SimplifyingReductions(body, targetEq, reuseDepStr)
+	void SimplifyingReductions(SystemBody body, String targetEq, String reuseVecStr) {
+		alpha.commands.Reductions.SimplifyingReductions(body, targetEq, reuseVecStr)
 	}
-	void SimplifyingReductions(StandardEquation eq, String exprID, JNIISLMultiAff reuseDep) {
-		alpha.commands.Reductions.SimplifyingReductions(eq, exprID, reuseDep)
+	void SimplifyingReductions(StandardEquation eq, String exprID, int[] reuseVec) {
+		alpha.commands.Reductions.SimplifyingReductions(eq, exprID, reuseVec)
 	}
-	void SimplifyingReductions(StandardEquation eq, String exprID, String reuseDepStr) {
-		alpha.commands.Reductions.SimplifyingReductions(eq, exprID, reuseDepStr)
+	void SimplifyingReductions(StandardEquation eq, String exprID, String reuseVecStr) {
+		alpha.commands.Reductions.SimplifyingReductions(eq, exprID, reuseVecStr)
 	}
-	void SimplifyingReductions(StandardEquation eq, JNIISLMultiAff reuseDep) {
-		alpha.commands.Reductions.SimplifyingReductions(eq, reuseDep)
+	void SimplifyingReductions(StandardEquation eq, int[] reuseVec) {
+		alpha.commands.Reductions.SimplifyingReductions(eq, reuseVec)
 	}
-	void SimplifyingReductions(StandardEquation eq, String reuseDepStr) {
-		alpha.commands.Reductions.SimplifyingReductions(eq, reuseDepStr)
+	void SimplifyingReductions(StandardEquation eq, String reuseVecStr) {
+		alpha.commands.Reductions.SimplifyingReductions(eq, reuseVecStr)
 	}
-	void SimplifyingReductions(ReduceExpression reduction, JNIISLMultiAff reuseDep) {
-		alpha.commands.Reductions.SimplifyingReductions(reduction, reuseDep)
+	void SimplifyingReductions(ReduceExpression reduction, int[] reuseVec) {
+		alpha.commands.Reductions.SimplifyingReductions(reduction, reuseVec)
 	}
-	void SimplifyingReductions(ReduceExpression reduction, String reuseDepStr) {
-		alpha.commands.Reductions.SimplifyingReductions(reduction, reuseDepStr)
+	void SimplifyingReductions(ReduceExpression reduction, String reuseVecStr) {
+		alpha.commands.Reductions.SimplifyingReductions(reduction, reuseVecStr)
 	}
 
 }

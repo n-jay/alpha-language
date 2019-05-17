@@ -94,6 +94,9 @@ class SimplifyingReductions {
 		sr.simplify
 	}
 	
+	static def void apply(ReduceExpression reduce, int[] reuseDepNoParams) {
+		apply(reduce, reuseDepNoParams.map[v|v as long])
+	}
 	static def void apply(ReduceExpression reduce, long[] reuseDepNoParams) {
 		val space = JNIISLSpace.idMapDimFromSetDim(reduce.body.expressionDomain.space.copy)
 		val reuseDep = MatrixOperations.bindVector(newLongArrayOfSize(space.getNbDims(JNIISLDimType.isl_dim_param)), reuseDepNoParams);

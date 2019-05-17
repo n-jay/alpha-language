@@ -6,7 +6,7 @@ import alpha.model.MultiArgExpression;
 /*PROTECTED REGION END*/
 
 import alpha.model.SystemBody;
-import alpha.model.transformation.reduction.SameOperatorSimplification;
+import alpha.model.StandardEquation;
 import alpha.model.AbstractReduceExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.AlphaExpression;
@@ -95,12 +95,12 @@ public class ReductionsBase {
 	}
 	public static void SameOperatorSimplification(AbstractReduceExpression reduction) {
 		/*PROTECTED REGION ID(Reductions.SameOperatorSimplification_SameOp1) ENABLED START*/
-		SameOperatorSimplification.apply(reduction);
+		alpha.model.transformation.reduction.SameOperatorSimplification.apply(reduction);
 		/*PROTECTED REGION END*/
 	}
-	public static void SimplifyingReductions(ReduceExpression reduction, JNIISLMultiAff reuseDep) {
+	public static void SimplifyingReductions(ReduceExpression reduction, int[] reuseVec) {
 		/*PROTECTED REGION ID(Reductions.SimplifyingReductions_SR1) ENABLED START*/
-		alpha.model.transformation.reduction.SimplifyingReductions.apply(reduction, reuseDep);
+		alpha.model.transformation.reduction.SimplifyingReductions.apply(reduction, reuseVec);
 		/*PROTECTED REGION END*/
 	}
 }
