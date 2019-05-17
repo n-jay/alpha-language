@@ -84,26 +84,26 @@ class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
 		}
 	}
 	
-		override outReduceExpression(ReduceExpression re) {
-			var map = re.projection.toMap
-			map = map.intersectDomain(re.body.contextDomain)
-			map = map.intersectRange(re.contextDomain)
-			map = map.reverse
+	override outReduceExpression(ReduceExpression re) {
+		var map = re.projection.toMap
+		map = map.intersectDomain(re.body.contextDomain)
+		map = map.intersectRange(re.contextDomain)
+		map = map.reverse
 
-			if (map.isSingleValued) {
-				val pwMultiAff = map.toPWMultiAff
+		if (map.isSingleValued) {
+			val pwMultiAff = map.toPWMultiAff
+			
+			//TODO it can be extended to multiple pieces using case
+			if (pwMultiAff.nbPieces == 1) {
+				val multiAff = pwMultiAff.getPiece(0).maff
+				val depExpr = AlphaUserFactory.createDependenceExpression(multiAff, re.body)
+				EcoreUtil.replace(re, depExpr)
 				
-				//TODO it can be extended to multiple pieces using case
-				if (pwMultiAff.nbPieces == 1) {
-					val multiAff = pwMultiAff.getPiece(0).maff
-					val depExpr = AlphaUserFactory.createDependenceExpression(multiAff, re.body)
-					EcoreUtil.replace(re, depExpr)
-					
-					AlphaInternalStateConstructor.recomputeContextDomain(depExpr)
-				} else {
-					warning("Scalar Reduction with multiple pieces detected. It is not simplified with the current implementation.")
-				}
+				AlphaInternalStateConstructor.recomputeContextDomain(depExpr)
+			} else {
+				warning("Scalar Reduction with multiple pieces detected. It is not simplified with the current implementation.")
 			}
 		}
+	}
 	
 }
