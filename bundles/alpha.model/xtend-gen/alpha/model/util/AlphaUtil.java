@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
@@ -387,6 +388,27 @@ public class AlphaUtil {
       res = res.setDimName(JNIISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
     }
     return res;
+  }
+  
+  public static int[] parseIntArray(final String intVecStr) {
+    int[] _xifexpression = null;
+    boolean _contains = intVecStr.contains(",");
+    if (_contains) {
+      final ToIntFunction<String> _function = (String e) -> {
+        return Integer.parseInt(e.trim());
+      };
+      _xifexpression = ((List<String>)Conversions.doWrapArray(intVecStr.replace("[", "").replace("]", "").trim().split("\\s*,\\s*"))).stream().mapToInt(_function).toArray();
+    } else {
+      final ToIntFunction<String> _function_1 = (String e) -> {
+        return Integer.parseInt(e.trim());
+      };
+      _xifexpression = ((List<String>)Conversions.doWrapArray(intVecStr.replace("[", "").replace("]", "").trim().split("\\s+"))).stream().mapToInt(_function_1).toArray();
+    }
+    return _xifexpression;
+  }
+  
+  public static List<Integer> parseIntVector(final String intVecStr) {
+    return IterableExtensions.<Integer>toList(((Iterable<Integer>)Conversions.doWrapArray(AlphaUtil.parseIntArray(intVecStr))));
   }
   
   private static Iterable<AlphaConstant> gatherAlphaConstants(final EObject ap) {

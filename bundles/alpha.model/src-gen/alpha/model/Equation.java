@@ -66,9 +66,9 @@ public interface Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false" exprIDUnique="false"
+	 * @model unique="false" exprIDstrUnique="false"
 	 * @generated
 	 */
-	AlphaExpression getExpression(String exprID);
+	AlphaExpression getExpression(String exprIDstr);
 
 } // Equation

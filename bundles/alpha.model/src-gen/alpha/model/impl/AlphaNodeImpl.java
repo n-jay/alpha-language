@@ -5,8 +5,10 @@ package alpha.model.impl;
 import alpha.model.AlphaNode;
 import alpha.model.ModelPackage;
 
+import alpha.model.util.AlphaUtil;
+
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -16,10 +18,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
-
-import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 /**
  * <!-- begin-user-doc -->
@@ -121,13 +119,8 @@ public class AlphaNodeImpl extends MinimalEObjectImpl.Container implements Alpha
 	 */
 	@Override
 	public AlphaNode getNode(final String nodeID) {
-		final Function1<String, Integer> _function = new Function1<String, Integer>() {
-			public Integer apply(final String e) {
-				return Integer.valueOf(Integer.parseInt(e));
-			}
-		};
-		List<Integer> _map = ListExtensions.<String, Integer>map(((List<String>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(nodeID.replace("[", "").replace("]", "").split("\\s*,\\s*"))), _function);
-		LinkedList<Integer> _linkedList = new LinkedList<Integer>(_map);
+		int[] _parseIntArray = AlphaUtil.parseIntArray(nodeID);
+		LinkedList<Integer> _linkedList = new LinkedList<Integer>((Collection<? extends Integer>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(_parseIntArray));
 		return this.getNode(_linkedList);
 	}
 

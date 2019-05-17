@@ -64,7 +64,7 @@ class AlphaNode {
 	}
 	
 	op AlphaNode getNode(String nodeID) {
-		getNode(new LinkedList<Integer>(nodeID.replace('[', '').replace(']', '').split("\\s*,\\s*").map[e|Integer.parseInt(e)]))
+		getNode(new LinkedList(AlphaUtil.parseIntArray(nodeID)))
 	}
 }
 
@@ -515,8 +515,8 @@ abstract class Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 		getExpression(new LinkedList(exprID))
 	}
 	
-	op AlphaExpression getExpression(String exprID) {
-		getExpression(new LinkedList<Integer>(exprID.replace('[', '').replace(']', '').split("\\s*,\\s*").map[e|Integer.parseInt(e.trim)]))
+	op AlphaExpression getExpression(String exprIDstr) {
+		getExpression(new LinkedList(AlphaUtil.parseIntArray(exprIDstr)))
 	}
 }
 

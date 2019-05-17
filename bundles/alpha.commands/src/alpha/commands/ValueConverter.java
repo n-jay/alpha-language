@@ -99,7 +99,7 @@ public class ValueConverter {
 	}
 
 	public static int[] toIntegerArray(String str) {
-		return Arrays.stream(str.replace("[", "").replace("]", "").split("\\s*,\\s*")).mapToInt(s->Integer.parseInt(s.trim())).toArray();
+		return AlphaUtil.parseIntArray(str);
 	}
 
 }

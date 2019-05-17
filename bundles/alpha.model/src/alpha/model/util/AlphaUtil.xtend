@@ -293,4 +293,15 @@ class AlphaUtil {
 			
 		return res
 	}
+	
+	static def parseIntArray(String intVecStr) {
+		if (intVecStr.contains(","))
+			intVecStr.replace('[', '').replace(']', '').trim().split("\\s*,\\s*").stream.mapToInt[e|Integer.parseInt(e.trim)].toArray
+		else
+			intVecStr.replace('[', '').replace(']', '').trim().split("\\s+").stream.mapToInt[e|Integer.parseInt(e.trim)].toArray
+	}
+	
+	static def parseIntVector(String intVecStr) {
+		return parseIntArray(intVecStr).toList
+	}
 }
