@@ -43,6 +43,10 @@ class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
 		if (DEBUG) println(Show.print(AlphaUtil.getContainerSystem(expr))); 
 	}
 	
+	protected def warning(String message) {
+			System.err.println(String.format("[Simplify] %s.", message))
+	}
+	
 	protected new() {}
 
 	static def void apply(AlphaCompleteVisitable acv) {
@@ -97,7 +101,7 @@ class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
 					
 					AlphaInternalStateConstructor.recomputeContextDomain(depExpr)
 				} else {
-					System.err.println("[Simplify] Scalar Reduction with multiple pieces detected. It is not simplified with the currnent implementation	.")
+					warning("Scalar Reduction with multiple pieces detected. It is not simplified with the current implementation.")
 				}
 			}
 		}

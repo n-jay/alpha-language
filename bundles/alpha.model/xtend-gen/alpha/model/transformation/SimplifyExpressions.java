@@ -59,6 +59,10 @@ public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
     return _xifexpression;
   }
   
+  protected void warning(final String message) {
+    System.err.println(String.format("[Simplify] %s.", message));
+  }
+  
   protected SimplifyExpressions() {
   }
   
@@ -122,7 +126,7 @@ public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
         EcoreUtil.replace(re, depExpr);
         AlphaInternalStateConstructor.recomputeContextDomain(depExpr);
       } else {
-        System.err.println("[Simplify] Scalar Reduction with multiple pieces detected. It is not simplified with the currnent implementation\t.");
+        this.warning("Scalar Reduction with multiple pieces detected. It is not simplified with the current implementation.");
       }
     }
   }
