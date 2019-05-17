@@ -1,35 +1,22 @@
 package tests.transformations.SR
 
-import alpha.model.util.PrintAST
+
 import groovy.transform.BaseScript
 @BaseScript alpha.commands.groovy.AlphaScript alphaScript
 
 root = ReadAlpha("resources/src-valid/simplifying-reductions/conv2D.alpha")
-system = GetSystem(root, "conv2D")
-body = GetSystemBody(system)
+system = GetSystem(root, "tests.SR.conv2D")
+body = GetSystemBody(system, 0)
+SubstituteByDef(GetExpression(body, "c2", "[0]"), "y")
+Normalize(GetExpression(body, "c2", "[0]"))
+ReductionComposition(GetExpression(body, "c2", "[0]"))
+Normalize(body)
+ReductionDecomposition(GetExpression(body, "c2", "[0]"), "(r,c,i,j->i,j)", "(i0,i1->)")
+Normalize(body)
+Distributivity(GetExpression(body, "c2", "[0, 1]"))
+NormalizeReduction(GetExpression(body, "c2", "[0, 1, 1]"))
+SimplifyingReductions(GetExpression(body, "c2_NR", "[0]"), "[ 1 0 -1 0 ]")
 
 CheckProgram(root)
-
-eq = GetEquation(body, "c2")
-
-reduce = GetExpression(eq)
-
-
-SubstituteByDef(body, "c2", "y")
-
-Normalize(system)
-ReductionComposition(system)
-ReducionDecomposition(eq, "(r,c,i,j->i,j)", "(i,j->)")
-
-FactorOutFromReduction(body, "c2", "0,1,1,1,1")
-
-Normalize(system)
-NormalizeReduction(system)
-
-RenameVariable(system, "c2_NR", "X")
-
-SimplifyingReductions(body, "X", "(r,c,i,j->r,c+1,i,j-1)")
-
-CheckProgram(root)
-
 AShow(system)
+
