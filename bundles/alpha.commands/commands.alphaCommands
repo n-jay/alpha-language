@@ -29,7 +29,11 @@ Utility {
 		=> (_, _, _, "0")
 		=> (_, "0", _, "0")
 		
-	GetNode(AlphaRoot root, String nodeID) : AlphaExpression
+	GetNode(AlphaRoot root, String nodeID) : AlphaNode
+	
+	GetVariable(AlphaSystem system, String varname) : Variable
+	GetVariable(SystemBody body, String varname) : Variable
+	
 	RenameVariable(AlphaSystem system, String oldName, String newName)
 }
 
@@ -39,7 +43,9 @@ Transformations {
 		=> (_, String varName, String fStr)
 		
 	Normalize(AlphaVisitable node)
+	Normalize(AlphaExpression expr)
 	DeepNormalize(AlphaVisitable node)
+	DeepNormalize(AlphaExpression expr)
 		
 	PropagateSimpleEquations(AlphaSystem system)
 	@Bind(PSE; body=(system, bodyID))
@@ -70,13 +76,11 @@ Transformations {
 	/**
 	 * SubstituteByDef
 	 */
-	SubstituteByDef(AlphaSystem system, Variable inlineVar)
-		=> (_, String inlineVarStr)
-	SubstituteByDef(SystemBody body, Variable inlineVar)
-		=> (_, String inlineVarStr)
+	SubstituteByDef(AlphaSystem system, Variable inlineVar) => (_, String inlineVarStr)
+	SubstituteByDef(SystemBody body, Variable inlineVar) => (_, String inlineVarStr)
 	
-	SubstituteByDef(StandardEquation targetEq, Variable inlineVar)
-	SubstituteByDef(AlphaExpression targetExpr, Variable inlineVar)
+	SubstituteByDef(StandardEquation targetEq, Variable inlineVar) => (_, String inlineVarStr)
+	SubstituteByDef(AlphaExpression targetExpr, Variable inlineVar) => (_, String inlineVarStr)
 }
 
 Reductions {

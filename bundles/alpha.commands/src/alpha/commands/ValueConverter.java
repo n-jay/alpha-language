@@ -56,7 +56,15 @@ public class ValueConverter {
 	public static Variable toVariable(SystemBody body, String varName) {
 		return toVariable(body.getSystem(), varName);
 	}
+	
+	public static Variable toVariable(Equation eq, String varName) {
+		return toVariable(eq.getSystemBody(), varName);
+	}
 
+	public static Variable toVariable(AlphaExpression expr, String varName) {
+		return toVariable(AlphaUtil.getContainerSystem(expr), varName);
+	}
+	
 	public static SystemBody toSystemBody(AlphaSystem system, int bodyID) {
 		if (system.getSystemBodies().size() > bodyID)
 			return system.getSystemBodies().get(bodyID);

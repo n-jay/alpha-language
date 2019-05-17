@@ -15,8 +15,10 @@ import alpha.model.AlphaSystem;
 import alpha.model.SystemBody;
 import alpha.model.StandardEquation;
 import alpha.model.AlphaExpression;
-import java.util.List;
+import alpha.model.AlphaNode;
+import alpha.model.Variable;
 import alpha.model.AlphaRoot;
+import java.util.List;
 import alpha.model.Equation;
 
 
@@ -67,8 +69,18 @@ public class UtilityBase {
 		return eq.getExpression(exprID);
 		/*PROTECTED REGION END*/
 	}
-	public static AlphaExpression GetNode(AlphaRoot root, String nodeID) {
+	public static AlphaNode GetNode(AlphaRoot root, String nodeID) {
 		/*PROTECTED REGION ID(Utility.GetNode_) ENABLED START*/
+		return root.getNode(nodeID);
+		/*PROTECTED REGION END*/
+	}
+	public static Variable GetVariable(AlphaSystem system, String varname) {
+		/*PROTECTED REGION ID(Utility.GetVariable_) ENABLED START*/
+		throw new UnsupportedOperationException("Not implemented.");
+		/*PROTECTED REGION END*/
+	}
+	public static Variable GetVariable(SystemBody body, String varname) {
+		/*PROTECTED REGION ID(Utility.GetVariable__1) ENABLED START*/
 		throw new UnsupportedOperationException("Not implemented.");
 		/*PROTECTED REGION END*/
 	}

@@ -4,12 +4,12 @@ import alpha.model.AlphaSystem;
 import alpha.model.Variable;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import alpha.model.AlphaVisitable;
+import alpha.model.AlphaExpression;
 import alpha.model.SystemBody;
 import alpha.model.AlphaRoot;
 import alpha.model.RestrictExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.StandardEquation;
-import alpha.model.AlphaExpression;
 
 
 public class Transformations extends TransformationsBase {
@@ -33,5 +33,13 @@ public class Transformations extends TransformationsBase {
 	public static void SubstituteByDef(SystemBody body, String inlineVarStr) {
 		Variable inlineVar = ValueConverter.toVariable(body, inlineVarStr);
 		SubstituteByDef(body, inlineVar);
+	}
+	public static void SubstituteByDef(StandardEquation targetEq, String inlineVarStr) {
+		Variable inlineVar = ValueConverter.toVariable(targetEq, inlineVarStr);
+		SubstituteByDef(targetEq, inlineVar);
+	}
+	public static void SubstituteByDef(AlphaExpression targetExpr, String inlineVarStr) {
+		Variable inlineVar = ValueConverter.toVariable(targetExpr, inlineVarStr);
+		SubstituteByDef(targetExpr, inlineVar);
 	}
 }

@@ -1,27 +1,29 @@
 package alpha.commands.groovy
 
 import alpha.model.AlphaRoot
-import alpha.model.AlphaRoot
 import java.util.List
+import alpha.model.AlphaRoot
 import alpha.model.AlphaCompleteVisitable
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.SystemBody
 import alpha.model.StandardEquation
 import alpha.model.AlphaExpression
-import java.util.List
+import alpha.model.AlphaNode
+import alpha.model.Variable
 import alpha.model.AlphaRoot
+import java.util.List
 import alpha.model.Equation
 import alpha.model.AlphaSystem
 import alpha.model.Variable
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import alpha.model.AlphaVisitable
+import alpha.model.AlphaExpression
 import alpha.model.SystemBody
 import alpha.model.AlphaRoot
 import alpha.model.RestrictExpression
 import alpha.model.AutoRestrictExpression
 import alpha.model.StandardEquation
-import alpha.model.AlphaExpression
 import alpha.model.SystemBody
 import alpha.model.StandardEquation
 import alpha.model.AbstractReduceExpression
@@ -100,8 +102,14 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	AlphaExpression GetExpression(AlphaSystem system, String varName) {
 		alpha.commands.Utility.GetExpression(system, varName)
 	}
-	AlphaExpression GetNode(AlphaRoot root, String nodeID) {
+	AlphaNode GetNode(AlphaRoot root, String nodeID) {
 		alpha.commands.Utility.GetNode(root, nodeID)
+	}
+	Variable GetVariable(AlphaSystem system, String varname) {
+		alpha.commands.Utility.GetVariable(system, varname)
+	}
+	Variable GetVariable(SystemBody body, String varname) {
+		alpha.commands.Utility.GetVariable(body, varname)
 	}
 	void RenameVariable(AlphaSystem system, String oldName, String newName) {
 		alpha.commands.Utility.RenameVariable(system, oldName, newName)
@@ -115,8 +123,14 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void Normalize(AlphaVisitable node) {
 		alpha.commands.Transformations.Normalize(node)
 	}
+	void Normalize(AlphaExpression expr) {
+		alpha.commands.Transformations.Normalize(expr)
+	}
 	void DeepNormalize(AlphaVisitable node) {
 		alpha.commands.Transformations.DeepNormalize(node)
+	}
+	void DeepNormalize(AlphaExpression expr) {
+		alpha.commands.Transformations.DeepNormalize(expr)
 	}
 	void PropagateSimpleEquations(AlphaSystem system) {
 		alpha.commands.Transformations.PropagateSimpleEquations(system)
@@ -166,8 +180,14 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void SubstituteByDef(StandardEquation targetEq, Variable inlineVar) {
 		alpha.commands.Transformations.SubstituteByDef(targetEq, inlineVar)
 	}
+	void SubstituteByDef(StandardEquation targetEq, String inlineVarStr) {
+		alpha.commands.Transformations.SubstituteByDef(targetEq, inlineVarStr)
+	}
 	void SubstituteByDef(AlphaExpression targetExpr, Variable inlineVar) {
 		alpha.commands.Transformations.SubstituteByDef(targetExpr, inlineVar)
+	}
+	void SubstituteByDef(AlphaExpression targetExpr, String inlineVarStr) {
+		alpha.commands.Transformations.SubstituteByDef(targetExpr, inlineVarStr)
 	}
 	void Distributivity(SystemBody body, String targetEq, String exprID) {
 		alpha.commands.Reductions.Distributivity(body, targetEq, exprID)

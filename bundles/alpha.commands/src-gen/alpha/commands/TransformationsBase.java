@@ -8,12 +8,12 @@ import alpha.model.AlphaSystem;
 import alpha.model.Variable;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import alpha.model.AlphaVisitable;
+import alpha.model.AlphaExpression;
 import alpha.model.SystemBody;
 import alpha.model.AlphaRoot;
 import alpha.model.RestrictExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.StandardEquation;
-import alpha.model.AlphaExpression;
 
 
 public class TransformationsBase {
@@ -27,9 +27,19 @@ public class TransformationsBase {
 		alpha.model.transformation.Normalize.apply(node);
 		/*PROTECTED REGION END*/
 	}
+	public static void Normalize(AlphaExpression expr) {
+		/*PROTECTED REGION ID(Transformations.Normalize__1) ENABLED START*/
+		alpha.model.transformation.Normalize.apply(expr);
+		/*PROTECTED REGION END*/
+	}
 	public static void DeepNormalize(AlphaVisitable node) {
 		/*PROTECTED REGION ID(Transformations.DeepNormalize_) ENABLED START*/
 		alpha.model.transformation.Normalize.apply(node, true);
+		/*PROTECTED REGION END*/
+	}
+	public static void DeepNormalize(AlphaExpression expr) {
+		/*PROTECTED REGION ID(Transformations.DeepNormalize__1) ENABLED START*/
+		alpha.model.transformation.Normalize.apply(expr, true);
 		/*PROTECTED REGION END*/
 	}
 	public static void PropagateSimpleEquations(AlphaSystem system) {
