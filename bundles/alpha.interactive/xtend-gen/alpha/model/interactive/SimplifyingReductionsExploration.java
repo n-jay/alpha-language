@@ -55,6 +55,19 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * Interactive exploration of Simplifying Reductions.
+ * 
+ * This is designed to be an interactive alternative to the optimality
+ * algorithm in the paper based on dynamic programming. Instead of
+ * using DP to enumerate the possible space, the user navigates through
+ * the exploration space. The user may also rollback and explore a
+ * different path when necessary.
+ * 
+ * It does not fully implement the original algorithm in the SR paper.
+ * There are a few steps that are mostly for reductions with unbounded
+ * domain, which have not been implemented.
+ */
 @SuppressWarnings("all")
 public class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
   private enum STATE {

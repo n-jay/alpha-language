@@ -25,6 +25,22 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.transformation.Normalize;
 import alpha.model.util.AShow;
 
+/**
+ * An abstract implementation of interactive transformation 
+ * loops for Alpha programs.
+ * 
+ * The main features are:
+ *   - Selection of AlphaSystem and SystemBody
+ *   - Keeping track of TransformationState
+ * 
+ *  Some state information (pointing to an object in the 
+ *  AlphaIR) needs to be updated when the root object is 
+ *  copied. This needs to be handled by the concrete 
+ *  implementation in reflectProperties method. 
+ * 
+ * @author tyuki
+ *
+ */
 public abstract class AbstractInteractiveExploration {
 	
 	public static boolean SKIP_SINGLE_CHOICE_QUESTIONS = false;
@@ -59,9 +75,14 @@ public abstract class AbstractInteractiveExploration {
 		}
 	}
 
-	protected int acceptInteger() {
-		return acceptInteger(Integer.MIN_VALUE, Integer.MAX_VALUE);
-	}
+	/**
+	 * Prompts the user to enter an integer in the given range through inStream.
+	 * It will keep asking until a valid integer is given.
+	 * 
+	 * @param min
+	 * @param max
+	 * @return
+	 */
 	protected int acceptInteger(int min, int max) {
 		try {
 			while (true) {

@@ -37,6 +37,20 @@ import fr.irisa.cairn.jnimap.barvinok.jni.BarvinokFunctions
 import alpha.model.AlphaExpression
 import alpha.model.transformation.SimplifyExpressions
 
+/**
+ * Interactive exploration of Simplifying Reductions.
+ * 
+ * This is designed to be an interactive alternative to the optimality
+ * algorithm in the paper based on dynamic programming. Instead of 
+ * using DP to enumerate the possible space, the user navigates through
+ * the exploration space. The user may also rollback and explore a
+ * different path when necessary.
+ * 
+ * It does not fully implement the original algorithm in the SR paper.
+ * There are a few steps that are mostly for reductions with unbounded
+ * domain, which have not been implemented.
+ * 
+ */
 class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 
 	protected STATE state = STATE.INITIAL
