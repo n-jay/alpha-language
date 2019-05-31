@@ -244,11 +244,11 @@ class Show extends ModelSwitch<CharSequence> {
 	}
 	
 	/* override */ def caseIndexExpression(IndexExpression ie) {
-		'''val «ie.function.printFunction»'''
+		'''val«ie.function.printFunction»'''
 	}
 	
 	/* override */ def casePolynomialIndexExpression(PolynomialIndexExpression pie) {
-		'''val «pie.polynomial.gist(pie.contextDomain).printPolynomial»'''
+		'''val«pie.polynomial.gist(pie.contextDomain).printPolynomial»'''
 	}
 	
 	/* override */ def caseReduceExpression(ReduceExpression re) {

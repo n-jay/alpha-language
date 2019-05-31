@@ -566,7 +566,7 @@ public class Show extends ModelSwitch<CharSequence> {
    */
   public CharSequence caseIndexExpression(final IndexExpression ie) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("val ");
+    _builder.append("val");
     String _printFunction = this.printFunction(ie.getFunction());
     _builder.append(_printFunction);
     return _builder;
@@ -577,7 +577,7 @@ public class Show extends ModelSwitch<CharSequence> {
    */
   public CharSequence casePolynomialIndexExpression(final PolynomialIndexExpression pie) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("val ");
+    _builder.append("val");
     String _printPolynomial = this.printPolynomial(pie.getPolynomial().gist(pie.getContextDomain()));
     _builder.append(_printPolynomial);
     return _builder;

@@ -281,10 +281,21 @@ public class AlphaPrintingUtil {
   }
   
   public static List<String> collectConstraints(final JNIISLBasicSet bset) {
-    final Function1<JNIISLConstraint, String> _function = (JNIISLConstraint c) -> {
-      return c.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "");
-    };
-    return ListExtensions.<JNIISLConstraint, String>map(bset.getConstraints(), _function);
+    List<String> _xifexpression = null;
+    int _nbDims = bset.getNbDims(JNIISLDimType.isl_dim_set);
+    boolean _equals = (_nbDims == 0);
+    if (_equals) {
+      final Function1<JNIISLConstraint, String> _function = (JNIISLConstraint c) -> {
+        return c.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\s*:\\s*", "").replaceFirst("\\}", "");
+      };
+      _xifexpression = ListExtensions.<JNIISLConstraint, String>map(bset.getConstraints(), _function);
+    } else {
+      final Function1<JNIISLConstraint, String> _function_1 = (JNIISLConstraint c) -> {
+        return c.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "");
+      };
+      _xifexpression = ListExtensions.<JNIISLConstraint, String>map(bset.getConstraints(), _function_1);
+    }
+    return _xifexpression;
   }
   
   public static String toShowStringParameterDomain(final JNIISLSet set) {
@@ -339,5 +350,85 @@ public class AlphaPrintingUtil {
   
   private static String toAShowString(final JNIISLQPolynomial poly) {
     return poly.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "");
+  }
+  
+  /**
+   * Legacy Alpha Syntax
+   */
+  public static String toLegacyAlphaString(final JNIISLSet set) {
+    return AlphaPrintingUtil.toLegacyAlphaString(set, null);
+  }
+  
+  public static String toLegacyAlphaString(final JNIISLSet set, final JNIISLSet paramDom) {
+    return AlphaPrintingUtil.toLegacyAlphaString(set, paramDom, null);
+  }
+  
+  public static String toLegacyAlphaString(final JNIISLSet set, final JNIISLSet paramDom, final List<String> names) {
+    String _xblockexpression = null;
+    {
+      int _nbDims = set.getNbDims(JNIISLDimType.isl_dim_set);
+      boolean _equals = (_nbDims == 0);
+      if (_equals) {
+        return "{|}";
+      }
+      JNIISLSet _xifexpression = null;
+      if ((names != null)) {
+        _xifexpression = AlphaUtil.renameIndices(set, names);
+      } else {
+        _xifexpression = set;
+      }
+      final JNIISLSet setRenamed = _xifexpression;
+      JNIISLSet _xifexpression_1 = null;
+      if (((paramDom != null) && paramDom.isParamSet())) {
+        _xifexpression_1 = setRenamed.gist(paramDom.copy().addDims(JNIISLDimType.isl_dim_set, setRenamed.getNbDims()));
+      } else {
+        _xifexpression_1 = setRenamed;
+      }
+      final JNIISLSet setGisted = _xifexpression_1;
+      final Function1<JNIISLBasicSet, CharSequence> _function = (JNIISLBasicSet bs) -> {
+        return AlphaPrintingUtil.toLegacyAlphaString(bs);
+      };
+      _xblockexpression = IterableExtensions.<JNIISLBasicSet>join(setGisted.getBasicSets(), "||", _function);
+    }
+    return _xblockexpression;
+  }
+  
+  private static String toLegacyAlphaString(final JNIISLBasicSet bset) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("{ ");
+    String _join = IterableExtensions.join(bset.getIndicesNames(), ",");
+    _builder.append(_join);
+    _builder.append(" | ");
+    final Function1<String, String> _function = (String s) -> {
+      return s.replace(" = ", " == ");
+    };
+    String _join_1 = IterableExtensions.join(ListExtensions.<String, String>map(AlphaPrintingUtil.collectConstraints(bset), _function), " && ");
+    _builder.append(_join_1);
+    _builder.append(" }");
+    return _builder.toString();
+  }
+  
+  public static String toLegacyAlphaStringParameterDomain(final JNIISLSet set) {
+    String _xblockexpression = null;
+    {
+      int _nbBasicSets = set.getNbBasicSets();
+      boolean _notEquals = (_nbBasicSets != 1);
+      if (_notEquals) {
+        throw new RuntimeException("Parameter domain is assumed to be a single polyhedron.");
+      }
+      final String paramNames = IterableExtensions.join(set.getParametersNames(), ",");
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("{ ");
+      _builder.append(paramNames);
+      _builder.append(" | ");
+      final Function1<String, String> _function = (String s) -> {
+        return s.replace(" = ", " == ");
+      };
+      String _join = IterableExtensions.join(ListExtensions.<String, String>map(AlphaPrintingUtil.collectConstraints(set.getBasicSets().get(0)), _function), " && ");
+      _builder.append(_join);
+      _builder.append(" }");
+      _xblockexpression = _builder.toString();
+    }
+    return _xblockexpression;
   }
 }

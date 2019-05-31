@@ -139,7 +139,11 @@ class AlphaPrintingUtil {
 		set.basicSets.map[collectConstraints]
 	}
 	static def collectConstraints(JNIISLBasicSet bset) {
-		bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "")]
+		if (bset.getNbDims(JNIISLDimType.isl_dim_set) == 0) {
+			bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\s*:\\s*", "").replaceFirst("\\}", "")]		
+		} else {
+			bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "")]
+		}
 	}
 	
 	static def String toShowStringParameterDomain(JNIISLSet set) {
@@ -192,4 +196,32 @@ class AlphaPrintingUtil {
 		poly.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "")
 	}
 	
+	
+	/**
+	 * Legacy Alpha Syntax
+	 * 
+	 */
+	static def String toLegacyAlphaString(JNIISLSet set) {
+		toLegacyAlphaString(set, null)
+	}
+	static def String toLegacyAlphaString(JNIISLSet set, JNIISLSet paramDom) {
+		toLegacyAlphaString(set, paramDom, null)
+	}
+	static def String toLegacyAlphaString(JNIISLSet set, JNIISLSet paramDom, List<String> names) {
+		if (set.getNbDims(JNIISLDimType.isl_dim_set) == 0)
+			return "{|}"
+		
+		val setRenamed = if (names !== null) set.renameIndices(names) else set
+		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(JNIISLDimType.isl_dim_set, setRenamed.nbDims)) else setRenamed
+
+		setGisted.basicSets.join("||", [bs|bs.toLegacyAlphaString]);
+	}
+	private static def String toLegacyAlphaString(JNIISLBasicSet bset) {
+		'''{ «bset.indicesNames.join(",")» | «bset.collectConstraints.map([s|s.replace(" = ", " == ")]).join(" && ")» }'''
+	}
+	static def String toLegacyAlphaStringParameterDomain(JNIISLSet set) {
+		if (set.nbBasicSets != 1) throw new RuntimeException("Parameter domain is assumed to be a single polyhedron.");
+		val paramNames = set.parametersNames.join(",")
+		'''{ «paramNames» | «set.basicSets.get(0).collectConstraints.map([s|s.replace(" = ", " == ")]).join(" && ")» }'''
+	}
 }
