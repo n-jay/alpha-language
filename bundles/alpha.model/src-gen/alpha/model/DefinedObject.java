@@ -50,12 +50,13 @@ public interface DefinedObject extends CalculatorExpression {
 
 	/**
 	 * Returns the value of the '<em><b>Zinternal Cycle Detector</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal Cycle Detector</em>' attribute.
 	 * @see #setZ__internalCycleDetector(Boolean)
 	 * @see alpha.model.ModelPackage#getDefinedObject_Z__internalCycleDetector()
-	 * @model unique="false" dataType="alpha.model.boolean"
+	 * @model default="false" unique="false" dataType="alpha.model.boolean"
 	 * @generated
 	 */
 	Boolean getZ__internalCycleDetector();

@@ -52,7 +52,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Boolean ZINTERNAL_CYCLE_DETECTOR_EDEFAULT = null;
+	protected static final Boolean ZINTERNAL_CYCLE_DETECTOR_EDEFAULT = Boolean.FALSE;
 
 	/**
 	 * The cached value of the '{@link #getZ__internalCycleDetector() <em>Zinternal Cycle Detector</em>}' attribute.

@@ -1270,7 +1270,7 @@ class RectangularDomain extends CalculatorExpression {
 /* Reference to an already defined object in the calculator section */
 class DefinedObject extends CalculatorExpression {
 	refers PolyhedralObject object
-	boolean z__internalCycleDetector
+	boolean z__internalCycleDetector = "false"
 	
 	op POLY_OBJECT_TYPE getType() { return object.getType }
 	op JNIObject getISLObject() {

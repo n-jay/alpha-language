@@ -4505,7 +4505,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		initEClass(definedObjectEClass, DefinedObject.class, "DefinedObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDefinedObject_Object(), this.getPolyhedralObject(), null, "object", null, 0, 1, DefinedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDefinedObject_Z__internalCycleDetector(), this.getboolean(), "z__internalCycleDetector", null, 0, 1, DefinedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDefinedObject_Z__internalCycleDetector(), this.getboolean(), "z__internalCycleDetector", "false", 0, 1, DefinedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(definedObjectEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
