@@ -55,7 +55,7 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int VALUE_EDEFAULT = 0;
+	protected static final Integer VALUE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -65,7 +65,7 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 	 * @generated
 	 * @ordered
 	 */
-	protected int value = VALUE_EDEFAULT;
+	protected Integer value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -115,7 +115,7 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 	 * @generated
 	 */
 	@Override
-	public int getValue() {
+	public Integer getValue() {
 		return value;
 	}
 
@@ -125,8 +125,8 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 	 * @generated
 	 */
 	@Override
-	public void setValue(int newValue) {
-		int oldValue = value;
+	public void setValue(Integer newValue) {
+		Integer oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_CONSTANT__VALUE, oldValue, value));
@@ -205,7 +205,7 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 			case ModelPackage.ALPHA_CONSTANT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ModelPackage.ALPHA_CONSTANT__VALUE:
-				return value != VALUE_EDEFAULT;
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}

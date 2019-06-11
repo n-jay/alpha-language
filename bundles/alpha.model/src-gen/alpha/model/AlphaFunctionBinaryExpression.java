@@ -73,7 +73,7 @@ public interface AlphaFunctionBinaryExpression extends AlphaFunctionExpression {
 	 * @return the value of the '<em>Operator</em>' attribute.
 	 * @see #setOperator(String)
 	 * @see alpha.model.ModelPackage#getAlphaFunctionBinaryExpression_Operator()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getOperator();
@@ -91,7 +91,7 @@ public interface AlphaFunctionBinaryExpression extends AlphaFunctionExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" unique="false"
+	 * @model kind="operation" dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String getISLString();

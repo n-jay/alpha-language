@@ -58,7 +58,7 @@ public interface Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false" exprIDUnique="false" exprIDMany="true"
+	 * @model unique="false" exprIDDataType="alpha.model.int" exprIDUnique="false" exprIDMany="true"
 	 * @generated
 	 */
 	AlphaExpression getExpression(EList<Integer> exprID);
@@ -66,7 +66,7 @@ public interface Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false" exprIDstrUnique="false"
+	 * @model unique="false" exprIDstrDataType="alpha.model.String" exprIDstrUnique="false"
 	 * @generated
 	 */
 	AlphaExpression getExpression(String exprIDstr);

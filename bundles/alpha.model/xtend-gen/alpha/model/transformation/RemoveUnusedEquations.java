@@ -37,7 +37,7 @@ public class RemoveUnusedEquations {
   public static void apply(final AlphaSystem system) {
     final HashMap<Variable, Boolean> map = new HashMap<Variable, Boolean>();
     final Function1<VariableExpression, Boolean> _function = (VariableExpression ve) -> {
-      return Boolean.valueOf(ve.getVariable().isLocal());
+      return ve.getVariable().isLocal();
     };
     final Consumer<VariableExpression> _function_1 = (VariableExpression ve) -> {
       map.put(ve.getVariable(), Boolean.valueOf(true));

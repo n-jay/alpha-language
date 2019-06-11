@@ -198,7 +198,7 @@ public class AlphaUtil {
       EObject _eContainer = system.eContainer();
       Iterable<AlphaConstant> _gatherAlphaConstants = AlphaUtil.gatherAlphaConstants(((AlphaVisitable) _eContainer));
       for (final AlphaConstant ac : _gatherAlphaConstants) {
-        str = str.replaceAll(ac.getName(), Integer.valueOf(ac.getValue()).toString());
+        str = str.replaceAll(ac.getName(), ac.getValue().toString());
       }
       return str;
     }

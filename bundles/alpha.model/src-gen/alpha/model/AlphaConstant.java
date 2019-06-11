@@ -28,7 +28,7 @@ public interface AlphaConstant extends AlphaElement {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see alpha.model.ModelPackage#getAlphaConstant_Name()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getName();
@@ -48,12 +48,12 @@ public interface AlphaConstant extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(int)
+	 * @see #setValue(Integer)
 	 * @see alpha.model.ModelPackage#getAlphaConstant_Value()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.int"
 	 * @generated
 	 */
-	int getValue();
+	Integer getValue();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.AlphaConstant#getValue <em>Value</em>}' attribute.
@@ -63,7 +63,7 @@ public interface AlphaConstant extends AlphaElement {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(int value);
+	void setValue(Integer value);
 
 	/**
 	 * <!-- begin-user-doc -->

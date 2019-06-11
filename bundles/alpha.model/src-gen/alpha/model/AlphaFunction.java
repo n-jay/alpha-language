@@ -40,7 +40,7 @@ public interface AlphaFunction extends EObject {
 	 * @return the value of the '<em>Index List</em>' attribute.
 	 * @see #setIndexList(String)
 	 * @see alpha.model.ModelPackage#getAlphaFunction_IndexList()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getIndexList();
@@ -70,7 +70,7 @@ public interface AlphaFunction extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String plainToString();

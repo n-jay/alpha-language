@@ -28,7 +28,7 @@ public interface ExternalFunction extends AlphaElement {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see alpha.model.ModelPackage#getExternalFunction_Name()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getName();
@@ -48,12 +48,12 @@ public interface ExternalFunction extends AlphaElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cardinality</em>' attribute.
-	 * @see #setCardinality(int)
+	 * @see #setCardinality(Integer)
 	 * @see alpha.model.ModelPackage#getExternalFunction_Cardinality()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.int"
 	 * @generated
 	 */
-	int getCardinality();
+	Integer getCardinality();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.ExternalFunction#getCardinality <em>Cardinality</em>}' attribute.
@@ -63,12 +63,12 @@ public interface ExternalFunction extends AlphaElement {
 	 * @see #getCardinality()
 	 * @generated
 	 */
-	void setCardinality(int value);
+	void setCardinality(Integer value);
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" unique="false"
+	 * @model kind="operation" dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String getFullyQualifiedName();

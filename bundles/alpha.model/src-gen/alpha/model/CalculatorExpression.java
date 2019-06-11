@@ -29,7 +29,7 @@ public interface CalculatorExpression extends AlphaNode, CalculatorNode, Calcula
 	 * *
 	 * toString without using ISL objects
 	 * <!-- end-model-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String plainToString();

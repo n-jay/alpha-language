@@ -175,7 +175,7 @@ public class Show extends ModelSwitch<CharSequence> {
     String _name = ac.getName();
     _builder.append(_name);
     _builder.append(" = ");
-    int _value = ac.getValue();
+    Integer _value = ac.getValue();
     _builder.append(_value);
     return _builder;
   }
@@ -189,7 +189,7 @@ public class Show extends ModelSwitch<CharSequence> {
     String _name = ef.getName();
     _builder.append(_name);
     _builder.append("(");
-    int _cardinality = ef.getCardinality();
+    Integer _cardinality = ef.getCardinality();
     _builder.append(_cardinality);
     _builder.append(")");
     return _builder;
@@ -804,21 +804,21 @@ public class Show extends ModelSwitch<CharSequence> {
    * override
    */
   public String caseBooleanExpression(final BooleanExpression be) {
-    return Boolean.valueOf(be.isValue()).toString();
+    return be.getValue().toString();
   }
   
   /**
    * override
    */
   public String caseIntegerExpression(final IntegerExpression ie) {
-    return Integer.valueOf(ie.getValue()).toString();
+    return ie.getValue().toString();
   }
   
   /**
    * override
    */
   public String caseRealExpression(final RealExpression re) {
-    return Float.valueOf(re.getValue()).toString();
+    return re.getValue().toString();
   }
   
   /**

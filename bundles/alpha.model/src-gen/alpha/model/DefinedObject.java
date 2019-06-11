@@ -18,7 +18,7 @@ import fr.irisa.cairn.jnimap.runtime.JNIObject;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.DefinedObject#getObject <em>Object</em>}</li>
- *   <li>{@link alpha.model.DefinedObject#isZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}</li>
+ *   <li>{@link alpha.model.DefinedObject#getZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getDefinedObject()
@@ -53,22 +53,22 @@ public interface DefinedObject extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal Cycle Detector</em>' attribute.
-	 * @see #setZ__internalCycleDetector(boolean)
+	 * @see #setZ__internalCycleDetector(Boolean)
 	 * @see alpha.model.ModelPackage#getDefinedObject_Z__internalCycleDetector()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.boolean"
 	 * @generated
 	 */
-	boolean isZ__internalCycleDetector();
+	Boolean getZ__internalCycleDetector();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.DefinedObject#isZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}' attribute.
+	 * Sets the value of the '{@link alpha.model.DefinedObject#getZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Zinternal Cycle Detector</em>' attribute.
-	 * @see #isZ__internalCycleDetector()
+	 * @see #getZ__internalCycleDetector()
 	 * @generated
 	 */
-	void setZ__internalCycleDetector(boolean value);
+	void setZ__internalCycleDetector(Boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -97,7 +97,7 @@ public interface DefinedObject extends CalculatorExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String plainToString();

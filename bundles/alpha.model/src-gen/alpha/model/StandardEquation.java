@@ -52,7 +52,7 @@ public interface StandardEquation extends Equation {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Index Names</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getStandardEquation_IndexNames()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	EList<String> getIndexNames();

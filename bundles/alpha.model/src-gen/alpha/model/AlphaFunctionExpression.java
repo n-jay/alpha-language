@@ -18,7 +18,7 @@ public interface AlphaFunctionExpression extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" unique="false"
+	 * @model kind="operation" dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String getISLString();

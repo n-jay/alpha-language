@@ -4559,6 +4559,56 @@ public interface ModelPackage extends EPackage {
 	 */
 	int INTEGER_QUEUE = 90;
 
+	/**
+	 * The meta object id for the '<em>String</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.String
+	 * @see alpha.model.impl.ModelPackageImpl#getString()
+	 * @generated
+	 */
+	int STRING = 91;
+
+	/**
+	 * The meta object id for the '<em>int</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.Integer
+	 * @see alpha.model.impl.ModelPackageImpl#getint()
+	 * @generated
+	 */
+	int INT = 92;
+
+	/**
+	 * The meta object id for the '<em>float</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.Float
+	 * @see alpha.model.impl.ModelPackageImpl#getfloat()
+	 * @generated
+	 */
+	int FLOAT = 93;
+
+	/**
+	 * The meta object id for the '<em>double</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.Double
+	 * @see alpha.model.impl.ModelPackageImpl#getdouble()
+	 * @generated
+	 */
+	int DOUBLE = 94;
+
+	/**
+	 * The meta object id for the '<em>boolean</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.Boolean
+	 * @see alpha.model.impl.ModelPackageImpl#getboolean()
+	 * @generated
+	 */
+	int BOOLEAN = 95;
+
 
 	/**
 	 * Returns the meta object for class '{@link alpha.model.AlphaNode <em>Alpha Node</em>}'.
@@ -5738,11 +5788,11 @@ public interface ModelPackage extends EPackage {
 	EClass getBooleanExpression();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.BooleanExpression#isValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.BooleanExpression#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see alpha.model.BooleanExpression#isValue()
+	 * @see alpha.model.BooleanExpression#getValue()
 	 * @see #getBooleanExpression()
 	 * @generated
 	 */
@@ -6545,11 +6595,11 @@ public interface ModelPackage extends EPackage {
 	EReference getDefinedObject_Object();
 
 	/**
-	 * Returns the meta object for the attribute '{@link alpha.model.DefinedObject#isZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}'.
+	 * Returns the meta object for the attribute '{@link alpha.model.DefinedObject#getZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Zinternal Cycle Detector</em>'.
-	 * @see alpha.model.DefinedObject#isZ__internalCycleDetector()
+	 * @see alpha.model.DefinedObject#getZ__internalCycleDetector()
 	 * @see #getDefinedObject()
 	 * @generated
 	 */
@@ -6808,6 +6858,61 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getIntegerQueue();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.String <em>String</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>String</em>'.
+	 * @see java.lang.String
+	 * @model instanceClass="java.lang.String"
+	 * @generated
+	 */
+	EDataType getString();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.Integer <em>int</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>int</em>'.
+	 * @see java.lang.Integer
+	 * @model instanceClass="java.lang.Integer"
+	 * @generated
+	 */
+	EDataType getint();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.Float <em>float</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>float</em>'.
+	 * @see java.lang.Float
+	 * @model instanceClass="java.lang.Float"
+	 * @generated
+	 */
+	EDataType getfloat();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.Double <em>double</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>double</em>'.
+	 * @see java.lang.Double
+	 * @model instanceClass="java.lang.Double"
+	 * @generated
+	 */
+	EDataType getdouble();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.Boolean <em>boolean</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>boolean</em>'.
+	 * @see java.lang.Boolean
+	 * @model instanceClass="java.lang.Boolean"
+	 * @generated
+	 */
+	EDataType getboolean();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -8708,6 +8813,56 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType INTEGER_QUEUE = eINSTANCE.getIntegerQueue();
+
+		/**
+		 * The meta object literal for the '<em>String</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.String
+		 * @see alpha.model.impl.ModelPackageImpl#getString()
+		 * @generated
+		 */
+		EDataType STRING = eINSTANCE.getString();
+
+		/**
+		 * The meta object literal for the '<em>int</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.Integer
+		 * @see alpha.model.impl.ModelPackageImpl#getint()
+		 * @generated
+		 */
+		EDataType INT = eINSTANCE.getint();
+
+		/**
+		 * The meta object literal for the '<em>float</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.Float
+		 * @see alpha.model.impl.ModelPackageImpl#getfloat()
+		 * @generated
+		 */
+		EDataType FLOAT = eINSTANCE.getfloat();
+
+		/**
+		 * The meta object literal for the '<em>double</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.Double
+		 * @see alpha.model.impl.ModelPackageImpl#getdouble()
+		 * @generated
+		 */
+		EDataType DOUBLE = eINSTANCE.getdouble();
+
+		/**
+		 * The meta object literal for the '<em>boolean</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.Boolean
+		 * @see alpha.model.impl.ModelPackageImpl#getboolean()
+		 * @generated
+		 */
+		EDataType BOOLEAN = eINSTANCE.getboolean();
 
 	}
 

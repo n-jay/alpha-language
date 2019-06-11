@@ -85,34 +85,34 @@ public class AlphaOperatorUtil {
           case DIV:
           case MOD:
             if ((expr instanceof IntegerExpression)) {
-              int _value = ((IntegerExpression)expr).getValue();
-              return (_value == 1);
+              Integer _value = ((IntegerExpression)expr).getValue();
+              return ((_value).intValue() == 1);
             }
             if ((expr instanceof RealExpression)) {
-              float _value_1 = ((RealExpression)expr).getValue();
-              return (_value_1 == 1);
+              Float _value_1 = ((RealExpression)expr).getValue();
+              return ((_value_1).floatValue() == 1);
             }
             break;
           case ADD:
           case SUB:
             if ((expr instanceof IntegerExpression)) {
-              int _value_2 = ((IntegerExpression)expr).getValue();
-              return (_value_2 == 0);
+              Integer _value_2 = ((IntegerExpression)expr).getValue();
+              return ((_value_2).intValue() == 0);
             }
             if ((expr instanceof RealExpression)) {
-              float _value_3 = ((RealExpression)expr).getValue();
-              return (_value_3 == 0);
+              Float _value_3 = ((RealExpression)expr).getValue();
+              return ((_value_3).floatValue() == 0);
             }
             break;
           case AND:
             if ((expr instanceof BooleanExpression)) {
-              return ((BooleanExpression)expr).isValue();
+              return (((BooleanExpression)expr).getValue()).booleanValue();
             }
             break;
           case OR:
             if ((expr instanceof BooleanExpression)) {
-              boolean _isValue = ((BooleanExpression)expr).isValue();
-              return (!_isValue);
+              Boolean _value_4 = ((BooleanExpression)expr).getValue();
+              return (!(_value_4).booleanValue());
             }
             break;
           default:

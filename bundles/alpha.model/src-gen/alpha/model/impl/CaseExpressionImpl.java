@@ -128,8 +128,8 @@ public class CaseExpressionImpl extends AlphaExpressionImpl implements CaseExpre
 	 * @generated
 	 */
 	@Override
-	public boolean isNamed() {
-		return ((this.getName() != null) && (this.getName().length() > 0));
+	public Boolean isNamed() {
+		return Boolean.valueOf(((this.getName() != null) && (this.getName().length() > 0)));
 	}
 
 	/**

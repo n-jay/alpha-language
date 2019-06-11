@@ -201,8 +201,8 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void inExternalFunction(final ExternalFunction ef) {
     this.defaultIn(ef);
     String _name = ef.getName();
-    int _cardinality = ef.getCardinality();
-    String _plus = (Integer.valueOf(_cardinality) + ")");
+    Integer _cardinality = ef.getCardinality();
+    String _plus = (_cardinality + ")");
     this.printStr("+--", _name, "(", _plus);
   }
   
@@ -210,8 +210,8 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void visitAlphaConstant(final AlphaConstant ac) {
     this.defaultIn(ac);
     String _name = ac.getName();
-    int _value = ac.getValue();
-    String _plus = (Integer.valueOf(_value) + "");
+    Integer _value = ac.getValue();
+    String _plus = (_value + "");
     this.printStr("+--", _name, "=", _plus);
   }
   

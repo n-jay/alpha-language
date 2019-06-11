@@ -17,7 +17,7 @@ public interface ConstantExpression extends AlphaExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String valueString();

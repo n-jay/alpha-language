@@ -25,12 +25,12 @@ public interface RealExpression extends ConstantExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(float)
+	 * @see #setValue(Float)
 	 * @see alpha.model.ModelPackage#getRealExpression_Value()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.float"
 	 * @generated
 	 */
-	float getValue();
+	Float getValue();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.RealExpression#getValue <em>Value</em>}' attribute.
@@ -40,12 +40,12 @@ public interface RealExpression extends ConstantExpression {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(float value);
+	void setValue(Float value);
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String valueString();

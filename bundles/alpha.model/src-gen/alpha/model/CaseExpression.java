@@ -29,7 +29,7 @@ public interface CaseExpression extends AlphaExpression {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see alpha.model.ModelPackage#getCaseExpression_Name()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getName();
@@ -59,10 +59,10 @@ public interface CaseExpression extends AlphaExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" unique="false"
+	 * @model kind="operation" dataType="alpha.model.boolean" unique="false"
 	 * @generated
 	 */
-	boolean isNamed();
+	Boolean isNamed();
 
 	/**
 	 * <!-- begin-user-doc -->

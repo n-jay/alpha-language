@@ -60,7 +60,7 @@ public interface UseEquation extends Equation {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Subsystem Dims</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getUseEquation_SubsystemDims()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	EList<String> getSubsystemDims();

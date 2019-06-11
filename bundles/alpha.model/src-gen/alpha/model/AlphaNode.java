@@ -41,7 +41,7 @@ public interface AlphaNode extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Node ID</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getAlphaNode_NodeID()
-	 * @model unique="false" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model unique="false" dataType="alpha.model.int" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<Integer> getNodeID();

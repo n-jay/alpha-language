@@ -81,7 +81,7 @@ public interface AlphaRoot extends AlphaNode, AlphaVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false" nameUnique="false"
+	 * @model unique="false" nameDataType="alpha.model.String" nameUnique="false"
 	 * @generated
 	 */
 	AlphaSystem getSystem(String name);
@@ -97,7 +97,7 @@ public interface AlphaRoot extends AlphaNode, AlphaVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false" nodeIDUnique="false" nodeIDMany="true"
+	 * @model unique="false" nodeIDDataType="alpha.model.int" nodeIDUnique="false" nodeIDMany="true"
 	 * @generated
 	 */
 	AlphaNode getNode(EList<Integer> nodeID);
@@ -105,7 +105,7 @@ public interface AlphaRoot extends AlphaNode, AlphaVisitable {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false" nodeIDUnique="false"
+	 * @model unique="false" nodeIDDataType="alpha.model.String" nodeIDUnique="false"
 	 * @generated
 	 */
 	AlphaNode getNode(String nodeID);

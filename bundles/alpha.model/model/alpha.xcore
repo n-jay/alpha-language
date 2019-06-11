@@ -29,7 +29,11 @@ type JNIISLPWQPolynomial wraps JNIISLPWQPolynomial
 type ISL_FORMAT wraps ISL_FORMAT
 type ListVariableExpression wraps List<VariableExpression> 
 type IntegerQueue wraps Queue<Integer>
-
+type String wraps String
+type int wraps Integer
+type float wraps Float
+type double wraps Double
+type boolean wraps Boolean
 
 /*
  * Some conventions:

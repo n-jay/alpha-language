@@ -27,7 +27,7 @@ public interface Imports extends AlphaNode, AlphaVisitable {
 	 * @return the value of the '<em>Imported Namespace</em>' attribute.
 	 * @see #setImportedNamespace(String)
 	 * @see alpha.model.ModelPackage#getImports_ImportedNamespace()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getImportedNamespace();

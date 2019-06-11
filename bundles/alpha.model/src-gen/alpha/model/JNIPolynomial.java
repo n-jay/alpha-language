@@ -31,7 +31,7 @@ public interface JNIPolynomial extends CalculatorExpression {
 	 * @return the value of the '<em>Isl String</em>' attribute.
 	 * @see #setIslString(String)
 	 * @see alpha.model.ModelPackage#getJNIPolynomial_IslString()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getIslString();
@@ -111,7 +111,7 @@ public interface JNIPolynomial extends CalculatorExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String plainToString();

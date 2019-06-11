@@ -766,7 +766,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
   
   private static Iterable<SimplifyingReductionsExploration.StepInlineVariable> findInlineCandidates(final AbstractReduceExpression are) {
     final Function1<VariableExpression, Boolean> _function = (VariableExpression ve) -> {
-      return Boolean.valueOf((ve.getVariable().isLocal() || ve.getVariable().isOutput()));
+      return Boolean.valueOf(((ve.getVariable().isLocal()).booleanValue() || (ve.getVariable().isOutput()).booleanValue()));
     };
     final Function1<VariableExpression, SimplifyingReductionsExploration.StepInlineVariable> _function_1 = (VariableExpression ve) -> {
       Variable _variable = ve.getVariable();

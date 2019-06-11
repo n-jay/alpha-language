@@ -588,7 +588,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       return;
     }
     final Predicate<AlphaExpression> _function = (AlphaExpression e) -> {
-      return ((e instanceof CaseExpression) && (this.DEEP || (!((CaseExpression) e).isNamed())));
+      return ((e instanceof CaseExpression) && (this.DEEP || (!(((CaseExpression) e).isNamed()).booleanValue())));
     };
     final Predicate<AlphaExpression> canFlatten = _function;
     boolean _exists = IterableExtensions.<AlphaExpression>exists(ce.getExprs(), new Function1<AlphaExpression, Boolean>() {

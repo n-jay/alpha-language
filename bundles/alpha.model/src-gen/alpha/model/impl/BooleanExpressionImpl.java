@@ -20,31 +20,31 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.impl.BooleanExpressionImpl#isValue <em>Value</em>}</li>
+ *   <li>{@link alpha.model.impl.BooleanExpressionImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class BooleanExpressionImpl extends AlphaExpressionImpl implements BooleanExpression {
 	/**
-	 * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
+	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isValue()
+	 * @see #getValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean VALUE_EDEFAULT = false;
+	protected static final Boolean VALUE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #isValue() <em>Value</em>}' attribute.
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isValue()
+	 * @see #getValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean value = VALUE_EDEFAULT;
+	protected Boolean value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -71,7 +71,7 @@ public class BooleanExpressionImpl extends AlphaExpressionImpl implements Boolea
 	 * @generated
 	 */
 	@Override
-	public boolean isValue() {
+	public Boolean getValue() {
 		return value;
 	}
 
@@ -81,8 +81,8 @@ public class BooleanExpressionImpl extends AlphaExpressionImpl implements Boolea
 	 * @generated
 	 */
 	@Override
-	public void setValue(boolean newValue) {
-		boolean oldValue = value;
+	public void setValue(Boolean newValue) {
+		Boolean oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.BOOLEAN_EXPRESSION__VALUE, oldValue, value));
@@ -95,8 +95,8 @@ public class BooleanExpressionImpl extends AlphaExpressionImpl implements Boolea
 	 */
 	@Override
 	public String valueString() {
-		boolean _isValue = this.isValue();
-		return (Boolean.valueOf(_isValue) + "");
+		Boolean _value = this.getValue();
+		return (_value + "");
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class BooleanExpressionImpl extends AlphaExpressionImpl implements Boolea
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ModelPackage.BOOLEAN_EXPRESSION__VALUE:
-				return isValue();
+				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -162,7 +162,7 @@ public class BooleanExpressionImpl extends AlphaExpressionImpl implements Boolea
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ModelPackage.BOOLEAN_EXPRESSION__VALUE:
-				return value != VALUE_EDEFAULT;
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}

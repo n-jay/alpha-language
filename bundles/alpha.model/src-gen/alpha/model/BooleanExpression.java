@@ -12,7 +12,7 @@ package alpha.model;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.model.BooleanExpression#isValue <em>Value</em>}</li>
+ *   <li>{@link alpha.model.BooleanExpression#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @see alpha.model.ModelPackage#getBooleanExpression()
@@ -25,27 +25,27 @@ public interface BooleanExpression extends ConstantExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(boolean)
+	 * @see #setValue(Boolean)
 	 * @see alpha.model.ModelPackage#getBooleanExpression_Value()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.boolean"
 	 * @generated
 	 */
-	boolean isValue();
+	Boolean getValue();
 
 	/**
-	 * Sets the value of the '{@link alpha.model.BooleanExpression#isValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link alpha.model.BooleanExpression#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Value</em>' attribute.
-	 * @see #isValue()
+	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(boolean value);
+	void setValue(Boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String valueString();

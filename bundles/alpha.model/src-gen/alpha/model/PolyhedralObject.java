@@ -29,7 +29,7 @@ public interface PolyhedralObject extends AlphaNode, CalculatorNode, AlphaVisita
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see alpha.model.ModelPackage#getPolyhedralObject_Name()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getName();

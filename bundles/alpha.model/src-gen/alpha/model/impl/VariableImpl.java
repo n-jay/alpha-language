@@ -202,8 +202,8 @@ public class VariableImpl extends AlphaNodeImpl implements Variable {
 	 * @generated
 	 */
 	@Override
-	public boolean isInput() {
-		return ((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__INPUTS));
+	public Boolean isInput() {
+		return Boolean.valueOf(((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__INPUTS)));
 	}
 
 	/**
@@ -212,8 +212,8 @@ public class VariableImpl extends AlphaNodeImpl implements Variable {
 	 * @generated
 	 */
 	@Override
-	public boolean isOutput() {
-		return ((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__OUTPUTS));
+	public Boolean isOutput() {
+		return Boolean.valueOf(((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__OUTPUTS)));
 	}
 
 	/**
@@ -222,8 +222,8 @@ public class VariableImpl extends AlphaNodeImpl implements Variable {
 	 * @generated
 	 */
 	@Override
-	public boolean isLocal() {
-		return ((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__LOCALS));
+	public Boolean isLocal() {
+		return Boolean.valueOf(((this.eContainmentFeature() != null) && (this.eContainmentFeature() == Literals.ALPHA_SYSTEM__LOCALS)));
 	}
 
 	/**

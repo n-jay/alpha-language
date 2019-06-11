@@ -43,7 +43,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Lower Bounds</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getRectangularDomain_LowerBounds()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	EList<String> getLowerBounds();
@@ -55,7 +55,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Upper Bounds</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getRectangularDomain_UpperBounds()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	EList<String> getUpperBounds();
@@ -67,7 +67,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Index Names</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getRectangularDomain_IndexNames()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	EList<String> getIndexNames();
@@ -137,7 +137,7 @@ public interface RectangularDomain extends CalculatorExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String plainToString();

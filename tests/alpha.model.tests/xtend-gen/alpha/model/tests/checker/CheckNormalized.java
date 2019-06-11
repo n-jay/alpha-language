@@ -65,7 +65,7 @@ public class CheckNormalized extends ModelSwitch<Boolean> {
   public Boolean caseCaseExpression(final CaseExpression ce) {
     boolean _xblockexpression = false;
     {
-      if (((ce.isNamed() || (ce.eContainer() instanceof StandardEquation)) || (ce.eContainer() instanceof ReduceExpression))) {
+      if ((((ce.isNamed()).booleanValue() || (ce.eContainer() instanceof StandardEquation)) || (ce.eContainer() instanceof ReduceExpression))) {
         return this.defaultCase(ce);
       }
       _xblockexpression = false;

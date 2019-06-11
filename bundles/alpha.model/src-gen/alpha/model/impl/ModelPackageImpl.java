@@ -99,7 +99,6 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
@@ -748,6 +747,41 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	private EDataType integerQueueEDataType = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType stringEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType intEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType floatEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType doubleEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType booleanEDataType = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -793,9 +827,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		ModelPackageImpl theModelPackage = registeredModelPackage instanceof ModelPackageImpl ? (ModelPackageImpl)registeredModelPackage : new ModelPackageImpl();
 
 		isInited = true;
-
-		// Initialize simple dependencies
-		EcorePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theModelPackage.createPackageContents();
@@ -2937,6 +2968,56 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	@Override
+	public EDataType getString() {
+		return stringEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EDataType getint() {
+		return intEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EDataType getfloat() {
+		return floatEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EDataType getdouble() {
+		return doubleEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EDataType getboolean() {
+		return booleanEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ModelFactory getModelFactory() {
 		return (ModelFactory)getEFactoryInstance();
 	}
@@ -3252,6 +3333,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		isL_FORMATEDataType = createEDataType(ISL_FORMAT);
 		listVariableExpressionEDataType = createEDataType(LIST_VARIABLE_EXPRESSION);
 		integerQueueEDataType = createEDataType(INTEGER_QUEUE);
+		stringEDataType = createEDataType(STRING);
+		intEDataType = createEDataType(INT);
+		floatEDataType = createEDataType(FLOAT);
+		doubleEDataType = createEDataType(DOUBLE);
+		booleanEDataType = createEDataType(BOOLEAN);
 	}
 
 	/**
@@ -3276,9 +3362,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		setName(eNAME);
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
-
-		// Obtain other dependent packages
-		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -3371,7 +3454,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(alphaNodeEClass, AlphaNode.class, "AlphaNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAlphaNode_NodeID(), theEcorePackage.getEInt(), "nodeID", null, 0, -1, AlphaNode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaNode_NodeID(), this.getint(), "nodeID", null, 0, -1, AlphaNode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(alphaNodeEClass, this.getAlphaNode(), "getNode", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getIntegerQueue(), "nodeID", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3810,27 +3893,27 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(alphaRootEClass, this.getAlphaSystem(), "getSystems", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaRootEClass, this.getAlphaSystem(), "getSystem", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEString(), "name", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getString(), "name", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaRootEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaRootEClass, this.getAlphaNode(), "getNode", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEInt(), "nodeID", 0, -1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getint(), "nodeID", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaRootEClass, this.getAlphaNode(), "getNode", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEString(), "nodeID", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getString(), "nodeID", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaElementEClass, AlphaElement.class, "AlphaElement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(importsEClass, Imports.class, "Imports", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getImports_ImportedNamespace(), theEcorePackage.getEString(), "importedNamespace", null, 0, 1, Imports.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getImports_ImportedNamespace(), this.getString(), "importedNamespace", null, 0, 1, Imports.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(importsEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaPackageEClass, AlphaPackage.class, "AlphaPackage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAlphaPackage_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AlphaPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaPackage_Name(), this.getString(), "name", null, 0, 1, AlphaPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaPackage_Elements(), this.getAlphaElement(), null, "elements", null, 0, -1, AlphaPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(alphaPackageEClass, this.getAlphaConstant(), "getConstants", 0, -1, !IS_UNIQUE, IS_ORDERED);
@@ -3845,23 +3928,23 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaConstantEClass, AlphaConstant.class, "AlphaConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAlphaConstant_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AlphaConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAlphaConstant_Value(), theEcorePackage.getEInt(), "value", null, 0, 1, AlphaConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaConstant_Name(), this.getString(), "name", null, 0, 1, AlphaConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaConstant_Value(), this.getint(), "value", null, 0, 1, AlphaConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(alphaConstantEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(externalFunctionEClass, ExternalFunction.class, "ExternalFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getExternalFunction_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ExternalFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getExternalFunction_Cardinality(), theEcorePackage.getEInt(), "cardinality", null, 0, 1, ExternalFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExternalFunction_Name(), this.getString(), "name", null, 0, 1, ExternalFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExternalFunction_Cardinality(), this.getint(), "cardinality", null, 0, 1, ExternalFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(externalFunctionEClass, theEcorePackage.getEString(), "getFullyQualifiedName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(externalFunctionEClass, this.getString(), "getFullyQualifiedName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(externalFunctionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaSystemEClass, AlphaSystem.class, "AlphaSystem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAlphaSystem_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaSystem_Name(), this.getString(), "name", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_ParameterDomainExpr(), this.getJNIDomain(), null, "parameterDomainExpr", null, 0, 1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_DefinedObjects(), this.getPolyhedralObject(), null, "definedObjects", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaSystem_Inputs(), this.getVariable(), null, "inputs", null, 0, -1, AlphaSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3878,24 +3961,24 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(alphaSystemEClass, this.getJNIISLSet(), "getWhileDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaSystemEClass, this.getVariable(), "getVariable", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEString(), "varName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getString(), "varName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(alphaSystemEClass, theEcorePackage.getEString(), "getFullyQualifiedName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(alphaSystemEClass, this.getString(), "getFullyQualifiedName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(alphaSystemEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getVariable_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVariable_Name(), this.getString(), "name", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariable_DomainExpr(), this.getCalculatorExpression(), null, "domainExpr", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(variableEClass, this.getJNIISLSet(), "getDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(variableEClass, theEcorePackage.getEBoolean(), "isInput", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(variableEClass, this.getboolean(), "isInput", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(variableEClass, theEcorePackage.getEBoolean(), "isOutput", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(variableEClass, this.getboolean(), "isOutput", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(variableEClass, theEcorePackage.getEBoolean(), "isLocal", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(variableEClass, this.getboolean(), "isLocal", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(variableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3922,7 +4005,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(systemBodyEClass, this.getStandardEquation(), "getStandardEquations", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(systemBodyEClass, this.getStandardEquation(), "getStandardEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEString(), "eqName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getString(), "eqName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(systemBodyEClass, this.getStandardEquation(), "getStandardEquation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVariable(), "v", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3937,14 +4020,14 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getIntegerQueue(), "exprID", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(equationEClass, this.getAlphaExpression(), "getExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEInt(), "exprID", 0, -1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getint(), "exprID", 0, -1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(equationEClass, this.getAlphaExpression(), "getExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEString(), "exprIDstr", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getString(), "exprIDstr", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(standardEquationEClass, StandardEquation.class, "StandardEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStandardEquation_Variable(), this.getVariable(), null, "variable", null, 0, 1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getStandardEquation_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStandardEquation_IndexNames(), this.getString(), "indexNames", null, 0, -1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getStandardEquation_Expr(), this.getAlphaExpression(), null, "expr", null, 0, 1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(standardEquationEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -3952,7 +4035,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		initEClass(useEquationEClass, UseEquation.class, "UseEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getUseEquation_InstantiationDomainExpr(), this.getCalculatorExpression(), null, "instantiationDomainExpr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUseEquation_SubsystemDims(), theEcorePackage.getEString(), "subsystemDims", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getUseEquation_SubsystemDims(), this.getString(), "subsystemDims", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_System(), this.getAlphaSystem(), null, "system", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_CallParamsExpr(), this.getJNIFunctionInArrayNotation(), null, "callParamsExpr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_InputExprs(), this.getAlphaExpression(), null, "inputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3970,7 +4053,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(alphaExpressionEClass, AlphaExpression.class, "AlphaExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAlphaExpression_Z__internal_cache_exprDom(), this.getJNIISLSet(), "z__internal_cache_exprDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAlphaExpression_Z__internal_cache_contextDom(), this.getJNIISLSet(), "z__internal_cache_contextDom", null, 0, 1, AlphaExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAlphaExpression_ExpressionID(), theEcorePackage.getEInt(), "expressionID", null, 0, -1, AlphaExpression.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaExpression_ExpressionID(), this.getint(), "expressionID", null, 0, -1, AlphaExpression.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(alphaExpressionEClass, null, "setExpressionDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getJNIISLSet(), "dom", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4007,10 +4090,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(caseExpressionEClass, CaseExpression.class, "CaseExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCaseExpression_Name(), theEcorePackage.getEString(), "name", null, 0, 1, CaseExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCaseExpression_Name(), this.getString(), "name", null, 0, 1, CaseExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCaseExpression_Exprs(), this.getAlphaExpression(), null, "exprs", null, 0, -1, CaseExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(caseExpressionEClass, theEcorePackage.getEBoolean(), "isNamed", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(caseExpressionEClass, this.getboolean(), "isNamed", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(caseExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4124,28 +4207,28 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		initEClass(constantExpressionEClass, ConstantExpression.class, "ConstantExpression", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		addEOperation(constantExpressionEClass, theEcorePackage.getEString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(constantExpressionEClass, this.getString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(integerExpressionEClass, IntegerExpression.class, "IntegerExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIntegerExpression_Value(), theEcorePackage.getEInt(), "value", null, 0, 1, IntegerExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIntegerExpression_Value(), this.getint(), "value", null, 0, 1, IntegerExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(integerExpressionEClass, theEcorePackage.getEString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(integerExpressionEClass, this.getString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(integerExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(realExpressionEClass, RealExpression.class, "RealExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRealExpression_Value(), theEcorePackage.getEFloat(), "value", null, 0, 1, RealExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRealExpression_Value(), this.getfloat(), "value", null, 0, 1, RealExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(realExpressionEClass, theEcorePackage.getEString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(realExpressionEClass, this.getString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(realExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(booleanExpressionEClass, BooleanExpression.class, "BooleanExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBooleanExpression_Value(), theEcorePackage.getEBoolean(), "value", null, 0, 1, BooleanExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBooleanExpression_Value(), this.getboolean(), "value", null, 0, 1, BooleanExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(booleanExpressionEClass, theEcorePackage.getEString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(booleanExpressionEClass, this.getString(), "valueString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(booleanExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4217,7 +4300,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(calculatorNodeEClass, this.getJNIObject(), "getISLObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(polyhedralObjectEClass, PolyhedralObject.class, "PolyhedralObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPolyhedralObject_Name(), theEcorePackage.getEString(), "name", null, 0, 1, PolyhedralObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPolyhedralObject_Name(), this.getString(), "name", null, 0, 1, PolyhedralObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPolyhedralObject_Expr(), this.getCalculatorExpression(), null, "expr", null, 0, 1, PolyhedralObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(polyhedralObjectEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4232,10 +4315,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(calculatorExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(calculatorExpressionEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(calculatorExpressionEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(jniDomainEClass, JNIDomain.class, "JNIDomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJNIDomain_IslString(), theEcorePackage.getEString(), "islString", null, 0, 1, JNIDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJNIDomain_IslString(), this.getString(), "islString", null, 0, 1, JNIDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJNIDomain_Z__internal_cache_islSet(), this.getJNIISLSet(), "z__internal_cache_islSet", null, 0, 1, JNIDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(jniDomainEClass, this.getJNIISLSet(), "getISLSet", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4247,9 +4330,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(jniDomainEClass, this.getJNIObject(), "getISLObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniDomainEClass, theEcorePackage.getEString(), "toString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(jniDomainEClass, this.getString(), "toString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniDomainEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(jniDomainEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(jniDomainEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4257,7 +4340,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(jniDomainInArrayNotationEClass, JNIDomainInArrayNotation.class, "JNIDomainInArrayNotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(jniRelationEClass, JNIRelation.class, "JNIRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJNIRelation_IslString(), theEcorePackage.getEString(), "islString", null, 0, 1, JNIRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJNIRelation_IslString(), this.getString(), "islString", null, 0, 1, JNIRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJNIRelation_Z__internal_cache_islMap(), this.getJNIISLMap(), "z__internal_cache_islMap", null, 0, 1, JNIRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(jniRelationEClass, this.getJNIISLMap(), "getISLMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4269,9 +4352,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		addEOperation(jniRelationEClass, this.getJNIObject(), "getISLObject", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniRelationEClass, theEcorePackage.getEString(), "toString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(jniRelationEClass, this.getString(), "toString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniRelationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(jniRelationEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(jniRelationEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4292,15 +4375,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(jniFunctionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniFunctionEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(jniFunctionEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(jniFunctionInArrayNotationEClass, JNIFunctionInArrayNotation.class, "JNIFunctionInArrayNotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJNIFunctionInArrayNotation_ArrayNotation(), theEcorePackage.getEString(), "arrayNotation", null, 0, -1, JNIFunctionInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJNIFunctionInArrayNotation_ArrayNotation(), this.getString(), "arrayNotation", null, 0, -1, JNIFunctionInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(jniFunctionInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(jniFunctionInArrayNotationEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(jniPolynomialEClass, JNIPolynomial.class, "JNIPolynomial", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJNIPolynomial_IslString(), theEcorePackage.getEString(), "islString", null, 0, 1, JNIPolynomial.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJNIPolynomial_IslString(), this.getString(), "islString", null, 0, 1, JNIPolynomial.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getJNIPolynomial_Z__internal_cache_islPWQP(), this.getJNIISLPWQPolynomial(), "z__internal_cache_islPWQP", null, 0, 1, JNIPolynomial.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(jniPolynomialEClass, this.getJNIISLPWQPolynomial(), "getISLPWQPolynomial", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4315,15 +4398,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(jniPolynomialEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(jniPolynomialEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(jniPolynomialEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(jniPolynomialInArrayNotationEClass, JNIPolynomialInArrayNotation.class, "JNIPolynomialInArrayNotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getJNIPolynomialInArrayNotation_ArrayNotation(), theEcorePackage.getEString(), "arrayNotation", null, 0, -1, JNIPolynomialInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJNIPolynomialInArrayNotation_ArrayNotation(), this.getString(), "arrayNotation", null, 0, -1, JNIPolynomialInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(jniPolynomialInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(jniPolynomialInArrayNotationEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(fuzzyFunctionEClass, FuzzyFunction.class, "FuzzyFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFuzzyFunction_AlphaString(), theEcorePackage.getEString(), "alphaString", null, 0, 1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFuzzyFunction_AlphaString(), this.getString(), "alphaString", null, 0, 1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFuzzyFunction_Indirections(), this.getFuzzyVariableUse(), null, "indirections", null, 0, -1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFuzzyFunction_Z__internal_cache_fuzzyMap(), this.getJNIISLMap(), "z__internal_cache_fuzzyMap", null, 0, 1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFuzzyFunction_Z__internal_cache_depRelation(), this.getJNIISLMap(), "z__internal_cache_depRelation", null, 0, 1, FuzzyFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4339,10 +4422,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getJNIISLMap(), "depRel", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(fuzzyFunctionEClass, this.getFuzzyVariableUse(), "getIndirectionByName", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEString(), "name", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getString(), "name", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(fuzzyVariableUseEClass, FuzzyVariableUse.class, "FuzzyVariableUse", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFuzzyVariableUse_FuzzyIndex(), theEcorePackage.getEString(), "fuzzyIndex", null, 0, 1, FuzzyVariableUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFuzzyVariableUse_FuzzyIndex(), this.getString(), "fuzzyIndex", null, 0, 1, FuzzyVariableUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFuzzyVariableUse_FuzzyVariable(), this.getFuzzyVariable(), null, "fuzzyVariable", null, 0, 1, FuzzyVariableUse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(fuzzyVariableUseEClass, this.getJNIISLMap(), "getDependenceRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4355,9 +4438,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEOperation(affineFuzzyVariableUseEClass, this.getJNIISLMap(), "getDependenceRelation", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(fuzzyFunctionInArrayNotationEClass, FuzzyFunctionInArrayNotation.class, "FuzzyFunctionInArrayNotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFuzzyFunctionInArrayNotation_ArrayNotation(), theEcorePackage.getEString(), "arrayNotation", null, 0, -1, FuzzyFunctionInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFuzzyFunctionInArrayNotation_ArrayNotation(), this.getString(), "arrayNotation", null, 0, -1, FuzzyFunctionInArrayNotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(fuzzyFunctionInArrayNotationEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(fuzzyFunctionInArrayNotationEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(unaryCalculatorExpressionEClass, UnaryCalculatorExpression.class, "UnaryCalculatorExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUnaryCalculatorExpression_Operator(), this.getCALCULATOR_UNARY_OP(), "operator", null, 0, 1, UnaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4371,7 +4454,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(unaryCalculatorExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(unaryCalculatorExpressionEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(unaryCalculatorExpressionEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(binaryCalculatorExpressionEClass, BinaryCalculatorExpression.class, "BinaryCalculatorExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBinaryCalculatorExpression_Operator(), this.getCALCULATOR_BINARY_OP(), "operator", null, 0, 1, BinaryCalculatorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4386,7 +4469,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(binaryCalculatorExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(binaryCalculatorExpressionEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(binaryCalculatorExpressionEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(variableDomainEClass, VariableDomain.class, "VariableDomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVariableDomain_Variable(), this.getVariable(), null, "variable", null, 0, 1, VariableDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4398,12 +4481,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(variableDomainEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(variableDomainEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(variableDomainEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(rectangularDomainEClass, RectangularDomain.class, "RectangularDomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRectangularDomain_LowerBounds(), theEcorePackage.getEString(), "lowerBounds", null, 0, -1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRectangularDomain_UpperBounds(), theEcorePackage.getEString(), "upperBounds", null, 0, -1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRectangularDomain_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangularDomain_LowerBounds(), this.getString(), "lowerBounds", null, 0, -1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangularDomain_UpperBounds(), this.getString(), "upperBounds", null, 0, -1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRectangularDomain_IndexNames(), this.getString(), "indexNames", null, 0, -1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRectangularDomain_Z__internal_cache_islSet(), this.getJNIISLSet(), "z__internal_cache_islSet", null, 0, 1, RectangularDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(rectangularDomainEClass, this.getJNIISLSet(), "getISLSet", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -4418,11 +4501,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(rectangularDomainEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(rectangularDomainEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(rectangularDomainEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(definedObjectEClass, DefinedObject.class, "DefinedObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDefinedObject_Object(), this.getPolyhedralObject(), null, "object", null, 0, 1, DefinedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDefinedObject_Z__internalCycleDetector(), theEcorePackage.getEBoolean(), "z__internalCycleDetector", null, 0, 1, DefinedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDefinedObject_Z__internalCycleDetector(), this.getboolean(), "z__internalCycleDetector", null, 0, 1, DefinedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(definedObjectEClass, this.getPOLY_OBJECT_TYPE(), "getType", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -4431,29 +4514,29 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		op = addEOperation(definedObjectEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(definedObjectEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(definedObjectEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaFunctionEClass, AlphaFunction.class, "AlphaFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAlphaFunction_IndexList(), theEcorePackage.getEString(), "indexList", null, 0, 1, AlphaFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaFunction_IndexList(), this.getString(), "indexList", null, 0, 1, AlphaFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaFunction_Exprs(), this.getAlphaFunctionExpression(), null, "exprs", null, 0, -1, AlphaFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(alphaFunctionEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(alphaFunctionEClass, this.getString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaFunctionExpressionEClass, AlphaFunctionExpression.class, "AlphaFunctionExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		addEOperation(alphaFunctionExpressionEClass, theEcorePackage.getEString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(alphaFunctionExpressionEClass, this.getString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaFunctionBinaryExpressionEClass, AlphaFunctionBinaryExpression.class, "AlphaFunctionBinaryExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAlphaFunctionBinaryExpression_Left(), this.getAlphaFunctionExpression(), null, "left", null, 0, 1, AlphaFunctionBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAlphaFunctionBinaryExpression_Right(), this.getAlphaFunctionExpression(), null, "right", null, 0, 1, AlphaFunctionBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAlphaFunctionBinaryExpression_Operator(), theEcorePackage.getEString(), "operator", null, 0, 1, AlphaFunctionBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaFunctionBinaryExpression_Operator(), this.getString(), "operator", null, 0, 1, AlphaFunctionBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(alphaFunctionBinaryExpressionEClass, theEcorePackage.getEString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(alphaFunctionBinaryExpressionEClass, this.getString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaFunctionLiteralEClass, AlphaFunctionLiteral.class, "AlphaFunctionLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAlphaFunctionLiteral_Value(), theEcorePackage.getEString(), "value", null, 0, 1, AlphaFunctionLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAlphaFunctionLiteral_Value(), this.getString(), "value", null, 0, 1, AlphaFunctionLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(alphaFunctionLiteralEClass, theEcorePackage.getEString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(alphaFunctionLiteralEClass, this.getString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(unarY_OPEEnum, alpha.model.UNARY_OP.class, "UNARY_OP");
@@ -4520,6 +4603,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEDataType(isL_FORMATEDataType, fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT.class, "ISL_FORMAT", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(listVariableExpressionEDataType, List.class, "ListVariableExpression", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.List<alpha.model.VariableExpression>");
 		initEDataType(integerQueueEDataType, Queue.class, "IntegerQueue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.Queue<java.lang.Integer>");
+		initEDataType(stringEDataType, String.class, "String", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(intEDataType, Integer.class, "int", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(floatEDataType, Float.class, "float", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(doubleEDataType, Double.class, "double", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(booleanEDataType, Boolean.class, "boolean", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

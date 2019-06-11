@@ -168,6 +168,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return createListVariableExpressionFromString(eDataType, initialValue);
 			case ModelPackage.INTEGER_QUEUE:
 				return createIntegerQueueFromString(eDataType, initialValue);
+			case ModelPackage.STRING:
+				return createStringFromString(eDataType, initialValue);
+			case ModelPackage.INT:
+				return createintFromString(eDataType, initialValue);
+			case ModelPackage.FLOAT:
+				return createfloatFromString(eDataType, initialValue);
+			case ModelPackage.DOUBLE:
+				return createdoubleFromString(eDataType, initialValue);
+			case ModelPackage.BOOLEAN:
+				return createbooleanFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -209,6 +219,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 				return convertListVariableExpressionToString(eDataType, instanceValue);
 			case ModelPackage.INTEGER_QUEUE:
 				return convertIntegerQueueToString(eDataType, instanceValue);
+			case ModelPackage.STRING:
+				return convertStringToString(eDataType, instanceValue);
+			case ModelPackage.INT:
+				return convertintToString(eDataType, instanceValue);
+			case ModelPackage.FLOAT:
+				return convertfloatToString(eDataType, instanceValue);
+			case ModelPackage.DOUBLE:
+				return convertdoubleToString(eDataType, instanceValue);
+			case ModelPackage.BOOLEAN:
+				return convertbooleanToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -1127,6 +1147,96 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 */
 	public String convertIntegerQueueToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String createStringFromString(EDataType eDataType, String initialValue) {
+		return (String)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertStringToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Integer createintFromString(EDataType eDataType, String initialValue) {
+		return (Integer)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertintToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Float createfloatFromString(EDataType eDataType, String initialValue) {
+		return (Float)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertfloatToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Double createdoubleFromString(EDataType eDataType, String initialValue) {
+		return (Double)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertdoubleToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Boolean createbooleanFromString(EDataType eDataType, String initialValue) {
+		return (Boolean)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertbooleanToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**

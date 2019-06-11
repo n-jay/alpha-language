@@ -34,7 +34,7 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	 * @generated
 	 * @ordered
 	 */
-	protected static final float VALUE_EDEFAULT = 0.0F;
+	protected static final Float VALUE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -44,7 +44,7 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	 * @generated
 	 * @ordered
 	 */
-	protected float value = VALUE_EDEFAULT;
+	protected Float value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -71,7 +71,7 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	 * @generated
 	 */
 	@Override
-	public float getValue() {
+	public Float getValue() {
 		return value;
 	}
 
@@ -81,8 +81,8 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	 * @generated
 	 */
 	@Override
-	public void setValue(float newValue) {
-		float oldValue = value;
+	public void setValue(Float newValue) {
+		Float oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.REAL_EXPRESSION__VALUE, oldValue, value));
@@ -95,8 +95,8 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	 */
 	@Override
 	public String valueString() {
-		float _value = this.getValue();
-		return (Float.valueOf(_value) + "");
+		Float _value = this.getValue();
+		return (_value + "");
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class RealExpressionImpl extends AlphaExpressionImpl implements RealExpre
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ModelPackage.REAL_EXPRESSION__VALUE:
-				return value != VALUE_EDEFAULT;
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}

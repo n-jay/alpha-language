@@ -112,7 +112,7 @@ public interface SystemBody extends AlphaNode, AlphaVisitable, AlphaSystemElemen
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false" eqNameUnique="false"
+	 * @model unique="false" eqNameDataType="alpha.model.String" eqNameUnique="false"
 	 * @generated
 	 */
 	StandardEquation getStandardEquation(String eqName);

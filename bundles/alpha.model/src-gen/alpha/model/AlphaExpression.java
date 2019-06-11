@@ -95,7 +95,7 @@ public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expression ID</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getAlphaExpression_ExpressionID()
-	 * @model unique="false" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model unique="false" dataType="alpha.model.int" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<Integer> getExpressionID();

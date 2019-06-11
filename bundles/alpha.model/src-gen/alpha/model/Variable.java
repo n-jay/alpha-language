@@ -29,7 +29,7 @@ public interface Variable extends AlphaNode, AlphaVisitable, AlphaSystemElement 
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see alpha.model.ModelPackage#getVariable_Name()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getName();
@@ -77,26 +77,26 @@ public interface Variable extends AlphaNode, AlphaVisitable, AlphaSystemElement 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" unique="false"
+	 * @model kind="operation" dataType="alpha.model.boolean" unique="false"
 	 * @generated
 	 */
-	boolean isInput();
+	Boolean isInput();
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" unique="false"
+	 * @model kind="operation" dataType="alpha.model.boolean" unique="false"
 	 * @generated
 	 */
-	boolean isOutput();
+	Boolean isOutput();
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" unique="false"
+	 * @model kind="operation" dataType="alpha.model.boolean" unique="false"
 	 * @generated
 	 */
-	boolean isLocal();
+	Boolean isLocal();
 
 	/**
 	 * <!-- begin-user-doc -->

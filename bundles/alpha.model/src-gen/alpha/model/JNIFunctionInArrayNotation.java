@@ -28,7 +28,7 @@ public interface JNIFunctionInArrayNotation extends JNIFunction {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Array Notation</em>' attribute list.
 	 * @see alpha.model.ModelPackage#getJNIFunctionInArrayNotation_ArrayNotation()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	EList<String> getArrayNotation();
@@ -36,7 +36,7 @@ public interface JNIFunctionInArrayNotation extends JNIFunction {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String plainToString();

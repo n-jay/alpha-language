@@ -33,7 +33,7 @@ public interface FuzzyFunction extends AlphaNode {
 	 * @return the value of the '<em>Alpha String</em>' attribute.
 	 * @see #setAlphaString(String)
 	 * @see alpha.model.ModelPackage#getFuzzyFunction_AlphaString()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getAlphaString();
@@ -139,7 +139,7 @@ public interface FuzzyFunction extends AlphaNode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false" nameUnique="false"
+	 * @model unique="false" nameDataType="alpha.model.String" nameUnique="false"
 	 * @generated
 	 */
 	FuzzyVariableUse getIndirectionByName(String name);

@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link alpha.model.impl.DefinedObjectImpl#getObject <em>Object</em>}</li>
- *   <li>{@link alpha.model.impl.DefinedObjectImpl#isZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}</li>
+ *   <li>{@link alpha.model.impl.DefinedObjectImpl#getZ__internalCycleDetector <em>Zinternal Cycle Detector</em>}</li>
  * </ul>
  *
  * @generated
@@ -45,24 +45,24 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	protected PolyhedralObject object;
 
 	/**
-	 * The default value of the '{@link #isZ__internalCycleDetector() <em>Zinternal Cycle Detector</em>}' attribute.
+	 * The default value of the '{@link #getZ__internalCycleDetector() <em>Zinternal Cycle Detector</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isZ__internalCycleDetector()
+	 * @see #getZ__internalCycleDetector()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean ZINTERNAL_CYCLE_DETECTOR_EDEFAULT = false;
+	protected static final Boolean ZINTERNAL_CYCLE_DETECTOR_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #isZ__internalCycleDetector() <em>Zinternal Cycle Detector</em>}' attribute.
+	 * The cached value of the '{@link #getZ__internalCycleDetector() <em>Zinternal Cycle Detector</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isZ__internalCycleDetector()
+	 * @see #getZ__internalCycleDetector()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean z__internalCycleDetector = ZINTERNAL_CYCLE_DETECTOR_EDEFAULT;
+	protected Boolean z__internalCycleDetector = ZINTERNAL_CYCLE_DETECTOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -129,7 +129,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * @generated
 	 */
 	@Override
-	public boolean isZ__internalCycleDetector() {
+	public Boolean getZ__internalCycleDetector() {
 		return z__internalCycleDetector;
 	}
 
@@ -139,8 +139,8 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 	 * @generated
 	 */
 	@Override
-	public void setZ__internalCycleDetector(boolean newZ__internalCycleDetector) {
-		boolean oldZ__internalCycleDetector = z__internalCycleDetector;
+	public void setZ__internalCycleDetector(Boolean newZ__internalCycleDetector) {
+		Boolean oldZ__internalCycleDetector = z__internalCycleDetector;
 		z__internalCycleDetector = newZ__internalCycleDetector;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR, oldZ__internalCycleDetector, z__internalCycleDetector));
@@ -166,15 +166,15 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 		PolyhedralObject _object = this.getObject();
 		boolean _tripleNotEquals = (_object != null);
 		if (_tripleNotEquals) {
-			boolean _isZ__internalCycleDetector = this.isZ__internalCycleDetector();
-			if (_isZ__internalCycleDetector) {
+			Boolean _z__internalCycleDetector = this.getZ__internalCycleDetector();
+			if ((_z__internalCycleDetector).booleanValue()) {
 				String _name = this.getObject().getName();
 				String _plus = ("Cycle detected in the definition of: " + _name);
 				throw new CyclicDefinitionException(_plus);
 			}
-			this.setZ__internalCycleDetector(true);
+			this.setZ__internalCycleDetector(Boolean.valueOf(true));
 			final JNIObject res = this.getObject().getISLObject();
-			this.setZ__internalCycleDetector(false);
+			this.setZ__internalCycleDetector(Boolean.valueOf(false));
 			return res;
 		}
 		return null;
@@ -212,7 +212,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 				if (resolve) return getObject();
 				return basicGetObject();
 			case ModelPackage.DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR:
-				return isZ__internalCycleDetector();
+				return getZ__internalCycleDetector();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -264,7 +264,7 @@ public class DefinedObjectImpl extends CalculatorExpressionImpl implements Defin
 			case ModelPackage.DEFINED_OBJECT__OBJECT:
 				return object != null;
 			case ModelPackage.DEFINED_OBJECT__ZINTERNAL_CYCLE_DETECTOR:
-				return z__internalCycleDetector != ZINTERNAL_CYCLE_DETECTOR_EDEFAULT;
+				return ZINTERNAL_CYCLE_DETECTOR_EDEFAULT == null ? z__internalCycleDetector != null : !ZINTERNAL_CYCLE_DETECTOR_EDEFAULT.equals(z__internalCycleDetector);
 		}
 		return super.eIsSet(featureID);
 	}

@@ -34,7 +34,7 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int VALUE_EDEFAULT = 0;
+	protected static final Integer VALUE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -44,7 +44,7 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	 * @generated
 	 * @ordered
 	 */
-	protected int value = VALUE_EDEFAULT;
+	protected Integer value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -71,7 +71,7 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	 * @generated
 	 */
 	@Override
-	public int getValue() {
+	public Integer getValue() {
 		return value;
 	}
 
@@ -81,8 +81,8 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	 * @generated
 	 */
 	@Override
-	public void setValue(int newValue) {
-		int oldValue = value;
+	public void setValue(Integer newValue) {
+		Integer oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.INTEGER_EXPRESSION__VALUE, oldValue, value));
@@ -95,8 +95,8 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	 */
 	@Override
 	public String valueString() {
-		int _value = this.getValue();
-		return (Integer.valueOf(_value) + "");
+		Integer _value = this.getValue();
+		return (_value + "");
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class IntegerExpressionImpl extends AlphaExpressionImpl implements Intege
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ModelPackage.INTEGER_EXPRESSION__VALUE:
-				return value != VALUE_EDEFAULT;
+				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
 	}

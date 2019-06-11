@@ -25,12 +25,12 @@ public interface IntegerExpression extends ConstantExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(int)
+	 * @see #setValue(Integer)
 	 * @see alpha.model.ModelPackage#getIntegerExpression_Value()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.int"
 	 * @generated
 	 */
-	int getValue();
+	Integer getValue();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.IntegerExpression#getValue <em>Value</em>}' attribute.
@@ -40,12 +40,12 @@ public interface IntegerExpression extends ConstantExpression {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(int value);
+	void setValue(Integer value);
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false"
+	 * @model dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String valueString();

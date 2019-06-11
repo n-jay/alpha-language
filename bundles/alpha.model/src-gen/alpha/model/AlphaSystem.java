@@ -38,7 +38,7 @@ public interface AlphaSystem extends AlphaElement {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see alpha.model.ModelPackage#getAlphaSystem_Name()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getName();
@@ -208,7 +208,7 @@ public interface AlphaSystem extends AlphaElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model unique="false" varNameUnique="false"
+	 * @model unique="false" varNameDataType="alpha.model.String" varNameUnique="false"
 	 * @generated
 	 */
 	Variable getVariable(String varName);
@@ -216,7 +216,7 @@ public interface AlphaSystem extends AlphaElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" unique="false"
+	 * @model kind="operation" dataType="alpha.model.String" unique="false"
 	 * @generated
 	 */
 	String getFullyQualifiedName();

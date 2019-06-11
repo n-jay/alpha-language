@@ -58,7 +58,7 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int CARDINALITY_EDEFAULT = 0;
+	protected static final Integer CARDINALITY_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getCardinality() <em>Cardinality</em>}' attribute.
@@ -68,7 +68,7 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * @generated
 	 * @ordered
 	 */
-	protected int cardinality = CARDINALITY_EDEFAULT;
+	protected Integer cardinality = CARDINALITY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -118,7 +118,7 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * @generated
 	 */
 	@Override
-	public int getCardinality() {
+	public Integer getCardinality() {
 		return cardinality;
 	}
 
@@ -128,8 +128,8 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * @generated
 	 */
 	@Override
-	public void setCardinality(int newCardinality) {
-		int oldCardinality = cardinality;
+	public void setCardinality(Integer newCardinality) {
+		Integer oldCardinality = cardinality;
 		cardinality = newCardinality;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EXTERNAL_FUNCTION__CARDINALITY, oldCardinality, cardinality));
@@ -223,7 +223,7 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 			case ModelPackage.EXTERNAL_FUNCTION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ModelPackage.EXTERNAL_FUNCTION__CARDINALITY:
-				return cardinality != CARDINALITY_EDEFAULT;
+				return CARDINALITY_EDEFAULT == null ? cardinality != null : !CARDINALITY_EDEFAULT.equals(cardinality);
 		}
 		return super.eIsSet(featureID);
 	}

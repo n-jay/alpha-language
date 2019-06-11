@@ -29,7 +29,7 @@ public interface FuzzyVariableUse extends AlphaNode {
 	 * @return the value of the '<em>Fuzzy Index</em>' attribute.
 	 * @see #setFuzzyIndex(String)
 	 * @see alpha.model.ModelPackage#getFuzzyVariableUse_FuzzyIndex()
-	 * @model unique="false"
+	 * @model unique="false" dataType="alpha.model.String"
 	 * @generated
 	 */
 	String getFuzzyIndex();
