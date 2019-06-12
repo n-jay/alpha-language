@@ -1,14 +1,12 @@
 package alpha.commands;
 
-import alpha.model.SystemBody;
-import alpha.model.StandardEquation;
 import alpha.model.AbstractReduceExpression;
-import alpha.model.DependenceExpression;
 import alpha.model.AlphaExpression;
-import alpha.model.AlphaVisitable;
-import alpha.model.AlphaSystem;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import alpha.model.DependenceExpression;
 import alpha.model.ReduceExpression;
+import alpha.model.StandardEquation;
+import alpha.model.SystemBody;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 
 
 public class Reductions extends ReductionsBase {

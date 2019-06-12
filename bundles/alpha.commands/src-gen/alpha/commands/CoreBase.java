@@ -3,14 +3,13 @@ package alpha.commands;
 /*PROTECTED REGION ID(CoreBase_Imports) ENABLED START*/
 //Add custom imports here
 import java.io.IOException;
+import java.util.List;
+
+import alpha.model.AlphaCompleteVisitable;
 import alpha.model.AlphaModelLoader;
+import alpha.model.AlphaRoot;
 import alpha.model.issue.AlphaIssue;
 /*PROTECTED REGION END*/
-
-import alpha.model.AlphaRoot;
-import alpha.model.AlphaRoot;
-import java.util.List;
-import alpha.model.AlphaCompleteVisitable;
 
 
 public class CoreBase {

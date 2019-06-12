@@ -1,19 +1,17 @@
 package alpha.commands;
 
+import alpha.model.AbstractReduceExpression;
+import alpha.model.AlphaExpression;
+import alpha.model.AlphaSystem;
+import alpha.model.AlphaVisitable;
 /*PROTECTED REGION ID(ReductionsBase_Imports) ENABLED START*/
 import alpha.model.BinaryExpression;
+import alpha.model.DependenceExpression;
 import alpha.model.MultiArgExpression;
 /*PROTECTED REGION END*/
-
-import alpha.model.SystemBody;
-import alpha.model.StandardEquation;
-import alpha.model.AbstractReduceExpression;
-import alpha.model.DependenceExpression;
-import alpha.model.AlphaExpression;
-import alpha.model.AlphaVisitable;
-import alpha.model.AlphaSystem;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 import alpha.model.ReduceExpression;
+import alpha.model.SystemBody;
+import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
 
 
 public class ReductionsBase {

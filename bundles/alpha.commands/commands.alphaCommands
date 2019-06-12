@@ -52,6 +52,9 @@ Transformations {
 	PropagateSimpleEquations(AlphaSystem system, int bodyID)
 	PSE:PropagateSimpleEquations(SystemBody body)
 	
+	LiftAutoRestrict(AlphaCompleteVisitable node)
+	LiftAutoRestrict(AutoRestrictExpression are)
+	
 	RemoveUnusedEquations(AlphaRoot root)
 	RemoveUnusedEquations(AlphaSystem system)
 	

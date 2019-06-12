@@ -20,9 +20,10 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import alpha.model.AlphaVisitable
 import alpha.model.AlphaExpression
 import alpha.model.SystemBody
+import alpha.model.AlphaCompleteVisitable
+import alpha.model.AutoRestrictExpression
 import alpha.model.AlphaRoot
 import alpha.model.RestrictExpression
-import alpha.model.AutoRestrictExpression
 import alpha.model.StandardEquation
 import alpha.model.SystemBody
 import alpha.model.StandardEquation
@@ -140,6 +141,12 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	}
 	void PropagateSimpleEquations(SystemBody body) {
 		alpha.commands.Transformations.PropagateSimpleEquations(body)
+	}
+	void LiftAutoRestrict(AlphaCompleteVisitable node) {
+		alpha.commands.Transformations.LiftAutoRestrict(node)
+	}
+	void LiftAutoRestrict(AutoRestrictExpression are) {
+		alpha.commands.Transformations.LiftAutoRestrict(are)
 	}
 	void RemoveUnusedEquations(AlphaRoot root) {
 		alpha.commands.Transformations.RemoveUnusedEquations(root)

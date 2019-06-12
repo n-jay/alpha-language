@@ -1,15 +1,9 @@
 package alpha.commands;
 
-import alpha.model.AlphaRoot;
-import alpha.model.AlphaSystem;
-import alpha.model.SystemBody;
-import alpha.model.StandardEquation;
 import alpha.model.AlphaExpression;
-import alpha.model.AlphaNode;
-import alpha.model.Variable;
-import java.util.List;
-import alpha.model.AlphaRoot;
+import alpha.model.AlphaSystem;
 import alpha.model.Equation;
+import alpha.model.SystemBody;
 
 
 public class Utility extends UtilityBase {

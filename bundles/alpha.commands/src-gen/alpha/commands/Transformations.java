@@ -1,15 +1,11 @@
 package alpha.commands;
 
+import alpha.model.AlphaExpression;
 import alpha.model.AlphaSystem;
+import alpha.model.StandardEquation;
+import alpha.model.SystemBody;
 import alpha.model.Variable;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import alpha.model.AlphaVisitable;
-import alpha.model.AlphaExpression;
-import alpha.model.SystemBody;
-import alpha.model.AlphaRoot;
-import alpha.model.RestrictExpression;
-import alpha.model.AutoRestrictExpression;
-import alpha.model.StandardEquation;
 
 
 public class Transformations extends TransformationsBase {

@@ -1,19 +1,21 @@
 package alpha.commands;
 
+import alpha.model.AlphaCompleteVisitable;
+import alpha.model.AlphaExpression;
+import alpha.model.AlphaRoot;
+
 /*PROTECTED REGION ID(TransformationsBase_Imports) ENABLED START*/
 //Add custom imports here
 /*PROTECTED REGION END*/
 
 import alpha.model.AlphaSystem;
+import alpha.model.AlphaVisitable;
+import alpha.model.AutoRestrictExpression;
+import alpha.model.RestrictExpression;
+import alpha.model.StandardEquation;
+import alpha.model.SystemBody;
 import alpha.model.Variable;
 import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import alpha.model.AlphaVisitable;
-import alpha.model.AlphaExpression;
-import alpha.model.SystemBody;
-import alpha.model.AlphaRoot;
-import alpha.model.RestrictExpression;
-import alpha.model.AutoRestrictExpression;
-import alpha.model.StandardEquation;
 
 
 public class TransformationsBase {
@@ -50,6 +52,16 @@ public class TransformationsBase {
 	public static void PropagateSimpleEquations(SystemBody body) {
 		/*PROTECTED REGION ID(Transformations.PropagateSimpleEquations_PSE) ENABLED START*/
 		alpha.model.transformation.PropagateSimpleEquations.apply(body);
+		/*PROTECTED REGION END*/
+	}
+	public static void LiftAutoRestrict(AlphaCompleteVisitable node) {
+		/*PROTECTED REGION ID(Transformations.LiftAutoRestrict_) ENABLED START*/
+		alpha.model.transformation.LiftAutoRestrict.apply(node);
+		/*PROTECTED REGION END*/
+	}
+	public static void LiftAutoRestrict(AutoRestrictExpression are) {
+		/*PROTECTED REGION ID(Transformations.LiftAutoRestrict__1) ENABLED START*/
+		alpha.model.transformation.LiftAutoRestrict.apply(are);
 		/*PROTECTED REGION END*/
 	}
 	public static void RemoveUnusedEquations(AlphaRoot root) {
