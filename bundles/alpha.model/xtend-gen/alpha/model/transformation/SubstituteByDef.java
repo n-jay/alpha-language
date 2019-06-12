@@ -10,8 +10,10 @@ import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
+import alpha.model.transformation.LiftAutoRestrict;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaUtil;
+import alpha.model.util.Show;
 import com.google.common.base.Objects;
 import java.util.function.Consumer;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -83,7 +85,9 @@ public class SubstituteByDef extends AbstractAlphaCompleteVisitor {
     Variable _variable_1 = this.substituteEquation.getVariable();
     boolean _equals = Objects.equal(_variable, _variable_1);
     if (_equals) {
+      System.err.println(Show.<AlphaExpression>print(this.substituteEquation.getExpr()));
       final RestrictExpression substituteExpr = AlphaUserFactory.createRestrictExpression(this.substituteEquation.getVariable().getDomain(), EcoreUtil.<AlphaExpression>copy(this.substituteEquation.getExpr()));
+      LiftAutoRestrict.apply(substituteExpr);
       EcoreUtil.replace(ve, substituteExpr);
       AlphaInternalStateConstructor.recomputeContextDomain(substituteExpr);
     }
