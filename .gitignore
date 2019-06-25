@@ -26,6 +26,9 @@ builds/
 *.cs.glog
 workspace/
 
+# Mac stuff
+.DS_Store
+
 # test files
 */alpha.model.tests/resources/experimental/*
 */alpha.model.tests/src/alpha/model/tests/Driver*
