@@ -14,7 +14,7 @@ Require-Bundle: alpha.commands.model,
  org.eclipse.xtend.lib;bundle-version="2.14.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  fr.irisa.cairn.xtend.protectedregion
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: alpha.commands.model,
  alpha.commands.model.formatting2,
  alpha.commands.model.serializer,

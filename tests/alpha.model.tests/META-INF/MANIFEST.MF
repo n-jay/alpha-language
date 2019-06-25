@@ -4,7 +4,7 @@ Bundle-Name: Tests
 Bundle-SymbolicName: alpha.model.tests
 Bundle-Version: 0.1.0.qualifier
 Automatic-Module-Name: alpha.model.tests
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: alpha.model,
  alpha.model.xtext,
  org.junit,

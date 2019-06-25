@@ -6,5 +6,5 @@ Bundle-Version: 0.1.0.qualifier
 Require-Bundle: alpha.commands;visibility:=reexport,
  org.apache.log4j;visibility:=reexport
 Export-Package: alpha.commands.groovy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: alpha.commands.groovy

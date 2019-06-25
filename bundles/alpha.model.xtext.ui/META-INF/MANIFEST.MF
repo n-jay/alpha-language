@@ -20,7 +20,7 @@ Require-Bundle: alpha.model.xtext,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
  org.eclipse.e4.ui.workbench
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: alpha.model.ui.contentassist,
  alpha.model.xtext.ui.internal,
  alpha.model.ui.quickfix

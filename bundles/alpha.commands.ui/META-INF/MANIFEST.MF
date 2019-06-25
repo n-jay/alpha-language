@@ -4,7 +4,7 @@ Bundle-Name: Alpha Commands UI
 Bundle-SymbolicName: alpha.commands.ui;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Automatic-Module-Name: alpha.commands.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.core.runtime,

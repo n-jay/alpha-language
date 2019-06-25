@@ -15,6 +15,6 @@ Require-Bundle: org.eclipse.ui,
  org.codehaus.groovy.eclipse.core,
  org.eclipse.pde.ui,
  alpha.commands.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: alpha.model.wizard
 Bundle-ActivationPolicy: lazy
