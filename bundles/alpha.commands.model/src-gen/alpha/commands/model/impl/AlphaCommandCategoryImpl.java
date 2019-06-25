@@ -91,7 +91,6 @@ public class AlphaCommandCategoryImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -101,7 +100,6 @@ public class AlphaCommandCategoryImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -114,7 +112,6 @@ public class AlphaCommandCategoryImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AlphaCommand> getCommands() {
 		if (commands == null) {
 			commands = new EObjectContainmentWithInverseEList<AlphaCommand>(AlphaCommand.class, this, ModelPackage.ALPHA_COMMAND_CATEGORY__COMMANDS, ModelPackage.ALPHA_COMMAND__CATEGORY);

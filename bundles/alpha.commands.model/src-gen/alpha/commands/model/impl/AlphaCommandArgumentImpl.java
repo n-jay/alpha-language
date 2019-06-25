@@ -92,7 +92,6 @@ public class AlphaCommandArgumentImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -102,7 +101,6 @@ public class AlphaCommandArgumentImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -115,7 +113,6 @@ public class AlphaCommandArgumentImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ArgumentType getArgumentType() {
 		return argumentType;
 	}
@@ -125,7 +122,6 @@ public class AlphaCommandArgumentImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setArgumentType(ArgumentType newArgumentType) {
 		ArgumentType oldArgumentType = argumentType;
 		argumentType = newArgumentType == null ? ARGUMENT_TYPE_EDEFAULT : newArgumentType;

@@ -139,7 +139,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaCommandCategory getCategory() {
 		if (eContainerFeatureID() != ModelPackage.ALPHA_COMMAND__CATEGORY) return null;
 		return (AlphaCommandCategory)eContainer();
@@ -170,7 +169,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setCategory(AlphaCommandCategory newCategory) {
 		if (newCategory != eInternalContainer() || (eContainerFeatureID() != ModelPackage.ALPHA_COMMAND__CATEGORY && newCategory != null)) {
 			if (EcoreUtil.isAncestor(this, newCategory))
@@ -192,7 +190,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getLabel() {
 		return label;
 	}
@@ -202,7 +199,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setLabel(String newLabel) {
 		String oldLabel = label;
 		label = newLabel;
@@ -215,7 +211,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -225,7 +220,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -238,7 +232,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaCommandSignature getSignature() {
 		return signature;
 	}
@@ -263,7 +256,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSignature(AlphaCommandSignature newSignature) {
 		if (newSignature != signature) {
 			NotificationChain msgs = null;
@@ -283,7 +275,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AlphaCommandSpecialization> getSpecializations() {
 		if (specializations == null) {
 			specializations = new EObjectContainmentWithInverseEList<AlphaCommandSpecialization>(AlphaCommandSpecialization.class, this, ModelPackage.ALPHA_COMMAND__SPECIALIZATIONS, ModelPackage.ALPHA_COMMAND_SPECIALIZATION__COMMAND);
@@ -296,7 +287,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CommandBinding getBinding() {
 		return binding;
 	}
@@ -321,7 +311,6 @@ public class AlphaCommandImpl extends MinimalEObjectImpl.Container implements Al
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setBinding(CommandBinding newBinding) {
 		if (newBinding != binding) {
 			NotificationChain msgs = null;

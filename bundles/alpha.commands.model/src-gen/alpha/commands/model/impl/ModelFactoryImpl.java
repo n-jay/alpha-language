@@ -109,7 +109,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaCommandsRoot createAlphaCommandsRoot() {
 		AlphaCommandsRootImpl alphaCommandsRoot = new AlphaCommandsRootImpl();
 		return alphaCommandsRoot;
@@ -120,7 +119,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaCommandCategory createAlphaCommandCategory() {
 		AlphaCommandCategoryImpl alphaCommandCategory = new AlphaCommandCategoryImpl();
 		return alphaCommandCategory;
@@ -131,7 +129,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaCommand createAlphaCommand() {
 		AlphaCommandImpl alphaCommand = new AlphaCommandImpl();
 		return alphaCommand;
@@ -142,7 +139,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CommandBinding createCommandBinding() {
 		CommandBindingImpl commandBinding = new CommandBindingImpl();
 		return commandBinding;
@@ -153,7 +149,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ArgumentBinding createArgumentBinding() {
 		ArgumentBindingImpl argumentBinding = new ArgumentBindingImpl();
 		return argumentBinding;
@@ -164,7 +159,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ArgumentRenaming createArgumentRenaming() {
 		ArgumentRenamingImpl argumentRenaming = new ArgumentRenamingImpl();
 		return argumentRenaming;
@@ -175,7 +169,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaCommandSignature createAlphaCommandSignature() {
 		AlphaCommandSignatureImpl alphaCommandSignature = new AlphaCommandSignatureImpl();
 		return alphaCommandSignature;
@@ -186,7 +179,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaCommandSpecialization createAlphaCommandSpecialization() {
 		AlphaCommandSpecializationImpl alphaCommandSpecialization = new AlphaCommandSpecializationImpl();
 		return alphaCommandSpecialization;
@@ -197,7 +189,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaCommandArgument createAlphaCommandArgument() {
 		AlphaCommandArgumentImpl alphaCommandArgument = new AlphaCommandArgumentImpl();
 		return alphaCommandArgument;
@@ -208,7 +199,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public OverrideArgument createOverrideArgument() {
 		OverrideArgumentImpl overrideArgument = new OverrideArgumentImpl();
 		return overrideArgument;
@@ -219,7 +209,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DefaultValueArgument createDefaultValueArgument() {
 		DefaultValueArgumentImpl defaultValueArgument = new DefaultValueArgumentImpl();
 		return defaultValueArgument;
@@ -230,7 +219,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SameAsParentArgument createSameAsParentArgument() {
 		SameAsParentArgumentImpl sameAsParentArgument = new SameAsParentArgumentImpl();
 		return sameAsParentArgument;
@@ -261,7 +249,6 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ModelPackage getModelPackage() {
 		return (ModelPackage)getEPackage();
 	}

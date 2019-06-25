@@ -79,7 +79,6 @@ public class ArgumentBindingImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaCommandArgument getBindTarget() {
 		if (bindTarget != null && bindTarget.eIsProxy()) {
 			InternalEObject oldBindTarget = (InternalEObject)bindTarget;
@@ -106,7 +105,6 @@ public class ArgumentBindingImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setBindTarget(AlphaCommandArgument newBindTarget) {
 		AlphaCommandArgument oldBindTarget = bindTarget;
 		bindTarget = newBindTarget;
@@ -119,7 +117,6 @@ public class ArgumentBindingImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AlphaCommandArgument> getBindSource() {
 		if (bindSource == null) {
 			bindSource = new EObjectResolvingEList<AlphaCommandArgument>(AlphaCommandArgument.class, this, ModelPackage.ARGUMENT_BINDING__BIND_SOURCE);
