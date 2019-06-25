@@ -462,7 +462,7 @@ public class AlphaJavaCommand {
         CharSequence _valueConverterMethodName_1 = this.valueConverterMethodName(orig);
         _builder_1.append(_valueConverterMethodName_1);
         _builder_1.append("(");
-        String _name = ((AlphaCommandArgument[])Conversions.unwrapArray(requiredType, AlphaCommandArgument.class))[0].getName();
+        String _name = (((AlphaCommandArgument[])Conversions.unwrapArray(requiredType, AlphaCommandArgument.class))[0]).getName();
         _builder_1.append(_name);
         _builder_1.append(", ");
         _builder_1.append(specInputName);
