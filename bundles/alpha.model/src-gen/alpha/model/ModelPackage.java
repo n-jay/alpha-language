@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see alpha.model.ModelFactory
  * @model kind="package"
- *        annotation="http://www.eclipse.org/emf/2002/GenModel operationReflection='false' loadInitialization='false' literalsInterface='true' basePackage='alpha'"
  * @generated
  */
 public interface ModelPackage extends EPackage {
