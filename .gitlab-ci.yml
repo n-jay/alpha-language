@@ -19,7 +19,7 @@ variables:
 
 
 # default docker image. can be overriden per job.
-image: maven:3-jdk-8
+image: maven:3-jdk-11
 
 
 build:
