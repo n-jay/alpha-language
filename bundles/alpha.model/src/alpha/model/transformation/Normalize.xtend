@@ -573,6 +573,9 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 			val children = new LinkedList<AlphaExpression>()
 			ce.exprs.forEach[e|
 				if (canFlatten.test(e)) {
+					for (AlphaExpression expr : (e as CaseExpression).exprs) {
+						children.add(if (expr instanceof AutoRestrictExpression) LiftAutoRestrict.apply(expr) else expr);
+					}
 					children.addAll((e as CaseExpression).exprs)	
 				} else {
 					children.add(e)

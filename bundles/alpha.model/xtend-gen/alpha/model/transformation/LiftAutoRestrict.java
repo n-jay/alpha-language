@@ -18,8 +18,8 @@ public class LiftAutoRestrict extends AbstractAlphaCompleteVisitor {
   /**
    * Lifts the target AutoRestictExpression
    */
-  public static void apply(final AutoRestrictExpression are) {
-    LiftAutoRestrict.transform(are);
+  public static RestrictExpression apply(final AutoRestrictExpression are) {
+    return LiftAutoRestrict.transform(are);
   }
   
   /**
@@ -36,11 +36,12 @@ public class LiftAutoRestrict extends AbstractAlphaCompleteVisitor {
     }
   }
   
-  private static void transform(final AutoRestrictExpression are) {
+  private static RestrictExpression transform(final AutoRestrictExpression are) {
     final RestrictExpression re = AlphaUserFactory.createRestrictExpression(are.getInferredDomain(), are.getExpr());
     re.setZ__internal_cache_exprDom(are.getExpressionDomain());
-    are.setZ__internal_cache_contextDom(are.getContextDomain());
+    re.setZ__internal_cache_contextDom(are.getContextDomain());
     EcoreUtil2.replace(are, re);
+    return re;
   }
   
   @Override

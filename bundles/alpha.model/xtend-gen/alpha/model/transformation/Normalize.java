@@ -20,6 +20,7 @@ import alpha.model.RestrictExpression;
 import alpha.model.UnaryExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
+import alpha.model.transformation.LiftAutoRestrict;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
@@ -602,6 +603,16 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       final Consumer<AlphaExpression> _function_1 = (AlphaExpression e) -> {
         boolean _test = canFlatten.test(e);
         if (_test) {
+          EList<AlphaExpression> _exprs = ((CaseExpression) e).getExprs();
+          for (final AlphaExpression expr : _exprs) {
+            AlphaExpression _xifexpression = null;
+            if ((expr instanceof AutoRestrictExpression)) {
+              _xifexpression = LiftAutoRestrict.apply(((AutoRestrictExpression)expr));
+            } else {
+              _xifexpression = expr;
+            }
+            children.add(_xifexpression);
+          }
           children.addAll(((CaseExpression) e).getExprs());
         } else {
           children.add(e);

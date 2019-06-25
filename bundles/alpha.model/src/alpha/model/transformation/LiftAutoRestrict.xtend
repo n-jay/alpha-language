@@ -46,9 +46,11 @@ class LiftAutoRestrict extends AbstractAlphaCompleteVisitor {
 		// containment, and allows LiftAutoRestrict to be applied
 		// anywhere without paying much attention.
 		re.z__internal_cache_exprDom = are.expressionDomain
-		are.z__internal_cache_contextDom = are.contextDomain
+		re.z__internal_cache_contextDom = are.contextDomain
 		
 		EcoreUtil2.replace(are, re)
+		
+		return re;
 	}
 	
 	
