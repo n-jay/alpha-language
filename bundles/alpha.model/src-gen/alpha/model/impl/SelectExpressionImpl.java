@@ -82,7 +82,6 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CalculatorExpression getRelationExpr() {
 		return relationExpr;
 	}
@@ -107,7 +106,6 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setRelationExpr(CalculatorExpression newRelationExpr) {
 		if (newRelationExpr != relationExpr) {
 			NotificationChain msgs = null;
@@ -127,7 +125,6 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getExpr() {
 		return expr;
 	}
@@ -152,7 +149,6 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExpr(AlphaExpression newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;
@@ -172,7 +168,6 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMap getSelectRelation() {
 		JNIISLMap _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getRelationExpr().getType();
@@ -192,7 +187,6 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitSelectExpression(this);
 	}

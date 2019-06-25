@@ -69,7 +69,6 @@ public class AlphaFunctionLiteralImpl extends AlphaFunctionExpressionImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getValue() {
 		return value;
 	}
@@ -79,7 +78,6 @@ public class AlphaFunctionLiteralImpl extends AlphaFunctionExpressionImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
@@ -92,7 +90,6 @@ public class AlphaFunctionLiteralImpl extends AlphaFunctionExpressionImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getISLString() {
 		return this.getValue();
 	}

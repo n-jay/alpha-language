@@ -99,7 +99,6 @@ public abstract class AbstractFuzzyReduceExpressionImpl extends AlphaExpressionI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public REDUCTION_OP getOperator() {
 		return operator;
 	}
@@ -109,7 +108,6 @@ public abstract class AbstractFuzzyReduceExpressionImpl extends AlphaExpressionI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setOperator(REDUCTION_OP newOperator) {
 		REDUCTION_OP oldOperator = operator;
 		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
@@ -122,7 +120,6 @@ public abstract class AbstractFuzzyReduceExpressionImpl extends AlphaExpressionI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FuzzyFunction getProjectionFunction() {
 		return projectionFunction;
 	}
@@ -147,7 +144,6 @@ public abstract class AbstractFuzzyReduceExpressionImpl extends AlphaExpressionI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setProjectionFunction(FuzzyFunction newProjectionFunction) {
 		if (newProjectionFunction != projectionFunction) {
 			NotificationChain msgs = null;
@@ -167,7 +163,6 @@ public abstract class AbstractFuzzyReduceExpressionImpl extends AlphaExpressionI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getBody() {
 		return body;
 	}
@@ -192,7 +187,6 @@ public abstract class AbstractFuzzyReduceExpressionImpl extends AlphaExpressionI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setBody(AlphaExpression newBody) {
 		if (newBody != body) {
 			NotificationChain msgs = null;
@@ -212,7 +206,6 @@ public abstract class AbstractFuzzyReduceExpressionImpl extends AlphaExpressionI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMap getProjection() {
 		JNIISLMap _xifexpression = null;
 		FuzzyFunction _projectionFunction = this.getProjectionFunction();
@@ -231,7 +224,6 @@ public abstract class AbstractFuzzyReduceExpressionImpl extends AlphaExpressionI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractFuzzyReduceExpression(this);
 	}

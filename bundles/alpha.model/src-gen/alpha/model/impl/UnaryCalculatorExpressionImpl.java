@@ -114,7 +114,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CALCULATOR_UNARY_OP getOperator() {
 		return operator;
 	}
@@ -124,7 +123,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setOperator(CALCULATOR_UNARY_OP newOperator) {
 		CALCULATOR_UNARY_OP oldOperator = operator;
 		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
@@ -137,7 +135,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CalculatorExpression getExpr() {
 		return expr;
 	}
@@ -162,7 +159,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExpr(CalculatorExpression newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;
@@ -182,7 +178,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIObject getZ__internal_cache_islObject() {
 		return z__internal_cache_islObject;
 	}
@@ -192,7 +187,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setZ__internal_cache_islObject(JNIObject newZ__internal_cache_islObject) {
 		JNIObject oldZ__internal_cache_islObject = z__internal_cache_islObject;
 		z__internal_cache_islObject = newZ__internal_cache_islObject;
@@ -205,7 +199,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public POLY_OBJECT_TYPE getType() {
 		JNIObject _z__internal_cache_islObject = this.getZ__internal_cache_islObject();
 		if ((_z__internal_cache_islObject instanceof JNIISLSet)) {
@@ -223,7 +216,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIObject getISLObject() {
 		return AlphaUtil.copy(this.getZ__internal_cache_islObject());
 	}
@@ -233,7 +225,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final CalculatorExpressionVisitor visitor) {
 		visitor.visitUnaryCalculatorExpression(this);
 	}
@@ -243,7 +234,6 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String plainToString() {
 		CALCULATOR_UNARY_OP _operator = this.getOperator();
 		String _plus = (_operator + " ");

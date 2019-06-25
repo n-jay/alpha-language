@@ -139,7 +139,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMatrix() {
 		return matrixEClass;
 	}
@@ -149,7 +148,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMatrix_Space() {
 		return (EReference)matrixEClass.getEStructuralFeatures().get(0);
 	}
@@ -159,7 +157,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMatrix_Rows() {
 		return (EReference)matrixEClass.getEStructuralFeatures().get(1);
 	}
@@ -169,7 +166,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getMatrix_LinearPartOnly() {
 		return (EAttribute)matrixEClass.getEStructuralFeatures().get(2);
 	}
@@ -179,7 +175,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMatrixRow() {
 		return matrixRowEClass;
 	}
@@ -189,7 +184,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getMatrixRow_Values() {
 		return (EAttribute)matrixRowEClass.getEStructuralFeatures().get(0);
 	}
@@ -199,7 +193,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSpace() {
 		return spaceEClass;
 	}
@@ -209,7 +202,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getSpace_ParamNames() {
 		return (EAttribute)spaceEClass.getEStructuralFeatures().get(0);
 	}
@@ -219,7 +211,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getSpace_IndexNames() {
 		return (EAttribute)spaceEClass.getEStructuralFeatures().get(1);
 	}
@@ -229,7 +220,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getJNIISLSpace() {
 		return jniislSpaceEDataType;
 	}
@@ -239,7 +229,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getJNIISLMultiAff() {
 		return jniislMultiAffEDataType;
 	}
@@ -249,7 +238,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getLongMatrix() {
 		return longMatrixEDataType;
 	}
@@ -259,7 +247,6 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public MatrixFactory getMatrixFactory() {
 		return (MatrixFactory)getEFactoryInstance();
 	}

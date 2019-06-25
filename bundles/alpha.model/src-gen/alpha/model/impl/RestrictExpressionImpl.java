@@ -82,7 +82,6 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CalculatorExpression getDomainExpr() {
 		return domainExpr;
 	}
@@ -107,7 +106,6 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setDomainExpr(CalculatorExpression newDomainExpr) {
 		if (newDomainExpr != domainExpr) {
 			NotificationChain msgs = null;
@@ -127,7 +125,6 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getExpr() {
 		return expr;
 	}
@@ -152,7 +149,6 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExpr(AlphaExpression newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;
@@ -172,7 +168,6 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSet getRestrictDomain() {
 		JNIISLSet _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getDomainExpr().getType();
@@ -192,7 +187,6 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitRestrictExpression(this);
 	}

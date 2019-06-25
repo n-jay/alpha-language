@@ -71,7 +71,6 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CalculatorExpression getRangeExpr() {
 		return rangeExpr;
 	}
@@ -96,7 +95,6 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setRangeExpr(CalculatorExpression newRangeExpr) {
 		if (newRangeExpr != rangeExpr) {
 			NotificationChain msgs = null;
@@ -116,7 +114,6 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSet getRange() {
 		JNIISLSet _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getRangeExpr().getType();
@@ -136,7 +133,6 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMap getRelation() {
 		JNIISLMap _xblockexpression = null;
 		{
@@ -159,7 +155,6 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitVariable(this);
 	}

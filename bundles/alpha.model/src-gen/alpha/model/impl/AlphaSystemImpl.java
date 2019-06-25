@@ -191,7 +191,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -201,7 +200,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -214,7 +212,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIDomain getParameterDomainExpr() {
 		return parameterDomainExpr;
 	}
@@ -239,7 +236,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setParameterDomainExpr(JNIDomain newParameterDomainExpr) {
 		if (newParameterDomainExpr != parameterDomainExpr) {
 			NotificationChain msgs = null;
@@ -259,7 +255,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PolyhedralObject> getDefinedObjects() {
 		if (definedObjects == null) {
 			definedObjects = new EObjectContainmentEList<PolyhedralObject>(PolyhedralObject.class, this, ModelPackage.ALPHA_SYSTEM__DEFINED_OBJECTS);
@@ -272,7 +267,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Variable> getInputs() {
 		if (inputs == null) {
 			inputs = new EObjectContainmentEList<Variable>(Variable.class, this, ModelPackage.ALPHA_SYSTEM__INPUTS);
@@ -285,7 +279,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Variable> getOutputs() {
 		if (outputs == null) {
 			outputs = new EObjectContainmentEList<Variable>(Variable.class, this, ModelPackage.ALPHA_SYSTEM__OUTPUTS);
@@ -298,7 +291,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Variable> getLocals() {
 		if (locals == null) {
 			locals = new EObjectContainmentEList<Variable>(Variable.class, this, ModelPackage.ALPHA_SYSTEM__LOCALS);
@@ -311,7 +303,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CalculatorExpression getWhileDomainExpr() {
 		return whileDomainExpr;
 	}
@@ -336,7 +327,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setWhileDomainExpr(CalculatorExpression newWhileDomainExpr) {
 		if (newWhileDomainExpr != whileDomainExpr) {
 			NotificationChain msgs = null;
@@ -356,7 +346,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getTestExpression() {
 		return testExpression;
 	}
@@ -381,7 +370,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setTestExpression(AlphaExpression newTestExpression) {
 		if (newTestExpression != testExpression) {
 			NotificationChain msgs = null;
@@ -401,7 +389,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SystemBody> getSystemBodies() {
 		if (systemBodies == null) {
 			systemBodies = new EObjectContainmentWithInverseEList<SystemBody>(SystemBody.class, this, ModelPackage.ALPHA_SYSTEM__SYSTEM_BODIES, ModelPackage.SYSTEM_BODY__SYSTEM);
@@ -414,7 +401,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Variable> getVariables() {
 		EList<Variable> _inputs = this.getInputs();
 		EList<Variable> _outputs = this.getOutputs();
@@ -428,7 +414,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSet getParameterDomain() {
 		return this.getParameterDomainExpr().getISLSet();
 	}
@@ -438,7 +423,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSet getWhileDomain() {
 		JNIISLSet _xifexpression = null;
 		if (((this.getWhileDomainExpr() == null) || (!Objects.equal(this.getWhileDomainExpr().getType(), POLY_OBJECT_TYPE.SET)))) {
@@ -456,7 +440,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Variable getVariable(final String varName) {
 		final Function1<Variable, Boolean> _function = new Function1<Variable, Boolean>() {
 			public Boolean apply(final Variable v) {
@@ -471,7 +454,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getFullyQualifiedName() {
 		String _xblockexpression = null;
 		{
@@ -486,7 +468,6 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitAlphaSystem(this);
 	}

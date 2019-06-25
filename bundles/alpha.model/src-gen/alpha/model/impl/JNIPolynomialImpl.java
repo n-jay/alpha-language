@@ -96,7 +96,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getIslString() {
 		return islString;
 	}
@@ -106,7 +105,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setIslString(String newIslString) {
 		String oldIslString = islString;
 		islString = newIslString;
@@ -119,7 +117,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLPWQPolynomial getZ__internal_cache_islPWQP() {
 		return z__internal_cache_islPWQP;
 	}
@@ -129,7 +126,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setZ__internal_cache_islPWQP(JNIISLPWQPolynomial newZ__internal_cache_islPWQP) {
 		JNIISLPWQPolynomial oldZ__internal_cache_islPWQP = z__internal_cache_islPWQP;
 		z__internal_cache_islPWQP = newZ__internal_cache_islPWQP;
@@ -142,7 +138,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLPWQPolynomial getISLPWQPolynomial() {
 		JNIISLPWQPolynomial _xifexpression = null;
 		JNIISLPWQPolynomial _z__internal_cache_islPWQP = this.getZ__internal_cache_islPWQP();
@@ -161,7 +156,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setISLPWQPolynomial(final JNIISLPWQPolynomial islQP) {
 		this.setZ__internal_cache_islPWQP(islQP);
 	}
@@ -171,7 +165,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public POLY_OBJECT_TYPE getType() {
 		POLY_OBJECT_TYPE _xifexpression = null;
 		JNIISLPWQPolynomial _z__internal_cache_islPWQP = this.getZ__internal_cache_islPWQP();
@@ -190,7 +183,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIObject getISLObject() {
 		return this.getISLPWQPolynomial();
 	}
@@ -200,7 +192,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final CalculatorExpressionVisitor visitor) {
 		visitor.visitJNIPolynomial(this);
 	}
@@ -210,7 +201,6 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String plainToString() {
 		return this.getIslString();
 	}

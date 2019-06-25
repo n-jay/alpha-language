@@ -41,7 +41,6 @@ public abstract class AlphaFunctionExpressionImpl extends MinimalEObjectImpl.Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getISLString() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

@@ -62,7 +62,6 @@ public class VariableExpressionImpl extends AlphaExpressionImpl implements Varia
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Variable getVariable() {
 		if (variable != null && variable.eIsProxy()) {
 			InternalEObject oldVariable = (InternalEObject)variable;
@@ -89,7 +88,6 @@ public class VariableExpressionImpl extends AlphaExpressionImpl implements Varia
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setVariable(Variable newVariable) {
 		Variable oldVariable = variable;
 		variable = newVariable;
@@ -102,7 +100,6 @@ public class VariableExpressionImpl extends AlphaExpressionImpl implements Varia
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitVariableExpression(this);
 	}

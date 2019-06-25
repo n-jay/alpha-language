@@ -142,7 +142,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CalculatorExpression getInstantiationDomainExpr() {
 		return instantiationDomainExpr;
 	}
@@ -167,7 +166,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setInstantiationDomainExpr(CalculatorExpression newInstantiationDomainExpr) {
 		if (newInstantiationDomainExpr != instantiationDomainExpr) {
 			NotificationChain msgs = null;
@@ -187,7 +185,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<String> getSubsystemDims() {
 		if (subsystemDims == null) {
 			subsystemDims = new EDataTypeEList<String>(String.class, this, ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS);
@@ -200,7 +197,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaSystem getSystem() {
 		if (system != null && system.eIsProxy()) {
 			InternalEObject oldSystem = (InternalEObject)system;
@@ -227,7 +223,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSystem(AlphaSystem newSystem) {
 		AlphaSystem oldSystem = system;
 		system = newSystem;
@@ -240,7 +235,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIFunctionInArrayNotation getCallParamsExpr() {
 		return callParamsExpr;
 	}
@@ -265,7 +259,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setCallParamsExpr(JNIFunctionInArrayNotation newCallParamsExpr) {
 		if (newCallParamsExpr != callParamsExpr) {
 			NotificationChain msgs = null;
@@ -285,7 +278,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AlphaExpression> getInputExprs() {
 		if (inputExprs == null) {
 			inputExprs = new EObjectContainmentEList<AlphaExpression>(AlphaExpression.class, this, ModelPackage.USE_EQUATION__INPUT_EXPRS);
@@ -298,7 +290,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AlphaExpression> getOutputExprs() {
 		if (outputExprs == null) {
 			outputExprs = new EObjectContainmentEList<AlphaExpression>(AlphaExpression.class, this, ModelPackage.USE_EQUATION__OUTPUT_EXPRS);
@@ -311,7 +302,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMultiAff getCallParams() {
 		JNIISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getCallParamsExpr().getType();
@@ -331,7 +321,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSet getInstantiationDomain() {
 		JNIISLSet _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getInstantiationDomainExpr().getType();
@@ -351,7 +340,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<VariableExpression> getAllVariableExpressionsInOutputExpressions() {
 		List<VariableExpression> list = new LinkedList<VariableExpression>();
 		EList<AlphaExpression> _outputExprs = this.getOutputExprs();
@@ -371,7 +359,6 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitUseEquation(this);
 	}

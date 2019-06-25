@@ -67,7 +67,6 @@ public class MatrixRowImpl extends MinimalEObjectImpl.Container implements Matri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Long> getValues() {
 		if (values == null) {
 			values = new EDataTypeEList<Long>(Long.class, this, MatrixPackage.MATRIX_ROW__VALUES);
@@ -80,7 +79,6 @@ public class MatrixRowImpl extends MinimalEObjectImpl.Container implements Matri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public long getValue(final int c) {
 		return (this.getValues().get(c)).longValue();
 	}
@@ -90,7 +88,6 @@ public class MatrixRowImpl extends MinimalEObjectImpl.Container implements Matri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setValue(final int c, final long v) {
 		this.getValues().set(c, Long.valueOf(v));
 	}
@@ -100,7 +97,6 @@ public class MatrixRowImpl extends MinimalEObjectImpl.Container implements Matri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		final Function1<Long, CharSequence> _function = new Function1<Long, CharSequence>() {
 			public CharSequence apply(final Long v) {

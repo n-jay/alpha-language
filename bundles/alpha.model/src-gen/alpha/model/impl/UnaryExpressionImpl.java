@@ -85,7 +85,6 @@ public class UnaryExpressionImpl extends AlphaExpressionImpl implements UnaryExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public UNARY_OP getOperator() {
 		return operator;
 	}
@@ -95,7 +94,6 @@ public class UnaryExpressionImpl extends AlphaExpressionImpl implements UnaryExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setOperator(UNARY_OP newOperator) {
 		UNARY_OP oldOperator = operator;
 		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
@@ -108,7 +106,6 @@ public class UnaryExpressionImpl extends AlphaExpressionImpl implements UnaryExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getExpr() {
 		return expr;
 	}
@@ -133,7 +130,6 @@ public class UnaryExpressionImpl extends AlphaExpressionImpl implements UnaryExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExpr(AlphaExpression newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;
@@ -153,7 +149,6 @@ public class UnaryExpressionImpl extends AlphaExpressionImpl implements UnaryExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitUnaryExpression(this);
 	}

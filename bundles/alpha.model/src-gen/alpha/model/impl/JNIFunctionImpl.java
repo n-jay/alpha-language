@@ -89,7 +89,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaFunction getAlphaFunction() {
 		return alphaFunction;
 	}
@@ -114,7 +113,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setAlphaFunction(AlphaFunction newAlphaFunction) {
 		if (newAlphaFunction != alphaFunction) {
 			NotificationChain msgs = null;
@@ -134,7 +132,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMultiAff getZ__internal_cache_islMAff() {
 		return z__internal_cache_islMAff;
 	}
@@ -144,7 +141,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setZ__internal_cache_islMAff(JNIISLMultiAff newZ__internal_cache_islMAff) {
 		JNIISLMultiAff oldZ__internal_cache_islMAff = z__internal_cache_islMAff;
 		z__internal_cache_islMAff = newZ__internal_cache_islMAff;
@@ -157,7 +153,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMultiAff getISLMultiAff() {
 		JNIISLMultiAff _xifexpression = null;
 		JNIISLMultiAff _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();
@@ -176,7 +171,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setISLMultiAff(final JNIISLMultiAff islMAff) {
 		this.setZ__internal_cache_islMAff(islMAff);
 	}
@@ -186,7 +180,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public POLY_OBJECT_TYPE getType() {
 		POLY_OBJECT_TYPE _xifexpression = null;
 		JNIISLMultiAff _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();
@@ -205,7 +198,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIObject getISLObject() {
 		return this.getISLMultiAff();
 	}
@@ -215,7 +207,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final CalculatorExpressionVisitor visitor) {
 		visitor.visitJNIFunction(this);
 	}
@@ -225,7 +216,6 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String plainToString() {
 		return this.getAlphaFunction().plainToString();
 	}

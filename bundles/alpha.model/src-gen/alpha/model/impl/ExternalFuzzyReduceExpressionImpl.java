@@ -62,7 +62,6 @@ public class ExternalFuzzyReduceExpressionImpl extends FuzzyReduceExpressionImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ExternalFunction getExternalFunction() {
 		if (externalFunction != null && externalFunction.eIsProxy()) {
 			InternalEObject oldExternalFunction = (InternalEObject)externalFunction;
@@ -89,7 +88,6 @@ public class ExternalFuzzyReduceExpressionImpl extends FuzzyReduceExpressionImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExternalFunction(ExternalFunction newExternalFunction) {
 		ExternalFunction oldExternalFunction = externalFunction;
 		externalFunction = newExternalFunction;
@@ -102,7 +100,6 @@ public class ExternalFuzzyReduceExpressionImpl extends FuzzyReduceExpressionImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractFuzzyReduceExpression(this);
 	}

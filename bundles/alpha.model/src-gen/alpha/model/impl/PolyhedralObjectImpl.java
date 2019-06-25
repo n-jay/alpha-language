@@ -89,7 +89,6 @@ public class PolyhedralObjectImpl extends AlphaNodeImpl implements PolyhedralObj
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -99,7 +98,6 @@ public class PolyhedralObjectImpl extends AlphaNodeImpl implements PolyhedralObj
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -112,7 +110,6 @@ public class PolyhedralObjectImpl extends AlphaNodeImpl implements PolyhedralObj
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public CalculatorExpression getExpr() {
 		return expr;
 	}
@@ -137,7 +134,6 @@ public class PolyhedralObjectImpl extends AlphaNodeImpl implements PolyhedralObj
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExpr(CalculatorExpression newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;
@@ -157,7 +153,6 @@ public class PolyhedralObjectImpl extends AlphaNodeImpl implements PolyhedralObj
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public POLY_OBJECT_TYPE getType() {
 		return this.getExpr().getType();
 	}
@@ -167,7 +162,6 @@ public class PolyhedralObjectImpl extends AlphaNodeImpl implements PolyhedralObj
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIObject getISLObject() {
 		return AlphaUtil.copy(this.getExpr().getISLObject());
 	}
@@ -177,7 +171,6 @@ public class PolyhedralObjectImpl extends AlphaNodeImpl implements PolyhedralObj
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitPolyhedralObject(this);
 	}

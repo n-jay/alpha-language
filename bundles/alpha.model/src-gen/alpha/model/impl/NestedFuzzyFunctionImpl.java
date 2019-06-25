@@ -83,7 +83,6 @@ public class NestedFuzzyFunctionImpl extends FuzzyFunctionImpl implements Nested
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getFuzzyIndex() {
 		return fuzzyIndex;
 	}
@@ -93,7 +92,6 @@ public class NestedFuzzyFunctionImpl extends FuzzyFunctionImpl implements Nested
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFuzzyIndex(String newFuzzyIndex) {
 		String oldFuzzyIndex = fuzzyIndex;
 		fuzzyIndex = newFuzzyIndex;
@@ -106,7 +104,6 @@ public class NestedFuzzyFunctionImpl extends FuzzyFunctionImpl implements Nested
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FuzzyVariable getFuzzyVariable() {
 		if (fuzzyVariable != null && fuzzyVariable.eIsProxy()) {
 			InternalEObject oldFuzzyVariable = (InternalEObject)fuzzyVariable;
@@ -133,7 +130,6 @@ public class NestedFuzzyFunctionImpl extends FuzzyFunctionImpl implements Nested
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFuzzyVariable(FuzzyVariable newFuzzyVariable) {
 		FuzzyVariable oldFuzzyVariable = fuzzyVariable;
 		fuzzyVariable = newFuzzyVariable;

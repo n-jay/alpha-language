@@ -94,7 +94,6 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -104,7 +103,6 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -117,7 +115,6 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Integer getCardinality() {
 		return cardinality;
 	}
@@ -127,7 +124,6 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setCardinality(Integer newCardinality) {
 		Integer oldCardinality = cardinality;
 		cardinality = newCardinality;
@@ -140,7 +136,6 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getFullyQualifiedName() {
 		String _xblockexpression = null;
 		{
@@ -155,7 +150,6 @@ public class ExternalFunctionImpl extends AlphaNodeImpl implements ExternalFunct
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitExternalFunction(this);
 	}

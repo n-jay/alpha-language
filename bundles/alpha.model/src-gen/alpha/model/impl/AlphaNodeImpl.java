@@ -53,7 +53,6 @@ public class AlphaNodeImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Integer> getNodeID() {
 		BasicEList<Integer> _xifexpression = null;
 		EObject _eContainer = this.eContainer();
@@ -79,7 +78,6 @@ public class AlphaNodeImpl extends MinimalEObjectImpl.Container implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaNode getNode(final Queue<Integer> nodeID) {
 		AlphaNode _xblockexpression = null;
 		{

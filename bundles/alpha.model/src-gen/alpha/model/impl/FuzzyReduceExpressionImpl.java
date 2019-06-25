@@ -40,7 +40,6 @@ public class FuzzyReduceExpressionImpl extends AbstractFuzzyReduceExpressionImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractFuzzyReduceExpression(this);
 	}

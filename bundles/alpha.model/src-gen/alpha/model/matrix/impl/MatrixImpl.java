@@ -116,7 +116,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Space getSpace() {
 		return space;
 	}
@@ -141,7 +140,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSpace(Space newSpace) {
 		if (newSpace != space) {
 			NotificationChain msgs = null;
@@ -161,7 +159,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<MatrixRow> getRows() {
 		if (rows == null) {
 			rows = new EObjectContainmentEList<MatrixRow>(MatrixRow.class, this, MatrixPackage.MATRIX__ROWS);
@@ -174,7 +171,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isLinearPartOnly() {
 		return linearPartOnly;
 	}
@@ -184,7 +180,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setLinearPartOnly(boolean newLinearPartOnly) {
 		boolean oldLinearPartOnly = linearPartOnly;
 		linearPartOnly = newLinearPartOnly;
@@ -197,7 +192,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isConsistent() {
 		final int nbCols = this.getNbColumns();
 		EList<MatrixRow> _rows = this.getRows();
@@ -216,7 +210,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public long getValue(final int r, final int c) {
 		return (this.getRows().get(r).getValues().get(c)).longValue();
 	}
@@ -226,7 +219,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setValue(final int r, final int c, final long v) {
 		this.getRows().get(r).getValues().set(c, Long.valueOf(v));
 	}
@@ -236,7 +228,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int getNbRows() {
 		return ((Object[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getRows(), Object.class)).length;
 	}
@@ -246,7 +237,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int getNbColumns() {
 		int _xifexpression = (int) 0;
 		boolean _isLinearPartOnly = this.isLinearPartOnly();
@@ -269,7 +259,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int getNbParams() {
 		return this.getSpace().getNbParams();
 	}
@@ -279,7 +268,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int getNbIndices() {
 		return this.getSpace().getNbIndices();
 	}
@@ -289,7 +277,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<String> getParamNames() {
 		return this.getSpace().getParamNames();
 	}
@@ -299,7 +286,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<String> getIndexNames() {
 		return this.getSpace().getIndexNames();
 	}
@@ -309,7 +295,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		return IterableExtensions.join(this.getRows(), "\n");
 	}
@@ -319,7 +304,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public long[][] toArray() {
 		boolean _isConsistent = this.isConsistent();
 		boolean _not = (!_isConsistent);
@@ -350,7 +334,6 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMultiAff toMultiAff() {
 		int _nbRows = this.getNbRows();
 		int _nbParams = this.getNbParams();

@@ -70,7 +70,6 @@ public class PolynomialIndexExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIPolynomial getPolynomialExpr() {
 		return polynomialExpr;
 	}
@@ -95,7 +94,6 @@ public class PolynomialIndexExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setPolynomialExpr(JNIPolynomial newPolynomialExpr) {
 		if (newPolynomialExpr != polynomialExpr) {
 			NotificationChain msgs = null;
@@ -115,7 +113,6 @@ public class PolynomialIndexExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLPWQPolynomial getPolynomial() {
 		JNIISLPWQPolynomial _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getPolynomialExpr().getType();
@@ -135,7 +132,6 @@ public class PolynomialIndexExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitPolynomialIndexExpression(this);
 	}

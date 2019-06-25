@@ -847,7 +847,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaNode() {
 		return alphaNodeEClass;
 	}
@@ -857,7 +856,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaNode_NodeID() {
 		return (EAttribute)alphaNodeEClass.getEStructuralFeatures().get(0);
 	}
@@ -867,7 +865,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaCompleteVisitable() {
 		return alphaCompleteVisitableEClass;
 	}
@@ -877,7 +874,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaVisitable() {
 		return alphaVisitableEClass;
 	}
@@ -887,7 +883,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaExpressionVisitable() {
 		return alphaExpressionVisitableEClass;
 	}
@@ -897,7 +892,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getCalculatorExpressionVisitable() {
 		return calculatorExpressionVisitableEClass;
 	}
@@ -907,7 +901,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaSystemElement() {
 		return alphaSystemElementEClass;
 	}
@@ -917,7 +910,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaVisitor() {
 		return alphaVisitorEClass;
 	}
@@ -927,7 +919,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaExpressionVisitor() {
 		return alphaExpressionVisitorEClass;
 	}
@@ -937,7 +928,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getCalculatorExpressionVisitor() {
 		return calculatorExpressionVisitorEClass;
 	}
@@ -947,7 +937,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaRoot() {
 		return alphaRootEClass;
 	}
@@ -957,7 +946,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaRoot_Imports() {
 		return (EReference)alphaRootEClass.getEStructuralFeatures().get(0);
 	}
@@ -967,7 +955,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaRoot_Elements() {
 		return (EReference)alphaRootEClass.getEStructuralFeatures().get(1);
 	}
@@ -977,7 +964,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaElement() {
 		return alphaElementEClass;
 	}
@@ -987,7 +973,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getImports() {
 		return importsEClass;
 	}
@@ -997,7 +982,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getImports_ImportedNamespace() {
 		return (EAttribute)importsEClass.getEStructuralFeatures().get(0);
 	}
@@ -1007,7 +991,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaPackage() {
 		return alphaPackageEClass;
 	}
@@ -1017,7 +1000,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaPackage_Name() {
 		return (EAttribute)alphaPackageEClass.getEStructuralFeatures().get(0);
 	}
@@ -1027,7 +1009,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaPackage_Elements() {
 		return (EReference)alphaPackageEClass.getEStructuralFeatures().get(1);
 	}
@@ -1037,7 +1018,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaConstant() {
 		return alphaConstantEClass;
 	}
@@ -1047,7 +1027,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaConstant_Name() {
 		return (EAttribute)alphaConstantEClass.getEStructuralFeatures().get(0);
 	}
@@ -1057,7 +1036,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaConstant_Value() {
 		return (EAttribute)alphaConstantEClass.getEStructuralFeatures().get(1);
 	}
@@ -1067,7 +1045,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getExternalFunction() {
 		return externalFunctionEClass;
 	}
@@ -1077,7 +1054,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getExternalFunction_Name() {
 		return (EAttribute)externalFunctionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1087,7 +1063,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getExternalFunction_Cardinality() {
 		return (EAttribute)externalFunctionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1097,7 +1072,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaSystem() {
 		return alphaSystemEClass;
 	}
@@ -1107,7 +1081,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaSystem_Name() {
 		return (EAttribute)alphaSystemEClass.getEStructuralFeatures().get(0);
 	}
@@ -1117,7 +1090,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaSystem_ParameterDomainExpr() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(1);
 	}
@@ -1127,7 +1099,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaSystem_DefinedObjects() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(2);
 	}
@@ -1137,7 +1108,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaSystem_Inputs() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(3);
 	}
@@ -1147,7 +1117,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaSystem_Outputs() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(4);
 	}
@@ -1157,7 +1126,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaSystem_Locals() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(5);
 	}
@@ -1167,7 +1135,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaSystem_WhileDomainExpr() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(6);
 	}
@@ -1177,7 +1144,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaSystem_TestExpression() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(7);
 	}
@@ -1187,7 +1153,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaSystem_SystemBodies() {
 		return (EReference)alphaSystemEClass.getEStructuralFeatures().get(8);
 	}
@@ -1197,7 +1162,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVariable() {
 		return variableEClass;
 	}
@@ -1207,7 +1171,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getVariable_Name() {
 		return (EAttribute)variableEClass.getEStructuralFeatures().get(0);
 	}
@@ -1217,7 +1180,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVariable_DomainExpr() {
 		return (EReference)variableEClass.getEStructuralFeatures().get(1);
 	}
@@ -1227,7 +1189,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFuzzyVariable() {
 		return fuzzyVariableEClass;
 	}
@@ -1237,7 +1198,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFuzzyVariable_RangeExpr() {
 		return (EReference)fuzzyVariableEClass.getEStructuralFeatures().get(0);
 	}
@@ -1247,7 +1207,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystemBody() {
 		return systemBodyEClass;
 	}
@@ -1257,7 +1216,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemBody_System() {
 		return (EReference)systemBodyEClass.getEStructuralFeatures().get(0);
 	}
@@ -1267,7 +1225,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemBody_ParameterDomainExpr() {
 		return (EReference)systemBodyEClass.getEStructuralFeatures().get(1);
 	}
@@ -1277,7 +1234,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemBody_Equations() {
 		return (EReference)systemBodyEClass.getEStructuralFeatures().get(2);
 	}
@@ -1287,7 +1243,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEquation() {
 		return equationEClass;
 	}
@@ -1297,7 +1252,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEquation_SystemBody() {
 		return (EReference)equationEClass.getEStructuralFeatures().get(0);
 	}
@@ -1307,7 +1261,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getStandardEquation() {
 		return standardEquationEClass;
 	}
@@ -1317,7 +1270,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getStandardEquation_Variable() {
 		return (EReference)standardEquationEClass.getEStructuralFeatures().get(0);
 	}
@@ -1327,7 +1279,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getStandardEquation_IndexNames() {
 		return (EAttribute)standardEquationEClass.getEStructuralFeatures().get(1);
 	}
@@ -1337,7 +1288,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getStandardEquation_Expr() {
 		return (EReference)standardEquationEClass.getEStructuralFeatures().get(2);
 	}
@@ -1347,7 +1297,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getUseEquation() {
 		return useEquationEClass;
 	}
@@ -1357,7 +1306,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getUseEquation_InstantiationDomainExpr() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(0);
 	}
@@ -1367,7 +1315,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getUseEquation_SubsystemDims() {
 		return (EAttribute)useEquationEClass.getEStructuralFeatures().get(1);
 	}
@@ -1377,7 +1324,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getUseEquation_System() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(2);
 	}
@@ -1387,7 +1333,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getUseEquation_CallParamsExpr() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(3);
 	}
@@ -1397,7 +1342,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getUseEquation_InputExprs() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(4);
 	}
@@ -1407,7 +1351,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getUseEquation_OutputExprs() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(5);
 	}
@@ -1417,7 +1360,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaExpression() {
 		return alphaExpressionEClass;
 	}
@@ -1427,7 +1369,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaExpression_Z__internal_cache_exprDom() {
 		return (EAttribute)alphaExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1437,7 +1378,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaExpression_Z__internal_cache_contextDom() {
 		return (EAttribute)alphaExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1447,7 +1387,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaExpression_ExpressionID() {
 		return (EAttribute)alphaExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1457,7 +1396,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRestrictExpression() {
 		return restrictExpressionEClass;
 	}
@@ -1467,7 +1405,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRestrictExpression_DomainExpr() {
 		return (EReference)restrictExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1477,7 +1414,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRestrictExpression_Expr() {
 		return (EReference)restrictExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1487,7 +1423,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAutoRestrictExpression() {
 		return autoRestrictExpressionEClass;
 	}
@@ -1497,7 +1432,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAutoRestrictExpression_Expr() {
 		return (EReference)autoRestrictExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1507,7 +1441,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAutoRestrictExpression_Z__internal_cache_inferredDomain() {
 		return (EAttribute)autoRestrictExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1517,7 +1450,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getCaseExpression() {
 		return caseExpressionEClass;
 	}
@@ -1527,7 +1459,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getCaseExpression_Name() {
 		return (EAttribute)caseExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1537,7 +1468,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getCaseExpression_Exprs() {
 		return (EReference)caseExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1547,7 +1477,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDependenceExpression() {
 		return dependenceExpressionEClass;
 	}
@@ -1557,7 +1486,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDependenceExpression_FunctionExpr() {
 		return (EReference)dependenceExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1567,7 +1495,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDependenceExpression_Expr() {
 		return (EReference)dependenceExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1577,7 +1504,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFuzzyDependenceExpression() {
 		return fuzzyDependenceExpressionEClass;
 	}
@@ -1587,7 +1513,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFuzzyDependenceExpression_FuzzyFunction() {
 		return (EReference)fuzzyDependenceExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1597,7 +1522,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFuzzyDependenceExpression_Expr() {
 		return (EReference)fuzzyDependenceExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1607,7 +1531,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getIfExpression() {
 		return ifExpressionEClass;
 	}
@@ -1617,7 +1540,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getIfExpression_CondExpr() {
 		return (EReference)ifExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1627,7 +1549,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getIfExpression_ThenExpr() {
 		return (EReference)ifExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1637,7 +1558,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getIfExpression_ElseExpr() {
 		return (EReference)ifExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1647,7 +1567,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getIndexExpression() {
 		return indexExpressionEClass;
 	}
@@ -1657,7 +1576,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getIndexExpression_FunctionExpr() {
 		return (EReference)indexExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1667,7 +1585,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPolynomialIndexExpression() {
 		return polynomialIndexExpressionEClass;
 	}
@@ -1677,7 +1594,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPolynomialIndexExpression_PolynomialExpr() {
 		return (EReference)polynomialIndexExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1687,7 +1603,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFuzzyIndexExpression() {
 		return fuzzyIndexExpressionEClass;
 	}
@@ -1697,7 +1612,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFuzzyIndexExpression_FuzzyFunction() {
 		return (EReference)fuzzyIndexExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1707,7 +1621,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractReduceExpression() {
 		return abstractReduceExpressionEClass;
 	}
@@ -1717,7 +1630,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAbstractReduceExpression_Operator() {
 		return (EAttribute)abstractReduceExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1727,7 +1639,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractReduceExpression_ProjectionExpr() {
 		return (EReference)abstractReduceExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1737,7 +1648,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractReduceExpression_Body() {
 		return (EReference)abstractReduceExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1747,7 +1657,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getReduceExpression() {
 		return reduceExpressionEClass;
 	}
@@ -1757,7 +1666,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getExternalReduceExpression() {
 		return externalReduceExpressionEClass;
 	}
@@ -1767,7 +1675,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getExternalReduceExpression_ExternalFunction() {
 		return (EReference)externalReduceExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1777,7 +1684,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getArgReduceExpression() {
 		return argReduceExpressionEClass;
 	}
@@ -1787,7 +1693,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getExternalArgReduceExpression() {
 		return externalArgReduceExpressionEClass;
 	}
@@ -1797,7 +1702,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getExternalArgReduceExpression_ExternalFunction() {
 		return (EReference)externalArgReduceExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1807,7 +1711,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getConvolutionExpression() {
 		return convolutionExpressionEClass;
 	}
@@ -1817,7 +1720,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConvolutionExpression_KernelDomainExpr() {
 		return (EReference)convolutionExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1827,7 +1729,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConvolutionExpression_KernelExpression() {
 		return (EReference)convolutionExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1837,7 +1738,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConvolutionExpression_DataExpression() {
 		return (EReference)convolutionExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1847,7 +1747,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSelectExpression() {
 		return selectExpressionEClass;
 	}
@@ -1857,7 +1756,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSelectExpression_RelationExpr() {
 		return (EReference)selectExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1867,7 +1765,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSelectExpression_Expr() {
 		return (EReference)selectExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1877,7 +1774,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVariableExpression() {
 		return variableExpressionEClass;
 	}
@@ -1887,7 +1783,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVariableExpression_Variable() {
 		return (EReference)variableExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1897,7 +1792,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getConstantExpression() {
 		return constantExpressionEClass;
 	}
@@ -1907,7 +1801,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getIntegerExpression() {
 		return integerExpressionEClass;
 	}
@@ -1917,7 +1810,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getIntegerExpression_Value() {
 		return (EAttribute)integerExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1927,7 +1819,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRealExpression() {
 		return realExpressionEClass;
 	}
@@ -1937,7 +1828,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getRealExpression_Value() {
 		return (EAttribute)realExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1947,7 +1837,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBooleanExpression() {
 		return booleanExpressionEClass;
 	}
@@ -1957,7 +1846,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getBooleanExpression_Value() {
 		return (EAttribute)booleanExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1967,7 +1855,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getUnaryExpression() {
 		return unaryExpressionEClass;
 	}
@@ -1977,7 +1864,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getUnaryExpression_Operator() {
 		return (EAttribute)unaryExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1987,7 +1873,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getUnaryExpression_Expr() {
 		return (EReference)unaryExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1997,7 +1882,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBinaryExpression() {
 		return binaryExpressionEClass;
 	}
@@ -2007,7 +1891,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getBinaryExpression_Operator() {
 		return (EAttribute)binaryExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2017,7 +1900,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBinaryExpression_Left() {
 		return (EReference)binaryExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2027,7 +1909,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBinaryExpression_Right() {
 		return (EReference)binaryExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -2037,7 +1918,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMultiArgExpression() {
 		return multiArgExpressionEClass;
 	}
@@ -2047,7 +1927,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getMultiArgExpression_Operator() {
 		return (EAttribute)multiArgExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2057,7 +1936,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMultiArgExpression_Exprs() {
 		return (EReference)multiArgExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2067,7 +1945,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getExternalMultiArgExpression() {
 		return externalMultiArgExpressionEClass;
 	}
@@ -2077,7 +1954,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getExternalMultiArgExpression_ExternalFunction() {
 		return (EReference)externalMultiArgExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2087,7 +1963,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractFuzzyReduceExpression() {
 		return abstractFuzzyReduceExpressionEClass;
 	}
@@ -2097,7 +1972,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAbstractFuzzyReduceExpression_Operator() {
 		return (EAttribute)abstractFuzzyReduceExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2107,7 +1981,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractFuzzyReduceExpression_ProjectionFunction() {
 		return (EReference)abstractFuzzyReduceExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2117,7 +1990,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractFuzzyReduceExpression_Body() {
 		return (EReference)abstractFuzzyReduceExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -2127,7 +1999,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFuzzyReduceExpression() {
 		return fuzzyReduceExpressionEClass;
 	}
@@ -2137,7 +2008,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getExternalFuzzyReduceExpression() {
 		return externalFuzzyReduceExpressionEClass;
 	}
@@ -2147,7 +2017,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getExternalFuzzyReduceExpression_ExternalFunction() {
 		return (EReference)externalFuzzyReduceExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2157,7 +2026,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFuzzyArgReduceExpression() {
 		return fuzzyArgReduceExpressionEClass;
 	}
@@ -2167,7 +2035,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getExternalFuzzyArgReduceExpression() {
 		return externalFuzzyArgReduceExpressionEClass;
 	}
@@ -2177,7 +2044,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getExternalFuzzyArgReduceExpression_ExternalFunction() {
 		return (EReference)externalFuzzyArgReduceExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2187,7 +2053,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getCalculatorNode() {
 		return calculatorNodeEClass;
 	}
@@ -2197,7 +2062,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPolyhedralObject() {
 		return polyhedralObjectEClass;
 	}
@@ -2207,7 +2071,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPolyhedralObject_Name() {
 		return (EAttribute)polyhedralObjectEClass.getEStructuralFeatures().get(0);
 	}
@@ -2217,7 +2080,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPolyhedralObject_Expr() {
 		return (EReference)polyhedralObjectEClass.getEStructuralFeatures().get(1);
 	}
@@ -2227,7 +2089,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getCalculatorExpression() {
 		return calculatorExpressionEClass;
 	}
@@ -2237,7 +2098,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getJNIDomain() {
 		return jniDomainEClass;
 	}
@@ -2247,7 +2107,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getJNIDomain_IslString() {
 		return (EAttribute)jniDomainEClass.getEStructuralFeatures().get(0);
 	}
@@ -2257,7 +2116,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getJNIDomain_Z__internal_cache_islSet() {
 		return (EAttribute)jniDomainEClass.getEStructuralFeatures().get(1);
 	}
@@ -2267,7 +2125,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getJNIDomainInArrayNotation() {
 		return jniDomainInArrayNotationEClass;
 	}
@@ -2277,7 +2134,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getJNIRelation() {
 		return jniRelationEClass;
 	}
@@ -2287,7 +2143,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getJNIRelation_IslString() {
 		return (EAttribute)jniRelationEClass.getEStructuralFeatures().get(0);
 	}
@@ -2297,7 +2152,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getJNIRelation_Z__internal_cache_islMap() {
 		return (EAttribute)jniRelationEClass.getEStructuralFeatures().get(1);
 	}
@@ -2307,7 +2161,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getJNIFunction() {
 		return jniFunctionEClass;
 	}
@@ -2317,7 +2170,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getJNIFunction_AlphaFunction() {
 		return (EReference)jniFunctionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2327,7 +2179,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getJNIFunction_Z__internal_cache_islMAff() {
 		return (EAttribute)jniFunctionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2337,7 +2188,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getJNIFunctionInArrayNotation() {
 		return jniFunctionInArrayNotationEClass;
 	}
@@ -2347,7 +2197,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getJNIFunctionInArrayNotation_ArrayNotation() {
 		return (EAttribute)jniFunctionInArrayNotationEClass.getEStructuralFeatures().get(0);
 	}
@@ -2357,7 +2206,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getJNIPolynomial() {
 		return jniPolynomialEClass;
 	}
@@ -2367,7 +2215,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getJNIPolynomial_IslString() {
 		return (EAttribute)jniPolynomialEClass.getEStructuralFeatures().get(0);
 	}
@@ -2377,7 +2224,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getJNIPolynomial_Z__internal_cache_islPWQP() {
 		return (EAttribute)jniPolynomialEClass.getEStructuralFeatures().get(1);
 	}
@@ -2387,7 +2233,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getJNIPolynomialInArrayNotation() {
 		return jniPolynomialInArrayNotationEClass;
 	}
@@ -2397,7 +2242,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getJNIPolynomialInArrayNotation_ArrayNotation() {
 		return (EAttribute)jniPolynomialInArrayNotationEClass.getEStructuralFeatures().get(0);
 	}
@@ -2407,7 +2251,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFuzzyFunction() {
 		return fuzzyFunctionEClass;
 	}
@@ -2417,7 +2260,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFuzzyFunction_AlphaString() {
 		return (EAttribute)fuzzyFunctionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2427,7 +2269,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFuzzyFunction_Indirections() {
 		return (EReference)fuzzyFunctionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2437,7 +2278,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFuzzyFunction_Z__internal_cache_fuzzyMap() {
 		return (EAttribute)fuzzyFunctionEClass.getEStructuralFeatures().get(2);
 	}
@@ -2447,7 +2287,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFuzzyFunction_Z__internal_cache_depRelation() {
 		return (EAttribute)fuzzyFunctionEClass.getEStructuralFeatures().get(3);
 	}
@@ -2457,7 +2296,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFuzzyVariableUse() {
 		return fuzzyVariableUseEClass;
 	}
@@ -2467,7 +2305,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFuzzyVariableUse_FuzzyIndex() {
 		return (EAttribute)fuzzyVariableUseEClass.getEStructuralFeatures().get(0);
 	}
@@ -2477,7 +2314,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFuzzyVariableUse_FuzzyVariable() {
 		return (EReference)fuzzyVariableUseEClass.getEStructuralFeatures().get(1);
 	}
@@ -2487,7 +2323,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getNestedFuzzyFunction() {
 		return nestedFuzzyFunctionEClass;
 	}
@@ -2497,7 +2332,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAffineFuzzyVariableUse() {
 		return affineFuzzyVariableUseEClass;
 	}
@@ -2507,7 +2341,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAffineFuzzyVariableUse_UseFunction() {
 		return (EReference)affineFuzzyVariableUseEClass.getEStructuralFeatures().get(0);
 	}
@@ -2517,7 +2350,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFuzzyFunctionInArrayNotation() {
 		return fuzzyFunctionInArrayNotationEClass;
 	}
@@ -2527,7 +2359,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFuzzyFunctionInArrayNotation_ArrayNotation() {
 		return (EAttribute)fuzzyFunctionInArrayNotationEClass.getEStructuralFeatures().get(0);
 	}
@@ -2537,7 +2368,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getUnaryCalculatorExpression() {
 		return unaryCalculatorExpressionEClass;
 	}
@@ -2547,7 +2377,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getUnaryCalculatorExpression_Operator() {
 		return (EAttribute)unaryCalculatorExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2557,7 +2386,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getUnaryCalculatorExpression_Expr() {
 		return (EReference)unaryCalculatorExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2567,7 +2395,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getUnaryCalculatorExpression_Z__internal_cache_islObject() {
 		return (EAttribute)unaryCalculatorExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -2577,7 +2404,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBinaryCalculatorExpression() {
 		return binaryCalculatorExpressionEClass;
 	}
@@ -2587,7 +2413,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getBinaryCalculatorExpression_Operator() {
 		return (EAttribute)binaryCalculatorExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2597,7 +2422,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBinaryCalculatorExpression_Left() {
 		return (EReference)binaryCalculatorExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2607,7 +2431,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBinaryCalculatorExpression_Right() {
 		return (EReference)binaryCalculatorExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -2617,7 +2440,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getBinaryCalculatorExpression_Z__internal_cache_islObject() {
 		return (EAttribute)binaryCalculatorExpressionEClass.getEStructuralFeatures().get(3);
 	}
@@ -2627,7 +2449,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVariableDomain() {
 		return variableDomainEClass;
 	}
@@ -2637,7 +2458,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVariableDomain_Variable() {
 		return (EReference)variableDomainEClass.getEStructuralFeatures().get(0);
 	}
@@ -2647,7 +2467,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRectangularDomain() {
 		return rectangularDomainEClass;
 	}
@@ -2657,7 +2476,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getRectangularDomain_LowerBounds() {
 		return (EAttribute)rectangularDomainEClass.getEStructuralFeatures().get(0);
 	}
@@ -2667,7 +2485,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getRectangularDomain_UpperBounds() {
 		return (EAttribute)rectangularDomainEClass.getEStructuralFeatures().get(1);
 	}
@@ -2677,7 +2494,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getRectangularDomain_IndexNames() {
 		return (EAttribute)rectangularDomainEClass.getEStructuralFeatures().get(2);
 	}
@@ -2687,7 +2503,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getRectangularDomain_Z__internal_cache_islSet() {
 		return (EAttribute)rectangularDomainEClass.getEStructuralFeatures().get(3);
 	}
@@ -2697,7 +2512,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDefinedObject() {
 		return definedObjectEClass;
 	}
@@ -2707,7 +2521,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDefinedObject_Object() {
 		return (EReference)definedObjectEClass.getEStructuralFeatures().get(0);
 	}
@@ -2717,7 +2530,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getDefinedObject_Z__internalCycleDetector() {
 		return (EAttribute)definedObjectEClass.getEStructuralFeatures().get(1);
 	}
@@ -2727,7 +2539,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaFunction() {
 		return alphaFunctionEClass;
 	}
@@ -2737,7 +2548,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaFunction_IndexList() {
 		return (EAttribute)alphaFunctionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2747,7 +2557,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaFunction_Exprs() {
 		return (EReference)alphaFunctionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2757,7 +2566,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaFunctionExpression() {
 		return alphaFunctionExpressionEClass;
 	}
@@ -2767,7 +2575,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaFunctionBinaryExpression() {
 		return alphaFunctionBinaryExpressionEClass;
 	}
@@ -2777,7 +2584,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaFunctionBinaryExpression_Left() {
 		return (EReference)alphaFunctionBinaryExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2787,7 +2593,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAlphaFunctionBinaryExpression_Right() {
 		return (EReference)alphaFunctionBinaryExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2797,7 +2602,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaFunctionBinaryExpression_Operator() {
 		return (EAttribute)alphaFunctionBinaryExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -2807,7 +2611,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAlphaFunctionLiteral() {
 		return alphaFunctionLiteralEClass;
 	}
@@ -2817,7 +2620,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAlphaFunctionLiteral_Value() {
 		return (EAttribute)alphaFunctionLiteralEClass.getEStructuralFeatures().get(0);
 	}
@@ -2827,7 +2629,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getUNARY_OP() {
 		return unarY_OPEEnum;
 	}
@@ -2837,7 +2638,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getBINARY_OP() {
 		return binarY_OPEEnum;
 	}
@@ -2847,7 +2647,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getREDUCTION_OP() {
 		return reductioN_OPEEnum;
 	}
@@ -2857,7 +2656,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getPOLY_OBJECT_TYPE() {
 		return polY_OBJECT_TYPEEEnum;
 	}
@@ -2867,7 +2665,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getCALCULATOR_UNARY_OP() {
 		return calculatoR_UNARY_OPEEnum;
 	}
@@ -2877,7 +2674,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getCALCULATOR_BINARY_OP() {
 		return calculatoR_BINARY_OPEEnum;
 	}
@@ -2887,7 +2683,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getJNIObject() {
 		return jniObjectEDataType;
 	}
@@ -2897,7 +2692,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getJNIISLSet() {
 		return jniislSetEDataType;
 	}
@@ -2907,7 +2701,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getJNIISLMap() {
 		return jniislMapEDataType;
 	}
@@ -2917,7 +2710,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getJNIISLMultiAff() {
 		return jniislMultiAffEDataType;
 	}
@@ -2927,7 +2719,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getJNIISLPWQPolynomial() {
 		return jniislpwqPolynomialEDataType;
 	}
@@ -2937,7 +2728,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getISL_FORMAT() {
 		return isL_FORMATEDataType;
 	}
@@ -2947,7 +2737,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getListVariableExpression() {
 		return listVariableExpressionEDataType;
 	}
@@ -2957,7 +2746,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getIntegerQueue() {
 		return integerQueueEDataType;
 	}
@@ -2967,7 +2755,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getString() {
 		return stringEDataType;
 	}
@@ -2977,7 +2764,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getint() {
 		return intEDataType;
 	}
@@ -2987,7 +2773,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getfloat() {
 		return floatEDataType;
 	}
@@ -2997,7 +2782,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getdouble() {
 		return doubleEDataType;
 	}
@@ -3007,7 +2791,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getboolean() {
 		return booleanEDataType;
 	}
@@ -3017,7 +2800,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ModelFactory getModelFactory() {
 		return (ModelFactory)getEFactoryInstance();
 	}

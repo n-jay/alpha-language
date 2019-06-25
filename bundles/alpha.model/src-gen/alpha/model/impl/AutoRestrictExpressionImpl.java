@@ -86,7 +86,6 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getExpr() {
 		return expr;
 	}
@@ -111,7 +110,6 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExpr(AlphaExpression newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;
@@ -131,7 +129,6 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSet getZ__internal_cache_inferredDomain() {
 		return z__internal_cache_inferredDomain;
 	}
@@ -141,7 +138,6 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setZ__internal_cache_inferredDomain(JNIISLSet newZ__internal_cache_inferredDomain) {
 		JNIISLSet oldZ__internal_cache_inferredDomain = z__internal_cache_inferredDomain;
 		z__internal_cache_inferredDomain = newZ__internal_cache_inferredDomain;
@@ -154,7 +150,6 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSet getInferredDomain() {
 		JNIISLSet _xifexpression = null;
 		JNIISLSet _z__internal_cache_inferredDomain = this.getZ__internal_cache_inferredDomain();
@@ -173,7 +168,6 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setInferredDomain(final JNIISLSet islset) {
 		this.setZ__internal_cache_inferredDomain(islset);
 	}
@@ -183,7 +177,6 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitAutoRestrictExpression(this);
 	}

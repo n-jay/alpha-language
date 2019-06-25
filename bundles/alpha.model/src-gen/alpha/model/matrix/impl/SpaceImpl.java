@@ -79,7 +79,6 @@ public class SpaceImpl extends MinimalEObjectImpl.Container implements Space {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<String> getParamNames() {
 		if (paramNames == null) {
 			paramNames = new EDataTypeEList<String>(String.class, this, MatrixPackage.SPACE__PARAM_NAMES);
@@ -92,7 +91,6 @@ public class SpaceImpl extends MinimalEObjectImpl.Container implements Space {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<String> getIndexNames() {
 		if (indexNames == null) {
 			indexNames = new EDataTypeEList<String>(String.class, this, MatrixPackage.SPACE__INDEX_NAMES);
@@ -105,7 +103,6 @@ public class SpaceImpl extends MinimalEObjectImpl.Container implements Space {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int getNbParams() {
 		return ((Object[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getParamNames(), Object.class)).length;
 	}
@@ -115,7 +112,6 @@ public class SpaceImpl extends MinimalEObjectImpl.Container implements Space {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int getNbIndices() {
 		return ((Object[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(this.getIndexNames(), Object.class)).length;
 	}
@@ -125,7 +121,6 @@ public class SpaceImpl extends MinimalEObjectImpl.Container implements Space {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSpace toJNIISLSetSpace() {
 		JNIISLSpace space = JNIISLSpace.allocSet(this.getNbParams(), this.getNbIndices());
 		int _nbParams = this.getNbParams();
@@ -146,7 +141,6 @@ public class SpaceImpl extends MinimalEObjectImpl.Container implements Space {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSpace toJNIISLMultiAffSpace(final int nbExprs) {
 		JNIISLSpace space = JNIISLSpace.alloc(this.getNbParams(), this.getNbIndices(), nbExprs);
 		int _nbParams = this.getNbParams();

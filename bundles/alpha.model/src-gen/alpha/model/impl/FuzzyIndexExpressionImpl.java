@@ -65,7 +65,6 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FuzzyFunction getFuzzyFunction() {
 		return fuzzyFunction;
 	}
@@ -90,7 +89,6 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFuzzyFunction(FuzzyFunction newFuzzyFunction) {
 		if (newFuzzyFunction != fuzzyFunction) {
 			NotificationChain msgs = null;
@@ -110,7 +108,6 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMap getDependenceRelation() {
 		JNIISLMap _xifexpression = null;
 		FuzzyFunction _fuzzyFunction = this.getFuzzyFunction();
@@ -129,7 +126,6 @@ public class FuzzyIndexExpressionImpl extends AlphaExpressionImpl implements Fuz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitFuzzyIndexExpression(this);
 	}

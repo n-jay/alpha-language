@@ -65,7 +65,6 @@ public abstract class EquationImpl extends AlphaNodeImpl implements Equation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SystemBody getSystemBody() {
 		if (eContainerFeatureID() != ModelPackage.EQUATION__SYSTEM_BODY) return null;
 		return (SystemBody)eContainer();
@@ -96,7 +95,6 @@ public abstract class EquationImpl extends AlphaNodeImpl implements Equation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSystemBody(SystemBody newSystemBody) {
 		if (newSystemBody != eInternalContainer() || (eContainerFeatureID() != ModelPackage.EQUATION__SYSTEM_BODY && newSystemBody != null)) {
 			if (EcoreUtil.isAncestor(this, newSystemBody))
@@ -118,7 +116,6 @@ public abstract class EquationImpl extends AlphaNodeImpl implements Equation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getExpression(final Queue<Integer> exprID) {
 		AlphaExpression _xblockexpression = null;
 		{
@@ -141,7 +138,6 @@ public abstract class EquationImpl extends AlphaNodeImpl implements Equation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getExpression(final EList<Integer> exprID) {
 		LinkedList<Integer> _linkedList = new LinkedList<Integer>(exprID);
 		return this.getExpression(_linkedList);
@@ -152,7 +148,6 @@ public abstract class EquationImpl extends AlphaNodeImpl implements Equation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getExpression(final String exprIDstr) {
 		int[] _parseIntArray = AlphaUtil.parseIntArray(exprIDstr);
 		LinkedList<Integer> _linkedList = new LinkedList<Integer>((Collection<? extends Integer>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(_parseIntArray));
@@ -164,7 +159,6 @@ public abstract class EquationImpl extends AlphaNodeImpl implements Equation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(AlphaVisitor visitor) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

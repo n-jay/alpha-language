@@ -84,7 +84,6 @@ public abstract class FuzzyVariableUseImpl extends AlphaNodeImpl implements Fuzz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getFuzzyIndex() {
 		return fuzzyIndex;
 	}
@@ -94,7 +93,6 @@ public abstract class FuzzyVariableUseImpl extends AlphaNodeImpl implements Fuzz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFuzzyIndex(String newFuzzyIndex) {
 		String oldFuzzyIndex = fuzzyIndex;
 		fuzzyIndex = newFuzzyIndex;
@@ -107,7 +105,6 @@ public abstract class FuzzyVariableUseImpl extends AlphaNodeImpl implements Fuzz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FuzzyVariable getFuzzyVariable() {
 		if (fuzzyVariable != null && fuzzyVariable.eIsProxy()) {
 			InternalEObject oldFuzzyVariable = (InternalEObject)fuzzyVariable;
@@ -134,7 +131,6 @@ public abstract class FuzzyVariableUseImpl extends AlphaNodeImpl implements Fuzz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFuzzyVariable(FuzzyVariable newFuzzyVariable) {
 		FuzzyVariable oldFuzzyVariable = fuzzyVariable;
 		fuzzyVariable = newFuzzyVariable;
@@ -147,7 +143,6 @@ public abstract class FuzzyVariableUseImpl extends AlphaNodeImpl implements Fuzz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMap getDependenceRelation() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

@@ -100,7 +100,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaSystem getSystem() {
 		if (eContainerFeatureID() != ModelPackage.SYSTEM_BODY__SYSTEM) return null;
 		return (AlphaSystem)eContainer();
@@ -131,7 +130,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setSystem(AlphaSystem newSystem) {
 		if (newSystem != eInternalContainer() || (eContainerFeatureID() != ModelPackage.SYSTEM_BODY__SYSTEM && newSystem != null)) {
 			if (EcoreUtil.isAncestor(this, newSystem))
@@ -153,7 +151,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIDomain getParameterDomainExpr() {
 		return parameterDomainExpr;
 	}
@@ -178,7 +175,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setParameterDomainExpr(JNIDomain newParameterDomainExpr) {
 		if (newParameterDomainExpr != parameterDomainExpr) {
 			NotificationChain msgs = null;
@@ -198,7 +194,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Equation> getEquations() {
 		if (equations == null) {
 			equations = new EObjectContainmentWithInverseEList<Equation>(Equation.class, this, ModelPackage.SYSTEM_BODY__EQUATIONS, ModelPackage.EQUATION__SYSTEM_BODY);
@@ -211,7 +206,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLSet getParameterDomain() {
 		return this.getParameterDomainExpr().getISLSet();
 	}
@@ -221,7 +215,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<UseEquation> getUseEquations() {
 		return ECollections.<UseEquation>asEList(((UseEquation[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(EcoreUtil.<UseEquation>getObjectsByType(this.getEquations(), Literals.USE_EQUATION), UseEquation.class)));
 	}
@@ -231,7 +224,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<StandardEquation> getStandardEquations() {
 		return ECollections.<StandardEquation>asEList(((StandardEquation[])org.eclipse.xtext.xbase.lib.Conversions.unwrapArray(EcoreUtil.<StandardEquation>getObjectsByType(this.getEquations(), Literals.STANDARD_EQUATION), StandardEquation.class)));
 	}
@@ -241,7 +233,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public StandardEquation getStandardEquation(final String eqName) {
 		final Function1<StandardEquation, Boolean> _function = new Function1<StandardEquation, Boolean>() {
 			public Boolean apply(final StandardEquation eq) {
@@ -256,7 +247,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public StandardEquation getStandardEquation(final Variable v) {
 		final Function1<StandardEquation, Boolean> _function = new Function1<StandardEquation, Boolean>() {
 			public Boolean apply(final StandardEquation eq) {
@@ -272,7 +262,6 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitSystemBody(this);
 	}

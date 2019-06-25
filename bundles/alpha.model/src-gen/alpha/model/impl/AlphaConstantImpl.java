@@ -91,7 +91,6 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -101,7 +100,6 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -114,7 +112,6 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Integer getValue() {
 		return value;
 	}
@@ -124,7 +121,6 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setValue(Integer newValue) {
 		Integer oldValue = value;
 		value = newValue;
@@ -137,7 +133,6 @@ public class AlphaConstantImpl extends AlphaNodeImpl implements AlphaConstant {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitAlphaConstant(this);
 	}

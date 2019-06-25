@@ -82,7 +82,6 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIFunction getFunctionExpr() {
 		return functionExpr;
 	}
@@ -107,7 +106,6 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFunctionExpr(JNIFunction newFunctionExpr) {
 		if (newFunctionExpr != functionExpr) {
 			NotificationChain msgs = null;
@@ -127,7 +125,6 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getExpr() {
 		return expr;
 	}
@@ -152,7 +149,6 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExpr(AlphaExpression newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;
@@ -172,7 +168,6 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMultiAff getFunction() {
 		JNIISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getFunctionExpr().getType();
@@ -192,7 +187,6 @@ public class DependenceExpressionImpl extends AlphaExpressionImpl implements Dep
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitDependenceExpression(this);
 	}

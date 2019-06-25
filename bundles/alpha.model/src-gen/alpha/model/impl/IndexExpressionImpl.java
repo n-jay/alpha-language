@@ -70,7 +70,6 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIFunction getFunctionExpr() {
 		return functionExpr;
 	}
@@ -95,7 +94,6 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFunctionExpr(JNIFunction newFunctionExpr) {
 		if (newFunctionExpr != functionExpr) {
 			NotificationChain msgs = null;
@@ -115,7 +113,6 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIISLMultiAff getFunction() {
 		JNIISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getFunctionExpr().getType();
@@ -135,7 +132,6 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitIndexExpression(this);
 	}

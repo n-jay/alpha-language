@@ -63,7 +63,6 @@ public class JNIFunctionInArrayNotationImpl extends JNIFunctionImpl implements J
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<String> getArrayNotation() {
 		if (arrayNotation == null) {
 			arrayNotation = new EDataTypeEList<String>(String.class, this, ModelPackage.JNI_FUNCTION_IN_ARRAY_NOTATION__ARRAY_NOTATION);
@@ -76,7 +75,6 @@ public class JNIFunctionInArrayNotationImpl extends JNIFunctionImpl implements J
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String plainToString() {
 		String _join = IterableExtensions.join(this.getArrayNotation(), ",");
 		String _plus = ("[" + _join);

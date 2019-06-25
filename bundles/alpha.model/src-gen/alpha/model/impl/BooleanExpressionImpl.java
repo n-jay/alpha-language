@@ -70,7 +70,6 @@ public class BooleanExpressionImpl extends AlphaExpressionImpl implements Boolea
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Boolean getValue() {
 		return value;
 	}
@@ -80,7 +79,6 @@ public class BooleanExpressionImpl extends AlphaExpressionImpl implements Boolea
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setValue(Boolean newValue) {
 		Boolean oldValue = value;
 		value = newValue;
@@ -93,7 +91,6 @@ public class BooleanExpressionImpl extends AlphaExpressionImpl implements Boolea
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String valueString() {
 		Boolean _value = this.getValue();
 		return (_value + "");
@@ -104,7 +101,6 @@ public class BooleanExpressionImpl extends AlphaExpressionImpl implements Boolea
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitBooleanExpression(this);
 	}

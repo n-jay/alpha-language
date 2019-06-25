@@ -111,7 +111,6 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Matrix createMatrix() {
 		MatrixImpl matrix = new MatrixImpl();
 		return matrix;
@@ -122,7 +121,6 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public MatrixRow createMatrixRow() {
 		MatrixRowImpl matrixRow = new MatrixRowImpl();
 		return matrixRow;
@@ -133,7 +131,6 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Space createSpace() {
 		SpaceImpl space = new SpaceImpl();
 		return space;
@@ -198,7 +195,6 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public MatrixPackage getMatrixPackage() {
 		return (MatrixPackage)getEPackage();
 	}

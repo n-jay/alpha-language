@@ -67,7 +67,6 @@ public class VariableDomainImpl extends CalculatorExpressionImpl implements Vari
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Variable getVariable() {
 		if (variable != null && variable.eIsProxy()) {
 			InternalEObject oldVariable = (InternalEObject)variable;
@@ -94,7 +93,6 @@ public class VariableDomainImpl extends CalculatorExpressionImpl implements Vari
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setVariable(Variable newVariable) {
 		Variable oldVariable = variable;
 		variable = newVariable;
@@ -107,7 +105,6 @@ public class VariableDomainImpl extends CalculatorExpressionImpl implements Vari
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public POLY_OBJECT_TYPE getType() {
 		return POLY_OBJECT_TYPE.SET;
 	}
@@ -117,7 +114,6 @@ public class VariableDomainImpl extends CalculatorExpressionImpl implements Vari
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public JNIObject getISLObject() {
 		JNIISLSet _xifexpression = null;
 		Variable _variable = this.getVariable();
@@ -136,7 +132,6 @@ public class VariableDomainImpl extends CalculatorExpressionImpl implements Vari
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final CalculatorExpressionVisitor visitor) {
 		visitor.visitVariableDomain(this);
 	}
@@ -146,7 +141,6 @@ public class VariableDomainImpl extends CalculatorExpressionImpl implements Vari
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String plainToString() {
 		String _name = this.getVariable().getName();
 		String _plus = ("{" + _name);

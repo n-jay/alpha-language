@@ -94,7 +94,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Imports> getImports() {
 		if (imports == null) {
 			imports = new EObjectContainmentEList<Imports>(Imports.class, this, ModelPackage.ALPHA_ROOT__IMPORTS);
@@ -107,7 +106,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AlphaElement> getElements() {
 		if (elements == null) {
 			elements = new EObjectContainmentEList<AlphaElement>(AlphaElement.class, this, ModelPackage.ALPHA_ROOT__ELEMENTS);
@@ -120,7 +118,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AlphaConstant> getConstants() {
 		return ECollections.<AlphaConstant>asEList(EcoreUtil2.<AlphaConstant>getAllContentsOfType(this, AlphaConstant.class));
 	}
@@ -130,7 +127,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ExternalFunction> getExternalFunctions() {
 		return ECollections.<ExternalFunction>asEList(EcoreUtil2.<ExternalFunction>getAllContentsOfType(this, ExternalFunction.class));
 	}
@@ -140,7 +136,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AlphaPackage> getPackages() {
 		return ECollections.<AlphaPackage>asEList(EcoreUtil2.<AlphaPackage>getAllContentsOfType(this, AlphaPackage.class));
 	}
@@ -150,7 +145,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AlphaSystem> getSystems() {
 		return ECollections.<AlphaSystem>asEList(EcoreUtil2.<AlphaSystem>getAllContentsOfType(this, AlphaSystem.class));
 	}
@@ -160,7 +154,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaSystem getSystem(final String name) {
 		boolean _contains = name.contains(".");
 		if (_contains) {
@@ -193,7 +186,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitAlphaRoot(this);
 	}
@@ -203,7 +195,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaNode getNode(final EList<Integer> nodeID) {
 		LinkedList<Integer> _linkedList = new LinkedList<Integer>(nodeID);
 		return this.getNode(_linkedList);
@@ -214,7 +205,6 @@ public class AlphaRootImpl extends AlphaNodeImpl implements AlphaRoot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaNode getNode(final String nodeID) {
 		int[] _parseIntArray = AlphaUtil.parseIntArray(nodeID);
 		LinkedList<Integer> _linkedList = new LinkedList<Integer>((Collection<? extends Integer>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(_parseIntArray));
