@@ -109,8 +109,8 @@ class AlphaPrintingUtil {
 	static def String toShowString(ISLSet set, ISLSet paramDom, List<String> names) {
 		if (set.getNbIndices == 0)
 			return "{}"
-		
-		val ISLSet setRenamed = if (names !== null) set.renameIndices(names) else set
+			
+		val ISLSet setRenamed = if (names !== null) set.renameIndices(names) else if (set.indexNames === null) set.renameIndices(AlphaUtil.defaultDimNames(set)) else set
 		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(ISLDimType.isl_dim_set, setRenamed.nbIndices)) else setRenamed
 
 		val bsets = setGisted.collectBasicSets

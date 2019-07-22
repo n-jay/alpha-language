@@ -305,6 +305,18 @@ class AlphaUtil {
 		return res
 	}
 	
+	static def defaultDimNames(int n) {
+		defaultDimNames(0, n)
+	}
+	
+	static def defaultDimNames(int offset, int n) {
+		(offset..<offset+n).map[i|"i"+i].toList
+	}
+	
+	static def defaultDimNames(ISLSet set) {
+		defaultDimNames(set.nbIndices)
+	}
+	
 	static def parseIntArray(String intVecStr) {
 		if (intVecStr.contains(","))
 			intVecStr.replace('[', '').replace(']', '').trim().split("\\s*,\\s*").stream.mapToInt[e|Integer.parseInt(e.trim)].toArray

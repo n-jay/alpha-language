@@ -30,7 +30,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
-import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
@@ -131,6 +130,9 @@ public class AShow extends Show {
     CharSequence _xblockexpression = null;
     {
       this.indexNameContext = se.getVariable().getDomain().getIndexNames();
+      if ((this.indexNameContext == null)) {
+        this.indexNameContext = AlphaUtil.defaultDimNames(se.getVariable().getDomain());
+      }
       String _xifexpression = null;
       int _length = ((Object[])Conversions.unwrapArray(this.indexNameContext, Object.class)).length;
       boolean _greaterThan = (_length > 0);
@@ -268,14 +270,7 @@ public class AShow extends Show {
     final Optional<Boolean> conflict = Streams.<String, String, Boolean>zip(this.indexNameContext.stream(), kernelDomainNames.stream(), _function).reduce(_function_1);
     List<String> printCtx = null;
     if ((conflict.isPresent() && (conflict.get()).booleanValue())) {
-      int _nbIndices = ce.getContextDomain().getNbIndices();
-      int _nbIndices_1 = ce.getContextDomain().getNbIndices();
-      int _nbIndices_2 = ce.getKernelDomain().getNbIndices();
-      int _plus = (_nbIndices_1 + _nbIndices_2);
-      final Function1<Integer, String> _function_2 = (Integer i) -> {
-        return ("i" + i);
-      };
-      printCtx = IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(_nbIndices, _plus, true), _function_2));
+      printCtx = AlphaUtil.defaultDimNames(ce.getContextDomain().getNbIndices(), ce.getKernelDomain().getNbIndices());
     } else {
       printCtx = kernelDomainNames;
     }

@@ -104,6 +104,9 @@ class AShow extends Show {
 	override caseStandardEquation(StandardEquation se) {
 		indexNameContext = se.variable.domain.indexNames
 		
+		if (indexNameContext === null)
+			indexNameContext = AlphaUtil.defaultDimNames(se.variable.domain)
+		
 		val indices = if (indexNameContext.length > 0) '['+indexNameContext.join(",")+']' else ""
 		
 		'''«se.variable.name»«indices» = «se.expr.doSwitch»;'''
@@ -162,7 +165,7 @@ class AShow extends Show {
 		val conflict = Streams.zip(indexNameContext.stream, kernelDomainNames.stream, [e1,e2|e1.contentEquals(e2)]).reduce([b1,b2|b1||b2])
 		var List<String> printCtx
 		if (conflict.present && conflict.get) {
-			printCtx = 	(ce.contextDomain.nbIndices..<ce.contextDomain.nbIndices+ce.kernelDomain.nbIndices).map[i|"i"+i].toList
+			printCtx = 	AlphaUtil.defaultDimNames(ce.contextDomain.nbIndices, ce.kernelDomain.nbIndices)
 		} else {
 			printCtx = kernelDomainNames
 		}

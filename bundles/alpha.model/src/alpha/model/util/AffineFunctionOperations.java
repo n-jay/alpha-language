@@ -416,8 +416,9 @@ public class AffineFunctionOperations {
 	 */
 	public static ISLMultiAff projectFunctionDomain(ISLMultiAff f, ISLMultiAff p) {
 		ISLMap projectedF = f.toMap().applyDomain(p.toMap());
+		List<String> names = AlphaUtil.defaultDimNames(projectedF.getNbInputs());
 		for (int i = 0; i < projectedF.getNbInputs(); i++) {
-			projectedF = projectedF.setDimName(ISLDimType.isl_dim_in, i, "i"+i);
+			projectedF = projectedF.setDimName(ISLDimType.isl_dim_in, i, names.get(i));
 		}
 		return AffineFunctionOperations.mapToMultiAff(projectedF);
 	}

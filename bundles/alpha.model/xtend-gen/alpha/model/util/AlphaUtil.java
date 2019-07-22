@@ -406,6 +406,21 @@ public class AlphaUtil {
     return res;
   }
   
+  public static List<String> defaultDimNames(final int n) {
+    return AlphaUtil.defaultDimNames(0, n);
+  }
+  
+  public static List<String> defaultDimNames(final int offset, final int n) {
+    final Function1<Integer, String> _function = (Integer i) -> {
+      return ("i" + i);
+    };
+    return IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(offset, (offset + n), true), _function));
+  }
+  
+  public static List<String> defaultDimNames(final ISLSet set) {
+    return AlphaUtil.defaultDimNames(set.getNbIndices());
+  }
+  
   public static int[] parseIntArray(final String intVecStr) {
     int[] _xifexpression = null;
     boolean _contains = intVecStr.contains(",");

@@ -216,19 +216,27 @@ public class AlphaPrintingUtil {
     if ((names != null)) {
       _xifexpression = set.<ISLSet>renameIndices(names);
     } else {
-      _xifexpression = set;
+      ISLSet _xifexpression_1 = null;
+      List<String> _indexNames = set.getIndexNames();
+      boolean _tripleEquals = (_indexNames == null);
+      if (_tripleEquals) {
+        _xifexpression_1 = set.<ISLSet>renameIndices(AlphaUtil.defaultDimNames(set));
+      } else {
+        _xifexpression_1 = set;
+      }
+      _xifexpression = _xifexpression_1;
     }
     final ISLSet setRenamed = _xifexpression;
-    ISLSet _xifexpression_1 = null;
+    ISLSet _xifexpression_2 = null;
     if (((paramDom != null) && paramDom.isParamSet())) {
-      _xifexpression_1 = setRenamed.gist(paramDom.copy().addDims(ISLDimType.isl_dim_set, setRenamed.getNbIndices()));
+      _xifexpression_2 = setRenamed.gist(paramDom.copy().addDims(ISLDimType.isl_dim_set, setRenamed.getNbIndices()));
     } else {
-      _xifexpression_1 = setRenamed;
+      _xifexpression_2 = setRenamed;
     }
-    final ISLSet setGisted = _xifexpression_1;
+    final ISLSet setGisted = _xifexpression_2;
     final List<String> bsets = AlphaPrintingUtil.collectBasicSets(setGisted);
-    List<String> _indexNames = setGisted.getIndexNames();
-    String _plus = ("{" + _indexNames);
+    List<String> _indexNames_1 = setGisted.getIndexNames();
+    String _plus = ("{" + _indexNames_1);
     String _plus_1 = (_plus + ":");
     String _join = IterableExtensions.join(bsets, " or ");
     String _plus_2 = (_plus_1 + _join);
