@@ -28,9 +28,9 @@ import alpha.model.UnaryExpression;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.util.AlphaPrintingUtil;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
  * AlphaUserFactory provides a set of convenience methods for creating nodes in Alpha IR.
@@ -55,7 +55,7 @@ public class AlphaUserFactory {
 		}
 	}
 	
-	public static JNIDomain createJNIDomain(JNIISLSet set) {
+	public static JNIDomain createJNIDomain(ISLSet set) {
 		nullCheck(set);
 		
 		JNIDomain dom = fact.createJNIDomain();
@@ -64,7 +64,7 @@ public class AlphaUserFactory {
 		return dom;
 	}
 	
-	public static JNIDomain createJNIParameterDomain(JNIISLSet set) {
+	public static JNIDomain createJNIParameterDomain(ISLSet set) {
 		nullCheck(set);
 		
 		JNIDomain dom = fact.createJNIDomain();
@@ -73,7 +73,7 @@ public class AlphaUserFactory {
 		return dom;
 	}
 	
-	public static JNIDomain createJNISystemBodyDomain(JNIISLSet set) {
+	public static JNIDomain createJNISystemBodyDomain(ISLSet set) {
 		nullCheck(set);
 		
 		JNIDomain dom = fact.createJNIDomain();
@@ -82,7 +82,7 @@ public class AlphaUserFactory {
 		return dom;
 	}
 	
-	public static  JNIPolynomial createJNIPolynomial(JNIISLPWQPolynomial pwqp) {
+	public static  JNIPolynomial createJNIPolynomial(ISLPWQPolynomial pwqp) {
 		nullCheck(pwqp);
 		
 		JNIPolynomial poly = fact.createJNIPolynomial();
@@ -91,7 +91,7 @@ public class AlphaUserFactory {
 		return poly;
 	}
 	
-	public static  JNIFunction createJNIFunction(JNIISLMultiAff maff) {
+	public static  JNIFunction createJNIFunction(ISLMultiAff maff) {
 		nullCheck(maff);
 		
 		JNIFunction fun = fact.createJNIFunction();
@@ -99,7 +99,7 @@ public class AlphaUserFactory {
 		return fun;
 	}
 	
-	public static Variable createVariable(String name, JNIISLSet domain) {
+	public static Variable createVariable(String name, ISLSet domain) {
 		nullCheck(name, domain);
 		
 		Variable v = fact.createVariable();
@@ -119,7 +119,7 @@ public class AlphaUserFactory {
 		return eq;
 	}
 
-	public static DependenceExpression createDependenceExpression(JNIISLMultiAff maff) {
+	public static DependenceExpression createDependenceExpression(ISLMultiAff maff) {
 		nullCheck(maff);
 		
 		DependenceExpression de = fact.createDependenceExpression();
@@ -127,7 +127,7 @@ public class AlphaUserFactory {
 		return de;
 	}
 	
-	public static DependenceExpression createDependenceExpression(JNIISLMultiAff maff, AlphaExpression expr) {
+	public static DependenceExpression createDependenceExpression(ISLMultiAff maff, AlphaExpression expr) {
 		nullCheck(maff, expr);
 		
 		DependenceExpression de = createDependenceExpression(maff);
@@ -161,7 +161,7 @@ public class AlphaUserFactory {
 		return be;
 	}
 	
-	public static IndexExpression createIndexExpression(JNIISLMultiAff maff) {
+	public static IndexExpression createIndexExpression(ISLMultiAff maff) {
 		nullCheck(maff);
 		
 		IndexExpression ie = fact.createIndexExpression();
@@ -169,7 +169,7 @@ public class AlphaUserFactory {
 		return ie;
 	}
 	
-	public static PolynomialIndexExpression createPolynomialIndexExpression(JNIISLPWQPolynomial pwqp) {
+	public static PolynomialIndexExpression createPolynomialIndexExpression(ISLPWQPolynomial pwqp) {
 		nullCheck(pwqp);
 		
 		PolynomialIndexExpression pie = fact.createPolynomialIndexExpression();
@@ -177,7 +177,7 @@ public class AlphaUserFactory {
 		return pie;
 	}
 
-	public static RestrictExpression createRestrictExpression(JNIISLSet dom) {
+	public static RestrictExpression createRestrictExpression(ISLSet dom) {
 		nullCheck(dom);
 		
 		RestrictExpression re = fact.createRestrictExpression();		
@@ -185,7 +185,7 @@ public class AlphaUserFactory {
 		return re;
 	}
 	
-	public static RestrictExpression createRestrictExpression(JNIISLSet dom, AlphaExpression expr) {
+	public static RestrictExpression createRestrictExpression(ISLSet dom, AlphaExpression expr) {
 		nullCheck(dom, expr);
 	
 		RestrictExpression re = createRestrictExpression(dom);
@@ -266,7 +266,7 @@ public class AlphaUserFactory {
 		return ce;
 	}
 	
-	public static ReduceExpression createReduceExpression(REDUCTION_OP op, JNIISLMultiAff projection, AlphaExpression expr) {
+	public static ReduceExpression createReduceExpression(REDUCTION_OP op, ISLMultiAff projection, AlphaExpression expr) {
 		nullCheck(op, projection, expr);
 		
 		ReduceExpression re = fact.createReduceExpression();
@@ -275,7 +275,7 @@ public class AlphaUserFactory {
 		re.setBody(expr);
 		return re;
 	}
-	public static ArgReduceExpression createArgReduceExpression(REDUCTION_OP op, JNIISLMultiAff projection, AlphaExpression expr) {
+	public static ArgReduceExpression createArgReduceExpression(REDUCTION_OP op, ISLMultiAff projection, AlphaExpression expr) {
 		nullCheck(op, projection, expr);
 		
 		ArgReduceExpression re = fact.createArgReduceExpression();

@@ -12,7 +12,7 @@ import alpha.model.StandardEquation;
 import alpha.model.tests.GenericAlphaSystemTest;
 import alpha.model.tests.data.IAlphaTestInput;
 import alpha.model.transformation.reduction.HigherOrderOperator;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
 
 public class HigherOrderOperatorTest extends GenericAlphaSystemTest {
 
@@ -35,12 +35,12 @@ public class HigherOrderOperatorTest extends GenericAlphaSystemTest {
 					"Assumes first expression of any StandardEquation is a reduction.",
 					x.getExpr() instanceof AbstractReduceExpression);
 			
-			int dimBefore = ((AbstractReduceExpression)x.getExpr()).getProjection().getNbDims(JNIISLDimType.isl_dim_in);
+			int dimBefore = ((AbstractReduceExpression)x.getExpr()).getProjection().getNbInputs();
 			HigherOrderOperator.apply((AbstractReduceExpression)x.getExpr());
 			
 			int dimAfter = 0;
 			if (x.getExpr() instanceof AbstractReduceExpression) {
-				dimAfter = ((AbstractReduceExpression)x.getExpr()).getProjection().getNbDims(JNIISLDimType.isl_dim_in);
+				dimAfter = ((AbstractReduceExpression)x.getExpr()).getProjection().getNbInputs();
 			}
 			Assert.assertTrue(
 					"The dimensions of target reduction did not decrease.",

@@ -7,7 +7,7 @@ import alpha.model.REDUCTION_OP;
 import alpha.model.SystemBody;
 import alpha.model.factory.AlphaUserFactory;
 import com.google.common.base.Objects;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import java.util.function.Consumer;
 import org.eclipse.xtext.EcoreUtil2;
 
@@ -71,7 +71,7 @@ public class ReductionComposition {
     }
     AlphaExpression _body = are.getBody();
     final AbstractReduceExpression innerARE = ((AbstractReduceExpression) _body);
-    final JNIISLMultiAff composedProj = are.getProjection().pullback(innerARE.getProjection());
+    final ISLMultiAff composedProj = are.getProjection().pullback(innerARE.getProjection());
     are.setProjectionExpr(AlphaUserFactory.createJNIFunction(composedProj));
     are.setBody(innerARE.getBody());
     return 1;

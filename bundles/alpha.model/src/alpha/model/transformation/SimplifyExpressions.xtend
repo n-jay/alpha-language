@@ -77,7 +77,7 @@ class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
 	}
 	
 	override outIndexExpression(IndexExpression ie) {
-		if (ie.function.nbAff == 1 && ie.function.getAff(0).isConstant) {
+		if (ie.function.nbOutputs == 1 && ie.function.getAff(0).isConstant) {
 			val v = ie.function.getAff(0).eval(ie.expressionDomain.copy.samplePoint)
 			val intExpr = AlphaUserFactory.createIntegerExpression(v.asLong.intValue);
 			EcoreUtil.replace(ie, intExpr)
@@ -95,7 +95,7 @@ class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
 			
 			//TODO it can be extended to multiple pieces using case
 			if (pwMultiAff.nbPieces == 1) {
-				val multiAff = pwMultiAff.getPiece(0).maff
+				val multiAff = pwMultiAff.getPiece(0).getMaff
 				val depExpr = AlphaUserFactory.createDependenceExpression(multiAff, re.body)
 				EcoreUtil.replace(re, depExpr)
 				

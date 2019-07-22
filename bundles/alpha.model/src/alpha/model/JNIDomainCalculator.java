@@ -15,11 +15,11 @@ import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.CalculatorExpressionIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaUtil;
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
-import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLFactory;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+import fr.irisa.cairn.jnimap.isl.ISL_FORMAT;
 
 /**
  * This class is responsible for computing ISL representation of the
@@ -90,7 +90,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 				return;
 
 			try {
-				JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.replaceAlphaConstants(system, jniDomain.getIslString()));
+				ISLSet jniset = ISLFactory.islSet(AlphaUtil.replaceAlphaConstants(system, jniDomain.getIslString()));
 				jniDomain.setISLSet(jniset);
 			} catch (RuntimeException re) {
 				issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), jniDomain, null));
@@ -162,7 +162,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		}
 		
 		//then compute the else-domain
-		JNIISLSet unionBodies = null;
+		ISLSet unionBodies = null;
 		for (SystemBody body : definedBodies) {
 			if (unionBodies == null) {
 				unionBodies = body.getParameterDomain();
@@ -173,7 +173,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 
 		if (undefinedBodies.size() == 1) {
 			SystemBody elseBody = undefinedBodies.get(0);
-			JNIISLSet elseDomain = unionBodies==null?system.getParameterDomain():system.getParameterDomain().subtract(unionBodies);
+			ISLSet elseDomain = unionBodies==null?system.getParameterDomain():system.getParameterDomain().subtract(unionBodies);
 			JNIDomain domain = AlphaUserFactory.createJNISystemBodyDomain(elseDomain);
 			elseBody.setParameterDomainExpr(domain);
 		}
@@ -242,7 +242,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		//indexNameContext = null means there is no context information
 		// this is the case when the StandardEquation do not have index names defined
 		// an exception is when the variable has a scalar domain; then there is no index name to define and an empty list is valid 
-		if (se.getIndexNames().isEmpty() && se.getVariable().getDomain().getNbDims() > 0) {
+		if (se.getIndexNames().isEmpty() && se.getVariable().getDomain().getNbIndices() > 0) {
 			indexNameContext = null;
 		}
 	}
@@ -280,7 +280,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 							ModelPackage.Literals.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR));
 					return;
 				}
-				indexNameContext.addAll(ue.getInstantiationDomain().getIndicesNames());
+				indexNameContext.addAll(ue.getInstantiationDomain().getIndexNames());
 			}
 
 			if (ue.getCallParamsExpr() != null) {
@@ -301,7 +301,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 				JNIDomainCalculator.calculate(ue.getSystem(), DOMAIN_CALC_MODE.INTERFACE_ONLY);
 			}
 
-			if (ue.getSystem().getParameterDomain().getNbParams() != ue.getCallParams().getNbAff()) {
+			if (ue.getSystem().getParameterDomain().getNbParams() != ue.getCallParams().getNbOutputs()) {
 				issues.add(AlphaIssueFactory.subsystemWithIncompatibleParameters(ue));
 			}
 
@@ -329,7 +329,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			List<? extends Variable> variables) {
 		for (int i = 0; i < exprs.size(); i++) {
 			Variable calleeVar = variables.get(i);
-			int ndim = calleeVar.getDomain().getNbDims();
+			int ndim = calleeVar.getDomain().getNbIndices();
 
 			boolean arrayNotation = ue.getSubsystemDims() != null && ndim <= ue.getSubsystemDims().size();
 
@@ -366,7 +366,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			indexNameContext = copy;
 			indexNameContext.addAll(((JNIFunctionInArrayNotation) re.getProjectionExpr()).getArrayNotation());
 		} else {
-			indexNameContext = re.getProjection().getSpace().getNameList(JNIISLDimType.isl_dim_in);
+			indexNameContext = re.getProjection().getSpace().getInputNames();
 		}
 	}
 
@@ -389,9 +389,9 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		}
 
 		indexNameContext = copy;
-		JNIISLSet set = ce.getKernelDomain();
+		ISLSet set = ce.getKernelDomain();
 		if (indexNameContext != null && set != null) {
-			indexNameContext.addAll(set.getIndicesNames());
+			indexNameContext.addAll(set.getIndexNames());
 		}
 	}
 
@@ -471,8 +471,8 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		// Only when the dimensions match the context, new indices can replace the
 		// context for Array Notation
 		if (re.getRestrictDomain() != null && 
-				(indexNameContext == null || re.getRestrictDomain().getNbDims() == indexNameContext.size())) {
-			indexNameContext = re.getRestrictDomain().getIndicesNames();
+				(indexNameContext == null || re.getRestrictDomain().getNbIndices() == indexNameContext.size())) {
+			indexNameContext = re.getRestrictDomain().getIndexNames();
 		} else {
 			indexNameContext = copy;
 
@@ -498,7 +498,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 			return;
 		}
 
-		JNIISLMap map = se.getSelectRelation();
+		ISLMap map = se.getSelectRelation();
 		// FIXME : following is a hack because I tried ISL to use names with apostrophes, which has a separate meaning
 		String[] mapStr = map.toString(ISL_FORMAT.ISL).split("->");
 		if (mapStr.length != 3)
@@ -507,7 +507,7 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 
 		// Only when the dimensions match the context, new indices can replace the
 		// context for Array Notation
-		if (indexNameContext == null || map.getDomain().getNbDims() == indexNameContext.size()) {
+		if (indexNameContext == null || map.getDomain().getNbIndices() == indexNameContext.size()) {
 			indexNameContext = Arrays.asList(indexNames);
 		} else {
 			indexNameContext = copy;

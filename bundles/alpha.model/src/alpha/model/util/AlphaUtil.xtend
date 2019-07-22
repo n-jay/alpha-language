@@ -9,16 +9,9 @@ import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
 import alpha.model.Equation
 import alpha.model.SystemBody
-import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLQPolynomial
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap
+import fr.irisa.cairn.jnimap.isl.ISLErrorException
+import fr.irisa.cairn.jnimap.isl.ISLFactory
+import fr.irisa.cairn.jnimap.isl.JNIISLTools
 import java.util.LinkedList
 import java.util.List
 import java.util.function.Consumer
@@ -26,6 +19,13 @@ import java.util.function.Supplier
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.IQualifiedNameProvider
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMap
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLSet
+import fr.irisa.cairn.jnimap.isl.ISLUnionMap
 
 /**
  * Utility methods for analysis and transformation of Alpha programs.
@@ -134,7 +134,7 @@ class AlphaUtil {
 
 	
 
-	static def JNIISLSet getParameterDomain(EObject node) {
+	static def ISLSet getParameterDomain(EObject node) {
 
 		val system = AlphaUtil.getContainerSystem(node);
 		if (system === null) {
@@ -185,16 +185,16 @@ class AlphaUtil {
 	static def dispatch copy(Void n) {
 		null
 	}
-	static def dispatch copy(JNIISLMap map) {
+	static def dispatch copy(ISLMap map) {
 		map.copy
 	}
-	static def dispatch copy(JNIISLSet set) {
+	static def dispatch copy(ISLSet set) {
 		set.copy
 	}
-	static def dispatch copy(JNIISLMultiAff maff) {
+	static def dispatch copy(ISLMultiAff maff) {
 		maff.copy
 	}
-	static def dispatch copy(JNIISLUnionMap umap) {
+	static def dispatch copy(ISLUnionMap umap) {
 		umap.copy
 	}
 	
@@ -204,7 +204,7 @@ class AlphaUtil {
 	 */
 	static def String toContextFreeISLString(AlphaSystem system, String alphaDom) {
 			val completed = new StringBuffer("[");
-			completed.append(String.join(",", system.parameterDomain.getParametersNames()));
+			completed.append(String.join(",", system.parameterDomain.getParamNames()));
 			completed.append("] -> ");
 
 			completed.append(alphaDom);
@@ -212,13 +212,13 @@ class AlphaUtil {
 			AlphaUtil.replaceAlphaConstants(system, completed.toString())
 	}
 	
-	static def dispatch JNIISLSet getScalarDomain(AlphaSystem system) {
+	static def dispatch ISLSet getScalarDomain(AlphaSystem system) {
 		var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "{ [] : }"));
 		val pdom = system.parameterDomain
 		
 		jniset.intersectParams(pdom.copy());
 	}
-	static def dispatch JNIISLSet getScalarDomain(AlphaExpression expr) {
+	static def dispatch ISLSet getScalarDomain(AlphaExpression expr) {
 		if (expr.containerSystem === null) return null
 		expr.containerSystem.scalarDomain
 	}
@@ -230,7 +230,7 @@ class AlphaUtil {
 	 * */
 	static def List<String> getWhileIndexNames(AlphaNode node) {
 		val containerSystem = AlphaUtil.getContainerSystem(node)
-		if (containerSystem.whileDomain !== null) containerSystem.whileDomain.indicesNames
+		if (containerSystem.whileDomain !== null) containerSystem.whileDomain.indexNames
 		else new LinkedList;
 	}
 	
@@ -254,52 +254,52 @@ class AlphaUtil {
 		}
 	}
 	
-	static def renameIndices(JNIISLSet set, List<String> names) {
-		val n = set.getNbDims()
+	static def renameIndices(ISLSet set, List<String> names) {
+		val n = set.getNbIndices()
 		var res = set;
 		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
 		for (i : 0..<n) {
-			res = res.setDimName(JNIISLDimType.isl_dim_set, i, names.get(i))
+			res = res.setDimName(ISLDimType.isl_dim_set, i, names.get(i))
 		}
 			
 		return res
 	}
-	static def renameIndices(JNIISLMap map, List<String> names) {
-		val n = map.getNbDims(JNIISLDimType.isl_dim_in)
+	static def renameIndices(ISLMap map, List<String> names) {
+		val n = map.getNbInputs
 		var res = map;
 		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
 		for (i : 0..<n) {
-			res = res.setDimName(JNIISLDimType.isl_dim_in, i, names.get(i))
+			res = res.setDimName(ISLDimType.isl_dim_in, i, names.get(i))
 		}
 			
 		return res
 	}
-	static def renameIndices(JNIISLMultiAff maff, List<String> names) {
-		val n = maff.getNbDims(JNIISLDimType.isl_dim_in)
+	static def renameIndices(ISLMultiAff maff, List<String> names) {
+		val n = maff.getNbInputs
 		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
 		var res = maff;
 		for (i : 0..<n) {
-			res = res.setDimName(JNIISLDimType.isl_dim_in, i, names.get(i))
+			res = res.setDimName(ISLDimType.isl_dim_in, i, names.get(i))
 		}
 			
 		return res
 	}
-	static def renameIndices(JNIISLPWQPolynomial pwqp, List<String> names) {
-		val n = pwqp.getNbDims(JNIISLDimType.isl_dim_in)
+	static def renameIndices(ISLPWQPolynomial pwqp, List<String> names) {
+		val n = pwqp.dim(ISLDimType.isl_dim_in)
 		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
 		var res = pwqp;
 		for (i : 0..<n) {
-			res = res.setDimName(JNIISLDimType.isl_dim_in, i, names.get(i))
+			res = res.setDimName(ISLDimType.isl_dim_in, i, names.get(i))
 		}
 			
 		return res
 	}
-	static def renameIndices(JNIISLQPolynomial qp, List<String> names) {
-		val n = qp.getNbDims(JNIISLDimType.isl_dim_in)
+	static def renameIndices(ISLQPolynomial qp, List<String> names) {
+		val n = qp.dim(ISLDimType.isl_dim_in)
 		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
 		var res = qp;
 		for (i : 0..<n) {
-			res = res.setDimName(JNIISLDimType.isl_dim_in, i, names.get(i))
+			res = res.setDimName(ISLDimType.isl_dim_in, i, names.get(i))
 		}
 			
 		return res

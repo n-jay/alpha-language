@@ -11,7 +11,7 @@ import alpha.model.POLY_OBJECT_TYPE;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -222,8 +222,8 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getKernelDomain() {
-		JNIISLSet _xifexpression = null;
+	public ISLSet getKernelDomain() {
+		ISLSet _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getKernelDomainExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
 		if (_notEquals) {
@@ -231,7 +231,7 @@ public class ConvolutionExpressionImpl extends AlphaExpressionImpl implements Co
 		}
 		else {
 			JNIObject _iSLObject = this.getKernelDomainExpr().getISLObject();
-			_xifexpression = ((JNIISLSet) _iSLObject);
+			_xifexpression = ((ISLSet) _iSLObject);
 		}
 		return _xifexpression;
 	}

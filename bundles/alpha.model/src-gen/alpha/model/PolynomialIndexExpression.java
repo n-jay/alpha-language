@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,7 +49,7 @@ public interface PolynomialIndexExpression extends AlphaExpression {
 	 * @model kind="operation" dataType="alpha.model.JNIISLPWQPolynomial" unique="false"
 	 * @generated
 	 */
-	JNIISLPWQPolynomial getPolynomial();
+	ISLPWQPolynomial getPolynomial();
 
 	/**
 	 * <!-- begin-user-doc -->

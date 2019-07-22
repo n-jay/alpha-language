@@ -16,10 +16,9 @@ import alpha.model.transformation.reduction.ReductionUtil;
 import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
-import fr.irisa.cairn.jnimap.barvinok.jni.BarvinokFunctions;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.barvinok.BarvinokFunctions;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 import java.util.List;
 import org.eclipse.xtext.EcoreUtil2;
 
@@ -113,15 +112,15 @@ public class HigherOrderOperator {
     if ((kerFc == null)) {
       throw new IllegalArgumentException("[HigherOrderOperator] The intersection of the share space of the reduction body and kernel of the projection is empty.");
     }
-    final List<String> params = AlphaUtil.getContainerSystem(are).getParameterDomain().getParametersNames();
-    final List<String> indices = are.getBody().getContextDomain().getIndicesNames();
-    final JNIISLMultiAff Fc = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, kerFc);
-    final JNIISLMultiAff Fpprime = AffineFunctionOperations.projectFunctionDomain(are.getProjection(), Fc.copy());
+    final List<String> params = AlphaUtil.getContainerSystem(are).getParameterDomain().getParamNames();
+    final List<String> indices = are.getBody().getContextDomain().getIndexNames();
+    final ISLMultiAff Fc = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, kerFc);
+    final ISLMultiAff Fpprime = AffineFunctionOperations.projectFunctionDomain(are.getProjection(), Fc.copy());
     final BinaryExpression replacementBody = HigherOrderOperator.constructHigherOrderOperation(are, Fc);
     AlphaExpression _xifexpression = null;
-    int _nbDims = Fpprime.getNbDims(JNIISLDimType.isl_dim_in);
-    int _nbDims_1 = Fpprime.getNbDims(JNIISLDimType.isl_dim_out);
-    boolean _equals = (_nbDims == _nbDims_1);
+    int _nbInputs = Fpprime.getNbInputs();
+    int _nbOutputs = Fpprime.getNbOutputs();
+    boolean _equals = (_nbInputs == _nbOutputs);
     if (_equals) {
       _xifexpression = replacementBody;
     } else {
@@ -133,10 +132,10 @@ public class HigherOrderOperator {
     Normalize.apply(replacement);
   }
   
-  private static BinaryExpression constructHigherOrderOperation(final AbstractReduceExpression are, final JNIISLMultiAff Fc) {
+  private static BinaryExpression constructHigherOrderOperation(final AbstractReduceExpression are, final ISLMultiAff Fc) {
     BinaryExpression _xblockexpression = null;
     {
-      final JNIISLPWQPolynomial card = BarvinokFunctions.card(Fc.copy().toMap().intersectDomain(are.getBody().getContextDomain()).reverse());
+      final ISLPWQPolynomial card = BarvinokFunctions.card(Fc.copy().toMap().intersectDomain(are.getBody().getContextDomain()).reverse());
       ReductionUtil.projectReductionBody(are, Fc.copy());
       BinaryExpression _switchResult = null;
       REDUCTION_OP _operator = are.getOperator();

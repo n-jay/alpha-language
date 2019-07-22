@@ -7,7 +7,7 @@ import alpha.model.AlphaExpressionVisitor;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.ModelPackage;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -50,7 +50,7 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLSet ZINTERNAL_CACHE_INFERRED_DOMAIN_EDEFAULT = null;
+	protected static final ISLSet ZINTERNAL_CACHE_INFERRED_DOMAIN_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getZ__internal_cache_inferredDomain() <em>Zinternal cache inferred Domain</em>}' attribute.
@@ -60,7 +60,7 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLSet z__internal_cache_inferredDomain = ZINTERNAL_CACHE_INFERRED_DOMAIN_EDEFAULT;
+	protected ISLSet z__internal_cache_inferredDomain = ZINTERNAL_CACHE_INFERRED_DOMAIN_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -129,7 +129,7 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getZ__internal_cache_inferredDomain() {
+	public ISLSet getZ__internal_cache_inferredDomain() {
 		return z__internal_cache_inferredDomain;
 	}
 
@@ -138,8 +138,8 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setZ__internal_cache_inferredDomain(JNIISLSet newZ__internal_cache_inferredDomain) {
-		JNIISLSet oldZ__internal_cache_inferredDomain = z__internal_cache_inferredDomain;
+	public void setZ__internal_cache_inferredDomain(ISLSet newZ__internal_cache_inferredDomain) {
+		ISLSet oldZ__internal_cache_inferredDomain = z__internal_cache_inferredDomain;
 		z__internal_cache_inferredDomain = newZ__internal_cache_inferredDomain;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.AUTO_RESTRICT_EXPRESSION__ZINTERNAL_CACHE_INFERRED_DOMAIN, oldZ__internal_cache_inferredDomain, z__internal_cache_inferredDomain));
@@ -150,9 +150,9 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getInferredDomain() {
-		JNIISLSet _xifexpression = null;
-		JNIISLSet _z__internal_cache_inferredDomain = this.getZ__internal_cache_inferredDomain();
+	public ISLSet getInferredDomain() {
+		ISLSet _xifexpression = null;
+		ISLSet _z__internal_cache_inferredDomain = this.getZ__internal_cache_inferredDomain();
 		boolean _tripleNotEquals = (_z__internal_cache_inferredDomain != null);
 		if (_tripleNotEquals) {
 			_xifexpression = this.getZ__internal_cache_inferredDomain().copy();
@@ -168,7 +168,7 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInferredDomain(final JNIISLSet islset) {
+	public void setInferredDomain(final ISLSet islset) {
 		this.setZ__internal_cache_inferredDomain(islset);
 	}
 
@@ -223,7 +223,7 @@ public class AutoRestrictExpressionImpl extends AlphaExpressionImpl implements A
 				setExpr((AlphaExpression)newValue);
 				return;
 			case ModelPackage.AUTO_RESTRICT_EXPRESSION__ZINTERNAL_CACHE_INFERRED_DOMAIN:
-				setZ__internal_cache_inferredDomain((JNIISLSet)newValue);
+				setZ__internal_cache_inferredDomain((ISLSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

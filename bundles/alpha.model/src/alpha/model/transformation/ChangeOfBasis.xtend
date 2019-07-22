@@ -8,24 +8,24 @@ import alpha.model.VariableExpression
 import alpha.model.factory.AlphaUserFactory
 import alpha.model.util.AbstractAlphaCompleteVisitor
 import alpha.model.util.AffineFunctionOperations
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import org.eclipse.emf.ecore.util.EcoreUtil
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 
 class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
 	
-	private new(AlphaSystem system, Variable variable, JNIISLMultiAff f) {
+	private new(AlphaSystem system, Variable variable, ISLMultiAff f) {
 		CoBfunction = f;
 		target = variable;
 		
-		CoBfunctionInverse = AffineFunctionOperations.inverseInContext(CoBfunction, null, f.space.getNameList(JNIISLDimType.isl_dim_in))
+		CoBfunctionInverse = AffineFunctionOperations.inverseInContext(CoBfunction, null, f.space.getInputNames())
 	}
 	
-	JNIISLMultiAff CoBfunction;
-	JNIISLMultiAff CoBfunctionInverse;
+	ISLMultiAff CoBfunction;
+	ISLMultiAff CoBfunctionInverse;
 	Variable target;
 	
-	static def void apply(AlphaSystem system, Variable variable, JNIISLMultiAff f) {
+	static def void apply(AlphaSystem system, Variable variable, ISLMultiAff f) {
 		val CoB = new ChangeOfBasis(system, variable, f);
 		system.accept(CoB);
 	}

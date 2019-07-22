@@ -10,7 +10,7 @@ import alpha.model.POLY_OBJECT_TYPE;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -113,8 +113,8 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMultiAff getFunction() {
-		JNIISLMultiAff _xifexpression = null;
+	public ISLMultiAff getFunction() {
+		ISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getFunctionExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.FUNCTION));
 		if (_notEquals) {
@@ -122,7 +122,7 @@ public class IndexExpressionImpl extends AlphaExpressionImpl implements IndexExp
 		}
 		else {
 			JNIObject _iSLObject = this.getFunctionExpr().getISLObject();
-			_xifexpression = ((JNIISLMultiAff) _iSLObject);
+			_xifexpression = ((ISLMultiAff) _iSLObject);
 		}
 		return _xifexpression;
 	}

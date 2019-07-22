@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -95,7 +95,7 @@ public interface ConvolutionExpression extends AlphaExpression {
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
-	JNIISLSet getKernelDomain();
+	ISLSet getKernelDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

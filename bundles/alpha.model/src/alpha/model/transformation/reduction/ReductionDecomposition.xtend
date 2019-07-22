@@ -3,9 +3,9 @@ package alpha.model.transformation.reduction
 import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaInternalStateConstructor
 import alpha.model.factory.AlphaUserFactory
-import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools
+import fr.irisa.cairn.jnimap.isl.ISLErrorException
+import fr.irisa.cairn.jnimap.isl.JNIISLTools
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 
 /**
  * ReductionDecomposition splits a reduction into two.
@@ -23,7 +23,7 @@ class ReductionDecomposition {
 	 * Applies ReductionDecomposition using the input functions.
 	 * Input f1 becomes the projection function of the inner reduction.
 	 */
-	static def apply(AbstractReduceExpression are, JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	static def apply(AbstractReduceExpression are, ISLMultiAff f1, ISLMultiAff f2) {
 		val validDecomposition = {
 			try {
 				JNIISLTools.recordError([|f2.copy.pullback(f1.copy).isPlainEqual(are.projection)])

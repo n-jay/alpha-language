@@ -12,14 +12,14 @@ import alpha.model.StandardEquation
 import alpha.model.UseEquation
 import alpha.model.VariableExpression
 import com.google.common.collect.Streams
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import java.util.LinkedList
 import java.util.List
 import java.util.Stack
 import org.eclipse.emf.ecore.EObject
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLSet
 
 /**
  * AShow prints the given program in ArrayNotation.
@@ -81,19 +81,19 @@ class AShow extends Show {
 		}
 	}
 	
-	override protected printDomain(JNIISLSet set) {
+	override protected printDomain(ISLSet set) {
 		AlphaPrintingUtil.toAShowString(set, parameterContext, indexNameContext)
 	}
 	
-	override printFunction(JNIISLMultiAff f) {
+	override printFunction(ISLMultiAff f) {
 		AlphaPrintingUtil.toAShowString(f, indexNameContext)
 	}
 	
-	override protected printPolynomial(JNIISLPWQPolynomial p) {
+	override protected printPolynomial(ISLPWQPolynomial p) {
 		AlphaPrintingUtil.toAShowString(p, indexNameContext)
 	}
 	
-	protected def printDomainInShowSytanxWithIndexNameContext(JNIISLSet set) {
+	protected def printDomainInShowSytanxWithIndexNameContext(ISLSet set) {
 		AlphaPrintingUtil.toShowString(set, parameterContext, indexNameContext)
 	}
 	
@@ -102,7 +102,7 @@ class AShow extends Show {
 	 */
 		
 	override caseStandardEquation(StandardEquation se) {
-		indexNameContext = se.variable.domain.indicesNames
+		indexNameContext = se.variable.domain.indexNames
 		
 		val indices = if (indexNameContext.length > 0) '['+indexNameContext.join(",")+']' else ""
 		
@@ -111,12 +111,12 @@ class AShow extends Show {
 	
 	
 	override caseUseEquation(UseEquation ue) {
-		val names = (ue.inputExprs + ue.outputExprs).map[e|e.contextDomain.indicesNames].maxBy[n|n.length]
-		val idomDeclared = (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbDims > 0)
+		val names = (ue.inputExprs + ue.outputExprs).map[e|e.contextDomain.indexNames].maxBy[n|n.length]
+		val idomDeclared = (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbIndices > 0)
 
 
 		val withNames = if (idomDeclared) 
-							names.subList(ue.instantiationDomain.nbDims, names.length)
+							names.subList(ue.instantiationDomain.nbIndices, names.length)
 						else
 							names
 		
@@ -138,10 +138,10 @@ class AShow extends Show {
 		}
 	}
 	
-	override protected printProjectionFunction(JNIISLMultiAff maff) {
+	override protected printProjectionFunction(ISLMultiAff maff) {
 		contextHistory.push(indexNameContext)
 		
-		indexNameContext = new LinkedList<String>(maff.space.getNameList(JNIISLDimType.isl_dim_in))
+		indexNameContext = new LinkedList<String>(maff.space.inputNames)
 		
 		super.printProjectionFunction(maff)
 	}
@@ -156,13 +156,13 @@ class AShow extends Show {
 	
 	override caseConvolutionExpression(ConvolutionExpression ce) {
 
-		val kernelDomainNames = ce.kernelDomain.indicesNames
+		val kernelDomainNames = ce.kernelDomain.indexNames
 
 		//when domain names conflict, give default names
 		val conflict = Streams.zip(indexNameContext.stream, kernelDomainNames.stream, [e1,e2|e1.contentEquals(e2)]).reduce([b1,b2|b1||b2])
 		var List<String> printCtx
 		if (conflict.present && conflict.get) {
-			printCtx = 	(ce.contextDomain.nbDims..<ce.contextDomain.nbDims+ce.kernelDomain.nbDims).map[i|"i"+i].toList
+			printCtx = 	(ce.contextDomain.nbIndices..<ce.contextDomain.nbIndices+ce.kernelDomain.nbIndices).map[i|"i"+i].toList
 		} else {
 			printCtx = kernelDomainNames
 		}
@@ -185,7 +185,7 @@ class AShow extends Show {
 	
 	override caseSelectExpression(SelectExpression se) {
 		contextHistory.push(indexNameContext)
-		indexNameContext = se.selectRelation.rangeNames;
+		indexNameContext = se.selectRelation.getRange.indexNames;
 		
 		val res = super.caseSelectExpression(se)
 		

@@ -5,14 +5,14 @@ import alpha.model.issue.AlphaIssue.TYPE
 import alpha.model.issue.AlphaIssueFactory
 import alpha.model.issue.CalculatorExpressionIssue
 import alpha.model.util.AlphaUtil
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
+import fr.irisa.cairn.jnimap.isl.ISLFactory
 import java.util.LinkedList
 import java.util.List
 import java.util.Stack
 
 import static alpha.model.util.AlphaUtil.getParameterDomain
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMap
 
 /**
  * 
@@ -63,7 +63,7 @@ class FuzzyFunctionEvaluator {
 			ff.fuzzyMap = jnimap
 			
 			if (ff.fuzzyMap.domainIsWrapping) {
-				val newnames = ff.fuzzyMap.getDomain.unwrap.domainNames
+				val newnames = ff.fuzzyMap.getDomain.unwrap.getDomain().getIndexNames()
 				contextHistory.push(indexNameContext)
 				indexNameContext = newnames
 			} else {
@@ -102,16 +102,16 @@ class FuzzyFunctionEvaluator {
 		}
 		
 		val fvIntroMap = ff.fuzzyMap.getDomain.unwrap
-		val nDdim = fvIntroMap.nbIns
-		val ranNames = fvIntroMap.getRangeNames
-		var depRel = null as JNIISLMap
+		val nDdim = fvIntroMap.nbInputs
+		val ranNames = fvIntroMap.getRange().getIndexNames()
+		var depRel = null as ISLMap
 		for (ranName : ranNames) {
 			val fvu = ff.getIndirectionByName(ranName)
 			if (fvu === null) return; //TODO possibly register an issue
 			if (depRel === null) depRel = fvu.dependenceRelation
 			else depRel = depRel.rangeProduct(fvu.dependenceRelation).flattenRange
 		}
-		ff.dependenceRelation = ff.fuzzyMap.intersectDomain(depRel.wrap).flatten.projectOut(JNIISLDimType.isl_dim_in, nDdim, ranNames.length)
+		ff.dependenceRelation = ff.fuzzyMap.intersectDomain(depRel.wrap).flatten.projectOut(ISLDimType.isl_dim_in, nDdim, ranNames.length)
 	}
 	
 	/*

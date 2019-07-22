@@ -33,11 +33,11 @@ import alpha.model.issue.CalculatorExpressionIssue;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.DefaultCalculatorExpressionVisitor;
 import com.google.common.collect.Iterables;
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLFactory;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -132,7 +132,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIISLSet set) {
+  private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final ISLSet set) {
     if (op != null) {
       switch (op) {
         case COMPLEMENT:
@@ -149,7 +149,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIISLMap map) {
+  private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final ISLMap map) {
     if (op != null) {
       switch (op) {
         case AFFINE_HULL:
@@ -171,7 +171,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return null;
   }
   
-  private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIISLMultiAff fun) {
+  private JNIObject _evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final ISLMultiAff fun) {
     throw new UnsupportedOperationException();
   }
   
@@ -214,7 +214,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLSet left, final JNIISLSet right) {
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final ISLSet left, final ISLSet right) {
     if (op != null) {
       switch (op) {
         case INTERSECT:
@@ -233,15 +233,15 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLSet left, final JNIISLMap right) {
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final ISLSet left, final ISLMap right) {
     throw new UnsupportedOperationException();
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLSet left, final JNIISLMultiAff right) {
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final ISLSet left, final ISLMultiAff right) {
     throw new UnsupportedOperationException();
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMap left, final JNIISLSet right) {
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final ISLMap left, final ISLSet right) {
     if (op != null) {
       switch (op) {
         case INTERSECT:
@@ -262,7 +262,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMap left, final JNIISLMap right) {
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final ISLMap left, final ISLMap right) {
     if (op != null) {
       switch (op) {
         case INTERSECT:
@@ -283,19 +283,19 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMap left, final JNIISLMultiAff right) {
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final ISLMap left, final ISLMultiAff right) {
     return this.evaluateBinaryOperation(op, left, right.toMap());
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMultiAff left, final JNIISLSet right) {
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final ISLMultiAff left, final ISLSet right) {
     return this.evaluateBinaryOperation(op, left.toMap(), right);
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMultiAff left, final JNIISLMap right) {
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final ISLMultiAff left, final ISLMap right) {
     return this.evaluateBinaryOperation(op, left.toMap(), right);
   }
   
-  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIISLMultiAff left, final JNIISLMultiAff right) {
+  private JNIObject _evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final ISLMultiAff left, final ISLMultiAff right) {
     if (op != null) {
       switch (op) {
         case CROSS_PRODUCT:
@@ -319,7 +319,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIDomain(final JNIDomain jniDomain) {
     try {
-      JNIISLSet jniset = CalculatorExpressionEvaluator.parseDomain(AlphaUtil.getContainerSystem(jniDomain), this.parseJNIDomain(jniDomain));
+      ISLSet jniset = CalculatorExpressionEvaluator.parseDomain(AlphaUtil.getContainerSystem(jniDomain), this.parseJNIDomain(jniDomain));
       jniDomain.setISLSet(jniset);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -343,9 +343,9 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   /**
    * Parses a domain in the context of the given system.
    */
-  public static JNIISLSet parseDomain(final AlphaSystem system, final String domainStr) {
-    JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, domainStr));
-    final JNIISLSet pdom = AlphaUtil.getParameterDomain(system);
+  public static ISLSet parseDomain(final AlphaSystem system, final String domainStr) {
+    ISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, domainStr));
+    final ISLSet pdom = AlphaUtil.getParameterDomain(system);
     return jniset.intersectParams(pdom.copy());
   }
   
@@ -374,8 +374,8 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIRelation(final JNIRelation jniRelation) {
     try {
-      final JNIISLSet pdom = AlphaUtil.getParameterDomain(jniRelation);
-      JNIISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniRelation), jniRelation.getIslString()));
+      final ISLSet pdom = AlphaUtil.getParameterDomain(jniRelation);
+      ISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniRelation), jniRelation.getIslString()));
       jnimap = jnimap.intersectParams(pdom.copy());
       jniRelation.setISLMap(jnimap);
     } catch (final Throwable _t) {
@@ -432,7 +432,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         return e.getISLString();
       };
       final String expr = IterableExtensions.<AlphaFunctionExpression>join(jniFunction.getAlphaFunction().getExprs(), ",", _function);
-      final JNIISLMultiAff jnimaff = CalculatorExpressionEvaluator.parseAffineFunction(AlphaUtil.getContainerSystem(jniFunction), indexNames, expr);
+      final ISLMultiAff jnimaff = CalculatorExpressionEvaluator.parseAffineFunction(AlphaUtil.getContainerSystem(jniFunction), indexNames, expr);
       jniFunction.setISLMultiAff(jnimaff);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -462,8 +462,8 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
    * Parses an affine function in the context of the given system.
    * This method is exposed for use in scripts.
    */
-  public static JNIISLMultiAff parseAffineFunction(final AlphaSystem system, final String fStr) {
-    JNIISLMultiAff _xblockexpression = null;
+  public static ISLMultiAff parseAffineFunction(final AlphaSystem system, final String fStr) {
+    ISLMultiAff _xblockexpression = null;
     {
       String str = fStr;
       str = str.replace("(", " ");
@@ -483,7 +483,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
    * Method responsible for parsing affine functions.
    * All parsing of affine functions, expect for dependences in ArrayNotation, are done through this method.
    */
-  private static JNIISLMultiAff parseAffineFunction(final AlphaSystem system, final String lhsStr, final String rhsStr) {
+  private static ISLMultiAff parseAffineFunction(final AlphaSystem system, final String lhsStr, final String rhsStr) {
     final StringBuffer completed = new StringBuffer("{ [");
     completed.append(lhsStr);
     completed.append("] -> [");
@@ -504,7 +504,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     boolean _xtrycatchfinallyexpression = false;
     try {
       EObject _eContainer = jniFunction.eContainer();
-      final JNIISLMultiAff jnimaff = ISLFactory.islMultiAff(
+      final ISLMultiAff jnimaff = ISLFactory.islMultiAff(
         AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniFunction), 
           this.parseJNIFunctionInContext(jniFunction, ((AlphaNode) _eContainer)).toString()));
       jniFunction.setISLMultiAff(jnimaff);
@@ -593,7 +593,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIPolynomial(final JNIPolynomial jniPolynomial) {
     try {
-      JNIISLPWQPolynomial jniPWQP = CalculatorExpressionEvaluator.parsePolynomial(AlphaUtil.getContainerSystem(jniPolynomial), this.parseJNIPolynomial(jniPolynomial));
+      ISLPWQPolynomial jniPWQP = CalculatorExpressionEvaluator.parsePolynomial(AlphaUtil.getContainerSystem(jniPolynomial), this.parseJNIPolynomial(jniPolynomial));
       jniPolynomial.setISLPWQPolynomial(jniPWQP);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -617,9 +617,9 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   /**
    * Parses a polynomial in the context of the given system.
    */
-  public static JNIISLPWQPolynomial parsePolynomial(final AlphaSystem system, final String pwqpStr) {
-    JNIISLPWQPolynomial jniPWQP = ISLFactory.islPWQPolynomial(AlphaUtil.toContextFreeISLString(system, pwqpStr));
-    final JNIISLSet pdom = AlphaUtil.getParameterDomain(system);
+  public static ISLPWQPolynomial parsePolynomial(final AlphaSystem system, final String pwqpStr) {
+    ISLPWQPolynomial jniPWQP = ISLFactory.islPWQPolynomial(AlphaUtil.toContextFreeISLString(system, pwqpStr));
+    final ISLSet pdom = AlphaUtil.getParameterDomain(system);
     return jniPWQP.intersectParams(pdom.copy());
   }
   
@@ -677,9 +677,9 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       }
     }
     try {
-      final JNIISLSet pdom = AlphaUtil.getParameterDomain(rdom);
+      final ISLSet pdom = AlphaUtil.getParameterDomain(rdom);
       final StringBuffer completed = new StringBuffer("[");
-      completed.append(String.join(",", pdom.getParametersNames()));
+      completed.append(String.join(",", pdom.getParamNames()));
       completed.append("] -> { [");
       completed.append(String.join(",", dimNames));
       completed.append("] :");
@@ -708,7 +708,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         }
       }
       completed.append("}");
-      JNIISLSet jniset = ISLFactory.islSet(completed.toString());
+      ISLSet jniset = ISLFactory.islSet(completed.toString());
       jniset = jniset.intersectParams(pdom.copy());
       rdom.setISLSet(jniset);
     } catch (final Throwable _t) {
@@ -729,12 +729,12 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   }
   
   private JNIObject evaluateUnaryOperation(final CALCULATOR_UNARY_OP op, final JNIObject map) {
-    if (map instanceof JNIISLMap) {
-      return _evaluateUnaryOperation(op, (JNIISLMap)map);
-    } else if (map instanceof JNIISLMultiAff) {
-      return _evaluateUnaryOperation(op, (JNIISLMultiAff)map);
-    } else if (map instanceof JNIISLSet) {
-      return _evaluateUnaryOperation(op, (JNIISLSet)map);
+    if (map instanceof ISLMap) {
+      return _evaluateUnaryOperation(op, (ISLMap)map);
+    } else if (map instanceof ISLSet) {
+      return _evaluateUnaryOperation(op, (ISLSet)map);
+    } else if (map instanceof ISLMultiAff) {
+      return _evaluateUnaryOperation(op, (ISLMultiAff)map);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(op, map).toString());
@@ -742,33 +742,33 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   }
   
   private JNIObject evaluateBinaryOperation(final CALCULATOR_BINARY_OP op, final JNIObject left, final JNIObject right) {
-    if (left instanceof JNIISLMap
-         && right instanceof JNIISLMap) {
-      return _evaluateBinaryOperation(op, (JNIISLMap)left, (JNIISLMap)right);
-    } else if (left instanceof JNIISLMap
-         && right instanceof JNIISLMultiAff) {
-      return _evaluateBinaryOperation(op, (JNIISLMap)left, (JNIISLMultiAff)right);
-    } else if (left instanceof JNIISLMap
-         && right instanceof JNIISLSet) {
-      return _evaluateBinaryOperation(op, (JNIISLMap)left, (JNIISLSet)right);
-    } else if (left instanceof JNIISLMultiAff
-         && right instanceof JNIISLMap) {
-      return _evaluateBinaryOperation(op, (JNIISLMultiAff)left, (JNIISLMap)right);
-    } else if (left instanceof JNIISLMultiAff
-         && right instanceof JNIISLMultiAff) {
-      return _evaluateBinaryOperation(op, (JNIISLMultiAff)left, (JNIISLMultiAff)right);
-    } else if (left instanceof JNIISLMultiAff
-         && right instanceof JNIISLSet) {
-      return _evaluateBinaryOperation(op, (JNIISLMultiAff)left, (JNIISLSet)right);
-    } else if (left instanceof JNIISLSet
-         && right instanceof JNIISLMap) {
-      return _evaluateBinaryOperation(op, (JNIISLSet)left, (JNIISLMap)right);
-    } else if (left instanceof JNIISLSet
-         && right instanceof JNIISLMultiAff) {
-      return _evaluateBinaryOperation(op, (JNIISLSet)left, (JNIISLMultiAff)right);
-    } else if (left instanceof JNIISLSet
-         && right instanceof JNIISLSet) {
-      return _evaluateBinaryOperation(op, (JNIISLSet)left, (JNIISLSet)right);
+    if (left instanceof ISLMap
+         && right instanceof ISLMap) {
+      return _evaluateBinaryOperation(op, (ISLMap)left, (ISLMap)right);
+    } else if (left instanceof ISLMap
+         && right instanceof ISLSet) {
+      return _evaluateBinaryOperation(op, (ISLMap)left, (ISLSet)right);
+    } else if (left instanceof ISLSet
+         && right instanceof ISLMap) {
+      return _evaluateBinaryOperation(op, (ISLSet)left, (ISLMap)right);
+    } else if (left instanceof ISLSet
+         && right instanceof ISLSet) {
+      return _evaluateBinaryOperation(op, (ISLSet)left, (ISLSet)right);
+    } else if (left instanceof ISLMap
+         && right instanceof ISLMultiAff) {
+      return _evaluateBinaryOperation(op, (ISLMap)left, (ISLMultiAff)right);
+    } else if (left instanceof ISLSet
+         && right instanceof ISLMultiAff) {
+      return _evaluateBinaryOperation(op, (ISLSet)left, (ISLMultiAff)right);
+    } else if (left instanceof ISLMultiAff
+         && right instanceof ISLMap) {
+      return _evaluateBinaryOperation(op, (ISLMultiAff)left, (ISLMap)right);
+    } else if (left instanceof ISLMultiAff
+         && right instanceof ISLSet) {
+      return _evaluateBinaryOperation(op, (ISLMultiAff)left, (ISLSet)right);
+    } else if (left instanceof ISLMultiAff
+         && right instanceof ISLMultiAff) {
+      return _evaluateBinaryOperation(op, (ISLMultiAff)left, (ISLMultiAff)right);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(op, left, right).toString());

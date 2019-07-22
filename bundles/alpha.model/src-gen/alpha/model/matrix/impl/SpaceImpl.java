@@ -5,8 +5,8 @@ package alpha.model.matrix.impl;
 import alpha.model.matrix.MatrixPackage;
 import alpha.model.matrix.Space;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
 
 import java.util.Collection;
 
@@ -121,17 +121,17 @@ public class SpaceImpl extends MinimalEObjectImpl.Container implements Space {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSpace toJNIISLSetSpace() {
-		JNIISLSpace space = JNIISLSpace.allocSet(this.getNbParams(), this.getNbIndices());
+	public ISLSpace toJNIISLSetSpace() {
+		ISLSpace space = ISLSpace.allocSetSpace(this.getNbParams(), this.getNbIndices());
 		int _nbParams = this.getNbParams();
 		ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _nbParams, true);
 		for (final Integer i : _doubleDotLessThan) {
-			space = space.setName(JNIISLDimType.isl_dim_param, (i).intValue(), this.getParamNames().get((i).intValue()));
+			space = space.setDimName(ISLDimType.isl_dim_param, (i).intValue(), this.getParamNames().get((i).intValue()));
 		}
 		int _nbIndices = this.getNbIndices();
 		ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, _nbIndices, true);
 		for (final Integer i_1 : _doubleDotLessThan_1) {
-			space = space.setName(JNIISLDimType.isl_dim_set, (i_1).intValue(), this.getIndexNames().get((i_1).intValue()));
+			space = space.setDimName(ISLDimType.isl_dim_set, (i_1).intValue(), this.getIndexNames().get((i_1).intValue()));
 		}
 		return space;
 	}
@@ -141,17 +141,17 @@ public class SpaceImpl extends MinimalEObjectImpl.Container implements Space {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSpace toJNIISLMultiAffSpace(final int nbExprs) {
-		JNIISLSpace space = JNIISLSpace.alloc(this.getNbParams(), this.getNbIndices(), nbExprs);
+	public ISLSpace toJNIISLMultiAffSpace(final int nbExprs) {
+		ISLSpace space = ISLSpace.alloc(this.getNbParams(), this.getNbIndices(), nbExprs);
 		int _nbParams = this.getNbParams();
 		ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _nbParams, true);
 		for (final Integer i : _doubleDotLessThan) {
-			space = space.setName(JNIISLDimType.isl_dim_param, (i).intValue(), this.getParamNames().get((i).intValue()));
+			space = space.setDimName(ISLDimType.isl_dim_param, (i).intValue(), this.getParamNames().get((i).intValue()));
 		}
 		int _nbIndices = this.getNbIndices();
 		ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, _nbIndices, true);
 		for (final Integer i_1 : _doubleDotLessThan_1) {
-			space = space.setName(JNIISLDimType.isl_dim_in, (i_1).intValue(), this.getIndexNames().get((i_1).intValue()));
+			space = space.setDimName(ISLDimType.isl_dim_in, (i_1).intValue(), this.getIndexNames().get((i_1).intValue()));
 		}
 		return space;
 	}

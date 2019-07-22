@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -51,12 +51,12 @@ public interface JNIDomain extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache isl Set</em>' attribute.
-	 * @see #setZ__internal_cache_islSet(JNIISLSet)
+	 * @see #setZ__internal_cache_islSet(ISLSet)
 	 * @see alpha.model.ModelPackage#getJNIDomain_Z__internal_cache_islSet()
 	 * @model unique="false" dataType="alpha.model.JNIISLSet"
 	 * @generated
 	 */
-	JNIISLSet getZ__internal_cache_islSet();
+	ISLSet getZ__internal_cache_islSet();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.JNIDomain#getZ__internal_cache_islSet <em>Zinternal cache isl Set</em>}' attribute.
@@ -66,7 +66,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * @see #getZ__internal_cache_islSet()
 	 * @generated
 	 */
-	void setZ__internal_cache_islSet(JNIISLSet value);
+	void setZ__internal_cache_islSet(ISLSet value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -74,7 +74,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
-	JNIISLSet getISLSet();
+	ISLSet getISLSet();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,7 +82,7 @@ public interface JNIDomain extends CalculatorExpression {
 	 * @model islsetDataType="alpha.model.JNIISLSet" islsetUnique="false"
 	 * @generated
 	 */
-	void setISLSet(JNIISLSet islset);
+	void setISLSet(ISLSet islset);
 
 	/**
 	 * <!-- begin-user-doc -->

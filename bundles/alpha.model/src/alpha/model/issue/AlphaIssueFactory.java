@@ -21,7 +21,7 @@ import alpha.model.SystemBody;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.issue.AlphaIssue.TYPE;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
  * Convenience methods for creating various types of AlphaIssues.
@@ -114,7 +114,7 @@ public class AlphaIssueFactory {
 		return new CalculatorExpressionIssue(TYPE.ERROR, "Fuzzy function is not wrapped", ff.eContainer(), null);
 	}
 	
-	private static String domainInstance(JNIISLSet domain) {
+	private static String domainInstance(ISLSet domain) {
 		if (domain == null) return "null";
 		else if (domain.plainIsUniverse()) return "";
 		else return String.format(" Check for instance: %s", domain.lexMin().toString());
@@ -124,35 +124,35 @@ public class AlphaIssueFactory {
 	public static DomainConsistencyIssue incompatibleContextAndExpressionDomain(EObject source) {
 		return new DomainConsistencyIssue(TYPE.ERROR, "The context domain and expression domain are incompatible.", source, null);
 	}
-	public static DomainConsistencyIssue incompleteEquation(StandardEquation eq, JNIISLSet paramDomain, JNIISLSet domain) {
+	public static DomainConsistencyIssue incompleteEquation(StandardEquation eq, ISLSet paramDomain, ISLSet domain) {
 		return new DomainConsistencyIssue(TYPE.ERROR, 
 				String.format("Equation for %s is not defined with parameters %s for %s.%s", eq.getVariable().getName(), paramDomain.toString(), domain.toString(), domainInstance(domain)), 
 				eq.getExpr(), null);
 	}
-	public static DomainConsistencyIssue incompleteUseEquation(Variable v, AlphaExpression expr, JNIISLSet domain) {
+	public static DomainConsistencyIssue incompleteUseEquation(Variable v, AlphaExpression expr, ISLSet domain) {
 		return new DomainConsistencyIssue(TYPE.ERROR, 
 				String.format("UseEquation(s) for %s does not define the variable for %s.%s", v.getName(), domain.toString(), domainInstance(domain)), 
 				expr, null);
 	}
-	public static DomainConsistencyIssue incompleteSystem(AlphaSystem system, JNIISLSet domain) {
+	public static DomainConsistencyIssue incompleteSystem(AlphaSystem system, ISLSet domain) {
 		return new DomainConsistencyIssue(TYPE.ERROR, 
 				String.format("SystemBodies for %s does not cover the entire parameter domain. Missing: %s", system.getName(), domain.toString()), 
 				system, null);
 	}
 	
-	public static DomainConsistencyIssue overlappingCaseBranch(AlphaExpression branch, JNIISLSet overlap) {
+	public static DomainConsistencyIssue overlappingCaseBranch(AlphaExpression branch, ISLSet overlap) {
 		return new DomainConsistencyIssue(TYPE.ERROR, 
 				String.format("Context domain of cases brances are overlapped: %s.%s", overlap.toString(), domainInstance(overlap)), 
 				branch, null);
 	}
 	
-	public static DomainConsistencyIssue overlappingUseEquations(AlphaExpression branch, JNIISLSet overlap) {
+	public static DomainConsistencyIssue overlappingUseEquations(AlphaExpression branch, ISLSet overlap) {
 		return new DomainConsistencyIssue(TYPE.ERROR, 
 				String.format("The UseEquations define overlapping domains of the output: %s.%s", overlap.toString(), domainInstance(overlap)), 
 				branch, null);
 	}
 	
-	public static DomainConsistencyIssue overlappingSystemBodies(SystemBody body, JNIISLSet overlap) {
+	public static DomainConsistencyIssue overlappingSystemBodies(SystemBody body, ISLSet overlap) {
 		return new DomainConsistencyIssue(TYPE.ERROR, 
 				String.format("The SystemBodies define overlapping domains of the output: %s.%s", overlap.toString(), domainInstance(overlap)), 
 				body, null);

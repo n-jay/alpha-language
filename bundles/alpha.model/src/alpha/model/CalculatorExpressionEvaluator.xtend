@@ -5,10 +5,7 @@ import alpha.model.issue.AlphaIssue.TYPE
 import alpha.model.issue.CalculatorExpressionIssue
 import alpha.model.util.AlphaUtil
 import alpha.model.util.DefaultCalculatorExpressionVisitor
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.isl.ISLFactory
 import fr.irisa.cairn.jnimap.runtime.JNIObject
 import java.util.ArrayList
 import java.util.LinkedList
@@ -17,6 +14,9 @@ import org.eclipse.emf.ecore.impl.EObjectImpl
 
 import static alpha.model.util.AlphaUtil.getParameterDomain
 import static alpha.model.util.AlphaUtil.callISLwithErrorHandling
+import fr.irisa.cairn.jnimap.isl.ISLMap
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLSet
 
 /**
  * This class is responsible for constructing ISL objects for:<ul>
@@ -79,7 +79,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		}
 	}
 
-	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, JNIISLSet set) {
+	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, ISLSet set) {
 		switch (op) {
 			case COMPLEMENT: {
 				return set.complement()
@@ -96,7 +96,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		}
 	}
 
-	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, JNIISLMap map) {
+	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, ISLMap map) {
 		switch (op) {
 			case AFFINE_HULL: {
 				return map.affineHull().toMap()
@@ -120,7 +120,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	}
 
 	// None of the unary operators currently in the language makes sense for functions
-	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, JNIISLMultiAff fun) {
+	private dispatch def evaluateUnaryOperation(CALCULATOR_UNARY_OP op, ISLMultiAff fun) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -148,7 +148,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		}
 	}
 
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLSet left, JNIISLSet right) {
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, ISLSet left, ISLSet right) {
 		switch (op) {
 			case INTERSECT: {
 				return left.intersect(right)
@@ -169,15 +169,15 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	}
 
 	// Although some of the operations (like intersect) may be defined for Set -> Map, they are all undefined to be consistent with iscc
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLSet left, JNIISLMap right) {
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, ISLSet left, ISLMap right) {
 		throw new UnsupportedOperationException();
 	}
 
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLSet left, JNIISLMultiAff right) {
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, ISLSet left, ISLMultiAff right) {
 		throw new UnsupportedOperationException();
 	}
 
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMap left, JNIISLSet right) {
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, ISLMap left, ISLSet right) {
 		switch (op) {
 			case INTERSECT: {
 				return left.intersectDomain(right)
@@ -201,7 +201,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 
 	}
 
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMap left, JNIISLMap right) {
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, ISLMap left, ISLMap right) {
 		switch (op) {
 			case INTERSECT: {
 				return left.intersect(right)
@@ -225,23 +225,23 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	}
 
 	// Most operations involving functions are performed by first converting functions to maps 
-	private dispatch def JNIObject evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMap left,
-		JNIISLMultiAff right) {
+	private dispatch def JNIObject evaluateBinaryOperation(CALCULATOR_BINARY_OP op, ISLMap left,
+		ISLMultiAff right) {
 		return evaluateBinaryOperation(op, left, right.toMap);
 	}
 
-	private dispatch def JNIObject evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMultiAff left,
-		JNIISLSet right) {
+	private dispatch def JNIObject evaluateBinaryOperation(CALCULATOR_BINARY_OP op, ISLMultiAff left,
+		ISLSet right) {
 		return evaluateBinaryOperation(op, left.toMap, right);
 	}
 
-	private dispatch def JNIObject evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMultiAff left,
-		JNIISLMap right) {
+	private dispatch def JNIObject evaluateBinaryOperation(CALCULATOR_BINARY_OP op, ISLMultiAff left,
+		ISLMap right) {
 		return evaluateBinaryOperation(op, left.toMap, right);
 	}
 
 	// Fun -> Fun do have its own definition; other operations involve domain/range and do not make sense for functions
-	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, JNIISLMultiAff left, JNIISLMultiAff right) {
+	private dispatch def evaluateBinaryOperation(CALCULATOR_BINARY_OP op, ISLMultiAff left, ISLMultiAff right) {
 		switch (op) {
 			case CROSS_PRODUCT: {
 				return left.flatRangeProduct(right)
@@ -522,7 +522,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			val pdom = getParameterDomain(rdom);
 
 			val completed = new StringBuffer("[");
-			completed.append(String.join(",", pdom.getParametersNames()));
+			completed.append(String.join(",", pdom.getParamNames()));
 			completed.append("] -> { [");
 			completed.append(String.join(",", dimNames));
 			completed.append("] :");

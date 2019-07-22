@@ -9,8 +9,8 @@ import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.util.AffineFunctionOperations;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import org.eclipse.xtext.EcoreUtil2;
@@ -20,11 +20,11 @@ public class ReductionUtil {
   /**
    * Dispatch methods for constructing reductions with the appropriate concrete type.
    */
-  protected static AbstractReduceExpression _constructConcreteReduction(final ReduceExpression base, final REDUCTION_OP op, final JNIISLMultiAff projection, final AlphaExpression body) {
+  protected static AbstractReduceExpression _constructConcreteReduction(final ReduceExpression base, final REDUCTION_OP op, final ISLMultiAff projection, final AlphaExpression body) {
     return AlphaUserFactory.createReduceExpression(op, projection, body);
   }
   
-  protected static AbstractReduceExpression _constructConcreteReduction(final ArgReduceExpression base, final REDUCTION_OP op, final JNIISLMultiAff projection, final AlphaExpression body) {
+  protected static AbstractReduceExpression _constructConcreteReduction(final ArgReduceExpression base, final REDUCTION_OP op, final ISLMultiAff projection, final AlphaExpression body) {
     return AlphaUserFactory.createArgReduceExpression(op, projection, body);
   }
   
@@ -42,22 +42,22 @@ public class ReductionUtil {
    * 
    * Assumes that input is normalized, and Fc satisfies the requirement.
    */
-  public static void projectReductionBody(final AbstractReduceExpression are, final JNIISLMultiAff Fc) {
+  public static void projectReductionBody(final AbstractReduceExpression are, final ISLMultiAff Fc) {
     final Consumer<DependenceExpression> _function = (DependenceExpression de) -> {
-      final JNIISLMultiAff projectedDep = AffineFunctionOperations.projectFunctionDomain(de.getFunction(), Fc.copy());
+      final ISLMultiAff projectedDep = AffineFunctionOperations.projectFunctionDomain(de.getFunction(), Fc.copy());
       final DependenceExpression newDepExpr = AlphaUserFactory.createDependenceExpression(projectedDep, de.getExpr());
       EcoreUtil2.replace(de, newDepExpr);
     };
     EcoreUtil2.<DependenceExpression>getAllContentsOfType(are, DependenceExpression.class).forEach(_function);
     final Consumer<RestrictExpression> _function_1 = (RestrictExpression re) -> {
-      final JNIISLSet projectedDom = re.getRestrictDomain().apply(Fc.copy().toMap());
+      final ISLSet projectedDom = re.getRestrictDomain().apply(Fc.copy().toMap());
       final RestrictExpression newRestrictExpr = AlphaUserFactory.createRestrictExpression(projectedDom, re.getExpr());
       EcoreUtil2.replace(re, newRestrictExpr);
     };
     EcoreUtil2.<RestrictExpression>getAllContentsOfType(are, RestrictExpression.class).forEach(_function_1);
   }
   
-  public static AbstractReduceExpression constructConcreteReduction(final AbstractReduceExpression base, final REDUCTION_OP op, final JNIISLMultiAff projection, final AlphaExpression body) {
+  public static AbstractReduceExpression constructConcreteReduction(final AbstractReduceExpression base, final REDUCTION_OP op, final ISLMultiAff projection, final AlphaExpression body) {
     if (base instanceof ArgReduceExpression) {
       return _constructConcreteReduction((ArgReduceExpression)base, op, projection, body);
     } else if (base instanceof ReduceExpression) {

@@ -9,20 +9,20 @@ import alpha.model.UseEquation
 import alpha.model.issue.AlphaIssue
 import alpha.model.issue.AlphaIssueFactory
 import alpha.model.issue.UnexpectedISLErrorIssue
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
 import java.util.function.Consumer
 import java.util.function.Function
 import java.util.stream.Stream
 import alpha.model.AutoRestrictExpression
 import alpha.model.factory.AlphaUserFactory
+import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.ISLAffList
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet
+import fr.irisa.cairn.jnimap.isl.ISLConstraint
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMap
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLSet
+import fr.irisa.cairn.jnimap.isl.ISLSpace
 
 /**
  * Utility methods that concern AlphaExpressions.
@@ -96,7 +96,7 @@ class AlphaExpressionUtil {
 				//The context domain computed as above may contain indices with primes when the same index name is used in two systems.
 				//The index names are renamed to that of expression domain to avoid issues due to nameing.
 				// (a space [i,i'] gives [i,i] as index names in ISL)
-				return AlphaUtil.renameIndices(exDom, child.expressionDomain.indicesNames)
+				return AlphaUtil.renameIndices(exDom, child.expressionDomain.indexNames)
 			}
 			
 		} else {
@@ -128,10 +128,10 @@ class AlphaExpressionUtil {
 	 *   - Compose the two maps and collapse it as a set
 	 *  
 	 */
-	private static def JNIISLSet extendCalleeDomainByInstantiationDomain(JNIISLSet instantiationDomain, JNIISLMultiAff callParams, JNIISLSet calleeVarDom) {
-		val map = JNIISLMap.fromRange(calleeVarDom)
+	private static def ISLSet extendCalleeDomainByInstantiationDomain(ISLSet instantiationDomain, ISLMultiAff callParams, ISLSet calleeVarDom) {
+		val map = ISLMap.buildFromRange(calleeVarDom)
 		val nparam = map.getNbParams()
-		val p2s = map.moveDims(JNIISLDimType.isl_dim_in, 0, JNIISLDimType.isl_dim_param, 0, nparam)
+		val p2s = map.moveDims(ISLDimType.isl_dim_in, 0, ISLDimType.isl_dim_param, 0, nparam)
 		val p2sEx = p2s.alignParams(instantiationDomain.space)
 		val paramCallRel = callParams.toMap.intersectDomain(instantiationDomain)
 		val ctxMap = paramCallRel.applyRange(p2sEx)
@@ -156,20 +156,20 @@ class AlphaExpressionUtil {
 	 * be part of the set if it the relation holds for at least one value in the range. 
 	 * 
 	 */
-	static def JNIISLSet preimageByConvolutionDependences(JNIISLBasicSet kernelDomain, JNIISLSet bodyExprDom ) {
+	static def ISLSet preimageByConvolutionDependences(ISLBasicSet kernelDomain, ISLSet bodyExprDom ) {
 		val vertices = kernelDomain.computeVertices
 		if (vertices.nbCell != 1) throw new RuntimeException("Expecting only one cell for vertices of kernel domain in convolutions."); 
 	
-		val kernelDims = kernelDomain.getNbDims(JNIISLDimType.isl_dim_set);
-		val offset = bodyExprDom.nbDims - kernelDims;
+		val kernelDims = kernelDomain.getNbIndices()
+		val offset = bodyExprDom.getNbIndices() - kernelDims;
 	
-		var JNIISLSet res = null
+		var ISLSet res = null
 		for (v : 0..<vertices.nbVertices) {
 			val vertex = vertices.getVertexAt(v);
 			val vMaff = vertex.expr
 			val constraints = multiAffToConstraints(vMaff, bodyExprDom.space, offset)
 			val dom = bodyExprDom.copy.intersect(constraints.toSet)
-			val domProj = dom.projectOut(JNIISLDimType.isl_dim_set, offset, kernelDims);
+			val domProj = dom.projectOut(ISLDimType.isl_dim_set, offset, kernelDims);
 			
 			if (res === null) res = domProj
 			else res = res.intersect(domProj);
@@ -182,12 +182,12 @@ class AlphaExpressionUtil {
 	 * Helper for preimageByConvolutionDependences. Converts MultiAff to a set of constraints (basic set).
 	 * 
 	 */
-	private static def JNIISLBasicSet multiAffToConstraints(JNIISLMultiAff maff, JNIISLSpace space, int offset) {
-		val nbAff = maff.nbAff
-		if (space.getNbDims(JNIISLDimType.isl_dim_set) < offset + nbAff)
+	private static def ISLBasicSet multiAffToConstraints(ISLMultiAff maff, ISLSpace space, int offset) {
+		val nbAff = maff.getNbOutputs()
+		if (space.getNbIndices() < offset + nbAff)
 			throw new RuntimeException("Incompatible space given for MultiAff to Constraint conversion: " + maff + " @ " + space );
 			
-		var constraints = JNIISLBasicSet.buildUniverse(space.copy());
+		var constraints = ISLBasicSet.buildUniverse(space.copy());
 		for (a : 0..<nbAff) {
 			val c = affToConstraint(maff.getAff(a), space, offset+a);
 			constraints = constraints.addConstraint(c);
@@ -200,12 +200,12 @@ class AlphaExpressionUtil {
 	 * Helper for preimageByConvolutionDependences. Converts Aff to an equality constraint equating to a 
 	 * specified dimension. 
 	 */
-	private static def JNIISLConstraint affToConstraint(JNIISLAff aff, JNIISLSpace space, int dim) {
-		var c = JNIISLConstraint.buildEquality(space.copy);
-		c = c.setCoefficient(JNIISLDimType.isl_dim_set, dim, -1)
+	private static def ISLConstraint affToConstraint(ISLAff aff, ISLSpace space, int dim) {
+		var c = ISLConstraint.buildEquality(space.copy);
+		c = c.setCoefficient(ISLDimType.isl_dim_set, dim, -1)
 		
-		for (d : 0..<aff.getNbDims(JNIISLDimType.isl_dim_param)) {
-			c = c.setCoefficient(JNIISLDimType.isl_dim_param, d, aff.getCoefficientVal(JNIISLDimType.isl_dim_param, d));
+		for (d : 0..<aff.getNbParams()) {
+			c = c.setCoefficient(ISLDimType.isl_dim_param, d, aff.getCoefficientVal(ISLDimType.isl_dim_param, d));
 		}
 		c = c.setConstant(aff.getConstantVal());
 
@@ -219,43 +219,43 @@ class AlphaExpressionUtil {
 	 * Used for mapping external DependenceExpression into ConvolutionExpression
 	 * 
 	 */
-	static def extendMultiAffWithIdentityDimensions(JNIISLMultiAff orig, int exDims) {
-		val origInputDims = orig.getNbDims(JNIISLDimType.isl_dim_in);
-		val origOutputDims = orig.getNbDims(JNIISLDimType.isl_dim_out)
+	static def extendMultiAffWithIdentityDimensions(ISLMultiAff orig, int exDims) {
+		val origInputDims = orig.getNbInputs()
+		val origOutputDims = orig.getNbOutputs()
 		var exSpace = orig.space.copy
-		exSpace = exSpace.addDims(JNIISLDimType.isl_dim_in, exDims)
-		exSpace = exSpace.addDims(JNIISLDimType.isl_dim_out, exDims)
+		exSpace = exSpace.addDims(ISLDimType.isl_dim_in, exDims)
+		exSpace = exSpace.addDims(ISLDimType.isl_dim_out, exDims)
 		
 		for (i : origInputDims..<origInputDims+exDims) {
-			exSpace = exSpace.setName(JNIISLDimType.isl_dim_in, i, "i"+i)
+			exSpace = exSpace.setDimName(ISLDimType.isl_dim_in, i, "i"+i)
 		}
 		for (i : origOutputDims..<origOutputDims+exDims) {
-			exSpace = exSpace.setName(JNIISLDimType.isl_dim_out, i, "o"+i)
+			exSpace = exSpace.setDimName(ISLDimType.isl_dim_out, i, "o"+i)
 		}
 		
-		var exMaff = JNIISLMultiAff.buildZero(exSpace.copy);
-		var affList = JNIISLAffList.build(orig.context, origOutputDims + exDims)
+		var exMaff = ISLMultiAff.buildZero(exSpace.copy);
+		var affList = ISLAffList.build(orig.context, origOutputDims + exDims)
 		
 		for (i : 0..<origOutputDims) {
 			var affNew = exMaff.getAff(i)
 			var affOrig = orig.getAff(i)
 			
 			affNew = affNew.constant = affOrig.constantVal
-			for (d : 0..<orig.getNbDims(JNIISLDimType.isl_dim_param)) {
-				affNew = affNew.setCoefficient(JNIISLDimType.isl_dim_param, d, affOrig.getCoefficientVal(JNIISLDimType.isl_dim_param, d))
+			for (d : 0..<orig.getNbParams()) {
+				affNew = affNew.setCoefficient(ISLDimType.isl_dim_param, d, affOrig.getCoefficientVal(ISLDimType.isl_dim_param, d))
 			}
-			for (d : 0..<orig.getNbDims(JNIISLDimType.isl_dim_in)) {
-				affNew =affNew.setCoefficient(JNIISLDimType.isl_dim_in, d, affOrig.getCoefficientVal(JNIISLDimType.isl_dim_in, d))
+			for (d : 0..<orig.getNbInputs()) {
+				affNew =affNew.setCoefficient(ISLDimType.isl_dim_in, d, affOrig.getCoefficientVal(ISLDimType.isl_dim_in, d))
 			}
 			affList = affList.add(affNew)
 		}
 		for (i : 0..<exDims) {
 			var affNew = exMaff.getAff(i+origOutputDims)
-			affNew = affNew.setCoefficient(JNIISLDimType.isl_dim_in, i+origOutputDims, 1);
+			affNew = affNew.setCoefficient(ISLDimType.isl_dim_in, i+origOutputDims, 1);
 			affList = affList.add(affNew)
 		}
 		
-		return JNIISLMultiAff.buildFromAffList(exSpace, affList);
+		return ISLMultiAff.buildFromAffList(exSpace, affList);
 	}
 	
 	public static final Function<AlphaExpression, AlphaExpression> filterAutoRestrict = [expr|

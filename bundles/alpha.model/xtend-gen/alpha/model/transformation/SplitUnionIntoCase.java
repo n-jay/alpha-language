@@ -9,8 +9,8 @@ import alpha.model.RestrictExpression;
 import alpha.model.SystemBody;
 import alpha.model.factory.AlphaUserFactory;
 import com.google.common.collect.Iterables;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -88,15 +88,15 @@ public class SplitUnionIntoCase {
   /**
    * Implementation of the transformation.
    */
-  private static int transform(final AlphaExpression parent, final JNIISLSet restrictDomain, final AlphaExpression child) {
+  private static int transform(final AlphaExpression parent, final ISLSet restrictDomain, final AlphaExpression child) {
     final CaseExpression caseExpr = AlphaUserFactory.createCaseExpression();
-    final JNIISLSet disjointDomains = restrictDomain.makeDisjoint();
+    final ISLSet disjointDomains = restrictDomain.makeDisjoint();
     int _nbBasicSets = disjointDomains.getNbBasicSets();
     boolean _equals = (_nbBasicSets == 1);
     if (_equals) {
       return 0;
     }
-    final Consumer<JNIISLBasicSet> _function = (JNIISLBasicSet bs) -> {
+    final Consumer<ISLBasicSet> _function = (ISLBasicSet bs) -> {
       final RestrictExpression re = AlphaUserFactory.createRestrictExpression(bs.toSet(), EcoreUtil.<AlphaExpression>copy(child));
       caseExpr.getExprs().add(re);
     };

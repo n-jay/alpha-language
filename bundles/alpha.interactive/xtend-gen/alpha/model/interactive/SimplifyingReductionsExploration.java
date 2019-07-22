@@ -35,10 +35,10 @@ import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
-import fr.irisa.cairn.jnimap.barvinok.jni.BarvinokFunctions;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLQPolynomial;
+import fr.irisa.cairn.jnimap.barvinok.BarvinokFunctions;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLQPolynomial;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -135,11 +135,11 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
   }
   
   private static class StepReductionDecomposition extends SimplifyingReductionsExploration.ExplorationStep {
-    private JNIISLMultiAff innerProjection;
+    private ISLMultiAff innerProjection;
     
-    private JNIISLMultiAff outerProjection;
+    private ISLMultiAff outerProjection;
     
-    public StepReductionDecomposition(final JNIISLMultiAff innerF, final JNIISLMultiAff outerF) {
+    public StepReductionDecomposition(final ISLMultiAff innerF, final ISLMultiAff outerF) {
       this.innerProjection = innerF;
       this.outerProjection = outerF;
     }
@@ -631,12 +631,12 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       }
     }
     final LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition> candidates = new LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition>();
-    final List<String> params = this.targetRE.getBody().getExpressionDomain().getParametersNames();
-    final List<String> indices = this.targetRE.getBody().getExpressionDomain().getIndicesNames();
+    final List<String> params = this.targetRE.getBody().getExpressionDomain().getParamNames();
+    final List<String> indices = this.targetRE.getBody().getExpressionDomain().getIndexNames();
     for (final long[][] RE : REs) {
       {
-        final JNIISLMultiAff Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
-        final JNIISLMultiAff Fpp = AffineFunctionOperations.projectFunctionDomain(this.targetRE.getProjection(), Fp.copy());
+        final ISLMultiAff Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
+        final ISLMultiAff Fpp = AffineFunctionOperations.projectFunctionDomain(this.targetRE.getProjection(), Fp.copy());
         SimplifyingReductionsExploration.StepReductionDecomposition _stepReductionDecomposition = new SimplifyingReductionsExploration.StepReductionDecomposition(Fp, Fpp);
         candidates.add(_stepReductionDecomposition);
       }
@@ -702,8 +702,8 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       if (_greaterThan) {
         this.outStream.println(String.format("N/A; context domain involves union. : card(%s)", AShow.print(candidate)));
       } else {
-        final JNIISLPWQPolynomial card = BarvinokFunctions.card(candidate.getBody().getContextDomain());
-        final JNIISLQPolynomial qp = card.getPieceAt(0).getQp();
+        final ISLPWQPolynomial card = BarvinokFunctions.card(candidate.getBody().getContextDomain());
+        final ISLQPolynomial qp = card.getPieceAt(0).getQp();
         this.outStream.println(String.format("%s : card(%s)", AlphaPrintingUtil.toShowString(qp), AShow.print(candidate)));
       }
     }

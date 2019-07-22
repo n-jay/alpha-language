@@ -17,10 +17,9 @@ import alpha.model.util.AlphaUtil;
 import alpha.model.util.Show;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -106,21 +105,21 @@ public class AShow extends Show {
   }
   
   @Override
-  protected String printDomain(final JNIISLSet set) {
+  protected String printDomain(final ISLSet set) {
     return AlphaPrintingUtil.toAShowString(set, this.parameterContext, this.indexNameContext);
   }
   
   @Override
-  public String printFunction(final JNIISLMultiAff f) {
+  public String printFunction(final ISLMultiAff f) {
     return AlphaPrintingUtil.toAShowString(f, this.indexNameContext);
   }
   
   @Override
-  protected String printPolynomial(final JNIISLPWQPolynomial p) {
+  protected String printPolynomial(final ISLPWQPolynomial p) {
     return AlphaPrintingUtil.toAShowString(p, this.indexNameContext);
   }
   
-  protected String printDomainInShowSytanxWithIndexNameContext(final JNIISLSet set) {
+  protected String printDomainInShowSytanxWithIndexNameContext(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext, this.indexNameContext);
   }
   
@@ -131,7 +130,7 @@ public class AShow extends Show {
   public CharSequence caseStandardEquation(final StandardEquation se) {
     CharSequence _xblockexpression = null;
     {
-      this.indexNameContext = se.getVariable().getDomain().getIndicesNames();
+      this.indexNameContext = se.getVariable().getDomain().getIndexNames();
       String _xifexpression = null;
       int _length = ((Object[])Conversions.unwrapArray(this.indexNameContext, Object.class)).length;
       boolean _greaterThan = (_length > 0);
@@ -163,16 +162,16 @@ public class AShow extends Show {
       EList<AlphaExpression> _inputExprs = ue.getInputExprs();
       EList<AlphaExpression> _outputExprs = ue.getOutputExprs();
       final Function1<AlphaExpression, List<String>> _function = (AlphaExpression e) -> {
-        return e.getContextDomain().getIndicesNames();
+        return e.getContextDomain().getIndexNames();
       };
       final Function1<List<String>, Integer> _function_1 = (List<String> n) -> {
         return Integer.valueOf(((Object[])Conversions.unwrapArray(n, Object.class)).length);
       };
       final List<String> names = IterableExtensions.<List<String>, Integer>maxBy(IterableExtensions.<AlphaExpression, List<String>>map(Iterables.<AlphaExpression>concat(_inputExprs, _outputExprs), _function), _function_1);
-      final boolean idomDeclared = ((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbDims() > 0));
+      final boolean idomDeclared = ((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbIndices() > 0));
       List<String> _xifexpression = null;
       if (idomDeclared) {
-        _xifexpression = names.subList(ue.getInstantiationDomain().getNbDims(), ((Object[])Conversions.unwrapArray(names, Object.class)).length);
+        _xifexpression = names.subList(ue.getInstantiationDomain().getNbIndices(), ((Object[])Conversions.unwrapArray(names, Object.class)).length);
       } else {
         _xifexpression = names;
       }
@@ -238,12 +237,12 @@ public class AShow extends Show {
   }
   
   @Override
-  protected String printProjectionFunction(final JNIISLMultiAff maff) {
+  protected String printProjectionFunction(final ISLMultiAff maff) {
     String _xblockexpression = null;
     {
       this.contextHistory.push(this.indexNameContext);
-      List<String> _nameList = maff.getSpace().getNameList(JNIISLDimType.isl_dim_in);
-      LinkedList<String> _linkedList = new LinkedList<String>(_nameList);
+      List<String> _inputNames = maff.getSpace().getInputNames();
+      LinkedList<String> _linkedList = new LinkedList<String>(_inputNames);
       this.indexNameContext = _linkedList;
       _xblockexpression = super.printProjectionFunction(maff);
     }
@@ -259,7 +258,7 @@ public class AShow extends Show {
   
   @Override
   public CharSequence caseConvolutionExpression(final ConvolutionExpression ce) {
-    final List<String> kernelDomainNames = ce.getKernelDomain().getIndicesNames();
+    final List<String> kernelDomainNames = ce.getKernelDomain().getIndexNames();
     final BiFunction<String, String, Boolean> _function = (String e1, String e2) -> {
       return Boolean.valueOf(e1.contentEquals(e2));
     };
@@ -269,14 +268,14 @@ public class AShow extends Show {
     final Optional<Boolean> conflict = Streams.<String, String, Boolean>zip(this.indexNameContext.stream(), kernelDomainNames.stream(), _function).reduce(_function_1);
     List<String> printCtx = null;
     if ((conflict.isPresent() && (conflict.get()).booleanValue())) {
-      int _nbDims = ce.getContextDomain().getNbDims();
-      int _nbDims_1 = ce.getContextDomain().getNbDims();
-      int _nbDims_2 = ce.getKernelDomain().getNbDims();
-      int _plus = (_nbDims_1 + _nbDims_2);
+      int _nbIndices = ce.getContextDomain().getNbIndices();
+      int _nbIndices_1 = ce.getContextDomain().getNbIndices();
+      int _nbIndices_2 = ce.getKernelDomain().getNbIndices();
+      int _plus = (_nbIndices_1 + _nbIndices_2);
       final Function1<Integer, String> _function_2 = (Integer i) -> {
         return ("i" + i);
       };
-      printCtx = IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(_nbDims, _plus, true), _function_2));
+      printCtx = IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(_nbIndices, _plus, true), _function_2));
     } else {
       printCtx = kernelDomainNames;
     }
@@ -304,7 +303,7 @@ public class AShow extends Show {
   @Override
   public CharSequence caseSelectExpression(final SelectExpression se) {
     this.contextHistory.push(this.indexNameContext);
-    this.indexNameContext = se.getSelectRelation().getRangeNames();
+    this.indexNameContext = se.getSelectRelation().getRange().getIndexNames();
     final CharSequence res = super.caseSelectExpression(se);
     this.indexNameContext = this.contextHistory.pop();
     return res;

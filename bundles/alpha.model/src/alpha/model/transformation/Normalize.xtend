@@ -318,7 +318,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		debug("push-dep ConvExpr", "f @ conv (kernel, weight, data) -> conv(kernel, f' @ weight, f' @ data)");
 		EcoreUtil.replace(de, ce);
 		
-		val newMaff = AlphaExpressionUtil.extendMultiAffWithIdentityDimensions(de.function, ce.kernelDomain.nbDims)
+		val newMaff = AlphaExpressionUtil.extendMultiAffWithIdentityDimensions(de.function, ce.kernelDomain.nbIndices)
 
 		val newKernelExpr = createDependenceExpression(newMaff.copy, ce.kernelExpression)
 		val newDataExpr = createDependenceExpression(newMaff, ce.dataExpression)

@@ -4,8 +4,8 @@ package alpha.model.matrix.impl;
 
 import alpha.model.matrix.*;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -141,8 +141,8 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSpace createJNIISLSpaceFromString(EDataType eDataType, String initialValue) {
-		return (JNIISLSpace)super.createFromString(eDataType, initialValue);
+	public ISLSpace createJNIISLSpaceFromString(EDataType eDataType, String initialValue) {
+		return (ISLSpace)super.createFromString(eDataType, initialValue);
 	}
 
 	/**
@@ -159,8 +159,8 @@ public class MatrixFactoryImpl extends EFactoryImpl implements MatrixFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMultiAff createJNIISLMultiAffFromString(EDataType eDataType, String initialValue) {
-		return (JNIISLMultiAff)super.createFromString(eDataType, initialValue);
+	public ISLMultiAff createJNIISLMultiAffFromString(EDataType eDataType, String initialValue) {
+		return (ISLMultiAff)super.createFromString(eDataType, initialValue);
 	}
 
 	/**

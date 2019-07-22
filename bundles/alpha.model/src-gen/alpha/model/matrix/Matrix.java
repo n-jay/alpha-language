@@ -2,7 +2,7 @@
  */
 package alpha.model.matrix;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -200,6 +200,6 @@ public interface Matrix extends EObject {
 	 * @model dataType="alpha.model.matrix.JNIISLMultiAff" unique="false"
 	 * @generated
 	 */
-	JNIISLMultiAff toMultiAff();
+	ISLMultiAff toMultiAff();
 
 } // Matrix

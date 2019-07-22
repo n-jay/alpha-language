@@ -6,11 +6,11 @@ package alpha.model
 
 import alpha.model.exception.CyclicDefinitionException
 import alpha.model.util.AlphaUtil
-import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.isl.ISL_FORMAT
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLMap
+import fr.irisa.cairn.jnimap.isl.ISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
 import java.util.LinkedList
 import java.util.List
@@ -22,10 +22,10 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 //type JNIDomain wraps JNIDomain
 type JNIObject wraps JNIObject
-type JNIISLSet wraps JNIISLSet
-type JNIISLMap wraps JNIISLMap
-type JNIISLMultiAff wraps JNIISLMultiAff
-type JNIISLPWQPolynomial wraps JNIISLPWQPolynomial
+type JNIISLSet wraps ISLSet
+type JNIISLMap wraps ISLMap
+type JNIISLMultiAff wraps ISLMultiAff
+type JNIISLPWQPolynomial wraps ISLPWQPolynomial
 type ISL_FORMAT wraps ISL_FORMAT
 type ListVariableExpression wraps List<VariableExpression> 
 type IntegerQueue wraps Queue<Integer>
@@ -396,7 +396,7 @@ class AlphaSystem extends AlphaElement {
 	
 	op JNIISLSet getWhileDomain() {
 		if (whileDomainExpr === null || whileDomainExpr.^type != POLY_OBJECT_TYPE::SET) null 
-		else (whileDomainExpr.ISLObject as JNIISLSet).copy
+		else (whileDomainExpr.ISLObject as ISLSet).copy
 	}
 	
 	op Variable getVariable(String varName) {
@@ -424,7 +424,7 @@ class Variable extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 		}
 		
 		try {
-			return if (domainExpr.^type != POLY_OBJECT_TYPE::SET) null else domainExpr.ISLObject as JNIISLSet
+			return if (domainExpr.^type != POLY_OBJECT_TYPE::SET) null else domainExpr.ISLObject as ISLSet
 		} catch (CyclicDefinitionException cde) {
 			return null
 		}
@@ -449,7 +449,7 @@ class FuzzyVariable extends Variable {
 	contains CalculatorExpression rangeExpr
 	
 	op JNIISLSet getRange() {
-		return if (rangeExpr.^type != POLY_OBJECT_TYPE::SET) null else rangeExpr.ISLObject as JNIISLSet
+		return if (rangeExpr.^type != POLY_OBJECT_TYPE::SET) null else rangeExpr.ISLObject as ISLSet
 	}
 	
 	op JNIISLMap getRelation() {
@@ -552,12 +552,12 @@ class UseEquation extends Equation {
 	
 	op JNIISLMultiAff getCallParams() {
 		if (callParamsExpr.^type != POLY_OBJECT_TYPE.FUNCTION) null
-		else callParamsExpr.ISLObject as JNIISLMultiAff
+		else callParamsExpr.ISLObject as ISLMultiAff
 	}
 	
 	op JNIISLSet getInstantiationDomain() {
 		if (instantiationDomainExpr.^type != POLY_OBJECT_TYPE.SET) null
-		else instantiationDomainExpr.ISLObject as JNIISLSet
+		else instantiationDomainExpr.ISLObject as ISLSet
 	}
 	
 	op ListVariableExpression getAllVariableExpressionsInOutputExpressions() {
@@ -625,7 +625,7 @@ class RestrictExpression extends AlphaExpression {
 	
 	op JNIISLSet getRestrictDomain() {
 		if (domainExpr.^type != POLY_OBJECT_TYPE.SET ) null
-		else domainExpr.ISLObject as JNIISLSet
+		else domainExpr.ISLObject as ISLSet
 	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -662,7 +662,7 @@ class DependenceExpression extends AlphaExpression {
 	
 	op JNIISLMultiAff getFunction() {
 		if (functionExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
-		else functionExpr.ISLObject as JNIISLMultiAff
+		else functionExpr.ISLObject as ISLMultiAff
 	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -695,7 +695,7 @@ class IndexExpression extends AlphaExpression {
 	
 	op JNIISLMultiAff getFunction() {
 		if (functionExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
-		else functionExpr.ISLObject as JNIISLMultiAff
+		else functionExpr.ISLObject as ISLMultiAff
 	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -707,7 +707,7 @@ class PolynomialIndexExpression extends AlphaExpression {
 	
 	op JNIISLPWQPolynomial getPolynomial() {
 		if (polynomialExpr.^type != POLY_OBJECT_TYPE.POLYNOMIAL ) null
-		else polynomialExpr.ISLObject as JNIISLPWQPolynomial
+		else polynomialExpr.ISLObject as ISLPWQPolynomial
 	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -734,7 +734,7 @@ abstract class AbstractReduceExpression extends AlphaExpression {
 	
 	op JNIISLMultiAff getProjection() {
 		if (projectionExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
-		else projectionExpr.ISLObject as JNIISLMultiAff
+		else projectionExpr.ISLObject as ISLMultiAff
 	}
 	
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -774,7 +774,7 @@ class ConvolutionExpression extends AlphaExpression {
 	
 	op JNIISLSet getKernelDomain() {
 		if (kernelDomainExpr.^type != POLY_OBJECT_TYPE.SET ) null
-		else kernelDomainExpr.ISLObject as JNIISLSet
+		else kernelDomainExpr.ISLObject as ISLSet
 	}
 
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -787,7 +787,7 @@ class SelectExpression extends AlphaExpression {
 	
 	op JNIISLMap getSelectRelation() {
 		if (relationExpr.^type != POLY_OBJECT_TYPE.MAP) null
-		else relationExpr.ISLObject as JNIISLMap
+		else relationExpr.ISLObject as ISLMap
 	}
 
 	op void accept(AlphaExpressionVisitor visitor) {
@@ -1172,9 +1172,9 @@ class UnaryCalculatorExpression extends CalculatorExpression {
 	JNIObject z__internal_cache_islObject
 	
 	op POLY_OBJECT_TYPE getType() { 
-		if (z__internal_cache_islObject instanceof JNIISLSet)
+		if (z__internal_cache_islObject instanceof ISLSet)
 			return POLY_OBJECT_TYPE::SET
-		if (z__internal_cache_islObject instanceof JNIISLMap)
+		if (z__internal_cache_islObject instanceof ISLMap)
 			return POLY_OBJECT_TYPE::MAP
 		return null
 	}
@@ -1199,9 +1199,9 @@ class BinaryCalculatorExpression extends CalculatorExpression {
 	JNIObject z__internal_cache_islObject
 	
 	op POLY_OBJECT_TYPE getType() { 
-		if (z__internal_cache_islObject instanceof JNIISLSet)
+		if (z__internal_cache_islObject instanceof ISLSet)
 			return POLY_OBJECT_TYPE::SET
-		if (z__internal_cache_islObject instanceof JNIISLMap)
+		if (z__internal_cache_islObject instanceof ISLMap)
 			return POLY_OBJECT_TYPE::MAP
 		return null
 	}

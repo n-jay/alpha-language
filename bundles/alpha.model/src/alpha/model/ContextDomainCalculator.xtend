@@ -5,7 +5,6 @@ import alpha.model.issue.AlphaIssueFactory
 import alpha.model.issue.UnexpectedISLErrorIssue
 import alpha.model.util.AbstractAlphaExpressionVisitor
 import alpha.model.util.AlphaExpressionUtil
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import java.util.LinkedList
 import java.util.List
 import java.util.function.Supplier
@@ -13,6 +12,7 @@ import org.eclipse.emf.ecore.EObject
 
 import static alpha.model.util.AlphaUtil.callISLwithErrorHandling
 import static alpha.model.util.AlphaExpressionUtil.parentContext
+import fr.irisa.cairn.jnimap.isl.ISLSet
 
 /**
  * Computes the context domain for AlphaExpressions. The context domains
@@ -80,7 +80,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 		val parentContext = parentContext(are, parentCase, [i|registerIssue(i)]);
 		if (parentContext === null) return;
 
-		var JNIISLSet inferredDomain
+		var ISLSet inferredDomain
 		
 		if (parentCase.exprs.length == 1) {
 			inferredDomain = parentContext.intersect(are.expressionDomain)
@@ -123,31 +123,31 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 	}
 
 	
-	private dispatch def processContext(DependenceExpression expr, JNIISLSet context) {
+	private dispatch def processContext(DependenceExpression expr, ISLSet context) {
 		return runISLoperations(expr, [context.apply(expr.function.toMap)]);
 	}
 	
-	private dispatch def processContext(SelectExpression expr, JNIISLSet context) {
+	private dispatch def processContext(SelectExpression expr, ISLSet context) {
 		return runISLoperations(expr, [context.apply(expr.selectRelation)]);
 	}
 
-	private dispatch def processContext(ReduceExpression expr, JNIISLSet context) {
+	private dispatch def processContext(ReduceExpression expr, ISLSet context) {
 		return runISLoperations(expr, [context.preimage(expr.projection)]);
 	}
 
-	private dispatch def processContext(ArgReduceExpression expr, JNIISLSet context) {
+	private dispatch def processContext(ArgReduceExpression expr, ISLSet context) {
 		return runISLoperations(expr, [context.preimage(expr.projection)]);
 	}
 	
-	private dispatch def processContext(ConvolutionExpression expr, JNIISLSet context) {
+	private dispatch def processContext(ConvolutionExpression expr, ISLSet context) {
 		return runISLoperations(expr, [context.flatProduct(expr.kernelDomain)]);
 	}
 
 	// default is not do anything
-	private dispatch def processContext(AlphaNode expr, JNIISLSet context) {
+	private dispatch def processContext(AlphaNode expr, ISLSet context) {
 		return context
 	}
-	private dispatch def processContext(EObject expr, JNIISLSet context) {
+	private dispatch def processContext(EObject expr, ISLSet context) {
 		return null;
 	}
 	

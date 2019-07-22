@@ -7,7 +7,7 @@ import alpha.model.JNIPolynomial;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -60,7 +60,7 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLPWQPolynomial ZINTERNAL_CACHE_ISL_PWQP_EDEFAULT = null;
+	protected static final ISLPWQPolynomial ZINTERNAL_CACHE_ISL_PWQP_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getZ__internal_cache_islPWQP() <em>Zinternal cache isl PWQP</em>}' attribute.
@@ -70,7 +70,7 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLPWQPolynomial z__internal_cache_islPWQP = ZINTERNAL_CACHE_ISL_PWQP_EDEFAULT;
+	protected ISLPWQPolynomial z__internal_cache_islPWQP = ZINTERNAL_CACHE_ISL_PWQP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -117,7 +117,7 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLPWQPolynomial getZ__internal_cache_islPWQP() {
+	public ISLPWQPolynomial getZ__internal_cache_islPWQP() {
 		return z__internal_cache_islPWQP;
 	}
 
@@ -126,8 +126,8 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setZ__internal_cache_islPWQP(JNIISLPWQPolynomial newZ__internal_cache_islPWQP) {
-		JNIISLPWQPolynomial oldZ__internal_cache_islPWQP = z__internal_cache_islPWQP;
+	public void setZ__internal_cache_islPWQP(ISLPWQPolynomial newZ__internal_cache_islPWQP) {
+		ISLPWQPolynomial oldZ__internal_cache_islPWQP = z__internal_cache_islPWQP;
 		z__internal_cache_islPWQP = newZ__internal_cache_islPWQP;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_POLYNOMIAL__ZINTERNAL_CACHE_ISL_PWQP, oldZ__internal_cache_islPWQP, z__internal_cache_islPWQP));
@@ -138,9 +138,9 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLPWQPolynomial getISLPWQPolynomial() {
-		JNIISLPWQPolynomial _xifexpression = null;
-		JNIISLPWQPolynomial _z__internal_cache_islPWQP = this.getZ__internal_cache_islPWQP();
+	public ISLPWQPolynomial getISLPWQPolynomial() {
+		ISLPWQPolynomial _xifexpression = null;
+		ISLPWQPolynomial _z__internal_cache_islPWQP = this.getZ__internal_cache_islPWQP();
 		boolean _tripleNotEquals = (_z__internal_cache_islPWQP != null);
 		if (_tripleNotEquals) {
 			_xifexpression = this.getZ__internal_cache_islPWQP().copy();
@@ -156,7 +156,7 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setISLPWQPolynomial(final JNIISLPWQPolynomial islQP) {
+	public void setISLPWQPolynomial(final ISLPWQPolynomial islQP) {
 		this.setZ__internal_cache_islPWQP(islQP);
 	}
 
@@ -167,7 +167,7 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 	 */
 	public POLY_OBJECT_TYPE getType() {
 		POLY_OBJECT_TYPE _xifexpression = null;
-		JNIISLPWQPolynomial _z__internal_cache_islPWQP = this.getZ__internal_cache_islPWQP();
+		ISLPWQPolynomial _z__internal_cache_islPWQP = this.getZ__internal_cache_islPWQP();
 		boolean _tripleNotEquals = (_z__internal_cache_islPWQP != null);
 		if (_tripleNotEquals) {
 			_xifexpression = POLY_OBJECT_TYPE.POLYNOMIAL;
@@ -233,7 +233,7 @@ public class JNIPolynomialImpl extends CalculatorExpressionImpl implements JNIPo
 				setIslString((String)newValue);
 				return;
 			case ModelPackage.JNI_POLYNOMIAL__ZINTERNAL_CACHE_ISL_PWQP:
-				setZ__internal_cache_islPWQP((JNIISLPWQPolynomial)newValue);
+				setZ__internal_cache_islPWQP((ISLPWQPolynomial)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

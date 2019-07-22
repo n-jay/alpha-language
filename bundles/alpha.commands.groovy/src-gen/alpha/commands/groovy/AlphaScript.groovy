@@ -11,12 +11,12 @@ import alpha.model.StandardEquation
 import alpha.model.AlphaExpression
 import alpha.model.AlphaNode
 import alpha.model.Variable
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import alpha.model.AlphaRoot
 import java.util.List
 import alpha.model.Equation
 import alpha.model.AlphaSystem
 import alpha.model.Variable
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import alpha.model.AlphaVisitable
 import alpha.model.AlphaExpression
 import alpha.model.SystemBody
@@ -32,7 +32,6 @@ import alpha.model.DependenceExpression
 import alpha.model.AlphaExpression
 import alpha.model.AlphaVisitable
 import alpha.model.AlphaSystem
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import alpha.model.ReduceExpression
 
 abstract class AlphaScript extends AbstractAlphaScript {
@@ -115,7 +114,7 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void RenameVariable(AlphaSystem system, String oldName, String newName) {
 		alpha.commands.Utility.RenameVariable(system, oldName, newName)
 	}
-	void ChangeOfBasis(AlphaSystem system, Variable var, JNIISLMultiAff f) {
+	void ChangeOfBasis(AlphaSystem system, Variable var, ISLMultiAff f) {
 		alpha.commands.Transformations.ChangeOfBasis(system, var, f)
 	}
 	void ChangeOfBasis(AlphaSystem system, String varName, String fStr) {
@@ -331,16 +330,16 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void ReductionComposition(AbstractReduceExpression reduction) {
 		alpha.commands.Reductions.ReductionComposition(reduction)
 	}
-	void ReducionDecomposition(SystemBody body, String targetEq, String exprID, JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	void ReducionDecomposition(SystemBody body, String targetEq, String exprID, ISLMultiAff f1, ISLMultiAff f2) {
 		alpha.commands.Reductions.ReducionDecomposition(body, targetEq, exprID, f1, f2)
 	}
 	void ReducionDecomposition(SystemBody body, String targetEq, String exprID, String f1Str, String f2Str) {
 		alpha.commands.Reductions.ReducionDecomposition(body, targetEq, exprID, f1Str, f2Str)
 	}
-	void ReducionDecomposition(StandardEquation eq, String exprID, JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	void ReducionDecomposition(StandardEquation eq, String exprID, ISLMultiAff f1, ISLMultiAff f2) {
 		alpha.commands.Reductions.ReducionDecomposition(eq, exprID, f1, f2)
 	}
-	void ReducionDecomposition(StandardEquation eq, JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	void ReducionDecomposition(StandardEquation eq, ISLMultiAff f1, ISLMultiAff f2) {
 		alpha.commands.Reductions.ReducionDecomposition(eq, f1, f2)
 	}
 	void ReducionDecomposition(StandardEquation eq, String exprID, String f1Str, String f2Str) {
@@ -349,7 +348,7 @@ abstract class AlphaScript extends AbstractAlphaScript {
 	void ReducionDecomposition(StandardEquation eq, String f1Str, String f2Str) {
 		alpha.commands.Reductions.ReducionDecomposition(eq, f1Str, f2Str)
 	}
-	void ReductionDecomposition(AbstractReduceExpression reduction, JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	void ReductionDecomposition(AbstractReduceExpression reduction, ISLMultiAff f1, ISLMultiAff f2) {
 		alpha.commands.Reductions.ReductionDecomposition(reduction, f1, f2)
 	}
 	void ReductionDecomposition(AbstractReduceExpression reduction, String f1Str, String f2Str) {

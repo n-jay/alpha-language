@@ -2,7 +2,7 @@
  */
 package alpha.model.matrix;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -76,7 +76,7 @@ public interface Space extends EObject {
 	 * @model dataType="alpha.model.matrix.JNIISLSpace" unique="false"
 	 * @generated
 	 */
-	JNIISLSpace toJNIISLSetSpace();
+	ISLSpace toJNIISLSetSpace();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -88,6 +88,6 @@ public interface Space extends EObject {
 	 * @model dataType="alpha.model.matrix.JNIISLSpace" unique="false" nbExprsUnique="false"
 	 * @generated
 	 */
-	JNIISLSpace toJNIISLMultiAffSpace(int nbExprs);
+	ISLSpace toJNIISLMultiAffSpace(int nbExprs);
 
 } // Space

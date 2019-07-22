@@ -9,12 +9,12 @@ import alpha.model.matrix.Space;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
+import fr.irisa.cairn.jnimap.isl.ISLAff;
+import fr.irisa.cairn.jnimap.isl.ISLAffList;
+import fr.irisa.cairn.jnimap.isl.ISLContext;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
 
 import java.util.Collection;
 import java.util.List;
@@ -334,7 +334,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMultiAff toMultiAff() {
+	public ISLMultiAff toMultiAff() {
 		int _nbRows = this.getNbRows();
 		int _nbParams = this.getNbParams();
 		final int nbDims = (_nbRows - _nbParams);
@@ -352,13 +352,13 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 				}
 			}
 		}
-		final JNIISLSpace islSpace = this.getSpace().toJNIISLSetSpace();
-		JNIISLAffList affList = JNIISLAffList.build(JNIISLContext.getCtx(), nbDims);
-		JNIISLSpace affSpace = null;
+		final ISLSpace islSpace = this.getSpace().toJNIISLSetSpace();
+		ISLAffList affList = ISLAffList.build(ISLContext.getInstance(), nbDims);
+		ISLSpace affSpace = null;
 		List<MatrixRow> _subList = this.getRows().subList(this.getNbParams(), this.getNbRows());
 		for (final MatrixRow row : _subList) {
 			{
-				JNIISLAff aff = JNIISLAff.buildZero(islSpace.copy().toLocalSpace());
+				ISLAff aff = ISLAff.buildZero(islSpace.copy().toLocalSpace());
 				if ((affSpace == null)) {
 					affSpace = aff.getSpace().copy();
 				}
@@ -366,7 +366,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 				ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, _nbParams_2, true);
 				for (final Integer p : _doubleDotLessThan_1) {
 					long _value = row.getValue((p).intValue());
-					aff = aff.setCoefficient(JNIISLDimType.isl_dim_param, (p).intValue(), ((int) _value));
+					aff = aff.setCoefficient(ISLDimType.isl_dim_param, (p).intValue(), ((int) _value));
 				}
 				int _nbIndices = this.getNbIndices();
 				ExclusiveRange _doubleDotLessThan_2 = new ExclusiveRange(0, _nbIndices, true);
@@ -374,7 +374,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 					int _nbParams_3 = this.getNbParams();
 					int _plus = ((i).intValue() + _nbParams_3);
 					long _value_1 = row.getValue(_plus);
-					aff = aff.setCoefficient(JNIISLDimType.isl_dim_in, (i).intValue(), ((int) _value_1));
+					aff = aff.setCoefficient(ISLDimType.isl_dim_in, (i).intValue(), ((int) _value_1));
 				}
 				boolean _isLinearPartOnly = this.isLinearPartOnly();
 				boolean _not = (!_isLinearPartOnly);
@@ -388,7 +388,7 @@ public class MatrixImpl extends MinimalEObjectImpl.Container implements Matrix {
 				affList = affList.add(aff);
 			}
 		}
-		return JNIISLMultiAff.buildFromAffList(this.getSpace().toJNIISLMultiAffSpace(nbDims), affList);
+		return ISLMultiAff.buildFromAffList(this.getSpace().toJNIISLMultiAffSpace(nbDims), affList);
 	}
 
 	/**

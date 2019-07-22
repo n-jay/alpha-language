@@ -6,10 +6,10 @@ import alpha.model.AutoRestrictExpression
 import alpha.model.RestrictExpression
 import alpha.model.SystemBody
 import alpha.model.factory.AlphaUserFactory
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.EcoreUtil2
 import alpha.model.AlphaInternalStateConstructor
+import fr.irisa.cairn.jnimap.isl.ISLSet
 
 /**
  * Transforms a RestrictExpression with restrict domain being unions of polyhedra
@@ -73,7 +73,7 @@ class SplitUnionIntoCase {
 	/**
 	 * Implementation of the transformation.
 	 */
-	private static def transform(AlphaExpression parent, JNIISLSet restrictDomain, AlphaExpression child) {
+	private static def transform(AlphaExpression parent, ISLSet restrictDomain, AlphaExpression child) {
 		val caseExpr = AlphaUserFactory.createCaseExpression
 		
 		val disjointDomains = restrictDomain.makeDisjoint

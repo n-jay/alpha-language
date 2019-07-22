@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -51,12 +51,12 @@ public interface JNIFunction extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache isl MAff</em>' attribute.
-	 * @see #setZ__internal_cache_islMAff(JNIISLMultiAff)
+	 * @see #setZ__internal_cache_islMAff(ISLMultiAff)
 	 * @see alpha.model.ModelPackage#getJNIFunction_Z__internal_cache_islMAff()
 	 * @model unique="false" dataType="alpha.model.JNIISLMultiAff"
 	 * @generated
 	 */
-	JNIISLMultiAff getZ__internal_cache_islMAff();
+	ISLMultiAff getZ__internal_cache_islMAff();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.JNIFunction#getZ__internal_cache_islMAff <em>Zinternal cache isl MAff</em>}' attribute.
@@ -66,7 +66,7 @@ public interface JNIFunction extends CalculatorExpression {
 	 * @see #getZ__internal_cache_islMAff()
 	 * @generated
 	 */
-	void setZ__internal_cache_islMAff(JNIISLMultiAff value);
+	void setZ__internal_cache_islMAff(ISLMultiAff value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -74,7 +74,7 @@ public interface JNIFunction extends CalculatorExpression {
 	 * @model kind="operation" dataType="alpha.model.JNIISLMultiAff" unique="false"
 	 * @generated
 	 */
-	JNIISLMultiAff getISLMultiAff();
+	ISLMultiAff getISLMultiAff();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,7 +82,7 @@ public interface JNIFunction extends CalculatorExpression {
 	 * @model islMAffDataType="alpha.model.JNIISLMultiAff" islMAffUnique="false"
 	 * @generated
 	 */
-	void setISLMultiAff(JNIISLMultiAff islMAff);
+	void setISLMultiAff(ISLMultiAff islMAff);
 
 	/**
 	 * <!-- begin-user-doc -->

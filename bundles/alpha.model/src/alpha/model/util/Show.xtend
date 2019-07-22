@@ -45,10 +45,10 @@ import alpha.model.UseEquation
 import alpha.model.Variable
 import alpha.model.VariableDomain
 import alpha.model.VariableExpression
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+import fr.irisa.cairn.jnimap.isl.ISLMap
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLSet
 
 /**
  * Prints the Alpha program in Show notation. The show notation
@@ -60,7 +60,7 @@ import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
  */
 class Show extends ModelSwitch<CharSequence> {
 	
-	protected JNIISLSet parameterContext = null;
+	protected ISLSet parameterContext = null;
 
 	static def <T extends AlphaCompleteVisitable> print(T av) {
 		val show = new Show();
@@ -84,7 +84,7 @@ class Show extends ModelSwitch<CharSequence> {
 		AlphaPrintingUtil.toShowStringSystemBodyDomain(dom.ISLSet)
 	}
 	
-	protected def printVariableDeclarationDomain(JNIISLSet set) {
+	protected def printVariableDeclarationDomain(ISLSet set) {
 		AlphaPrintingUtil.toShowString(set, parameterContext)
 	}
 	
@@ -92,33 +92,33 @@ class Show extends ModelSwitch<CharSequence> {
 		f.plainToString
 	}
 	
-	protected def printInstantiationDomain(JNIISLSet set) {
+	protected def printInstantiationDomain(ISLSet set) {
 		AlphaPrintingUtil.toShowString(set, parameterContext)
 	}
 	
-	protected def printWhileDomain(JNIISLSet set) {
+	protected def printWhileDomain(ISLSet set) {
 		AlphaPrintingUtil.toShowString(set, parameterContext)
 	}
 	
-	protected def printDomain(JNIISLSet set) {
+	protected def printDomain(ISLSet set) {
 		AlphaPrintingUtil.toShowString(set, parameterContext)
 	}
 	
-	protected def printFunction(JNIISLMultiAff f) {
+	protected def printFunction(ISLMultiAff f) {
 		AlphaPrintingUtil.toShowString(f)
 	}
 	
-	protected def printRelation(JNIISLMap rel) {
+	protected def printRelation(ISLMap rel) {
 		AlphaPrintingUtil.toShowString(rel)
 	}
 	
-	protected def printPolynomial(JNIISLPWQPolynomial p) {
+	protected def printPolynomial(ISLPWQPolynomial p) {
 		AlphaPrintingUtil.toShowString(p)
 	}
 	
-	protected def printSubsystemCallParams(JNIFunctionInArrayNotation f, JNIISLSet instantiationDomain) {
+	protected def printSubsystemCallParams(JNIFunctionInArrayNotation f, ISLSet instantiationDomain) {
 		val maff = f.ISLMultiAff
-		'''«AlphaPrintingUtil.toAShowString(maff, instantiationDomain.indicesNames)»'''
+		'''«AlphaPrintingUtil.toAShowString(maff, instantiationDomain.indexNames)»'''
 	}
 
 	/* override */ def caseAlphaRoot(AlphaRoot root) {
@@ -195,7 +195,7 @@ class Show extends ModelSwitch<CharSequence> {
 	}
 	
 	/* override */ def caseUseEquation(UseEquation ue) {
-		val idom = if (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbDims > 0) 
+		val idom = if (ue.instantiationDomainExpr !== null && ue.instantiationDomain.nbIndices > 0) 
 			'''over «ue.instantiationDomain.printInstantiationDomain» : ''' else ''''''
 		
 		val callParam = ue.callParamsExpr.printSubsystemCallParams(ue.instantiationDomain)
@@ -281,7 +281,7 @@ class Show extends ModelSwitch<CharSequence> {
 		'''argreduce(«aere.externalFunction.name», «proj», «body»)'''
 	}
 	
-	protected def printProjectionFunction(JNIISLMultiAff maff) {
+	protected def printProjectionFunction(ISLMultiAff maff) {
 		AlphaPrintingUtil.toShowString(maff)
 	}
 	

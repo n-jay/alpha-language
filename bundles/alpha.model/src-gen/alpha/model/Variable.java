@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
  * <!-- begin-user-doc -->
@@ -72,7 +72,7 @@ public interface Variable extends AlphaNode, AlphaVisitable, AlphaSystemElement 
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
-	JNIISLSet getDomain();
+	ISLSet getDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

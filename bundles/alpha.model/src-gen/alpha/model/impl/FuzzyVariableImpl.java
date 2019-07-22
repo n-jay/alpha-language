@@ -10,8 +10,8 @@ import alpha.model.POLY_OBJECT_TYPE;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -114,8 +114,8 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getRange() {
-		JNIISLSet _xifexpression = null;
+	public ISLSet getRange() {
+		ISLSet _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getRangeExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
 		if (_notEquals) {
@@ -123,7 +123,7 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 		}
 		else {
 			JNIObject _iSLObject = this.getRangeExpr().getISLObject();
-			_xifexpression = ((JNIISLSet) _iSLObject);
+			_xifexpression = ((ISLSet) _iSLObject);
 		}
 		return _xifexpression;
 	}
@@ -133,12 +133,12 @@ public class FuzzyVariableImpl extends VariableImpl implements FuzzyVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getRelation() {
-		JNIISLMap _xblockexpression = null;
+	public ISLMap getRelation() {
+		ISLMap _xblockexpression = null;
 		{
-			final JNIISLSet dom = this.getDomain();
-			final JNIISLSet ran = this.getRange();
-			JNIISLMap _xifexpression = null;
+			final ISLSet dom = this.getDomain();
+			final ISLSet ran = this.getRange();
+			ISLMap _xifexpression = null;
 			if (((dom == null) || (ran == null))) {
 				_xifexpression = null;
 			}

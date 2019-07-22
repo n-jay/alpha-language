@@ -17,7 +17,7 @@ import alpha.model.Variable;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import java.util.Collection;
 
@@ -206,7 +206,7 @@ public class SystemBodyImpl extends AlphaNodeImpl implements SystemBody {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getParameterDomain() {
+	public ISLSet getParameterDomain() {
 		return this.getParameterDomainExpr().getISLSet();
 	}
 

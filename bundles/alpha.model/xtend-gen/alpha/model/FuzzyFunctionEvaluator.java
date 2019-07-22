@@ -12,10 +12,10 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.CalculatorExpressionIssue;
 import alpha.model.util.AlphaUtil;
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLFactory;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,17 +66,17 @@ public class FuzzyFunctionEvaluator {
    */
   private void _computeBaseMap(final FuzzyFunction ff) {
     try {
-      final JNIISLSet pdom = AlphaUtil.getParameterDomain(ff);
+      final ISLSet pdom = AlphaUtil.getParameterDomain(ff);
       AlphaSystem _containerSystem = AlphaUtil.getContainerSystem(ff);
       String _alphaString = ff.getAlphaString();
       String _plus = ("{" + _alphaString);
       String _plus_1 = (_plus + "}");
-      JNIISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(_containerSystem, _plus_1));
+      ISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(_containerSystem, _plus_1));
       jnimap = jnimap.intersectParams(pdom.copy());
       ff.setFuzzyMap(jnimap);
       boolean _domainIsWrapping = ff.getFuzzyMap().domainIsWrapping();
       if (_domainIsWrapping) {
-        final List<String> newnames = ff.getFuzzyMap().getDomain().unwrap().getDomainNames();
+        final List<String> newnames = ff.getFuzzyMap().getDomain().unwrap().getDomain().getIndexNames();
         this.contextHistory.push(this.indexNameContext);
         this.indexNameContext = newnames;
       } else {
@@ -118,7 +118,7 @@ public class FuzzyFunctionEvaluator {
    */
   private void computeDependenceRelation(final FuzzyFunction ff) {
     this.indexNameContext = this.contextHistory.pop();
-    JNIISLMap _fuzzyMap = ff.getFuzzyMap();
+    ISLMap _fuzzyMap = ff.getFuzzyMap();
     boolean _tripleEquals = (_fuzzyMap == null);
     if (_tripleEquals) {
       return;
@@ -129,10 +129,10 @@ public class FuzzyFunctionEvaluator {
       this.issues.add(AlphaIssueFactory.unwrappedFuzzyFunction(ff));
       return;
     }
-    final JNIISLMap fvIntroMap = ff.getFuzzyMap().getDomain().unwrap();
-    final int nDdim = fvIntroMap.getNbIns();
-    final List<String> ranNames = fvIntroMap.getRangeNames();
-    JNIISLMap depRel = ((JNIISLMap) null);
+    final ISLMap fvIntroMap = ff.getFuzzyMap().getDomain().unwrap();
+    final int nDdim = fvIntroMap.getNbInputs();
+    final List<String> ranNames = fvIntroMap.getRange().getIndexNames();
+    ISLMap depRel = ((ISLMap) null);
     for (final String ranName : ranNames) {
       {
         final FuzzyVariableUse fvu = ff.getIndirectionByName(ranName);
@@ -146,7 +146,7 @@ public class FuzzyFunctionEvaluator {
         }
       }
     }
-    ff.setDependenceRelation(ff.getFuzzyMap().intersectDomain(depRel.wrap()).flatten().projectOut(JNIISLDimType.isl_dim_in, nDdim, ((Object[])Conversions.unwrapArray(ranNames, Object.class)).length));
+    ff.setDependenceRelation(ff.getFuzzyMap().intersectDomain(depRel.wrap()).flatten().projectOut(ISLDimType.isl_dim_in, nDdim, ((Object[])Conversions.unwrapArray(ranNames, Object.class)).length));
   }
   
   /**

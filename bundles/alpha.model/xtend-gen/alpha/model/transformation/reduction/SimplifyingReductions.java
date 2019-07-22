@@ -25,12 +25,12 @@ import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.DomainOperations;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPoint;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
+import fr.irisa.cairn.jnimap.isl.ISLAff;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPoint;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,15 +85,15 @@ public class SimplifyingReductions {
   
   private StandardEquation reductionEquation;
   
-  private JNIISLMultiAff reuseDep;
+  private ISLMultiAff reuseDep;
   
-  private JNIISLMultiAff reuseDir;
+  private ISLMultiAff reuseDir;
   
   private final AlphaSystem containerSystem;
   
   private final SystemBody containerSystemBody;
   
-  private SimplifyingReductions(final ReduceExpression reduce, final JNIISLMultiAff reuseDep) {
+  private SimplifyingReductions(final ReduceExpression reduce, final ISLMultiAff reuseDep) {
     this.targetReduce = reduce;
     this.reuseDep = reuseDep;
     this.containerSystem = AlphaUtil.getContainerSystem(this.targetReduce);
@@ -111,9 +111,9 @@ public class SimplifyingReductions {
     if (_not) {
       throw new RuntimeException("The target ReduceExpression must be a direct child of a StandardEquation. Apply NormalizeReductions first.");
     }
-    int _nbDims = this.targetReduce.getBody().getContextDomain().getNbDims();
-    int _nbDims_1 = this.reuseDep.getNbDims(JNIISLDimType.isl_dim_in);
-    boolean _notEquals = (_nbDims != _nbDims_1);
+    int _nbIndices = this.targetReduce.getBody().getContextDomain().getNbIndices();
+    int _nbInputs = this.reuseDep.getNbInputs();
+    boolean _notEquals = (_nbIndices != _nbInputs);
     if (_notEquals) {
       throw new RuntimeException("Given reuse dependence does not match the dimensionality of the reduction body.");
     }
@@ -123,7 +123,7 @@ public class SimplifyingReductions {
     }
   }
   
-  public static void apply(final ReduceExpression reduce, final JNIISLMultiAff reuseDep) {
+  public static void apply(final ReduceExpression reduce, final ISLMultiAff reuseDep) {
     final SimplifyingReductions sr = new SimplifyingReductions(reduce, reuseDep);
     sr.simplify();
   }
@@ -136,9 +136,9 @@ public class SimplifyingReductions {
   }
   
   public static void apply(final ReduceExpression reduce, final long[] reuseDepNoParams) {
-    final JNIISLSpace space = JNIISLSpace.idMapDimFromSetDim(reduce.getBody().getExpressionDomain().getSpace().copy());
-    final long[] reuseDep = MatrixOperations.bindVector(new long[space.getNbDims(JNIISLDimType.isl_dim_param)], reuseDepNoParams);
-    final JNIISLMultiAff maff = AffineFunctionOperations.createUniformFunction(space.copy(), reuseDep);
+    final ISLSpace space = ISLSpace.idMapDimFromSetDim(reduce.getBody().getExpressionDomain().getSpace().copy());
+    final long[] reuseDep = MatrixOperations.bindVector(new long[space.getNbParams()], reuseDepNoParams);
+    final ISLMultiAff maff = AffineFunctionOperations.createUniformFunction(space.copy(), reuseDep);
     SimplifyingReductions.apply(reduce, maff);
   }
   
@@ -150,21 +150,21 @@ public class SimplifyingReductions {
     this.debug(("ReuseDependence : " + this.reuseDep));
     this.reuseDir = AffineFunctionOperations.negateUniformFunction(this.reuseDep);
     this.debug(("ReuseDirection  : " + this.reuseDir));
-    final JNIISLMultiAff reuseDepProjected = this.constructDependenceFunctionInAnswerSpace();
+    final ISLMultiAff reuseDepProjected = this.constructDependenceFunctionInAnswerSpace();
     this.debug(("ReuseDepProjected: " + reuseDepProjected));
     boolean _isIdentity = reuseDepProjected.isIdentity();
     if (_isIdentity) {
       throw new RuntimeException("The reuse dependence is in the kernel of the projection function.");
     }
-    final JNIISLSet origDE = this.targetReduce.getBody().getContextDomain();
+    final ISLSet origDE = this.targetReduce.getBody().getContextDomain();
     this.debug(("DE  : " + origDE));
-    final JNIISLSet DEp = origDE.copy().apply(this.reuseDir.toMap());
+    final ISLSet DEp = origDE.copy().apply(this.reuseDir.toMap());
     this.debug(("DE\' : " + DEp));
-    final JNIISLSet Dadd = origDE.copy().subtract(DEp.copy()).apply(this.targetReduce.getProjection().toMap()).intersect(targetVariable.getDomain());
+    final ISLSet Dadd = origDE.copy().subtract(DEp.copy()).apply(this.targetReduce.getProjection().toMap()).intersect(targetVariable.getDomain());
     this.debug(("Dadd: " + Dadd));
-    final JNIISLSet Dsub = DEp.copy().subtract(origDE.copy()).apply(this.targetReduce.getProjection().toMap()).intersect(targetVariable.getDomain());
+    final ISLSet Dsub = DEp.copy().subtract(origDE.copy()).apply(this.targetReduce.getProjection().toMap()).intersect(targetVariable.getDomain());
     this.debug(("Dsub: " + Dsub));
-    final JNIISLSet Dint = origDE.copy().intersect(DEp.copy()).apply(this.targetReduce.getProjection().toMap()).intersect(targetVariable.getDomain());
+    final ISLSet Dint = origDE.copy().intersect(DEp.copy()).apply(this.targetReduce.getProjection().toMap()).intersect(targetVariable.getDomain());
     this.debug(("Dint: " + Dint));
     boolean _isEmpty = Dint.isEmpty();
     if (_isEmpty) {
@@ -172,10 +172,10 @@ public class SimplifyingReductions {
     }
     final String XaddName = SimplifyingReductions.defineXaddEquationName.apply(this);
     {
-      final JNIISLSet restrictDom = origDE.copy().subtract(DEp.copy());
+      final ISLSet restrictDom = origDE.copy().subtract(DEp.copy());
       final RestrictExpression restrictExpr = AlphaUserFactory.createRestrictExpression(restrictDom, EcoreUtil.<AlphaExpression>copy(this.targetReduce.getBody()));
       final ReduceExpression Xadd = AlphaUserFactory.createReduceExpression(this.targetReduce.getOperator(), this.targetReduce.getProjection(), restrictExpr);
-      final JNIISLSet XaddDom = restrictDom.copy().apply(this.targetReduce.getProjection().toMap());
+      final ISLSet XaddDom = restrictDom.copy().apply(this.targetReduce.getProjection().toMap());
       final Variable XaddVar = AlphaUserFactory.createVariable(XaddName, XaddDom);
       final StandardEquation XaddEq = AlphaUserFactory.createStandardEquation(XaddVar, Xadd);
       this.containerSystem.getLocals().add(XaddVar);
@@ -186,13 +186,13 @@ public class SimplifyingReductions {
     boolean _isEmpty_1 = Dsub.isEmpty();
     boolean _not = (!_isEmpty_1);
     if (_not) {
-      final JNIISLSet restrictDom = DEp.copy().subtract(origDE.copy());
-      final JNIISLSet DintPreimage = Dint.copy().preimage(this.targetReduce.getProjection());
+      final ISLSet restrictDom = DEp.copy().subtract(origDE.copy());
+      final ISLSet DintPreimage = Dint.copy().preimage(this.targetReduce.getProjection());
       final DependenceExpression depExpr = AlphaUserFactory.createDependenceExpression(this.reuseDep.copy(), EcoreUtil.<AlphaExpression>copy(this.targetReduce.getBody()));
       final RestrictExpression innerRestrict = AlphaUserFactory.createRestrictExpression(restrictDom, depExpr);
       final RestrictExpression outerRestrict = AlphaUserFactory.createRestrictExpression(DintPreimage, innerRestrict);
       final ReduceExpression Xsub = AlphaUserFactory.createReduceExpression(this.targetReduce.getOperator(), this.targetReduce.getProjection(), outerRestrict);
-      final JNIISLSet XsubDom = restrictDom.copy().apply(this.targetReduce.getProjection().toMap()).intersect(Dint.copy());
+      final ISLSet XsubDom = restrictDom.copy().apply(this.targetReduce.getProjection().toMap()).intersect(Dint.copy());
       final Variable XsubVar = AlphaUserFactory.createVariable(XsubName, XsubDom);
       final StandardEquation XsubEq = AlphaUserFactory.createStandardEquation(XsubVar, Xsub);
       this.containerSystem.getLocals().add(XsubVar);
@@ -205,17 +205,17 @@ public class SimplifyingReductions {
     final VariableExpression Xref = AlphaUserFactory.createVariableExpression(this.reductionEquation.getVariable());
     final DependenceExpression reuseExpr = AlphaUserFactory.createDependenceExpression(reuseDepProjected.copy(), Xref);
     {
-      final JNIISLSet restrictDom_1 = Dadd.copy().subtract(Dint.copy());
+      final ISLSet restrictDom_1 = Dadd.copy().subtract(Dint.copy());
       final RestrictExpression branch1expr = AlphaUserFactory.createRestrictExpression(restrictDom_1, EcoreUtil.<VariableExpression>copy(XaddRef));
       mainCaseExpr.getExprs().add(branch1expr);
     }
     {
-      final JNIISLSet restrictDom_1 = Dint.copy().subtract(Dadd.copy().union(Dsub.copy()));
+      final ISLSet restrictDom_1 = Dint.copy().subtract(Dadd.copy().union(Dsub.copy()));
       final RestrictExpression branch2expr = AlphaUserFactory.createRestrictExpression(restrictDom_1, EcoreUtil.<DependenceExpression>copy(reuseExpr));
       mainCaseExpr.getExprs().add(branch2expr);
     }
     {
-      final JNIISLSet restrictDom_1 = Dadd.copy().intersect(Dint.copy().subtract(Dsub.copy()));
+      final ISLSet restrictDom_1 = Dadd.copy().intersect(Dint.copy().subtract(Dsub.copy()));
       final BinaryExpression binaryExpr = AlphaUserFactory.createBinaryExpression(binaryOp, EcoreUtil.<VariableExpression>copy(XaddRef), EcoreUtil.<DependenceExpression>copy(reuseExpr));
       final RestrictExpression branch3expr = AlphaUserFactory.createRestrictExpression(restrictDom_1, binaryExpr);
       mainCaseExpr.getExprs().add(branch3expr);
@@ -226,13 +226,13 @@ public class SimplifyingReductions {
       final BINARY_OP invOp = AlphaOperatorUtil.reductionOPtoBinaryInverseOP(this.targetReduce.getOperator());
       final VariableExpression XsubRef = AlphaUserFactory.createVariableExpression(this.containerSystem.getVariable(XsubName));
       {
-        final JNIISLSet restrictDom_1 = Dsub.copy().intersect(Dint.copy().subtract(Dadd.copy()));
+        final ISLSet restrictDom_1 = Dsub.copy().intersect(Dint.copy().subtract(Dadd.copy()));
         final BinaryExpression binaryExpr = AlphaUserFactory.createBinaryExpression(invOp, EcoreUtil.<DependenceExpression>copy(reuseExpr), EcoreUtil.<VariableExpression>copy(XsubRef));
         final RestrictExpression branch4expr = AlphaUserFactory.createRestrictExpression(restrictDom_1, binaryExpr);
         mainCaseExpr.getExprs().add(branch4expr);
       }
       {
-        final JNIISLSet restrictDom_1 = Dadd.copy().intersect(Dint.copy().intersect(Dsub.copy()));
+        final ISLSet restrictDom_1 = Dadd.copy().intersect(Dint.copy().intersect(Dsub.copy()));
         final BinaryExpression binaryExprAdd = AlphaUserFactory.createBinaryExpression(binaryOp, XaddRef, reuseExpr);
         final BinaryExpression binaryExprSub = AlphaUserFactory.createBinaryExpression(invOp, binaryExprAdd, XsubRef);
         final RestrictExpression branch5expr = AlphaUserFactory.createRestrictExpression(restrictDom_1, binaryExprSub);
@@ -259,23 +259,23 @@ public class SimplifyingReductions {
    * the projection function, and then reconstructing the uniform
    * function from the result of the evaluation.
    */
-  private JNIISLMultiAff constructDependenceFunctionInAnswerSpace() {
-    JNIISLMultiAff _xblockexpression = null;
+  private ISLMultiAff constructDependenceFunctionInAnswerSpace() {
+    ISLMultiAff _xblockexpression = null;
     {
       final List<Long> b = AffineFunctionOperations.getConstantVector(this.reuseDep);
-      final int nbParams = this.reuseDep.getDomainSpace().getNbDims(JNIISLDimType.isl_dim_param);
-      JNIISLPoint point = JNIISLPoint.buildZero(this.reuseDep.getDomainSpace());
+      final int nbParams = this.reuseDep.getDomainSpace().getNbParams();
+      ISLPoint point = ISLPoint.buildZero(this.reuseDep.getDomainSpace());
       int _size = b.size();
       ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
       for (final Integer d : _doubleDotLessThan) {
         {
-          JNIISLDimType _xifexpression = null;
+          ISLDimType _xifexpression = null;
           if (((d).intValue() < nbParams)) {
-            _xifexpression = JNIISLDimType.isl_dim_param;
+            _xifexpression = ISLDimType.isl_dim_param;
           } else {
-            _xifexpression = JNIISLDimType.isl_dim_set;
+            _xifexpression = ISLDimType.isl_dim_set;
           }
-          final JNIISLDimType dimType = _xifexpression;
+          final ISLDimType dimType = _xifexpression;
           Integer _xifexpression_1 = null;
           if (((d).intValue() < nbParams)) {
             _xifexpression_1 = d;
@@ -291,21 +291,21 @@ public class SimplifyingReductions {
           }
         }
       }
-      int _nbAff = this.targetReduce.getProjection().getNbAff();
-      int _plus = (nbParams + _nbAff);
+      int _nbOutputs = this.targetReduce.getProjection().getNbOutputs();
+      int _plus = (nbParams + _nbOutputs);
       final ArrayList<Long> projectedB = new ArrayList<Long>(_plus);
       ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, nbParams, true);
       for (final Integer d_1 : _doubleDotLessThan_1) {
         projectedB.add(Long.valueOf(0l));
       }
-      List<JNIISLAff> _affs = this.targetReduce.getProjection().getAffs();
-      for (final JNIISLAff aff : _affs) {
+      List<ISLAff> _affs = this.targetReduce.getProjection().getAffs();
+      for (final ISLAff aff : _affs) {
         projectedB.add(Long.valueOf(aff.eval(point.copy()).asLong()));
       }
-      final JNIISLSpace domSpace = this.reductionEquation.getVariable().getDomain().getSpace();
-      final JNIISLSpace space = JNIISLSpace.idMapDimFromSetDim(domSpace);
-      final JNIISLMultiAff f = AffineFunctionOperations.createUniformFunction(space, projectedB);
-      _xblockexpression = AlphaUtil.renameIndices(f, this.reductionEquation.getVariable().getDomain().getIndicesNames());
+      final ISLSpace domSpace = this.reductionEquation.getVariable().getDomain().getSpace();
+      final ISLSpace space = ISLSpace.idMapDimFromSetDim(domSpace);
+      final ISLMultiAff f = AffineFunctionOperations.createUniformFunction(space, projectedB);
+      _xblockexpression = AlphaUtil.renameIndices(f, this.reductionEquation.getVariable().getDomain().getIndexNames());
     }
     return _xblockexpression;
   }

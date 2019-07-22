@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -51,12 +51,12 @@ public interface JNIRelation extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache isl Map</em>' attribute.
-	 * @see #setZ__internal_cache_islMap(JNIISLMap)
+	 * @see #setZ__internal_cache_islMap(ISLMap)
 	 * @see alpha.model.ModelPackage#getJNIRelation_Z__internal_cache_islMap()
 	 * @model unique="false" dataType="alpha.model.JNIISLMap"
 	 * @generated
 	 */
-	JNIISLMap getZ__internal_cache_islMap();
+	ISLMap getZ__internal_cache_islMap();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.JNIRelation#getZ__internal_cache_islMap <em>Zinternal cache isl Map</em>}' attribute.
@@ -66,7 +66,7 @@ public interface JNIRelation extends CalculatorExpression {
 	 * @see #getZ__internal_cache_islMap()
 	 * @generated
 	 */
-	void setZ__internal_cache_islMap(JNIISLMap value);
+	void setZ__internal_cache_islMap(ISLMap value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -74,7 +74,7 @@ public interface JNIRelation extends CalculatorExpression {
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
 	 * @generated
 	 */
-	JNIISLMap getISLMap();
+	ISLMap getISLMap();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,7 +82,7 @@ public interface JNIRelation extends CalculatorExpression {
 	 * @model islMapDataType="alpha.model.JNIISLMap" islMapUnique="false"
 	 * @generated
 	 */
-	void setISLMap(JNIISLMap islMap);
+	void setISLMap(ISLMap islMap);
 
 	/**
 	 * <!-- begin-user-doc -->

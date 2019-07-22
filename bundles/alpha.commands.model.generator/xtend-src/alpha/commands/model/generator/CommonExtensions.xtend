@@ -27,10 +27,10 @@ class CommonExtensions {
 		switch (type) {
 			case DOMAIN,
 			case PARAMETER_DOMAIN: {
-				'JNIISLSet'
+				'ISLSet'
 			}
 			case AFFINE_FUNCTION: {
-				'JNIISLMultiAff'
+				'ISLMultiAff'
 			}
 			default: {
 				type.literal
@@ -97,11 +97,11 @@ class CommonExtensions {
 				#{'''alpha.model.«type.literal»'''}
 			}
 			case AFFINE_FUNCTION: {
-				#{'''fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff'''}
+				#{'''fr.irisa.cairn.jnimap.isl.JNIISLMultiAff'''}
 			}
 			case DOMAIN,
 			case PARAMETER_DOMAIN: {
-				#{'''fr.irisa.cairn.jnimap.isl.jni.JNIISLSet'''}
+				#{'''fr.irisa.cairn.jnimap.isl.JNIISLSet'''}
 			}
 			case ALPHA_BUNDLE: {
 				#{'''alpha.model.AlphaRoot''', '''java.util.List'''}

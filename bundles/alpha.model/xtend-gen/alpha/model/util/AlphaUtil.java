@@ -11,16 +11,16 @@ import alpha.model.Equation;
 import alpha.model.SystemBody;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
-import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLQPolynomial;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLUnionMap;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLErrorException;
+import fr.irisa.cairn.jnimap.isl.ISLFactory;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLUnionMap;
+import fr.irisa.cairn.jnimap.isl.JNIISLTools;
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -176,7 +176,7 @@ public class AlphaUtil {
     throw new RuntimeException((("System " + systemName) + " was not found."));
   }
   
-  public static JNIISLSet getParameterDomain(final EObject node) {
+  public static ISLSet getParameterDomain(final EObject node) {
     final AlphaSystem system = AlphaUtil.getContainerSystem(node);
     if ((system == null)) {
       throw new RuntimeException("Node is not contained by an AlphaSystem.");
@@ -225,19 +225,19 @@ public class AlphaUtil {
     return null;
   }
   
-  protected static JNIObject _copy(final JNIISLMap map) {
+  protected static JNIObject _copy(final ISLMap map) {
     return map.copy();
   }
   
-  protected static JNIObject _copy(final JNIISLSet set) {
+  protected static JNIObject _copy(final ISLSet set) {
     return set.copy();
   }
   
-  protected static JNIObject _copy(final JNIISLMultiAff maff) {
+  protected static JNIObject _copy(final ISLMultiAff maff) {
     return maff.copy();
   }
   
-  protected static JNIObject _copy(final JNIISLUnionMap umap) {
+  protected static JNIObject _copy(final ISLUnionMap umap) {
     return umap.copy();
   }
   
@@ -249,7 +249,7 @@ public class AlphaUtil {
     String _xblockexpression = null;
     {
       final StringBuffer completed = new StringBuffer("[");
-      completed.append(String.join(",", system.getParameterDomain().getParametersNames()));
+      completed.append(String.join(",", system.getParameterDomain().getParamNames()));
       completed.append("] -> ");
       completed.append(alphaDom);
       _xblockexpression = AlphaUtil.replaceAlphaConstants(system, completed.toString());
@@ -257,18 +257,18 @@ public class AlphaUtil {
     return _xblockexpression;
   }
   
-  protected static JNIISLSet _getScalarDomain(final AlphaSystem system) {
-    JNIISLSet _xblockexpression = null;
+  protected static ISLSet _getScalarDomain(final AlphaSystem system) {
+    ISLSet _xblockexpression = null;
     {
-      JNIISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "{ [] : }"));
-      final JNIISLSet pdom = system.getParameterDomain();
+      ISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, "{ [] : }"));
+      final ISLSet pdom = system.getParameterDomain();
       _xblockexpression = jniset.intersectParams(pdom.copy());
     }
     return _xblockexpression;
   }
   
-  protected static JNIISLSet _getScalarDomain(final AlphaExpression expr) {
-    JNIISLSet _xblockexpression = null;
+  protected static ISLSet _getScalarDomain(final AlphaExpression expr) {
+    ISLSet _xblockexpression = null;
     {
       AlphaSystem _containerSystem = AlphaUtil.getContainerSystem(expr);
       boolean _tripleEquals = (_containerSystem == null);
@@ -288,10 +288,10 @@ public class AlphaUtil {
     {
       final AlphaSystem containerSystem = AlphaUtil.getContainerSystem(node);
       List<String> _xifexpression = null;
-      JNIISLSet _whileDomain = containerSystem.getWhileDomain();
+      ISLSet _whileDomain = containerSystem.getWhileDomain();
       boolean _tripleNotEquals = (_whileDomain != null);
       if (_tripleNotEquals) {
-        _xifexpression = containerSystem.getWhileDomain().getIndicesNames();
+        _xifexpression = containerSystem.getWhileDomain().getIndexNames();
       } else {
         _xifexpression = new LinkedList<String>();
       }
@@ -331,9 +331,9 @@ public class AlphaUtil {
     }
   }
   
-  public static JNIISLSet renameIndices(final JNIISLSet set, final List<String> names) {
-    final int n = set.getNbDims();
-    JNIISLSet res = set;
+  public static ISLSet renameIndices(final ISLSet set, final List<String> names) {
+    final int n = set.getNbIndices();
+    ISLSet res = set;
     int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
     boolean _greaterThan = (n > _length);
     if (_greaterThan) {
@@ -341,14 +341,14 @@ public class AlphaUtil {
     }
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
     for (final Integer i : _doubleDotLessThan) {
-      res = res.setDimName(JNIISLDimType.isl_dim_set, (i).intValue(), names.get((i).intValue()));
+      res = res.setDimName(ISLDimType.isl_dim_set, (i).intValue(), names.get((i).intValue()));
     }
     return res;
   }
   
-  public static JNIISLMap renameIndices(final JNIISLMap map, final List<String> names) {
-    final int n = map.getNbDims(JNIISLDimType.isl_dim_in);
-    JNIISLMap res = map;
+  public static ISLMap renameIndices(final ISLMap map, final List<String> names) {
+    final int n = map.getNbInputs();
+    ISLMap res = map;
     int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
     boolean _greaterThan = (n > _length);
     if (_greaterThan) {
@@ -356,52 +356,52 @@ public class AlphaUtil {
     }
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
     for (final Integer i : _doubleDotLessThan) {
-      res = res.setDimName(JNIISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
+      res = res.setDimName(ISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
     }
     return res;
   }
   
-  public static JNIISLMultiAff renameIndices(final JNIISLMultiAff maff, final List<String> names) {
-    final int n = maff.getNbDims(JNIISLDimType.isl_dim_in);
+  public static ISLMultiAff renameIndices(final ISLMultiAff maff, final List<String> names) {
+    final int n = maff.getNbInputs();
     int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
     boolean _greaterThan = (n > _length);
     if (_greaterThan) {
       throw new RuntimeException("Need n or more index names to rename n-d space.");
     }
-    JNIISLMultiAff res = maff;
+    ISLMultiAff res = maff;
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
     for (final Integer i : _doubleDotLessThan) {
-      res = res.setDimName(JNIISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
+      res = res.setDimName(ISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
     }
     return res;
   }
   
-  public static JNIISLPWQPolynomial renameIndices(final JNIISLPWQPolynomial pwqp, final List<String> names) {
-    final int n = pwqp.getNbDims(JNIISLDimType.isl_dim_in);
+  public static ISLPWQPolynomial renameIndices(final ISLPWQPolynomial pwqp, final List<String> names) {
+    final int n = pwqp.dim(ISLDimType.isl_dim_in);
     int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
     boolean _greaterThan = (n > _length);
     if (_greaterThan) {
       throw new RuntimeException("Need n or more index names to rename n-d space.");
     }
-    JNIISLPWQPolynomial res = pwqp;
+    ISLPWQPolynomial res = pwqp;
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
     for (final Integer i : _doubleDotLessThan) {
-      res = res.setDimName(JNIISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
+      res = res.setDimName(ISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
     }
     return res;
   }
   
-  public static JNIISLQPolynomial renameIndices(final JNIISLQPolynomial qp, final List<String> names) {
-    final int n = qp.getNbDims(JNIISLDimType.isl_dim_in);
+  public static ISLQPolynomial renameIndices(final ISLQPolynomial qp, final List<String> names) {
+    final int n = qp.dim(ISLDimType.isl_dim_in);
     int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
     boolean _greaterThan = (n > _length);
     if (_greaterThan) {
       throw new RuntimeException("Need n or more index names to rename n-d space.");
     }
-    JNIISLQPolynomial res = qp;
+    ISLQPolynomial res = qp;
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
     for (final Integer i : _doubleDotLessThan) {
-      res = res.setDimName(JNIISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
+      res = res.setDimName(ISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
     }
     return res;
   }
@@ -439,14 +439,14 @@ public class AlphaUtil {
   }
   
   public static JNIObject copy(final JNIObject map) {
-    if (map instanceof JNIISLMap) {
-      return _copy((JNIISLMap)map);
-    } else if (map instanceof JNIISLMultiAff) {
-      return _copy((JNIISLMultiAff)map);
-    } else if (map instanceof JNIISLSet) {
-      return _copy((JNIISLSet)map);
-    } else if (map instanceof JNIISLUnionMap) {
-      return _copy((JNIISLUnionMap)map);
+    if (map instanceof ISLMap) {
+      return _copy((ISLMap)map);
+    } else if (map instanceof ISLSet) {
+      return _copy((ISLSet)map);
+    } else if (map instanceof ISLMultiAff) {
+      return _copy((ISLMultiAff)map);
+    } else if (map instanceof ISLUnionMap) {
+      return _copy((ISLUnionMap)map);
     } else if (map == null) {
       return _copy((Void)null);
     } else {
@@ -455,7 +455,7 @@ public class AlphaUtil {
     }
   }
   
-  public static JNIISLSet getScalarDomain(final EObject system) {
+  public static ISLSet getScalarDomain(final EObject system) {
     if (system instanceof AlphaSystem) {
       return _getScalarDomain((AlphaSystem)system);
     } else if (system instanceof AlphaExpression) {

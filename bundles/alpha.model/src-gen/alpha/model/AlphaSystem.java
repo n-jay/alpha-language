@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -195,7 +195,7 @@ public interface AlphaSystem extends AlphaElement {
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
-	JNIISLSet getParameterDomain();
+	ISLSet getParameterDomain();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -203,7 +203,7 @@ public interface AlphaSystem extends AlphaElement {
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
-	JNIISLSet getWhileDomain();
+	ISLSet getWhileDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

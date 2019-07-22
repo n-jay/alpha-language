@@ -15,15 +15,15 @@ import alpha.model.transformation.SimplifyExpressions
 import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPoint
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
 import java.util.ArrayList
 import java.util.LinkedList
 import java.util.function.Function
 import org.eclipse.emf.ecore.util.EcoreUtil
 import alpha.model.util.DomainOperations
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLPoint
+import fr.irisa.cairn.jnimap.isl.ISLSpace
 
 class SimplifyingReductions {
 	
@@ -58,12 +58,12 @@ class SimplifyingReductions {
 		
 	ReduceExpression targetReduce;
 	StandardEquation reductionEquation
-	JNIISLMultiAff reuseDep;
-	JNIISLMultiAff reuseDir;
+	ISLMultiAff reuseDep;
+	ISLMultiAff reuseDir;
 	val AlphaSystem containerSystem;
 	val SystemBody containerSystemBody;
 	
-	private new(ReduceExpression reduce, JNIISLMultiAff reuseDep) {
+	private new(ReduceExpression reduce, ISLMultiAff reuseDep) {
 		targetReduce = reduce;
 		this.reuseDep = reuseDep;
 		containerSystem = AlphaUtil.getContainerSystem(targetReduce)
@@ -79,7 +79,7 @@ class SimplifyingReductions {
 			throw new RuntimeException("The target ReduceExpression must be a direct child of a StandardEquation. Apply NormalizeReductions first.");
 		}
 		
-		if (targetReduce.body.contextDomain.nbDims != reuseDep.getNbDims(JNIISLDimType.isl_dim_in)) {
+		if (targetReduce.body.contextDomain.nbIndices != reuseDep.nbInputs) {
 			throw new RuntimeException("Given reuse dependence does not match the dimensionality of the reduction body.");
 		}
 		
@@ -89,7 +89,7 @@ class SimplifyingReductions {
 		}
 	}
 	
-	static def void apply(ReduceExpression reduce, JNIISLMultiAff reuseDep) {
+	static def void apply(ReduceExpression reduce, ISLMultiAff reuseDep) {
 		val sr = new SimplifyingReductions(reduce, reuseDep);
 		sr.simplify
 	}
@@ -98,8 +98,8 @@ class SimplifyingReductions {
 		apply(reduce, reuseDepNoParams.map[v|v as long])
 	}
 	static def void apply(ReduceExpression reduce, long[] reuseDepNoParams) {
-		val space = JNIISLSpace.idMapDimFromSetDim(reduce.body.expressionDomain.space.copy)
-		val reuseDep = MatrixOperations.bindVector(newLongArrayOfSize(space.getNbDims(JNIISLDimType.isl_dim_param)), reuseDepNoParams);
+		val space = ISLSpace.idMapDimFromSetDim(reduce.body.expressionDomain.space.copy)
+		val reuseDep = MatrixOperations.bindVector(newLongArrayOfSize(space.nbParams), reuseDepNoParams);
 		val maff = AffineFunctionOperations.createUniformFunction(space.copy, reuseDep);
 		
 		apply(reduce, maff);
@@ -268,12 +268,12 @@ class SimplifyingReductions {
 	 */
 	private def constructDependenceFunctionInAnswerSpace() {
 		val b = AffineFunctionOperations.getConstantVector(reuseDep)
-		val nbParams = reuseDep.domainSpace.getNbDims(JNIISLDimType.isl_dim_param)
+		val nbParams = reuseDep.domainSpace.nbParams
 
-		var point = JNIISLPoint.buildZero(reuseDep.domainSpace);
+		var point = ISLPoint.buildZero(reuseDep.domainSpace);
 
 		for (d : 0..<b.size) {
-			val dimType = if (d < nbParams) JNIISLDimType.isl_dim_param else JNIISLDimType.isl_dim_set
+			val dimType = if (d < nbParams) ISLDimType.isl_dim_param else ISLDimType.isl_dim_set
 			val pos = if (d < nbParams) d else d-nbParams
 			val v = b.get(d).intValue
 			//FIXME a bit strange due to add/sub taking unsigned int. Update to use ISL_Val 
@@ -296,17 +296,17 @@ class SimplifyingReductions {
 //			}
 		
 		
-		val projectedB = new ArrayList<Long>(nbParams+targetReduce.projection.nbAff)
+		val projectedB = new ArrayList<Long>(nbParams+targetReduce.projection.nbOutputs)
 		for (d : 0..<nbParams) projectedB.add(0l); //implicit parameter dims
 		for (aff : targetReduce.projection.affs) {
 			projectedB.add(aff.eval(point.copy).asLong)
 		}
 
 		val domSpace = reductionEquation.variable.domain.space
-		val space = JNIISLSpace.idMapDimFromSetDim(domSpace)
+		val space = ISLSpace.idMapDimFromSetDim(domSpace)
 		val f = AffineFunctionOperations.createUniformFunction(space, projectedB)
 		
-		AlphaUtil.renameIndices(f, reductionEquation.variable.domain.indicesNames)
+		AlphaUtil.renameIndices(f, reductionEquation.variable.domain.indexNames)
 	}
 	
 	/**

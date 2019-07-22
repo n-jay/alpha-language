@@ -35,8 +35,8 @@ import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaPrintingUtil;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -251,7 +251,7 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   public void inUseEquation(final UseEquation ue) {
     this.defaultIn(ue);
     this.printStr("+-- ", ue.getSystem().getName());
-    JNIISLSet _instantiationDomain = ue.getInstantiationDomain();
+    ISLSet _instantiationDomain = ue.getInstantiationDomain();
     boolean _tripleNotEquals = (_instantiationDomain != null);
     if (_tripleNotEquals) {
       this.printStr("+-- ", ue.getInstantiationDomain());
@@ -279,7 +279,7 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   @Override
   public void inAutoRestrictExpression(final AutoRestrictExpression are) {
     this.inAlphaExpression(are);
-    JNIISLSet _inferredDomain = are.getInferredDomain();
+    ISLSet _inferredDomain = are.getInferredDomain();
     boolean _tripleNotEquals = (_inferredDomain != null);
     if (_tripleNotEquals) {
       this.printStr("+-- ", are.getInferredDomain());
@@ -289,7 +289,7 @@ public class PrintAST extends AbstractAlphaCompleteVisitor {
   @Override
   public void inDependenceExpression(final DependenceExpression de) {
     this.inAlphaExpression(de);
-    JNIISLMultiAff _function = de.getFunction();
+    ISLMultiAff _function = de.getFunction();
     String _plus = (_function + "; ");
     String _showString = AlphaPrintingUtil.toShowString(de.getFunction());
     String _plus_1 = (_plus + _showString);

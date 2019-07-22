@@ -19,7 +19,7 @@ import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.Show;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -50,7 +50,7 @@ public class ShowLegacyAlpha {
     }
     
     @Override
-    protected String printDomain(final JNIISLSet set) {
+    protected String printDomain(final ISLSet set) {
       return AlphaPrintingUtil.toLegacyAlphaString(set);
     }
     
@@ -60,7 +60,7 @@ public class ShowLegacyAlpha {
     }
     
     @Override
-    protected String printVariableDeclarationDomain(final JNIISLSet set) {
+    protected String printVariableDeclarationDomain(final ISLSet set) {
       return AlphaPrintingUtil.toLegacyAlphaString(set);
     }
     
@@ -177,7 +177,7 @@ public class ShowLegacyAlpha {
       return this.caseRestrict(are, are.getInferredDomain(), are.getExpr());
     }
     
-    private CharSequence caseRestrict(final AlphaExpression expr, final JNIISLSet domain, final AlphaExpression child) {
+    private CharSequence caseRestrict(final AlphaExpression expr, final ISLSet domain, final AlphaExpression child) {
       CharSequence _xblockexpression = null;
       {
         final String domStr = this.printDomain(domain);

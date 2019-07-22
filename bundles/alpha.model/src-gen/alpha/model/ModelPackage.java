@@ -4492,7 +4492,7 @@ public interface ModelPackage extends EPackage {
 	 * The meta object id for the '<em>JNIISL Set</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+	 * @see fr.irisa.cairn.jnimap.isl.ISLSet
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLSet()
 	 * @generated
 	 */
@@ -4502,7 +4502,7 @@ public interface ModelPackage extends EPackage {
 	 * The meta object id for the '<em>JNIISL Map</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMap
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMap()
 	 * @generated
 	 */
@@ -4512,7 +4512,7 @@ public interface ModelPackage extends EPackage {
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMultiAff
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
@@ -4522,7 +4522,7 @@ public interface ModelPackage extends EPackage {
 	 * The meta object id for the '<em>JNIISLPWQ Polynomial</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
+	 * @see fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLPWQPolynomial()
 	 * @generated
 	 */
@@ -4532,7 +4532,7 @@ public interface ModelPackage extends EPackage {
 	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
+	 * @see fr.irisa.cairn.jnimap.isl.ISL_FORMAT
 	 * @see alpha.model.impl.ModelPackageImpl#getISL_FORMAT()
 	 * @generated
 	 */
@@ -6782,56 +6782,56 @@ public interface ModelPackage extends EPackage {
 	EDataType getJNIObject();
 
 	/**
-	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.jni.JNIISLSet <em>JNIISL Set</em>}'.
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLSet <em>JNIISL Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>JNIISL Set</em>'.
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
-	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.jni.JNIISLSet"
+	 * @see fr.irisa.cairn.jnimap.isl.ISLSet
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLSet"
 	 * @generated
 	 */
 	EDataType getJNIISLSet();
 
 	/**
-	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.jni.JNIISLMap <em>JNIISL Map</em>}'.
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLMap <em>JNIISL Map</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>JNIISL Map</em>'.
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.jni.JNIISLMap"
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMap
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLMap"
 	 * @generated
 	 */
 	EDataType getJNIISLMap();
 
 	/**
-	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff <em>JNIISL Multi Aff</em>}'.
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLMultiAff <em>JNIISL Multi Aff</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>JNIISL Multi Aff</em>'.
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff"
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMultiAff
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLMultiAff"
 	 * @generated
 	 */
 	EDataType getJNIISLMultiAff();
 
 	/**
-	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial <em>JNIISLPWQ Polynomial</em>}'.
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial <em>JNIISLPWQ Polynomial</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>JNIISLPWQ Polynomial</em>'.
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
-	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial"
+	 * @see fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial"
 	 * @generated
 	 */
 	EDataType getJNIISLPWQPolynomial();
 
 	/**
-	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT <em>ISL FORMAT</em>}'.
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISL_FORMAT <em>ISL FORMAT</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>ISL FORMAT</em>'.
-	 * @see fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
-	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT"
+	 * @see fr.irisa.cairn.jnimap.isl.ISL_FORMAT
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISL_FORMAT"
 	 * @generated
 	 */
 	EDataType getISL_FORMAT();
@@ -8747,7 +8747,7 @@ public interface ModelPackage extends EPackage {
 		 * The meta object literal for the '<em>JNIISL Set</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
+		 * @see fr.irisa.cairn.jnimap.isl.ISLSet
 		 * @see alpha.model.impl.ModelPackageImpl#getJNIISLSet()
 		 * @generated
 		 */
@@ -8757,7 +8757,7 @@ public interface ModelPackage extends EPackage {
 		 * The meta object literal for the '<em>JNIISL Map</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
+		 * @see fr.irisa.cairn.jnimap.isl.ISLMap
 		 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMap()
 		 * @generated
 		 */
@@ -8767,7 +8767,7 @@ public interface ModelPackage extends EPackage {
 		 * The meta object literal for the '<em>JNIISL Multi Aff</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+		 * @see fr.irisa.cairn.jnimap.isl.ISLMultiAff
 		 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMultiAff()
 		 * @generated
 		 */
@@ -8777,7 +8777,7 @@ public interface ModelPackage extends EPackage {
 		 * The meta object literal for the '<em>JNIISLPWQ Polynomial</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
+		 * @see fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 		 * @see alpha.model.impl.ModelPackageImpl#getJNIISLPWQPolynomial()
 		 * @generated
 		 */
@@ -8787,7 +8787,7 @@ public interface ModelPackage extends EPackage {
 		 * The meta object literal for the '<em>ISL FORMAT</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT
+		 * @see fr.irisa.cairn.jnimap.isl.ISL_FORMAT
 		 * @see alpha.model.impl.ModelPackageImpl#getISL_FORMAT()
 		 * @generated
 		 */

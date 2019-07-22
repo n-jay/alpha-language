@@ -6,7 +6,7 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitor;
 import alpha.model.ModelPackage;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import java.util.Queue;
 
@@ -44,7 +44,7 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLSet ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT = null;
+	protected static final ISLSet ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getZ__internal_cache_exprDom() <em>Zinternal cache expr Dom</em>}' attribute.
@@ -54,7 +54,7 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLSet z__internal_cache_exprDom = ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT;
+	protected ISLSet z__internal_cache_exprDom = ZINTERNAL_CACHE_EXPR_DOM_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getZ__internal_cache_contextDom() <em>Zinternal cache context Dom</em>}' attribute.
@@ -64,7 +64,7 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLSet ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT = null;
+	protected static final ISLSet ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getZ__internal_cache_contextDom() <em>Zinternal cache context Dom</em>}' attribute.
@@ -74,7 +74,7 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLSet z__internal_cache_contextDom = ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT;
+	protected ISLSet z__internal_cache_contextDom = ZINTERNAL_CACHE_CONTEXT_DOM_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -100,7 +100,7 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getZ__internal_cache_exprDom() {
+	public ISLSet getZ__internal_cache_exprDom() {
 		return z__internal_cache_exprDom;
 	}
 
@@ -109,8 +109,8 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setZ__internal_cache_exprDom(JNIISLSet newZ__internal_cache_exprDom) {
-		JNIISLSet oldZ__internal_cache_exprDom = z__internal_cache_exprDom;
+	public void setZ__internal_cache_exprDom(ISLSet newZ__internal_cache_exprDom) {
+		ISLSet oldZ__internal_cache_exprDom = z__internal_cache_exprDom;
 		z__internal_cache_exprDom = newZ__internal_cache_exprDom;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM, oldZ__internal_cache_exprDom, z__internal_cache_exprDom));
@@ -121,7 +121,7 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getZ__internal_cache_contextDom() {
+	public ISLSet getZ__internal_cache_contextDom() {
 		return z__internal_cache_contextDom;
 	}
 
@@ -130,8 +130,8 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setZ__internal_cache_contextDom(JNIISLSet newZ__internal_cache_contextDom) {
-		JNIISLSet oldZ__internal_cache_contextDom = z__internal_cache_contextDom;
+	public void setZ__internal_cache_contextDom(ISLSet newZ__internal_cache_contextDom) {
+		ISLSet oldZ__internal_cache_contextDom = z__internal_cache_contextDom;
 		z__internal_cache_contextDom = newZ__internal_cache_contextDom;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM, oldZ__internal_cache_contextDom, z__internal_cache_contextDom));
@@ -163,7 +163,7 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setExpressionDomain(final JNIISLSet dom) {
+	public void setExpressionDomain(final ISLSet dom) {
 		this.setZ__internal_cache_exprDom(dom.coalesce());
 	}
 
@@ -172,9 +172,9 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getExpressionDomain() {
-		JNIISLSet _xifexpression = null;
-		JNIISLSet _z__internal_cache_exprDom = this.getZ__internal_cache_exprDom();
+	public ISLSet getExpressionDomain() {
+		ISLSet _xifexpression = null;
+		ISLSet _z__internal_cache_exprDom = this.getZ__internal_cache_exprDom();
 		boolean _tripleNotEquals = (_z__internal_cache_exprDom != null);
 		if (_tripleNotEquals) {
 			_xifexpression = this.getZ__internal_cache_exprDom().copy();
@@ -190,7 +190,7 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setContextDomain(final JNIISLSet dom) {
+	public void setContextDomain(final ISLSet dom) {
 		this.setZ__internal_cache_contextDom(dom.coalesce());
 	}
 
@@ -199,9 +199,9 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getContextDomain() {
-		JNIISLSet _xifexpression = null;
-		JNIISLSet _z__internal_cache_contextDom = this.getZ__internal_cache_contextDom();
+	public ISLSet getContextDomain() {
+		ISLSet _xifexpression = null;
+		ISLSet _z__internal_cache_contextDom = this.getZ__internal_cache_contextDom();
 		boolean _tripleNotEquals = (_z__internal_cache_contextDom != null);
 		if (_tripleNotEquals) {
 			_xifexpression = this.getZ__internal_cache_contextDom().copy();
@@ -272,10 +272,10 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_EXPR_DOM:
-				setZ__internal_cache_exprDom((JNIISLSet)newValue);
+				setZ__internal_cache_exprDom((ISLSet)newValue);
 				return;
 			case ModelPackage.ALPHA_EXPRESSION__ZINTERNAL_CACHE_CONTEXT_DOM:
-				setZ__internal_cache_contextDom((JNIISLSet)newValue);
+				setZ__internal_cache_contextDom((ISLSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

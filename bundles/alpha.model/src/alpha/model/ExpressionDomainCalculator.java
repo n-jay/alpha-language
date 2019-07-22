@@ -11,7 +11,7 @@ import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
  * Computes the expression domain for AlphaExpressions. The expression domains
@@ -99,7 +99,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	@Override
 	public void outCaseExpression(CaseExpression ce) {
 		runISLoperations(ce, ()->{
-				JNIISLSet union = ce.getExprs().stream().map(a->a.getExpressionDomain())
+				ISLSet union = ce.getExprs().stream().map(a->a.getExpressionDomain())
 						.reduce((a,b)->a.union(b)).get();
 					ce.setExpressionDomain(union);
 			});
@@ -113,12 +113,12 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	@Override
 	public void outDependenceExpression(DependenceExpression de) {
 		if (de.getFunction() != null &&  de.getExpr().getExpressionDomain() != null) {
-			if (de.getFunction().getNbAff() != de.getExpr().getExpressionDomain().getNbDims()) {
+			if (de.getFunction().getNbOutputs() != de.getExpr().getExpressionDomain().getNbIndices()) {
 				issues.add(AlphaIssueFactory.incompatibleContextAndExpressionDomain(de));
 				return;
 			}
 			runISLoperations(de, ()->{
-				JNIISLSet set = de.getExpr().getExpressionDomain().preimage(de.getFunction());
+				ISLSet set = de.getExpr().getExpressionDomain().preimage(de.getFunction());
 				de.setExpressionDomain(set);
 			});
 		}
@@ -127,7 +127,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	@Override
 	public void outIfExpression(IfExpression ie) {
 		runISLoperations(ie, ()->{
-			JNIISLSet set = ie.getCondExpr().getExpressionDomain();
+			ISLSet set = ie.getCondExpr().getExpressionDomain();
 			set = set.intersect(ie.getThenExpr().getExpressionDomain());
 			set = set.intersect(ie.getElseExpr().getExpressionDomain());
 			ie.setExpressionDomain(set);
@@ -138,7 +138,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	public void outIndexExpression(IndexExpression ie) {
 		if (ie.getFunction() != null)
 			runISLoperations(ie, ()->{
-				ie.setExpressionDomain(JNIISLSet.buildUniverse(ie.getFunction().getDomainSpace()));
+				ie.setExpressionDomain(ISLSet.buildUniverse(ie.getFunction().getDomainSpace()));
 			});
 	}
 	
@@ -146,7 +146,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	public void outPolynomialIndexExpression(PolynomialIndexExpression pie) {
 		if (pie.getPolynomial() != null)
 			runISLoperations(pie, ()->{
-				pie.setExpressionDomain(JNIISLSet.buildUniverse(pie.getPolynomial().getDomainSpace()));
+				pie.setExpressionDomain(ISLSet.buildUniverse(pie.getPolynomial().getDomainSpace()));
 			});
 	}
 	
@@ -154,14 +154,14 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	public void outFuzzyIndexExpression(FuzzyIndexExpression fie) {
 		if (fie.getDependenceRelation() != null)
 			runISLoperations(fie, ()->{
-				fie.setExpressionDomain(JNIISLSet.buildUniverse(fie.getDependenceRelation().getDomain().getSpace()));
+				fie.setExpressionDomain(ISLSet.buildUniverse(fie.getDependenceRelation().getDomain().getSpace()));
 			});
 	}
 	
 	@Override
 	public void outMultiArgExpression(MultiArgExpression mae) {
 		runISLoperations(mae, ()->{
-				JNIISLSet intersection = mae.getExprs().stream().map(e->e.getExpressionDomain())
+				ISLSet intersection = mae.getExprs().stream().map(e->e.getExpressionDomain())
 				.reduce((a,b)->a.intersect(b)).get();
 				mae.setExpressionDomain(intersection);
 		});
@@ -170,7 +170,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	@Override
 	public void outAbstractReduceExpression(AbstractReduceExpression re) {
 		runISLoperations(re, ()->{
-			JNIISLSet proj = re.getBody().getExpressionDomain().apply(re.getProjection().toMap());
+			ISLSet proj = re.getBody().getExpressionDomain().apply(re.getProjection().toMap());
 			re.setExpressionDomain(proj);
 		});
 	}
@@ -181,10 +181,10 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 			throw new RuntimeException("Only a single basic set is allowed for convolution kernels.");
 
 		runISLoperations(ce, ()->{
-			JNIISLSet kernelExprDom = AlphaExpressionUtil.preimageByConvolutionDependences(
+			ISLSet kernelExprDom = AlphaExpressionUtil.preimageByConvolutionDependences(
 					ce.getKernelDomain().getBasicSetAt(0), 
 					ce.getKernelExpression().getExpressionDomain());
-			JNIISLSet dataExprDom = AlphaExpressionUtil.preimageByConvolutionDependences(
+			ISLSet dataExprDom = AlphaExpressionUtil.preimageByConvolutionDependences(
 					ce.getKernelDomain().getBasicSetAt(0), 
 					ce.getDataExpression().getExpressionDomain());
 			ce.setExpressionDomain(kernelExprDom.intersect(dataExprDom));
@@ -218,7 +218,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	public void outSelectExpression(SelectExpression se) {
 		if (se.getSelectRelation() != null)
 			runISLoperations(se, ()->{
-				JNIISLSet set = se.getExpr().getExpressionDomain().apply(se.getSelectRelation().reverse());
+				ISLSet set = se.getExpr().getExpressionDomain().apply(se.getSelectRelation().reverse());
 				se.setExpressionDomain(set);
 			});
 	}
@@ -226,7 +226,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	@Override
 	public void outAutoRestrictExpression(AutoRestrictExpression are) {
 		runISLoperations(are, ()->{
-			JNIISLSet set = are.getExpr().getExpressionDomain();
+			ISLSet set = are.getExpr().getExpressionDomain();
 			are.setExpressionDomain(set);
 		});
 	}

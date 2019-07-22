@@ -4,11 +4,11 @@ package alpha.model.impl;
 
 import alpha.model.*;
 
-import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+import fr.irisa.cairn.jnimap.isl.ISL_FORMAT;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -967,8 +967,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet createJNIISLSetFromString(EDataType eDataType, String initialValue) {
-		return (JNIISLSet)super.createFromString(eDataType, initialValue);
+	public ISLSet createJNIISLSetFromString(EDataType eDataType, String initialValue) {
+		return (ISLSet)super.createFromString(eDataType, initialValue);
 	}
 
 	/**
@@ -985,8 +985,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap createJNIISLMapFromString(EDataType eDataType, String initialValue) {
-		return (JNIISLMap)super.createFromString(eDataType, initialValue);
+	public ISLMap createJNIISLMapFromString(EDataType eDataType, String initialValue) {
+		return (ISLMap)super.createFromString(eDataType, initialValue);
 	}
 
 	/**
@@ -1003,8 +1003,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMultiAff createJNIISLMultiAffFromString(EDataType eDataType, String initialValue) {
-		return (JNIISLMultiAff)super.createFromString(eDataType, initialValue);
+	public ISLMultiAff createJNIISLMultiAffFromString(EDataType eDataType, String initialValue) {
+		return (ISLMultiAff)super.createFromString(eDataType, initialValue);
 	}
 
 	/**
@@ -1021,8 +1021,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLPWQPolynomial createJNIISLPWQPolynomialFromString(EDataType eDataType, String initialValue) {
-		return (JNIISLPWQPolynomial)super.createFromString(eDataType, initialValue);
+	public ISLPWQPolynomial createJNIISLPWQPolynomialFromString(EDataType eDataType, String initialValue) {
+		return (ISLPWQPolynomial)super.createFromString(eDataType, initialValue);
 	}
 
 	/**

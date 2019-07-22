@@ -6,7 +6,7 @@ import alpha.model.AffineFuzzyVariableUse;
 import alpha.model.JNIFunctionInArrayNotation;
 import alpha.model.ModelPackage;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -107,8 +107,8 @@ public class AffineFuzzyVariableUseImpl extends FuzzyVariableUseImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getDependenceRelation() {
-		JNIISLMap _xifexpression = null;
+	public ISLMap getDependenceRelation() {
+		ISLMap _xifexpression = null;
 		if ((((this.getUseFunction() != null) && (this.getFuzzyVariable() != null)) && (this.getFuzzyVariable().getRelation() != null))) {
 			_xifexpression = this.getUseFunction().getISLMultiAff().toMap().applyRange(this.getFuzzyVariable().getRelation());
 		}

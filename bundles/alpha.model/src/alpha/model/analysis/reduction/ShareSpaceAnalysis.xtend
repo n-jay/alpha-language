@@ -19,12 +19,12 @@ import alpha.model.util.AbstractAlphaExpressionVisitor
 import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaUtil
 import alpha.model.util.DomainOperations
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import java.util.Arrays
 import java.util.Comparator
 import java.util.List
 import java.util.Map
 import java.util.TreeMap
+import fr.irisa.cairn.jnimap.isl.ISLDimType
 
 /**
  * Share space is the sub space spanned by set of operations that reuse the same value.
@@ -142,8 +142,8 @@ class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
 			//In the following, T is constructed from SE'. Since you just need some
 			// T that exhibits the same kernel, T is computed by taking the kernel of the share space
 			// by viewing it as a function (hence parameter identity needs to be added)
-			val params = AlphaUtil.getParameterDomain(de).parametersNames
-			val indices = de.contextDomain.indicesNames
+			val params = AlphaUtil.getParameterDomain(de).paramNames
+			val indices = de.contextDomain.indexNames
 			val maff = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, SEp)
 			maff.pullback(de.function)
 		}
@@ -157,7 +157,7 @@ class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
 	}
 	
 	override outAbstractReduceExpression(AbstractReduceExpression are) {
-		if (are.expressionDomain.getNbDims(JNIISLDimType.isl_dim_div) >0 ||
+		if (are.expressionDomain.dim(fr.irisa.cairn.jnimap.isl.ISLDimType.isl_dim_div) >0 ||
 			are.expressionDomain.nbBasicSets > 1) {
 			shareSpace.put(are, null)
 			warning("Reduction body is not a single polyhedron or contains div dimensions. Share space is set to empty.")

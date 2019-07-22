@@ -17,7 +17,7 @@ import com.google.common.base.Objects;
 
 import com.google.common.collect.Iterables;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -414,7 +414,7 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getParameterDomain() {
+	public ISLSet getParameterDomain() {
 		return this.getParameterDomainExpr().getISLSet();
 	}
 
@@ -423,14 +423,14 @@ public class AlphaSystemImpl extends AlphaNodeImpl implements AlphaSystem {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getWhileDomain() {
-		JNIISLSet _xifexpression = null;
+	public ISLSet getWhileDomain() {
+		ISLSet _xifexpression = null;
 		if (((this.getWhileDomainExpr() == null) || (!Objects.equal(this.getWhileDomainExpr().getType(), POLY_OBJECT_TYPE.SET)))) {
 			_xifexpression = null;
 		}
 		else {
 			JNIObject _iSLObject = this.getWhileDomainExpr().getISLObject();
-			_xifexpression = ((JNIISLSet) _iSLObject).copy();
+			_xifexpression = ((ISLSet) _iSLObject).copy();
 		}
 		return _xifexpression;
 	}

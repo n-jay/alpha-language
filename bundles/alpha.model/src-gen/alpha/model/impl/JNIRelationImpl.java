@@ -7,8 +7,8 @@ import alpha.model.JNIRelation;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 
-import fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISL_FORMAT;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -61,7 +61,7 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLMap ZINTERNAL_CACHE_ISL_MAP_EDEFAULT = null;
+	protected static final ISLMap ZINTERNAL_CACHE_ISL_MAP_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getZ__internal_cache_islMap() <em>Zinternal cache isl Map</em>}' attribute.
@@ -71,7 +71,7 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLMap z__internal_cache_islMap = ZINTERNAL_CACHE_ISL_MAP_EDEFAULT;
+	protected ISLMap z__internal_cache_islMap = ZINTERNAL_CACHE_ISL_MAP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -118,7 +118,7 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getZ__internal_cache_islMap() {
+	public ISLMap getZ__internal_cache_islMap() {
 		return z__internal_cache_islMap;
 	}
 
@@ -127,8 +127,8 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setZ__internal_cache_islMap(JNIISLMap newZ__internal_cache_islMap) {
-		JNIISLMap oldZ__internal_cache_islMap = z__internal_cache_islMap;
+	public void setZ__internal_cache_islMap(ISLMap newZ__internal_cache_islMap) {
+		ISLMap oldZ__internal_cache_islMap = z__internal_cache_islMap;
 		z__internal_cache_islMap = newZ__internal_cache_islMap;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP, oldZ__internal_cache_islMap, z__internal_cache_islMap));
@@ -139,9 +139,9 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getISLMap() {
-		JNIISLMap _xifexpression = null;
-		JNIISLMap _z__internal_cache_islMap = this.getZ__internal_cache_islMap();
+	public ISLMap getISLMap() {
+		ISLMap _xifexpression = null;
+		ISLMap _z__internal_cache_islMap = this.getZ__internal_cache_islMap();
 		boolean _tripleNotEquals = (_z__internal_cache_islMap != null);
 		if (_tripleNotEquals) {
 			_xifexpression = this.getZ__internal_cache_islMap().copy();
@@ -157,7 +157,7 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setISLMap(final JNIISLMap islMap) {
+	public void setISLMap(final ISLMap islMap) {
 		this.setZ__internal_cache_islMap(islMap);
 	}
 
@@ -168,7 +168,7 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 */
 	public POLY_OBJECT_TYPE getType() {
 		POLY_OBJECT_TYPE _xifexpression = null;
-		JNIISLMap _z__internal_cache_islMap = this.getZ__internal_cache_islMap();
+		ISLMap _z__internal_cache_islMap = this.getZ__internal_cache_islMap();
 		boolean _tripleNotEquals = (_z__internal_cache_islMap != null);
 		if (_tripleNotEquals) {
 			_xifexpression = POLY_OBJECT_TYPE.MAP;
@@ -194,7 +194,7 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 	 * @generated
 	 */
 	public String toString() {
-		JNIISLMap _z__internal_cache_islMap = this.getZ__internal_cache_islMap();
+		ISLMap _z__internal_cache_islMap = this.getZ__internal_cache_islMap();
 		boolean _tripleNotEquals = (_z__internal_cache_islMap != null);
 		if (_tripleNotEquals) {
 			return this.getZ__internal_cache_islMap().toString(ISL_FORMAT.ISL);
@@ -250,7 +250,7 @@ public class JNIRelationImpl extends CalculatorExpressionImpl implements JNIRela
 				setIslString((String)newValue);
 				return;
 			case ModelPackage.JNI_RELATION__ZINTERNAL_CACHE_ISL_MAP:
-				setZ__internal_cache_islMap((JNIISLMap)newValue);
+				setZ__internal_cache_islMap((ISLMap)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

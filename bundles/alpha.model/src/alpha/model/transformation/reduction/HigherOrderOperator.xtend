@@ -11,10 +11,10 @@ import alpha.model.transformation.Normalize
 import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
-import fr.irisa.cairn.jnimap.barvinok.jni.BarvinokFunctions
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+import fr.irisa.cairn.jnimap.barvinok.BarvinokFunctions
 import org.eclipse.xtext.EcoreUtil2
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 
 /**
  * HigherOrderOperator is one of the transformations that can be applied with
@@ -106,15 +106,15 @@ class HigherOrderOperator {
 		if (kerFc === null)
 			throw new IllegalArgumentException("[HigherOrderOperator] The intersection of the share space of the reduction body and kernel of the projection is empty.");
 			
-		val params = AlphaUtil.getContainerSystem(are).parameterDomain.parametersNames
-		val indices = are.body.contextDomain.indicesNames
+		val params = AlphaUtil.getContainerSystem(are).parameterDomain.paramNames
+		val indices = are.body.contextDomain.indexNames
 		val Fc = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, kerFc)
 		
 		val Fpprime = AffineFunctionOperations.projectFunctionDomain(are.projection, Fc.copy)
 		
 		val replacementBody = constructHigherOrderOperation(are, Fc)
 		
-		val replacement = if (Fpprime.getNbDims(JNIISLDimType.isl_dim_in) == Fpprime.getNbDims(JNIISLDimType.isl_dim_out)) {
+		val replacement = if (Fpprime.getNbInputs == Fpprime.getNbOutputs) {
 			replacementBody
 		} else {
 			ReductionUtil.constructConcreteReduction(are, are.operator, Fpprime, replacementBody)
@@ -125,7 +125,7 @@ class HigherOrderOperator {
 		Normalize.apply(replacement)
 	}
 	
-	private static def constructHigherOrderOperation(AbstractReduceExpression are, JNIISLMultiAff Fc) {
+	private static def constructHigherOrderOperation(AbstractReduceExpression are, ISLMultiAff Fc) {
 		val card = BarvinokFunctions.card(Fc.copy.toMap.intersectDomain(are.body.contextDomain).reverse)
 		
 		ReductionUtil.projectReductionBody(are, Fc.copy)

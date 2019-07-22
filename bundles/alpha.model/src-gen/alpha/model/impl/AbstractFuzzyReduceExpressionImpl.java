@@ -9,7 +9,7 @@ import alpha.model.FuzzyFunction;
 import alpha.model.ModelPackage;
 import alpha.model.REDUCTION_OP;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -206,8 +206,8 @@ public abstract class AbstractFuzzyReduceExpressionImpl extends AlphaExpressionI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getProjection() {
-		JNIISLMap _xifexpression = null;
+	public ISLMap getProjection() {
+		ISLMap _xifexpression = null;
 		FuzzyFunction _projectionFunction = this.getProjectionFunction();
 		boolean _tripleNotEquals = (_projectionFunction != null);
 		if (_tripleNotEquals) {

@@ -171,7 +171,7 @@ public interface MatrixPackage extends EPackage {
 	 * The meta object id for the '<em>JNIISL Space</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
+	 * @see fr.irisa.cairn.jnimap.isl.ISLSpace
 	 * @see alpha.model.matrix.impl.MatrixPackageImpl#getJNIISLSpace()
 	 * @generated
 	 */
@@ -181,7 +181,7 @@ public interface MatrixPackage extends EPackage {
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMultiAff
 	 * @see alpha.model.matrix.impl.MatrixPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
@@ -294,23 +294,23 @@ public interface MatrixPackage extends EPackage {
 	EAttribute getSpace_IndexNames();
 
 	/**
-	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace <em>JNIISL Space</em>}'.
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLSpace <em>JNIISL Space</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>JNIISL Space</em>'.
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
-	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace"
+	 * @see fr.irisa.cairn.jnimap.isl.ISLSpace
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLSpace"
 	 * @generated
 	 */
 	EDataType getJNIISLSpace();
 
 	/**
-	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff <em>JNIISL Multi Aff</em>}'.
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLMultiAff <em>JNIISL Multi Aff</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>JNIISL Multi Aff</em>'.
-	 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff"
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMultiAff
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLMultiAff"
 	 * @generated
 	 */
 	EDataType getJNIISLMultiAff();
@@ -429,7 +429,7 @@ public interface MatrixPackage extends EPackage {
 		 * The meta object literal for the '<em>JNIISL Space</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
+		 * @see fr.irisa.cairn.jnimap.isl.ISLSpace
 		 * @see alpha.model.matrix.impl.MatrixPackageImpl#getJNIISLSpace()
 		 * @generated
 		 */
@@ -439,7 +439,7 @@ public interface MatrixPackage extends EPackage {
 		 * The meta object literal for the '<em>JNIISL Multi Aff</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
+		 * @see fr.irisa.cairn.jnimap.isl.ISLMultiAff
 		 * @see alpha.model.matrix.impl.MatrixPackageImpl#getJNIISLMultiAff()
 		 * @generated
 		 */

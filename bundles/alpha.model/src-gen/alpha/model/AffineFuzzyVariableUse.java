@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,6 +49,6 @@ public interface AffineFuzzyVariableUse extends FuzzyVariableUse {
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
 	 * @generated
 	 */
-	JNIISLMap getDependenceRelation();
+	ISLMap getDependenceRelation();
 
 } // AffineFuzzyVariableUse

@@ -23,8 +23,8 @@ import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.DomainOperations;
 import com.google.common.base.Objects;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -146,20 +146,20 @@ public class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
   @Override
   public void outDependenceExpression(final DependenceExpression de) {
     final long[][] SEp = this.shareSpace.get(de.getExpr());
-    JNIISLMultiAff _xifexpression = null;
+    ISLMultiAff _xifexpression = null;
     if ((SEp == null)) {
       _xifexpression = de.getFunction();
     } else {
-      JNIISLMultiAff _xblockexpression = null;
+      ISLMultiAff _xblockexpression = null;
       {
-        final List<String> params = AlphaUtil.getParameterDomain(de).getParametersNames();
-        final List<String> indices = de.getContextDomain().getIndicesNames();
-        final JNIISLMultiAff maff = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, SEp);
+        final List<String> params = AlphaUtil.getParameterDomain(de).getParamNames();
+        final List<String> indices = de.getContextDomain().getIndexNames();
+        final ISLMultiAff maff = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, SEp);
         _xblockexpression = maff.pullback(de.getFunction());
       }
       _xifexpression = _xblockexpression;
     }
-    final JNIISLMultiAff f = _xifexpression;
+    final ISLMultiAff f = _xifexpression;
     final long[][] kernel = AffineFunctionOperations.computeKernel(f);
     if (((kernel == null) || (kernel.length == 0))) {
       this.shareSpace.put(de, null);
@@ -170,7 +170,7 @@ public class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
   
   @Override
   public void outAbstractReduceExpression(final AbstractReduceExpression are) {
-    if (((are.getExpressionDomain().getNbDims(JNIISLDimType.isl_dim_div) > 0) || 
+    if (((are.getExpressionDomain().dim(ISLDimType.isl_dim_div) > 0) || 
       (are.getExpressionDomain().getNbBasicSets() > 1))) {
       this.shareSpace.put(are, null);
       this.warning("Reduction body is not a single polyhedron or contains div dimensions. Share space is set to empty.");

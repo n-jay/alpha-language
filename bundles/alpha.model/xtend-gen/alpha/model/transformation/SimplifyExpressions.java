@@ -18,10 +18,10 @@ import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.Show;
 import com.google.common.base.Objects;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLVal;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLVal;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 
@@ -102,8 +102,8 @@ public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
   
   @Override
   public void outIndexExpression(final IndexExpression ie) {
-    if (((ie.getFunction().getNbAff() == 1) && ie.getFunction().getAff(0).isConstant())) {
-      final JNIISLVal v = ie.getFunction().getAff(0).eval(ie.getExpressionDomain().copy().samplePoint());
+    if (((ie.getFunction().getNbOutputs() == 1) && ie.getFunction().getAff(0).isConstant())) {
+      final ISLVal v = ie.getFunction().getAff(0).eval(ie.getExpressionDomain().copy().samplePoint());
       final IntegerExpression intExpr = AlphaUserFactory.createIntegerExpression(Long.valueOf(v.asLong()).intValue());
       EcoreUtil.replace(ie, intExpr);
     }
@@ -111,17 +111,17 @@ public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
   
   @Override
   public void outReduceExpression(final ReduceExpression re) {
-    JNIISLMap map = re.getProjection().toMap();
+    ISLMap map = re.getProjection().toMap();
     map = map.intersectDomain(re.getBody().getContextDomain());
     map = map.intersectRange(re.getContextDomain());
     map = map.reverse();
     boolean _isSingleValued = map.isSingleValued();
     if (_isSingleValued) {
-      final JNIISLPWMultiAff pwMultiAff = map.toPWMultiAff();
+      final ISLPWMultiAff pwMultiAff = map.toPWMultiAff();
       int _nbPieces = pwMultiAff.getNbPieces();
       boolean _equals = (_nbPieces == 1);
       if (_equals) {
-        final JNIISLMultiAff multiAff = pwMultiAff.getPiece(0).getMaff();
+        final ISLMultiAff multiAff = pwMultiAff.getPiece(0).getMaff();
         final DependenceExpression depExpr = AlphaUserFactory.createDependenceExpression(multiAff, re.getBody());
         EcoreUtil.replace(re, depExpr);
         AlphaInternalStateConstructor.recomputeContextDomain(depExpr);

@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -65,12 +65,12 @@ public interface FuzzyFunction extends AlphaNode {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache fuzzy Map</em>' attribute.
-	 * @see #setZ__internal_cache_fuzzyMap(JNIISLMap)
+	 * @see #setZ__internal_cache_fuzzyMap(ISLMap)
 	 * @see alpha.model.ModelPackage#getFuzzyFunction_Z__internal_cache_fuzzyMap()
 	 * @model unique="false" dataType="alpha.model.JNIISLMap"
 	 * @generated
 	 */
-	JNIISLMap getZ__internal_cache_fuzzyMap();
+	ISLMap getZ__internal_cache_fuzzyMap();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.FuzzyFunction#getZ__internal_cache_fuzzyMap <em>Zinternal cache fuzzy Map</em>}' attribute.
@@ -80,19 +80,19 @@ public interface FuzzyFunction extends AlphaNode {
 	 * @see #getZ__internal_cache_fuzzyMap()
 	 * @generated
 	 */
-	void setZ__internal_cache_fuzzyMap(JNIISLMap value);
+	void setZ__internal_cache_fuzzyMap(ISLMap value);
 
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache dep Relation</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache dep Relation</em>' attribute.
-	 * @see #setZ__internal_cache_depRelation(JNIISLMap)
+	 * @see #setZ__internal_cache_depRelation(ISLMap)
 	 * @see alpha.model.ModelPackage#getFuzzyFunction_Z__internal_cache_depRelation()
 	 * @model unique="false" dataType="alpha.model.JNIISLMap"
 	 * @generated
 	 */
-	JNIISLMap getZ__internal_cache_depRelation();
+	ISLMap getZ__internal_cache_depRelation();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.FuzzyFunction#getZ__internal_cache_depRelation <em>Zinternal cache dep Relation</em>}' attribute.
@@ -102,7 +102,7 @@ public interface FuzzyFunction extends AlphaNode {
 	 * @see #getZ__internal_cache_depRelation()
 	 * @generated
 	 */
-	void setZ__internal_cache_depRelation(JNIISLMap value);
+	void setZ__internal_cache_depRelation(ISLMap value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -110,7 +110,7 @@ public interface FuzzyFunction extends AlphaNode {
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
 	 * @generated
 	 */
-	JNIISLMap getFuzzyMap();
+	ISLMap getFuzzyMap();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -118,7 +118,7 @@ public interface FuzzyFunction extends AlphaNode {
 	 * @model fuzzyMapDataType="alpha.model.JNIISLMap" fuzzyMapUnique="false"
 	 * @generated
 	 */
-	void setFuzzyMap(JNIISLMap fuzzyMap);
+	void setFuzzyMap(ISLMap fuzzyMap);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,7 +126,7 @@ public interface FuzzyFunction extends AlphaNode {
 	 * @model kind="operation" dataType="alpha.model.JNIISLMap" unique="false"
 	 * @generated
 	 */
-	JNIISLMap getDependenceRelation();
+	ISLMap getDependenceRelation();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,7 +134,7 @@ public interface FuzzyFunction extends AlphaNode {
 	 * @model depRelDataType="alpha.model.JNIISLMap" depRelUnique="false"
 	 * @generated
 	 */
-	void setDependenceRelation(JNIISLMap depRel);
+	void setDependenceRelation(ISLMap depRel);
 
 	/**
 	 * <!-- begin-user-doc -->

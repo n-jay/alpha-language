@@ -11,7 +11,7 @@ import alpha.model.RestrictExpression;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -168,8 +168,8 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getRestrictDomain() {
-		JNIISLSet _xifexpression = null;
+	public ISLSet getRestrictDomain() {
+		ISLSet _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getDomainExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
 		if (_notEquals) {
@@ -177,7 +177,7 @@ public class RestrictExpressionImpl extends AlphaExpressionImpl implements Restr
 		}
 		else {
 			JNIObject _iSLObject = this.getDomainExpr().getISLObject();
-			_xifexpression = ((JNIISLSet) _iSLObject);
+			_xifexpression = ((ISLSet) _iSLObject);
 		}
 		return _xifexpression;
 	}

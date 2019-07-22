@@ -8,16 +8,16 @@ import alpha.model.matrix.Matrix;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.matrix.MatrixRow;
 import alpha.model.matrix.factory.MatrixUserFactory;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLConstraint;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLVal;
+import fr.irisa.cairn.jnimap.isl.ISLAff;
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
+import fr.irisa.cairn.jnimap.isl.ISLConstraint;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
+import fr.irisa.cairn.jnimap.isl.ISLVal;
 
 /**
  * This class contains operations over JNIISLMultiAff, which is the ISL view of affine functions.
@@ -47,11 +47,11 @@ public class AffineFunctionOperations {
 	 * @param maff
 	 * @return
 	 */
-	public static Matrix toMatrix(JNIISLMultiAff maff) {
+	public static Matrix toMatrix(ISLMultiAff maff) {
 		return toMatrix(maff, false);
 	}
 	
-	public static Matrix toLinearPartOnlyMatrix(JNIISLMultiAff maff) {
+	public static Matrix toLinearPartOnlyMatrix(ISLMultiAff maff) {
 		return toMatrix(maff, true);
 	}
 	
@@ -65,9 +65,9 @@ public class AffineFunctionOperations {
 	 * @param linearPartOnly
 	 * @return
 	 */
-	private static Matrix toMatrix(JNIISLMultiAff maff, boolean linearPartOnly) {
-		final List<String> params = maff.getSpace().getNameList(JNIISLDimType.isl_dim_param);
-		final List<String> indices = maff.getSpace().getNameList(JNIISLDimType.isl_dim_in);
+	private static Matrix toMatrix(ISLMultiAff maff, boolean linearPartOnly) {
+		final List<String> params = maff.getSpace().getParamNames();
+		final List<String> indices = maff.getSpace().getInputNames();
 		final int nbParam = params.size();
 		final int nbIndices =  indices.size();
 
@@ -82,20 +82,20 @@ public class AffineFunctionOperations {
 			mat.getRows().add(row);
 		}
 	
-		for (JNIISLAff aff : maff.getAffs()) {
+		for (ISLAff aff : maff.getAffs()) {
 			//Only handles affine
 			if (aff.getDenominator() != 1) throw new RuntimeException("Quasi-Affine Functions are not handled");
-			if (aff.getNbDims(JNIISLDimType.isl_dim_div)>0) throw new RuntimeException("Quasi-Affine Functions are not handled");
+			if (aff.dim(ISLDimType.isl_dim_div)>0) throw new RuntimeException("Quasi-Affine Functions are not handled");
 			
 			long[] row = new long[nbColumns];
 			//parameters come first
 			for (int pi = 0; pi < nbParam; pi++) {
-				JNIISLVal val = aff.getCoefficientVal(JNIISLDimType.isl_dim_param, pi);
+				ISLVal val = aff.getCoefficientVal(ISLDimType.isl_dim_param, pi);
 				row[pi] = val.asLong();
 			}
 			//indices next; offset by nbParam
 			for (int i = 0; i < nbIndices; i++) {
-				JNIISLVal val = aff.getCoefficientVal(JNIISLDimType.isl_dim_in, i);
+				ISLVal val = aff.getCoefficientVal(ISLDimType.isl_dim_in, i);
 				row[i+nbParam] = val.asLong();
 			}
 			//constant
@@ -121,30 +121,30 @@ public class AffineFunctionOperations {
 	 * @param set
 	 * @return
 	 */
-	private static Matrix toEqualityMatrix(JNIISLSet set) {
+	private static Matrix toEqualityMatrix(ISLSet set) {
 
-		JNIISLBasicSet bset = set.affineHull();
+		ISLBasicSet bset = set.affineHull();
 		
-		final List<String> params = bset.getSpace().getNameList(JNIISLDimType.isl_dim_param);
-		final List<String> indices = bset.getSpace().getNameList(JNIISLDimType.isl_dim_set);
+		final List<String> params = bset.getSpace().getParamNames();
+		final List<String> indices = bset.getSpace().getIndexNames();
 		final int nbParam = params.size();
 		final int nbIndices =  indices.size();
 
 		Matrix mat = MatrixUserFactory.createMatrix(params, indices);
 		
-		for (JNIISLConstraint aff : bset.getConstraints()) {
+		for (ISLConstraint aff : bset.getConstraints()) {
 			//Only handles affine
-			if (aff.getNbDims(JNIISLDimType.isl_dim_div)>0) throw new RuntimeException("Quasi-Affine Functions are not handled");
+			if (aff.getNbDims(ISLDimType.isl_dim_div)>0) throw new RuntimeException("Quasi-Affine Functions are not handled");
 			
 			long[] row = new long[mat.getNbColumns()];
 			//parameters come first
 			for (int pi = 0; pi < nbParam; pi++) {
-				JNIISLVal val = aff.getCoefficientVal(JNIISLDimType.isl_dim_param, pi);
+				ISLVal val = aff.getCoefficientVal(ISLDimType.isl_dim_param, pi);
 				row[pi] = val.asLong();
 			}
 			//indices next; offset by nbParam
 			for (int i = 0; i < nbIndices; i++) {
-				JNIISLVal val = aff.getCoefficientVal(JNIISLDimType.isl_dim_set, i);
+				ISLVal val = aff.getCoefficientVal(ISLDimType.isl_dim_set, i);
 				row[i+nbParam] = val.asLong();
 			}
 			//constant
@@ -174,7 +174,7 @@ public class AffineFunctionOperations {
 	 * 
 	 * @return
 	 */
-	public static JNIISLMultiAff inverseInContext(JNIISLMultiAff maff, JNIISLSet context, List<String> names) {
+	public static ISLMultiAff inverseInContext(ISLMultiAff maff, ISLSet context, List<String> names) {
 		Matrix thisMat = toMatrix(maff);
 		final int numInvIndices = thisMat.getNbRows() - thisMat.getNbParams();
 		
@@ -217,8 +217,8 @@ public class AffineFunctionOperations {
 	 * @param f
 	 * @return
 	 */
-	public static boolean isUniform(JNIISLMultiAff f) {
-		if (f.getNbDims(JNIISLDimType.isl_dim_in) != f.getNbDims(JNIISLDimType.isl_dim_out))
+	public static boolean isUniform(ISLMultiAff f) {
+		if (f.getNbInputs() != f.getNbOutputs())
 			return false;
 		
 		Matrix m = toMatrix(f);
@@ -241,7 +241,7 @@ public class AffineFunctionOperations {
 	 * @param f
 	 * @return
 	 */
-	public static List<Long> getConstantVector(JNIISLMultiAff f) {
+	public static List<Long> getConstantVector(ISLMultiAff f) {
 		Matrix m = toMatrix(f);
 		
 		List<Long> b = new ArrayList<>(m.getNbRows());
@@ -253,7 +253,7 @@ public class AffineFunctionOperations {
 		return b;
 	}
 
-	public static JNIISLMultiAff createUniformFunction(JNIISLSpace space, long[] b) {
+	public static ISLMultiAff createUniformFunction(ISLSpace space, long[] b) {
 		List<Long> bVec = new ArrayList<Long>(b.length);
 		for (long v : b) {
 			bVec.add(v);
@@ -262,9 +262,9 @@ public class AffineFunctionOperations {
 		return createUniformFunction(space, bVec);
 	}
 	
-	public static JNIISLMultiAff createUniformFunction(JNIISLSpace space, List<Long> b) {
-		final List<String> params = space.getNameList(JNIISLDimType.isl_dim_param);
-		final List<String> indices = space.getNameList(JNIISLDimType.isl_dim_in);
+	public static ISLMultiAff createUniformFunction(ISLSpace space, List<Long> b) {
+		final List<String> params = space.getParamNames();
+		final List<String> indices = space.getInputNames();
 		
 		if (indices.contains(null)) {
 			final int size = indices.size();
@@ -296,7 +296,7 @@ public class AffineFunctionOperations {
 	 * @param f
 	 * @return
 	 */
-	public static long[][] computeKernel(JNIISLMultiAff f) {
+	public static long[][] computeKernel(ISLMultiAff f) {
 		Matrix mat = AffineFunctionOperations.toLinearPartOnlyMatrix(f);
 		long[][] array = mat.toArray();
 		return MatrixOperations.nullspace(array);
@@ -311,8 +311,8 @@ public class AffineFunctionOperations {
 	 * @param f
 	 * @return
 	 */
-	public static JNIISLMultiAff negateUniformFunction(JNIISLMultiAff f) {
-		if (f.getNbDims(JNIISLDimType.isl_dim_in) != f.getNbDims(JNIISLDimType.isl_dim_out))
+	public static ISLMultiAff negateUniformFunction(ISLMultiAff f) {
+		if (f.getNbInputs() != f.getNbOutputs())
 			throw new RuntimeException("The input function is not uniform.");
 		
 		Matrix m = toMatrix(f);
@@ -331,8 +331,8 @@ public class AffineFunctionOperations {
 		}
 		
 		
-		JNIISLMultiAff negF = m.toMultiAff();
-		return AlphaUtil.renameIndices(negF, f.getSpace().getNameList(JNIISLDimType.isl_dim_in));
+		ISLMultiAff negF = m.toMultiAff();
+		return AlphaUtil.renameIndices(negF, f.getSpace().getInputNames());
 	}
 	
 	/**
@@ -342,11 +342,11 @@ public class AffineFunctionOperations {
 	 * @param f2
 	 * @return
 	 */
-	public static boolean isInKernelOf(JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	public static boolean isInKernelOf(ISLMultiAff f1, ISLMultiAff f2) {
 		if (!f1.getSpace().isEqual(f2.getSpace())) 
 			throw new RuntimeException("[AffineFunctionOperations] Incompatible space given to isKernelOf: " + f1 + " " + f2);
 		
-		final int nbParam = f1.getNbDims(JNIISLDimType.isl_dim_param);
+		final int nbParam = f1.getNbParams();
 		long[][] f1Array = toLinearPartOnlyMatrix(f1).toArray();
 		long[][] f2Array = toLinearPartOnlyMatrix(f2).toArray();
 		long[][] f2Kernel = MatrixOperations.transpose(MatrixOperations.nullspace(f2Array));
@@ -369,7 +369,7 @@ public class AffineFunctionOperations {
 	 * Check if Ker(f1) \in Ker(f2).
 	 * Throw an exception if Ker(f1) and Ker(f2) lives on different space
 	 */
-	public static boolean kernelInclusion(JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	public static boolean kernelInclusion(ISLMultiAff f1, ISLMultiAff f2) {
 		if (!f1.getDomainSpace().isEqual(f2.getDomainSpace())) 
 			throw new RuntimeException("[AffineFunctionOperations] Incompatible space given to kernelInclusion: " + f1 + " " + f2);
 
@@ -389,7 +389,7 @@ public class AffineFunctionOperations {
 	 * @param kernelT
 	 * @return
 	 */
-	public static JNIISLMultiAff constructAffineFunctionWithSpecifiedKernel(List<String> params, List<String> indices, long[][] kernelT) {
+	public static ISLMultiAff constructAffineFunctionWithSpecifiedKernel(List<String> params, List<String> indices, long[][] kernelT) {
 		if (kernelT == null || kernelT.length == 0)
 			throw new IllegalArgumentException("[AffineFunctionOperations] Expecting non-trivial kernel.");
 		if (params == null || indices == null || params.size() + indices.size() < kernelT[0].length)
@@ -414,10 +414,10 @@ public class AffineFunctionOperations {
 	 * @param p
 	 * @return
 	 */
-	public static JNIISLMultiAff projectFunctionDomain(JNIISLMultiAff f, JNIISLMultiAff p) {
-		JNIISLMap projectedF = f.toMap().applyDomain(p.toMap());
-		for (int i = 0; i < projectedF.getNbIns(); i++) {
-			projectedF = projectedF.setDimName(JNIISLDimType.isl_dim_in, i, "i"+i);
+	public static ISLMultiAff projectFunctionDomain(ISLMultiAff f, ISLMultiAff p) {
+		ISLMap projectedF = f.toMap().applyDomain(p.toMap());
+		for (int i = 0; i < projectedF.getNbInputs(); i++) {
+			projectedF = projectedF.setDimName(ISLDimType.isl_dim_in, i, "i"+i);
 		}
 		return AffineFunctionOperations.mapToMultiAff(projectedF);
 	}
@@ -430,8 +430,8 @@ public class AffineFunctionOperations {
 	 * @param map
 	 * @return
 	 */
-	private static JNIISLMultiAff mapToMultiAff(JNIISLMap map) {
-		JNIISLPWMultiAff pwmaff = map.toPWMultiAff();
+	private static ISLMultiAff mapToMultiAff(ISLMap map) {
+		ISLPWMultiAff pwmaff = map.toPWMultiAff();
 		if (pwmaff.getNbPieces() != 1)
 			throw new IllegalArgumentException("[AffineFunctionOperations] Expecting map with a single piece.");
 		

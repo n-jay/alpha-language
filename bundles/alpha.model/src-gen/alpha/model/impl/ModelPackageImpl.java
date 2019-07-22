@@ -82,10 +82,10 @@ import alpha.model.Variable;
 import alpha.model.VariableDomain;
 import alpha.model.VariableExpression;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -4378,11 +4378,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Initialize data types
 		initEDataType(jniObjectEDataType, JNIObject.class, "JNIObject", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(jniislSetEDataType, JNIISLSet.class, "JNIISLSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(jniislMapEDataType, JNIISLMap.class, "JNIISLMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(jniislMultiAffEDataType, JNIISLMultiAff.class, "JNIISLMultiAff", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(jniislpwqPolynomialEDataType, JNIISLPWQPolynomial.class, "JNIISLPWQPolynomial", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(isL_FORMATEDataType, fr.irisa.cairn.jnimap.isl.jni.ISL_FORMAT.class, "ISL_FORMAT", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislSetEDataType, ISLSet.class, "JNIISLSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislMapEDataType, ISLMap.class, "JNIISLMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislMultiAffEDataType, ISLMultiAff.class, "JNIISLMultiAff", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislpwqPolynomialEDataType, ISLPWQPolynomial.class, "JNIISLPWQPolynomial", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(isL_FORMATEDataType, fr.irisa.cairn.jnimap.isl.ISL_FORMAT.class, "ISL_FORMAT", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(listVariableExpressionEDataType, List.class, "ListVariableExpression", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.List<alpha.model.VariableExpression>");
 		initEDataType(integerQueueEDataType, Queue.class, "IntegerQueue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.util.Queue<java.lang.Integer>");
 		initEDataType(stringEDataType, String.class, "String", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

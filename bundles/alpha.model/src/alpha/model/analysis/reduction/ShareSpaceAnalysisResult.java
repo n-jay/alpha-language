@@ -9,7 +9,7 @@ import com.google.common.collect.Streams;
 import alpha.model.AlphaExpression;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.util.AShow;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
  * Wraps the result of {@link ShareSpaceAnalysis}.
@@ -43,11 +43,11 @@ public class ShareSpaceAnalysisResult {
 		
 		for (Map.Entry<AlphaExpression, long[][]> e : shareSpace.entrySet() ) {
 			if (e.getValue() != null) {
-				JNIISLSet ctxDom = e.getKey().getContextDomain();
+				ISLSet ctxDom = e.getKey().getContextDomain();
 				sb.append(AShow.print(e.getKey()));
 				sb.append("\n");
-				sb.append(Streams.concat(ctxDom.getParametersNames().stream(),
-								ctxDom.getIndicesNames().stream()).collect(Collectors.joining(" ", "[", "]")));
+				sb.append(Streams.concat(ctxDom.getParamNames().stream(),
+								ctxDom.getIndexNames().stream()).collect(Collectors.joining(" ", "[", "]")));
 				sb.append("\n");
 				sb.append(MatrixOperations.toString(e.getValue()));
 				sb.append("\n");

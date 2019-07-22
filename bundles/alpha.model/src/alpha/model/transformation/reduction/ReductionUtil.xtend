@@ -9,8 +9,8 @@ import alpha.model.ReduceExpression
 import alpha.model.RestrictExpression
 import alpha.model.factory.AlphaUserFactory
 import alpha.model.util.AffineFunctionOperations
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import org.eclipse.xtext.EcoreUtil2
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 
 class ReductionUtil {
 	
@@ -18,11 +18,11 @@ class ReductionUtil {
 	 * Dispatch methods for constructing reductions with the appropriate concrete type.
 	 * 
 	 */
-	static def dispatch constructConcreteReduction(ReduceExpression base, REDUCTION_OP op, JNIISLMultiAff projection, AlphaExpression body) {
+	static def dispatch constructConcreteReduction(ReduceExpression base, REDUCTION_OP op, ISLMultiAff projection, AlphaExpression body) {
 		AlphaUserFactory.createReduceExpression(op, projection, body)
 	}
 
-	static def dispatch constructConcreteReduction(ArgReduceExpression base, REDUCTION_OP op, JNIISLMultiAff projection, AlphaExpression body) {
+	static def dispatch constructConcreteReduction(ArgReduceExpression base, REDUCTION_OP op, ISLMultiAff projection, AlphaExpression body) {
 		AlphaUserFactory.createArgReduceExpression(op, projection, body)
 	}
 	
@@ -41,7 +41,7 @@ class ReductionUtil {
 	 * Assumes that input is normalized, and Fc satisfies the requirement.
 	 * 
 	 */
-	static def projectReductionBody(AbstractReduceExpression are, JNIISLMultiAff Fc) {
+	static def projectReductionBody(AbstractReduceExpression are, ISLMultiAff Fc) {
 		EcoreUtil2.getAllContentsOfType(are, DependenceExpression).forEach[de|
 			val projectedDep = AffineFunctionOperations.projectFunctionDomain(de.function, Fc.copy);
 			val newDepExpr = AlphaUserFactory.createDependenceExpression(projectedDep, de.expr)

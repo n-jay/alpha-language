@@ -13,7 +13,7 @@ import alpha.model.transformation.Normalize;
 import alpha.model.transformation.reduction.ReductionUtil;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaOperatorUtil;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -106,13 +106,13 @@ public class PermutationCaseReduce {
       CaseExpression _xblockexpression = null;
       {
         final CaseExpression E = AlphaUserFactory.createCaseExpression();
-        final Function1<AlphaExpression, JNIISLSet> _function = (AlphaExpression e) -> {
+        final Function1<AlphaExpression, ISLSet> _function = (AlphaExpression e) -> {
           return e.getExpressionDomain();
         };
-        final Function2<JNIISLSet, JNIISLSet, JNIISLSet> _function_1 = (JNIISLSet d1, JNIISLSet d2) -> {
+        final Function2<ISLSet, ISLSet, ISLSet> _function_1 = (ISLSet d1, ISLSet d2) -> {
           return d1.union(d2);
         };
-        final JNIISLSet domUnion = IterableExtensions.<JNIISLSet>reduce(ListExtensions.<AlphaExpression, JNIISLSet>map(E2list, _function), _function_1);
+        final ISLSet domUnion = IterableExtensions.<ISLSet>reduce(ListExtensions.<AlphaExpression, ISLSet>map(E2list, _function), _function_1);
         E.setExpressionDomain(domUnion);
         final Function1<AlphaExpression, AlphaExpression> _function_2 = (AlphaExpression e) -> {
           return AlphaExpressionUtil.filterAutoRestrict.apply(e);
@@ -123,11 +123,11 @@ public class PermutationCaseReduce {
       _xifexpression = _xblockexpression;
     }
     final AlphaExpression E2 = _xifexpression;
-    final JNIISLSet fDE1 = E1.getExpressionDomain().apply(are.getProjection().toMap());
-    final JNIISLSet fDE2 = E2.getExpressionDomain().apply(are.getProjection().toMap());
-    final JNIISLSet D12 = fDE1.copy().intersect(fDE2.copy());
-    final JNIISLSet D1 = fDE1.copy().subtract(fDE2.copy());
-    final JNIISLSet D2 = fDE2.subtract(fDE1);
+    final ISLSet fDE1 = E1.getExpressionDomain().apply(are.getProjection().toMap());
+    final ISLSet fDE2 = E2.getExpressionDomain().apply(are.getProjection().toMap());
+    final ISLSet D12 = fDE1.copy().intersect(fDE2.copy());
+    final ISLSet D1 = fDE1.copy().subtract(fDE2.copy());
+    final ISLSet D2 = fDE2.subtract(fDE1);
     final CaseExpression outerCase = AlphaUserFactory.createCaseExpression();
     final LinkedList<AlphaExpression> recurseTarget = new LinkedList<AlphaExpression>();
     RestrictExpression _xifexpression_1 = null;

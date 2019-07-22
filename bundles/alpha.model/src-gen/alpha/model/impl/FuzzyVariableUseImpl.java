@@ -6,7 +6,7 @@ import alpha.model.FuzzyVariable;
 import alpha.model.FuzzyVariableUse;
 import alpha.model.ModelPackage;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -143,7 +143,7 @@ public abstract class FuzzyVariableUseImpl extends AlphaNodeImpl implements Fuzz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getDependenceRelation() {
+	public ISLMap getDependenceRelation() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();

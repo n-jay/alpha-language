@@ -55,10 +55,10 @@ import alpha.model.VariableExpression;
 import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.ModelSwitch;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.Arrays;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -76,7 +76,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class Show extends ModelSwitch<CharSequence> {
-  protected JNIISLSet parameterContext = null;
+  protected ISLSet parameterContext = null;
   
   public static <T extends AlphaCompleteVisitable> String print(final T av) {
     String _xblockexpression = null;
@@ -101,7 +101,7 @@ public class Show extends ModelSwitch<CharSequence> {
     return AlphaPrintingUtil.toShowStringSystemBodyDomain(dom.getISLSet());
   }
   
-  protected String printVariableDeclarationDomain(final JNIISLSet set) {
+  protected String printVariableDeclarationDomain(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
   
@@ -109,36 +109,36 @@ public class Show extends ModelSwitch<CharSequence> {
     return f.plainToString();
   }
   
-  protected String printInstantiationDomain(final JNIISLSet set) {
+  protected String printInstantiationDomain(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
   
-  protected String printWhileDomain(final JNIISLSet set) {
+  protected String printWhileDomain(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
   
-  protected String printDomain(final JNIISLSet set) {
+  protected String printDomain(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
   
-  protected String printFunction(final JNIISLMultiAff f) {
+  protected String printFunction(final ISLMultiAff f) {
     return AlphaPrintingUtil.toShowString(f);
   }
   
-  protected String printRelation(final JNIISLMap rel) {
+  protected String printRelation(final ISLMap rel) {
     return AlphaPrintingUtil.toShowString(rel);
   }
   
-  protected String printPolynomial(final JNIISLPWQPolynomial p) {
+  protected String printPolynomial(final ISLPWQPolynomial p) {
     return AlphaPrintingUtil.toShowString(p);
   }
   
-  protected CharSequence printSubsystemCallParams(final JNIFunctionInArrayNotation f, final JNIISLSet instantiationDomain) {
+  protected CharSequence printSubsystemCallParams(final JNIFunctionInArrayNotation f, final ISLSet instantiationDomain) {
     CharSequence _xblockexpression = null;
     {
-      final JNIISLMultiAff maff = f.getISLMultiAff();
+      final ISLMultiAff maff = f.getISLMultiAff();
       StringConcatenation _builder = new StringConcatenation();
-      String _aShowString = AlphaPrintingUtil.toAShowString(maff, instantiationDomain.getIndicesNames());
+      String _aShowString = AlphaPrintingUtil.toAShowString(maff, instantiationDomain.getIndexNames());
       _builder.append(_aShowString);
       _xblockexpression = _builder;
     }
@@ -391,7 +391,7 @@ public class Show extends ModelSwitch<CharSequence> {
     CharSequence _xblockexpression = null;
     {
       String _xifexpression = null;
-      if (((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbDims() > 0))) {
+      if (((ue.getInstantiationDomainExpr() != null) && (ue.getInstantiationDomain().getNbIndices() > 0))) {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("over ");
         String _printInstantiationDomain = this.printInstantiationDomain(ue.getInstantiationDomain());
@@ -663,7 +663,7 @@ public class Show extends ModelSwitch<CharSequence> {
     return _builder;
   }
   
-  protected String printProjectionFunction(final JNIISLMultiAff maff) {
+  protected String printProjectionFunction(final ISLMultiAff maff) {
     return AlphaPrintingUtil.toShowString(maff);
   }
   

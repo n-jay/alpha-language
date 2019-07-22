@@ -7,7 +7,7 @@ import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.RectangularDomain;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -84,7 +84,7 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLSet ZINTERNAL_CACHE_ISL_SET_EDEFAULT = null;
+	protected static final ISLSet ZINTERNAL_CACHE_ISL_SET_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getZ__internal_cache_islSet() <em>Zinternal cache isl Set</em>}' attribute.
@@ -94,7 +94,7 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLSet z__internal_cache_islSet = ZINTERNAL_CACHE_ISL_SET_EDEFAULT;
+	protected ISLSet z__internal_cache_islSet = ZINTERNAL_CACHE_ISL_SET_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -156,7 +156,7 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getZ__internal_cache_islSet() {
+	public ISLSet getZ__internal_cache_islSet() {
 		return z__internal_cache_islSet;
 	}
 
@@ -165,8 +165,8 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setZ__internal_cache_islSet(JNIISLSet newZ__internal_cache_islSet) {
-		JNIISLSet oldZ__internal_cache_islSet = z__internal_cache_islSet;
+	public void setZ__internal_cache_islSet(ISLSet newZ__internal_cache_islSet) {
+		ISLSet oldZ__internal_cache_islSet = z__internal_cache_islSet;
 		z__internal_cache_islSet = newZ__internal_cache_islSet;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET, oldZ__internal_cache_islSet, z__internal_cache_islSet));
@@ -177,9 +177,9 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getISLSet() {
-		JNIISLSet _xifexpression = null;
-		JNIISLSet _z__internal_cache_islSet = this.getZ__internal_cache_islSet();
+	public ISLSet getISLSet() {
+		ISLSet _xifexpression = null;
+		ISLSet _z__internal_cache_islSet = this.getZ__internal_cache_islSet();
 		boolean _tripleNotEquals = (_z__internal_cache_islSet != null);
 		if (_tripleNotEquals) {
 			_xifexpression = this.getZ__internal_cache_islSet().copy();
@@ -195,7 +195,7 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setISLSet(final JNIISLSet islset) {
+	public void setISLSet(final ISLSet islset) {
 		this.setZ__internal_cache_islSet(islset);
 	}
 
@@ -300,7 +300,7 @@ public class RectangularDomainImpl extends CalculatorExpressionImpl implements R
 				getIndexNames().addAll((Collection<? extends String>)newValue);
 				return;
 			case ModelPackage.RECTANGULAR_DOMAIN__ZINTERNAL_CACHE_ISL_SET:
-				setZ__internal_cache_islSet((JNIISLSet)newValue);
+				setZ__internal_cache_islSet((ISLSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

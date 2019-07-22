@@ -5,13 +5,13 @@ import alpha.model.AlphaSystem;
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
 import alpha.model.Variable;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 
 public class Transformations extends TransformationsBase {
 	public static void ChangeOfBasis(AlphaSystem system, String varName, String fStr) {
 		Variable var = ValueConverter.toVariable(system, varName);
-		JNIISLMultiAff f = ValueConverter.toAffineFunction(system, fStr);
+		ISLMultiAff f = ValueConverter.toAffineFunction(system, fStr);
 		ChangeOfBasis(system, var, f);
 	}
 	public static void PropagateSimpleEquations(AlphaSystem system, int bodyID) {

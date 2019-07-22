@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import java.util.Queue;
 
@@ -46,12 +46,12 @@ public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	 * Internal object for always copying expression domain at getter
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Zinternal cache expr Dom</em>' attribute.
-	 * @see #setZ__internal_cache_exprDom(JNIISLSet)
+	 * @see #setZ__internal_cache_exprDom(ISLSet)
 	 * @see alpha.model.ModelPackage#getAlphaExpression_Z__internal_cache_exprDom()
 	 * @model unique="false" dataType="alpha.model.JNIISLSet"
 	 * @generated
 	 */
-	JNIISLSet getZ__internal_cache_exprDom();
+	ISLSet getZ__internal_cache_exprDom();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.AlphaExpression#getZ__internal_cache_exprDom <em>Zinternal cache expr Dom</em>}' attribute.
@@ -61,7 +61,7 @@ public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	 * @see #getZ__internal_cache_exprDom()
 	 * @generated
 	 */
-	void setZ__internal_cache_exprDom(JNIISLSet value);
+	void setZ__internal_cache_exprDom(ISLSet value);
 
 	/**
 	 * Returns the value of the '<em><b>Zinternal cache context Dom</b></em>' attribute.
@@ -71,12 +71,12 @@ public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	 * Internal object for always copying context domain at getter
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Zinternal cache context Dom</em>' attribute.
-	 * @see #setZ__internal_cache_contextDom(JNIISLSet)
+	 * @see #setZ__internal_cache_contextDom(ISLSet)
 	 * @see alpha.model.ModelPackage#getAlphaExpression_Z__internal_cache_contextDom()
 	 * @model unique="false" dataType="alpha.model.JNIISLSet"
 	 * @generated
 	 */
-	JNIISLSet getZ__internal_cache_contextDom();
+	ISLSet getZ__internal_cache_contextDom();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.AlphaExpression#getZ__internal_cache_contextDom <em>Zinternal cache context Dom</em>}' attribute.
@@ -86,7 +86,7 @@ public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	 * @see #getZ__internal_cache_contextDom()
 	 * @generated
 	 */
-	void setZ__internal_cache_contextDom(JNIISLSet value);
+	void setZ__internal_cache_contextDom(ISLSet value);
 
 	/**
 	 * Returns the value of the '<em><b>Expression ID</b></em>' attribute list.
@@ -106,7 +106,7 @@ public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	 * @model domDataType="alpha.model.JNIISLSet" domUnique="false"
 	 * @generated
 	 */
-	void setExpressionDomain(JNIISLSet dom);
+	void setExpressionDomain(ISLSet dom);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -114,7 +114,7 @@ public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
-	JNIISLSet getExpressionDomain();
+	ISLSet getExpressionDomain();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -122,7 +122,7 @@ public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	 * @model domDataType="alpha.model.JNIISLSet" domUnique="false"
 	 * @generated
 	 */
-	void setContextDomain(JNIISLSet dom);
+	void setContextDomain(ISLSet dom);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -130,7 +130,7 @@ public interface AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
-	JNIISLSet getContextDomain();
+	ISLSet getContextDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -8,7 +8,7 @@ import alpha.model.JNIFunction;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -53,7 +53,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLMultiAff ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT = null;
+	protected static final ISLMultiAff ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getZ__internal_cache_islMAff() <em>Zinternal cache isl MAff</em>}' attribute.
@@ -63,7 +63,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLMultiAff z__internal_cache_islMAff = ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT;
+	protected ISLMultiAff z__internal_cache_islMAff = ZINTERNAL_CACHE_ISL_MAFF_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -132,7 +132,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMultiAff getZ__internal_cache_islMAff() {
+	public ISLMultiAff getZ__internal_cache_islMAff() {
 		return z__internal_cache_islMAff;
 	}
 
@@ -141,8 +141,8 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setZ__internal_cache_islMAff(JNIISLMultiAff newZ__internal_cache_islMAff) {
-		JNIISLMultiAff oldZ__internal_cache_islMAff = z__internal_cache_islMAff;
+	public void setZ__internal_cache_islMAff(ISLMultiAff newZ__internal_cache_islMAff) {
+		ISLMultiAff oldZ__internal_cache_islMAff = z__internal_cache_islMAff;
 		z__internal_cache_islMAff = newZ__internal_cache_islMAff;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF, oldZ__internal_cache_islMAff, z__internal_cache_islMAff));
@@ -153,9 +153,9 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMultiAff getISLMultiAff() {
-		JNIISLMultiAff _xifexpression = null;
-		JNIISLMultiAff _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();
+	public ISLMultiAff getISLMultiAff() {
+		ISLMultiAff _xifexpression = null;
+		ISLMultiAff _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();
 		boolean _tripleNotEquals = (_z__internal_cache_islMAff != null);
 		if (_tripleNotEquals) {
 			_xifexpression = this.getZ__internal_cache_islMAff().copy();
@@ -171,7 +171,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setISLMultiAff(final JNIISLMultiAff islMAff) {
+	public void setISLMultiAff(final ISLMultiAff islMAff) {
 		this.setZ__internal_cache_islMAff(islMAff);
 	}
 
@@ -182,7 +182,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 	 */
 	public POLY_OBJECT_TYPE getType() {
 		POLY_OBJECT_TYPE _xifexpression = null;
-		JNIISLMultiAff _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();
+		ISLMultiAff _z__internal_cache_islMAff = this.getZ__internal_cache_islMAff();
 		boolean _tripleNotEquals = (_z__internal_cache_islMAff != null);
 		if (_tripleNotEquals) {
 			_xifexpression = POLY_OBJECT_TYPE.FUNCTION;
@@ -262,7 +262,7 @@ public class JNIFunctionImpl extends CalculatorExpressionImpl implements JNIFunc
 				setAlphaFunction((AlphaFunction)newValue);
 				return;
 			case ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF:
-				setZ__internal_cache_islMAff((JNIISLMultiAff)newValue);
+				setZ__internal_cache_islMAff((ISLMultiAff)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

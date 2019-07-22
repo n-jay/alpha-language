@@ -15,11 +15,11 @@ import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
 import alpha.model.Variable;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 
 public class TransformationsBase {
-	public static void ChangeOfBasis(AlphaSystem system, Variable var, JNIISLMultiAff f) {
+	public static void ChangeOfBasis(AlphaSystem system, Variable var, ISLMultiAff f) {
 		/*PROTECTED REGION ID(Transformations.ChangeOfBasis_) ENABLED START*/
 		alpha.model.transformation.ChangeOfBasis.apply(system, var, f);
 		/*PROTECTED REGION END*/

@@ -14,8 +14,8 @@ import alpha.model.VariableExpression;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -302,8 +302,8 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMultiAff getCallParams() {
-		JNIISLMultiAff _xifexpression = null;
+	public ISLMultiAff getCallParams() {
+		ISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getCallParamsExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.FUNCTION));
 		if (_notEquals) {
@@ -311,7 +311,7 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 		}
 		else {
 			JNIObject _iSLObject = this.getCallParamsExpr().getISLObject();
-			_xifexpression = ((JNIISLMultiAff) _iSLObject);
+			_xifexpression = ((ISLMultiAff) _iSLObject);
 		}
 		return _xifexpression;
 	}
@@ -321,8 +321,8 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getInstantiationDomain() {
-		JNIISLSet _xifexpression = null;
+	public ISLSet getInstantiationDomain() {
+		ISLSet _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getInstantiationDomainExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
 		if (_notEquals) {
@@ -330,7 +330,7 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 		}
 		else {
 			JNIObject _iSLObject = this.getInstantiationDomainExpr().getISLObject();
-			_xifexpression = ((JNIISLSet) _iSLObject);
+			_xifexpression = ((ISLSet) _iSLObject);
 		}
 		return _xifexpression;
 	}

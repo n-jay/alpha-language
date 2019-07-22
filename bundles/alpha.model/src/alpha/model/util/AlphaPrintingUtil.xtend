@@ -1,26 +1,26 @@
 package alpha.model.util
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLBasicSet
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import java.util.LinkedList
 import java.util.List
 
 import static extension alpha.model.util.AlphaUtil.renameIndices
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMap
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLSet
 
 class AlphaPrintingUtil {
 	
 	/**
 	 * ISLMultiAff to Alpha functions
 	 */
-	static def String toShowString(JNIISLMultiAff maff) {
+	static def String toShowString(ISLMultiAff maff) {
 		if (maff === null) return null;
-		val lhs = maff.domainSpace.getNameList(JNIISLDimType.isl_dim_set).join(",")
+		val lhs = maff.domainSpace.getIndexNames.join(",")
 		val rhs = maff.affs.join(",", [a|a.toAlphaString]);
 		
 		//due to a problem in Xtext parser, RHS starting with '-' need a space
@@ -28,13 +28,13 @@ class AlphaPrintingUtil {
 		
 		return '''(«lhs»->«offset»«rhs»)'''
 	}
-	static def String toAShowString(JNIISLMultiAff maff) {
+	static def String toAShowString(ISLMultiAff maff) {
 		if (maff === null) return null;
 		val rhs = maff.affs.join(",", [a|a.toAlphaString]);
 		
 		return '''[«rhs»]'''
 	}
-	static def String toAShowString(JNIISLMultiAff maff, List<String> context) {
+	static def String toAShowString(ISLMultiAff maff, List<String> context) {
 		if (maff === null) return null;
 		return toAShowString(maff.renameIndices(context))
 	}
@@ -52,7 +52,7 @@ class AlphaPrintingUtil {
 	 *   - among positive/negative values, the order is parameters, indices, divs
 	 * 
 	 */
-	static def String toAlphaString(JNIISLAff aff) {
+	static def String toAlphaString(ISLAff aff) {
 		val commonD = aff.denominator
 		
 		val constant = aff.constantVal
@@ -61,9 +61,9 @@ class AlphaPrintingUtil {
 		val posList = new LinkedList<String>
 		val negList = new LinkedList<String>
 		
-		toAlphaStringHelper(aff, JNIISLDimType.isl_dim_param, commonD, posList, negList)
-		toAlphaStringHelper(aff, JNIISLDimType.isl_dim_in, commonD, posList, negList)
-		toAlphaStringHelper(aff, JNIISLDimType.isl_dim_div, commonD, posList, negList)
+		toAlphaStringHelper(aff, ISLDimType.isl_dim_param, commonD, posList, negList)
+		toAlphaStringHelper(aff, ISLDimType.isl_dim_in, commonD, posList, negList)
+		toAlphaStringHelper(aff, ISLDimType.isl_dim_div, commonD, posList, negList)
 		
 		val pos = posList.join("+")
 		val neg = negList.join("")
@@ -78,11 +78,11 @@ class AlphaPrintingUtil {
 	/*
 	 * Helper for printAff that collects positive/negative values of a given dim type
 	 */
-	private static def void toAlphaStringHelper(JNIISLAff aff, JNIISLDimType dimType, long commonD, List<String> posList, List<String> negList) {
+	private static def void toAlphaStringHelper(ISLAff aff, ISLDimType dimType, long commonD, List<String> posList, List<String> negList) {
 		
 		val dims = aff.space
-		val n = dims.getNbDims(dimType)
-		val names = dims.getNameList(dimType)
+		val n = dims.dim(dimType)
+		val names = dims.getDimNames(dimType)
 		
 		for (i : 0..< n) {
 			val coefficient = aff.getCoefficientVal(dimType, i)
@@ -100,56 +100,56 @@ class AlphaPrintingUtil {
 	 * 
 	 * For sets, ISL string without the parameter part is the AlphaString.
 	 */
-	static def String toShowString(JNIISLSet set) {
+	static def String toShowString(ISLSet set) {
 		toShowString(set, null)
 	}
-	static def String toShowString(JNIISLSet set, JNIISLSet paramDom) {
+	static def String toShowString(ISLSet set, ISLSet paramDom) {
 		toShowString(set, paramDom, null)
 	}
-	static def String toShowString(JNIISLSet set, JNIISLSet paramDom, List<String> names) {
-		if (set.getNbDims(JNIISLDimType.isl_dim_set) == 0)
+	static def String toShowString(ISLSet set, ISLSet paramDom, List<String> names) {
+		if (set.getNbIndices == 0)
 			return "{}"
 		
-		val setRenamed = if (names !== null) set.renameIndices(names) else set
-		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(JNIISLDimType.isl_dim_set, setRenamed.nbDims)) else setRenamed
+		val ISLSet setRenamed = if (names !== null) set.renameIndices(names) else set
+		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(ISLDimType.isl_dim_set, setRenamed.nbIndices)) else setRenamed
 
 		val bsets = setGisted.collectBasicSets
-		val out = "{"+setGisted.indicesNames+":"+bsets.join(" or ")+"}";
+		val out = "{"+setGisted.indexNames+":"+bsets.join(" or ")+"}";
 		
 		return out
 	}
-	static def String toAShowString(JNIISLSet set) {
+	static def String toAShowString(ISLSet set) {
 		toAShowString(set, null)
 	}
-	static def String toAShowString(JNIISLSet set, JNIISLSet paramDom) {
+	static def String toAShowString(ISLSet set, ISLSet paramDom) {
 		return toAShowString(set, paramDom, null)
 	}
-	static def String toAShowString(JNIISLSet set, JNIISLSet paramDom, List<String> names) {
-		val setRenamed = if (names !== null) set.renameIndices(names) else set
-		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(JNIISLDimType.isl_dim_set, setRenamed.nbDims)) else setRenamed
+	static def String toAShowString(ISLSet set, ISLSet paramDom, List<String> names) {
+		val ISLSet setRenamed = if (names !== null) set.renameIndices(names) else set
+		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(ISLDimType.isl_dim_set, setRenamed.nbIndices)) else setRenamed
 		
 		val bsets = setGisted.collectBasicSets
 		val out = "{:"+bsets.join(" or ")+"}";
 		return out
 	}
-	static def collectBasicSets(JNIISLSet set) {
+	static def collectBasicSets(ISLSet set) {
 		set.basicSets.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "")]
 	}
-	static def collectConstraints(JNIISLSet set) {
+	static def collectConstraints(ISLSet set) {
 		set.basicSets.map[collectConstraints]
 	}
-	static def collectConstraints(JNIISLBasicSet bset) {
-		if (bset.getNbDims(JNIISLDimType.isl_dim_set) == 0) {
+	static def collectConstraints(ISLBasicSet bset) {
+		if (bset.getNbIndices == 0) {
 			bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\s*:\\s*", "").replaceFirst("\\}", "")]		
 		} else {
 			bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "")]
 		}
 	}
 	
-	static def String toShowStringParameterDomain(JNIISLSet set) {
+	static def String toShowStringParameterDomain(ISLSet set) {
 		set.toString
 	}
-	static def String toShowStringSystemBodyDomain(JNIISLSet set) {
+	static def String toShowStringSystemBodyDomain(ISLSet set) {
 		set.toString.replaceFirst("\\[.*\\]\\s->\\s*", "")
 	}
 	
@@ -157,10 +157,10 @@ class AlphaPrintingUtil {
 	 * ISLMap to Alpha string
 	 * 
 	 */
-	static def toShowString(JNIISLMap map) {
+	static def toShowString(ISLMap map) {
 		"{"+map.collectBasicMaps.join("; ") + "}";
 	}
-	static def collectBasicMaps(JNIISLMap map) {
+	static def collectBasicMaps(ISLMap map) {
 		map.basicMaps.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceFirst("\\}", "")]
 	}
 	
@@ -168,13 +168,13 @@ class AlphaPrintingUtil {
 	 * ISLPWQPolynomial to Alpha string
 	 * 
 	 */
-	static def toShowString(JNIISLPWQPolynomial poly) {
+	static def toShowString(ISLPWQPolynomial poly) {
 		poly.toString.replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{")
 	}
-	static def toAShowString(JNIISLPWQPolynomial poly, List<String> context) {
+	static def toAShowString(ISLPWQPolynomial poly, List<String> context) {
 		toAShowString(poly.renameIndices(context))
 	}
-	private static def toAShowString(JNIISLPWQPolynomial poly) {
+	private static def toAShowString(ISLPWQPolynomial poly) {
 		//trying to just replace '[..] ->' with '' somehow removes '{' too
 		// below is a workaround, but this should be revisited FIXME
 		poly.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "")
@@ -184,13 +184,13 @@ class AlphaPrintingUtil {
 	 * ISLQPolynomial to Alpha string
 	 * 
 	 */
-	static def toShowString(JNIISLQPolynomial poly) {
+	static def toShowString(ISLQPolynomial poly) {
 		poly.toString.replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{")
 	}
-	static def toAShowString(JNIISLQPolynomial poly, List<String> context) {
+	static def toAShowString(ISLQPolynomial poly, List<String> context) {
 		toAShowString(poly.renameIndices(context))
 	}
-	private static def toAShowString(JNIISLQPolynomial poly) {
+	private static def toAShowString(ISLQPolynomial poly) {
 		//trying to just replace '[..] ->' with '' somehow removes '{' too
 		// below is a workaround, but this should be revisited FIXME
 		poly.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "")
@@ -201,27 +201,27 @@ class AlphaPrintingUtil {
 	 * Legacy Alpha Syntax
 	 * 
 	 */
-	static def String toLegacyAlphaString(JNIISLSet set) {
+	static def String toLegacyAlphaString(ISLSet set) {
 		toLegacyAlphaString(set, null)
 	}
-	static def String toLegacyAlphaString(JNIISLSet set, JNIISLSet paramDom) {
+	static def String toLegacyAlphaString(ISLSet set, ISLSet paramDom) {
 		toLegacyAlphaString(set, paramDom, null)
 	}
-	static def String toLegacyAlphaString(JNIISLSet set, JNIISLSet paramDom, List<String> names) {
-		if (set.getNbDims(JNIISLDimType.isl_dim_set) == 0)
+	static def String toLegacyAlphaString(ISLSet set, ISLSet paramDom, List<String> names) {
+		if (set.getNbIndices == 0)
 			return "{|}"
 		
-		val setRenamed = if (names !== null) set.renameIndices(names) else set
-		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(JNIISLDimType.isl_dim_set, setRenamed.nbDims)) else setRenamed
+		val ISLSet setRenamed = if (names !== null) set.renameIndices(names) else set
+		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(ISLDimType.isl_dim_set, setRenamed.nbIndices)) else setRenamed
 
 		setGisted.basicSets.join("||", [bs|bs.toLegacyAlphaString]);
 	}
-	private static def String toLegacyAlphaString(JNIISLBasicSet bset) {
-		'''{ «bset.indicesNames.join(",")» | «bset.collectConstraints.map([s|s.replace(" = ", " == ")]).join(" && ")» }'''
+	private static def String toLegacyAlphaString(ISLBasicSet bset) {
+		'''{ «bset.indexNames.join(",")» | «bset.collectConstraints.map([s|s.replace(" = ", " == ")]).join(" && ")» }'''
 	}
-	static def String toLegacyAlphaStringParameterDomain(JNIISLSet set) {
+	static def String toLegacyAlphaStringParameterDomain(ISLSet set) {
 		if (set.nbBasicSets != 1) throw new RuntimeException("Parameter domain is assumed to be a single polyhedron.");
-		val paramNames = set.parametersNames.join(",")
+		val paramNames = set.paramNames.join(",")
 		'''{ «paramNames» | «set.basicSets.get(0).collectConstraints.map([s|s.replace(" = ", " == ")]).join(" && ")» }'''
 	}
 }

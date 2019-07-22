@@ -27,8 +27,8 @@ import alpha.model.util.AlphaUtil;
 import alpha.model.util.Show;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -233,7 +233,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     String _xblockexpression = null;
     {
       this.debug("composition", "f1 @ f2 @ E -> (f2 o f1) @ E");
-      final JNIISLMultiAff composedF = innerDep.getFunction().pullback(de.getFunction());
+      final ISLMultiAff composedF = innerDep.getFunction().pullback(de.getFunction());
       de.setFunctionExpr(AlphaUserFactory.createJNIFunction(composedF));
       EcoreUtil.replace(de.getExpr(), innerDep.getExpr());
       _xblockexpression = this.debug(de);
@@ -245,7 +245,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     String _xblockexpression = null;
     {
       this.debug("composition-val", "f1 @ val(f2) -> val(f2 o f1)");
-      final JNIISLMultiAff composedF = innerIE.getFunction().pullback(de.getFunction());
+      final ISLMultiAff composedF = innerIE.getFunction().pullback(de.getFunction());
       innerIE.setFunctionExpr(AlphaUserFactory.createJNIFunction(composedF));
       EcoreUtil.replace(de, innerIE);
       _xblockexpression = this.debug(innerIE);
@@ -255,7 +255,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
   
   protected String _dependenceExpressionRules(final DependenceExpression de, final RestrictExpression innerRE) {
     this.debug("preimage", "f @ D : E -> f-1(D) : f@E");
-    final JNIISLSet preimage = innerRE.getRestrictDomain().preimage(de.getFunction());
+    final ISLSet preimage = innerRE.getRestrictDomain().preimage(de.getFunction());
     innerRE.setDomainExpr(AlphaUserFactory.createJNIDomain(preimage));
     innerRE.setExpr(AlphaUserFactory.createDependenceExpression(de.getFunction(), innerRE.getExpr()));
     EcoreUtil.replace(de, innerRE);
@@ -326,7 +326,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     this.debug("push-dep ConvExpr", "f @ conv (kernel, weight, data) -> conv(kernel, f\' @ weight, f\' @ data)");
     EcoreUtil.replace(de, ce);
-    final JNIISLMultiAff newMaff = AlphaExpressionUtil.extendMultiAffWithIdentityDimensions(de.getFunction(), ce.getKernelDomain().getNbDims());
+    final ISLMultiAff newMaff = AlphaExpressionUtil.extendMultiAffWithIdentityDimensions(de.getFunction(), ce.getKernelDomain().getNbIndices());
     final DependenceExpression newKernelExpr = AlphaUserFactory.createDependenceExpression(newMaff.copy(), ce.getKernelExpression());
     final DependenceExpression newDataExpr = AlphaUserFactory.createDependenceExpression(newMaff, ce.getDataExpression());
     ce.setKernelExpression(newKernelExpr);
@@ -362,7 +362,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     String _xblockexpression = null;
     {
       this.debug("merge restrict", "D1 : D2 : E -> (D1 and D2) : E");
-      final JNIISLSet intersection = re.getRestrictDomain().intersect(innerRE.getRestrictDomain());
+      final ISLSet intersection = re.getRestrictDomain().intersect(innerRE.getRestrictDomain());
       re.setDomainExpr(AlphaUserFactory.createJNIDomain(intersection));
       EcoreUtil.replace(re.getExpr(), innerRE.getExpr());
       _xblockexpression = this.debug(re);
@@ -393,7 +393,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     EObject _eContainer = re.eContainer();
     if ((_eContainer instanceof AbstractReduceExpression)) {
       this.debug("push restrict", "reduce (op1, f1, D : reduce(op2, f2, E)) -> reduce(op1, f1, reduce(op2, f2, f2^-1(D) : E))");
-      final JNIISLSet preimage = re.getRestrictDomain().preimage(are.getProjection());
+      final ISLSet preimage = re.getRestrictDomain().preimage(are.getProjection());
       final RestrictExpression restrictExpr = AlphaUserFactory.createRestrictExpression(preimage, are.getBody());
       are.setBody(restrictExpr);
       EcoreUtil.replace(re, are);
@@ -532,13 +532,13 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     boolean _exists = IterableExtensions.<AlphaExpression>exists(mae.getExprs(), _function);
     if (_exists) {
       this.debug("pull-restrict MAExpr", "f(op, D1 : E1, D2 : E2) -> (D1 and D2 ...) : f(op, E1, E2, ...)");
-      final Function1<RestrictExpression, JNIISLSet> _function_1 = (RestrictExpression e) -> {
+      final Function1<RestrictExpression, ISLSet> _function_1 = (RestrictExpression e) -> {
         return e.getRestrictDomain();
       };
-      final Function2<JNIISLSet, JNIISLSet, JNIISLSet> _function_2 = (JNIISLSet d1, JNIISLSet d2) -> {
+      final Function2<ISLSet, ISLSet, ISLSet> _function_2 = (ISLSet d1, ISLSet d2) -> {
         return d1.intersect(d2);
       };
-      JNIISLSet intersection = IterableExtensions.<JNIISLSet>reduce(IterableExtensions.<RestrictExpression, JNIISLSet>map(Iterables.<RestrictExpression>filter(mae.getExprs(), RestrictExpression.class), _function_1), _function_2);
+      ISLSet intersection = IterableExtensions.<ISLSet>reduce(IterableExtensions.<RestrictExpression, ISLSet>map(Iterables.<RestrictExpression>filter(mae.getExprs(), RestrictExpression.class), _function_1), _function_2);
       final RestrictExpression hoistedRE = AlphaUserFactory.createRestrictExpression(intersection);
       EcoreUtil.replace(mae, hoistedRE);
       hoistedRE.setExpr(mae);

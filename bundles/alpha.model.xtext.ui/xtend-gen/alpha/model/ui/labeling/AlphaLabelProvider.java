@@ -33,8 +33,8 @@ import alpha.model.UnaryExpression;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import com.google.inject.Inject;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
@@ -126,7 +126,7 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   
   public String text(final DependenceExpression dep) {
     String _xifexpression = null;
-    JNIISLMultiAff _function = dep.getFunction();
+    ISLMultiAff _function = dep.getFunction();
     if ((_function instanceof JNIFunctionInArrayNotation)) {
       AlphaExpression _expr = dep.getExpr();
       String _name = ((VariableExpression) _expr).getVariable().getName();
@@ -170,7 +170,7 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   }
   
   public String text(final ConvolutionExpression conv) {
-    JNIISLSet _kernelDomain = conv.getKernelDomain();
+    ISLSet _kernelDomain = conv.getKernelDomain();
     return ("conv " + _kernelDomain);
   }
   

@@ -10,26 +10,25 @@ import alpha.model.factory.AlphaUserFactory;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AffineFunctionOperations;
 import com.google.common.base.Objects;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 @SuppressWarnings("all")
 public class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
-  private ChangeOfBasis(final AlphaSystem system, final Variable variable, final JNIISLMultiAff f) {
+  private ChangeOfBasis(final AlphaSystem system, final Variable variable, final ISLMultiAff f) {
     this.CoBfunction = f;
     this.target = variable;
-    this.CoBfunctionInverse = AffineFunctionOperations.inverseInContext(this.CoBfunction, null, f.getSpace().getNameList(JNIISLDimType.isl_dim_in));
+    this.CoBfunctionInverse = AffineFunctionOperations.inverseInContext(this.CoBfunction, null, f.getSpace().getInputNames());
   }
   
-  private JNIISLMultiAff CoBfunction;
+  private ISLMultiAff CoBfunction;
   
-  private JNIISLMultiAff CoBfunctionInverse;
+  private ISLMultiAff CoBfunctionInverse;
   
   private Variable target;
   
-  public static void apply(final AlphaSystem system, final Variable variable, final JNIISLMultiAff f) {
+  public static void apply(final AlphaSystem system, final Variable variable, final ISLMultiAff f) {
     final ChangeOfBasis CoB = new ChangeOfBasis(system, variable, f);
     system.accept(CoB);
   }
@@ -38,7 +37,7 @@ public class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
   public void inVariable(final Variable variable) {
     boolean _equals = Objects.equal(variable, this.target);
     if (_equals) {
-      final JNIISLSet newDom = variable.getDomain().apply(this.CoBfunction.copy().toMap());
+      final ISLSet newDom = variable.getDomain().apply(this.CoBfunction.copy().toMap());
       variable.setDomainExpr(AlphaUserFactory.createJNIDomain(newDom));
     }
   }

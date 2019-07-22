@@ -6,7 +6,7 @@ import alpha.model.DependenceExpression;
 import alpha.model.ReduceExpression;
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 
 public class Reductions extends ReductionsBase {
@@ -138,37 +138,37 @@ public class Reductions extends ReductionsBase {
 		String exprID = "0";
 		ReductionComposition(eq, exprID);
 	}
-	public static void ReducionDecomposition(SystemBody body, String targetEq, String exprID, JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	public static void ReducionDecomposition(SystemBody body, String targetEq, String exprID, ISLMultiAff f1, ISLMultiAff f2) {
 		StandardEquation eq = ValueConverter.toStandardEquation(body, targetEq);
 		ReducionDecomposition(eq, exprID, f1, f2);
 	}
 	public static void ReducionDecomposition(SystemBody body, String targetEq, String exprID, String f1Str, String f2Str) {
-		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(body, f1Str);
-		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(body, f2Str);
+		ISLMultiAff f1 = ValueConverter.toAffineFunction(body, f1Str);
+		ISLMultiAff f2 = ValueConverter.toAffineFunction(body, f2Str);
 		ReducionDecomposition(body, targetEq, exprID, f1, f2);
 	}
-	public static void ReducionDecomposition(StandardEquation eq, String exprID, JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	public static void ReducionDecomposition(StandardEquation eq, String exprID, ISLMultiAff f1, ISLMultiAff f2) {
 		AbstractReduceExpression reduction = ValueConverter.toAbstractReduceExpression(eq, exprID);
 		ReductionDecomposition(reduction, f1, f2);
 	}
-	public static void ReducionDecomposition(StandardEquation eq, JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	public static void ReducionDecomposition(StandardEquation eq, ISLMultiAff f1, ISLMultiAff f2) {
 		String exprID = "0";
 		ReducionDecomposition(eq, exprID, f1, f2);
 	}
 	public static void ReducionDecomposition(StandardEquation eq, String exprID, String f1Str, String f2Str) {
-		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(eq, f1Str);
-		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(eq, f2Str);
+		ISLMultiAff f1 = ValueConverter.toAffineFunction(eq, f1Str);
+		ISLMultiAff f2 = ValueConverter.toAffineFunction(eq, f2Str);
 		ReducionDecomposition(eq, exprID, f1, f2);
 	}
 	public static void ReducionDecomposition(StandardEquation eq, String f1Str, String f2Str) {
 		String exprID = "0";
-		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(eq, f1Str);
-		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(eq, f2Str);
+		ISLMultiAff f1 = ValueConverter.toAffineFunction(eq, f1Str);
+		ISLMultiAff f2 = ValueConverter.toAffineFunction(eq, f2Str);
 		ReducionDecomposition(eq, exprID, f1, f2);
 	}
 	public static void ReductionDecomposition(AbstractReduceExpression reduction, String f1Str, String f2Str) {
-		JNIISLMultiAff f1 = ValueConverter.toAffineFunction(reduction, f1Str);
-		JNIISLMultiAff f2 = ValueConverter.toAffineFunction(reduction, f2Str);
+		ISLMultiAff f1 = ValueConverter.toAffineFunction(reduction, f1Str);
+		ISLMultiAff f2 = ValueConverter.toAffineFunction(reduction, f2Str);
 		ReductionDecomposition(reduction, f1, f2);
 	}
 	public static void SameOperatorSimplification(SystemBody body, String targetEq, String exprID) {

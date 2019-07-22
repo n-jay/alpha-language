@@ -4,15 +4,15 @@
 	literalsInterface="true")
 package alpha.model.matrix 
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLContext
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLAffList
+import fr.irisa.cairn.jnimap.isl.ISLSpace
+import fr.irisa.cairn.jnimap.isl.ISLContext
+import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLAffList
 
-type JNIISLSpace wraps JNIISLSpace
-type JNIISLMultiAff wraps JNIISLMultiAff
+type JNIISLSpace wraps ISLSpace
+type JNIISLMultiAff wraps ISLMultiAff
 type LongMatrix wraps long[][]
 /**
  * Matrix is simply a 2D array of Long, represented as a list of MatrixRows.
@@ -120,24 +120,24 @@ class Matrix {
 		}
 
 		val islSpace = space.toJNIISLSetSpace();
-		var affList = JNIISLAffList.build(JNIISLContext.getCtx(), nbDims);
-		var JNIISLSpace affSpace = null;
+		var affList = ISLAffList.build(ISLContext.instance, nbDims);
+		var ISLSpace affSpace = null;
 		
 		for (row : rows.subList(nbParams, nbRows)) {
-			var aff = JNIISLAff.buildZero(islSpace.copy.toLocalSpace);
+			var aff = ISLAff.buildZero(islSpace.copy.toLocalSpace);
 			if (affSpace === null) affSpace = aff.space.copy
 			for (p : 0..<nbParams) {
-				aff = aff.setCoefficient(JNIISLDimType.isl_dim_param, p, row.getValue(p) as int);
+				aff = aff.setCoefficient(ISLDimType.isl_dim_param, p, row.getValue(p) as int);
 			}
 			for (i : 0..<nbIndices) {
-				aff = aff.setCoefficient(JNIISLDimType.isl_dim_in, i, row.getValue(i+nbParams) as int);
+				aff = aff.setCoefficient(ISLDimType.isl_dim_in, i, row.getValue(i+nbParams) as int);
 			}
 			if (!isLinearPartOnly())
 				aff = aff.setConstant(row.getValue(nbParams+nbIndices) as int);
 			affList = affList.add(aff);
 		}
 		
-		return JNIISLMultiAff.buildFromAffList(space.toJNIISLMultiAffSpace(nbDims), affList);
+		return ISLMultiAff.buildFromAffList(space.toJNIISLMultiAffSpace(nbDims), affList);
 	}
 }
 
@@ -174,12 +174,12 @@ class Space {
 	 * 
 	 */
 	op JNIISLSpace toJNIISLSetSpace() {
-		var space = JNIISLSpace.allocSet(nbParams, nbIndices);
+		var space = ISLSpace.allocSetSpace(nbParams, nbIndices);
 		for (i : 0..< nbParams) {
-			space = space.setName(JNIISLDimType.isl_dim_param, i, paramNames.get(i));
+			space = space.setDimName(ISLDimType.isl_dim_param, i, paramNames.get(i));
 		}
 		for (i : 0..< nbIndices) {
-			space = space.setName(JNIISLDimType.isl_dim_set, i, indexNames.get(i));
+			space = space.setDimName(ISLDimType.isl_dim_set, i, indexNames.get(i));
 		}
 		
 		return space;
@@ -189,12 +189,12 @@ class Space {
 	 * ISLSpace for creating MultiAff. For isl_multi_aff, map space is expected.
 	 */
 	op JNIISLSpace toJNIISLMultiAffSpace(int nbExprs) {
-		var space = JNIISLSpace.alloc(nbParams, nbIndices, nbExprs);
+		var space = ISLSpace.alloc(nbParams, nbIndices, nbExprs);
 		for (i : 0..< nbParams) {
-			space = space.setName(JNIISLDimType.isl_dim_param, i, paramNames.get(i));
+			space = space.setDimName(ISLDimType.isl_dim_param, i, paramNames.get(i));
 		}
 		for (i : 0..< nbIndices) {
-			space = space.setName(JNIISLDimType.isl_dim_in, i, indexNames.get(i));
+			space = space.setDimName(ISLDimType.isl_dim_in, i, indexNames.get(i));
 		}
 		
 		return space;

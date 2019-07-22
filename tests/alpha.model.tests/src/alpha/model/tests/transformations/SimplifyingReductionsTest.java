@@ -14,8 +14,8 @@ import alpha.model.UniquenessAndCompletenessCheck;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.transformation.Normalize;
 import alpha.model.transformation.reduction.SimplifyingReductions;
-import fr.irisa.cairn.jnimap.isl.jni.ISLFactory;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLFactory;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 public class SimplifyingReductionsTest {
 	
@@ -40,7 +40,7 @@ public class SimplifyingReductionsTest {
 		StandardEquation eq = root.getSystem(systemName).getSystemBodies().get(0).getStandardEquation(eqName);
 		ReduceExpression reduce = (ReduceExpression)eq.getExpression(exprID);
 		
-		JNIISLMultiAff reuseDep = ISLFactory.islMultiAff(fStr);
+		ISLMultiAff reuseDep = ISLFactory.islMultiAff(fStr);
 		
 		SimplifyingReductions.apply(reduce, reuseDep);
 		Normalize.apply(root);

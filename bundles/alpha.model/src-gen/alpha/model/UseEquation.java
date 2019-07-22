@@ -2,8 +2,8 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import java.util.List;
 
@@ -139,7 +139,7 @@ public interface UseEquation extends Equation {
 	 * @model kind="operation" dataType="alpha.model.JNIISLMultiAff" unique="false"
 	 * @generated
 	 */
-	JNIISLMultiAff getCallParams();
+	ISLMultiAff getCallParams();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -147,7 +147,7 @@ public interface UseEquation extends Equation {
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
-	JNIISLSet getInstantiationDomain();
+	ISLSet getInstantiationDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

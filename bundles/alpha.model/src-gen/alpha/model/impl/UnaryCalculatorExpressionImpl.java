@@ -11,8 +11,8 @@ import alpha.model.UnaryCalculatorExpression;
 
 import alpha.model.util.AlphaUtil;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -201,11 +201,11 @@ public class UnaryCalculatorExpressionImpl extends CalculatorExpressionImpl impl
 	 */
 	public POLY_OBJECT_TYPE getType() {
 		JNIObject _z__internal_cache_islObject = this.getZ__internal_cache_islObject();
-		if ((_z__internal_cache_islObject instanceof JNIISLSet)) {
+		if ((_z__internal_cache_islObject instanceof ISLSet)) {
 			return POLY_OBJECT_TYPE.SET;
 		}
 		JNIObject _z__internal_cache_islObject_1 = this.getZ__internal_cache_islObject();
-		if ((_z__internal_cache_islObject_1 instanceof JNIISLMap)) {
+		if ((_z__internal_cache_islObject_1 instanceof ISLMap)) {
 			return POLY_OBJECT_TYPE.MAP;
 		}
 		return null;

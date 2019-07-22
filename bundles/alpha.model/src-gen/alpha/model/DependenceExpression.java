@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 /**
  * <!-- begin-user-doc -->
@@ -72,7 +72,7 @@ public interface DependenceExpression extends AlphaExpression {
 	 * @model kind="operation" dataType="alpha.model.JNIISLMultiAff" unique="false"
 	 * @generated
 	 */
-	JNIISLMultiAff getFunction();
+	ISLMultiAff getFunction();
 
 	/**
 	 * <!-- begin-user-doc -->

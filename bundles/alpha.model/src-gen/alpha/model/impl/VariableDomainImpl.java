@@ -8,7 +8,7 @@ import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.Variable;
 import alpha.model.VariableDomain;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -115,7 +115,7 @@ public class VariableDomainImpl extends CalculatorExpressionImpl implements Vari
 	 * @generated
 	 */
 	public JNIObject getISLObject() {
-		JNIISLSet _xifexpression = null;
+		ISLSet _xifexpression = null;
 		Variable _variable = this.getVariable();
 		boolean _tripleNotEquals = (_variable != null);
 		if (_tripleNotEquals) {

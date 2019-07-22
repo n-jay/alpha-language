@@ -8,8 +8,8 @@ import alpha.model.matrix.MatrixPackage;
 import alpha.model.matrix.MatrixRow;
 import alpha.model.matrix.Space;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSpace;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -381,8 +381,8 @@ public class MatrixPackageImpl extends EPackageImpl implements MatrixPackage {
 		addEParameter(op, theEcorePackage.getEInt(), "nbExprs", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		// Initialize data types
-		initEDataType(jniislSpaceEDataType, JNIISLSpace.class, "JNIISLSpace", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-		initEDataType(jniislMultiAffEDataType, JNIISLMultiAff.class, "JNIISLMultiAff", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislSpaceEDataType, ISLSpace.class, "JNIISLSpace", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislMultiAffEDataType, ISLMultiAff.class, "JNIISLMultiAff", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(longMatrixEDataType, long[][].class, "LongMatrix", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource

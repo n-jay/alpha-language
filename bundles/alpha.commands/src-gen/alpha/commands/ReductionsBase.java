@@ -11,7 +11,7 @@ import alpha.model.MultiArgExpression;
 /*PROTECTED REGION END*/
 import alpha.model.ReduceExpression;
 import alpha.model.SystemBody;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 
 public class ReductionsBase {
@@ -86,7 +86,7 @@ public class ReductionsBase {
 		alpha.model.transformation.reduction.ReductionComposition.apply(reduction);
 		/*PROTECTED REGION END*/
 	}
-	public static void ReductionDecomposition(AbstractReduceExpression reduction, JNIISLMultiAff f1, JNIISLMultiAff f2) {
+	public static void ReductionDecomposition(AbstractReduceExpression reduction, ISLMultiAff f1, ISLMultiAff f2) {
 		/*PROTECTED REGION ID(Reductions.ReductionDecomposition_RDecomp1) ENABLED START*/
 		alpha.model.transformation.reduction.ReductionDecomposition.apply(reduction, f1, f2);
 		/*PROTECTED REGION END*/

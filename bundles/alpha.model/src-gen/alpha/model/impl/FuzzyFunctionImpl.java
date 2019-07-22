@@ -6,7 +6,7 @@ import alpha.model.FuzzyFunction;
 import alpha.model.FuzzyVariableUse;
 import alpha.model.ModelPackage;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 
 import java.util.Collection;
 
@@ -82,7 +82,7 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLMap ZINTERNAL_CACHE_FUZZY_MAP_EDEFAULT = null;
+	protected static final ISLMap ZINTERNAL_CACHE_FUZZY_MAP_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getZ__internal_cache_fuzzyMap() <em>Zinternal cache fuzzy Map</em>}' attribute.
@@ -92,7 +92,7 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLMap z__internal_cache_fuzzyMap = ZINTERNAL_CACHE_FUZZY_MAP_EDEFAULT;
+	protected ISLMap z__internal_cache_fuzzyMap = ZINTERNAL_CACHE_FUZZY_MAP_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getZ__internal_cache_depRelation() <em>Zinternal cache dep Relation</em>}' attribute.
@@ -102,7 +102,7 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final JNIISLMap ZINTERNAL_CACHE_DEP_RELATION_EDEFAULT = null;
+	protected static final ISLMap ZINTERNAL_CACHE_DEP_RELATION_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getZ__internal_cache_depRelation() <em>Zinternal cache dep Relation</em>}' attribute.
@@ -112,7 +112,7 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIISLMap z__internal_cache_depRelation = ZINTERNAL_CACHE_DEP_RELATION_EDEFAULT;
+	protected ISLMap z__internal_cache_depRelation = ZINTERNAL_CACHE_DEP_RELATION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -171,7 +171,7 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getZ__internal_cache_fuzzyMap() {
+	public ISLMap getZ__internal_cache_fuzzyMap() {
 		return z__internal_cache_fuzzyMap;
 	}
 
@@ -180,8 +180,8 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setZ__internal_cache_fuzzyMap(JNIISLMap newZ__internal_cache_fuzzyMap) {
-		JNIISLMap oldZ__internal_cache_fuzzyMap = z__internal_cache_fuzzyMap;
+	public void setZ__internal_cache_fuzzyMap(ISLMap newZ__internal_cache_fuzzyMap) {
+		ISLMap oldZ__internal_cache_fuzzyMap = z__internal_cache_fuzzyMap;
 		z__internal_cache_fuzzyMap = newZ__internal_cache_fuzzyMap;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FUZZY_FUNCTION__ZINTERNAL_CACHE_FUZZY_MAP, oldZ__internal_cache_fuzzyMap, z__internal_cache_fuzzyMap));
@@ -192,7 +192,7 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getZ__internal_cache_depRelation() {
+	public ISLMap getZ__internal_cache_depRelation() {
 		return z__internal_cache_depRelation;
 	}
 
@@ -201,8 +201,8 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setZ__internal_cache_depRelation(JNIISLMap newZ__internal_cache_depRelation) {
-		JNIISLMap oldZ__internal_cache_depRelation = z__internal_cache_depRelation;
+	public void setZ__internal_cache_depRelation(ISLMap newZ__internal_cache_depRelation) {
+		ISLMap oldZ__internal_cache_depRelation = z__internal_cache_depRelation;
 		z__internal_cache_depRelation = newZ__internal_cache_depRelation;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.FUZZY_FUNCTION__ZINTERNAL_CACHE_DEP_RELATION, oldZ__internal_cache_depRelation, z__internal_cache_depRelation));
@@ -213,9 +213,9 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getFuzzyMap() {
-		JNIISLMap _xifexpression = null;
-		JNIISLMap _z__internal_cache_fuzzyMap = this.getZ__internal_cache_fuzzyMap();
+	public ISLMap getFuzzyMap() {
+		ISLMap _xifexpression = null;
+		ISLMap _z__internal_cache_fuzzyMap = this.getZ__internal_cache_fuzzyMap();
 		boolean _tripleNotEquals = (_z__internal_cache_fuzzyMap != null);
 		if (_tripleNotEquals) {
 			_xifexpression = this.getZ__internal_cache_fuzzyMap().copy();
@@ -231,7 +231,7 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFuzzyMap(final JNIISLMap fuzzyMap) {
+	public void setFuzzyMap(final ISLMap fuzzyMap) {
 		this.setZ__internal_cache_fuzzyMap(fuzzyMap);
 	}
 
@@ -240,9 +240,9 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getDependenceRelation() {
-		JNIISLMap _xifexpression = null;
-		JNIISLMap _z__internal_cache_depRelation = this.getZ__internal_cache_depRelation();
+	public ISLMap getDependenceRelation() {
+		ISLMap _xifexpression = null;
+		ISLMap _z__internal_cache_depRelation = this.getZ__internal_cache_depRelation();
 		boolean _tripleNotEquals = (_z__internal_cache_depRelation != null);
 		if (_tripleNotEquals) {
 			_xifexpression = this.getZ__internal_cache_depRelation().copy();
@@ -258,7 +258,7 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDependenceRelation(final JNIISLMap depRel) {
+	public void setDependenceRelation(final ISLMap depRel) {
 		this.setZ__internal_cache_depRelation(depRel);
 	}
 
@@ -327,10 +327,10 @@ public class FuzzyFunctionImpl extends AlphaNodeImpl implements FuzzyFunction {
 				getIndirections().addAll((Collection<? extends FuzzyVariableUse>)newValue);
 				return;
 			case ModelPackage.FUZZY_FUNCTION__ZINTERNAL_CACHE_FUZZY_MAP:
-				setZ__internal_cache_fuzzyMap((JNIISLMap)newValue);
+				setZ__internal_cache_fuzzyMap((ISLMap)newValue);
 				return;
 			case ModelPackage.FUZZY_FUNCTION__ZINTERNAL_CACHE_DEP_RELATION:
-				setZ__internal_cache_depRelation((JNIISLMap)newValue);
+				setZ__internal_cache_depRelation((ISLMap)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

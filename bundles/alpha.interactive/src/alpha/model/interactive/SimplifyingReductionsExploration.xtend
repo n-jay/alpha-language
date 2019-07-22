@@ -27,15 +27,15 @@ import alpha.model.transformation.reduction.SimplifyingReductions
 import alpha.model.util.AShow
 import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaUtil
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import java.util.HashSet
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.xtext.EcoreUtil2
 import alpha.model.util.AlphaPrintingUtil
-import fr.irisa.cairn.jnimap.barvinok.jni.BarvinokFunctions
+import fr.irisa.cairn.jnimap.barvinok.BarvinokFunctions
 import alpha.model.AlphaExpression
 import alpha.model.transformation.SimplifyExpressions
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 
 /**
  * Interactive exploration of Simplifying Reductions.
@@ -415,8 +415,8 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		val candidates = new LinkedList<StepReductionDecomposition>();
 		
 
-		val params = targetRE.body.expressionDomain.parametersNames
-		val indices = targetRE.body.expressionDomain.indicesNames		
+		val params = targetRE.body.expressionDomain.paramNames
+		val indices = targetRE.body.expressionDomain.indexNames		
 		for (RE : REs) {
 			val Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
 			val Fpp = AffineFunctionOperations.projectFunctionDomain(targetRE.projection, Fp.copy)
@@ -474,7 +474,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 				outStream.println(String.format("N/A; context domain involves union. : card(%s)", AShow.print(candidate)));
 			} else {
 				val card = BarvinokFunctions.card(candidate.body.contextDomain)
-				val qp = card.getPieceAt(0).qp
+				val qp = card.getPieceAt(0).getQp
 				outStream.println(String.format("%s : card(%s)", AlphaPrintingUtil.toShowString(qp), AShow.print(candidate)));
 			}			
 		}
@@ -575,10 +575,10 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	
 	private static class StepReductionDecomposition extends ExplorationStep {
 		
-		JNIISLMultiAff innerProjection
-		JNIISLMultiAff outerProjection
+		ISLMultiAff innerProjection
+		ISLMultiAff outerProjection
 		
-		new(JNIISLMultiAff innerF, JNIISLMultiAff outerF) {
+		new(ISLMultiAff innerF, ISLMultiAff outerF) {
 			innerProjection = innerF;
 			outerProjection = outerF;
 		}

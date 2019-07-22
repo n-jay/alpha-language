@@ -5,9 +5,9 @@ import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.transformation.reduction.ReductionUtil;
-import fr.irisa.cairn.jnimap.isl.jni.ISLErrorException;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLTools;
+import fr.irisa.cairn.jnimap.isl.ISLErrorException;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.JNIISLTools;
 import java.util.List;
 import java.util.function.Supplier;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -29,7 +29,7 @@ public class ReductionDecomposition {
    * Applies ReductionDecomposition using the input functions.
    * Input f1 becomes the projection function of the inner reduction.
    */
-  public static List<AlphaIssue> apply(final AbstractReduceExpression are, final JNIISLMultiAff f1, final JNIISLMultiAff f2) {
+  public static List<AlphaIssue> apply(final AbstractReduceExpression are, final ISLMultiAff f1, final ISLMultiAff f2) {
     List<AlphaIssue> _xblockexpression = null;
     {
       Boolean _xtrycatchfinallyexpression = null;

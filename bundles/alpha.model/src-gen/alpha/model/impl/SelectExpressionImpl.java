@@ -11,7 +11,7 @@ import alpha.model.SelectExpression;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -168,8 +168,8 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getSelectRelation() {
-		JNIISLMap _xifexpression = null;
+	public ISLMap getSelectRelation() {
+		ISLMap _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getRelationExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.MAP));
 		if (_notEquals) {
@@ -177,7 +177,7 @@ public class SelectExpressionImpl extends AlphaExpressionImpl implements SelectE
 		}
 		else {
 			JNIObject _iSLObject = this.getRelationExpr().getISLObject();
-			_xifexpression = ((JNIISLMap) _iSLObject);
+			_xifexpression = ((ISLMap) _iSLObject);
 		}
 		return _xifexpression;
 	}

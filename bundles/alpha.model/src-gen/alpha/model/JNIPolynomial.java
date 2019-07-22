@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -51,12 +51,12 @@ public interface JNIPolynomial extends CalculatorExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Zinternal cache isl PWQP</em>' attribute.
-	 * @see #setZ__internal_cache_islPWQP(JNIISLPWQPolynomial)
+	 * @see #setZ__internal_cache_islPWQP(ISLPWQPolynomial)
 	 * @see alpha.model.ModelPackage#getJNIPolynomial_Z__internal_cache_islPWQP()
 	 * @model unique="false" dataType="alpha.model.JNIISLPWQPolynomial"
 	 * @generated
 	 */
-	JNIISLPWQPolynomial getZ__internal_cache_islPWQP();
+	ISLPWQPolynomial getZ__internal_cache_islPWQP();
 
 	/**
 	 * Sets the value of the '{@link alpha.model.JNIPolynomial#getZ__internal_cache_islPWQP <em>Zinternal cache isl PWQP</em>}' attribute.
@@ -66,7 +66,7 @@ public interface JNIPolynomial extends CalculatorExpression {
 	 * @see #getZ__internal_cache_islPWQP()
 	 * @generated
 	 */
-	void setZ__internal_cache_islPWQP(JNIISLPWQPolynomial value);
+	void setZ__internal_cache_islPWQP(ISLPWQPolynomial value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -74,7 +74,7 @@ public interface JNIPolynomial extends CalculatorExpression {
 	 * @model kind="operation" dataType="alpha.model.JNIISLPWQPolynomial" unique="false"
 	 * @generated
 	 */
-	JNIISLPWQPolynomial getISLPWQPolynomial();
+	ISLPWQPolynomial getISLPWQPolynomial();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,7 +82,7 @@ public interface JNIPolynomial extends CalculatorExpression {
 	 * @model islQPDataType="alpha.model.JNIISLPWQPolynomial" islQPUnique="false"
 	 * @generated
 	 */
-	void setISLPWQPolynomial(JNIISLPWQPolynomial islQP);
+	void setISLPWQPolynomial(ISLPWQPolynomial islQP);
 
 	/**
 	 * <!-- begin-user-doc -->

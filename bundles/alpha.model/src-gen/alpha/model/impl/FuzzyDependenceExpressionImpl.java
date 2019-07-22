@@ -8,7 +8,7 @@ import alpha.model.FuzzyDependenceExpression;
 import alpha.model.FuzzyFunction;
 import alpha.model.ModelPackage;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -163,8 +163,8 @@ public class FuzzyDependenceExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMap getDependenceRelation() {
-		JNIISLMap _xifexpression = null;
+	public ISLMap getDependenceRelation() {
+		ISLMap _xifexpression = null;
 		FuzzyFunction _fuzzyFunction = this.getFuzzyFunction();
 		boolean _tripleNotEquals = (_fuzzyFunction != null);
 		if (_tripleNotEquals) {

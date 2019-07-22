@@ -12,7 +12,7 @@ import alpha.model.REDUCTION_OP;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -211,8 +211,8 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLMultiAff getProjection() {
-		JNIISLMultiAff _xifexpression = null;
+	public ISLMultiAff getProjection() {
+		ISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getProjectionExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.FUNCTION));
 		if (_notEquals) {
@@ -220,7 +220,7 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 		}
 		else {
 			JNIObject _iSLObject = this.getProjectionExpr().getISLObject();
-			_xifexpression = ((JNIISLMultiAff) _iSLObject);
+			_xifexpression = ((ISLMultiAff) _iSLObject);
 		}
 		return _xifexpression;
 	}

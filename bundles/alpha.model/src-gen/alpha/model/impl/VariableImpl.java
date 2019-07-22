@@ -15,7 +15,7 @@ import alpha.model.exception.CyclicDefinitionException;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -162,14 +162,14 @@ public class VariableImpl extends AlphaNodeImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLSet getDomain() {
+	public ISLSet getDomain() {
 		POLY_OBJECT_TYPE _type = this.getDomainExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
 		if (_notEquals) {
 			return null;
 		}
 		try {
-			JNIISLSet _xifexpression = null;
+			ISLSet _xifexpression = null;
 			POLY_OBJECT_TYPE _type_1 = this.getDomainExpr().getType();
 			boolean _notEquals_1 = (!Objects.equal(_type_1, POLY_OBJECT_TYPE.SET));
 			if (_notEquals_1) {
@@ -177,7 +177,7 @@ public class VariableImpl extends AlphaNodeImpl implements Variable {
 			}
 			else {
 				JNIObject _iSLObject = this.getDomainExpr().getISLObject();
-				_xifexpression = ((JNIISLSet) _iSLObject);
+				_xifexpression = ((ISLSet) _iSLObject);
 			}
 			return _xifexpression;
 		}

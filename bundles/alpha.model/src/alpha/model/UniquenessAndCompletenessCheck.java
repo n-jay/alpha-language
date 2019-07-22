@@ -17,9 +17,9 @@ import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
  * Uniqueness and Completeness check is a basic analysis of Alpha programs to
@@ -68,8 +68,8 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	
 	private void checkSystemBodyConsistency(AlphaSystem system) {
 		
-		JNIISLSet unionBodies = null;
-		JNIISLSet intersections = null;
+		ISLSet unionBodies = null;
+		ISLSet intersections = null;
 		for (SystemBody body : system.getSystemBodies()) {
 			//If the SystemBodyDomain is not defined, it failed in DomainCalculator already 
 			if (body.getParameterDomainExpr() == null) return;
@@ -78,7 +78,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 				unionBodies = body.getParameterDomain();
 			} else {
 				if (!unionBodies.isDisjoint(body.getParameterDomain())) {
-					JNIISLSet intersection = unionBodies.union(body.getParameterDomain());
+					ISLSet intersection = unionBodies.union(body.getParameterDomain());
 					if (intersections == null) intersections = intersection;
 					else intersections = intersections.union(intersection);
 				}
@@ -116,8 +116,8 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 		for (Variable v : useDefs.keySet()) {
 			List<VariableExpression> vexprs = useDefs.get(v);
 			
-			JNIISLSet union = null;
-			JNIISLSet intersections = null;
+			ISLSet union = null;
+			ISLSet intersections = null;
 			
 			for (VariableExpression vexpr : vexprs) {
 				//if context domain is not defined, there were earlier issues
@@ -126,7 +126,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 					union = vexpr.getContextDomain();
 				} else {
 					if (!union.isDisjoint(vexpr.getContextDomain())) {
-						JNIISLSet intersection = vexpr.getContextDomain().intersect(union.copy());
+						ISLSet intersection = vexpr.getContextDomain().intersect(union.copy());
 						if (intersections == null) intersections = intersection;
 						else intersections = intersections.union(intersection);
 					}
@@ -143,11 +143,11 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 			}
 			
 			//check for incomplete definition
-			JNIISLSet vDom = v.getDomain();
+			ISLSet vDom = v.getDomain();
 			if (sysBody.getParameterDomain() != null) vDom = vDom.intersectParams(sysBody.getParameterDomain());
 			
 			if (!union.isEqual(vDom)) {
-				JNIISLSet diff = v.getDomain().subtract(union);
+				ISLSet diff = v.getDomain().subtract(union);
 				for (VariableExpression vexpr : vexprs) {
 					AlphaExpression expr = findAncestorOutputExpression(vexpr);
 					issues.add(AlphaIssueFactory.incompleteUseEquation(v, expr, diff.copy()));
@@ -171,8 +171,8 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	
 	@Override
 	public void inStandardEquation(StandardEquation se) {
-		JNIISLSet defDom = se.getExpr().getExpressionDomain();
-		JNIISLSet varDom = se.getVariable().getDomain();
+		ISLSet defDom = se.getExpr().getExpressionDomain();
+		ISLSet varDom = se.getVariable().getDomain();
 		if (defDom == null || varDom == null) return;
 		//This case is already checked at ContextDomainCalculator
 		if (!varDom.getSpace().isEqual(defDom.getSpace())) return;
@@ -180,13 +180,13 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 		if (se.getSystemBody().getParameterDomainExpr() == null) return;
 
 		callISLwithErrorHandling(()->{
-			JNIISLSet varDomContext = varDom.intersectParams(se.getSystemBody().getParameterDomain());
-			JNIISLSet undefDom = varDomContext.copy().subtract(defDom);
+			ISLSet varDomContext = varDom.intersectParams(se.getSystemBody().getParameterDomain());
+			ISLSet undefDom = varDomContext.copy().subtract(defDom);
 			
 			if (!undefDom.isEmpty()) {
-				JNIISLSet systemParam = AlphaUtil.getContainerSystem(se).getParameterDomain();
-				JNIISLSet undefDomParam = undefDom.copy().paramSet().gist(systemParam);
-				JNIISLSet undefDomGist = undefDom.gist(varDomContext);
+				ISLSet systemParam = AlphaUtil.getContainerSystem(se).getParameterDomain();
+				ISLSet undefDomParam = undefDom.copy().params().gist(systemParam);
+				ISLSet undefDomGist = undefDom.gist(varDomContext);
 
 				issues.add(AlphaIssueFactory.incompleteEquation(se, undefDomGist, undefDomParam));
 			}
@@ -198,7 +198,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	public void inCaseExpression(CaseExpression ce) {
 		if (AlphaExpressionUtil.testNonNullContextDomain(AlphaExpressionUtil.getChildrenOfType(ce, AlphaExpression.class))) {
 			
-			JNIISLSet childrenDomain = null;
+			ISLSet childrenDomain = null;
 			
 			for (AlphaExpression expr : ce.getExprs()) {
 				if (childrenDomain == null) {
@@ -218,9 +218,9 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	public void inUseEquation(UseEquation ue) {
 		//check for simple infinite recursion
 		if (ue.getSystem().equals(ue.getSystemBody().getSystem())) {
-			JNIISLMultiAff callParams = ue.getCallParams();
-			int nbParams = callParams.getSpace().getNbDims(JNIISLDimType.isl_dim_param);
-			callParams = callParams.moveDims(JNIISLDimType.isl_dim_in, 0, JNIISLDimType.isl_dim_param, 0, nbParams);
+			ISLMultiAff callParams = ue.getCallParams();
+			int nbParams = callParams.getSpace().getNbParams();
+			callParams = callParams.moveDims(ISLDimType.isl_dim_in, 0, ISLDimType.isl_dim_param, 0, nbParams);
 			
 			if (callParams.isIdentity()) {
 				issues.add(AlphaIssueFactory.infinitelyRecursiveUseEquation(ue));

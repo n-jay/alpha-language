@@ -11,12 +11,12 @@ import alpha.model.SystemBody
 import alpha.model.UnaryExpression
 import alpha.model.UseEquation
 import alpha.model.Variable
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet
 import alpha.model.PolynomialIndexExpression
 import alpha.model.SelectExpression
 import alpha.model.ConvolutionExpression
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff
 import alpha.model.JNIDomain
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLSet
 
 /**
  * Prints the Alpha program in Show notation of the older syntax used in
@@ -63,7 +63,7 @@ class ShowLegacyAlpha {
 		 	this.targetBody = targetBody
 		}
 		
-		override protected printDomain(JNIISLSet set) {
+		override protected printDomain(ISLSet set) {
 			AlphaPrintingUtil.toLegacyAlphaString(set)
 		}
 		
@@ -71,7 +71,7 @@ class ShowLegacyAlpha {
 			AlphaPrintingUtil.toLegacyAlphaStringParameterDomain(dom.ISLSet)
 		}
 		
-		override protected printVariableDeclarationDomain(JNIISLSet set) {
+		override protected printVariableDeclarationDomain(ISLSet set) {
 			AlphaPrintingUtil.toLegacyAlphaString(set)
 		}
 		
@@ -114,7 +114,7 @@ class ShowLegacyAlpha {
 			caseRestrict(are, are.inferredDomain, are.expr)
 		}
 		
-		private def caseRestrict(AlphaExpression expr, JNIISLSet domain, AlphaExpression child) {
+		private def caseRestrict(AlphaExpression expr, ISLSet domain, AlphaExpression child) {
 			val domStr = domain.printDomain
 						
 			if (expr.eContainer instanceof UnaryExpression || expr.eContainer instanceof BinaryExpression) {

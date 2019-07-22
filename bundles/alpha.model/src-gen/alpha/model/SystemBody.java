@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -91,7 +91,7 @@ public interface SystemBody extends AlphaNode, AlphaVisitable, AlphaSystemElemen
 	 * @model kind="operation" dataType="alpha.model.JNIISLSet" unique="false"
 	 * @generated
 	 */
-	JNIISLSet getParameterDomain();
+	ISLSet getParameterDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

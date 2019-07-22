@@ -2,7 +2,7 @@
  */
 package alpha.model;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 
 /**
  * <!-- begin-user-doc -->
@@ -98,7 +98,7 @@ public interface AbstractReduceExpression extends AlphaExpression {
 	 * @model kind="operation" dataType="alpha.model.JNIISLMultiAff" unique="false"
 	 * @generated
 	 */
-	JNIISLMultiAff getProjection();
+	ISLMultiAff getProjection();
 
 	/**
 	 * <!-- begin-user-doc -->

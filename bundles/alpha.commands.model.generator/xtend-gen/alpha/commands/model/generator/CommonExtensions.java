@@ -42,10 +42,10 @@ public class CommonExtensions {
       switch (type) {
         case DOMAIN:
         case PARAMETER_DOMAIN:
-          _switchResult = "JNIISLSet";
+          _switchResult = "ISLSet";
           break;
         case AFFINE_FUNCTION:
-          _switchResult = "JNIISLMultiAff";
+          _switchResult = "ISLMultiAff";
           break;
         default:
           _switchResult = type.getLiteral();
@@ -187,13 +187,13 @@ public class CommonExtensions {
           break;
         case AFFINE_FUNCTION:
           StringConcatenation _builder_1 = new StringConcatenation();
-          _builder_1.append("fr.irisa.cairn.jnimap.isl.jni.JNIISLMultiAff");
+          _builder_1.append("fr.irisa.cairn.jnimap.isl.JNIISLMultiAff");
           _switchResult = Collections.<CharSequence>unmodifiableSet(CollectionLiterals.<CharSequence>newHashSet(_builder_1));
           break;
         case DOMAIN:
         case PARAMETER_DOMAIN:
           StringConcatenation _builder_2 = new StringConcatenation();
-          _builder_2.append("fr.irisa.cairn.jnimap.isl.jni.JNIISLSet");
+          _builder_2.append("fr.irisa.cairn.jnimap.isl.JNIISLSet");
           _switchResult = Collections.<CharSequence>unmodifiableSet(CollectionLiterals.<CharSequence>newHashSet(_builder_2));
           break;
         case ALPHA_BUNDLE:

@@ -10,7 +10,7 @@ import alpha.model.PolynomialIndexExpression;
 
 import com.google.common.base.Objects;
 
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
@@ -113,8 +113,8 @@ public class PolynomialIndexExpressionImpl extends AlphaExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIISLPWQPolynomial getPolynomial() {
-		JNIISLPWQPolynomial _xifexpression = null;
+	public ISLPWQPolynomial getPolynomial() {
+		ISLPWQPolynomial _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getPolynomialExpr().getType();
 		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.POLYNOMIAL));
 		if (_notEquals) {
@@ -122,7 +122,7 @@ public class PolynomialIndexExpressionImpl extends AlphaExpressionImpl implement
 		}
 		else {
 			JNIObject _iSLObject = this.getPolynomialExpr().getISLObject();
-			_xifexpression = ((JNIISLPWQPolynomial) _iSLObject);
+			_xifexpression = ((ISLPWQPolynomial) _iSLObject);
 		}
 		return _xifexpression;
 	}

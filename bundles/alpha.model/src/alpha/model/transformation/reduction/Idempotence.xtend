@@ -8,9 +8,9 @@ import alpha.model.transformation.Normalize
 import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
-import fr.irisa.cairn.jnimap.isl.jni.JNIISLDimType
 import org.eclipse.xtext.EcoreUtil2
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult
+import fr.irisa.cairn.jnimap.isl.ISLDimType
 
 /**
  * Idempotence is one of the transformations that can be applied with
@@ -80,15 +80,15 @@ class Idempotence {
 		if (kerFc === null)
 			throw new IllegalArgumentException("[Idempotence] The intersection of the share space of the reduction body and kernel of the projection is empty.");
 			
-		val params = AlphaUtil.getContainerSystem(are).parameterDomain.parametersNames
-		val indices = are.body.contextDomain.indicesNames
+		val params = AlphaUtil.getContainerSystem(are).parameterDomain.paramNames
+		val indices = are.body.contextDomain.indexNames
 		val Fc = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, kerFc)
 		
 		val Fpprime = AffineFunctionOperations.projectFunctionDomain(are.projection, Fc.copy)
 		
 		ReductionUtil.projectReductionBody(are, Fc.copy)
 		
-		val replacement = if (Fpprime.getNbDims(JNIISLDimType.isl_dim_in) == Fpprime.getNbDims(JNIISLDimType.isl_dim_out)) {
+		val replacement = if (Fpprime.getNbInputs == Fpprime.getNbOutputs) {
 			are.body
 		} else {
 			ReductionUtil.constructConcreteReduction(are, are.operator, Fpprime, are.body)
