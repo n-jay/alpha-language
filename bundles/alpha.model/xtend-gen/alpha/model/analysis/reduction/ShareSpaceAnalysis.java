@@ -177,8 +177,8 @@ public class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
       return;
     }
     final long[][] SEp = this.shareSpace.get(are.getBody());
-    final long[][] kerQ = DomainOperations.kernelOfLinearPart(are.getExpressionDomain());
-    final long[][] intersection = MatrixOperations.plainIntersection(SEp, kerQ);
+    final long[][] kerQ = MatrixOperations.transpose(DomainOperations.kernelOfLinearPart(are.getBody().getExpressionDomain()));
+    final long[][] intersection = MatrixOperations.kernelIntersection(SEp, kerQ);
     if ((intersection != null)) {
       this.warning("Expression of a reduction has non-empty share space. This is only possible when the expression domain has non-empty linearlity space. The share space of the ReduceExpression is set to empty.");
     }
@@ -201,7 +201,7 @@ public class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
       if ((SE == null)) {
         _xifexpression = this.shareSpace.get(expr);
       } else {
-        _xifexpression = MatrixOperations.plainIntersection(SE, this.shareSpace.get(expr));
+        _xifexpression = MatrixOperations.kernelIntersection(SE, this.shareSpace.get(expr));
       }
       SE = _xifexpression;
     }

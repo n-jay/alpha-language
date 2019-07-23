@@ -36,6 +36,7 @@ import fr.irisa.cairn.jnimap.barvinok.BarvinokFunctions
 import alpha.model.AlphaExpression
 import alpha.model.transformation.SimplifyExpressions
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLDimType
 
 /**
  * Interactive exploration of Simplifying Reductions.
@@ -407,16 +408,25 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 
 		val REs = new HashSet<long[][]>();
 		for (exprRE : exprREs) {
-			val intersection = MatrixOperations.plainIntersection(exprRE.value, kerFp)
+			val intersection = MatrixOperations.kernelIntersection(exprRE.value, kerFp)
 			if (intersection !== null)
 				REs.add(intersection)
 		}
 		
 		val candidates = new LinkedList<StepReductionDecomposition>();
 		
-
 		val params = targetRE.body.expressionDomain.paramNames
-		val indices = targetRE.body.expressionDomain.indexNames		
+		val indices = targetRE.body.expressionDomain.indexNames
+		
+		//Decomposition with Side Effects that expose Boundary Constraints
+		val constraints = targetRE.body.contextDomain.getBasicSetAt(0).constraints
+		for (c : constraints) {
+			targetRE.projection.getAff(0).toInequalityConstraint.toBasicSet
+			
+			val mat = c.toBasicSet.getInequalityMatrix(ISLDimType.isl_dim_param, ISLDimType.isl_dim_set, ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst)
+		}
+		
+		//Decomposition with Side Effects that expose Distributivity
 		for (RE : REs) {
 			val Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
 			val Fpp = AffineFunctionOperations.projectFunctionDomain(targetRE.projection, Fp.copy)

@@ -81,7 +81,7 @@ class HigherOrderOperator {
 			return false;
 		
 		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.projection))
-		val kerFc = MatrixOperations.plainIntersection(kerFp, areSS)
+		val kerFc = MatrixOperations.kernelIntersection(kerFp, areSS)
 		
 		if (kerFc === null)
 			return false;
@@ -101,7 +101,7 @@ class HigherOrderOperator {
 			throw new IllegalArgumentException("[HigherOrderOperator] The body of the specified reduction does not have any reuse.");
 		
 		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.projection))
-		val kerFc = MatrixOperations.plainIntersection(kerFp, areSS)
+		val kerFc = MatrixOperations.kernelIntersection(kerFp, areSS)
 		
 		if (kerFc === null)
 			throw new IllegalArgumentException("[HigherOrderOperator] The intersection of the share space of the reduction body and kernel of the projection is empty.");

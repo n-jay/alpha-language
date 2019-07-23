@@ -36,6 +36,9 @@ import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.barvinok.BarvinokFunctions;
+import fr.irisa.cairn.jnimap.isl.ISLConstraint;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.ISLQPolynomial;
@@ -624,7 +627,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     final HashSet<long[][]> REs = new HashSet<long[][]>();
     for (final Map.Entry<AlphaExpression, long[][]> exprRE : exprREs) {
       {
-        final long[][] intersection = MatrixOperations.plainIntersection(exprRE.getValue(), kerFp);
+        final long[][] intersection = MatrixOperations.kernelIntersection(exprRE.getValue(), kerFp);
         if ((intersection != null)) {
           REs.add(intersection);
         }
@@ -633,6 +636,13 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     final LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition> candidates = new LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition>();
     final List<String> params = this.targetRE.getBody().getExpressionDomain().getParamNames();
     final List<String> indices = this.targetRE.getBody().getExpressionDomain().getIndexNames();
+    final List<ISLConstraint> constraints = this.targetRE.getBody().getContextDomain().getBasicSetAt(0).getConstraints();
+    for (final ISLConstraint c : constraints) {
+      {
+        this.targetRE.getProjection().getAff(0).toInequalityConstraint().toBasicSet();
+        final ISLMatrix mat = c.toBasicSet().getInequalityMatrix(ISLDimType.isl_dim_param, ISLDimType.isl_dim_set, ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst);
+      }
+    }
     for (final long[][] RE : REs) {
       {
         final ISLMultiAff Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);

@@ -165,8 +165,8 @@ class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
 		}
 		
 		val SEp = shareSpace.get(are.body)
-		val kerQ = DomainOperations.kernelOfLinearPart(are.expressionDomain);
-		val intersection = MatrixOperations.plainIntersection(SEp, kerQ)
+		val kerQ = MatrixOperations.transpose(DomainOperations.kernelOfLinearPart(are.body.expressionDomain));
+		val intersection = MatrixOperations.kernelIntersection(SEp, kerQ)
 		
 		if (intersection !== null) {
 			warning("Expression of a reduction has non-empty share space. This is only possible when the expression domain has non-empty linearlity space. The share space of the ReduceExpression is set to empty.")
@@ -187,7 +187,9 @@ class ShareSpaceAnalysis extends AbstractAlphaExpressionVisitor {
 		
 		for (expr : exprs) {
 			SE = if (SE === null) shareSpace.get(expr)
-			else MatrixOperations.plainIntersection(SE, shareSpace.get(expr))
+			else {
+				MatrixOperations.kernelIntersection(SE, shareSpace.get(expr))
+			}
 		}
 		return SE
 	}

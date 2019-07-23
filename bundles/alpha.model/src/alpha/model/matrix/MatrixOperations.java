@@ -2924,40 +2924,32 @@ public class MatrixOperations {
 	
 	
 	/**
-	 * Takes a syntactic intersection of two sets of basis vectors.
+	 * Returns the intersection of two sets of basis vectors.
 	 * The output contains basis vectors that are common to the two inputs.
 	 * 
-	 * The input basis vectors are assumed to be transposed. 
-	 * (Each row of the matrix is a basis vector)
+	 * The input basis vectors are assumed to be transposed.
+	 * (Each row is a basis vector)
+	 * 
+	 * The output vectors are also transposed.
 	 * 
 	 * @param basisA
 	 * @param basisB
 	 * @return
 	 */
-	public static long[][] plainIntersection(long [][] basisA, long[][] basisB) {
+	public static long[][] kernelIntersection(long [][] basisA, long[][] basisB) {
 		if (basisA == null || basisB == null) return null;
 		
-		List<long[]> match = new ArrayList<>();
-		for (long[] vecA : basisA) {
-			for (long[] vecB : basisB) {
-				if (isEqual(vecA, vecB)) {
-					match.add(vecA);
-					break;
-				}
-			}
+		if (basisA.length == 0 || basisB.length == 0 || basisA[0].length != basisB[0].length) {
+			throw new IllegalArgumentException();
 		}
-		
-		if (match.isEmpty()) return null;
-		
-		long[][] res = new long[match.size()][];
-		for (int r = 0; r < match.size(); r++) {
-			res[r] = Arrays.copyOf(match.get(r), match.get(r).length);
-		}
-		return res;
-	}
-	
 
-	
+		long[][] kerBasisA = MatrixOperations.transpose(MatrixOperations.nullspace(basisA));
+		long[][] kerBasisB = MatrixOperations.transpose(MatrixOperations.nullspace(basisB));
+		
+		long[][] combined = MatrixOperations.rowBind(kerBasisA, kerBasisB);
+		
+		return MatrixOperations.transpose(MatrixOperations.nullspace(combined));
+	}
 	
 	/**
 	 * Converts a 2D long array to {@link Matrix}.

@@ -321,8 +321,8 @@ public class SimplifyingReductions {
       return vectors;
     }
     final long[][] kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.getProjection()));
-    long[][] _plainIntersection = MatrixOperations.plainIntersection(areSS, kerFp);
-    boolean _tripleNotEquals = (_plainIntersection != null);
+    long[][] _kernelIntersection = MatrixOperations.kernelIntersection(areSS, kerFp);
+    boolean _tripleNotEquals = (_kernelIntersection != null);
     if (_tripleNotEquals) {
       return vectors;
     }

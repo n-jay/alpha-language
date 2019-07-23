@@ -323,7 +323,7 @@ class SimplifyingReductions {
 			
 		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.projection))
 		
-		if (MatrixOperations.plainIntersection(areSS, kerFp) !== null) {
+		if (MatrixOperations.kernelIntersection(areSS, kerFp) !== null) {
 			return vectors;
 		}
 		

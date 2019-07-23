@@ -59,7 +59,7 @@ public class Idempotence {
       return false;
     }
     final long[][] kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.getProjection()));
-    final long[][] kerFc = MatrixOperations.plainIntersection(kerFp, areSS);
+    final long[][] kerFc = MatrixOperations.kernelIntersection(kerFp, areSS);
     if ((kerFc == null)) {
       return false;
     }
@@ -79,7 +79,7 @@ public class Idempotence {
       throw new IllegalArgumentException("[Idempotence] The body of the specified reduction does not have any reuse.");
     }
     final long[][] kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.getProjection()));
-    final long[][] kerFc = MatrixOperations.plainIntersection(kerFp, areSS);
+    final long[][] kerFc = MatrixOperations.kernelIntersection(kerFp, areSS);
     if ((kerFc == null)) {
       throw new IllegalArgumentException("[Idempotence] The intersection of the share space of the reduction body and kernel of the projection is empty.");
     }

@@ -54,7 +54,7 @@ class Idempotence {
 			return false;
 
 		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.projection))
-		val kerFc = MatrixOperations.plainIntersection(kerFp, areSS)
+		val kerFc = MatrixOperations.kernelIntersection(kerFp, areSS)
 		
 		if (kerFc === null)
 			return false;
@@ -75,7 +75,7 @@ class Idempotence {
 			throw new IllegalArgumentException("[Idempotence] The body of the specified reduction does not have any reuse.");
 		
 		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.projection))
-		val kerFc = MatrixOperations.plainIntersection(kerFp, areSS)
+		val kerFc = MatrixOperations.kernelIntersection(kerFp, areSS)
 		
 		if (kerFc === null)
 			throw new IllegalArgumentException("[Idempotence] The intersection of the share space of the reduction body and kernel of the projection is empty.");
