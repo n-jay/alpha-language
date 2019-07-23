@@ -29,6 +29,9 @@ workspace/
 # Mac stuff
 .DS_Store
 
+#JNI temp folder
+.jnimap.temp.*
+
 # test files
 */alpha.model.tests/resources/experimental/*
 */alpha.model.tests/src/alpha/model/tests/Driver*
