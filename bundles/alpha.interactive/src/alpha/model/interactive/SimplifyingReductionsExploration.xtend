@@ -37,6 +37,9 @@ import alpha.model.AlphaExpression
 import alpha.model.transformation.SimplifyExpressions
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLDimType
+import alpha.model.util.DomainOperations
+import java.util.TreeSet
+import java.util.Comparator
 
 /**
  * Interactive exploration of Simplifying Reductions.
@@ -404,33 +407,43 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	
 	private def findDecompositionCandidates(ShareSpaceAnalysisResult SSAR) {
 		val exprREs = SSAR.expressionsWithReuse
-		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(targetRE.projection))
+		val kerF = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(targetRE.projection))
 
-		val REs = new HashSet<long[][]>();
+		//Set to avoid redundant options
+		val kerFps = new TreeSet<long[][]>(new Comparator<long[][]>() {
+			override compare(long[][] o1, long[][] o2) {
+				val str1 = MatrixOperations.toString(o1);
+				val str2 = MatrixOperations.toString(o2);
+				return str1.compareTo(str2);
+			}
+		});
+		
+		//Decomposition with Side Effects that expose Distributivity
 		for (exprRE : exprREs) {
-			val intersection = MatrixOperations.kernelIntersection(exprRE.value, kerFp)
+			val intersection = MatrixOperations.kernelIntersection(exprRE.value, kerF)
 			if (intersection !== null)
-				REs.add(intersection)
+				kerFps.add(intersection)
+		}
+		//Decomposition with Side Effects that expose Boundary Constraints
+		val constraints = targetRE.body.contextDomain.getBasicSetAt(0).constraints
+		for (c : constraints) {
+			val kerC = MatrixOperations.transpose(DomainOperations.kernelOfLinearPart(c.copy.toBasicSet));
+			val ker = MatrixOperations.kernelIntersection(kerF, kerC)
+			if (ker !== null) {
+				kerFps.add(ker);
+			}
 		}
 		
 		val candidates = new LinkedList<StepReductionDecomposition>();
 		
 		val params = targetRE.body.expressionDomain.paramNames
 		val indices = targetRE.body.expressionDomain.indexNames
-		
-		//Decomposition with Side Effects that expose Boundary Constraints
-		val constraints = targetRE.body.contextDomain.getBasicSetAt(0).constraints
-		for (c : constraints) {
-			targetRE.projection.getAff(0).toInequalityConstraint.toBasicSet
-			
-			val mat = c.toBasicSet.getInequalityMatrix(ISLDimType.isl_dim_param, ISLDimType.isl_dim_set, ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst)
-		}
-		
-		//Decomposition with Side Effects that expose Distributivity
-		for (RE : REs) {
+		for (RE : kerFps) {
 			val Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
-			val Fpp = AffineFunctionOperations.projectFunctionDomain(targetRE.projection, Fp.copy)
-			candidates.add(new StepReductionDecomposition(Fp, Fpp));
+			if (Fp.nbOutputs > targetRE.projection.nbOutputs) {
+				val Fpp = AffineFunctionOperations.projectFunctionDomain(targetRE.projection, Fp.copy)
+				candidates.add(new StepReductionDecomposition(Fp, Fpp));
+			}
 		}
 		
 		return candidates;
