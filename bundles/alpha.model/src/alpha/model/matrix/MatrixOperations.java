@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Vector;
 
 import alpha.model.matrix.factory.MatrixUserFactory;
+import fr.irisa.cairn.jnimap.isl.ISLContext;
+import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 
 /**
  * Number of primitive matrix operations that work on 2D long arrays
@@ -1691,14 +1693,35 @@ public class MatrixOperations {
 	}
 	
 
-	// -- Methods about kernel
+	/**
+	 * Computes the basis vectors of Ker(A)
+	 * 
+	 * Returns null when the nullspace of A is empty.
+	 * 
+	 * This version uses isl_mat_right_kernel
+	 * 
+	 * @param A
+	 * @return
+	 */
+	public static long[][] nullspace(long[][] A) {
+		ISLMatrix mat = ISLMatrix.buildFromLongMatrix(A);
+		long[][] ker =  mat.rightKernel().toLongMatrix();
+		
+		if (ker.length == 0 || ker[0].length == 0) return null;
+		
+		return ker;
+	}
 	
 	/**
 	 * Compute the spanning vectors of Ker(A).
+	 * 
+	 * This version is fully implemented in java, but has a bug that 
+	 * causes the output to be incorrect for some matrices.
+	 * 
 	 * @param A
 	 * @return [u_1 | ... | u_k] with Ker(A) = Vect(u_1, ..., u_k).
 	 */
-	public static long[][] nullspace(long[][] A) {
+	public static long[][] nullspacePureJava(long[][] A) {
 		
 		if (A.length==0 || A[0].length ==0)
 			throw new LinearAlgebraException("ZPolyhedraStaticMethod::nullspace: input matrix empty");
