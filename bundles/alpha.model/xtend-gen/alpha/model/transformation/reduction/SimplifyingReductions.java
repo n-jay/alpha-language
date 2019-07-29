@@ -26,14 +26,20 @@ import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.DomainOperations;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
+import fr.irisa.cairn.jnimap.isl.ISLConstraint;
+import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLPoint;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
+import fr.irisa.cairn.jnimap.isl.ISLVal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 import java.util.function.Function;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -42,6 +48,7 @@ import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.Pair;
 
 @SuppressWarnings("all")
 public class SimplifyingReductions {
@@ -283,12 +290,8 @@ public class SimplifyingReductions {
             _xifexpression_1 = Integer.valueOf(((d).intValue() - nbParams));
           }
           final Integer pos = _xifexpression_1;
-          final int v = b.get((d).intValue()).intValue();
-          if ((v >= 0)) {
-            point = point.add(dimType, (pos).intValue(), v);
-          } else {
-            point = point.sub(dimType, (pos).intValue(), (-v));
-          }
+          final ISLVal v = ISLVal.buildFromLong(ISLContext.getInstance(), (b.get((d).intValue())).longValue());
+          point = point.setCoordinate(dimType, (pos).intValue(), v);
         }
       }
       int _nbOutputs = this.targetReduce.getProjection().getNbOutputs();
@@ -311,7 +314,7 @@ public class SimplifyingReductions {
   }
   
   /**
-   * Creates a list of JNIISLMultiAff that are valid reuse vectors given the share space.
+   * Creates a list of ISLMultiAff that are valid reuse vectors given the share space.
    * Exposed to be used by SimplifyingReductionExploration.
    */
   public static LinkedList<long[]> generateCandidateReuseVectors(final AbstractReduceExpression are, final ShareSpaceAnalysisResult SSAR) {
@@ -333,5 +336,63 @@ public class SimplifyingReductions {
       }
     }
     return vectors;
+  }
+  
+  /**
+   * Creates a list of Pair<ISLMultiAff, ISLMultiAff> that are valid projection functions for decomposing
+   * the given reduction. The first element is the projection for the inner reduction.
+   * 
+   * The candidates are created using two methods:
+   *  1. Boundary Constraints. For each constraint c in the domain of the reduction body,
+   * a function f such that ker(f) = ker(original projection) \intersect ker(c) becomes a candidate.
+   *  2. Distributivity. When the reduction body has share space RE,
+   * a function f such that ker(f) = ker(original projection) \intersect RE becomes a candidate.
+   */
+  public static LinkedList<Pair<ISLMultiAff, ISLMultiAff>> generateDecompositionCandidates(final ShareSpaceAnalysisResult SSAR, final AbstractReduceExpression targetRE) {
+    final List<Map.Entry<AlphaExpression, long[][]>> exprREs = SSAR.getExpressionsWithReuse();
+    final long[][] kerF = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(targetRE.getProjection()));
+    final TreeSet<long[][]> kerFps = new TreeSet<long[][]>(new Comparator<long[][]>() {
+      @Override
+      public int compare(final long[][] o1, final long[][] o2) {
+        final String str1 = MatrixOperations.toString(o1);
+        final String str2 = MatrixOperations.toString(o2);
+        return str1.compareTo(str2);
+      }
+    });
+    for (final Map.Entry<AlphaExpression, long[][]> exprRE : exprREs) {
+      {
+        final long[][] intersection = MatrixOperations.kernelIntersection(exprRE.getValue(), kerF);
+        if ((intersection != null)) {
+          kerFps.add(intersection);
+        }
+      }
+    }
+    final List<ISLConstraint> constraints = targetRE.getBody().getContextDomain().getBasicSetAt(0).getConstraints();
+    for (final ISLConstraint c : constraints) {
+      {
+        final long[][] kerC = MatrixOperations.transpose(DomainOperations.kernelOfLinearPart(c.copy().toBasicSet()));
+        final long[][] ker = MatrixOperations.kernelIntersection(kerF, kerC);
+        if ((ker != null)) {
+          kerFps.add(ker);
+        }
+      }
+    }
+    final LinkedList<Pair<ISLMultiAff, ISLMultiAff>> candidates = new LinkedList<Pair<ISLMultiAff, ISLMultiAff>>();
+    final List<String> params = targetRE.getBody().getExpressionDomain().getParamNames();
+    final List<String> indices = targetRE.getBody().getExpressionDomain().getIndexNames();
+    for (final long[][] RE : kerFps) {
+      {
+        final ISLMultiAff Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
+        int _nbOutputs = Fp.getNbOutputs();
+        int _nbOutputs_1 = targetRE.getProjection().getNbOutputs();
+        boolean _greaterThan = (_nbOutputs > _nbOutputs_1);
+        if (_greaterThan) {
+          final ISLMultiAff Fpp = AffineFunctionOperations.projectFunctionDomain(targetRE.getProjection(), Fp.copy());
+          Pair<ISLMultiAff, ISLMultiAff> _pair = new Pair<ISLMultiAff, ISLMultiAff>(Fp, Fpp);
+          candidates.add(_pair);
+        }
+      }
+    }
+    return candidates;
   }
 }

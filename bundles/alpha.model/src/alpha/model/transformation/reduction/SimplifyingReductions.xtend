@@ -15,17 +15,19 @@ import alpha.model.transformation.SimplifyExpressions
 import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
-import java.util.ArrayList
-import java.util.LinkedList
-import java.util.function.Function
-import org.eclipse.emf.ecore.util.EcoreUtil
 import alpha.model.util.DomainOperations
+import fr.irisa.cairn.jnimap.isl.ISLContext
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLPoint
 import fr.irisa.cairn.jnimap.isl.ISLSpace
-import java.util.TreeSet
+import fr.irisa.cairn.jnimap.isl.ISLVal
+import java.util.ArrayList
 import java.util.Comparator
+import java.util.LinkedList
+import java.util.TreeSet
+import java.util.function.Function
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class SimplifyingReductions {
 	
@@ -274,28 +276,15 @@ class SimplifyingReductions {
 
 		var point = ISLPoint.buildZero(reuseDep.domainSpace);
 
-		for (d : 0..<b.size) {
-			val dimType = if (d < nbParams) ISLDimType.isl_dim_param else ISLDimType.isl_dim_set
-			val pos = if (d < nbParams) d else d-nbParams
-			val v = b.get(d).intValue
-			//FIXME a bit strange due to add/sub taking unsigned int. Update to use ISL_Val 
-			if (v >= 0) {
-				point = point.add(dimType, pos, v);
-			} else {
-				point = point.sub(dimType, pos, -v);
-			}
-		}
-		
-		//FIXME
 		//There is a bug in ISL (already fixed) that makes the ISL_Val version not work.
 		// Use the following code when ISL 0.21 is released 
-//			for (d : 0..<b.size) {
-//				val dimType = if (d < nbParams) JNIISLDimType.isl_dim_param else JNIISLDimType.isl_dim_set
-//				val pos = if (d < nbParams) d else d-nbParams
-//				
-//				val v = JNIISLVal.buildFromLong(JNIISLContext.ctx, b.get(d))
-//				point = point.setCoordinate(dimType, pos, v);
-//			}
+			for (d : 0..<b.size) {
+				val dimType = if (d < nbParams) ISLDimType.isl_dim_param else ISLDimType.isl_dim_set
+				val pos = if (d < nbParams) d else d-nbParams
+				
+				val v = ISLVal.buildFromLong(ISLContext.instance, b.get(d))
+				point = point.setCoordinate(dimType, pos, v);
+			}
 		
 		
 		val projectedB = new ArrayList<Long>(nbParams+targetReduce.projection.nbOutputs)
