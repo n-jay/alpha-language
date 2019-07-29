@@ -30,23 +30,17 @@ import alpha.model.transformation.reduction.ReductionDecomposition;
 import alpha.model.transformation.reduction.SameOperatorSimplification;
 import alpha.model.transformation.reduction.SimplifyingReductions;
 import alpha.model.util.AShow;
-import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaPrintingUtil;
 import alpha.model.util.AlphaUtil;
-import alpha.model.util.DomainOperations;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.barvinok.BarvinokFunctions;
-import fr.irisa.cairn.jnimap.isl.ISLConstraint;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.ISLQPolynomial;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -57,6 +51,7 @@ import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.Pair;
 
 /**
  * Interactive exploration of Simplifying Reductions.
@@ -479,7 +474,13 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
         SimplifyingReductionsExploration.StepReductionComposition _stepReductionComposition = new SimplifyingReductionsExploration.StepReductionComposition();
         options.add(_stepReductionComposition);
       }
-      options.addAll(this.findDecompositionCandidates(SSAR));
+      LinkedList<Pair<ISLMultiAff, ISLMultiAff>> _generateDecompositionCandidates = SimplifyingReductions.generateDecompositionCandidates(SSAR, this.targetRE);
+      for (final Pair<ISLMultiAff, ISLMultiAff> pair : _generateDecompositionCandidates) {
+        ISLMultiAff _key = pair.getKey();
+        ISLMultiAff _value = pair.getValue();
+        SimplifyingReductionsExploration.StepReductionDecomposition _stepReductionDecomposition = new SimplifyingReductionsExploration.StepReductionDecomposition(_key, _value);
+        options.add(_stepReductionDecomposition);
+      }
       Iterables.<SimplifyingReductionsExploration.ExplorationStep>addAll(options, SimplifyingReductionsExploration.findInlineCandidates(this.targetRE));
       SimplifyingReductionsExploration.StepPrintSystemBody _stepPrintSystemBody = new SimplifyingReductionsExploration.StepPrintSystemBody();
       options.add(_stepPrintSystemBody);
@@ -619,54 +620,6 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
-  }
-  
-  private LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition> findDecompositionCandidates(final ShareSpaceAnalysisResult SSAR) {
-    final List<Map.Entry<AlphaExpression, long[][]>> exprREs = SSAR.getExpressionsWithReuse();
-    final long[][] kerF = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(this.targetRE.getProjection()));
-    final TreeSet<long[][]> kerFps = new TreeSet<long[][]>(new Comparator<long[][]>() {
-      @Override
-      public int compare(final long[][] o1, final long[][] o2) {
-        final String str1 = MatrixOperations.toString(o1);
-        final String str2 = MatrixOperations.toString(o2);
-        return str1.compareTo(str2);
-      }
-    });
-    for (final Map.Entry<AlphaExpression, long[][]> exprRE : exprREs) {
-      {
-        final long[][] intersection = MatrixOperations.kernelIntersection(exprRE.getValue(), kerF);
-        if ((intersection != null)) {
-          kerFps.add(intersection);
-        }
-      }
-    }
-    final List<ISLConstraint> constraints = this.targetRE.getBody().getContextDomain().getBasicSetAt(0).getConstraints();
-    for (final ISLConstraint c : constraints) {
-      {
-        final long[][] kerC = MatrixOperations.transpose(DomainOperations.kernelOfLinearPart(c.copy().toBasicSet()));
-        final long[][] ker = MatrixOperations.kernelIntersection(kerF, kerC);
-        if ((ker != null)) {
-          kerFps.add(ker);
-        }
-      }
-    }
-    final LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition> candidates = new LinkedList<SimplifyingReductionsExploration.StepReductionDecomposition>();
-    final List<String> params = this.targetRE.getBody().getExpressionDomain().getParamNames();
-    final List<String> indices = this.targetRE.getBody().getExpressionDomain().getIndexNames();
-    for (final long[][] RE : kerFps) {
-      {
-        final ISLMultiAff Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
-        int _nbOutputs = Fp.getNbOutputs();
-        int _nbOutputs_1 = this.targetRE.getProjection().getNbOutputs();
-        boolean _greaterThan = (_nbOutputs > _nbOutputs_1);
-        if (_greaterThan) {
-          final ISLMultiAff Fpp = AffineFunctionOperations.projectFunctionDomain(this.targetRE.getProjection(), Fp.copy());
-          SimplifyingReductionsExploration.StepReductionDecomposition _stepReductionDecomposition = new SimplifyingReductionsExploration.StepReductionDecomposition(Fp, Fpp);
-          candidates.add(_stepReductionDecomposition);
-        }
-      }
-    }
-    return candidates;
   }
   
   private Object _performAction(final SimplifyingReductionsExploration.StepInlineVariable step) {

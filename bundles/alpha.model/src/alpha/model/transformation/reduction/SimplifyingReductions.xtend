@@ -24,6 +24,8 @@ import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLPoint
 import fr.irisa.cairn.jnimap.isl.ISLSpace
+import java.util.TreeSet
+import java.util.Comparator
 
 class SimplifyingReductions {
 	
@@ -310,7 +312,7 @@ class SimplifyingReductions {
 	}
 	
 	/**
-	 * Creates a list of JNIISLMultiAff that are valid reuse vectors given the share space.
+	 * Creates a list of ISLMultiAff that are valid reuse vectors given the share space.
 	 * Exposed to be used by SimplifyingReductionExploration.
 	 * 
 	 */
@@ -333,5 +335,60 @@ class SimplifyingReductions {
 		}
 		
 		return vectors;
+	}
+	
+	/**
+	 * Creates a list of Pair<ISLMultiAff, ISLMultiAff> that are valid projection functions for decomposing
+	 * the given reduction. The first element is the projection for the inner reduction.
+	 * 
+	 * The candidates are created using two methods:
+	 *  1. Boundary Constraints. For each constraint c in the domain of the reduction body, 
+	 * a function f such that ker(f) = ker(original projection) \intersect ker(c) becomes a candidate.
+	 *  2. Distributivity. When the reduction body has share space RE, 
+	 * a function f such that ker(f) = ker(original projection) \intersect RE becomes a candidate.
+	 *    
+	 */
+	static def generateDecompositionCandidates(ShareSpaceAnalysisResult SSAR, AbstractReduceExpression targetRE) {
+		val exprREs = SSAR.expressionsWithReuse
+		val kerF = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(targetRE.projection))
+
+		//Set to avoid redundant options
+		val kerFps = new TreeSet<long[][]>(new Comparator<long[][]>() {
+			override compare(long[][] o1, long[][] o2) {
+				val str1 = MatrixOperations.toString(o1);
+				val str2 = MatrixOperations.toString(o2);
+				return str1.compareTo(str2);
+			}
+		});
+		
+		//Decomposition with Side Effects that expose Distributivity
+		for (exprRE : exprREs) {
+			val intersection = MatrixOperations.kernelIntersection(exprRE.value, kerF)
+			if (intersection !== null)
+				kerFps.add(intersection)
+		}
+		//Decomposition with Side Effects that expose Boundary Constraints
+		val constraints = targetRE.body.contextDomain.getBasicSetAt(0).constraints
+		for (c : constraints) {
+			val kerC = MatrixOperations.transpose(DomainOperations.kernelOfLinearPart(c.copy.toBasicSet));
+			val ker = MatrixOperations.kernelIntersection(kerF, kerC)
+			if (ker !== null) {
+				kerFps.add(ker);
+			}
+		}
+		
+		val candidates = new LinkedList<Pair<ISLMultiAff, ISLMultiAff>>();
+		
+		val params = targetRE.body.expressionDomain.paramNames
+		val indices = targetRE.body.expressionDomain.indexNames
+		for (RE : kerFps) {
+			val Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
+			if (Fp.nbOutputs > targetRE.projection.nbOutputs) {
+				val Fpp = AffineFunctionOperations.projectFunctionDomain(targetRE.projection, Fp.copy)
+				candidates.add(new Pair(Fp, Fpp));
+			}
+		}
+		
+		return candidates;
 	}
 }
