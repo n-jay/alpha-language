@@ -365,8 +365,10 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 		if (indexNameContext != null && re.getProjectionExpr() instanceof JNIFunctionInArrayNotation) {
 			indexNameContext = copy;
 			indexNameContext.addAll(((JNIFunctionInArrayNotation) re.getProjectionExpr()).getArrayNotation());
-		} else {
+		} else if (re.getProjection() != null) {
 			indexNameContext = re.getProjection().getSpace().getInputNames();
+		} else {
+			indexNameContext = null;
 		}
 	}
 
