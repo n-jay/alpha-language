@@ -41,13 +41,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 import java.util.function.Function;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 
@@ -62,8 +62,6 @@ public class SimplifyingReductions {
    * is to separate legality tests with the transformation.
    */
   private static class BasicElements {
-    private Variable targetVariable;
-    
     private long[][] kerQ;
     
     private ISLMultiAff reuseDir;
@@ -113,7 +111,7 @@ public class SimplifyingReductions {
     return _xblockexpression;
   });
   
-  public void debug(final String msg) {
+  private static void debug(final String msg) {
     if (SimplifyingReductions.DEBUG) {
       InputOutput.<String>println(("[SimplifyingReductions] " + msg));
     }
@@ -155,7 +153,7 @@ public class SimplifyingReductions {
   }
   
   protected void simplify() {
-    final SimplifyingReductions.BasicElements BE = SimplifyingReductions.computeBasicElements(this.reductionEquation, this.targetReduce, this.reuseDep);
+    final SimplifyingReductions.BasicElements BE = SimplifyingReductions.computeBasicElements(this.targetReduce, this.reuseDep);
     final String XaddName = SimplifyingReductions.defineXaddEquationName.apply(this);
     {
       final ISLSet restrictDom = BE.origDE.copy().subtract(BE.DEp.copy());
@@ -237,18 +235,12 @@ public class SimplifyingReductions {
   /**
    * Computes BasicElements while performing all the legality tests.
    */
-  public static SimplifyingReductions.BasicElements computeBasicElements(final StandardEquation reductionEquation, final ReduceExpression reduce, final ISLMultiAff reuseDep) {
+  public static SimplifyingReductions.BasicElements computeBasicElements(final AbstractReduceExpression reduce, final ISLMultiAff reuseDep) {
     final SimplifyingReductions.BasicElements BE = new SimplifyingReductions.BasicElements();
-    BE.targetVariable = reductionEquation.getVariable();
     int _nbBasicSets = reduce.getContextDomain().getNbBasicSets();
     boolean _greaterThan = (_nbBasicSets > 1);
     if (_greaterThan) {
       throw new RuntimeException("The context of the reduction body must be a single polyhedron.");
-    }
-    EObject _eContainer = reduce.eContainer();
-    boolean _not = (!(_eContainer instanceof StandardEquation));
-    if (_not) {
-      throw new RuntimeException("The target ReduceExpression must be a direct child of a StandardEquation. Apply NormalizeReductions first.");
     }
     int _nbIndices = reduce.getBody().getContextDomain().getNbIndices();
     int _nbInputs = reuseDep.getNbInputs();
@@ -261,8 +253,7 @@ public class SimplifyingReductions {
       throw new RuntimeException("The body of the target ReduceExpression has non-empty ker(Q); kernel of the linear part of the domain. This case is currently not handled.");
     }
     BE.reuseDir = AffineFunctionOperations.negateUniformFunction(reuseDep);
-    BE.reuseDepProjected = SimplifyingReductions.constructDependenceFunctionInAnswerSpace(reductionEquation.getVariable().getDomain().getSpace(), reduce.getProjection(), reuseDep);
-    BE.reuseDepProjected = AlphaUtil.renameIndices(BE.reuseDepProjected, BE.targetVariable.getDomain().getIndexNames());
+    BE.reuseDepProjected = SimplifyingReductions.constructDependenceFunctionInAnswerSpace(reduce.getContextDomain().getSpace(), reduce.getProjection(), reuseDep);
     boolean _isIdentity = BE.reuseDepProjected.isIdentity();
     if (_isIdentity) {
       throw new RuntimeException("The reuse dependence is in the kernel of the projection function.");
@@ -270,37 +261,39 @@ public class SimplifyingReductions {
     BE.reuseDir = AffineFunctionOperations.negateUniformFunction(reuseDep);
     BE.origDE = reduce.getBody().getContextDomain();
     BE.DEp = BE.origDE.copy().apply(BE.reuseDir.toMap());
-    BE.Dadd = BE.origDE.copy().subtract(BE.DEp.copy()).apply(reduce.getProjection().toMap()).intersect(BE.targetVariable.getDomain());
-    BE.Dsub = BE.DEp.copy().subtract(BE.origDE.copy()).apply(reduce.getProjection().toMap()).intersect(BE.targetVariable.getDomain());
-    BE.Dint = BE.origDE.copy().intersect(BE.DEp.copy()).apply(reduce.getProjection().toMap()).intersect(BE.targetVariable.getDomain());
+    BE.Dadd = BE.origDE.copy().subtract(BE.DEp.copy()).apply(reduce.getProjection().toMap()).intersect(reduce.getContextDomain());
+    BE.Dsub = BE.DEp.copy().subtract(BE.origDE.copy()).apply(reduce.getProjection().toMap()).intersect(reduce.getContextDomain());
+    BE.Dint = BE.origDE.copy().intersect(BE.DEp.copy()).apply(reduce.getProjection().toMap()).intersect(reduce.getContextDomain());
     boolean _isEmpty = BE.Dint.isEmpty();
     if (_isEmpty) {
       throw new RuntimeException("Initialization domain is empty; input reuse vector is invalid.");
     }
     boolean _isEmpty_1 = BE.Dsub.isEmpty();
-    boolean _not_1 = (!_isEmpty_1);
-    if (_not_1) {
+    boolean _not = (!_isEmpty_1);
+    if (_not) {
       BE.invOP = AlphaOperatorUtil.reductionOPtoBinaryInverseOP(reduce.getOperator());
     }
     return BE;
   }
   
-  public static boolean testLegality(final StandardEquation reductionEquation, final ReduceExpression reduce, final int[] reuseDepNoParams) {
+  public static boolean testLegality(final AbstractReduceExpression reduce, final int[] reuseDepNoParams) {
     final Function1<Integer, Long> _function = (Integer v) -> {
       return Long.valueOf(((long) (v).intValue()));
     };
-    return SimplifyingReductions.testLegality(reductionEquation, reduce, ((long[])Conversions.unwrapArray(ListExtensions.<Integer, Long>map(((List<Integer>)Conversions.doWrapArray(reuseDepNoParams)), _function), long.class)));
+    return SimplifyingReductions.testLegality(reduce, ((long[])Conversions.unwrapArray(ListExtensions.<Integer, Long>map(((List<Integer>)Conversions.doWrapArray(reuseDepNoParams)), _function), long.class)));
   }
   
-  public static boolean testLegality(final StandardEquation reductionEquation, final ReduceExpression reduce, final long[] reuseDepNoParams) {
-    return SimplifyingReductions.testLegality(reductionEquation, reduce, SimplifyingReductions.longVecToMultiAff(reduce, reuseDepNoParams));
+  public static boolean testLegality(final AbstractReduceExpression reduce, final long[] reuseDepNoParams) {
+    return SimplifyingReductions.testLegality(reduce, SimplifyingReductions.longVecToMultiAff(reduce, reuseDepNoParams));
   }
   
-  public static boolean testLegality(final StandardEquation reductionEquation, final ReduceExpression reduce, final ISLMultiAff reuseDep) {
+  public static boolean testLegality(final AbstractReduceExpression reduce, final ISLMultiAff reuseDep) {
     try {
-      SimplifyingReductions.computeBasicElements(reductionEquation, reduce, reuseDep);
+      SimplifyingReductions.computeBasicElements(reduce, reuseDep);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
+        final RuntimeException re = (RuntimeException)_t;
+        SimplifyingReductions.debug(re.getMessage());
         return false;
       } else {
         throw Exceptions.sneakyThrow(_t);
@@ -376,10 +369,20 @@ public class SimplifyingReductions {
     if (_tripleNotEquals) {
       return vectors;
     }
+    final int nbParams = are.getContextDomain().getNbParams();
     for (final long[] row : areSS) {
       {
-        vectors.add(MatrixOperations.scalarMultiplication(row, (-1)));
-        vectors.add(row);
+        ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, nbParams, true);
+        final long[] rowNoParams = MatrixOperations.removeColumns(row, ((int[])Conversions.unwrapArray(_doubleDotLessThan, int.class)));
+        final long[] rowNeg = MatrixOperations.scalarMultiplication(rowNoParams, (-1));
+        boolean _testLegality = SimplifyingReductions.testLegality(are, rowNeg);
+        if (_testLegality) {
+          vectors.add(rowNeg);
+        }
+        boolean _testLegality_1 = SimplifyingReductions.testLegality(are, rowNoParams);
+        if (_testLegality_1) {
+          vectors.add(rowNoParams);
+        }
       }
     }
     return vectors;
@@ -406,7 +409,13 @@ public class SimplifyingReductions {
         return str1.compareTo(str2);
       }
     });
-    for (final Map.Entry<AlphaExpression, long[][]> exprRE : exprREs) {
+    final Function1<Map.Entry<AlphaExpression, long[][]>, Boolean> _function = (Map.Entry<AlphaExpression, long[][]> exprRE) -> {
+      int _nbIndices = exprRE.getKey().getContextDomain().getNbIndices();
+      int _nbIndices_1 = targetRE.getBody().getContextDomain().getNbIndices();
+      return Boolean.valueOf((_nbIndices == _nbIndices_1));
+    };
+    Iterable<Map.Entry<AlphaExpression, long[][]>> _filter = IterableExtensions.<Map.Entry<AlphaExpression, long[][]>>filter(exprREs, _function);
+    for (final Map.Entry<AlphaExpression, long[][]> exprRE : _filter) {
       {
         final long[][] intersection = MatrixOperations.kernelIntersection(exprRE.getValue(), kerF);
         if ((intersection != null)) {
@@ -426,7 +435,10 @@ public class SimplifyingReductions {
     }
     final LinkedList<Pair<ISLMultiAff, ISLMultiAff>> candidates = new LinkedList<Pair<ISLMultiAff, ISLMultiAff>>();
     final List<String> params = targetRE.getBody().getExpressionDomain().getParamNames();
-    final List<String> indices = targetRE.getBody().getExpressionDomain().getIndexNames();
+    List<String> indices = targetRE.getBody().getExpressionDomain().getIndexNames();
+    if ((indices == null)) {
+      indices = AlphaUtil.defaultDimNames(targetRE.getBody().getExpressionDomain().getNbIndices());
+    }
     for (final long[][] RE : kerFps) {
       {
         final ISLMultiAff Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
@@ -443,7 +455,7 @@ public class SimplifyingReductions {
     return candidates;
   }
   
-  private static ISLMultiAff longVecToMultiAff(final ReduceExpression reduce, final long[] reuseDepNoParams) {
+  private static ISLMultiAff longVecToMultiAff(final AbstractReduceExpression reduce, final long[] reuseDepNoParams) {
     ISLMultiAff _xblockexpression = null;
     {
       final ISLSpace space = ISLSpace.idMapDimFromSetDim(reduce.getBody().getExpressionDomain().getSpace().copy());

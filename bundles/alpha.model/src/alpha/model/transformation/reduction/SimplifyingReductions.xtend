@@ -7,7 +7,6 @@ import alpha.model.BINARY_OP
 import alpha.model.ReduceExpression
 import alpha.model.StandardEquation
 import alpha.model.SystemBody
-import alpha.model.Variable
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult
 import alpha.model.factory.AlphaUserFactory
 import alpha.model.matrix.MatrixOperations
@@ -63,7 +62,7 @@ class SimplifyingReductions {
 		AlphaUtil.duplicateNameResolver.apply(sr.containerSystem, XaddName, "_")
 	]
 	
-	def void debug(String msg) {
+	private static def void debug(String msg) {
 		if (DEBUG)
 			println("[SimplifyingReductions] " + msg)
 	}
@@ -95,7 +94,7 @@ class SimplifyingReductions {
 	}
 	
 	protected def void simplify() {
-		val BE = computeBasicElements(reductionEquation, targetReduce, reuseDep)
+		val BE = computeBasicElements(targetReduce, reuseDep)
 		
 		//Xadd = reduce( op, proj, (DE - DE') : E )
 		val XaddName = defineXaddEquationName.apply(this)
@@ -213,7 +212,6 @@ class SimplifyingReductions {
 	 * 
 	 */
 	private static class BasicElements {
-		Variable targetVariable
 		long[][] kerQ
 		ISLMultiAff reuseDir
 		ISLMultiAff reuseDepProjected 
@@ -229,17 +227,16 @@ class SimplifyingReductions {
 	 * Computes BasicElements while performing all the legality tests.
 	 * 
 	 */
-	static def computeBasicElements(StandardEquation reductionEquation, ReduceExpression reduce, ISLMultiAff reuseDep) {
+	static def computeBasicElements(AbstractReduceExpression reduce, ISLMultiAff reuseDep) {
 		val BE = new BasicElements
-		BE.targetVariable = reductionEquation.variable
 		
 		if (reduce.contextDomain.nbBasicSets > 1) {
 			throw new RuntimeException("The context of the reduction body must be a single polyhedron.");
 		}
 		
-		if (!(reduce.eContainer instanceof StandardEquation)) {
-			throw new RuntimeException("The target ReduceExpression must be a direct child of a StandardEquation. Apply NormalizeReductions first.");
-		}
+//		if (!(reduce.eContainer instanceof StandardEquation)) {
+//			throw new RuntimeException("The target ReduceExpression must be a direct child of a StandardEquation. Apply NormalizeReductions first.");
+//		}
 		
 		if (reduce.body.contextDomain.nbIndices != reuseDep.nbInputs) {
 			throw new RuntimeException("Given reuse dependence does not match the dimensionality of the reduction body.");
@@ -251,8 +248,7 @@ class SimplifyingReductions {
 		}
 		
 		BE.reuseDir = AffineFunctionOperations.negateUniformFunction(reuseDep);
-		BE.reuseDepProjected = constructDependenceFunctionInAnswerSpace(reductionEquation.variable.domain.space, reduce.projection, reuseDep)
-		BE.reuseDepProjected = AlphaUtil.renameIndices(BE.reuseDepProjected, BE.targetVariable.domain.indexNames)
+		BE.reuseDepProjected = constructDependenceFunctionInAnswerSpace(reduce.contextDomain.space, reduce.projection, reuseDep)
 		if (BE.reuseDepProjected.isIdentity) {
 			throw new RuntimeException("The reuse dependence is in the kernel of the projection function.");
 		}
@@ -265,13 +261,13 @@ class SimplifyingReductions {
 		BE.DEp    = BE.origDE.copy.apply(BE.reuseDir.toMap)
 		
 		//Dadd = proj (DE - DE')
-		BE.Dadd   = BE.origDE.copy.subtract(BE.DEp.copy).apply(reduce.projection.toMap).intersect(BE.targetVariable.domain)
+		BE.Dadd   = BE.origDE.copy.subtract(BE.DEp.copy).apply(reduce.projection.toMap).intersect(reduce.contextDomain)
 		
 		//Dsub = proj (DE' - DE)
-		BE.Dsub   = BE.DEp.copy.subtract(BE.origDE.copy).apply(reduce.projection.toMap).intersect(BE.targetVariable.domain)
+		BE.Dsub   = BE.DEp.copy.subtract(BE.origDE.copy).apply(reduce.projection.toMap).intersect(reduce.contextDomain)
 		
 		//Dint = proj (DE ^ DE')
-		BE.Dint  = BE.origDE.copy.intersect(BE.DEp.copy).apply(reduce.projection.toMap).intersect(BE.targetVariable.domain)
+		BE.Dint  = BE.origDE.copy.intersect(BE.DEp.copy).apply(reduce.projection.toMap).intersect(reduce.contextDomain)
 		
 		if (BE.Dint.isEmpty) {
 			throw new RuntimeException("Initialization domain is empty; input reuse vector is invalid.");
@@ -284,18 +280,19 @@ class SimplifyingReductions {
 	}
 	
 	
-	static def testLegality(StandardEquation reductionEquation, ReduceExpression reduce, int[] reuseDepNoParams) {
-		testLegality(reductionEquation, reduce, reuseDepNoParams.map[v|v as long])
+	static def testLegality(AbstractReduceExpression reduce, int[] reuseDepNoParams) {
+		testLegality(reduce, reuseDepNoParams.map[v|v as long])
 	}
 	
-	static def testLegality(StandardEquation reductionEquation, ReduceExpression reduce, long[] reuseDepNoParams) {
-		testLegality(reductionEquation, reduce, reduce.longVecToMultiAff(reuseDepNoParams))
+	static def testLegality(AbstractReduceExpression reduce, long[] reuseDepNoParams) {
+		testLegality(reduce, reduce.longVecToMultiAff(reuseDepNoParams))
 	}
 	
-	static def testLegality(StandardEquation reductionEquation, ReduceExpression reduce, ISLMultiAff reuseDep) {
+	static def testLegality(AbstractReduceExpression reduce, ISLMultiAff reuseDep) {
 		try {
-			computeBasicElements(reductionEquation, reduce, reuseDep)
+			computeBasicElements(reduce, reuseDep)
 		} catch (RuntimeException re) {
+			debug(re.message)
 			return false;	
 		}
 		
@@ -320,14 +317,13 @@ class SimplifyingReductions {
 
 		//There is a bug in ISL (already fixed) that makes the ISL_Val version not work.
 		// Use the following code when ISL 0.21 is released 
-			for (d : 0..<b.size) {
-				val dimType = if (d < nbParams) ISLDimType.isl_dim_param else ISLDimType.isl_dim_set
-				val pos = if (d < nbParams) d else d-nbParams
-				
-				val v = ISLVal.buildFromLong(ISLContext.instance, b.get(d))
-				point = point.setCoordinate(dimType, pos, v);
-			}
-		
+		for (d : 0..<b.size) {
+			val dimType = if (d < nbParams) ISLDimType.isl_dim_param else ISLDimType.isl_dim_set
+			val pos = if (d < nbParams) d else d-nbParams
+			
+			val v = ISLVal.buildFromLong(ISLContext.instance, b.get(d))
+			point = point.setCoordinate(dimType, pos, v);
+		}
 		
 		val projectedB = new ArrayList<Long>(nbParams+projection.nbOutputs)
 		for (d : 0..<nbParams) projectedB.add(0l); //implicit parameter dims
@@ -358,9 +354,15 @@ class SimplifyingReductions {
 			return vectors;
 		}
 		
+		val nbParams = are.contextDomain.nbParams
 		for (row : areSS) {
-			vectors.add(MatrixOperations.scalarMultiplication(row, -1));
-			vectors.add(row);
+			
+			val rowNoParams = MatrixOperations.removeColumns(row, (0..<nbParams))
+			val rowNeg = MatrixOperations.scalarMultiplication(rowNoParams, -1);
+			if (testLegality(are, rowNeg))
+				vectors.add(rowNeg);
+			if (testLegality(are, rowNoParams))
+				vectors.add(rowNoParams);
 		}
 		
 		return vectors;
@@ -391,7 +393,7 @@ class SimplifyingReductions {
 		});
 		
 		//Decomposition with Side Effects that expose Distributivity
-		for (exprRE : exprREs) {
+		for (exprRE : exprREs.filter[exprRE|exprRE.key.contextDomain.nbIndices == targetRE.body.contextDomain.nbIndices]) {
 			val intersection = MatrixOperations.kernelIntersection(exprRE.value, kerF)
 			if (intersection !== null)
 				kerFps.add(intersection)
@@ -409,7 +411,8 @@ class SimplifyingReductions {
 		val candidates = new LinkedList<Pair<ISLMultiAff, ISLMultiAff>>();
 		
 		val params = targetRE.body.expressionDomain.paramNames
-		val indices = targetRE.body.expressionDomain.indexNames
+		var indices = targetRE.body.expressionDomain.indexNames
+		if (indices === null) indices = AlphaUtil.defaultDimNames(targetRE.body.expressionDomain.nbIndices)
 		for (RE : kerFps) {
 			val Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
 			if (Fp.nbOutputs > targetRE.projection.nbOutputs) {
@@ -421,7 +424,7 @@ class SimplifyingReductions {
 		return candidates;
 	}
 	
-	private static def longVecToMultiAff(ReduceExpression reduce, long[] reuseDepNoParams) {
+	private static def longVecToMultiAff(AbstractReduceExpression reduce, long[] reuseDepNoParams) {
 		val space = ISLSpace.idMapDimFromSetDim(reduce.body.expressionDomain.space.copy)
 		val reuseDep = MatrixOperations.bindVector(newLongArrayOfSize(space.nbParams), reuseDepNoParams);
 		
