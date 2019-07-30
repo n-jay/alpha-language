@@ -16,7 +16,6 @@ import alpha.model.util.AlphaOperatorUtil;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -51,23 +50,33 @@ public class PermutationCaseReduce {
   /**
    * Apply the transformation to all AbstractReduceExpressions in an AlphaSystem.
    * Silently ignores any AbstractReduceExpression where it is not applicable.
+   * 
+   * @returns number of applications of the transformation
    */
-  public static void apply(final AlphaSystem system) {
-    final Consumer<SystemBody> _function = (SystemBody b) -> {
-      PermutationCaseReduce.apply(b);
+  public static Integer apply(final AlphaSystem system) {
+    final Function1<SystemBody, Integer> _function = (SystemBody b) -> {
+      return PermutationCaseReduce.apply(b);
     };
-    system.getSystemBodies().forEach(_function);
+    final Function2<Integer, Integer, Integer> _function_1 = (Integer p1, Integer p2) -> {
+      return Integer.valueOf(((p1).intValue() + (p2).intValue()));
+    };
+    return IterableExtensions.<Integer>reduce(ListExtensions.<SystemBody, Integer>map(system.getSystemBodies(), _function), _function_1);
   }
   
   /**
    * Apply the transformation to all AbstractReduceExpressions in a SystemBody.
    * Silently ignores any AbstractReduceExpression where it is not applicable.
+   * 
+   * @returns number of applications of the transformation
    */
-  public static void apply(final SystemBody body) {
-    final Consumer<AbstractReduceExpression> _function = (AbstractReduceExpression are) -> {
-      PermutationCaseReduce.transform(are);
+  public static Integer apply(final SystemBody body) {
+    final Function1<AbstractReduceExpression, Integer> _function = (AbstractReduceExpression are) -> {
+      return Integer.valueOf(PermutationCaseReduce.transform(are));
     };
-    EcoreUtil2.<AbstractReduceExpression>getAllContentsOfType(body, AbstractReduceExpression.class).forEach(_function);
+    final Function2<Integer, Integer, Integer> _function_1 = (Integer p1, Integer p2) -> {
+      return Integer.valueOf(((p1).intValue() + (p2).intValue()));
+    };
+    return IterableExtensions.<Integer>reduce(ListExtensions.<AbstractReduceExpression, Integer>map(EcoreUtil2.<AbstractReduceExpression>getAllContentsOfType(body, AbstractReduceExpression.class), _function), _function_1);
   }
   
   /**

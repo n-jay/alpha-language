@@ -60,17 +60,16 @@ public class NormalizeReduction extends AbstractAlphaCompleteVisitor {
    * 
    * When there are nested reductions, only the top level AbstractReduceExpression is transformed.
    * 
-   * Outputs true if the at least one reduction was transformed.
+   * @returns number of applications of the transformation
    */
-  public static boolean apply(final AlphaVisitable av) {
+  public static int apply(final AlphaVisitable av) {
     final NormalizeReduction visitor = new NormalizeReduction();
     visitor.accept(av);
     final Consumer<AbstractReduceExpression> _function = (AbstractReduceExpression are) -> {
       NormalizeReduction.transform(are);
     };
     visitor.targetREs.forEach(_function);
-    boolean _isEmpty = visitor.targetREs.isEmpty();
-    return (!_isEmpty);
+    return visitor.targetREs.size();
   }
   
   private static StandardEquation transform(final AbstractReduceExpression are) {

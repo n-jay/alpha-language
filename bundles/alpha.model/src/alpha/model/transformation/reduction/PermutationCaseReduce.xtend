@@ -41,17 +41,21 @@ class PermutationCaseReduce {
 	/**
 	 * Apply the transformation to all AbstractReduceExpressions in an AlphaSystem.
 	 * Silently ignores any AbstractReduceExpression where it is not applicable. 
+	 * 
+	 * @returns number of applications of the transformation
 	 */	
 	static def apply(AlphaSystem system) {
-		system.systemBodies.forEach[b|apply(b)]
+		system.systemBodies.map[b|apply(b)].reduce[p1,p2|p1+p2]
 	}
 	
 	/**
 	 * Apply the transformation to all AbstractReduceExpressions in a SystemBody.
 	 * Silently ignores any AbstractReduceExpression where it is not applicable.
+	 * 
+	 * @returns number of applications of the transformation
 	 */
 	static def apply(SystemBody body) {
-		EcoreUtil2.getAllContentsOfType(body, AbstractReduceExpression).forEach[are|transform(are)]
+		EcoreUtil2.getAllContentsOfType(body, AbstractReduceExpression).map[are|transform(are)].reduce[p1,p2|p1+p2]
 	}
 	
 	/**

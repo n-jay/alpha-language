@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.function.Consumer;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.Functions.Function2;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 /**
  * Transforms a RestrictExpression with restrict domain being unions of polyhedra
@@ -40,25 +44,35 @@ public class SplitUnionIntoCase {
   /**
    * Apply the transformation to all RestrictExpressions in an AlphaSystem.
    * Silently ignores any RestrictExpressions where it is not applicable.
+   * 
+   * @returns number of applications of the transformation
    */
-  public static void apply(final AlphaSystem system) {
-    final Consumer<SystemBody> _function = (SystemBody b) -> {
-      SplitUnionIntoCase.apply(b);
+  public static Integer apply(final AlphaSystem system) {
+    final Function1<SystemBody, Integer> _function = (SystemBody b) -> {
+      return SplitUnionIntoCase.apply(b);
     };
-    system.getSystemBodies().forEach(_function);
+    final Function2<Integer, Integer, Integer> _function_1 = (Integer p1, Integer p2) -> {
+      return Integer.valueOf(((p1).intValue() + (p2).intValue()));
+    };
+    return IterableExtensions.<Integer>reduce(ListExtensions.<SystemBody, Integer>map(system.getSystemBodies(), _function), _function_1);
   }
   
   /**
    * Apply the transformation to all RestrictExpressions in a SystemBody.
    * Silently ignores any RestrictExpressions where it is not applicable.
+   * 
+   * @returns number of applications of the transformation
    */
-  public static void apply(final SystemBody body) {
+  public static Integer apply(final SystemBody body) {
     List<RestrictExpression> _allContentsOfType = EcoreUtil2.<RestrictExpression>getAllContentsOfType(body, RestrictExpression.class);
     List<AutoRestrictExpression> _allContentsOfType_1 = EcoreUtil2.<AutoRestrictExpression>getAllContentsOfType(body, AutoRestrictExpression.class);
-    final Consumer<AlphaExpression> _function = (AlphaExpression are) -> {
-      SplitUnionIntoCase.transform(are);
+    final Function1<AlphaExpression, Integer> _function = (AlphaExpression are) -> {
+      return Integer.valueOf(SplitUnionIntoCase.transform(are));
     };
-    Iterables.<AlphaExpression>concat(_allContentsOfType, _allContentsOfType_1).forEach(_function);
+    final Function2<Integer, Integer, Integer> _function_1 = (Integer p1, Integer p2) -> {
+      return Integer.valueOf(((p1).intValue() + (p2).intValue()));
+    };
+    return IterableExtensions.<Integer>reduce(IterableExtensions.<AlphaExpression, Integer>map(Iterables.<AlphaExpression>concat(_allContentsOfType, _allContentsOfType_1), _function), _function_1);
   }
   
   /**

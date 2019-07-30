@@ -33,20 +33,24 @@ class SplitUnionIntoCase {
 	
 	/**
 	 * Apply the transformation to all RestrictExpressions in an AlphaSystem.
-	 * Silently ignores any RestrictExpressions where it is not applicable. 
+	 * Silently ignores any RestrictExpressions where it is not applicable.
+	 * 
+	 * @returns number of applications of the transformation 
 	 */	
 	static def apply(AlphaSystem system) {
-		system.systemBodies.forEach[b|apply(b)]
+		system.systemBodies.map[b|apply(b)].reduce[p1,p2|p1+p2]
 	}
 	
 	/**
 	 * Apply the transformation to all RestrictExpressions in a SystemBody.
 	 * Silently ignores any RestrictExpressions where it is not applicable.
+	 * 
+	 * @returns number of applications of the transformation
 	 */
 	static def apply(SystemBody body) {
 		(EcoreUtil2.getAllContentsOfType(body, RestrictExpression) + 
 		 EcoreUtil2.getAllContentsOfType(body, AutoRestrictExpression)
-		).forEach[are|transform(are)]
+		).map[are|transform(are)].reduce[p1, p2|p1+p2]
 	}
 	
 	/**

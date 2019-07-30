@@ -48,7 +48,7 @@ class NormalizeReduction extends AbstractAlphaCompleteVisitor {
 	 * 
 	 * When there are nested reductions, only the top level AbstractReduceExpression is transformed. 
 	 * 
-	 * Outputs true if the at least one reduction was transformed.
+	 * @returns number of applications of the transformation
 	 */
 	static def apply(AlphaVisitable av) {
 		val visitor = new NormalizeReduction()
@@ -56,7 +56,7 @@ class NormalizeReduction extends AbstractAlphaCompleteVisitor {
 		
 		visitor.targetREs.forEach[are|transform(are)]
 		
-		return !visitor.targetREs.isEmpty
+		return visitor.targetREs.size
 	}
 	
 	private static def transform(AbstractReduceExpression are) {
@@ -73,7 +73,7 @@ class NormalizeReduction extends AbstractAlphaCompleteVisitor {
 		
 		EcoreUtil.replace(are, varExpr)
 		
-		val newEq   = AlphaUserFactory.createStandardEquation(newVar, are)
+		val newEq = AlphaUserFactory.createStandardEquation(newVar, are)
 		
 		systemBody.equations.add(newEq)
 		
