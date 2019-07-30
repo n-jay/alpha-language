@@ -1,6 +1,7 @@
 package alpha.model.util;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import alpha.model.matrix.LinearAlgebraException;
@@ -9,10 +10,8 @@ import alpha.model.matrix.MatrixOperations;
 import alpha.model.matrix.MatrixRow;
 import alpha.model.matrix.factory.MatrixUserFactory;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
-import fr.irisa.cairn.jnimap.isl.ISLAffList;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLConstraint;
-import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMap;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
@@ -266,14 +265,10 @@ public class AffineFunctionOperations {
 	
 	public static ISLMultiAff createUniformFunction(ISLSpace space, List<Long> b) {
 		final List<String> params = space.getParamNames();
-		final List<String> indices = space.getInputNames();
+		List<String> indices = space.getInputNames();
 		
-		if (indices.contains(null)) {
-			final int size = indices.size();
-			indices.clear();
-			for (int d = 0; d < size; d++) {
-				indices.add("i"+d);
-			}
+		if (indices == null || indices.contains(null)) {
+			indices = AlphaUtil.defaultDimNames(space.getNbIndices());
 		}
 		
 		Matrix mat = MatrixUserFactory.createMatrix(params, indices);
