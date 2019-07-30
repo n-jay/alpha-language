@@ -20,6 +20,7 @@ Export-Package: alpha.model,
  alpha.model.matrix.util,
  alpha.model.module,
  alpha.model.transformation,
+ alpha.model.transformation.automation,
  alpha.model.transformation.reduction,
  alpha.model.util
 Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
