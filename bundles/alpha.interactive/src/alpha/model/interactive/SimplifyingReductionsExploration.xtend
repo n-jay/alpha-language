@@ -1,6 +1,7 @@
 package alpha.model.interactive
 
 import alpha.model.AbstractReduceExpression
+import alpha.model.AlphaExpression
 import alpha.model.AutoRestrictExpression
 import alpha.model.CaseExpression
 import alpha.model.ReduceExpression
@@ -13,6 +14,7 @@ import alpha.model.analysis.reduction.ShareSpaceAnalysis
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult
 import alpha.model.matrix.MatrixOperations
 import alpha.model.transformation.Normalize
+import alpha.model.transformation.SimplifyExpressions
 import alpha.model.transformation.SplitUnionIntoCase
 import alpha.model.transformation.SubstituteByDef
 import alpha.model.transformation.reduction.Distributivity
@@ -25,21 +27,13 @@ import alpha.model.transformation.reduction.ReductionDecomposition
 import alpha.model.transformation.reduction.SameOperatorSimplification
 import alpha.model.transformation.reduction.SimplifyingReductions
 import alpha.model.util.AShow
-import alpha.model.util.AffineFunctionOperations
+import alpha.model.util.AlphaPrintingUtil
 import alpha.model.util.AlphaUtil
-import java.util.HashSet
+import fr.irisa.cairn.jnimap.barvinok.BarvinokFunctions
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.xtext.EcoreUtil2
-import alpha.model.util.AlphaPrintingUtil
-import fr.irisa.cairn.jnimap.barvinok.BarvinokFunctions
-import alpha.model.AlphaExpression
-import alpha.model.transformation.SimplifyExpressions
-import fr.irisa.cairn.jnimap.isl.ISLMultiAff
-import fr.irisa.cairn.jnimap.isl.ISLDimType
-import alpha.model.util.DomainOperations
-import java.util.TreeSet
-import java.util.Comparator
 
 /**
  * Interactive exploration of Simplifying Reductions.
@@ -263,14 +257,14 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	 * 
 	 */
 	private def StepTransformations() {
-		val nbParams = targetRE.expressionDomain.nbParams
 		val SSAR = ShareSpaceAnalysis.apply(targetRE)
 		
 		val options = new LinkedList<ExplorationStep>();
 		
+		//SimplifyingReductions
 		val vectors = SimplifyingReductions.generateCandidateReuseVectors(targetRE, SSAR);
 		for (vec : vectors) {
-			options.add(new StepSimplifyingReduction(vec, nbParams));
+			options.add(new StepSimplifyingReduction(vec));
 		}
 		
 		//Idempotent
@@ -289,7 +283,9 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		}
 		
 		//Decomposition with side-effects
-		options.addAll(SSAR.findDecompositionCandidates)
+		for (pair : SimplifyingReductions.generateDecompositionCandidates(SSAR, targetRE)) {
+			options.add(new StepReductionDecomposition(pair.key, pair.value))
+		}
 		
 		//Inline
 		options.addAll(targetRE.findInlineCandidates)
@@ -335,7 +331,6 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		state = STATE.INITIAL
 		targetRE = null
 		commandHistory.add(String.format("SimplifyingReductions(%s, \"%s\")", getExprCommand, MatrixOperations.toString(step.reuseDepNoParams)))
-		
 	}
 	
 	private def dispatch performAction(StepIdempotence step) {
@@ -404,51 +399,7 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		))
 		commandHistory.add(String.format("Normalize(body)"))
 	}
-	
-	private def findDecompositionCandidates(ShareSpaceAnalysisResult SSAR) {
-		val exprREs = SSAR.expressionsWithReuse
-		val kerF = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(targetRE.projection))
 
-		//Set to avoid redundant options
-		val kerFps = new TreeSet<long[][]>(new Comparator<long[][]>() {
-			override compare(long[][] o1, long[][] o2) {
-				val str1 = MatrixOperations.toString(o1);
-				val str2 = MatrixOperations.toString(o2);
-				return str1.compareTo(str2);
-			}
-		});
-		
-		//Decomposition with Side Effects that expose Distributivity
-		for (exprRE : exprREs) {
-			val intersection = MatrixOperations.kernelIntersection(exprRE.value, kerF)
-			if (intersection !== null)
-				kerFps.add(intersection)
-		}
-		//Decomposition with Side Effects that expose Boundary Constraints
-		val constraints = targetRE.body.contextDomain.getBasicSetAt(0).constraints
-		for (c : constraints) {
-			val kerC = MatrixOperations.transpose(DomainOperations.kernelOfLinearPart(c.copy.toBasicSet));
-			val ker = MatrixOperations.kernelIntersection(kerF, kerC)
-			if (ker !== null) {
-				kerFps.add(ker);
-			}
-		}
-		
-		val candidates = new LinkedList<StepReductionDecomposition>();
-		
-		val params = targetRE.body.expressionDomain.paramNames
-		val indices = targetRE.body.expressionDomain.indexNames
-		for (RE : kerFps) {
-			val Fp = AffineFunctionOperations.constructAffineFunctionWithSpecifiedKernel(params, indices, RE);
-			if (Fp.nbOutputs > targetRE.projection.nbOutputs) {
-				val Fpp = AffineFunctionOperations.projectFunctionDomain(targetRE.projection, Fp.copy)
-				candidates.add(new StepReductionDecomposition(Fp, Fpp));
-			}
-		}
-		
-		return candidates;
-	}
-	
 	private def dispatch performAction(StepInlineVariable step) {
 		val getExprCommand = targetRE.getExpressionCommandString
 		
@@ -564,8 +515,8 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 	private static class StepSimplifyingReduction extends ExplorationStep {
 		long[] reuseDepNoParams;
 		
-		new(long[] reuseDep, int nbParams) {
-			reuseDepNoParams = MatrixOperations.removeColumns(reuseDep, (0..<nbParams))
+		new(long[] reuseDepNoParams) {
+			this.reuseDepNoParams = reuseDepNoParams
 		}
 		
 		override description() {

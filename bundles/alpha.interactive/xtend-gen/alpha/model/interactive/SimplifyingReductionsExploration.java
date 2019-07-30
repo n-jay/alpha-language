@@ -45,7 +45,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -100,9 +99,8 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
   private static class StepSimplifyingReduction extends SimplifyingReductionsExploration.ExplorationStep {
     private long[] reuseDepNoParams;
     
-    public StepSimplifyingReduction(final long[] reuseDep, final int nbParams) {
-      ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, nbParams, true);
-      this.reuseDepNoParams = MatrixOperations.removeColumns(reuseDep, ((int[])Conversions.unwrapArray(_doubleDotLessThan, int.class)));
+    public StepSimplifyingReduction(final long[] reuseDepNoParams) {
+      this.reuseDepNoParams = reuseDepNoParams;
     }
     
     @Override
@@ -451,12 +449,11 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
   private Object StepTransformations() {
     Object _xblockexpression = null;
     {
-      final int nbParams = this.targetRE.getExpressionDomain().getNbParams();
       final ShareSpaceAnalysisResult SSAR = ShareSpaceAnalysis.apply(this.targetRE);
       final LinkedList<SimplifyingReductionsExploration.ExplorationStep> options = new LinkedList<SimplifyingReductionsExploration.ExplorationStep>();
       final LinkedList<long[]> vectors = SimplifyingReductions.generateCandidateReuseVectors(this.targetRE, SSAR);
       for (final long[] vec : vectors) {
-        SimplifyingReductionsExploration.StepSimplifyingReduction _stepSimplifyingReduction = new SimplifyingReductionsExploration.StepSimplifyingReduction(vec, nbParams);
+        SimplifyingReductionsExploration.StepSimplifyingReduction _stepSimplifyingReduction = new SimplifyingReductionsExploration.StepSimplifyingReduction(vec);
         options.add(_stepSimplifyingReduction);
       }
       boolean _testLegality = Idempotence.testLegality(this.targetRE, SSAR);
