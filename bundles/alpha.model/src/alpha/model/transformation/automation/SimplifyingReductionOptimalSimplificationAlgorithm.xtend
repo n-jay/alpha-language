@@ -49,11 +49,13 @@ class SimplifyingReductionOptimalSimplificationAlgorithm {
 	public static boolean DEBUG = false;
 	
 	private def debug(String content) {
-		System.out.println("[SROptimalSimplification] " + content)
+		if (DEBUG)
+			System.out.println("[SROptimalSimplification] " + content)
 	}
 	private def debug(String content, ProgramState state) {
 		debug(content)
-		System.out.println(AShow.print(state.body))
+		if (DEBUG)
+			System.out.println(AShow.print(state.body))
 	}
 	
 	protected final  AlphaRoot originalProgram;

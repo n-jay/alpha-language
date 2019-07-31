@@ -163,12 +163,16 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
   public static boolean DEBUG = false;
   
   private void debug(final String content) {
-    System.out.println(("[SROptimalSimplification] " + content));
+    if (SimplifyingReductionOptimalSimplificationAlgorithm.DEBUG) {
+      System.out.println(("[SROptimalSimplification] " + content));
+    }
   }
   
   private void debug(final String content, final ProgramState state) {
     this.debug(content);
-    System.out.println(AShow.print(this.getBody(state)));
+    if (SimplifyingReductionOptimalSimplificationAlgorithm.DEBUG) {
+      System.out.println(AShow.print(this.getBody(state)));
+    }
   }
   
   protected final AlphaRoot originalProgram;
