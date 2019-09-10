@@ -4527,15 +4527,15 @@ rule__ABinaryCalcOp__Alternatives
 	)
 	|
 	(
-		{ before(grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignAsteriskKeyword_5()); }
-		'->*'
-		{ after(grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignAsteriskKeyword_5()); }
+		{ before(grammarAccess.getABinaryCalcOpAccess().getIntersectRangeKeyword_5()); }
+		'intersectRange'
+		{ after(grammarAccess.getABinaryCalcOpAccess().getIntersectRangeKeyword_5()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignHyphenMinusKeyword_6()); }
-		'->-'
-		{ after(grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignHyphenMinusKeyword_6()); }
+		{ before(grammarAccess.getABinaryCalcOpAccess().getSubtractRangeKeyword_6()); }
+		'subtractRange'
+		{ after(grammarAccess.getABinaryCalcOpAccess().getSubtractRangeKeyword_6()); }
 	)
 ;
 finally {

@@ -8,8 +8,6 @@
 ','=25
 '-'=16
 '->'=70
-'->*'=50
-'->-'=51
 '.'=59
 '.*'=73
 '/'=18
@@ -46,6 +44,7 @@
 'if'=75
 'import'=54
 'inputs'=61
+'intersectRange'=50
 'let'=66
 'locals'=63
 'max'=36
@@ -61,6 +60,7 @@
 'reduce'=80
 'reverse'=47
 'select'=83
+'subtractRange'=51
 'sum'=38
 'then'=76
 'val'=79

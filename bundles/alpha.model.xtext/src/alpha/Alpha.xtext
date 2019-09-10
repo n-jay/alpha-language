@@ -527,7 +527,7 @@ AUnaryCalcOp returns CALCULATOR_UNARY_OP:
 ;
 
 ABinaryCalcOp returns CALCULATOR_BINARY_OP:
-	'cross'|'+'|'-'|'*'|'@'|'->*'|'->-' 
+	'cross'|'+'|'-'|'*'|'@'|'intersectRange'|'subtractRange' 
 ;
 
 

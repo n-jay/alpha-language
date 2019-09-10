@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalAlphaParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_WS", "RULE_BOOLEAN", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'constant'", "'='", "'external'", "'('", "')'", "'import'", "'package'", "'{'", "'}'", "'affine'", "'define'", "'inputs'", "','", "'outputs'", "'locals'", "'over'", "'while'", "'.'", "'when'", "'else'", "'let'", "':'", "';'", "'fuzzy'", "'->'", "'['", "']'", "'[['", "']]'", "'.*'", "'{}'", "'+'", "'-'", "'*'", "'/'", "'%'", "'and'", "'or'", "'&'", "'|'", "'>='", "'>'", "'<'", "'<='", "'^'", "'with'", "'if'", "'then'", "'auto'", "'case'", "'@'", "'val'", "'reduce'", "'argreduce'", "'conv'", "'select'", "'from'", "'min'", "'max'", "'prod'", "'sum'", "'xor'", "'!='", "'not'", "'as'", "'domain'", "'range'", "'complement'", "'affine-hull'", "'poly-hull'", "'reverse'", "'cross'", "'->*'", "'->-'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_WS", "RULE_BOOLEAN", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'constant'", "'='", "'external'", "'('", "')'", "'import'", "'package'", "'{'", "'}'", "'affine'", "'define'", "'inputs'", "','", "'outputs'", "'locals'", "'over'", "'while'", "'.'", "'when'", "'else'", "'let'", "':'", "';'", "'fuzzy'", "'->'", "'['", "']'", "'[['", "']]'", "'.*'", "'{}'", "'+'", "'-'", "'*'", "'/'", "'%'", "'and'", "'or'", "'&'", "'|'", "'>='", "'>'", "'<'", "'<='", "'^'", "'with'", "'if'", "'then'", "'auto'", "'case'", "'@'", "'val'", "'reduce'", "'argreduce'", "'conv'", "'select'", "'from'", "'min'", "'max'", "'prod'", "'sum'", "'xor'", "'!='", "'not'", "'as'", "'domain'", "'range'", "'complement'", "'affine-hull'", "'poly-hull'", "'reverse'", "'cross'", "'intersectRange'", "'subtractRange'"
     };
     public static final int T__50=50;
     public static final int RULE_BOOLEAN=7;
@@ -21675,7 +21675,7 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleABinaryCalcOp"
-    // InternalAlpha.g:8496:1: ruleABinaryCalcOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'cross' | kw= '+' | kw= '-' | kw= '*' | kw= '@' | kw= '->*' | kw= '->-' ) ;
+    // InternalAlpha.g:8496:1: ruleABinaryCalcOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'cross' | kw= '+' | kw= '-' | kw= '*' | kw= '@' | kw= 'intersectRange' | kw= 'subtractRange' ) ;
     public final AntlrDatatypeRuleToken ruleABinaryCalcOp() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -21685,10 +21685,10 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalAlpha.g:8502:2: ( (kw= 'cross' | kw= '+' | kw= '-' | kw= '*' | kw= '@' | kw= '->*' | kw= '->-' ) )
-            // InternalAlpha.g:8503:2: (kw= 'cross' | kw= '+' | kw= '-' | kw= '*' | kw= '@' | kw= '->*' | kw= '->-' )
+            // InternalAlpha.g:8502:2: ( (kw= 'cross' | kw= '+' | kw= '-' | kw= '*' | kw= '@' | kw= 'intersectRange' | kw= 'subtractRange' ) )
+            // InternalAlpha.g:8503:2: (kw= 'cross' | kw= '+' | kw= '-' | kw= '*' | kw= '@' | kw= 'intersectRange' | kw= 'subtractRange' )
             {
-            // InternalAlpha.g:8503:2: (kw= 'cross' | kw= '+' | kw= '-' | kw= '*' | kw= '@' | kw= '->*' | kw= '->-' )
+            // InternalAlpha.g:8503:2: (kw= 'cross' | kw= '+' | kw= '-' | kw= '*' | kw= '@' | kw= 'intersectRange' | kw= 'subtractRange' )
             int alt113=7;
             switch ( input.LA(1) ) {
             case 83:
@@ -21790,23 +21790,23 @@ public class InternalAlphaParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalAlpha.g:8534:3: kw= '->*'
+                    // InternalAlpha.g:8534:3: kw= 'intersectRange'
                     {
                     kw=(Token)match(input,84,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignAsteriskKeyword_5());
+                    			newLeafNode(kw, grammarAccess.getABinaryCalcOpAccess().getIntersectRangeKeyword_5());
                     		
 
                     }
                     break;
                 case 7 :
-                    // InternalAlpha.g:8540:3: kw= '->-'
+                    // InternalAlpha.g:8540:3: kw= 'subtractRange'
                     {
                     kw=(Token)match(input,85,FOLLOW_2); 
 
                     			current.merge(kw);
-                    			newLeafNode(kw, grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignHyphenMinusKeyword_6());
+                    			newLeafNode(kw, grammarAccess.getABinaryCalcOpAccess().getSubtractRangeKeyword_6());
                     		
 
                     }

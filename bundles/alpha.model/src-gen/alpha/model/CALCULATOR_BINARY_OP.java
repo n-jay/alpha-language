@@ -76,7 +76,7 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INTERSECT_RANGE(0, "INTERSECT_RANGE", "->*"),
+	INTERSECT_RANGE(0, "INTERSECT_RANGE", "intersectRange"),
 
 	/**
 	 * The '<em><b>SUBTRACT RANGE</b></em>' literal object.
@@ -86,7 +86,7 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SUBTRACT_RANGE(0, "SUBTRACT_RANGE", "->-");
+	SUBTRACT_RANGE(0, "SUBTRACT_RANGE", "subtractRange");
 
 	/**
 	 * The '<em><b>INTERSECT</b></em>' literal value.
@@ -148,7 +148,7 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #INTERSECT_RANGE
-	 * @model literal="-&gt;*"
+	 * @model literal="intersectRange"
 	 * @generated
 	 * @ordered
 	 */
@@ -159,7 +159,7 @@ public enum CALCULATOR_BINARY_OP implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SUBTRACT_RANGE
-	 * @model literal="-&gt;-"
+	 * @model literal="subtractRange"
 	 * @generated
 	 * @ordered
 	 */

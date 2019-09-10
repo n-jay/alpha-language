@@ -4990,14 +4990,14 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cHyphenMinusKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		private final Keyword cAsteriskKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
 		private final Keyword cCommercialAtKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
-		private final Keyword cHyphenMinusGreaterThanSignAsteriskKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
-		private final Keyword cHyphenMinusGreaterThanSignHyphenMinusKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
+		private final Keyword cIntersectRangeKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
+		private final Keyword cSubtractRangeKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
 		
 		//ABinaryCalcOp CALCULATOR_BINARY_OP:
-		//	'cross' | '+' | '-' | '*' | '@' | '->*' | '->-';
+		//	'cross' | '+' | '-' | '*' | '@' | 'intersectRange' | 'subtractRange';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'cross' | '+' | '-' | '*' | '@' | '->*' | '->-'
+		//'cross' | '+' | '-' | '*' | '@' | 'intersectRange' | 'subtractRange'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'cross'
@@ -5015,11 +5015,11 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 		//'@'
 		public Keyword getCommercialAtKeyword_4() { return cCommercialAtKeyword_4; }
 		
-		//'->*'
-		public Keyword getHyphenMinusGreaterThanSignAsteriskKeyword_5() { return cHyphenMinusGreaterThanSignAsteriskKeyword_5; }
+		//'intersectRange'
+		public Keyword getIntersectRangeKeyword_5() { return cIntersectRangeKeyword_5; }
 		
-		//'->-'
-		public Keyword getHyphenMinusGreaterThanSignHyphenMinusKeyword_6() { return cHyphenMinusGreaterThanSignHyphenMinusKeyword_6; }
+		//'subtractRange'
+		public Keyword getSubtractRangeKeyword_6() { return cSubtractRangeKeyword_6; }
 	}
 	public class FLOATElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.FLOAT");
@@ -6527,7 +6527,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ABinaryCalcOp CALCULATOR_BINARY_OP:
-	//	'cross' | '+' | '-' | '*' | '@' | '->*' | '->-';
+	//	'cross' | '+' | '-' | '*' | '@' | 'intersectRange' | 'subtractRange';
 	public ABinaryCalcOpElements getABinaryCalcOpAccess() {
 		return pABinaryCalcOp;
 	}

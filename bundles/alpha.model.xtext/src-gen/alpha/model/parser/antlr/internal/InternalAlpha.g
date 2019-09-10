@@ -8531,16 +8531,16 @@ ruleABinaryCalcOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
 			newLeafNode(kw, grammarAccess.getABinaryCalcOpAccess().getCommercialAtKeyword_4());
 		}
 		    |
-		kw='->*'
+		kw='intersectRange'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignAsteriskKeyword_5());
+			newLeafNode(kw, grammarAccess.getABinaryCalcOpAccess().getIntersectRangeKeyword_5());
 		}
 		    |
-		kw='->-'
+		kw='subtractRange'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignHyphenMinusKeyword_6());
+			newLeafNode(kw, grammarAccess.getABinaryCalcOpAccess().getSubtractRangeKeyword_6());
 		}
 	)
 ;

@@ -969,8 +969,8 @@ enum CALCULATOR_BINARY_OP {
 	CROSS_PRODUCT as "cross"
 	SET_DIFFERENCE as "-"
 	JOIN as "@"
-	INTERSECT_RANGE as "->*"
-	SUBTRACT_RANGE as "->-"
+	INTERSECT_RANGE as "intersectRange"
+	SUBTRACT_RANGE as "subtractRange"
 }
 
 interface CalculatorNode {

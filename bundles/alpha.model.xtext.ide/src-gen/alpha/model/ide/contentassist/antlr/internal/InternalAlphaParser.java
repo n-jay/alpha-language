@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalAlphaParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_WS", "RULE_BOOLEAN", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'and'", "'else'", "'{}'", "'+'", "'-'", "'*'", "'/'", "'%'", "'or'", "'['", "']'", "'('", "')'", "','", "':'", "'&'", "'|'", "'>='", "'>'", "'='", "'<'", "'<='", "'^'", "'min'", "'max'", "'prod'", "'sum'", "'xor'", "'!='", "'not'", "'domain'", "'range'", "'complement'", "'affine-hull'", "'poly-hull'", "'reverse'", "'cross'", "'@'", "'->*'", "'->-'", "'constant'", "'external'", "'import'", "'package'", "'{'", "'}'", "'affine'", "'.'", "'define'", "'inputs'", "'outputs'", "'locals'", "'over'", "'while'", "'let'", "'when'", "';'", "'fuzzy'", "'->'", "'[['", "']]'", "'.*'", "'with'", "'if'", "'then'", "'auto'", "'case'", "'val'", "'reduce'", "'argreduce'", "'conv'", "'select'", "'from'", "'as'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_WS", "RULE_BOOLEAN", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ANY_OTHER", "'and'", "'else'", "'{}'", "'+'", "'-'", "'*'", "'/'", "'%'", "'or'", "'['", "']'", "'('", "')'", "','", "':'", "'&'", "'|'", "'>='", "'>'", "'='", "'<'", "'<='", "'^'", "'min'", "'max'", "'prod'", "'sum'", "'xor'", "'!='", "'not'", "'domain'", "'range'", "'complement'", "'affine-hull'", "'poly-hull'", "'reverse'", "'cross'", "'@'", "'intersectRange'", "'subtractRange'", "'constant'", "'external'", "'import'", "'package'", "'{'", "'}'", "'affine'", "'.'", "'define'", "'inputs'", "'outputs'", "'locals'", "'over'", "'while'", "'let'", "'when'", "';'", "'fuzzy'", "'->'", "'[['", "']]'", "'.*'", "'with'", "'if'", "'then'", "'auto'", "'case'", "'val'", "'reduce'", "'argreduce'", "'conv'", "'select'", "'from'", "'as'"
     };
     public static final int T__50=50;
     public static final int RULE_BOOLEAN=7;
@@ -14899,13 +14899,13 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ABinaryCalcOp__Alternatives"
-    // InternalAlpha.g:4494:1: rule__ABinaryCalcOp__Alternatives : ( ( 'cross' ) | ( '+' ) | ( '-' ) | ( '*' ) | ( '@' ) | ( '->*' ) | ( '->-' ) );
+    // InternalAlpha.g:4494:1: rule__ABinaryCalcOp__Alternatives : ( ( 'cross' ) | ( '+' ) | ( '-' ) | ( '*' ) | ( '@' ) | ( 'intersectRange' ) | ( 'subtractRange' ) );
     public final void rule__ABinaryCalcOp__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalAlpha.g:4498:1: ( ( 'cross' ) | ( '+' ) | ( '-' ) | ( '*' ) | ( '@' ) | ( '->*' ) | ( '->-' ) )
+            // InternalAlpha.g:4498:1: ( ( 'cross' ) | ( '+' ) | ( '-' ) | ( '*' ) | ( '@' ) | ( 'intersectRange' ) | ( 'subtractRange' ) )
             int alt51=7;
             switch ( input.LA(1) ) {
             case 48:
@@ -15027,14 +15027,14 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // InternalAlpha.g:4529:2: ( '->*' )
+                    // InternalAlpha.g:4529:2: ( 'intersectRange' )
                     {
-                    // InternalAlpha.g:4529:2: ( '->*' )
-                    // InternalAlpha.g:4530:3: '->*'
+                    // InternalAlpha.g:4529:2: ( 'intersectRange' )
+                    // InternalAlpha.g:4530:3: 'intersectRange'
                     {
-                     before(grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignAsteriskKeyword_5()); 
+                     before(grammarAccess.getABinaryCalcOpAccess().getIntersectRangeKeyword_5()); 
                     match(input,50,FOLLOW_2); 
-                     after(grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignAsteriskKeyword_5()); 
+                     after(grammarAccess.getABinaryCalcOpAccess().getIntersectRangeKeyword_5()); 
 
                     }
 
@@ -15042,14 +15042,14 @@ public class InternalAlphaParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 7 :
-                    // InternalAlpha.g:4535:2: ( '->-' )
+                    // InternalAlpha.g:4535:2: ( 'subtractRange' )
                     {
-                    // InternalAlpha.g:4535:2: ( '->-' )
-                    // InternalAlpha.g:4536:3: '->-'
+                    // InternalAlpha.g:4535:2: ( 'subtractRange' )
+                    // InternalAlpha.g:4536:3: 'subtractRange'
                     {
-                     before(grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignHyphenMinusKeyword_6()); 
+                     before(grammarAccess.getABinaryCalcOpAccess().getSubtractRangeKeyword_6()); 
                     match(input,51,FOLLOW_2); 
-                     after(grammarAccess.getABinaryCalcOpAccess().getHyphenMinusGreaterThanSignHyphenMinusKeyword_6()); 
+                     after(grammarAccess.getABinaryCalcOpAccess().getSubtractRangeKeyword_6()); 
 
                     }
 
