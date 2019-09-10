@@ -277,6 +277,24 @@ AlphaTerminalExpression returns AlphaExpression:
 	SelectExpression
 ;
 
+//Child of UnaryExpression excludes constant and dependence expressions
+// Constants may include negative numbers, which cause ambiguity
+// Dependences are a form of unary expression, and hence require parentheses
+AlphaUnaryTerminalExpression returns AlphaExpression:
+	'(' AlphaExpression ')' |
+	CaseExpression |
+	VariableExpression |
+	IndexExpression | 
+	PolynomialIndexExpression |	
+	FuzzyIndexExpression |
+	Reductions |
+	ConvolutionExpression |
+	MultiArgExpression |
+	ExternalMultiArgExpression |
+	SelectExpression
+;
+
+
 Reductions returns AlphaExpression:
 	ReduceExpression |
 	ArgReduceExpression |
@@ -417,7 +435,7 @@ UnaryOrTerminalExpression returns AlphaExpression:
 	UnaryExpression | AlphaTerminalExpression; 
 	
 UnaryExpression:
-	operator=AUnaryOP expr=AlphaTerminalExpression
+	operator=AUnaryOP expr=AlphaUnaryTerminalExpression
 ;
 
 VariableExpression:
@@ -431,7 +449,7 @@ BooleanExpression :
 	value=BOOLEAN;
 	
 IntegerExpression:
-	value=INT;
+	value=SINT;
 
 RealExpression:
 	value=FLOAT;	
@@ -509,7 +527,7 @@ AUnaryCalcOp returns CALCULATOR_UNARY_OP:
 ;
 
 ABinaryCalcOp returns CALCULATOR_BINARY_OP:
-	'cross'|'+'|'-'|'*'|'@'|'->-'|'->*' 
+	'cross'|'+'|'-'|'*'|'@'|'->*'|'->-' 
 ;
 
 
@@ -566,7 +584,8 @@ ABinaryCalcOp returns CALCULATOR_BINARY_OP:
 //Constants
 terminal BOOLEAN returns ecore::EBoolean: 'true' | 'false';
 ////terminal INT : ('0'..'9')+;
-terminal FLOAT returns ecore::EFloat: ('0'..'9')+ '.' ('0'..'9')+;
+FLOAT returns ecore::EFloat: '-'? INT '.' INT;
+SINT returns ecore::EInt:  '-'? INT;
 
 //terminal INTERSECTION : '&&';
 //

@@ -15,6 +15,7 @@ import alpha.model.BinaryCalculatorExpression
 import alpha.model.BinaryExpression
 import alpha.model.BooleanExpression
 import alpha.model.CaseExpression
+import alpha.model.ConstantExpression
 import alpha.model.ConvolutionExpression
 import alpha.model.DefinedObject
 import alpha.model.DependenceExpression
@@ -22,6 +23,7 @@ import alpha.model.ExternalArgReduceExpression
 import alpha.model.ExternalFunction
 import alpha.model.ExternalMultiArgExpression
 import alpha.model.ExternalReduceExpression
+import alpha.model.FuzzyDependenceExpression
 import alpha.model.IfExpression
 import alpha.model.Imports
 import alpha.model.IndexExpression
@@ -330,7 +332,14 @@ class Show extends ModelSwitch<CharSequence> {
 	}
 	
 	/* override */ def caseUnaryExpression(UnaryExpression ue) {
-		'''«ue.operator» «ue.expr.doSwitch»'''
+		if ((ue.expr instanceof ConstantExpression) || 
+			(ue.expr instanceof DependenceExpression) || 
+			(ue.expr instanceof FuzzyDependenceExpression)
+		)  {
+			'''«ue.operator» («ue.expr.doSwitch»)'''
+		} else {
+			'''«ue.operator» «ue.expr.doSwitch»'''
+		}
 	}
 	
 	/* override */ def caseVariableExpression(VariableExpression ve) {

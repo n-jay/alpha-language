@@ -20,6 +20,7 @@ import alpha.model.CALCULATOR_BINARY_OP;
 import alpha.model.CALCULATOR_UNARY_OP;
 import alpha.model.CalculatorExpression;
 import alpha.model.CaseExpression;
+import alpha.model.ConstantExpression;
 import alpha.model.ConvolutionExpression;
 import alpha.model.DefinedObject;
 import alpha.model.DependenceExpression;
@@ -28,6 +29,7 @@ import alpha.model.ExternalArgReduceExpression;
 import alpha.model.ExternalFunction;
 import alpha.model.ExternalMultiArgExpression;
 import alpha.model.ExternalReduceExpression;
+import alpha.model.FuzzyDependenceExpression;
 import alpha.model.IfExpression;
 import alpha.model.Imports;
 import alpha.model.IndexExpression;
@@ -784,13 +786,26 @@ public class Show extends ModelSwitch<CharSequence> {
    * override
    */
   public CharSequence caseUnaryExpression(final UnaryExpression ue) {
-    StringConcatenation _builder = new StringConcatenation();
-    UNARY_OP _operator = ue.getOperator();
-    _builder.append(_operator);
-    _builder.append(" ");
-    CharSequence _doSwitch = this.doSwitch(ue.getExpr());
-    _builder.append(_doSwitch);
-    return _builder;
+    CharSequence _xifexpression = null;
+    if ((((ue.getExpr() instanceof ConstantExpression) || (ue.getExpr() instanceof DependenceExpression)) || (ue.getExpr() instanceof FuzzyDependenceExpression))) {
+      StringConcatenation _builder = new StringConcatenation();
+      UNARY_OP _operator = ue.getOperator();
+      _builder.append(_operator);
+      _builder.append(" (");
+      CharSequence _doSwitch = this.doSwitch(ue.getExpr());
+      _builder.append(_doSwitch);
+      _builder.append(")");
+      _xifexpression = _builder;
+    } else {
+      StringConcatenation _builder_1 = new StringConcatenation();
+      UNARY_OP _operator_1 = ue.getOperator();
+      _builder_1.append(_operator_1);
+      _builder_1.append(" ");
+      CharSequence _doSwitch_1 = this.doSwitch(ue.getExpr());
+      _builder_1.append(_doSwitch_1);
+      _xifexpression = _builder_1;
+    }
+    return _xifexpression;
   }
   
   /**
