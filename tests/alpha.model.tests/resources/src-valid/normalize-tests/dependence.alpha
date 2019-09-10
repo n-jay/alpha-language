@@ -85,7 +85,7 @@ package tests.normalize.dependence {
 			B:[N]
 		let
 			//f @ (op E) -> (op f@E)
-			B = (i->i+1)@(- (i->i-1)@A);
+			B = (i->i+1)@(- ((i->i-1)@A));
 	.
 	
 	affine multiArgExpression1 [N]->{:N>0}
