@@ -133,6 +133,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 					union = union.union(vexpr.getContextDomain());
 				}
 			}
+			if (union == null) continue;
 			
 			//check for disjoint
 			if (intersections != null) {
