@@ -94,7 +94,7 @@ class AlphaExpressionUtil {
 					[err|new UnexpectedISLErrorIssue(err, child.eContainer(), child.eContainingFeature())]
 				);
 				//The context domain computed as above may contain indices with primes when the same index name is used in two systems.
-				//The index names are renamed to that of expression domain to avoid issues due to nameing.
+				//The index names are renamed to that of expression domain to avoid issues due to naming.
 				// (a space [i,i'] gives [i,i] as index names in ISL)
 				return AlphaUtil.renameIndices(exDom, child.expressionDomain.indexNames)
 			}
