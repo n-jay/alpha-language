@@ -6,6 +6,7 @@ import java.util.List;
 
 import alpha.model.JNIDomainCalculator.DOMAIN_CALC_MODE;
 import alpha.model.issue.AlphaIssue;
+import alpha.model.issue.UnhandledExceptionIssue;
 
 /**
  * This class serves as the interface to various visitors for constructing the
@@ -22,8 +23,9 @@ import alpha.model.issue.AlphaIssue;
 public class AlphaInternalStateConstructor {
 
 	public static List<AlphaIssue> compute(AlphaRoot root) {
+		List<AlphaIssue> issues = new LinkedList<>();
 		try {
-			List<AlphaIssue> issues = JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.INTERFACE_ONLY);
+			issues.addAll(JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.INTERFACE_ONLY));
 			issues.addAll(JNIDomainCalculator.calculate(root, DOMAIN_CALC_MODE.EXPRESSION_ONLY));
 			issues.addAll(ExpressionDomainCalculator.calculate(root));
 			issues.addAll(ContextDomainCalculator.calculate(root));
@@ -33,7 +35,8 @@ public class AlphaInternalStateConstructor {
 			return issues;
 		} catch (RuntimeException re) {
 			re.printStackTrace();
-			throw re;
+			issues.add(new UnhandledExceptionIssue(root, re));
+			return issues;
 		}
 	}
 
