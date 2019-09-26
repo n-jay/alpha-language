@@ -333,15 +333,19 @@ public class JNIDomainCalculator extends AbstractAlphaCompleteVisitor {
 
 			boolean arrayNotation = ue.getSubsystemDims() != null && ndim <= ue.getSubsystemDims().size();
 
+			List<String> copy = (indexNameContext == null) ? null : new LinkedList<>(indexNameContext);
+			contextHistory.push(indexNameContext);
+			
+			indexNameContext = copy;
 			if (arrayNotation) {
 				indexNameContext.addAll(ue.getSubsystemDims().subList(0, ndim));
+			} else {
+				indexNameContext = null;
 			}
 
 			exprs.get(i).accept(this);
 
-			if (arrayNotation) {
-				indexNameContext.removeAll(ue.getSubsystemDims());
-			}
+			indexNameContext = contextHistory.pop();
 		}
 
 	}
