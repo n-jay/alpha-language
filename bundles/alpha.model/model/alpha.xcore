@@ -419,7 +419,7 @@ class Variable extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 	contains CalculatorExpression domainExpr
 	
 	op JNIISLSet getDomain() {
-		if (domainExpr.^type != POLY_OBJECT_TYPE::SET) {
+		if (domainExpr === null || domainExpr.^type != POLY_OBJECT_TYPE::SET) {
 			return null
 		}
 		

@@ -163,16 +163,14 @@ public class VariableImpl extends AlphaNodeImpl implements Variable {
 	 * @generated
 	 */
 	public ISLSet getDomain() {
-		POLY_OBJECT_TYPE _type = this.getDomainExpr().getType();
-		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
-		if (_notEquals) {
+		if (((this.getDomainExpr() == null) || (!Objects.equal(this.getDomainExpr().getType(), POLY_OBJECT_TYPE.SET)))) {
 			return null;
 		}
 		try {
 			ISLSet _xifexpression = null;
-			POLY_OBJECT_TYPE _type_1 = this.getDomainExpr().getType();
-			boolean _notEquals_1 = (!Objects.equal(_type_1, POLY_OBJECT_TYPE.SET));
-			if (_notEquals_1) {
+			POLY_OBJECT_TYPE _type = this.getDomainExpr().getType();
+			boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
+			if (_notEquals) {
 				_xifexpression = null;
 			}
 			else {
