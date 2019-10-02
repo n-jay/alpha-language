@@ -110,8 +110,12 @@ class AlphaPrintingUtil {
 		if (set.getNbIndices == 0)
 			return "{}"
 			
-		val ISLSet setRenamed = if (names !== null) set.renameIndices(names) else if (set.indexNames === null) set.renameIndices(AlphaUtil.defaultDimNames(set)) else set
-		val setGisted = if (paramDom !== null && paramDom.isParamSet) setRenamed.gist(paramDom.copy.addDims(ISLDimType.isl_dim_set, setRenamed.nbIndices)) else setRenamed
+		val ISLSet setRenamed = if (names !== null) set.renameIndices(names) 
+								else if (set.indexNames === null) set.renameIndices(AlphaUtil.defaultDimNames(set))
+								else set
+		val setGisted = if (paramDom !== null && paramDom.isParamSet)
+							setRenamed.gist(paramDom.copy.addDims(ISLDimType.isl_dim_set, setRenamed.nbIndices))
+						else setRenamed
 
 		val bsets = setGisted.collectBasicSets
 		val out = "{"+setGisted.indexNames+":"+bsets.join(" or ")+"}";
@@ -133,24 +137,20 @@ class AlphaPrintingUtil {
 		return out
 	}
 	static def collectBasicSets(ISLSet set) {
-		set.basicSets.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "")]
+		set.basicSets.map[c|c.toString.extractConstraints]
 	}
 	static def collectConstraints(ISLSet set) {
 		set.basicSets.map[collectConstraints]
 	}
 	static def collectConstraints(ISLBasicSet bset) {
-		if (bset.getNbIndices == 0) {
-			bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\s*:\\s*", "").replaceFirst("\\}", "")]		
-		} else {
-			bset.constraints.map[c|c.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "")]
-		}
+		bset.constraints.map[c|c.toString.extractConstraints]		
 	}
 	
 	static def String toShowStringParameterDomain(ISLSet set) {
 		set.toString
 	}
 	static def String toShowStringSystemBodyDomain(ISLSet set) {
-		set.toString.replaceFirst("\\[.*\\]\\s->\\s*", "")
+		set.toString.removeParameters
 	}
 	
 	/**
@@ -169,15 +169,13 @@ class AlphaPrintingUtil {
 	 * 
 	 */
 	static def toShowString(ISLPWQPolynomial poly) {
-		poly.toString.replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{")
+		poly.toString.removeParameters
 	}
 	static def toAShowString(ISLPWQPolynomial poly, List<String> context) {
 		toAShowString(poly.renameIndices(context))
 	}
 	private static def toAShowString(ISLPWQPolynomial poly) {
-		//trying to just replace '[..] ->' with '' somehow removes '{' too
-		// below is a workaround, but this should be revisited FIXME
-		poly.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "")
+		poly.toString.removeParameters.replaceAll("\\[.*\\]\\s*->\\s*", "")
 	}
 	
 	/**
@@ -185,15 +183,13 @@ class AlphaPrintingUtil {
 	 * 
 	 */
 	static def toShowString(ISLQPolynomial poly) {
-		poly.toString.replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{")
+		poly.toString.removeParameters
 	}
 	static def toAShowString(ISLQPolynomial poly, List<String> context) {
 		toAShowString(poly.renameIndices(context))
 	}
 	private static def toAShowString(ISLQPolynomial poly) {
-		//trying to just replace '[..] ->' with '' somehow removes '{' too
-		// below is a workaround, but this should be revisited FIXME
-		poly.toString.replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "")
+		poly.toString.removeParameters.replaceAll("\\[.*\\]\\s*->\\s*", "")
 	}
 	
 	
@@ -223,5 +219,18 @@ class AlphaPrintingUtil {
 		if (set.nbBasicSets != 1) throw new RuntimeException("Parameter domain is assumed to be a single polyhedron.");
 		val paramNames = set.paramNames.join(",")
 		'''{ «paramNames» | «set.basicSets.get(0).collectConstraints.map([s|s.replace(" = ", " == ")]).join(" && ")» }'''
+	}
+	
+	/**
+	 * Helper
+	 */
+	private static def String extractConstraints(String str) {
+		str.replaceFirst("(\\[.*\\]\\s->\\s*)?\\{", "").replaceAll("(\\[[^\\[\\]]*\\])?\\s*:\\s*", "").replaceFirst("\\}", "")
+	}
+	
+	private static def String removeParameters(String str) {
+		//trying to just replace '[..] ->' with '' somehow removes '{' too
+		// below is a workaround, but this should be revisited FIXME
+		str.replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{")
 	}
 }

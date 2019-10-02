@@ -276,7 +276,7 @@ public class AlphaPrintingUtil {
   
   public static List<String> collectBasicSets(final ISLSet set) {
     final Function1<ISLBasicSet, String> _function = (ISLBasicSet c) -> {
-      return c.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "");
+      return AlphaPrintingUtil.extractConstraints(c.toString());
     };
     return ListExtensions.<ISLBasicSet, String>map(set.getBasicSets(), _function);
   }
@@ -289,21 +289,10 @@ public class AlphaPrintingUtil {
   }
   
   public static List<String> collectConstraints(final ISLBasicSet bset) {
-    List<String> _xifexpression = null;
-    int _nbIndices = bset.getNbIndices();
-    boolean _equals = (_nbIndices == 0);
-    if (_equals) {
-      final Function1<ISLConstraint, String> _function = (ISLConstraint c) -> {
-        return c.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\s*:\\s*", "").replaceFirst("\\}", "");
-      };
-      _xifexpression = ListExtensions.<ISLConstraint, String>map(bset.getConstraints(), _function);
-    } else {
-      final Function1<ISLConstraint, String> _function_1 = (ISLConstraint c) -> {
-        return c.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceAll("\\[[^\\[\\]]*\\]\\s*:\\s*", "").replaceFirst("\\}", "");
-      };
-      _xifexpression = ListExtensions.<ISLConstraint, String>map(bset.getConstraints(), _function_1);
-    }
-    return _xifexpression;
+    final Function1<ISLConstraint, String> _function = (ISLConstraint c) -> {
+      return AlphaPrintingUtil.extractConstraints(c.toString());
+    };
+    return ListExtensions.<ISLConstraint, String>map(bset.getConstraints(), _function);
   }
   
   public static String toShowStringParameterDomain(final ISLSet set) {
@@ -311,7 +300,7 @@ public class AlphaPrintingUtil {
   }
   
   public static String toShowStringSystemBodyDomain(final ISLSet set) {
-    return set.toString().replaceFirst("\\[.*\\]\\s->\\s*", "");
+    return AlphaPrintingUtil.removeParameters(set.toString());
   }
   
   /**
@@ -334,7 +323,7 @@ public class AlphaPrintingUtil {
    * ISLPWQPolynomial to Alpha string
    */
   public static String toShowString(final ISLPWQPolynomial poly) {
-    return poly.toString().replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{");
+    return AlphaPrintingUtil.removeParameters(poly.toString());
   }
   
   public static String toAShowString(final ISLPWQPolynomial poly, final List<String> context) {
@@ -342,14 +331,14 @@ public class AlphaPrintingUtil {
   }
   
   private static String toAShowString(final ISLPWQPolynomial poly) {
-    return poly.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "");
+    return AlphaPrintingUtil.removeParameters(poly.toString()).replaceAll("\\[.*\\]\\s*->\\s*", "");
   }
   
   /**
    * ISLQPolynomial to Alpha string
    */
   public static String toShowString(final ISLQPolynomial poly) {
-    return poly.toString().replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{");
+    return AlphaPrintingUtil.removeParameters(poly.toString());
   }
   
   public static String toAShowString(final ISLQPolynomial poly, final List<String> context) {
@@ -357,7 +346,7 @@ public class AlphaPrintingUtil {
   }
   
   private static String toAShowString(final ISLQPolynomial poly) {
-    return poly.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "{").replaceAll("\\[.*\\]\\s*->\\s*", "");
+    return AlphaPrintingUtil.removeParameters(poly.toString()).replaceAll("\\[.*\\]\\s*->\\s*", "");
   }
   
   /**
@@ -438,5 +427,16 @@ public class AlphaPrintingUtil {
       _xblockexpression = _builder.toString();
     }
     return _xblockexpression;
+  }
+  
+  /**
+   * Helper
+   */
+  private static String extractConstraints(final String str) {
+    return str.replaceFirst("(\\[.*\\]\\s->\\s*)?\\{", "").replaceAll("(\\[[^\\[\\]]*\\])?\\s*:\\s*", "").replaceFirst("\\}", "");
+  }
+  
+  private static String removeParameters(final String str) {
+    return str.replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{");
   }
 }
