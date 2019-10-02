@@ -78,7 +78,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 				unionBodies = body.getParameterDomain();
 			} else {
 				if (!unionBodies.isDisjoint(body.getParameterDomain())) {
-					ISLSet intersection = unionBodies.union(body.getParameterDomain());
+					ISLSet intersection = unionBodies.copy().intersect(body.getParameterDomain());
 					if (intersections == null) intersections = intersection;
 					else intersections = intersections.union(intersection);
 				}
