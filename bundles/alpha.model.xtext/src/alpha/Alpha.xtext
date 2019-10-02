@@ -145,7 +145,7 @@ AIndexList:
 //ISL syntax defs
 
 AParamDomain:
-	'[' AIndexList ']' '->' '{' ':' AISLString '}' 
+	('[' AIndexList ']' '->')? '{' ':' AISLString '}' 
 ;
 AParamDomainInArrayNotation:
 	'{' ':' AISLString '}' 

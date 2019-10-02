@@ -2465,43 +2465,45 @@ ruleAParamDomain returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
 	leaveRule();
 }:
 	(
-		kw='['
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAParamDomainAccess().getLeftSquareBracketKeyword_0());
-		}
-		{
-			newCompositeNode(grammarAccess.getAParamDomainAccess().getAIndexListParserRuleCall_1());
-		}
-		this_AIndexList_1=ruleAIndexList
-		{
-			$current.merge(this_AIndexList_1);
-		}
-		{
-			afterParserOrEnumRuleCall();
-		}
-		kw=']'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAParamDomainAccess().getRightSquareBracketKeyword_2());
-		}
-		kw='->'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAParamDomainAccess().getHyphenMinusGreaterThanSignKeyword_3());
-		}
+		(
+			kw='['
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getAParamDomainAccess().getLeftSquareBracketKeyword_0_0());
+			}
+			{
+				newCompositeNode(grammarAccess.getAParamDomainAccess().getAIndexListParserRuleCall_0_1());
+			}
+			this_AIndexList_1=ruleAIndexList
+			{
+				$current.merge(this_AIndexList_1);
+			}
+			{
+				afterParserOrEnumRuleCall();
+			}
+			kw=']'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getAParamDomainAccess().getRightSquareBracketKeyword_0_2());
+			}
+			kw='->'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getAParamDomainAccess().getHyphenMinusGreaterThanSignKeyword_0_3());
+			}
+		)?
 		kw='{'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAParamDomainAccess().getLeftCurlyBracketKeyword_4());
+			newLeafNode(kw, grammarAccess.getAParamDomainAccess().getLeftCurlyBracketKeyword_1());
 		}
 		kw=':'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAParamDomainAccess().getColonKeyword_5());
+			newLeafNode(kw, grammarAccess.getAParamDomainAccess().getColonKeyword_2());
 		}
 		{
-			newCompositeNode(grammarAccess.getAParamDomainAccess().getAISLStringParserRuleCall_6());
+			newCompositeNode(grammarAccess.getAParamDomainAccess().getAISLStringParserRuleCall_3());
 		}
 		this_AISLString_6=ruleAISLString
 		{
@@ -2513,7 +2515,7 @@ ruleAParamDomain returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTo
 		kw='}'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAParamDomainAccess().getRightCurlyBracketKeyword_7());
+			newLeafNode(kw, grammarAccess.getAParamDomainAccess().getRightCurlyBracketKeyword_4());
 		}
 	)
 ;

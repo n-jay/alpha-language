@@ -1381,46 +1381,50 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	public class AParamDomainElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AParamDomain");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cAIndexListParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Keyword cRightSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Keyword cColonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final RuleCall cAISLStringParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
-		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final RuleCall cAIndexListParserRuleCall_0_1 = (RuleCall)cGroup_0.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
+		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cAISLStringParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		////ISL syntax defs
 		//AParamDomain:
-		//	'[' AIndexList ']' '->' '{' ':' AISLString '}';
+		//	('[' AIndexList ']' '->')? '{' ':' AISLString '}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'[' AIndexList ']' '->' '{' ':' AISLString '}'
+		//('[' AIndexList ']' '->')? '{' ':' AISLString '}'
 		public Group getGroup() { return cGroup; }
 		
+		//('[' AIndexList ']' '->')?
+		public Group getGroup_0() { return cGroup_0; }
+		
 		//'['
-		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
+		public Keyword getLeftSquareBracketKeyword_0_0() { return cLeftSquareBracketKeyword_0_0; }
 		
 		//AIndexList
-		public RuleCall getAIndexListParserRuleCall_1() { return cAIndexListParserRuleCall_1; }
+		public RuleCall getAIndexListParserRuleCall_0_1() { return cAIndexListParserRuleCall_0_1; }
 		
 		//']'
-		public Keyword getRightSquareBracketKeyword_2() { return cRightSquareBracketKeyword_2; }
+		public Keyword getRightSquareBracketKeyword_0_2() { return cRightSquareBracketKeyword_0_2; }
 		
 		//'->'
-		public Keyword getHyphenMinusGreaterThanSignKeyword_3() { return cHyphenMinusGreaterThanSignKeyword_3; }
+		public Keyword getHyphenMinusGreaterThanSignKeyword_0_3() { return cHyphenMinusGreaterThanSignKeyword_0_3; }
 		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
+		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
 		
 		//':'
-		public Keyword getColonKeyword_5() { return cColonKeyword_5; }
+		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
 		
 		//AISLString
-		public RuleCall getAISLStringParserRuleCall_6() { return cAISLStringParserRuleCall_6; }
+		public RuleCall getAISLStringParserRuleCall_3() { return cAISLStringParserRuleCall_3; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
 	public class AParamDomainInArrayNotationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.model.Alpha.AParamDomainInArrayNotation");
@@ -5664,7 +5668,7 @@ public class AlphaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	////ISL syntax defs
 	//AParamDomain:
-	//	'[' AIndexList ']' '->' '{' ':' AISLString '}';
+	//	('[' AIndexList ']' '->')? '{' ':' AISLString '}';
 	public AParamDomainElements getAParamDomainAccess() {
 		return pAParamDomain;
 	}

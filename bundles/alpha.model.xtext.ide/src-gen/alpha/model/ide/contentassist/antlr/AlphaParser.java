@@ -123,6 +123,7 @@ public class AlphaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAIndexListAccess().getGroup(), "rule__AIndexList__Group__0");
 			builder.put(grammarAccess.getAIndexListAccess().getGroup_1(), "rule__AIndexList__Group_1__0");
 			builder.put(grammarAccess.getAParamDomainAccess().getGroup(), "rule__AParamDomain__Group__0");
+			builder.put(grammarAccess.getAParamDomainAccess().getGroup_0(), "rule__AParamDomain__Group_0__0");
 			builder.put(grammarAccess.getAParamDomainInArrayNotationAccess().getGroup(), "rule__AParamDomainInArrayNotation__Group__0");
 			builder.put(grammarAccess.getAISLSetAccess().getGroup_0(), "rule__AISLSet__Group_0__0");
 			builder.put(grammarAccess.getAISLSetAccess().getGroup_0_2(), "rule__AISLSet__Group_0_2__0");
