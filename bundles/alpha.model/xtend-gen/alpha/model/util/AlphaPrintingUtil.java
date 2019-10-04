@@ -11,7 +11,6 @@ import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.ISLQPolynomial;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
-import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import fr.irisa.cairn.jnimap.isl.ISLVal;
 import java.util.LinkedList;
 import java.util.List;
@@ -89,6 +88,114 @@ public class AlphaPrintingUtil {
    *   - among positive/negative values, the order is parameters, indices, divs
    */
   public static String toAlphaString(final ISLAff aff) {
+    final long commonD = aff.getDenominator();
+    final LinkedList<String> posList = new LinkedList<String>();
+    final LinkedList<String> negList = new LinkedList<String>();
+    AlphaPrintingUtil.toAlphaStringHelper(aff, ISLDimType.isl_dim_param, commonD, posList, negList);
+    AlphaPrintingUtil.toAlphaStringHelper(aff, ISLDimType.isl_dim_in, commonD, posList, negList);
+    AlphaPrintingUtil.toAlphaStringHelperForDiv(aff, commonD, posList, negList);
+    return AlphaPrintingUtil.constructExpressionString(aff, posList, negList);
+  }
+  
+  /**
+   * Helper for printAff that collects positive/negative values of a given dim type
+   */
+  private static void toAlphaStringHelper(final ISLAff aff, final ISLDimType dimType, final long commonD, final List<String> posList, final List<String> negList) {
+    final int n = aff.dim(dimType);
+    final List<String> names = aff.getDimNames(dimType);
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      {
+        final ISLVal coefficient = aff.getCoefficientVal(dimType, (i).intValue());
+        long _numerator = coefficient.getNumerator();
+        long _multiply = (_numerator * commonD);
+        long _denominator = coefficient.getDenominator();
+        final long coef = (_multiply / _denominator);
+        if ((coef > 1)) {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append(coef);
+          String _get = names.get((i).intValue());
+          _builder.append(_get);
+          posList.add(_builder.toString());
+        } else {
+          if ((coef == 1)) {
+            posList.add(names.get((i).intValue()));
+          } else {
+            if ((coef < (-1))) {
+              StringConcatenation _builder_1 = new StringConcatenation();
+              _builder_1.append(coef);
+              String _get_1 = names.get((i).intValue());
+              _builder_1.append(_get_1);
+              negList.add(_builder_1.toString());
+            } else {
+              if ((coef == (-1))) {
+                StringConcatenation _builder_2 = new StringConcatenation();
+                _builder_2.append("-");
+                String _get_2 = names.get((i).intValue());
+                _builder_2.append(_get_2);
+                negList.add(_builder_2.toString());
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  private static void toAlphaStringHelperForDiv(final ISLAff aff, final long commonD, final List<String> posList, final List<String> negList) {
+    final int n = aff.dim(ISLDimType.isl_dim_div);
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      {
+        final ISLVal coefficient = aff.getCoefficientVal(ISLDimType.isl_dim_div, (i).intValue());
+        long _numerator = coefficient.getNumerator();
+        long _multiply = (_numerator * commonD);
+        long _denominator = coefficient.getDenominator();
+        final long coef = (_multiply / _denominator);
+        final ISLAff div = aff.getDiv((i).intValue());
+        final long commonDdiv = div.getDenominator();
+        final LinkedList<String> posListDiv = new LinkedList<String>();
+        final LinkedList<String> negListDiv = new LinkedList<String>();
+        AlphaPrintingUtil.toAlphaStringHelper(div, ISLDimType.isl_dim_in, commonDdiv, posListDiv, negListDiv);
+        final String divStr = AlphaPrintingUtil.constructExpressionString(div, posListDiv, negListDiv);
+        if ((coef > 1)) {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append(coef);
+          _builder.append("*floor(");
+          _builder.append(divStr);
+          _builder.append(")");
+          posList.add(_builder.toString());
+        } else {
+          if ((coef == 1)) {
+            StringConcatenation _builder_1 = new StringConcatenation();
+            _builder_1.append("floor(");
+            _builder_1.append(divStr);
+            _builder_1.append(")");
+            posList.add(_builder_1.toString());
+          } else {
+            if ((coef < (-1))) {
+              StringConcatenation _builder_2 = new StringConcatenation();
+              _builder_2.append(coef);
+              _builder_2.append("*floor(");
+              _builder_2.append(divStr);
+              _builder_2.append(")");
+              negList.add(_builder_2.toString());
+            } else {
+              if ((coef == (-1))) {
+                StringConcatenation _builder_3 = new StringConcatenation();
+                _builder_3.append("-floor(");
+                _builder_3.append(divStr);
+                _builder_3.append(")");
+                negList.add(_builder_3.toString());
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  private static String constructExpressionString(final ISLAff aff, final List<String> posList, final List<String> negList) {
     String _xblockexpression = null;
     {
       final long commonD = aff.getDenominator();
@@ -97,11 +204,6 @@ public class AlphaPrintingUtil {
       long _multiply = (_numerator * commonD);
       long _denominator = constant.getDenominator();
       final long cstVal = (_multiply / _denominator);
-      final LinkedList<String> posList = new LinkedList<String>();
-      final LinkedList<String> negList = new LinkedList<String>();
-      AlphaPrintingUtil.toAlphaStringHelper(aff, ISLDimType.isl_dim_param, commonD, posList, negList);
-      AlphaPrintingUtil.toAlphaStringHelper(aff, ISLDimType.isl_dim_in, commonD, posList, negList);
-      AlphaPrintingUtil.toAlphaStringHelper(aff, ISLDimType.isl_dim_div, commonD, posList, negList);
       final String pos = IterableExtensions.join(posList, "+");
       final String neg = IterableExtensions.join(negList, "");
       Object _xifexpression = null;
@@ -145,52 +247,6 @@ public class AlphaPrintingUtil {
       _xblockexpression = _xifexpression_2;
     }
     return _xblockexpression;
-  }
-  
-  /**
-   * Helper for printAff that collects positive/negative values of a given dim type
-   */
-  private static void toAlphaStringHelper(final ISLAff aff, final ISLDimType dimType, final long commonD, final List<String> posList, final List<String> negList) {
-    final ISLSpace dims = aff.getSpace();
-    final int n = dims.dim(dimType);
-    final List<String> names = dims.getDimNames(dimType);
-    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
-    for (final Integer i : _doubleDotLessThan) {
-      {
-        final ISLVal coefficient = aff.getCoefficientVal(dimType, (i).intValue());
-        long _numerator = coefficient.getNumerator();
-        long _multiply = (_numerator * commonD);
-        long _denominator = coefficient.getDenominator();
-        final long coef = (_multiply / _denominator);
-        if ((coef > 1)) {
-          StringConcatenation _builder = new StringConcatenation();
-          _builder.append(coef);
-          String _get = names.get((i).intValue());
-          _builder.append(_get);
-          posList.add(_builder.toString());
-        } else {
-          if ((coef == 1)) {
-            posList.add(names.get((i).intValue()));
-          } else {
-            if ((coef < (-1))) {
-              StringConcatenation _builder_1 = new StringConcatenation();
-              _builder_1.append(coef);
-              String _get_1 = names.get((i).intValue());
-              _builder_1.append(_get_1);
-              negList.add(_builder_1.toString());
-            } else {
-              if ((coef == (-1))) {
-                StringConcatenation _builder_2 = new StringConcatenation();
-                _builder_2.append("-");
-                String _get_2 = names.get((i).intValue());
-                _builder_2.append(_get_2);
-                negList.add(_builder_2.toString());
-              }
-            }
-          }
-        }
-      }
-    }
   }
   
   /**

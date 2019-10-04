@@ -1,9 +1,5 @@
 package alpha.model.util
 
-import java.util.LinkedList
-import java.util.List
-
-import static extension alpha.model.util.AlphaUtil.renameIndices
 import fr.irisa.cairn.jnimap.isl.ISLAff
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import fr.irisa.cairn.jnimap.isl.ISLDimType
@@ -12,6 +8,10 @@ import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLSet
+import java.util.LinkedList
+import java.util.List
+
+import static extension alpha.model.util.AlphaUtil.renameIndices
 
 class AlphaPrintingUtil {
 	
@@ -54,25 +54,15 @@ class AlphaPrintingUtil {
 	 */
 	static def String toAlphaString(ISLAff aff) {
 		val commonD = aff.denominator
-		
-		val constant = aff.constantVal
-		val cstVal = (constant.numerator * commonD) / constant.denominator
 
 		val posList = new LinkedList<String>
 		val negList = new LinkedList<String>
 		
 		toAlphaStringHelper(aff, ISLDimType.isl_dim_param, commonD, posList, negList)
 		toAlphaStringHelper(aff, ISLDimType.isl_dim_in, commonD, posList, negList)
-		toAlphaStringHelper(aff, ISLDimType.isl_dim_div, commonD, posList, negList)
+		toAlphaStringHelperForDiv(aff, commonD, posList, negList)
 		
-		val pos = posList.join("+")
-		val neg = negList.join("")
-		val cst = if (cstVal == 0) "" else if (cstVal > 0 && posList.length + negList.length > 0) "+"+cstVal else cstVal
-		
-		//when everything is 0, then the output is 0; otherwise 0 is not printed
-		if (posList.length + negList.length == 0 && cstVal == 0) '''0'''
-		else if (commonD != 1) '''(«pos»«neg»«cst»)/«commonD»'''
-		else '''«pos»«neg»«cst»'''
+		return constructExpressionString(aff, posList, negList)
 	}
 	
 	/*
@@ -80,10 +70,9 @@ class AlphaPrintingUtil {
 	 */
 	private static def void toAlphaStringHelper(ISLAff aff, ISLDimType dimType, long commonD, List<String> posList, List<String> negList) {
 		
-		val dims = aff.space
-		val n = dims.dim(dimType)
-		val names = dims.getDimNames(dimType)
-		
+		val n = aff.dim(dimType)
+		val names = aff.getDimNames(dimType)
+
 		for (i : 0..< n) {
 			val coefficient = aff.getCoefficientVal(dimType, i)
 			val coef = (coefficient.numerator * commonD) / coefficient.denominator
@@ -93,6 +82,45 @@ class AlphaPrintingUtil {
 			else if (coef<-1) negList.add('''«coef»«names.get(i)»''')
 			else if (coef==-1) negList.add('''-«names.get(i)»''')
 		}
+	}
+
+	private static def void toAlphaStringHelperForDiv(ISLAff aff, long commonD, List<String> posList, List<String> negList) {
+		
+		val n = aff.dim(ISLDimType.isl_dim_div)
+
+		for (i : 0..< n) {
+			val coefficient = aff.getCoefficientVal(ISLDimType.isl_dim_div, i)
+			val coef = (coefficient.numerator * commonD) / coefficient.denominator
+			
+			val div = aff.getDiv(i)
+			val commonDdiv = div.denominator
+			val posListDiv = new LinkedList<String>
+			val negListDiv = new LinkedList<String>
+			
+			toAlphaStringHelper(div, ISLDimType.isl_dim_in, commonDdiv, posListDiv, negListDiv)
+			
+			val divStr = constructExpressionString(div, posListDiv, negListDiv)
+			if (coef>1) posList.add('''«coef»*floor(«divStr»)''')
+			else if (coef==1) posList.add('''floor(«divStr»)''')
+			else if (coef<-1) negList.add('''«coef»*floor(«divStr»)''')
+			else if (coef==-1) negList.add('''-floor(«divStr»)''')
+		}
+	}
+	
+	private static def String constructExpressionString(ISLAff aff, List<String> posList, List<String> negList) {
+		val commonD = aff.denominator
+		
+		val constant = aff.constantVal
+		val cstVal = (constant.numerator * commonD) / constant.denominator
+		
+		val pos = posList.join("+")
+		val neg = negList.join("")
+		val cst = if (cstVal == 0) "" else if (cstVal > 0 && posList.length + negList.length > 0) "+"+cstVal else cstVal
+	
+		//when everything is 0, then the output is 0; otherwise 0 is not printed
+		if (posList.length + negList.length == 0 && cstVal == 0) '''0'''
+		else if (commonD != 1) '''(«pos»«neg»«cst»)/«commonD»'''
+		else '''«pos»«neg»«cst»'''
 	}
 	
 	/**
