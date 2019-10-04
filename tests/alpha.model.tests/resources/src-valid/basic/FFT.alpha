@@ -13,34 +13,6 @@ package tests.basic.FFT {
 			y[i] = reduce(+, [j], T[i,j]*x[j]);
 	.
 	
-	affine FFT4 []->{:}
-		inputs
-			x : [4]
-		outputs
-			y : [4]
-		locals
-			p : [4]
-			q : [4]
-			r : [4]
-			dftA : [4]
-		let
-			p[i] = case {
-				{:i<2} : x[2i];
-				{:2<=i<4} : x[2i-3];	
-			};
-			
-			over [2] as [i] with [k] : (dftA[2i+k]) = DFT[2](p[2i+k]);
-			
-			q[i] = twiddle(val[i])*dftA[i];
-			
-			r[i] = case {
-				{:i<2} :  q[2i];
-				{:2<=i<4} : q[2i-3];	
-			};
-			
-			over [2] as [i] with [k] : (y[2i+k]) = DFT[2](r[2i+k]);
-	.
-	
 	affine FFT [N]->{:N>=2}
 		inputs
 			x : [N]
@@ -54,7 +26,6 @@ package tests.basic.FFT {
 		when {:N<=2} let
 			(y) = DFT[N](x);
 		when {:N>2 and N%2=0} let
-		
 			//odd-even permutation
 			p[k,i] = case {
 				{:k=0} : x[2i];
