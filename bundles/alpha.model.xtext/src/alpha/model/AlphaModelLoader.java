@@ -29,6 +29,7 @@ import com.google.inject.Injector;
 
 import alpha.model.exception.AlphaIssueException;
 import alpha.model.issue.AlphaIssue;
+import alpha.model.util.Show;
 
 /**
  * Class with static methods for interfacing with the textual representation of
@@ -68,6 +69,7 @@ public class AlphaModelLoader {
 		
 		List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(toplevel);
 		if (!issues.isEmpty()) {
+			System.err.println(Show.print(toplevel));
 			throw new AlphaIssueException(issues);
 		}
 

@@ -2959,102 +2959,108 @@ ruleAISLString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToke
 			newLeafNode(kw, grammarAccess.getAISLStringAccess().getPercentSignKeyword_6());
 		}
 		    |
+		kw='floor'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getFloorKeyword_7());
+		}
+		    |
 		kw='and'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getAndKeyword_7());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getAndKeyword_8());
 		}
 		    |
 		kw='or'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getOrKeyword_8());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getOrKeyword_9());
 		}
 		    |
 		kw='['
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getLeftSquareBracketKeyword_9());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getLeftSquareBracketKeyword_10());
 		}
 		    |
 		kw=']'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getRightSquareBracketKeyword_10());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getRightSquareBracketKeyword_11());
 		}
 		    |
 		kw='('
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getLeftParenthesisKeyword_11());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getLeftParenthesisKeyword_12());
 		}
 		    |
 		kw=')'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getRightParenthesisKeyword_12());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getRightParenthesisKeyword_13());
 		}
 		    |
 		kw=','
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getCommaKeyword_13());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getCommaKeyword_14());
 		}
 		    |
 		kw=':'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getColonKeyword_14());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getColonKeyword_15());
 		}
 		    |
 		kw='&'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getAmpersandKeyword_15());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getAmpersandKeyword_16());
 		}
 		    |
 		kw='|'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getVerticalLineKeyword_16());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getVerticalLineKeyword_17());
 		}
 		    |
-		this_WS_17=RULE_WS
+		this_WS_18=RULE_WS
 		{
-			$current.merge(this_WS_17);
+			$current.merge(this_WS_18);
 		}
 		{
-			newLeafNode(this_WS_17, grammarAccess.getAISLStringAccess().getWSTerminalRuleCall_17());
+			newLeafNode(this_WS_18, grammarAccess.getAISLStringAccess().getWSTerminalRuleCall_18());
 		}
 		    |
 		kw='>='
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getGreaterThanSignEqualsSignKeyword_18());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getGreaterThanSignEqualsSignKeyword_19());
 		}
 		    |
 		kw='>'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getGreaterThanSignKeyword_19());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getGreaterThanSignKeyword_20());
 		}
 		    |
 		kw='='
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getEqualsSignKeyword_20());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getEqualsSignKeyword_21());
 		}
 		    |
 		kw='<'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getLessThanSignKeyword_21());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getLessThanSignKeyword_22());
 		}
 		    |
 		kw='<='
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLStringAccess().getLessThanSignEqualsSignKeyword_22());
+			newLeafNode(kw, grammarAccess.getAISLStringAccess().getLessThanSignEqualsSignKeyword_23());
 		}
 	)*
 ;
@@ -3130,24 +3136,30 @@ ruleAISLExpression returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRule
 			newLeafNode(kw, grammarAccess.getAISLExpressionAccess().getPercentSignKeyword_7());
 		}
 		    |
+		kw='floor'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getAISLExpressionAccess().getFloorKeyword_8());
+		}
+		    |
 		kw='('
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLExpressionAccess().getLeftParenthesisKeyword_8());
+			newLeafNode(kw, grammarAccess.getAISLExpressionAccess().getLeftParenthesisKeyword_9());
 		}
 		    |
 		kw=')'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLExpressionAccess().getRightParenthesisKeyword_9());
+			newLeafNode(kw, grammarAccess.getAISLExpressionAccess().getRightParenthesisKeyword_10());
 		}
 		    |
-		this_WS_10=RULE_WS
+		this_WS_11=RULE_WS
 		{
-			$current.merge(this_WS_10);
+			$current.merge(this_WS_11);
 		}
 		{
-			newLeafNode(this_WS_10, grammarAccess.getAISLExpressionAccess().getWSTerminalRuleCall_10());
+			newLeafNode(this_WS_11, grammarAccess.getAISLExpressionAccess().getWSTerminalRuleCall_11());
 		}
 	)+
 ;
@@ -3285,15 +3297,15 @@ ruleAISLExpressionLiteral returns [AntlrDatatypeRuleToken current=new AntlrDatat
 	)
 ;
 
-// Entry rule entryRuleAISLExpressionOperator
-entryRuleAISLExpressionOperator returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getAISLExpressionOperatorRule()); }
-	iv_ruleAISLExpressionOperator=ruleAISLExpressionOperator
-	{ $current=$iv_ruleAISLExpressionOperator.current.getText(); }
+// Entry rule entryRuleAISLAdditiveOperator
+entryRuleAISLAdditiveOperator returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getAISLAdditiveOperatorRule()); }
+	iv_ruleAISLAdditiveOperator=ruleAISLAdditiveOperator
+	{ $current=$iv_ruleAISLAdditiveOperator.current.getText(); }
 	EOF;
 
-// Rule AISLExpressionOperator
-ruleAISLExpressionOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+// Rule AISLAdditiveOperator
+ruleAISLAdditiveOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 @init {
 	enterRule();
 }
@@ -3301,42 +3313,76 @@ ruleAISLExpressionOperator returns [AntlrDatatypeRuleToken current=new AntlrData
 	leaveRule();
 }:
 	(
-		kw='='
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLExpressionOperatorAccess().getEqualsSignKeyword_0());
-		}
-		    |
 		kw='+'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLExpressionOperatorAccess().getPlusSignKeyword_1());
+			newLeafNode(kw, grammarAccess.getAISLAdditiveOperatorAccess().getPlusSignKeyword_0());
 		}
 		    |
 		kw='-'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLExpressionOperatorAccess().getHyphenMinusKeyword_2());
+			newLeafNode(kw, grammarAccess.getAISLAdditiveOperatorAccess().getHyphenMinusKeyword_1());
 		}
-		    |
+	)
+;
+
+// Entry rule entryRuleAISLMultiplicativeOperator
+entryRuleAISLMultiplicativeOperator returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getAISLMultiplicativeOperatorRule()); }
+	iv_ruleAISLMultiplicativeOperator=ruleAISLMultiplicativeOperator
+	{ $current=$iv_ruleAISLMultiplicativeOperator.current.getText(); }
+	EOF;
+
+// Rule AISLMultiplicativeOperator
+ruleAISLMultiplicativeOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
 		kw='*'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLExpressionOperatorAccess().getAsteriskKeyword_3());
+			newLeafNode(kw, grammarAccess.getAISLMultiplicativeOperatorAccess().getAsteriskKeyword_0());
 		}
 		    |
 		kw='/'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLExpressionOperatorAccess().getSolidusKeyword_4());
+			newLeafNode(kw, grammarAccess.getAISLMultiplicativeOperatorAccess().getSolidusKeyword_1());
 		}
 		    |
 		kw='%'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getAISLExpressionOperatorAccess().getPercentSignKeyword_5());
+			newLeafNode(kw, grammarAccess.getAISLMultiplicativeOperatorAccess().getPercentSignKeyword_2());
 		}
 	)
+;
+
+// Entry rule entryRuleAISLRelationalOperator
+entryRuleAISLRelationalOperator returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getAISLRelationalOperatorRule()); }
+	iv_ruleAISLRelationalOperator=ruleAISLRelationalOperator
+	{ $current=$iv_ruleAISLRelationalOperator.current.getText(); }
+	EOF;
+
+// Rule AISLRelationalOperator
+ruleAISLRelationalOperator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	kw='='
+	{
+		$current.merge(kw);
+		newLeafNode(kw, grammarAccess.getAISLRelationalOperatorAccess().getEqualsSignKeyword());
+	}
 ;
 
 // Entry rule entryRuleAISLExpressionList
@@ -3410,36 +3456,45 @@ ruleAlphaFunctionTerminalExpression returns [EObject current=null]
 			afterParserOrEnumRuleCall();
 		}
 		    |
+		{
+			newCompositeNode(grammarAccess.getAlphaFunctionTerminalExpressionAccess().getAlphaFunctionFloorParserRuleCall_1());
+		}
+		this_AlphaFunctionFloor_1=ruleAlphaFunctionFloor
+		{
+			$current = $this_AlphaFunctionFloor_1.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
 		(
-			otherlv_1='('
+			otherlv_2='('
 			{
-				newLeafNode(otherlv_1, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getLeftParenthesisKeyword_1_0());
+				newLeafNode(otherlv_2, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getLeftParenthesisKeyword_2_0());
 			}
 			{
-				newCompositeNode(grammarAccess.getAlphaFunctionTerminalExpressionAccess().getAlphaFunctionBinaryExpressionParserRuleCall_1_1());
+				newCompositeNode(grammarAccess.getAlphaFunctionTerminalExpressionAccess().getAlphaFunctionAdditiveBinaryExpressionParserRuleCall_2_1());
 			}
-			this_AlphaFunctionBinaryExpression_2=ruleAlphaFunctionBinaryExpression
+			this_AlphaFunctionAdditiveBinaryExpression_3=ruleAlphaFunctionAdditiveBinaryExpression
 			{
-				$current = $this_AlphaFunctionBinaryExpression_2.current;
+				$current = $this_AlphaFunctionAdditiveBinaryExpression_3.current;
 				afterParserOrEnumRuleCall();
 			}
-			otherlv_3=')'
+			otherlv_4=')'
 			{
-				newLeafNode(otherlv_3, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getRightParenthesisKeyword_1_2());
+				newLeafNode(otherlv_4, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getRightParenthesisKeyword_2_2());
 			}
 		)
 	)
 ;
 
-// Entry rule entryRuleAlphaFunctionBinaryExpression
-entryRuleAlphaFunctionBinaryExpression returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getAlphaFunctionBinaryExpressionRule()); }
-	iv_ruleAlphaFunctionBinaryExpression=ruleAlphaFunctionBinaryExpression
-	{ $current=$iv_ruleAlphaFunctionBinaryExpression.current; }
+// Entry rule entryRuleAlphaFunctionAdditiveBinaryExpression
+entryRuleAlphaFunctionAdditiveBinaryExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getAlphaFunctionAdditiveBinaryExpressionRule()); }
+	iv_ruleAlphaFunctionAdditiveBinaryExpression=ruleAlphaFunctionAdditiveBinaryExpression
+	{ $current=$iv_ruleAlphaFunctionAdditiveBinaryExpression.current; }
 	EOF;
 
-// Rule AlphaFunctionBinaryExpression
-ruleAlphaFunctionBinaryExpression returns [EObject current=null]
+// Rule AlphaFunctionAdditiveBinaryExpression
+ruleAlphaFunctionAdditiveBinaryExpression returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -3448,7 +3503,155 @@ ruleAlphaFunctionBinaryExpression returns [EObject current=null]
 }:
 	(
 		{
-			newCompositeNode(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getAlphaFunctionTerminalExpressionParserRuleCall_0());
+			newCompositeNode(grammarAccess.getAlphaFunctionAdditiveBinaryExpressionAccess().getAlphaFunctionMultiplicativeBinaryExpressionParserRuleCall_0());
+		}
+		this_AlphaFunctionMultiplicativeBinaryExpression_0=ruleAlphaFunctionMultiplicativeBinaryExpression
+		{
+			$current = $this_AlphaFunctionMultiplicativeBinaryExpression_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		(
+			(
+				{
+					$current = forceCreateModelElementAndSet(
+						grammarAccess.getAlphaFunctionAdditiveBinaryExpressionAccess().getAlphaFunctionBinaryExpressionLeftAction_1_0(),
+						$current);
+				}
+			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getAlphaFunctionAdditiveBinaryExpressionAccess().getOperatorAISLAdditiveOperatorParserRuleCall_1_1_0());
+					}
+					lv_operator_2_0=ruleAISLAdditiveOperator
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getAlphaFunctionAdditiveBinaryExpressionRule());
+						}
+						set(
+							$current,
+							"operator",
+							lv_operator_2_0,
+							"alpha.model.Alpha.AISLAdditiveOperator");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getAlphaFunctionAdditiveBinaryExpressionAccess().getRightAlphaFunctionMultiplicativeBinaryExpressionParserRuleCall_1_2_0());
+					}
+					lv_right_3_0=ruleAlphaFunctionMultiplicativeBinaryExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getAlphaFunctionAdditiveBinaryExpressionRule());
+						}
+						set(
+							$current,
+							"right",
+							lv_right_3_0,
+							"alpha.model.Alpha.AlphaFunctionMultiplicativeBinaryExpression");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)*
+	)
+;
+
+// Entry rule entryRuleAlphaFunctionMultiplicativeBinaryExpression
+entryRuleAlphaFunctionMultiplicativeBinaryExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getAlphaFunctionMultiplicativeBinaryExpressionRule()); }
+	iv_ruleAlphaFunctionMultiplicativeBinaryExpression=ruleAlphaFunctionMultiplicativeBinaryExpression
+	{ $current=$iv_ruleAlphaFunctionMultiplicativeBinaryExpression.current; }
+	EOF;
+
+// Rule AlphaFunctionMultiplicativeBinaryExpression
+ruleAlphaFunctionMultiplicativeBinaryExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getAlphaFunctionMultiplicativeBinaryExpressionAccess().getAlphaFunctionRelationalBinaryExpressionParserRuleCall_0());
+		}
+		this_AlphaFunctionRelationalBinaryExpression_0=ruleAlphaFunctionRelationalBinaryExpression
+		{
+			$current = $this_AlphaFunctionRelationalBinaryExpression_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		(
+			(
+				{
+					$current = forceCreateModelElementAndSet(
+						grammarAccess.getAlphaFunctionMultiplicativeBinaryExpressionAccess().getAlphaFunctionBinaryExpressionLeftAction_1_0(),
+						$current);
+				}
+			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getAlphaFunctionMultiplicativeBinaryExpressionAccess().getOperatorAISLMultiplicativeOperatorParserRuleCall_1_1_0());
+					}
+					lv_operator_2_0=ruleAISLMultiplicativeOperator
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getAlphaFunctionMultiplicativeBinaryExpressionRule());
+						}
+						set(
+							$current,
+							"operator",
+							lv_operator_2_0,
+							"alpha.model.Alpha.AISLMultiplicativeOperator");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getAlphaFunctionMultiplicativeBinaryExpressionAccess().getRightAlphaFunctionRelationalBinaryExpressionParserRuleCall_1_2_0());
+					}
+					lv_right_3_0=ruleAlphaFunctionRelationalBinaryExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getAlphaFunctionMultiplicativeBinaryExpressionRule());
+						}
+						set(
+							$current,
+							"right",
+							lv_right_3_0,
+							"alpha.model.Alpha.AlphaFunctionRelationalBinaryExpression");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)*
+	)
+;
+
+// Entry rule entryRuleAlphaFunctionRelationalBinaryExpression
+entryRuleAlphaFunctionRelationalBinaryExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getAlphaFunctionRelationalBinaryExpressionRule()); }
+	iv_ruleAlphaFunctionRelationalBinaryExpression=ruleAlphaFunctionRelationalBinaryExpression
+	{ $current=$iv_ruleAlphaFunctionRelationalBinaryExpression.current; }
+	EOF;
+
+// Rule AlphaFunctionRelationalBinaryExpression
+ruleAlphaFunctionRelationalBinaryExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getAlphaFunctionRelationalBinaryExpressionAccess().getAlphaFunctionTerminalExpressionParserRuleCall_0());
 		}
 		this_AlphaFunctionTerminalExpression_0=ruleAlphaFunctionTerminalExpression
 		{
@@ -3459,25 +3662,25 @@ ruleAlphaFunctionBinaryExpression returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElementAndSet(
-						grammarAccess.getAlphaFunctionBinaryExpressionAccess().getAlphaFunctionBinaryExpressionLeftAction_1_0(),
+						grammarAccess.getAlphaFunctionRelationalBinaryExpressionAccess().getAlphaFunctionBinaryExpressionLeftAction_1_0(),
 						$current);
 				}
 			)
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getOperatorAISLExpressionOperatorParserRuleCall_1_1_0());
+						newCompositeNode(grammarAccess.getAlphaFunctionRelationalBinaryExpressionAccess().getOperatorAISLRelationalOperatorParserRuleCall_1_1_0());
 					}
-					lv_operator_2_0=ruleAISLExpressionOperator
+					lv_operator_2_0=ruleAISLRelationalOperator
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getAlphaFunctionBinaryExpressionRule());
+							$current = createModelElementForParent(grammarAccess.getAlphaFunctionRelationalBinaryExpressionRule());
 						}
 						set(
 							$current,
 							"operator",
 							lv_operator_2_0,
-							"alpha.model.Alpha.AISLExpressionOperator");
+							"alpha.model.Alpha.AISLRelationalOperator");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -3485,12 +3688,12 @@ ruleAlphaFunctionBinaryExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getRightAlphaFunctionTerminalExpressionParserRuleCall_1_2_0());
+						newCompositeNode(grammarAccess.getAlphaFunctionRelationalBinaryExpressionAccess().getRightAlphaFunctionTerminalExpressionParserRuleCall_1_2_0());
 					}
 					lv_right_3_0=ruleAlphaFunctionTerminalExpression
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getAlphaFunctionBinaryExpressionRule());
+							$current = createModelElementForParent(grammarAccess.getAlphaFunctionRelationalBinaryExpressionRule());
 						}
 						set(
 							$current,
@@ -3502,6 +3705,63 @@ ruleAlphaFunctionBinaryExpression returns [EObject current=null]
 				)
 			)
 		)*
+	)
+;
+
+// Entry rule entryRuleAlphaFunctionFloor
+entryRuleAlphaFunctionFloor returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getAlphaFunctionFloorRule()); }
+	iv_ruleAlphaFunctionFloor=ruleAlphaFunctionFloor
+	{ $current=$iv_ruleAlphaFunctionFloor.current; }
+	EOF;
+
+// Rule AlphaFunctionFloor
+ruleAlphaFunctionFloor returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getAlphaFunctionFloorAccess().getAlphaFunctionFloorAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='floor'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getAlphaFunctionFloorAccess().getFloorKeyword_1());
+		}
+		otherlv_2='('
+		{
+			newLeafNode(otherlv_2, grammarAccess.getAlphaFunctionFloorAccess().getLeftParenthesisKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getAlphaFunctionFloorAccess().getExprAlphaFunctionExpressionParserRuleCall_3_0());
+				}
+				lv_expr_3_0=ruleAlphaFunctionExpression
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getAlphaFunctionFloorRule());
+					}
+					set(
+						$current,
+						"expr",
+						lv_expr_3_0,
+						"alpha.model.Alpha.AlphaFunctionExpression");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4=')'
+		{
+			newLeafNode(otherlv_4, grammarAccess.getAlphaFunctionFloorAccess().getRightParenthesisKeyword_4());
+		}
 	)
 ;
 
@@ -3566,11 +3826,11 @@ ruleAlphaFunctionExpression returns [EObject current=null]
 	leaveRule();
 }:
 	{
-		newCompositeNode(grammarAccess.getAlphaFunctionExpressionAccess().getAlphaFunctionBinaryExpressionParserRuleCall());
+		newCompositeNode(grammarAccess.getAlphaFunctionExpressionAccess().getAlphaFunctionAdditiveBinaryExpressionParserRuleCall());
 	}
-	this_AlphaFunctionBinaryExpression_0=ruleAlphaFunctionBinaryExpression
+	this_AlphaFunctionAdditiveBinaryExpression_0=ruleAlphaFunctionAdditiveBinaryExpression
 	{
-		$current = $this_AlphaFunctionBinaryExpression_0.current;
+		$current = $this_AlphaFunctionAdditiveBinaryExpression_0.current;
 		afterParserOrEnumRuleCall();
 	}
 ;

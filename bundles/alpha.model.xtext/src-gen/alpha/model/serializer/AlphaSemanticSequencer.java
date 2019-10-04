@@ -7,6 +7,7 @@ import alpha.model.AffineFuzzyVariableUse;
 import alpha.model.AlphaConstant;
 import alpha.model.AlphaFunction;
 import alpha.model.AlphaFunctionBinaryExpression;
+import alpha.model.AlphaFunctionFloor;
 import alpha.model.AlphaFunctionLiteral;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
@@ -99,7 +100,10 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				sequence_AlphaFunction(context, (AlphaFunction) semanticObject); 
 				return; 
 			case ModelPackage.ALPHA_FUNCTION_BINARY_EXPRESSION:
-				sequence_AlphaFunctionBinaryExpression(context, (AlphaFunctionBinaryExpression) semanticObject); 
+				sequence_AlphaFunctionAdditiveBinaryExpression_AlphaFunctionMultiplicativeBinaryExpression_AlphaFunctionRelationalBinaryExpression(context, (AlphaFunctionBinaryExpression) semanticObject); 
+				return; 
+			case ModelPackage.ALPHA_FUNCTION_FLOOR:
+				sequence_AlphaFunctionFloor(context, (AlphaFunctionFloor) semanticObject); 
 				return; 
 			case ModelPackage.ALPHA_FUNCTION_LITERAL:
 				sequence_AlphaFunctionLiteral(context, (AlphaFunctionLiteral) semanticObject); 
@@ -380,26 +384,60 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	/**
 	 * Contexts:
 	 *     AlphaFunctionTerminalExpression returns AlphaFunctionBinaryExpression
-	 *     AlphaFunctionBinaryExpression returns AlphaFunctionBinaryExpression
-	 *     AlphaFunctionBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionBinaryExpression
+	 *     AlphaFunctionAdditiveBinaryExpression returns AlphaFunctionBinaryExpression
+	 *     AlphaFunctionAdditiveBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionBinaryExpression
+	 *     AlphaFunctionMultiplicativeBinaryExpression returns AlphaFunctionBinaryExpression
+	 *     AlphaFunctionMultiplicativeBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionBinaryExpression
+	 *     AlphaFunctionRelationalBinaryExpression returns AlphaFunctionBinaryExpression
+	 *     AlphaFunctionRelationalBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionBinaryExpression
 	 *     AlphaFunctionExpression returns AlphaFunctionBinaryExpression
 	 *
 	 * Constraint:
-	 *     (left=AlphaFunctionBinaryExpression_AlphaFunctionBinaryExpression_1_0 operator=AISLExpressionOperator right=AlphaFunctionTerminalExpression)
+	 *     (
+	 *         (
+	 *             left=AlphaFunctionAdditiveBinaryExpression_AlphaFunctionBinaryExpression_1_0 
+	 *             operator=AISLAdditiveOperator 
+	 *             right=AlphaFunctionMultiplicativeBinaryExpression
+	 *         ) | 
+	 *         (
+	 *             left=AlphaFunctionMultiplicativeBinaryExpression_AlphaFunctionBinaryExpression_1_0 
+	 *             operator=AISLMultiplicativeOperator 
+	 *             right=AlphaFunctionRelationalBinaryExpression
+	 *         ) | 
+	 *         (
+	 *             left=AlphaFunctionRelationalBinaryExpression_AlphaFunctionBinaryExpression_1_0 
+	 *             operator=AISLRelationalOperator 
+	 *             right=AlphaFunctionTerminalExpression
+	 *         )
+	 *     )
 	 */
-	protected void sequence_AlphaFunctionBinaryExpression(ISerializationContext context, AlphaFunctionBinaryExpression semanticObject) {
+	protected void sequence_AlphaFunctionAdditiveBinaryExpression_AlphaFunctionMultiplicativeBinaryExpression_AlphaFunctionRelationalBinaryExpression(ISerializationContext context, AlphaFunctionBinaryExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AlphaFunctionTerminalExpression returns AlphaFunctionFloor
+	 *     AlphaFunctionAdditiveBinaryExpression returns AlphaFunctionFloor
+	 *     AlphaFunctionAdditiveBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionFloor
+	 *     AlphaFunctionMultiplicativeBinaryExpression returns AlphaFunctionFloor
+	 *     AlphaFunctionMultiplicativeBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionFloor
+	 *     AlphaFunctionRelationalBinaryExpression returns AlphaFunctionFloor
+	 *     AlphaFunctionRelationalBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionFloor
+	 *     AlphaFunctionFloor returns AlphaFunctionFloor
+	 *     AlphaFunctionExpression returns AlphaFunctionFloor
+	 *
+	 * Constraint:
+	 *     expr=AlphaFunctionExpression
+	 */
+	protected void sequence_AlphaFunctionFloor(ISerializationContext context, AlphaFunctionFloor semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__LEFT));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__OPERATOR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__OPERATOR));
-			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_BINARY_EXPRESSION__RIGHT));
+			if (transientValues.isValueTransient(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_FLOOR__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ModelPackage.Literals.ALPHA_FUNCTION_FLOOR__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getAlphaFunctionBinaryExpressionLeftAction_1_0(), semanticObject.getLeft());
-		feeder.accept(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getOperatorAISLExpressionOperatorParserRuleCall_1_1_0(), semanticObject.getOperator());
-		feeder.accept(grammarAccess.getAlphaFunctionBinaryExpressionAccess().getRightAlphaFunctionTerminalExpressionParserRuleCall_1_2_0(), semanticObject.getRight());
+		feeder.accept(grammarAccess.getAlphaFunctionFloorAccess().getExprAlphaFunctionExpressionParserRuleCall_3_0(), semanticObject.getExpr());
 		feeder.finish();
 	}
 	
@@ -407,8 +445,12 @@ public class AlphaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	/**
 	 * Contexts:
 	 *     AlphaFunctionTerminalExpression returns AlphaFunctionLiteral
-	 *     AlphaFunctionBinaryExpression returns AlphaFunctionLiteral
-	 *     AlphaFunctionBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionLiteral
+	 *     AlphaFunctionAdditiveBinaryExpression returns AlphaFunctionLiteral
+	 *     AlphaFunctionAdditiveBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionLiteral
+	 *     AlphaFunctionMultiplicativeBinaryExpression returns AlphaFunctionLiteral
+	 *     AlphaFunctionMultiplicativeBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionLiteral
+	 *     AlphaFunctionRelationalBinaryExpression returns AlphaFunctionLiteral
+	 *     AlphaFunctionRelationalBinaryExpression.AlphaFunctionBinaryExpression_1_0 returns AlphaFunctionLiteral
 	 *     AlphaFunctionLiteral returns AlphaFunctionLiteral
 	 *     AlphaFunctionExpression returns AlphaFunctionLiteral
 	 *

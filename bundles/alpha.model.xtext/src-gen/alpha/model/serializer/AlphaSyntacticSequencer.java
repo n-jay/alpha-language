@@ -21,8 +21,8 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AlphaGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a;
-	protected AbstractElementAlias match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p;
+	protected AbstractElementAlias match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_a;
+	protected AbstractElementAlias match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_p;
 	protected AbstractElementAlias match_AlphaTerminalExpression_AlphaUnaryTerminalExpression___LeftParenthesisKeyword_0_0_LeftParenthesisKeyword_0_0_a__q;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p;
@@ -37,8 +37,8 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AlphaGrammarAccess) access;
-		match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a = new TokenAlias(true, true, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getLeftParenthesisKeyword_1_0());
-		match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p = new TokenAlias(true, false, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getLeftParenthesisKeyword_1_0());
+		match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getLeftParenthesisKeyword_2_0());
+		match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_p = new TokenAlias(true, false, grammarAccess.getAlphaFunctionTerminalExpressionAccess().getLeftParenthesisKeyword_2_0());
 		match_AlphaTerminalExpression_AlphaUnaryTerminalExpression___LeftParenthesisKeyword_0_0_LeftParenthesisKeyword_0_0_a__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAlphaUnaryTerminalExpressionAccess().getLeftParenthesisKeyword_0_0()), new TokenAlias(true, true, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0()));
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
@@ -63,10 +63,10 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a.equals(syntax))
-				emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p.equals(syntax))
-				emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			if (match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_a.equals(syntax))
+				emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_p.equals(syntax))
+				emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_AlphaTerminalExpression_AlphaUnaryTerminalExpression___LeftParenthesisKeyword_0_0_LeftParenthesisKeyword_0_0_a__q.equals(syntax))
 				emit_AlphaTerminalExpression_AlphaUnaryTerminalExpression___LeftParenthesisKeyword_0_0_LeftParenthesisKeyword_0_0_a__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a.equals(syntax))
@@ -96,10 +96,11 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) 'floor' '(' expr=AlphaFunctionExpression
 	 *     (rule start) (ambiguity) value=AISLExpressionLiteral
 	 *     (rule start) (ambiguity) {AlphaFunctionBinaryExpression.left=}
 	 */
-	protected void emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -110,7 +111,7 @@ public class AlphaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) {AlphaFunctionBinaryExpression.left=}
 	 */
-	protected void emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_1_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AlphaFunctionTerminalExpression_LeftParenthesisKeyword_2_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

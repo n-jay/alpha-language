@@ -176,10 +176,10 @@ AISLPWQPolynomial:
 ;
 
 AISLString:
-	(IndexName|INT|'+'|'-'|'*'|'/'|'%'|'and'|'or'|'['|']'|'('|')'|','|':'|'&'|'|'|WS|'>='|'>'|'='|'<'|'<=')*;
+	(IndexName|INT|'+'|'-'|'*'|'/'|'%'|'floor'|'and'|'or'|'['|']'|'('|')'|','|':'|'&'|'|'|WS|'>='|'>'|'='|'<'|'<=')*;
 	
 AISLExpression:
-	(IndexName|INT|'='|'+'|'-'|'*'|'/'|'%'|'('|')'|WS)+;
+	(IndexName|INT|'='|'+'|'-'|'*'|'/'|'%'|'floor'|'('|')'|WS)+;
 
 AISLPolynomialExpression:
 	(IndexName|INT|'+'|'-'|'*'|'/'|'('|')'|'^')+;
@@ -187,9 +187,20 @@ AISLPolynomialExpression:
 AISLExpressionLiteral:
 	'-'?(IndexName|INT|WS)+;
 AISLExpressionOperator:
-	'='|'+'|'-'|'*'|'/'|'%'
+	AISLAdditiveOperator | 
+	AISLMultiplicativeOperator |
+	AISLRelationalOperator
 ;
-	
+AISLAdditiveOperator:
+	'+'|'-'
+;
+AISLMultiplicativeOperator:
+	'*'|'/'|'%'
+;
+AISLRelationalOperator:
+	'='
+;
+
 AISLExpressionList:
 	(AISLExpression (',' AISLExpression)*)?;
 
@@ -199,11 +210,21 @@ AISLExpressionList:
 
 AlphaFunctionTerminalExpression returns AlphaFunctionExpression:
 	AlphaFunctionLiteral |
-	'(' AlphaFunctionBinaryExpression ')'
+	AlphaFunctionFloor | 
+	'(' AlphaFunctionAdditiveBinaryExpression ')'
 ;
 
-AlphaFunctionBinaryExpression returns AlphaFunctionExpression:
-	AlphaFunctionTerminalExpression ({AlphaFunctionBinaryExpression.left=current} operator=AISLExpressionOperator right=AlphaFunctionTerminalExpression)*
+AlphaFunctionAdditiveBinaryExpression returns AlphaFunctionExpression:
+	AlphaFunctionMultiplicativeBinaryExpression ({AlphaFunctionBinaryExpression.left=current} operator=AISLAdditiveOperator right=AlphaFunctionMultiplicativeBinaryExpression)*
+;
+AlphaFunctionMultiplicativeBinaryExpression returns AlphaFunctionExpression:
+	AlphaFunctionRelationalBinaryExpression ({AlphaFunctionBinaryExpression.left=current} operator=AISLMultiplicativeOperator right=AlphaFunctionRelationalBinaryExpression)*
+;
+AlphaFunctionRelationalBinaryExpression returns AlphaFunctionExpression:
+	AlphaFunctionTerminalExpression ({AlphaFunctionBinaryExpression.left=current} operator=AISLRelationalOperator right=AlphaFunctionTerminalExpression)*
+;
+AlphaFunctionFloor returns AlphaFunctionExpression:
+	{AlphaFunctionFloor} 'floor' '(' expr=AlphaFunctionExpression ')'
 ;
 
 AlphaFunctionLiteral returns AlphaFunctionExpression:
@@ -211,7 +232,7 @@ AlphaFunctionLiteral returns AlphaFunctionExpression:
 ;
 
 AlphaFunctionExpression:
-	AlphaFunctionBinaryExpression
+	AlphaFunctionAdditiveBinaryExpression
 ;
 
 AlphaFunction:
