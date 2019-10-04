@@ -791,6 +791,13 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ModelPackage.ALPHA_FUNCTION_FLOOR: {
+				AlphaFunctionFloor alphaFunctionFloor = (AlphaFunctionFloor)theEObject;
+				T result = caseAlphaFunctionFloor(alphaFunctionFloor);
+				if (result == null) result = caseAlphaFunctionExpression(alphaFunctionFloor);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -1947,6 +1954,21 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAlphaFunctionLiteral(AlphaFunctionLiteral object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Alpha Function Floor</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Alpha Function Floor</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAlphaFunctionFloor(AlphaFunctionFloor object) {
 		return null;
 	}
 

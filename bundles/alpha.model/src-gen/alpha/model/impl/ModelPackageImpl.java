@@ -14,6 +14,7 @@ import alpha.model.AlphaExpressionVisitor;
 import alpha.model.AlphaFunction;
 import alpha.model.AlphaFunctionBinaryExpression;
 import alpha.model.AlphaFunctionExpression;
+import alpha.model.AlphaFunctionFloor;
 import alpha.model.AlphaFunctionLiteral;
 import alpha.model.AlphaNode;
 import alpha.model.AlphaPackage;
@@ -647,6 +648,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass alphaFunctionLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alphaFunctionFloorEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2629,6 +2637,24 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAlphaFunctionFloor() {
+		return alphaFunctionFloorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAlphaFunctionFloor_Expr() {
+		return (EReference)alphaFunctionFloorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getUNARY_OP() {
 		return unarY_OPEEnum;
 	}
@@ -3098,6 +3124,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		alphaFunctionLiteralEClass = createEClass(ALPHA_FUNCTION_LITERAL);
 		createEAttribute(alphaFunctionLiteralEClass, ALPHA_FUNCTION_LITERAL__VALUE);
 
+		alphaFunctionFloorEClass = createEClass(ALPHA_FUNCTION_FLOOR);
+		createEReference(alphaFunctionFloorEClass, ALPHA_FUNCTION_FLOOR__EXPR);
+
 		// Create enums
 		unarY_OPEEnum = createEEnum(UNARY_OP);
 		binarY_OPEEnum = createEEnum(BINARY_OP);
@@ -3233,6 +3262,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		definedObjectEClass.getESuperTypes().add(this.getCalculatorExpression());
 		alphaFunctionBinaryExpressionEClass.getESuperTypes().add(this.getAlphaFunctionExpression());
 		alphaFunctionLiteralEClass.getESuperTypes().add(this.getAlphaFunctionExpression());
+		alphaFunctionFloorEClass.getESuperTypes().add(this.getAlphaFunctionExpression());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(alphaNodeEClass, AlphaNode.class, "AlphaNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4319,6 +4349,11 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getAlphaFunctionLiteral_Value(), this.getString(), "value", null, 0, 1, AlphaFunctionLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(alphaFunctionLiteralEClass, this.getString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(alphaFunctionFloorEClass, AlphaFunctionFloor.class, "AlphaFunctionFloor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAlphaFunctionFloor_Expr(), this.getAlphaFunctionExpression(), null, "expr", null, 0, 1, AlphaFunctionFloor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(alphaFunctionFloorEClass, this.getString(), "getISLString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(unarY_OPEEnum, alpha.model.UNARY_OP.class, "UNARY_OP");

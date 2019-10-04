@@ -127,6 +127,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.ALPHA_FUNCTION: return createAlphaFunction();
 			case ModelPackage.ALPHA_FUNCTION_BINARY_EXPRESSION: return createAlphaFunctionBinaryExpression();
 			case ModelPackage.ALPHA_FUNCTION_LITERAL: return createAlphaFunctionLiteral();
+			case ModelPackage.ALPHA_FUNCTION_FLOOR: return createAlphaFunctionFloor();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -822,6 +823,16 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	public AlphaFunctionLiteral createAlphaFunctionLiteral() {
 		AlphaFunctionLiteralImpl alphaFunctionLiteral = new AlphaFunctionLiteralImpl();
 		return alphaFunctionLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaFunctionFloor createAlphaFunctionFloor() {
+		AlphaFunctionFloorImpl alphaFunctionFloor = new AlphaFunctionFloorImpl();
+		return alphaFunctionFloor;
 	}
 
 	/**

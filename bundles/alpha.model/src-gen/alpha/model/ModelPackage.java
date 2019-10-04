@@ -4419,6 +4419,34 @@ public interface ModelPackage extends EPackage {
 	int ALPHA_FUNCTION_LITERAL_FEATURE_COUNT = ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link alpha.model.impl.AlphaFunctionFloorImpl <em>Alpha Function Floor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.model.impl.AlphaFunctionFloorImpl
+	 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunctionFloor()
+	 * @generated
+	 */
+	int ALPHA_FUNCTION_FLOOR = 77;
+
+	/**
+	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_FLOOR__EXPR = ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Alpha Function Floor</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALPHA_FUNCTION_FLOOR_FEATURE_COUNT = ALPHA_FUNCTION_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link alpha.model.UNARY_OP <em>UNARY OP</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4426,7 +4454,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getUNARY_OP()
 	 * @generated
 	 */
-	int UNARY_OP = 77;
+	int UNARY_OP = 78;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.BINARY_OP <em>BINARY OP</em>}' enum.
@@ -4436,7 +4464,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getBINARY_OP()
 	 * @generated
 	 */
-	int BINARY_OP = 78;
+	int BINARY_OP = 79;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.REDUCTION_OP <em>REDUCTION OP</em>}' enum.
@@ -4446,7 +4474,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getREDUCTION_OP()
 	 * @generated
 	 */
-	int REDUCTION_OP = 79;
+	int REDUCTION_OP = 80;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.POLY_OBJECT_TYPE <em>POLY OBJECT TYPE</em>}' enum.
@@ -4456,7 +4484,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getPOLY_OBJECT_TYPE()
 	 * @generated
 	 */
-	int POLY_OBJECT_TYPE = 80;
+	int POLY_OBJECT_TYPE = 81;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_UNARY_OP <em>CALCULATOR UNARY OP</em>}' enum.
@@ -4466,7 +4494,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_UNARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_UNARY_OP = 81;
+	int CALCULATOR_UNARY_OP = 82;
 
 	/**
 	 * The meta object id for the '{@link alpha.model.CALCULATOR_BINARY_OP <em>CALCULATOR BINARY OP</em>}' enum.
@@ -4476,7 +4504,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getCALCULATOR_BINARY_OP()
 	 * @generated
 	 */
-	int CALCULATOR_BINARY_OP = 82;
+	int CALCULATOR_BINARY_OP = 83;
 
 	/**
 	 * The meta object id for the '<em>JNI Object</em>' data type.
@@ -4486,7 +4514,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIObject()
 	 * @generated
 	 */
-	int JNI_OBJECT = 83;
+	int JNI_OBJECT = 84;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Set</em>' data type.
@@ -4496,7 +4524,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLSet()
 	 * @generated
 	 */
-	int JNIISL_SET = 84;
+	int JNIISL_SET = 85;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Map</em>' data type.
@@ -4506,7 +4534,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMap()
 	 * @generated
 	 */
-	int JNIISL_MAP = 85;
+	int JNIISL_MAP = 86;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
@@ -4516,7 +4544,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
-	int JNIISL_MULTI_AFF = 86;
+	int JNIISL_MULTI_AFF = 87;
 
 	/**
 	 * The meta object id for the '<em>JNIISLPWQ Polynomial</em>' data type.
@@ -4526,7 +4554,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getJNIISLPWQPolynomial()
 	 * @generated
 	 */
-	int JNIISLPWQ_POLYNOMIAL = 87;
+	int JNIISLPWQ_POLYNOMIAL = 88;
 
 	/**
 	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
@@ -4536,7 +4564,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getISL_FORMAT()
 	 * @generated
 	 */
-	int ISL_FORMAT = 88;
+	int ISL_FORMAT = 89;
 
 	/**
 	 * The meta object id for the '<em>List Variable Expression</em>' data type.
@@ -4546,7 +4574,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getListVariableExpression()
 	 * @generated
 	 */
-	int LIST_VARIABLE_EXPRESSION = 89;
+	int LIST_VARIABLE_EXPRESSION = 90;
 
 	/**
 	 * The meta object id for the '<em>Integer Queue</em>' data type.
@@ -4556,7 +4584,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getIntegerQueue()
 	 * @generated
 	 */
-	int INTEGER_QUEUE = 90;
+	int INTEGER_QUEUE = 91;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -4566,7 +4594,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 91;
+	int STRING = 92;
 
 	/**
 	 * The meta object id for the '<em>int</em>' data type.
@@ -4576,7 +4604,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getint()
 	 * @generated
 	 */
-	int INT = 92;
+	int INT = 93;
 
 	/**
 	 * The meta object id for the '<em>float</em>' data type.
@@ -4586,7 +4614,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getfloat()
 	 * @generated
 	 */
-	int FLOAT = 93;
+	int FLOAT = 94;
 
 	/**
 	 * The meta object id for the '<em>double</em>' data type.
@@ -4596,7 +4624,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getdouble()
 	 * @generated
 	 */
-	int DOUBLE = 94;
+	int DOUBLE = 95;
 
 	/**
 	 * The meta object id for the '<em>boolean</em>' data type.
@@ -4606,7 +4634,7 @@ public interface ModelPackage extends EPackage {
 	 * @see alpha.model.impl.ModelPackageImpl#getboolean()
 	 * @generated
 	 */
-	int BOOLEAN = 95;
+	int BOOLEAN = 96;
 
 
 	/**
@@ -6711,6 +6739,27 @@ public interface ModelPackage extends EPackage {
 	EAttribute getAlphaFunctionLiteral_Value();
 
 	/**
+	 * Returns the meta object for class '{@link alpha.model.AlphaFunctionFloor <em>Alpha Function Floor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Alpha Function Floor</em>'.
+	 * @see alpha.model.AlphaFunctionFloor
+	 * @generated
+	 */
+	EClass getAlphaFunctionFloor();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.model.AlphaFunctionFloor#getExpr <em>Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Expr</em>'.
+	 * @see alpha.model.AlphaFunctionFloor#getExpr()
+	 * @see #getAlphaFunctionFloor()
+	 * @generated
+	 */
+	EReference getAlphaFunctionFloor_Expr();
+
+	/**
 	 * Returns the meta object for enum '{@link alpha.model.UNARY_OP <em>UNARY OP</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8672,6 +8721,24 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ALPHA_FUNCTION_LITERAL__VALUE = eINSTANCE.getAlphaFunctionLiteral_Value();
+
+		/**
+		 * The meta object literal for the '{@link alpha.model.impl.AlphaFunctionFloorImpl <em>Alpha Function Floor</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.model.impl.AlphaFunctionFloorImpl
+		 * @see alpha.model.impl.ModelPackageImpl#getAlphaFunctionFloor()
+		 * @generated
+		 */
+		EClass ALPHA_FUNCTION_FLOOR = eINSTANCE.getAlphaFunctionFloor();
+
+		/**
+		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ALPHA_FUNCTION_FLOOR__EXPR = eINSTANCE.getAlphaFunctionFloor_Expr();
 
 		/**
 		 * The meta object literal for the '{@link alpha.model.UNARY_OP <em>UNARY OP</em>}' enum.

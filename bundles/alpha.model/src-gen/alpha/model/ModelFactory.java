@@ -553,6 +553,15 @@ public interface ModelFactory extends EFactory {
 	AlphaFunctionLiteral createAlphaFunctionLiteral();
 
 	/**
+	 * Returns a new object of class '<em>Alpha Function Floor</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Alpha Function Floor</em>'.
+	 * @generated
+	 */
+	AlphaFunctionFloor createAlphaFunctionFloor();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

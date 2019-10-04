@@ -1331,3 +1331,9 @@ class AlphaFunctionLiteral extends AlphaFunctionExpression {
 	
 	op String getISLString() { value }
 }
+
+class AlphaFunctionFloor extends AlphaFunctionExpression {
+	contains AlphaFunctionExpression expr
+	
+	op String getISLString() { String.format("floor(%s)", expr.ISLString) }
+}
