@@ -73,5 +73,6 @@ package tests.basic.FFT {
 			
 		when {:N%2=1} let
 			//odd N is not handled; initial N must be powers of 2
+			(y) = DFT[N](x);
 	.
 }
