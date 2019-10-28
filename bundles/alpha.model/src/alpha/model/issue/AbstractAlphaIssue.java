@@ -39,7 +39,7 @@ public abstract class AbstractAlphaIssue implements AlphaIssue {
 	
 	@Override
 	public String toString() {
-		return String.format("%s: %s @ %s", type.name(), message, source.eClass());
+		return String.format("%s: %s @ %s", type.name(), message, source.eClass().getName());
 	}
 
 }
