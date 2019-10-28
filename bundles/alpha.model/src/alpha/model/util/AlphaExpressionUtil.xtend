@@ -91,7 +91,7 @@ class AlphaExpressionUtil {
 			if (testNonNullExpressionDomain(getChildrenOfType(child, AlphaExpression))) {
 				val exDom = AlphaUtil.callISLwithErrorHandling(
 					[extendCalleeDomainByInstantiationDomain(instantiationDomain, parent.callParams, calleeVar.domain)],
-					[err|new UnexpectedISLErrorIssue(err, child.eContainer(), child.eContainingFeature())]
+					[err|new UnexpectedISLErrorIssue(err, child, null)]
 				);
 				//The context domain computed as above may contain indices with primes when the same index name is used in two systems.
 				//The index names are renamed to that of expression domain to avoid issues due to naming.

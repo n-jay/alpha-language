@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
@@ -60,9 +59,7 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
   }
   
   private void registerIssue(final String errMsg, final AlphaNode node) {
-    EObject _eContainer = node.eContainer();
-    EStructuralFeature _eContainingFeature = node.eContainingFeature();
-    UnexpectedISLErrorIssue _unexpectedISLErrorIssue = new UnexpectedISLErrorIssue(errMsg, _eContainer, _eContainingFeature);
+    UnexpectedISLErrorIssue _unexpectedISLErrorIssue = new UnexpectedISLErrorIssue(errMsg, node, null);
     this.issues.add(_unexpectedISLErrorIssue);
   }
   

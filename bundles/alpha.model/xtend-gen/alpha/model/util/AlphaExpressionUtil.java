@@ -33,7 +33,6 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 
 /**
@@ -122,9 +121,7 @@ public class AlphaExpressionUtil {
           return AlphaExpressionUtil.extendCalleeDomainByInstantiationDomain(instantiationDomain, parent.getCallParams(), calleeVar.getDomain());
         };
         final Consumer<String> _function_1 = (String err) -> {
-          EObject _eContainer = child.eContainer();
-          EStructuralFeature _eContainingFeature = child.eContainingFeature();
-          new UnexpectedISLErrorIssue(err, _eContainer, _eContainingFeature);
+          new UnexpectedISLErrorIssue(err, child, null);
         };
         final ISLSet exDom = AlphaUtil.<ISLSet>callISLwithErrorHandling(_function, _function_1);
         return AlphaUtil.renameIndices(exDom, child.getExpressionDomain().getIndexNames());

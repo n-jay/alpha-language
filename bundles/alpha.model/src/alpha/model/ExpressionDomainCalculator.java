@@ -12,7 +12,6 @@ import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AbstractAlphaVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
-import alpha.model.util.DefaultAlphaExpressionVisitor;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
@@ -153,7 +152,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	}
 	
 	private void registerIssue(String islErr, AlphaNode node) {
-		issues.add(new UnexpectedISLErrorIssue(islErr, node.eContainer(), node.eContainingFeature()));
+		issues.add(new UnexpectedISLErrorIssue(islErr, node, null));
 	}
 	
 	private boolean checkCalcExprType(CalculatorExpression cexpr, POLY_OBJECT_TYPE expected) {
@@ -272,10 +271,11 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	@Override
 	public void outRestrictExpression(RestrictExpression re) {
-		if (checkCalcExprType(re.getDomainExpr(), POLY_OBJECT_TYPE.SET) && re.getRestrictDomain() != null)
+		if (checkCalcExprType(re.getDomainExpr(), POLY_OBJECT_TYPE.SET) && re.getRestrictDomain() != null) {
 			runISLoperations(re, ()->{
 				re.setExpressionDomain(re.getExpr().getExpressionDomain().intersect(re.getRestrictDomain()));
 			});
+		}
 	}
 
 	@Override

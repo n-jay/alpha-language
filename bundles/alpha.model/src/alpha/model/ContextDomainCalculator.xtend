@@ -49,7 +49,7 @@ class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
 	}
 
 	private def void registerIssue(String errMsg, AlphaNode node) {
-		issues.add(new UnexpectedISLErrorIssue(errMsg, node.eContainer(), node.eContainingFeature()));
+		issues.add(new UnexpectedISLErrorIssue(errMsg, node, null));
 	}
 	
 	private def void registerIssue(AlphaIssue issue) {
