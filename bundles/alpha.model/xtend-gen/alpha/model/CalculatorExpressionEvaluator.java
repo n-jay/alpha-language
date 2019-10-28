@@ -84,8 +84,27 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   
   public static List<CalculatorExpressionIssue> calculate(final CalculatorExpression expr, final List<String> indexNameContext) {
     final CalculatorExpressionEvaluator calc = new CalculatorExpressionEvaluator(indexNameContext);
+    CalculatorExpressionEvaluator.testSystemConsistency(calc, expr);
+    int _size = calc.issues.size();
+    boolean _greaterThan = (_size > 0);
+    if (_greaterThan) {
+      return calc.issues;
+    }
     expr.accept(calc);
     return calc.issues;
+  }
+  
+  private static void testSystemConsistency(final CalculatorExpressionEvaluator calc, final CalculatorExpression expr) {
+    final AlphaSystem system = AlphaUtil.getContainerSystem(expr);
+    if ((system == null)) {
+      calc.registerIssue("CalculatorExpression is not contained by an AlphaSystem.", expr);
+      return;
+    }
+    final ISLSet params = system.getParameterDomain();
+    if ((params == null)) {
+      calc.registerIssue("Container system does not have a valid parameter domain.", system.getParameterDomainExpr());
+      return;
+    }
   }
   
   private boolean registerIssue(final String msg, final AlphaNode node) {

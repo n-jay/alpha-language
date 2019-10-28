@@ -6,17 +6,17 @@ import alpha.model.issue.CalculatorExpressionIssue
 import alpha.model.util.AlphaUtil
 import alpha.model.util.DefaultCalculatorExpressionVisitor
 import fr.irisa.cairn.jnimap.isl.ISLFactory
+import fr.irisa.cairn.jnimap.isl.ISLMap
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLSet
 import fr.irisa.cairn.jnimap.runtime.JNIObject
 import java.util.ArrayList
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.emf.ecore.impl.EObjectImpl
 
-import static alpha.model.util.AlphaUtil.getParameterDomain
 import static alpha.model.util.AlphaUtil.callISLwithErrorHandling
-import fr.irisa.cairn.jnimap.isl.ISLMap
-import fr.irisa.cairn.jnimap.isl.ISLMultiAff
-import fr.irisa.cairn.jnimap.isl.ISLSet
+import static alpha.model.util.AlphaUtil.getParameterDomain
 
 /**
  * This class is responsible for constructing ISL objects for:<ul>
@@ -47,11 +47,28 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 
 	static def List<CalculatorExpressionIssue> calculate(CalculatorExpression expr,
 		List<String> indexNameContext) {
+		
 		val calc = new CalculatorExpressionEvaluator(indexNameContext);
+		
+		testSystemConsistency(calc, expr)
+		if (calc.issues.size > 0) return calc.issues
 
 		expr.accept(calc);
 
 		return calc.issues
+	}
+
+	private static def testSystemConsistency(CalculatorExpressionEvaluator calc, CalculatorExpression expr) {
+		val system = AlphaUtil.getContainerSystem(expr);
+		if (system === null) {
+			calc.registerIssue("CalculatorExpression is not contained by an AlphaSystem.", expr);
+			return;
+		}
+		val params = system.parameterDomain
+		if (params === null) {
+			calc.registerIssue("Container system does not have a valid parameter domain.", system.parameterDomainExpr);
+			return;
+		}
 	}
 
 	private def registerIssue(String msg, AlphaNode node) {

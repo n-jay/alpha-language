@@ -9,8 +9,10 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
+import alpha.model.util.AbstractAlphaVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
+import alpha.model.util.DefaultAlphaExpressionVisitor;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
@@ -33,6 +35,35 @@ import fr.irisa.cairn.jnimap.isl.ISLSet;
 public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	private List<AlphaIssue> issues = new LinkedList<>();
+
+	/**
+	 * Overriding the default expression visitor behavior when traversing 
+	 * nodes before expressions to add the consistency check for each
+	 * AlphaSystem encountered.
+	 * 
+	 */
+	@Override
+	public void visit(AlphaVisitable node) {
+		node.accept(new AbstractAlphaVisitor() {
+
+			@Override
+			public void visitAlphaSystem(AlphaSystem system) {
+				if (ExpressionDomainCalculator.this.inAlphaSystem(system))
+					super.visitAlphaSystem(system);
+			}
+			
+			@Override
+			public void visitStandardEquation(StandardEquation se) {
+				se.getExpr().accept(ExpressionDomainCalculator.this);
+			}
+			
+			@Override
+			public void visitUseEquation(UseEquation ue) {
+				ue.getInputExprs().stream().forEach(a->a.accept(ExpressionDomainCalculator.this));
+				ue.getOutputExprs().stream().forEach(a->a.accept(ExpressionDomainCalculator.this));
+			}
+		});
+	}
 	
 	/**
 	 * Recomputes the expression domain for all AlphaExpressions in the sub-tree rooted 
@@ -61,7 +92,9 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	 */
 	protected static List<AlphaIssue> calculate(AlphaVisitable node) {
 		ExpressionDomainCalculator calc = new ExpressionDomainCalculator();
-		
+
+		testSystemConsistency(calc, (AlphaNode)node);
+		if (calc.issues.size() > 0) return calc.issues;
 		calc.visit(node);
 		
 		return calc.issues;
@@ -69,10 +102,54 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 	
 	protected static List<AlphaIssue> calculate(AlphaExpressionVisitable expr) {
 		ExpressionDomainCalculator calc = new ExpressionDomainCalculator();
+
+		testSystemConsistency(calc, (AlphaNode)expr);
+		if (calc.issues.size() > 0) return calc.issues;
 		
 		expr.accept(calc);
 		
 		return calc.issues;
+	}
+	
+	/**
+	 * Checks the consistency of the program tree when starting the traversal.
+	 * The check is currently done on a per-system basis. Thus, the following
+	 * code only triggers when the initial node given is part of a system. If 
+	 * not, each system being encountered are checked by inAlphaSystem method.
+	 * 
+	 * 
+	 * @param calc
+	 * @param expr
+	 */
+	private static void testSystemConsistency(ExpressionDomainCalculator calc, AlphaNode node) {
+		if (node instanceof AlphaSystemElement || node instanceof AlphaExpression) {
+			AlphaSystem system = AlphaUtil.getContainerSystem(node);
+			if (system == null) {
+				calc.registerIssue("AlphaExpression is not contained by an AlphaSystem.", node);
+				return;
+			}
+			ISLSet params = system.getParameterDomain();
+			if (params == null) {
+				calc.registerIssue("Container system does not have a valid parameter domain.", system.getParameterDomainExpr());
+				return;
+			}
+		}
+	}
+	
+	/**
+	 * When the input is not an element of a system, then each system is checked as the 
+	 * expression visitor traverses the program.
+	 * 
+	 * @param system
+	 * @return
+	 */
+	public boolean inAlphaSystem(AlphaSystem system) {
+		ISLSet params = system.getParameterDomain();
+		if (params == null) {
+			registerIssue("Container system does not have a valid parameter domain.", system.getParameterDomainExpr());
+			return false;
+		}
+		return true;
 	}
 	
 	private void registerIssue(String islErr, AlphaNode node) {
@@ -87,7 +164,7 @@ public class ExpressionDomainCalculator extends AbstractAlphaExpressionVisitor {
 		
 		return true;
 	}
-	
+
 	@Override
 	public void outBinaryExpression(BinaryExpression be) {
 		//Expression domain of a binary expression is the intersection of the two
