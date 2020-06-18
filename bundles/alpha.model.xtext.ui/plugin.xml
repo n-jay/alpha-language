@@ -8,7 +8,7 @@
 			contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
 			default="true"
 			extensions="alpha"
-			icon="icons/editor/Alpha_icon.gif"
+			icon="icons/editor/alpha-icon.gif"
 			id="alpha.model.Alpha"
 			name="Alpha Editor">
 		</editor>
