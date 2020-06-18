@@ -69,7 +69,7 @@ public class AlphaModelLoader {
 		
 		List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(toplevel);
 		if (!issues.isEmpty()) {
-			System.err.println(Show.print(toplevel));
+			issues.stream().forEach(i->System.err.println(i.getMessage()));
 			throw new AlphaIssueException(issues);
 		}
 
