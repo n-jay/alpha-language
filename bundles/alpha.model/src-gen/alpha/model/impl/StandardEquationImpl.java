@@ -185,6 +185,24 @@ public class StandardEquationImpl extends EquationImpl implements StandardEquati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		String _xifexpression = null;
+		Variable _variable = this.getVariable();
+		boolean _tripleNotEquals = (_variable != null);
+		if (_tripleNotEquals) {
+			_xifexpression = this.getVariable().getName();
+		}
+		else {
+			_xifexpression = null;
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final AlphaVisitor visitor) {
 		visitor.visitStandardEquation(this);
 	}

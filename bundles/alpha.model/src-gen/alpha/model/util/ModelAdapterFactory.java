@@ -92,6 +92,10 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createAlphaSystemElementAdapter();
 			}
 			@Override
+			public Adapter caseAlphaScheduleTarget(AlphaScheduleTarget object) {
+				return createAlphaScheduleTargetAdapter();
+			}
+			@Override
 			public Adapter caseAlphaVisitor(AlphaVisitor object) {
 				return createAlphaVisitorAdapter();
 			}
@@ -480,6 +484,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAlphaSystemElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AlphaScheduleTarget <em>Alpha Schedule Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AlphaScheduleTarget
+	 * @generated
+	 */
+	public Adapter createAlphaScheduleTargetAdapter() {
 		return null;
 	}
 

@@ -94,6 +94,16 @@ interface CalculatorExpressionVisitable {
 interface AlphaSystemElement {}
 
 /**
+ * ScheduleTarget is what can be referred to from TargetMapping:
+ *   - StandardEquation
+ *   - UseEquation
+ * 
+ */
+interface AlphaScheduleTarget {
+	op String getName()
+}
+
+/**
  * Notes on visitors.
  * 
  * - Whenever you add a new node, the corresponding methods must be added to the visitor interface.
@@ -514,7 +524,7 @@ class SystemBody extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 	}
 }
 
-abstract class Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement {
+abstract class Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement, AlphaScheduleTarget {
 	container SystemBody systemBody opposite equations
 	
 	op AlphaExpression getExpression(IntegerQueue exprID) {
@@ -538,17 +548,29 @@ class StandardEquation extends Equation {
 	String[] indexNames
 	contains AlphaExpression expr
 	
+	op String getName() {
+		if (variable !== null) variable.name else null
+	}
+	
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitStandardEquation(this)
 	}
 }
 class UseEquation extends Equation {
+	String identifier
 	contains CalculatorExpression instantiationDomainExpr
 	String[] subsystemDims
 	refers AlphaSystem system
 	contains JNIFunctionInArrayNotation callParamsExpr
 	contains AlphaExpression[] inputExprs
 	contains AlphaExpression[] outputExprs
+	
+	op String getName() {
+		if (identifier !== null) 
+			identifier
+		else
+			if (system !== null) system.name else null 
+	}
 	
 	op JNIISLMultiAff getCallParams() {
 		if (callParamsExpr.^type != POLY_OBJECT_TYPE.FUNCTION) null

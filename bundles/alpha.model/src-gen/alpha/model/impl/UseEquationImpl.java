@@ -47,6 +47,7 @@ import org.eclipse.xtext.EcoreUtil2;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link alpha.model.impl.UseEquationImpl#getIdentifier <em>Identifier</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getInstantiationDomainExpr <em>Instantiation Domain Expr</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getSubsystemDims <em>Subsystem Dims</em>}</li>
  *   <li>{@link alpha.model.impl.UseEquationImpl#getSystem <em>System</em>}</li>
@@ -58,6 +59,26 @@ import org.eclipse.xtext.EcoreUtil2;
  * @generated
  */
 public class UseEquationImpl extends EquationImpl implements UseEquation {
+	/**
+	 * The default value of the '{@link #getIdentifier() <em>Identifier</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIdentifier()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String IDENTIFIER_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getIdentifier() <em>Identifier</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIdentifier()
+	 * @generated
+	 * @ordered
+	 */
+	protected String identifier = IDENTIFIER_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getInstantiationDomainExpr() <em>Instantiation Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -135,6 +156,27 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	@Override
 	protected EClass eStaticClass() {
 		return ModelPackage.Literals.USE_EQUATION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIdentifier(String newIdentifier) {
+		String oldIdentifier = identifier;
+		identifier = newIdentifier;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USE_EQUATION__IDENTIFIER, oldIdentifier, identifier));
 	}
 
 	/**
@@ -302,6 +344,33 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		String _xifexpression = null;
+		String _identifier = this.getIdentifier();
+		boolean _tripleNotEquals = (_identifier != null);
+		if (_tripleNotEquals) {
+			_xifexpression = this.getIdentifier();
+		}
+		else {
+			String _xifexpression_1 = null;
+			AlphaSystem _system = this.getSystem();
+			boolean _tripleNotEquals_1 = (_system != null);
+			if (_tripleNotEquals_1) {
+				_xifexpression_1 = this.getSystem().getName();
+			}
+			else {
+				_xifexpression_1 = null;
+			}
+			_xifexpression = _xifexpression_1;
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ISLMultiAff getCallParams() {
 		ISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getCallParamsExpr().getType();
@@ -391,6 +460,8 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ModelPackage.USE_EQUATION__IDENTIFIER:
+				return getIdentifier();
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				return getInstantiationDomainExpr();
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
@@ -417,6 +488,9 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ModelPackage.USE_EQUATION__IDENTIFIER:
+				setIdentifier((String)newValue);
+				return;
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				setInstantiationDomainExpr((CalculatorExpression)newValue);
 				return;
@@ -450,6 +524,9 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ModelPackage.USE_EQUATION__IDENTIFIER:
+				setIdentifier(IDENTIFIER_EDEFAULT);
+				return;
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				setInstantiationDomainExpr((CalculatorExpression)null);
 				return;
@@ -480,6 +557,8 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ModelPackage.USE_EQUATION__IDENTIFIER:
+				return IDENTIFIER_EDEFAULT == null ? identifier != null : !IDENTIFIER_EDEFAULT.equals(identifier);
 			case ModelPackage.USE_EQUATION__INSTANTIATION_DOMAIN_EXPR:
 				return instantiationDomainExpr != null;
 			case ModelPackage.USE_EQUATION__SUBSYSTEM_DIMS:
@@ -506,7 +585,9 @@ public class UseEquationImpl extends EquationImpl implements UseEquation {
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (subsystemDims: ");
+		result.append(" (identifier: ");
+		result.append(identifier);
+		result.append(", subsystemDims: ");
 		result.append(subsystemDims);
 		result.append(')');
 		return result.toString();

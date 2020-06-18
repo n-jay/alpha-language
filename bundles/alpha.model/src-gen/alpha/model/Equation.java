@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement {
+public interface Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement, AlphaScheduleTarget {
 	/**
 	 * Returns the value of the '<em><b>System Body</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link alpha.model.SystemBody#getEquations <em>Equations</em>}'.

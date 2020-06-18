@@ -19,6 +19,7 @@ import alpha.model.AlphaFunctionLiteral;
 import alpha.model.AlphaNode;
 import alpha.model.AlphaPackage;
 import alpha.model.AlphaRoot;
+import alpha.model.AlphaScheduleTarget;
 import alpha.model.AlphaSystem;
 import alpha.model.AlphaSystemElement;
 import alpha.model.AlphaVisitable;
@@ -151,6 +152,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EClass alphaSystemElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alphaScheduleTargetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -918,6 +926,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAlphaScheduleTarget() {
+		return alphaScheduleTargetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAlphaVisitor() {
 		return alphaVisitorEClass;
 	}
@@ -1314,8 +1331,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getUseEquation_Identifier() {
+		return (EAttribute)useEquationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getUseEquation_InstantiationDomainExpr() {
-		return (EReference)useEquationEClass.getEStructuralFeatures().get(0);
+		return (EReference)useEquationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1324,7 +1350,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	public EAttribute getUseEquation_SubsystemDims() {
-		return (EAttribute)useEquationEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)useEquationEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1333,15 +1359,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	public EReference getUseEquation_System() {
-		return (EReference)useEquationEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getUseEquation_CallParamsExpr() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1350,7 +1367,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getUseEquation_InputExprs() {
+	public EReference getUseEquation_CallParamsExpr() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1359,8 +1376,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getUseEquation_OutputExprs() {
+	public EReference getUseEquation_InputExprs() {
 		return (EReference)useEquationEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getUseEquation_OutputExprs() {
+		return (EReference)useEquationEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2862,6 +2888,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		alphaSystemElementEClass = createEClass(ALPHA_SYSTEM_ELEMENT);
 
+		alphaScheduleTargetEClass = createEClass(ALPHA_SCHEDULE_TARGET);
+
 		alphaVisitorEClass = createEClass(ALPHA_VISITOR);
 
 		alphaExpressionVisitorEClass = createEClass(ALPHA_EXPRESSION_VISITOR);
@@ -2921,6 +2949,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		createEReference(standardEquationEClass, STANDARD_EQUATION__EXPR);
 
 		useEquationEClass = createEClass(USE_EQUATION);
+		createEAttribute(useEquationEClass, USE_EQUATION__IDENTIFIER);
 		createEReference(useEquationEClass, USE_EQUATION__INSTANTIATION_DOMAIN_EXPR);
 		createEAttribute(useEquationEClass, USE_EQUATION__SUBSYSTEM_DIMS);
 		createEReference(useEquationEClass, USE_EQUATION__SYSTEM);
@@ -3201,6 +3230,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		equationEClass.getESuperTypes().add(this.getAlphaNode());
 		equationEClass.getESuperTypes().add(this.getAlphaVisitable());
 		equationEClass.getESuperTypes().add(this.getAlphaSystemElement());
+		equationEClass.getESuperTypes().add(this.getAlphaScheduleTarget());
 		standardEquationEClass.getESuperTypes().add(this.getEquation());
 		useEquationEClass.getESuperTypes().add(this.getEquation());
 		alphaExpressionEClass.getESuperTypes().add(this.getAlphaNode());
@@ -3289,6 +3319,10 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, this.getCalculatorExpressionVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaSystemElementEClass, AlphaSystemElement.class, "AlphaSystemElement", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(alphaScheduleTargetEClass, AlphaScheduleTarget.class, "AlphaScheduleTarget", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		addEOperation(alphaScheduleTargetEClass, this.getString(), "getName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(alphaVisitorEClass, AlphaVisitor.class, "AlphaVisitor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3842,16 +3876,21 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEAttribute(getStandardEquation_IndexNames(), this.getString(), "indexNames", null, 0, -1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getStandardEquation_Expr(), this.getAlphaExpression(), null, "expr", null, 0, 1, StandardEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		addEOperation(standardEquationEClass, this.getString(), "getName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(standardEquationEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getAlphaVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(useEquationEClass, UseEquation.class, "UseEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getUseEquation_Identifier(), this.getString(), "identifier", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_InstantiationDomainExpr(), this.getCalculatorExpression(), null, "instantiationDomainExpr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getUseEquation_SubsystemDims(), this.getString(), "subsystemDims", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_System(), this.getAlphaSystem(), null, "system", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_CallParamsExpr(), this.getJNIFunctionInArrayNotation(), null, "callParamsExpr", null, 0, 1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_InputExprs(), this.getAlphaExpression(), null, "inputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUseEquation_OutputExprs(), this.getAlphaExpression(), null, "outputExprs", null, 0, -1, UseEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(useEquationEClass, this.getString(), "getName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(useEquationEClass, this.getJNIISLMultiAff(), "getCallParams", 0, 1, !IS_UNIQUE, IS_ORDERED);
 

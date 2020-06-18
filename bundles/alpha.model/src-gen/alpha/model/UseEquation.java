@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link alpha.model.UseEquation#getIdentifier <em>Identifier</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getInstantiationDomainExpr <em>Instantiation Domain Expr</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getSubsystemDims <em>Subsystem Dims</em>}</li>
  *   <li>{@link alpha.model.UseEquation#getSystem <em>System</em>}</li>
@@ -31,6 +32,28 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface UseEquation extends Equation {
+	/**
+	 * Returns the value of the '<em><b>Identifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Identifier</em>' attribute.
+	 * @see #setIdentifier(String)
+	 * @see alpha.model.ModelPackage#getUseEquation_Identifier()
+	 * @model unique="false" dataType="alpha.model.String"
+	 * @generated
+	 */
+	String getIdentifier();
+
+	/**
+	 * Sets the value of the '{@link alpha.model.UseEquation#getIdentifier <em>Identifier</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Identifier</em>' attribute.
+	 * @see #getIdentifier()
+	 * @generated
+	 */
+	void setIdentifier(String value);
+
 	/**
 	 * Returns the value of the '<em><b>Instantiation Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -132,6 +155,14 @@ public interface UseEquation extends Equation {
 	 * @generated
 	 */
 	EList<AlphaExpression> getOutputExprs();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.model.String" unique="false"
+	 * @generated
+	 */
+	String getName();
 
 	/**
 	 * <!-- begin-user-doc -->
