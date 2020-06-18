@@ -1,0 +1,121 @@
+@GenModel(
+	operationReflection="false",
+	loadInitialization="false",
+	literalsInterface="true")
+package alpha.targetmapping
+
+import alpha.model.JNIFunction
+import alpha.model.AlphaSystem
+import fr.irisa.cairn.jnimap.isl.ISLASTLoopType
+import alpha.model.AlphaScheduleTarget
+import alpha.model.JNIDomainInArrayNotation
+import alpha.model.JNIRelation
+import alpha.model.JNIDomain
+import alpha.model.JNIFunctionInArrayNotation
+
+type ISLASTLoopType wraps ISLASTLoopType
+
+interface ScopingEntity {}
+
+class TargetMapping extends ScopingEntity {
+	refers AlphaSystem targetSystem
+	contains ScheduleTreeExpression scheduleTree
+//	contains SpaceTimeMapping[] spaceTimeMaps
+	contains MemorySpace[] memorySpaces
+}
+
+abstract class AbstractMapping {
+	refers AlphaScheduleTarget scheduleTarget
+	contains JNIFunction mapping 
+}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+class SpaceTimeMapping extends AbstractMapping {
+}
+
+class MemoryMapping extends AbstractMapping {
+	String memorySpaceName
+}
+
+class MemorySpace {
+	id String name
+	contains MemoryMapping[] memoryMaps
+}
+
+abstract class ScheduleTreeExpression {
+
+}
+
+class ContextExpression extends ScheduleTreeExpression {
+	contains JNIDomainInArrayNotation contextDomain
+	
+	contains ScheduleTreeExpression child
+}
+
+class SetExpression extends ScheduleTreeExpression {
+	contains ScheduleTreeExpression[] children
+}
+
+class SequenceExpression extends ScheduleTreeExpression {
+	contains ScheduleTreeExpression[] children
+}
+
+class FilterExpression extends ScheduleTreeExpression, ScopingEntity {
+	contains ScheduleTargetRestrictDomain[] filterDomains
+	contains ScheduleTreeExpression child
+}
+
+class ScheduleTargetRestrictDomain {
+	refers AlphaScheduleTarget scheduleTarget
+	String[] indexNames
+	
+	contains JNIDomainInArrayNotation restrictDomain
+}
+
+class GuardExpression extends ScheduleTreeExpression {
+	contains JNIDomainInArrayNotation guardDomain
+	contains ScheduleTreeExpression child
+}
+
+class MarkExpression extends ScheduleTreeExpression {
+	String identifier
+	contains ScheduleTreeExpression child
+}
+
+class BandExpression extends ScheduleTreeExpression {
+	contains BandPiece[] bandPieces
+	contains ScheduleTreeExpression child
+	
+	boolean tile
+	boolean parallel 
+
+	contains LoopTypeSpecification[] loopTypeSpecifications
+	contains IsolateSpecification isolateSpecification
+}
+class BandPiece {
+	contains ScheduleTargetRestrictDomain pieceDomain
+	contains JNIFunctionInArrayNotation partialSchedule
+}
+class LoopTypeSpecification {
+	int dimension
+	ISLASTLoopType loopType
+}
+class IsolateSpecification {
+	contains JNIDomain isolateDomain
+	contains LoopTypeSpecification[] loopTypeSpecifications
+}
+class BandPieceForReductionBody extends BandPiece {
+	String reductionInitialization
+}
+
+class ExtensionExpression extends ScheduleTreeExpression, ScopingEntity {
+	contains ExtensionTarget[] extensionTargets
+	contains ScheduleTreeExpression child 
+}
+
+class ExtensionTarget extends AlphaScheduleTarget {
+	refers AlphaScheduleTarget source
+	String[] indexNames
+	
+	String name
+	contains JNIRelation extensionMap
+}

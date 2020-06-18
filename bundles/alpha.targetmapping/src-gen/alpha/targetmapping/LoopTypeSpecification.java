@@ -1,0 +1,71 @@
+/**
+ */
+package alpha.targetmapping;
+
+import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Loop Type Specification</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link alpha.targetmapping.LoopTypeSpecification#getDimension <em>Dimension</em>}</li>
+ *   <li>{@link alpha.targetmapping.LoopTypeSpecification#getLoopType <em>Loop Type</em>}</li>
+ * </ul>
+ *
+ * @see alpha.targetmapping.TargetmappingPackage#getLoopTypeSpecification()
+ * @model
+ * @generated
+ */
+public interface LoopTypeSpecification extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Dimension</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dimension</em>' attribute.
+	 * @see #setDimension(int)
+	 * @see alpha.targetmapping.TargetmappingPackage#getLoopTypeSpecification_Dimension()
+	 * @model unique="false"
+	 * @generated
+	 */
+	int getDimension();
+
+	/**
+	 * Sets the value of the '{@link alpha.targetmapping.LoopTypeSpecification#getDimension <em>Dimension</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Dimension</em>' attribute.
+	 * @see #getDimension()
+	 * @generated
+	 */
+	void setDimension(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Loop Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Loop Type</em>' attribute.
+	 * @see #setLoopType(ISLASTLoopType)
+	 * @see alpha.targetmapping.TargetmappingPackage#getLoopTypeSpecification_LoopType()
+	 * @model unique="false" dataType="alpha.targetmapping.ISLASTLoopType"
+	 * @generated
+	 */
+	ISLASTLoopType getLoopType();
+
+	/**
+	 * Sets the value of the '{@link alpha.targetmapping.LoopTypeSpecification#getLoopType <em>Loop Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Loop Type</em>' attribute.
+	 * @see #getLoopType()
+	 * @generated
+	 */
+	void setLoopType(ISLASTLoopType value);
+
+} // LoopTypeSpecification

@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: alpha.targetmapping.xtext
+Bundle-ManifestVersion: 2
+Bundle-Name: alpha.targetmapping.xtext
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: alpha.targetmapping.xtext; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: alpha.targetmapping,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ alpha.model.xtext,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.xtend.lib;bundle-version="2.14.0",
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: alpha.targetmapping.generator,
+ alpha.targetmapping.parser.antlr.internal,
+ alpha.targetmapping.scoping,
+ alpha.targetmapping.services,
+ alpha.targetmapping.parser.antlr,
+ alpha.targetmapping.serializer,
+ alpha.targetmapping.validation,
+ alpha.targetmapping.formatting2,
+ alpha.targetmapping
+Import-Package: org.apache.log4j
