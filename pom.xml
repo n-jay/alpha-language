@@ -21,7 +21,7 @@
     <mvn.compiler.source>11</mvn.compiler.source>
     <mvn.compiler.target>11</mvn.compiler.target>
 
-    <tycho.version>1.5.0-SNAPSHOT</tycho.version>
+    <tycho.version>1.7.0</tycho.version>
 
     <!-- define timestamp format used by 'maven.build.timestamp' property -->
     <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
