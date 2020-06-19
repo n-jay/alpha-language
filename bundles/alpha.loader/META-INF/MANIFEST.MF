@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Loader
+Bundle-SymbolicName: alpha.loader
+Bundle-Version: 0.1.0.qualifier
+Automatic-Module-Name: alpha.loader
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Require-Bundle: alpha.model,
+ alpha.model.xtext,
+ alpha.targetmapping,
+ alpha.targetmapping.xtext
+Export-Package: alpha.loader
