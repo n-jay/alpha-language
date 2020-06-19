@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.eclipse.xtext.EcoreUtil2;
 import org.junit.Test;
 
-import alpha.model.AlphaModelLoader;
+import alpha.loader.AlphaLoader;
 import alpha.model.AlphaRoot;
 import alpha.model.BinaryExpression;
 import alpha.model.IndexExpression;
@@ -35,7 +35,7 @@ public class SimplifyExpressionsTest {
 	}
 	
 	private void binaryIdentityTest(String filename) throws IOException {
-		AlphaRoot root = AlphaModelLoader.loadModel(filename);
+		AlphaRoot root = AlphaLoader.loadAlpha(filename);
 		
 		SimplifyExpressions.apply(root);
 		
@@ -44,7 +44,7 @@ public class SimplifyExpressionsTest {
 	}
 	
 	private void constantIndexTest(String filename) throws IOException {
-		AlphaRoot root = AlphaModelLoader.loadModel(filename);
+		AlphaRoot root = AlphaLoader.loadAlpha(filename);
 		
 		SimplifyExpressions.apply(root);
 		
@@ -53,7 +53,7 @@ public class SimplifyExpressionsTest {
 	}
 	
 	private void scalarReductionTest(String filename) throws IOException {
-		AlphaRoot root = AlphaModelLoader.loadModel(filename);
+		AlphaRoot root = AlphaLoader.loadAlpha(filename);
 		
 		SimplifyExpressions.apply(root);
 		

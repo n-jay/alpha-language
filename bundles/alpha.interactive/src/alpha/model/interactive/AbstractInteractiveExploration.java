@@ -15,7 +15,7 @@ import java.util.TreeMap;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import alpha.model.AlphaModelLoader;
+import alpha.loader.AlphaLoader;
 import alpha.model.AlphaNode;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
@@ -130,7 +130,7 @@ public abstract class AbstractInteractiveExploration {
 	
 	protected void loadProgram() {
 		try {
-			originalProgram = AlphaModelLoader.loadModel(filepath);
+			originalProgram = AlphaLoader.loadAlpha(filepath);
 			Normalize.apply(originalProgram);
 			List<AlphaIssue> issues = UniquenessAndCompletenessCheck.check(originalProgram);
 			if (!issues.isEmpty())

@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import alpha.model.AlphaModelLoader;
+import alpha.loader.AlphaLoader;
 import alpha.model.AlphaRoot;
 import alpha.model.ReduceExpression;
 import alpha.model.StandardEquation;
@@ -32,7 +32,7 @@ public class SimplifyingReductionsTest {
 	}
 	
 	private static void testSR(String filename, String systemName, String eqName, String exprID, String fStr) throws IOException {
-		AlphaRoot root = AlphaModelLoader.loadModel(filename);
+		AlphaRoot root = AlphaLoader.loadAlpha(filename);
 
 		List<AlphaIssue> issues = UniquenessAndCompletenessCheck.check(root);
 		Assert.assertTrue(issues.isEmpty());

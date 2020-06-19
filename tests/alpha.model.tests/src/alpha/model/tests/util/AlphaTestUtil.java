@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import com.google.common.io.Files;
 
-import alpha.model.AlphaModelLoader;
+import alpha.loader.AlphaLoader;
 import alpha.model.AlphaModelSaver;
 import alpha.model.AlphaRoot;
 import alpha.model.tests.data.AlphaBundleTestInput;
@@ -58,11 +58,11 @@ public class AlphaTestUtil {
 		try {
 			//bundle
 			if (count > 1) {
-				return AlphaModelLoader.loadModelDir(dir);
+				return AlphaLoader.loadAlphaDir(dir);
 			//single
 			} else {
 				File file = new File(dir, tempFileName(0));
-				return Arrays.asList(AlphaModelLoader.loadModel(file));
+				return Arrays.asList(AlphaLoader.loadAlpha(file));
 			}
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to read: " + dir);

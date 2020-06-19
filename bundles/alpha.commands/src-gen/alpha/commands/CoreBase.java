@@ -5,8 +5,8 @@ package alpha.commands;
 import java.io.IOException;
 import java.util.List;
 
+import alpha.loader.AlphaLoader;
 import alpha.model.AlphaCompleteVisitable;
-import alpha.model.AlphaModelLoader;
 import alpha.model.AlphaRoot;
 import alpha.model.issue.AlphaIssue;
 /*PROTECTED REGION END*/
@@ -16,7 +16,7 @@ public class CoreBase {
 	public static AlphaRoot ReadAlpha(String file) {
 		/*PROTECTED REGION ID(Core.ReadAlpha_) ENABLED START*/
 		try {
-			AlphaRoot root = AlphaModelLoader.loadModel(file);
+			AlphaRoot root = AlphaLoader.loadAlpha(file);
 			return root;
 		} catch (IOException e) {
 			throw new RuntimeException("IOException: " + e.getMessage());
@@ -26,7 +26,7 @@ public class CoreBase {
 	public static List<AlphaRoot> ReadAlphaBundle(String file) {
 		/*PROTECTED REGION ID(Core.ReadAlphaBundle_) ENABLED START*/
 		try {
-			List<AlphaRoot> roots = AlphaModelLoader.loadModelDir(file);
+			List<AlphaRoot> roots = AlphaLoader.loadAlphaDir(file);
 			return roots;
 		} catch (IOException e) {
 			throw new RuntimeException("IOException: " + e.getMessage());
