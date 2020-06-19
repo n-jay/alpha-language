@@ -16,6 +16,11 @@
     <module>alpha.model.xtext.ide</module>
     <module>alpha.model.xtext.ui</module>
     <module>alpha.model.wizard</module>
+    <module>alpha.targetmapping</module>
+    <module>alpha.targetmapping.xtext</module>
+    <module>alpha.targetmapping.xtext.ide</module>
+    <module>alpha.targetmapping.xtext.ui</module>
+    <module>alpha.loader</module>
     <module>alpha.commands</module>
     <module>alpha.commands.groovy</module>
     <module>alpha.commands.model</module>
