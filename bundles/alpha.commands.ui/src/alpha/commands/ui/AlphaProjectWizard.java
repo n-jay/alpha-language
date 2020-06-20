@@ -149,7 +149,7 @@ public class AlphaProjectWizard extends Wizard implements INewWizard {
 
 			IPackageFragmentRoot root = javaProject.getPackageFragmentRoot(sourceFolder);
 			entries.add(JavaCore.newSourceEntry(root.getPath()));
-	        entries.add(JavaCore.newContainerEntry(GroovyRuntime.DSLD_CONTAINER_ID));
+	        entries.add(JavaCore.newContainerEntry(new Path(GroovyRuntime.DSLD_CONTAINER_ID)));
 	        entries.add(JavaCore.newContainerEntry(new Path("GROOVY_SUPPORT")));
 //	        entries.add(JavaCore.newContainerEntry(PDECore.REQUIRED_PLUGINS_CONTAINER_PATH));
 	        entries.add(JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins")));
