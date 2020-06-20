@@ -1,0 +1,1078 @@
+/**
+ */
+package alpha.targetmapping.impl;
+
+import alpha.model.ModelPackage;
+
+import alpha.targetmapping.AbstractMapping;
+import alpha.targetmapping.BandExpression;
+import alpha.targetmapping.BandPiece;
+import alpha.targetmapping.BandPieceForReductionBody;
+import alpha.targetmapping.ContextExpression;
+import alpha.targetmapping.ExtensionExpression;
+import alpha.targetmapping.ExtensionTarget;
+import alpha.targetmapping.FilterExpression;
+import alpha.targetmapping.GuardExpression;
+import alpha.targetmapping.IsolateSpecification;
+import alpha.targetmapping.LoopTypeSpecification;
+import alpha.targetmapping.MarkExpression;
+import alpha.targetmapping.MemoryMapping;
+import alpha.targetmapping.MemorySpace;
+import alpha.targetmapping.ScheduleTargetRestrictDomain;
+import alpha.targetmapping.ScheduleTreeExpression;
+import alpha.targetmapping.ScopingEntity;
+import alpha.targetmapping.SequenceExpression;
+import alpha.targetmapping.SetExpression;
+import alpha.targetmapping.SpaceTimeMapping;
+import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetmappingFactory;
+import alpha.targetmapping.TargetmappingPackage;
+
+import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
+
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Package</b>.
+ * <!-- end-user-doc -->
+ * @generated
+ */
+public class TargetmappingPackageImpl extends EPackageImpl implements TargetmappingPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass scopingEntityEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass targetMappingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractMappingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass spaceTimeMappingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass memoryMappingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass memorySpaceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass scheduleTreeExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass contextExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass setExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sequenceExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass filterExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass scheduleTargetRestrictDomainEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass guardExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass markExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass bandExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass bandPieceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass loopTypeSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass isolateSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass bandPieceForReductionBodyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass extensionExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass extensionTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType islastLoopTypeEDataType = null;
+
+	/**
+	 * Creates an instance of the model <b>Package</b>, registered with
+	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+	 * package URI value.
+	 * <p>Note: the correct way to create the package is via the static
+	 * factory method {@link #init init()}, which also performs
+	 * initialization of the package, or returns the registered package,
+	 * if one already exists.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecore.EPackage.Registry
+	 * @see alpha.targetmapping.TargetmappingPackage#eNS_URI
+	 * @see #init()
+	 * @generated
+	 */
+	private TargetmappingPackageImpl() {
+		super(eNS_URI, TargetmappingFactory.eINSTANCE);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static boolean isInited = false;
+
+	/**
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 *
+	 * <p>This method is used to initialize {@link TargetmappingPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #eNS_URI
+	 * @see #createPackageContents()
+	 * @see #initializePackageContents()
+	 * @generated
+	 */
+	public static TargetmappingPackage init() {
+		if (isInited) return (TargetmappingPackage)EPackage.Registry.INSTANCE.getEPackage(TargetmappingPackage.eNS_URI);
+
+		// Obtain or create and register package
+		Object registeredTargetmappingPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		TargetmappingPackageImpl theTargetmappingPackage = registeredTargetmappingPackage instanceof TargetmappingPackageImpl ? (TargetmappingPackageImpl)registeredTargetmappingPackage : new TargetmappingPackageImpl();
+
+		isInited = true;
+
+		// Initialize simple dependencies
+		ModelPackage.eINSTANCE.eClass();
+		EcorePackage.eINSTANCE.eClass();
+
+		// Create package meta-data objects
+		theTargetmappingPackage.createPackageContents();
+
+		// Initialize created meta-data
+		theTargetmappingPackage.initializePackageContents();
+
+		// Mark meta-data to indicate it can't be changed
+		theTargetmappingPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(TargetmappingPackage.eNS_URI, theTargetmappingPackage);
+		return theTargetmappingPackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getScopingEntity() {
+		return scopingEntityEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTargetMapping() {
+		return targetMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTargetMapping_TargetSystem() {
+		return (EReference)targetMappingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTargetMapping_ScheduleTree() {
+		return (EReference)targetMappingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTargetMapping_MemorySpaces() {
+		return (EReference)targetMappingEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAbstractMapping() {
+		return abstractMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractMapping_ScheduleTarget() {
+		return (EReference)abstractMappingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractMapping_Mapping() {
+		return (EReference)abstractMappingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSpaceTimeMapping() {
+		return spaceTimeMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMemoryMapping() {
+		return memoryMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMemoryMapping_MemorySpaceName() {
+		return (EAttribute)memoryMappingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMemorySpace() {
+		return memorySpaceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMemorySpace_Name() {
+		return (EAttribute)memorySpaceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMemorySpace_MemoryMaps() {
+		return (EReference)memorySpaceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getScheduleTreeExpression() {
+		return scheduleTreeExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getContextExpression() {
+		return contextExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContextExpression_ContextDomain() {
+		return (EReference)contextExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContextExpression_Child() {
+		return (EReference)contextExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSetExpression() {
+		return setExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSetExpression_Children() {
+		return (EReference)setExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSequenceExpression() {
+		return sequenceExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSequenceExpression_Children() {
+		return (EReference)sequenceExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFilterExpression() {
+		return filterExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFilterExpression_FilterDomains() {
+		return (EReference)filterExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFilterExpression_Child() {
+		return (EReference)filterExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getScheduleTargetRestrictDomain() {
+		return scheduleTargetRestrictDomainEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getScheduleTargetRestrictDomain_ScheduleTarget() {
+		return (EReference)scheduleTargetRestrictDomainEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getScheduleTargetRestrictDomain_IndexNames() {
+		return (EAttribute)scheduleTargetRestrictDomainEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getScheduleTargetRestrictDomain_RestrictDomain() {
+		return (EReference)scheduleTargetRestrictDomainEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGuardExpression() {
+		return guardExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGuardExpression_GuardDomain() {
+		return (EReference)guardExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGuardExpression_Child() {
+		return (EReference)guardExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMarkExpression() {
+		return markExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMarkExpression_Identifier() {
+		return (EAttribute)markExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMarkExpression_Child() {
+		return (EReference)markExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBandExpression() {
+		return bandExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBandExpression_BandPieces() {
+		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBandExpression_Child() {
+		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBandExpression_Tile() {
+		return (EAttribute)bandExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBandExpression_Parallel() {
+		return (EAttribute)bandExpressionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBandExpression_LoopTypeSpecifications() {
+		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBandExpression_IsolateSpecification() {
+		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBandPiece() {
+		return bandPieceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBandPiece_PieceDomain() {
+		return (EReference)bandPieceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBandPiece_PartialSchedule() {
+		return (EReference)bandPieceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLoopTypeSpecification() {
+		return loopTypeSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLoopTypeSpecification_Dimension() {
+		return (EAttribute)loopTypeSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLoopTypeSpecification_LoopType() {
+		return (EAttribute)loopTypeSpecificationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIsolateSpecification() {
+		return isolateSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIsolateSpecification_IsolateDomain() {
+		return (EReference)isolateSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIsolateSpecification_LoopTypeSpecifications() {
+		return (EReference)isolateSpecificationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBandPieceForReductionBody() {
+		return bandPieceForReductionBodyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBandPieceForReductionBody_ReductionInitialization() {
+		return (EAttribute)bandPieceForReductionBodyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExtensionExpression() {
+		return extensionExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensionExpression_ExtensionTargets() {
+		return (EReference)extensionExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensionExpression_Child() {
+		return (EReference)extensionExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExtensionTarget() {
+		return extensionTargetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensionTarget_Source() {
+		return (EReference)extensionTargetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExtensionTarget_IndexNames() {
+		return (EAttribute)extensionTargetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExtensionTarget_Name() {
+		return (EAttribute)extensionTargetEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensionTarget_ExtensionMap() {
+		return (EReference)extensionTargetEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getISLASTLoopType() {
+		return islastLoopTypeEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TargetmappingFactory getTargetmappingFactory() {
+		return (TargetmappingFactory)getEFactoryInstance();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isCreated = false;
+
+	/**
+	 * Creates the meta-model objects for the package.  This method is
+	 * guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void createPackageContents() {
+		if (isCreated) return;
+		isCreated = true;
+
+		// Create classes and their features
+		scopingEntityEClass = createEClass(SCOPING_ENTITY);
+
+		targetMappingEClass = createEClass(TARGET_MAPPING);
+		createEReference(targetMappingEClass, TARGET_MAPPING__TARGET_SYSTEM);
+		createEReference(targetMappingEClass, TARGET_MAPPING__SCHEDULE_TREE);
+		createEReference(targetMappingEClass, TARGET_MAPPING__MEMORY_SPACES);
+
+		abstractMappingEClass = createEClass(ABSTRACT_MAPPING);
+		createEReference(abstractMappingEClass, ABSTRACT_MAPPING__SCHEDULE_TARGET);
+		createEReference(abstractMappingEClass, ABSTRACT_MAPPING__MAPPING);
+
+		spaceTimeMappingEClass = createEClass(SPACE_TIME_MAPPING);
+
+		memoryMappingEClass = createEClass(MEMORY_MAPPING);
+		createEAttribute(memoryMappingEClass, MEMORY_MAPPING__MEMORY_SPACE_NAME);
+
+		memorySpaceEClass = createEClass(MEMORY_SPACE);
+		createEAttribute(memorySpaceEClass, MEMORY_SPACE__NAME);
+		createEReference(memorySpaceEClass, MEMORY_SPACE__MEMORY_MAPS);
+
+		scheduleTreeExpressionEClass = createEClass(SCHEDULE_TREE_EXPRESSION);
+
+		contextExpressionEClass = createEClass(CONTEXT_EXPRESSION);
+		createEReference(contextExpressionEClass, CONTEXT_EXPRESSION__CONTEXT_DOMAIN);
+		createEReference(contextExpressionEClass, CONTEXT_EXPRESSION__CHILD);
+
+		setExpressionEClass = createEClass(SET_EXPRESSION);
+		createEReference(setExpressionEClass, SET_EXPRESSION__CHILDREN);
+
+		sequenceExpressionEClass = createEClass(SEQUENCE_EXPRESSION);
+		createEReference(sequenceExpressionEClass, SEQUENCE_EXPRESSION__CHILDREN);
+
+		filterExpressionEClass = createEClass(FILTER_EXPRESSION);
+		createEReference(filterExpressionEClass, FILTER_EXPRESSION__FILTER_DOMAINS);
+		createEReference(filterExpressionEClass, FILTER_EXPRESSION__CHILD);
+
+		scheduleTargetRestrictDomainEClass = createEClass(SCHEDULE_TARGET_RESTRICT_DOMAIN);
+		createEReference(scheduleTargetRestrictDomainEClass, SCHEDULE_TARGET_RESTRICT_DOMAIN__SCHEDULE_TARGET);
+		createEAttribute(scheduleTargetRestrictDomainEClass, SCHEDULE_TARGET_RESTRICT_DOMAIN__INDEX_NAMES);
+		createEReference(scheduleTargetRestrictDomainEClass, SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN);
+
+		guardExpressionEClass = createEClass(GUARD_EXPRESSION);
+		createEReference(guardExpressionEClass, GUARD_EXPRESSION__GUARD_DOMAIN);
+		createEReference(guardExpressionEClass, GUARD_EXPRESSION__CHILD);
+
+		markExpressionEClass = createEClass(MARK_EXPRESSION);
+		createEAttribute(markExpressionEClass, MARK_EXPRESSION__IDENTIFIER);
+		createEReference(markExpressionEClass, MARK_EXPRESSION__CHILD);
+
+		bandExpressionEClass = createEClass(BAND_EXPRESSION);
+		createEReference(bandExpressionEClass, BAND_EXPRESSION__BAND_PIECES);
+		createEReference(bandExpressionEClass, BAND_EXPRESSION__CHILD);
+		createEAttribute(bandExpressionEClass, BAND_EXPRESSION__TILE);
+		createEAttribute(bandExpressionEClass, BAND_EXPRESSION__PARALLEL);
+		createEReference(bandExpressionEClass, BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS);
+		createEReference(bandExpressionEClass, BAND_EXPRESSION__ISOLATE_SPECIFICATION);
+
+		bandPieceEClass = createEClass(BAND_PIECE);
+		createEReference(bandPieceEClass, BAND_PIECE__PIECE_DOMAIN);
+		createEReference(bandPieceEClass, BAND_PIECE__PARTIAL_SCHEDULE);
+
+		loopTypeSpecificationEClass = createEClass(LOOP_TYPE_SPECIFICATION);
+		createEAttribute(loopTypeSpecificationEClass, LOOP_TYPE_SPECIFICATION__DIMENSION);
+		createEAttribute(loopTypeSpecificationEClass, LOOP_TYPE_SPECIFICATION__LOOP_TYPE);
+
+		isolateSpecificationEClass = createEClass(ISOLATE_SPECIFICATION);
+		createEReference(isolateSpecificationEClass, ISOLATE_SPECIFICATION__ISOLATE_DOMAIN);
+		createEReference(isolateSpecificationEClass, ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS);
+
+		bandPieceForReductionBodyEClass = createEClass(BAND_PIECE_FOR_REDUCTION_BODY);
+		createEAttribute(bandPieceForReductionBodyEClass, BAND_PIECE_FOR_REDUCTION_BODY__REDUCTION_INITIALIZATION);
+
+		extensionExpressionEClass = createEClass(EXTENSION_EXPRESSION);
+		createEReference(extensionExpressionEClass, EXTENSION_EXPRESSION__EXTENSION_TARGETS);
+		createEReference(extensionExpressionEClass, EXTENSION_EXPRESSION__CHILD);
+
+		extensionTargetEClass = createEClass(EXTENSION_TARGET);
+		createEReference(extensionTargetEClass, EXTENSION_TARGET__SOURCE);
+		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__INDEX_NAMES);
+		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__NAME);
+		createEReference(extensionTargetEClass, EXTENSION_TARGET__EXTENSION_MAP);
+
+		// Create data types
+		islastLoopTypeEDataType = createEDataType(ISLAST_LOOP_TYPE);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isInitialized = false;
+
+	/**
+	 * Complete the initialization of the package and its meta-model.  This
+	 * method is guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void initializePackageContents() {
+		if (isInitialized) return;
+		isInitialized = true;
+
+		// Initialize package
+		setName(eNAME);
+		setNsPrefix(eNS_PREFIX);
+		setNsURI(eNS_URI);
+
+		// Obtain other dependent packages
+		ModelPackage theModelPackage = (ModelPackage)EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI);
+		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+
+		// Create type parameters
+
+		// Set bounds for type parameters
+
+		// Add supertypes to classes
+		targetMappingEClass.getESuperTypes().add(this.getScopingEntity());
+		spaceTimeMappingEClass.getESuperTypes().add(this.getAbstractMapping());
+		memoryMappingEClass.getESuperTypes().add(this.getAbstractMapping());
+		contextExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		setExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		sequenceExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		filterExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		filterExpressionEClass.getESuperTypes().add(this.getScopingEntity());
+		guardExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		markExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		bandExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		bandPieceForReductionBodyEClass.getESuperTypes().add(this.getBandPiece());
+		extensionExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		extensionExpressionEClass.getESuperTypes().add(this.getScopingEntity());
+		extensionTargetEClass.getESuperTypes().add(theModelPackage.getAlphaScheduleTarget());
+
+		// Initialize classes and features; add operations and parameters
+		initEClass(scopingEntityEClass, ScopingEntity.class, "ScopingEntity", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(targetMappingEClass, TargetMapping.class, "TargetMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTargetMapping_TargetSystem(), theModelPackage.getAlphaSystem(), null, "targetSystem", null, 0, 1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetMapping_ScheduleTree(), this.getScheduleTreeExpression(), null, "scheduleTree", null, 0, 1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetMapping_MemorySpaces(), this.getMemorySpace(), null, "memorySpaces", null, 0, -1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(abstractMappingEClass, AbstractMapping.class, "AbstractMapping", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAbstractMapping_ScheduleTarget(), theModelPackage.getAlphaScheduleTarget(), null, "scheduleTarget", null, 0, 1, AbstractMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractMapping_Mapping(), theModelPackage.getJNIFunction(), null, "mapping", null, 0, 1, AbstractMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(spaceTimeMappingEClass, SpaceTimeMapping.class, "SpaceTimeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(memoryMappingEClass, MemoryMapping.class, "MemoryMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMemoryMapping_MemorySpaceName(), theEcorePackage.getEString(), "memorySpaceName", null, 0, 1, MemoryMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(memorySpaceEClass, MemorySpace.class, "MemorySpace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMemorySpace_Name(), theEcorePackage.getEString(), "name", null, 0, 1, MemorySpace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMemorySpace_MemoryMaps(), this.getMemoryMapping(), null, "memoryMaps", null, 0, -1, MemorySpace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(scheduleTreeExpressionEClass, ScheduleTreeExpression.class, "ScheduleTreeExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(contextExpressionEClass, ContextExpression.class, "ContextExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getContextExpression_ContextDomain(), theModelPackage.getJNIDomainInArrayNotation(), null, "contextDomain", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContextExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(setExpressionEClass, SetExpression.class, "SetExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSetExpression_Children(), this.getScheduleTreeExpression(), null, "children", null, 0, -1, SetExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(sequenceExpressionEClass, SequenceExpression.class, "SequenceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSequenceExpression_Children(), this.getScheduleTreeExpression(), null, "children", null, 0, -1, SequenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(filterExpressionEClass, FilterExpression.class, "FilterExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFilterExpression_FilterDomains(), this.getScheduleTargetRestrictDomain(), null, "filterDomains", null, 0, -1, FilterExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFilterExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, FilterExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(scheduleTargetRestrictDomainEClass, ScheduleTargetRestrictDomain.class, "ScheduleTargetRestrictDomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getScheduleTargetRestrictDomain_ScheduleTarget(), theModelPackage.getAlphaScheduleTarget(), null, "scheduleTarget", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScheduleTargetRestrictDomain_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getScheduleTargetRestrictDomain_RestrictDomain(), theModelPackage.getJNIDomainInArrayNotation(), null, "restrictDomain", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(guardExpressionEClass, GuardExpression.class, "GuardExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGuardExpression_GuardDomain(), theModelPackage.getJNIDomainInArrayNotation(), null, "guardDomain", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGuardExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(markExpressionEClass, MarkExpression.class, "MarkExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMarkExpression_Identifier(), theEcorePackage.getEString(), "identifier", null, 0, 1, MarkExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMarkExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, MarkExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(bandExpressionEClass, BandExpression.class, "BandExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBandExpression_BandPieces(), this.getBandPiece(), null, "bandPieces", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBandExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBandExpression_Tile(), theEcorePackage.getEBoolean(), "tile", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBandExpression_Parallel(), theEcorePackage.getEBoolean(), "parallel", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBandExpression_LoopTypeSpecifications(), this.getLoopTypeSpecification(), null, "loopTypeSpecifications", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBandExpression_IsolateSpecification(), this.getIsolateSpecification(), null, "isolateSpecification", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(bandPieceEClass, BandPiece.class, "BandPiece", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBandPiece_PieceDomain(), this.getScheduleTargetRestrictDomain(), null, "pieceDomain", null, 0, 1, BandPiece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBandPiece_PartialSchedule(), theModelPackage.getJNIFunctionInArrayNotation(), null, "partialSchedule", null, 0, 1, BandPiece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(loopTypeSpecificationEClass, LoopTypeSpecification.class, "LoopTypeSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLoopTypeSpecification_Dimension(), theEcorePackage.getEInt(), "dimension", null, 0, 1, LoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLoopTypeSpecification_LoopType(), this.getISLASTLoopType(), "loopType", null, 0, 1, LoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(isolateSpecificationEClass, IsolateSpecification.class, "IsolateSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getIsolateSpecification_IsolateDomain(), theModelPackage.getJNIDomain(), null, "isolateDomain", null, 0, 1, IsolateSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIsolateSpecification_LoopTypeSpecifications(), this.getLoopTypeSpecification(), null, "loopTypeSpecifications", null, 0, -1, IsolateSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(bandPieceForReductionBodyEClass, BandPieceForReductionBody.class, "BandPieceForReductionBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBandPieceForReductionBody_ReductionInitialization(), theEcorePackage.getEString(), "reductionInitialization", null, 0, 1, BandPieceForReductionBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(extensionExpressionEClass, ExtensionExpression.class, "ExtensionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExtensionExpression_ExtensionTargets(), this.getExtensionTarget(), null, "extensionTargets", null, 0, -1, ExtensionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensionExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, ExtensionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(extensionTargetEClass, ExtensionTarget.class, "ExtensionTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExtensionTarget_Source(), theModelPackage.getAlphaScheduleTarget(), null, "source", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExtensionTarget_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExtensionTarget_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensionTarget_ExtensionMap(), theModelPackage.getJNIRelation(), null, "extensionMap", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize data types
+		initEDataType(islastLoopTypeEDataType, ISLASTLoopType.class, "ISLASTLoopType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+
+		// Create resource
+		createResource(eNS_URI);
+	}
+
+} //TargetmappingPackageImpl
