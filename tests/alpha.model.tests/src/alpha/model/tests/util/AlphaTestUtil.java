@@ -55,6 +55,7 @@ public class AlphaTestUtil {
 			count++;
 		}
 		
+		AlphaLoader.initialize();
 		try {
 			//bundle
 			if (count > 1) {

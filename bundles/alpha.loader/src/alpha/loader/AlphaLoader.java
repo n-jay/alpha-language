@@ -42,17 +42,23 @@ import alpha.targetmapping.TargetmappingPackage;
  * Xtext parser, and then construct the ISL objects for each Alpha program.
  * 
  * An instance of resource set is maintained so that separate calls to load methods
- * can refer to previously loaded programs.
+ * can refer to previously loaded programs. This context is reset by calling initialize.
  * 
  * @author tyuki
  *
  */
 public class AlphaLoader {
 	
-	public static final Injector INJECTOR = new TargetMappingStandaloneSetup().createInjectorAndDoEMFRegistration();
-	public static final XtextResourceSet RESOURCE_SET = INJECTOR.getInstance(XtextResourceSet.class);
+	private static Injector INJECTOR;
+	private static XtextResourceSet RESOURCE_SET;
 	
 	static {
+		initialize();
+	}
+	
+	public static void initialize() {
+		INJECTOR = new TargetMappingStandaloneSetup().createInjectorAndDoEMFRegistration();
+		RESOURCE_SET = INJECTOR.getInstance(XtextResourceSet.class);
 		RESOURCE_SET.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
 		RESOURCE_SET.getPackageRegistry().put(TargetmappingPackage.eNS_URI, TargetmappingPackage.eINSTANCE);
 	}

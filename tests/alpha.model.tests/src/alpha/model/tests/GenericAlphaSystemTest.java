@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import alpha.loader.AlphaLoader;
 import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.tests.data.AlphaBundleTestInput;
@@ -36,6 +37,7 @@ public abstract class GenericAlphaSystemTest {
 	
 	@Test
 	public void compute() {
+		AlphaLoader.initialize();
 		doTest();
 	}
 	
