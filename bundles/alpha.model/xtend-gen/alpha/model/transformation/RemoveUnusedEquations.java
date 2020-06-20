@@ -9,10 +9,10 @@ import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.xbase.lib.ArrayExtensions;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -49,7 +49,7 @@ public class RemoveUnusedEquations {
     };
     final Object[] unusedVars = system.getLocals().stream().filter(_function_2).toArray();
     final Function1<StandardEquation, Boolean> _function_3 = (StandardEquation eq) -> {
-      return Boolean.valueOf(((List<Object>)Conversions.doWrapArray(unusedVars)).contains(eq.getVariable()));
+      return Boolean.valueOf(ArrayExtensions.contains(unusedVars, eq.getVariable()));
     };
     final Iterable<StandardEquation> unusedEqs = IterableExtensions.<StandardEquation>filter(EcoreUtil2.<StandardEquation>getAllContentsOfType(system, StandardEquation.class), _function_3);
     system.getLocals().removeAll(((Collection<?>)Conversions.doWrapArray(unusedVars)));
