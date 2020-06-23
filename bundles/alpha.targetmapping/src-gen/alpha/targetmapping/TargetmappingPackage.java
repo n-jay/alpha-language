@@ -238,13 +238,13 @@ public interface TargetmappingPackage extends EPackage {
 	int CONTEXT_EXPRESSION = 7;
 
 	/**
-	 * The feature id for the '<em><b>Context Domain</b></em>' containment reference.
+	 * The feature id for the '<em><b>Context Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTEXT_EXPRESSION__CONTEXT_DOMAIN = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 0;
+	int CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Child</b></em>' containment reference.
@@ -386,13 +386,13 @@ public interface TargetmappingPackage extends EPackage {
 	int SCHEDULE_TARGET_RESTRICT_DOMAIN__INDEX_NAMES = 1;
 
 	/**
-	 * The feature id for the '<em><b>Restrict Domain</b></em>' containment reference.
+	 * The feature id for the '<em><b>Restrict Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN = 2;
+	int SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR = 2;
 
 	/**
 	 * The number of structural features of the '<em>Schedule Target Restrict Domain</em>' class.
@@ -414,13 +414,13 @@ public interface TargetmappingPackage extends EPackage {
 	int GUARD_EXPRESSION = 12;
 
 	/**
-	 * The feature id for the '<em><b>Guard Domain</b></em>' containment reference.
+	 * The feature id for the '<em><b>Guard Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GUARD_EXPRESSION__GUARD_DOMAIN = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 0;
+	int GUARD_EXPRESSION__GUARD_DOMAIN_EXPR = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Child</b></em>' containment reference.
@@ -570,13 +570,13 @@ public interface TargetmappingPackage extends EPackage {
 	int BAND_PIECE__PIECE_DOMAIN = 0;
 
 	/**
-	 * The feature id for the '<em><b>Partial Schedule</b></em>' containment reference.
+	 * The feature id for the '<em><b>Partial Schedule Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_PIECE__PARTIAL_SCHEDULE = 1;
+	int BAND_PIECE__PARTIAL_SCHEDULE_EXPR = 1;
 
 	/**
 	 * The number of structural features of the '<em>Band Piece</em>' class.
@@ -635,13 +635,13 @@ public interface TargetmappingPackage extends EPackage {
 	int ISOLATE_SPECIFICATION = 17;
 
 	/**
-	 * The feature id for the '<em><b>Isolate Domain</b></em>' containment reference.
+	 * The feature id for the '<em><b>Isolate Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ISOLATE_SPECIFICATION__ISOLATE_DOMAIN = 0;
+	int ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR = 0;
 
 	/**
 	 * The feature id for the '<em><b>Loop Type Specifications</b></em>' containment reference list.
@@ -681,13 +681,13 @@ public interface TargetmappingPackage extends EPackage {
 	int BAND_PIECE_FOR_REDUCTION_BODY__PIECE_DOMAIN = BAND_PIECE__PIECE_DOMAIN;
 
 	/**
-	 * The feature id for the '<em><b>Partial Schedule</b></em>' containment reference.
+	 * The feature id for the '<em><b>Partial Schedule Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_PIECE_FOR_REDUCTION_BODY__PARTIAL_SCHEDULE = BAND_PIECE__PARTIAL_SCHEDULE;
+	int BAND_PIECE_FOR_REDUCTION_BODY__PARTIAL_SCHEDULE_EXPR = BAND_PIECE__PARTIAL_SCHEDULE_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Reduction Initialization</b></em>' attribute.
@@ -782,13 +782,13 @@ public interface TargetmappingPackage extends EPackage {
 	int EXTENSION_TARGET__INDEX_NAMES = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Extension Map</b></em>' containment reference.
+	 * The feature id for the '<em><b>Extension Map Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_TARGET__EXTENSION_MAP = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 3;
+	int EXTENSION_TARGET__EXTENSION_MAP_EXPR = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Extension Target</em>' class.
@@ -800,6 +800,66 @@ public interface TargetmappingPackage extends EPackage {
 	int EXTENSION_TARGET_FEATURE_COUNT = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 4;
 
 	/**
+	 * The meta object id for the '<em>JNI Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.cairn.jnimap.runtime.JNIObject
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIObject()
+	 * @generated
+	 */
+	int JNI_OBJECT = 21;
+
+	/**
+	 * The meta object id for the '<em>JNIISL Set</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.cairn.jnimap.isl.ISLSet
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLSet()
+	 * @generated
+	 */
+	int JNIISL_SET = 22;
+
+	/**
+	 * The meta object id for the '<em>JNIISL Map</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMap
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLMap()
+	 * @generated
+	 */
+	int JNIISL_MAP = 23;
+
+	/**
+	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMultiAff
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLMultiAff()
+	 * @generated
+	 */
+	int JNIISL_MULTI_AFF = 24;
+
+	/**
+	 * The meta object id for the '<em>JNIISLPWQ Polynomial</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLPWQPolynomial()
+	 * @generated
+	 */
+	int JNIISLPWQ_POLYNOMIAL = 25;
+
+	/**
+	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.cairn.jnimap.isl.ISL_FORMAT
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getISL_FORMAT()
+	 * @generated
+	 */
+	int ISL_FORMAT = 26;
+
+	/**
 	 * The meta object id for the '<em>ISLAST Loop Type</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -807,7 +867,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getISLASTLoopType()
 	 * @generated
 	 */
-	int ISLAST_LOOP_TYPE = 21;
+	int ISLAST_LOOP_TYPE = 27;
 
 
 	/**
@@ -935,15 +995,15 @@ public interface TargetmappingPackage extends EPackage {
 	EClass getContextExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.ContextExpression#getContextDomain <em>Context Domain</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.ContextExpression#getContextDomainExpr <em>Context Domain Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Context Domain</em>'.
-	 * @see alpha.targetmapping.ContextExpression#getContextDomain()
+	 * @return the meta object for the containment reference '<em>Context Domain Expr</em>'.
+	 * @see alpha.targetmapping.ContextExpression#getContextDomainExpr()
 	 * @see #getContextExpression()
 	 * @generated
 	 */
-	EReference getContextExpression_ContextDomain();
+	EReference getContextExpression_ContextDomainExpr();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.ContextExpression#getChild <em>Child</em>}'.
@@ -1063,15 +1123,15 @@ public interface TargetmappingPackage extends EPackage {
 	EAttribute getScheduleTargetRestrictDomain_IndexNames();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.ScheduleTargetRestrictDomain#getRestrictDomain <em>Restrict Domain</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.ScheduleTargetRestrictDomain#getRestrictDomainExpr <em>Restrict Domain Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Restrict Domain</em>'.
-	 * @see alpha.targetmapping.ScheduleTargetRestrictDomain#getRestrictDomain()
+	 * @return the meta object for the containment reference '<em>Restrict Domain Expr</em>'.
+	 * @see alpha.targetmapping.ScheduleTargetRestrictDomain#getRestrictDomainExpr()
 	 * @see #getScheduleTargetRestrictDomain()
 	 * @generated
 	 */
-	EReference getScheduleTargetRestrictDomain_RestrictDomain();
+	EReference getScheduleTargetRestrictDomain_RestrictDomainExpr();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.targetmapping.GuardExpression <em>Guard Expression</em>}'.
@@ -1084,15 +1144,15 @@ public interface TargetmappingPackage extends EPackage {
 	EClass getGuardExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.GuardExpression#getGuardDomain <em>Guard Domain</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.GuardExpression#getGuardDomainExpr <em>Guard Domain Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Guard Domain</em>'.
-	 * @see alpha.targetmapping.GuardExpression#getGuardDomain()
+	 * @return the meta object for the containment reference '<em>Guard Domain Expr</em>'.
+	 * @see alpha.targetmapping.GuardExpression#getGuardDomainExpr()
 	 * @see #getGuardExpression()
 	 * @generated
 	 */
-	EReference getGuardExpression_GuardDomain();
+	EReference getGuardExpression_GuardDomainExpr();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.GuardExpression#getChild <em>Child</em>}'.
@@ -1235,15 +1295,15 @@ public interface TargetmappingPackage extends EPackage {
 	EReference getBandPiece_PieceDomain();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.BandPiece#getPartialSchedule <em>Partial Schedule</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.BandPiece#getPartialScheduleExpr <em>Partial Schedule Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Partial Schedule</em>'.
-	 * @see alpha.targetmapping.BandPiece#getPartialSchedule()
+	 * @return the meta object for the containment reference '<em>Partial Schedule Expr</em>'.
+	 * @see alpha.targetmapping.BandPiece#getPartialScheduleExpr()
 	 * @see #getBandPiece()
 	 * @generated
 	 */
-	EReference getBandPiece_PartialSchedule();
+	EReference getBandPiece_PartialScheduleExpr();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.targetmapping.LoopTypeSpecification <em>Loop Type Specification</em>}'.
@@ -1288,15 +1348,15 @@ public interface TargetmappingPackage extends EPackage {
 	EClass getIsolateSpecification();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.IsolateSpecification#getIsolateDomain <em>Isolate Domain</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.IsolateSpecification#getIsolateDomainExpr <em>Isolate Domain Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Isolate Domain</em>'.
-	 * @see alpha.targetmapping.IsolateSpecification#getIsolateDomain()
+	 * @return the meta object for the containment reference '<em>Isolate Domain Expr</em>'.
+	 * @see alpha.targetmapping.IsolateSpecification#getIsolateDomainExpr()
 	 * @see #getIsolateSpecification()
 	 * @generated
 	 */
-	EReference getIsolateSpecification_IsolateDomain();
+	EReference getIsolateSpecification_IsolateDomainExpr();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.IsolateSpecification#getLoopTypeSpecifications <em>Loop Type Specifications</em>}'.
@@ -1406,15 +1466,81 @@ public interface TargetmappingPackage extends EPackage {
 	EAttribute getExtensionTarget_IndexNames();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.ExtensionTarget#getExtensionMap <em>Extension Map</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.ExtensionTarget#getExtensionMapExpr <em>Extension Map Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Extension Map</em>'.
-	 * @see alpha.targetmapping.ExtensionTarget#getExtensionMap()
+	 * @return the meta object for the containment reference '<em>Extension Map Expr</em>'.
+	 * @see alpha.targetmapping.ExtensionTarget#getExtensionMapExpr()
 	 * @see #getExtensionTarget()
 	 * @generated
 	 */
-	EReference getExtensionTarget_ExtensionMap();
+	EReference getExtensionTarget_ExtensionMapExpr();
+
+	/**
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.runtime.JNIObject <em>JNI Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>JNI Object</em>'.
+	 * @see fr.irisa.cairn.jnimap.runtime.JNIObject
+	 * @model instanceClass="fr.irisa.cairn.jnimap.runtime.JNIObject"
+	 * @generated
+	 */
+	EDataType getJNIObject();
+
+	/**
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLSet <em>JNIISL Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>JNIISL Set</em>'.
+	 * @see fr.irisa.cairn.jnimap.isl.ISLSet
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLSet"
+	 * @generated
+	 */
+	EDataType getJNIISLSet();
+
+	/**
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLMap <em>JNIISL Map</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>JNIISL Map</em>'.
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMap
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLMap"
+	 * @generated
+	 */
+	EDataType getJNIISLMap();
+
+	/**
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLMultiAff <em>JNIISL Multi Aff</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>JNIISL Multi Aff</em>'.
+	 * @see fr.irisa.cairn.jnimap.isl.ISLMultiAff
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLMultiAff"
+	 * @generated
+	 */
+	EDataType getJNIISLMultiAff();
+
+	/**
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial <em>JNIISLPWQ Polynomial</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>JNIISLPWQ Polynomial</em>'.
+	 * @see fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial"
+	 * @generated
+	 */
+	EDataType getJNIISLPWQPolynomial();
+
+	/**
+	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISL_FORMAT <em>ISL FORMAT</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>ISL FORMAT</em>'.
+	 * @see fr.irisa.cairn.jnimap.isl.ISL_FORMAT
+	 * @model instanceClass="fr.irisa.cairn.jnimap.isl.ISL_FORMAT"
+	 * @generated
+	 */
+	EDataType getISL_FORMAT();
 
 	/**
 	 * Returns the meta object for data type '{@link fr.irisa.cairn.jnimap.isl.ISLASTLoopType <em>ISLAST Loop Type</em>}'.
@@ -1562,12 +1688,12 @@ public interface TargetmappingPackage extends EPackage {
 		EClass CONTEXT_EXPRESSION = eINSTANCE.getContextExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Context Domain</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Context Domain Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONTEXT_EXPRESSION__CONTEXT_DOMAIN = eINSTANCE.getContextExpression_ContextDomain();
+		EReference CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR = eINSTANCE.getContextExpression_ContextDomainExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Child</b></em>' containment reference feature.
@@ -1666,12 +1792,12 @@ public interface TargetmappingPackage extends EPackage {
 		EAttribute SCHEDULE_TARGET_RESTRICT_DOMAIN__INDEX_NAMES = eINSTANCE.getScheduleTargetRestrictDomain_IndexNames();
 
 		/**
-		 * The meta object literal for the '<em><b>Restrict Domain</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Restrict Domain Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN = eINSTANCE.getScheduleTargetRestrictDomain_RestrictDomain();
+		EReference SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR = eINSTANCE.getScheduleTargetRestrictDomain_RestrictDomainExpr();
 
 		/**
 		 * The meta object literal for the '{@link alpha.targetmapping.impl.GuardExpressionImpl <em>Guard Expression</em>}' class.
@@ -1684,12 +1810,12 @@ public interface TargetmappingPackage extends EPackage {
 		EClass GUARD_EXPRESSION = eINSTANCE.getGuardExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Guard Domain</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Guard Domain Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference GUARD_EXPRESSION__GUARD_DOMAIN = eINSTANCE.getGuardExpression_GuardDomain();
+		EReference GUARD_EXPRESSION__GUARD_DOMAIN_EXPR = eINSTANCE.getGuardExpression_GuardDomainExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Child</b></em>' containment reference feature.
@@ -1802,12 +1928,12 @@ public interface TargetmappingPackage extends EPackage {
 		EReference BAND_PIECE__PIECE_DOMAIN = eINSTANCE.getBandPiece_PieceDomain();
 
 		/**
-		 * The meta object literal for the '<em><b>Partial Schedule</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Partial Schedule Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BAND_PIECE__PARTIAL_SCHEDULE = eINSTANCE.getBandPiece_PartialSchedule();
+		EReference BAND_PIECE__PARTIAL_SCHEDULE_EXPR = eINSTANCE.getBandPiece_PartialScheduleExpr();
 
 		/**
 		 * The meta object literal for the '{@link alpha.targetmapping.impl.LoopTypeSpecificationImpl <em>Loop Type Specification</em>}' class.
@@ -1846,12 +1972,12 @@ public interface TargetmappingPackage extends EPackage {
 		EClass ISOLATE_SPECIFICATION = eINSTANCE.getIsolateSpecification();
 
 		/**
-		 * The meta object literal for the '<em><b>Isolate Domain</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Isolate Domain Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ISOLATE_SPECIFICATION__ISOLATE_DOMAIN = eINSTANCE.getIsolateSpecification_IsolateDomain();
+		EReference ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR = eINSTANCE.getIsolateSpecification_IsolateDomainExpr();
 
 		/**
 		 * The meta object literal for the '<em><b>Loop Type Specifications</b></em>' containment reference list feature.
@@ -1940,12 +2066,72 @@ public interface TargetmappingPackage extends EPackage {
 		EAttribute EXTENSION_TARGET__INDEX_NAMES = eINSTANCE.getExtensionTarget_IndexNames();
 
 		/**
-		 * The meta object literal for the '<em><b>Extension Map</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Extension Map Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EXTENSION_TARGET__EXTENSION_MAP = eINSTANCE.getExtensionTarget_ExtensionMap();
+		EReference EXTENSION_TARGET__EXTENSION_MAP_EXPR = eINSTANCE.getExtensionTarget_ExtensionMapExpr();
+
+		/**
+		 * The meta object literal for the '<em>JNI Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.cairn.jnimap.runtime.JNIObject
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIObject()
+		 * @generated
+		 */
+		EDataType JNI_OBJECT = eINSTANCE.getJNIObject();
+
+		/**
+		 * The meta object literal for the '<em>JNIISL Set</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.cairn.jnimap.isl.ISLSet
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLSet()
+		 * @generated
+		 */
+		EDataType JNIISL_SET = eINSTANCE.getJNIISLSet();
+
+		/**
+		 * The meta object literal for the '<em>JNIISL Map</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.cairn.jnimap.isl.ISLMap
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLMap()
+		 * @generated
+		 */
+		EDataType JNIISL_MAP = eINSTANCE.getJNIISLMap();
+
+		/**
+		 * The meta object literal for the '<em>JNIISL Multi Aff</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.cairn.jnimap.isl.ISLMultiAff
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLMultiAff()
+		 * @generated
+		 */
+		EDataType JNIISL_MULTI_AFF = eINSTANCE.getJNIISLMultiAff();
+
+		/**
+		 * The meta object literal for the '<em>JNIISLPWQ Polynomial</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLPWQPolynomial()
+		 * @generated
+		 */
+		EDataType JNIISLPWQ_POLYNOMIAL = eINSTANCE.getJNIISLPWQPolynomial();
+
+		/**
+		 * The meta object literal for the '<em>ISL FORMAT</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.cairn.jnimap.isl.ISL_FORMAT
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getISL_FORMAT()
+		 * @generated
+		 */
+		EDataType ISL_FORMAT = eINSTANCE.getISL_FORMAT();
 
 		/**
 		 * The meta object literal for the '<em>ISLAST Loop Type</em>' data type.

@@ -917,12 +917,12 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContextExpression"
-    // InternalTargetMapping.g:323:1: ruleContextExpression returns [EObject current=null] : (otherlv_0= 'context' ( (lv_contextDomain_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) ;
+    // InternalTargetMapping.g:323:1: ruleContextExpression returns [EObject current=null] : (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) ;
     public final EObject ruleContextExpression() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
-        EObject lv_contextDomain_1_0 = null;
+        EObject lv_contextDomainExpr_1_0 = null;
 
         EObject lv_child_2_0 = null;
 
@@ -931,27 +931,27 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalTargetMapping.g:329:2: ( (otherlv_0= 'context' ( (lv_contextDomain_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) )
-            // InternalTargetMapping.g:330:2: (otherlv_0= 'context' ( (lv_contextDomain_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
+            // InternalTargetMapping.g:329:2: ( (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) )
+            // InternalTargetMapping.g:330:2: (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
             {
-            // InternalTargetMapping.g:330:2: (otherlv_0= 'context' ( (lv_contextDomain_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
-            // InternalTargetMapping.g:331:3: otherlv_0= 'context' ( (lv_contextDomain_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) )
+            // InternalTargetMapping.g:330:2: (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
+            // InternalTargetMapping.g:331:3: otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) )
             {
             otherlv_0=(Token)match(input,15,FOLLOW_8); 
 
             			newLeafNode(otherlv_0, grammarAccess.getContextExpressionAccess().getContextKeyword_0());
             		
-            // InternalTargetMapping.g:335:3: ( (lv_contextDomain_1_0= ruleJNIDomainInArrayNotation ) )
-            // InternalTargetMapping.g:336:4: (lv_contextDomain_1_0= ruleJNIDomainInArrayNotation )
+            // InternalTargetMapping.g:335:3: ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) )
+            // InternalTargetMapping.g:336:4: (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation )
             {
-            // InternalTargetMapping.g:336:4: (lv_contextDomain_1_0= ruleJNIDomainInArrayNotation )
-            // InternalTargetMapping.g:337:5: lv_contextDomain_1_0= ruleJNIDomainInArrayNotation
+            // InternalTargetMapping.g:336:4: (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation )
+            // InternalTargetMapping.g:337:5: lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation
             {
 
-            					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainJNIDomainInArrayNotationParserRuleCall_1_0());
+            					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0());
             				
             pushFollow(FOLLOW_7);
-            lv_contextDomain_1_0=ruleJNIDomainInArrayNotation();
+            lv_contextDomainExpr_1_0=ruleJNIDomainInArrayNotation();
 
             state._fsp--;
 
@@ -961,8 +961,8 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             					}
             					set(
             						current,
-            						"contextDomain",
-            						lv_contextDomain_1_0,
+            						"contextDomainExpr",
+            						lv_contextDomainExpr_1_0,
             						"alpha.model.Alpha.JNIDomainInArrayNotation");
             					afterParserOrEnumRuleCall();
             				
@@ -1374,7 +1374,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleScheduleTargetRestrictDomain"
-    // InternalTargetMapping.g:496:1: ruleScheduleTargetRestrictDomain returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomain_6_0= ruleJNIDomainInArrayNotation ) )? ) ;
+    // InternalTargetMapping.g:496:1: ruleScheduleTargetRestrictDomain returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomainExpr_6_0= ruleJNIDomainInArrayNotation ) )? ) ;
     public final EObject ruleScheduleTargetRestrictDomain() throws RecognitionException {
         EObject current = null;
 
@@ -1384,18 +1384,18 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         Token otherlv_3=null;
         Token lv_indexNames_4_0=null;
         Token otherlv_5=null;
-        EObject lv_restrictDomain_6_0 = null;
+        EObject lv_restrictDomainExpr_6_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalTargetMapping.g:502:2: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomain_6_0= ruleJNIDomainInArrayNotation ) )? ) )
-            // InternalTargetMapping.g:503:2: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomain_6_0= ruleJNIDomainInArrayNotation ) )? )
+            // InternalTargetMapping.g:502:2: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomainExpr_6_0= ruleJNIDomainInArrayNotation ) )? ) )
+            // InternalTargetMapping.g:503:2: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomainExpr_6_0= ruleJNIDomainInArrayNotation ) )? )
             {
-            // InternalTargetMapping.g:503:2: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomain_6_0= ruleJNIDomainInArrayNotation ) )? )
-            // InternalTargetMapping.g:504:3: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomain_6_0= ruleJNIDomainInArrayNotation ) )?
+            // InternalTargetMapping.g:503:2: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomainExpr_6_0= ruleJNIDomainInArrayNotation ) )? )
+            // InternalTargetMapping.g:504:3: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '[' ( (lv_indexNames_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_indexNames_4_0= RULE_ID ) ) )* otherlv_5= ']' )? ( (lv_restrictDomainExpr_6_0= ruleJNIDomainInArrayNotation ) )?
             {
             // InternalTargetMapping.g:504:3: ( (otherlv_0= RULE_ID ) )
             // InternalTargetMapping.g:505:4: (otherlv_0= RULE_ID )
@@ -1523,7 +1523,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalTargetMapping.g:569:3: ( (lv_restrictDomain_6_0= ruleJNIDomainInArrayNotation ) )?
+            // InternalTargetMapping.g:569:3: ( (lv_restrictDomainExpr_6_0= ruleJNIDomainInArrayNotation ) )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1532,16 +1532,16 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             }
             switch (alt9) {
                 case 1 :
-                    // InternalTargetMapping.g:570:4: (lv_restrictDomain_6_0= ruleJNIDomainInArrayNotation )
+                    // InternalTargetMapping.g:570:4: (lv_restrictDomainExpr_6_0= ruleJNIDomainInArrayNotation )
                     {
-                    // InternalTargetMapping.g:570:4: (lv_restrictDomain_6_0= ruleJNIDomainInArrayNotation )
-                    // InternalTargetMapping.g:571:5: lv_restrictDomain_6_0= ruleJNIDomainInArrayNotation
+                    // InternalTargetMapping.g:570:4: (lv_restrictDomainExpr_6_0= ruleJNIDomainInArrayNotation )
+                    // InternalTargetMapping.g:571:5: lv_restrictDomainExpr_6_0= ruleJNIDomainInArrayNotation
                     {
 
-                    					newCompositeNode(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainJNIDomainInArrayNotationParserRuleCall_2_0());
+                    					newCompositeNode(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprJNIDomainInArrayNotationParserRuleCall_2_0());
                     				
                     pushFollow(FOLLOW_2);
-                    lv_restrictDomain_6_0=ruleJNIDomainInArrayNotation();
+                    lv_restrictDomainExpr_6_0=ruleJNIDomainInArrayNotation();
 
                     state._fsp--;
 
@@ -1551,8 +1551,8 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     					}
                     					set(
                     						current,
-                    						"restrictDomain",
-                    						lv_restrictDomain_6_0,
+                    						"restrictDomainExpr",
+                    						lv_restrictDomainExpr_6_0,
                     						"alpha.model.Alpha.JNIDomainInArrayNotation");
                     					afterParserOrEnumRuleCall();
                     				
@@ -1831,12 +1831,12 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleGuardExpression"
-    // InternalTargetMapping.g:685:1: ruleGuardExpression returns [EObject current=null] : (otherlv_0= 'if' ( (lv_guardDomain_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) ;
+    // InternalTargetMapping.g:685:1: ruleGuardExpression returns [EObject current=null] : (otherlv_0= 'if' ( (lv_guardDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) ;
     public final EObject ruleGuardExpression() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
-        EObject lv_guardDomain_1_0 = null;
+        EObject lv_guardDomainExpr_1_0 = null;
 
         EObject lv_child_2_0 = null;
 
@@ -1845,27 +1845,27 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalTargetMapping.g:691:2: ( (otherlv_0= 'if' ( (lv_guardDomain_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) )
-            // InternalTargetMapping.g:692:2: (otherlv_0= 'if' ( (lv_guardDomain_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
+            // InternalTargetMapping.g:691:2: ( (otherlv_0= 'if' ( (lv_guardDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) )
+            // InternalTargetMapping.g:692:2: (otherlv_0= 'if' ( (lv_guardDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
             {
-            // InternalTargetMapping.g:692:2: (otherlv_0= 'if' ( (lv_guardDomain_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
-            // InternalTargetMapping.g:693:3: otherlv_0= 'if' ( (lv_guardDomain_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) )
+            // InternalTargetMapping.g:692:2: (otherlv_0= 'if' ( (lv_guardDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
+            // InternalTargetMapping.g:693:3: otherlv_0= 'if' ( (lv_guardDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) )
             {
             otherlv_0=(Token)match(input,24,FOLLOW_15); 
 
             			newLeafNode(otherlv_0, grammarAccess.getGuardExpressionAccess().getIfKeyword_0());
             		
-            // InternalTargetMapping.g:697:3: ( (lv_guardDomain_1_0= ruleJNIDomain ) )
-            // InternalTargetMapping.g:698:4: (lv_guardDomain_1_0= ruleJNIDomain )
+            // InternalTargetMapping.g:697:3: ( (lv_guardDomainExpr_1_0= ruleJNIDomain ) )
+            // InternalTargetMapping.g:698:4: (lv_guardDomainExpr_1_0= ruleJNIDomain )
             {
-            // InternalTargetMapping.g:698:4: (lv_guardDomain_1_0= ruleJNIDomain )
-            // InternalTargetMapping.g:699:5: lv_guardDomain_1_0= ruleJNIDomain
+            // InternalTargetMapping.g:698:4: (lv_guardDomainExpr_1_0= ruleJNIDomain )
+            // InternalTargetMapping.g:699:5: lv_guardDomainExpr_1_0= ruleJNIDomain
             {
 
-            					newCompositeNode(grammarAccess.getGuardExpressionAccess().getGuardDomainJNIDomainParserRuleCall_1_0());
+            					newCompositeNode(grammarAccess.getGuardExpressionAccess().getGuardDomainExprJNIDomainParserRuleCall_1_0());
             				
             pushFollow(FOLLOW_7);
-            lv_guardDomain_1_0=ruleJNIDomain();
+            lv_guardDomainExpr_1_0=ruleJNIDomain();
 
             state._fsp--;
 
@@ -1875,8 +1875,8 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             					}
             					set(
             						current,
-            						"guardDomain",
-            						lv_guardDomain_1_0,
+            						"guardDomainExpr",
+            						lv_guardDomainExpr_1_0,
             						"alpha.model.Alpha.JNIDomain");
             					afterParserOrEnumRuleCall();
             				
@@ -2759,14 +2759,14 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBandPiece"
-    // InternalTargetMapping.g:1018:1: ruleBandPiece returns [EObject current=null] : ( ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation ) ) ) | this_BandPieceForReductionBody_3= ruleBandPieceForReductionBody ) ;
+    // InternalTargetMapping.g:1018:1: ruleBandPiece returns [EObject current=null] : ( ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation ) ) ) | this_BandPieceForReductionBody_3= ruleBandPieceForReductionBody ) ;
     public final EObject ruleBandPiece() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
         EObject lv_pieceDomain_0_0 = null;
 
-        EObject lv_partialSchedule_2_0 = null;
+        EObject lv_partialScheduleExpr_2_0 = null;
 
         EObject this_BandPieceForReductionBody_3 = null;
 
@@ -2775,10 +2775,10 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalTargetMapping.g:1024:2: ( ( ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation ) ) ) | this_BandPieceForReductionBody_3= ruleBandPieceForReductionBody ) )
-            // InternalTargetMapping.g:1025:2: ( ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation ) ) ) | this_BandPieceForReductionBody_3= ruleBandPieceForReductionBody )
+            // InternalTargetMapping.g:1024:2: ( ( ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation ) ) ) | this_BandPieceForReductionBody_3= ruleBandPieceForReductionBody ) )
+            // InternalTargetMapping.g:1025:2: ( ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation ) ) ) | this_BandPieceForReductionBody_3= ruleBandPieceForReductionBody )
             {
-            // InternalTargetMapping.g:1025:2: ( ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation ) ) ) | this_BandPieceForReductionBody_3= ruleBandPieceForReductionBody )
+            // InternalTargetMapping.g:1025:2: ( ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation ) ) ) | this_BandPieceForReductionBody_3= ruleBandPieceForReductionBody )
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -2796,10 +2796,10 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             }
             switch (alt18) {
                 case 1 :
-                    // InternalTargetMapping.g:1026:3: ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation ) ) )
+                    // InternalTargetMapping.g:1026:3: ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation ) ) )
                     {
-                    // InternalTargetMapping.g:1026:3: ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation ) ) )
-                    // InternalTargetMapping.g:1027:4: ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation ) )
+                    // InternalTargetMapping.g:1026:3: ( ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation ) ) )
+                    // InternalTargetMapping.g:1027:4: ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) ) otherlv_1= ':' ( (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation ) )
                     {
                     // InternalTargetMapping.g:1027:4: ( (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain ) )
                     // InternalTargetMapping.g:1028:5: (lv_pieceDomain_0_0= ruleScheduleTargetRestrictDomain )
@@ -2836,17 +2836,17 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                     				newLeafNode(otherlv_1, grammarAccess.getBandPieceAccess().getColonKeyword_0_1());
                     			
-                    // InternalTargetMapping.g:1050:4: ( (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation ) )
-                    // InternalTargetMapping.g:1051:5: (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation )
+                    // InternalTargetMapping.g:1050:4: ( (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation ) )
+                    // InternalTargetMapping.g:1051:5: (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation )
                     {
-                    // InternalTargetMapping.g:1051:5: (lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation )
-                    // InternalTargetMapping.g:1052:6: lv_partialSchedule_2_0= ruleJNIFunctionInArrayNotation
+                    // InternalTargetMapping.g:1051:5: (lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation )
+                    // InternalTargetMapping.g:1052:6: lv_partialScheduleExpr_2_0= ruleJNIFunctionInArrayNotation
                     {
 
-                    						newCompositeNode(grammarAccess.getBandPieceAccess().getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_0_2_0());
+                    						newCompositeNode(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0());
                     					
                     pushFollow(FOLLOW_2);
-                    lv_partialSchedule_2_0=ruleJNIFunctionInArrayNotation();
+                    lv_partialScheduleExpr_2_0=ruleJNIFunctionInArrayNotation();
 
                     state._fsp--;
 
@@ -2856,8 +2856,8 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     						}
                     						set(
                     							current,
-                    							"partialSchedule",
-                    							lv_partialSchedule_2_0,
+                    							"partialScheduleExpr",
+                    							lv_partialScheduleExpr_2_0,
                     							"alpha.model.Alpha.JNIFunctionInArrayNotation");
                     						afterParserOrEnumRuleCall();
                     					
@@ -2950,7 +2950,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIsolateSpecification"
-    // InternalTargetMapping.g:1090:1: ruleIsolateSpecification returns [EObject current=null] : (otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomain_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')' ) ;
+    // InternalTargetMapping.g:1090:1: ruleIsolateSpecification returns [EObject current=null] : (otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomainExpr_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')' ) ;
     public final EObject ruleIsolateSpecification() throws RecognitionException {
         EObject current = null;
 
@@ -2958,7 +2958,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         Token otherlv_1=null;
         Token otherlv_4=null;
         Token otherlv_6=null;
-        EObject lv_isolateDomain_2_0 = null;
+        EObject lv_isolateDomainExpr_2_0 = null;
 
         EObject lv_loopTypeSpecifications_3_0 = null;
 
@@ -2969,11 +2969,11 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalTargetMapping.g:1096:2: ( (otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomain_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')' ) )
-            // InternalTargetMapping.g:1097:2: (otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomain_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')' )
+            // InternalTargetMapping.g:1096:2: ( (otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomainExpr_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')' ) )
+            // InternalTargetMapping.g:1097:2: (otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomainExpr_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')' )
             {
-            // InternalTargetMapping.g:1097:2: (otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomain_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')' )
-            // InternalTargetMapping.g:1098:3: otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomain_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')'
+            // InternalTargetMapping.g:1097:2: (otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomainExpr_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')' )
+            // InternalTargetMapping.g:1098:3: otherlv_0= 'isolate' otherlv_1= '(' ( (lv_isolateDomainExpr_2_0= ruleJNIDomain ) ) ( ( (lv_loopTypeSpecifications_3_0= ruleLoopTypeSpecification ) ) (otherlv_4= ',' ( (lv_loopTypeSpecifications_5_0= ruleLoopTypeSpecification ) ) )* )? otherlv_6= ')'
             {
             otherlv_0=(Token)match(input,32,FOLLOW_16); 
 
@@ -2983,17 +2983,17 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_1, grammarAccess.getIsolateSpecificationAccess().getLeftParenthesisKeyword_1());
             		
-            // InternalTargetMapping.g:1106:3: ( (lv_isolateDomain_2_0= ruleJNIDomain ) )
-            // InternalTargetMapping.g:1107:4: (lv_isolateDomain_2_0= ruleJNIDomain )
+            // InternalTargetMapping.g:1106:3: ( (lv_isolateDomainExpr_2_0= ruleJNIDomain ) )
+            // InternalTargetMapping.g:1107:4: (lv_isolateDomainExpr_2_0= ruleJNIDomain )
             {
-            // InternalTargetMapping.g:1107:4: (lv_isolateDomain_2_0= ruleJNIDomain )
-            // InternalTargetMapping.g:1108:5: lv_isolateDomain_2_0= ruleJNIDomain
+            // InternalTargetMapping.g:1107:4: (lv_isolateDomainExpr_2_0= ruleJNIDomain )
+            // InternalTargetMapping.g:1108:5: lv_isolateDomainExpr_2_0= ruleJNIDomain
             {
 
-            					newCompositeNode(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainJNIDomainParserRuleCall_2_0());
+            					newCompositeNode(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprJNIDomainParserRuleCall_2_0());
             				
             pushFollow(FOLLOW_24);
-            lv_isolateDomain_2_0=ruleJNIDomain();
+            lv_isolateDomainExpr_2_0=ruleJNIDomain();
 
             state._fsp--;
 
@@ -3003,8 +3003,8 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             					}
             					set(
             						current,
-            						"isolateDomain",
-            						lv_isolateDomain_2_0,
+            						"isolateDomainExpr",
+            						lv_isolateDomainExpr_2_0,
             						"alpha.model.Alpha.JNIDomain");
             					afterParserOrEnumRuleCall();
             				
@@ -3475,7 +3475,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBandPieceForReductionBody"
-    // InternalTargetMapping.g:1292:1: ruleBandPieceForReductionBody returns [EObject current=null] : (otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialSchedule_7_0= ruleJNIFunctionInArrayNotation ) ) ) ;
+    // InternalTargetMapping.g:1292:1: ruleBandPieceForReductionBody returns [EObject current=null] : (otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialScheduleExpr_7_0= ruleJNIFunctionInArrayNotation ) ) ) ;
     public final EObject ruleBandPieceForReductionBody() throws RecognitionException {
         EObject current = null;
 
@@ -3487,18 +3487,18 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         Token otherlv_6=null;
         EObject lv_pieceDomain_2_0 = null;
 
-        EObject lv_partialSchedule_7_0 = null;
+        EObject lv_partialScheduleExpr_7_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalTargetMapping.g:1298:2: ( (otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialSchedule_7_0= ruleJNIFunctionInArrayNotation ) ) ) )
-            // InternalTargetMapping.g:1299:2: (otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialSchedule_7_0= ruleJNIFunctionInArrayNotation ) ) )
+            // InternalTargetMapping.g:1298:2: ( (otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialScheduleExpr_7_0= ruleJNIFunctionInArrayNotation ) ) ) )
+            // InternalTargetMapping.g:1299:2: (otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialScheduleExpr_7_0= ruleJNIFunctionInArrayNotation ) ) )
             {
-            // InternalTargetMapping.g:1299:2: (otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialSchedule_7_0= ruleJNIFunctionInArrayNotation ) ) )
-            // InternalTargetMapping.g:1300:3: otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialSchedule_7_0= ruleJNIFunctionInArrayNotation ) )
+            // InternalTargetMapping.g:1299:2: (otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialScheduleExpr_7_0= ruleJNIFunctionInArrayNotation ) ) )
+            // InternalTargetMapping.g:1300:3: otherlv_0= 'reduction' otherlv_1= '(' ( (lv_pieceDomain_2_0= ruleScheduleTargetRestrictDomain ) ) (otherlv_3= ',' ( (lv_reductionInitialization_4_0= RULE_STRING ) ) )? otherlv_5= ')' otherlv_6= ':' ( (lv_partialScheduleExpr_7_0= ruleJNIFunctionInArrayNotation ) )
             {
             otherlv_0=(Token)match(input,37,FOLLOW_16); 
 
@@ -3594,17 +3594,17 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_6, grammarAccess.getBandPieceForReductionBodyAccess().getColonKeyword_5());
             		
-            // InternalTargetMapping.g:1359:3: ( (lv_partialSchedule_7_0= ruleJNIFunctionInArrayNotation ) )
-            // InternalTargetMapping.g:1360:4: (lv_partialSchedule_7_0= ruleJNIFunctionInArrayNotation )
+            // InternalTargetMapping.g:1359:3: ( (lv_partialScheduleExpr_7_0= ruleJNIFunctionInArrayNotation ) )
+            // InternalTargetMapping.g:1360:4: (lv_partialScheduleExpr_7_0= ruleJNIFunctionInArrayNotation )
             {
-            // InternalTargetMapping.g:1360:4: (lv_partialSchedule_7_0= ruleJNIFunctionInArrayNotation )
-            // InternalTargetMapping.g:1361:5: lv_partialSchedule_7_0= ruleJNIFunctionInArrayNotation
+            // InternalTargetMapping.g:1360:4: (lv_partialScheduleExpr_7_0= ruleJNIFunctionInArrayNotation )
+            // InternalTargetMapping.g:1361:5: lv_partialScheduleExpr_7_0= ruleJNIFunctionInArrayNotation
             {
 
-            					newCompositeNode(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_6_0());
+            					newCompositeNode(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0());
             				
             pushFollow(FOLLOW_2);
-            lv_partialSchedule_7_0=ruleJNIFunctionInArrayNotation();
+            lv_partialScheduleExpr_7_0=ruleJNIFunctionInArrayNotation();
 
             state._fsp--;
 
@@ -3614,8 +3614,8 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             					}
             					set(
             						current,
-            						"partialSchedule",
-            						lv_partialSchedule_7_0,
+            						"partialScheduleExpr",
+            						lv_partialScheduleExpr_7_0,
             						"alpha.model.Alpha.JNIFunctionInArrayNotation");
             					afterParserOrEnumRuleCall();
             				
@@ -3901,7 +3901,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExtensionTarget"
-    // InternalTargetMapping.g:1483:1: ruleExtensionTarget returns [EObject current=null] : ( (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMap_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )? ) ;
+    // InternalTargetMapping.g:1483:1: ruleExtensionTarget returns [EObject current=null] : ( (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMapExpr_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )? ) ;
     public final EObject ruleExtensionTarget() throws RecognitionException {
         EObject current = null;
 
@@ -3914,18 +3914,18 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         Token otherlv_7=null;
         Token lv_indexNames_8_0=null;
         Token otherlv_9=null;
-        EObject lv_extensionMap_2_0 = null;
+        EObject lv_extensionMapExpr_2_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalTargetMapping.g:1489:2: ( ( (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMap_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )? ) )
-            // InternalTargetMapping.g:1490:2: ( (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMap_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )? )
+            // InternalTargetMapping.g:1489:2: ( ( (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMapExpr_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )? ) )
+            // InternalTargetMapping.g:1490:2: ( (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMapExpr_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )? )
             {
-            // InternalTargetMapping.g:1490:2: ( (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMap_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )? )
-            // InternalTargetMapping.g:1491:3: (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMap_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )?
+            // InternalTargetMapping.g:1490:2: ( (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMapExpr_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )? )
+            // InternalTargetMapping.g:1491:3: (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )? ( (lv_extensionMapExpr_2_0= ruleJNIRelation ) ) otherlv_3= 'as' ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '[' ( (lv_indexNames_6_0= RULE_ID ) ) (otherlv_7= ',' ( (lv_indexNames_8_0= RULE_ID ) ) )* otherlv_9= ']' )?
             {
             // InternalTargetMapping.g:1491:3: (otherlv_0= 'from' ( (otherlv_1= RULE_ID ) ) )?
             int alt24=2;
@@ -3969,17 +3969,17 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalTargetMapping.g:1510:3: ( (lv_extensionMap_2_0= ruleJNIRelation ) )
-            // InternalTargetMapping.g:1511:4: (lv_extensionMap_2_0= ruleJNIRelation )
+            // InternalTargetMapping.g:1510:3: ( (lv_extensionMapExpr_2_0= ruleJNIRelation ) )
+            // InternalTargetMapping.g:1511:4: (lv_extensionMapExpr_2_0= ruleJNIRelation )
             {
-            // InternalTargetMapping.g:1511:4: (lv_extensionMap_2_0= ruleJNIRelation )
-            // InternalTargetMapping.g:1512:5: lv_extensionMap_2_0= ruleJNIRelation
+            // InternalTargetMapping.g:1511:4: (lv_extensionMapExpr_2_0= ruleJNIRelation )
+            // InternalTargetMapping.g:1512:5: lv_extensionMapExpr_2_0= ruleJNIRelation
             {
 
-            					newCompositeNode(grammarAccess.getExtensionTargetAccess().getExtensionMapJNIRelationParserRuleCall_1_0());
+            					newCompositeNode(grammarAccess.getExtensionTargetAccess().getExtensionMapExprJNIRelationParserRuleCall_1_0());
             				
             pushFollow(FOLLOW_29);
-            lv_extensionMap_2_0=ruleJNIRelation();
+            lv_extensionMapExpr_2_0=ruleJNIRelation();
 
             state._fsp--;
 
@@ -3989,8 +3989,8 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             					}
             					set(
             						current,
-            						"extensionMap",
-            						lv_extensionMap_2_0,
+            						"extensionMapExpr",
+            						lv_extensionMapExpr_2_0,
             						"alpha.model.Alpha.JNIRelation");
             					afterParserOrEnumRuleCall();
             				

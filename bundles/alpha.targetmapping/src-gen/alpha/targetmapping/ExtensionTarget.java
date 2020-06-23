@@ -5,6 +5,8 @@ package alpha.targetmapping;
 import alpha.model.AlphaScheduleTarget;
 import alpha.model.JNIRelation;
 
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -19,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link alpha.targetmapping.ExtensionTarget#getSource <em>Source</em>}</li>
  *   <li>{@link alpha.targetmapping.ExtensionTarget#getName <em>Name</em>}</li>
  *   <li>{@link alpha.targetmapping.ExtensionTarget#getIndexNames <em>Index Names</em>}</li>
- *   <li>{@link alpha.targetmapping.ExtensionTarget#getExtensionMap <em>Extension Map</em>}</li>
+ *   <li>{@link alpha.targetmapping.ExtensionTarget#getExtensionMapExpr <em>Extension Map Expr</em>}</li>
  * </ul>
  *
  * @see alpha.targetmapping.TargetmappingPackage#getExtensionTarget()
@@ -84,25 +86,33 @@ public interface ExtensionTarget extends AlphaScheduleTarget {
 	EList<String> getIndexNames();
 
 	/**
-	 * Returns the value of the '<em><b>Extension Map</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Extension Map Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Extension Map</em>' containment reference.
-	 * @see #setExtensionMap(JNIRelation)
-	 * @see alpha.targetmapping.TargetmappingPackage#getExtensionTarget_ExtensionMap()
+	 * @return the value of the '<em>Extension Map Expr</em>' containment reference.
+	 * @see #setExtensionMapExpr(JNIRelation)
+	 * @see alpha.targetmapping.TargetmappingPackage#getExtensionTarget_ExtensionMapExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIRelation getExtensionMap();
+	JNIRelation getExtensionMapExpr();
 
 	/**
-	 * Sets the value of the '{@link alpha.targetmapping.ExtensionTarget#getExtensionMap <em>Extension Map</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.targetmapping.ExtensionTarget#getExtensionMapExpr <em>Extension Map Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Extension Map</em>' containment reference.
-	 * @see #getExtensionMap()
+	 * @param value the new value of the '<em>Extension Map Expr</em>' containment reference.
+	 * @see #getExtensionMapExpr()
 	 * @generated
 	 */
-	void setExtensionMap(JNIRelation value);
+	void setExtensionMapExpr(JNIRelation value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.targetmapping.JNIISLMap" unique="false"
+	 * @generated
+	 */
+	ISLMap getExtensionMap();
 
 } // ExtensionTarget

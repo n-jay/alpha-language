@@ -5,6 +5,8 @@ package alpha.targetmapping;
 import alpha.model.AlphaScheduleTarget;
 import alpha.model.JNIDomainInArrayNotation;
 
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -20,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link alpha.targetmapping.ScheduleTargetRestrictDomain#getScheduleTarget <em>Schedule Target</em>}</li>
  *   <li>{@link alpha.targetmapping.ScheduleTargetRestrictDomain#getIndexNames <em>Index Names</em>}</li>
- *   <li>{@link alpha.targetmapping.ScheduleTargetRestrictDomain#getRestrictDomain <em>Restrict Domain</em>}</li>
+ *   <li>{@link alpha.targetmapping.ScheduleTargetRestrictDomain#getRestrictDomainExpr <em>Restrict Domain Expr</em>}</li>
  * </ul>
  *
  * @see alpha.targetmapping.TargetmappingPackage#getScheduleTargetRestrictDomain()
@@ -63,25 +65,33 @@ public interface ScheduleTargetRestrictDomain extends EObject {
 	EList<String> getIndexNames();
 
 	/**
-	 * Returns the value of the '<em><b>Restrict Domain</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Restrict Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Restrict Domain</em>' containment reference.
-	 * @see #setRestrictDomain(JNIDomainInArrayNotation)
-	 * @see alpha.targetmapping.TargetmappingPackage#getScheduleTargetRestrictDomain_RestrictDomain()
+	 * @return the value of the '<em>Restrict Domain Expr</em>' containment reference.
+	 * @see #setRestrictDomainExpr(JNIDomainInArrayNotation)
+	 * @see alpha.targetmapping.TargetmappingPackage#getScheduleTargetRestrictDomain_RestrictDomainExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIDomainInArrayNotation getRestrictDomain();
+	JNIDomainInArrayNotation getRestrictDomainExpr();
 
 	/**
-	 * Sets the value of the '{@link alpha.targetmapping.ScheduleTargetRestrictDomain#getRestrictDomain <em>Restrict Domain</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.targetmapping.ScheduleTargetRestrictDomain#getRestrictDomainExpr <em>Restrict Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Restrict Domain</em>' containment reference.
-	 * @see #getRestrictDomain()
+	 * @param value the new value of the '<em>Restrict Domain Expr</em>' containment reference.
+	 * @see #getRestrictDomainExpr()
 	 * @generated
 	 */
-	void setRestrictDomain(JNIDomainInArrayNotation value);
+	void setRestrictDomainExpr(JNIDomainInArrayNotation value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.targetmapping.JNIISLSet" unique="false"
+	 * @generated
+	 */
+	ISLSet getRestrictDomain();
 
 } // ScheduleTargetRestrictDomain

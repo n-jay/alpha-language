@@ -4,6 +4,8 @@ package alpha.targetmapping;
 
 import alpha.model.JNIFunctionInArrayNotation;
 
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -16,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.BandPiece#getPieceDomain <em>Piece Domain</em>}</li>
- *   <li>{@link alpha.targetmapping.BandPiece#getPartialSchedule <em>Partial Schedule</em>}</li>
+ *   <li>{@link alpha.targetmapping.BandPiece#getPartialScheduleExpr <em>Partial Schedule Expr</em>}</li>
  * </ul>
  *
  * @see alpha.targetmapping.TargetmappingPackage#getBandPiece()
@@ -47,25 +49,33 @@ public interface BandPiece extends EObject {
 	void setPieceDomain(ScheduleTargetRestrictDomain value);
 
 	/**
-	 * Returns the value of the '<em><b>Partial Schedule</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Partial Schedule Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Partial Schedule</em>' containment reference.
-	 * @see #setPartialSchedule(JNIFunctionInArrayNotation)
-	 * @see alpha.targetmapping.TargetmappingPackage#getBandPiece_PartialSchedule()
+	 * @return the value of the '<em>Partial Schedule Expr</em>' containment reference.
+	 * @see #setPartialScheduleExpr(JNIFunctionInArrayNotation)
+	 * @see alpha.targetmapping.TargetmappingPackage#getBandPiece_PartialScheduleExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIFunctionInArrayNotation getPartialSchedule();
+	JNIFunctionInArrayNotation getPartialScheduleExpr();
 
 	/**
-	 * Sets the value of the '{@link alpha.targetmapping.BandPiece#getPartialSchedule <em>Partial Schedule</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.targetmapping.BandPiece#getPartialScheduleExpr <em>Partial Schedule Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Partial Schedule</em>' containment reference.
-	 * @see #getPartialSchedule()
+	 * @param value the new value of the '<em>Partial Schedule Expr</em>' containment reference.
+	 * @see #getPartialScheduleExpr()
 	 * @generated
 	 */
-	void setPartialSchedule(JNIFunctionInArrayNotation value);
+	void setPartialScheduleExpr(JNIFunctionInArrayNotation value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.targetmapping.JNIISLMultiAff" unique="false"
+	 * @generated
+	 */
+	ISLMultiAff getPartialSchedule();
 
 } // BandPiece

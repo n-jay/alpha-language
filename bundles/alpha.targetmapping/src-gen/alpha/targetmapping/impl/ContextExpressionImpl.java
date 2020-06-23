@@ -3,11 +3,18 @@
 package alpha.targetmapping.impl;
 
 import alpha.model.JNIDomainInArrayNotation;
+import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.ContextExpression;
 import alpha.targetmapping.ScheduleTreeExpression;
 import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -25,7 +32,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.targetmapping.impl.ContextExpressionImpl#getContextDomain <em>Context Domain</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.ContextExpressionImpl#getContextDomainExpr <em>Context Domain Expr</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.ContextExpressionImpl#getChild <em>Child</em>}</li>
  * </ul>
  *
@@ -33,14 +40,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements ContextExpression {
 	/**
-	 * The cached value of the '{@link #getContextDomain() <em>Context Domain</em>}' containment reference.
+	 * The cached value of the '{@link #getContextDomainExpr() <em>Context Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getContextDomain()
+	 * @see #getContextDomainExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIDomainInArrayNotation contextDomain;
+	protected JNIDomainInArrayNotation contextDomainExpr;
 
 	/**
 	 * The cached value of the '{@link #getChild() <em>Child</em>}' containment reference.
@@ -76,8 +83,8 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIDomainInArrayNotation getContextDomain() {
-		return contextDomain;
+	public JNIDomainInArrayNotation getContextDomainExpr() {
+		return contextDomainExpr;
 	}
 
 	/**
@@ -85,11 +92,11 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetContextDomain(JNIDomainInArrayNotation newContextDomain, NotificationChain msgs) {
-		JNIDomainInArrayNotation oldContextDomain = contextDomain;
-		contextDomain = newContextDomain;
+	public NotificationChain basicSetContextDomainExpr(JNIDomainInArrayNotation newContextDomainExpr, NotificationChain msgs) {
+		JNIDomainInArrayNotation oldContextDomainExpr = contextDomainExpr;
+		contextDomainExpr = newContextDomainExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN, oldContextDomain, newContextDomain);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR, oldContextDomainExpr, newContextDomainExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -100,18 +107,18 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setContextDomain(JNIDomainInArrayNotation newContextDomain) {
-		if (newContextDomain != contextDomain) {
+	public void setContextDomainExpr(JNIDomainInArrayNotation newContextDomainExpr) {
+		if (newContextDomainExpr != contextDomainExpr) {
 			NotificationChain msgs = null;
-			if (contextDomain != null)
-				msgs = ((InternalEObject)contextDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN, null, msgs);
-			if (newContextDomain != null)
-				msgs = ((InternalEObject)newContextDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN, null, msgs);
-			msgs = basicSetContextDomain(newContextDomain, msgs);
+			if (contextDomainExpr != null)
+				msgs = ((InternalEObject)contextDomainExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR, null, msgs);
+			if (newContextDomainExpr != null)
+				msgs = ((InternalEObject)newContextDomainExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR, null, msgs);
+			msgs = basicSetContextDomainExpr(newContextDomainExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN, newContextDomain, newContextDomain));
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR, newContextDomainExpr, newContextDomainExpr));
 	}
 
 	/**
@@ -162,6 +169,25 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ISLSet getContextDomain() {
+		ISLSet _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getContextDomainExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getContextDomainExpr().getISLObject();
+			_xifexpression = ((ISLSet) _iSLObject);
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final TargetMappingVisitor visitor) {
 		visitor.visitContextExpression(this);
 	}
@@ -174,8 +200,8 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN:
-				return basicSetContextDomain(null, msgs);
+			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR:
+				return basicSetContextDomainExpr(null, msgs);
 			case TargetmappingPackage.CONTEXT_EXPRESSION__CHILD:
 				return basicSetChild(null, msgs);
 		}
@@ -190,8 +216,8 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN:
-				return getContextDomain();
+			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR:
+				return getContextDomainExpr();
 			case TargetmappingPackage.CONTEXT_EXPRESSION__CHILD:
 				return getChild();
 		}
@@ -206,8 +232,8 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN:
-				setContextDomain((JNIDomainInArrayNotation)newValue);
+			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR:
+				setContextDomainExpr((JNIDomainInArrayNotation)newValue);
 				return;
 			case TargetmappingPackage.CONTEXT_EXPRESSION__CHILD:
 				setChild((ScheduleTreeExpression)newValue);
@@ -224,8 +250,8 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN:
-				setContextDomain((JNIDomainInArrayNotation)null);
+			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR:
+				setContextDomainExpr((JNIDomainInArrayNotation)null);
 				return;
 			case TargetmappingPackage.CONTEXT_EXPRESSION__CHILD:
 				setChild((ScheduleTreeExpression)null);
@@ -242,8 +268,8 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN:
-				return contextDomain != null;
+			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR:
+				return contextDomainExpr != null;
 			case TargetmappingPackage.CONTEXT_EXPRESSION__CHILD:
 				return child != null;
 		}

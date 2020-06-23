@@ -4,6 +4,8 @@ package alpha.targetmapping;
 
 import alpha.model.JNIDomain;
 
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Guard Expression</b></em>'.
@@ -13,7 +15,7 @@ import alpha.model.JNIDomain;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.targetmapping.GuardExpression#getGuardDomain <em>Guard Domain</em>}</li>
+ *   <li>{@link alpha.targetmapping.GuardExpression#getGuardDomainExpr <em>Guard Domain Expr</em>}</li>
  *   <li>{@link alpha.targetmapping.GuardExpression#getChild <em>Child</em>}</li>
  * </ul>
  *
@@ -23,26 +25,26 @@ import alpha.model.JNIDomain;
  */
 public interface GuardExpression extends ScheduleTreeExpression {
 	/**
-	 * Returns the value of the '<em><b>Guard Domain</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Guard Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Guard Domain</em>' containment reference.
-	 * @see #setGuardDomain(JNIDomain)
-	 * @see alpha.targetmapping.TargetmappingPackage#getGuardExpression_GuardDomain()
+	 * @return the value of the '<em>Guard Domain Expr</em>' containment reference.
+	 * @see #setGuardDomainExpr(JNIDomain)
+	 * @see alpha.targetmapping.TargetmappingPackage#getGuardExpression_GuardDomainExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIDomain getGuardDomain();
+	JNIDomain getGuardDomainExpr();
 
 	/**
-	 * Sets the value of the '{@link alpha.targetmapping.GuardExpression#getGuardDomain <em>Guard Domain</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.targetmapping.GuardExpression#getGuardDomainExpr <em>Guard Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Guard Domain</em>' containment reference.
-	 * @see #getGuardDomain()
+	 * @param value the new value of the '<em>Guard Domain Expr</em>' containment reference.
+	 * @see #getGuardDomainExpr()
 	 * @generated
 	 */
-	void setGuardDomain(JNIDomain value);
+	void setGuardDomainExpr(JNIDomain value);
 
 	/**
 	 * Returns the value of the '<em><b>Child</b></em>' containment reference.
@@ -65,6 +67,14 @@ public interface GuardExpression extends ScheduleTreeExpression {
 	 * @generated
 	 */
 	void setChild(ScheduleTreeExpression value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="alpha.targetmapping.JNIISLSet" unique="false"
+	 * @generated
+	 */
+	ISLSet getGuardDomain();
 
 	/**
 	 * <!-- begin-user-doc -->

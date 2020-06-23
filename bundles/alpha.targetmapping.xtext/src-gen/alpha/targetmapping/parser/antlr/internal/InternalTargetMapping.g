@@ -335,17 +335,17 @@ ruleContextExpression returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainJNIDomainInArrayNotationParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0());
 				}
-				lv_contextDomain_1_0=ruleJNIDomainInArrayNotation
+				lv_contextDomainExpr_1_0=ruleJNIDomainInArrayNotation
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getContextExpressionRule());
 					}
 					set(
 						$current,
-						"contextDomain",
-						lv_contextDomain_1_0,
+						"contextDomainExpr",
+						lv_contextDomainExpr_1_0,
 						"alpha.model.Alpha.JNIDomainInArrayNotation");
 					afterParserOrEnumRuleCall();
 				}
@@ -569,17 +569,17 @@ ruleScheduleTargetRestrictDomain returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainJNIDomainInArrayNotationParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprJNIDomainInArrayNotationParserRuleCall_2_0());
 				}
-				lv_restrictDomain_6_0=ruleJNIDomainInArrayNotation
+				lv_restrictDomainExpr_6_0=ruleJNIDomainInArrayNotation
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getScheduleTargetRestrictDomainRule());
 					}
 					set(
 						$current,
-						"restrictDomain",
-						lv_restrictDomain_6_0,
+						"restrictDomainExpr",
+						lv_restrictDomainExpr_6_0,
 						"alpha.model.Alpha.JNIDomainInArrayNotation");
 					afterParserOrEnumRuleCall();
 				}
@@ -697,17 +697,17 @@ ruleGuardExpression returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getGuardExpressionAccess().getGuardDomainJNIDomainParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getGuardExpressionAccess().getGuardDomainExprJNIDomainParserRuleCall_1_0());
 				}
-				lv_guardDomain_1_0=ruleJNIDomain
+				lv_guardDomainExpr_1_0=ruleJNIDomain
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getGuardExpressionRule());
 					}
 					set(
 						$current,
-						"guardDomain",
-						lv_guardDomain_1_0,
+						"guardDomainExpr",
+						lv_guardDomainExpr_1_0,
 						"alpha.model.Alpha.JNIDomain");
 					afterParserOrEnumRuleCall();
 				}
@@ -1050,17 +1050,17 @@ ruleBandPiece returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getBandPieceAccess().getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_0_2_0());
+						newCompositeNode(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0());
 					}
-					lv_partialSchedule_2_0=ruleJNIFunctionInArrayNotation
+					lv_partialScheduleExpr_2_0=ruleJNIFunctionInArrayNotation
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getBandPieceRule());
 						}
 						set(
 							$current,
-							"partialSchedule",
-							lv_partialSchedule_2_0,
+							"partialScheduleExpr",
+							lv_partialScheduleExpr_2_0,
 							"alpha.model.Alpha.JNIFunctionInArrayNotation");
 						afterParserOrEnumRuleCall();
 					}
@@ -1106,17 +1106,17 @@ ruleIsolateSpecification returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainJNIDomainParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprJNIDomainParserRuleCall_2_0());
 				}
-				lv_isolateDomain_2_0=ruleJNIDomain
+				lv_isolateDomainExpr_2_0=ruleJNIDomain
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getIsolateSpecificationRule());
 					}
 					set(
 						$current,
-						"isolateDomain",
-						lv_isolateDomain_2_0,
+						"isolateDomainExpr",
+						lv_isolateDomainExpr_2_0,
 						"alpha.model.Alpha.JNIDomain");
 					afterParserOrEnumRuleCall();
 				}
@@ -1359,17 +1359,17 @@ ruleBandPieceForReductionBody returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_6_0());
+					newCompositeNode(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0());
 				}
-				lv_partialSchedule_7_0=ruleJNIFunctionInArrayNotation
+				lv_partialScheduleExpr_7_0=ruleJNIFunctionInArrayNotation
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getBandPieceForReductionBodyRule());
 					}
 					set(
 						$current,
-						"partialSchedule",
-						lv_partialSchedule_7_0,
+						"partialScheduleExpr",
+						lv_partialScheduleExpr_7_0,
 						"alpha.model.Alpha.JNIFunctionInArrayNotation");
 					afterParserOrEnumRuleCall();
 				}
@@ -1510,17 +1510,17 @@ ruleExtensionTarget returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getExtensionTargetAccess().getExtensionMapJNIRelationParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getExtensionTargetAccess().getExtensionMapExprJNIRelationParserRuleCall_1_0());
 				}
-				lv_extensionMap_2_0=ruleJNIRelation
+				lv_extensionMapExpr_2_0=ruleJNIRelation
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getExtensionTargetRule());
 					}
 					set(
 						$current,
-						"extensionMap",
-						lv_extensionMap_2_0,
+						"extensionMapExpr",
+						lv_extensionMapExpr_2_0,
 						"alpha.model.Alpha.JNIRelation");
 					afterParserOrEnumRuleCall();
 				}

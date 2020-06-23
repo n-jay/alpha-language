@@ -174,26 +174,26 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ContextExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cContextKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cContextDomainAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cContextDomainJNIDomainInArrayNotationParserRuleCall_1_0 = (RuleCall)cContextDomainAssignment_1.eContents().get(0);
+		private final Assignment cContextDomainExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0 = (RuleCall)cContextDomainExprAssignment_1.eContents().get(0);
 		private final Assignment cChildAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cChildScheduleTreeExpressionParserRuleCall_2_0 = (RuleCall)cChildAssignment_2.eContents().get(0);
 		
 		//ContextExpression:
-		//	'context' contextDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression;
+		//	'context' contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'context' contextDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression
+		//'context' contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression
 		public Group getGroup() { return cGroup; }
 		
 		//'context'
 		public Keyword getContextKeyword_0() { return cContextKeyword_0; }
 		
-		//contextDomain=JNIDomainInArrayNotation
-		public Assignment getContextDomainAssignment_1() { return cContextDomainAssignment_1; }
+		//contextDomainExpr=JNIDomainInArrayNotation
+		public Assignment getContextDomainExprAssignment_1() { return cContextDomainExprAssignment_1; }
 		
 		//JNIDomainInArrayNotation
-		public RuleCall getContextDomainJNIDomainInArrayNotationParserRuleCall_1_0() { return cContextDomainJNIDomainInArrayNotationParserRuleCall_1_0; }
+		public RuleCall getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0() { return cContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0; }
 		
 		//child=ScheduleTreeExpression
 		public Assignment getChildAssignment_2() { return cChildAssignment_2; }
@@ -296,16 +296,16 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Assignment cIndexNamesAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
 		private final RuleCall cIndexNamesIDTerminalRuleCall_1_2_1_0 = (RuleCall)cIndexNamesAssignment_1_2_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
-		private final Assignment cRestrictDomainAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cRestrictDomainJNIDomainInArrayNotationParserRuleCall_2_0 = (RuleCall)cRestrictDomainAssignment_2.eContents().get(0);
+		private final Assignment cRestrictDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cRestrictDomainExprJNIDomainInArrayNotationParserRuleCall_2_0 = (RuleCall)cRestrictDomainExprAssignment_2.eContents().get(0);
 		
 		//ScheduleTargetRestrictDomain:
 		//	scheduleTarget=[model::AlphaScheduleTarget] ('[' indexNames+=ID (',' indexNames+=ID)* ']')?
-		//	restrictDomain=JNIDomainInArrayNotation?;
+		//	restrictDomainExpr=JNIDomainInArrayNotation?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//scheduleTarget=[model::AlphaScheduleTarget] ('[' indexNames+=ID (',' indexNames+=ID)* ']')?
-		//restrictDomain=JNIDomainInArrayNotation?
+		//restrictDomainExpr=JNIDomainInArrayNotation?
 		public Group getGroup() { return cGroup; }
 		
 		//scheduleTarget=[model::AlphaScheduleTarget]
@@ -344,11 +344,11 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//']'
 		public Keyword getRightSquareBracketKeyword_1_3() { return cRightSquareBracketKeyword_1_3; }
 		
-		//restrictDomain=JNIDomainInArrayNotation?
-		public Assignment getRestrictDomainAssignment_2() { return cRestrictDomainAssignment_2; }
+		//restrictDomainExpr=JNIDomainInArrayNotation?
+		public Assignment getRestrictDomainExprAssignment_2() { return cRestrictDomainExprAssignment_2; }
 		
 		//JNIDomainInArrayNotation
-		public RuleCall getRestrictDomainJNIDomainInArrayNotationParserRuleCall_2_0() { return cRestrictDomainJNIDomainInArrayNotationParserRuleCall_2_0; }
+		public RuleCall getRestrictDomainExprJNIDomainInArrayNotationParserRuleCall_2_0() { return cRestrictDomainExprJNIDomainInArrayNotationParserRuleCall_2_0; }
 	}
 	public class ScheduleTargetRestrictNoSetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ScheduleTargetRestrictNoSet");
@@ -462,26 +462,26 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.GuardExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cIfKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cGuardDomainAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cGuardDomainJNIDomainParserRuleCall_1_0 = (RuleCall)cGuardDomainAssignment_1.eContents().get(0);
+		private final Assignment cGuardDomainExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cGuardDomainExprJNIDomainParserRuleCall_1_0 = (RuleCall)cGuardDomainExprAssignment_1.eContents().get(0);
 		private final Assignment cChildAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cChildScheduleTreeExpressionParserRuleCall_2_0 = (RuleCall)cChildAssignment_2.eContents().get(0);
 		
 		//GuardExpression:
-		//	'if' guardDomain=JNIDomain child=ScheduleTreeExpression;
+		//	'if' guardDomainExpr=JNIDomain child=ScheduleTreeExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'if' guardDomain=JNIDomain child=ScheduleTreeExpression
+		//'if' guardDomainExpr=JNIDomain child=ScheduleTreeExpression
 		public Group getGroup() { return cGroup; }
 		
 		//'if'
 		public Keyword getIfKeyword_0() { return cIfKeyword_0; }
 		
-		//guardDomain=JNIDomain
-		public Assignment getGuardDomainAssignment_1() { return cGuardDomainAssignment_1; }
+		//guardDomainExpr=JNIDomain
+		public Assignment getGuardDomainExprAssignment_1() { return cGuardDomainExprAssignment_1; }
 		
 		//JNIDomain
-		public RuleCall getGuardDomainJNIDomainParserRuleCall_1_0() { return cGuardDomainJNIDomainParserRuleCall_1_0; }
+		public RuleCall getGuardDomainExprJNIDomainParserRuleCall_1_0() { return cGuardDomainExprJNIDomainParserRuleCall_1_0; }
 		
 		//child=ScheduleTreeExpression
 		public Assignment getChildAssignment_2() { return cChildAssignment_2; }
@@ -640,18 +640,19 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Assignment cPieceDomainAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
 		private final RuleCall cPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0_0 = (RuleCall)cPieceDomainAssignment_0_0.eContents().get(0);
 		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cPartialScheduleAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cPartialScheduleJNIFunctionInArrayNotationParserRuleCall_0_2_0 = (RuleCall)cPartialScheduleAssignment_0_2.eContents().get(0);
+		private final Assignment cPartialScheduleExprAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0 = (RuleCall)cPartialScheduleExprAssignment_0_2.eContents().get(0);
 		private final RuleCall cBandPieceForReductionBodyParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//BandPiece:
-		//	pieceDomain=ScheduleTargetRestrictDomain ':' partialSchedule=JNIFunctionInArrayNotation | BandPieceForReductionBody;
+		//	pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation |
+		//	BandPieceForReductionBody;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//pieceDomain=ScheduleTargetRestrictDomain ':' partialSchedule=JNIFunctionInArrayNotation | BandPieceForReductionBody
+		//pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation | BandPieceForReductionBody
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//pieceDomain=ScheduleTargetRestrictDomain ':' partialSchedule=JNIFunctionInArrayNotation
+		//pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//pieceDomain=ScheduleTargetRestrictDomain
@@ -663,11 +664,11 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//':'
 		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
 		
-		//partialSchedule=JNIFunctionInArrayNotation
-		public Assignment getPartialScheduleAssignment_0_2() { return cPartialScheduleAssignment_0_2; }
+		//partialScheduleExpr=JNIFunctionInArrayNotation
+		public Assignment getPartialScheduleExprAssignment_0_2() { return cPartialScheduleExprAssignment_0_2; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_0_2_0() { return cPartialScheduleJNIFunctionInArrayNotationParserRuleCall_0_2_0; }
+		public RuleCall getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0() { return cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0; }
 		
 		//BandPieceForReductionBody
 		public RuleCall getBandPieceForReductionBodyParserRuleCall_1() { return cBandPieceForReductionBodyParserRuleCall_1; }
@@ -677,8 +678,8 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cIsolateKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cIsolateDomainAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cIsolateDomainJNIDomainParserRuleCall_2_0 = (RuleCall)cIsolateDomainAssignment_2.eContents().get(0);
+		private final Assignment cIsolateDomainExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cIsolateDomainExprJNIDomainParserRuleCall_2_0 = (RuleCall)cIsolateDomainExprAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Assignment cLoopTypeSpecificationsAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
 		private final RuleCall cLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_3_0_0 = (RuleCall)cLoopTypeSpecificationsAssignment_3_0.eContents().get(0);
@@ -690,12 +691,12 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		
 		//IsolateSpecification:
 		//	'isolate' '('
-		//	isolateDomain=JNIDomain (loopTypeSpecifications+=LoopTypeSpecification (','
+		//	isolateDomainExpr=JNIDomain (loopTypeSpecifications+=LoopTypeSpecification (','
 		//	loopTypeSpecifications+=LoopTypeSpecification)*)?
 		//	')';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'isolate' '(' isolateDomain=JNIDomain (loopTypeSpecifications+=LoopTypeSpecification (','
+		//'isolate' '(' isolateDomainExpr=JNIDomain (loopTypeSpecifications+=LoopTypeSpecification (','
 		//loopTypeSpecifications+=LoopTypeSpecification)*)? ')'
 		public Group getGroup() { return cGroup; }
 		
@@ -705,11 +706,11 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 		
-		//isolateDomain=JNIDomain
-		public Assignment getIsolateDomainAssignment_2() { return cIsolateDomainAssignment_2; }
+		//isolateDomainExpr=JNIDomain
+		public Assignment getIsolateDomainExprAssignment_2() { return cIsolateDomainExprAssignment_2; }
 		
 		//JNIDomain
-		public RuleCall getIsolateDomainJNIDomainParserRuleCall_2_0() { return cIsolateDomainJNIDomainParserRuleCall_2_0; }
+		public RuleCall getIsolateDomainExprJNIDomainParserRuleCall_2_0() { return cIsolateDomainExprJNIDomainParserRuleCall_2_0; }
 		
 		//(loopTypeSpecifications+=LoopTypeSpecification (',' loopTypeSpecifications+=LoopTypeSpecification)*)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -813,16 +814,16 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final RuleCall cReductionInitializationSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cReductionInitializationAssignment_3_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Keyword cColonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cPartialScheduleAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cPartialScheduleJNIFunctionInArrayNotationParserRuleCall_6_0 = (RuleCall)cPartialScheduleAssignment_6.eContents().get(0);
+		private final Assignment cPartialScheduleExprAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0 = (RuleCall)cPartialScheduleExprAssignment_6.eContents().get(0);
 		
 		//BandPieceForReductionBody:
 		//	'reduction' '(' pieceDomain=ScheduleTargetRestrictDomain (',' reductionInitialization=STRING)? ')' ':'
-		//	partialSchedule=JNIFunctionInArrayNotation;
+		//	partialScheduleExpr=JNIFunctionInArrayNotation;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'reduction' '(' pieceDomain=ScheduleTargetRestrictDomain (',' reductionInitialization=STRING)? ')' ':'
-		//partialSchedule=JNIFunctionInArrayNotation
+		//partialScheduleExpr=JNIFunctionInArrayNotation
 		public Group getGroup() { return cGroup; }
 		
 		//'reduction'
@@ -855,11 +856,11 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//':'
 		public Keyword getColonKeyword_5() { return cColonKeyword_5; }
 		
-		//partialSchedule=JNIFunctionInArrayNotation
-		public Assignment getPartialScheduleAssignment_6() { return cPartialScheduleAssignment_6; }
+		//partialScheduleExpr=JNIFunctionInArrayNotation
+		public Assignment getPartialScheduleExprAssignment_6() { return cPartialScheduleExprAssignment_6; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_6_0() { return cPartialScheduleJNIFunctionInArrayNotationParserRuleCall_6_0; }
+		public RuleCall getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0() { return cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0; }
 	}
 	public class ExtensionExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ExtensionExpression");
@@ -925,8 +926,8 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Assignment cSourceAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
 		private final CrossReference cSourceAlphaScheduleTargetCrossReference_0_1_0 = (CrossReference)cSourceAssignment_0_1.eContents().get(0);
 		private final RuleCall cSourceAlphaScheduleTargetIDTerminalRuleCall_0_1_0_1 = (RuleCall)cSourceAlphaScheduleTargetCrossReference_0_1_0.eContents().get(1);
-		private final Assignment cExtensionMapAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cExtensionMapJNIRelationParserRuleCall_1_0 = (RuleCall)cExtensionMapAssignment_1.eContents().get(0);
+		private final Assignment cExtensionMapExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cExtensionMapExprJNIRelationParserRuleCall_1_0 = (RuleCall)cExtensionMapExprAssignment_1.eContents().get(0);
 		private final Keyword cAsKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameIDTerminalRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
@@ -941,11 +942,11 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Keyword cRightSquareBracketKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
 		
 		//ExtensionTarget:
-		//	('from' source=[model::AlphaScheduleTarget])? extensionMap=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
+		//	('from' source=[model::AlphaScheduleTarget])? extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
 		//	indexNames+=ID)* ']')?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//('from' source=[model::AlphaScheduleTarget])? extensionMap=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
+		//('from' source=[model::AlphaScheduleTarget])? extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
 		//indexNames+=ID)* ']')?
 		public Group getGroup() { return cGroup; }
 		
@@ -964,11 +965,11 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//ID
 		public RuleCall getSourceAlphaScheduleTargetIDTerminalRuleCall_0_1_0_1() { return cSourceAlphaScheduleTargetIDTerminalRuleCall_0_1_0_1; }
 		
-		//extensionMap=JNIRelation
-		public Assignment getExtensionMapAssignment_1() { return cExtensionMapAssignment_1; }
+		//extensionMapExpr=JNIRelation
+		public Assignment getExtensionMapExprAssignment_1() { return cExtensionMapExprAssignment_1; }
 		
 		//JNIRelation
-		public RuleCall getExtensionMapJNIRelationParserRuleCall_1_0() { return cExtensionMapJNIRelationParserRuleCall_1_0; }
+		public RuleCall getExtensionMapExprJNIRelationParserRuleCall_1_0() { return cExtensionMapExprJNIRelationParserRuleCall_1_0; }
 		
 		//'as'
 		public Keyword getAsKeyword_2() { return cAsKeyword_2; }
@@ -1138,7 +1139,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ContextExpression:
-	//	'context' contextDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression;
+	//	'context' contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression;
 	public ContextExpressionElements getContextExpressionAccess() {
 		return pContextExpression;
 	}
@@ -1171,7 +1172,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	
 	//ScheduleTargetRestrictDomain:
 	//	scheduleTarget=[model::AlphaScheduleTarget] ('[' indexNames+=ID (',' indexNames+=ID)* ']')?
-	//	restrictDomain=JNIDomainInArrayNotation?;
+	//	restrictDomainExpr=JNIDomainInArrayNotation?;
 	public ScheduleTargetRestrictDomainElements getScheduleTargetRestrictDomainAccess() {
 		return pScheduleTargetRestrictDomain;
 	}
@@ -1202,7 +1203,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//GuardExpression:
-	//	'if' guardDomain=JNIDomain child=ScheduleTreeExpression;
+	//	'if' guardDomainExpr=JNIDomain child=ScheduleTreeExpression;
 	public GuardExpressionElements getGuardExpressionAccess() {
 		return pGuardExpression;
 	}
@@ -1236,7 +1237,8 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//BandPiece:
-	//	pieceDomain=ScheduleTargetRestrictDomain ':' partialSchedule=JNIFunctionInArrayNotation | BandPieceForReductionBody;
+	//	pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation |
+	//	BandPieceForReductionBody;
 	public BandPieceElements getBandPieceAccess() {
 		return pBandPiece;
 	}
@@ -1247,7 +1249,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	
 	//IsolateSpecification:
 	//	'isolate' '('
-	//	isolateDomain=JNIDomain (loopTypeSpecifications+=LoopTypeSpecification (','
+	//	isolateDomainExpr=JNIDomain (loopTypeSpecifications+=LoopTypeSpecification (','
 	//	loopTypeSpecifications+=LoopTypeSpecification)*)?
 	//	')';
 	public IsolateSpecificationElements getIsolateSpecificationAccess() {
@@ -1283,7 +1285,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	
 	//BandPieceForReductionBody:
 	//	'reduction' '(' pieceDomain=ScheduleTargetRestrictDomain (',' reductionInitialization=STRING)? ')' ':'
-	//	partialSchedule=JNIFunctionInArrayNotation;
+	//	partialScheduleExpr=JNIFunctionInArrayNotation;
 	public BandPieceForReductionBodyElements getBandPieceForReductionBodyAccess() {
 		return pBandPieceForReductionBody;
 	}
@@ -1304,7 +1306,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ExtensionTarget:
-	//	('from' source=[model::AlphaScheduleTarget])? extensionMap=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
+	//	('from' source=[model::AlphaScheduleTarget])? extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
 	//	indexNames+=ID)* ']')?;
 	public ExtensionTargetElements getExtensionTargetAccess() {
 		return pExtensionTarget;

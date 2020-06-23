@@ -1,6 +1,5 @@
 package alpha.targetmapping.util;
 
-import alpha.model.JNIDomainInArrayNotation;
 import alpha.targetmapping.BandExpression;
 import alpha.targetmapping.BandPiece;
 import alpha.targetmapping.ContextExpression;
@@ -92,7 +91,7 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
   @Override
   public void inContextExpression(final ContextExpression ce) {
     this.defaultIn(ce);
-    this.printStr("+--", ce.getContextDomain().getISLSet());
+    this.printStr("+--", ce.getContextDomain());
   }
   
   @Override
@@ -100,12 +99,11 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
     this.defaultIn(fe);
     EList<ScheduleTargetRestrictDomain> _filterDomains = fe.getFilterDomains();
     for (final ScheduleTargetRestrictDomain fd : _filterDomains) {
-      JNIDomainInArrayNotation _restrictDomain = fd.getRestrictDomain();
-      boolean _tripleNotEquals = (_restrictDomain != null);
-      if (_tripleNotEquals) {
-        this.printStr("+--", fd.getScheduleTarget().getName(), ":", fd.getRestrictDomain().getISLSet());
-      } else {
+      boolean _plainIsUniverse = fd.getRestrictDomain().plainIsUniverse();
+      if (_plainIsUniverse) {
         this.printStr("+--", fd.getScheduleTarget().getName());
+      } else {
+        this.printStr("+--", fd.getScheduleTarget().getName(), ":", fd.getRestrictDomain());
       }
     }
   }
@@ -113,7 +111,7 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
   @Override
   public void inGuardExpression(final GuardExpression ge) {
     this.defaultIn(ge);
-    this.printStr("+--", ge.getGuardDomain().getISLSet());
+    this.printStr("+--", ge.getGuardDomain());
   }
   
   @Override
@@ -139,18 +137,17 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
     }
     EList<BandPiece> _bandPieces = be.getBandPieces();
     for (final BandPiece bp : _bandPieces) {
-      JNIDomainInArrayNotation _restrictDomain = bp.getPieceDomain().getRestrictDomain();
-      boolean _tripleNotEquals = (_restrictDomain != null);
-      if (_tripleNotEquals) {
-        this.printStr("+--", bp.getPieceDomain().getScheduleTarget().getName(), ":", bp.getPieceDomain().getRestrictDomain().getISLSet(), "@", bp.getPartialSchedule().getISLMultiAff());
+      boolean _plainIsUniverse = bp.getPieceDomain().getRestrictDomain().plainIsUniverse();
+      if (_plainIsUniverse) {
+        this.printStr("+--", bp.getPieceDomain().getScheduleTarget().getName(), "@", bp.getPartialSchedule());
       } else {
-        this.printStr("+--", bp.getPieceDomain().getScheduleTarget().getName(), "@", bp.getPartialSchedule().getISLMultiAff());
+        this.printStr("+--", bp.getPieceDomain().getScheduleTarget().getName(), ":", bp.getPieceDomain().getRestrictDomain(), "@", bp.getPartialSchedule());
       }
     }
     IsolateSpecification _isolateSpecification = be.getIsolateSpecification();
-    boolean _tripleNotEquals_1 = (_isolateSpecification != null);
-    if (_tripleNotEquals_1) {
-      this.printStr("+--", "isolate", be.getIsolateSpecification().getIsolateDomain().getISLSet());
+    boolean _tripleNotEquals = (_isolateSpecification != null);
+    if (_tripleNotEquals) {
+      this.printStr("+--", "isolate", be.getIsolateSpecification().getIsolateDomain());
       EList<LoopTypeSpecification> _loopTypeSpecifications_1 = be.getIsolateSpecification().getLoopTypeSpecifications();
       for (final LoopTypeSpecification lts_1 : _loopTypeSpecifications_1) {
         this.printStr("   +--", lts_1.getLoopType().getName(), ":", Integer.valueOf(lts_1.getDimension()));
@@ -163,7 +160,7 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
     this.defaultIn(ee);
     EList<ExtensionTarget> _extensionTargets = ee.getExtensionTargets();
     for (final ExtensionTarget et : _extensionTargets) {
-      this.printStr("+--", et.getSource().getName(), "->", et.getName(), ":", et.getExtensionMap().getISLMap());
+      this.printStr("+--", et.getSource().getName(), "->", et.getName(), ":", et.getExtensionMap());
     }
   }
 }

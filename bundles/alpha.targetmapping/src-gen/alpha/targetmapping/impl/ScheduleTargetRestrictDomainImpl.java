@@ -4,9 +4,16 @@ package alpha.targetmapping.impl;
 
 import alpha.model.AlphaScheduleTarget;
 import alpha.model.JNIDomainInArrayNotation;
+import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.TargetmappingPackage;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import java.util.Collection;
 
@@ -33,7 +40,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * <ul>
  *   <li>{@link alpha.targetmapping.impl.ScheduleTargetRestrictDomainImpl#getScheduleTarget <em>Schedule Target</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.ScheduleTargetRestrictDomainImpl#getIndexNames <em>Index Names</em>}</li>
- *   <li>{@link alpha.targetmapping.impl.ScheduleTargetRestrictDomainImpl#getRestrictDomain <em>Restrict Domain</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.ScheduleTargetRestrictDomainImpl#getRestrictDomainExpr <em>Restrict Domain Expr</em>}</li>
  * </ul>
  *
  * @generated
@@ -60,14 +67,14 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 	protected EList<String> indexNames;
 
 	/**
-	 * The cached value of the '{@link #getRestrictDomain() <em>Restrict Domain</em>}' containment reference.
+	 * The cached value of the '{@link #getRestrictDomainExpr() <em>Restrict Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRestrictDomain()
+	 * @see #getRestrictDomainExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIDomainInArrayNotation restrictDomain;
+	protected JNIDomainInArrayNotation restrictDomainExpr;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -143,8 +150,8 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIDomainInArrayNotation getRestrictDomain() {
-		return restrictDomain;
+	public JNIDomainInArrayNotation getRestrictDomainExpr() {
+		return restrictDomainExpr;
 	}
 
 	/**
@@ -152,11 +159,11 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRestrictDomain(JNIDomainInArrayNotation newRestrictDomain, NotificationChain msgs) {
-		JNIDomainInArrayNotation oldRestrictDomain = restrictDomain;
-		restrictDomain = newRestrictDomain;
+	public NotificationChain basicSetRestrictDomainExpr(JNIDomainInArrayNotation newRestrictDomainExpr, NotificationChain msgs) {
+		JNIDomainInArrayNotation oldRestrictDomainExpr = restrictDomainExpr;
+		restrictDomainExpr = newRestrictDomainExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN, oldRestrictDomain, newRestrictDomain);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR, oldRestrictDomainExpr, newRestrictDomainExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -167,18 +174,37 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRestrictDomain(JNIDomainInArrayNotation newRestrictDomain) {
-		if (newRestrictDomain != restrictDomain) {
+	public void setRestrictDomainExpr(JNIDomainInArrayNotation newRestrictDomainExpr) {
+		if (newRestrictDomainExpr != restrictDomainExpr) {
 			NotificationChain msgs = null;
-			if (restrictDomain != null)
-				msgs = ((InternalEObject)restrictDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN, null, msgs);
-			if (newRestrictDomain != null)
-				msgs = ((InternalEObject)newRestrictDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN, null, msgs);
-			msgs = basicSetRestrictDomain(newRestrictDomain, msgs);
+			if (restrictDomainExpr != null)
+				msgs = ((InternalEObject)restrictDomainExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR, null, msgs);
+			if (newRestrictDomainExpr != null)
+				msgs = ((InternalEObject)newRestrictDomainExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR, null, msgs);
+			msgs = basicSetRestrictDomainExpr(newRestrictDomainExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN, newRestrictDomain, newRestrictDomain));
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR, newRestrictDomainExpr, newRestrictDomainExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ISLSet getRestrictDomain() {
+		ISLSet _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getRestrictDomainExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getRestrictDomainExpr().getISLObject();
+			_xifexpression = ((ISLSet) _iSLObject);
+		}
+		return _xifexpression;
 	}
 
 	/**
@@ -189,8 +215,8 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN:
-				return basicSetRestrictDomain(null, msgs);
+			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR:
+				return basicSetRestrictDomainExpr(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -208,8 +234,8 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 				return basicGetScheduleTarget();
 			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__INDEX_NAMES:
 				return getIndexNames();
-			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN:
-				return getRestrictDomain();
+			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR:
+				return getRestrictDomainExpr();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -230,8 +256,8 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 				getIndexNames().clear();
 				getIndexNames().addAll((Collection<? extends String>)newValue);
 				return;
-			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN:
-				setRestrictDomain((JNIDomainInArrayNotation)newValue);
+			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR:
+				setRestrictDomainExpr((JNIDomainInArrayNotation)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -251,8 +277,8 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__INDEX_NAMES:
 				getIndexNames().clear();
 				return;
-			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN:
-				setRestrictDomain((JNIDomainInArrayNotation)null);
+			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR:
+				setRestrictDomainExpr((JNIDomainInArrayNotation)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -270,8 +296,8 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 				return scheduleTarget != null;
 			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__INDEX_NAMES:
 				return indexNames != null && !indexNames.isEmpty();
-			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN:
-				return restrictDomain != null;
+			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR:
+				return restrictDomainExpr != null;
 		}
 		return super.eIsSet(featureID);
 	}

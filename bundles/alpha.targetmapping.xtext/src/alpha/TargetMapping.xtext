@@ -29,7 +29,7 @@ ScheduleTreeExpression:
 ;
 
 ContextExpression:
-	'context' contextDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression
+	'context' contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression
 ;
 
 SetExpression:
@@ -45,7 +45,7 @@ SequenceExpression:
 ;
 
 ScheduleTargetRestrictDomain:
-	scheduleTarget=[model::AlphaScheduleTarget|ID] ('[' indexNames+=ID (',' indexNames+=ID)* ']')? restrictDomain=JNIDomainInArrayNotation?
+	scheduleTarget=[model::AlphaScheduleTarget|ID] ('[' indexNames+=ID (',' indexNames+=ID)* ']')? restrictDomainExpr=JNIDomainInArrayNotation?
 ;
 ScheduleTargetRestrictNoSet returns ScheduleTargetRestrictDomain:
 	scheduleTarget=[model::AlphaScheduleTarget|ID] ('[' indexNames+=ID (',' indexNames+=ID)* ']')
@@ -55,7 +55,7 @@ FilterExpression:
 ;
 
 GuardExpression:
-	'if' guardDomain=JNIDomain child=ScheduleTreeExpression
+	'if' guardDomainExpr=JNIDomain child=ScheduleTreeExpression
 ;
 
 MarkExpression:
@@ -71,12 +71,12 @@ BandExpression:
 	'}' ('+' child=ScheduleTreeExpression)?
 ;
 BandPiece:
-	pieceDomain=ScheduleTargetRestrictDomain ':' partialSchedule=JNIFunctionInArrayNotation |
+	pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation |
 	BandPieceForReductionBody
 ;
 IsolateSpecification:
 	'isolate' '(' 
-		isolateDomain=JNIDomain 
+		isolateDomainExpr=JNIDomain 
 		(loopTypeSpecifications+=LoopTypeSpecification (',' loopTypeSpecifications+=LoopTypeSpecification)* )?
 	')'
 ;
@@ -91,7 +91,7 @@ ISLASTLoopType returns ISLASTLoopType:
 	
 ;
 BandPieceForReductionBody:
-	'reduction' '(' pieceDomain=ScheduleTargetRestrictDomain (',' reductionInitialization=STRING)? ')'  ':' partialSchedule=JNIFunctionInArrayNotation
+	'reduction' '(' pieceDomain=ScheduleTargetRestrictDomain (',' reductionInitialization=STRING)? ')'  ':' partialScheduleExpr=JNIFunctionInArrayNotation
 ;
 
 ExtensionExpression:
@@ -99,7 +99,7 @@ ExtensionExpression:
 ;
 
 ExtensionTarget:
-	('from' source=[model::AlphaScheduleTarget|ID])? extensionMap=JNIRelation 'as' name=ID ('[' indexNames+=ID (',' indexNames+=ID)* ']')? 
+	('from' source=[model::AlphaScheduleTarget|ID])? extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (',' indexNames+=ID)* ']')? 
 ;
 
 

@@ -29,6 +29,12 @@ import alpha.targetmapping.TargetmappingFactory;
 import alpha.targetmapping.TargetmappingPackage;
 
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -193,6 +199,48 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * @generated
 	 */
 	private EClass extensionTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType jniObjectEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType jniislSetEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType jniislMapEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType jniislMultiAffEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType jniislpwqPolynomialEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType isL_FORMATEDataType = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -379,7 +427,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getContextExpression_ContextDomain() {
+	public EReference getContextExpression_ContextDomainExpr() {
 		return (EReference)contextExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -487,7 +535,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getScheduleTargetRestrictDomain_RestrictDomain() {
+	public EReference getScheduleTargetRestrictDomain_RestrictDomainExpr() {
 		return (EReference)scheduleTargetRestrictDomainEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -505,7 +553,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGuardExpression_GuardDomain() {
+	public EReference getGuardExpression_GuardDomainExpr() {
 		return (EReference)guardExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -631,7 +679,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBandPiece_PartialSchedule() {
+	public EReference getBandPiece_PartialScheduleExpr() {
 		return (EReference)bandPieceEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -676,7 +724,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIsolateSpecification_IsolateDomain() {
+	public EReference getIsolateSpecification_IsolateDomainExpr() {
 		return (EReference)isolateSpecificationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -775,8 +823,62 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensionTarget_ExtensionMap() {
+	public EReference getExtensionTarget_ExtensionMapExpr() {
 		return (EReference)extensionTargetEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getJNIObject() {
+		return jniObjectEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getJNIISLSet() {
+		return jniislSetEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getJNIISLMap() {
+		return jniislMapEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getJNIISLMultiAff() {
+		return jniislMultiAffEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getJNIISLPWQPolynomial() {
+		return jniislpwqPolynomialEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getISL_FORMAT() {
+		return isL_FORMATEDataType;
 	}
 
 	/**
@@ -835,7 +937,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		scheduleTreeExpressionEClass = createEClass(SCHEDULE_TREE_EXPRESSION);
 
 		contextExpressionEClass = createEClass(CONTEXT_EXPRESSION);
-		createEReference(contextExpressionEClass, CONTEXT_EXPRESSION__CONTEXT_DOMAIN);
+		createEReference(contextExpressionEClass, CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR);
 		createEReference(contextExpressionEClass, CONTEXT_EXPRESSION__CHILD);
 
 		setExpressionEClass = createEClass(SET_EXPRESSION);
@@ -851,10 +953,10 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		scheduleTargetRestrictDomainEClass = createEClass(SCHEDULE_TARGET_RESTRICT_DOMAIN);
 		createEReference(scheduleTargetRestrictDomainEClass, SCHEDULE_TARGET_RESTRICT_DOMAIN__SCHEDULE_TARGET);
 		createEAttribute(scheduleTargetRestrictDomainEClass, SCHEDULE_TARGET_RESTRICT_DOMAIN__INDEX_NAMES);
-		createEReference(scheduleTargetRestrictDomainEClass, SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN);
+		createEReference(scheduleTargetRestrictDomainEClass, SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR);
 
 		guardExpressionEClass = createEClass(GUARD_EXPRESSION);
-		createEReference(guardExpressionEClass, GUARD_EXPRESSION__GUARD_DOMAIN);
+		createEReference(guardExpressionEClass, GUARD_EXPRESSION__GUARD_DOMAIN_EXPR);
 		createEReference(guardExpressionEClass, GUARD_EXPRESSION__CHILD);
 
 		markExpressionEClass = createEClass(MARK_EXPRESSION);
@@ -871,14 +973,14 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		bandPieceEClass = createEClass(BAND_PIECE);
 		createEReference(bandPieceEClass, BAND_PIECE__PIECE_DOMAIN);
-		createEReference(bandPieceEClass, BAND_PIECE__PARTIAL_SCHEDULE);
+		createEReference(bandPieceEClass, BAND_PIECE__PARTIAL_SCHEDULE_EXPR);
 
 		loopTypeSpecificationEClass = createEClass(LOOP_TYPE_SPECIFICATION);
 		createEAttribute(loopTypeSpecificationEClass, LOOP_TYPE_SPECIFICATION__DIMENSION);
 		createEAttribute(loopTypeSpecificationEClass, LOOP_TYPE_SPECIFICATION__LOOP_TYPE);
 
 		isolateSpecificationEClass = createEClass(ISOLATE_SPECIFICATION);
-		createEReference(isolateSpecificationEClass, ISOLATE_SPECIFICATION__ISOLATE_DOMAIN);
+		createEReference(isolateSpecificationEClass, ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR);
 		createEReference(isolateSpecificationEClass, ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS);
 
 		bandPieceForReductionBodyEClass = createEClass(BAND_PIECE_FOR_REDUCTION_BODY);
@@ -892,9 +994,15 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		createEReference(extensionTargetEClass, EXTENSION_TARGET__SOURCE);
 		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__NAME);
 		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__INDEX_NAMES);
-		createEReference(extensionTargetEClass, EXTENSION_TARGET__EXTENSION_MAP);
+		createEReference(extensionTargetEClass, EXTENSION_TARGET__EXTENSION_MAP_EXPR);
 
 		// Create data types
+		jniObjectEDataType = createEDataType(JNI_OBJECT);
+		jniislSetEDataType = createEDataType(JNIISL_SET);
+		jniislMapEDataType = createEDataType(JNIISL_MAP);
+		jniislMultiAffEDataType = createEDataType(JNIISL_MULTI_AFF);
+		jniislpwqPolynomialEDataType = createEDataType(JNIISLPWQ_POLYNOMIAL);
+		isL_FORMATEDataType = createEDataType(ISL_FORMAT);
 		islastLoopTypeEDataType = createEDataType(ISLAST_LOOP_TYPE);
 	}
 
@@ -1079,8 +1187,10 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEClass(scheduleTreeExpressionEClass, ScheduleTreeExpression.class, "ScheduleTreeExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(contextExpressionEClass, ContextExpression.class, "ContextExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getContextExpression_ContextDomain(), theModelPackage.getJNIDomainInArrayNotation(), null, "contextDomain", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContextExpression_ContextDomainExpr(), theModelPackage.getJNIDomainInArrayNotation(), null, "contextDomainExpr", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContextExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(contextExpressionEClass, this.getJNIISLSet(), "getContextDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(contextExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -1107,11 +1217,15 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEClass(scheduleTargetRestrictDomainEClass, ScheduleTargetRestrictDomain.class, "ScheduleTargetRestrictDomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getScheduleTargetRestrictDomain_ScheduleTarget(), theModelPackage.getAlphaScheduleTarget(), null, "scheduleTarget", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getScheduleTargetRestrictDomain_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getScheduleTargetRestrictDomain_RestrictDomain(), theModelPackage.getJNIDomainInArrayNotation(), null, "restrictDomain", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getScheduleTargetRestrictDomain_RestrictDomainExpr(), theModelPackage.getJNIDomainInArrayNotation(), null, "restrictDomainExpr", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(scheduleTargetRestrictDomainEClass, this.getJNIISLSet(), "getRestrictDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(guardExpressionEClass, GuardExpression.class, "GuardExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGuardExpression_GuardDomain(), theModelPackage.getJNIDomain(), null, "guardDomain", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGuardExpression_GuardDomainExpr(), theModelPackage.getJNIDomain(), null, "guardDomainExpr", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGuardExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(guardExpressionEClass, this.getJNIISLSet(), "getGuardDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(guardExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -1136,15 +1250,19 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		initEClass(bandPieceEClass, BandPiece.class, "BandPiece", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBandPiece_PieceDomain(), this.getScheduleTargetRestrictDomain(), null, "pieceDomain", null, 0, 1, BandPiece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBandPiece_PartialSchedule(), theModelPackage.getJNIFunctionInArrayNotation(), null, "partialSchedule", null, 0, 1, BandPiece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBandPiece_PartialScheduleExpr(), theModelPackage.getJNIFunctionInArrayNotation(), null, "partialScheduleExpr", null, 0, 1, BandPiece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(bandPieceEClass, this.getJNIISLMultiAff(), "getPartialSchedule", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(loopTypeSpecificationEClass, LoopTypeSpecification.class, "LoopTypeSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLoopTypeSpecification_Dimension(), theEcorePackage.getEInt(), "dimension", null, 0, 1, LoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLoopTypeSpecification_LoopType(), this.getISLASTLoopType(), "loopType", null, 0, 1, LoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(isolateSpecificationEClass, IsolateSpecification.class, "IsolateSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIsolateSpecification_IsolateDomain(), theModelPackage.getJNIDomain(), null, "isolateDomain", null, 0, 1, IsolateSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIsolateSpecification_IsolateDomainExpr(), theModelPackage.getJNIDomain(), null, "isolateDomainExpr", null, 0, 1, IsolateSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIsolateSpecification_LoopTypeSpecifications(), this.getLoopTypeSpecification(), null, "loopTypeSpecifications", null, 0, -1, IsolateSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(isolateSpecificationEClass, this.getJNIISLSet(), "getIsolateDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(bandPieceForReductionBodyEClass, BandPieceForReductionBody.class, "BandPieceForReductionBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBandPieceForReductionBody_ReductionInitialization(), theEcorePackage.getEString(), "reductionInitialization", null, 0, 1, BandPieceForReductionBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1160,9 +1278,17 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEReference(getExtensionTarget_Source(), theModelPackage.getAlphaScheduleTarget(), null, "source", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExtensionTarget_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExtensionTarget_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensionTarget_ExtensionMap(), theModelPackage.getJNIRelation(), null, "extensionMap", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensionTarget_ExtensionMapExpr(), theModelPackage.getJNIRelation(), null, "extensionMapExpr", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(extensionTargetEClass, this.getJNIISLMap(), "getExtensionMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		// Initialize data types
+		initEDataType(jniObjectEDataType, JNIObject.class, "JNIObject", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislSetEDataType, ISLSet.class, "JNIISLSet", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislMapEDataType, ISLMap.class, "JNIISLMap", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislMultiAffEDataType, ISLMultiAff.class, "JNIISLMultiAff", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(jniislpwqPolynomialEDataType, ISLPWQPolynomial.class, "JNIISLPWQPolynomial", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(isL_FORMATEDataType, fr.irisa.cairn.jnimap.isl.ISL_FORMAT.class, "ISL_FORMAT", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(islastLoopTypeEDataType, ISLASTLoopType.class, "ISLASTLoopType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource

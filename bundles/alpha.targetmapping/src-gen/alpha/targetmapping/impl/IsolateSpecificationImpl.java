@@ -3,10 +3,17 @@
 package alpha.targetmapping.impl;
 
 import alpha.model.JNIDomain;
+import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.TargetmappingPackage;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import java.util.Collection;
 
@@ -32,7 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.targetmapping.impl.IsolateSpecificationImpl#getIsolateDomain <em>Isolate Domain</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.IsolateSpecificationImpl#getIsolateDomainExpr <em>Isolate Domain Expr</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.IsolateSpecificationImpl#getLoopTypeSpecifications <em>Loop Type Specifications</em>}</li>
  * </ul>
  *
@@ -40,14 +47,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container implements IsolateSpecification {
 	/**
-	 * The cached value of the '{@link #getIsolateDomain() <em>Isolate Domain</em>}' containment reference.
+	 * The cached value of the '{@link #getIsolateDomainExpr() <em>Isolate Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsolateDomain()
+	 * @see #getIsolateDomainExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIDomain isolateDomain;
+	protected JNIDomain isolateDomainExpr;
 
 	/**
 	 * The cached value of the '{@link #getLoopTypeSpecifications() <em>Loop Type Specifications</em>}' containment reference list.
@@ -83,8 +90,8 @@ public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIDomain getIsolateDomain() {
-		return isolateDomain;
+	public JNIDomain getIsolateDomainExpr() {
+		return isolateDomainExpr;
 	}
 
 	/**
@@ -92,11 +99,11 @@ public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetIsolateDomain(JNIDomain newIsolateDomain, NotificationChain msgs) {
-		JNIDomain oldIsolateDomain = isolateDomain;
-		isolateDomain = newIsolateDomain;
+	public NotificationChain basicSetIsolateDomainExpr(JNIDomain newIsolateDomainExpr, NotificationChain msgs) {
+		JNIDomain oldIsolateDomainExpr = isolateDomainExpr;
+		isolateDomainExpr = newIsolateDomainExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN, oldIsolateDomain, newIsolateDomain);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR, oldIsolateDomainExpr, newIsolateDomainExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -107,18 +114,18 @@ public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsolateDomain(JNIDomain newIsolateDomain) {
-		if (newIsolateDomain != isolateDomain) {
+	public void setIsolateDomainExpr(JNIDomain newIsolateDomainExpr) {
+		if (newIsolateDomainExpr != isolateDomainExpr) {
 			NotificationChain msgs = null;
-			if (isolateDomain != null)
-				msgs = ((InternalEObject)isolateDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN, null, msgs);
-			if (newIsolateDomain != null)
-				msgs = ((InternalEObject)newIsolateDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN, null, msgs);
-			msgs = basicSetIsolateDomain(newIsolateDomain, msgs);
+			if (isolateDomainExpr != null)
+				msgs = ((InternalEObject)isolateDomainExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR, null, msgs);
+			if (newIsolateDomainExpr != null)
+				msgs = ((InternalEObject)newIsolateDomainExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR, null, msgs);
+			msgs = basicSetIsolateDomainExpr(newIsolateDomainExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN, newIsolateDomain, newIsolateDomain));
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR, newIsolateDomainExpr, newIsolateDomainExpr));
 	}
 
 	/**
@@ -138,11 +145,30 @@ public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ISLSet getIsolateDomain() {
+		ISLSet _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getIsolateDomainExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getIsolateDomainExpr().getISLObject();
+			_xifexpression = ((ISLSet) _iSLObject);
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN:
-				return basicSetIsolateDomain(null, msgs);
+			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR:
+				return basicSetIsolateDomainExpr(null, msgs);
 			case TargetmappingPackage.ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS:
 				return ((InternalEList<?>)getLoopTypeSpecifications()).basicRemove(otherEnd, msgs);
 		}
@@ -157,8 +183,8 @@ public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN:
-				return getIsolateDomain();
+			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR:
+				return getIsolateDomainExpr();
 			case TargetmappingPackage.ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS:
 				return getLoopTypeSpecifications();
 		}
@@ -174,8 +200,8 @@ public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN:
-				setIsolateDomain((JNIDomain)newValue);
+			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR:
+				setIsolateDomainExpr((JNIDomain)newValue);
 				return;
 			case TargetmappingPackage.ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS:
 				getLoopTypeSpecifications().clear();
@@ -193,8 +219,8 @@ public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN:
-				setIsolateDomain((JNIDomain)null);
+			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR:
+				setIsolateDomainExpr((JNIDomain)null);
 				return;
 			case TargetmappingPackage.ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS:
 				getLoopTypeSpecifications().clear();
@@ -211,8 +237,8 @@ public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN:
-				return isolateDomain != null;
+			case TargetmappingPackage.ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR:
+				return isolateDomainExpr != null;
 			case TargetmappingPackage.ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS:
 				return loopTypeSpecifications != null && !loopTypeSpecifications.isEmpty();
 		}

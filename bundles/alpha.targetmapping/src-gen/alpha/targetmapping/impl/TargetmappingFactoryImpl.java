@@ -5,6 +5,13 @@ package alpha.targetmapping.impl;
 import alpha.targetmapping.*;
 
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+import fr.irisa.cairn.jnimap.isl.ISL_FORMAT;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -89,6 +96,18 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case TargetmappingPackage.JNI_OBJECT:
+				return createJNIObjectFromString(eDataType, initialValue);
+			case TargetmappingPackage.JNIISL_SET:
+				return createJNIISLSetFromString(eDataType, initialValue);
+			case TargetmappingPackage.JNIISL_MAP:
+				return createJNIISLMapFromString(eDataType, initialValue);
+			case TargetmappingPackage.JNIISL_MULTI_AFF:
+				return createJNIISLMultiAffFromString(eDataType, initialValue);
+			case TargetmappingPackage.JNIISLPWQ_POLYNOMIAL:
+				return createJNIISLPWQPolynomialFromString(eDataType, initialValue);
+			case TargetmappingPackage.ISL_FORMAT:
+				return createISL_FORMATFromString(eDataType, initialValue);
 			case TargetmappingPackage.ISLAST_LOOP_TYPE:
 				return createISLASTLoopTypeFromString(eDataType, initialValue);
 			default:
@@ -104,6 +123,18 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case TargetmappingPackage.JNI_OBJECT:
+				return convertJNIObjectToString(eDataType, instanceValue);
+			case TargetmappingPackage.JNIISL_SET:
+				return convertJNIISLSetToString(eDataType, instanceValue);
+			case TargetmappingPackage.JNIISL_MAP:
+				return convertJNIISLMapToString(eDataType, instanceValue);
+			case TargetmappingPackage.JNIISL_MULTI_AFF:
+				return convertJNIISLMultiAffToString(eDataType, instanceValue);
+			case TargetmappingPackage.JNIISLPWQ_POLYNOMIAL:
+				return convertJNIISLPWQPolynomialToString(eDataType, instanceValue);
+			case TargetmappingPackage.ISL_FORMAT:
+				return convertISL_FORMATToString(eDataType, instanceValue);
 			case TargetmappingPackage.ISLAST_LOOP_TYPE:
 				return convertISLASTLoopTypeToString(eDataType, instanceValue);
 			default:
@@ -279,6 +310,114 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	public ExtensionTarget createExtensionTarget() {
 		ExtensionTargetImpl extensionTarget = new ExtensionTargetImpl();
 		return extensionTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIObject createJNIObjectFromString(EDataType eDataType, String initialValue) {
+		return (JNIObject)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJNIObjectToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ISLSet createJNIISLSetFromString(EDataType eDataType, String initialValue) {
+		return (ISLSet)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJNIISLSetToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ISLMap createJNIISLMapFromString(EDataType eDataType, String initialValue) {
+		return (ISLMap)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJNIISLMapToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ISLMultiAff createJNIISLMultiAffFromString(EDataType eDataType, String initialValue) {
+		return (ISLMultiAff)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJNIISLMultiAffToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ISLPWQPolynomial createJNIISLPWQPolynomialFromString(EDataType eDataType, String initialValue) {
+		return (ISLPWQPolynomial)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJNIISLPWQPolynomialToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ISL_FORMAT createISL_FORMATFromString(EDataType eDataType, String initialValue) {
+		return (ISL_FORMAT)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertISL_FORMATToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**

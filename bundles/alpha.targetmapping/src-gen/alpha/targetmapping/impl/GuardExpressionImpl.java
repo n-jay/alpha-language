@@ -3,11 +3,18 @@
 package alpha.targetmapping.impl;
 
 import alpha.model.JNIDomain;
+import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.ScheduleTreeExpression;
 import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.ISLSet;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -25,7 +32,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.targetmapping.impl.GuardExpressionImpl#getGuardDomain <em>Guard Domain</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.GuardExpressionImpl#getGuardDomainExpr <em>Guard Domain Expr</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.GuardExpressionImpl#getChild <em>Child</em>}</li>
  * </ul>
  *
@@ -33,14 +40,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements GuardExpression {
 	/**
-	 * The cached value of the '{@link #getGuardDomain() <em>Guard Domain</em>}' containment reference.
+	 * The cached value of the '{@link #getGuardDomainExpr() <em>Guard Domain Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getGuardDomain()
+	 * @see #getGuardDomainExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIDomain guardDomain;
+	protected JNIDomain guardDomainExpr;
 
 	/**
 	 * The cached value of the '{@link #getChild() <em>Child</em>}' containment reference.
@@ -76,8 +83,8 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIDomain getGuardDomain() {
-		return guardDomain;
+	public JNIDomain getGuardDomainExpr() {
+		return guardDomainExpr;
 	}
 
 	/**
@@ -85,11 +92,11 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetGuardDomain(JNIDomain newGuardDomain, NotificationChain msgs) {
-		JNIDomain oldGuardDomain = guardDomain;
-		guardDomain = newGuardDomain;
+	public NotificationChain basicSetGuardDomainExpr(JNIDomain newGuardDomainExpr, NotificationChain msgs) {
+		JNIDomain oldGuardDomainExpr = guardDomainExpr;
+		guardDomainExpr = newGuardDomainExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN, oldGuardDomain, newGuardDomain);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR, oldGuardDomainExpr, newGuardDomainExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -100,18 +107,18 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setGuardDomain(JNIDomain newGuardDomain) {
-		if (newGuardDomain != guardDomain) {
+	public void setGuardDomainExpr(JNIDomain newGuardDomainExpr) {
+		if (newGuardDomainExpr != guardDomainExpr) {
 			NotificationChain msgs = null;
-			if (guardDomain != null)
-				msgs = ((InternalEObject)guardDomain).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN, null, msgs);
-			if (newGuardDomain != null)
-				msgs = ((InternalEObject)newGuardDomain).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN, null, msgs);
-			msgs = basicSetGuardDomain(newGuardDomain, msgs);
+			if (guardDomainExpr != null)
+				msgs = ((InternalEObject)guardDomainExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR, null, msgs);
+			if (newGuardDomainExpr != null)
+				msgs = ((InternalEObject)newGuardDomainExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR, null, msgs);
+			msgs = basicSetGuardDomainExpr(newGuardDomainExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN, newGuardDomain, newGuardDomain));
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR, newGuardDomainExpr, newGuardDomainExpr));
 	}
 
 	/**
@@ -162,6 +169,25 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ISLSet getGuardDomain() {
+		ISLSet _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getGuardDomainExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.SET));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getGuardDomainExpr().getISLObject();
+			_xifexpression = ((ISLSet) _iSLObject);
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(final TargetMappingVisitor visitor) {
 		visitor.visitGuardExpression(this);
 	}
@@ -174,8 +200,8 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN:
-				return basicSetGuardDomain(null, msgs);
+			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR:
+				return basicSetGuardDomainExpr(null, msgs);
 			case TargetmappingPackage.GUARD_EXPRESSION__CHILD:
 				return basicSetChild(null, msgs);
 		}
@@ -190,8 +216,8 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN:
-				return getGuardDomain();
+			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR:
+				return getGuardDomainExpr();
 			case TargetmappingPackage.GUARD_EXPRESSION__CHILD:
 				return getChild();
 		}
@@ -206,8 +232,8 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN:
-				setGuardDomain((JNIDomain)newValue);
+			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR:
+				setGuardDomainExpr((JNIDomain)newValue);
 				return;
 			case TargetmappingPackage.GUARD_EXPRESSION__CHILD:
 				setChild((ScheduleTreeExpression)newValue);
@@ -224,8 +250,8 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN:
-				setGuardDomain((JNIDomain)null);
+			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR:
+				setGuardDomainExpr((JNIDomain)null);
 				return;
 			case TargetmappingPackage.GUARD_EXPRESSION__CHILD:
 				setChild((ScheduleTreeExpression)null);
@@ -242,8 +268,8 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN:
-				return guardDomain != null;
+			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR:
+				return guardDomainExpr != null;
 			case TargetmappingPackage.GUARD_EXPRESSION__CHILD:
 				return child != null;
 		}

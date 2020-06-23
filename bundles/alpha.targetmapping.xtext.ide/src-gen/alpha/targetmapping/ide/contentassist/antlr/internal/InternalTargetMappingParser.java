@@ -20199,26 +20199,26 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__ContextExpression__Group__1__Impl"
-    // InternalTargetMapping.g:5516:1: rule__ContextExpression__Group__1__Impl : ( ( rule__ContextExpression__ContextDomainAssignment_1 ) ) ;
+    // InternalTargetMapping.g:5516:1: rule__ContextExpression__Group__1__Impl : ( ( rule__ContextExpression__ContextDomainExprAssignment_1 ) ) ;
     public final void rule__ContextExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalTargetMapping.g:5520:1: ( ( ( rule__ContextExpression__ContextDomainAssignment_1 ) ) )
-            // InternalTargetMapping.g:5521:1: ( ( rule__ContextExpression__ContextDomainAssignment_1 ) )
+            // InternalTargetMapping.g:5520:1: ( ( ( rule__ContextExpression__ContextDomainExprAssignment_1 ) ) )
+            // InternalTargetMapping.g:5521:1: ( ( rule__ContextExpression__ContextDomainExprAssignment_1 ) )
             {
-            // InternalTargetMapping.g:5521:1: ( ( rule__ContextExpression__ContextDomainAssignment_1 ) )
-            // InternalTargetMapping.g:5522:2: ( rule__ContextExpression__ContextDomainAssignment_1 )
+            // InternalTargetMapping.g:5521:1: ( ( rule__ContextExpression__ContextDomainExprAssignment_1 ) )
+            // InternalTargetMapping.g:5522:2: ( rule__ContextExpression__ContextDomainExprAssignment_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getContextExpressionAccess().getContextDomainAssignment_1()); 
+               before(grammarAccess.getContextExpressionAccess().getContextDomainExprAssignment_1()); 
             }
-            // InternalTargetMapping.g:5523:2: ( rule__ContextExpression__ContextDomainAssignment_1 )
-            // InternalTargetMapping.g:5523:3: rule__ContextExpression__ContextDomainAssignment_1
+            // InternalTargetMapping.g:5523:2: ( rule__ContextExpression__ContextDomainExprAssignment_1 )
+            // InternalTargetMapping.g:5523:3: rule__ContextExpression__ContextDomainExprAssignment_1
             {
             pushFollow(FOLLOW_2);
-            rule__ContextExpression__ContextDomainAssignment_1();
+            rule__ContextExpression__ContextDomainExprAssignment_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -20226,7 +20226,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getContextExpressionAccess().getContextDomainAssignment_1()); 
+               after(grammarAccess.getContextExpressionAccess().getContextDomainExprAssignment_1()); 
             }
 
             }
@@ -21618,22 +21618,22 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__ScheduleTargetRestrictDomain__Group__2__Impl"
-    // InternalTargetMapping.g:5961:1: rule__ScheduleTargetRestrictDomain__Group__2__Impl : ( ( rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2 )? ) ;
+    // InternalTargetMapping.g:5961:1: rule__ScheduleTargetRestrictDomain__Group__2__Impl : ( ( rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2 )? ) ;
     public final void rule__ScheduleTargetRestrictDomain__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalTargetMapping.g:5965:1: ( ( ( rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2 )? ) )
-            // InternalTargetMapping.g:5966:1: ( ( rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2 )? )
+            // InternalTargetMapping.g:5965:1: ( ( ( rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2 )? ) )
+            // InternalTargetMapping.g:5966:1: ( ( rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2 )? )
             {
-            // InternalTargetMapping.g:5966:1: ( ( rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2 )? )
-            // InternalTargetMapping.g:5967:2: ( rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2 )?
+            // InternalTargetMapping.g:5966:1: ( ( rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2 )? )
+            // InternalTargetMapping.g:5967:2: ( rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainAssignment_2()); 
+               before(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprAssignment_2()); 
             }
-            // InternalTargetMapping.g:5968:2: ( rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2 )?
+            // InternalTargetMapping.g:5968:2: ( rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2 )?
             int alt61=2;
             int LA61_0 = input.LA(1);
 
@@ -21642,10 +21642,10 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
             switch (alt61) {
                 case 1 :
-                    // InternalTargetMapping.g:5968:3: rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2
+                    // InternalTargetMapping.g:5968:3: rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2
                     {
                     pushFollow(FOLLOW_2);
-                    rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2();
+                    rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -21656,7 +21656,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainAssignment_2()); 
+               after(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprAssignment_2()); 
             }
 
             }
@@ -22831,26 +22831,26 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__GuardExpression__Group__1__Impl"
-    // InternalTargetMapping.g:6340:1: rule__GuardExpression__Group__1__Impl : ( ( rule__GuardExpression__GuardDomainAssignment_1 ) ) ;
+    // InternalTargetMapping.g:6340:1: rule__GuardExpression__Group__1__Impl : ( ( rule__GuardExpression__GuardDomainExprAssignment_1 ) ) ;
     public final void rule__GuardExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalTargetMapping.g:6344:1: ( ( ( rule__GuardExpression__GuardDomainAssignment_1 ) ) )
-            // InternalTargetMapping.g:6345:1: ( ( rule__GuardExpression__GuardDomainAssignment_1 ) )
+            // InternalTargetMapping.g:6344:1: ( ( ( rule__GuardExpression__GuardDomainExprAssignment_1 ) ) )
+            // InternalTargetMapping.g:6345:1: ( ( rule__GuardExpression__GuardDomainExprAssignment_1 ) )
             {
-            // InternalTargetMapping.g:6345:1: ( ( rule__GuardExpression__GuardDomainAssignment_1 ) )
-            // InternalTargetMapping.g:6346:2: ( rule__GuardExpression__GuardDomainAssignment_1 )
+            // InternalTargetMapping.g:6345:1: ( ( rule__GuardExpression__GuardDomainExprAssignment_1 ) )
+            // InternalTargetMapping.g:6346:2: ( rule__GuardExpression__GuardDomainExprAssignment_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getGuardExpressionAccess().getGuardDomainAssignment_1()); 
+               before(grammarAccess.getGuardExpressionAccess().getGuardDomainExprAssignment_1()); 
             }
-            // InternalTargetMapping.g:6347:2: ( rule__GuardExpression__GuardDomainAssignment_1 )
-            // InternalTargetMapping.g:6347:3: rule__GuardExpression__GuardDomainAssignment_1
+            // InternalTargetMapping.g:6347:2: ( rule__GuardExpression__GuardDomainExprAssignment_1 )
+            // InternalTargetMapping.g:6347:3: rule__GuardExpression__GuardDomainExprAssignment_1
             {
             pushFollow(FOLLOW_2);
-            rule__GuardExpression__GuardDomainAssignment_1();
+            rule__GuardExpression__GuardDomainExprAssignment_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -22858,7 +22858,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getGuardExpressionAccess().getGuardDomainAssignment_1()); 
+               after(grammarAccess.getGuardExpressionAccess().getGuardDomainExprAssignment_1()); 
             }
 
             }
@@ -24665,26 +24665,26 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__BandPiece__Group_0__2__Impl"
-    // InternalTargetMapping.g:6913:1: rule__BandPiece__Group_0__2__Impl : ( ( rule__BandPiece__PartialScheduleAssignment_0_2 ) ) ;
+    // InternalTargetMapping.g:6913:1: rule__BandPiece__Group_0__2__Impl : ( ( rule__BandPiece__PartialScheduleExprAssignment_0_2 ) ) ;
     public final void rule__BandPiece__Group_0__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalTargetMapping.g:6917:1: ( ( ( rule__BandPiece__PartialScheduleAssignment_0_2 ) ) )
-            // InternalTargetMapping.g:6918:1: ( ( rule__BandPiece__PartialScheduleAssignment_0_2 ) )
+            // InternalTargetMapping.g:6917:1: ( ( ( rule__BandPiece__PartialScheduleExprAssignment_0_2 ) ) )
+            // InternalTargetMapping.g:6918:1: ( ( rule__BandPiece__PartialScheduleExprAssignment_0_2 ) )
             {
-            // InternalTargetMapping.g:6918:1: ( ( rule__BandPiece__PartialScheduleAssignment_0_2 ) )
-            // InternalTargetMapping.g:6919:2: ( rule__BandPiece__PartialScheduleAssignment_0_2 )
+            // InternalTargetMapping.g:6918:1: ( ( rule__BandPiece__PartialScheduleExprAssignment_0_2 ) )
+            // InternalTargetMapping.g:6919:2: ( rule__BandPiece__PartialScheduleExprAssignment_0_2 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getBandPieceAccess().getPartialScheduleAssignment_0_2()); 
+               before(grammarAccess.getBandPieceAccess().getPartialScheduleExprAssignment_0_2()); 
             }
-            // InternalTargetMapping.g:6920:2: ( rule__BandPiece__PartialScheduleAssignment_0_2 )
-            // InternalTargetMapping.g:6920:3: rule__BandPiece__PartialScheduleAssignment_0_2
+            // InternalTargetMapping.g:6920:2: ( rule__BandPiece__PartialScheduleExprAssignment_0_2 )
+            // InternalTargetMapping.g:6920:3: rule__BandPiece__PartialScheduleExprAssignment_0_2
             {
             pushFollow(FOLLOW_2);
-            rule__BandPiece__PartialScheduleAssignment_0_2();
+            rule__BandPiece__PartialScheduleExprAssignment_0_2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -24692,7 +24692,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getBandPieceAccess().getPartialScheduleAssignment_0_2()); 
+               after(grammarAccess.getBandPieceAccess().getPartialScheduleExprAssignment_0_2()); 
             }
 
             }
@@ -24912,26 +24912,26 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__IsolateSpecification__Group__2__Impl"
-    // InternalTargetMapping.g:6995:1: rule__IsolateSpecification__Group__2__Impl : ( ( rule__IsolateSpecification__IsolateDomainAssignment_2 ) ) ;
+    // InternalTargetMapping.g:6995:1: rule__IsolateSpecification__Group__2__Impl : ( ( rule__IsolateSpecification__IsolateDomainExprAssignment_2 ) ) ;
     public final void rule__IsolateSpecification__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalTargetMapping.g:6999:1: ( ( ( rule__IsolateSpecification__IsolateDomainAssignment_2 ) ) )
-            // InternalTargetMapping.g:7000:1: ( ( rule__IsolateSpecification__IsolateDomainAssignment_2 ) )
+            // InternalTargetMapping.g:6999:1: ( ( ( rule__IsolateSpecification__IsolateDomainExprAssignment_2 ) ) )
+            // InternalTargetMapping.g:7000:1: ( ( rule__IsolateSpecification__IsolateDomainExprAssignment_2 ) )
             {
-            // InternalTargetMapping.g:7000:1: ( ( rule__IsolateSpecification__IsolateDomainAssignment_2 ) )
-            // InternalTargetMapping.g:7001:2: ( rule__IsolateSpecification__IsolateDomainAssignment_2 )
+            // InternalTargetMapping.g:7000:1: ( ( rule__IsolateSpecification__IsolateDomainExprAssignment_2 ) )
+            // InternalTargetMapping.g:7001:2: ( rule__IsolateSpecification__IsolateDomainExprAssignment_2 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainAssignment_2()); 
+               before(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprAssignment_2()); 
             }
-            // InternalTargetMapping.g:7002:2: ( rule__IsolateSpecification__IsolateDomainAssignment_2 )
-            // InternalTargetMapping.g:7002:3: rule__IsolateSpecification__IsolateDomainAssignment_2
+            // InternalTargetMapping.g:7002:2: ( rule__IsolateSpecification__IsolateDomainExprAssignment_2 )
+            // InternalTargetMapping.g:7002:3: rule__IsolateSpecification__IsolateDomainExprAssignment_2
             {
             pushFollow(FOLLOW_2);
-            rule__IsolateSpecification__IsolateDomainAssignment_2();
+            rule__IsolateSpecification__IsolateDomainExprAssignment_2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -24939,7 +24939,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainAssignment_2()); 
+               after(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprAssignment_2()); 
             }
 
             }
@@ -26360,26 +26360,26 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__BandPieceForReductionBody__Group__6__Impl"
-    // InternalTargetMapping.g:7453:1: rule__BandPieceForReductionBody__Group__6__Impl : ( ( rule__BandPieceForReductionBody__PartialScheduleAssignment_6 ) ) ;
+    // InternalTargetMapping.g:7453:1: rule__BandPieceForReductionBody__Group__6__Impl : ( ( rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6 ) ) ;
     public final void rule__BandPieceForReductionBody__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalTargetMapping.g:7457:1: ( ( ( rule__BandPieceForReductionBody__PartialScheduleAssignment_6 ) ) )
-            // InternalTargetMapping.g:7458:1: ( ( rule__BandPieceForReductionBody__PartialScheduleAssignment_6 ) )
+            // InternalTargetMapping.g:7457:1: ( ( ( rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6 ) ) )
+            // InternalTargetMapping.g:7458:1: ( ( rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6 ) )
             {
-            // InternalTargetMapping.g:7458:1: ( ( rule__BandPieceForReductionBody__PartialScheduleAssignment_6 ) )
-            // InternalTargetMapping.g:7459:2: ( rule__BandPieceForReductionBody__PartialScheduleAssignment_6 )
+            // InternalTargetMapping.g:7458:1: ( ( rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6 ) )
+            // InternalTargetMapping.g:7459:2: ( rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleAssignment_6()); 
+               before(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleExprAssignment_6()); 
             }
-            // InternalTargetMapping.g:7460:2: ( rule__BandPieceForReductionBody__PartialScheduleAssignment_6 )
-            // InternalTargetMapping.g:7460:3: rule__BandPieceForReductionBody__PartialScheduleAssignment_6
+            // InternalTargetMapping.g:7460:2: ( rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6 )
+            // InternalTargetMapping.g:7460:3: rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6
             {
             pushFollow(FOLLOW_2);
-            rule__BandPieceForReductionBody__PartialScheduleAssignment_6();
+            rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6();
 
             state._fsp--;
             if (state.failed) return ;
@@ -26387,7 +26387,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleAssignment_6()); 
+               after(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleExprAssignment_6()); 
             }
 
             }
@@ -27392,26 +27392,26 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__ExtensionTarget__Group__1__Impl"
-    // InternalTargetMapping.g:7778:1: rule__ExtensionTarget__Group__1__Impl : ( ( rule__ExtensionTarget__ExtensionMapAssignment_1 ) ) ;
+    // InternalTargetMapping.g:7778:1: rule__ExtensionTarget__Group__1__Impl : ( ( rule__ExtensionTarget__ExtensionMapExprAssignment_1 ) ) ;
     public final void rule__ExtensionTarget__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalTargetMapping.g:7782:1: ( ( ( rule__ExtensionTarget__ExtensionMapAssignment_1 ) ) )
-            // InternalTargetMapping.g:7783:1: ( ( rule__ExtensionTarget__ExtensionMapAssignment_1 ) )
+            // InternalTargetMapping.g:7782:1: ( ( ( rule__ExtensionTarget__ExtensionMapExprAssignment_1 ) ) )
+            // InternalTargetMapping.g:7783:1: ( ( rule__ExtensionTarget__ExtensionMapExprAssignment_1 ) )
             {
-            // InternalTargetMapping.g:7783:1: ( ( rule__ExtensionTarget__ExtensionMapAssignment_1 ) )
-            // InternalTargetMapping.g:7784:2: ( rule__ExtensionTarget__ExtensionMapAssignment_1 )
+            // InternalTargetMapping.g:7783:1: ( ( rule__ExtensionTarget__ExtensionMapExprAssignment_1 ) )
+            // InternalTargetMapping.g:7784:2: ( rule__ExtensionTarget__ExtensionMapExprAssignment_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getExtensionTargetAccess().getExtensionMapAssignment_1()); 
+               before(grammarAccess.getExtensionTargetAccess().getExtensionMapExprAssignment_1()); 
             }
-            // InternalTargetMapping.g:7785:2: ( rule__ExtensionTarget__ExtensionMapAssignment_1 )
-            // InternalTargetMapping.g:7785:3: rule__ExtensionTarget__ExtensionMapAssignment_1
+            // InternalTargetMapping.g:7785:2: ( rule__ExtensionTarget__ExtensionMapExprAssignment_1 )
+            // InternalTargetMapping.g:7785:3: rule__ExtensionTarget__ExtensionMapExprAssignment_1
             {
             pushFollow(FOLLOW_2);
-            rule__ExtensionTarget__ExtensionMapAssignment_1();
+            rule__ExtensionTarget__ExtensionMapExprAssignment_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -27419,7 +27419,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getExtensionTargetAccess().getExtensionMapAssignment_1()); 
+               after(grammarAccess.getExtensionTargetAccess().getExtensionMapExprAssignment_1()); 
             }
 
             }
@@ -73801,9 +73801,9 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__TargetMappingForSystemBody__ScheduleTreeRootAssignment_2"
 
 
-    // $ANTLR start "rule__ContextExpression__ContextDomainAssignment_1"
-    // InternalTargetMapping.g:22546:1: rule__ContextExpression__ContextDomainAssignment_1 : ( ruleJNIDomainInArrayNotation ) ;
-    public final void rule__ContextExpression__ContextDomainAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__ContextExpression__ContextDomainExprAssignment_1"
+    // InternalTargetMapping.g:22546:1: rule__ContextExpression__ContextDomainExprAssignment_1 : ( ruleJNIDomainInArrayNotation ) ;
+    public final void rule__ContextExpression__ContextDomainExprAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -73815,7 +73815,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             // InternalTargetMapping.g:22552:3: ruleJNIDomainInArrayNotation
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getContextExpressionAccess().getContextDomainJNIDomainInArrayNotationParserRuleCall_1_0()); 
+               before(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleJNIDomainInArrayNotation();
@@ -73823,7 +73823,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getContextExpressionAccess().getContextDomainJNIDomainInArrayNotationParserRuleCall_1_0()); 
+               after(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0()); 
             }
 
             }
@@ -73843,7 +73843,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__ContextExpression__ContextDomainAssignment_1"
+    // $ANTLR end "rule__ContextExpression__ContextDomainExprAssignment_1"
 
 
     // $ANTLR start "rule__ContextExpression__ChildAssignment_2"
@@ -74116,9 +74116,9 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__ScheduleTargetRestrictDomain__IndexNamesAssignment_1_2_1"
 
 
-    // $ANTLR start "rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2"
-    // InternalTargetMapping.g:22655:1: rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2 : ( ruleJNIDomainInArrayNotation ) ;
-    public final void rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2"
+    // InternalTargetMapping.g:22655:1: rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2 : ( ruleJNIDomainInArrayNotation ) ;
+    public final void rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -74130,7 +74130,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             // InternalTargetMapping.g:22661:3: ruleJNIDomainInArrayNotation
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainJNIDomainInArrayNotationParserRuleCall_2_0()); 
+               before(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprJNIDomainInArrayNotationParserRuleCall_2_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleJNIDomainInArrayNotation();
@@ -74138,7 +74138,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainJNIDomainInArrayNotationParserRuleCall_2_0()); 
+               after(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprJNIDomainInArrayNotationParserRuleCall_2_0()); 
             }
 
             }
@@ -74158,7 +74158,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__ScheduleTargetRestrictDomain__RestrictDomainAssignment_2"
+    // $ANTLR end "rule__ScheduleTargetRestrictDomain__RestrictDomainExprAssignment_2"
 
 
     // $ANTLR start "rule__FilterExpression__FilterDomainsAssignment_0"
@@ -74296,9 +74296,9 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__FilterExpression__ChildAssignment_3"
 
 
-    // $ANTLR start "rule__GuardExpression__GuardDomainAssignment_1"
-    // InternalTargetMapping.g:22715:1: rule__GuardExpression__GuardDomainAssignment_1 : ( ruleJNIDomain ) ;
-    public final void rule__GuardExpression__GuardDomainAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__GuardExpression__GuardDomainExprAssignment_1"
+    // InternalTargetMapping.g:22715:1: rule__GuardExpression__GuardDomainExprAssignment_1 : ( ruleJNIDomain ) ;
+    public final void rule__GuardExpression__GuardDomainExprAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -74310,7 +74310,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             // InternalTargetMapping.g:22721:3: ruleJNIDomain
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getGuardExpressionAccess().getGuardDomainJNIDomainParserRuleCall_1_0()); 
+               before(grammarAccess.getGuardExpressionAccess().getGuardDomainExprJNIDomainParserRuleCall_1_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleJNIDomain();
@@ -74318,7 +74318,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getGuardExpressionAccess().getGuardDomainJNIDomainParserRuleCall_1_0()); 
+               after(grammarAccess.getGuardExpressionAccess().getGuardDomainExprJNIDomainParserRuleCall_1_0()); 
             }
 
             }
@@ -74338,7 +74338,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__GuardExpression__GuardDomainAssignment_1"
+    // $ANTLR end "rule__GuardExpression__GuardDomainExprAssignment_1"
 
 
     // $ANTLR start "rule__GuardExpression__ChildAssignment_2"
@@ -74803,9 +74803,9 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__BandPiece__PieceDomainAssignment_0_0"
 
 
-    // $ANTLR start "rule__BandPiece__PartialScheduleAssignment_0_2"
-    // InternalTargetMapping.g:22888:1: rule__BandPiece__PartialScheduleAssignment_0_2 : ( ruleJNIFunctionInArrayNotation ) ;
-    public final void rule__BandPiece__PartialScheduleAssignment_0_2() throws RecognitionException {
+    // $ANTLR start "rule__BandPiece__PartialScheduleExprAssignment_0_2"
+    // InternalTargetMapping.g:22888:1: rule__BandPiece__PartialScheduleExprAssignment_0_2 : ( ruleJNIFunctionInArrayNotation ) ;
+    public final void rule__BandPiece__PartialScheduleExprAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -74817,7 +74817,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             // InternalTargetMapping.g:22894:3: ruleJNIFunctionInArrayNotation
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getBandPieceAccess().getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_0_2_0()); 
+               before(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleJNIFunctionInArrayNotation();
@@ -74825,7 +74825,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getBandPieceAccess().getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_0_2_0()); 
+               after(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0()); 
             }
 
             }
@@ -74845,12 +74845,12 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__BandPiece__PartialScheduleAssignment_0_2"
+    // $ANTLR end "rule__BandPiece__PartialScheduleExprAssignment_0_2"
 
 
-    // $ANTLR start "rule__IsolateSpecification__IsolateDomainAssignment_2"
-    // InternalTargetMapping.g:22903:1: rule__IsolateSpecification__IsolateDomainAssignment_2 : ( ruleJNIDomain ) ;
-    public final void rule__IsolateSpecification__IsolateDomainAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__IsolateSpecification__IsolateDomainExprAssignment_2"
+    // InternalTargetMapping.g:22903:1: rule__IsolateSpecification__IsolateDomainExprAssignment_2 : ( ruleJNIDomain ) ;
+    public final void rule__IsolateSpecification__IsolateDomainExprAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -74862,7 +74862,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             // InternalTargetMapping.g:22909:3: ruleJNIDomain
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainJNIDomainParserRuleCall_2_0()); 
+               before(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprJNIDomainParserRuleCall_2_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleJNIDomain();
@@ -74870,7 +74870,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainJNIDomainParserRuleCall_2_0()); 
+               after(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprJNIDomainParserRuleCall_2_0()); 
             }
 
             }
@@ -74890,7 +74890,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__IsolateSpecification__IsolateDomainAssignment_2"
+    // $ANTLR end "rule__IsolateSpecification__IsolateDomainExprAssignment_2"
 
 
     // $ANTLR start "rule__IsolateSpecification__LoopTypeSpecificationsAssignment_3_0"
@@ -75155,9 +75155,9 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__BandPieceForReductionBody__ReductionInitializationAssignment_3_1"
 
 
-    // $ANTLR start "rule__BandPieceForReductionBody__PartialScheduleAssignment_6"
-    // InternalTargetMapping.g:23008:1: rule__BandPieceForReductionBody__PartialScheduleAssignment_6 : ( ruleJNIFunctionInArrayNotation ) ;
-    public final void rule__BandPieceForReductionBody__PartialScheduleAssignment_6() throws RecognitionException {
+    // $ANTLR start "rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6"
+    // InternalTargetMapping.g:23008:1: rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6 : ( ruleJNIFunctionInArrayNotation ) ;
+    public final void rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -75169,7 +75169,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             // InternalTargetMapping.g:23014:3: ruleJNIFunctionInArrayNotation
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_6_0()); 
+               before(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleJNIFunctionInArrayNotation();
@@ -75177,7 +75177,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_6_0()); 
+               after(grammarAccess.getBandPieceForReductionBodyAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0()); 
             }
 
             }
@@ -75197,7 +75197,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__BandPieceForReductionBody__PartialScheduleAssignment_6"
+    // $ANTLR end "rule__BandPieceForReductionBody__PartialScheduleExprAssignment_6"
 
 
     // $ANTLR start "rule__ExtensionExpression__ExtensionTargetsAssignment_2"
@@ -75388,9 +75388,9 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__ExtensionTarget__SourceAssignment_0_1"
 
 
-    // $ANTLR start "rule__ExtensionTarget__ExtensionMapAssignment_1"
-    // InternalTargetMapping.g:23087:1: rule__ExtensionTarget__ExtensionMapAssignment_1 : ( ruleJNIRelation ) ;
-    public final void rule__ExtensionTarget__ExtensionMapAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__ExtensionTarget__ExtensionMapExprAssignment_1"
+    // InternalTargetMapping.g:23087:1: rule__ExtensionTarget__ExtensionMapExprAssignment_1 : ( ruleJNIRelation ) ;
+    public final void rule__ExtensionTarget__ExtensionMapExprAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -75402,7 +75402,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             // InternalTargetMapping.g:23093:3: ruleJNIRelation
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getExtensionTargetAccess().getExtensionMapJNIRelationParserRuleCall_1_0()); 
+               before(grammarAccess.getExtensionTargetAccess().getExtensionMapExprJNIRelationParserRuleCall_1_0()); 
             }
             pushFollow(FOLLOW_2);
             ruleJNIRelation();
@@ -75410,7 +75410,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getExtensionTargetAccess().getExtensionMapJNIRelationParserRuleCall_1_0()); 
+               after(grammarAccess.getExtensionTargetAccess().getExtensionMapExprJNIRelationParserRuleCall_1_0()); 
             }
 
             }
@@ -75430,7 +75430,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__ExtensionTarget__ExtensionMapAssignment_1"
+    // $ANTLR end "rule__ExtensionTarget__ExtensionMapExprAssignment_1"
 
 
     // $ANTLR start "rule__ExtensionTarget__NameAssignment_3"

@@ -3,10 +3,17 @@
 package alpha.targetmapping.impl;
 
 import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.BandPiece;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.TargetmappingPackage;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -26,7 +33,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.impl.BandPieceImpl#getPieceDomain <em>Piece Domain</em>}</li>
- *   <li>{@link alpha.targetmapping.impl.BandPieceImpl#getPartialSchedule <em>Partial Schedule</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.BandPieceImpl#getPartialScheduleExpr <em>Partial Schedule Expr</em>}</li>
  * </ul>
  *
  * @generated
@@ -43,14 +50,14 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 	protected ScheduleTargetRestrictDomain pieceDomain;
 
 	/**
-	 * The cached value of the '{@link #getPartialSchedule() <em>Partial Schedule</em>}' containment reference.
+	 * The cached value of the '{@link #getPartialScheduleExpr() <em>Partial Schedule Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPartialSchedule()
+	 * @see #getPartialScheduleExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIFunctionInArrayNotation partialSchedule;
+	protected JNIFunctionInArrayNotation partialScheduleExpr;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -119,8 +126,8 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFunctionInArrayNotation getPartialSchedule() {
-		return partialSchedule;
+	public JNIFunctionInArrayNotation getPartialScheduleExpr() {
+		return partialScheduleExpr;
 	}
 
 	/**
@@ -128,11 +135,11 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetPartialSchedule(JNIFunctionInArrayNotation newPartialSchedule, NotificationChain msgs) {
-		JNIFunctionInArrayNotation oldPartialSchedule = partialSchedule;
-		partialSchedule = newPartialSchedule;
+	public NotificationChain basicSetPartialScheduleExpr(JNIFunctionInArrayNotation newPartialScheduleExpr, NotificationChain msgs) {
+		JNIFunctionInArrayNotation oldPartialScheduleExpr = partialScheduleExpr;
+		partialScheduleExpr = newPartialScheduleExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE, oldPartialSchedule, newPartialSchedule);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR, oldPartialScheduleExpr, newPartialScheduleExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -143,18 +150,37 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPartialSchedule(JNIFunctionInArrayNotation newPartialSchedule) {
-		if (newPartialSchedule != partialSchedule) {
+	public void setPartialScheduleExpr(JNIFunctionInArrayNotation newPartialScheduleExpr) {
+		if (newPartialScheduleExpr != partialScheduleExpr) {
 			NotificationChain msgs = null;
-			if (partialSchedule != null)
-				msgs = ((InternalEObject)partialSchedule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE, null, msgs);
-			if (newPartialSchedule != null)
-				msgs = ((InternalEObject)newPartialSchedule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE, null, msgs);
-			msgs = basicSetPartialSchedule(newPartialSchedule, msgs);
+			if (partialScheduleExpr != null)
+				msgs = ((InternalEObject)partialScheduleExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR, null, msgs);
+			if (newPartialScheduleExpr != null)
+				msgs = ((InternalEObject)newPartialScheduleExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR, null, msgs);
+			msgs = basicSetPartialScheduleExpr(newPartialScheduleExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE, newPartialSchedule, newPartialSchedule));
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR, newPartialScheduleExpr, newPartialScheduleExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ISLMultiAff getPartialSchedule() {
+		ISLMultiAff _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getPartialScheduleExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.FUNCTION));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getPartialScheduleExpr().getISLObject();
+			_xifexpression = ((ISLMultiAff) _iSLObject);
+		}
+		return _xifexpression;
 	}
 
 	/**
@@ -167,8 +193,8 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 		switch (featureID) {
 			case TargetmappingPackage.BAND_PIECE__PIECE_DOMAIN:
 				return basicSetPieceDomain(null, msgs);
-			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE:
-				return basicSetPartialSchedule(null, msgs);
+			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR:
+				return basicSetPartialScheduleExpr(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -183,8 +209,8 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 		switch (featureID) {
 			case TargetmappingPackage.BAND_PIECE__PIECE_DOMAIN:
 				return getPieceDomain();
-			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE:
-				return getPartialSchedule();
+			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR:
+				return getPartialScheduleExpr();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -200,8 +226,8 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 			case TargetmappingPackage.BAND_PIECE__PIECE_DOMAIN:
 				setPieceDomain((ScheduleTargetRestrictDomain)newValue);
 				return;
-			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE:
-				setPartialSchedule((JNIFunctionInArrayNotation)newValue);
+			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR:
+				setPartialScheduleExpr((JNIFunctionInArrayNotation)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -218,8 +244,8 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 			case TargetmappingPackage.BAND_PIECE__PIECE_DOMAIN:
 				setPieceDomain((ScheduleTargetRestrictDomain)null);
 				return;
-			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE:
-				setPartialSchedule((JNIFunctionInArrayNotation)null);
+			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR:
+				setPartialScheduleExpr((JNIFunctionInArrayNotation)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -235,8 +261,8 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 		switch (featureID) {
 			case TargetmappingPackage.BAND_PIECE__PIECE_DOMAIN:
 				return pieceDomain != null;
-			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE:
-				return partialSchedule != null;
+			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR:
+				return partialScheduleExpr != null;
 		}
 		return super.eIsSet(featureID);
 	}

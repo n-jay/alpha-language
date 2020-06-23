@@ -67,16 +67,16 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 	
 	override inContextExpression(ContextExpression ce) {
 		defaultIn(ce);
-		printStr("+--", ce.contextDomain.ISLSet);
+		printStr("+--", ce.contextDomain);
 	}
 	
 	override inFilterExpression(FilterExpression fe) {
 		defaultIn(fe);
 		for (fd : fe.filterDomains) {
-			if (fd.restrictDomain !== null) {
-				printStr("+--", fd.scheduleTarget.name , ":", fd.restrictDomain.ISLSet);
-			} else {
+			if (fd.restrictDomain.plainIsUniverse) {
 				printStr("+--", fd.scheduleTarget.name);
+			} else {
+				printStr("+--", fd.scheduleTarget.name , ":", fd.restrictDomain);
 			}
 		}
 			
@@ -84,7 +84,7 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 	
 	override inGuardExpression(GuardExpression ge) {
 		defaultIn(ge);
-		printStr("+--", ge.guardDomain.ISLSet);
+		printStr("+--", ge.guardDomain);
 	}
 	
 	override inMarkExpression(MarkExpression me) {
@@ -102,14 +102,14 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 			printStr("+--", lts.loopType.name, ":", lts.dimension);	
 		}
 		for (bp : be.bandPieces) {
-			if (bp.pieceDomain.restrictDomain !== null) {
-				printStr("+--", bp.pieceDomain.scheduleTarget.name, ":", bp.pieceDomain.restrictDomain.ISLSet, "@" , bp.partialSchedule.ISLMultiAff);
+			if (bp.pieceDomain.restrictDomain.plainIsUniverse) {
+				printStr("+--", bp.pieceDomain.scheduleTarget.name , "@" , bp.partialSchedule);
 			} else {
-				printStr("+--", bp.pieceDomain.scheduleTarget.name , "@" , bp.partialSchedule.ISLMultiAff);
+				printStr("+--", bp.pieceDomain.scheduleTarget.name, ":", bp.pieceDomain.restrictDomain, "@" , bp.partialSchedule);
 			}
 		}
 		if (be.isolateSpecification !== null) {
-			printStr("+--", "isolate", be.isolateSpecification.isolateDomain.ISLSet);
+			printStr("+--", "isolate", be.isolateSpecification.isolateDomain);
 			for (lts : be.isolateSpecification.loopTypeSpecifications) {
 				printStr("   +--", lts.loopType.name, ":", lts.dimension);	
 			}
@@ -120,7 +120,7 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 	override inExtensionExpression(ExtensionExpression ee) {
 		defaultIn(ee);
 		for (et : ee.extensionTargets) {
-			printStr("+--", et.source.name, "->", et.name, ":", et.extensionMap.ISLMap);
+			printStr("+--", et.source.name, "->", et.name, ":", et.extensionMap);
 		}
 	}
 	

@@ -4,9 +4,16 @@ package alpha.targetmapping.impl;
 
 import alpha.model.AlphaScheduleTarget;
 import alpha.model.JNIRelation;
+import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.ExtensionTarget;
 import alpha.targetmapping.TargetmappingPackage;
+
+import com.google.common.base.Objects;
+
+import fr.irisa.cairn.jnimap.isl.ISLMap;
+
+import fr.irisa.cairn.jnimap.runtime.JNIObject;
 
 import java.util.Collection;
 
@@ -34,7 +41,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getSource <em>Source</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getName <em>Name</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getIndexNames <em>Index Names</em>}</li>
- *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getExtensionMap <em>Extension Map</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getExtensionMapExpr <em>Extension Map Expr</em>}</li>
  * </ul>
  *
  * @generated
@@ -81,14 +88,14 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	protected EList<String> indexNames;
 
 	/**
-	 * The cached value of the '{@link #getExtensionMap() <em>Extension Map</em>}' containment reference.
+	 * The cached value of the '{@link #getExtensionMapExpr() <em>Extension Map Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExtensionMap()
+	 * @see #getExtensionMapExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIRelation extensionMap;
+	protected JNIRelation extensionMapExpr;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -185,8 +192,8 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIRelation getExtensionMap() {
-		return extensionMap;
+	public JNIRelation getExtensionMapExpr() {
+		return extensionMapExpr;
 	}
 
 	/**
@@ -194,11 +201,11 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetExtensionMap(JNIRelation newExtensionMap, NotificationChain msgs) {
-		JNIRelation oldExtensionMap = extensionMap;
-		extensionMap = newExtensionMap;
+	public NotificationChain basicSetExtensionMapExpr(JNIRelation newExtensionMapExpr, NotificationChain msgs) {
+		JNIRelation oldExtensionMapExpr = extensionMapExpr;
+		extensionMapExpr = newExtensionMapExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP, oldExtensionMap, newExtensionMap);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP_EXPR, oldExtensionMapExpr, newExtensionMapExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -209,18 +216,37 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setExtensionMap(JNIRelation newExtensionMap) {
-		if (newExtensionMap != extensionMap) {
+	public void setExtensionMapExpr(JNIRelation newExtensionMapExpr) {
+		if (newExtensionMapExpr != extensionMapExpr) {
 			NotificationChain msgs = null;
-			if (extensionMap != null)
-				msgs = ((InternalEObject)extensionMap).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP, null, msgs);
-			if (newExtensionMap != null)
-				msgs = ((InternalEObject)newExtensionMap).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP, null, msgs);
-			msgs = basicSetExtensionMap(newExtensionMap, msgs);
+			if (extensionMapExpr != null)
+				msgs = ((InternalEObject)extensionMapExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP_EXPR, null, msgs);
+			if (newExtensionMapExpr != null)
+				msgs = ((InternalEObject)newExtensionMapExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP_EXPR, null, msgs);
+			msgs = basicSetExtensionMapExpr(newExtensionMapExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP, newExtensionMap, newExtensionMap));
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP_EXPR, newExtensionMapExpr, newExtensionMapExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ISLMap getExtensionMap() {
+		ISLMap _xifexpression = null;
+		POLY_OBJECT_TYPE _type = this.getExtensionMapExpr().getType();
+		boolean _notEquals = (!Objects.equal(_type, POLY_OBJECT_TYPE.MAP));
+		if (_notEquals) {
+			_xifexpression = null;
+		}
+		else {
+			JNIObject _iSLObject = this.getExtensionMapExpr().getISLObject();
+			_xifexpression = ((ISLMap) _iSLObject);
+		}
+		return _xifexpression;
 	}
 
 	/**
@@ -231,8 +257,8 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP:
-				return basicSetExtensionMap(null, msgs);
+			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP_EXPR:
+				return basicSetExtensionMapExpr(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -252,8 +278,8 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 				return getName();
 			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
 				return getIndexNames();
-			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP:
-				return getExtensionMap();
+			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP_EXPR:
+				return getExtensionMapExpr();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -277,8 +303,8 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 				getIndexNames().clear();
 				getIndexNames().addAll((Collection<? extends String>)newValue);
 				return;
-			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP:
-				setExtensionMap((JNIRelation)newValue);
+			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP_EXPR:
+				setExtensionMapExpr((JNIRelation)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -301,8 +327,8 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
 				getIndexNames().clear();
 				return;
-			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP:
-				setExtensionMap((JNIRelation)null);
+			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP_EXPR:
+				setExtensionMapExpr((JNIRelation)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -322,8 +348,8 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
 				return indexNames != null && !indexNames.isEmpty();
-			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP:
-				return extensionMap != null;
+			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP_EXPR:
+				return extensionMapExpr != null;
 		}
 		return super.eIsSet(featureID);
 	}

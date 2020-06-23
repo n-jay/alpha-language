@@ -399,7 +399,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     BandPieceForReductionBody returns BandPieceForReductionBody
 	 *
 	 * Constraint:
-	 *     (pieceDomain=ScheduleTargetRestrictDomain reductionInitialization=STRING? partialSchedule=JNIFunctionInArrayNotation)
+	 *     (pieceDomain=ScheduleTargetRestrictDomain reductionInitialization=STRING? partialScheduleExpr=JNIFunctionInArrayNotation)
 	 */
 	protected void sequence_BandPieceForReductionBody(ISerializationContext context, BandPieceForReductionBody semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -411,18 +411,18 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     BandPiece returns BandPiece
 	 *
 	 * Constraint:
-	 *     (pieceDomain=ScheduleTargetRestrictDomain partialSchedule=JNIFunctionInArrayNotation)
+	 *     (pieceDomain=ScheduleTargetRestrictDomain partialScheduleExpr=JNIFunctionInArrayNotation)
 	 */
 	protected void sequence_BandPiece(ISerializationContext context, BandPiece semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PIECE_DOMAIN) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PIECE_DOMAIN));
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PARTIAL_SCHEDULE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PARTIAL_SCHEDULE));
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PARTIAL_SCHEDULE_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PARTIAL_SCHEDULE_EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getBandPieceAccess().getPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0_0(), semanticObject.getPieceDomain());
-		feeder.accept(grammarAccess.getBandPieceAccess().getPartialScheduleJNIFunctionInArrayNotationParserRuleCall_0_2_0(), semanticObject.getPartialSchedule());
+		feeder.accept(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0(), semanticObject.getPartialScheduleExpr());
 		feeder.finish();
 	}
 	
@@ -432,17 +432,17 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     ContextExpression returns ContextExpression
 	 *
 	 * Constraint:
-	 *     (contextDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression)
+	 *     (contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression)
 	 */
 	protected void sequence_ContextExpression(ISerializationContext context, ContextExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.CONTEXT_EXPRESSION__CONTEXT_DOMAIN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.CONTEXT_EXPRESSION__CONTEXT_DOMAIN));
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR));
 			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.CONTEXT_EXPRESSION__CHILD) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.CONTEXT_EXPRESSION__CHILD));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getContextExpressionAccess().getContextDomainJNIDomainInArrayNotationParserRuleCall_1_0(), semanticObject.getContextDomain());
+		feeder.accept(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0(), semanticObject.getContextDomainExpr());
 		feeder.accept(grammarAccess.getContextExpressionAccess().getChildScheduleTreeExpressionParserRuleCall_2_0(), semanticObject.getChild());
 		feeder.finish();
 	}
@@ -466,7 +466,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     ExtensionTarget returns ExtensionTarget
 	 *
 	 * Constraint:
-	 *     (source=[AlphaScheduleTarget|ID]? extensionMap=JNIRelation name=ID (indexNames+=ID indexNames+=ID*)?)
+	 *     (source=[AlphaScheduleTarget|ID]? extensionMapExpr=JNIRelation name=ID (indexNames+=ID indexNames+=ID*)?)
 	 */
 	protected void sequence_ExtensionTarget(ISerializationContext context, ExtensionTarget semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -492,17 +492,17 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     GuardExpression returns GuardExpression
 	 *
 	 * Constraint:
-	 *     (guardDomain=JNIDomain child=ScheduleTreeExpression)
+	 *     (guardDomainExpr=JNIDomain child=ScheduleTreeExpression)
 	 */
 	protected void sequence_GuardExpression(ISerializationContext context, GuardExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__GUARD_DOMAIN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__GUARD_DOMAIN));
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR));
 			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__CHILD) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__CHILD));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getGuardExpressionAccess().getGuardDomainJNIDomainParserRuleCall_1_0(), semanticObject.getGuardDomain());
+		feeder.accept(grammarAccess.getGuardExpressionAccess().getGuardDomainExprJNIDomainParserRuleCall_1_0(), semanticObject.getGuardDomainExpr());
 		feeder.accept(grammarAccess.getGuardExpressionAccess().getChildScheduleTreeExpressionParserRuleCall_2_0(), semanticObject.getChild());
 		feeder.finish();
 	}
@@ -513,7 +513,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     IsolateSpecification returns IsolateSpecification
 	 *
 	 * Constraint:
-	 *     (isolateDomain=JNIDomain (loopTypeSpecifications+=LoopTypeSpecification loopTypeSpecifications+=LoopTypeSpecification*)?)
+	 *     (isolateDomainExpr=JNIDomain (loopTypeSpecifications+=LoopTypeSpecification loopTypeSpecifications+=LoopTypeSpecification*)?)
 	 */
 	protected void sequence_IsolateSpecification(ISerializationContext context, IsolateSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -568,7 +568,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     ScheduleTargetRestrictDomain returns ScheduleTargetRestrictDomain
 	 *
 	 * Constraint:
-	 *     (scheduleTarget=[AlphaScheduleTarget|ID] (indexNames+=ID indexNames+=ID*)? restrictDomain=JNIDomainInArrayNotation?)
+	 *     (scheduleTarget=[AlphaScheduleTarget|ID] (indexNames+=ID indexNames+=ID*)? restrictDomainExpr=JNIDomainInArrayNotation?)
 	 */
 	protected void sequence_ScheduleTargetRestrictDomain(ISerializationContext context, ScheduleTargetRestrictDomain semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

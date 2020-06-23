@@ -4,7 +4,9 @@
 package alpha.targetmapping;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.parser.IAstFactory;
 
+import alpha.targetmapping.construction.TargetMappingCustomASTFactory;
 import alpha.targetmapping.construction.TargetMappingCustomValueConverter;
 
 /**
@@ -15,5 +17,10 @@ public class TargetMappingRuntimeModule extends AbstractTargetMappingRuntimeModu
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
 		return TargetMappingCustomValueConverter.class;
+	}
+	
+	@Override
+	public Class<? extends IAstFactory> bindIAstFactory() {
+		return TargetMappingCustomASTFactory.class;
 	}
 }

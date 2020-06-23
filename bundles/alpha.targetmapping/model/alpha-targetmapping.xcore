@@ -4,15 +4,28 @@
 	literalsInterface="true")
 package alpha.targetmapping
 
-import alpha.model.SystemBody
-import alpha.model.AlphaSystem
-import fr.irisa.cairn.jnimap.isl.ISLASTLoopType
 import alpha.model.AlphaScheduleTarget
-import alpha.model.JNIDomainInArrayNotation
-import alpha.model.JNIRelation
+import alpha.model.AlphaSystem
 import alpha.model.JNIDomain
+import alpha.model.JNIDomainInArrayNotation
 import alpha.model.JNIFunctionInArrayNotation
+import alpha.model.JNIRelation
+import alpha.model.SystemBody
+import alpha.model.POLY_OBJECT_TYPE
+import fr.irisa.cairn.jnimap.isl.ISLASTLoopType
+import fr.irisa.cairn.jnimap.isl.ISL_FORMAT
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLSet
+import fr.irisa.cairn.jnimap.isl.ISLMap
+import fr.irisa.cairn.jnimap.runtime.JNIObject
 
+type JNIObject wraps JNIObject
+type JNIISLSet wraps ISLSet
+type JNIISLMap wraps ISLMap
+type JNIISLMultiAff wraps ISLMultiAff
+type JNIISLPWQPolynomial wraps ISLPWQPolynomial
+type ISL_FORMAT wraps ISL_FORMAT
 type ISLASTLoopType wraps ISLASTLoopType
 
 
@@ -107,9 +120,14 @@ abstract class ScheduleTreeExpression extends TargetMappingNode, TargetMappingVi
 }
 
 class ContextExpression extends ScheduleTreeExpression {
-	contains JNIDomainInArrayNotation contextDomain
+	contains JNIDomainInArrayNotation contextDomainExpr
 	
 	contains ScheduleTreeExpression child
+	
+	op JNIISLSet getContextDomain() {
+		if (contextDomainExpr.^type != POLY_OBJECT_TYPE.SET ) null
+		else contextDomainExpr.ISLObject as ISLSet
+	}
 	
 	op void accept(TargetMappingVisitor visitor) {
 		visitor.visitContextExpression(this)
@@ -145,12 +163,22 @@ class ScheduleTargetRestrictDomain {
 	refers AlphaScheduleTarget scheduleTarget
 	String[] indexNames
 	
-	contains JNIDomainInArrayNotation restrictDomain
+	contains JNIDomainInArrayNotation restrictDomainExpr
+	
+	op JNIISLSet getRestrictDomain() {
+		if (restrictDomainExpr.^type != POLY_OBJECT_TYPE.SET ) null
+		else restrictDomainExpr.ISLObject as ISLSet
+	}
 }
 
 class GuardExpression extends ScheduleTreeExpression {
-	contains JNIDomain guardDomain
+	contains JNIDomain guardDomainExpr
 	contains ScheduleTreeExpression child
+	
+	op JNIISLSet getGuardDomain() {
+		if (guardDomainExpr.^type != POLY_OBJECT_TYPE.SET ) null
+		else guardDomainExpr.ISLObject as ISLSet
+	}
 	
 	op void accept(TargetMappingVisitor visitor) {
 		visitor.visitGuardExpression(this)
@@ -182,15 +210,26 @@ class BandExpression extends ScheduleTreeExpression {
 }
 class BandPiece {
 	contains ScheduleTargetRestrictDomain pieceDomain
-	contains JNIFunctionInArrayNotation partialSchedule
+	contains JNIFunctionInArrayNotation partialScheduleExpr
+	
+	op JNIISLMultiAff getPartialSchedule() {
+		if (partialScheduleExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
+		else partialScheduleExpr.ISLObject as ISLMultiAff
+	}
 }
 class LoopTypeSpecification {
 	int dimension
 	ISLASTLoopType loopType
 }
 class IsolateSpecification {
-	contains JNIDomain isolateDomain
+	contains JNIDomain isolateDomainExpr
 	contains LoopTypeSpecification[] loopTypeSpecifications
+	
+	op JNIISLSet getIsolateDomain() {
+		if (isolateDomainExpr.^type != POLY_OBJECT_TYPE.SET ) null
+		else isolateDomainExpr.ISLObject as ISLSet
+	}
+	
 }
 class BandPieceForReductionBody extends BandPiece {
 	String reductionInitialization
@@ -210,5 +249,10 @@ class ExtensionTarget extends AlphaScheduleTarget {
 	
 	String name
 	String[] indexNames
-	contains JNIRelation extensionMap
+	contains JNIRelation extensionMapExpr
+	
+	op JNIISLMap getExtensionMap() {
+		if (extensionMapExpr.^type != POLY_OBJECT_TYPE.MAP ) null
+		else extensionMapExpr.ISLObject as ISLMap
+	}
 }

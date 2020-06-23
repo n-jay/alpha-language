@@ -98,11 +98,11 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 		AlphaSystem system = TargetMappingUtil.getTargetSystem(ce);
 		
 		try {
-			String domStr = parseParameterDomain(ce.getContextDomain());
+			String domStr = parseParameterDomain(ce.getContextDomainExpr());
 			ISLSet set = CalculatorExpressionEvaluator.parseDomain(system, domStr);
-			ce.getContextDomain().setISLSet(set);
+			ce.getContextDomainExpr().setISLSet(set);
 		} catch (RuntimeException re) {
-			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), ce.getContextDomain(), null));
+			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), ce.getContextDomainExpr(), null));
 		}
 	}
 	
@@ -126,11 +126,11 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 	@Override
 	public void inGuardExpression(GuardExpression ge) {
 		try {
-			ISLSet set = CalculatorExpressionEvaluator.parseDomain(TargetMappingUtil.getTargetSystem(ge), ge.getGuardDomain().getIslString());
-			ge.getGuardDomain().setISLSet(set);
+			ISLSet set = CalculatorExpressionEvaluator.parseDomain(TargetMappingUtil.getTargetSystem(ge), ge.getGuardDomainExpr().getIslString());
+			ge.getGuardDomainExpr().setISLSet(set);
 		}
 		catch (RuntimeException re) {
-			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), ge.getGuardDomain(), null));
+			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), ge.getGuardDomainExpr(), null));
 		}
 	}
 	
@@ -146,10 +146,10 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 			List<String> context =  parseScheduleTargetRestrictDomain(bp.getPieceDomain());
 			
 			try {
-				ISLMultiAff islMAff = CalculatorExpressionEvaluator.parseAffineFunction(system, context, bp.getPartialSchedule().getArrayNotation());
-				bp.getPartialSchedule().setISLMultiAff(islMAff);
+				ISLMultiAff islMAff = CalculatorExpressionEvaluator.parseAffineFunction(system, context, bp.getPartialScheduleExpr().getArrayNotation());
+				bp.getPartialScheduleExpr().setISLMultiAff(islMAff);
 			} catch (RuntimeException re) {
-				issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), bp.getPartialSchedule(), null));
+				issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), bp.getPartialScheduleExpr(), null));
 			}
 		}
 		
@@ -157,10 +157,10 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 			IsolateSpecification is = be.getIsolateSpecification();
 			
 			try {
-				ISLSet dom = CalculatorExpressionEvaluator.parseDomain(system, is.getIsolateDomain().getIslString());
-				is.getIsolateDomain().setISLSet(dom);
+				ISLSet dom = CalculatorExpressionEvaluator.parseDomain(system, is.getIsolateDomainExpr().getIslString());
+				is.getIsolateDomainExpr().setISLSet(dom);
 			} catch (RuntimeException re) {
-				issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), is.getIsolateDomain(), null));
+				issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), is.getIsolateDomainExpr(), null));
 			}
 		}
 	}
@@ -172,7 +172,7 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 			
 			Stack<List<String>> contexts = new Stack<>();
 			
-			if (et.getIndexNames().size() == et.getExtensionMap().getISLMap().getNbOutputs()) {
+			if (et.getIndexNames().size() == et.getExtensionMap().getNbOutputs()) {
 				contexts.add(et.getIndexNames());
 			}
 			
@@ -197,15 +197,12 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 			context = new ArrayList<>(indexNameContexts.get(strd.getScheduleTarget()).peek());
 		}
 
-		//restrict domain may be null, in which case the domain is filtered to the universe (of the target space)
-		if (strd.getRestrictDomain() != null) {
-			try {
-				String domStr = CalculatorExpressionEvaluator.parseJNIDomain(strd.getRestrictDomain(), context);
-				ISLSet set = CalculatorExpressionEvaluator.parseDomain(system, domStr);
-				strd.getRestrictDomain().setISLSet(set);
-			} catch (RuntimeException re) {
-				issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), strd, null));
-			}
+		try {
+			String domStr = CalculatorExpressionEvaluator.parseJNIDomain(strd.getRestrictDomainExpr(), context);
+			ISLSet set = CalculatorExpressionEvaluator.parseDomain(system, domStr);
+			strd.getRestrictDomainExpr().setISLSet(set);
+		} catch (RuntimeException re) {
+			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), strd, null));
 		}
 		
 		return context;
@@ -216,10 +213,10 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 		AlphaSystem system = TargetMappingUtil.getTargetSystem(et);
 		
 		try {
-			ISLMap map = CalculatorExpressionEvaluator.parseRelation(system, et.getExtensionMap().getIslString());
-			et.getExtensionMap().setISLMap(map);
+			ISLMap map = CalculatorExpressionEvaluator.parseRelation(system, et.getExtensionMapExpr().getIslString());
+			et.getExtensionMapExpr().setISLMap(map);
 		}  catch (RuntimeException re) {
-			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), et.getExtensionMap(), null));
+			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), et.getExtensionMapExpr(), null));
 		}
 	}
 }
