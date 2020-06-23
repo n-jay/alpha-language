@@ -7,6 +7,7 @@ import alpha.targetmapping.BandPiece;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.ScheduleTreeExpression;
+import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 
 import java.util.Collection;
@@ -292,6 +293,15 @@ public class BandExpressionImpl extends ScheduleTreeExpressionImpl implements Ba
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.BAND_EXPRESSION__ISOLATE_SPECIFICATION, newIsolateSpecification, newIsolateSpecification));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void accept(final TargetMappingVisitor visitor) {
+		visitor.visitBandExpression(this);
 	}
 
 	/**

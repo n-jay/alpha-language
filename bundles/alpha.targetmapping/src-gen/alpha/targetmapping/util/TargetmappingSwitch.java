@@ -68,6 +68,24 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case TargetmappingPackage.TARGET_MAPPING_NODE: {
+				TargetMappingNode targetMappingNode = (TargetMappingNode)theEObject;
+				T result = caseTargetMappingNode(targetMappingNode);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.TARGET_MAPPING_VISITABLE: {
+				TargetMappingVisitable targetMappingVisitable = (TargetMappingVisitable)theEObject;
+				T result = caseTargetMappingVisitable(targetMappingVisitable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.TARGET_MAPPING_VISITOR: {
+				TargetMappingVisitor targetMappingVisitor = (TargetMappingVisitor)theEObject;
+				T result = caseTargetMappingVisitor(targetMappingVisitor);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case TargetmappingPackage.SCOPING_ENTITY: {
 				ScopingEntity scopingEntity = (ScopingEntity)theEObject;
 				T result = caseScopingEntity(scopingEntity);
@@ -77,6 +95,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 			case TargetmappingPackage.TARGET_MAPPING: {
 				TargetMapping targetMapping = (TargetMapping)theEObject;
 				T result = caseTargetMapping(targetMapping);
+				if (result == null) result = caseTargetMappingNode(targetMapping);
+				if (result == null) result = caseTargetMappingVisitable(targetMapping);
 				if (result == null) result = caseScopingEntity(targetMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -110,6 +130,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 			case TargetmappingPackage.SCHEDULE_TREE_EXPRESSION: {
 				ScheduleTreeExpression scheduleTreeExpression = (ScheduleTreeExpression)theEObject;
 				T result = caseScheduleTreeExpression(scheduleTreeExpression);
+				if (result == null) result = caseTargetMappingNode(scheduleTreeExpression);
+				if (result == null) result = caseTargetMappingVisitable(scheduleTreeExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -117,6 +139,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				ContextExpression contextExpression = (ContextExpression)theEObject;
 				T result = caseContextExpression(contextExpression);
 				if (result == null) result = caseScheduleTreeExpression(contextExpression);
+				if (result == null) result = caseTargetMappingNode(contextExpression);
+				if (result == null) result = caseTargetMappingVisitable(contextExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -124,6 +148,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				SetExpression setExpression = (SetExpression)theEObject;
 				T result = caseSetExpression(setExpression);
 				if (result == null) result = caseScheduleTreeExpression(setExpression);
+				if (result == null) result = caseTargetMappingNode(setExpression);
+				if (result == null) result = caseTargetMappingVisitable(setExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -131,6 +157,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				SequenceExpression sequenceExpression = (SequenceExpression)theEObject;
 				T result = caseSequenceExpression(sequenceExpression);
 				if (result == null) result = caseScheduleTreeExpression(sequenceExpression);
+				if (result == null) result = caseTargetMappingNode(sequenceExpression);
+				if (result == null) result = caseTargetMappingVisitable(sequenceExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -139,6 +167,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				T result = caseFilterExpression(filterExpression);
 				if (result == null) result = caseScheduleTreeExpression(filterExpression);
 				if (result == null) result = caseScopingEntity(filterExpression);
+				if (result == null) result = caseTargetMappingNode(filterExpression);
+				if (result == null) result = caseTargetMappingVisitable(filterExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -152,6 +182,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				GuardExpression guardExpression = (GuardExpression)theEObject;
 				T result = caseGuardExpression(guardExpression);
 				if (result == null) result = caseScheduleTreeExpression(guardExpression);
+				if (result == null) result = caseTargetMappingNode(guardExpression);
+				if (result == null) result = caseTargetMappingVisitable(guardExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -159,6 +191,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				MarkExpression markExpression = (MarkExpression)theEObject;
 				T result = caseMarkExpression(markExpression);
 				if (result == null) result = caseScheduleTreeExpression(markExpression);
+				if (result == null) result = caseTargetMappingNode(markExpression);
+				if (result == null) result = caseTargetMappingVisitable(markExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -166,6 +200,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				BandExpression bandExpression = (BandExpression)theEObject;
 				T result = caseBandExpression(bandExpression);
 				if (result == null) result = caseScheduleTreeExpression(bandExpression);
+				if (result == null) result = caseTargetMappingNode(bandExpression);
+				if (result == null) result = caseTargetMappingVisitable(bandExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -199,6 +235,8 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				T result = caseExtensionExpression(extensionExpression);
 				if (result == null) result = caseScheduleTreeExpression(extensionExpression);
 				if (result == null) result = caseScopingEntity(extensionExpression);
+				if (result == null) result = caseTargetMappingNode(extensionExpression);
+				if (result == null) result = caseTargetMappingVisitable(extensionExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -211,6 +249,51 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 			}
 			default: return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Target Mapping Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Target Mapping Node</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTargetMappingNode(TargetMappingNode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Target Mapping Visitable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Target Mapping Visitable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTargetMappingVisitable(TargetMappingVisitable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Target Mapping Visitor</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Target Mapping Visitor</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTargetMappingVisitor(TargetMappingVisitor object) {
+		return null;
 	}
 
 	/**

@@ -70,6 +70,18 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 	protected TargetmappingSwitch<Adapter> modelSwitch =
 		new TargetmappingSwitch<Adapter>() {
 			@Override
+			public Adapter caseTargetMappingNode(TargetMappingNode object) {
+				return createTargetMappingNodeAdapter();
+			}
+			@Override
+			public Adapter caseTargetMappingVisitable(TargetMappingVisitable object) {
+				return createTargetMappingVisitableAdapter();
+			}
+			@Override
+			public Adapter caseTargetMappingVisitor(TargetMappingVisitor object) {
+				return createTargetMappingVisitorAdapter();
+			}
+			@Override
 			public Adapter caseScopingEntity(ScopingEntity object) {
 				return createScopingEntityAdapter();
 			}
@@ -176,6 +188,48 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.TargetMappingNode <em>Target Mapping Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.TargetMappingNode
+	 * @generated
+	 */
+	public Adapter createTargetMappingNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.TargetMappingVisitable <em>Target Mapping Visitable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.TargetMappingVisitable
+	 * @generated
+	 */
+	public Adapter createTargetMappingVisitableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.TargetMappingVisitor <em>Target Mapping Visitor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.TargetMappingVisitor
+	 * @generated
+	 */
+	public Adapter createTargetMappingVisitorAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.ScopingEntity <em>Scoping Entity</em>}'.

@@ -3,6 +3,7 @@
 package alpha.targetmapping.impl;
 
 import alpha.targetmapping.ScheduleTreeExpression;
+import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 
 import org.eclipse.emf.ecore.EClass;
@@ -34,6 +35,17 @@ public abstract class ScheduleTreeExpressionImpl extends MinimalEObjectImpl.Cont
 	@Override
 	protected EClass eStaticClass() {
 		return TargetmappingPackage.Literals.SCHEDULE_TREE_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void accept(TargetMappingVisitor visitor) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 } //ScheduleTreeExpressionImpl

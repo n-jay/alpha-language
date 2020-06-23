@@ -4,6 +4,7 @@ package alpha.targetmapping.impl;
 
 import alpha.targetmapping.ScheduleTreeExpression;
 import alpha.targetmapping.SetExpression;
+import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 
 import java.util.Collection;
@@ -71,6 +72,15 @@ public class SetExpressionImpl extends ScheduleTreeExpressionImpl implements Set
 			children = new EObjectContainmentEList<ScheduleTreeExpression>(ScheduleTreeExpression.class, this, TargetmappingPackage.SET_EXPRESSION__CHILDREN);
 		}
 		return children;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void accept(final TargetMappingVisitor visitor) {
+		visitor.visitSetExpression(this);
 	}
 
 	/**

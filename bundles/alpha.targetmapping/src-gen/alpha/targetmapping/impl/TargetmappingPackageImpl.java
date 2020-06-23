@@ -25,6 +25,9 @@ import alpha.targetmapping.SequenceExpression;
 import alpha.targetmapping.SetExpression;
 import alpha.targetmapping.SpaceTimeMapping;
 import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetMappingNode;
+import alpha.targetmapping.TargetMappingVisitable;
+import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingFactory;
 import alpha.targetmapping.TargetmappingPackage;
 
@@ -33,6 +36,7 @@ import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -46,6 +50,27 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * @generated
  */
 public class TargetmappingPackageImpl extends EPackageImpl implements TargetmappingPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass targetMappingNodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass targetMappingVisitableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass targetMappingVisitorEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -270,6 +295,33 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTargetMappingNode() {
+		return targetMappingNodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTargetMappingVisitable() {
+		return targetMappingVisitableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTargetMappingVisitor() {
+		return targetMappingVisitorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getScopingEntity() {
 		return scopingEntityEClass;
 	}
@@ -297,7 +349,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTargetMapping_ScheduleTree() {
+	public EReference getTargetMapping_ScheduleTreeRoot() {
 		return (EReference)targetMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -851,11 +903,17 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		isCreated = true;
 
 		// Create classes and their features
+		targetMappingNodeEClass = createEClass(TARGET_MAPPING_NODE);
+
+		targetMappingVisitableEClass = createEClass(TARGET_MAPPING_VISITABLE);
+
+		targetMappingVisitorEClass = createEClass(TARGET_MAPPING_VISITOR);
+
 		scopingEntityEClass = createEClass(SCOPING_ENTITY);
 
 		targetMappingEClass = createEClass(TARGET_MAPPING);
 		createEReference(targetMappingEClass, TARGET_MAPPING__TARGET_SYSTEM);
-		createEReference(targetMappingEClass, TARGET_MAPPING__SCHEDULE_TREE);
+		createEReference(targetMappingEClass, TARGET_MAPPING__SCHEDULE_TREE_ROOT);
 		createEReference(targetMappingEClass, TARGET_MAPPING__MEMORY_SPACES);
 
 		abstractMappingEClass = createEClass(ABSTRACT_MAPPING);
@@ -969,9 +1027,13 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		targetMappingEClass.getESuperTypes().add(this.getTargetMappingNode());
+		targetMappingEClass.getESuperTypes().add(this.getTargetMappingVisitable());
 		targetMappingEClass.getESuperTypes().add(this.getScopingEntity());
 		spaceTimeMappingEClass.getESuperTypes().add(this.getAbstractMapping());
 		memoryMappingEClass.getESuperTypes().add(this.getAbstractMapping());
+		scheduleTreeExpressionEClass.getESuperTypes().add(this.getTargetMappingNode());
+		scheduleTreeExpressionEClass.getESuperTypes().add(this.getTargetMappingVisitable());
 		contextExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
 		setExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
 		sequenceExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
@@ -986,12 +1048,114 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		extensionTargetEClass.getESuperTypes().add(theModelPackage.getAlphaScheduleTarget());
 
 		// Initialize classes and features; add operations and parameters
+		initEClass(targetMappingNodeEClass, TargetMappingNode.class, "TargetMappingNode", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(targetMappingVisitableEClass, TargetMappingVisitable.class, "TargetMappingVisitable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		EOperation op = addEOperation(targetMappingVisitableEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(targetMappingVisitorEClass, TargetMappingVisitor.class, "TargetMappingVisitor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitTargetMapping", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMapping(), "tm", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitScheduleTreeExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getScheduleTreeExpression(), "ste", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitContextExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getContextExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitSetExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSetExpression(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitSequenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSequenceExpression(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitFilterExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFilterExpression(), "fe", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitGuardExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getGuardExpression(), "ge", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitMarkExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getMarkExpression(), "me", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getBandExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitExtensionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExtensionExpression(), "ee", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inTargetMapping", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMapping(), "tm", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inScheduleTreeExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getScheduleTreeExpression(), "ste", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inContextExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getContextExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inSetExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSetExpression(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inSequenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSequenceExpression(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inFilterExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFilterExpression(), "fe", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inGuardExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getGuardExpression(), "ge", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inMarkExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getMarkExpression(), "me", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getBandExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "inExtensionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExtensionExpression(), "ee", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outTargetMapping", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMapping(), "tm", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outScheduleTreeExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getScheduleTreeExpression(), "ste", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outContextExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getContextExpression(), "ce", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outSetExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSetExpression(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outSequenceExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getSequenceExpression(), "se", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outFilterExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getFilterExpression(), "fe", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outGuardExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getGuardExpression(), "ge", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outMarkExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getMarkExpression(), "me", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getBandExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outExtensionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getExtensionExpression(), "ee", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(scopingEntityEClass, ScopingEntity.class, "ScopingEntity", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(targetMappingEClass, TargetMapping.class, "TargetMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTargetMapping_TargetSystem(), theModelPackage.getAlphaSystem(), null, "targetSystem", null, 0, 1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTargetMapping_ScheduleTree(), this.getScheduleTreeExpression(), null, "scheduleTree", null, 0, 1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetMapping_ScheduleTreeRoot(), this.getScheduleTreeExpression(), null, "scheduleTreeRoot", null, 0, 1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTargetMapping_MemorySpaces(), this.getMemorySpace(), null, "memorySpaces", null, 0, -1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(targetMappingEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(abstractMappingEClass, AbstractMapping.class, "AbstractMapping", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAbstractMapping_ScheduleTarget(), theModelPackage.getAlphaScheduleTarget(), null, "scheduleTarget", null, 0, 1, AbstractMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1012,15 +1176,27 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEReference(getContextExpression_ContextDomain(), theModelPackage.getJNIDomainInArrayNotation(), null, "contextDomain", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContextExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		op = addEOperation(contextExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(setExpressionEClass, SetExpression.class, "SetExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSetExpression_Children(), this.getScheduleTreeExpression(), null, "children", null, 0, -1, SetExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(setExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(sequenceExpressionEClass, SequenceExpression.class, "SequenceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSequenceExpression_Children(), this.getScheduleTreeExpression(), null, "children", null, 0, -1, SequenceExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		op = addEOperation(sequenceExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(filterExpressionEClass, FilterExpression.class, "FilterExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFilterExpression_FilterDomains(), this.getScheduleTargetRestrictDomain(), null, "filterDomains", null, 0, -1, FilterExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFilterExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, FilterExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(filterExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(scheduleTargetRestrictDomainEClass, ScheduleTargetRestrictDomain.class, "ScheduleTargetRestrictDomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getScheduleTargetRestrictDomain_ScheduleTarget(), theModelPackage.getAlphaScheduleTarget(), null, "scheduleTarget", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1031,9 +1207,15 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEReference(getGuardExpression_GuardDomain(), theModelPackage.getJNIDomainInArrayNotation(), null, "guardDomain", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGuardExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		op = addEOperation(guardExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(markExpressionEClass, MarkExpression.class, "MarkExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMarkExpression_Identifier(), theEcorePackage.getEString(), "identifier", null, 0, 1, MarkExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMarkExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, MarkExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(markExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(bandExpressionEClass, BandExpression.class, "BandExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBandExpression_BandPieces(), this.getBandPiece(), null, "bandPieces", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1042,6 +1224,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEAttribute(getBandExpression_Parallel(), theEcorePackage.getEBoolean(), "parallel", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBandExpression_LoopTypeSpecifications(), this.getLoopTypeSpecification(), null, "loopTypeSpecifications", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBandExpression_IsolateSpecification(), this.getIsolateSpecification(), null, "isolateSpecification", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(bandExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(bandPieceEClass, BandPiece.class, "BandPiece", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBandPiece_PieceDomain(), this.getScheduleTargetRestrictDomain(), null, "pieceDomain", null, 0, 1, BandPiece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1061,6 +1246,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEClass(extensionExpressionEClass, ExtensionExpression.class, "ExtensionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExtensionExpression_ExtensionTargets(), this.getExtensionTarget(), null, "extensionTargets", null, 0, -1, ExtensionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExtensionExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, ExtensionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(extensionExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(extensionTargetEClass, ExtensionTarget.class, "ExtensionTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExtensionTarget_Source(), theModelPackage.getAlphaScheduleTarget(), null, "source", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

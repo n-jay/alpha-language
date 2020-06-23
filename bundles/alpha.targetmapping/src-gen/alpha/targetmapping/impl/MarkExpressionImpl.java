@@ -4,6 +4,7 @@ package alpha.targetmapping.impl;
 
 import alpha.targetmapping.MarkExpression;
 import alpha.targetmapping.ScheduleTreeExpression;
+import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -140,6 +141,15 @@ public class MarkExpressionImpl extends ScheduleTreeExpressionImpl implements Ma
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.MARK_EXPRESSION__CHILD, newChild, newChild));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void accept(final TargetMappingVisitor visitor) {
+		visitor.visitMarkExpression(this);
 	}
 
 	/**

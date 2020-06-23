@@ -59,6 +59,7 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case TargetmappingPackage.TARGET_MAPPING_VISITOR: return createTargetMappingVisitor();
 			case TargetmappingPackage.TARGET_MAPPING: return createTargetMapping();
 			case TargetmappingPackage.SPACE_TIME_MAPPING: return createSpaceTimeMapping();
 			case TargetmappingPackage.MEMORY_MAPPING: return createMemoryMapping();
@@ -110,6 +111,16 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TargetMappingVisitor createTargetMappingVisitor() {
+		TargetMappingVisitorImpl targetMappingVisitor = new TargetMappingVisitorImpl();
+		return targetMappingVisitor;
 	}
 
 	/**

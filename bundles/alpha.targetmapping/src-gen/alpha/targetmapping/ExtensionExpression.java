@@ -56,4 +56,12 @@ public interface ExtensionExpression extends ScheduleTreeExpression, ScopingEnti
 	 */
 	void setChild(ScheduleTreeExpression value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model visitorUnique="false"
+	 * @generated
+	 */
+	void accept(TargetMappingVisitor visitor);
+
 } // ExtensionExpression

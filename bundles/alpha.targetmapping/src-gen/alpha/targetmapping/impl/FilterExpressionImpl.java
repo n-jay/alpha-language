@@ -5,6 +5,7 @@ package alpha.targetmapping.impl;
 import alpha.targetmapping.FilterExpression;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.ScheduleTreeExpression;
+import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 
 import java.util.Collection;
@@ -129,6 +130,15 @@ public class FilterExpressionImpl extends ScheduleTreeExpressionImpl implements 
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.FILTER_EXPRESSION__CHILD, newChild, newChild));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void accept(final TargetMappingVisitor visitor) {
+		visitor.visitFilterExpression(this);
 	}
 
 	/**

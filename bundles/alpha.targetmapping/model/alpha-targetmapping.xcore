@@ -15,13 +15,81 @@ import alpha.model.JNIFunctionInArrayNotation
 
 type ISLASTLoopType wraps ISLASTLoopType
 
+
+interface TargetMappingNode {}
+
+/**
+ * Interface for TargetMappingVisitor
+ * 
+ */
+interface TargetMappingVisitable {
+	op void accept(TargetMappingVisitor visitor)
+}
+
+/**
+ * See visitor in the Alpha model for how visitors work in Alpha related projects.
+ * The one for TargetMapping is (currently) simpler, since it only uses one visitor
+ * for the model. This may change when memory mappings are added.
+ * 
+ */
+class TargetMappingVisitor {
+	
+	/* visit */
+	op void visitTargetMapping(TargetMapping tm)
+	
+	op void visitScheduleTreeExpression(ScheduleTreeExpression ste)
+	
+	op void visitContextExpression(ContextExpression ce)
+	op void visitSetExpression(SetExpression se)
+	op void visitSequenceExpression(SequenceExpression se)
+	op void visitFilterExpression(FilterExpression fe)
+	op void visitGuardExpression(GuardExpression ge)
+	op void visitMarkExpression(MarkExpression me)
+	op void visitBandExpression(BandExpression be)
+	op void visitExtensionExpression(ExtensionExpression ee)
+	
+	
+	/* in */
+	op void inTargetMapping(TargetMapping tm)
+	
+	op void inScheduleTreeExpression(ScheduleTreeExpression ste)
+	
+	op void inContextExpression(ContextExpression ce)
+	op void inSetExpression(SetExpression se)
+	op void inSequenceExpression(SequenceExpression se)
+	op void inFilterExpression(FilterExpression fe)
+	op void inGuardExpression(GuardExpression ge)
+	op void inMarkExpression(MarkExpression me)
+	op void inBandExpression(BandExpression be)
+	op void inExtensionExpression(ExtensionExpression ee)
+	
+	
+	/* out */
+	op void outTargetMapping(TargetMapping tm)
+	
+	op void outScheduleTreeExpression(ScheduleTreeExpression ste)
+	
+	op void outContextExpression(ContextExpression ce)
+	op void outSetExpression(SetExpression se)
+	op void outSequenceExpression(SequenceExpression se)
+	op void outFilterExpression(FilterExpression fe)
+	op void outGuardExpression(GuardExpression ge)
+	op void outMarkExpression(MarkExpression me)
+	op void outBandExpression(BandExpression be)
+	op void outExtensionExpression(ExtensionExpression ee)
+}
+
 interface ScopingEntity {}
 
-class TargetMapping extends ScopingEntity {
+class TargetMapping extends TargetMappingNode, TargetMappingVisitable, ScopingEntity {
 	refers AlphaSystem targetSystem
-	contains ScheduleTreeExpression scheduleTree
+	contains ScheduleTreeExpression scheduleTreeRoot
 //	contains SpaceTimeMapping[] spaceTimeMaps
 	contains MemorySpace[] memorySpaces
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitTargetMapping(this)
+	}
 }
 
 abstract class AbstractMapping {
@@ -41,7 +109,7 @@ class MemorySpace {
 	contains MemoryMapping[] memoryMaps
 }
 
-abstract class ScheduleTreeExpression {
+abstract class ScheduleTreeExpression extends TargetMappingNode, TargetMappingVisitable {
 
 }
 
@@ -49,19 +117,35 @@ class ContextExpression extends ScheduleTreeExpression {
 	contains JNIDomainInArrayNotation contextDomain
 	
 	contains ScheduleTreeExpression child
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitContextExpression(this)
+	}
 }
 
 class SetExpression extends ScheduleTreeExpression {
 	contains ScheduleTreeExpression[] children
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitSetExpression(this)
+	}
 }
 
 class SequenceExpression extends ScheduleTreeExpression {
 	contains ScheduleTreeExpression[] children
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitSequenceExpression(this)
+	}
 }
 
 class FilterExpression extends ScheduleTreeExpression, ScopingEntity {
 	contains ScheduleTargetRestrictDomain[] filterDomains
 	contains ScheduleTreeExpression child
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitFilterExpression(this)
+	}
 }
 
 class ScheduleTargetRestrictDomain {
@@ -74,11 +158,19 @@ class ScheduleTargetRestrictDomain {
 class GuardExpression extends ScheduleTreeExpression {
 	contains JNIDomainInArrayNotation guardDomain
 	contains ScheduleTreeExpression child
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitGuardExpression(this)
+	}
 }
 
 class MarkExpression extends ScheduleTreeExpression {
 	String identifier
 	contains ScheduleTreeExpression child
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitMarkExpression(this)
+	}
 }
 
 class BandExpression extends ScheduleTreeExpression {
@@ -90,6 +182,10 @@ class BandExpression extends ScheduleTreeExpression {
 
 	contains LoopTypeSpecification[] loopTypeSpecifications
 	contains IsolateSpecification isolateSpecification
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitBandExpression(this)
+	}
 }
 class BandPiece {
 	contains ScheduleTargetRestrictDomain pieceDomain
@@ -110,6 +206,10 @@ class BandPieceForReductionBody extends BandPiece {
 class ExtensionExpression extends ScheduleTreeExpression, ScopingEntity {
 	contains ExtensionTarget[] extensionTargets
 	contains ScheduleTreeExpression child 
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitExtensionExpression(this)
+	}
 }
 
 class ExtensionTarget extends AlphaScheduleTarget {

@@ -6,6 +6,7 @@ import alpha.model.JNIDomainInArrayNotation;
 
 import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.ScheduleTreeExpression;
+import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -154,6 +155,15 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.GUARD_EXPRESSION__CHILD, newChild, newChild));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void accept(final TargetMappingVisitor visitor) {
+		visitor.visitGuardExpression(this);
 	}
 
 	/**

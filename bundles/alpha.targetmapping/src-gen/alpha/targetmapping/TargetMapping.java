@@ -16,7 +16,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.TargetMapping#getTargetSystem <em>Target System</em>}</li>
- *   <li>{@link alpha.targetmapping.TargetMapping#getScheduleTree <em>Schedule Tree</em>}</li>
+ *   <li>{@link alpha.targetmapping.TargetMapping#getScheduleTreeRoot <em>Schedule Tree Root</em>}</li>
  *   <li>{@link alpha.targetmapping.TargetMapping#getMemorySpaces <em>Memory Spaces</em>}</li>
  * </ul>
  *
@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface TargetMapping extends ScopingEntity {
+public interface TargetMapping extends TargetMappingNode, TargetMappingVisitable, ScopingEntity {
 	/**
 	 * Returns the value of the '<em><b>Target System</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -48,26 +48,26 @@ public interface TargetMapping extends ScopingEntity {
 	void setTargetSystem(AlphaSystem value);
 
 	/**
-	 * Returns the value of the '<em><b>Schedule Tree</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Schedule Tree Root</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Schedule Tree</em>' containment reference.
-	 * @see #setScheduleTree(ScheduleTreeExpression)
-	 * @see alpha.targetmapping.TargetmappingPackage#getTargetMapping_ScheduleTree()
+	 * @return the value of the '<em>Schedule Tree Root</em>' containment reference.
+	 * @see #setScheduleTreeRoot(ScheduleTreeExpression)
+	 * @see alpha.targetmapping.TargetmappingPackage#getTargetMapping_ScheduleTreeRoot()
 	 * @model containment="true"
 	 * @generated
 	 */
-	ScheduleTreeExpression getScheduleTree();
+	ScheduleTreeExpression getScheduleTreeRoot();
 
 	/**
-	 * Sets the value of the '{@link alpha.targetmapping.TargetMapping#getScheduleTree <em>Schedule Tree</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.targetmapping.TargetMapping#getScheduleTreeRoot <em>Schedule Tree Root</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Schedule Tree</em>' containment reference.
-	 * @see #getScheduleTree()
+	 * @param value the new value of the '<em>Schedule Tree Root</em>' containment reference.
+	 * @see #getScheduleTreeRoot()
 	 * @generated
 	 */
-	void setScheduleTree(ScheduleTreeExpression value);
+	void setScheduleTreeRoot(ScheduleTreeExpression value);
 
 	/**
 	 * Returns the value of the '<em><b>Memory Spaces</b></em>' containment reference list.
@@ -80,5 +80,13 @@ public interface TargetMapping extends ScopingEntity {
 	 * @generated
 	 */
 	EList<MemorySpace> getMemorySpaces();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model visitorUnique="false"
+	 * @generated
+	 */
+	void accept(TargetMappingVisitor visitor);
 
 } // TargetMapping

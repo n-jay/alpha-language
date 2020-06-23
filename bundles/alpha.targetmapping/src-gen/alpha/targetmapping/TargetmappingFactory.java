@@ -22,6 +22,15 @@ public interface TargetmappingFactory extends EFactory {
 	TargetmappingFactory eINSTANCE = alpha.targetmapping.impl.TargetmappingFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Target Mapping Visitor</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Target Mapping Visitor</em>'.
+	 * @generated
+	 */
+	TargetMappingVisitor createTargetMappingVisitor();
+
+	/**
 	 * Returns a new object of class '<em>Target Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -138,4 +138,12 @@ public interface BandExpression extends ScheduleTreeExpression {
 	 */
 	void setIsolateSpecification(IsolateSpecification value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model visitorUnique="false"
+	 * @generated
+	 */
+	void accept(TargetMappingVisitor visitor);
+
 } // BandExpression

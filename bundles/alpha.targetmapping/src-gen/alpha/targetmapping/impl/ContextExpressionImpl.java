@@ -6,6 +6,7 @@ import alpha.model.JNIDomainInArrayNotation;
 
 import alpha.targetmapping.ContextExpression;
 import alpha.targetmapping.ScheduleTreeExpression;
+import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -154,6 +155,15 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.CONTEXT_EXPRESSION__CHILD, newChild, newChild));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void accept(final TargetMappingVisitor visitor) {
+		visitor.visitContextExpression(this);
 	}
 
 	/**

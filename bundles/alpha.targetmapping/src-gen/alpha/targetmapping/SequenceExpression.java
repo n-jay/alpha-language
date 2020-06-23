@@ -33,4 +33,12 @@ public interface SequenceExpression extends ScheduleTreeExpression {
 	 */
 	EList<ScheduleTreeExpression> getChildren();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model visitorUnique="false"
+	 * @generated
+	 */
+	void accept(TargetMappingVisitor visitor);
+
 } // SequenceExpression

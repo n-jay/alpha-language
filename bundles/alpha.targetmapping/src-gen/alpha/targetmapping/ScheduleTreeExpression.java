@@ -2,7 +2,6 @@
  */
 package alpha.targetmapping;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,5 +13,5 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface ScheduleTreeExpression extends EObject {
+public interface ScheduleTreeExpression extends TargetMappingNode, TargetMappingVisitable {
 } // ScheduleTreeExpression
