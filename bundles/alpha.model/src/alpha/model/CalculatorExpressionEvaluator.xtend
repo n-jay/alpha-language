@@ -291,6 +291,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	
 	/**
 	 * Parses a domain in the context of the given system.
+	 * This is what gets eventually called to construct an ISLSet from JNIDomain.
 	 */
 	static def parseDomain(AlphaSystem system, String domainStr) {
 			var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system,domainStr));
@@ -306,7 +307,15 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	private def dispatch parseJNIDomain(JNIDomainInArrayNotation jniDomain) {
 		if (indexNameContext === null) throw new OutOfContextArrayNotationException("Empty context found when trying to parse JNIDomain: " + jniDomain.islString);
 		
-		String.format("{ [%s] : %s }", (indexNameContext).join(","), jniDomain.getIslString());
+		parseJNIDomain(jniDomain, indexNameContext)
+	}
+	/**
+	 * This static method exposes the parsing of JNIDomain.islString using index name context.
+	 * External classes should call this method to have a consistent path to go from
+	 * JNIDomain to ISLSet. 
+	 */
+	static def parseJNIDomain(JNIDomainInArrayNotation jniDomain, List<String> context) {
+		String.format("{ [%s] : %s }", (context).join(","), jniDomain.getIslString());
 	}
 
 	/**
@@ -316,16 +325,23 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	 */
 	override visitJNIRelation(JNIRelation jniRelation) {
 		try {
-			val pdom = getParameterDomain(jniRelation);
-			var jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniRelation), jniRelation.getIslString()));
-
-			jnimap = jnimap.intersectParams(pdom.copy());
-
+			var jnimap = parseRelation(AlphaUtil.getContainerSystem(jniRelation), jniRelation.islString);
 			jniRelation.setISLMap(jnimap);
 		} catch (RuntimeException re) {
 			val msg = if(re.message === null) re.class.name else re.message
 			registerIssue(msg, jniRelation);
 		}
+	}
+
+	/**
+	 * Public method to expose how relations are parsed to external classes.
+	 * 
+	 */	
+	static def parseRelation(AlphaSystem system, String relationStr) {
+		val pdom = getParameterDomain(system);
+		var jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(system, relationStr));
+
+		return jnimap.intersectParams(pdom.copy());
 	}
 
 	/**
@@ -372,6 +388,9 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 			throw new IllegalArgumentException("Input does not match the format for AffineFunctions: " + fStr + " expecting \"(<index names> -> <affine expressions>)\"");
 		parseAffineFunction(system, splitStr.get(0), splitStr.get(1));
 	}
+	static def parseAffineFunction(AlphaSystem system, List<String> lhs, List<String> rhs) {
+		return parseAffineFunction(system, lhs.join(","), rhs.join(","));
+	}
 	
 	/**
 	 * Method responsible for parsing affine functions.
@@ -414,32 +433,39 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	 *   For example, reduce(op, [x,y], ...) in the context [i,j] gives (i,j,x,y->i,j) as the projection function.
 	 * 
 	 */
+	static def parseJNIFunctionAsProjection(JNIFunctionInArrayNotation jniFunction, List<String> context) {
+		val funStr = new StringBuffer("{ [");
+		funStr.append((context + jniFunction.arrayNotation).join(","))
+		funStr.append("] -> [");
+		funStr.append((context).join(","))
+		funStr.append("] }");
+		return funStr;
+	}
 	private def parseJNIFunctionAsProjection(JNIFunctionInArrayNotation jniFunction) {
 		if (indexNameContext === null)
 			throw new OutOfContextArrayNotationException(String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", jniFunction.arrayNotation.join(",")));
 		
-		val funStr = new StringBuffer("{ [");
-		funStr.append((indexNameContext + jniFunction.arrayNotation).join(","))
-		funStr.append("] -> [");
-		funStr.append((indexNameContext).join(","))
-		funStr.append("] }");
-		return funStr;
+		parseJNIFunctionAsProjection(jniFunction, indexNameContext);
 	}
 
 	/**
 	 * ArrayNotation is parsed as function. The indexing expression simply becomes the RHS of ISLMAff, while the LHS is determined by the context.
 	 * 
 	 */
-	private def parseJNIFunctionAsFunction(JNIFunctionInArrayNotation jniFunction) {
-		if (indexNameContext === null)
-			throw new OutOfContextArrayNotationException(String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", jniFunction.arrayNotation.join(",")));
-
+	static def parseJNIFunctionAsFunction(JNIFunctionInArrayNotation jniFunction, List<String> context) {
 		val funStr = new StringBuffer("{ [");
-		funStr.append((indexNameContext).join(","))
+		funStr.append((context).join(","))
 		funStr.append("] -> [");
 		funStr.append((jniFunction.arrayNotation).join(","))
 		funStr.append("] }");
 		return funStr;
+	}
+	
+	private def parseJNIFunctionAsFunction(JNIFunctionInArrayNotation jniFunction) {
+		if (indexNameContext === null)
+			throw new OutOfContextArrayNotationException(String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", jniFunction.arrayNotation.join(",")));
+
+		parseJNIFunctionAsFunction(jniFunction, indexNameContext);
 	}
 
 	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, ReduceExpression parent) {

@@ -361,6 +361,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   
   /**
    * Parses a domain in the context of the given system.
+   * This is what gets eventually called to construct an ISLSet from JNIDomain.
    */
   public static ISLSet parseDomain(final AlphaSystem system, final String domainStr) {
     ISLSet jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, domainStr));
@@ -380,9 +381,18 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         String _plus = ("Empty context found when trying to parse JNIDomain: " + _islString);
         throw new OutOfContextArrayNotationException(_plus);
       }
-      _xblockexpression = String.format("{ [%s] : %s }", IterableExtensions.join(this.indexNameContext, ","), jniDomain.getIslString());
+      _xblockexpression = CalculatorExpressionEvaluator.parseJNIDomain(jniDomain, this.indexNameContext);
     }
     return _xblockexpression;
+  }
+  
+  /**
+   * This static method exposes the parsing of JNIDomain.islString using index name context.
+   * External classes should call this method to have a consistent path to go from
+   * JNIDomain to ISLSet.
+   */
+  public static String parseJNIDomain(final JNIDomainInArrayNotation jniDomain, final List<String> context) {
+    return String.format("{ [%s] : %s }", IterableExtensions.join(context, ","), jniDomain.getIslString());
   }
   
   /**
@@ -393,9 +403,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIRelation(final JNIRelation jniRelation) {
     try {
-      final ISLSet pdom = AlphaUtil.getParameterDomain(jniRelation);
-      ISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniRelation), jniRelation.getIslString()));
-      jnimap = jnimap.intersectParams(pdom.copy());
+      ISLMap jnimap = CalculatorExpressionEvaluator.parseRelation(AlphaUtil.getContainerSystem(jniRelation), jniRelation.getIslString());
       jniRelation.setISLMap(jnimap);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -414,6 +422,15 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         throw Exceptions.sneakyThrow(_t);
       }
     }
+  }
+  
+  /**
+   * Public method to expose how relations are parsed to external classes.
+   */
+  public static ISLMap parseRelation(final AlphaSystem system, final String relationStr) {
+    final ISLSet pdom = AlphaUtil.getParameterDomain(system);
+    ISLMap jnimap = ISLFactory.islMap(AlphaUtil.toContextFreeISLString(system, relationStr));
+    return jnimap.intersectParams(pdom.copy());
   }
   
   /**
@@ -498,6 +515,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return _xblockexpression;
   }
   
+  public static ISLMultiAff parseAffineFunction(final AlphaSystem system, final List<String> lhs, final List<String> rhs) {
+    return CalculatorExpressionEvaluator.parseAffineFunction(system, IterableExtensions.join(lhs, ","), IterableExtensions.join(rhs, ","));
+  }
+  
   /**
    * Method responsible for parsing affine functions.
    * All parsing of affine functions, expect for dependences in ArrayNotation, are done through this method.
@@ -555,34 +576,50 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
    * ArrayNotation is parsed as projection. In this case, the additional indices expressed are treated as the canonical projection dimensions.
    *   For example, reduce(op, [x,y], ...) in the context [i,j] gives (i,j,x,y->i,j) as the projection function.
    */
-  private StringBuffer parseJNIFunctionAsProjection(final JNIFunctionInArrayNotation jniFunction) {
-    if ((this.indexNameContext == null)) {
-      String _format = String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", IterableExtensions.join(jniFunction.getArrayNotation(), ","));
-      throw new OutOfContextArrayNotationException(_format);
-    }
+  public static StringBuffer parseJNIFunctionAsProjection(final JNIFunctionInArrayNotation jniFunction, final List<String> context) {
     final StringBuffer funStr = new StringBuffer("{ [");
     EList<String> _arrayNotation = jniFunction.getArrayNotation();
-    funStr.append(IterableExtensions.join(Iterables.<String>concat(this.indexNameContext, _arrayNotation), ","));
+    funStr.append(IterableExtensions.join(Iterables.<String>concat(context, _arrayNotation), ","));
     funStr.append("] -> [");
-    funStr.append(IterableExtensions.join(this.indexNameContext, ","));
+    funStr.append(IterableExtensions.join(context, ","));
     funStr.append("] }");
     return funStr;
+  }
+  
+  private StringBuffer parseJNIFunctionAsProjection(final JNIFunctionInArrayNotation jniFunction) {
+    StringBuffer _xblockexpression = null;
+    {
+      if ((this.indexNameContext == null)) {
+        String _format = String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", IterableExtensions.join(jniFunction.getArrayNotation(), ","));
+        throw new OutOfContextArrayNotationException(_format);
+      }
+      _xblockexpression = CalculatorExpressionEvaluator.parseJNIFunctionAsProjection(jniFunction, this.indexNameContext);
+    }
+    return _xblockexpression;
   }
   
   /**
    * ArrayNotation is parsed as function. The indexing expression simply becomes the RHS of ISLMAff, while the LHS is determined by the context.
    */
-  private StringBuffer parseJNIFunctionAsFunction(final JNIFunctionInArrayNotation jniFunction) {
-    if ((this.indexNameContext == null)) {
-      String _format = String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", IterableExtensions.join(jniFunction.getArrayNotation(), ","));
-      throw new OutOfContextArrayNotationException(_format);
-    }
+  public static StringBuffer parseJNIFunctionAsFunction(final JNIFunctionInArrayNotation jniFunction, final List<String> context) {
     final StringBuffer funStr = new StringBuffer("{ [");
-    funStr.append(IterableExtensions.join(this.indexNameContext, ","));
+    funStr.append(IterableExtensions.join(context, ","));
     funStr.append("] -> [");
     funStr.append(IterableExtensions.join(jniFunction.getArrayNotation(), ","));
     funStr.append("] }");
     return funStr;
+  }
+  
+  private StringBuffer parseJNIFunctionAsFunction(final JNIFunctionInArrayNotation jniFunction) {
+    StringBuffer _xblockexpression = null;
+    {
+      if ((this.indexNameContext == null)) {
+        String _format = String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", IterableExtensions.join(jniFunction.getArrayNotation(), ","));
+        throw new OutOfContextArrayNotationException(_format);
+      }
+      _xblockexpression = CalculatorExpressionEvaluator.parseJNIFunctionAsFunction(jniFunction, this.indexNameContext);
+    }
+    return _xblockexpression;
   }
   
   protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final ReduceExpression parent) {
