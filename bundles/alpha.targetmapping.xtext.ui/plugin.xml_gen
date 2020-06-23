@@ -249,6 +249,15 @@
 		<super type="org.eclipse.xtext.ui.check.expensive"/>
 		<persistent value="true"/>
 	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			category="alpha.targetmapping.TargetMapping"
+			class="alpha.targetmapping.ui.TargetMappingExecutableExtensionFactory:org.eclipse.xtext.ui.validation.ValidatorPreferencePage"
+			id="alpha.targetmapping.TargetMapping.validator.preferencePage"
+			name="Errors/Warnings">
+			<keywordReference id="alpha.targetmapping.ui.keyword_TargetMapping"/>
+		</page>
+	</extension>
 	<extension point="org.eclipse.xtext.builder.participant">
 		<participant
 			class="alpha.targetmapping.ui.TargetMappingExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"

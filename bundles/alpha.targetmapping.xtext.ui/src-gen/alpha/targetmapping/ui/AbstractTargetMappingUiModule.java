@@ -11,6 +11,7 @@ import alpha.targetmapping.ui.labeling.TargetMappingDescriptionLabelProvider;
 import alpha.targetmapping.ui.labeling.TargetMappingLabelProvider;
 import alpha.targetmapping.ui.outline.TargetMappingOutlineTreeProvider;
 import alpha.targetmapping.ui.quickfix.TargetMappingQuickfixProvider;
+import alpha.targetmapping.validation.TargetMappingValidatorConfigurationBlock;
 import com.google.inject.Binder;
 import com.google.inject.Provider;
 import com.google.inject.name.Names;
@@ -78,6 +79,7 @@ import org.eclipse.xtext.ui.refactoring.ui.IRenameSupport;
 import org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferences;
 import org.eclipse.xtext.ui.resource.ResourceServiceDescriptionLabelProvider;
 import org.eclipse.xtext.ui.shared.Access;
+import org.eclipse.xtext.ui.validation.AbstractValidatorConfigurationBlock;
 
 /**
  * Manual modifications go to {@link TargetMappingUiModule}.
@@ -133,6 +135,11 @@ public abstract class AbstractTargetMappingUiModule extends DefaultUiModule {
 	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
 	public void configureContentAssistLexerProvider(Binder binder) {
 		binder.bind(InternalTargetMappingLexer.class).toProvider(LexerProvider.create(InternalTargetMappingLexer.class));
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.validation.ValidatorFragment2
+	public Class<? extends AbstractValidatorConfigurationBlock> bindAbstractValidatorConfigurationBlock() {
+		return TargetMappingValidatorConfigurationBlock.class;
 	}
 	
 	// contributed by org.eclipse.xtext.xtext.generator.exporting.QualifiedNamesFragment2

@@ -12,6 +12,7 @@ import alpha.targetmapping.scoping.TargetMappingScopeProvider;
 import alpha.targetmapping.serializer.TargetMappingSemanticSequencer;
 import alpha.targetmapping.serializer.TargetMappingSyntacticSequencer;
 import alpha.targetmapping.services.TargetMappingGrammarAccess;
+import alpha.targetmapping.validation.TargetMappingConfigurableIssueCodesProvider;
 import alpha.targetmapping.validation.TargetMappingValidator;
 import com.google.inject.Binder;
 import com.google.inject.Provider;
@@ -58,6 +59,7 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISyntacticSequencer;
 import org.eclipse.xtext.service.DefaultRuntimeModule;
 import org.eclipse.xtext.service.SingletonBinding;
+import org.eclipse.xtext.validation.ConfigurableIssueCodesProvider;
 
 /**
  * Manual modifications go to {@link TargetMappingRuntimeModule}.
@@ -153,6 +155,11 @@ public abstract class AbstractTargetMappingRuntimeModule extends DefaultRuntimeM
 	@SingletonBinding(eager=true)
 	public Class<? extends TargetMappingValidator> bindTargetMappingValidator() {
 		return TargetMappingValidator.class;
+	}
+	
+	// contributed by org.eclipse.xtext.xtext.generator.validation.ValidatorFragment2
+	public Class<? extends ConfigurableIssueCodesProvider> bindConfigurableIssueCodesProvider() {
+		return TargetMappingConfigurableIssueCodesProvider.class;
 	}
 	
 	// contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
