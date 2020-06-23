@@ -31,10 +31,7 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 		}
 		
 		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, TargetMappingGrammarAccess grammarAccess) {
-			builder.put(grammarAccess.getTargetMappingAccess().getScheduleTreeRootAlternatives_2_0(), "rule__TargetMapping__ScheduleTreeRootAlternatives_2_0");
-			builder.put(grammarAccess.getTargetMappingAccess().getMemorySpacesAlternatives_3_2_0(), "rule__TargetMapping__MemorySpacesAlternatives_3_2_0");
-			builder.put(grammarAccess.getMemorySpaceAccess().getMemoryMapsAlternatives_2_1_0(), "rule__MemorySpace__MemoryMapsAlternatives_2_1_0");
-			builder.put(grammarAccess.getMemorySpaceMappingOnlyAccess().getMemoryMapsAlternatives_0(), "rule__MemorySpaceMappingOnly__MemoryMapsAlternatives_0");
+			builder.put(grammarAccess.getTargetMappingForSystemBodyAccess().getScheduleTreeRootAlternatives_2_0(), "rule__TargetMappingForSystemBody__ScheduleTreeRootAlternatives_2_0");
 			builder.put(grammarAccess.getScheduleTreeExpressionAccess().getAlternatives(), "rule__ScheduleTreeExpression__Alternatives");
 			builder.put(grammarAccess.getBandPieceAccess().getAlternatives(), "rule__BandPiece__Alternatives");
 			builder.put(grammarAccess.getISLASTLoopTypeAccess().getAlternatives(), "rule__ISLASTLoopType__Alternatives");
@@ -86,14 +83,8 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAUnaryCalcOpAccess().getAlternatives(), "rule__AUnaryCalcOp__Alternatives");
 			builder.put(grammarAccess.getABinaryCalcOpAccess().getAlternatives(), "rule__ABinaryCalcOp__Alternatives");
 			builder.put(grammarAccess.getTargetMappingAccess().getGroup(), "rule__TargetMapping__Group__0");
-			builder.put(grammarAccess.getTargetMappingAccess().getGroup_3(), "rule__TargetMapping__Group_3__0");
-			builder.put(grammarAccess.getMemorySpaceAccess().getGroup(), "rule__MemorySpace__Group__0");
-			builder.put(grammarAccess.getMemorySpaceAccess().getGroup_2(), "rule__MemorySpace__Group_2__0");
-			builder.put(grammarAccess.getMemorySpaceAccess().getGroup_2_0(), "rule__MemorySpace__Group_2_0__0");
-			builder.put(grammarAccess.getSpaceTimeMappingAccess().getGroup(), "rule__SpaceTimeMapping__Group__0");
-			builder.put(grammarAccess.getMemoryMappingAccess().getGroup(), "rule__MemoryMapping__Group__0");
-			builder.put(grammarAccess.getSpaceTimeMappingIdentityAccess().getGroup(), "rule__SpaceTimeMappingIdentity__Group__0");
-			builder.put(grammarAccess.getMemoryMappingIdentityAccess().getGroup(), "rule__MemoryMappingIdentity__Group__0");
+			builder.put(grammarAccess.getTargetMappingForSystemBodyAccess().getGroup(), "rule__TargetMappingForSystemBody__Group__0");
+			builder.put(grammarAccess.getTargetMappingForSystemBodyAccess().getGroup_1(), "rule__TargetMappingForSystemBody__Group_1__0");
 			builder.put(grammarAccess.getContextExpressionAccess().getGroup(), "rule__ContextExpression__Group__0");
 			builder.put(grammarAccess.getSetExpressionAccess().getGroup(), "rule__SetExpression__Group__0");
 			builder.put(grammarAccess.getSetExpressionAccess().getGroup_2(), "rule__SetExpression__Group_2__0");
@@ -124,8 +115,8 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getExtensionExpressionAccess().getGroup_3(), "rule__ExtensionExpression__Group_3__0");
 			builder.put(grammarAccess.getExtensionTargetAccess().getGroup(), "rule__ExtensionTarget__Group__0");
 			builder.put(grammarAccess.getExtensionTargetAccess().getGroup_0(), "rule__ExtensionTarget__Group_0__0");
-			builder.put(grammarAccess.getExtensionTargetAccess().getGroup_0_2(), "rule__ExtensionTarget__Group_0_2__0");
-			builder.put(grammarAccess.getExtensionTargetAccess().getGroup_0_2_2(), "rule__ExtensionTarget__Group_0_2_2__0");
+			builder.put(grammarAccess.getExtensionTargetAccess().getGroup_4(), "rule__ExtensionTarget__Group_4__0");
+			builder.put(grammarAccess.getExtensionTargetAccess().getGroup_4_2(), "rule__ExtensionTarget__Group_4_2__0");
 			builder.put(grammarAccess.getAlphaRootAccess().getGroup(), "rule__AlphaRoot__Group__0");
 			builder.put(grammarAccess.getAlphaConstantAccess().getGroup(), "rule__AlphaConstant__Group__0");
 			builder.put(grammarAccess.getExternalFunctionAccess().getGroup(), "rule__ExternalFunction__Group__0");
@@ -277,20 +268,9 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getFLOATAccess().getGroup(), "rule__FLOAT__Group__0");
 			builder.put(grammarAccess.getSINTAccess().getGroup(), "rule__SINT__Group__0");
 			builder.put(grammarAccess.getTargetMappingAccess().getTargetSystemAssignment_1(), "rule__TargetMapping__TargetSystemAssignment_1");
-			builder.put(grammarAccess.getTargetMappingAccess().getScheduleTreeRootAssignment_2(), "rule__TargetMapping__ScheduleTreeRootAssignment_2");
-			builder.put(grammarAccess.getTargetMappingAccess().getMemorySpacesAssignment_3_2(), "rule__TargetMapping__MemorySpacesAssignment_3_2");
-			builder.put(grammarAccess.getMemorySpaceAccess().getNameAssignment_0(), "rule__MemorySpace__NameAssignment_0");
-			builder.put(grammarAccess.getMemorySpaceAccess().getMemoryMapsAssignment_2_0_0(), "rule__MemorySpace__MemoryMapsAssignment_2_0_0");
-			builder.put(grammarAccess.getMemorySpaceAccess().getMemoryMapsAssignment_2_1(), "rule__MemorySpace__MemoryMapsAssignment_2_1");
-			builder.put(grammarAccess.getMemorySpaceMappingOnlyAccess().getMemoryMapsAssignment(), "rule__MemorySpaceMappingOnly__MemoryMapsAssignment");
-			builder.put(grammarAccess.getSpaceTimeMappingAccess().getScheduleTargetAssignment_0(), "rule__SpaceTimeMapping__ScheduleTargetAssignment_0");
-			builder.put(grammarAccess.getSpaceTimeMappingAccess().getMappingAssignment_2(), "rule__SpaceTimeMapping__MappingAssignment_2");
-			builder.put(grammarAccess.getMemoryMappingAccess().getScheduleTargetAssignment_0(), "rule__MemoryMapping__ScheduleTargetAssignment_0");
-			builder.put(grammarAccess.getMemoryMappingAccess().getMappingAssignment_2(), "rule__MemoryMapping__MappingAssignment_2");
-			builder.put(grammarAccess.getSpaceTimeMappingVariableNameOnlyAccess().getScheduleTargetAssignment(), "rule__SpaceTimeMappingVariableNameOnly__ScheduleTargetAssignment");
-			builder.put(grammarAccess.getMemoryMappingVariableNameOnlyAccess().getScheduleTargetAssignment(), "rule__MemoryMappingVariableNameOnly__ScheduleTargetAssignment");
-			builder.put(grammarAccess.getSpaceTimeMappingIdentityAccess().getScheduleTargetAssignment_0(), "rule__SpaceTimeMappingIdentity__ScheduleTargetAssignment_0");
-			builder.put(grammarAccess.getMemoryMappingIdentityAccess().getScheduleTargetAssignment_0(), "rule__MemoryMappingIdentity__ScheduleTargetAssignment_0");
+			builder.put(grammarAccess.getTargetMappingAccess().getSystemBodyTMsAssignment_2(), "rule__TargetMapping__SystemBodyTMsAssignment_2");
+			builder.put(grammarAccess.getTargetMappingForSystemBodyAccess().getTargetBodyAssignment_1_1(), "rule__TargetMappingForSystemBody__TargetBodyAssignment_1_1");
+			builder.put(grammarAccess.getTargetMappingForSystemBodyAccess().getScheduleTreeRootAssignment_2(), "rule__TargetMappingForSystemBody__ScheduleTreeRootAssignment_2");
 			builder.put(grammarAccess.getContextExpressionAccess().getContextDomainAssignment_1(), "rule__ContextExpression__ContextDomainAssignment_1");
 			builder.put(grammarAccess.getContextExpressionAccess().getChildAssignment_2(), "rule__ContextExpression__ChildAssignment_2");
 			builder.put(grammarAccess.getSetExpressionAccess().getChildrenAssignment_2_0(), "rule__SetExpression__ChildrenAssignment_2_0");
@@ -329,10 +309,10 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getExtensionExpressionAccess().getExtensionTargetsAssignment_3_1(), "rule__ExtensionExpression__ExtensionTargetsAssignment_3_1");
 			builder.put(grammarAccess.getExtensionExpressionAccess().getChildAssignment_5(), "rule__ExtensionExpression__ChildAssignment_5");
 			builder.put(grammarAccess.getExtensionTargetAccess().getSourceAssignment_0_1(), "rule__ExtensionTarget__SourceAssignment_0_1");
-			builder.put(grammarAccess.getExtensionTargetAccess().getIndexNamesAssignment_0_2_1(), "rule__ExtensionTarget__IndexNamesAssignment_0_2_1");
-			builder.put(grammarAccess.getExtensionTargetAccess().getIndexNamesAssignment_0_2_2_1(), "rule__ExtensionTarget__IndexNamesAssignment_0_2_2_1");
 			builder.put(grammarAccess.getExtensionTargetAccess().getExtensionMapAssignment_1(), "rule__ExtensionTarget__ExtensionMapAssignment_1");
 			builder.put(grammarAccess.getExtensionTargetAccess().getNameAssignment_3(), "rule__ExtensionTarget__NameAssignment_3");
+			builder.put(grammarAccess.getExtensionTargetAccess().getIndexNamesAssignment_4_1(), "rule__ExtensionTarget__IndexNamesAssignment_4_1");
+			builder.put(grammarAccess.getExtensionTargetAccess().getIndexNamesAssignment_4_2_1(), "rule__ExtensionTarget__IndexNamesAssignment_4_2_1");
 			builder.put(grammarAccess.getAlphaRootAccess().getImportsAssignment_0(), "rule__AlphaRoot__ImportsAssignment_0");
 			builder.put(grammarAccess.getAlphaRootAccess().getElementsAssignment_1(), "rule__AlphaRoot__ElementsAssignment_1");
 			builder.put(grammarAccess.getAlphaConstantAccess().getNameAssignment_1(), "rule__AlphaConstant__NameAssignment_1");

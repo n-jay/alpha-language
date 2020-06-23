@@ -4,21 +4,22 @@
 package alpha.targetmapping.scoping;
 
 import alpha.model.AlphaScheduleTarget;
-import alpha.model.Variable;
+import alpha.model.SystemBody;
 import alpha.targetmapping.ExtensionExpression;
 import alpha.targetmapping.ExtensionTarget;
 import alpha.targetmapping.FilterExpression;
-import alpha.targetmapping.MemoryMapping;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.ScopingEntity;
-import alpha.targetmapping.SpaceTimeMapping;
 import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetMappingForSystemBody;
+import alpha.targetmapping.TargetMappingNode;
 import alpha.targetmapping.TargetmappingPackage;
 import alpha.targetmapping.scoping.AbstractTargetMappingScopeProvider;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import java.util.Arrays;
 import java.util.List;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.EcoreUtil2;
@@ -41,6 +42,17 @@ public class TargetMappingScopeProvider extends AbstractTargetMappingScopeProvid
   public IScope getScope(final EObject context, final EReference reference) {
     IScope _xblockexpression = null;
     {
+      if (((context instanceof TargetMappingForSystemBody) && Objects.equal(reference, TargetmappingPackage.Literals.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY))) {
+        EObject _eContainer = context.eContainer();
+        final TargetMapping tm = ((TargetMapping) _eContainer);
+        final EList<SystemBody> sbodies = tm.getTargetSystem().getSystemBodies();
+        final Function<SystemBody, QualifiedName> _function = (SystemBody sb) -> {
+          int _indexOf = sbodies.indexOf(sb);
+          String _plus = (Integer.valueOf(_indexOf) + "");
+          return QualifiedName.create(_plus);
+        };
+        return Scopes.<SystemBody>scopeFor(sbodies, _function, IScope.NULLSCOPE);
+      }
       if ((((context instanceof ScheduleTargetRestrictDomain) && Objects.equal(reference, TargetmappingPackage.Literals.SCHEDULE_TARGET_RESTRICT_DOMAIN__SCHEDULE_TARGET)) || ((context instanceof ExtensionTarget) && Objects.equal(reference, TargetmappingPackage.Literals.EXTENSION_TARGET__SOURCE)))) {
         ScopingEntity _xifexpression = null;
         if (((context.eContainer() instanceof FilterExpression) || (context.eContainer() instanceof ExtensionExpression))) {
@@ -51,40 +63,21 @@ public class TargetMappingScopeProvider extends AbstractTargetMappingScopeProvid
         final ScopingEntity scopingEntity = _xifexpression;
         return this.constructScope(scopingEntity);
       }
-      if ((((context instanceof SpaceTimeMapping) || (context instanceof MemoryMapping)) && Objects.equal(reference, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET))) {
-        EObject _rootContainer = EcoreUtil2.getRootContainer(context);
-        final TargetMapping tm = ((TargetMapping) _rootContainer);
-        final List<Variable> scope = EcoreUtil2.<Variable>getAllContentsOfType(tm.getTargetSystem(), Variable.class);
-        final Function1<Variable, Boolean> _function = (Variable eq) -> {
-          String _name = eq.getName();
-          return Boolean.valueOf((_name != null));
-        };
-        final Function<Variable, QualifiedName> _function_1 = (Variable eq) -> {
-          return QualifiedName.create(eq.getName());
-        };
-        return Scopes.<Variable>scopeFor(IterableExtensions.<Variable>filter(scope, _function), _function_1, IScope.NULLSCOPE);
-      }
       _xblockexpression = super.getScope(context, reference);
     }
     return _xblockexpression;
   }
   
   private IScope _constructScope(final TargetMapping tm) {
-    final List<AlphaScheduleTarget> scope = EcoreUtil2.<AlphaScheduleTarget>getAllContentsOfType(tm.getTargetSystem(), AlphaScheduleTarget.class);
-    final Function1<AlphaScheduleTarget, Boolean> _function = (AlphaScheduleTarget eq) -> {
-      String _name = eq.getName();
-      return Boolean.valueOf((_name != null));
-    };
-    final Function<AlphaScheduleTarget, QualifiedName> _function_1 = (AlphaScheduleTarget eq) -> {
-      return QualifiedName.create(eq.getName());
-    };
-    return Scopes.<AlphaScheduleTarget>scopeFor(IterableExtensions.<AlphaScheduleTarget>filter(scope, _function), _function_1, IScope.NULLSCOPE);
+    return this.scheduleTargetsToScope(this.findRootScope(tm));
+  }
+  
+  private IScope _constructScope(final TargetMappingForSystemBody tm) {
+    return this.scheduleTargetsToScope(this.findRootScope(tm));
   }
   
   private IScope _constructScope(final FilterExpression fe) {
-    EObject _rootContainer = EcoreUtil2.getRootContainer(fe);
-    final TargetMapping tm = ((TargetMapping) _rootContainer);
-    final List<AlphaScheduleTarget> scope = EcoreUtil2.<AlphaScheduleTarget>getAllContentsOfType(tm.getTargetSystem(), AlphaScheduleTarget.class);
+    final List<AlphaScheduleTarget> scope = this.findRootScope(fe);
     final Function1<ScheduleTargetRestrictDomain, String> _function = (ScheduleTargetRestrictDomain fd) -> {
       return fd.getScheduleTarget().getName();
     };
@@ -93,25 +86,45 @@ public class TargetMappingScopeProvider extends AbstractTargetMappingScopeProvid
       return Boolean.valueOf(validTargets.contains(t.getName()));
     };
     final Iterable<AlphaScheduleTarget> filteredScope = IterableExtensions.<AlphaScheduleTarget>filter(scope, _function_1);
-    final Function1<AlphaScheduleTarget, Boolean> _function_2 = (AlphaScheduleTarget eq) -> {
-      String _name = eq.getName();
-      return Boolean.valueOf((_name != null));
-    };
-    final Function<AlphaScheduleTarget, QualifiedName> _function_3 = (AlphaScheduleTarget eq) -> {
-      return QualifiedName.create(eq.getName());
-    };
-    return Scopes.<AlphaScheduleTarget>scopeFor(IterableExtensions.<AlphaScheduleTarget>filter(filteredScope, _function_2), _function_3, IScope.NULLSCOPE);
+    return this.scheduleTargetsToScope(filteredScope);
   }
   
   private IScope _constructScope(final ExtensionExpression ee) {
-    final Function1<ExtensionTarget, Boolean> _function = (ExtensionTarget et) -> {
-      String _name = et.getName();
+    return this.scheduleTargetsToScope(ee.getExtensionTargets());
+  }
+  
+  private List<AlphaScheduleTarget> findRootScope(final TargetMappingNode tmn) {
+    if ((tmn instanceof TargetMapping)) {
+      return EcoreUtil2.<AlphaScheduleTarget>getAllContentsOfType(((TargetMapping)tmn).getTargetSystem(), AlphaScheduleTarget.class);
+    }
+    if ((tmn instanceof TargetMappingForSystemBody)) {
+      SystemBody _targetBody = ((TargetMappingForSystemBody)tmn).getTargetBody();
+      boolean _tripleNotEquals = (_targetBody != null);
+      if (_tripleNotEquals) {
+        return EcoreUtil2.<AlphaScheduleTarget>getAllContentsOfType(((TargetMappingForSystemBody)tmn).getTargetBody(), AlphaScheduleTarget.class);
+      } else {
+        EObject _eContainer = ((TargetMappingForSystemBody)tmn).eContainer();
+        return this.findRootScope(((TargetMapping) _eContainer));
+      }
+    }
+    EObject _eContainer_1 = tmn.eContainer();
+    boolean _tripleEquals = (_eContainer_1 == null);
+    if (_tripleEquals) {
+      throw new RuntimeException("Uncontained TargetMappingNode.");
+    }
+    EObject _eContainer_2 = tmn.eContainer();
+    return this.findRootScope(((TargetMappingNode) _eContainer_2));
+  }
+  
+  private IScope scheduleTargetsToScope(final Iterable<? extends AlphaScheduleTarget> scope) {
+    final Function1<AlphaScheduleTarget, Boolean> _function = (AlphaScheduleTarget eq) -> {
+      String _name = eq.getName();
       return Boolean.valueOf((_name != null));
     };
-    final Function<ExtensionTarget, QualifiedName> _function_1 = (ExtensionTarget et) -> {
-      return QualifiedName.create(et.getName());
+    final Function<AlphaScheduleTarget, QualifiedName> _function_1 = (AlphaScheduleTarget eq) -> {
+      return QualifiedName.create(eq.getName());
     };
-    return Scopes.<ExtensionTarget>scopeFor(IterableExtensions.<ExtensionTarget>filter(ee.getExtensionTargets(), _function), _function_1, IScope.NULLSCOPE);
+    return Scopes.<AlphaScheduleTarget>scopeFor(IterableExtensions.filter(scope, _function), _function_1, IScope.NULLSCOPE);
   }
   
   private IScope constructScope(final EObject ee) {
@@ -121,6 +134,8 @@ public class TargetMappingScopeProvider extends AbstractTargetMappingScopeProvid
       return _constructScope((FilterExpression)ee);
     } else if (ee instanceof TargetMapping) {
       return _constructScope((TargetMapping)ee);
+    } else if (ee instanceof TargetMappingForSystemBody) {
+      return _constructScope((TargetMappingForSystemBody)ee);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(ee).toString());

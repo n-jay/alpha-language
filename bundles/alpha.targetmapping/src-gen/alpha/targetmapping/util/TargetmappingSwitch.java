@@ -101,29 +101,12 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case TargetmappingPackage.ABSTRACT_MAPPING: {
-				AbstractMapping abstractMapping = (AbstractMapping)theEObject;
-				T result = caseAbstractMapping(abstractMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TargetmappingPackage.SPACE_TIME_MAPPING: {
-				SpaceTimeMapping spaceTimeMapping = (SpaceTimeMapping)theEObject;
-				T result = caseSpaceTimeMapping(spaceTimeMapping);
-				if (result == null) result = caseAbstractMapping(spaceTimeMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TargetmappingPackage.MEMORY_MAPPING: {
-				MemoryMapping memoryMapping = (MemoryMapping)theEObject;
-				T result = caseMemoryMapping(memoryMapping);
-				if (result == null) result = caseAbstractMapping(memoryMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case TargetmappingPackage.MEMORY_SPACE: {
-				MemorySpace memorySpace = (MemorySpace)theEObject;
-				T result = caseMemorySpace(memorySpace);
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY: {
+				TargetMappingForSystemBody targetMappingForSystemBody = (TargetMappingForSystemBody)theEObject;
+				T result = caseTargetMappingForSystemBody(targetMappingForSystemBody);
+				if (result == null) result = caseTargetMappingNode(targetMappingForSystemBody);
+				if (result == null) result = caseTargetMappingVisitable(targetMappingForSystemBody);
+				if (result == null) result = caseScopingEntity(targetMappingForSystemBody);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -327,62 +310,17 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Abstract Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Target Mapping For System Body</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Abstract Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Target Mapping For System Body</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAbstractMapping(AbstractMapping object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Space Time Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Space Time Mapping</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseSpaceTimeMapping(SpaceTimeMapping object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Memory Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Memory Mapping</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMemoryMapping(MemoryMapping object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Memory Space</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Memory Space</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMemorySpace(MemorySpace object) {
+	public T caseTargetMappingForSystemBody(TargetMappingForSystemBody object) {
 		return null;
 	}
 

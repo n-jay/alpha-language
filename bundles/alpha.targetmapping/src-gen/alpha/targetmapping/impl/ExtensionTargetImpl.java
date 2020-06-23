@@ -32,8 +32,8 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getSource <em>Source</em>}</li>
- *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getIndexNames <em>Index Names</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getName <em>Name</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getIndexNames <em>Index Names</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getExtensionMap <em>Extension Map</em>}</li>
  * </ul>
  *
@@ -49,16 +49,6 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected AlphaScheduleTarget source;
-
-	/**
-	 * The cached value of the '{@link #getIndexNames() <em>Index Names</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIndexNames()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<String> indexNames;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -79,6 +69,16 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getIndexNames() <em>Index Names</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIndexNames()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> indexNames;
 
 	/**
 	 * The cached value of the '{@link #getExtensionMap() <em>Extension Map</em>}' containment reference.
@@ -152,18 +152,6 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<String> getIndexNames() {
-		if (indexNames == null) {
-			indexNames = new EDataTypeEList<String>(String.class, this, TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES);
-		}
-		return indexNames;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getName() {
 		return name;
 	}
@@ -178,6 +166,18 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 		name = newName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.EXTENSION_TARGET__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<String> getIndexNames() {
+		if (indexNames == null) {
+			indexNames = new EDataTypeEList<String>(String.class, this, TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES);
+		}
+		return indexNames;
 	}
 
 	/**
@@ -248,10 +248,10 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 			case TargetmappingPackage.EXTENSION_TARGET__SOURCE:
 				if (resolve) return getSource();
 				return basicGetSource();
-			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
-				return getIndexNames();
 			case TargetmappingPackage.EXTENSION_TARGET__NAME:
 				return getName();
+			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
+				return getIndexNames();
 			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP:
 				return getExtensionMap();
 		}
@@ -270,12 +270,12 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 			case TargetmappingPackage.EXTENSION_TARGET__SOURCE:
 				setSource((AlphaScheduleTarget)newValue);
 				return;
+			case TargetmappingPackage.EXTENSION_TARGET__NAME:
+				setName((String)newValue);
+				return;
 			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
 				getIndexNames().clear();
 				getIndexNames().addAll((Collection<? extends String>)newValue);
-				return;
-			case TargetmappingPackage.EXTENSION_TARGET__NAME:
-				setName((String)newValue);
 				return;
 			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP:
 				setExtensionMap((JNIRelation)newValue);
@@ -295,11 +295,11 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 			case TargetmappingPackage.EXTENSION_TARGET__SOURCE:
 				setSource((AlphaScheduleTarget)null);
 				return;
-			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
-				getIndexNames().clear();
-				return;
 			case TargetmappingPackage.EXTENSION_TARGET__NAME:
 				setName(NAME_EDEFAULT);
+				return;
+			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
+				getIndexNames().clear();
 				return;
 			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP:
 				setExtensionMap((JNIRelation)null);
@@ -318,10 +318,10 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 		switch (featureID) {
 			case TargetmappingPackage.EXTENSION_TARGET__SOURCE:
 				return source != null;
-			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
-				return indexNames != null && !indexNames.isEmpty();
 			case TargetmappingPackage.EXTENSION_TARGET__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
+				return indexNames != null && !indexNames.isEmpty();
 			case TargetmappingPackage.EXTENSION_TARGET__EXTENSION_MAP:
 				return extensionMap != null;
 		}
@@ -338,10 +338,10 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (indexNames: ");
-		result.append(indexNames);
-		result.append(", name: ");
+		result.append(" (name: ");
 		result.append(name);
+		result.append(", indexNames: ");
+		result.append(indexNames);
 		result.append(')');
 		return result.toString();
 	}

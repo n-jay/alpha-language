@@ -7,6 +7,7 @@ import alpha.model.services.AlphaGrammarAccess;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
+import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.CrossReference;
@@ -32,28 +33,14 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Assignment cTargetSystemAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cTargetSystemAlphaSystemCrossReference_1_0 = (CrossReference)cTargetSystemAssignment_1.eContents().get(0);
 		private final RuleCall cTargetSystemAlphaSystemQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cTargetSystemAlphaSystemCrossReference_1_0.eContents().get(1);
-		private final Assignment cScheduleTreeRootAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Alternatives cScheduleTreeRootAlternatives_2_0 = (Alternatives)cScheduleTreeRootAssignment_2.eContents().get(0);
-		private final RuleCall cScheduleTreeRootContextExpressionParserRuleCall_2_0_0 = (RuleCall)cScheduleTreeRootAlternatives_2_0.eContents().get(0);
-		private final RuleCall cScheduleTreeRootScheduleTreeExpressionParserRuleCall_2_0_1 = (RuleCall)cScheduleTreeRootAlternatives_2_0.eContents().get(1);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cMemoryMapKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
-		private final Assignment cMemorySpacesAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
-		private final Alternatives cMemorySpacesAlternatives_3_2_0 = (Alternatives)cMemorySpacesAssignment_3_2.eContents().get(0);
-		private final RuleCall cMemorySpacesMemorySpaceParserRuleCall_3_2_0_0 = (RuleCall)cMemorySpacesAlternatives_3_2_0.eContents().get(0);
-		private final RuleCall cMemorySpacesMemorySpaceMappingOnlyParserRuleCall_3_2_0_1 = (RuleCall)cMemorySpacesAlternatives_3_2_0.eContents().get(1);
-		private final Keyword cRightCurlyBracketKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
+		private final Assignment cSystemBodyTMsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cSystemBodyTMsTargetMappingForSystemBodyParserRuleCall_2_0 = (RuleCall)cSystemBodyTMsAssignment_2.eContents().get(0);
 		
 		//TargetMapping:
-		//	'target' targetSystem=[model::AlphaSystem|QualifiedName] scheduleTreeRoot=(ContextExpression |
-		//	ScheduleTreeExpression)? ('MemoryMap' '{'
-		//	memorySpaces+=(MemorySpace | MemorySpaceMappingOnly)+
-		//	'}')?;
+		//	'target' targetSystem=[model::AlphaSystem|QualifiedName] systemBodyTMs+=TargetMappingForSystemBody*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'target' targetSystem=[model::AlphaSystem|QualifiedName] scheduleTreeRoot=(ContextExpression | ScheduleTreeExpression)?
-		//('MemoryMap' '{' memorySpaces+=(MemorySpace | MemorySpaceMappingOnly)+ '}')?
+		//'target' targetSystem=[model::AlphaSystem|QualifiedName] systemBodyTMs+=TargetMappingForSystemBody*
 		public Group getGroup() { return cGroup; }
 		
 		//'target'
@@ -68,10 +55,58 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//QualifiedName
 		public RuleCall getTargetSystemAlphaSystemQualifiedNameParserRuleCall_1_0_1() { return cTargetSystemAlphaSystemQualifiedNameParserRuleCall_1_0_1; }
 		
-		////	('SpaceTime' '{'
-		////		((spaceTimeMaps+=SpaceTimeMappingVariableNameOnly ',')* spaceTimeMaps+=(SpaceTimeMapping|SpaceTimeMappingIdentity))+
-		////	'}')?
-		//scheduleTreeRoot=(ContextExpression | ScheduleTreeExpression)?
+		//systemBodyTMs+=TargetMappingForSystemBody*
+		public Assignment getSystemBodyTMsAssignment_2() { return cSystemBodyTMsAssignment_2; }
+		
+		//TargetMappingForSystemBody
+		public RuleCall getSystemBodyTMsTargetMappingForSystemBodyParserRuleCall_2_0() { return cSystemBodyTMsTargetMappingForSystemBodyParserRuleCall_2_0; }
+	}
+	public class TargetMappingForSystemBodyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.TargetMappingForSystemBody");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cTargetMappingForSystemBodyAction_0 = (Action)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cBodyKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cTargetBodyAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cTargetBodySystemBodyCrossReference_1_1_0 = (CrossReference)cTargetBodyAssignment_1_1.eContents().get(0);
+		private final RuleCall cTargetBodySystemBodyIntRefParserRuleCall_1_1_0_1 = (RuleCall)cTargetBodySystemBodyCrossReference_1_1_0.eContents().get(1);
+		private final Keyword cColonKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Assignment cScheduleTreeRootAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Alternatives cScheduleTreeRootAlternatives_2_0 = (Alternatives)cScheduleTreeRootAssignment_2.eContents().get(0);
+		private final RuleCall cScheduleTreeRootContextExpressionParserRuleCall_2_0_0 = (RuleCall)cScheduleTreeRootAlternatives_2_0.eContents().get(0);
+		private final RuleCall cScheduleTreeRootScheduleTreeExpressionParserRuleCall_2_0_1 = (RuleCall)cScheduleTreeRootAlternatives_2_0.eContents().get(1);
+		
+		//TargetMappingForSystemBody:
+		//	{TargetMappingForSystemBody} ('body' targetBody=[model::SystemBody|IntRef] ':')? scheduleTreeRoot=(ContextExpression |
+		//	ScheduleTreeExpression);
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{TargetMappingForSystemBody} ('body' targetBody=[model::SystemBody|IntRef] ':')? scheduleTreeRoot=(ContextExpression |
+		//ScheduleTreeExpression)
+		public Group getGroup() { return cGroup; }
+		
+		//{TargetMappingForSystemBody}
+		public Action getTargetMappingForSystemBodyAction_0() { return cTargetMappingForSystemBodyAction_0; }
+		
+		//('body' targetBody=[model::SystemBody|IntRef] ':')?
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'body'
+		public Keyword getBodyKeyword_1_0() { return cBodyKeyword_1_0; }
+		
+		//targetBody=[model::SystemBody|IntRef]
+		public Assignment getTargetBodyAssignment_1_1() { return cTargetBodyAssignment_1_1; }
+		
+		//[model::SystemBody|IntRef]
+		public CrossReference getTargetBodySystemBodyCrossReference_1_1_0() { return cTargetBodySystemBodyCrossReference_1_1_0; }
+		
+		//IntRef
+		public RuleCall getTargetBodySystemBodyIntRefParserRuleCall_1_1_0_1() { return cTargetBodySystemBodyIntRefParserRuleCall_1_1_0_1; }
+		
+		//':'
+		public Keyword getColonKeyword_1_2() { return cColonKeyword_1_2; }
+		
+		//scheduleTreeRoot=(ContextExpression | ScheduleTreeExpression)
 		public Assignment getScheduleTreeRootAssignment_2() { return cScheduleTreeRootAssignment_2; }
 		
 		//(ContextExpression | ScheduleTreeExpression)
@@ -82,287 +117,17 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		
 		//ScheduleTreeExpression
 		public RuleCall getScheduleTreeRootScheduleTreeExpressionParserRuleCall_2_0_1() { return cScheduleTreeRootScheduleTreeExpressionParserRuleCall_2_0_1; }
-		
-		//('MemoryMap' '{' memorySpaces+=(MemorySpace | MemorySpaceMappingOnly)+ '}')?
-		public Group getGroup_3() { return cGroup_3; }
-		
-		//'MemoryMap'
-		public Keyword getMemoryMapKeyword_3_0() { return cMemoryMapKeyword_3_0; }
-		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_3_1() { return cLeftCurlyBracketKeyword_3_1; }
-		
-		//memorySpaces+=(MemorySpace | MemorySpaceMappingOnly)+
-		public Assignment getMemorySpacesAssignment_3_2() { return cMemorySpacesAssignment_3_2; }
-		
-		//(MemorySpace | MemorySpaceMappingOnly)
-		public Alternatives getMemorySpacesAlternatives_3_2_0() { return cMemorySpacesAlternatives_3_2_0; }
-		
-		//MemorySpace
-		public RuleCall getMemorySpacesMemorySpaceParserRuleCall_3_2_0_0() { return cMemorySpacesMemorySpaceParserRuleCall_3_2_0_0; }
-		
-		//MemorySpaceMappingOnly
-		public RuleCall getMemorySpacesMemorySpaceMappingOnlyParserRuleCall_3_2_0_1() { return cMemorySpacesMemorySpaceMappingOnlyParserRuleCall_3_2_0_1; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_3_3() { return cRightCurlyBracketKeyword_3_3; }
 	}
-	public class MemorySpaceElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.MemorySpace");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Group cGroup_2_0 = (Group)cGroup_2.eContents().get(0);
-		private final Assignment cMemoryMapsAssignment_2_0_0 = (Assignment)cGroup_2_0.eContents().get(0);
-		private final RuleCall cMemoryMapsMemoryMappingVariableNameOnlyParserRuleCall_2_0_0_0 = (RuleCall)cMemoryMapsAssignment_2_0_0.eContents().get(0);
-		private final Keyword cCommaKeyword_2_0_1 = (Keyword)cGroup_2_0.eContents().get(1);
-		private final Assignment cMemoryMapsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final Alternatives cMemoryMapsAlternatives_2_1_0 = (Alternatives)cMemoryMapsAssignment_2_1.eContents().get(0);
-		private final RuleCall cMemoryMapsMemoryMappingParserRuleCall_2_1_0_0 = (RuleCall)cMemoryMapsAlternatives_2_1_0.eContents().get(0);
-		private final RuleCall cMemoryMapsMemoryMappingIdentityParserRuleCall_2_1_0_1 = (RuleCall)cMemoryMapsAlternatives_2_1_0.eContents().get(1);
-		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+	public class IntRefElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.IntRef");
+		private final RuleCall cINTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//MemorySpace:
-		//	name=ID '{' ((memoryMaps+=MemoryMappingVariableNameOnly ',')* memoryMaps+=(MemoryMapping | MemoryMappingIdentity))*
-		//	'}';
+		//IntRef:
+		//	INT;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID '{' ((memoryMaps+=MemoryMappingVariableNameOnly ',')* memoryMaps+=(MemoryMapping | MemoryMappingIdentity))* '}'
-		public Group getGroup() { return cGroup; }
-		
-		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
-		
-		//'{'
-		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
-		
-		//((memoryMaps+=MemoryMappingVariableNameOnly ',')* memoryMaps+=(MemoryMapping | MemoryMappingIdentity))*
-		public Group getGroup_2() { return cGroup_2; }
-		
-		//(memoryMaps+=MemoryMappingVariableNameOnly ',')*
-		public Group getGroup_2_0() { return cGroup_2_0; }
-		
-		//memoryMaps+=MemoryMappingVariableNameOnly
-		public Assignment getMemoryMapsAssignment_2_0_0() { return cMemoryMapsAssignment_2_0_0; }
-		
-		//MemoryMappingVariableNameOnly
-		public RuleCall getMemoryMapsMemoryMappingVariableNameOnlyParserRuleCall_2_0_0_0() { return cMemoryMapsMemoryMappingVariableNameOnlyParserRuleCall_2_0_0_0; }
-		
-		//','
-		public Keyword getCommaKeyword_2_0_1() { return cCommaKeyword_2_0_1; }
-		
-		//memoryMaps+=(MemoryMapping | MemoryMappingIdentity)
-		public Assignment getMemoryMapsAssignment_2_1() { return cMemoryMapsAssignment_2_1; }
-		
-		//(MemoryMapping | MemoryMappingIdentity)
-		public Alternatives getMemoryMapsAlternatives_2_1_0() { return cMemoryMapsAlternatives_2_1_0; }
-		
-		//MemoryMapping
-		public RuleCall getMemoryMapsMemoryMappingParserRuleCall_2_1_0_0() { return cMemoryMapsMemoryMappingParserRuleCall_2_1_0_0; }
-		
-		//MemoryMappingIdentity
-		public RuleCall getMemoryMapsMemoryMappingIdentityParserRuleCall_2_1_0_1() { return cMemoryMapsMemoryMappingIdentityParserRuleCall_2_1_0_1; }
-		
-		//'}'
-		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
-	}
-	public class MemorySpaceMappingOnlyElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.MemorySpaceMappingOnly");
-		private final Assignment cMemoryMapsAssignment = (Assignment)rule.eContents().get(1);
-		private final Alternatives cMemoryMapsAlternatives_0 = (Alternatives)cMemoryMapsAssignment.eContents().get(0);
-		private final RuleCall cMemoryMapsMemoryMappingParserRuleCall_0_0 = (RuleCall)cMemoryMapsAlternatives_0.eContents().get(0);
-		private final RuleCall cMemoryMapsMemoryMappingIdentityParserRuleCall_0_1 = (RuleCall)cMemoryMapsAlternatives_0.eContents().get(1);
-		
-		//MemorySpaceMappingOnly MemorySpace:
-		//	memoryMaps+=(MemoryMapping | MemoryMappingIdentity);
-		@Override public ParserRule getRule() { return rule; }
-		
-		//memoryMaps+=(MemoryMapping | MemoryMappingIdentity)
-		public Assignment getMemoryMapsAssignment() { return cMemoryMapsAssignment; }
-		
-		//(MemoryMapping | MemoryMappingIdentity)
-		public Alternatives getMemoryMapsAlternatives_0() { return cMemoryMapsAlternatives_0; }
-		
-		//MemoryMapping
-		public RuleCall getMemoryMapsMemoryMappingParserRuleCall_0_0() { return cMemoryMapsMemoryMappingParserRuleCall_0_0; }
-		
-		//MemoryMappingIdentity
-		public RuleCall getMemoryMapsMemoryMappingIdentityParserRuleCall_0_1() { return cMemoryMapsMemoryMappingIdentityParserRuleCall_0_1; }
-	}
-	public class SpaceTimeMappingElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.SpaceTimeMapping");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cScheduleTargetAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cScheduleTargetAlphaScheduleTargetCrossReference_0_0 = (CrossReference)cScheduleTargetAssignment_0.eContents().get(0);
-		private final RuleCall cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1 = (RuleCall)cScheduleTargetAlphaScheduleTargetCrossReference_0_0.eContents().get(1);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cMappingAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cMappingJNIFunctionParserRuleCall_2_0 = (RuleCall)cMappingAssignment_2.eContents().get(0);
-		
-		//SpaceTimeMapping:
-		//	scheduleTarget=[model::AlphaScheduleTarget] ':' mapping=JNIFunction;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget] ':' mapping=JNIFunction
-		public Group getGroup() { return cGroup; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget]
-		public Assignment getScheduleTargetAssignment_0() { return cScheduleTargetAssignment_0; }
-		
-		//[model::AlphaScheduleTarget]
-		public CrossReference getScheduleTargetAlphaScheduleTargetCrossReference_0_0() { return cScheduleTargetAlphaScheduleTargetCrossReference_0_0; }
-		
-		//ID
-		public RuleCall getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1() { return cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1; }
-		
-		//':'
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
-		
-		//mapping=JNIFunction
-		public Assignment getMappingAssignment_2() { return cMappingAssignment_2; }
-		
-		//JNIFunction
-		public RuleCall getMappingJNIFunctionParserRuleCall_2_0() { return cMappingJNIFunctionParserRuleCall_2_0; }
-	}
-	public class MemoryMappingElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.MemoryMapping");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cScheduleTargetAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cScheduleTargetAlphaScheduleTargetCrossReference_0_0 = (CrossReference)cScheduleTargetAssignment_0.eContents().get(0);
-		private final RuleCall cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1 = (RuleCall)cScheduleTargetAlphaScheduleTargetCrossReference_0_0.eContents().get(1);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cMappingAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cMappingJNIFunctionParserRuleCall_2_0 = (RuleCall)cMappingAssignment_2.eContents().get(0);
-		
-		//MemoryMapping:
-		//	scheduleTarget=[model::AlphaScheduleTarget] ':' mapping=JNIFunction;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget] ':' mapping=JNIFunction
-		public Group getGroup() { return cGroup; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget]
-		public Assignment getScheduleTargetAssignment_0() { return cScheduleTargetAssignment_0; }
-		
-		//[model::AlphaScheduleTarget]
-		public CrossReference getScheduleTargetAlphaScheduleTargetCrossReference_0_0() { return cScheduleTargetAlphaScheduleTargetCrossReference_0_0; }
-		
-		//ID
-		public RuleCall getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1() { return cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1; }
-		
-		//':'
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
-		
-		//mapping=JNIFunction
-		public Assignment getMappingAssignment_2() { return cMappingAssignment_2; }
-		
-		//JNIFunction
-		public RuleCall getMappingJNIFunctionParserRuleCall_2_0() { return cMappingJNIFunctionParserRuleCall_2_0; }
-	}
-	public class SpaceTimeMappingVariableNameOnlyElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.SpaceTimeMappingVariableNameOnly");
-		private final Assignment cScheduleTargetAssignment = (Assignment)rule.eContents().get(1);
-		private final CrossReference cScheduleTargetAlphaScheduleTargetCrossReference_0 = (CrossReference)cScheduleTargetAssignment.eContents().get(0);
-		private final RuleCall cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_1 = (RuleCall)cScheduleTargetAlphaScheduleTargetCrossReference_0.eContents().get(1);
-		
-		//SpaceTimeMappingVariableNameOnly SpaceTimeMapping:
-		//	scheduleTarget=[model::AlphaScheduleTarget];
-		@Override public ParserRule getRule() { return rule; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget]
-		public Assignment getScheduleTargetAssignment() { return cScheduleTargetAssignment; }
-		
-		//[model::AlphaScheduleTarget]
-		public CrossReference getScheduleTargetAlphaScheduleTargetCrossReference_0() { return cScheduleTargetAlphaScheduleTargetCrossReference_0; }
-		
-		//ID
-		public RuleCall getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_1() { return cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_1; }
-	}
-	public class MemoryMappingVariableNameOnlyElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.MemoryMappingVariableNameOnly");
-		private final Assignment cScheduleTargetAssignment = (Assignment)rule.eContents().get(1);
-		private final CrossReference cScheduleTargetAlphaScheduleTargetCrossReference_0 = (CrossReference)cScheduleTargetAssignment.eContents().get(0);
-		private final RuleCall cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_1 = (RuleCall)cScheduleTargetAlphaScheduleTargetCrossReference_0.eContents().get(1);
-		
-		//MemoryMappingVariableNameOnly MemoryMapping:
-		//	scheduleTarget=[model::AlphaScheduleTarget];
-		@Override public ParserRule getRule() { return rule; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget]
-		public Assignment getScheduleTargetAssignment() { return cScheduleTargetAssignment; }
-		
-		//[model::AlphaScheduleTarget]
-		public CrossReference getScheduleTargetAlphaScheduleTargetCrossReference_0() { return cScheduleTargetAlphaScheduleTargetCrossReference_0; }
-		
-		//ID
-		public RuleCall getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_1() { return cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_1; }
-	}
-	public class SpaceTimeMappingIdentityElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.SpaceTimeMappingIdentity");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cScheduleTargetAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cScheduleTargetAlphaScheduleTargetCrossReference_0_0 = (CrossReference)cScheduleTargetAssignment_0.eContents().get(0);
-		private final RuleCall cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1 = (RuleCall)cScheduleTargetAlphaScheduleTargetCrossReference_0_0.eContents().get(1);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cIdKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		
-		//SpaceTimeMappingIdentity SpaceTimeMapping:
-		//	scheduleTarget=[model::AlphaScheduleTarget] ':' 'Id';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget] ':' 'Id'
-		public Group getGroup() { return cGroup; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget]
-		public Assignment getScheduleTargetAssignment_0() { return cScheduleTargetAssignment_0; }
-		
-		//[model::AlphaScheduleTarget]
-		public CrossReference getScheduleTargetAlphaScheduleTargetCrossReference_0_0() { return cScheduleTargetAlphaScheduleTargetCrossReference_0_0; }
-		
-		//ID
-		public RuleCall getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1() { return cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1; }
-		
-		//':'
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
-		
-		//'Id'
-		public Keyword getIdKeyword_2() { return cIdKeyword_2; }
-	}
-	public class MemoryMappingIdentityElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.MemoryMappingIdentity");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cScheduleTargetAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cScheduleTargetAlphaScheduleTargetCrossReference_0_0 = (CrossReference)cScheduleTargetAssignment_0.eContents().get(0);
-		private final RuleCall cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1 = (RuleCall)cScheduleTargetAlphaScheduleTargetCrossReference_0_0.eContents().get(1);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cIdKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		
-		//MemoryMappingIdentity MemoryMapping:
-		//	scheduleTarget=[model::AlphaScheduleTarget] ':' 'Id';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget] ':' 'Id'
-		public Group getGroup() { return cGroup; }
-		
-		//scheduleTarget=[model::AlphaScheduleTarget]
-		public Assignment getScheduleTargetAssignment_0() { return cScheduleTargetAssignment_0; }
-		
-		//[model::AlphaScheduleTarget]
-		public CrossReference getScheduleTargetAlphaScheduleTargetCrossReference_0_0() { return cScheduleTargetAlphaScheduleTargetCrossReference_0_0; }
-		
-		//ID
-		public RuleCall getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1() { return cScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1; }
-		
-		//':'
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
-		
-		//'Id'
-		public Keyword getIdKeyword_2() { return cIdKeyword_2; }
+		//INT
+		public RuleCall getINTTerminalRuleCall() { return cINTTerminalRuleCall; }
 	}
 	public class ScheduleTreeExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ScheduleTreeExpression");
@@ -698,25 +463,25 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cIfKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cGuardDomainAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cGuardDomainJNIDomainInArrayNotationParserRuleCall_1_0 = (RuleCall)cGuardDomainAssignment_1.eContents().get(0);
+		private final RuleCall cGuardDomainJNIDomainParserRuleCall_1_0 = (RuleCall)cGuardDomainAssignment_1.eContents().get(0);
 		private final Assignment cChildAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cChildScheduleTreeExpressionParserRuleCall_2_0 = (RuleCall)cChildAssignment_2.eContents().get(0);
 		
 		//GuardExpression:
-		//	'if' guardDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression;
+		//	'if' guardDomain=JNIDomain child=ScheduleTreeExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'if' guardDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression
+		//'if' guardDomain=JNIDomain child=ScheduleTreeExpression
 		public Group getGroup() { return cGroup; }
 		
 		//'if'
 		public Keyword getIfKeyword_0() { return cIfKeyword_0; }
 		
-		//guardDomain=JNIDomainInArrayNotation
+		//guardDomain=JNIDomain
 		public Assignment getGuardDomainAssignment_1() { return cGuardDomainAssignment_1; }
 		
-		//JNIDomainInArrayNotation
-		public RuleCall getGuardDomainJNIDomainInArrayNotationParserRuleCall_1_0() { return cGuardDomainJNIDomainInArrayNotationParserRuleCall_1_0; }
+		//JNIDomain
+		public RuleCall getGuardDomainJNIDomainParserRuleCall_1_0() { return cGuardDomainJNIDomainParserRuleCall_1_0; }
 		
 		//child=ScheduleTreeExpression
 		public Assignment getChildAssignment_2() { return cChildAssignment_2; }
@@ -1160,31 +925,31 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Assignment cSourceAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
 		private final CrossReference cSourceAlphaScheduleTargetCrossReference_0_1_0 = (CrossReference)cSourceAssignment_0_1.eContents().get(0);
 		private final RuleCall cSourceAlphaScheduleTargetIDTerminalRuleCall_0_1_0_1 = (RuleCall)cSourceAlphaScheduleTargetCrossReference_0_1_0.eContents().get(1);
-		private final Group cGroup_0_2 = (Group)cGroup_0.eContents().get(2);
-		private final Keyword cLeftSquareBracketKeyword_0_2_0 = (Keyword)cGroup_0_2.eContents().get(0);
-		private final Assignment cIndexNamesAssignment_0_2_1 = (Assignment)cGroup_0_2.eContents().get(1);
-		private final RuleCall cIndexNamesIDTerminalRuleCall_0_2_1_0 = (RuleCall)cIndexNamesAssignment_0_2_1.eContents().get(0);
-		private final Group cGroup_0_2_2 = (Group)cGroup_0_2.eContents().get(2);
-		private final Keyword cCommaKeyword_0_2_2_0 = (Keyword)cGroup_0_2_2.eContents().get(0);
-		private final Assignment cIndexNamesAssignment_0_2_2_1 = (Assignment)cGroup_0_2_2.eContents().get(1);
-		private final RuleCall cIndexNamesIDTerminalRuleCall_0_2_2_1_0 = (RuleCall)cIndexNamesAssignment_0_2_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_0_2_3 = (Keyword)cGroup_0_2.eContents().get(3);
 		private final Assignment cExtensionMapAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cExtensionMapJNIRelationParserRuleCall_1_0 = (RuleCall)cExtensionMapAssignment_1.eContents().get(0);
 		private final Keyword cAsKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameIDTerminalRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cLeftSquareBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cIndexNamesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cIndexNamesIDTerminalRuleCall_4_1_0 = (RuleCall)cIndexNamesAssignment_4_1.eContents().get(0);
+		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
+		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
+		private final Assignment cIndexNamesAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
+		private final RuleCall cIndexNamesIDTerminalRuleCall_4_2_1_0 = (RuleCall)cIndexNamesAssignment_4_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
 		
 		//ExtensionTarget:
-		//	('from' source=[model::AlphaScheduleTarget] ('[' indexNames+=ID (',' indexNames+=ID)* ']')?)?
-		//	extensionMap=JNIRelation 'as' name=ID;
+		//	('from' source=[model::AlphaScheduleTarget])? extensionMap=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
+		//	indexNames+=ID)* ']')?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//('from' source=[model::AlphaScheduleTarget] ('[' indexNames+=ID (',' indexNames+=ID)* ']')?)? extensionMap=JNIRelation
-		//'as' name=ID
+		//('from' source=[model::AlphaScheduleTarget])? extensionMap=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
+		//indexNames+=ID)* ']')?
 		public Group getGroup() { return cGroup; }
 		
-		//('from' source=[model::AlphaScheduleTarget] ('[' indexNames+=ID (',' indexNames+=ID)* ']')?)?
+		//('from' source=[model::AlphaScheduleTarget])?
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//'from'
@@ -1198,33 +963,6 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		
 		//ID
 		public RuleCall getSourceAlphaScheduleTargetIDTerminalRuleCall_0_1_0_1() { return cSourceAlphaScheduleTargetIDTerminalRuleCall_0_1_0_1; }
-		
-		//('[' indexNames+=ID (',' indexNames+=ID)* ']')?
-		public Group getGroup_0_2() { return cGroup_0_2; }
-		
-		//'['
-		public Keyword getLeftSquareBracketKeyword_0_2_0() { return cLeftSquareBracketKeyword_0_2_0; }
-		
-		//indexNames+=ID
-		public Assignment getIndexNamesAssignment_0_2_1() { return cIndexNamesAssignment_0_2_1; }
-		
-		//ID
-		public RuleCall getIndexNamesIDTerminalRuleCall_0_2_1_0() { return cIndexNamesIDTerminalRuleCall_0_2_1_0; }
-		
-		//(',' indexNames+=ID)*
-		public Group getGroup_0_2_2() { return cGroup_0_2_2; }
-		
-		//','
-		public Keyword getCommaKeyword_0_2_2_0() { return cCommaKeyword_0_2_2_0; }
-		
-		//indexNames+=ID
-		public Assignment getIndexNamesAssignment_0_2_2_1() { return cIndexNamesAssignment_0_2_2_1; }
-		
-		//ID
-		public RuleCall getIndexNamesIDTerminalRuleCall_0_2_2_1_0() { return cIndexNamesIDTerminalRuleCall_0_2_2_1_0; }
-		
-		//']'
-		public Keyword getRightSquareBracketKeyword_0_2_3() { return cRightSquareBracketKeyword_0_2_3; }
 		
 		//extensionMap=JNIRelation
 		public Assignment getExtensionMapAssignment_1() { return cExtensionMapAssignment_1; }
@@ -1240,18 +978,39 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_3_0() { return cNameIDTerminalRuleCall_3_0; }
+		
+		//('[' indexNames+=ID (',' indexNames+=ID)* ']')?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
+		
+		//indexNames+=ID
+		public Assignment getIndexNamesAssignment_4_1() { return cIndexNamesAssignment_4_1; }
+		
+		//ID
+		public RuleCall getIndexNamesIDTerminalRuleCall_4_1_0() { return cIndexNamesIDTerminalRuleCall_4_1_0; }
+		
+		//(',' indexNames+=ID)*
+		public Group getGroup_4_2() { return cGroup_4_2; }
+		
+		//','
+		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
+		
+		//indexNames+=ID
+		public Assignment getIndexNamesAssignment_4_2_1() { return cIndexNamesAssignment_4_2_1; }
+		
+		//ID
+		public RuleCall getIndexNamesIDTerminalRuleCall_4_2_1_0() { return cIndexNamesIDTerminalRuleCall_4_2_1_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_4_3() { return cRightSquareBracketKeyword_4_3; }
 	}
 	
 	
 	private final TargetMappingElements pTargetMapping;
-	private final MemorySpaceElements pMemorySpace;
-	private final MemorySpaceMappingOnlyElements pMemorySpaceMappingOnly;
-	private final SpaceTimeMappingElements pSpaceTimeMapping;
-	private final MemoryMappingElements pMemoryMapping;
-	private final SpaceTimeMappingVariableNameOnlyElements pSpaceTimeMappingVariableNameOnly;
-	private final MemoryMappingVariableNameOnlyElements pMemoryMappingVariableNameOnly;
-	private final SpaceTimeMappingIdentityElements pSpaceTimeMappingIdentity;
-	private final MemoryMappingIdentityElements pMemoryMappingIdentity;
+	private final TargetMappingForSystemBodyElements pTargetMappingForSystemBody;
+	private final IntRefElements pIntRef;
 	private final ScheduleTreeExpressionElements pScheduleTreeExpression;
 	private final ContextExpressionElements pContextExpression;
 	private final SetExpressionElements pSetExpression;
@@ -1284,14 +1043,8 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		this.gaAlpha = gaAlpha;
 		this.gaTerminals = gaTerminals;
 		this.pTargetMapping = new TargetMappingElements();
-		this.pMemorySpace = new MemorySpaceElements();
-		this.pMemorySpaceMappingOnly = new MemorySpaceMappingOnlyElements();
-		this.pSpaceTimeMapping = new SpaceTimeMappingElements();
-		this.pMemoryMapping = new MemoryMappingElements();
-		this.pSpaceTimeMappingVariableNameOnly = new SpaceTimeMappingVariableNameOnlyElements();
-		this.pMemoryMappingVariableNameOnly = new MemoryMappingVariableNameOnlyElements();
-		this.pSpaceTimeMappingIdentity = new SpaceTimeMappingIdentityElements();
-		this.pMemoryMappingIdentity = new MemoryMappingIdentityElements();
+		this.pTargetMappingForSystemBody = new TargetMappingForSystemBodyElements();
+		this.pIntRef = new IntRefElements();
 		this.pScheduleTreeExpression = new ScheduleTreeExpressionElements();
 		this.pContextExpression = new ContextExpressionElements();
 		this.pSetExpression = new SetExpressionElements();
@@ -1343,10 +1096,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 
 	
 	//TargetMapping:
-	//	'target' targetSystem=[model::AlphaSystem|QualifiedName] scheduleTreeRoot=(ContextExpression |
-	//	ScheduleTreeExpression)? ('MemoryMap' '{'
-	//	memorySpaces+=(MemorySpace | MemorySpaceMappingOnly)+
-	//	'}')?;
+	//	'target' targetSystem=[model::AlphaSystem|QualifiedName] systemBodyTMs+=TargetMappingForSystemBody*;
 	public TargetMappingElements getTargetMappingAccess() {
 		return pTargetMapping;
 	}
@@ -1355,85 +1105,25 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getTargetMappingAccess().getRule();
 	}
 	
-	//MemorySpace:
-	//	name=ID '{' ((memoryMaps+=MemoryMappingVariableNameOnly ',')* memoryMaps+=(MemoryMapping | MemoryMappingIdentity))*
-	//	'}';
-	public MemorySpaceElements getMemorySpaceAccess() {
-		return pMemorySpace;
+	//TargetMappingForSystemBody:
+	//	{TargetMappingForSystemBody} ('body' targetBody=[model::SystemBody|IntRef] ':')? scheduleTreeRoot=(ContextExpression |
+	//	ScheduleTreeExpression);
+	public TargetMappingForSystemBodyElements getTargetMappingForSystemBodyAccess() {
+		return pTargetMappingForSystemBody;
 	}
 	
-	public ParserRule getMemorySpaceRule() {
-		return getMemorySpaceAccess().getRule();
+	public ParserRule getTargetMappingForSystemBodyRule() {
+		return getTargetMappingForSystemBodyAccess().getRule();
 	}
 	
-	//MemorySpaceMappingOnly MemorySpace:
-	//	memoryMaps+=(MemoryMapping | MemoryMappingIdentity);
-	public MemorySpaceMappingOnlyElements getMemorySpaceMappingOnlyAccess() {
-		return pMemorySpaceMappingOnly;
+	//IntRef:
+	//	INT;
+	public IntRefElements getIntRefAccess() {
+		return pIntRef;
 	}
 	
-	public ParserRule getMemorySpaceMappingOnlyRule() {
-		return getMemorySpaceMappingOnlyAccess().getRule();
-	}
-	
-	//SpaceTimeMapping:
-	//	scheduleTarget=[model::AlphaScheduleTarget] ':' mapping=JNIFunction;
-	public SpaceTimeMappingElements getSpaceTimeMappingAccess() {
-		return pSpaceTimeMapping;
-	}
-	
-	public ParserRule getSpaceTimeMappingRule() {
-		return getSpaceTimeMappingAccess().getRule();
-	}
-	
-	//MemoryMapping:
-	//	scheduleTarget=[model::AlphaScheduleTarget] ':' mapping=JNIFunction;
-	public MemoryMappingElements getMemoryMappingAccess() {
-		return pMemoryMapping;
-	}
-	
-	public ParserRule getMemoryMappingRule() {
-		return getMemoryMappingAccess().getRule();
-	}
-	
-	//SpaceTimeMappingVariableNameOnly SpaceTimeMapping:
-	//	scheduleTarget=[model::AlphaScheduleTarget];
-	public SpaceTimeMappingVariableNameOnlyElements getSpaceTimeMappingVariableNameOnlyAccess() {
-		return pSpaceTimeMappingVariableNameOnly;
-	}
-	
-	public ParserRule getSpaceTimeMappingVariableNameOnlyRule() {
-		return getSpaceTimeMappingVariableNameOnlyAccess().getRule();
-	}
-	
-	//MemoryMappingVariableNameOnly MemoryMapping:
-	//	scheduleTarget=[model::AlphaScheduleTarget];
-	public MemoryMappingVariableNameOnlyElements getMemoryMappingVariableNameOnlyAccess() {
-		return pMemoryMappingVariableNameOnly;
-	}
-	
-	public ParserRule getMemoryMappingVariableNameOnlyRule() {
-		return getMemoryMappingVariableNameOnlyAccess().getRule();
-	}
-	
-	//SpaceTimeMappingIdentity SpaceTimeMapping:
-	//	scheduleTarget=[model::AlphaScheduleTarget] ':' 'Id';
-	public SpaceTimeMappingIdentityElements getSpaceTimeMappingIdentityAccess() {
-		return pSpaceTimeMappingIdentity;
-	}
-	
-	public ParserRule getSpaceTimeMappingIdentityRule() {
-		return getSpaceTimeMappingIdentityAccess().getRule();
-	}
-	
-	//MemoryMappingIdentity MemoryMapping:
-	//	scheduleTarget=[model::AlphaScheduleTarget] ':' 'Id';
-	public MemoryMappingIdentityElements getMemoryMappingIdentityAccess() {
-		return pMemoryMappingIdentity;
-	}
-	
-	public ParserRule getMemoryMappingIdentityRule() {
-		return getMemoryMappingIdentityAccess().getRule();
+	public ParserRule getIntRefRule() {
+		return getIntRefAccess().getRule();
 	}
 	
 	//ScheduleTreeExpression:
@@ -1512,7 +1202,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//GuardExpression:
-	//	'if' guardDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression;
+	//	'if' guardDomain=JNIDomain child=ScheduleTreeExpression;
 	public GuardExpressionElements getGuardExpressionAccess() {
 		return pGuardExpression;
 	}
@@ -1614,8 +1304,8 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ExtensionTarget:
-	//	('from' source=[model::AlphaScheduleTarget] ('[' indexNames+=ID (',' indexNames+=ID)* ']')?)?
-	//	extensionMap=JNIRelation 'as' name=ID;
+	//	('from' source=[model::AlphaScheduleTarget])? extensionMap=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
+	//	indexNames+=ID)* ']')?;
 	public ExtensionTargetElements getExtensionTargetAccess() {
 		return pExtensionTarget;
 	}

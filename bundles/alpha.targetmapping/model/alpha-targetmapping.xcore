@@ -4,7 +4,7 @@
 	literalsInterface="true")
 package alpha.targetmapping
 
-import alpha.model.JNIFunction
+import alpha.model.SystemBody
 import alpha.model.AlphaSystem
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType
 import alpha.model.AlphaScheduleTarget
@@ -36,6 +36,7 @@ class TargetMappingVisitor {
 	
 	/* visit */
 	op void visitTargetMapping(TargetMapping tm)
+	op void visitTargetMappingForSystemBody(TargetMappingForSystemBody tm)
 	
 	op void visitScheduleTreeExpression(ScheduleTreeExpression ste)
 	
@@ -51,6 +52,7 @@ class TargetMappingVisitor {
 	
 	/* in */
 	op void inTargetMapping(TargetMapping tm)
+	op void inTargetMappingForSystemBody(TargetMappingForSystemBody tm)
 	
 	op void inScheduleTreeExpression(ScheduleTreeExpression ste)
 	
@@ -66,6 +68,7 @@ class TargetMappingVisitor {
 	
 	/* out */
 	op void outTargetMapping(TargetMapping tm)
+	op void outTargetMappingForSystemBody(TargetMappingForSystemBody tm)
 	
 	op void outScheduleTreeExpression(ScheduleTreeExpression ste)
 	
@@ -83,30 +86,20 @@ interface ScopingEntity {}
 
 class TargetMapping extends TargetMappingNode, TargetMappingVisitable, ScopingEntity {
 	refers AlphaSystem targetSystem
-	contains ScheduleTreeExpression scheduleTreeRoot
-//	contains SpaceTimeMapping[] spaceTimeMaps
-	contains MemorySpace[] memorySpaces
+	contains TargetMappingForSystemBody[] systemBodyTMs
 	
 	op void accept(TargetMappingVisitor visitor) {
 		visitor.visitTargetMapping(this)
 	}
 }
 
-abstract class AbstractMapping {
-	refers AlphaScheduleTarget scheduleTarget
-	contains JNIFunction mapping 
-}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-class SpaceTimeMapping extends AbstractMapping {
-}
-
-class MemoryMapping extends AbstractMapping {
-	String memorySpaceName
-}
-
-class MemorySpace {
-	id String name
-	contains MemoryMapping[] memoryMaps
+class TargetMappingForSystemBody extends TargetMappingNode, TargetMappingVisitable, ScopingEntity {
+	refers SystemBody targetBody
+	contains ScheduleTreeExpression scheduleTreeRoot
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitTargetMappingForSystemBody(this)
+	}
 }
 
 abstract class ScheduleTreeExpression extends TargetMappingNode, TargetMappingVisitable {
@@ -156,7 +149,7 @@ class ScheduleTargetRestrictDomain {
 }
 
 class GuardExpression extends ScheduleTreeExpression {
-	contains JNIDomainInArrayNotation guardDomain
+	contains JNIDomain guardDomain
 	contains ScheduleTreeExpression child
 	
 	op void accept(TargetMappingVisitor visitor) {
@@ -214,8 +207,8 @@ class ExtensionExpression extends ScheduleTreeExpression, ScopingEntity {
 
 class ExtensionTarget extends AlphaScheduleTarget {
 	refers AlphaScheduleTarget source
-	String[] indexNames
 	
 	String name
+	String[] indexNames
 	contains JNIRelation extensionMap
 }

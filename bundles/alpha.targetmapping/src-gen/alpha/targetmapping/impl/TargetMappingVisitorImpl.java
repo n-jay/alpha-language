@@ -12,6 +12,7 @@ import alpha.targetmapping.ScheduleTreeExpression;
 import alpha.targetmapping.SequenceExpression;
 import alpha.targetmapping.SetExpression;
 import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 
@@ -52,6 +53,17 @@ public class TargetMappingVisitorImpl extends MinimalEObjectImpl.Container imple
 	 * @generated
 	 */
 	public void visitTargetMapping(TargetMapping tm) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void visitTargetMappingForSystemBody(TargetMappingForSystemBody tm) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
@@ -172,6 +184,17 @@ public class TargetMappingVisitorImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public void inTargetMappingForSystemBody(TargetMappingForSystemBody tm) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void inScheduleTreeExpression(ScheduleTreeExpression ste) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -272,6 +295,17 @@ public class TargetMappingVisitorImpl extends MinimalEObjectImpl.Container imple
 	 * @generated
 	 */
 	public void outTargetMapping(TargetMapping tm) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void outTargetMappingForSystemBody(TargetMappingForSystemBody tm) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();

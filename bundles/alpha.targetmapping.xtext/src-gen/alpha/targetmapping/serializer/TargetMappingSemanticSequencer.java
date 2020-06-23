@@ -75,13 +75,11 @@ import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.MarkExpression;
-import alpha.targetmapping.MemoryMapping;
-import alpha.targetmapping.MemorySpace;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.SequenceExpression;
 import alpha.targetmapping.SetExpression;
-import alpha.targetmapping.SpaceTimeMapping;
 import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetmappingPackage;
 import alpha.targetmapping.services.TargetMappingGrammarAccess;
 import com.google.inject.Inject;
@@ -351,30 +349,6 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 			case TargetmappingPackage.MARK_EXPRESSION:
 				sequence_MarkExpression(context, (MarkExpression) semanticObject); 
 				return; 
-			case TargetmappingPackage.MEMORY_MAPPING:
-				if (rule == grammarAccess.getMemoryMappingIdentityRule()) {
-					sequence_MemoryMappingIdentity(context, (MemoryMapping) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getMemoryMappingVariableNameOnlyRule()) {
-					sequence_MemoryMappingVariableNameOnly(context, (MemoryMapping) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getMemoryMappingRule()) {
-					sequence_MemoryMapping(context, (MemoryMapping) semanticObject); 
-					return; 
-				}
-				else break;
-			case TargetmappingPackage.MEMORY_SPACE:
-				if (rule == grammarAccess.getMemorySpaceMappingOnlyRule()) {
-					sequence_MemorySpaceMappingOnly(context, (MemorySpace) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getMemorySpaceRule()) {
-					sequence_MemorySpace(context, (MemorySpace) semanticObject); 
-					return; 
-				}
-				else break;
 			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN:
 				if (rule == grammarAccess.getScheduleTargetRestrictDomainRule()) {
 					sequence_ScheduleTargetRestrictDomain(context, (ScheduleTargetRestrictDomain) semanticObject); 
@@ -391,22 +365,11 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 			case TargetmappingPackage.SET_EXPRESSION:
 				sequence_SetExpression(context, (SetExpression) semanticObject); 
 				return; 
-			case TargetmappingPackage.SPACE_TIME_MAPPING:
-				if (rule == grammarAccess.getSpaceTimeMappingIdentityRule()) {
-					sequence_SpaceTimeMappingIdentity(context, (SpaceTimeMapping) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getSpaceTimeMappingVariableNameOnlyRule()) {
-					sequence_SpaceTimeMappingVariableNameOnly(context, (SpaceTimeMapping) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getSpaceTimeMappingRule()) {
-					sequence_SpaceTimeMapping(context, (SpaceTimeMapping) semanticObject); 
-					return; 
-				}
-				else break;
 			case TargetmappingPackage.TARGET_MAPPING:
 				sequence_TargetMapping(context, (TargetMapping) semanticObject); 
+				return; 
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY:
+				sequence_TargetMappingForSystemBody(context, (TargetMappingForSystemBody) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -503,7 +466,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     ExtensionTarget returns ExtensionTarget
 	 *
 	 * Constraint:
-	 *     ((source=[AlphaScheduleTarget|ID] (indexNames+=ID indexNames+=ID*)?)? extensionMap=JNIRelation name=ID)
+	 *     (source=[AlphaScheduleTarget|ID]? extensionMap=JNIRelation name=ID (indexNames+=ID indexNames+=ID*)?)
 	 */
 	protected void sequence_ExtensionTarget(ISerializationContext context, ExtensionTarget semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -529,7 +492,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     GuardExpression returns GuardExpression
 	 *
 	 * Constraint:
-	 *     (guardDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression)
+	 *     (guardDomain=JNIDomain child=ScheduleTreeExpression)
 	 */
 	protected void sequence_GuardExpression(ISerializationContext context, GuardExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -539,7 +502,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__CHILD));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getGuardExpressionAccess().getGuardDomainJNIDomainInArrayNotationParserRuleCall_1_0(), semanticObject.getGuardDomain());
+		feeder.accept(grammarAccess.getGuardExpressionAccess().getGuardDomainJNIDomainParserRuleCall_1_0(), semanticObject.getGuardDomain());
 		feeder.accept(grammarAccess.getGuardExpressionAccess().getChildScheduleTreeExpressionParserRuleCall_2_0(), semanticObject.getChild());
 		feeder.finish();
 	}
@@ -602,87 +565,6 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     MemoryMappingIdentity returns MemoryMapping
-	 *
-	 * Constraint:
-	 *     scheduleTarget=[AlphaScheduleTarget|ID]
-	 */
-	protected void sequence_MemoryMappingIdentity(ISerializationContext context, MemoryMapping semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getMemoryMappingIdentityAccess().getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1(), semanticObject.eGet(TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET, false));
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     MemoryMappingVariableNameOnly returns MemoryMapping
-	 *
-	 * Constraint:
-	 *     scheduleTarget=[AlphaScheduleTarget|ID]
-	 */
-	protected void sequence_MemoryMappingVariableNameOnly(ISerializationContext context, MemoryMapping semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getMemoryMappingVariableNameOnlyAccess().getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_1(), semanticObject.eGet(TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET, false));
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     MemoryMapping returns MemoryMapping
-	 *
-	 * Constraint:
-	 *     (scheduleTarget=[AlphaScheduleTarget|ID] mapping=JNIFunction)
-	 */
-	protected void sequence_MemoryMapping(ISerializationContext context, MemoryMapping semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET));
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__MAPPING) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__MAPPING));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getMemoryMappingAccess().getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1(), semanticObject.eGet(TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET, false));
-		feeder.accept(grammarAccess.getMemoryMappingAccess().getMappingJNIFunctionParserRuleCall_2_0(), semanticObject.getMapping());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     MemorySpaceMappingOnly returns MemorySpace
-	 *
-	 * Constraint:
-	 *     (memoryMaps+=MemoryMapping | memoryMaps+=MemoryMappingIdentity)
-	 */
-	protected void sequence_MemorySpaceMappingOnly(ISerializationContext context, MemorySpace semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     MemorySpace returns MemorySpace
-	 *
-	 * Constraint:
-	 *     (<unknown> name=ID)
-	 */
-	protected void sequence_MemorySpace(ISerializationContext context, MemorySpace semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     ScheduleTargetRestrictDomain returns ScheduleTargetRestrictDomain
 	 *
 	 * Constraint:
@@ -733,58 +615,13 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     SpaceTimeMappingIdentity returns SpaceTimeMapping
+	 *     TargetMappingForSystemBody returns TargetMappingForSystemBody
 	 *
 	 * Constraint:
-	 *     scheduleTarget=[AlphaScheduleTarget|ID]
+	 *     (targetBody=[SystemBody|IntRef]? (scheduleTreeRoot=ContextExpression | scheduleTreeRoot=ScheduleTreeExpression))
 	 */
-	protected void sequence_SpaceTimeMappingIdentity(ISerializationContext context, SpaceTimeMapping semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSpaceTimeMappingIdentityAccess().getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1(), semanticObject.eGet(TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET, false));
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     SpaceTimeMappingVariableNameOnly returns SpaceTimeMapping
-	 *
-	 * Constraint:
-	 *     scheduleTarget=[AlphaScheduleTarget|ID]
-	 */
-	protected void sequence_SpaceTimeMappingVariableNameOnly(ISerializationContext context, SpaceTimeMapping semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSpaceTimeMappingVariableNameOnlyAccess().getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_1(), semanticObject.eGet(TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET, false));
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     SpaceTimeMapping returns SpaceTimeMapping
-	 *
-	 * Constraint:
-	 *     (scheduleTarget=[AlphaScheduleTarget|ID] mapping=JNIFunction)
-	 */
-	protected void sequence_SpaceTimeMapping(ISerializationContext context, SpaceTimeMapping semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET));
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__MAPPING) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ABSTRACT_MAPPING__MAPPING));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSpaceTimeMappingAccess().getScheduleTargetAlphaScheduleTargetIDTerminalRuleCall_0_0_1(), semanticObject.eGet(TargetmappingPackage.Literals.ABSTRACT_MAPPING__SCHEDULE_TARGET, false));
-		feeder.accept(grammarAccess.getSpaceTimeMappingAccess().getMappingJNIFunctionParserRuleCall_2_0(), semanticObject.getMapping());
-		feeder.finish();
+	protected void sequence_TargetMappingForSystemBody(ISerializationContext context, TargetMappingForSystemBody semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -793,12 +630,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     TargetMapping returns TargetMapping
 	 *
 	 * Constraint:
-	 *     (
-	 *         targetSystem=[AlphaSystem|QualifiedName] 
-	 *         (scheduleTreeRoot=ContextExpression | scheduleTreeRoot=ScheduleTreeExpression)? 
-	 *         memorySpaces+=MemorySpace? 
-	 *         (memorySpaces+=MemorySpaceMappingOnly? memorySpaces+=MemorySpace?)*
-	 *     )
+	 *     (targetSystem=[AlphaSystem|QualifiedName] systemBodyTMs+=TargetMappingForSystemBody*)
 	 */
 	protected void sequence_TargetMapping(ISerializationContext context, TargetMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

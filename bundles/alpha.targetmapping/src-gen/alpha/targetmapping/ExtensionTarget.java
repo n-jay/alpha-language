@@ -17,8 +17,8 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.ExtensionTarget#getSource <em>Source</em>}</li>
- *   <li>{@link alpha.targetmapping.ExtensionTarget#getIndexNames <em>Index Names</em>}</li>
  *   <li>{@link alpha.targetmapping.ExtensionTarget#getName <em>Name</em>}</li>
+ *   <li>{@link alpha.targetmapping.ExtensionTarget#getIndexNames <em>Index Names</em>}</li>
  *   <li>{@link alpha.targetmapping.ExtensionTarget#getExtensionMap <em>Extension Map</em>}</li>
  * </ul>
  *
@@ -50,18 +50,6 @@ public interface ExtensionTarget extends AlphaScheduleTarget {
 	void setSource(AlphaScheduleTarget value);
 
 	/**
-	 * Returns the value of the '<em><b>Index Names</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Index Names</em>' attribute list.
-	 * @see alpha.targetmapping.TargetmappingPackage#getExtensionTarget_IndexNames()
-	 * @model unique="false"
-	 * @generated
-	 */
-	EList<String> getIndexNames();
-
-	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,6 +70,18 @@ public interface ExtensionTarget extends AlphaScheduleTarget {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Index Names</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Index Names</em>' attribute list.
+	 * @see alpha.targetmapping.TargetmappingPackage#getExtensionTarget_IndexNames()
+	 * @model unique="false"
+	 * @generated
+	 */
+	EList<String> getIndexNames();
 
 	/**
 	 * Returns the value of the '<em><b>Extension Map</b></em>' containment reference.

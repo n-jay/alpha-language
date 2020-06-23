@@ -8,48 +8,15 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 TargetMapping returns TargetMapping:
 	'target' targetSystem=[model::AlphaSystem|QualifiedName]
 	
-//	('SpaceTime' '{'
-//		((spaceTimeMaps+=SpaceTimeMappingVariableNameOnly ',')* spaceTimeMaps+=(SpaceTimeMapping|SpaceTimeMappingIdentity))+
-//	'}')?
-
-	scheduleTreeRoot=(ContextExpression|ScheduleTreeExpression)?
-	
-	('MemoryMap' '{'
-		(memorySpaces+=(MemorySpace|MemorySpaceMappingOnly))+
-	'}')?
+	(systemBodyTMs+=TargetMappingForSystemBody)*
+ 
 ;
 
-MemorySpace:
-	name=ID '{' 
-		((memoryMaps+=MemoryMappingVariableNameOnly ',')* memoryMaps+=(MemoryMapping|MemoryMappingIdentity))*
-	'}'
+TargetMappingForSystemBody:
+	{TargetMappingForSystemBody}  ('body' targetBody=[model::SystemBody|IntRef] ':')? scheduleTreeRoot=(ContextExpression|ScheduleTreeExpression)
 ;
+IntRef returns ecore::EString: INT;
 
-MemorySpaceMappingOnly returns MemorySpace:
-	memoryMaps+=(MemoryMapping|MemoryMappingIdentity)
-;
-
-SpaceTimeMapping:
-		scheduleTarget=[model::AlphaScheduleTarget|ID] ':' mapping=JNIFunction
-;
-
-MemoryMapping:
-		scheduleTarget=[model::AlphaScheduleTarget|ID] ':' mapping=JNIFunction
-;
-
-SpaceTimeMappingVariableNameOnly returns SpaceTimeMapping:
-	scheduleTarget=[model::AlphaScheduleTarget|ID]
-;
-MemoryMappingVariableNameOnly returns MemoryMapping:
-	scheduleTarget=[model::AlphaScheduleTarget|ID]
-;
-
-SpaceTimeMappingIdentity returns SpaceTimeMapping:
-	scheduleTarget=[model::AlphaScheduleTarget|ID] ':' 'Id'
-;
-MemoryMappingIdentity returns MemoryMapping:
-	scheduleTarget=[model::AlphaScheduleTarget|ID] ':' 'Id'
-;
 
 ScheduleTreeExpression:
 	SequenceExpression |
@@ -88,7 +55,7 @@ FilterExpression:
 ;
 
 GuardExpression:
-	'if' guardDomain=JNIDomainInArrayNotation child=ScheduleTreeExpression
+	'if' guardDomain=JNIDomain child=ScheduleTreeExpression
 ;
 
 MarkExpression:
@@ -132,7 +99,47 @@ ExtensionExpression:
 ;
 
 ExtensionTarget:
-	('from' source=[model::AlphaScheduleTarget|ID] ('[' indexNames+=ID (',' indexNames+=ID)* ']')? )? 
-	extensionMap=JNIRelation 'as' name=ID 
+	('from' source=[model::AlphaScheduleTarget|ID])? extensionMap=JNIRelation 'as' name=ID ('[' indexNames+=ID (',' indexNames+=ID)* ']')? 
 ;
 
+
+
+//	('SpaceTime' '{'
+//		((spaceTimeMaps+=SpaceTimeMappingVariableNameOnly ',')* spaceTimeMaps+=(SpaceTimeMapping|SpaceTimeMappingIdentity))+
+//	'}')?
+//	
+//	('MemoryMap' '{'
+//		(memorySpaces+=(MemorySpace|MemorySpaceMappingOnly))+
+//	'}')?
+//
+//MemorySpace:
+//	name=ID '{' 
+//		((memoryMaps+=MemoryMappingVariableNameOnly ',')* memoryMaps+=(MemoryMapping|MemoryMappingIdentity))*
+//	'}'
+//;
+//
+//MemorySpaceMappingOnly returns MemorySpace:
+//	memoryMaps+=(MemoryMapping|MemoryMappingIdentity)
+//;
+//
+//SpaceTimeMapping:
+//		scheduleTarget=[model::AlphaScheduleTarget|ID] ':' mapping=JNIFunction
+//;
+//
+//MemoryMapping:
+//		scheduleTarget=[model::AlphaScheduleTarget|ID] ':' mapping=JNIFunction
+//;
+//
+//SpaceTimeMappingVariableNameOnly returns SpaceTimeMapping:
+//	scheduleTarget=[model::AlphaScheduleTarget|ID]
+//;
+//MemoryMappingVariableNameOnly returns MemoryMapping:
+//	scheduleTarget=[model::AlphaScheduleTarget|ID]
+//;
+//
+//SpaceTimeMappingIdentity returns SpaceTimeMapping:
+//	scheduleTarget=[model::AlphaScheduleTarget|ID] ':' 'Id'
+//;
+//MemoryMappingIdentity returns MemoryMapping:
+//	scheduleTarget=[model::AlphaScheduleTarget|ID] ':' 'Id'
+//;

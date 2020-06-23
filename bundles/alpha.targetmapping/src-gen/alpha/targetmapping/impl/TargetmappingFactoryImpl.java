@@ -61,9 +61,7 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 		switch (eClass.getClassifierID()) {
 			case TargetmappingPackage.TARGET_MAPPING_VISITOR: return createTargetMappingVisitor();
 			case TargetmappingPackage.TARGET_MAPPING: return createTargetMapping();
-			case TargetmappingPackage.SPACE_TIME_MAPPING: return createSpaceTimeMapping();
-			case TargetmappingPackage.MEMORY_MAPPING: return createMemoryMapping();
-			case TargetmappingPackage.MEMORY_SPACE: return createMemorySpace();
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY: return createTargetMappingForSystemBody();
 			case TargetmappingPackage.CONTEXT_EXPRESSION: return createContextExpression();
 			case TargetmappingPackage.SET_EXPRESSION: return createSetExpression();
 			case TargetmappingPackage.SEQUENCE_EXPRESSION: return createSequenceExpression();
@@ -138,29 +136,9 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SpaceTimeMapping createSpaceTimeMapping() {
-		SpaceTimeMappingImpl spaceTimeMapping = new SpaceTimeMappingImpl();
-		return spaceTimeMapping;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public MemoryMapping createMemoryMapping() {
-		MemoryMappingImpl memoryMapping = new MemoryMappingImpl();
-		return memoryMapping;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public MemorySpace createMemorySpace() {
-		MemorySpaceImpl memorySpace = new MemorySpaceImpl();
-		return memorySpace;
+	public TargetMappingForSystemBody createTargetMappingForSystemBody() {
+		TargetMappingForSystemBodyImpl targetMappingForSystemBody = new TargetMappingForSystemBodyImpl();
+		return targetMappingForSystemBody;
 	}
 
 	/**

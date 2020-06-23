@@ -4,9 +4,8 @@ package alpha.targetmapping.impl;
 
 import alpha.model.AlphaSystem;
 
-import alpha.targetmapping.MemorySpace;
-import alpha.targetmapping.ScheduleTreeExpression;
 import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 
@@ -35,8 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.impl.TargetMappingImpl#getTargetSystem <em>Target System</em>}</li>
- *   <li>{@link alpha.targetmapping.impl.TargetMappingImpl#getScheduleTreeRoot <em>Schedule Tree Root</em>}</li>
- *   <li>{@link alpha.targetmapping.impl.TargetMappingImpl#getMemorySpaces <em>Memory Spaces</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.TargetMappingImpl#getSystemBodyTMs <em>System Body TMs</em>}</li>
  * </ul>
  *
  * @generated
@@ -53,24 +51,14 @@ public class TargetMappingImpl extends MinimalEObjectImpl.Container implements T
 	protected AlphaSystem targetSystem;
 
 	/**
-	 * The cached value of the '{@link #getScheduleTreeRoot() <em>Schedule Tree Root</em>}' containment reference.
+	 * The cached value of the '{@link #getSystemBodyTMs() <em>System Body TMs</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getScheduleTreeRoot()
+	 * @see #getSystemBodyTMs()
 	 * @generated
 	 * @ordered
 	 */
-	protected ScheduleTreeExpression scheduleTreeRoot;
-
-	/**
-	 * The cached value of the '{@link #getMemorySpaces() <em>Memory Spaces</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMemorySpaces()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<MemorySpace> memorySpaces;
+	protected EList<TargetMappingForSystemBody> systemBodyTMs;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,54 +122,11 @@ public class TargetMappingImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ScheduleTreeExpression getScheduleTreeRoot() {
-		return scheduleTreeRoot;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetScheduleTreeRoot(ScheduleTreeExpression newScheduleTreeRoot, NotificationChain msgs) {
-		ScheduleTreeExpression oldScheduleTreeRoot = scheduleTreeRoot;
-		scheduleTreeRoot = newScheduleTreeRoot;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.TARGET_MAPPING__SCHEDULE_TREE_ROOT, oldScheduleTreeRoot, newScheduleTreeRoot);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<TargetMappingForSystemBody> getSystemBodyTMs() {
+		if (systemBodyTMs == null) {
+			systemBodyTMs = new EObjectContainmentEList<TargetMappingForSystemBody>(TargetMappingForSystemBody.class, this, TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setScheduleTreeRoot(ScheduleTreeExpression newScheduleTreeRoot) {
-		if (newScheduleTreeRoot != scheduleTreeRoot) {
-			NotificationChain msgs = null;
-			if (scheduleTreeRoot != null)
-				msgs = ((InternalEObject)scheduleTreeRoot).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.TARGET_MAPPING__SCHEDULE_TREE_ROOT, null, msgs);
-			if (newScheduleTreeRoot != null)
-				msgs = ((InternalEObject)newScheduleTreeRoot).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.TARGET_MAPPING__SCHEDULE_TREE_ROOT, null, msgs);
-			msgs = basicSetScheduleTreeRoot(newScheduleTreeRoot, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.TARGET_MAPPING__SCHEDULE_TREE_ROOT, newScheduleTreeRoot, newScheduleTreeRoot));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<MemorySpace> getMemorySpaces() {
-		if (memorySpaces == null) {
-			memorySpaces = new EObjectContainmentEList<MemorySpace>(MemorySpace.class, this, TargetmappingPackage.TARGET_MAPPING__MEMORY_SPACES);
-		}
-		return memorySpaces;
+		return systemBodyTMs;
 	}
 
 	/**
@@ -201,10 +146,8 @@ public class TargetMappingImpl extends MinimalEObjectImpl.Container implements T
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TargetmappingPackage.TARGET_MAPPING__SCHEDULE_TREE_ROOT:
-				return basicSetScheduleTreeRoot(null, msgs);
-			case TargetmappingPackage.TARGET_MAPPING__MEMORY_SPACES:
-				return ((InternalEList<?>)getMemorySpaces()).basicRemove(otherEnd, msgs);
+			case TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS:
+				return ((InternalEList<?>)getSystemBodyTMs()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -220,10 +163,8 @@ public class TargetMappingImpl extends MinimalEObjectImpl.Container implements T
 			case TargetmappingPackage.TARGET_MAPPING__TARGET_SYSTEM:
 				if (resolve) return getTargetSystem();
 				return basicGetTargetSystem();
-			case TargetmappingPackage.TARGET_MAPPING__SCHEDULE_TREE_ROOT:
-				return getScheduleTreeRoot();
-			case TargetmappingPackage.TARGET_MAPPING__MEMORY_SPACES:
-				return getMemorySpaces();
+			case TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS:
+				return getSystemBodyTMs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -240,12 +181,9 @@ public class TargetMappingImpl extends MinimalEObjectImpl.Container implements T
 			case TargetmappingPackage.TARGET_MAPPING__TARGET_SYSTEM:
 				setTargetSystem((AlphaSystem)newValue);
 				return;
-			case TargetmappingPackage.TARGET_MAPPING__SCHEDULE_TREE_ROOT:
-				setScheduleTreeRoot((ScheduleTreeExpression)newValue);
-				return;
-			case TargetmappingPackage.TARGET_MAPPING__MEMORY_SPACES:
-				getMemorySpaces().clear();
-				getMemorySpaces().addAll((Collection<? extends MemorySpace>)newValue);
+			case TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS:
+				getSystemBodyTMs().clear();
+				getSystemBodyTMs().addAll((Collection<? extends TargetMappingForSystemBody>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -262,11 +200,8 @@ public class TargetMappingImpl extends MinimalEObjectImpl.Container implements T
 			case TargetmappingPackage.TARGET_MAPPING__TARGET_SYSTEM:
 				setTargetSystem((AlphaSystem)null);
 				return;
-			case TargetmappingPackage.TARGET_MAPPING__SCHEDULE_TREE_ROOT:
-				setScheduleTreeRoot((ScheduleTreeExpression)null);
-				return;
-			case TargetmappingPackage.TARGET_MAPPING__MEMORY_SPACES:
-				getMemorySpaces().clear();
+			case TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS:
+				getSystemBodyTMs().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -282,10 +217,8 @@ public class TargetMappingImpl extends MinimalEObjectImpl.Container implements T
 		switch (featureID) {
 			case TargetmappingPackage.TARGET_MAPPING__TARGET_SYSTEM:
 				return targetSystem != null;
-			case TargetmappingPackage.TARGET_MAPPING__SCHEDULE_TREE_ROOT:
-				return scheduleTreeRoot != null;
-			case TargetmappingPackage.TARGET_MAPPING__MEMORY_SPACES:
-				return memorySpaces != null && !memorySpaces.isEmpty();
+			case TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS:
+				return systemBodyTMs != null && !systemBodyTMs.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

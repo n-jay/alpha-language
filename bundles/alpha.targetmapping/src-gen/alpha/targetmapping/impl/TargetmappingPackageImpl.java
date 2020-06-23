@@ -4,7 +4,6 @@ package alpha.targetmapping.impl;
 
 import alpha.model.ModelPackage;
 
-import alpha.targetmapping.AbstractMapping;
 import alpha.targetmapping.BandExpression;
 import alpha.targetmapping.BandPiece;
 import alpha.targetmapping.BandPieceForReductionBody;
@@ -16,15 +15,13 @@ import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.MarkExpression;
-import alpha.targetmapping.MemoryMapping;
-import alpha.targetmapping.MemorySpace;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.ScheduleTreeExpression;
 import alpha.targetmapping.ScopingEntity;
 import alpha.targetmapping.SequenceExpression;
 import alpha.targetmapping.SetExpression;
-import alpha.targetmapping.SpaceTimeMapping;
 import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingNode;
 import alpha.targetmapping.TargetMappingVisitable;
 import alpha.targetmapping.TargetMappingVisitor;
@@ -90,28 +87,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass abstractMappingEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass spaceTimeMappingEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass memoryMappingEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass memorySpaceEClass = null;
+	private EClass targetMappingForSystemBodyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -349,7 +325,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTargetMapping_ScheduleTreeRoot() {
+	public EReference getTargetMapping_SystemBodyTMs() {
 		return (EReference)targetMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -358,8 +334,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTargetMapping_MemorySpaces() {
-		return (EReference)targetMappingEClass.getEStructuralFeatures().get(2);
+	public EClass getTargetMappingForSystemBody() {
+		return targetMappingForSystemBodyEClass;
 	}
 
 	/**
@@ -367,8 +343,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getAbstractMapping() {
-		return abstractMappingEClass;
+	public EReference getTargetMappingForSystemBody_TargetBody() {
+		return (EReference)targetMappingForSystemBodyEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -376,71 +352,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAbstractMapping_ScheduleTarget() {
-		return (EReference)abstractMappingEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAbstractMapping_Mapping() {
-		return (EReference)abstractMappingEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSpaceTimeMapping() {
-		return spaceTimeMappingEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getMemoryMapping() {
-		return memoryMappingEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getMemoryMapping_MemorySpaceName() {
-		return (EAttribute)memoryMappingEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getMemorySpace() {
-		return memorySpaceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getMemorySpace_Name() {
-		return (EAttribute)memorySpaceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getMemorySpace_MemoryMaps() {
-		return (EReference)memorySpaceEClass.getEStructuralFeatures().get(1);
+	public EReference getTargetMappingForSystemBody_ScheduleTreeRoot() {
+		return (EReference)targetMappingForSystemBodyEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -844,7 +757,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExtensionTarget_IndexNames() {
+	public EAttribute getExtensionTarget_Name() {
 		return (EAttribute)extensionTargetEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -853,7 +766,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExtensionTarget_Name() {
+	public EAttribute getExtensionTarget_IndexNames() {
 		return (EAttribute)extensionTargetEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -913,21 +826,11 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		targetMappingEClass = createEClass(TARGET_MAPPING);
 		createEReference(targetMappingEClass, TARGET_MAPPING__TARGET_SYSTEM);
-		createEReference(targetMappingEClass, TARGET_MAPPING__SCHEDULE_TREE_ROOT);
-		createEReference(targetMappingEClass, TARGET_MAPPING__MEMORY_SPACES);
+		createEReference(targetMappingEClass, TARGET_MAPPING__SYSTEM_BODY_TMS);
 
-		abstractMappingEClass = createEClass(ABSTRACT_MAPPING);
-		createEReference(abstractMappingEClass, ABSTRACT_MAPPING__SCHEDULE_TARGET);
-		createEReference(abstractMappingEClass, ABSTRACT_MAPPING__MAPPING);
-
-		spaceTimeMappingEClass = createEClass(SPACE_TIME_MAPPING);
-
-		memoryMappingEClass = createEClass(MEMORY_MAPPING);
-		createEAttribute(memoryMappingEClass, MEMORY_MAPPING__MEMORY_SPACE_NAME);
-
-		memorySpaceEClass = createEClass(MEMORY_SPACE);
-		createEAttribute(memorySpaceEClass, MEMORY_SPACE__NAME);
-		createEReference(memorySpaceEClass, MEMORY_SPACE__MEMORY_MAPS);
+		targetMappingForSystemBodyEClass = createEClass(TARGET_MAPPING_FOR_SYSTEM_BODY);
+		createEReference(targetMappingForSystemBodyEClass, TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY);
+		createEReference(targetMappingForSystemBodyEClass, TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT);
 
 		scheduleTreeExpressionEClass = createEClass(SCHEDULE_TREE_EXPRESSION);
 
@@ -987,8 +890,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		extensionTargetEClass = createEClass(EXTENSION_TARGET);
 		createEReference(extensionTargetEClass, EXTENSION_TARGET__SOURCE);
-		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__INDEX_NAMES);
 		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__NAME);
+		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__INDEX_NAMES);
 		createEReference(extensionTargetEClass, EXTENSION_TARGET__EXTENSION_MAP);
 
 		// Create data types
@@ -1030,8 +933,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		targetMappingEClass.getESuperTypes().add(this.getTargetMappingNode());
 		targetMappingEClass.getESuperTypes().add(this.getTargetMappingVisitable());
 		targetMappingEClass.getESuperTypes().add(this.getScopingEntity());
-		spaceTimeMappingEClass.getESuperTypes().add(this.getAbstractMapping());
-		memoryMappingEClass.getESuperTypes().add(this.getAbstractMapping());
+		targetMappingForSystemBodyEClass.getESuperTypes().add(this.getTargetMappingNode());
+		targetMappingForSystemBodyEClass.getESuperTypes().add(this.getTargetMappingVisitable());
+		targetMappingForSystemBodyEClass.getESuperTypes().add(this.getScopingEntity());
 		scheduleTreeExpressionEClass.getESuperTypes().add(this.getTargetMappingNode());
 		scheduleTreeExpressionEClass.getESuperTypes().add(this.getTargetMappingVisitable());
 		contextExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
@@ -1059,6 +963,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		op = addEOperation(targetMappingVisitorEClass, null, "visitTargetMapping", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMapping(), "tm", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "visitTargetMappingForSystemBody", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingForSystemBody(), "tm", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(targetMappingVisitorEClass, null, "visitScheduleTreeExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getScheduleTreeExpression(), "ste", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -1090,6 +997,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		op = addEOperation(targetMappingVisitorEClass, null, "inTargetMapping", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMapping(), "tm", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(targetMappingVisitorEClass, null, "inTargetMappingForSystemBody", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingForSystemBody(), "tm", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(targetMappingVisitorEClass, null, "inScheduleTreeExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getScheduleTreeExpression(), "ste", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -1119,6 +1029,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		op = addEOperation(targetMappingVisitorEClass, null, "outTargetMapping", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMapping(), "tm", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outTargetMappingForSystemBody", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingForSystemBody(), "tm", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(targetMappingVisitorEClass, null, "outScheduleTreeExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getScheduleTreeExpression(), "ste", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -1151,24 +1064,17 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		initEClass(targetMappingEClass, TargetMapping.class, "TargetMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTargetMapping_TargetSystem(), theModelPackage.getAlphaSystem(), null, "targetSystem", null, 0, 1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTargetMapping_ScheduleTreeRoot(), this.getScheduleTreeExpression(), null, "scheduleTreeRoot", null, 0, 1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTargetMapping_MemorySpaces(), this.getMemorySpace(), null, "memorySpaces", null, 0, -1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetMapping_SystemBodyTMs(), this.getTargetMappingForSystemBody(), null, "systemBodyTMs", null, 0, -1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(targetMappingEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		initEClass(abstractMappingEClass, AbstractMapping.class, "AbstractMapping", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAbstractMapping_ScheduleTarget(), theModelPackage.getAlphaScheduleTarget(), null, "scheduleTarget", null, 0, 1, AbstractMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAbstractMapping_Mapping(), theModelPackage.getJNIFunction(), null, "mapping", null, 0, 1, AbstractMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(targetMappingForSystemBodyEClass, TargetMappingForSystemBody.class, "TargetMappingForSystemBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTargetMappingForSystemBody_TargetBody(), theModelPackage.getSystemBody(), null, "targetBody", null, 0, 1, TargetMappingForSystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetMappingForSystemBody_ScheduleTreeRoot(), this.getScheduleTreeExpression(), null, "scheduleTreeRoot", null, 0, 1, TargetMappingForSystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(spaceTimeMappingEClass, SpaceTimeMapping.class, "SpaceTimeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(memoryMappingEClass, MemoryMapping.class, "MemoryMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMemoryMapping_MemorySpaceName(), theEcorePackage.getEString(), "memorySpaceName", null, 0, 1, MemoryMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(memorySpaceEClass, MemorySpace.class, "MemorySpace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMemorySpace_Name(), theEcorePackage.getEString(), "name", null, 0, 1, MemorySpace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMemorySpace_MemoryMaps(), this.getMemoryMapping(), null, "memoryMaps", null, 0, -1, MemorySpace.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		op = addEOperation(targetMappingForSystemBodyEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(scheduleTreeExpressionEClass, ScheduleTreeExpression.class, "ScheduleTreeExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1204,7 +1110,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEReference(getScheduleTargetRestrictDomain_RestrictDomain(), theModelPackage.getJNIDomainInArrayNotation(), null, "restrictDomain", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guardExpressionEClass, GuardExpression.class, "GuardExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGuardExpression_GuardDomain(), theModelPackage.getJNIDomainInArrayNotation(), null, "guardDomain", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGuardExpression_GuardDomain(), theModelPackage.getJNIDomain(), null, "guardDomain", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGuardExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, GuardExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(guardExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -1252,8 +1158,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		initEClass(extensionTargetEClass, ExtensionTarget.class, "ExtensionTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExtensionTarget_Source(), theModelPackage.getAlphaScheduleTarget(), null, "source", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getExtensionTarget_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExtensionTarget_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExtensionTarget_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExtensionTarget_ExtensionMap(), theModelPackage.getJNIRelation(), null, "extensionMap", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize data types

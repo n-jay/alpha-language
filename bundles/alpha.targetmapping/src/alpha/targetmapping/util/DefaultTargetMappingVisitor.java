@@ -10,6 +10,7 @@ import alpha.targetmapping.ScheduleTreeExpression;
 import alpha.targetmapping.SequenceExpression;
 import alpha.targetmapping.SetExpression;
 import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingVisitable;
 import alpha.targetmapping.TargetMappingVisitor;
 
@@ -28,8 +29,15 @@ public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	@Override
 	default void visitTargetMapping(TargetMapping tm) {
 		inTargetMapping(tm);
-		accept(tm.getScheduleTreeRoot());
+		tm.getSystemBodyTMs().forEach(sbtm->sbtm.accept(this));
 		outTargetMapping(tm);
+	}
+	
+	@Override
+	default void visitTargetMappingForSystemBody(TargetMappingForSystemBody tm) {
+		inTargetMappingForSystemBody(tm);
+		tm.getScheduleTreeRoot().accept(this);
+		outTargetMappingForSystemBody(tm);
 	}
 	
 	@Override
@@ -100,6 +108,11 @@ public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	}
 	
 	@Override
+	default void inTargetMappingForSystemBody(TargetMappingForSystemBody tm) {
+		defaultIn(tm);
+	}
+	
+	@Override
 	default void inScheduleTreeExpression(ScheduleTreeExpression ste) {
 		defaultIn(ste);
 	}
@@ -149,6 +162,11 @@ public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	
 	@Override
 	default void outTargetMapping(TargetMapping tm) {
+		defaultOut(tm);
+	}
+	
+	@Override
+	default void outTargetMappingForSystemBody(TargetMappingForSystemBody tm) {
 		defaultOut(tm);
 	}
 	

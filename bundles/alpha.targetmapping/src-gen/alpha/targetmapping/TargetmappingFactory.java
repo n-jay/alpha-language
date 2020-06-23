@@ -40,31 +40,13 @@ public interface TargetmappingFactory extends EFactory {
 	TargetMapping createTargetMapping();
 
 	/**
-	 * Returns a new object of class '<em>Space Time Mapping</em>'.
+	 * Returns a new object of class '<em>Target Mapping For System Body</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Space Time Mapping</em>'.
+	 * @return a new object of class '<em>Target Mapping For System Body</em>'.
 	 * @generated
 	 */
-	SpaceTimeMapping createSpaceTimeMapping();
-
-	/**
-	 * Returns a new object of class '<em>Memory Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Memory Mapping</em>'.
-	 * @generated
-	 */
-	MemoryMapping createMemoryMapping();
-
-	/**
-	 * Returns a new object of class '<em>Memory Space</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Memory Space</em>'.
-	 * @generated
-	 */
-	MemorySpace createMemorySpace();
+	TargetMappingForSystemBody createTargetMappingForSystemBody();
 
 	/**
 	 * Returns a new object of class '<em>Context Expression</em>'.

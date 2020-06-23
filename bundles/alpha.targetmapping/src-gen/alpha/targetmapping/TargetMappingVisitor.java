@@ -36,6 +36,14 @@ public interface TargetMappingVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model tmUnique="false"
+	 * @generated
+	 */
+	void visitTargetMappingForSystemBody(TargetMappingForSystemBody tm);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model steUnique="false"
 	 * @generated
 	 */
@@ -119,6 +127,14 @@ public interface TargetMappingVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model tmUnique="false"
+	 * @generated
+	 */
+	void inTargetMappingForSystemBody(TargetMappingForSystemBody tm);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model steUnique="false"
 	 * @generated
 	 */
@@ -198,6 +214,14 @@ public interface TargetMappingVisitor extends EObject {
 	 * @generated
 	 */
 	void outTargetMapping(TargetMapping tm);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model tmUnique="false"
+	 * @generated
+	 */
+	void outTargetMappingForSystemBody(TargetMappingForSystemBody tm);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -2,7 +2,7 @@
  */
 package alpha.targetmapping;
 
-import alpha.model.JNIDomainInArrayNotation;
+import alpha.model.JNIDomain;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,12 +27,12 @@ public interface GuardExpression extends ScheduleTreeExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Guard Domain</em>' containment reference.
-	 * @see #setGuardDomain(JNIDomainInArrayNotation)
+	 * @see #setGuardDomain(JNIDomain)
 	 * @see alpha.targetmapping.TargetmappingPackage#getGuardExpression_GuardDomain()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIDomainInArrayNotation getGuardDomain();
+	JNIDomain getGuardDomain();
 
 	/**
 	 * Sets the value of the '{@link alpha.targetmapping.GuardExpression#getGuardDomain <em>Guard Domain</em>}' containment reference.
@@ -42,7 +42,7 @@ public interface GuardExpression extends ScheduleTreeExpression {
 	 * @see #getGuardDomain()
 	 * @generated
 	 */
-	void setGuardDomain(JNIDomainInArrayNotation value);
+	void setGuardDomain(JNIDomain value);
 
 	/**
 	 * Returns the value of the '<em><b>Child</b></em>' containment reference.

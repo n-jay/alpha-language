@@ -154,22 +154,13 @@ public interface TargetmappingPackage extends EPackage {
 	int TARGET_MAPPING__TARGET_SYSTEM = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Schedule Tree Root</b></em>' containment reference.
+	 * The feature id for the '<em><b>System Body TMs</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_MAPPING__SCHEDULE_TREE_ROOT = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Memory Spaces</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_MAPPING__MEMORY_SPACES = TARGET_MAPPING_NODE_FEATURE_COUNT + 2;
+	int TARGET_MAPPING__SYSTEM_BODY_TMS = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Target Mapping</em>' class.
@@ -178,164 +169,44 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_MAPPING_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 3;
+	int TARGET_MAPPING_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link alpha.targetmapping.impl.AbstractMappingImpl <em>Abstract Mapping</em>}' class.
+	 * The meta object id for the '{@link alpha.targetmapping.impl.TargetMappingForSystemBodyImpl <em>Target Mapping For System Body</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see alpha.targetmapping.impl.AbstractMappingImpl
-	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getAbstractMapping()
+	 * @see alpha.targetmapping.impl.TargetMappingForSystemBodyImpl
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getTargetMappingForSystemBody()
 	 * @generated
 	 */
-	int ABSTRACT_MAPPING = 5;
+	int TARGET_MAPPING_FOR_SYSTEM_BODY = 5;
 
 	/**
-	 * The feature id for the '<em><b>Schedule Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_MAPPING__SCHEDULE_TARGET = 0;
-
-	/**
-	 * The feature id for the '<em><b>Mapping</b></em>' containment reference.
+	 * The feature id for the '<em><b>Target Body</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_MAPPING__MAPPING = 1;
+	int TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Abstract Mapping</em>' class.
+	 * The feature id for the '<em><b>Schedule Tree Root</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_MAPPING_FEATURE_COUNT = 2;
+	int TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link alpha.targetmapping.impl.SpaceTimeMappingImpl <em>Space Time Mapping</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see alpha.targetmapping.impl.SpaceTimeMappingImpl
-	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getSpaceTimeMapping()
-	 * @generated
-	 */
-	int SPACE_TIME_MAPPING = 6;
-
-	/**
-	 * The feature id for the '<em><b>Schedule Target</b></em>' reference.
+	 * The number of structural features of the '<em>Target Mapping For System Body</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SPACE_TIME_MAPPING__SCHEDULE_TARGET = ABSTRACT_MAPPING__SCHEDULE_TARGET;
-
-	/**
-	 * The feature id for the '<em><b>Mapping</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SPACE_TIME_MAPPING__MAPPING = ABSTRACT_MAPPING__MAPPING;
-
-	/**
-	 * The number of structural features of the '<em>Space Time Mapping</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SPACE_TIME_MAPPING_FEATURE_COUNT = ABSTRACT_MAPPING_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link alpha.targetmapping.impl.MemoryMappingImpl <em>Memory Mapping</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see alpha.targetmapping.impl.MemoryMappingImpl
-	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getMemoryMapping()
-	 * @generated
-	 */
-	int MEMORY_MAPPING = 7;
-
-	/**
-	 * The feature id for the '<em><b>Schedule Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MEMORY_MAPPING__SCHEDULE_TARGET = ABSTRACT_MAPPING__SCHEDULE_TARGET;
-
-	/**
-	 * The feature id for the '<em><b>Mapping</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MEMORY_MAPPING__MAPPING = ABSTRACT_MAPPING__MAPPING;
-
-	/**
-	 * The feature id for the '<em><b>Memory Space Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MEMORY_MAPPING__MEMORY_SPACE_NAME = ABSTRACT_MAPPING_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Memory Mapping</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MEMORY_MAPPING_FEATURE_COUNT = ABSTRACT_MAPPING_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link alpha.targetmapping.impl.MemorySpaceImpl <em>Memory Space</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see alpha.targetmapping.impl.MemorySpaceImpl
-	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getMemorySpace()
-	 * @generated
-	 */
-	int MEMORY_SPACE = 8;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MEMORY_SPACE__NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Memory Maps</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MEMORY_SPACE__MEMORY_MAPS = 1;
-
-	/**
-	 * The number of structural features of the '<em>Memory Space</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MEMORY_SPACE_FEATURE_COUNT = 2;
+	int TARGET_MAPPING_FOR_SYSTEM_BODY_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.ScheduleTreeExpressionImpl <em>Schedule Tree Expression</em>}' class.
@@ -345,7 +216,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getScheduleTreeExpression()
 	 * @generated
 	 */
-	int SCHEDULE_TREE_EXPRESSION = 9;
+	int SCHEDULE_TREE_EXPRESSION = 6;
 
 	/**
 	 * The number of structural features of the '<em>Schedule Tree Expression</em>' class.
@@ -364,7 +235,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getContextExpression()
 	 * @generated
 	 */
-	int CONTEXT_EXPRESSION = 10;
+	int CONTEXT_EXPRESSION = 7;
 
 	/**
 	 * The feature id for the '<em><b>Context Domain</b></em>' containment reference.
@@ -401,7 +272,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getSetExpression()
 	 * @generated
 	 */
-	int SET_EXPRESSION = 11;
+	int SET_EXPRESSION = 8;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -429,7 +300,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getSequenceExpression()
 	 * @generated
 	 */
-	int SEQUENCE_EXPRESSION = 12;
+	int SEQUENCE_EXPRESSION = 9;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -457,7 +328,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getFilterExpression()
 	 * @generated
 	 */
-	int FILTER_EXPRESSION = 13;
+	int FILTER_EXPRESSION = 10;
 
 	/**
 	 * The feature id for the '<em><b>Filter Domains</b></em>' containment reference list.
@@ -494,7 +365,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getScheduleTargetRestrictDomain()
 	 * @generated
 	 */
-	int SCHEDULE_TARGET_RESTRICT_DOMAIN = 14;
+	int SCHEDULE_TARGET_RESTRICT_DOMAIN = 11;
 
 	/**
 	 * The feature id for the '<em><b>Schedule Target</b></em>' reference.
@@ -540,7 +411,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getGuardExpression()
 	 * @generated
 	 */
-	int GUARD_EXPRESSION = 15;
+	int GUARD_EXPRESSION = 12;
 
 	/**
 	 * The feature id for the '<em><b>Guard Domain</b></em>' containment reference.
@@ -577,7 +448,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getMarkExpression()
 	 * @generated
 	 */
-	int MARK_EXPRESSION = 16;
+	int MARK_EXPRESSION = 13;
 
 	/**
 	 * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -614,7 +485,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getBandExpression()
 	 * @generated
 	 */
-	int BAND_EXPRESSION = 17;
+	int BAND_EXPRESSION = 14;
 
 	/**
 	 * The feature id for the '<em><b>Band Pieces</b></em>' containment reference list.
@@ -687,7 +558,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getBandPiece()
 	 * @generated
 	 */
-	int BAND_PIECE = 18;
+	int BAND_PIECE = 15;
 
 	/**
 	 * The feature id for the '<em><b>Piece Domain</b></em>' containment reference.
@@ -724,7 +595,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getLoopTypeSpecification()
 	 * @generated
 	 */
-	int LOOP_TYPE_SPECIFICATION = 19;
+	int LOOP_TYPE_SPECIFICATION = 16;
 
 	/**
 	 * The feature id for the '<em><b>Dimension</b></em>' attribute.
@@ -761,7 +632,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getIsolateSpecification()
 	 * @generated
 	 */
-	int ISOLATE_SPECIFICATION = 20;
+	int ISOLATE_SPECIFICATION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Isolate Domain</b></em>' containment reference.
@@ -798,7 +669,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getBandPieceForReductionBody()
 	 * @generated
 	 */
-	int BAND_PIECE_FOR_REDUCTION_BODY = 21;
+	int BAND_PIECE_FOR_REDUCTION_BODY = 18;
 
 	/**
 	 * The feature id for the '<em><b>Piece Domain</b></em>' containment reference.
@@ -844,7 +715,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getExtensionExpression()
 	 * @generated
 	 */
-	int EXTENSION_EXPRESSION = 22;
+	int EXTENSION_EXPRESSION = 19;
 
 	/**
 	 * The feature id for the '<em><b>Extension Targets</b></em>' containment reference list.
@@ -881,7 +752,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getExtensionTarget()
 	 * @generated
 	 */
-	int EXTENSION_TARGET = 23;
+	int EXTENSION_TARGET = 20;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
@@ -893,22 +764,22 @@ public interface TargetmappingPackage extends EPackage {
 	int EXTENSION_TARGET__SOURCE = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Index Names</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_TARGET__INDEX_NAMES = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_TARGET__NAME = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 2;
+	int EXTENSION_TARGET__NAME = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Index Names</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSION_TARGET__INDEX_NAMES = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Extension Map</b></em>' containment reference.
@@ -936,7 +807,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getISLASTLoopType()
 	 * @generated
 	 */
-	int ISLAST_LOOP_TYPE = 24;
+	int ISLAST_LOOP_TYPE = 21;
 
 
 	/**
@@ -1001,121 +872,47 @@ public interface TargetmappingPackage extends EPackage {
 	EReference getTargetMapping_TargetSystem();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.TargetMapping#getScheduleTreeRoot <em>Schedule Tree Root</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.TargetMapping#getSystemBodyTMs <em>System Body TMs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>System Body TMs</em>'.
+	 * @see alpha.targetmapping.TargetMapping#getSystemBodyTMs()
+	 * @see #getTargetMapping()
+	 * @generated
+	 */
+	EReference getTargetMapping_SystemBodyTMs();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.targetmapping.TargetMappingForSystemBody <em>Target Mapping For System Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Target Mapping For System Body</em>'.
+	 * @see alpha.targetmapping.TargetMappingForSystemBody
+	 * @generated
+	 */
+	EClass getTargetMappingForSystemBody();
+
+	/**
+	 * Returns the meta object for the reference '{@link alpha.targetmapping.TargetMappingForSystemBody#getTargetBody <em>Target Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target Body</em>'.
+	 * @see alpha.targetmapping.TargetMappingForSystemBody#getTargetBody()
+	 * @see #getTargetMappingForSystemBody()
+	 * @generated
+	 */
+	EReference getTargetMappingForSystemBody_TargetBody();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.TargetMappingForSystemBody#getScheduleTreeRoot <em>Schedule Tree Root</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Schedule Tree Root</em>'.
-	 * @see alpha.targetmapping.TargetMapping#getScheduleTreeRoot()
-	 * @see #getTargetMapping()
+	 * @see alpha.targetmapping.TargetMappingForSystemBody#getScheduleTreeRoot()
+	 * @see #getTargetMappingForSystemBody()
 	 * @generated
 	 */
-	EReference getTargetMapping_ScheduleTreeRoot();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.TargetMapping#getMemorySpaces <em>Memory Spaces</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Memory Spaces</em>'.
-	 * @see alpha.targetmapping.TargetMapping#getMemorySpaces()
-	 * @see #getTargetMapping()
-	 * @generated
-	 */
-	EReference getTargetMapping_MemorySpaces();
-
-	/**
-	 * Returns the meta object for class '{@link alpha.targetmapping.AbstractMapping <em>Abstract Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Abstract Mapping</em>'.
-	 * @see alpha.targetmapping.AbstractMapping
-	 * @generated
-	 */
-	EClass getAbstractMapping();
-
-	/**
-	 * Returns the meta object for the reference '{@link alpha.targetmapping.AbstractMapping#getScheduleTarget <em>Schedule Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Schedule Target</em>'.
-	 * @see alpha.targetmapping.AbstractMapping#getScheduleTarget()
-	 * @see #getAbstractMapping()
-	 * @generated
-	 */
-	EReference getAbstractMapping_ScheduleTarget();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.AbstractMapping#getMapping <em>Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Mapping</em>'.
-	 * @see alpha.targetmapping.AbstractMapping#getMapping()
-	 * @see #getAbstractMapping()
-	 * @generated
-	 */
-	EReference getAbstractMapping_Mapping();
-
-	/**
-	 * Returns the meta object for class '{@link alpha.targetmapping.SpaceTimeMapping <em>Space Time Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Space Time Mapping</em>'.
-	 * @see alpha.targetmapping.SpaceTimeMapping
-	 * @generated
-	 */
-	EClass getSpaceTimeMapping();
-
-	/**
-	 * Returns the meta object for class '{@link alpha.targetmapping.MemoryMapping <em>Memory Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Memory Mapping</em>'.
-	 * @see alpha.targetmapping.MemoryMapping
-	 * @generated
-	 */
-	EClass getMemoryMapping();
-
-	/**
-	 * Returns the meta object for the attribute '{@link alpha.targetmapping.MemoryMapping#getMemorySpaceName <em>Memory Space Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Memory Space Name</em>'.
-	 * @see alpha.targetmapping.MemoryMapping#getMemorySpaceName()
-	 * @see #getMemoryMapping()
-	 * @generated
-	 */
-	EAttribute getMemoryMapping_MemorySpaceName();
-
-	/**
-	 * Returns the meta object for class '{@link alpha.targetmapping.MemorySpace <em>Memory Space</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Memory Space</em>'.
-	 * @see alpha.targetmapping.MemorySpace
-	 * @generated
-	 */
-	EClass getMemorySpace();
-
-	/**
-	 * Returns the meta object for the attribute '{@link alpha.targetmapping.MemorySpace#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see alpha.targetmapping.MemorySpace#getName()
-	 * @see #getMemorySpace()
-	 * @generated
-	 */
-	EAttribute getMemorySpace_Name();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.MemorySpace#getMemoryMaps <em>Memory Maps</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Memory Maps</em>'.
-	 * @see alpha.targetmapping.MemorySpace#getMemoryMaps()
-	 * @see #getMemorySpace()
-	 * @generated
-	 */
-	EReference getMemorySpace_MemoryMaps();
+	EReference getTargetMappingForSystemBody_ScheduleTreeRoot();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.targetmapping.ScheduleTreeExpression <em>Schedule Tree Expression</em>}'.
@@ -1587,17 +1384,6 @@ public interface TargetmappingPackage extends EPackage {
 	EReference getExtensionTarget_Source();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link alpha.targetmapping.ExtensionTarget#getIndexNames <em>Index Names</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Index Names</em>'.
-	 * @see alpha.targetmapping.ExtensionTarget#getIndexNames()
-	 * @see #getExtensionTarget()
-	 * @generated
-	 */
-	EAttribute getExtensionTarget_IndexNames();
-
-	/**
 	 * Returns the meta object for the attribute '{@link alpha.targetmapping.ExtensionTarget#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1607,6 +1393,17 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getExtensionTarget_Name();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link alpha.targetmapping.ExtensionTarget#getIndexNames <em>Index Names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Index Names</em>'.
+	 * @see alpha.targetmapping.ExtensionTarget#getIndexNames()
+	 * @see #getExtensionTarget()
+	 * @generated
+	 */
+	EAttribute getExtensionTarget_IndexNames();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.ExtensionTarget#getExtensionMap <em>Extension Map</em>}'.
@@ -1711,100 +1508,38 @@ public interface TargetmappingPackage extends EPackage {
 		EReference TARGET_MAPPING__TARGET_SYSTEM = eINSTANCE.getTargetMapping_TargetSystem();
 
 		/**
+		 * The meta object literal for the '<em><b>System Body TMs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TARGET_MAPPING__SYSTEM_BODY_TMS = eINSTANCE.getTargetMapping_SystemBodyTMs();
+
+		/**
+		 * The meta object literal for the '{@link alpha.targetmapping.impl.TargetMappingForSystemBodyImpl <em>Target Mapping For System Body</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.targetmapping.impl.TargetMappingForSystemBodyImpl
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getTargetMappingForSystemBody()
+		 * @generated
+		 */
+		EClass TARGET_MAPPING_FOR_SYSTEM_BODY = eINSTANCE.getTargetMappingForSystemBody();
+
+		/**
+		 * The meta object literal for the '<em><b>Target Body</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY = eINSTANCE.getTargetMappingForSystemBody_TargetBody();
+
+		/**
 		 * The meta object literal for the '<em><b>Schedule Tree Root</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TARGET_MAPPING__SCHEDULE_TREE_ROOT = eINSTANCE.getTargetMapping_ScheduleTreeRoot();
-
-		/**
-		 * The meta object literal for the '<em><b>Memory Spaces</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TARGET_MAPPING__MEMORY_SPACES = eINSTANCE.getTargetMapping_MemorySpaces();
-
-		/**
-		 * The meta object literal for the '{@link alpha.targetmapping.impl.AbstractMappingImpl <em>Abstract Mapping</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see alpha.targetmapping.impl.AbstractMappingImpl
-		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getAbstractMapping()
-		 * @generated
-		 */
-		EClass ABSTRACT_MAPPING = eINSTANCE.getAbstractMapping();
-
-		/**
-		 * The meta object literal for the '<em><b>Schedule Target</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ABSTRACT_MAPPING__SCHEDULE_TARGET = eINSTANCE.getAbstractMapping_ScheduleTarget();
-
-		/**
-		 * The meta object literal for the '<em><b>Mapping</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ABSTRACT_MAPPING__MAPPING = eINSTANCE.getAbstractMapping_Mapping();
-
-		/**
-		 * The meta object literal for the '{@link alpha.targetmapping.impl.SpaceTimeMappingImpl <em>Space Time Mapping</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see alpha.targetmapping.impl.SpaceTimeMappingImpl
-		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getSpaceTimeMapping()
-		 * @generated
-		 */
-		EClass SPACE_TIME_MAPPING = eINSTANCE.getSpaceTimeMapping();
-
-		/**
-		 * The meta object literal for the '{@link alpha.targetmapping.impl.MemoryMappingImpl <em>Memory Mapping</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see alpha.targetmapping.impl.MemoryMappingImpl
-		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getMemoryMapping()
-		 * @generated
-		 */
-		EClass MEMORY_MAPPING = eINSTANCE.getMemoryMapping();
-
-		/**
-		 * The meta object literal for the '<em><b>Memory Space Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MEMORY_MAPPING__MEMORY_SPACE_NAME = eINSTANCE.getMemoryMapping_MemorySpaceName();
-
-		/**
-		 * The meta object literal for the '{@link alpha.targetmapping.impl.MemorySpaceImpl <em>Memory Space</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see alpha.targetmapping.impl.MemorySpaceImpl
-		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getMemorySpace()
-		 * @generated
-		 */
-		EClass MEMORY_SPACE = eINSTANCE.getMemorySpace();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MEMORY_SPACE__NAME = eINSTANCE.getMemorySpace_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Memory Maps</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MEMORY_SPACE__MEMORY_MAPS = eINSTANCE.getMemorySpace_MemoryMaps();
+		EReference TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT = eINSTANCE.getTargetMappingForSystemBody_ScheduleTreeRoot();
 
 		/**
 		 * The meta object literal for the '{@link alpha.targetmapping.impl.ScheduleTreeExpressionImpl <em>Schedule Tree Expression</em>}' class.
@@ -2189,20 +1924,20 @@ public interface TargetmappingPackage extends EPackage {
 		EReference EXTENSION_TARGET__SOURCE = eINSTANCE.getExtensionTarget_Source();
 
 		/**
-		 * The meta object literal for the '<em><b>Index Names</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EXTENSION_TARGET__INDEX_NAMES = eINSTANCE.getExtensionTarget_IndexNames();
-
-		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute EXTENSION_TARGET__NAME = eINSTANCE.getExtensionTarget_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Index Names</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXTENSION_TARGET__INDEX_NAMES = eINSTANCE.getExtensionTarget_IndexNames();
 
 		/**
 		 * The meta object literal for the '<em><b>Extension Map</b></em>' containment reference feature.

@@ -90,20 +90,8 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 				return createTargetMappingAdapter();
 			}
 			@Override
-			public Adapter caseAbstractMapping(AbstractMapping object) {
-				return createAbstractMappingAdapter();
-			}
-			@Override
-			public Adapter caseSpaceTimeMapping(SpaceTimeMapping object) {
-				return createSpaceTimeMappingAdapter();
-			}
-			@Override
-			public Adapter caseMemoryMapping(MemoryMapping object) {
-				return createMemoryMappingAdapter();
-			}
-			@Override
-			public Adapter caseMemorySpace(MemorySpace object) {
-				return createMemorySpaceAdapter();
+			public Adapter caseTargetMappingForSystemBody(TargetMappingForSystemBody object) {
+				return createTargetMappingForSystemBodyAdapter();
 			}
 			@Override
 			public Adapter caseScheduleTreeExpression(ScheduleTreeExpression object) {
@@ -260,58 +248,16 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.AbstractMapping <em>Abstract Mapping</em>}'.
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.TargetMappingForSystemBody <em>Target Mapping For System Body</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see alpha.targetmapping.AbstractMapping
+	 * @see alpha.targetmapping.TargetMappingForSystemBody
 	 * @generated
 	 */
-	public Adapter createAbstractMappingAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.SpaceTimeMapping <em>Space Time Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.targetmapping.SpaceTimeMapping
-	 * @generated
-	 */
-	public Adapter createSpaceTimeMappingAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.MemoryMapping <em>Memory Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.targetmapping.MemoryMapping
-	 * @generated
-	 */
-	public Adapter createMemoryMappingAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.MemorySpace <em>Memory Space</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see alpha.targetmapping.MemorySpace
-	 * @generated
-	 */
-	public Adapter createMemorySpaceAdapter() {
+	public Adapter createTargetMappingForSystemBodyAdapter() {
 		return null;
 	}
 

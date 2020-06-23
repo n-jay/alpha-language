@@ -2,7 +2,7 @@
  */
 package alpha.targetmapping.impl;
 
-import alpha.model.JNIDomainInArrayNotation;
+import alpha.model.JNIDomain;
 
 import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.ScheduleTreeExpression;
@@ -40,7 +40,7 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIDomainInArrayNotation guardDomain;
+	protected JNIDomain guardDomain;
 
 	/**
 	 * The cached value of the '{@link #getChild() <em>Child</em>}' containment reference.
@@ -76,7 +76,7 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIDomainInArrayNotation getGuardDomain() {
+	public JNIDomain getGuardDomain() {
 		return guardDomain;
 	}
 
@@ -85,8 +85,8 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetGuardDomain(JNIDomainInArrayNotation newGuardDomain, NotificationChain msgs) {
-		JNIDomainInArrayNotation oldGuardDomain = guardDomain;
+	public NotificationChain basicSetGuardDomain(JNIDomain newGuardDomain, NotificationChain msgs) {
+		JNIDomain oldGuardDomain = guardDomain;
 		guardDomain = newGuardDomain;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN, oldGuardDomain, newGuardDomain);
@@ -100,7 +100,7 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setGuardDomain(JNIDomainInArrayNotation newGuardDomain) {
+	public void setGuardDomain(JNIDomain newGuardDomain) {
 		if (newGuardDomain != guardDomain) {
 			NotificationChain msgs = null;
 			if (guardDomain != null)
@@ -207,7 +207,7 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN:
-				setGuardDomain((JNIDomainInArrayNotation)newValue);
+				setGuardDomain((JNIDomain)newValue);
 				return;
 			case TargetmappingPackage.GUARD_EXPRESSION__CHILD:
 				setChild((ScheduleTreeExpression)newValue);
@@ -225,7 +225,7 @@ public class GuardExpressionImpl extends ScheduleTreeExpressionImpl implements G
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TargetmappingPackage.GUARD_EXPRESSION__GUARD_DOMAIN:
-				setGuardDomain((JNIDomainInArrayNotation)null);
+				setGuardDomain((JNIDomain)null);
 				return;
 			case TargetmappingPackage.GUARD_EXPRESSION__CHILD:
 				setChild((ScheduleTreeExpression)null);
