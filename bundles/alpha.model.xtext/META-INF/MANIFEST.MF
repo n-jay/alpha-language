@@ -14,13 +14,12 @@ Require-Bundle: alpha.model,
  org.eclipse.xtext.util,
  org.eclipse.xtend.lib;bundle-version="2.14.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: alpha.model.scoping,
- alpha.model,
- alpha.model.services,
- alpha.model.validation,
- alpha.model.serializer,
+Export-Package: alpha.model,
  alpha.model.formatting2,
  alpha.model.parser.antlr,
- alpha.model.generator,
- alpha.model.parser.antlr.internal
+ alpha.model.parser.antlr.internal,
+ alpha.model.scoping,
+ alpha.model.serializer,
+ alpha.model.services,
+ alpha.model.validation
 Import-Package: org.apache.log4j
