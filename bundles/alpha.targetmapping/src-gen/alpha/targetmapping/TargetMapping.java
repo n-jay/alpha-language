@@ -16,8 +16,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.TargetMapping#getTargetSystem <em>Target System</em>}</li>
- *   <li>{@link alpha.targetmapping.TargetMapping#getScheduleTreeRoot <em>Schedule Tree Root</em>}</li>
- *   <li>{@link alpha.targetmapping.TargetMapping#getMemorySpaces <em>Memory Spaces</em>}</li>
+ *   <li>{@link alpha.targetmapping.TargetMapping#getSystemBodyTMs <em>System Body TMs</em>}</li>
  * </ul>
  *
  * @see alpha.targetmapping.TargetmappingPackage#getTargetMapping()
@@ -48,38 +47,16 @@ public interface TargetMapping extends TargetMappingNode, TargetMappingVisitable
 	void setTargetSystem(AlphaSystem value);
 
 	/**
-	 * Returns the value of the '<em><b>Schedule Tree Root</b></em>' containment reference.
+	 * Returns the value of the '<em><b>System Body TMs</b></em>' containment reference list.
+	 * The list contents are of type {@link alpha.targetmapping.TargetMappingForSystemBody}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Schedule Tree Root</em>' containment reference.
-	 * @see #setScheduleTreeRoot(ScheduleTreeExpression)
-	 * @see alpha.targetmapping.TargetmappingPackage#getTargetMapping_ScheduleTreeRoot()
+	 * @return the value of the '<em>System Body TMs</em>' containment reference list.
+	 * @see alpha.targetmapping.TargetmappingPackage#getTargetMapping_SystemBodyTMs()
 	 * @model containment="true"
 	 * @generated
 	 */
-	ScheduleTreeExpression getScheduleTreeRoot();
-
-	/**
-	 * Sets the value of the '{@link alpha.targetmapping.TargetMapping#getScheduleTreeRoot <em>Schedule Tree Root</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Schedule Tree Root</em>' containment reference.
-	 * @see #getScheduleTreeRoot()
-	 * @generated
-	 */
-	void setScheduleTreeRoot(ScheduleTreeExpression value);
-
-	/**
-	 * Returns the value of the '<em><b>Memory Spaces</b></em>' containment reference list.
-	 * The list contents are of type {@link alpha.targetmapping.MemorySpace}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Memory Spaces</em>' containment reference list.
-	 * @see alpha.targetmapping.TargetmappingPackage#getTargetMapping_MemorySpaces()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<MemorySpace> getMemorySpaces();
+	EList<TargetMappingForSystemBody> getSystemBodyTMs();
 
 	/**
 	 * <!-- begin-user-doc -->

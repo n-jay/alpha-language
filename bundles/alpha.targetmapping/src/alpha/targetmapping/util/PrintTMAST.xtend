@@ -8,6 +8,14 @@ import java.util.LinkedList
 import java.util.List
 import org.eclipse.emf.ecore.EObject
 import alpha.targetmapping.TargetMappingVisitable
+import alpha.targetmapping.TargetMapping
+import alpha.targetmapping.TargetMappingForSystemBody
+import alpha.targetmapping.FilterExpression
+import alpha.targetmapping.GuardExpression
+import alpha.targetmapping.MarkExpression
+import alpha.targetmapping.ContextExpression
+import alpha.targetmapping.BandExpression
+import alpha.targetmapping.ExtensionExpression
 
 class PrintTMAST extends AbstractTargetMappingVisitor {
 
@@ -46,4 +54,74 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 	override defaultOut(TargetMappingVisitable tmv) {
 		indent = indent.substring(0, indent.length() - INDENT_WITH_SIBILING.length());
 	}
+	
+	override inTargetMapping(TargetMapping tm) {
+		defaultIn(tm);
+		printStr("+--", "targetSystem:", tm.getTargetSystem().getName());
+	}
+	
+	override inTargetMappingForSystemBody(TargetMappingForSystemBody tm) {
+		defaultIn(tm);
+		printStr("+--", "targetBody:", tm.targetBody.system.systemBodies.indexOf(tm.targetBody));
+	}
+	
+	override inContextExpression(ContextExpression ce) {
+		defaultIn(ce);
+		printStr("+--", ce.contextDomain.ISLSet);
+	}
+	
+	override inFilterExpression(FilterExpression fe) {
+		defaultIn(fe);
+		for (fd : fe.filterDomains) {
+			if (fd.restrictDomain !== null) {
+				printStr("+--", fd.scheduleTarget.name , ":", fd.restrictDomain.ISLSet);
+			} else {
+				printStr("+--", fd.scheduleTarget.name);
+			}
+		}
+			
+	}
+	
+	override inGuardExpression(GuardExpression ge) {
+		defaultIn(ge);
+		printStr("+--", ge.guardDomain.ISLSet);
+	}
+	
+	override inMarkExpression(MarkExpression me) {
+		defaultIn(me);
+		printStr("+--", me.identifier);
+	}
+	
+	override inBandExpression(BandExpression be) {
+		defaultIn(be);
+		if (be.tile)
+			printStr("+--", "tile");
+		if (be.parallel)
+			printStr("+--", "parallel");
+		for (lts : be.loopTypeSpecifications) {
+			printStr("+--", lts.loopType.name, ":", lts.dimension);	
+		}
+		for (bp : be.bandPieces) {
+			if (bp.pieceDomain.restrictDomain !== null) {
+				printStr("+--", bp.pieceDomain.scheduleTarget.name, ":", bp.pieceDomain.restrictDomain.ISLSet, "@" , bp.partialSchedule.ISLMultiAff);
+			} else {
+				printStr("+--", bp.pieceDomain.scheduleTarget.name , "@" , bp.partialSchedule.ISLMultiAff);
+			}
+		}
+		if (be.isolateSpecification !== null) {
+			printStr("+--", "isolate", be.isolateSpecification.isolateDomain.ISLSet);
+			for (lts : be.isolateSpecification.loopTypeSpecifications) {
+				printStr("   +--", lts.loopType.name, ":", lts.dimension);	
+			}
+			
+		}
+	}
+
+	override inExtensionExpression(ExtensionExpression ee) {
+		defaultIn(ee);
+		for (et : ee.extensionTargets) {
+			printStr("+--", et.source.name, "->", et.name, ":", et.extensionMap.ISLMap);
+		}
+	}
+	
 }

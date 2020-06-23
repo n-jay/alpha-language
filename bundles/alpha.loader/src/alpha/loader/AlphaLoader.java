@@ -33,6 +33,7 @@ import alpha.model.ModelPackage;
 import alpha.model.exception.AlphaIssueException;
 import alpha.model.issue.AlphaIssue;
 import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetMappingInternalStateConstructor;
 import alpha.targetmapping.TargetMappingStandaloneSetup;
 import alpha.targetmapping.TargetmappingPackage;
 
@@ -216,20 +217,28 @@ public class AlphaLoader {
 		
 		EObject root = res.getContents().get(0);
 		TargetMapping toplevel = (TargetMapping) root;
-//		List<Issue> xtextIssues = validate(toplevel);
-//		if (!xtextIssues.isEmpty()) {
-//			throw new RuntimeException(xtextIssues.toString());
-//		}
-//		
-//		List<AlphaIssue> issues = AlphaInternalStateConstructor.compute(toplevel);
-//		if (!issues.isEmpty()) {
-//			issues.stream().forEach(i->System.err.println(i.getMessage()));
-//			throw new AlphaIssueException(issues);
-//		}
+		List<Issue> xtextIssues = validate(toplevel);
+		if (!xtextIssues.isEmpty()) {
+			throw new RuntimeException(xtextIssues.toString());
+		}
+		
+		List<AlphaIssue> issues = TargetMappingInternalStateConstructor.compute(toplevel);
+		if (!issues.isEmpty()) {
+			issues.stream().forEach(i->System.err.println(i.getMessage()));
+			throw new AlphaIssueException(issues);
+		}
 
 		return toplevel;
 	}
 	public static TargetMapping loadTargetMapping(File file) throws IOException {
 		return loadTargetMapping(file.getAbsolutePath());
+	}
+
+	public static List<Issue> validate(TargetMapping tm) {
+		Resource resource = tm.eResource();
+		IResourceValidator validator = ((XtextResource) resource).getResourceServiceProvider().getResourceValidator();
+		
+		List<Issue> issues = validator.validate(resource, CheckMode.FAST_ONLY, CancelIndicator.NullImpl);
+		return issues;
 	}
 }

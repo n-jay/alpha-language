@@ -1,30 +1,13 @@
 package alpha.targetmapping.issue;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.xtext.validation.AbstractDeclarativeValidator;
+import alpha.model.issue.AlphaIssue;
 
 /**
  * TargetMappingIssue is intended to report errors during IR construction to Xtext editor.
  * 
- * It is eventually mapped to:<ul>
- *   <li>{@link AbstractDeclarativeValidator.error}</li>
- *   <li>{@link AbstractDeclarativeValidator.warning}</li> 
- * </ul>
- * depending on the TYPE.
- * 
+ * It is currently identical to {@link AlphaIssue}.
  * 
  * @author tyuki
  *
  */
-public interface TargetMappingIssue {
-	public enum TYPE {
-		WARNING,
-		ERROR
-	}
-
-	public TYPE getType();
-	public String getMessage();
-	public EObject getSource();
-	public EStructuralFeature getFeature();
-}
+public interface TargetMappingIssue extends AlphaIssue {}

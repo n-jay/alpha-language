@@ -1,9 +1,24 @@
 package alpha.targetmapping.util;
 
+import alpha.model.JNIDomainInArrayNotation;
+import alpha.targetmapping.BandExpression;
+import alpha.targetmapping.BandPiece;
+import alpha.targetmapping.ContextExpression;
+import alpha.targetmapping.ExtensionExpression;
+import alpha.targetmapping.ExtensionTarget;
+import alpha.targetmapping.FilterExpression;
+import alpha.targetmapping.GuardExpression;
+import alpha.targetmapping.IsolateSpecification;
+import alpha.targetmapping.LoopTypeSpecification;
+import alpha.targetmapping.MarkExpression;
+import alpha.targetmapping.ScheduleTargetRestrictDomain;
+import alpha.targetmapping.TargetMapping;
+import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingVisitable;
 import alpha.targetmapping.util.AbstractTargetMappingVisitor;
 import java.util.List;
 import java.util.function.Consumer;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.Conversions;
 
 @SuppressWarnings("all")
@@ -60,5 +75,95 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
     int _length_1 = PrintTMAST.INDENT_WITH_SIBILING.length();
     int _minus = (_length - _length_1);
     this.indent = this.indent.substring(0, _minus);
+  }
+  
+  @Override
+  public void inTargetMapping(final TargetMapping tm) {
+    this.defaultIn(tm);
+    this.printStr("+--", "targetSystem:", tm.getTargetSystem().getName());
+  }
+  
+  @Override
+  public void inTargetMappingForSystemBody(final TargetMappingForSystemBody tm) {
+    this.defaultIn(tm);
+    this.printStr("+--", "targetBody:", Integer.valueOf(tm.getTargetBody().getSystem().getSystemBodies().indexOf(tm.getTargetBody())));
+  }
+  
+  @Override
+  public void inContextExpression(final ContextExpression ce) {
+    this.defaultIn(ce);
+    this.printStr("+--", ce.getContextDomain().getISLSet());
+  }
+  
+  @Override
+  public void inFilterExpression(final FilterExpression fe) {
+    this.defaultIn(fe);
+    EList<ScheduleTargetRestrictDomain> _filterDomains = fe.getFilterDomains();
+    for (final ScheduleTargetRestrictDomain fd : _filterDomains) {
+      JNIDomainInArrayNotation _restrictDomain = fd.getRestrictDomain();
+      boolean _tripleNotEquals = (_restrictDomain != null);
+      if (_tripleNotEquals) {
+        this.printStr("+--", fd.getScheduleTarget().getName(), ":", fd.getRestrictDomain().getISLSet());
+      } else {
+        this.printStr("+--", fd.getScheduleTarget().getName());
+      }
+    }
+  }
+  
+  @Override
+  public void inGuardExpression(final GuardExpression ge) {
+    this.defaultIn(ge);
+    this.printStr("+--", ge.getGuardDomain().getISLSet());
+  }
+  
+  @Override
+  public void inMarkExpression(final MarkExpression me) {
+    this.defaultIn(me);
+    this.printStr("+--", me.getIdentifier());
+  }
+  
+  @Override
+  public void inBandExpression(final BandExpression be) {
+    this.defaultIn(be);
+    boolean _isTile = be.isTile();
+    if (_isTile) {
+      this.printStr("+--", "tile");
+    }
+    boolean _isParallel = be.isParallel();
+    if (_isParallel) {
+      this.printStr("+--", "parallel");
+    }
+    EList<LoopTypeSpecification> _loopTypeSpecifications = be.getLoopTypeSpecifications();
+    for (final LoopTypeSpecification lts : _loopTypeSpecifications) {
+      this.printStr("+--", lts.getLoopType().getName(), ":", Integer.valueOf(lts.getDimension()));
+    }
+    EList<BandPiece> _bandPieces = be.getBandPieces();
+    for (final BandPiece bp : _bandPieces) {
+      JNIDomainInArrayNotation _restrictDomain = bp.getPieceDomain().getRestrictDomain();
+      boolean _tripleNotEquals = (_restrictDomain != null);
+      if (_tripleNotEquals) {
+        this.printStr("+--", bp.getPieceDomain().getScheduleTarget().getName(), ":", bp.getPieceDomain().getRestrictDomain().getISLSet(), "@", bp.getPartialSchedule().getISLMultiAff());
+      } else {
+        this.printStr("+--", bp.getPieceDomain().getScheduleTarget().getName(), "@", bp.getPartialSchedule().getISLMultiAff());
+      }
+    }
+    IsolateSpecification _isolateSpecification = be.getIsolateSpecification();
+    boolean _tripleNotEquals_1 = (_isolateSpecification != null);
+    if (_tripleNotEquals_1) {
+      this.printStr("+--", "isolate", be.getIsolateSpecification().getIsolateDomain().getISLSet());
+      EList<LoopTypeSpecification> _loopTypeSpecifications_1 = be.getIsolateSpecification().getLoopTypeSpecifications();
+      for (final LoopTypeSpecification lts_1 : _loopTypeSpecifications_1) {
+        this.printStr("   +--", lts_1.getLoopType().getName(), ":", Integer.valueOf(lts_1.getDimension()));
+      }
+    }
+  }
+  
+  @Override
+  public void inExtensionExpression(final ExtensionExpression ee) {
+    this.defaultIn(ee);
+    EList<ExtensionTarget> _extensionTargets = ee.getExtensionTargets();
+    for (final ExtensionTarget et : _extensionTargets) {
+      this.printStr("+--", et.getSource().getName(), "->", et.getName(), ":", et.getExtensionMap().getISLMap());
+    }
   }
 }
