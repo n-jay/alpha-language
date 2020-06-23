@@ -4,7 +4,6 @@
 package alpha.targetmapping;
 
 import alpha.targetmapping.formatting2.TargetMappingFormatter;
-import alpha.targetmapping.generator.TargetMappingGenerator;
 import alpha.targetmapping.parser.antlr.TargetMappingAntlrTokenFileProvider;
 import alpha.targetmapping.parser.antlr.TargetMappingParser;
 import alpha.targetmapping.parser.antlr.internal.InternalTargetMappingLexer;
@@ -25,7 +24,6 @@ import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.formatting2.FormatterPreferenceValuesProvider;
 import org.eclipse.xtext.formatting2.FormatterPreferences;
 import org.eclipse.xtext.formatting2.IFormatter2;
-import org.eclipse.xtext.generator.IGenerator2;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.parser.IParser;
@@ -205,11 +203,6 @@ public abstract class AbstractTargetMappingRuntimeModule extends DefaultRuntimeM
 	// contributed by org.eclipse.xtext.xtext.generator.builder.BuilderIntegrationFragment2
 	public void configureIResourceDescriptionsPersisted(Binder binder) {
 		binder.bind(IResourceDescriptions.class).annotatedWith(Names.named(ResourceDescriptionsProvider.PERSISTED_DESCRIPTIONS)).to(ResourceSetBasedResourceDescriptions.class);
-	}
-	
-	// contributed by org.eclipse.xtext.xtext.generator.generator.GeneratorFragment2
-	public Class<? extends IGenerator2> bindIGenerator2() {
-		return TargetMappingGenerator.class;
 	}
 	
 	// contributed by org.eclipse.xtext.xtext.generator.formatting.Formatter2Fragment2

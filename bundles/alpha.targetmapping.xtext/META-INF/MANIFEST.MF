@@ -19,7 +19,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: alpha.targetmapping,
  alpha.targetmapping.construction,
  alpha.targetmapping.formatting2,
- alpha.targetmapping.generator,
  alpha.targetmapping.parser.antlr,
  alpha.targetmapping.parser.antlr.internal,
  alpha.targetmapping.scoping,
