@@ -12112,9 +12112,9 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
     // $ANTLR end "ruleSINT"
 
 
-    // $ANTLR start "rule__TargetMapping__ScheduleTreeAlternatives_2_0"
-    // InternalTargetMapping.g:3548:1: rule__TargetMapping__ScheduleTreeAlternatives_2_0 : ( ( ruleContextExpression ) | ( ruleScheduleTreeExpression ) );
-    public final void rule__TargetMapping__ScheduleTreeAlternatives_2_0() throws RecognitionException {
+    // $ANTLR start "rule__TargetMapping__ScheduleTreeRootAlternatives_2_0"
+    // InternalTargetMapping.g:3548:1: rule__TargetMapping__ScheduleTreeRootAlternatives_2_0 : ( ( ruleContextExpression ) | ( ruleScheduleTreeExpression ) );
+    public final void rule__TargetMapping__ScheduleTreeRootAlternatives_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -12144,7 +12144,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
                     // InternalTargetMapping.g:3554:3: ruleContextExpression
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getTargetMappingAccess().getScheduleTreeContextExpressionParserRuleCall_2_0_0()); 
+                       before(grammarAccess.getTargetMappingAccess().getScheduleTreeRootContextExpressionParserRuleCall_2_0_0()); 
                     }
                     pushFollow(FOLLOW_2);
                     ruleContextExpression();
@@ -12152,7 +12152,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getTargetMappingAccess().getScheduleTreeContextExpressionParserRuleCall_2_0_0()); 
+                       after(grammarAccess.getTargetMappingAccess().getScheduleTreeRootContextExpressionParserRuleCall_2_0_0()); 
                     }
 
                     }
@@ -12167,7 +12167,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
                     // InternalTargetMapping.g:3560:3: ruleScheduleTreeExpression
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getTargetMappingAccess().getScheduleTreeScheduleTreeExpressionParserRuleCall_2_0_1()); 
+                       before(grammarAccess.getTargetMappingAccess().getScheduleTreeRootScheduleTreeExpressionParserRuleCall_2_0_1()); 
                     }
                     pushFollow(FOLLOW_2);
                     ruleScheduleTreeExpression();
@@ -12175,7 +12175,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
                     state._fsp--;
                     if (state.failed) return ;
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getTargetMappingAccess().getScheduleTreeScheduleTreeExpressionParserRuleCall_2_0_1()); 
+                       after(grammarAccess.getTargetMappingAccess().getScheduleTreeRootScheduleTreeExpressionParserRuleCall_2_0_1()); 
                     }
 
                     }
@@ -12197,7 +12197,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__TargetMapping__ScheduleTreeAlternatives_2_0"
+    // $ANTLR end "rule__TargetMapping__ScheduleTreeRootAlternatives_2_0"
 
 
     // $ANTLR start "rule__TargetMapping__MemorySpacesAlternatives_3_2_0"
@@ -20098,22 +20098,22 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
 
 
     // $ANTLR start "rule__TargetMapping__Group__2__Impl"
-    // InternalTargetMapping.g:5438:1: rule__TargetMapping__Group__2__Impl : ( ( rule__TargetMapping__ScheduleTreeAssignment_2 )? ) ;
+    // InternalTargetMapping.g:5438:1: rule__TargetMapping__Group__2__Impl : ( ( rule__TargetMapping__ScheduleTreeRootAssignment_2 )? ) ;
     public final void rule__TargetMapping__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalTargetMapping.g:5442:1: ( ( ( rule__TargetMapping__ScheduleTreeAssignment_2 )? ) )
-            // InternalTargetMapping.g:5443:1: ( ( rule__TargetMapping__ScheduleTreeAssignment_2 )? )
+            // InternalTargetMapping.g:5442:1: ( ( ( rule__TargetMapping__ScheduleTreeRootAssignment_2 )? ) )
+            // InternalTargetMapping.g:5443:1: ( ( rule__TargetMapping__ScheduleTreeRootAssignment_2 )? )
             {
-            // InternalTargetMapping.g:5443:1: ( ( rule__TargetMapping__ScheduleTreeAssignment_2 )? )
-            // InternalTargetMapping.g:5444:2: ( rule__TargetMapping__ScheduleTreeAssignment_2 )?
+            // InternalTargetMapping.g:5443:1: ( ( rule__TargetMapping__ScheduleTreeRootAssignment_2 )? )
+            // InternalTargetMapping.g:5444:2: ( rule__TargetMapping__ScheduleTreeRootAssignment_2 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getTargetMappingAccess().getScheduleTreeAssignment_2()); 
+               before(grammarAccess.getTargetMappingAccess().getScheduleTreeRootAssignment_2()); 
             }
-            // InternalTargetMapping.g:5445:2: ( rule__TargetMapping__ScheduleTreeAssignment_2 )?
+            // InternalTargetMapping.g:5445:2: ( rule__TargetMapping__ScheduleTreeRootAssignment_2 )?
             int alt59=2;
             int LA59_0 = input.LA(1);
 
@@ -20122,10 +20122,10 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
             switch (alt59) {
                 case 1 :
-                    // InternalTargetMapping.g:5445:3: rule__TargetMapping__ScheduleTreeAssignment_2
+                    // InternalTargetMapping.g:5445:3: rule__TargetMapping__ScheduleTreeRootAssignment_2
                     {
                     pushFollow(FOLLOW_2);
-                    rule__TargetMapping__ScheduleTreeAssignment_2();
+                    rule__TargetMapping__ScheduleTreeRootAssignment_2();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -20136,7 +20136,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getTargetMappingAccess().getScheduleTreeAssignment_2()); 
+               after(grammarAccess.getTargetMappingAccess().getScheduleTreeRootAssignment_2()); 
             }
 
             }
@@ -75392,27 +75392,27 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
     // $ANTLR end "rule__TargetMapping__TargetSystemAssignment_1"
 
 
-    // $ANTLR start "rule__TargetMapping__ScheduleTreeAssignment_2"
-    // InternalTargetMapping.g:22993:1: rule__TargetMapping__ScheduleTreeAssignment_2 : ( ( rule__TargetMapping__ScheduleTreeAlternatives_2_0 ) ) ;
-    public final void rule__TargetMapping__ScheduleTreeAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__TargetMapping__ScheduleTreeRootAssignment_2"
+    // InternalTargetMapping.g:22993:1: rule__TargetMapping__ScheduleTreeRootAssignment_2 : ( ( rule__TargetMapping__ScheduleTreeRootAlternatives_2_0 ) ) ;
+    public final void rule__TargetMapping__ScheduleTreeRootAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalTargetMapping.g:22997:1: ( ( ( rule__TargetMapping__ScheduleTreeAlternatives_2_0 ) ) )
-            // InternalTargetMapping.g:22998:2: ( ( rule__TargetMapping__ScheduleTreeAlternatives_2_0 ) )
+            // InternalTargetMapping.g:22997:1: ( ( ( rule__TargetMapping__ScheduleTreeRootAlternatives_2_0 ) ) )
+            // InternalTargetMapping.g:22998:2: ( ( rule__TargetMapping__ScheduleTreeRootAlternatives_2_0 ) )
             {
-            // InternalTargetMapping.g:22998:2: ( ( rule__TargetMapping__ScheduleTreeAlternatives_2_0 ) )
-            // InternalTargetMapping.g:22999:3: ( rule__TargetMapping__ScheduleTreeAlternatives_2_0 )
+            // InternalTargetMapping.g:22998:2: ( ( rule__TargetMapping__ScheduleTreeRootAlternatives_2_0 ) )
+            // InternalTargetMapping.g:22999:3: ( rule__TargetMapping__ScheduleTreeRootAlternatives_2_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getTargetMappingAccess().getScheduleTreeAlternatives_2_0()); 
+               before(grammarAccess.getTargetMappingAccess().getScheduleTreeRootAlternatives_2_0()); 
             }
-            // InternalTargetMapping.g:23000:3: ( rule__TargetMapping__ScheduleTreeAlternatives_2_0 )
-            // InternalTargetMapping.g:23000:4: rule__TargetMapping__ScheduleTreeAlternatives_2_0
+            // InternalTargetMapping.g:23000:3: ( rule__TargetMapping__ScheduleTreeRootAlternatives_2_0 )
+            // InternalTargetMapping.g:23000:4: rule__TargetMapping__ScheduleTreeRootAlternatives_2_0
             {
             pushFollow(FOLLOW_2);
-            rule__TargetMapping__ScheduleTreeAlternatives_2_0();
+            rule__TargetMapping__ScheduleTreeRootAlternatives_2_0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -75420,7 +75420,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getTargetMappingAccess().getScheduleTreeAlternatives_2_0()); 
+               after(grammarAccess.getTargetMappingAccess().getScheduleTreeRootAlternatives_2_0()); 
             }
 
             }
@@ -75440,7 +75440,7 @@ public class InternalTargetMappingParser extends AbstractInternalContentAssistPa
         }
         return ;
     }
-    // $ANTLR end "rule__TargetMapping__ScheduleTreeAssignment_2"
+    // $ANTLR end "rule__TargetMapping__ScheduleTreeRootAssignment_2"
 
 
     // $ANTLR start "rule__TargetMapping__MemorySpacesAssignment_3_2"

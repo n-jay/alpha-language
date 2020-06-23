@@ -12,7 +12,7 @@ TargetMapping returns TargetMapping:
 //		((spaceTimeMaps+=SpaceTimeMappingVariableNameOnly ',')* spaceTimeMaps+=(SpaceTimeMapping|SpaceTimeMappingIdentity))+
 //	'}')?
 
-	scheduleTree=(ContextExpression|ScheduleTreeExpression)?
+	scheduleTreeRoot=(ContextExpression|ScheduleTreeExpression)?
 	
 	('MemoryMap' '{'
 		(memorySpaces+=(MemorySpace|MemorySpaceMappingOnly))+

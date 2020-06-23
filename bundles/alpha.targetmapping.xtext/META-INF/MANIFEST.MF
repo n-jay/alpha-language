@@ -16,13 +16,14 @@ Require-Bundle: alpha.targetmapping,
  org.eclipse.xtend.lib;bundle-version="2.14.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: alpha.targetmapping.generator,
+Export-Package: alpha.targetmapping,
+ alpha.targetmapping.construction,
+ alpha.targetmapping.formatting2,
+ alpha.targetmapping.generator,
+ alpha.targetmapping.parser.antlr,
  alpha.targetmapping.parser.antlr.internal,
  alpha.targetmapping.scoping,
- alpha.targetmapping.services,
- alpha.targetmapping.parser.antlr,
  alpha.targetmapping.serializer,
- alpha.targetmapping.validation,
- alpha.targetmapping.formatting2,
- alpha.targetmapping
+ alpha.targetmapping.services,
+ alpha.targetmapping.validation
 Import-Package: org.apache.log4j

@@ -114,7 +114,7 @@ public class TargetMappingScopeProvider extends AbstractTargetMappingScopeProvid
     return Scopes.<ExtensionTarget>scopeFor(IterableExtensions.<ExtensionTarget>filter(ee.getExtensionTargets(), _function), _function_1, IScope.NULLSCOPE);
   }
   
-  private IScope constructScope(final ScopingEntity ee) {
+  private IScope constructScope(final EObject ee) {
     if (ee instanceof ExtensionExpression) {
       return _constructScope((ExtensionExpression)ee);
     } else if (ee instanceof FilterExpression) {

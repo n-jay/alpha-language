@@ -201,7 +201,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTargetMapping"
-    // InternalTargetMapping.g:71:1: ruleTargetMapping returns [EObject current=null] : (otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )? ) ;
+    // InternalTargetMapping.g:71:1: ruleTargetMapping returns [EObject current=null] : (otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )? ) ;
     public final EObject ruleTargetMapping() throws RecognitionException {
         EObject current = null;
 
@@ -209,9 +209,9 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         Token otherlv_3=null;
         Token otherlv_4=null;
         Token otherlv_6=null;
-        EObject lv_scheduleTree_2_1 = null;
+        EObject lv_scheduleTreeRoot_2_1 = null;
 
-        EObject lv_scheduleTree_2_2 = null;
+        EObject lv_scheduleTreeRoot_2_2 = null;
 
         EObject lv_memorySpaces_5_1 = null;
 
@@ -222,11 +222,11 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalTargetMapping.g:77:2: ( (otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )? ) )
-            // InternalTargetMapping.g:78:2: (otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )? )
+            // InternalTargetMapping.g:77:2: ( (otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )? ) )
+            // InternalTargetMapping.g:78:2: (otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )? )
             {
-            // InternalTargetMapping.g:78:2: (otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )? )
-            // InternalTargetMapping.g:79:3: otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )?
+            // InternalTargetMapping.g:78:2: (otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )? )
+            // InternalTargetMapping.g:79:3: otherlv_0= 'target' ( ( ruleQualifiedName ) ) ( ( (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression ) ) )? (otherlv_3= 'MemoryMap' otherlv_4= '{' ( ( (lv_memorySpaces_5_1= ruleMemorySpace | lv_memorySpaces_5_2= ruleMemorySpaceMappingOnly ) ) )+ otherlv_6= '}' )?
             {
             otherlv_0=(Token)match(input,12,FOLLOW_3); 
 
@@ -260,7 +260,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalTargetMapping.g:99:3: ( ( (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression ) ) )?
+            // InternalTargetMapping.g:99:3: ( ( (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression ) ) )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -269,12 +269,12 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             }
             switch (alt2) {
                 case 1 :
-                    // InternalTargetMapping.g:100:4: ( (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression ) )
+                    // InternalTargetMapping.g:100:4: ( (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression ) )
                     {
-                    // InternalTargetMapping.g:100:4: ( (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression ) )
-                    // InternalTargetMapping.g:101:5: (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression )
+                    // InternalTargetMapping.g:100:4: ( (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression ) )
+                    // InternalTargetMapping.g:101:5: (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression )
                     {
-                    // InternalTargetMapping.g:101:5: (lv_scheduleTree_2_1= ruleContextExpression | lv_scheduleTree_2_2= ruleScheduleTreeExpression )
+                    // InternalTargetMapping.g:101:5: (lv_scheduleTreeRoot_2_1= ruleContextExpression | lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression )
                     int alt1=2;
                     int LA1_0 = input.LA(1);
 
@@ -292,13 +292,13 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt1) {
                         case 1 :
-                            // InternalTargetMapping.g:102:6: lv_scheduleTree_2_1= ruleContextExpression
+                            // InternalTargetMapping.g:102:6: lv_scheduleTreeRoot_2_1= ruleContextExpression
                             {
 
-                            						newCompositeNode(grammarAccess.getTargetMappingAccess().getScheduleTreeContextExpressionParserRuleCall_2_0_0());
+                            						newCompositeNode(grammarAccess.getTargetMappingAccess().getScheduleTreeRootContextExpressionParserRuleCall_2_0_0());
                             					
                             pushFollow(FOLLOW_5);
-                            lv_scheduleTree_2_1=ruleContextExpression();
+                            lv_scheduleTreeRoot_2_1=ruleContextExpression();
 
                             state._fsp--;
 
@@ -308,8 +308,8 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                             						}
                             						set(
                             							current,
-                            							"scheduleTree",
-                            							lv_scheduleTree_2_1,
+                            							"scheduleTreeRoot",
+                            							lv_scheduleTreeRoot_2_1,
                             							"alpha.targetmapping.TargetMapping.ContextExpression");
                             						afterParserOrEnumRuleCall();
                             					
@@ -317,13 +317,13 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // InternalTargetMapping.g:118:6: lv_scheduleTree_2_2= ruleScheduleTreeExpression
+                            // InternalTargetMapping.g:118:6: lv_scheduleTreeRoot_2_2= ruleScheduleTreeExpression
                             {
 
-                            						newCompositeNode(grammarAccess.getTargetMappingAccess().getScheduleTreeScheduleTreeExpressionParserRuleCall_2_0_1());
+                            						newCompositeNode(grammarAccess.getTargetMappingAccess().getScheduleTreeRootScheduleTreeExpressionParserRuleCall_2_0_1());
                             					
                             pushFollow(FOLLOW_5);
-                            lv_scheduleTree_2_2=ruleScheduleTreeExpression();
+                            lv_scheduleTreeRoot_2_2=ruleScheduleTreeExpression();
 
                             state._fsp--;
 
@@ -333,8 +333,8 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                             						}
                             						set(
                             							current,
-                            							"scheduleTree",
-                            							lv_scheduleTree_2_2,
+                            							"scheduleTreeRoot",
+                            							lv_scheduleTreeRoot_2_2,
                             							"alpha.targetmapping.TargetMapping.ScheduleTreeExpression");
                             						afterParserOrEnumRuleCall();
                             					
@@ -2961,7 +2961,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     	            											if (current==null) {
                     	            												current = createModelElement(grammarAccess.getBandExpressionRule());
                     	            											}
-                    	            											setWithLastConsumed(current, "tile", true, "tile");
+                    	            											setWithLastConsumed(current, "tile", lv_tile_3_0 != null, "tile");
                     	            										
 
                     	            }
@@ -3025,7 +3025,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     	    										if (current==null) {
                     	    											current = createModelElement(grammarAccess.getBandExpressionRule());
                     	    										}
-                    	    										setWithLastConsumed(current, "parallel", true, "parallel");
+                    	    										setWithLastConsumed(current, "parallel", lv_parallel_4_0 != null, "parallel");
                     	    									
 
                     	    }
