@@ -138,15 +138,12 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final RuleCall cGuardExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cMarkExpressionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cBandExpressionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cExtensionExpressionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//ScheduleTreeExpression:
-		//	SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression |
-		//	ExtensionExpression;
+		//	SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression |
-		//ExtensionExpression
+		//SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//SequenceExpression
@@ -166,9 +163,25 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		
 		//BandExpression
 		public RuleCall getBandExpressionParserRuleCall_5() { return cBandExpressionParserRuleCall_5; }
+	}
+	public class FilterOrExtensionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FilterOrExtension");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cFilterExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cExtensionExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//FilterOrExtension ScheduleTreeExpression:
+		//	FilterExpression | ExtensionExpression;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//FilterExpression | ExtensionExpression
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//FilterExpression
+		public RuleCall getFilterExpressionParserRuleCall_0() { return cFilterExpressionParserRuleCall_0; }
 		
 		//ExtensionExpression
-		public RuleCall getExtensionExpressionParserRuleCall_6() { return cExtensionExpressionParserRuleCall_6; }
+		public RuleCall getExtensionExpressionParserRuleCall_1() { return cExtensionExpressionParserRuleCall_1; }
 	}
 	public class ContextExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ContextExpression");
@@ -208,16 +221,16 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cChildrenAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final RuleCall cChildrenScheduleTreeExpressionParserRuleCall_2_0_0 = (RuleCall)cChildrenAssignment_2_0.eContents().get(0);
+		private final RuleCall cChildrenFilterExpressionParserRuleCall_2_0_0 = (RuleCall)cChildrenAssignment_2_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//SetExpression:
-		//	'set' '{' (children+=ScheduleTreeExpression ';')+
+		//	'set' '{' (children+=FilterExpression ';')+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'set' '{' (children+=ScheduleTreeExpression ';')+ '}'
+		//'set' '{' (children+=FilterExpression ';')+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'set'
@@ -226,14 +239,14 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
 		
-		//(children+=ScheduleTreeExpression ';')+
+		//(children+=FilterExpression ';')+
 		public Group getGroup_2() { return cGroup_2; }
 		
-		//children+=ScheduleTreeExpression
+		//children+=FilterExpression
 		public Assignment getChildrenAssignment_2_0() { return cChildrenAssignment_2_0; }
 		
-		//ScheduleTreeExpression
-		public RuleCall getChildrenScheduleTreeExpressionParserRuleCall_2_0_0() { return cChildrenScheduleTreeExpressionParserRuleCall_2_0_0; }
+		//FilterExpression
+		public RuleCall getChildrenFilterExpressionParserRuleCall_2_0_0() { return cChildrenFilterExpressionParserRuleCall_2_0_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_2_1() { return cSemicolonKeyword_2_1; }
@@ -248,16 +261,16 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Assignment cChildrenAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final RuleCall cChildrenScheduleTreeExpressionParserRuleCall_2_0_0 = (RuleCall)cChildrenAssignment_2_0.eContents().get(0);
+		private final RuleCall cChildrenFilterOrExtensionParserRuleCall_2_0_0 = (RuleCall)cChildrenAssignment_2_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//SequenceExpression:
-		//	'seq' '{' (children+=ScheduleTreeExpression ';')+
+		//	'seq' '{' (children+=FilterOrExtension ';')+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'seq' '{' (children+=ScheduleTreeExpression ';')+ '}'
+		//'seq' '{' (children+=FilterOrExtension ';')+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'seq'
@@ -266,14 +279,14 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
 		
-		//(children+=ScheduleTreeExpression ';')+
+		//(children+=FilterOrExtension ';')+
 		public Group getGroup_2() { return cGroup_2; }
 		
-		//children+=ScheduleTreeExpression
+		//children+=FilterOrExtension
 		public Assignment getChildrenAssignment_2_0() { return cChildrenAssignment_2_0; }
 		
-		//ScheduleTreeExpression
-		public RuleCall getChildrenScheduleTreeExpressionParserRuleCall_2_0_0() { return cChildrenScheduleTreeExpressionParserRuleCall_2_0_0; }
+		//FilterOrExtension
+		public RuleCall getChildrenFilterOrExtensionParserRuleCall_2_0_0() { return cChildrenFilterOrExtensionParserRuleCall_2_0_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_2_1() { return cSemicolonKeyword_2_1; }
@@ -1013,6 +1026,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	private final TargetMappingForSystemBodyElements pTargetMappingForSystemBody;
 	private final IntRefElements pIntRef;
 	private final ScheduleTreeExpressionElements pScheduleTreeExpression;
+	private final FilterOrExtensionElements pFilterOrExtension;
 	private final ContextExpressionElements pContextExpression;
 	private final SetExpressionElements pSetExpression;
 	private final SequenceExpressionElements pSequenceExpression;
@@ -1047,6 +1061,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		this.pTargetMappingForSystemBody = new TargetMappingForSystemBodyElements();
 		this.pIntRef = new IntRefElements();
 		this.pScheduleTreeExpression = new ScheduleTreeExpressionElements();
+		this.pFilterOrExtension = new FilterOrExtensionElements();
 		this.pContextExpression = new ContextExpressionElements();
 		this.pSetExpression = new SetExpressionElements();
 		this.pSequenceExpression = new SequenceExpressionElements();
@@ -1128,14 +1143,23 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ScheduleTreeExpression:
-	//	SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression |
-	//	ExtensionExpression;
+	//	SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression;
 	public ScheduleTreeExpressionElements getScheduleTreeExpressionAccess() {
 		return pScheduleTreeExpression;
 	}
 	
 	public ParserRule getScheduleTreeExpressionRule() {
 		return getScheduleTreeExpressionAccess().getRule();
+	}
+	
+	//FilterOrExtension ScheduleTreeExpression:
+	//	FilterExpression | ExtensionExpression;
+	public FilterOrExtensionElements getFilterOrExtensionAccess() {
+		return pFilterOrExtension;
+	}
+	
+	public ParserRule getFilterOrExtensionRule() {
+		return getFilterOrExtensionAccess().getRule();
 	}
 	
 	//ContextExpression:
@@ -1149,7 +1173,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//SetExpression:
-	//	'set' '{' (children+=ScheduleTreeExpression ';')+
+	//	'set' '{' (children+=FilterExpression ';')+
 	//	'}';
 	public SetExpressionElements getSetExpressionAccess() {
 		return pSetExpression;
@@ -1160,7 +1184,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//SequenceExpression:
-	//	'seq' '{' (children+=ScheduleTreeExpression ';')+
+	//	'seq' '{' (children+=FilterOrExtension ';')+
 	//	'}';
 	public SequenceExpressionElements getSequenceExpressionAccess() {
 		return pSequenceExpression;

@@ -450,7 +450,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     ScheduleTreeExpression returns ExtensionExpression
+	 *     FilterOrExtension returns ExtensionExpression
 	 *     ExtensionExpression returns ExtensionExpression
 	 *
 	 * Constraint:
@@ -476,6 +476,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	/**
 	 * Contexts:
 	 *     ScheduleTreeExpression returns FilterExpression
+	 *     FilterOrExtension returns FilterExpression
 	 *     FilterExpression returns FilterExpression
 	 *
 	 * Constraint:
@@ -593,7 +594,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     SequenceExpression returns SequenceExpression
 	 *
 	 * Constraint:
-	 *     children+=ScheduleTreeExpression+
+	 *     children+=FilterOrExtension+
 	 */
 	protected void sequence_SequenceExpression(ISerializationContext context, SequenceExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -606,7 +607,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     SetExpression returns SetExpression
 	 *
 	 * Constraint:
-	 *     children+=ScheduleTreeExpression+
+	 *     children+=FilterExpression+
 	 */
 	protected void sequence_SetExpression(ISerializationContext context, SetExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

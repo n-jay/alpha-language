@@ -300,13 +300,40 @@ ruleScheduleTreeExpression returns [EObject current=null]
 			$current = $this_BandExpression_5.current;
 			afterParserOrEnumRuleCall();
 		}
+	)
+;
+
+// Entry rule entryRuleFilterOrExtension
+entryRuleFilterOrExtension returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getFilterOrExtensionRule()); }
+	iv_ruleFilterOrExtension=ruleFilterOrExtension
+	{ $current=$iv_ruleFilterOrExtension.current; }
+	EOF;
+
+// Rule FilterOrExtension
+ruleFilterOrExtension returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getFilterOrExtensionAccess().getFilterExpressionParserRuleCall_0());
+		}
+		this_FilterExpression_0=ruleFilterExpression
+		{
+			$current = $this_FilterExpression_0.current;
+			afterParserOrEnumRuleCall();
+		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getScheduleTreeExpressionAccess().getExtensionExpressionParserRuleCall_6());
+			newCompositeNode(grammarAccess.getFilterOrExtensionAccess().getExtensionExpressionParserRuleCall_1());
 		}
-		this_ExtensionExpression_6=ruleExtensionExpression
+		this_ExtensionExpression_1=ruleExtensionExpression
 		{
-			$current = $this_ExtensionExpression_6.current;
+			$current = $this_ExtensionExpression_1.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -401,9 +428,9 @@ ruleSetExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getSetExpressionAccess().getChildrenScheduleTreeExpressionParserRuleCall_2_0_0());
+						newCompositeNode(grammarAccess.getSetExpressionAccess().getChildrenFilterExpressionParserRuleCall_2_0_0());
 					}
-					lv_children_2_0=ruleScheduleTreeExpression
+					lv_children_2_0=ruleFilterExpression
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getSetExpressionRule());
@@ -412,7 +439,7 @@ ruleSetExpression returns [EObject current=null]
 							$current,
 							"children",
 							lv_children_2_0,
-							"alpha.targetmapping.TargetMapping.ScheduleTreeExpression");
+							"alpha.targetmapping.TargetMapping.FilterExpression");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -457,9 +484,9 @@ ruleSequenceExpression returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getSequenceExpressionAccess().getChildrenScheduleTreeExpressionParserRuleCall_2_0_0());
+						newCompositeNode(grammarAccess.getSequenceExpressionAccess().getChildrenFilterOrExtensionParserRuleCall_2_0_0());
 					}
-					lv_children_2_0=ruleScheduleTreeExpression
+					lv_children_2_0=ruleFilterOrExtension
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getSequenceExpressionRule());
@@ -468,7 +495,7 @@ ruleSequenceExpression returns [EObject current=null]
 							$current,
 							"children",
 							lv_children_2_0,
-							"alpha.targetmapping.TargetMapping.ScheduleTreeExpression");
+							"alpha.targetmapping.TargetMapping.FilterOrExtension");
 						afterParserOrEnumRuleCall();
 					}
 				)

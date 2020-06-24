@@ -33,6 +33,7 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, TargetMappingGrammarAccess grammarAccess) {
 			builder.put(grammarAccess.getTargetMappingForSystemBodyAccess().getScheduleTreeRootAlternatives_2_0(), "rule__TargetMappingForSystemBody__ScheduleTreeRootAlternatives_2_0");
 			builder.put(grammarAccess.getScheduleTreeExpressionAccess().getAlternatives(), "rule__ScheduleTreeExpression__Alternatives");
+			builder.put(grammarAccess.getFilterOrExtensionAccess().getAlternatives(), "rule__FilterOrExtension__Alternatives");
 			builder.put(grammarAccess.getBandPieceAccess().getAlternatives(), "rule__BandPiece__Alternatives");
 			builder.put(grammarAccess.getISLASTLoopTypeAccess().getAlternatives(), "rule__ISLASTLoopType__Alternatives");
 			builder.put(grammarAccess.getAlphaRootAccess().getElementsAlternatives_1_0(), "rule__AlphaRoot__ElementsAlternatives_1_0");

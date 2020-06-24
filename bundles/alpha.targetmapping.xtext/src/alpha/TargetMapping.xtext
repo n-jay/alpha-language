@@ -24,8 +24,11 @@ ScheduleTreeExpression:
 	FilterExpression |
 	GuardExpression |
 	MarkExpression |
-	BandExpression |
-	ExtensionExpression
+	BandExpression
+;
+
+FilterOrExtension returns ScheduleTreeExpression:
+	FilterExpression|ExtensionExpression
 ;
 
 ContextExpression:
@@ -34,13 +37,13 @@ ContextExpression:
 
 SetExpression:
 	'set' '{'
-		(children+=ScheduleTreeExpression ';')+
+		(children+=FilterExpression ';')+
 	'}'
 ;
 
 SequenceExpression:
 	'seq' '{'
-		(children+=ScheduleTreeExpression ';')+
+		(children+=FilterOrExtension ';')+
 	'}'
 ;
 
