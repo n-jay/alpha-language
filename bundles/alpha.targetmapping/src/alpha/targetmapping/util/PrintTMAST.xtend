@@ -120,7 +120,8 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 	override inExtensionExpression(ExtensionExpression ee) {
 		defaultIn(ee);
 		for (et : ee.extensionTargets) {
-			printStr("+--", et.source.name, "->", et.name, ":", et.extensionMap);
+			val srcname = if (et.source !== null) et.source.name else "[]"
+			printStr("+--", srcname, "->", et.name, ":", et.extensionMap);
 		}
 	}
 	

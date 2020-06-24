@@ -50,12 +50,6 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 	
 	private JNIDomainCalculatorForTM() {}
 	
-	public String parseParameterDomain(JNIDomainInArrayNotation jniDomain) {
-		return String.format("{ : %s }", jniDomain.getIslString());
-	}
-	
-	
-	
 	public static List<AlphaIssue> calculate(TargetMapping tm) {
 		JNIDomainCalculatorForTM calc = new JNIDomainCalculatorForTM();
 		calc.accept(tm);
@@ -96,10 +90,9 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 	@Override
 	public void inContextExpression(ContextExpression ce) {
 		AlphaSystem system = TargetMappingUtil.getTargetSystem(ce);
-		
+
 		try {
-			String domStr = parseParameterDomain(ce.getContextDomainExpr());
-			ISLSet set = CalculatorExpressionEvaluator.parseDomain(system, domStr);
+			ISLSet set = CalculatorExpressionEvaluator.parseDomain(system, ce.getContextDomainExpr().getIslString());
 			ce.getContextDomainExpr().setISLSet(set);
 		} catch (RuntimeException re) {
 			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), ce.getContextDomainExpr(), null));

@@ -432,7 +432,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     ContextExpression returns ContextExpression
 	 *
 	 * Constraint:
-	 *     (contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression)
+	 *     (contextDomainExpr=JNIDomain child=ScheduleTreeExpression)
 	 */
 	protected void sequence_ContextExpression(ISerializationContext context, ContextExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -442,7 +442,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.CONTEXT_EXPRESSION__CHILD));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0(), semanticObject.getContextDomainExpr());
+		feeder.accept(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainParserRuleCall_1_0(), semanticObject.getContextDomainExpr());
 		feeder.accept(grammarAccess.getContextExpressionAccess().getChildScheduleTreeExpressionParserRuleCall_2_0(), semanticObject.getChild());
 		feeder.finish();
 	}

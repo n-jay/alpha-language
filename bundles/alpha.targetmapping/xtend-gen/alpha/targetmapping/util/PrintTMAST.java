@@ -1,5 +1,6 @@
 package alpha.targetmapping.util;
 
+import alpha.model.AlphaScheduleTarget;
 import alpha.targetmapping.BandExpression;
 import alpha.targetmapping.BandPiece;
 import alpha.targetmapping.ContextExpression;
@@ -160,7 +161,18 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
     this.defaultIn(ee);
     EList<ExtensionTarget> _extensionTargets = ee.getExtensionTargets();
     for (final ExtensionTarget et : _extensionTargets) {
-      this.printStr("+--", et.getSource().getName(), "->", et.getName(), ":", et.getExtensionMap());
+      {
+        String _xifexpression = null;
+        AlphaScheduleTarget _source = et.getSource();
+        boolean _tripleNotEquals = (_source != null);
+        if (_tripleNotEquals) {
+          _xifexpression = et.getSource().getName();
+        } else {
+          _xifexpression = "[]";
+        }
+        final String srcname = _xifexpression;
+        this.printStr("+--", srcname, "->", et.getName(), ":", et.getExtensionMap());
+      }
     }
   }
 }

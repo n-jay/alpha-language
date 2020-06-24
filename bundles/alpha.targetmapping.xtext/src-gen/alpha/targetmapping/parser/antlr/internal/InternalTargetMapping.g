@@ -362,9 +362,9 @@ ruleContextExpression returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainParserRuleCall_1_0());
 				}
-				lv_contextDomainExpr_1_0=ruleJNIDomainInArrayNotation
+				lv_contextDomainExpr_1_0=ruleJNIDomain
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getContextExpressionRule());
@@ -373,7 +373,7 @@ ruleContextExpression returns [EObject current=null]
 						$current,
 						"contextDomainExpr",
 						lv_contextDomainExpr_1_0,
-						"alpha.model.Alpha.JNIDomainInArrayNotation");
+						"alpha.model.Alpha.JNIDomain");
 					afterParserOrEnumRuleCall();
 				}
 			)

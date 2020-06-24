@@ -120,7 +120,7 @@ abstract class ScheduleTreeExpression extends TargetMappingNode, TargetMappingVi
 }
 
 class ContextExpression extends ScheduleTreeExpression {
-	contains JNIDomainInArrayNotation contextDomainExpr
+	contains JNIDomain contextDomainExpr
 	
 	contains ScheduleTreeExpression child
 	

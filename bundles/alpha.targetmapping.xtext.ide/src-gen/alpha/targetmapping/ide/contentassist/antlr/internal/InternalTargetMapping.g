@@ -22589,9 +22589,9 @@ rule__ContextExpression__ContextDomainExprAssignment_1
 	}
 :
 	(
-		{ before(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0()); }
-		ruleJNIDomainInArrayNotation
-		{ after(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0()); }
+		{ before(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainParserRuleCall_1_0()); }
+		ruleJNIDomain
+		{ after(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainParserRuleCall_1_0()); }
 	)
 ;
 finally {

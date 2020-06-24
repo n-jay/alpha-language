@@ -1020,7 +1020,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContextExpression"
-    // InternalTargetMapping.g:350:1: ruleContextExpression returns [EObject current=null] : (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) ;
+    // InternalTargetMapping.g:350:1: ruleContextExpression returns [EObject current=null] : (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) ;
     public final EObject ruleContextExpression() throws RecognitionException {
         EObject current = null;
 
@@ -1034,27 +1034,27 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalTargetMapping.g:356:2: ( (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) )
-            // InternalTargetMapping.g:357:2: (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
+            // InternalTargetMapping.g:356:2: ( (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) ) )
+            // InternalTargetMapping.g:357:2: (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
             {
-            // InternalTargetMapping.g:357:2: (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
-            // InternalTargetMapping.g:358:3: otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) )
+            // InternalTargetMapping.g:357:2: (otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
+            // InternalTargetMapping.g:358:3: otherlv_0= 'context' ( (lv_contextDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) )
             {
             otherlv_0=(Token)match(input,15,FOLLOW_8); 
 
             			newLeafNode(otherlv_0, grammarAccess.getContextExpressionAccess().getContextKeyword_0());
             		
-            // InternalTargetMapping.g:362:3: ( (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation ) )
-            // InternalTargetMapping.g:363:4: (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation )
+            // InternalTargetMapping.g:362:3: ( (lv_contextDomainExpr_1_0= ruleJNIDomain ) )
+            // InternalTargetMapping.g:363:4: (lv_contextDomainExpr_1_0= ruleJNIDomain )
             {
-            // InternalTargetMapping.g:363:4: (lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation )
-            // InternalTargetMapping.g:364:5: lv_contextDomainExpr_1_0= ruleJNIDomainInArrayNotation
+            // InternalTargetMapping.g:363:4: (lv_contextDomainExpr_1_0= ruleJNIDomain )
+            // InternalTargetMapping.g:364:5: lv_contextDomainExpr_1_0= ruleJNIDomain
             {
 
-            					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0());
+            					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainParserRuleCall_1_0());
             				
             pushFollow(FOLLOW_7);
-            lv_contextDomainExpr_1_0=ruleJNIDomainInArrayNotation();
+            lv_contextDomainExpr_1_0=ruleJNIDomain();
 
             state._fsp--;
 
@@ -1066,7 +1066,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             						current,
             						"contextDomainExpr",
             						lv_contextDomainExpr_1_0,
-            						"alpha.model.Alpha.JNIDomainInArrayNotation");
+            						"alpha.model.Alpha.JNIDomain");
             					afterParserOrEnumRuleCall();
             				
 
@@ -1186,7 +1186,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             // InternalTargetMapping.g:418:2: (otherlv_0= 'set' otherlv_1= '{' ( ( (lv_children_2_0= ruleFilterExpression ) ) otherlv_3= ';' )+ otherlv_4= '}' )
             // InternalTargetMapping.g:419:3: otherlv_0= 'set' otherlv_1= '{' ( ( (lv_children_2_0= ruleFilterExpression ) ) otherlv_3= ';' )+ otherlv_4= '}'
             {
-            otherlv_0=(Token)match(input,16,FOLLOW_8); 
+            otherlv_0=(Token)match(input,16,FOLLOW_9); 
 
             			newLeafNode(otherlv_0, grammarAccess.getSetExpressionAccess().getSetKeyword_0());
             		
@@ -1219,7 +1219,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             	    						newCompositeNode(grammarAccess.getSetExpressionAccess().getChildrenFilterExpressionParserRuleCall_2_0_0());
             	    					
-            	    pushFollow(FOLLOW_9);
+            	    pushFollow(FOLLOW_10);
             	    lv_children_2_0=ruleFilterExpression();
 
             	    state._fsp--;
@@ -1241,7 +1241,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_3=(Token)match(input,18,FOLLOW_10); 
+            	    otherlv_3=(Token)match(input,18,FOLLOW_11); 
 
             	    				newLeafNode(otherlv_3, grammarAccess.getSetExpressionAccess().getSemicolonKeyword_2_1());
             	    			
@@ -1342,11 +1342,11 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             // InternalTargetMapping.g:474:2: (otherlv_0= 'seq' otherlv_1= '{' ( ( (lv_children_2_0= ruleFilterOrExtension ) ) otherlv_3= ';' )+ otherlv_4= '}' )
             // InternalTargetMapping.g:475:3: otherlv_0= 'seq' otherlv_1= '{' ( ( (lv_children_2_0= ruleFilterOrExtension ) ) otherlv_3= ';' )+ otherlv_4= '}'
             {
-            otherlv_0=(Token)match(input,20,FOLLOW_8); 
+            otherlv_0=(Token)match(input,20,FOLLOW_9); 
 
             			newLeafNode(otherlv_0, grammarAccess.getSequenceExpressionAccess().getSeqKeyword_0());
             		
-            otherlv_1=(Token)match(input,17,FOLLOW_11); 
+            otherlv_1=(Token)match(input,17,FOLLOW_12); 
 
             			newLeafNode(otherlv_1, grammarAccess.getSequenceExpressionAccess().getLeftCurlyBracketKeyword_1());
             		
@@ -1375,7 +1375,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             	    						newCompositeNode(grammarAccess.getSequenceExpressionAccess().getChildrenFilterOrExtensionParserRuleCall_2_0_0());
             	    					
-            	    pushFollow(FOLLOW_9);
+            	    pushFollow(FOLLOW_10);
             	    lv_children_2_0=ruleFilterOrExtension();
 
             	    state._fsp--;
@@ -1397,7 +1397,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_3=(Token)match(input,18,FOLLOW_12); 
+            	    otherlv_3=(Token)match(input,18,FOLLOW_13); 
 
             	    				newLeafNode(otherlv_3, grammarAccess.getSequenceExpressionAccess().getSemicolonKeyword_2_1());
             	    			
@@ -1511,7 +1511,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             						current = createModelElement(grammarAccess.getScheduleTargetRestrictDomainRule());
             					}
             				
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_13); 
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_14); 
 
             					newLeafNode(otherlv_0, grammarAccess.getScheduleTargetRestrictDomainAccess().getScheduleTargetAlphaScheduleTargetCrossReference_0_0());
             				
@@ -1542,7 +1542,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     // InternalTargetMapping.g:550:5: (lv_indexNames_2_0= RULE_ID )
                     // InternalTargetMapping.g:551:6: lv_indexNames_2_0= RULE_ID
                     {
-                    lv_indexNames_2_0=(Token)match(input,RULE_ID,FOLLOW_14); 
+                    lv_indexNames_2_0=(Token)match(input,RULE_ID,FOLLOW_15); 
 
                     						newLeafNode(lv_indexNames_2_0, grammarAccess.getScheduleTargetRestrictDomainAccess().getIndexNamesIDTerminalRuleCall_1_1_0());
                     					
@@ -1587,7 +1587,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     	    // InternalTargetMapping.g:573:6: (lv_indexNames_4_0= RULE_ID )
                     	    // InternalTargetMapping.g:574:7: lv_indexNames_4_0= RULE_ID
                     	    {
-                    	    lv_indexNames_4_0=(Token)match(input,RULE_ID,FOLLOW_14); 
+                    	    lv_indexNames_4_0=(Token)match(input,RULE_ID,FOLLOW_15); 
 
                     	    							newLeafNode(lv_indexNames_4_0, grammarAccess.getScheduleTargetRestrictDomainAccess().getIndexNamesIDTerminalRuleCall_1_2_1_0());
                     	    						
@@ -1616,7 +1616,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_5=(Token)match(input,23,FOLLOW_15); 
+                    otherlv_5=(Token)match(input,23,FOLLOW_16); 
 
                     				newLeafNode(otherlv_5, grammarAccess.getScheduleTargetRestrictDomainAccess().getRightSquareBracketKeyword_1_3());
                     			
@@ -1759,7 +1759,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             					newCompositeNode(grammarAccess.getFilterExpressionAccess().getFilterDomainsScheduleTargetRestrictDomainParserRuleCall_0_0());
             				
-            pushFollow(FOLLOW_16);
+            pushFollow(FOLLOW_17);
             lv_filterDomains_0_0=ruleScheduleTargetRestrictDomain();
 
             state._fsp--;
@@ -1809,7 +1809,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             	    						newCompositeNode(grammarAccess.getFilterExpressionAccess().getFilterDomainsScheduleTargetRestrictDomainParserRuleCall_1_1_0());
             	    					
-            	    pushFollow(FOLLOW_16);
+            	    pushFollow(FOLLOW_17);
             	    lv_filterDomains_2_0=ruleScheduleTargetRestrictDomain();
 
             	    state._fsp--;
@@ -1954,7 +1954,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             // InternalTargetMapping.g:719:2: (otherlv_0= 'if' ( (lv_guardDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) ) )
             // InternalTargetMapping.g:720:3: otherlv_0= 'if' ( (lv_guardDomainExpr_1_0= ruleJNIDomain ) ) ( (lv_child_2_0= ruleScheduleTreeExpression ) )
             {
-            otherlv_0=(Token)match(input,24,FOLLOW_17); 
+            otherlv_0=(Token)match(input,24,FOLLOW_8); 
 
             			newLeafNode(otherlv_0, grammarAccess.getGuardExpressionAccess().getIfKeyword_0());
             		
@@ -3082,7 +3082,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_0, grammarAccess.getIsolateSpecificationAccess().getIsolateKeyword_0());
             		
-            otherlv_1=(Token)match(input,26,FOLLOW_17); 
+            otherlv_1=(Token)match(input,26,FOLLOW_8); 
 
             			newLeafNode(otherlv_1, grammarAccess.getIsolateSpecificationAccess().getLeftParenthesisKeyword_1());
             		
@@ -4154,7 +4154,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     // InternalTargetMapping.g:1584:5: (lv_indexNames_6_0= RULE_ID )
                     // InternalTargetMapping.g:1585:6: lv_indexNames_6_0= RULE_ID
                     {
-                    lv_indexNames_6_0=(Token)match(input,RULE_ID,FOLLOW_14); 
+                    lv_indexNames_6_0=(Token)match(input,RULE_ID,FOLLOW_15); 
 
                     						newLeafNode(lv_indexNames_6_0, grammarAccess.getExtensionTargetAccess().getIndexNamesIDTerminalRuleCall_4_1_0());
                     					
@@ -4199,7 +4199,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     	    // InternalTargetMapping.g:1607:6: (lv_indexNames_8_0= RULE_ID )
                     	    // InternalTargetMapping.g:1608:7: lv_indexNames_8_0= RULE_ID
                     	    {
-                    	    lv_indexNames_8_0=(Token)match(input,RULE_ID,FOLLOW_14); 
+                    	    lv_indexNames_8_0=(Token)match(input,RULE_ID,FOLLOW_15); 
 
                     	    							newLeafNode(lv_indexNames_8_0, grammarAccess.getExtensionTargetAccess().getIndexNamesIDTerminalRuleCall_4_2_1_0());
                     	    						
@@ -4731,7 +4731,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             					newCompositeNode(grammarAccess.getAlphaPackageAccess().getNameQualifiedNameParserRuleCall_1_0());
             				
-            pushFollow(FOLLOW_8);
+            pushFollow(FOLLOW_9);
             lv_name_1_0=ruleQualifiedName();
 
             state._fsp--;
@@ -6655,7 +6655,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     // InternalTargetMapping.g:2674:4: (otherlv_1= 'when' ( (lv_parameterDomainExpr_2_0= ruleJNIParamDomainInArrayNotation ) ) )
                     // InternalTargetMapping.g:2675:5: otherlv_1= 'when' ( (lv_parameterDomainExpr_2_0= ruleJNIParamDomainInArrayNotation ) )
                     {
-                    otherlv_1=(Token)match(input,54,FOLLOW_8); 
+                    otherlv_1=(Token)match(input,54,FOLLOW_9); 
 
                     					newLeafNode(otherlv_1, grammarAccess.getSystemBodyAccess().getWhenKeyword_1_0_0());
                     				
@@ -8060,7 +8060,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                     						newCompositeNode(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAISLExpressionParserRuleCall_2_0_0());
                     					
-                    pushFollow(FOLLOW_14);
+                    pushFollow(FOLLOW_15);
                     lv_arrayNotation_2_0=ruleAISLExpression();
 
                     state._fsp--;
@@ -8110,7 +8110,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                     	    							newCompositeNode(grammarAccess.getJNIFunctionInArrayNotationAccess().getArrayNotationAISLExpressionParserRuleCall_2_1_1_0());
                     	    						
-                    	    pushFollow(FOLLOW_14);
+                    	    pushFollow(FOLLOW_15);
                     	    lv_arrayNotation_4_0=ruleAISLExpression();
 
                     	    state._fsp--;
@@ -8899,7 +8899,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
             						current = createModelElement(grammarAccess.getNestedFuzzyFunctionRule());
             					}
             				
-            otherlv_2=(Token)match(input,RULE_ID,FOLLOW_8); 
+            otherlv_2=(Token)match(input,RULE_ID,FOLLOW_9); 
 
             					newLeafNode(otherlv_2, grammarAccess.getNestedFuzzyFunctionAccess().getFuzzyVariableFuzzyVariableCrossReference_2_0());
             				
@@ -10027,7 +10027,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     				current.merge(kw);
                     				newLeafNode(kw, grammarAccess.getAParamDomainAccess().getRightSquareBracketKeyword_0_2());
                     			
-                    kw=(Token)match(input,58,FOLLOW_8); 
+                    kw=(Token)match(input,58,FOLLOW_9); 
 
                     				current.merge(kw);
                     				newLeafNode(kw, grammarAccess.getAParamDomainAccess().getHyphenMinusGreaterThanSignKeyword_0_3());
@@ -14873,7 +14873,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                     						newCompositeNode(grammarAccess.getStandardEquationAccess().getIndexNamesIndexNameParserRuleCall_1_1_0());
                     					
-                    pushFollow(FOLLOW_14);
+                    pushFollow(FOLLOW_15);
                     lv_indexNames_2_0=ruleIndexName();
 
                     state._fsp--;
@@ -14923,7 +14923,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                     	    							newCompositeNode(grammarAccess.getStandardEquationAccess().getIndexNamesIndexNameParserRuleCall_1_2_1_0());
                     	    						
-                    	    pushFollow(FOLLOW_14);
+                    	    pushFollow(FOLLOW_15);
                     	    lv_indexNames_4_0=ruleIndexName();
 
                     	    state._fsp--;
@@ -14977,7 +14977,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             					newCompositeNode(grammarAccess.getStandardEquationAccess().getExprAlphaExpressionParserRuleCall_3_0());
             				
-            pushFollow(FOLLOW_9);
+            pushFollow(FOLLOW_10);
             lv_expr_7_0=ruleAlphaExpression();
 
             state._fsp--;
@@ -15209,7 +15209,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                                     								newCompositeNode(grammarAccess.getUseEquationAccess().getSubsystemDimsIndexNameParserRuleCall_0_1_1_1_0());
                                     							
-                                    pushFollow(FOLLOW_14);
+                                    pushFollow(FOLLOW_15);
                                     lv_subsystemDims_4_0=ruleIndexName();
 
                                     state._fsp--;
@@ -15259,7 +15259,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                                     	    									newCompositeNode(grammarAccess.getUseEquationAccess().getSubsystemDimsIndexNameParserRuleCall_0_1_1_2_1_0());
                                     	    								
-                                    	    pushFollow(FOLLOW_14);
+                                    	    pushFollow(FOLLOW_15);
                                     	    lv_subsystemDims_6_0=ruleIndexName();
 
                                     	    state._fsp--;
@@ -15605,7 +15605,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_21=(Token)match(input,27,FOLLOW_9); 
+            otherlv_21=(Token)match(input,27,FOLLOW_10); 
 
             			newLeafNode(otherlv_21, grammarAccess.getUseEquationAccess().getRightParenthesisKeyword_9());
             		
@@ -17455,7 +17455,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     // InternalTargetMapping.g:6792:4: (lv_name_1_0= RULE_ID )
                     // InternalTargetMapping.g:6793:5: lv_name_1_0= RULE_ID
                     {
-                    lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_8); 
+                    lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_9); 
 
                     					newLeafNode(lv_name_1_0, grammarAccess.getCaseExpressionAccess().getNameIDTerminalRuleCall_1_0());
                     				
@@ -17507,7 +17507,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
             	    						newCompositeNode(grammarAccess.getCaseExpressionAccess().getExprsAlphaExpressionParserRuleCall_3_0_0());
             	    					
-            	    pushFollow(FOLLOW_9);
+            	    pushFollow(FOLLOW_10);
             	    lv_exprs_3_0=ruleAlphaExpression();
 
             	    state._fsp--;
@@ -18455,7 +18455,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     // InternalTargetMapping.g:7180:3: (otherlv_0= 'val' ( (lv_polynomialExpr_1_0= ruleJNIPolynomial ) ) )
                     // InternalTargetMapping.g:7181:4: otherlv_0= 'val' ( (lv_polynomialExpr_1_0= ruleJNIPolynomial ) )
                     {
-                    otherlv_0=(Token)match(input,82,FOLLOW_8); 
+                    otherlv_0=(Token)match(input,82,FOLLOW_9); 
 
                     				newLeafNode(otherlv_0, grammarAccess.getPolynomialIndexExpressionAccess().getValKeyword_0_0());
                     			
@@ -18502,7 +18502,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
                     // InternalTargetMapping.g:7206:3: (otherlv_2= 'val' ( (lv_polynomialExpr_3_0= ruleJNIPolynomialInArrayNotation ) ) )
                     // InternalTargetMapping.g:7207:4: otherlv_2= 'val' ( (lv_polynomialExpr_3_0= ruleJNIPolynomialInArrayNotation ) )
                     {
-                    otherlv_2=(Token)match(input,82,FOLLOW_8); 
+                    otherlv_2=(Token)match(input,82,FOLLOW_9); 
 
                     				newLeafNode(otherlv_2, grammarAccess.getPolynomialIndexExpressionAccess().getValKeyword_1_0());
                     			
@@ -25384,7 +25384,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                     						newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsAISLExpressionParserRuleCall_0_1_0());
                     					
-                    pushFollow(FOLLOW_14);
+                    pushFollow(FOLLOW_15);
                     lv_upperBounds_1_0=ruleAISLExpression();
 
                     state._fsp--;
@@ -25434,7 +25434,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                     	    							newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsAISLExpressionParserRuleCall_0_2_1_0());
                     	    						
-                    	    pushFollow(FOLLOW_14);
+                    	    pushFollow(FOLLOW_15);
                     	    lv_upperBounds_3_0=ruleAISLExpression();
 
                     	    state._fsp--;
@@ -25497,7 +25497,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                             							newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_0_4_2_0());
                             						
-                            pushFollow(FOLLOW_14);
+                            pushFollow(FOLLOW_15);
                             lv_indexNames_7_0=ruleIndexName();
 
                             state._fsp--;
@@ -25547,7 +25547,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                             	    								newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_0_4_3_1_0());
                             	    							
-                            	    pushFollow(FOLLOW_14);
+                            	    pushFollow(FOLLOW_15);
                             	    lv_indexNames_9_0=ruleIndexName();
 
                             	    state._fsp--;
@@ -25648,7 +25648,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                     						newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsAISLExpressionParserRuleCall_1_3_0());
                     					
-                    pushFollow(FOLLOW_14);
+                    pushFollow(FOLLOW_15);
                     lv_upperBounds_14_0=ruleAISLExpression();
 
                     state._fsp--;
@@ -25733,7 +25733,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                     	    							newCompositeNode(grammarAccess.getRectangularDomainAccess().getUpperBoundsAISLExpressionParserRuleCall_1_4_3_0());
                     	    						
-                    	    pushFollow(FOLLOW_14);
+                    	    pushFollow(FOLLOW_15);
                     	    lv_upperBounds_18_0=ruleAISLExpression();
 
                     	    state._fsp--;
@@ -25796,7 +25796,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                             							newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_1_6_2_0());
                             						
-                            pushFollow(FOLLOW_14);
+                            pushFollow(FOLLOW_15);
                             lv_indexNames_22_0=ruleIndexName();
 
                             state._fsp--;
@@ -25846,7 +25846,7 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
 
                             	    								newCompositeNode(grammarAccess.getRectangularDomainAccess().getIndexNamesIndexNameParserRuleCall_1_6_3_1_0());
                             	    							
-                            	    pushFollow(FOLLOW_14);
+                            	    pushFollow(FOLLOW_15);
                             	    lv_indexNames_24_0=ruleIndexName();
 
                             	    state._fsp--;
@@ -27092,16 +27092,16 @@ public class InternalTargetMappingParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x000000001311A020L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000080020L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000004000000020L});
-    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000004000080020L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000220002L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000C00000L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000020002L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000404000L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x4000000000020000L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x4000000000020000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000080020L});
+    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000004000000020L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000004000080020L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000220002L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000C00000L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000020002L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000000404000L});
     public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000004000000L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000008000000L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000001F4C020000L});

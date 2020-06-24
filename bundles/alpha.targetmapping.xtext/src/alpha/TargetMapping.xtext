@@ -32,7 +32,7 @@ FilterOrExtension returns ScheduleTreeExpression:
 ;
 
 ContextExpression:
-	'context' contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression
+	'context' contextDomainExpr=JNIDomain child=ScheduleTreeExpression
 ;
 
 SetExpression:

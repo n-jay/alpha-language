@@ -188,25 +188,25 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cContextKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cContextDomainExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0 = (RuleCall)cContextDomainExprAssignment_1.eContents().get(0);
+		private final RuleCall cContextDomainExprJNIDomainParserRuleCall_1_0 = (RuleCall)cContextDomainExprAssignment_1.eContents().get(0);
 		private final Assignment cChildAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cChildScheduleTreeExpressionParserRuleCall_2_0 = (RuleCall)cChildAssignment_2.eContents().get(0);
 		
 		//ContextExpression:
-		//	'context' contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression;
+		//	'context' contextDomainExpr=JNIDomain child=ScheduleTreeExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'context' contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression
+		//'context' contextDomainExpr=JNIDomain child=ScheduleTreeExpression
 		public Group getGroup() { return cGroup; }
 		
 		//'context'
 		public Keyword getContextKeyword_0() { return cContextKeyword_0; }
 		
-		//contextDomainExpr=JNIDomainInArrayNotation
+		//contextDomainExpr=JNIDomain
 		public Assignment getContextDomainExprAssignment_1() { return cContextDomainExprAssignment_1; }
 		
-		//JNIDomainInArrayNotation
-		public RuleCall getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0() { return cContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0; }
+		//JNIDomain
+		public RuleCall getContextDomainExprJNIDomainParserRuleCall_1_0() { return cContextDomainExprJNIDomainParserRuleCall_1_0; }
 		
 		//child=ScheduleTreeExpression
 		public Assignment getChildAssignment_2() { return cChildAssignment_2; }
@@ -1163,7 +1163,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ContextExpression:
-	//	'context' contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression;
+	//	'context' contextDomainExpr=JNIDomain child=ScheduleTreeExpression;
 	public ContextExpressionElements getContextExpressionAccess() {
 		return pContextExpression;
 	}
