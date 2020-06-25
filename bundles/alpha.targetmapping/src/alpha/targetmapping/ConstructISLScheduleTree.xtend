@@ -1,27 +1,39 @@
 package alpha.targetmapping
 
-import alpha.targetmapping.util.AbstractTargetMappingVisitor
-import fr.irisa.cairn.jnimap.isl.ISLSchedule
-import org.eclipse.xtext.EcoreUtil2
 import alpha.model.AlphaScheduleTarget
 import alpha.model.StandardEquation
 import alpha.model.UseEquation
-import fr.irisa.cairn.jnimap.isl.ISLUnionSet
+import alpha.targetmapping.util.AbstractTargetMappingVisitor
 import alpha.targetmapping.util.TargetMappingUtil
-import java.util.List
-import fr.irisa.cairn.jnimap.isl.ISLUnionSetList
 import fr.irisa.cairn.jnimap.isl.ISLContext
-import java.util.LinkedList
-import fr.irisa.cairn.jnimap.isl.ISLIdentifier
 import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLIdentifier
 import fr.irisa.cairn.jnimap.isl.ISLMap
-import fr.irisa.cairn.jnimap.isl.ISLMultiPWAff
-import fr.irisa.cairn.jnimap.isl.ISLException
+import fr.irisa.cairn.jnimap.isl.ISLSchedule
 import fr.irisa.cairn.jnimap.isl.ISLScheduleExtensionNode
 import fr.irisa.cairn.jnimap.isl.ISLScheduleSequenceNode
-import java.util.Map
-import java.util.HashMap
+import fr.irisa.cairn.jnimap.isl.ISLUnionSetList
+import java.util.LinkedList
+import java.util.List
+import org.eclipse.xtext.EcoreUtil2
 
+/**
+ * ConstructISLScheduleTree is responsible for translating {@link ScheduleTreeExpression}
+ * to ISLSchedule, i.e., schedule tree in ISL. The translation assumes that the
+ * input TargetMapping is valid: all JNIDomains are successfully computed, and
+ * syntactic restrictions (e.g., placement of ExtensionExpression) are respected.
+ * 
+ * Because the ISL implementation is only using structs (no classes) manipulating the 
+ * tree is a bit confusing. ISLSchedule and ISLScheduleNode objects represent the 
+ * tree under construction in a particular state, and the reference is meaningless as
+ * soon as an operation is performed. (isl take/keep applies as usual)
+ * 
+ * A sub-tree may be constructed in a top-down manner for the most part, but 
+ * accessing other parts of the tree requires traversing the tree. Consistency between
+ * the TargetMapping structure and ISLSchedule is maintained using the path vector,
+ * which keeps track of where you are in the ISLSchedule.
+ * 
+ */
 class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
 	
 	private new() {}
@@ -144,6 +156,9 @@ class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
 	}
 	
 	override visitSetExpression(SetExpression se) {
+		//The code here is a subset of the one in SequenceExpression
+		// set expressions do not have to deal with ExtensionExpressions
+		
 		val domains = se.children.map[c|(c as FilterExpression).constructDomain]
 		var unionSetList = ISLUnionSetList.build(ISLContext.getInstance(), domains.size);
 		

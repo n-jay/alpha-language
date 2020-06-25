@@ -21,6 +21,9 @@ import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.Conversions;
 
+/**
+ * PrintTMAST is a dump of the TargetMapping IR, mainly used for debugging.
+ */
 @SuppressWarnings("all")
 public class PrintTMAST extends AbstractTargetMappingVisitor {
   private String indent = "";

@@ -1,22 +1,19 @@
 package alpha.targetmapping.util
 
-import alpha.model.AlphaExpression
-import alpha.model.AlphaExpressionVisitable
-import alpha.model.AlphaVisitable
-import alpha.model.util.PrintAST
-import java.util.LinkedList
-import java.util.List
-import org.eclipse.emf.ecore.EObject
-import alpha.targetmapping.TargetMappingVisitable
-import alpha.targetmapping.TargetMapping
-import alpha.targetmapping.TargetMappingForSystemBody
+import alpha.targetmapping.BandExpression
+import alpha.targetmapping.ContextExpression
+import alpha.targetmapping.ExtensionExpression
 import alpha.targetmapping.FilterExpression
 import alpha.targetmapping.GuardExpression
 import alpha.targetmapping.MarkExpression
-import alpha.targetmapping.ContextExpression
-import alpha.targetmapping.BandExpression
-import alpha.targetmapping.ExtensionExpression
+import alpha.targetmapping.TargetMapping
+import alpha.targetmapping.TargetMappingForSystemBody
+import alpha.targetmapping.TargetMappingVisitable
 
+/**
+ * PrintTMAST is a dump of the TargetMapping IR, mainly used for debugging.
+ * 
+ */
 class PrintTMAST extends AbstractTargetMappingVisitor {
 
 	String indent = "";

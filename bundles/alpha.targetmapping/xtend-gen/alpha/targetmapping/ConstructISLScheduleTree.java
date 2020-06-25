@@ -52,6 +52,22 @@ import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * ConstructISLScheduleTree is responsible for translating {@link ScheduleTreeExpression}
+ * to ISLSchedule, i.e., schedule tree in ISL. The translation assumes that the
+ * input TargetMapping is valid: all JNIDomains are successfully computed, and
+ * syntactic restrictions (e.g., placement of ExtensionExpression) are respected.
+ * 
+ * Because the ISL implementation is only using structs (no classes) manipulating the
+ * tree is a bit confusing. ISLSchedule and ISLScheduleNode objects represent the
+ * tree under construction in a particular state, and the reference is meaningless as
+ * soon as an operation is performed. (isl take/keep applies as usual)
+ * 
+ * A sub-tree may be constructed in a top-down manner for the most part, but
+ * accessing other parts of the tree requires traversing the tree. Consistency between
+ * the TargetMapping structure and ISLSchedule is maintained using the path vector,
+ * which keeps track of where you are in the ISLSchedule.
+ */
 @SuppressWarnings("all")
 public class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
   private ConstructISLScheduleTree() {
