@@ -13,9 +13,9 @@
 
 <!-- ISL -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" range="[2.3.0,3.0.0)"/>
+<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" range="[2.4.0,3.0.0)"/>
 <unit id="fr.irisa.cairn.gecos.tools.barvinok.feature.feature.group" range="[2.3.0,3.0.0)"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/release/v2.3.0/"/>
+<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/release/v2.4.0/"/>
 </location>
 
 <!-- Eclipse/Xtend/Xtext -->
