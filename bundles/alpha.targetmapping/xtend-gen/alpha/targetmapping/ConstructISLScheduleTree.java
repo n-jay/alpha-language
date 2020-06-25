@@ -36,6 +36,7 @@ import fr.irisa.cairn.jnimap.isl.ISLScheduleGuardNode;
 import fr.irisa.cairn.jnimap.isl.ISLScheduleMarkNode;
 import fr.irisa.cairn.jnimap.isl.ISLScheduleNode;
 import fr.irisa.cairn.jnimap.isl.ISLScheduleSequenceNode;
+import fr.irisa.cairn.jnimap.isl.ISLScheduleSetNode;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import fr.irisa.cairn.jnimap.isl.ISLUnionMap;
 import fr.irisa.cairn.jnimap.isl.ISLUnionSet;
@@ -209,7 +210,7 @@ public class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
     for (final ISLUnionSet d : domains) {
       unionSetList = unionSetList.add(d);
     }
-    final ISLScheduleSequenceNode seqNode = this.getCurrentNode().insertSequence(unionSetList);
+    final ISLScheduleSetNode seqNode = this.getCurrentNode().insertSet(unionSetList);
     this.schedule = seqNode.getSchedule();
     final int depth = this.path.size();
     this.path.add(Integer.valueOf(0));

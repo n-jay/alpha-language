@@ -164,7 +164,7 @@ class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
 		for (d : domains)
 			unionSetList = unionSetList.add(d)
 			
-		val seqNode = currentNode.insertSequence(unionSetList)
+		val seqNode = currentNode.insertSet(unionSetList)
 		schedule = seqNode.schedule
 		
 		val depth = path.size
