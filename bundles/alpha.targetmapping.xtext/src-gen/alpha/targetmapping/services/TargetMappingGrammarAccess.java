@@ -431,17 +431,18 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final Keyword cCommaKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cFilterDomainsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cFilterDomainsScheduleTargetRestrictDomainParserRuleCall_1_1_0 = (RuleCall)cFilterDomainsAssignment_1_1.eContents().get(0);
-		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cChildAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cChildScheduleTreeExpressionParserRuleCall_3_0 = (RuleCall)cChildAssignment_3.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cChildAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cChildScheduleTreeExpressionParserRuleCall_2_1_0 = (RuleCall)cChildAssignment_2_1.eContents().get(0);
 		
 		//FilterExpression:
-		//	filterDomains+=ScheduleTargetRestrictDomain (',' filterDomains+=ScheduleTargetRestrictDomain)* ':'
-		//	child=ScheduleTreeExpression;
+		//	filterDomains+=ScheduleTargetRestrictDomain (',' filterDomains+=ScheduleTargetRestrictDomain)* (':'
+		//	child=ScheduleTreeExpression)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//filterDomains+=ScheduleTargetRestrictDomain (',' filterDomains+=ScheduleTargetRestrictDomain)* ':'
-		//child=ScheduleTreeExpression
+		//filterDomains+=ScheduleTargetRestrictDomain (',' filterDomains+=ScheduleTargetRestrictDomain)* (':'
+		//child=ScheduleTreeExpression)?
 		public Group getGroup() { return cGroup; }
 		
 		//filterDomains+=ScheduleTargetRestrictDomain
@@ -462,14 +463,17 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//ScheduleTargetRestrictDomain
 		public RuleCall getFilterDomainsScheduleTargetRestrictDomainParserRuleCall_1_1_0() { return cFilterDomainsScheduleTargetRestrictDomainParserRuleCall_1_1_0; }
 		
+		//(':' child=ScheduleTreeExpression)?
+		public Group getGroup_2() { return cGroup_2; }
+		
 		//':'
-		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
+		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
 		
 		//child=ScheduleTreeExpression
-		public Assignment getChildAssignment_3() { return cChildAssignment_3; }
+		public Assignment getChildAssignment_2_1() { return cChildAssignment_2_1; }
 		
 		//ScheduleTreeExpression
-		public RuleCall getChildScheduleTreeExpressionParserRuleCall_3_0() { return cChildScheduleTreeExpressionParserRuleCall_3_0; }
+		public RuleCall getChildScheduleTreeExpressionParserRuleCall_2_1_0() { return cChildScheduleTreeExpressionParserRuleCall_2_1_0; }
 	}
 	public class GuardExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.GuardExpression");
@@ -1216,8 +1220,8 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//FilterExpression:
-	//	filterDomains+=ScheduleTargetRestrictDomain (',' filterDomains+=ScheduleTargetRestrictDomain)* ':'
-	//	child=ScheduleTreeExpression;
+	//	filterDomains+=ScheduleTargetRestrictDomain (',' filterDomains+=ScheduleTargetRestrictDomain)* (':'
+	//	child=ScheduleTreeExpression)?;
 	public FilterExpressionElements getFilterExpressionAccess() {
 		return pFilterExpression;
 	}

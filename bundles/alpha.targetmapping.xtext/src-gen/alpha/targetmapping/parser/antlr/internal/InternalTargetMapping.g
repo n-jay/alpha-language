@@ -675,29 +675,31 @@ ruleFilterExpression returns [EObject current=null]
 				)
 			)
 		)*
-		otherlv_3=':'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getFilterExpressionAccess().getColonKeyword_2());
-		}
 		(
+			otherlv_3=':'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getFilterExpressionAccess().getColonKeyword_2_0());
+			}
 			(
-				{
-					newCompositeNode(grammarAccess.getFilterExpressionAccess().getChildScheduleTreeExpressionParserRuleCall_3_0());
-				}
-				lv_child_4_0=ruleScheduleTreeExpression
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getFilterExpressionRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getFilterExpressionAccess().getChildScheduleTreeExpressionParserRuleCall_2_1_0());
 					}
-					set(
-						$current,
-						"child",
-						lv_child_4_0,
-						"alpha.targetmapping.TargetMapping.ScheduleTreeExpression");
-					afterParserOrEnumRuleCall();
-				}
+					lv_child_4_0=ruleScheduleTreeExpression
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFilterExpressionRule());
+						}
+						set(
+							$current,
+							"child",
+							lv_child_4_0,
+							"alpha.targetmapping.TargetMapping.ScheduleTreeExpression");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
-		)
+		)?
 	)
 ;
 

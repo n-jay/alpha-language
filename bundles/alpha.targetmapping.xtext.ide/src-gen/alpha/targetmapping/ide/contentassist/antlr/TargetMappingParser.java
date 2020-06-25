@@ -99,6 +99,7 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getScheduleTargetRestrictNoSetAccess().getGroup_1_2(), "rule__ScheduleTargetRestrictNoSet__Group_1_2__0");
 			builder.put(grammarAccess.getFilterExpressionAccess().getGroup(), "rule__FilterExpression__Group__0");
 			builder.put(grammarAccess.getFilterExpressionAccess().getGroup_1(), "rule__FilterExpression__Group_1__0");
+			builder.put(grammarAccess.getFilterExpressionAccess().getGroup_2(), "rule__FilterExpression__Group_2__0");
 			builder.put(grammarAccess.getGuardExpressionAccess().getGroup(), "rule__GuardExpression__Group__0");
 			builder.put(grammarAccess.getMarkExpressionAccess().getGroup(), "rule__MarkExpression__Group__0");
 			builder.put(grammarAccess.getBandExpressionAccess().getGroup(), "rule__BandExpression__Group__0");
@@ -285,7 +286,7 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getScheduleTargetRestrictNoSetAccess().getIndexNamesAssignment_1_2_1(), "rule__ScheduleTargetRestrictNoSet__IndexNamesAssignment_1_2_1");
 			builder.put(grammarAccess.getFilterExpressionAccess().getFilterDomainsAssignment_0(), "rule__FilterExpression__FilterDomainsAssignment_0");
 			builder.put(grammarAccess.getFilterExpressionAccess().getFilterDomainsAssignment_1_1(), "rule__FilterExpression__FilterDomainsAssignment_1_1");
-			builder.put(grammarAccess.getFilterExpressionAccess().getChildAssignment_3(), "rule__FilterExpression__ChildAssignment_3");
+			builder.put(grammarAccess.getFilterExpressionAccess().getChildAssignment_2_1(), "rule__FilterExpression__ChildAssignment_2_1");
 			builder.put(grammarAccess.getGuardExpressionAccess().getGuardDomainExprAssignment_1(), "rule__GuardExpression__GuardDomainExprAssignment_1");
 			builder.put(grammarAccess.getGuardExpressionAccess().getChildAssignment_2(), "rule__GuardExpression__ChildAssignment_2");
 			builder.put(grammarAccess.getMarkExpressionAccess().getIdentifierAssignment_2(), "rule__MarkExpression__IdentifierAssignment_2");

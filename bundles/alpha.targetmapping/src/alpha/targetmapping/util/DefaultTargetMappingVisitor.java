@@ -69,7 +69,7 @@ public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	@Override
 	default void visitFilterExpression(FilterExpression fe) {
 		inFilterExpression(fe);
-		fe.getChild().accept(this);
+		accept(fe.getChild());
 		outFilterExpression(fe);
 	}
 	

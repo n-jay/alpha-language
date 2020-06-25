@@ -54,7 +54,7 @@ ScheduleTargetRestrictNoSet returns ScheduleTargetRestrictDomain:
 	scheduleTarget=[model::AlphaScheduleTarget|ID] ('[' indexNames+=ID (',' indexNames+=ID)* ']')
 ;
 FilterExpression:
-	filterDomains+=ScheduleTargetRestrictDomain (',' filterDomains+=ScheduleTargetRestrictDomain)* ':' child=ScheduleTreeExpression
+	filterDomains+=ScheduleTargetRestrictDomain (',' filterDomains+=ScheduleTargetRestrictDomain)* (':' child=ScheduleTreeExpression)?
 ;
 
 GuardExpression:

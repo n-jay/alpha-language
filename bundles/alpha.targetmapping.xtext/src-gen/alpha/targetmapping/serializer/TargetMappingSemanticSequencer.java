@@ -480,7 +480,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     FilterExpression returns FilterExpression
 	 *
 	 * Constraint:
-	 *     (filterDomains+=ScheduleTargetRestrictDomain filterDomains+=ScheduleTargetRestrictDomain* child=ScheduleTreeExpression)
+	 *     (filterDomains+=ScheduleTargetRestrictDomain filterDomains+=ScheduleTargetRestrictDomain* child=ScheduleTreeExpression?)
 	 */
 	protected void sequence_FilterExpression(ISerializationContext context, FilterExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
