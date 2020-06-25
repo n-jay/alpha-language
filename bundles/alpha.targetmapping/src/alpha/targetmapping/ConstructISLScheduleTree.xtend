@@ -112,7 +112,6 @@ class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
 			unionSetList = unionSetList.add(d)
 			
 		var seqNode = currentNode.insertSequence(unionSetList)
-		println(seqNode)
 		
 		//Sequence may have extensions as first and/or last children. In such cases, 
 		// the extension maps are grafted either before or after this sequence.
@@ -220,7 +219,7 @@ class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
 	}
 	
 	override inBandExpression(BandExpression be) {
-		val partialSchedule = be.bandPieces.map[constructPartialSchedule].reduce[p1, p2|println(p1); println(p2); p1.unionAdd(p2)]
+		val partialSchedule = be.bandPieces.map[constructPartialSchedule].reduce[p1, p2|p1.unionAdd(p2)]
 		var bandNode = currentNode.insertPartialSchedule(partialSchedule)
 		
 		for (lts : be.loopTypeSpecifications) {

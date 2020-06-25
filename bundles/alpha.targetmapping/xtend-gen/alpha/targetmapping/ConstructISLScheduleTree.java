@@ -45,10 +45,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
@@ -150,7 +150,6 @@ public class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
       unionSetList = unionSetList.add(d);
     }
     ISLScheduleSequenceNode seqNode = this.getCurrentNode().insertSequence(unionSetList);
-    InputOutput.<ISLScheduleSequenceNode>println(seqNode);
     final Collection<Object> extensions = EcoreUtil2.<Object>getObjectsByType(se.getChildren(), TargetmappingPackage.Literals.EXTENSION_EXPRESSION);
     int _size = extensions.size();
     boolean _greaterThan = (_size > 1);
@@ -277,13 +276,7 @@ public class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
       return this.constructPartialSchedule(it);
     };
     final Function2<ISLMultiUnionPWAff, ISLMultiUnionPWAff, ISLMultiUnionPWAff> _function_1 = (ISLMultiUnionPWAff p1, ISLMultiUnionPWAff p2) -> {
-      ISLMultiUnionPWAff _xblockexpression = null;
-      {
-        InputOutput.<ISLMultiUnionPWAff>println(p1);
-        InputOutput.<ISLMultiUnionPWAff>println(p2);
-        _xblockexpression = p1.unionAdd(p2);
-      }
-      return _xblockexpression;
+      return p1.unionAdd(p2);
     };
     final ISLMultiUnionPWAff partialSchedule = IterableExtensions.<ISLMultiUnionPWAff>reduce(ListExtensions.<BandPiece, ISLMultiUnionPWAff>map(be.getBandPieces(), _function), _function_1);
     ISLScheduleBandNode bandNode = this.getCurrentNode().insertPartialSchedule(partialSchedule);
@@ -388,7 +381,7 @@ public class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
     return ((ISLMap) stExMap).toUnionMap();
   }
   
-  private ISLSet constructNamedSet(final AlphaScheduleTarget eq) {
+  private ISLSet constructNamedSet(final EObject eq) {
     if (eq instanceof StandardEquation) {
       return _constructNamedSet((StandardEquation)eq);
     } else if (eq instanceof UseEquation) {
