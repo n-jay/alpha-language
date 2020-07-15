@@ -78,9 +78,15 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 			case TargetmappingPackage.MARK_EXPRESSION: return createMarkExpression();
 			case TargetmappingPackage.BAND_EXPRESSION: return createBandExpression();
 			case TargetmappingPackage.BAND_PIECE: return createBandPiece();
-			case TargetmappingPackage.LOOP_TYPE_SPECIFICATION: return createLoopTypeSpecification();
+			case TargetmappingPackage.ISL_LOOP_TYPE_SPECIFICATION: return createISLLoopTypeSpecification();
+			case TargetmappingPackage.ALPHA_LOOP_TYPE_SPECIFICATION: return createAlphaLoopTypeSpecification();
 			case TargetmappingPackage.ISOLATE_SPECIFICATION: return createIsolateSpecification();
-			case TargetmappingPackage.BAND_PIECE_FOR_REDUCTION_BODY: return createBandPieceForReductionBody();
+			case TargetmappingPackage.TILE_BAND_EXPRESSION: return createTileBandExpression();
+			case TargetmappingPackage.TILE_LOOP_SPECIFICATION: return createTileLoopSpecification();
+			case TargetmappingPackage.POINT_LOOP_SPECIFICATION: return createPointLoopSpecification();
+			case TargetmappingPackage.FIXED_TILE_SIZE: return createFixedTileSize();
+			case TargetmappingPackage.PARAMETRIC_TILE_SIZE: return createParametricTileSize();
+			case TargetmappingPackage.COMPILE_TIME_CONSTANT_TILE_SIZE: return createCompileTimeConstantTileSize();
 			case TargetmappingPackage.EXTENSION_EXPRESSION: return createExtensionExpression();
 			case TargetmappingPackage.EXTENSION_TARGET: return createExtensionTarget();
 			default:
@@ -96,6 +102,10 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case TargetmappingPackage.ALPHA_LOOP_TYPE:
+				return createALPHA_LOOP_TYPEFromString(eDataType, initialValue);
+			case TargetmappingPackage.TILING_TYPE:
+				return createTILING_TYPEFromString(eDataType, initialValue);
 			case TargetmappingPackage.JNI_OBJECT:
 				return createJNIObjectFromString(eDataType, initialValue);
 			case TargetmappingPackage.JNIISL_SET:
@@ -123,6 +133,10 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case TargetmappingPackage.ALPHA_LOOP_TYPE:
+				return convertALPHA_LOOP_TYPEToString(eDataType, instanceValue);
+			case TargetmappingPackage.TILING_TYPE:
+				return convertTILING_TYPEToString(eDataType, instanceValue);
 			case TargetmappingPackage.JNI_OBJECT:
 				return convertJNIObjectToString(eDataType, instanceValue);
 			case TargetmappingPackage.JNIISL_SET:
@@ -267,9 +281,19 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LoopTypeSpecification createLoopTypeSpecification() {
-		LoopTypeSpecificationImpl loopTypeSpecification = new LoopTypeSpecificationImpl();
-		return loopTypeSpecification;
+	public ISLLoopTypeSpecification createISLLoopTypeSpecification() {
+		ISLLoopTypeSpecificationImpl islLoopTypeSpecification = new ISLLoopTypeSpecificationImpl();
+		return islLoopTypeSpecification;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AlphaLoopTypeSpecification createAlphaLoopTypeSpecification() {
+		AlphaLoopTypeSpecificationImpl alphaLoopTypeSpecification = new AlphaLoopTypeSpecificationImpl();
+		return alphaLoopTypeSpecification;
 	}
 
 	/**
@@ -287,9 +311,59 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BandPieceForReductionBody createBandPieceForReductionBody() {
-		BandPieceForReductionBodyImpl bandPieceForReductionBody = new BandPieceForReductionBodyImpl();
-		return bandPieceForReductionBody;
+	public TileBandExpression createTileBandExpression() {
+		TileBandExpressionImpl tileBandExpression = new TileBandExpressionImpl();
+		return tileBandExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TileLoopSpecification createTileLoopSpecification() {
+		TileLoopSpecificationImpl tileLoopSpecification = new TileLoopSpecificationImpl();
+		return tileLoopSpecification;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PointLoopSpecification createPointLoopSpecification() {
+		PointLoopSpecificationImpl pointLoopSpecification = new PointLoopSpecificationImpl();
+		return pointLoopSpecification;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FixedTileSize createFixedTileSize() {
+		FixedTileSizeImpl fixedTileSize = new FixedTileSizeImpl();
+		return fixedTileSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ParametricTileSize createParametricTileSize() {
+		ParametricTileSizeImpl parametricTileSize = new ParametricTileSizeImpl();
+		return parametricTileSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompileTimeConstantTileSize createCompileTimeConstantTileSize() {
+		CompileTimeConstantTileSizeImpl compileTimeConstantTileSize = new CompileTimeConstantTileSizeImpl();
+		return compileTimeConstantTileSize;
 	}
 
 	/**
@@ -310,6 +384,46 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	public ExtensionTarget createExtensionTarget() {
 		ExtensionTargetImpl extensionTarget = new ExtensionTargetImpl();
 		return extensionTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ALPHA_LOOP_TYPE createALPHA_LOOP_TYPEFromString(EDataType eDataType, String initialValue) {
+		ALPHA_LOOP_TYPE result = ALPHA_LOOP_TYPE.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertALPHA_LOOP_TYPEToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TILING_TYPE createTILING_TYPEFromString(EDataType eDataType, String initialValue) {
+		TILING_TYPE result = TILING_TYPE.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTILING_TYPEToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

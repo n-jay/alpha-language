@@ -130,13 +130,22 @@ public interface TargetmappingFactory extends EFactory {
 	BandPiece createBandPiece();
 
 	/**
-	 * Returns a new object of class '<em>Loop Type Specification</em>'.
+	 * Returns a new object of class '<em>ISL Loop Type Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Loop Type Specification</em>'.
+	 * @return a new object of class '<em>ISL Loop Type Specification</em>'.
 	 * @generated
 	 */
-	LoopTypeSpecification createLoopTypeSpecification();
+	ISLLoopTypeSpecification createISLLoopTypeSpecification();
+
+	/**
+	 * Returns a new object of class '<em>Alpha Loop Type Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Alpha Loop Type Specification</em>'.
+	 * @generated
+	 */
+	AlphaLoopTypeSpecification createAlphaLoopTypeSpecification();
 
 	/**
 	 * Returns a new object of class '<em>Isolate Specification</em>'.
@@ -148,13 +157,58 @@ public interface TargetmappingFactory extends EFactory {
 	IsolateSpecification createIsolateSpecification();
 
 	/**
-	 * Returns a new object of class '<em>Band Piece For Reduction Body</em>'.
+	 * Returns a new object of class '<em>Tile Band Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Band Piece For Reduction Body</em>'.
+	 * @return a new object of class '<em>Tile Band Expression</em>'.
 	 * @generated
 	 */
-	BandPieceForReductionBody createBandPieceForReductionBody();
+	TileBandExpression createTileBandExpression();
+
+	/**
+	 * Returns a new object of class '<em>Tile Loop Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tile Loop Specification</em>'.
+	 * @generated
+	 */
+	TileLoopSpecification createTileLoopSpecification();
+
+	/**
+	 * Returns a new object of class '<em>Point Loop Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Point Loop Specification</em>'.
+	 * @generated
+	 */
+	PointLoopSpecification createPointLoopSpecification();
+
+	/**
+	 * Returns a new object of class '<em>Fixed Tile Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fixed Tile Size</em>'.
+	 * @generated
+	 */
+	FixedTileSize createFixedTileSize();
+
+	/**
+	 * Returns a new object of class '<em>Parametric Tile Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Parametric Tile Size</em>'.
+	 * @generated
+	 */
+	ParametricTileSize createParametricTileSize();
+
+	/**
+	 * Returns a new object of class '<em>Compile Time Constant Tile Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Compile Time Constant Tile Size</em>'.
+	 * @generated
+	 */
+	CompileTimeConstantTileSize createCompileTimeConstantTileSize();
 
 	/**
 	 * Returns a new object of class '<em>Extension Expression</em>'.

@@ -222,7 +222,7 @@ class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
 		val partialSchedule = be.bandPieces.map[constructPartialSchedule].reduce[p1, p2|p1.unionAdd(p2)]
 		var bandNode = currentNode.insertPartialSchedule(partialSchedule)
 		
-		for (lts : be.loopTypeSpecifications) {
+		for (lts : be.loopTypeSpecifications.filter(ISLLoopTypeSpecification)) {
 			bandNode = bandNode.setASTLoopType(lts.dimension, lts.loopType)
 		}
 		
@@ -231,7 +231,7 @@ class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
 			val isolateOption = map.wrap.tupleName = "isolate"
 			bandNode = bandNode.ASTBuildOptions = isolateOption.toUnionSet
 			
-			for (lts : be.isolateSpecification.loopTypeSpecifications) {
+			for (lts : be.isolateSpecification.loopTypeSpecifications.filter(ISLLoopTypeSpecification)) {
 				bandNode = bandNode.setIsolateASTLoopType(lts.dimension, lts.loopType)
 			}
 		}
@@ -290,8 +290,6 @@ class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
 	
 	private def constructNamedExtensionMap(ExtensionTarget et) {
 		var stExMap = et.extensionMap.outputTupleName = et.name
-		if (et.source !== null)
-			stExMap = stExMap.inputTupleName = et.source.name
 		return (stExMap as ISLMap).toUnionMap
 	}
 }

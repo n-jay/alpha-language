@@ -60,6 +60,7 @@ class TargetMappingVisitor {
 	op void visitGuardExpression(GuardExpression ge)
 	op void visitMarkExpression(MarkExpression me)
 	op void visitBandExpression(BandExpression be)
+	op void visitTileBandExpression(TileBandExpression tbe)
 	op void visitExtensionExpression(ExtensionExpression ee)
 	
 	
@@ -76,6 +77,7 @@ class TargetMappingVisitor {
 	op void inGuardExpression(GuardExpression ge)
 	op void inMarkExpression(MarkExpression me)
 	op void inBandExpression(BandExpression be)
+	op void inTileBandExpression(TileBandExpression tbe)
 	op void inExtensionExpression(ExtensionExpression ee)
 	
 	
@@ -92,11 +94,24 @@ class TargetMappingVisitor {
 	op void outGuardExpression(GuardExpression ge)
 	op void outMarkExpression(MarkExpression me)
 	op void outBandExpression(BandExpression be)
+	op void outTileBandExpression(TileBandExpression tbe)
 	op void outExtensionExpression(ExtensionExpression ee)
 }
 
+/**
+ * ScopingEntity defines scopes for schedule targets.
+ * Initially, the scope is defined by the target SystemBody,
+ * which includes all the equations defined.
+ * 
+ * FilterExpression and ExtensionExpression are
+ * ScopingEntities within TargetMapping that modifies the scope.
+ * 
+ */
 interface ScopingEntity {}
 
+/**
+ * Top-Level for TargetMapping
+ */
 class TargetMapping extends TargetMappingNode, TargetMappingVisitable, ScopingEntity {
 	refers AlphaSystem targetSystem
 	contains TargetMappingForSystemBody[] systemBodyTMs
@@ -194,15 +209,32 @@ class MarkExpression extends ScheduleTreeExpression {
 	}
 }
 
+/**
+ * BandExpression defines a band in ISL ScheduleTree,
+ * which is a multi-dimensional ordering of domains that
+ * reach the band node. Each BandPiece specifies an affine
+ * function for a schedule target, where the RHS is the 
+ * schedule time stamp. All BandPieces must have the same number
+ * of dimensions in its RHS. The space on the RHS of these
+ * schedule functions is called the schedule space, and its 
+ * dimensions may be named with scheduleDimensionNames. These 
+ * names are used for interpreting arrat notation in the
+ * sub-tree within its scope.
+ * 
+ * LoopTypes and Isolate are used to specify finer-grained control
+ * over generated loops. Some of the loop types correspond to those
+ * in ISL, which is reflected at code generation. Other loop types
+ * only result in annotations in the resulting AST, to be used
+ * during post-processing passes.
+ */
 class BandExpression extends ScheduleTreeExpression {
 	contains BandPiece[] bandPieces
-	contains ScheduleTreeExpression child
+	String[] scheduleDimensionNames
 	
-	boolean tile
-	boolean parallel 
-
 	contains LoopTypeSpecification[] loopTypeSpecifications
 	contains IsolateSpecification isolateSpecification
+	
+	contains ScheduleTreeExpression child
 	
 	op void accept(TargetMappingVisitor visitor) {
 		visitor.visitBandExpression(this)
@@ -217,10 +249,26 @@ class BandPiece {
 		else partialScheduleExpr.ISLObject as ISLMultiAff
 	}
 }
-class LoopTypeSpecification {
+abstract class LoopTypeSpecification {
 	int dimension
-	ISLASTLoopType loopType
+	
+	op String getName()
 }
+class ISLLoopTypeSpecification extends LoopTypeSpecification {
+	ISLASTLoopType loopType
+	
+	op String getName() { loopType.name }
+}
+class AlphaLoopTypeSpecification extends LoopTypeSpecification {
+	ALPHA_LOOP_TYPE loopType
+	
+	op String getName() { loopType.literal }
+}
+enum ALPHA_LOOP_TYPE {
+	PARALLEL as "parallel"
+}
+
+
 class IsolateSpecification {
 	contains JNIDomain isolateDomainExpr
 	contains LoopTypeSpecification[] loopTypeSpecifications
@@ -231,8 +279,66 @@ class IsolateSpecification {
 	}
 	
 }
-class BandPieceForReductionBody extends BandPiece {
-	String reductionInitialization
+
+/**
+ * TileBandExpression is a more complicated variant of the BandExpression to handle tiling.
+ * Since the treatment is drastically different, it is not a sub-class of BandExpression,
+ * although it would be possible to model it as a sub-class.
+ * 
+ * TileBandExpression is always the leaf of the ScheduleTreeExpression, but has a chain of 
+ * TilingSpecifications that are used to expressed d-dimensional loop nests that correspond
+ * to either tile or point loops, given a d-dimensional TileBand.
+ * 
+ * Each TileSpecification specifies the additional transformation on the loop (e.g., for skewing
+ * the tiles), tile sizes for tile loops, and loop types for the point loops.  
+ * 
+ */
+class TileBandExpression extends ScheduleTreeExpression {
+	contains BandPiece[] bandPieces
+	String[] scheduleDimensionNames
+	
+	contains TilingSpecification tilingSpecification
+	
+	op void accept(TargetMappingVisitor visitor) {
+		visitor.visitTileBandExpression(this)
+	}
+}
+abstract class TilingSpecification {
+	contains JNIFunctionInArrayNotation loopScheduleExpr
+	
+	op JNIISLMultiAff getLoopSchedule() {
+		if (loopScheduleExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
+		else loopScheduleExpr.ISLObject as ISLMultiAff
+	}
+}
+class TileLoopSpecification extends TilingSpecification {
+	boolean parallel
+	TILING_TYPE tilingType
+
+	contains TileSizeSpecification[] tileSizeSpecifications
+	contains TilingSpecification tilingSpecification
+}
+class PointLoopSpecification extends TilingSpecification {
+	contains LoopTypeSpecification[] loopTypeSpecifications
+	contains IsolateSpecification isolateSpecification
+}
+
+enum TILING_TYPE {
+	FIXED as "fixed"
+	PARAMETRIC as "parametric"
+	COMPILE_TIME_CONSTANT as "compile-time-constant"
+}
+
+abstract class TileSizeSpecification {}
+class FixedTileSize extends TileSizeSpecification {
+	int tileSize		
+}
+class ParametricTileSize extends TileSizeSpecification {
+	String tileSizeName
+}
+class CompileTimeConstantTileSize extends TileSizeSpecification {
+	String tileSizeName
+	int defaultValue
 }
 
 class ExtensionExpression extends ScheduleTreeExpression, ScopingEntity {
@@ -245,8 +351,6 @@ class ExtensionExpression extends ScheduleTreeExpression, ScopingEntity {
 }
 
 class ExtensionTarget extends AlphaScheduleTarget {
-	refers AlphaScheduleTarget source
-	
 	String name
 	String[] indexNames
 	contains JNIRelation extensionMapExpr

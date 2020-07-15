@@ -18,7 +18,6 @@ import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.TerminalRule;
-import org.eclipse.xtext.UnorderedGroup;
 import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 import org.eclipse.xtext.service.AbstractElementFinder;
 import org.eclipse.xtext.service.GrammarProvider;
@@ -138,12 +137,15 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final RuleCall cGuardExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cMarkExpressionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cBandExpressionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cTileBandExpressionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//ScheduleTreeExpression:
-		//	SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression;
+		//	SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression |
+		//	TileBandExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression
+		//SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression |
+		//TileBandExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//SequenceExpression
@@ -163,6 +165,9 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		
 		//BandExpression
 		public RuleCall getBandExpressionParserRuleCall_5() { return cBandExpressionParserRuleCall_5; }
+		
+		//TileBandExpression
+		public RuleCall getTileBandExpressionParserRuleCall_6() { return cTileBandExpressionParserRuleCall_6; }
 	}
 	public class FilterOrExtensionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FilterOrExtension");
@@ -549,82 +554,70 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.BandExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cBandKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final UnorderedGroup cUnorderedGroup_1 = (UnorderedGroup)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cUnorderedGroup_1.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1_0_0 = (Keyword)cGroup_1_0.eContents().get(0);
-		private final Assignment cTileAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
-		private final Keyword cTileTileKeyword_1_0_1_0 = (Keyword)cTileAssignment_1_0_1.eContents().get(0);
-		private final Assignment cParallelAssignment_1_1 = (Assignment)cUnorderedGroup_1.eContents().get(1);
-		private final Keyword cParallelParallelKeyword_1_1_0 = (Keyword)cParallelAssignment_1_1.eContents().get(0);
-		private final Assignment cLoopTypeSpecificationsAssignment_1_2 = (Assignment)cUnorderedGroup_1.eContents().get(2);
-		private final RuleCall cLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_1_2_0 = (RuleCall)cLoopTypeSpecificationsAssignment_1_2.eContents().get(0);
-		private final Group cGroup_1_3 = (Group)cUnorderedGroup_1.eContents().get(3);
-		private final Assignment cIsolateSpecificationAssignment_1_3_0 = (Assignment)cGroup_1_3.eContents().get(0);
-		private final RuleCall cIsolateSpecificationIsolateSpecificationParserRuleCall_1_3_0_0 = (RuleCall)cIsolateSpecificationAssignment_1_3_0.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_1_3_1 = (Keyword)cGroup_1_3.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_1_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_1_1.eContents().get(0);
+		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
+		private final Keyword cCommaKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_1_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cBandPiecesAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cBandPiecesBandPieceParserRuleCall_3_0 = (RuleCall)cBandPiecesAssignment_3.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cPlusSignKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cChildAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cChildScheduleTreeExpressionParserRuleCall_5_1_0 = (RuleCall)cChildAssignment_5_1.eContents().get(0);
+		private final Assignment cLoopTypeSpecificationsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_4_0 = (RuleCall)cLoopTypeSpecificationsAssignment_4.eContents().get(0);
+		private final Assignment cIsolateSpecificationAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cIsolateSpecificationIsolateSpecificationParserRuleCall_5_0 = (RuleCall)cIsolateSpecificationAssignment_5.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cPlusSignKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cChildAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cChildScheduleTreeExpressionParserRuleCall_7_1_0 = (RuleCall)cChildAssignment_7_1.eContents().get(0);
 		
 		//BandExpression:
-		//	'band' ('(' tile?='tile'? & parallel?='parallel'?
-		//	& loopTypeSpecifications+=LoopTypeSpecification*
-		//	& isolateSpecification=IsolateSpecification? ')')? '{'
+		//	'band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
 		//	bandPieces+=BandPiece+
+		//	loopTypeSpecifications+=LoopTypeSpecification*
+		//	isolateSpecification=IsolateSpecification?
 		//	'}' ('+' child=ScheduleTreeExpression)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'band' ('(' tile?='tile'? & parallel?='parallel'? & loopTypeSpecifications+=LoopTypeSpecification* &
-		//isolateSpecification=IsolateSpecification? ')')? '{' bandPieces+=BandPiece+ '}' ('+' child=ScheduleTreeExpression)?
+		//'band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{' bandPieces+=BandPiece+
+		//loopTypeSpecifications+=LoopTypeSpecification* isolateSpecification=IsolateSpecification? '}' ('+'
+		//child=ScheduleTreeExpression)?
 		public Group getGroup() { return cGroup; }
 		
 		//'band'
 		public Keyword getBandKeyword_0() { return cBandKeyword_0; }
 		
-		//('(' tile?='tile'? & parallel?='parallel'? & loopTypeSpecifications+=LoopTypeSpecification* &
-		//isolateSpecification=IsolateSpecification? ')')?
-		public UnorderedGroup getUnorderedGroup_1() { return cUnorderedGroup_1; }
+		//('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')?
+		public Group getGroup_1() { return cGroup_1; }
 		
-		//'(' tile?='tile'?
-		public Group getGroup_1_0() { return cGroup_1_0; }
+		//'['
+		public Keyword getLeftSquareBracketKeyword_1_0() { return cLeftSquareBracketKeyword_1_0; }
 		
-		//'('
-		public Keyword getLeftParenthesisKeyword_1_0_0() { return cLeftParenthesisKeyword_1_0_0; }
+		//scheduleDimensionNames+=ID
+		public Assignment getScheduleDimensionNamesAssignment_1_1() { return cScheduleDimensionNamesAssignment_1_1; }
 		
-		//tile?='tile'?
-		public Assignment getTileAssignment_1_0_1() { return cTileAssignment_1_0_1; }
+		//ID
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_1_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_1_1_0; }
 		
-		//'tile'
-		public Keyword getTileTileKeyword_1_0_1_0() { return cTileTileKeyword_1_0_1_0; }
+		//(',' scheduleDimensionNames+=ID)*
+		public Group getGroup_1_2() { return cGroup_1_2; }
 		
-		//parallel?='parallel'?
-		public Assignment getParallelAssignment_1_1() { return cParallelAssignment_1_1; }
+		//','
+		public Keyword getCommaKeyword_1_2_0() { return cCommaKeyword_1_2_0; }
 		
-		//'parallel'
-		public Keyword getParallelParallelKeyword_1_1_0() { return cParallelParallelKeyword_1_1_0; }
+		//scheduleDimensionNames+=ID
+		public Assignment getScheduleDimensionNamesAssignment_1_2_1() { return cScheduleDimensionNamesAssignment_1_2_1; }
 		
-		//loopTypeSpecifications+=LoopTypeSpecification*
-		public Assignment getLoopTypeSpecificationsAssignment_1_2() { return cLoopTypeSpecificationsAssignment_1_2; }
+		//ID
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0; }
 		
-		//LoopTypeSpecification
-		public RuleCall getLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_1_2_0() { return cLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_1_2_0; }
-		
-		//isolateSpecification=IsolateSpecification? ')'
-		public Group getGroup_1_3() { return cGroup_1_3; }
-		
-		//isolateSpecification=IsolateSpecification?
-		public Assignment getIsolateSpecificationAssignment_1_3_0() { return cIsolateSpecificationAssignment_1_3_0; }
-		
-		//IsolateSpecification
-		public RuleCall getIsolateSpecificationIsolateSpecificationParserRuleCall_1_3_0_0() { return cIsolateSpecificationIsolateSpecificationParserRuleCall_1_3_0_0; }
-		
-		//')'
-		public Keyword getRightParenthesisKeyword_1_3_1() { return cRightParenthesisKeyword_1_3_1; }
+		//']'
+		public Keyword getRightSquareBracketKeyword_1_3() { return cRightSquareBracketKeyword_1_3; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
@@ -635,60 +628,63 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//BandPiece
 		public RuleCall getBandPiecesBandPieceParserRuleCall_3_0() { return cBandPiecesBandPieceParserRuleCall_3_0; }
 		
+		//loopTypeSpecifications+=LoopTypeSpecification*
+		public Assignment getLoopTypeSpecificationsAssignment_4() { return cLoopTypeSpecificationsAssignment_4; }
+		
+		//LoopTypeSpecification
+		public RuleCall getLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_4_0() { return cLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_4_0; }
+		
+		//isolateSpecification=IsolateSpecification?
+		public Assignment getIsolateSpecificationAssignment_5() { return cIsolateSpecificationAssignment_5; }
+		
+		//IsolateSpecification
+		public RuleCall getIsolateSpecificationIsolateSpecificationParserRuleCall_5_0() { return cIsolateSpecificationIsolateSpecificationParserRuleCall_5_0; }
+		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 		
 		//('+' child=ScheduleTreeExpression)?
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_7() { return cGroup_7; }
 		
 		//'+'
-		public Keyword getPlusSignKeyword_5_0() { return cPlusSignKeyword_5_0; }
+		public Keyword getPlusSignKeyword_7_0() { return cPlusSignKeyword_7_0; }
 		
 		//child=ScheduleTreeExpression
-		public Assignment getChildAssignment_5_1() { return cChildAssignment_5_1; }
+		public Assignment getChildAssignment_7_1() { return cChildAssignment_7_1; }
 		
 		//ScheduleTreeExpression
-		public RuleCall getChildScheduleTreeExpressionParserRuleCall_5_1_0() { return cChildScheduleTreeExpressionParserRuleCall_5_1_0; }
+		public RuleCall getChildScheduleTreeExpressionParserRuleCall_7_1_0() { return cChildScheduleTreeExpressionParserRuleCall_7_1_0; }
 	}
 	public class BandPieceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.BandPiece");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cPieceDomainAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0_0 = (RuleCall)cPieceDomainAssignment_0_0.eContents().get(0);
-		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cPartialScheduleExprAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0 = (RuleCall)cPartialScheduleExprAssignment_0_2.eContents().get(0);
-		private final RuleCall cBandPieceForReductionBodyParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cPieceDomainAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0 = (RuleCall)cPieceDomainAssignment_0.eContents().get(0);
+		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cPartialScheduleExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0 = (RuleCall)cPartialScheduleExprAssignment_2.eContents().get(0);
 		
 		//BandPiece:
-		//	pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation |
-		//	BandPieceForReductionBody;
+		//	pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation | BandPieceForReductionBody
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
 		//pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation
-		public Group getGroup_0() { return cGroup_0; }
+		public Group getGroup() { return cGroup; }
 		
 		//pieceDomain=ScheduleTargetRestrictDomain
-		public Assignment getPieceDomainAssignment_0_0() { return cPieceDomainAssignment_0_0; }
+		public Assignment getPieceDomainAssignment_0() { return cPieceDomainAssignment_0; }
 		
 		//ScheduleTargetRestrictDomain
-		public RuleCall getPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0_0() { return cPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0_0; }
+		public RuleCall getPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0() { return cPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0; }
 		
 		//':'
-		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
+		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 		
 		//partialScheduleExpr=JNIFunctionInArrayNotation
-		public Assignment getPartialScheduleExprAssignment_0_2() { return cPartialScheduleExprAssignment_0_2; }
+		public Assignment getPartialScheduleExprAssignment_2() { return cPartialScheduleExprAssignment_2; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0() { return cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0; }
-		
-		//BandPieceForReductionBody
-		public RuleCall getBandPieceForReductionBodyParserRuleCall_1() { return cBandPieceForReductionBodyParserRuleCall_1; }
+		public RuleCall getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0() { return cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0; }
 	}
 	public class IsolateSpecificationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.IsolateSpecification");
@@ -755,6 +751,25 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	public class LoopTypeSpecificationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.LoopTypeSpecification");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cISLLoopTypeSpecificationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cAlphaLoopTypeSpecificationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//LoopTypeSpecification:
+		//	ISLLoopTypeSpecification | AlphaLoopTypeSpecification;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ISLLoopTypeSpecification | AlphaLoopTypeSpecification
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//ISLLoopTypeSpecification
+		public RuleCall getISLLoopTypeSpecificationParserRuleCall_0() { return cISLLoopTypeSpecificationParserRuleCall_0; }
+		
+		//AlphaLoopTypeSpecification
+		public RuleCall getAlphaLoopTypeSpecificationParserRuleCall_1() { return cAlphaLoopTypeSpecificationParserRuleCall_1; }
+	}
+	public class ISLLoopTypeSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ISLLoopTypeSpecification");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cLoopTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cLoopTypeISLASTLoopTypeParserRuleCall_0_0 = (RuleCall)cLoopTypeAssignment_0.eContents().get(0);
@@ -763,7 +778,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		private final RuleCall cDimensionINTTerminalRuleCall_2_0 = (RuleCall)cDimensionAssignment_2.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//LoopTypeSpecification:
+		//ISLLoopTypeSpecification:
 		//	loopType=ISLASTLoopType '(' dimension=INT ')';
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -775,6 +790,41 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		
 		//ISLASTLoopType
 		public RuleCall getLoopTypeISLASTLoopTypeParserRuleCall_0_0() { return cLoopTypeISLASTLoopTypeParserRuleCall_0_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//dimension=INT
+		public Assignment getDimensionAssignment_2() { return cDimensionAssignment_2; }
+		
+		//INT
+		public RuleCall getDimensionINTTerminalRuleCall_2_0() { return cDimensionINTTerminalRuleCall_2_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+	}
+	public class AlphaLoopTypeSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.AlphaLoopTypeSpecification");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cLoopTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cLoopTypeAlphaLoopTypeParserRuleCall_0_0 = (RuleCall)cLoopTypeAssignment_0.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cDimensionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDimensionINTTerminalRuleCall_2_0 = (RuleCall)cDimensionAssignment_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//AlphaLoopTypeSpecification:
+		//	loopType=AlphaLoopType '(' dimension=INT ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//loopType=AlphaLoopType '(' dimension=INT ')'
+		public Group getGroup() { return cGroup; }
+		
+		//loopType=AlphaLoopType
+		public Assignment getLoopTypeAssignment_0() { return cLoopTypeAssignment_0; }
+		
+		//AlphaLoopType
+		public RuleCall getLoopTypeAlphaLoopTypeParserRuleCall_0_0() { return cLoopTypeAlphaLoopTypeParserRuleCall_0_0; }
 		
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
@@ -818,66 +868,409 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//'separate'
 		public Keyword getSeparateKeyword_3() { return cSeparateKeyword_3; }
 	}
-	public class BandPieceForReductionBodyElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.BandPieceForReductionBody");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cReductionKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cPieceDomainAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cPieceDomainScheduleTargetRestrictDomainParserRuleCall_2_0 = (RuleCall)cPieceDomainAssignment_2.eContents().get(0);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cReductionInitializationAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cReductionInitializationSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cReductionInitializationAssignment_3_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Keyword cColonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cPartialScheduleExprAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0 = (RuleCall)cPartialScheduleExprAssignment_6.eContents().get(0);
+	public class AlphaLoopTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.AlphaLoopType");
+		private final Keyword cParallelKeyword = (Keyword)rule.eContents().get(1);
 		
-		//BandPieceForReductionBody:
-		//	'reduction' '(' pieceDomain=ScheduleTargetRestrictDomain (',' reductionInitialization=STRING)? ')' ':'
-		//	partialScheduleExpr=JNIFunctionInArrayNotation;
+		//AlphaLoopType ALPHA_LOOP_TYPE:
+		//	'parallel';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'reduction' '(' pieceDomain=ScheduleTargetRestrictDomain (',' reductionInitialization=STRING)? ')' ':'
-		//partialScheduleExpr=JNIFunctionInArrayNotation
+		//'parallel'
+		public Keyword getParallelKeyword() { return cParallelKeyword; }
+	}
+	public class TileBandExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.TileBandExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTileBandKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_1_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_1_1.eContents().get(0);
+		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
+		private final Keyword cCommaKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_1_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cBandPiecesAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cBandPiecesBandPieceParserRuleCall_3_0 = (RuleCall)cBandPiecesAssignment_3.eContents().get(0);
+		private final Assignment cTilingSpecificationAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cTilingSpecificationTileLoopSpecificationParserRuleCall_4_0 = (RuleCall)cTilingSpecificationAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//TileBandExpression:
+		//	'tile-band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
+		//	bandPieces+=BandPiece+
+		//	tilingSpecification=TileLoopSpecification
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'tile-band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{' bandPieces+=BandPiece+
+		//tilingSpecification=TileLoopSpecification '}'
 		public Group getGroup() { return cGroup; }
 		
-		//'reduction'
-		public Keyword getReductionKeyword_0() { return cReductionKeyword_0; }
+		//'tile-band'
+		public Keyword getTileBandKeyword_0() { return cTileBandKeyword_0; }
 		
-		//'('
-		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		//('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')?
+		public Group getGroup_1() { return cGroup_1; }
 		
-		//pieceDomain=ScheduleTargetRestrictDomain
-		public Assignment getPieceDomainAssignment_2() { return cPieceDomainAssignment_2; }
+		//'['
+		public Keyword getLeftSquareBracketKeyword_1_0() { return cLeftSquareBracketKeyword_1_0; }
 		
-		//ScheduleTargetRestrictDomain
-		public RuleCall getPieceDomainScheduleTargetRestrictDomainParserRuleCall_2_0() { return cPieceDomainScheduleTargetRestrictDomainParserRuleCall_2_0; }
+		//scheduleDimensionNames+=ID
+		public Assignment getScheduleDimensionNamesAssignment_1_1() { return cScheduleDimensionNamesAssignment_1_1; }
 		
-		//(',' reductionInitialization=STRING)?
-		public Group getGroup_3() { return cGroup_3; }
+		//ID
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_1_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_1_1_0; }
+		
+		//(',' scheduleDimensionNames+=ID)*
+		public Group getGroup_1_2() { return cGroup_1_2; }
 		
 		//','
-		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
+		public Keyword getCommaKeyword_1_2_0() { return cCommaKeyword_1_2_0; }
 		
-		//reductionInitialization=STRING
-		public Assignment getReductionInitializationAssignment_3_1() { return cReductionInitializationAssignment_3_1; }
+		//scheduleDimensionNames+=ID
+		public Assignment getScheduleDimensionNamesAssignment_1_2_1() { return cScheduleDimensionNamesAssignment_1_2_1; }
 		
-		//STRING
-		public RuleCall getReductionInitializationSTRINGTerminalRuleCall_3_1_0() { return cReductionInitializationSTRINGTerminalRuleCall_3_1_0; }
+		//ID
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0; }
 		
-		//')'
-		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+		//']'
+		public Keyword getRightSquareBracketKeyword_1_3() { return cRightSquareBracketKeyword_1_3; }
 		
-		//':'
-		public Keyword getColonKeyword_5() { return cColonKeyword_5; }
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
-		//partialScheduleExpr=JNIFunctionInArrayNotation
-		public Assignment getPartialScheduleExprAssignment_6() { return cPartialScheduleExprAssignment_6; }
+		//bandPieces+=BandPiece+
+		public Assignment getBandPiecesAssignment_3() { return cBandPiecesAssignment_3; }
+		
+		//BandPiece
+		public RuleCall getBandPiecesBandPieceParserRuleCall_3_0() { return cBandPiecesBandPieceParserRuleCall_3_0; }
+		
+		//tilingSpecification=TileLoopSpecification
+		public Assignment getTilingSpecificationAssignment_4() { return cTilingSpecificationAssignment_4; }
+		
+		//TileLoopSpecification
+		public RuleCall getTilingSpecificationTileLoopSpecificationParserRuleCall_4_0() { return cTilingSpecificationTileLoopSpecificationParserRuleCall_4_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+	public class TilingSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.TilingSpecification");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cTileLoopSpecificationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cPointLoopSpecificationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//TilingSpecification:
+		//	TileLoopSpecification | PointLoopSpecification;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//TileLoopSpecification | PointLoopSpecification
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//TileLoopSpecification
+		public RuleCall getTileLoopSpecificationParserRuleCall_0() { return cTileLoopSpecificationParserRuleCall_0; }
+		
+		//PointLoopSpecification
+		public RuleCall getPointLoopSpecificationParserRuleCall_1() { return cPointLoopSpecificationParserRuleCall_1; }
+	}
+	public class TileLoopSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.TileLoopSpecification");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cFixedTilingTileLoopSpecificationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cParametricTilingTileLoopSpecificationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		
+		//TileLoopSpecification:
+		//	FixedTilingTileLoopSpecification | ParametricTilingTileLoopSpecification |
+		//	CompileTimeConstantTilingTileLoopSpecification;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//FixedTilingTileLoopSpecification | ParametricTilingTileLoopSpecification |
+		//CompileTimeConstantTilingTileLoopSpecification
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//FixedTilingTileLoopSpecification
+		public RuleCall getFixedTilingTileLoopSpecificationParserRuleCall_0() { return cFixedTilingTileLoopSpecificationParserRuleCall_0; }
+		
+		//ParametricTilingTileLoopSpecification
+		public RuleCall getParametricTilingTileLoopSpecificationParserRuleCall_1() { return cParametricTilingTileLoopSpecificationParserRuleCall_1; }
+		
+		//CompileTimeConstantTilingTileLoopSpecification
+		public RuleCall getCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_2() { return cCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_2; }
+	}
+	public class FixedTilingTileLoopSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FixedTilingTileLoopSpecification");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cFixedKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cParallelAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Keyword cParallelParallelKeyword_1_0 = (Keyword)cParallelAssignment_1.eContents().get(0);
+		private final Assignment cLoopScheduleExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0 = (RuleCall)cLoopScheduleExprAssignment_2.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cTileSizeSpecificationsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cTileSizeSpecificationsFixedTileSizeParserRuleCall_4_0 = (RuleCall)cTileSizeSpecificationsAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cTileSizeSpecificationsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cTileSizeSpecificationsFixedTileSizeParserRuleCall_5_1_0 = (RuleCall)cTileSizeSpecificationsAssignment_5_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cTilingSpecificationAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cTilingSpecificationTilingSpecificationParserRuleCall_7_0 = (RuleCall)cTilingSpecificationAssignment_7.eContents().get(0);
+		
+		//FixedTilingTileLoopSpecification TileLoopSpecification:
+		//	'fixed' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation?
+		//	'(' tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
+		//	tilingSpecification=TilingSpecification;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'fixed' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation? '(' tileSizeSpecifications+=FixedTileSize
+		//(',' tileSizeSpecifications+=FixedTileSize)* ')' tilingSpecification=TilingSpecification
+		public Group getGroup() { return cGroup; }
+		
+		//'fixed'
+		public Keyword getFixedKeyword_0() { return cFixedKeyword_0; }
+		
+		//parallel?='parallel'?
+		public Assignment getParallelAssignment_1() { return cParallelAssignment_1; }
+		
+		//'parallel'
+		public Keyword getParallelParallelKeyword_1_0() { return cParallelParallelKeyword_1_0; }
+		
+		//loopScheduleExpr=JNIFunctionInArrayNotation?
+		public Assignment getLoopScheduleExprAssignment_2() { return cLoopScheduleExprAssignment_2; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0() { return cPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_6_0; }
+		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
+		
+		//tileSizeSpecifications+=FixedTileSize
+		public Assignment getTileSizeSpecificationsAssignment_4() { return cTileSizeSpecificationsAssignment_4; }
+		
+		//FixedTileSize
+		public RuleCall getTileSizeSpecificationsFixedTileSizeParserRuleCall_4_0() { return cTileSizeSpecificationsFixedTileSizeParserRuleCall_4_0; }
+		
+		//(',' tileSizeSpecifications+=FixedTileSize)*
+		public Group getGroup_5() { return cGroup_5; }
+		
+		//','
+		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
+		
+		//tileSizeSpecifications+=FixedTileSize
+		public Assignment getTileSizeSpecificationsAssignment_5_1() { return cTileSizeSpecificationsAssignment_5_1; }
+		
+		//FixedTileSize
+		public RuleCall getTileSizeSpecificationsFixedTileSizeParserRuleCall_5_1_0() { return cTileSizeSpecificationsFixedTileSizeParserRuleCall_5_1_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+		
+		//tilingSpecification=TilingSpecification
+		public Assignment getTilingSpecificationAssignment_7() { return cTilingSpecificationAssignment_7; }
+		
+		//TilingSpecification
+		public RuleCall getTilingSpecificationTilingSpecificationParserRuleCall_7_0() { return cTilingSpecificationTilingSpecificationParserRuleCall_7_0; }
+	}
+	public class ParametricTilingTileLoopSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ParametricTilingTileLoopSpecification");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cParametricKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cParallelAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Keyword cParallelParallelKeyword_1_0 = (Keyword)cParallelAssignment_1.eContents().get(0);
+		private final Assignment cLoopScheduleExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0 = (RuleCall)cLoopScheduleExprAssignment_2.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cTileSizeSpecificationsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cTileSizeSpecificationsParametricTileSizeParserRuleCall_4_0 = (RuleCall)cTileSizeSpecificationsAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cTileSizeSpecificationsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cTileSizeSpecificationsParametricTileSizeParserRuleCall_5_1_0 = (RuleCall)cTileSizeSpecificationsAssignment_5_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cTilingSpecificationAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cTilingSpecificationTilingSpecificationParserRuleCall_7_0 = (RuleCall)cTilingSpecificationAssignment_7.eContents().get(0);
+		
+		//ParametricTilingTileLoopSpecification TileLoopSpecification:
+		//	'parametric' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation?
+		//	'(' tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
+		//	tilingSpecification=TilingSpecification;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'parametric' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation? '('
+		//tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
+		//tilingSpecification=TilingSpecification
+		public Group getGroup() { return cGroup; }
+		
+		//'parametric'
+		public Keyword getParametricKeyword_0() { return cParametricKeyword_0; }
+		
+		//parallel?='parallel'?
+		public Assignment getParallelAssignment_1() { return cParallelAssignment_1; }
+		
+		//'parallel'
+		public Keyword getParallelParallelKeyword_1_0() { return cParallelParallelKeyword_1_0; }
+		
+		//loopScheduleExpr=JNIFunctionInArrayNotation?
+		public Assignment getLoopScheduleExprAssignment_2() { return cLoopScheduleExprAssignment_2; }
+		
+		//JNIFunctionInArrayNotation
+		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
+		
+		//tileSizeSpecifications+=ParametricTileSize
+		public Assignment getTileSizeSpecificationsAssignment_4() { return cTileSizeSpecificationsAssignment_4; }
+		
+		//ParametricTileSize
+		public RuleCall getTileSizeSpecificationsParametricTileSizeParserRuleCall_4_0() { return cTileSizeSpecificationsParametricTileSizeParserRuleCall_4_0; }
+		
+		//(',' tileSizeSpecifications+=ParametricTileSize)*
+		public Group getGroup_5() { return cGroup_5; }
+		
+		//','
+		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
+		
+		//tileSizeSpecifications+=ParametricTileSize
+		public Assignment getTileSizeSpecificationsAssignment_5_1() { return cTileSizeSpecificationsAssignment_5_1; }
+		
+		//ParametricTileSize
+		public RuleCall getTileSizeSpecificationsParametricTileSizeParserRuleCall_5_1_0() { return cTileSizeSpecificationsParametricTileSizeParserRuleCall_5_1_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+		
+		//tilingSpecification=TilingSpecification
+		public Assignment getTilingSpecificationAssignment_7() { return cTilingSpecificationAssignment_7; }
+		
+		//TilingSpecification
+		public RuleCall getTilingSpecificationTilingSpecificationParserRuleCall_7_0() { return cTilingSpecificationTilingSpecificationParserRuleCall_7_0; }
+	}
+	public class CompileTimeConstantTilingTileLoopSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.CompileTimeConstantTilingTileLoopSpecification");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cCompileTimeConstantKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cParallelAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Keyword cParallelParallelKeyword_1_0 = (Keyword)cParallelAssignment_1.eContents().get(0);
+		private final Assignment cLoopScheduleExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0 = (RuleCall)cLoopScheduleExprAssignment_2.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cTileSizeSpecificationsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_0 = (RuleCall)cTileSizeSpecificationsAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cTileSizeSpecificationsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_5_1_0 = (RuleCall)cTileSizeSpecificationsAssignment_5_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cTilingSpecificationAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cTilingSpecificationTilingSpecificationParserRuleCall_7_0 = (RuleCall)cTilingSpecificationAssignment_7.eContents().get(0);
+		
+		//CompileTimeConstantTilingTileLoopSpecification TileLoopSpecification:
+		//	'compile-time-constant' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation?
+		//	'(' tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
+		//	tilingSpecification=TilingSpecification;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'compile-time-constant' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation? '('
+		//tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
+		//tilingSpecification=TilingSpecification
+		public Group getGroup() { return cGroup; }
+		
+		//'compile-time-constant'
+		public Keyword getCompileTimeConstantKeyword_0() { return cCompileTimeConstantKeyword_0; }
+		
+		//parallel?='parallel'?
+		public Assignment getParallelAssignment_1() { return cParallelAssignment_1; }
+		
+		//'parallel'
+		public Keyword getParallelParallelKeyword_1_0() { return cParallelParallelKeyword_1_0; }
+		
+		//loopScheduleExpr=JNIFunctionInArrayNotation?
+		public Assignment getLoopScheduleExprAssignment_2() { return cLoopScheduleExprAssignment_2; }
+		
+		//JNIFunctionInArrayNotation
+		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
+		
+		//tileSizeSpecifications+=CompileTimeConstantTileSize
+		public Assignment getTileSizeSpecificationsAssignment_4() { return cTileSizeSpecificationsAssignment_4; }
+		
+		//CompileTimeConstantTileSize
+		public RuleCall getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_0() { return cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_0; }
+		
+		//(',' tileSizeSpecifications+=CompileTimeConstantTileSize)*
+		public Group getGroup_5() { return cGroup_5; }
+		
+		//','
+		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
+		
+		//tileSizeSpecifications+=CompileTimeConstantTileSize
+		public Assignment getTileSizeSpecificationsAssignment_5_1() { return cTileSizeSpecificationsAssignment_5_1; }
+		
+		//CompileTimeConstantTileSize
+		public RuleCall getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_5_1_0() { return cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_5_1_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+		
+		//tilingSpecification=TilingSpecification
+		public Assignment getTilingSpecificationAssignment_7() { return cTilingSpecificationAssignment_7; }
+		
+		//TilingSpecification
+		public RuleCall getTilingSpecificationTilingSpecificationParserRuleCall_7_0() { return cTilingSpecificationTilingSpecificationParserRuleCall_7_0; }
+	}
+	public class PointLoopSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.PointLoopSpecification");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cPointLoopSpecificationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cPointKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cLoopScheduleExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0 = (RuleCall)cLoopScheduleExprAssignment_2.eContents().get(0);
+		private final Assignment cLoopTypeSpecificationsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_3_0 = (RuleCall)cLoopTypeSpecificationsAssignment_3.eContents().get(0);
+		private final Assignment cIsolateSpecificationAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cIsolateSpecificationIsolateSpecificationParserRuleCall_4_0 = (RuleCall)cIsolateSpecificationAssignment_4.eContents().get(0);
+		
+		//PointLoopSpecification:
+		//	{PointLoopSpecification} 'point' loopScheduleExpr=JNIFunctionInArrayNotation?
+		//	loopTypeSpecifications+=LoopTypeSpecification*
+		//	isolateSpecification=IsolateSpecification?;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{PointLoopSpecification} 'point' loopScheduleExpr=JNIFunctionInArrayNotation?
+		//loopTypeSpecifications+=LoopTypeSpecification* isolateSpecification=IsolateSpecification?
+		public Group getGroup() { return cGroup; }
+		
+		//{PointLoopSpecification}
+		public Action getPointLoopSpecificationAction_0() { return cPointLoopSpecificationAction_0; }
+		
+		//'point'
+		public Keyword getPointKeyword_1() { return cPointKeyword_1; }
+		
+		//loopScheduleExpr=JNIFunctionInArrayNotation?
+		public Assignment getLoopScheduleExprAssignment_2() { return cLoopScheduleExprAssignment_2; }
+		
+		//JNIFunctionInArrayNotation
+		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0; }
+		
+		//loopTypeSpecifications+=LoopTypeSpecification*
+		public Assignment getLoopTypeSpecificationsAssignment_3() { return cLoopTypeSpecificationsAssignment_3; }
+		
+		//LoopTypeSpecification
+		public RuleCall getLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_3_0() { return cLoopTypeSpecificationsLoopTypeSpecificationParserRuleCall_3_0; }
+		
+		//isolateSpecification=IsolateSpecification?
+		public Assignment getIsolateSpecificationAssignment_4() { return cIsolateSpecificationAssignment_4; }
+		
+		//IsolateSpecification
+		public RuleCall getIsolateSpecificationIsolateSpecificationParserRuleCall_4_0() { return cIsolateSpecificationIsolateSpecificationParserRuleCall_4_0; }
 	}
 	public class ExtensionExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ExtensionExpression");
@@ -938,91 +1331,153 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	public class ExtensionTargetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ExtensionTarget");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final Keyword cFromKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
-		private final Assignment cSourceAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final CrossReference cSourceAlphaScheduleTargetCrossReference_0_1_0 = (CrossReference)cSourceAssignment_0_1.eContents().get(0);
-		private final RuleCall cSourceAlphaScheduleTargetIDTerminalRuleCall_0_1_0_1 = (RuleCall)cSourceAlphaScheduleTargetCrossReference_0_1_0.eContents().get(1);
-		private final Assignment cExtensionMapExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cExtensionMapExprJNIRelationParserRuleCall_1_0 = (RuleCall)cExtensionMapExprAssignment_1.eContents().get(0);
-		private final Keyword cAsKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cNameIDTerminalRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cLeftSquareBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cIndexNamesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cIndexNamesIDTerminalRuleCall_4_1_0 = (RuleCall)cIndexNamesAssignment_4_1.eContents().get(0);
-		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
-		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
-		private final Assignment cIndexNamesAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
-		private final RuleCall cIndexNamesIDTerminalRuleCall_4_2_1_0 = (RuleCall)cIndexNamesAssignment_4_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
+		private final Assignment cExtensionMapExprAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExtensionMapExprJNIRelationParserRuleCall_0_0 = (RuleCall)cExtensionMapExprAssignment_0.eContents().get(0);
+		private final Keyword cAsKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cLeftSquareBracketKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cIndexNamesAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cIndexNamesIDTerminalRuleCall_3_1_0 = (RuleCall)cIndexNamesAssignment_3_1.eContents().get(0);
+		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
+		private final Keyword cCommaKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
+		private final Assignment cIndexNamesAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
+		private final RuleCall cIndexNamesIDTerminalRuleCall_3_2_1_0 = (RuleCall)cIndexNamesAssignment_3_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
 		
 		//ExtensionTarget:
-		//	('from' source=[model::AlphaScheduleTarget])? extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
-		//	indexNames+=ID)* ']')?;
+		//	extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (',' indexNames+=ID)* ']')?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//('from' source=[model::AlphaScheduleTarget])? extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
-		//indexNames+=ID)* ']')?
+		//extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (',' indexNames+=ID)* ']')?
 		public Group getGroup() { return cGroup; }
 		
-		//('from' source=[model::AlphaScheduleTarget])?
-		public Group getGroup_0() { return cGroup_0; }
-		
-		//'from'
-		public Keyword getFromKeyword_0_0() { return cFromKeyword_0_0; }
-		
-		//source=[model::AlphaScheduleTarget]
-		public Assignment getSourceAssignment_0_1() { return cSourceAssignment_0_1; }
-		
-		//[model::AlphaScheduleTarget]
-		public CrossReference getSourceAlphaScheduleTargetCrossReference_0_1_0() { return cSourceAlphaScheduleTargetCrossReference_0_1_0; }
-		
-		//ID
-		public RuleCall getSourceAlphaScheduleTargetIDTerminalRuleCall_0_1_0_1() { return cSourceAlphaScheduleTargetIDTerminalRuleCall_0_1_0_1; }
-		
 		//extensionMapExpr=JNIRelation
-		public Assignment getExtensionMapExprAssignment_1() { return cExtensionMapExprAssignment_1; }
+		public Assignment getExtensionMapExprAssignment_0() { return cExtensionMapExprAssignment_0; }
 		
 		//JNIRelation
-		public RuleCall getExtensionMapExprJNIRelationParserRuleCall_1_0() { return cExtensionMapExprJNIRelationParserRuleCall_1_0; }
+		public RuleCall getExtensionMapExprJNIRelationParserRuleCall_0_0() { return cExtensionMapExprJNIRelationParserRuleCall_0_0; }
 		
 		//'as'
-		public Keyword getAsKeyword_2() { return cAsKeyword_2; }
+		public Keyword getAsKeyword_1() { return cAsKeyword_1; }
 		
 		//name=ID
-		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_3_0() { return cNameIDTerminalRuleCall_3_0; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
 		//('[' indexNames+=ID (',' indexNames+=ID)* ']')?
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_3() { return cGroup_3; }
 		
 		//'['
-		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
+		public Keyword getLeftSquareBracketKeyword_3_0() { return cLeftSquareBracketKeyword_3_0; }
 		
 		//indexNames+=ID
-		public Assignment getIndexNamesAssignment_4_1() { return cIndexNamesAssignment_4_1; }
+		public Assignment getIndexNamesAssignment_3_1() { return cIndexNamesAssignment_3_1; }
 		
 		//ID
-		public RuleCall getIndexNamesIDTerminalRuleCall_4_1_0() { return cIndexNamesIDTerminalRuleCall_4_1_0; }
+		public RuleCall getIndexNamesIDTerminalRuleCall_3_1_0() { return cIndexNamesIDTerminalRuleCall_3_1_0; }
 		
 		//(',' indexNames+=ID)*
-		public Group getGroup_4_2() { return cGroup_4_2; }
+		public Group getGroup_3_2() { return cGroup_3_2; }
 		
 		//','
-		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
+		public Keyword getCommaKeyword_3_2_0() { return cCommaKeyword_3_2_0; }
 		
 		//indexNames+=ID
-		public Assignment getIndexNamesAssignment_4_2_1() { return cIndexNamesAssignment_4_2_1; }
+		public Assignment getIndexNamesAssignment_3_2_1() { return cIndexNamesAssignment_3_2_1; }
 		
 		//ID
-		public RuleCall getIndexNamesIDTerminalRuleCall_4_2_1_0() { return cIndexNamesIDTerminalRuleCall_4_2_1_0; }
+		public RuleCall getIndexNamesIDTerminalRuleCall_3_2_1_0() { return cIndexNamesIDTerminalRuleCall_3_2_1_0; }
 		
 		//']'
-		public Keyword getRightSquareBracketKeyword_4_3() { return cRightSquareBracketKeyword_4_3; }
+		public Keyword getRightSquareBracketKeyword_3_3() { return cRightSquareBracketKeyword_3_3; }
+	}
+	public class TileSizeSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.TileSizeSpecification");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cFixedTileSizeParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cParametricTileSizeParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cCompileTimeConstantTileSizeParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		
+		//TileSizeSpecification:
+		//	FixedTileSize | ParametricTileSize | CompileTimeConstantTileSize;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//FixedTileSize | ParametricTileSize | CompileTimeConstantTileSize
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//FixedTileSize
+		public RuleCall getFixedTileSizeParserRuleCall_0() { return cFixedTileSizeParserRuleCall_0; }
+		
+		//ParametricTileSize
+		public RuleCall getParametricTileSizeParserRuleCall_1() { return cParametricTileSizeParserRuleCall_1; }
+		
+		//CompileTimeConstantTileSize
+		public RuleCall getCompileTimeConstantTileSizeParserRuleCall_2() { return cCompileTimeConstantTileSizeParserRuleCall_2; }
+	}
+	public class FixedTileSizeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FixedTileSize");
+		private final Assignment cTileSizeAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cTileSizeINTTerminalRuleCall_0 = (RuleCall)cTileSizeAssignment.eContents().get(0);
+		
+		//FixedTileSize:
+		//	tileSize=INT;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//tileSize=INT
+		public Assignment getTileSizeAssignment() { return cTileSizeAssignment; }
+		
+		//INT
+		public RuleCall getTileSizeINTTerminalRuleCall_0() { return cTileSizeINTTerminalRuleCall_0; }
+	}
+	public class ParametricTileSizeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ParametricTileSize");
+		private final Assignment cTileSizeNameAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cTileSizeNameIDTerminalRuleCall_0 = (RuleCall)cTileSizeNameAssignment.eContents().get(0);
+		
+		//ParametricTileSize:
+		//	tileSizeName=ID;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//tileSizeName=ID
+		public Assignment getTileSizeNameAssignment() { return cTileSizeNameAssignment; }
+		
+		//ID
+		public RuleCall getTileSizeNameIDTerminalRuleCall_0() { return cTileSizeNameIDTerminalRuleCall_0; }
+	}
+	public class CompileTimeConstantTileSizeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.CompileTimeConstantTileSize");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cTileSizeNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cTileSizeNameIDTerminalRuleCall_0_0 = (RuleCall)cTileSizeNameAssignment_0.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cDefaultValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDefaultValueINTTerminalRuleCall_2_0 = (RuleCall)cDefaultValueAssignment_2.eContents().get(0);
+		
+		//CompileTimeConstantTileSize:
+		//	tileSizeName=ID '=' defaultValue=INT;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//tileSizeName=ID '=' defaultValue=INT
+		public Group getGroup() { return cGroup; }
+		
+		//tileSizeName=ID
+		public Assignment getTileSizeNameAssignment_0() { return cTileSizeNameAssignment_0; }
+		
+		//ID
+		public RuleCall getTileSizeNameIDTerminalRuleCall_0_0() { return cTileSizeNameIDTerminalRuleCall_0_0; }
+		
+		//'='
+		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
+		
+		//defaultValue=INT
+		public Assignment getDefaultValueAssignment_2() { return cDefaultValueAssignment_2; }
+		
+		//INT
+		public RuleCall getDefaultValueINTTerminalRuleCall_2_0() { return cDefaultValueINTTerminalRuleCall_2_0; }
 	}
 	
 	
@@ -1043,10 +1498,23 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	private final BandPieceElements pBandPiece;
 	private final IsolateSpecificationElements pIsolateSpecification;
 	private final LoopTypeSpecificationElements pLoopTypeSpecification;
+	private final ISLLoopTypeSpecificationElements pISLLoopTypeSpecification;
+	private final AlphaLoopTypeSpecificationElements pAlphaLoopTypeSpecification;
 	private final ISLASTLoopTypeElements pISLASTLoopType;
-	private final BandPieceForReductionBodyElements pBandPieceForReductionBody;
+	private final AlphaLoopTypeElements pAlphaLoopType;
+	private final TileBandExpressionElements pTileBandExpression;
+	private final TilingSpecificationElements pTilingSpecification;
+	private final TileLoopSpecificationElements pTileLoopSpecification;
+	private final FixedTilingTileLoopSpecificationElements pFixedTilingTileLoopSpecification;
+	private final ParametricTilingTileLoopSpecificationElements pParametricTilingTileLoopSpecification;
+	private final CompileTimeConstantTilingTileLoopSpecificationElements pCompileTimeConstantTilingTileLoopSpecification;
+	private final PointLoopSpecificationElements pPointLoopSpecification;
 	private final ExtensionExpressionElements pExtensionExpression;
 	private final ExtensionTargetElements pExtensionTarget;
+	private final TileSizeSpecificationElements pTileSizeSpecification;
+	private final FixedTileSizeElements pFixedTileSize;
+	private final ParametricTileSizeElements pParametricTileSize;
+	private final CompileTimeConstantTileSizeElements pCompileTimeConstantTileSize;
 	
 	private final Grammar grammar;
 	
@@ -1078,10 +1546,23 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		this.pBandPiece = new BandPieceElements();
 		this.pIsolateSpecification = new IsolateSpecificationElements();
 		this.pLoopTypeSpecification = new LoopTypeSpecificationElements();
+		this.pISLLoopTypeSpecification = new ISLLoopTypeSpecificationElements();
+		this.pAlphaLoopTypeSpecification = new AlphaLoopTypeSpecificationElements();
 		this.pISLASTLoopType = new ISLASTLoopTypeElements();
-		this.pBandPieceForReductionBody = new BandPieceForReductionBodyElements();
+		this.pAlphaLoopType = new AlphaLoopTypeElements();
+		this.pTileBandExpression = new TileBandExpressionElements();
+		this.pTilingSpecification = new TilingSpecificationElements();
+		this.pTileLoopSpecification = new TileLoopSpecificationElements();
+		this.pFixedTilingTileLoopSpecification = new FixedTilingTileLoopSpecificationElements();
+		this.pParametricTilingTileLoopSpecification = new ParametricTilingTileLoopSpecificationElements();
+		this.pCompileTimeConstantTilingTileLoopSpecification = new CompileTimeConstantTilingTileLoopSpecificationElements();
+		this.pPointLoopSpecification = new PointLoopSpecificationElements();
 		this.pExtensionExpression = new ExtensionExpressionElements();
 		this.pExtensionTarget = new ExtensionTargetElements();
+		this.pTileSizeSpecification = new TileSizeSpecificationElements();
+		this.pFixedTileSize = new FixedTileSizeElements();
+		this.pParametricTileSize = new ParametricTileSizeElements();
+		this.pCompileTimeConstantTileSize = new CompileTimeConstantTileSizeElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1147,7 +1628,8 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ScheduleTreeExpression:
-	//	SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression;
+	//	SequenceExpression | SetExpression | FilterExpression | GuardExpression | MarkExpression | BandExpression |
+	//	TileBandExpression;
 	public ScheduleTreeExpressionElements getScheduleTreeExpressionAccess() {
 		return pScheduleTreeExpression;
 	}
@@ -1251,10 +1733,10 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//BandExpression:
-	//	'band' ('(' tile?='tile'? & parallel?='parallel'?
-	//	& loopTypeSpecifications+=LoopTypeSpecification*
-	//	& isolateSpecification=IsolateSpecification? ')')? '{'
+	//	'band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
 	//	bandPieces+=BandPiece+
+	//	loopTypeSpecifications+=LoopTypeSpecification*
+	//	isolateSpecification=IsolateSpecification?
 	//	'}' ('+' child=ScheduleTreeExpression)?;
 	public BandExpressionElements getBandExpressionAccess() {
 		return pBandExpression;
@@ -1265,8 +1747,7 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//BandPiece:
-	//	pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation |
-	//	BandPieceForReductionBody;
+	//	pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation;
 	public BandPieceElements getBandPieceAccess() {
 		return pBandPiece;
 	}
@@ -1289,13 +1770,33 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//LoopTypeSpecification:
-	//	loopType=ISLASTLoopType '(' dimension=INT ')';
+	//	ISLLoopTypeSpecification | AlphaLoopTypeSpecification;
 	public LoopTypeSpecificationElements getLoopTypeSpecificationAccess() {
 		return pLoopTypeSpecification;
 	}
 	
 	public ParserRule getLoopTypeSpecificationRule() {
 		return getLoopTypeSpecificationAccess().getRule();
+	}
+	
+	//ISLLoopTypeSpecification:
+	//	loopType=ISLASTLoopType '(' dimension=INT ')';
+	public ISLLoopTypeSpecificationElements getISLLoopTypeSpecificationAccess() {
+		return pISLLoopTypeSpecification;
+	}
+	
+	public ParserRule getISLLoopTypeSpecificationRule() {
+		return getISLLoopTypeSpecificationAccess().getRule();
+	}
+	
+	//AlphaLoopTypeSpecification:
+	//	loopType=AlphaLoopType '(' dimension=INT ')';
+	public AlphaLoopTypeSpecificationElements getAlphaLoopTypeSpecificationAccess() {
+		return pAlphaLoopTypeSpecification;
+	}
+	
+	public ParserRule getAlphaLoopTypeSpecificationRule() {
+		return getAlphaLoopTypeSpecificationAccess().getRule();
 	}
 	
 	//ISLASTLoopType ISLASTLoopType:
@@ -1311,15 +1812,96 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getISLASTLoopTypeAccess().getRule();
 	}
 	
-	//BandPieceForReductionBody:
-	//	'reduction' '(' pieceDomain=ScheduleTargetRestrictDomain (',' reductionInitialization=STRING)? ')' ':'
-	//	partialScheduleExpr=JNIFunctionInArrayNotation;
-	public BandPieceForReductionBodyElements getBandPieceForReductionBodyAccess() {
-		return pBandPieceForReductionBody;
+	//AlphaLoopType ALPHA_LOOP_TYPE:
+	//	'parallel';
+	public AlphaLoopTypeElements getAlphaLoopTypeAccess() {
+		return pAlphaLoopType;
 	}
 	
-	public ParserRule getBandPieceForReductionBodyRule() {
-		return getBandPieceForReductionBodyAccess().getRule();
+	public ParserRule getAlphaLoopTypeRule() {
+		return getAlphaLoopTypeAccess().getRule();
+	}
+	
+	//TileBandExpression:
+	//	'tile-band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
+	//	bandPieces+=BandPiece+
+	//	tilingSpecification=TileLoopSpecification
+	//	'}';
+	public TileBandExpressionElements getTileBandExpressionAccess() {
+		return pTileBandExpression;
+	}
+	
+	public ParserRule getTileBandExpressionRule() {
+		return getTileBandExpressionAccess().getRule();
+	}
+	
+	//TilingSpecification:
+	//	TileLoopSpecification | PointLoopSpecification;
+	public TilingSpecificationElements getTilingSpecificationAccess() {
+		return pTilingSpecification;
+	}
+	
+	public ParserRule getTilingSpecificationRule() {
+		return getTilingSpecificationAccess().getRule();
+	}
+	
+	//TileLoopSpecification:
+	//	FixedTilingTileLoopSpecification | ParametricTilingTileLoopSpecification |
+	//	CompileTimeConstantTilingTileLoopSpecification;
+	public TileLoopSpecificationElements getTileLoopSpecificationAccess() {
+		return pTileLoopSpecification;
+	}
+	
+	public ParserRule getTileLoopSpecificationRule() {
+		return getTileLoopSpecificationAccess().getRule();
+	}
+	
+	//FixedTilingTileLoopSpecification TileLoopSpecification:
+	//	'fixed' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation?
+	//	'(' tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
+	//	tilingSpecification=TilingSpecification;
+	public FixedTilingTileLoopSpecificationElements getFixedTilingTileLoopSpecificationAccess() {
+		return pFixedTilingTileLoopSpecification;
+	}
+	
+	public ParserRule getFixedTilingTileLoopSpecificationRule() {
+		return getFixedTilingTileLoopSpecificationAccess().getRule();
+	}
+	
+	//ParametricTilingTileLoopSpecification TileLoopSpecification:
+	//	'parametric' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation?
+	//	'(' tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
+	//	tilingSpecification=TilingSpecification;
+	public ParametricTilingTileLoopSpecificationElements getParametricTilingTileLoopSpecificationAccess() {
+		return pParametricTilingTileLoopSpecification;
+	}
+	
+	public ParserRule getParametricTilingTileLoopSpecificationRule() {
+		return getParametricTilingTileLoopSpecificationAccess().getRule();
+	}
+	
+	//CompileTimeConstantTilingTileLoopSpecification TileLoopSpecification:
+	//	'compile-time-constant' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation?
+	//	'(' tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
+	//	tilingSpecification=TilingSpecification;
+	public CompileTimeConstantTilingTileLoopSpecificationElements getCompileTimeConstantTilingTileLoopSpecificationAccess() {
+		return pCompileTimeConstantTilingTileLoopSpecification;
+	}
+	
+	public ParserRule getCompileTimeConstantTilingTileLoopSpecificationRule() {
+		return getCompileTimeConstantTilingTileLoopSpecificationAccess().getRule();
+	}
+	
+	//PointLoopSpecification:
+	//	{PointLoopSpecification} 'point' loopScheduleExpr=JNIFunctionInArrayNotation?
+	//	loopTypeSpecifications+=LoopTypeSpecification*
+	//	isolateSpecification=IsolateSpecification?;
+	public PointLoopSpecificationElements getPointLoopSpecificationAccess() {
+		return pPointLoopSpecification;
+	}
+	
+	public ParserRule getPointLoopSpecificationRule() {
+		return getPointLoopSpecificationAccess().getRule();
 	}
 	
 	//ExtensionExpression:
@@ -1334,14 +1916,53 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//ExtensionTarget:
-	//	('from' source=[model::AlphaScheduleTarget])? extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (','
-	//	indexNames+=ID)* ']')?;
+	//	extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (',' indexNames+=ID)* ']')?;
 	public ExtensionTargetElements getExtensionTargetAccess() {
 		return pExtensionTarget;
 	}
 	
 	public ParserRule getExtensionTargetRule() {
 		return getExtensionTargetAccess().getRule();
+	}
+	
+	//TileSizeSpecification:
+	//	FixedTileSize | ParametricTileSize | CompileTimeConstantTileSize;
+	public TileSizeSpecificationElements getTileSizeSpecificationAccess() {
+		return pTileSizeSpecification;
+	}
+	
+	public ParserRule getTileSizeSpecificationRule() {
+		return getTileSizeSpecificationAccess().getRule();
+	}
+	
+	//FixedTileSize:
+	//	tileSize=INT;
+	public FixedTileSizeElements getFixedTileSizeAccess() {
+		return pFixedTileSize;
+	}
+	
+	public ParserRule getFixedTileSizeRule() {
+		return getFixedTileSizeAccess().getRule();
+	}
+	
+	//ParametricTileSize:
+	//	tileSizeName=ID;
+	public ParametricTileSizeElements getParametricTileSizeAccess() {
+		return pParametricTileSize;
+	}
+	
+	public ParserRule getParametricTileSizeRule() {
+		return getParametricTileSizeAccess().getRule();
+	}
+	
+	//CompileTimeConstantTileSize:
+	//	tileSizeName=ID '=' defaultValue=INT;
+	public CompileTimeConstantTileSizeElements getCompileTimeConstantTileSizeAccess() {
+		return pCompileTimeConstantTileSize;
+	}
+	
+	public ParserRule getCompileTimeConstantTileSizeRule() {
+		return getCompileTimeConstantTileSizeAccess().getRule();
 	}
 	
 	//AlphaRoot:

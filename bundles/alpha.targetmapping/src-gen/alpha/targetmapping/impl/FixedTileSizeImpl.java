@@ -2,7 +2,7 @@
  */
 package alpha.targetmapping.impl;
 
-import alpha.targetmapping.LoopTypeSpecification;
+import alpha.targetmapping.FixedTileSize;
 import alpha.targetmapping.TargetmappingPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -10,48 +10,47 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Loop Type Specification</b></em>'.
+ * An implementation of the model object '<em><b>Fixed Tile Size</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.targetmapping.impl.LoopTypeSpecificationImpl#getDimension <em>Dimension</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.FixedTileSizeImpl#getTileSize <em>Tile Size</em>}</li>
  * </ul>
  *
  * @generated
  */
-public abstract class LoopTypeSpecificationImpl extends MinimalEObjectImpl.Container implements LoopTypeSpecification {
+public class FixedTileSizeImpl extends TileSizeSpecificationImpl implements FixedTileSize {
 	/**
-	 * The default value of the '{@link #getDimension() <em>Dimension</em>}' attribute.
+	 * The default value of the '{@link #getTileSize() <em>Tile Size</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDimension()
+	 * @see #getTileSize()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int DIMENSION_EDEFAULT = 0;
+	protected static final int TILE_SIZE_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getDimension() <em>Dimension</em>}' attribute.
+	 * The cached value of the '{@link #getTileSize() <em>Tile Size</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDimension()
+	 * @see #getTileSize()
 	 * @generated
 	 * @ordered
 	 */
-	protected int dimension = DIMENSION_EDEFAULT;
+	protected int tileSize = TILE_SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected LoopTypeSpecificationImpl() {
+	protected FixedTileSizeImpl() {
 		super();
 	}
 
@@ -62,7 +61,7 @@ public abstract class LoopTypeSpecificationImpl extends MinimalEObjectImpl.Conta
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return TargetmappingPackage.Literals.LOOP_TYPE_SPECIFICATION;
+		return TargetmappingPackage.Literals.FIXED_TILE_SIZE;
 	}
 
 	/**
@@ -70,8 +69,8 @@ public abstract class LoopTypeSpecificationImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getDimension() {
-		return dimension;
+	public int getTileSize() {
+		return tileSize;
 	}
 
 	/**
@@ -79,22 +78,11 @@ public abstract class LoopTypeSpecificationImpl extends MinimalEObjectImpl.Conta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDimension(int newDimension) {
-		int oldDimension = dimension;
-		dimension = newDimension;
+	public void setTileSize(int newTileSize) {
+		int oldTileSize = tileSize;
+		tileSize = newTileSize;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.LOOP_TYPE_SPECIFICATION__DIMENSION, oldDimension, dimension));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getName() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.FIXED_TILE_SIZE__TILE_SIZE, oldTileSize, tileSize));
 	}
 
 	/**
@@ -105,8 +93,8 @@ public abstract class LoopTypeSpecificationImpl extends MinimalEObjectImpl.Conta
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TargetmappingPackage.LOOP_TYPE_SPECIFICATION__DIMENSION:
-				return getDimension();
+			case TargetmappingPackage.FIXED_TILE_SIZE__TILE_SIZE:
+				return getTileSize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -119,8 +107,8 @@ public abstract class LoopTypeSpecificationImpl extends MinimalEObjectImpl.Conta
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TargetmappingPackage.LOOP_TYPE_SPECIFICATION__DIMENSION:
-				setDimension((Integer)newValue);
+			case TargetmappingPackage.FIXED_TILE_SIZE__TILE_SIZE:
+				setTileSize((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -134,8 +122,8 @@ public abstract class LoopTypeSpecificationImpl extends MinimalEObjectImpl.Conta
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.LOOP_TYPE_SPECIFICATION__DIMENSION:
-				setDimension(DIMENSION_EDEFAULT);
+			case TargetmappingPackage.FIXED_TILE_SIZE__TILE_SIZE:
+				setTileSize(TILE_SIZE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -149,8 +137,8 @@ public abstract class LoopTypeSpecificationImpl extends MinimalEObjectImpl.Conta
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.LOOP_TYPE_SPECIFICATION__DIMENSION:
-				return dimension != DIMENSION_EDEFAULT;
+			case TargetmappingPackage.FIXED_TILE_SIZE__TILE_SIZE:
+				return tileSize != TILE_SIZE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -165,10 +153,10 @@ public abstract class LoopTypeSpecificationImpl extends MinimalEObjectImpl.Conta
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (dimension: ");
-		result.append(dimension);
+		result.append(" (tileSize: ");
+		result.append(tileSize);
 		result.append(')');
 		return result.toString();
 	}
 
-} //LoopTypeSpecificationImpl
+} //FixedTileSizeImpl

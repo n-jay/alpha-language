@@ -1,6 +1,5 @@
 package alpha.targetmapping.util;
 
-import alpha.model.AlphaScheduleTarget;
 import alpha.targetmapping.BandExpression;
 import alpha.targetmapping.BandPiece;
 import alpha.targetmapping.ContextExpression;
@@ -11,14 +10,20 @@ import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.MarkExpression;
+import alpha.targetmapping.PointLoopSpecification;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.TargetMapping;
 import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingVisitable;
+import alpha.targetmapping.TileBandExpression;
+import alpha.targetmapping.TileLoopSpecification;
+import alpha.targetmapping.TilingSpecification;
 import alpha.targetmapping.util.AbstractTargetMappingVisitor;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.Conversions;
 
 /**
@@ -67,17 +72,29 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
   
   @Override
   public void defaultIn(final TargetMappingVisitable tmv) {
-    this.printStr("_", tmv.eClass().getName());
-    String _indent = this.indent;
-    this.indent = (_indent + PrintTMAST.INDENT_WITH_SIBILING);
+    this.defaultIn(((EObject) tmv));
   }
   
   @Override
   public void defaultOut(final TargetMappingVisitable tmv) {
+    this.defaultOut(((EObject) tmv));
+  }
+  
+  public String defaultIn(final EObject eobj) {
+    String _xblockexpression = null;
+    {
+      this.printStr("_", eobj.eClass().getName());
+      String _indent = this.indent;
+      _xblockexpression = this.indent = (_indent + PrintTMAST.INDENT_WITH_SIBILING);
+    }
+    return _xblockexpression;
+  }
+  
+  public String defaultOut(final EObject eobj) {
     int _length = this.indent.length();
     int _length_1 = PrintTMAST.INDENT_WITH_SIBILING.length();
     int _minus = (_length - _length_1);
-    this.indent = this.indent.substring(0, _minus);
+    return this.indent = this.indent.substring(0, _minus);
   }
   
   @Override
@@ -127,18 +144,6 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
   @Override
   public void inBandExpression(final BandExpression be) {
     this.defaultIn(be);
-    boolean _isTile = be.isTile();
-    if (_isTile) {
-      this.printStr("+--", "tile");
-    }
-    boolean _isParallel = be.isParallel();
-    if (_isParallel) {
-      this.printStr("+--", "parallel");
-    }
-    EList<LoopTypeSpecification> _loopTypeSpecifications = be.getLoopTypeSpecifications();
-    for (final LoopTypeSpecification lts : _loopTypeSpecifications) {
-      this.printStr("+--", lts.getLoopType().getName(), ":", Integer.valueOf(lts.getDimension()));
-    }
     EList<BandPiece> _bandPieces = be.getBandPieces();
     for (final BandPiece bp : _bandPieces) {
       boolean _plainIsUniverse = bp.getPieceDomain().getRestrictDomain().plainIsUniverse();
@@ -148,15 +153,67 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
         this.printStr("+--", bp.getPieceDomain().getScheduleTarget().getName(), ":", bp.getPieceDomain().getRestrictDomain(), "@", bp.getPartialSchedule());
       }
     }
+    EList<LoopTypeSpecification> _loopTypeSpecifications = be.getLoopTypeSpecifications();
+    for (final LoopTypeSpecification lts : _loopTypeSpecifications) {
+      this.printStr("+--", lts.getName(), ":", Integer.valueOf(lts.getDimension()));
+    }
     IsolateSpecification _isolateSpecification = be.getIsolateSpecification();
     boolean _tripleNotEquals = (_isolateSpecification != null);
     if (_tripleNotEquals) {
       this.printStr("+--", "isolate", be.getIsolateSpecification().getIsolateDomain());
       EList<LoopTypeSpecification> _loopTypeSpecifications_1 = be.getIsolateSpecification().getLoopTypeSpecifications();
       for (final LoopTypeSpecification lts_1 : _loopTypeSpecifications_1) {
-        this.printStr("   +--", lts_1.getLoopType().getName(), ":", Integer.valueOf(lts_1.getDimension()));
+        this.printStr("   +--", lts_1.getName(), ":", Integer.valueOf(lts_1.getDimension()));
       }
     }
+  }
+  
+  @Override
+  public void inTileBandExpression(final TileBandExpression tbe) {
+    this.defaultIn(tbe);
+    EList<BandPiece> _bandPieces = tbe.getBandPieces();
+    for (final BandPiece bp : _bandPieces) {
+      boolean _plainIsUniverse = bp.getPieceDomain().getRestrictDomain().plainIsUniverse();
+      if (_plainIsUniverse) {
+        this.printStr("+--", bp.getPieceDomain().getScheduleTarget().getName(), "@", bp.getPartialSchedule());
+      } else {
+        this.printStr("+--", bp.getPieceDomain().getScheduleTarget().getName(), ":", bp.getPieceDomain().getRestrictDomain(), "@", bp.getPartialSchedule());
+      }
+    }
+    this.printStr("+--", tbe.getScheduleDimensionNames());
+    this.visitTilingSpecification(tbe.getTilingSpecification());
+  }
+  
+  protected void _visitTilingSpecification(final TileLoopSpecification tls) {
+    this.defaultIn(tls);
+    this.printStr("+--", tls.getLoopSchedule());
+    boolean _isParallel = tls.isParallel();
+    if (_isParallel) {
+      this.printStr("+--", "parallel");
+    }
+    this.printStr("+--", tls.getTilingType());
+    this.printStr("+--", tls.getTileSizeSpecifications());
+    this.visitTilingSpecification(tls.getTilingSpecification());
+    this.defaultOut(tls);
+  }
+  
+  protected void _visitTilingSpecification(final PointLoopSpecification pls) {
+    this.defaultIn(pls);
+    this.printStr("+--", pls.getLoopSchedule());
+    EList<LoopTypeSpecification> _loopTypeSpecifications = pls.getLoopTypeSpecifications();
+    for (final LoopTypeSpecification lts : _loopTypeSpecifications) {
+      this.printStr("+--", lts.getName(), ":", Integer.valueOf(lts.getDimension()));
+    }
+    IsolateSpecification _isolateSpecification = pls.getIsolateSpecification();
+    boolean _tripleNotEquals = (_isolateSpecification != null);
+    if (_tripleNotEquals) {
+      this.printStr("+--", "isolate", pls.getIsolateSpecification().getIsolateDomain());
+      EList<LoopTypeSpecification> _loopTypeSpecifications_1 = pls.getIsolateSpecification().getLoopTypeSpecifications();
+      for (final LoopTypeSpecification lts_1 : _loopTypeSpecifications_1) {
+        this.printStr("   +--", lts_1.getName(), ":", Integer.valueOf(lts_1.getDimension()));
+      }
+    }
+    this.defaultOut(pls);
   }
   
   @Override
@@ -164,18 +221,20 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
     this.defaultIn(ee);
     EList<ExtensionTarget> _extensionTargets = ee.getExtensionTargets();
     for (final ExtensionTarget et : _extensionTargets) {
-      {
-        String _xifexpression = null;
-        AlphaScheduleTarget _source = et.getSource();
-        boolean _tripleNotEquals = (_source != null);
-        if (_tripleNotEquals) {
-          _xifexpression = et.getSource().getName();
-        } else {
-          _xifexpression = "[]";
-        }
-        final String srcname = _xifexpression;
-        this.printStr("+--", srcname, "->", et.getName(), ":", et.getExtensionMap());
-      }
+      this.printStr("+--", et.getName(), ":", et.getExtensionMap());
+    }
+  }
+  
+  public void visitTilingSpecification(final TilingSpecification pls) {
+    if (pls instanceof PointLoopSpecification) {
+      _visitTilingSpecification((PointLoopSpecification)pls);
+      return;
+    } else if (pls instanceof TileLoopSpecification) {
+      _visitTilingSpecification((TileLoopSpecification)pls);
+      return;
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(pls).toString());
     }
   }
 }

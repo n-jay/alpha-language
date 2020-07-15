@@ -15,6 +15,7 @@ import alpha.targetmapping.TargetMapping;
 import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
+import alpha.targetmapping.TileBandExpression;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -162,6 +163,17 @@ public class TargetMappingVisitorImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public void visitTileBandExpression(TileBandExpression tbe) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void visitExtensionExpression(ExtensionExpression ee) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -283,6 +295,17 @@ public class TargetMappingVisitorImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public void inTileBandExpression(TileBandExpression tbe) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void inExtensionExpression(ExtensionExpression ee) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -394,6 +417,17 @@ public class TargetMappingVisitorImpl extends MinimalEObjectImpl.Container imple
 	 * @generated
 	 */
 	public void outBandExpression(BandExpression be) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void outTileBandExpression(TileBandExpression tbe) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();

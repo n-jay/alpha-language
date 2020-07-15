@@ -39,9 +39,7 @@ class TargetMappingScopeProvider extends AbstractTargetMappingScopeProvider {
 			}
 			
 			//AlphaScheduleTarget
-			if ((context instanceof ScheduleTargetRestrictDomain && reference == TargetmappingPackage.Literals.SCHEDULE_TARGET_RESTRICT_DOMAIN__SCHEDULE_TARGET) ||
-				(context instanceof ExtensionTarget && reference == TargetmappingPackage.Literals.EXTENSION_TARGET__SOURCE)
-			) {
+			if (context instanceof ScheduleTargetRestrictDomain && reference == TargetmappingPackage.Literals.SCHEDULE_TARGET_RESTRICT_DOMAIN__SCHEDULE_TARGET) {
 				
 				//find the relevant scoping entity
 				//  must skip FilterExpression/ExtensionExpression immediately surrounding the context
@@ -80,7 +78,7 @@ class TargetMappingScopeProvider extends AbstractTargetMappingScopeProvider {
 		}
 
 		private def dispatch constructScope(ExtensionExpression ee) {
-			return ee.extensionTargets.scheduleTargetsToScope
+			return (ee.extensionTargets as  Iterable<? extends AlphaScheduleTarget>).scheduleTargetsToScope
 		}
 		
 		private def List<AlphaScheduleTarget> findRootScope(TargetMappingNode tmn) {

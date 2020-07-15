@@ -200,16 +200,79 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case TargetmappingPackage.ISL_LOOP_TYPE_SPECIFICATION: {
+				ISLLoopTypeSpecification islLoopTypeSpecification = (ISLLoopTypeSpecification)theEObject;
+				T result = caseISLLoopTypeSpecification(islLoopTypeSpecification);
+				if (result == null) result = caseLoopTypeSpecification(islLoopTypeSpecification);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.ALPHA_LOOP_TYPE_SPECIFICATION: {
+				AlphaLoopTypeSpecification alphaLoopTypeSpecification = (AlphaLoopTypeSpecification)theEObject;
+				T result = caseAlphaLoopTypeSpecification(alphaLoopTypeSpecification);
+				if (result == null) result = caseLoopTypeSpecification(alphaLoopTypeSpecification);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case TargetmappingPackage.ISOLATE_SPECIFICATION: {
 				IsolateSpecification isolateSpecification = (IsolateSpecification)theEObject;
 				T result = caseIsolateSpecification(isolateSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case TargetmappingPackage.BAND_PIECE_FOR_REDUCTION_BODY: {
-				BandPieceForReductionBody bandPieceForReductionBody = (BandPieceForReductionBody)theEObject;
-				T result = caseBandPieceForReductionBody(bandPieceForReductionBody);
-				if (result == null) result = caseBandPiece(bandPieceForReductionBody);
+			case TargetmappingPackage.TILE_BAND_EXPRESSION: {
+				TileBandExpression tileBandExpression = (TileBandExpression)theEObject;
+				T result = caseTileBandExpression(tileBandExpression);
+				if (result == null) result = caseScheduleTreeExpression(tileBandExpression);
+				if (result == null) result = caseTargetMappingNode(tileBandExpression);
+				if (result == null) result = caseTargetMappingVisitable(tileBandExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.TILING_SPECIFICATION: {
+				TilingSpecification tilingSpecification = (TilingSpecification)theEObject;
+				T result = caseTilingSpecification(tilingSpecification);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.TILE_LOOP_SPECIFICATION: {
+				TileLoopSpecification tileLoopSpecification = (TileLoopSpecification)theEObject;
+				T result = caseTileLoopSpecification(tileLoopSpecification);
+				if (result == null) result = caseTilingSpecification(tileLoopSpecification);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.POINT_LOOP_SPECIFICATION: {
+				PointLoopSpecification pointLoopSpecification = (PointLoopSpecification)theEObject;
+				T result = casePointLoopSpecification(pointLoopSpecification);
+				if (result == null) result = caseTilingSpecification(pointLoopSpecification);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.TILE_SIZE_SPECIFICATION: {
+				TileSizeSpecification tileSizeSpecification = (TileSizeSpecification)theEObject;
+				T result = caseTileSizeSpecification(tileSizeSpecification);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.FIXED_TILE_SIZE: {
+				FixedTileSize fixedTileSize = (FixedTileSize)theEObject;
+				T result = caseFixedTileSize(fixedTileSize);
+				if (result == null) result = caseTileSizeSpecification(fixedTileSize);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.PARAMETRIC_TILE_SIZE: {
+				ParametricTileSize parametricTileSize = (ParametricTileSize)theEObject;
+				T result = caseParametricTileSize(parametricTileSize);
+				if (result == null) result = caseTileSizeSpecification(parametricTileSize);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.COMPILE_TIME_CONSTANT_TILE_SIZE: {
+				CompileTimeConstantTileSize compileTimeConstantTileSize = (CompileTimeConstantTileSize)theEObject;
+				T result = caseCompileTimeConstantTileSize(compileTimeConstantTileSize);
+				if (result == null) result = caseTileSizeSpecification(compileTimeConstantTileSize);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -490,6 +553,36 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>ISL Loop Type Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>ISL Loop Type Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseISLLoopTypeSpecification(ISLLoopTypeSpecification object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Alpha Loop Type Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Alpha Loop Type Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAlphaLoopTypeSpecification(AlphaLoopTypeSpecification object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Isolate Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -505,17 +598,122 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Band Piece For Reduction Body</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tile Band Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Band Piece For Reduction Body</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tile Band Expression</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBandPieceForReductionBody(BandPieceForReductionBody object) {
+	public T caseTileBandExpression(TileBandExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tiling Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tiling Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTilingSpecification(TilingSpecification object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tile Loop Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tile Loop Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTileLoopSpecification(TileLoopSpecification object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Point Loop Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Point Loop Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePointLoopSpecification(PointLoopSpecification object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tile Size Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tile Size Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTileSizeSpecification(TileSizeSpecification object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fixed Tile Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fixed Tile Size</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFixedTileSize(FixedTileSize object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Parametric Tile Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Parametric Tile Size</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseParametricTileSize(ParametricTileSize object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Compile Time Constant Tile Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Compile Time Constant Tile Size</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCompileTimeConstantTileSize(CompileTimeConstantTileSize object) {
 		return null;
 	}
 

@@ -3,6 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: alpha.model.xtext
 Bundle-Vendor: My Company
 Bundle-Version: 0.1.0.qualifier
+Bundle-ClassPath: .
 Bundle-SymbolicName: alpha.model.xtext; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: alpha.model,

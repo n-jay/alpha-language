@@ -11,7 +11,6 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
-import org.eclipse.xtext.serializer.analysis.GrammarAlias.AlternativeAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
@@ -27,10 +26,6 @@ public class TargetMappingSyntacticSequencer extends AbstractSyntacticSequencer 
 	protected AbstractElementAlias match_AlphaTerminalExpression_AlphaUnaryTerminalExpression___LeftParenthesisKeyword_0_0_LeftParenthesisKeyword_0_0_a__q;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a;
 	protected AbstractElementAlias match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p;
-	protected AbstractElementAlias match_BandExpression___LeftParenthesisKeyword_1_0_0_or_RightParenthesisKeyword_1_3_1__a;
-	protected AbstractElementAlias match_BandExpression___RightParenthesisKeyword_1_3_1_LeftParenthesisKeyword_1_0_0_a__p;
-	protected AbstractElementAlias match_BandExpression___RightParenthesisKeyword_1_3_1_a_LeftParenthesisKeyword_1_0_0__p;
-	protected AbstractElementAlias match_BandExpression___RightParenthesisKeyword_1_3_1_p_LeftParenthesisKeyword_1_0_0_p__p;
 	protected AbstractElementAlias match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a;
 	protected AbstractElementAlias match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p;
 	protected AbstractElementAlias match_FuzzyVariable_SemicolonKeyword_6_q;
@@ -47,10 +42,6 @@ public class TargetMappingSyntacticSequencer extends AbstractSyntacticSequencer 
 		match_AlphaTerminalExpression_AlphaUnaryTerminalExpression___LeftParenthesisKeyword_0_0_LeftParenthesisKeyword_0_0_a__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAlphaUnaryTerminalExpressionAccess().getLeftParenthesisKeyword_0_0()), new TokenAlias(true, true, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0()));
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
 		match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getAlphaTerminalExpressionAccess().getLeftParenthesisKeyword_0_0());
-		match_BandExpression___LeftParenthesisKeyword_1_0_0_or_RightParenthesisKeyword_1_3_1__a = new AlternativeAlias(true, true, new TokenAlias(false, false, grammarAccess.getBandExpressionAccess().getLeftParenthesisKeyword_1_0_0()), new TokenAlias(false, false, grammarAccess.getBandExpressionAccess().getRightParenthesisKeyword_1_3_1()));
-		match_BandExpression___RightParenthesisKeyword_1_3_1_LeftParenthesisKeyword_1_0_0_a__p = new GroupAlias(true, false, new TokenAlias(false, false, grammarAccess.getBandExpressionAccess().getRightParenthesisKeyword_1_3_1()), new TokenAlias(true, true, grammarAccess.getBandExpressionAccess().getLeftParenthesisKeyword_1_0_0()));
-		match_BandExpression___RightParenthesisKeyword_1_3_1_a_LeftParenthesisKeyword_1_0_0__p = new GroupAlias(true, false, new TokenAlias(true, true, grammarAccess.getBandExpressionAccess().getRightParenthesisKeyword_1_3_1()), new TokenAlias(false, false, grammarAccess.getBandExpressionAccess().getLeftParenthesisKeyword_1_0_0()));
-		match_BandExpression___RightParenthesisKeyword_1_3_1_p_LeftParenthesisKeyword_1_0_0_p__p = new GroupAlias(true, false, new TokenAlias(true, false, grammarAccess.getBandExpressionAccess().getRightParenthesisKeyword_1_3_1()), new TokenAlias(true, false, grammarAccess.getBandExpressionAccess().getLeftParenthesisKeyword_1_0_0()));
 		match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a = new TokenAlias(true, true, grammarAccess.getCalculatorExpressionTerminalAccess().getLeftParenthesisKeyword_6_0());
 		match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p = new TokenAlias(true, false, grammarAccess.getCalculatorExpressionTerminalAccess().getLeftParenthesisKeyword_6_0());
 		match_FuzzyVariable_SemicolonKeyword_6_q = new TokenAlias(false, true, grammarAccess.getFuzzyVariableAccess().getSemicolonKeyword_6());
@@ -82,14 +73,6 @@ public class TargetMappingSyntacticSequencer extends AbstractSyntacticSequencer 
 				emit_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p.equals(syntax))
 				emit_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_BandExpression___LeftParenthesisKeyword_1_0_0_or_RightParenthesisKeyword_1_3_1__a.equals(syntax))
-				emit_BandExpression___LeftParenthesisKeyword_1_0_0_or_RightParenthesisKeyword_1_3_1__a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_BandExpression___RightParenthesisKeyword_1_3_1_LeftParenthesisKeyword_1_0_0_a__p.equals(syntax))
-				emit_BandExpression___RightParenthesisKeyword_1_3_1_LeftParenthesisKeyword_1_0_0_a__p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_BandExpression___RightParenthesisKeyword_1_3_1_a_LeftParenthesisKeyword_1_0_0__p.equals(syntax))
-				emit_BandExpression___RightParenthesisKeyword_1_3_1_a_LeftParenthesisKeyword_1_0_0__p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_BandExpression___RightParenthesisKeyword_1_3_1_p_LeftParenthesisKeyword_1_0_0_p__p.equals(syntax))
-				emit_BandExpression___RightParenthesisKeyword_1_3_1_p_LeftParenthesisKeyword_1_0_0_p__p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a.equals(syntax))
 				emit_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_CalculatorExpressionTerminal_LeftParenthesisKeyword_6_0_p.equals(syntax))
@@ -228,71 +211,6 @@ public class TargetMappingSyntacticSequencer extends AbstractSyntacticSequencer 
 	 *     (rule start) (ambiguity) {BinaryExpression.left=}
 	 */
 	protected void emit_AlphaTerminalExpression_LeftParenthesisKeyword_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ('(' | ')')*
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) 'band' (ambiguity) '{' bandPieces+=BandPiece
-	 *     (rule start) 'band' (ambiguity) isolateSpecification=IsolateSpecification
-	 *     (rule start) 'band' (ambiguity) loopTypeSpecifications+=LoopTypeSpecification
-	 *     (rule start) 'band' (ambiguity) parallel?='parallel'
-	 *     loopTypeSpecifications+=LoopTypeSpecification (ambiguity) '{' bandPieces+=BandPiece
-	 *     loopTypeSpecifications+=LoopTypeSpecification (ambiguity) isolateSpecification=IsolateSpecification
-	 *     loopTypeSpecifications+=LoopTypeSpecification (ambiguity) loopTypeSpecifications+=LoopTypeSpecification
-	 *     loopTypeSpecifications+=LoopTypeSpecification (ambiguity) parallel?='parallel'
-	 *     parallel?='parallel' (ambiguity) '{' bandPieces+=BandPiece
-	 *     parallel?='parallel' (ambiguity) isolateSpecification=IsolateSpecification
-	 *     parallel?='parallel' (ambiguity) loopTypeSpecifications+=LoopTypeSpecification
-	 *     parallel?='parallel' (ambiguity) parallel?='parallel'
-	 *     tile?='tile' (ambiguity) '{' bandPieces+=BandPiece
-	 *     tile?='tile' (ambiguity) isolateSpecification=IsolateSpecification
-	 *     tile?='tile' (ambiguity) loopTypeSpecifications+=LoopTypeSpecification
-	 *     tile?='tile' (ambiguity) parallel?='parallel'
-	 */
-	protected void emit_BandExpression___LeftParenthesisKeyword_1_0_0_or_RightParenthesisKeyword_1_3_1__a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     (')' '('*)+
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     isolateSpecification=IsolateSpecification (ambiguity) '{' bandPieces+=BandPiece
-	 *     isolateSpecification=IsolateSpecification (ambiguity) isolateSpecification=IsolateSpecification
-	 *     isolateSpecification=IsolateSpecification (ambiguity) loopTypeSpecifications+=LoopTypeSpecification
-	 *     isolateSpecification=IsolateSpecification (ambiguity) parallel?='parallel'
-	 */
-	protected void emit_BandExpression___RightParenthesisKeyword_1_3_1_LeftParenthesisKeyword_1_0_0_a__p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     (')'* '(')+
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) 'band' (ambiguity) tile?='tile'
-	 *     loopTypeSpecifications+=LoopTypeSpecification (ambiguity) tile?='tile'
-	 *     parallel?='parallel' (ambiguity) tile?='tile'
-	 *     tile?='tile' (ambiguity) tile?='tile'
-	 */
-	protected void emit_BandExpression___RightParenthesisKeyword_1_3_1_a_LeftParenthesisKeyword_1_0_0__p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     (')'+ '('+)+
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     isolateSpecification=IsolateSpecification (ambiguity) tile?='tile'
-	 */
-	protected void emit_BandExpression___RightParenthesisKeyword_1_3_1_p_LeftParenthesisKeyword_1_0_0_p__p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

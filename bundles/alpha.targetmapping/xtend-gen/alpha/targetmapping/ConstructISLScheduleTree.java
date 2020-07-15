@@ -10,8 +10,8 @@ import alpha.targetmapping.ExtensionExpression;
 import alpha.targetmapping.ExtensionTarget;
 import alpha.targetmapping.FilterExpression;
 import alpha.targetmapping.GuardExpression;
+import alpha.targetmapping.ISLLoopTypeSpecification;
 import alpha.targetmapping.IsolateSpecification;
-import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.MarkExpression;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.ScheduleTreeExpression;
@@ -21,6 +21,7 @@ import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetmappingPackage;
 import alpha.targetmapping.util.AbstractTargetMappingVisitor;
 import alpha.targetmapping.util.TargetMappingUtil;
+import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.IISLSingleSpaceMapMethods;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
@@ -46,7 +47,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
@@ -281,8 +281,8 @@ public class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
     };
     final ISLMultiUnionPWAff partialSchedule = IterableExtensions.<ISLMultiUnionPWAff>reduce(ListExtensions.<BandPiece, ISLMultiUnionPWAff>map(be.getBandPieces(), _function), _function_1);
     ISLScheduleBandNode bandNode = this.getCurrentNode().insertPartialSchedule(partialSchedule);
-    EList<LoopTypeSpecification> _loopTypeSpecifications = be.getLoopTypeSpecifications();
-    for (final LoopTypeSpecification lts : _loopTypeSpecifications) {
+    Iterable<ISLLoopTypeSpecification> _filter = Iterables.<ISLLoopTypeSpecification>filter(be.getLoopTypeSpecifications(), ISLLoopTypeSpecification.class);
+    for (final ISLLoopTypeSpecification lts : _filter) {
       bandNode = bandNode.setASTLoopType(lts.getDimension(), lts.getLoopType());
     }
     IsolateSpecification _isolateSpecification = be.getIsolateSpecification();
@@ -292,8 +292,8 @@ public class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
       ISLSet _wrap = map.wrap();
       final ISLSet isolateOption = _wrap.setTupleName("isolate");
       bandNode = bandNode.setASTBuildOptions(isolateOption.toUnionSet());
-      EList<LoopTypeSpecification> _loopTypeSpecifications_1 = be.getIsolateSpecification().getLoopTypeSpecifications();
-      for (final LoopTypeSpecification lts_1 : _loopTypeSpecifications_1) {
+      Iterable<ISLLoopTypeSpecification> _filter_1 = Iterables.<ISLLoopTypeSpecification>filter(be.getIsolateSpecification().getLoopTypeSpecifications(), ISLLoopTypeSpecification.class);
+      for (final ISLLoopTypeSpecification lts_1 : _filter_1) {
         bandNode = bandNode.setIsolateASTLoopType(lts_1.getDimension(), lts_1.getLoopType());
       }
     }
@@ -374,15 +374,10 @@ public class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
   private ISLUnionMap constructNamedExtensionMap(final ExtensionTarget et) {
     ISLMap _extensionMap = et.getExtensionMap();
     IISLSingleSpaceMapMethods stExMap = _extensionMap.setOutputTupleName(et.getName());
-    AlphaScheduleTarget _source = et.getSource();
-    boolean _tripleNotEquals = (_source != null);
-    if (_tripleNotEquals) {
-      stExMap = stExMap.setInputTupleName(et.getSource().getName());
-    }
     return ((ISLMap) stExMap).toUnionMap();
   }
   
-  private ISLSet constructNamedSet(final EObject eq) {
+  private ISLSet constructNamedSet(final AlphaScheduleTarget eq) {
     if (eq instanceof StandardEquation) {
       return _constructNamedSet((StandardEquation)eq);
     } else if (eq instanceof UseEquation) {

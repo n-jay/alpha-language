@@ -9,6 +9,11 @@ import alpha.targetmapping.MarkExpression
 import alpha.targetmapping.TargetMapping
 import alpha.targetmapping.TargetMappingForSystemBody
 import alpha.targetmapping.TargetMappingVisitable
+import alpha.targetmapping.TileBandExpression
+import alpha.targetmapping.TileLoopSpecification
+import alpha.targetmapping.PointLoopSpecification
+import alpha.targetmapping.TilingSpecification
+import org.eclipse.emf.ecore.EObject
 
 /**
  * PrintTMAST is a dump of the TargetMapping IR, mainly used for debugging.
@@ -44,11 +49,19 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 	}
 	
 	override defaultIn(TargetMappingVisitable tmv) {
-		printStr("_", tmv.eClass.name)
-		indent += INDENT_WITH_SIBILING;
+		defaultIn(tmv as EObject)
 	}
 	
 	override defaultOut(TargetMappingVisitable tmv) {
+		defaultOut(tmv as EObject)
+	}
+	
+	def defaultIn(EObject eobj) {
+		printStr("_", eobj.eClass.name)
+		indent += INDENT_WITH_SIBILING;
+	}
+	
+	def defaultOut(EObject eobj) {
 		indent = indent.substring(0, indent.length() - INDENT_WITH_SIBILING.length());
 	}
 	
@@ -91,13 +104,6 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 	
 	override inBandExpression(BandExpression be) {
 		defaultIn(be);
-		if (be.tile)
-			printStr("+--", "tile");
-		if (be.parallel)
-			printStr("+--", "parallel");
-		for (lts : be.loopTypeSpecifications) {
-			printStr("+--", lts.loopType.name, ":", lts.dimension);	
-		}
 		for (bp : be.bandPieces) {
 			if (bp.pieceDomain.restrictDomain.plainIsUniverse) {
 				printStr("+--", bp.pieceDomain.scheduleTarget.name , "@" , bp.partialSchedule);
@@ -105,20 +111,62 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 				printStr("+--", bp.pieceDomain.scheduleTarget.name, ":", bp.pieceDomain.restrictDomain, "@" , bp.partialSchedule);
 			}
 		}
+		for (lts : be.loopTypeSpecifications) {
+			printStr("+--", lts.name, ":", lts.dimension);	
+		}
 		if (be.isolateSpecification !== null) {
 			printStr("+--", "isolate", be.isolateSpecification.isolateDomain);
 			for (lts : be.isolateSpecification.loopTypeSpecifications) {
-				printStr("   +--", lts.loopType.name, ":", lts.dimension);	
+				printStr("   +--", lts.name, ":", lts.dimension);	
 			}
-			
 		}
+	}
+	
+	override inTileBandExpression(TileBandExpression tbe) {
+		defaultIn(tbe);
+		for (bp : tbe.bandPieces) {
+			if (bp.pieceDomain.restrictDomain.plainIsUniverse) {
+				printStr("+--", bp.pieceDomain.scheduleTarget.name , "@" , bp.partialSchedule);
+			} else {
+				printStr("+--", bp.pieceDomain.scheduleTarget.name, ":", bp.pieceDomain.restrictDomain, "@" , bp.partialSchedule);
+			}
+		}
+		printStr("+--", tbe.scheduleDimensionNames)
+		
+		visitTilingSpecification(tbe.tilingSpecification)
+	}
+	
+	def dispatch void visitTilingSpecification(TileLoopSpecification tls) {
+		defaultIn(tls);
+		printStr("+--", tls.loopSchedule)
+		if (tls.parallel)
+			printStr("+--", "parallel");
+		printStr("+--", tls.tilingType);
+		printStr("+--", tls.tileSizeSpecifications);
+		
+		visitTilingSpecification(tls.tilingSpecification)
+		defaultOut(tls);
+	}
+	def dispatch void visitTilingSpecification(PointLoopSpecification pls) {
+		defaultIn(pls);
+		printStr("+--", pls.loopSchedule)
+		for (lts : pls.loopTypeSpecifications) {
+			printStr("+--", lts.name, ":", lts.dimension);	
+		}
+		if (pls.isolateSpecification !== null) {
+			printStr("+--", "isolate", pls.isolateSpecification.isolateDomain);
+			for (lts : pls.isolateSpecification.loopTypeSpecifications) {
+				printStr("   +--", lts.name, ":", lts.dimension);	
+			}
+		}
+		
+		defaultOut(pls);		
 	}
 
 	override inExtensionExpression(ExtensionExpression ee) {
 		defaultIn(ee);
 		for (et : ee.extensionTargets) {
-			val srcname = if (et.source !== null) et.source.name else "[]"
-			printStr("+--", srcname, "->", et.name, ":", et.extensionMap);
+			printStr("+--", et.name, ":", et.extensionMap);
 		}
 	}
 	

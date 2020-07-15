@@ -53,7 +53,7 @@ public class TargetMappingScopeProvider extends AbstractTargetMappingScopeProvid
         };
         return Scopes.<SystemBody>scopeFor(sbodies, _function, IScope.NULLSCOPE);
       }
-      if ((((context instanceof ScheduleTargetRestrictDomain) && Objects.equal(reference, TargetmappingPackage.Literals.SCHEDULE_TARGET_RESTRICT_DOMAIN__SCHEDULE_TARGET)) || ((context instanceof ExtensionTarget) && Objects.equal(reference, TargetmappingPackage.Literals.EXTENSION_TARGET__SOURCE)))) {
+      if (((context instanceof ScheduleTargetRestrictDomain) && Objects.equal(reference, TargetmappingPackage.Literals.SCHEDULE_TARGET_RESTRICT_DOMAIN__SCHEDULE_TARGET))) {
         ScopingEntity _xifexpression = null;
         if (((context.eContainer() instanceof FilterExpression) || (context.eContainer() instanceof ExtensionExpression))) {
           _xifexpression = EcoreUtil2.<ScopingEntity>getContainerOfType(context.eContainer().eContainer(), ScopingEntity.class);
@@ -90,7 +90,8 @@ public class TargetMappingScopeProvider extends AbstractTargetMappingScopeProvid
   }
   
   private IScope _constructScope(final ExtensionExpression ee) {
-    return this.scheduleTargetsToScope(ee.getExtensionTargets());
+    EList<ExtensionTarget> _extensionTargets = ee.getExtensionTargets();
+    return this.scheduleTargetsToScope(((Iterable<? extends AlphaScheduleTarget>) _extensionTargets));
   }
   
   private List<AlphaScheduleTarget> findRootScope(final TargetMappingNode tmn) {

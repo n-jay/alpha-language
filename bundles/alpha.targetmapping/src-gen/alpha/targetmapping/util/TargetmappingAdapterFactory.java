@@ -138,12 +138,48 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 				return createLoopTypeSpecificationAdapter();
 			}
 			@Override
+			public Adapter caseISLLoopTypeSpecification(ISLLoopTypeSpecification object) {
+				return createISLLoopTypeSpecificationAdapter();
+			}
+			@Override
+			public Adapter caseAlphaLoopTypeSpecification(AlphaLoopTypeSpecification object) {
+				return createAlphaLoopTypeSpecificationAdapter();
+			}
+			@Override
 			public Adapter caseIsolateSpecification(IsolateSpecification object) {
 				return createIsolateSpecificationAdapter();
 			}
 			@Override
-			public Adapter caseBandPieceForReductionBody(BandPieceForReductionBody object) {
-				return createBandPieceForReductionBodyAdapter();
+			public Adapter caseTileBandExpression(TileBandExpression object) {
+				return createTileBandExpressionAdapter();
+			}
+			@Override
+			public Adapter caseTilingSpecification(TilingSpecification object) {
+				return createTilingSpecificationAdapter();
+			}
+			@Override
+			public Adapter caseTileLoopSpecification(TileLoopSpecification object) {
+				return createTileLoopSpecificationAdapter();
+			}
+			@Override
+			public Adapter casePointLoopSpecification(PointLoopSpecification object) {
+				return createPointLoopSpecificationAdapter();
+			}
+			@Override
+			public Adapter caseTileSizeSpecification(TileSizeSpecification object) {
+				return createTileSizeSpecificationAdapter();
+			}
+			@Override
+			public Adapter caseFixedTileSize(FixedTileSize object) {
+				return createFixedTileSizeAdapter();
+			}
+			@Override
+			public Adapter caseParametricTileSize(ParametricTileSize object) {
+				return createParametricTileSizeAdapter();
+			}
+			@Override
+			public Adapter caseCompileTimeConstantTileSize(CompileTimeConstantTileSize object) {
+				return createCompileTimeConstantTileSizeAdapter();
 			}
 			@Override
 			public Adapter caseExtensionExpression(ExtensionExpression object) {
@@ -416,6 +452,34 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.ISLLoopTypeSpecification <em>ISL Loop Type Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.ISLLoopTypeSpecification
+	 * @generated
+	 */
+	public Adapter createISLLoopTypeSpecificationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.AlphaLoopTypeSpecification <em>Alpha Loop Type Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.AlphaLoopTypeSpecification
+	 * @generated
+	 */
+	public Adapter createAlphaLoopTypeSpecificationAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.IsolateSpecification <em>Isolate Specification</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -430,16 +494,114 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.BandPieceForReductionBody <em>Band Piece For Reduction Body</em>}'.
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.TileBandExpression <em>Tile Band Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see alpha.targetmapping.BandPieceForReductionBody
+	 * @see alpha.targetmapping.TileBandExpression
 	 * @generated
 	 */
-	public Adapter createBandPieceForReductionBodyAdapter() {
+	public Adapter createTileBandExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.TilingSpecification <em>Tiling Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.TilingSpecification
+	 * @generated
+	 */
+	public Adapter createTilingSpecificationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.TileLoopSpecification <em>Tile Loop Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.TileLoopSpecification
+	 * @generated
+	 */
+	public Adapter createTileLoopSpecificationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.PointLoopSpecification <em>Point Loop Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.PointLoopSpecification
+	 * @generated
+	 */
+	public Adapter createPointLoopSpecificationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.TileSizeSpecification <em>Tile Size Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.TileSizeSpecification
+	 * @generated
+	 */
+	public Adapter createTileSizeSpecificationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.FixedTileSize <em>Fixed Tile Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.FixedTileSize
+	 * @generated
+	 */
+	public Adapter createFixedTileSizeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.ParametricTileSize <em>Parametric Tile Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.ParametricTileSize
+	 * @generated
+	 */
+	public Adapter createParametricTileSizeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.CompileTimeConstantTileSize <em>Compile Time Constant Tile Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.CompileTimeConstantTileSize
+	 * @generated
+	 */
+	public Adapter createCompileTimeConstantTileSizeAdapter() {
 		return null;
 	}
 

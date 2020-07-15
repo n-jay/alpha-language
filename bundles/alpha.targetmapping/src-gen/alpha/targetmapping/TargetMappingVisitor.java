@@ -108,6 +108,14 @@ public interface TargetMappingVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model tbeUnique="false"
+	 * @generated
+	 */
+	void visitTileBandExpression(TileBandExpression tbe);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model eeUnique="false"
 	 * @generated
 	 */
@@ -199,6 +207,14 @@ public interface TargetMappingVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model tbeUnique="false"
+	 * @generated
+	 */
+	void inTileBandExpression(TileBandExpression tbe);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model eeUnique="false"
 	 * @generated
 	 */
@@ -286,6 +302,14 @@ public interface TargetMappingVisitor extends EObject {
 	 * @generated
 	 */
 	void outBandExpression(BandExpression be);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model tbeUnique="false"
+	 * @generated
+	 */
+	void outTileBandExpression(TileBandExpression tbe);
 
 	/**
 	 * <!-- begin-user-doc -->

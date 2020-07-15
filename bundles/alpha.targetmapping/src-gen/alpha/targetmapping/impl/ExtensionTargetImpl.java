@@ -2,7 +2,6 @@
  */
 package alpha.targetmapping.impl;
 
-import alpha.model.AlphaScheduleTarget;
 import alpha.model.JNIRelation;
 import alpha.model.POLY_OBJECT_TYPE;
 
@@ -38,7 +37,6 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getSource <em>Source</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getName <em>Name</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getIndexNames <em>Index Names</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.ExtensionTargetImpl#getExtensionMapExpr <em>Extension Map Expr</em>}</li>
@@ -47,16 +45,6 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * @generated
  */
 public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements ExtensionTarget {
-	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSource()
-	 * @generated
-	 * @ordered
-	 */
-	protected AlphaScheduleTarget source;
-
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -114,44 +102,6 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	protected EClass eStaticClass() {
 		return TargetmappingPackage.Literals.EXTENSION_TARGET;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AlphaScheduleTarget getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject)source;
-			source = (AlphaScheduleTarget)eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TargetmappingPackage.EXTENSION_TARGET__SOURCE, oldSource, source));
-			}
-		}
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AlphaScheduleTarget basicGetSource() {
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSource(AlphaScheduleTarget newSource) {
-		AlphaScheduleTarget oldSource = source;
-		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.EXTENSION_TARGET__SOURCE, oldSource, source));
 	}
 
 	/**
@@ -271,9 +221,6 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TargetmappingPackage.EXTENSION_TARGET__SOURCE:
-				if (resolve) return getSource();
-				return basicGetSource();
 			case TargetmappingPackage.EXTENSION_TARGET__NAME:
 				return getName();
 			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:
@@ -293,9 +240,6 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TargetmappingPackage.EXTENSION_TARGET__SOURCE:
-				setSource((AlphaScheduleTarget)newValue);
-				return;
 			case TargetmappingPackage.EXTENSION_TARGET__NAME:
 				setName((String)newValue);
 				return;
@@ -318,9 +262,6 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.EXTENSION_TARGET__SOURCE:
-				setSource((AlphaScheduleTarget)null);
-				return;
 			case TargetmappingPackage.EXTENSION_TARGET__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -342,8 +283,6 @@ public class ExtensionTargetImpl extends MinimalEObjectImpl.Container implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.EXTENSION_TARGET__SOURCE:
-				return source != null;
 			case TargetmappingPackage.EXTENSION_TARGET__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case TargetmappingPackage.EXTENSION_TARGET__INDEX_NAMES:

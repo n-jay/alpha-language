@@ -4,17 +4,22 @@ package alpha.targetmapping.impl;
 
 import alpha.model.ModelPackage;
 
+import alpha.targetmapping.AlphaLoopTypeSpecification;
 import alpha.targetmapping.BandExpression;
 import alpha.targetmapping.BandPiece;
-import alpha.targetmapping.BandPieceForReductionBody;
+import alpha.targetmapping.CompileTimeConstantTileSize;
 import alpha.targetmapping.ContextExpression;
 import alpha.targetmapping.ExtensionExpression;
 import alpha.targetmapping.ExtensionTarget;
 import alpha.targetmapping.FilterExpression;
+import alpha.targetmapping.FixedTileSize;
 import alpha.targetmapping.GuardExpression;
+import alpha.targetmapping.ISLLoopTypeSpecification;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.MarkExpression;
+import alpha.targetmapping.ParametricTileSize;
+import alpha.targetmapping.PointLoopSpecification;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.ScheduleTreeExpression;
 import alpha.targetmapping.ScopingEntity;
@@ -27,6 +32,10 @@ import alpha.targetmapping.TargetMappingVisitable;
 import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingFactory;
 import alpha.targetmapping.TargetmappingPackage;
+import alpha.targetmapping.TileBandExpression;
+import alpha.targetmapping.TileLoopSpecification;
+import alpha.targetmapping.TileSizeSpecification;
+import alpha.targetmapping.TilingSpecification;
 
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
 import fr.irisa.cairn.jnimap.isl.ISLMap;
@@ -39,6 +48,7 @@ import fr.irisa.cairn.jnimap.runtime.JNIObject;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -177,6 +187,20 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass islLoopTypeSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alphaLoopTypeSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass isolateSpecificationEClass = null;
 
 	/**
@@ -184,7 +208,56 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass bandPieceForReductionBodyEClass = null;
+	private EClass tileBandExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tilingSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tileLoopSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pointLoopSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tileSizeSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fixedTileSizeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass parametricTileSizeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass compileTimeConstantTileSizeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -199,6 +272,20 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * @generated
 	 */
 	private EClass extensionTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum alphA_LOOP_TYPEEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum tilinG_TYPEEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -616,26 +703,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBandExpression_Child() {
-		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getBandExpression_Tile() {
-		return (EAttribute)bandExpressionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getBandExpression_Parallel() {
-		return (EAttribute)bandExpressionEClass.getEStructuralFeatures().get(3);
+	public EAttribute getBandExpression_ScheduleDimensionNames() {
+		return (EAttribute)bandExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -644,7 +713,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * @generated
 	 */
 	public EReference getBandExpression_LoopTypeSpecifications() {
-		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(4);
+		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -653,7 +722,16 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * @generated
 	 */
 	public EReference getBandExpression_IsolateSpecification() {
-		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(5);
+		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBandExpression_Child() {
+		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -706,8 +784,35 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLoopTypeSpecification_LoopType() {
-		return (EAttribute)loopTypeSpecificationEClass.getEStructuralFeatures().get(1);
+	public EClass getISLLoopTypeSpecification() {
+		return islLoopTypeSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getISLLoopTypeSpecification_LoopType() {
+		return (EAttribute)islLoopTypeSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAlphaLoopTypeSpecification() {
+		return alphaLoopTypeSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlphaLoopTypeSpecification_LoopType() {
+		return (EAttribute)alphaLoopTypeSpecificationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -742,8 +847,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getBandPieceForReductionBody() {
-		return bandPieceForReductionBodyEClass;
+	public EClass getTileBandExpression() {
+		return tileBandExpressionEClass;
 	}
 
 	/**
@@ -751,8 +856,188 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBandPieceForReductionBody_ReductionInitialization() {
-		return (EAttribute)bandPieceForReductionBodyEClass.getEStructuralFeatures().get(0);
+	public EReference getTileBandExpression_BandPieces() {
+		return (EReference)tileBandExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTileBandExpression_ScheduleDimensionNames() {
+		return (EAttribute)tileBandExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTileBandExpression_TilingSpecification() {
+		return (EReference)tileBandExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTilingSpecification() {
+		return tilingSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTilingSpecification_LoopScheduleExpr() {
+		return (EReference)tilingSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTileLoopSpecification() {
+		return tileLoopSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTileLoopSpecification_Parallel() {
+		return (EAttribute)tileLoopSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTileLoopSpecification_TilingType() {
+		return (EAttribute)tileLoopSpecificationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTileLoopSpecification_TileSizeSpecifications() {
+		return (EReference)tileLoopSpecificationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTileLoopSpecification_TilingSpecification() {
+		return (EReference)tileLoopSpecificationEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPointLoopSpecification() {
+		return pointLoopSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPointLoopSpecification_LoopTypeSpecifications() {
+		return (EReference)pointLoopSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPointLoopSpecification_IsolateSpecification() {
+		return (EReference)pointLoopSpecificationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTileSizeSpecification() {
+		return tileSizeSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFixedTileSize() {
+		return fixedTileSizeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFixedTileSize_TileSize() {
+		return (EAttribute)fixedTileSizeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getParametricTileSize() {
+		return parametricTileSizeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getParametricTileSize_TileSizeName() {
+		return (EAttribute)parametricTileSizeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCompileTimeConstantTileSize() {
+		return compileTimeConstantTileSizeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCompileTimeConstantTileSize_TileSizeName() {
+		return (EAttribute)compileTimeConstantTileSizeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCompileTimeConstantTileSize_DefaultValue() {
+		return (EAttribute)compileTimeConstantTileSizeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -796,17 +1081,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensionTarget_Source() {
-		return (EReference)extensionTargetEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getExtensionTarget_Name() {
-		return (EAttribute)extensionTargetEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)extensionTargetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -815,7 +1091,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * @generated
 	 */
 	public EAttribute getExtensionTarget_IndexNames() {
-		return (EAttribute)extensionTargetEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)extensionTargetEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -824,7 +1100,25 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * @generated
 	 */
 	public EReference getExtensionTarget_ExtensionMapExpr() {
-		return (EReference)extensionTargetEClass.getEStructuralFeatures().get(3);
+		return (EReference)extensionTargetEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getALPHA_LOOP_TYPE() {
+		return alphA_LOOP_TYPEEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTILING_TYPE() {
+		return tilinG_TYPEEEnum;
 	}
 
 	/**
@@ -965,11 +1259,10 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		bandExpressionEClass = createEClass(BAND_EXPRESSION);
 		createEReference(bandExpressionEClass, BAND_EXPRESSION__BAND_PIECES);
-		createEReference(bandExpressionEClass, BAND_EXPRESSION__CHILD);
-		createEAttribute(bandExpressionEClass, BAND_EXPRESSION__TILE);
-		createEAttribute(bandExpressionEClass, BAND_EXPRESSION__PARALLEL);
+		createEAttribute(bandExpressionEClass, BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES);
 		createEReference(bandExpressionEClass, BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS);
 		createEReference(bandExpressionEClass, BAND_EXPRESSION__ISOLATE_SPECIFICATION);
+		createEReference(bandExpressionEClass, BAND_EXPRESSION__CHILD);
 
 		bandPieceEClass = createEClass(BAND_PIECE);
 		createEReference(bandPieceEClass, BAND_PIECE__PIECE_DOMAIN);
@@ -977,24 +1270,59 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		loopTypeSpecificationEClass = createEClass(LOOP_TYPE_SPECIFICATION);
 		createEAttribute(loopTypeSpecificationEClass, LOOP_TYPE_SPECIFICATION__DIMENSION);
-		createEAttribute(loopTypeSpecificationEClass, LOOP_TYPE_SPECIFICATION__LOOP_TYPE);
+
+		islLoopTypeSpecificationEClass = createEClass(ISL_LOOP_TYPE_SPECIFICATION);
+		createEAttribute(islLoopTypeSpecificationEClass, ISL_LOOP_TYPE_SPECIFICATION__LOOP_TYPE);
+
+		alphaLoopTypeSpecificationEClass = createEClass(ALPHA_LOOP_TYPE_SPECIFICATION);
+		createEAttribute(alphaLoopTypeSpecificationEClass, ALPHA_LOOP_TYPE_SPECIFICATION__LOOP_TYPE);
 
 		isolateSpecificationEClass = createEClass(ISOLATE_SPECIFICATION);
 		createEReference(isolateSpecificationEClass, ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR);
 		createEReference(isolateSpecificationEClass, ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS);
 
-		bandPieceForReductionBodyEClass = createEClass(BAND_PIECE_FOR_REDUCTION_BODY);
-		createEAttribute(bandPieceForReductionBodyEClass, BAND_PIECE_FOR_REDUCTION_BODY__REDUCTION_INITIALIZATION);
+		tileBandExpressionEClass = createEClass(TILE_BAND_EXPRESSION);
+		createEReference(tileBandExpressionEClass, TILE_BAND_EXPRESSION__BAND_PIECES);
+		createEAttribute(tileBandExpressionEClass, TILE_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES);
+		createEReference(tileBandExpressionEClass, TILE_BAND_EXPRESSION__TILING_SPECIFICATION);
+
+		tilingSpecificationEClass = createEClass(TILING_SPECIFICATION);
+		createEReference(tilingSpecificationEClass, TILING_SPECIFICATION__LOOP_SCHEDULE_EXPR);
+
+		tileLoopSpecificationEClass = createEClass(TILE_LOOP_SPECIFICATION);
+		createEAttribute(tileLoopSpecificationEClass, TILE_LOOP_SPECIFICATION__PARALLEL);
+		createEAttribute(tileLoopSpecificationEClass, TILE_LOOP_SPECIFICATION__TILING_TYPE);
+		createEReference(tileLoopSpecificationEClass, TILE_LOOP_SPECIFICATION__TILE_SIZE_SPECIFICATIONS);
+		createEReference(tileLoopSpecificationEClass, TILE_LOOP_SPECIFICATION__TILING_SPECIFICATION);
+
+		pointLoopSpecificationEClass = createEClass(POINT_LOOP_SPECIFICATION);
+		createEReference(pointLoopSpecificationEClass, POINT_LOOP_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS);
+		createEReference(pointLoopSpecificationEClass, POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION);
+
+		tileSizeSpecificationEClass = createEClass(TILE_SIZE_SPECIFICATION);
+
+		fixedTileSizeEClass = createEClass(FIXED_TILE_SIZE);
+		createEAttribute(fixedTileSizeEClass, FIXED_TILE_SIZE__TILE_SIZE);
+
+		parametricTileSizeEClass = createEClass(PARAMETRIC_TILE_SIZE);
+		createEAttribute(parametricTileSizeEClass, PARAMETRIC_TILE_SIZE__TILE_SIZE_NAME);
+
+		compileTimeConstantTileSizeEClass = createEClass(COMPILE_TIME_CONSTANT_TILE_SIZE);
+		createEAttribute(compileTimeConstantTileSizeEClass, COMPILE_TIME_CONSTANT_TILE_SIZE__TILE_SIZE_NAME);
+		createEAttribute(compileTimeConstantTileSizeEClass, COMPILE_TIME_CONSTANT_TILE_SIZE__DEFAULT_VALUE);
 
 		extensionExpressionEClass = createEClass(EXTENSION_EXPRESSION);
 		createEReference(extensionExpressionEClass, EXTENSION_EXPRESSION__EXTENSION_TARGETS);
 		createEReference(extensionExpressionEClass, EXTENSION_EXPRESSION__CHILD);
 
 		extensionTargetEClass = createEClass(EXTENSION_TARGET);
-		createEReference(extensionTargetEClass, EXTENSION_TARGET__SOURCE);
 		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__NAME);
 		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__INDEX_NAMES);
 		createEReference(extensionTargetEClass, EXTENSION_TARGET__EXTENSION_MAP_EXPR);
+
+		// Create enums
+		alphA_LOOP_TYPEEEnum = createEEnum(ALPHA_LOOP_TYPE);
+		tilinG_TYPEEEnum = createEEnum(TILING_TYPE);
 
 		// Create data types
 		jniObjectEDataType = createEDataType(JNI_OBJECT);
@@ -1054,7 +1382,14 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		guardExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
 		markExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
 		bandExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
-		bandPieceForReductionBodyEClass.getESuperTypes().add(this.getBandPiece());
+		islLoopTypeSpecificationEClass.getESuperTypes().add(this.getLoopTypeSpecification());
+		alphaLoopTypeSpecificationEClass.getESuperTypes().add(this.getLoopTypeSpecification());
+		tileBandExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		tileLoopSpecificationEClass.getESuperTypes().add(this.getTilingSpecification());
+		pointLoopSpecificationEClass.getESuperTypes().add(this.getTilingSpecification());
+		fixedTileSizeEClass.getESuperTypes().add(this.getTileSizeSpecification());
+		parametricTileSizeEClass.getESuperTypes().add(this.getTileSizeSpecification());
+		compileTimeConstantTileSizeEClass.getESuperTypes().add(this.getTileSizeSpecification());
 		extensionExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
 		extensionExpressionEClass.getESuperTypes().add(this.getScopingEntity());
 		extensionTargetEClass.getESuperTypes().add(theModelPackage.getAlphaScheduleTarget());
@@ -1099,6 +1434,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		op = addEOperation(targetMappingVisitorEClass, null, "visitBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getBandExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(targetMappingVisitorEClass, null, "visitTileBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTileBandExpression(), "tbe", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(targetMappingVisitorEClass, null, "visitExtensionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getExtensionExpression(), "ee", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -1132,6 +1470,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		op = addEOperation(targetMappingVisitorEClass, null, "inBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getBandExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(targetMappingVisitorEClass, null, "inTileBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTileBandExpression(), "tbe", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(targetMappingVisitorEClass, null, "inExtensionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getExtensionExpression(), "ee", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -1164,6 +1505,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		op = addEOperation(targetMappingVisitorEClass, null, "outBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getBandExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(targetMappingVisitorEClass, null, "outTileBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTileBandExpression(), "tbe", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(targetMappingVisitorEClass, null, "outExtensionExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getExtensionExpression(), "ee", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -1239,11 +1583,10 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		initEClass(bandExpressionEClass, BandExpression.class, "BandExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBandExpression_BandPieces(), this.getBandPiece(), null, "bandPieces", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBandExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBandExpression_Tile(), theEcorePackage.getEBoolean(), "tile", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBandExpression_Parallel(), theEcorePackage.getEBoolean(), "parallel", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBandExpression_ScheduleDimensionNames(), theEcorePackage.getEString(), "scheduleDimensionNames", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBandExpression_LoopTypeSpecifications(), this.getLoopTypeSpecification(), null, "loopTypeSpecifications", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBandExpression_IsolateSpecification(), this.getIsolateSpecification(), null, "isolateSpecification", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBandExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(bandExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -1254,9 +1597,20 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		addEOperation(bandPieceEClass, this.getJNIISLMultiAff(), "getPartialSchedule", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		initEClass(loopTypeSpecificationEClass, LoopTypeSpecification.class, "LoopTypeSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(loopTypeSpecificationEClass, LoopTypeSpecification.class, "LoopTypeSpecification", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLoopTypeSpecification_Dimension(), theEcorePackage.getEInt(), "dimension", null, 0, 1, LoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLoopTypeSpecification_LoopType(), this.getISLASTLoopType(), "loopType", null, 0, 1, LoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(loopTypeSpecificationEClass, theEcorePackage.getEString(), "getName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(islLoopTypeSpecificationEClass, ISLLoopTypeSpecification.class, "ISLLoopTypeSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getISLLoopTypeSpecification_LoopType(), this.getISLASTLoopType(), "loopType", null, 0, 1, ISLLoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(islLoopTypeSpecificationEClass, theEcorePackage.getEString(), "getName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(alphaLoopTypeSpecificationEClass, AlphaLoopTypeSpecification.class, "AlphaLoopTypeSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAlphaLoopTypeSpecification_LoopType(), this.getALPHA_LOOP_TYPE(), "loopType", null, 0, 1, AlphaLoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(alphaLoopTypeSpecificationEClass, theEcorePackage.getEString(), "getName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(isolateSpecificationEClass, IsolateSpecification.class, "IsolateSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIsolateSpecification_IsolateDomainExpr(), theModelPackage.getJNIDomain(), null, "isolateDomainExpr", null, 0, 1, IsolateSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1264,8 +1618,40 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		addEOperation(isolateSpecificationEClass, this.getJNIISLSet(), "getIsolateDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
-		initEClass(bandPieceForReductionBodyEClass, BandPieceForReductionBody.class, "BandPieceForReductionBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBandPieceForReductionBody_ReductionInitialization(), theEcorePackage.getEString(), "reductionInitialization", null, 0, 1, BandPieceForReductionBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(tileBandExpressionEClass, TileBandExpression.class, "TileBandExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTileBandExpression_BandPieces(), this.getBandPiece(), null, "bandPieces", null, 0, -1, TileBandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTileBandExpression_ScheduleDimensionNames(), theEcorePackage.getEString(), "scheduleDimensionNames", null, 0, -1, TileBandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTileBandExpression_TilingSpecification(), this.getTilingSpecification(), null, "tilingSpecification", null, 0, 1, TileBandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(tileBandExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(tilingSpecificationEClass, TilingSpecification.class, "TilingSpecification", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTilingSpecification_LoopScheduleExpr(), theModelPackage.getJNIFunctionInArrayNotation(), null, "loopScheduleExpr", null, 0, 1, TilingSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(tilingSpecificationEClass, this.getJNIISLMultiAff(), "getLoopSchedule", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(tileLoopSpecificationEClass, TileLoopSpecification.class, "TileLoopSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTileLoopSpecification_Parallel(), theEcorePackage.getEBoolean(), "parallel", null, 0, 1, TileLoopSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTileLoopSpecification_TilingType(), this.getTILING_TYPE(), "tilingType", null, 0, 1, TileLoopSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTileLoopSpecification_TileSizeSpecifications(), this.getTileSizeSpecification(), null, "tileSizeSpecifications", null, 0, -1, TileLoopSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTileLoopSpecification_TilingSpecification(), this.getTilingSpecification(), null, "tilingSpecification", null, 0, 1, TileLoopSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pointLoopSpecificationEClass, PointLoopSpecification.class, "PointLoopSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPointLoopSpecification_LoopTypeSpecifications(), this.getLoopTypeSpecification(), null, "loopTypeSpecifications", null, 0, -1, PointLoopSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPointLoopSpecification_IsolateSpecification(), this.getIsolateSpecification(), null, "isolateSpecification", null, 0, 1, PointLoopSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tileSizeSpecificationEClass, TileSizeSpecification.class, "TileSizeSpecification", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(fixedTileSizeEClass, FixedTileSize.class, "FixedTileSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFixedTileSize_TileSize(), theEcorePackage.getEInt(), "tileSize", null, 0, 1, FixedTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(parametricTileSizeEClass, ParametricTileSize.class, "ParametricTileSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getParametricTileSize_TileSizeName(), theEcorePackage.getEString(), "tileSizeName", null, 0, 1, ParametricTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(compileTimeConstantTileSizeEClass, CompileTimeConstantTileSize.class, "CompileTimeConstantTileSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCompileTimeConstantTileSize_TileSizeName(), theEcorePackage.getEString(), "tileSizeName", null, 0, 1, CompileTimeConstantTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCompileTimeConstantTileSize_DefaultValue(), theEcorePackage.getEInt(), "defaultValue", null, 0, 1, CompileTimeConstantTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(extensionExpressionEClass, ExtensionExpression.class, "ExtensionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExtensionExpression_ExtensionTargets(), this.getExtensionTarget(), null, "extensionTargets", null, 0, -1, ExtensionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1275,12 +1661,20 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(extensionTargetEClass, ExtensionTarget.class, "ExtensionTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getExtensionTarget_Source(), theModelPackage.getAlphaScheduleTarget(), null, "source", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExtensionTarget_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExtensionTarget_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExtensionTarget_ExtensionMapExpr(), theModelPackage.getJNIRelation(), null, "extensionMapExpr", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(extensionTargetEClass, this.getJNIISLMap(), "getExtensionMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(alphA_LOOP_TYPEEEnum, alpha.targetmapping.ALPHA_LOOP_TYPE.class, "ALPHA_LOOP_TYPE");
+		addEEnumLiteral(alphA_LOOP_TYPEEEnum, alpha.targetmapping.ALPHA_LOOP_TYPE.PARALLEL);
+
+		initEEnum(tilinG_TYPEEEnum, alpha.targetmapping.TILING_TYPE.class, "TILING_TYPE");
+		addEEnumLiteral(tilinG_TYPEEEnum, alpha.targetmapping.TILING_TYPE.FIXED);
+		addEEnumLiteral(tilinG_TYPEEEnum, alpha.targetmapping.TILING_TYPE.PARAMETRIC);
+		addEEnumLiteral(tilinG_TYPEEEnum, alpha.targetmapping.TILING_TYPE.COMPILE_TIME_CONSTANT);
 
 		// Initialize data types
 		initEDataType(jniObjectEDataType, JNIObject.class, "JNIObject", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

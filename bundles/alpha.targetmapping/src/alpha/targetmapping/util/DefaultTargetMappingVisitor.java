@@ -13,6 +13,7 @@ import alpha.targetmapping.TargetMapping;
 import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingVisitable;
 import alpha.targetmapping.TargetMappingVisitor;
+import alpha.targetmapping.TileBandExpression;
 
 public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	
@@ -95,6 +96,12 @@ public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	}
 	
 	@Override
+	default void visitTileBandExpression(TileBandExpression tbe) {
+		inTileBandExpression(tbe);
+		outTileBandExpression(tbe);
+	}
+	
+	@Override
 	default void visitExtensionExpression(ExtensionExpression ee) {
 		inExtensionExpression(ee);
 		ee.getChild().accept(this);
@@ -153,6 +160,11 @@ public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	}
 	
 	@Override
+	default void inTileBandExpression(TileBandExpression tbe) {
+		inScheduleTreeExpression(tbe);
+	}
+	
+	@Override
 	default void inExtensionExpression(ExtensionExpression ee) {
 		inScheduleTreeExpression(ee);
 	}
@@ -208,6 +220,11 @@ public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	@Override
 	default void outBandExpression(BandExpression be) {
 		outScheduleTreeExpression(be);
+	}
+	
+	@Override
+	default void outTileBandExpression(TileBandExpression tbe) {
+		outScheduleTreeExpression(tbe);
 	}
 	
 	@Override

@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link alpha.targetmapping.ExtensionTarget#getSource <em>Source</em>}</li>
  *   <li>{@link alpha.targetmapping.ExtensionTarget#getName <em>Name</em>}</li>
  *   <li>{@link alpha.targetmapping.ExtensionTarget#getIndexNames <em>Index Names</em>}</li>
  *   <li>{@link alpha.targetmapping.ExtensionTarget#getExtensionMapExpr <em>Extension Map Expr</em>}</li>
@@ -29,28 +28,6 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface ExtensionTarget extends AlphaScheduleTarget {
-	/**
-	 * Returns the value of the '<em><b>Source</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source</em>' reference.
-	 * @see #setSource(AlphaScheduleTarget)
-	 * @see alpha.targetmapping.TargetmappingPackage#getExtensionTarget_Source()
-	 * @model
-	 * @generated
-	 */
-	AlphaScheduleTarget getSource();
-
-	/**
-	 * Sets the value of the '{@link alpha.targetmapping.ExtensionTarget#getSource <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source</em>' reference.
-	 * @see #getSource()
-	 * @generated
-	 */
-	void setSource(AlphaScheduleTarget value);
-
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

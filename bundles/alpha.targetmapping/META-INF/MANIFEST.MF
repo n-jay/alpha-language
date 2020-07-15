@@ -10,6 +10,7 @@ Automatic-Module-Name: alpha.targetmapping
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: alpha.targetmapping,
  alpha.targetmapping.impl,
+ alpha.targetmapping.issue,
  alpha.targetmapping.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,

@@ -64,23 +64,29 @@ import alpha.model.Variable;
 import alpha.model.VariableDomain;
 import alpha.model.VariableExpression;
 import alpha.model.serializer.AlphaSemanticSequencer;
+import alpha.targetmapping.AlphaLoopTypeSpecification;
 import alpha.targetmapping.BandExpression;
 import alpha.targetmapping.BandPiece;
-import alpha.targetmapping.BandPieceForReductionBody;
+import alpha.targetmapping.CompileTimeConstantTileSize;
 import alpha.targetmapping.ContextExpression;
 import alpha.targetmapping.ExtensionExpression;
 import alpha.targetmapping.ExtensionTarget;
 import alpha.targetmapping.FilterExpression;
+import alpha.targetmapping.FixedTileSize;
 import alpha.targetmapping.GuardExpression;
+import alpha.targetmapping.ISLLoopTypeSpecification;
 import alpha.targetmapping.IsolateSpecification;
-import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.MarkExpression;
+import alpha.targetmapping.ParametricTileSize;
+import alpha.targetmapping.PointLoopSpecification;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.SequenceExpression;
 import alpha.targetmapping.SetExpression;
 import alpha.targetmapping.TargetMapping;
 import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetmappingPackage;
+import alpha.targetmapping.TileBandExpression;
+import alpha.targetmapping.TileLoopSpecification;
 import alpha.targetmapping.services.TargetMappingGrammarAccess;
 import com.google.inject.Inject;
 import java.util.Set;
@@ -316,14 +322,17 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 			}
 		else if (epackage == TargetmappingPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case TargetmappingPackage.ALPHA_LOOP_TYPE_SPECIFICATION:
+				sequence_AlphaLoopTypeSpecification(context, (AlphaLoopTypeSpecification) semanticObject); 
+				return; 
 			case TargetmappingPackage.BAND_EXPRESSION:
 				sequence_BandExpression(context, (BandExpression) semanticObject); 
 				return; 
 			case TargetmappingPackage.BAND_PIECE:
 				sequence_BandPiece(context, (BandPiece) semanticObject); 
 				return; 
-			case TargetmappingPackage.BAND_PIECE_FOR_REDUCTION_BODY:
-				sequence_BandPieceForReductionBody(context, (BandPieceForReductionBody) semanticObject); 
+			case TargetmappingPackage.COMPILE_TIME_CONSTANT_TILE_SIZE:
+				sequence_CompileTimeConstantTileSize(context, (CompileTimeConstantTileSize) semanticObject); 
 				return; 
 			case TargetmappingPackage.CONTEXT_EXPRESSION:
 				sequence_ContextExpression(context, (ContextExpression) semanticObject); 
@@ -337,17 +346,26 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 			case TargetmappingPackage.FILTER_EXPRESSION:
 				sequence_FilterExpression(context, (FilterExpression) semanticObject); 
 				return; 
+			case TargetmappingPackage.FIXED_TILE_SIZE:
+				sequence_FixedTileSize(context, (FixedTileSize) semanticObject); 
+				return; 
 			case TargetmappingPackage.GUARD_EXPRESSION:
 				sequence_GuardExpression(context, (GuardExpression) semanticObject); 
+				return; 
+			case TargetmappingPackage.ISL_LOOP_TYPE_SPECIFICATION:
+				sequence_ISLLoopTypeSpecification(context, (ISLLoopTypeSpecification) semanticObject); 
 				return; 
 			case TargetmappingPackage.ISOLATE_SPECIFICATION:
 				sequence_IsolateSpecification(context, (IsolateSpecification) semanticObject); 
 				return; 
-			case TargetmappingPackage.LOOP_TYPE_SPECIFICATION:
-				sequence_LoopTypeSpecification(context, (LoopTypeSpecification) semanticObject); 
-				return; 
 			case TargetmappingPackage.MARK_EXPRESSION:
 				sequence_MarkExpression(context, (MarkExpression) semanticObject); 
+				return; 
+			case TargetmappingPackage.PARAMETRIC_TILE_SIZE:
+				sequence_ParametricTileSize(context, (ParametricTileSize) semanticObject); 
+				return; 
+			case TargetmappingPackage.POINT_LOOP_SPECIFICATION:
+				sequence_PointLoopSpecification(context, (PointLoopSpecification) semanticObject); 
 				return; 
 			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN:
 				if (rule == grammarAccess.getScheduleTargetRestrictDomainRule()) {
@@ -371,10 +389,54 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY:
 				sequence_TargetMappingForSystemBody(context, (TargetMappingForSystemBody) semanticObject); 
 				return; 
+			case TargetmappingPackage.TILE_BAND_EXPRESSION:
+				sequence_TileBandExpression(context, (TileBandExpression) semanticObject); 
+				return; 
+			case TargetmappingPackage.TILE_LOOP_SPECIFICATION:
+				if (rule == grammarAccess.getTilingSpecificationRule()
+						|| rule == grammarAccess.getTileLoopSpecificationRule()) {
+					sequence_CompileTimeConstantTilingTileLoopSpecification_FixedTilingTileLoopSpecification_ParametricTilingTileLoopSpecification(context, (TileLoopSpecification) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule()) {
+					sequence_CompileTimeConstantTilingTileLoopSpecification(context, (TileLoopSpecification) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getFixedTilingTileLoopSpecificationRule()) {
+					sequence_FixedTilingTileLoopSpecification(context, (TileLoopSpecification) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getParametricTilingTileLoopSpecificationRule()) {
+					sequence_ParametricTilingTileLoopSpecification(context, (TileLoopSpecification) semanticObject); 
+					return; 
+				}
+				else break;
 			}
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Contexts:
+	 *     LoopTypeSpecification returns AlphaLoopTypeSpecification
+	 *     AlphaLoopTypeSpecification returns AlphaLoopTypeSpecification
+	 *
+	 * Constraint:
+	 *     (loopType=AlphaLoopType dimension=INT)
+	 */
+	protected void sequence_AlphaLoopTypeSpecification(ISerializationContext context, AlphaLoopTypeSpecification semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ALPHA_LOOP_TYPE_SPECIFICATION__LOOP_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ALPHA_LOOP_TYPE_SPECIFICATION__LOOP_TYPE));
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.LOOP_TYPE_SPECIFICATION__DIMENSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.LOOP_TYPE_SPECIFICATION__DIMENSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAlphaLoopTypeSpecificationAccess().getLoopTypeAlphaLoopTypeParserRuleCall_0_0(), semanticObject.getLoopType());
+		feeder.accept(grammarAccess.getAlphaLoopTypeSpecificationAccess().getDimensionINTTerminalRuleCall_2_0(), semanticObject.getDimension());
+		feeder.finish();
+	}
+	
 	
 	/**
 	 * Contexts:
@@ -383,25 +445,14 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *
 	 * Constraint:
 	 *     (
-	 *         (tile?='tile' | parallel?='parallel' | loopTypeSpecifications+=LoopTypeSpecification | isolateSpecification=IsolateSpecification)* 
+	 *         (scheduleDimensionNames+=ID scheduleDimensionNames+=ID*)? 
 	 *         bandPieces+=BandPiece+ 
+	 *         loopTypeSpecifications+=LoopTypeSpecification* 
+	 *         isolateSpecification=IsolateSpecification? 
 	 *         child=ScheduleTreeExpression?
 	 *     )
 	 */
 	protected void sequence_BandExpression(ISerializationContext context, BandExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     BandPiece returns BandPieceForReductionBody
-	 *     BandPieceForReductionBody returns BandPieceForReductionBody
-	 *
-	 * Constraint:
-	 *     (pieceDomain=ScheduleTargetRestrictDomain reductionInitialization=STRING? partialScheduleExpr=JNIFunctionInArrayNotation)
-	 */
-	protected void sequence_BandPieceForReductionBody(ISerializationContext context, BandPieceForReductionBody semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -421,9 +472,84 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PARTIAL_SCHEDULE_EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getBandPieceAccess().getPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0_0(), semanticObject.getPieceDomain());
-		feeder.accept(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_0_2_0(), semanticObject.getPartialScheduleExpr());
+		feeder.accept(grammarAccess.getBandPieceAccess().getPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0(), semanticObject.getPieceDomain());
+		feeder.accept(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0(), semanticObject.getPartialScheduleExpr());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     TileSizeSpecification returns CompileTimeConstantTileSize
+	 *     CompileTimeConstantTileSize returns CompileTimeConstantTileSize
+	 *
+	 * Constraint:
+	 *     (tileSizeName=ID defaultValue=INT)
+	 */
+	protected void sequence_CompileTimeConstantTileSize(ISerializationContext context, CompileTimeConstantTileSize semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.COMPILE_TIME_CONSTANT_TILE_SIZE__TILE_SIZE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.COMPILE_TIME_CONSTANT_TILE_SIZE__TILE_SIZE_NAME));
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.COMPILE_TIME_CONSTANT_TILE_SIZE__DEFAULT_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.COMPILE_TIME_CONSTANT_TILE_SIZE__DEFAULT_VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCompileTimeConstantTileSizeAccess().getTileSizeNameIDTerminalRuleCall_0_0(), semanticObject.getTileSizeName());
+		feeder.accept(grammarAccess.getCompileTimeConstantTileSizeAccess().getDefaultValueINTTerminalRuleCall_2_0(), semanticObject.getDefaultValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     TilingSpecification returns TileLoopSpecification
+	 *     TileLoopSpecification returns TileLoopSpecification
+	 *
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             parallel?='parallel'? 
+	 *             loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *             tileSizeSpecifications+=FixedTileSize 
+	 *             tileSizeSpecifications+=FixedTileSize* 
+	 *             tilingSpecification=TilingSpecification
+	 *         ) | 
+	 *         (
+	 *             parallel?='parallel'? 
+	 *             loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *             tileSizeSpecifications+=ParametricTileSize 
+	 *             tileSizeSpecifications+=ParametricTileSize* 
+	 *             tilingSpecification=TilingSpecification
+	 *         ) | 
+	 *         (
+	 *             parallel?='parallel'? 
+	 *             loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *             tileSizeSpecifications+=CompileTimeConstantTileSize 
+	 *             tileSizeSpecifications+=CompileTimeConstantTileSize* 
+	 *             tilingSpecification=TilingSpecification
+	 *         )
+	 *     )
+	 */
+	protected void sequence_CompileTimeConstantTilingTileLoopSpecification_FixedTilingTileLoopSpecification_ParametricTilingTileLoopSpecification(ISerializationContext context, TileLoopSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     CompileTimeConstantTilingTileLoopSpecification returns TileLoopSpecification
+	 *
+	 * Constraint:
+	 *     (
+	 *         parallel?='parallel'? 
+	 *         loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *         tileSizeSpecifications+=CompileTimeConstantTileSize 
+	 *         tileSizeSpecifications+=CompileTimeConstantTileSize* 
+	 *         tilingSpecification=TilingSpecification
+	 *     )
+	 */
+	protected void sequence_CompileTimeConstantTilingTileLoopSpecification(ISerializationContext context, TileLoopSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -466,7 +592,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     ExtensionTarget returns ExtensionTarget
 	 *
 	 * Constraint:
-	 *     (source=[AlphaScheduleTarget|ID]? extensionMapExpr=JNIRelation name=ID (indexNames+=ID indexNames+=ID*)?)
+	 *     (extensionMapExpr=JNIRelation name=ID (indexNames+=ID indexNames+=ID*)?)
 	 */
 	protected void sequence_ExtensionTarget(ISerializationContext context, ExtensionTarget semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -483,6 +609,43 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     (filterDomains+=ScheduleTargetRestrictDomain filterDomains+=ScheduleTargetRestrictDomain* child=ScheduleTreeExpression?)
 	 */
 	protected void sequence_FilterExpression(ISerializationContext context, FilterExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     TileSizeSpecification returns FixedTileSize
+	 *     FixedTileSize returns FixedTileSize
+	 *
+	 * Constraint:
+	 *     tileSize=INT
+	 */
+	protected void sequence_FixedTileSize(ISerializationContext context, FixedTileSize semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.FIXED_TILE_SIZE__TILE_SIZE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.FIXED_TILE_SIZE__TILE_SIZE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFixedTileSizeAccess().getTileSizeINTTerminalRuleCall_0(), semanticObject.getTileSize());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FixedTilingTileLoopSpecification returns TileLoopSpecification
+	 *
+	 * Constraint:
+	 *     (
+	 *         parallel?='parallel'? 
+	 *         loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *         tileSizeSpecifications+=FixedTileSize 
+	 *         tileSizeSpecifications+=FixedTileSize* 
+	 *         tilingSpecification=TilingSpecification
+	 *     )
+	 */
+	protected void sequence_FixedTilingTileLoopSpecification(ISerializationContext context, TileLoopSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -511,6 +674,28 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     LoopTypeSpecification returns ISLLoopTypeSpecification
+	 *     ISLLoopTypeSpecification returns ISLLoopTypeSpecification
+	 *
+	 * Constraint:
+	 *     (loopType=ISLASTLoopType dimension=INT)
+	 */
+	protected void sequence_ISLLoopTypeSpecification(ISerializationContext context, ISLLoopTypeSpecification semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.ISL_LOOP_TYPE_SPECIFICATION__LOOP_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.ISL_LOOP_TYPE_SPECIFICATION__LOOP_TYPE));
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.LOOP_TYPE_SPECIFICATION__DIMENSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.LOOP_TYPE_SPECIFICATION__DIMENSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getISLLoopTypeSpecificationAccess().getLoopTypeISLASTLoopTypeParserRuleCall_0_0(), semanticObject.getLoopType());
+		feeder.accept(grammarAccess.getISLLoopTypeSpecificationAccess().getDimensionINTTerminalRuleCall_2_0(), semanticObject.getDimension());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     IsolateSpecification returns IsolateSpecification
 	 *
 	 * Constraint:
@@ -518,27 +703,6 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 */
 	protected void sequence_IsolateSpecification(ISerializationContext context, IsolateSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     LoopTypeSpecification returns LoopTypeSpecification
-	 *
-	 * Constraint:
-	 *     (loopType=ISLASTLoopType dimension=INT)
-	 */
-	protected void sequence_LoopTypeSpecification(ISerializationContext context, LoopTypeSpecification semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.LOOP_TYPE_SPECIFICATION__LOOP_TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.LOOP_TYPE_SPECIFICATION__LOOP_TYPE));
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.LOOP_TYPE_SPECIFICATION__DIMENSION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.LOOP_TYPE_SPECIFICATION__DIMENSION));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getLoopTypeSpecificationAccess().getLoopTypeISLASTLoopTypeParserRuleCall_0_0(), semanticObject.getLoopType());
-		feeder.accept(grammarAccess.getLoopTypeSpecificationAccess().getDimensionINTTerminalRuleCall_2_0(), semanticObject.getDimension());
-		feeder.finish();
 	}
 	
 	
@@ -561,6 +725,56 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 		feeder.accept(grammarAccess.getMarkExpressionAccess().getIdentifierIDTerminalRuleCall_2_0(), semanticObject.getIdentifier());
 		feeder.accept(grammarAccess.getMarkExpressionAccess().getChildScheduleTreeExpressionParserRuleCall_4_0(), semanticObject.getChild());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     TileSizeSpecification returns ParametricTileSize
+	 *     ParametricTileSize returns ParametricTileSize
+	 *
+	 * Constraint:
+	 *     tileSizeName=ID
+	 */
+	protected void sequence_ParametricTileSize(ISerializationContext context, ParametricTileSize semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.PARAMETRIC_TILE_SIZE__TILE_SIZE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.PARAMETRIC_TILE_SIZE__TILE_SIZE_NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getParametricTileSizeAccess().getTileSizeNameIDTerminalRuleCall_0(), semanticObject.getTileSizeName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ParametricTilingTileLoopSpecification returns TileLoopSpecification
+	 *
+	 * Constraint:
+	 *     (
+	 *         parallel?='parallel'? 
+	 *         loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *         tileSizeSpecifications+=ParametricTileSize 
+	 *         tileSizeSpecifications+=ParametricTileSize* 
+	 *         tilingSpecification=TilingSpecification
+	 *     )
+	 */
+	protected void sequence_ParametricTilingTileLoopSpecification(ISerializationContext context, TileLoopSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     TilingSpecification returns PointLoopSpecification
+	 *     PointLoopSpecification returns PointLoopSpecification
+	 *
+	 * Constraint:
+	 *     (loopScheduleExpr=JNIFunctionInArrayNotation? loopTypeSpecifications+=LoopTypeSpecification* isolateSpecification=IsolateSpecification?)
+	 */
+	protected void sequence_PointLoopSpecification(ISerializationContext context, PointLoopSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -634,6 +848,19 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     (targetSystem=[AlphaSystem|QualifiedName] systemBodyTMs+=TargetMappingForSystemBody*)
 	 */
 	protected void sequence_TargetMapping(ISerializationContext context, TargetMapping semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ScheduleTreeExpression returns TileBandExpression
+	 *     TileBandExpression returns TileBandExpression
+	 *
+	 * Constraint:
+	 *     ((scheduleDimensionNames+=ID scheduleDimensionNames+=ID*)? bandPieces+=BandPiece+ tilingSpecification=TileLoopSpecification)
+	 */
+	protected void sequence_TileBandExpression(ISerializationContext context, TileBandExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
