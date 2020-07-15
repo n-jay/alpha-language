@@ -70,9 +70,9 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {
-  private List<CalculatorExpressionIssue> issues = new LinkedList<CalculatorExpressionIssue>();
+  protected List<CalculatorExpressionIssue> issues = new LinkedList<CalculatorExpressionIssue>();
   
-  private List<String> indexNameContext;
+  protected List<String> indexNameContext;
   
   protected CalculatorExpressionEvaluator(final List<String> indexNameContext) {
     this.indexNameContext = indexNameContext;
@@ -84,7 +84,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   
   public static List<CalculatorExpressionIssue> calculate(final CalculatorExpression expr, final List<String> indexNameContext) {
     final CalculatorExpressionEvaluator calc = new CalculatorExpressionEvaluator(indexNameContext);
-    CalculatorExpressionEvaluator.testSystemConsistency(calc, expr);
+    calc.testSystemConsistency(expr);
     int _size = calc.issues.size();
     boolean _greaterThan = (_size > 0);
     if (_greaterThan) {
@@ -94,20 +94,32 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return calc.issues;
   }
   
-  private static void testSystemConsistency(final CalculatorExpressionEvaluator calc, final CalculatorExpression expr) {
-    final AlphaSystem system = AlphaUtil.getContainerSystem(expr);
+  /**
+   * This method allows this class to be reused by another model that
+   * extends the main alpha language. (e.g., TargetMapping)
+   * 
+   * The CalculatorExpression does not necessarily have to be contained by
+   * an AlphaSystem, if the key information (parameter domain) may be obtained.
+   * This can be achieved by overriding this method.
+   */
+  protected AlphaSystem getReferredSystem(final CalculatorExpression expr) {
+    return AlphaUtil.getContainerSystem(expr);
+  }
+  
+  protected void testSystemConsistency(final CalculatorExpression expr) {
+    final AlphaSystem system = this.getReferredSystem(expr);
     if ((system == null)) {
-      calc.registerIssue("CalculatorExpression is not contained by an AlphaSystem.", expr);
+      this.registerIssue("CalculatorExpression is not contained by an AlphaSystem.", expr);
       return;
     }
     final ISLSet params = system.getParameterDomain();
     if ((params == null)) {
-      calc.registerIssue("Container system does not have a valid parameter domain.", system.getParameterDomainExpr());
+      this.registerIssue("Container system does not have a valid parameter domain.", system.getParameterDomainExpr());
       return;
     }
   }
   
-  private boolean registerIssue(final String msg, final AlphaNode node) {
+  protected boolean registerIssue(final String msg, final AlphaNode node) {
     EObject _eContainer = node.eContainer();
     EStructuralFeature _eContainingFeature = node.eContainingFeature();
     CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(AlphaIssue.TYPE.ERROR, msg, _eContainer, _eContainingFeature);
@@ -338,7 +350,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIDomain(final JNIDomain jniDomain) {
     try {
-      ISLSet jniset = CalculatorExpressionEvaluator.parseDomain(AlphaUtil.getContainerSystem(jniDomain), this.parseJNIDomain(jniDomain));
+      ISLSet jniset = CalculatorExpressionEvaluator.parseDomain(this.getReferredSystem(jniDomain), this.parseJNIDomain(jniDomain));
       jniDomain.setISLSet(jniset);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -403,7 +415,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIRelation(final JNIRelation jniRelation) {
     try {
-      ISLMap jnimap = CalculatorExpressionEvaluator.parseRelation(AlphaUtil.getContainerSystem(jniRelation), jniRelation.getIslString());
+      ISLMap jnimap = CalculatorExpressionEvaluator.parseRelation(this.getReferredSystem(jniRelation), jniRelation.getIslString());
       jniRelation.setISLMap(jnimap);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -452,8 +464,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
    * 
    * Functions of the form (i,j->i+j) are converted to ISL syntax: { [i,j]->[i+j] }
    */
-  protected Boolean _parseJNIFunction(final JNIFunction jniFunction) {
-    boolean _xtrycatchfinallyexpression = false;
+  protected void _parseJNIFunction(final JNIFunction jniFunction) {
     try {
       String _xifexpression = null;
       String _indexList = jniFunction.getAlphaFunction().getIndexList();
@@ -468,30 +479,25 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
         return e.getISLString();
       };
       final String expr = IterableExtensions.<AlphaFunctionExpression>join(jniFunction.getAlphaFunction().getExprs(), ",", _function);
-      final ISLMultiAff jnimaff = CalculatorExpressionEvaluator.parseAffineFunction(AlphaUtil.getContainerSystem(jniFunction), indexNames, expr);
+      final ISLMultiAff jnimaff = CalculatorExpressionEvaluator.parseAffineFunction(this.getReferredSystem(jniFunction), indexNames, expr);
       jniFunction.setISLMultiAff(jnimaff);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
-        boolean _xblockexpression = false;
-        {
-          String _xifexpression_1 = null;
-          String _message = re.getMessage();
-          boolean _tripleEquals = (_message == null);
-          if (_tripleEquals) {
-            _xifexpression_1 = re.getClass().getName();
-          } else {
-            _xifexpression_1 = re.getMessage();
-          }
-          final String msg = _xifexpression_1;
-          _xblockexpression = this.registerIssue(msg, jniFunction);
+        String _xifexpression_1 = null;
+        String _message = re.getMessage();
+        boolean _tripleEquals = (_message == null);
+        if (_tripleEquals) {
+          _xifexpression_1 = re.getClass().getName();
+        } else {
+          _xifexpression_1 = re.getMessage();
         }
-        _xtrycatchfinallyexpression = _xblockexpression;
+        final String msg = _xifexpression_1;
+        this.registerIssue(msg, jniFunction);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
-    return Boolean.valueOf(_xtrycatchfinallyexpression);
   }
   
   /**
@@ -540,36 +546,29 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
    *   parseJNIFunctionAsFunction
    * depending on its parent node.
    */
-  protected Boolean _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction) {
-    boolean _xtrycatchfinallyexpression = false;
+  protected void _parseJNIFunction(final JNIFunctionInArrayNotation jniFunction) {
     try {
-      EObject _eContainer = jniFunction.eContainer();
       final ISLMultiAff jnimaff = ISLFactory.islMultiAff(
-        AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniFunction), 
-          this.parseJNIFunctionInContext(jniFunction, ((AlphaNode) _eContainer)).toString()));
+        AlphaUtil.toContextFreeISLString(this.getReferredSystem(jniFunction), 
+          this.parseJNIFunctionInContext(jniFunction, jniFunction.eContainer()).toString()));
       jniFunction.setISLMultiAff(jnimaff);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
         final RuntimeException re = (RuntimeException)_t;
-        boolean _xblockexpression = false;
-        {
-          String _xifexpression = null;
-          String _message = re.getMessage();
-          boolean _tripleEquals = (_message == null);
-          if (_tripleEquals) {
-            _xifexpression = re.getClass().getName();
-          } else {
-            _xifexpression = re.getMessage();
-          }
-          final String msg = _xifexpression;
-          _xblockexpression = this.registerIssue(msg, jniFunction);
+        String _xifexpression = null;
+        String _message = re.getMessage();
+        boolean _tripleEquals = (_message == null);
+        if (_tripleEquals) {
+          _xifexpression = re.getClass().getName();
+        } else {
+          _xifexpression = re.getMessage();
         }
-        _xtrycatchfinallyexpression = _xblockexpression;
+        final String msg = _xifexpression;
+        this.registerIssue(msg, jniFunction);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
     }
-    return Boolean.valueOf(_xtrycatchfinallyexpression);
   }
   
   /**
@@ -586,7 +585,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return funStr;
   }
   
-  private StringBuffer parseJNIFunctionAsProjection(final JNIFunctionInArrayNotation jniFunction) {
+  protected StringBuffer parseJNIFunctionAsProjection(final JNIFunctionInArrayNotation jniFunction) {
     StringBuffer _xblockexpression = null;
     {
       if ((this.indexNameContext == null)) {
@@ -610,7 +609,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     return funStr;
   }
   
-  private StringBuffer parseJNIFunctionAsFunction(final JNIFunctionInArrayNotation jniFunction) {
+  protected StringBuffer parseJNIFunctionAsFunction(final JNIFunctionInArrayNotation jniFunction) {
     StringBuffer _xblockexpression = null;
     {
       if ((this.indexNameContext == null)) {
@@ -620,6 +619,10 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       _xblockexpression = CalculatorExpressionEvaluator.parseJNIFunctionAsFunction(jniFunction, this.indexNameContext);
     }
     return _xblockexpression;
+  }
+  
+  protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final EObject parent) {
+    throw new UnsupportedOperationException();
   }
   
   protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final ReduceExpression parent) {
@@ -649,7 +652,7 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
   @Override
   public void visitJNIPolynomial(final JNIPolynomial jniPolynomial) {
     try {
-      ISLPWQPolynomial jniPWQP = CalculatorExpressionEvaluator.parsePolynomial(AlphaUtil.getContainerSystem(jniPolynomial), this.parseJNIPolynomial(jniPolynomial));
+      ISLPWQPolynomial jniPWQP = CalculatorExpressionEvaluator.parsePolynomial(this.getReferredSystem(jniPolynomial), this.parseJNIPolynomial(jniPolynomial));
       jniPolynomial.setISLPWQPolynomial(jniPWQP);
     } catch (final Throwable _t) {
       if (_t instanceof RuntimeException) {
@@ -842,18 +845,20 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
     }
   }
   
-  protected Boolean parseJNIFunction(final JNIFunction jniFunction) {
+  protected void parseJNIFunction(final JNIFunction jniFunction) {
     if (jniFunction instanceof JNIFunctionInArrayNotation) {
-      return _parseJNIFunction((JNIFunctionInArrayNotation)jniFunction);
+      _parseJNIFunction((JNIFunctionInArrayNotation)jniFunction);
+      return;
     } else if (jniFunction != null) {
-      return _parseJNIFunction(jniFunction);
+      _parseJNIFunction(jniFunction);
+      return;
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(jniFunction).toString());
     }
   }
   
-  protected StringBuffer parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final AlphaNode parent) {
+  protected StringBuffer parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final EObject parent) {
     if (parent instanceof ArgReduceExpression) {
       return _parseJNIFunctionInContext(jniFunction, (ArgReduceExpression)parent);
     } else if (parent instanceof ReduceExpression) {
@@ -866,6 +871,8 @@ public class CalculatorExpressionEvaluator extends EObjectImpl implements Defaul
       return _parseJNIFunctionInContext(jniFunction, (UseEquation)parent);
     } else if (parent instanceof AffineFuzzyVariableUse) {
       return _parseJNIFunctionInContext(jniFunction, (AffineFuzzyVariableUse)parent);
+    } else if (parent != null) {
+      return _parseJNIFunctionInContext(jniFunction, parent);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(jniFunction, parent).toString());

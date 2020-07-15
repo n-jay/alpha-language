@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl
 
 import static alpha.model.util.AlphaUtil.callISLwithErrorHandling
 import static alpha.model.util.AlphaUtil.getParameterDomain
+import org.eclipse.emf.ecore.EObject
 
 /**
  * This class is responsible for constructing ISL objects for:<ul>
@@ -33,9 +34,9 @@ import static alpha.model.util.AlphaUtil.getParameterDomain
  */
 class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalculatorExpressionVisitor {
 
-	List<CalculatorExpressionIssue> issues = new LinkedList;
+	protected List<CalculatorExpressionIssue> issues = new LinkedList;
 
-	List<String> indexNameContext;
+	protected List<String> indexNameContext;
 
 	protected new(List<String> indexNameContext) {
 		this.indexNameContext = indexNameContext;
@@ -50,28 +51,41 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		
 		val calc = new CalculatorExpressionEvaluator(indexNameContext);
 		
-		testSystemConsistency(calc, expr)
+		calc.testSystemConsistency(expr)
 		if (calc.issues.size > 0) return calc.issues
 
 		expr.accept(calc);
 
 		return calc.issues
 	}
+	
+	/**
+	 * This method allows this class to be reused by another model that 
+	 * extends the main alpha language. (e.g., TargetMapping)
+	 * 
+	 * The CalculatorExpression does not necessarily have to be contained by
+	 * an AlphaSystem, if the key information (parameter domain) may be obtained.
+	 * This can be achieved by overriding this method.
+	 * 
+	 */
+	protected def getReferredSystem(CalculatorExpression expr) {
+		return AlphaUtil.getContainerSystem(expr);
+	}
 
-	private static def testSystemConsistency(CalculatorExpressionEvaluator calc, CalculatorExpression expr) {
-		val system = AlphaUtil.getContainerSystem(expr);
+	protected def testSystemConsistency(CalculatorExpression expr) {
+		val system = getReferredSystem(expr);
 		if (system === null) {
-			calc.registerIssue("CalculatorExpression is not contained by an AlphaSystem.", expr);
+			registerIssue("CalculatorExpression is not contained by an AlphaSystem.", expr);
 			return;
 		}
 		val params = system.parameterDomain
 		if (params === null) {
-			calc.registerIssue("Container system does not have a valid parameter domain.", system.parameterDomainExpr);
+			registerIssue("Container system does not have a valid parameter domain.", system.parameterDomainExpr);
 			return;
 		}
 	}
 
-	private def registerIssue(String msg, AlphaNode node) {
+	protected def registerIssue(String msg, AlphaNode node) {
 		issues.add(new CalculatorExpressionIssue(TYPE.ERROR, msg, node.eContainer, node.eContainingFeature));
 	}
 
@@ -281,7 +295,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	 */
 	override visitJNIDomain(JNIDomain jniDomain) {
 		try {
-			var jniset = parseDomain(AlphaUtil.getContainerSystem(jniDomain), parseJNIDomain(jniDomain));
+			var jniset = parseDomain(getReferredSystem(jniDomain), parseJNIDomain(jniDomain));
 			jniDomain.setISLSet(jniset);
 		} catch (RuntimeException re) {
 			val msg = if (re.message === null) re.class.name else re.message
@@ -294,7 +308,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	 * This is what gets eventually called to construct an ISLSet from JNIDomain.
 	 */
 	static def parseDomain(AlphaSystem system, String domainStr) {
-			var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system,domainStr));
+			var jniset = ISLFactory.islSet(AlphaUtil.toContextFreeISLString(system, domainStr));
 			val pdom = getParameterDomain(system);
 			
 			return jniset.intersectParams(pdom.copy());
@@ -325,7 +339,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	 */
 	override visitJNIRelation(JNIRelation jniRelation) {
 		try {
-			var jnimap = parseRelation(AlphaUtil.getContainerSystem(jniRelation), jniRelation.islString);
+			var jnimap = parseRelation(getReferredSystem(jniRelation), jniRelation.islString);
 			jniRelation.setISLMap(jnimap);
 		} catch (RuntimeException re) {
 			val msg = if(re.message === null) re.class.name else re.message
@@ -363,11 +377,11 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	 * 
 	 * Functions of the form (i,j->i+j) are converted to ISL syntax: { [i,j]->[i+j] }
 	 */
-	protected def dispatch parseJNIFunction(JNIFunction jniFunction) {
+	protected def dispatch void parseJNIFunction(JNIFunction jniFunction) {
 		try {
 			val indexNames = if (jniFunction.alphaFunction.indexList !== null) jniFunction.alphaFunction.indexList else ""
 			val expr = jniFunction.alphaFunction.exprs.join(",", [e|e.ISLString])
-			val jnimaff = parseAffineFunction(AlphaUtil.getContainerSystem(jniFunction), indexNames, expr);
+			val jnimaff = parseAffineFunction(getReferredSystem(jniFunction), indexNames, expr);
 			jniFunction.setISLMultiAff(jnimaff);
 		} catch (RuntimeException re) {
 			val msg = if(re.message === null) re.class.name else re.message
@@ -414,12 +428,12 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	 *   parseJNIFunctionAsFunction
 	 * depending on its parent node.
 	 */
-	protected def dispatch parseJNIFunction(JNIFunctionInArrayNotation jniFunction) {
+	protected def dispatch void parseJNIFunction(JNIFunctionInArrayNotation jniFunction) {
 
 		try {
 			val jnimaff = ISLFactory.islMultiAff(
-				AlphaUtil.toContextFreeISLString(AlphaUtil.getContainerSystem(jniFunction),
-					jniFunction.parseJNIFunctionInContext(jniFunction.eContainer as AlphaNode).toString
+				AlphaUtil.toContextFreeISLString(getReferredSystem(jniFunction),
+					jniFunction.parseJNIFunctionInContext(jniFunction.eContainer).toString
 				));
 			jniFunction.setISLMultiAff(jnimaff);
 		} catch (RuntimeException re) {
@@ -441,7 +455,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		funStr.append("] }");
 		return funStr;
 	}
-	private def parseJNIFunctionAsProjection(JNIFunctionInArrayNotation jniFunction) {
+	protected def parseJNIFunctionAsProjection(JNIFunctionInArrayNotation jniFunction) {
 		if (indexNameContext === null)
 			throw new OutOfContextArrayNotationException(String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", jniFunction.arrayNotation.join(",")));
 		
@@ -461,11 +475,15 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 		return funStr;
 	}
 	
-	private def parseJNIFunctionAsFunction(JNIFunctionInArrayNotation jniFunction) {
+	protected def parseJNIFunctionAsFunction(JNIFunctionInArrayNotation jniFunction) {
 		if (indexNameContext === null)
 			throw new OutOfContextArrayNotationException(String.format("ArrayNotation [%s] does not have the necessary context (index names) to be interpreted.", jniFunction.arrayNotation.join(",")));
 
 		parseJNIFunctionAsFunction(jniFunction, indexNameContext);
+	}
+
+	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, EObject parent) {
+		throw new UnsupportedOperationException
 	}
 
 	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, ReduceExpression parent) {
@@ -495,7 +513,7 @@ class CalculatorExpressionEvaluator extends EObjectImpl implements DefaultCalcul
 	
 	override visitJNIPolynomial(JNIPolynomial jniPolynomial) {
 		try {
-			var jniPWQP = parsePolynomial(AlphaUtil.getContainerSystem(jniPolynomial), parseJNIPolynomial(jniPolynomial));
+			var jniPWQP = parsePolynomial(getReferredSystem(jniPolynomial), parseJNIPolynomial(jniPolynomial));
 			jniPolynomial.ISLPWQPolynomial = jniPWQP
 		} catch (RuntimeException re) {
 			val msg = if (re.message === null) re.class.name else re.message
