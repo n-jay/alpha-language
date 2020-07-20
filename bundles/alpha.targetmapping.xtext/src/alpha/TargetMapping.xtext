@@ -33,7 +33,7 @@ FilterOrExtension returns ScheduleTreeExpression:
 ;
 
 ContextExpression:
-	'context' contextDomainExpr=JNIDomain child=ScheduleTreeExpression
+	'context' contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression
 ;
 
 SetExpression:
@@ -49,7 +49,7 @@ SequenceExpression:
 ;
 
 ScheduleTargetRestrictDomain:
-	scheduleTarget=[model::AlphaScheduleTarget|ID] ('[' indexNames+=ID (',' indexNames+=ID)* ']')? restrictDomainExpr=JNIDomainInArrayNotation?
+	scheduleTarget=[model::AlphaScheduleTarget|ID] ('[' indexNames+=ID (',' indexNames+=ID)* ']')? restrictDomainExpr=(JNIDomain|JNIDomainInArrayNotation)?
 ;
 ScheduleTargetRestrictNoSet returns ScheduleTargetRestrictDomain:
 	scheduleTarget=[model::AlphaScheduleTarget|ID] ('[' indexNames+=ID (',' indexNames+=ID)* ']')
@@ -59,7 +59,7 @@ FilterExpression:
 ;
 
 GuardExpression:
-	'if' guardDomainExpr=JNIDomain child=ScheduleTreeExpression
+	'if' guardDomainExpr=(JNIDomain|JNIDomainInArrayNotation) child=ScheduleTreeExpression
 ;
 
 MarkExpression:
@@ -74,11 +74,11 @@ BandExpression:
 	'}' ('+' child=ScheduleTreeExpression)?
 ;
 BandPiece:
-	pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=JNIFunctionInArrayNotation
+	pieceDomain=ScheduleTargetRestrictDomain ':' partialScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation)
 ;
 IsolateSpecification:
 	'isolate' '(' 
-		isolateDomainExpr=JNIDomain 
+		isolateDomainExpr=(JNIDomain|JNIDomainInArrayNotation) 
 		(loopTypeSpecifications+=LoopTypeSpecification (',' loopTypeSpecifications+=LoopTypeSpecification)* )?
 	')'
 ;
@@ -103,7 +103,6 @@ AlphaLoopType returns ALPHA_LOOP_TYPE:
 	'parallel' 
 ;
 
-
 TileBandExpression:
 	'tile-band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
 		(bandPieces+=BandPiece)+
@@ -122,23 +121,23 @@ TileLoopSpecification:
 	CompileTimeConstantTilingTileLoopSpecification
 ;
 FixedTilingTileLoopSpecification returns TileLoopSpecification:
-	'fixed' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation?
+	'fixed' parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
 		'(' tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
 		tilingSpecification=TilingSpecification
 ;
 ParametricTilingTileLoopSpecification returns TileLoopSpecification:
-	'parametric' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation?
+	'parametric' parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
 		'(' tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
 		tilingSpecification=TilingSpecification
 ;
 CompileTimeConstantTilingTileLoopSpecification returns TileLoopSpecification:
-	'compile-time-constant' parallel?='parallel'? loopScheduleExpr=JNIFunctionInArrayNotation?
+	'compile-time-constant' parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
 		'(' tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
 		tilingSpecification=TilingSpecification
 ;
 
 PointLoopSpecification:
-	{PointLoopSpecification} 'point' loopScheduleExpr=JNIFunctionInArrayNotation?
+	{PointLoopSpecification} 'point' loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
 		 loopTypeSpecifications+=LoopTypeSpecification*
 		 isolateSpecification=IsolateSpecification?
 ;
@@ -165,6 +164,9 @@ ParametricTileSize:
 CompileTimeConstantTileSize:
 	tileSizeName=ID '=' defaultValue=INT
 ;
+
+JNIIdentityFunction:
+	{JNIIdentityFunction} 'Id';
 
 //	('SpaceTime' '{'
 //		((spaceTimeMaps+=SpaceTimeMappingVariableNameOnly ',')* spaceTimeMaps+=(SpaceTimeMapping|SpaceTimeMappingIdentity))+

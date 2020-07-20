@@ -2,7 +2,7 @@
  */
 package alpha.targetmapping.impl;
 
-import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.JNIFunction;
 import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.TargetmappingPackage;
@@ -45,7 +45,7 @@ public abstract class TilingSpecificationImpl extends MinimalEObjectImpl.Contain
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIFunctionInArrayNotation loopScheduleExpr;
+	protected JNIFunction loopScheduleExpr;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -71,7 +71,7 @@ public abstract class TilingSpecificationImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFunctionInArrayNotation getLoopScheduleExpr() {
+	public JNIFunction getLoopScheduleExpr() {
 		return loopScheduleExpr;
 	}
 
@@ -80,8 +80,8 @@ public abstract class TilingSpecificationImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetLoopScheduleExpr(JNIFunctionInArrayNotation newLoopScheduleExpr, NotificationChain msgs) {
-		JNIFunctionInArrayNotation oldLoopScheduleExpr = loopScheduleExpr;
+	public NotificationChain basicSetLoopScheduleExpr(JNIFunction newLoopScheduleExpr, NotificationChain msgs) {
+		JNIFunction oldLoopScheduleExpr = loopScheduleExpr;
 		loopScheduleExpr = newLoopScheduleExpr;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.TILING_SPECIFICATION__LOOP_SCHEDULE_EXPR, oldLoopScheduleExpr, newLoopScheduleExpr);
@@ -95,7 +95,7 @@ public abstract class TilingSpecificationImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setLoopScheduleExpr(JNIFunctionInArrayNotation newLoopScheduleExpr) {
+	public void setLoopScheduleExpr(JNIFunction newLoopScheduleExpr) {
 		if (newLoopScheduleExpr != loopScheduleExpr) {
 			NotificationChain msgs = null;
 			if (loopScheduleExpr != null)
@@ -165,7 +165,7 @@ public abstract class TilingSpecificationImpl extends MinimalEObjectImpl.Contain
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TargetmappingPackage.TILING_SPECIFICATION__LOOP_SCHEDULE_EXPR:
-				setLoopScheduleExpr((JNIFunctionInArrayNotation)newValue);
+				setLoopScheduleExpr((JNIFunction)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -180,7 +180,7 @@ public abstract class TilingSpecificationImpl extends MinimalEObjectImpl.Contain
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TargetmappingPackage.TILING_SPECIFICATION__LOOP_SCHEDULE_EXPR:
-				setLoopScheduleExpr((JNIFunctionInArrayNotation)null);
+				setLoopScheduleExpr((JNIFunction)null);
 				return;
 		}
 		super.eUnset(featureID);

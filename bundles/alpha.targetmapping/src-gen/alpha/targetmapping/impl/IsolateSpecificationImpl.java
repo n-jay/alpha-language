@@ -5,12 +5,15 @@ package alpha.targetmapping.impl;
 import alpha.model.JNIDomain;
 import alpha.model.POLY_OBJECT_TYPE;
 
+import alpha.targetmapping.AbstractBandExpression;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.TargetmappingPackage;
 
 import com.google.common.base.Objects;
 
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import fr.irisa.cairn.jnimap.runtime.JNIObject;
@@ -30,6 +33,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.xtext.EcoreUtil2;
 
 /**
  * <!-- begin-user-doc -->
@@ -157,6 +162,28 @@ public class IsolateSpecificationImpl extends MinimalEObjectImpl.Container imple
 			_xifexpression = ((ISLSet) _iSLObject);
 		}
 		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ISLMap getIsolateMap() {
+		ISLMap _xblockexpression = null;
+		{
+			final ISLSet isolateDom = this.getIsolateDomain();
+			if ((isolateDom == null)) {
+				return null;
+			}
+			final AbstractBandExpression abe = EcoreUtil2.<AbstractBandExpression>getContainerOfType(this, AbstractBandExpression.class);
+			final int bandSize = abe.bandSize();
+			final int dims = isolateDom.getNbIndices();
+			final int dimsToMove = (dims - bandSize);
+			final ISLMap map = ISLMap.buildFromRange(isolateDom);
+			_xblockexpression = map.moveDims(ISLDimType.isl_dim_in, 0, ISLDimType.isl_dim_out, 0, dimsToMove);
+		}
+		return _xblockexpression;
 	}
 
 	/**

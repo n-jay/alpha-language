@@ -3,7 +3,7 @@
 package alpha.targetmapping.impl;
 
 import alpha.model.AlphaScheduleTarget;
-import alpha.model.JNIDomainInArrayNotation;
+import alpha.model.JNIDomain;
 import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
@@ -74,7 +74,7 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIDomainInArrayNotation restrictDomainExpr;
+	protected JNIDomain restrictDomainExpr;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -150,7 +150,7 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIDomainInArrayNotation getRestrictDomainExpr() {
+	public JNIDomain getRestrictDomainExpr() {
 		return restrictDomainExpr;
 	}
 
@@ -159,8 +159,8 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRestrictDomainExpr(JNIDomainInArrayNotation newRestrictDomainExpr, NotificationChain msgs) {
-		JNIDomainInArrayNotation oldRestrictDomainExpr = restrictDomainExpr;
+	public NotificationChain basicSetRestrictDomainExpr(JNIDomain newRestrictDomainExpr, NotificationChain msgs) {
+		JNIDomain oldRestrictDomainExpr = restrictDomainExpr;
 		restrictDomainExpr = newRestrictDomainExpr;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR, oldRestrictDomainExpr, newRestrictDomainExpr);
@@ -174,7 +174,7 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRestrictDomainExpr(JNIDomainInArrayNotation newRestrictDomainExpr) {
+	public void setRestrictDomainExpr(JNIDomain newRestrictDomainExpr) {
 		if (newRestrictDomainExpr != restrictDomainExpr) {
 			NotificationChain msgs = null;
 			if (restrictDomainExpr != null)
@@ -257,7 +257,7 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 				getIndexNames().addAll((Collection<? extends String>)newValue);
 				return;
 			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR:
-				setRestrictDomainExpr((JNIDomainInArrayNotation)newValue);
+				setRestrictDomainExpr((JNIDomain)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -278,7 +278,7 @@ public class ScheduleTargetRestrictDomainImpl extends MinimalEObjectImpl.Contain
 				getIndexNames().clear();
 				return;
 			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR:
-				setRestrictDomainExpr((JNIDomainInArrayNotation)null);
+				setRestrictDomainExpr((JNIDomain)null);
 				return;
 		}
 		super.eUnset(featureID);

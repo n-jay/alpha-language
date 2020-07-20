@@ -2,7 +2,7 @@
  */
 package alpha.targetmapping.impl;
 
-import alpha.model.JNIDomain;
+import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.ContextExpression;
@@ -47,7 +47,7 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIDomain contextDomainExpr;
+	protected JNIDomainInArrayNotation contextDomainExpr;
 
 	/**
 	 * The cached value of the '{@link #getChild() <em>Child</em>}' containment reference.
@@ -83,7 +83,7 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIDomain getContextDomainExpr() {
+	public JNIDomainInArrayNotation getContextDomainExpr() {
 		return contextDomainExpr;
 	}
 
@@ -92,8 +92,8 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetContextDomainExpr(JNIDomain newContextDomainExpr, NotificationChain msgs) {
-		JNIDomain oldContextDomainExpr = contextDomainExpr;
+	public NotificationChain basicSetContextDomainExpr(JNIDomainInArrayNotation newContextDomainExpr, NotificationChain msgs) {
+		JNIDomainInArrayNotation oldContextDomainExpr = contextDomainExpr;
 		contextDomainExpr = newContextDomainExpr;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR, oldContextDomainExpr, newContextDomainExpr);
@@ -107,7 +107,7 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setContextDomainExpr(JNIDomain newContextDomainExpr) {
+	public void setContextDomainExpr(JNIDomainInArrayNotation newContextDomainExpr) {
 		if (newContextDomainExpr != contextDomainExpr) {
 			NotificationChain msgs = null;
 			if (contextDomainExpr != null)
@@ -233,7 +233,7 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR:
-				setContextDomainExpr((JNIDomain)newValue);
+				setContextDomainExpr((JNIDomainInArrayNotation)newValue);
 				return;
 			case TargetmappingPackage.CONTEXT_EXPRESSION__CHILD:
 				setChild((ScheduleTreeExpression)newValue);
@@ -251,7 +251,7 @@ public class ContextExpressionImpl extends ScheduleTreeExpressionImpl implements
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TargetmappingPackage.CONTEXT_EXPRESSION__CONTEXT_DOMAIN_EXPR:
-				setContextDomainExpr((JNIDomain)null);
+				setContextDomainExpr((JNIDomainInArrayNotation)null);
 				return;
 			case TargetmappingPackage.CONTEXT_EXPRESSION__CHILD:
 				setChild((ScheduleTreeExpression)null);

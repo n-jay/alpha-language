@@ -89,6 +89,7 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 			case TargetmappingPackage.COMPILE_TIME_CONSTANT_TILE_SIZE: return createCompileTimeConstantTileSize();
 			case TargetmappingPackage.EXTENSION_EXPRESSION: return createExtensionExpression();
 			case TargetmappingPackage.EXTENSION_TARGET: return createExtensionTarget();
+			case TargetmappingPackage.JNI_IDENTITY_FUNCTION: return createJNIIdentityFunction();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -384,6 +385,16 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	public ExtensionTarget createExtensionTarget() {
 		ExtensionTargetImpl extensionTarget = new ExtensionTargetImpl();
 		return extensionTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JNIIdentityFunction createJNIIdentityFunction() {
+		JNIIdentityFunctionImpl jniIdentityFunction = new JNIIdentityFunctionImpl();
+		return jniIdentityFunction;
 	}
 
 	/**

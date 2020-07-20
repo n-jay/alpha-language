@@ -2,6 +2,7 @@
  */
 package alpha.targetmapping.impl;
 
+import alpha.targetmapping.AbstractBandExpression;
 import alpha.targetmapping.BandExpression;
 import alpha.targetmapping.ContextExpression;
 import alpha.targetmapping.ExtensionExpression;
@@ -284,6 +285,17 @@ public class TargetMappingVisitorImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public void inAbstractBandExpression(AbstractBandExpression abe) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void inBandExpression(BandExpression be) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -406,6 +418,17 @@ public class TargetMappingVisitorImpl extends MinimalEObjectImpl.Container imple
 	 * @generated
 	 */
 	public void outMarkExpression(MarkExpression me) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void outAbstractBandExpression(AbstractBandExpression abe) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();

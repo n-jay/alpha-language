@@ -2,7 +2,7 @@
  */
 package alpha.targetmapping;
 
-import alpha.model.JNIDomain;
+import alpha.model.JNIDomainInArrayNotation;
 
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 
@@ -29,12 +29,12 @@ public interface ContextExpression extends ScheduleTreeExpression {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Context Domain Expr</em>' containment reference.
-	 * @see #setContextDomainExpr(JNIDomain)
+	 * @see #setContextDomainExpr(JNIDomainInArrayNotation)
 	 * @see alpha.targetmapping.TargetmappingPackage#getContextExpression_ContextDomainExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIDomain getContextDomainExpr();
+	JNIDomainInArrayNotation getContextDomainExpr();
 
 	/**
 	 * Sets the value of the '{@link alpha.targetmapping.ContextExpression#getContextDomainExpr <em>Context Domain Expr</em>}' containment reference.
@@ -44,7 +44,7 @@ public interface ContextExpression extends ScheduleTreeExpression {
 	 * @see #getContextDomainExpr()
 	 * @generated
 	 */
-	void setContextDomainExpr(JNIDomain value);
+	void setContextDomainExpr(JNIDomainInArrayNotation value);
 
 	/**
 	 * Returns the value of the '<em><b>Child</b></em>' containment reference.

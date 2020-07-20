@@ -34,10 +34,18 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getTargetMappingForSystemBodyAccess().getScheduleTreeRootAlternatives_2_0(), "rule__TargetMappingForSystemBody__ScheduleTreeRootAlternatives_2_0");
 			builder.put(grammarAccess.getScheduleTreeExpressionAccess().getAlternatives(), "rule__ScheduleTreeExpression__Alternatives");
 			builder.put(grammarAccess.getFilterOrExtensionAccess().getAlternatives(), "rule__FilterOrExtension__Alternatives");
+			builder.put(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprAlternatives_2_0(), "rule__ScheduleTargetRestrictDomain__RestrictDomainExprAlternatives_2_0");
+			builder.put(grammarAccess.getGuardExpressionAccess().getGuardDomainExprAlternatives_1_0(), "rule__GuardExpression__GuardDomainExprAlternatives_1_0");
+			builder.put(grammarAccess.getBandPieceAccess().getPartialScheduleExprAlternatives_2_0(), "rule__BandPiece__PartialScheduleExprAlternatives_2_0");
+			builder.put(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprAlternatives_2_0(), "rule__IsolateSpecification__IsolateDomainExprAlternatives_2_0");
 			builder.put(grammarAccess.getLoopTypeSpecificationAccess().getAlternatives(), "rule__LoopTypeSpecification__Alternatives");
 			builder.put(grammarAccess.getISLASTLoopTypeAccess().getAlternatives(), "rule__ISLASTLoopType__Alternatives");
 			builder.put(grammarAccess.getTilingSpecificationAccess().getAlternatives(), "rule__TilingSpecification__Alternatives");
 			builder.put(grammarAccess.getTileLoopSpecificationAccess().getAlternatives(), "rule__TileLoopSpecification__Alternatives");
+			builder.put(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getLoopScheduleExprAlternatives_2_0(), "rule__FixedTilingTileLoopSpecification__LoopScheduleExprAlternatives_2_0");
+			builder.put(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprAlternatives_2_0(), "rule__ParametricTilingTileLoopSpecification__LoopScheduleExprAlternatives_2_0");
+			builder.put(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprAlternatives_2_0(), "rule__CompileTimeConstantTilingTileLoopSpecification__LoopScheduleExprAlternatives_2_0");
+			builder.put(grammarAccess.getPointLoopSpecificationAccess().getLoopScheduleExprAlternatives_2_0(), "rule__PointLoopSpecification__LoopScheduleExprAlternatives_2_0");
 			builder.put(grammarAccess.getTileSizeSpecificationAccess().getAlternatives(), "rule__TileSizeSpecification__Alternatives");
 			builder.put(grammarAccess.getAlphaRootAccess().getElementsAlternatives_1_0(), "rule__AlphaRoot__ElementsAlternatives_1_0");
 			builder.put(grammarAccess.getAlphaPackageAccess().getElementsAlternatives_3_0(), "rule__AlphaPackage__ElementsAlternatives_3_0");
@@ -131,6 +139,7 @@ public class TargetMappingParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getExtensionTargetAccess().getGroup_3(), "rule__ExtensionTarget__Group_3__0");
 			builder.put(grammarAccess.getExtensionTargetAccess().getGroup_3_2(), "rule__ExtensionTarget__Group_3_2__0");
 			builder.put(grammarAccess.getCompileTimeConstantTileSizeAccess().getGroup(), "rule__CompileTimeConstantTileSize__Group__0");
+			builder.put(grammarAccess.getJNIIdentityFunctionAccess().getGroup(), "rule__JNIIdentityFunction__Group__0");
 			builder.put(grammarAccess.getAlphaRootAccess().getGroup(), "rule__AlphaRoot__Group__0");
 			builder.put(grammarAccess.getAlphaConstantAccess().getGroup(), "rule__AlphaConstant__Group__0");
 			builder.put(grammarAccess.getExternalFunctionAccess().getGroup(), "rule__ExternalFunction__Group__0");

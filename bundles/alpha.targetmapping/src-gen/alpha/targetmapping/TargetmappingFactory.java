@@ -229,6 +229,15 @@ public interface TargetmappingFactory extends EFactory {
 	ExtensionTarget createExtensionTarget();
 
 	/**
+	 * Returns a new object of class '<em>JNI Identity Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>JNI Identity Function</em>'.
+	 * @generated
+	 */
+	JNIIdentityFunction createJNIIdentityFunction();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

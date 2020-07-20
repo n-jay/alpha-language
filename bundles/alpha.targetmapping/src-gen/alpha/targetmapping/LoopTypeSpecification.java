@@ -2,7 +2,6 @@
  */
 package alpha.targetmapping;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface LoopTypeSpecification extends EObject {
+public interface LoopTypeSpecification extends TargetMappingNode {
 	/**
 	 * Returns the value of the '<em><b>Dimension</b></em>' attribute.
 	 * <!-- begin-user-doc -->

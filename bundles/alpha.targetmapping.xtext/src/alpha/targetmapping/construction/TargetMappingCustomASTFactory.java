@@ -6,7 +6,11 @@ import org.eclipse.xtext.parser.DefaultEcoreElementFactory;
 
 import alpha.model.JNIDomainInArrayNotation;
 import alpha.model.impl.ModelFactoryImpl;
+import alpha.targetmapping.JNIIdentityFunction;
+import alpha.targetmapping.PointLoopSpecification;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
+import alpha.targetmapping.TileLoopSpecification;
+import alpha.targetmapping.impl.TargetmappingFactoryImpl;
 import alpha.targetmapping.util.TargetmappingSwitch;
 
 /**
@@ -47,6 +51,25 @@ public class TargetMappingCustomASTFactory extends DefaultEcoreElementFactory {
 			}
 
 			return super.caseScheduleTargetRestrictDomain(object);
+		}
+		
+		@Override
+		public EObject caseTileLoopSpecification(TileLoopSpecification object) {
+			if (object.getLoopScheduleExpr() == null) {
+				JNIIdentityFunction identity = TargetmappingFactoryImpl.eINSTANCE.createJNIIdentityFunction();
+				object.setLoopScheduleExpr(identity);
+			}
+			return super.caseTileLoopSpecification(object);
+		}
+		
+		@Override
+		public EObject casePointLoopSpecification(PointLoopSpecification object) {
+			if (object.getLoopScheduleExpr() == null) {
+				JNIIdentityFunction identity = TargetmappingFactoryImpl.eINSTANCE.createJNIIdentityFunction();
+				object.setLoopScheduleExpr(identity);
+			}
+			
+			return super.casePointLoopSpecification(object);
 		}
 	}
 

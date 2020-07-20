@@ -3,13 +3,11 @@
 package alpha.targetmapping;
 
 import alpha.model.AlphaScheduleTarget;
-import alpha.model.JNIDomainInArrayNotation;
+import alpha.model.JNIDomain;
 
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ScheduleTargetRestrictDomain extends EObject {
+public interface ScheduleTargetRestrictDomain extends TargetMappingNode {
 	/**
 	 * Returns the value of the '<em><b>Schedule Target</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -69,12 +67,12 @@ public interface ScheduleTargetRestrictDomain extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Restrict Domain Expr</em>' containment reference.
-	 * @see #setRestrictDomainExpr(JNIDomainInArrayNotation)
+	 * @see #setRestrictDomainExpr(JNIDomain)
 	 * @see alpha.targetmapping.TargetmappingPackage#getScheduleTargetRestrictDomain_RestrictDomainExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIDomainInArrayNotation getRestrictDomainExpr();
+	JNIDomain getRestrictDomainExpr();
 
 	/**
 	 * Sets the value of the '{@link alpha.targetmapping.ScheduleTargetRestrictDomain#getRestrictDomainExpr <em>Restrict Domain Expr</em>}' containment reference.
@@ -84,7 +82,7 @@ public interface ScheduleTargetRestrictDomain extends EObject {
 	 * @see #getRestrictDomainExpr()
 	 * @generated
 	 */
-	void setRestrictDomainExpr(JNIDomainInArrayNotation value);
+	void setRestrictDomainExpr(JNIDomain value);
 
 	/**
 	 * <!-- begin-user-doc -->

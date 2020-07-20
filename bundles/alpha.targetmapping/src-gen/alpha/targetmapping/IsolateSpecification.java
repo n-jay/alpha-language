@@ -4,11 +4,10 @@ package alpha.targetmapping;
 
 import alpha.model.JNIDomain;
 
+import fr.irisa.cairn.jnimap.isl.ISLMap;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface IsolateSpecification extends EObject {
+public interface IsolateSpecification extends TargetMappingNode {
 	/**
 	 * Returns the value of the '<em><b>Isolate Domain Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -69,5 +68,19 @@ public interface IsolateSpecification extends EObject {
 	 * @generated
 	 */
 	ISLSet getIsolateDomain();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * *
+	 * Gives a view of the isolate domain expected by ISL.
+	 * ISL expects a relation where the input dims correspond to
+	 * outer schedule dimensions.
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" dataType="alpha.targetmapping.JNIISLMap" unique="false"
+	 * @generated
+	 */
+	ISLMap getIsolateMap();
 
 } // IsolateSpecification

@@ -2,11 +2,9 @@
  */
 package alpha.targetmapping;
 
-import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.JNIFunction;
 
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,18 +22,18 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface TilingSpecification extends EObject {
+public interface TilingSpecification extends TargetMappingNode {
 	/**
 	 * Returns the value of the '<em><b>Loop Schedule Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Loop Schedule Expr</em>' containment reference.
-	 * @see #setLoopScheduleExpr(JNIFunctionInArrayNotation)
+	 * @see #setLoopScheduleExpr(JNIFunction)
 	 * @see alpha.targetmapping.TargetmappingPackage#getTilingSpecification_LoopScheduleExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIFunctionInArrayNotation getLoopScheduleExpr();
+	JNIFunction getLoopScheduleExpr();
 
 	/**
 	 * Sets the value of the '{@link alpha.targetmapping.TilingSpecification#getLoopScheduleExpr <em>Loop Schedule Expr</em>}' containment reference.
@@ -45,7 +43,7 @@ public interface TilingSpecification extends EObject {
 	 * @see #getLoopScheduleExpr()
 	 * @generated
 	 */
-	void setLoopScheduleExpr(JNIFunctionInArrayNotation value);
+	void setLoopScheduleExpr(JNIFunction value);
 
 	/**
 	 * <!-- begin-user-doc -->

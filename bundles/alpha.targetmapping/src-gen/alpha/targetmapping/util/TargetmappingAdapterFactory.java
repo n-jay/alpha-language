@@ -2,7 +2,12 @@
  */
 package alpha.targetmapping.util;
 
+import alpha.model.AlphaNode;
 import alpha.model.AlphaScheduleTarget;
+import alpha.model.CalculatorExpression;
+import alpha.model.CalculatorExpressionVisitable;
+import alpha.model.CalculatorNode;
+import alpha.model.JNIFunction;
 
 import alpha.targetmapping.*;
 
@@ -126,6 +131,10 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 				return createMarkExpressionAdapter();
 			}
 			@Override
+			public Adapter caseAbstractBandExpression(AbstractBandExpression object) {
+				return createAbstractBandExpressionAdapter();
+			}
+			@Override
 			public Adapter caseBandExpression(BandExpression object) {
 				return createBandExpressionAdapter();
 			}
@@ -190,8 +199,32 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 				return createExtensionTargetAdapter();
 			}
 			@Override
+			public Adapter caseJNIIdentityFunction(JNIIdentityFunction object) {
+				return createJNIIdentityFunctionAdapter();
+			}
+			@Override
 			public Adapter caseAlphaScheduleTarget(AlphaScheduleTarget object) {
 				return createAlphaScheduleTargetAdapter();
+			}
+			@Override
+			public Adapter caseAlphaNode(AlphaNode object) {
+				return createAlphaNodeAdapter();
+			}
+			@Override
+			public Adapter caseCalculatorNode(CalculatorNode object) {
+				return createCalculatorNodeAdapter();
+			}
+			@Override
+			public Adapter caseCalculatorExpressionVisitable(CalculatorExpressionVisitable object) {
+				return createCalculatorExpressionVisitableAdapter();
+			}
+			@Override
+			public Adapter caseCalculatorExpression(CalculatorExpression object) {
+				return createCalculatorExpressionAdapter();
+			}
+			@Override
+			public Adapter caseJNIFunction(JNIFunction object) {
+				return createJNIFunctionAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -406,6 +439,20 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMarkExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.AbstractBandExpression <em>Abstract Band Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.AbstractBandExpression
+	 * @generated
+	 */
+	public Adapter createAbstractBandExpressionAdapter() {
 		return null;
 	}
 
@@ -634,6 +681,20 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.JNIIdentityFunction <em>JNI Identity Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.JNIIdentityFunction
+	 * @generated
+	 */
+	public Adapter createJNIIdentityFunctionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link alpha.model.AlphaScheduleTarget <em>Alpha Schedule Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -644,6 +705,76 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAlphaScheduleTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.AlphaNode <em>Alpha Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.AlphaNode
+	 * @generated
+	 */
+	public Adapter createAlphaNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.CalculatorNode <em>Calculator Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.CalculatorNode
+	 * @generated
+	 */
+	public Adapter createCalculatorNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.CalculatorExpressionVisitable <em>Calculator Expression Visitable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.CalculatorExpressionVisitable
+	 * @generated
+	 */
+	public Adapter createCalculatorExpressionVisitableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.CalculatorExpression <em>Calculator Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.CalculatorExpression
+	 * @generated
+	 */
+	public Adapter createCalculatorExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.model.JNIFunction <em>JNI Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.model.JNIFunction
+	 * @generated
+	 */
+	public Adapter createJNIFunctionAdapter() {
 		return null;
 	}
 

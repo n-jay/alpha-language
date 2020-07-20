@@ -5,28 +5,18 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 import org.eclipse.xtext.EcoreUtil2;
 
 import alpha.model.AlphaScheduleTarget;
-import alpha.model.AlphaSystem;
-import alpha.model.CalculatorExpressionEvaluator;
-import alpha.model.JNIDomainInArrayNotation;
-import alpha.model.JNIFunction;
 import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
 import alpha.model.issue.AlphaIssue;
-import alpha.model.issue.CalculatorExpressionIssue;
-import alpha.model.issue.AlphaIssue.TYPE;
-import alpha.model.util.AffineFunctionOperations;
 import alpha.targetmapping.issue.TargetMappingIssueFactory;
 import alpha.targetmapping.util.AbstractTargetMappingVisitor;
-import alpha.targetmapping.util.TargetMappingUtil;
-import fr.irisa.cairn.jnimap.isl.ISLErrorException;
-import fr.irisa.cairn.jnimap.isl.ISLMap;
-import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
-import fr.irisa.cairn.jnimap.isl.ISLSet;
 
 /**
  * This class is responsible for computing ISL representation of the
@@ -45,6 +35,8 @@ import fr.irisa.cairn.jnimap.isl.ISLSet;
 public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 	
 	private Map<AlphaScheduleTarget, Stack<List<String>>> indexNameContexts;
+	private Stack<List<String>> scheduleDimNameContextHistory = new Stack<>();
+	private Stack<Integer> bandSizeHistory = new Stack<>();
 	
 	private List<AlphaIssue> issues = new LinkedList<>();
 	
@@ -66,6 +58,9 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 		
 		//Initialize index name contexts
 		indexNameContexts = new HashMap<>();
+		
+		scheduleDimNameContextHistory.push(new ArrayList<>());
+		bandSizeHistory.push(0);
 		
 		for (AlphaScheduleTarget target : EcoreUtil2.getAllContentsOfType(tm.getTargetBody(), AlphaScheduleTarget.class)) {
 			Stack<List<String>> stack = new Stack<>();
@@ -89,14 +84,7 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 	
 	@Override
 	public void inContextExpression(ContextExpression ce) {
-		AlphaSystem system = TargetMappingUtil.getTargetSystem(ce);
-
-		try {
-			ISLSet set = CalculatorExpressionEvaluator.parseDomain(system, ce.getContextDomainExpr().getIslString());
-			ce.getContextDomainExpr().setISLSet(set);
-		} catch (RuntimeException re) {
-			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), ce.getContextDomainExpr(), null));
-		}
+		issues.addAll(CalculatorExpressionEvaluatorForTM.calculate(ce.getContextDomainExpr(), scheduleDimNameContextHistory.peek()));
 	}
 	
 	@Override
@@ -118,44 +106,101 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 	
 	@Override
 	public void inGuardExpression(GuardExpression ge) {
-		try {
-			ISLSet set = CalculatorExpressionEvaluator.parseDomain(TargetMappingUtil.getTargetSystem(ge), ge.getGuardDomainExpr().getIslString());
-			ge.getGuardDomainExpr().setISLSet(set);
-		}
-		catch (RuntimeException re) {
-			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), ge.getGuardDomainExpr(), null));
-		}
+		issues.addAll(CalculatorExpressionEvaluatorForTM.calculate(ge.getGuardDomainExpr(), scheduleDimNameContextHistory.peek()));
 	}
 	
 	@Override
 	public void inBandExpression(BandExpression be) {
-		AlphaSystem system = TargetMappingUtil.getTargetSystem(be);
+		processBandPieces(be);
 		
-		for (BandPiece bp : be.getBandPieces()) {
-			
+		if (be.getIsolateSpecification() != null) {
+			IsolateSpecification is = be.getIsolateSpecification();
+			issues.addAll(CalculatorExpressionEvaluatorForTM.calculate(is.getIsolateDomainExpr(), scheduleDimNameContextHistory.peek()));
+		}
+	}
+	
+	/*
+	 * Helper function that computes domains for BandPieces
+	 * 
+	 * It is made a separate function because it is shared by BandExpression and TileBandExpression.
+	 */
+	private void processBandPieces(AbstractBandExpression abe) {
+		for (BandPiece bp : abe.getBandPieces()) {
 			//compute the piece domain
 			// its context does not need to be propagated, but is used in computing
 			// the scheduling function also in the BandPiece
 			List<String> context =  parseScheduleTargetRestrictDomain(bp.getPieceDomain());
-			
-			try {
-				ISLMultiAff islMAff = CalculatorExpressionEvaluator.parseAffineFunction(system, context, bp.getPartialScheduleExpr().getArrayNotation());
-				bp.getPartialScheduleExpr().setISLMultiAff(islMAff);
-			} catch (RuntimeException re) {
-				issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), bp.getPartialScheduleExpr(), null));
-			}
+			issues.addAll(CalculatorExpressionEvaluatorForTM.calculate(bp.getPartialScheduleExpr(), context));
 		}
 		
-		if (be.getIsolateSpecification() != null) {
-			IsolateSpecification is = be.getIsolateSpecification();
-			
-			try {
-				ISLSet dom = CalculatorExpressionEvaluator.parseDomain(system, is.getIsolateDomainExpr().getIslString());
-				is.getIsolateDomainExpr().setISLSet(dom);
-			} catch (RuntimeException re) {
-				issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), is.getIsolateDomainExpr(), null));
-			}
+		//check for consistency of bands
+		Set<Integer> bandSizes = abe.getBandPieces().stream().map(bp->bp.getPartialSchedule()).map(s->(s!=null?s.getNbOutputs():-1)).collect(Collectors.toSet());
+		//if more than one sizes are collected, then dimensions are inconsistent
+		if (bandSizes.size() != 1) {
+			issues.add(TargetMappingIssueFactory.mismatchedPartialSchedules(abe));
+		} 
+
+		int bandSize = bandSizes.iterator().next();
+		List<String> currentContext = scheduleDimNameContextHistory.peek();
+
+		if (bandSize == -1 || currentContext == null) {
+			//Silently ignore dimSize == -1
+			// it means there were issues parsing polyhedral objects, 
+			// and were already reported as issues earlier in the flow.
+			scheduleDimNameContextHistory.push(null);
+			bandSizeHistory.push(null);
+		} else if (bandSize != abe.getScheduleDimensionNames().size() && abe.getScheduleDimensionNames().size() > 0) {
+			//When the given names to schedule dimensions do not match the number of schedule dimensions
+			// the name context is ignored, and array notation is disabled 
+			issues.add(TargetMappingIssueFactory.mismatchedScheduleDimNames(abe));
+			scheduleDimNameContextHistory.push(null);
+			bandSizeHistory.push(null);
+		} else if (abe.getScheduleDimensionNames().size() == 0) {
+			//If dimSize is consistent, but names are not given, then only record the band size
+			scheduleDimNameContextHistory.push(null);
+			bandSizeHistory.push(bandSize);
+		} else {
+			List<String> newContext = new LinkedList<>(currentContext);
+			newContext.addAll(abe.getScheduleDimensionNames());
+			scheduleDimNameContextHistory.push(newContext);
+			bandSizeHistory.push(bandSize);
 		}
+	}
+	
+	/*
+	 * Helper to give schedule dimension names restricted to the current BandExpression.
+	 * 
+	 * The local context is used for specifying schedule of the tile loops, and so on.
+	 */
+	private List<String> getLocalScheduleDimNameContext() {
+		Integer bandSize = bandSizeHistory.peek();
+		List<String> globalContext = scheduleDimNameContextHistory.peek();
+		if (globalContext == null || bandSize == null)
+			return null;
+		
+		return globalContext.subList(globalContext.size()-bandSize, globalContext.size());
+	}
+
+//	/*
+//	 * Helper to give schedule dimension names restricted to the outer band expressions.
+//	 * 
+//	 * The outer context is used for specifying isolate domains, and so on.
+//	 * In ISL, it lives in a separate space by using relations:
+//	 *   [param]->{ [outer] -> [local] : constraints}
+//	 */
+//	private List<String> getOuterScheduleDimNameContext() {
+//		Integer dimSize = scheduleDimsPerBandHistory.peek();
+//		List<String> globalContext = scheduleDimNameContextHistory.peek();
+//		if (globalContext == null || dimSize == null)
+//			return null;
+//		
+//		return globalContext.subList(0, globalContext.size()-dimSize);
+//	}
+	
+	@Override
+	public void outAbstractBandExpression(AbstractBandExpression abe) {
+		scheduleDimNameContextHistory.pop();
+		bandSizeHistory.pop();
 	}
 	
 	@Override
@@ -173,6 +218,19 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 		}
 	}
 	
+	@Override
+	public void inTileBandExpression(TileBandExpression tbe) {
+		processBandPieces(tbe);
+		processTilingSpecification(tbe.getTilingSpecification());
+	}
+	
+	private void processTilingSpecification(TilingSpecification ts) {
+		int bandSize = bandSizeHistory.peek();
+		int totalDims = bandSizeHistory.parallelStream().reduce((a,b)->(a+b)).get();
+		
+		issues.addAll(CalculatorExpressionEvaluatorForTM.calculate(ts.getLoopScheduleExpr(), getLocalScheduleDimNameContext(), bandSize, totalDims-bandSize));
+	}
+	
 	/**
 	 * Computes JNIDomain of a ScheduleTargetRestrictDomain, and 
 	 * returns the index name context used in the calculation. 
@@ -181,8 +239,6 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 	 * @return
 	 */
 	private List<String> parseScheduleTargetRestrictDomain(ScheduleTargetRestrictDomain strd) {
-		AlphaSystem system = TargetMappingUtil.getTargetSystem(strd);
-		
 		List<String> context;
 		if (strd.getIndexNames().size() > 0) {
 			context = strd.getIndexNames();
@@ -190,26 +246,12 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 			context = new ArrayList<>(indexNameContexts.get(strd.getScheduleTarget()).peek());
 		}
 
-		try {
-			String domStr = CalculatorExpressionEvaluator.parseJNIDomain(strd.getRestrictDomainExpr(), context);
-			ISLSet set = CalculatorExpressionEvaluator.parseDomain(system, domStr);
-			strd.getRestrictDomainExpr().setISLSet(set);
-		} catch (RuntimeException re) {
-			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), strd, null));
-		}
+		issues.addAll(CalculatorExpressionEvaluatorForTM.calculate(strd.getRestrictDomainExpr(), context));
 		
 		return context;
 	}
 	
-
 	private void parseExtensionTargetExtensionMap(ExtensionTarget et) {
-		AlphaSystem system = TargetMappingUtil.getTargetSystem(et);
-		
-		try {
-			ISLMap map = CalculatorExpressionEvaluator.parseRelation(system, et.getExtensionMapExpr().getIslString());
-			et.getExtensionMapExpr().setISLMap(map);
-		}  catch (RuntimeException re) {
-			issues.add(new CalculatorExpressionIssue(TYPE.ERROR, re.getMessage(), et.getExtensionMapExpr(), null));
-		}
+		issues.addAll(CalculatorExpressionEvaluatorForTM.calculate(et.getExtensionMapExpr(), null));
 	}
 }

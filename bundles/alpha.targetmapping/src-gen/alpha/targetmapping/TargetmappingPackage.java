@@ -375,7 +375,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_TARGET_RESTRICT_DOMAIN__SCHEDULE_TARGET = 0;
+	int SCHEDULE_TARGET_RESTRICT_DOMAIN__SCHEDULE_TARGET = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Index Names</b></em>' attribute list.
@@ -384,7 +384,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_TARGET_RESTRICT_DOMAIN__INDEX_NAMES = 1;
+	int SCHEDULE_TARGET_RESTRICT_DOMAIN__INDEX_NAMES = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Restrict Domain Expr</b></em>' containment reference.
@@ -393,7 +393,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR = 2;
+	int SCHEDULE_TARGET_RESTRICT_DOMAIN__RESTRICT_DOMAIN_EXPR = TARGET_MAPPING_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Schedule Target Restrict Domain</em>' class.
@@ -402,7 +402,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SCHEDULE_TARGET_RESTRICT_DOMAIN_FEATURE_COUNT = 3;
+	int SCHEDULE_TARGET_RESTRICT_DOMAIN_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.GuardExpressionImpl <em>Guard Expression</em>}' class.
@@ -479,14 +479,14 @@ public interface TargetmappingPackage extends EPackage {
 	int MARK_EXPRESSION_FEATURE_COUNT = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link alpha.targetmapping.impl.BandExpressionImpl <em>Band Expression</em>}' class.
+	 * The meta object id for the '{@link alpha.targetmapping.impl.AbstractBandExpressionImpl <em>Abstract Band Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see alpha.targetmapping.impl.BandExpressionImpl
-	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getBandExpression()
+	 * @see alpha.targetmapping.impl.AbstractBandExpressionImpl
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getAbstractBandExpression()
 	 * @generated
 	 */
-	int BAND_EXPRESSION = 14;
+	int ABSTRACT_BAND_EXPRESSION = 14;
 
 	/**
 	 * The feature id for the '<em><b>Band Pieces</b></em>' containment reference list.
@@ -495,7 +495,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_EXPRESSION__BAND_PIECES = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 0;
+	int ABSTRACT_BAND_EXPRESSION__BAND_PIECES = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Schedule Dimension Names</b></em>' attribute list.
@@ -504,7 +504,44 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 1;
+	int ABSTRACT_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Band Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link alpha.targetmapping.impl.BandExpressionImpl <em>Band Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.targetmapping.impl.BandExpressionImpl
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getBandExpression()
+	 * @generated
+	 */
+	int BAND_EXPRESSION = 15;
+
+	/**
+	 * The feature id for the '<em><b>Band Pieces</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BAND_EXPRESSION__BAND_PIECES = ABSTRACT_BAND_EXPRESSION__BAND_PIECES;
+
+	/**
+	 * The feature id for the '<em><b>Schedule Dimension Names</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES = ABSTRACT_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES;
 
 	/**
 	 * The feature id for the '<em><b>Loop Type Specifications</b></em>' containment reference list.
@@ -513,7 +550,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 2;
+	int BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Isolate Specification</b></em>' containment reference.
@@ -522,7 +559,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_EXPRESSION__ISOLATE_SPECIFICATION = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 3;
+	int BAND_EXPRESSION__ISOLATE_SPECIFICATION = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Child</b></em>' containment reference.
@@ -531,7 +568,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_EXPRESSION__CHILD = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 4;
+	int BAND_EXPRESSION__CHILD = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Band Expression</em>' class.
@@ -540,7 +577,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_EXPRESSION_FEATURE_COUNT = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 5;
+	int BAND_EXPRESSION_FEATURE_COUNT = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.BandPieceImpl <em>Band Piece</em>}' class.
@@ -550,7 +587,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getBandPiece()
 	 * @generated
 	 */
-	int BAND_PIECE = 15;
+	int BAND_PIECE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Piece Domain</b></em>' containment reference.
@@ -559,7 +596,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_PIECE__PIECE_DOMAIN = 0;
+	int BAND_PIECE__PIECE_DOMAIN = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Partial Schedule Expr</b></em>' containment reference.
@@ -568,7 +605,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_PIECE__PARTIAL_SCHEDULE_EXPR = 1;
+	int BAND_PIECE__PARTIAL_SCHEDULE_EXPR = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Band Piece</em>' class.
@@ -577,7 +614,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BAND_PIECE_FEATURE_COUNT = 2;
+	int BAND_PIECE_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.LoopTypeSpecificationImpl <em>Loop Type Specification</em>}' class.
@@ -587,7 +624,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getLoopTypeSpecification()
 	 * @generated
 	 */
-	int LOOP_TYPE_SPECIFICATION = 16;
+	int LOOP_TYPE_SPECIFICATION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Dimension</b></em>' attribute.
@@ -596,7 +633,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOOP_TYPE_SPECIFICATION__DIMENSION = 0;
+	int LOOP_TYPE_SPECIFICATION__DIMENSION = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Loop Type Specification</em>' class.
@@ -605,7 +642,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOOP_TYPE_SPECIFICATION_FEATURE_COUNT = 1;
+	int LOOP_TYPE_SPECIFICATION_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.ISLLoopTypeSpecificationImpl <em>ISL Loop Type Specification</em>}' class.
@@ -615,7 +652,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getISLLoopTypeSpecification()
 	 * @generated
 	 */
-	int ISL_LOOP_TYPE_SPECIFICATION = 17;
+	int ISL_LOOP_TYPE_SPECIFICATION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Dimension</b></em>' attribute.
@@ -652,7 +689,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getAlphaLoopTypeSpecification()
 	 * @generated
 	 */
-	int ALPHA_LOOP_TYPE_SPECIFICATION = 18;
+	int ALPHA_LOOP_TYPE_SPECIFICATION = 19;
 
 	/**
 	 * The feature id for the '<em><b>Dimension</b></em>' attribute.
@@ -689,7 +726,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getIsolateSpecification()
 	 * @generated
 	 */
-	int ISOLATE_SPECIFICATION = 19;
+	int ISOLATE_SPECIFICATION = 20;
 
 	/**
 	 * The feature id for the '<em><b>Isolate Domain Expr</b></em>' containment reference.
@@ -698,7 +735,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR = 0;
+	int ISOLATE_SPECIFICATION__ISOLATE_DOMAIN_EXPR = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Loop Type Specifications</b></em>' containment reference list.
@@ -707,7 +744,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS = 1;
+	int ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Isolate Specification</em>' class.
@@ -716,7 +753,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ISOLATE_SPECIFICATION_FEATURE_COUNT = 2;
+	int ISOLATE_SPECIFICATION_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.TileBandExpressionImpl <em>Tile Band Expression</em>}' class.
@@ -726,7 +763,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getTileBandExpression()
 	 * @generated
 	 */
-	int TILE_BAND_EXPRESSION = 20;
+	int TILE_BAND_EXPRESSION = 21;
 
 	/**
 	 * The feature id for the '<em><b>Band Pieces</b></em>' containment reference list.
@@ -735,7 +772,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_BAND_EXPRESSION__BAND_PIECES = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 0;
+	int TILE_BAND_EXPRESSION__BAND_PIECES = ABSTRACT_BAND_EXPRESSION__BAND_PIECES;
 
 	/**
 	 * The feature id for the '<em><b>Schedule Dimension Names</b></em>' attribute list.
@@ -744,7 +781,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 1;
+	int TILE_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES = ABSTRACT_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES;
 
 	/**
 	 * The feature id for the '<em><b>Tiling Specification</b></em>' containment reference.
@@ -753,7 +790,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_BAND_EXPRESSION__TILING_SPECIFICATION = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 2;
+	int TILE_BAND_EXPRESSION__TILING_SPECIFICATION = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Tile Band Expression</em>' class.
@@ -762,7 +799,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_BAND_EXPRESSION_FEATURE_COUNT = SCHEDULE_TREE_EXPRESSION_FEATURE_COUNT + 3;
+	int TILE_BAND_EXPRESSION_FEATURE_COUNT = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.TilingSpecificationImpl <em>Tiling Specification</em>}' class.
@@ -772,7 +809,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getTilingSpecification()
 	 * @generated
 	 */
-	int TILING_SPECIFICATION = 21;
+	int TILING_SPECIFICATION = 22;
 
 	/**
 	 * The feature id for the '<em><b>Loop Schedule Expr</b></em>' containment reference.
@@ -781,7 +818,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILING_SPECIFICATION__LOOP_SCHEDULE_EXPR = 0;
+	int TILING_SPECIFICATION__LOOP_SCHEDULE_EXPR = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Tiling Specification</em>' class.
@@ -790,7 +827,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILING_SPECIFICATION_FEATURE_COUNT = 1;
+	int TILING_SPECIFICATION_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.TileLoopSpecificationImpl <em>Tile Loop Specification</em>}' class.
@@ -800,7 +837,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getTileLoopSpecification()
 	 * @generated
 	 */
-	int TILE_LOOP_SPECIFICATION = 22;
+	int TILE_LOOP_SPECIFICATION = 23;
 
 	/**
 	 * The feature id for the '<em><b>Loop Schedule Expr</b></em>' containment reference.
@@ -864,7 +901,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getPointLoopSpecification()
 	 * @generated
 	 */
-	int POINT_LOOP_SPECIFICATION = 23;
+	int POINT_LOOP_SPECIFICATION = 24;
 
 	/**
 	 * The feature id for the '<em><b>Loop Schedule Expr</b></em>' containment reference.
@@ -910,7 +947,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getTileSizeSpecification()
 	 * @generated
 	 */
-	int TILE_SIZE_SPECIFICATION = 24;
+	int TILE_SIZE_SPECIFICATION = 25;
 
 	/**
 	 * The number of structural features of the '<em>Tile Size Specification</em>' class.
@@ -919,7 +956,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_SIZE_SPECIFICATION_FEATURE_COUNT = 0;
+	int TILE_SIZE_SPECIFICATION_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.FixedTileSizeImpl <em>Fixed Tile Size</em>}' class.
@@ -929,7 +966,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getFixedTileSize()
 	 * @generated
 	 */
-	int FIXED_TILE_SIZE = 25;
+	int FIXED_TILE_SIZE = 26;
 
 	/**
 	 * The feature id for the '<em><b>Tile Size</b></em>' attribute.
@@ -957,7 +994,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getParametricTileSize()
 	 * @generated
 	 */
-	int PARAMETRIC_TILE_SIZE = 26;
+	int PARAMETRIC_TILE_SIZE = 27;
 
 	/**
 	 * The feature id for the '<em><b>Tile Size Name</b></em>' attribute.
@@ -985,7 +1022,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getCompileTimeConstantTileSize()
 	 * @generated
 	 */
-	int COMPILE_TIME_CONSTANT_TILE_SIZE = 27;
+	int COMPILE_TIME_CONSTANT_TILE_SIZE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Tile Size Name</b></em>' attribute.
@@ -1022,7 +1059,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getExtensionExpression()
 	 * @generated
 	 */
-	int EXTENSION_EXPRESSION = 28;
+	int EXTENSION_EXPRESSION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Extension Targets</b></em>' containment reference list.
@@ -1059,7 +1096,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getExtensionTarget()
 	 * @generated
 	 */
-	int EXTENSION_TARGET = 29;
+	int EXTENSION_TARGET = 30;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1098,6 +1135,52 @@ public interface TargetmappingPackage extends EPackage {
 	int EXTENSION_TARGET_FEATURE_COUNT = ModelPackage.ALPHA_SCHEDULE_TARGET_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link alpha.targetmapping.impl.JNIIdentityFunctionImpl <em>JNI Identity Function</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.targetmapping.impl.JNIIdentityFunctionImpl
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIIdentityFunction()
+	 * @generated
+	 */
+	int JNI_IDENTITY_FUNCTION = 31;
+
+	/**
+	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_IDENTITY_FUNCTION__NODE_ID = ModelPackage.JNI_FUNCTION__NODE_ID;
+
+	/**
+	 * The feature id for the '<em><b>Alpha Function</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_IDENTITY_FUNCTION__ALPHA_FUNCTION = ModelPackage.JNI_FUNCTION__ALPHA_FUNCTION;
+
+	/**
+	 * The feature id for the '<em><b>Zinternal cache isl MAff</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_IDENTITY_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF = ModelPackage.JNI_FUNCTION__ZINTERNAL_CACHE_ISL_MAFF;
+
+	/**
+	 * The number of structural features of the '<em>JNI Identity Function</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JNI_IDENTITY_FUNCTION_FEATURE_COUNT = ModelPackage.JNI_FUNCTION_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link alpha.targetmapping.ALPHA_LOOP_TYPE <em>ALPHA LOOP TYPE</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1105,7 +1188,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getALPHA_LOOP_TYPE()
 	 * @generated
 	 */
-	int ALPHA_LOOP_TYPE = 30;
+	int ALPHA_LOOP_TYPE = 32;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.TILING_TYPE <em>TILING TYPE</em>}' enum.
@@ -1115,7 +1198,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getTILING_TYPE()
 	 * @generated
 	 */
-	int TILING_TYPE = 31;
+	int TILING_TYPE = 33;
 
 	/**
 	 * The meta object id for the '<em>JNI Object</em>' data type.
@@ -1125,7 +1208,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIObject()
 	 * @generated
 	 */
-	int JNI_OBJECT = 32;
+	int JNI_OBJECT = 34;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Set</em>' data type.
@@ -1135,7 +1218,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLSet()
 	 * @generated
 	 */
-	int JNIISL_SET = 33;
+	int JNIISL_SET = 35;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Map</em>' data type.
@@ -1145,7 +1228,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLMap()
 	 * @generated
 	 */
-	int JNIISL_MAP = 34;
+	int JNIISL_MAP = 36;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
@@ -1155,7 +1238,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
-	int JNIISL_MULTI_AFF = 35;
+	int JNIISL_MULTI_AFF = 37;
 
 	/**
 	 * The meta object id for the '<em>JNIISLPWQ Polynomial</em>' data type.
@@ -1165,7 +1248,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLPWQPolynomial()
 	 * @generated
 	 */
-	int JNIISLPWQ_POLYNOMIAL = 36;
+	int JNIISLPWQ_POLYNOMIAL = 38;
 
 	/**
 	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
@@ -1175,7 +1258,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getISL_FORMAT()
 	 * @generated
 	 */
-	int ISL_FORMAT = 37;
+	int ISL_FORMAT = 39;
 
 	/**
 	 * The meta object id for the '<em>ISLAST Loop Type</em>' data type.
@@ -1185,7 +1268,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getISLASTLoopType()
 	 * @generated
 	 */
-	int ISLAST_LOOP_TYPE = 38;
+	int ISLAST_LOOP_TYPE = 40;
 
 
 	/**
@@ -1516,6 +1599,38 @@ public interface TargetmappingPackage extends EPackage {
 	EReference getMarkExpression_Child();
 
 	/**
+	 * Returns the meta object for class '{@link alpha.targetmapping.AbstractBandExpression <em>Abstract Band Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Band Expression</em>'.
+	 * @see alpha.targetmapping.AbstractBandExpression
+	 * @generated
+	 */
+	EClass getAbstractBandExpression();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.AbstractBandExpression#getBandPieces <em>Band Pieces</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Band Pieces</em>'.
+	 * @see alpha.targetmapping.AbstractBandExpression#getBandPieces()
+	 * @see #getAbstractBandExpression()
+	 * @generated
+	 */
+	EReference getAbstractBandExpression_BandPieces();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link alpha.targetmapping.AbstractBandExpression#getScheduleDimensionNames <em>Schedule Dimension Names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Schedule Dimension Names</em>'.
+	 * @see alpha.targetmapping.AbstractBandExpression#getScheduleDimensionNames()
+	 * @see #getAbstractBandExpression()
+	 * @generated
+	 */
+	EAttribute getAbstractBandExpression_ScheduleDimensionNames();
+
+	/**
 	 * Returns the meta object for class '{@link alpha.targetmapping.BandExpression <em>Band Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1524,28 +1639,6 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getBandExpression();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.BandExpression#getBandPieces <em>Band Pieces</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Band Pieces</em>'.
-	 * @see alpha.targetmapping.BandExpression#getBandPieces()
-	 * @see #getBandExpression()
-	 * @generated
-	 */
-	EReference getBandExpression_BandPieces();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link alpha.targetmapping.BandExpression#getScheduleDimensionNames <em>Schedule Dimension Names</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Schedule Dimension Names</em>'.
-	 * @see alpha.targetmapping.BandExpression#getScheduleDimensionNames()
-	 * @see #getBandExpression()
-	 * @generated
-	 */
-	EAttribute getBandExpression_ScheduleDimensionNames();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.BandExpression#getLoopTypeSpecifications <em>Loop Type Specifications</em>}'.
@@ -1716,28 +1809,6 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTileBandExpression();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.TileBandExpression#getBandPieces <em>Band Pieces</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Band Pieces</em>'.
-	 * @see alpha.targetmapping.TileBandExpression#getBandPieces()
-	 * @see #getTileBandExpression()
-	 * @generated
-	 */
-	EReference getTileBandExpression_BandPieces();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link alpha.targetmapping.TileBandExpression#getScheduleDimensionNames <em>Schedule Dimension Names</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Schedule Dimension Names</em>'.
-	 * @see alpha.targetmapping.TileBandExpression#getScheduleDimensionNames()
-	 * @see #getTileBandExpression()
-	 * @generated
-	 */
-	EAttribute getTileBandExpression_ScheduleDimensionNames();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.TileBandExpression#getTilingSpecification <em>Tiling Specification</em>}'.
@@ -2015,6 +2086,16 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExtensionTarget_ExtensionMapExpr();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.targetmapping.JNIIdentityFunction <em>JNI Identity Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>JNI Identity Function</em>'.
+	 * @see alpha.targetmapping.JNIIdentityFunction
+	 * @generated
+	 */
+	EClass getJNIIdentityFunction();
 
 	/**
 	 * Returns the meta object for enum '{@link alpha.targetmapping.ALPHA_LOOP_TYPE <em>ALPHA LOOP TYPE</em>}'.
@@ -2412,6 +2493,32 @@ public interface TargetmappingPackage extends EPackage {
 		EReference MARK_EXPRESSION__CHILD = eINSTANCE.getMarkExpression_Child();
 
 		/**
+		 * The meta object literal for the '{@link alpha.targetmapping.impl.AbstractBandExpressionImpl <em>Abstract Band Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.targetmapping.impl.AbstractBandExpressionImpl
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getAbstractBandExpression()
+		 * @generated
+		 */
+		EClass ABSTRACT_BAND_EXPRESSION = eINSTANCE.getAbstractBandExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Band Pieces</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSTRACT_BAND_EXPRESSION__BAND_PIECES = eINSTANCE.getAbstractBandExpression_BandPieces();
+
+		/**
+		 * The meta object literal for the '<em><b>Schedule Dimension Names</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSTRACT_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES = eINSTANCE.getAbstractBandExpression_ScheduleDimensionNames();
+
+		/**
 		 * The meta object literal for the '{@link alpha.targetmapping.impl.BandExpressionImpl <em>Band Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2420,22 +2527,6 @@ public interface TargetmappingPackage extends EPackage {
 		 * @generated
 		 */
 		EClass BAND_EXPRESSION = eINSTANCE.getBandExpression();
-
-		/**
-		 * The meta object literal for the '<em><b>Band Pieces</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference BAND_EXPRESSION__BAND_PIECES = eINSTANCE.getBandExpression_BandPieces();
-
-		/**
-		 * The meta object literal for the '<em><b>Schedule Dimension Names</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES = eINSTANCE.getBandExpression_ScheduleDimensionNames();
 
 		/**
 		 * The meta object literal for the '<em><b>Loop Type Specifications</b></em>' containment reference list feature.
@@ -2576,22 +2667,6 @@ public interface TargetmappingPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TILE_BAND_EXPRESSION = eINSTANCE.getTileBandExpression();
-
-		/**
-		 * The meta object literal for the '<em><b>Band Pieces</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TILE_BAND_EXPRESSION__BAND_PIECES = eINSTANCE.getTileBandExpression_BandPieces();
-
-		/**
-		 * The meta object literal for the '<em><b>Schedule Dimension Names</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TILE_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES = eINSTANCE.getTileBandExpression_ScheduleDimensionNames();
 
 		/**
 		 * The meta object literal for the '<em><b>Tiling Specification</b></em>' containment reference feature.
@@ -2818,6 +2893,16 @@ public interface TargetmappingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXTENSION_TARGET__EXTENSION_MAP_EXPR = eINSTANCE.getExtensionTarget_ExtensionMapExpr();
+
+		/**
+		 * The meta object literal for the '{@link alpha.targetmapping.impl.JNIIdentityFunctionImpl <em>JNI Identity Function</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.targetmapping.impl.JNIIdentityFunctionImpl
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIIdentityFunction()
+		 * @generated
+		 */
+		EClass JNI_IDENTITY_FUNCTION = eINSTANCE.getJNIIdentityFunction();
 
 		/**
 		 * The meta object literal for the '{@link alpha.targetmapping.ALPHA_LOOP_TYPE <em>ALPHA LOOP TYPE</em>}' enum.

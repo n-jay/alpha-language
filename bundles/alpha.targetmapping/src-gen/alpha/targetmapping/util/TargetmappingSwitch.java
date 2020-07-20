@@ -2,7 +2,12 @@
  */
 package alpha.targetmapping.util;
 
+import alpha.model.AlphaNode;
 import alpha.model.AlphaScheduleTarget;
+import alpha.model.CalculatorExpression;
+import alpha.model.CalculatorExpressionVisitable;
+import alpha.model.CalculatorNode;
+import alpha.model.JNIFunction;
 
 import alpha.targetmapping.*;
 
@@ -158,6 +163,7 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 			case TargetmappingPackage.SCHEDULE_TARGET_RESTRICT_DOMAIN: {
 				ScheduleTargetRestrictDomain scheduleTargetRestrictDomain = (ScheduleTargetRestrictDomain)theEObject;
 				T result = caseScheduleTargetRestrictDomain(scheduleTargetRestrictDomain);
+				if (result == null) result = caseTargetMappingNode(scheduleTargetRestrictDomain);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -179,9 +185,19 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case TargetmappingPackage.ABSTRACT_BAND_EXPRESSION: {
+				AbstractBandExpression abstractBandExpression = (AbstractBandExpression)theEObject;
+				T result = caseAbstractBandExpression(abstractBandExpression);
+				if (result == null) result = caseScheduleTreeExpression(abstractBandExpression);
+				if (result == null) result = caseTargetMappingNode(abstractBandExpression);
+				if (result == null) result = caseTargetMappingVisitable(abstractBandExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case TargetmappingPackage.BAND_EXPRESSION: {
 				BandExpression bandExpression = (BandExpression)theEObject;
 				T result = caseBandExpression(bandExpression);
+				if (result == null) result = caseAbstractBandExpression(bandExpression);
 				if (result == null) result = caseScheduleTreeExpression(bandExpression);
 				if (result == null) result = caseTargetMappingNode(bandExpression);
 				if (result == null) result = caseTargetMappingVisitable(bandExpression);
@@ -191,12 +207,14 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 			case TargetmappingPackage.BAND_PIECE: {
 				BandPiece bandPiece = (BandPiece)theEObject;
 				T result = caseBandPiece(bandPiece);
+				if (result == null) result = caseTargetMappingNode(bandPiece);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TargetmappingPackage.LOOP_TYPE_SPECIFICATION: {
 				LoopTypeSpecification loopTypeSpecification = (LoopTypeSpecification)theEObject;
 				T result = caseLoopTypeSpecification(loopTypeSpecification);
+				if (result == null) result = caseTargetMappingNode(loopTypeSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -204,6 +222,7 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				ISLLoopTypeSpecification islLoopTypeSpecification = (ISLLoopTypeSpecification)theEObject;
 				T result = caseISLLoopTypeSpecification(islLoopTypeSpecification);
 				if (result == null) result = caseLoopTypeSpecification(islLoopTypeSpecification);
+				if (result == null) result = caseTargetMappingNode(islLoopTypeSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -211,18 +230,21 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				AlphaLoopTypeSpecification alphaLoopTypeSpecification = (AlphaLoopTypeSpecification)theEObject;
 				T result = caseAlphaLoopTypeSpecification(alphaLoopTypeSpecification);
 				if (result == null) result = caseLoopTypeSpecification(alphaLoopTypeSpecification);
+				if (result == null) result = caseTargetMappingNode(alphaLoopTypeSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TargetmappingPackage.ISOLATE_SPECIFICATION: {
 				IsolateSpecification isolateSpecification = (IsolateSpecification)theEObject;
 				T result = caseIsolateSpecification(isolateSpecification);
+				if (result == null) result = caseTargetMappingNode(isolateSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TargetmappingPackage.TILE_BAND_EXPRESSION: {
 				TileBandExpression tileBandExpression = (TileBandExpression)theEObject;
 				T result = caseTileBandExpression(tileBandExpression);
+				if (result == null) result = caseAbstractBandExpression(tileBandExpression);
 				if (result == null) result = caseScheduleTreeExpression(tileBandExpression);
 				if (result == null) result = caseTargetMappingNode(tileBandExpression);
 				if (result == null) result = caseTargetMappingVisitable(tileBandExpression);
@@ -232,6 +254,7 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 			case TargetmappingPackage.TILING_SPECIFICATION: {
 				TilingSpecification tilingSpecification = (TilingSpecification)theEObject;
 				T result = caseTilingSpecification(tilingSpecification);
+				if (result == null) result = caseTargetMappingNode(tilingSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -239,6 +262,7 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				TileLoopSpecification tileLoopSpecification = (TileLoopSpecification)theEObject;
 				T result = caseTileLoopSpecification(tileLoopSpecification);
 				if (result == null) result = caseTilingSpecification(tileLoopSpecification);
+				if (result == null) result = caseTargetMappingNode(tileLoopSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -246,12 +270,14 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				PointLoopSpecification pointLoopSpecification = (PointLoopSpecification)theEObject;
 				T result = casePointLoopSpecification(pointLoopSpecification);
 				if (result == null) result = caseTilingSpecification(pointLoopSpecification);
+				if (result == null) result = caseTargetMappingNode(pointLoopSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case TargetmappingPackage.TILE_SIZE_SPECIFICATION: {
 				TileSizeSpecification tileSizeSpecification = (TileSizeSpecification)theEObject;
 				T result = caseTileSizeSpecification(tileSizeSpecification);
+				if (result == null) result = caseTargetMappingNode(tileSizeSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -259,6 +285,7 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				FixedTileSize fixedTileSize = (FixedTileSize)theEObject;
 				T result = caseFixedTileSize(fixedTileSize);
 				if (result == null) result = caseTileSizeSpecification(fixedTileSize);
+				if (result == null) result = caseTargetMappingNode(fixedTileSize);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -266,6 +293,7 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				ParametricTileSize parametricTileSize = (ParametricTileSize)theEObject;
 				T result = caseParametricTileSize(parametricTileSize);
 				if (result == null) result = caseTileSizeSpecification(parametricTileSize);
+				if (result == null) result = caseTargetMappingNode(parametricTileSize);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -273,6 +301,7 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				CompileTimeConstantTileSize compileTimeConstantTileSize = (CompileTimeConstantTileSize)theEObject;
 				T result = caseCompileTimeConstantTileSize(compileTimeConstantTileSize);
 				if (result == null) result = caseTileSizeSpecification(compileTimeConstantTileSize);
+				if (result == null) result = caseTargetMappingNode(compileTimeConstantTileSize);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -290,6 +319,18 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				ExtensionTarget extensionTarget = (ExtensionTarget)theEObject;
 				T result = caseExtensionTarget(extensionTarget);
 				if (result == null) result = caseAlphaScheduleTarget(extensionTarget);
+				if (result == null) result = caseTargetMappingNode(extensionTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TargetmappingPackage.JNI_IDENTITY_FUNCTION: {
+				JNIIdentityFunction jniIdentityFunction = (JNIIdentityFunction)theEObject;
+				T result = caseJNIIdentityFunction(jniIdentityFunction);
+				if (result == null) result = caseJNIFunction(jniIdentityFunction);
+				if (result == null) result = caseCalculatorExpression(jniIdentityFunction);
+				if (result == null) result = caseAlphaNode(jniIdentityFunction);
+				if (result == null) result = caseCalculatorNode(jniIdentityFunction);
+				if (result == null) result = caseCalculatorExpressionVisitable(jniIdentityFunction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -504,6 +545,21 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseMarkExpression(MarkExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Band Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Band Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractBandExpression(AbstractBandExpression object) {
 		return null;
 	}
 
@@ -748,6 +804,21 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>JNI Identity Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>JNI Identity Function</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJNIIdentityFunction(JNIIdentityFunction object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Alpha Schedule Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -759,6 +830,81 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAlphaScheduleTarget(AlphaScheduleTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Alpha Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Alpha Node</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAlphaNode(AlphaNode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Calculator Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Calculator Node</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCalculatorNode(CalculatorNode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Calculator Expression Visitable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Calculator Expression Visitable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCalculatorExpressionVisitable(CalculatorExpressionVisitable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Calculator Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Calculator Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCalculatorExpression(CalculatorExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>JNI Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>JNI Function</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJNIFunction(JNIFunction object) {
 		return null;
 	}
 

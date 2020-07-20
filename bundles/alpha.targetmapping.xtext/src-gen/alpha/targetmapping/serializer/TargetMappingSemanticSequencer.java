@@ -76,6 +76,7 @@ import alpha.targetmapping.FixedTileSize;
 import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.ISLLoopTypeSpecification;
 import alpha.targetmapping.IsolateSpecification;
+import alpha.targetmapping.JNIIdentityFunction;
 import alpha.targetmapping.MarkExpression;
 import alpha.targetmapping.ParametricTileSize;
 import alpha.targetmapping.PointLoopSpecification;
@@ -358,6 +359,9 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 			case TargetmappingPackage.ISOLATE_SPECIFICATION:
 				sequence_IsolateSpecification(context, (IsolateSpecification) semanticObject); 
 				return; 
+			case TargetmappingPackage.JNI_IDENTITY_FUNCTION:
+				sequence_JNIIdentityFunction(context, (JNIIdentityFunction) semanticObject); 
+				return; 
 			case TargetmappingPackage.MARK_EXPRESSION:
 				sequence_MarkExpression(context, (MarkExpression) semanticObject); 
 				return; 
@@ -462,19 +466,10 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     BandPiece returns BandPiece
 	 *
 	 * Constraint:
-	 *     (pieceDomain=ScheduleTargetRestrictDomain partialScheduleExpr=JNIFunctionInArrayNotation)
+	 *     (pieceDomain=ScheduleTargetRestrictDomain (partialScheduleExpr=JNIFunction | partialScheduleExpr=JNIFunctionInArrayNotation))
 	 */
 	protected void sequence_BandPiece(ISerializationContext context, BandPiece semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PIECE_DOMAIN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PIECE_DOMAIN));
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PARTIAL_SCHEDULE_EXPR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.BAND_PIECE__PARTIAL_SCHEDULE_EXPR));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getBandPieceAccess().getPieceDomainScheduleTargetRestrictDomainParserRuleCall_0_0(), semanticObject.getPieceDomain());
-		feeder.accept(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0(), semanticObject.getPartialScheduleExpr());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -509,21 +504,21 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     (
 	 *         (
 	 *             parallel?='parallel'? 
-	 *             loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *             (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *             tileSizeSpecifications+=FixedTileSize 
 	 *             tileSizeSpecifications+=FixedTileSize* 
 	 *             tilingSpecification=TilingSpecification
 	 *         ) | 
 	 *         (
 	 *             parallel?='parallel'? 
-	 *             loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *             (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *             tileSizeSpecifications+=ParametricTileSize 
 	 *             tileSizeSpecifications+=ParametricTileSize* 
 	 *             tilingSpecification=TilingSpecification
 	 *         ) | 
 	 *         (
 	 *             parallel?='parallel'? 
-	 *             loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *             (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *             tileSizeSpecifications+=CompileTimeConstantTileSize 
 	 *             tileSizeSpecifications+=CompileTimeConstantTileSize* 
 	 *             tilingSpecification=TilingSpecification
@@ -542,7 +537,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         parallel?='parallel'? 
-	 *         loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *         tileSizeSpecifications+=CompileTimeConstantTileSize 
 	 *         tileSizeSpecifications+=CompileTimeConstantTileSize* 
 	 *         tilingSpecification=TilingSpecification
@@ -558,7 +553,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     ContextExpression returns ContextExpression
 	 *
 	 * Constraint:
-	 *     (contextDomainExpr=JNIDomain child=ScheduleTreeExpression)
+	 *     (contextDomainExpr=JNIDomainInArrayNotation child=ScheduleTreeExpression)
 	 */
 	protected void sequence_ContextExpression(ISerializationContext context, ContextExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -568,7 +563,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.CONTEXT_EXPRESSION__CHILD));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainParserRuleCall_1_0(), semanticObject.getContextDomainExpr());
+		feeder.accept(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0(), semanticObject.getContextDomainExpr());
 		feeder.accept(grammarAccess.getContextExpressionAccess().getChildScheduleTreeExpressionParserRuleCall_2_0(), semanticObject.getChild());
 		feeder.finish();
 	}
@@ -639,7 +634,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         parallel?='parallel'? 
-	 *         loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *         tileSizeSpecifications+=FixedTileSize 
 	 *         tileSizeSpecifications+=FixedTileSize* 
 	 *         tilingSpecification=TilingSpecification
@@ -656,19 +651,10 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     GuardExpression returns GuardExpression
 	 *
 	 * Constraint:
-	 *     (guardDomainExpr=JNIDomain child=ScheduleTreeExpression)
+	 *     ((guardDomainExpr=JNIDomain | guardDomainExpr=JNIDomainInArrayNotation) child=ScheduleTreeExpression)
 	 */
 	protected void sequence_GuardExpression(ISerializationContext context, GuardExpression semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__GUARD_DOMAIN_EXPR));
-			if (transientValues.isValueTransient(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__CHILD) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TargetmappingPackage.Literals.GUARD_EXPRESSION__CHILD));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getGuardExpressionAccess().getGuardDomainExprJNIDomainParserRuleCall_1_0(), semanticObject.getGuardDomainExpr());
-		feeder.accept(grammarAccess.getGuardExpressionAccess().getChildScheduleTreeExpressionParserRuleCall_2_0(), semanticObject.getChild());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -699,9 +685,24 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     IsolateSpecification returns IsolateSpecification
 	 *
 	 * Constraint:
-	 *     (isolateDomainExpr=JNIDomain (loopTypeSpecifications+=LoopTypeSpecification loopTypeSpecifications+=LoopTypeSpecification*)?)
+	 *     (
+	 *         (isolateDomainExpr=JNIDomain | isolateDomainExpr=JNIDomainInArrayNotation) 
+	 *         (loopTypeSpecifications+=LoopTypeSpecification loopTypeSpecifications+=LoopTypeSpecification*)?
+	 *     )
 	 */
 	protected void sequence_IsolateSpecification(ISerializationContext context, IsolateSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     JNIIdentityFunction returns JNIIdentityFunction
+	 *
+	 * Constraint:
+	 *     {JNIIdentityFunction}
+	 */
+	protected void sequence_JNIIdentityFunction(ISerializationContext context, JNIIdentityFunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -754,7 +755,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         parallel?='parallel'? 
-	 *         loopScheduleExpr=JNIFunctionInArrayNotation? 
+	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *         tileSizeSpecifications+=ParametricTileSize 
 	 *         tileSizeSpecifications+=ParametricTileSize* 
 	 *         tilingSpecification=TilingSpecification
@@ -771,7 +772,11 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     PointLoopSpecification returns PointLoopSpecification
 	 *
 	 * Constraint:
-	 *     (loopScheduleExpr=JNIFunctionInArrayNotation? loopTypeSpecifications+=LoopTypeSpecification* isolateSpecification=IsolateSpecification?)
+	 *     (
+	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
+	 *         loopTypeSpecifications+=LoopTypeSpecification* 
+	 *         isolateSpecification=IsolateSpecification?
+	 *     )
 	 */
 	protected void sequence_PointLoopSpecification(ISerializationContext context, PointLoopSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -783,7 +788,11 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     ScheduleTargetRestrictDomain returns ScheduleTargetRestrictDomain
 	 *
 	 * Constraint:
-	 *     (scheduleTarget=[AlphaScheduleTarget|ID] (indexNames+=ID indexNames+=ID*)? restrictDomainExpr=JNIDomainInArrayNotation?)
+	 *     (
+	 *         scheduleTarget=[AlphaScheduleTarget|ID] 
+	 *         (indexNames+=ID indexNames+=ID*)? 
+	 *         (restrictDomainExpr=JNIDomain | restrictDomainExpr=JNIDomainInArrayNotation)?
+	 *     )
 	 */
 	protected void sequence_ScheduleTargetRestrictDomain(ISerializationContext context, ScheduleTargetRestrictDomain semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

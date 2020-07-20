@@ -19,6 +19,7 @@ import alpha.targetmapping.TileBandExpression;
 import alpha.targetmapping.TileLoopSpecification;
 import alpha.targetmapping.TilingSpecification;
 import alpha.targetmapping.util.AbstractTargetMappingVisitor;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -186,7 +187,11 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
   
   protected void _visitTilingSpecification(final TileLoopSpecification tls) {
     this.defaultIn(tls);
-    this.printStr("+--", tls.getLoopSchedule());
+    ISLMultiAff _loopSchedule = tls.getLoopSchedule();
+    boolean _tripleNotEquals = (_loopSchedule != null);
+    if (_tripleNotEquals) {
+      this.printStr("+--", tls.getLoopSchedule());
+    }
     boolean _isParallel = tls.isParallel();
     if (_isParallel) {
       this.printStr("+--", "parallel");

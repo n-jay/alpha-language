@@ -288,7 +288,7 @@ public class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
     IsolateSpecification _isolateSpecification = be.getIsolateSpecification();
     boolean _tripleNotEquals = (_isolateSpecification != null);
     if (_tripleNotEquals) {
-      final ISLMap map = ISLMap.buildFromRange(be.getIsolateSpecification().getIsolateDomain());
+      final ISLMap map = be.getIsolateSpecification().getIsolateMap();
       ISLSet _wrap = map.wrap();
       final ISLSet isolateOption = _wrap.setTupleName("isolate");
       bandNode = bandNode.setASTBuildOptions(isolateOption.toUnionSet());

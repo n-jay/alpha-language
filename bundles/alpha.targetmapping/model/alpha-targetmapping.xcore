@@ -8,16 +8,18 @@ import alpha.model.AlphaScheduleTarget
 import alpha.model.AlphaSystem
 import alpha.model.JNIDomain
 import alpha.model.JNIDomainInArrayNotation
-import alpha.model.JNIFunctionInArrayNotation
+import alpha.model.JNIFunction
 import alpha.model.JNIRelation
-import alpha.model.SystemBody
 import alpha.model.POLY_OBJECT_TYPE
+import alpha.model.SystemBody
+import org.eclipse.xtext.EcoreUtil2
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType
-import fr.irisa.cairn.jnimap.isl.ISL_FORMAT
+import fr.irisa.cairn.jnimap.isl.ISLMap
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLSet
-import fr.irisa.cairn.jnimap.isl.ISLMap
+import fr.irisa.cairn.jnimap.isl.ISL_FORMAT
+import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.runtime.JNIObject
 
 type JNIObject wraps JNIObject
@@ -76,6 +78,7 @@ class TargetMappingVisitor {
 	op void inFilterExpression(FilterExpression fe)
 	op void inGuardExpression(GuardExpression ge)
 	op void inMarkExpression(MarkExpression me)
+	op void inAbstractBandExpression(AbstractBandExpression abe)
 	op void inBandExpression(BandExpression be)
 	op void inTileBandExpression(TileBandExpression tbe)
 	op void inExtensionExpression(ExtensionExpression ee)
@@ -93,6 +96,7 @@ class TargetMappingVisitor {
 	op void outFilterExpression(FilterExpression fe)
 	op void outGuardExpression(GuardExpression ge)
 	op void outMarkExpression(MarkExpression me)
+	op void outAbstractBandExpression(AbstractBandExpression abe)
 	op void outBandExpression(BandExpression be)
 	op void outTileBandExpression(TileBandExpression tbe)
 	op void outExtensionExpression(ExtensionExpression ee)
@@ -135,7 +139,7 @@ abstract class ScheduleTreeExpression extends TargetMappingNode, TargetMappingVi
 }
 
 class ContextExpression extends ScheduleTreeExpression {
-	contains JNIDomain contextDomainExpr
+	contains JNIDomainInArrayNotation contextDomainExpr
 	
 	contains ScheduleTreeExpression child
 	
@@ -174,11 +178,11 @@ class FilterExpression extends ScheduleTreeExpression, ScopingEntity {
 	}
 }
 
-class ScheduleTargetRestrictDomain {
+class ScheduleTargetRestrictDomain extends TargetMappingNode {
 	refers AlphaScheduleTarget scheduleTarget
 	String[] indexNames
 	
-	contains JNIDomainInArrayNotation restrictDomainExpr
+	contains JNIDomain restrictDomainExpr
 	
 	op JNIISLSet getRestrictDomain() {
 		if (restrictDomainExpr.^type != POLY_OBJECT_TYPE.SET ) null
@@ -208,7 +212,6 @@ class MarkExpression extends ScheduleTreeExpression {
 		visitor.visitMarkExpression(this)
 	}
 }
-
 /**
  * BandExpression defines a band in ISL ScheduleTree,
  * which is a multi-dimensional ordering of domains that
@@ -218,18 +221,35 @@ class MarkExpression extends ScheduleTreeExpression {
  * of dimensions in its RHS. The space on the RHS of these
  * schedule functions is called the schedule space, and its 
  * dimensions may be named with scheduleDimensionNames. These 
- * names are used for interpreting arrat notation in the
+ * names are used for interpreting array notation in the
  * sub-tree within its scope.
  * 
+ * There are two different BandExpressions in TargetMapping:
+ *   - BandExpression: the standard one, which directly corresponds to band_node in ISL
+ *   - TileBandExpression: a variant to specify (nested) tiling
+ */
+abstract class AbstractBandExpression extends ScheduleTreeExpression {
+	contains BandPiece[] bandPieces
+	String[] scheduleDimensionNames
+	
+	op int bandSize() {
+		val bandSizes = bandPieces.map[bp|bp.partialSchedule].map[ps|ps.nbOutputs].toSet
+		
+		if (bandSizes.size != 1 || bandSizes.head == -1)
+			throw new RuntimeException("This case should not be reached if consistency checks are working properly.")
+			
+		return bandSizes.head
+	}
+}
+
+/**
  * LoopTypes and Isolate are used to specify finer-grained control
  * over generated loops. Some of the loop types correspond to those
  * in ISL, which is reflected at code generation. Other loop types
  * only result in annotations in the resulting AST, to be used
  * during post-processing passes.
  */
-class BandExpression extends ScheduleTreeExpression {
-	contains BandPiece[] bandPieces
-	String[] scheduleDimensionNames
+class BandExpression extends AbstractBandExpression {
 	
 	contains LoopTypeSpecification[] loopTypeSpecifications
 	contains IsolateSpecification isolateSpecification
@@ -240,16 +260,16 @@ class BandExpression extends ScheduleTreeExpression {
 		visitor.visitBandExpression(this)
 	}
 }
-class BandPiece {
+class BandPiece extends TargetMappingNode {
 	contains ScheduleTargetRestrictDomain pieceDomain
-	contains JNIFunctionInArrayNotation partialScheduleExpr
+	contains JNIFunction partialScheduleExpr
 	
 	op JNIISLMultiAff getPartialSchedule() {
 		if (partialScheduleExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
 		else partialScheduleExpr.ISLObject as ISLMultiAff
 	}
 }
-abstract class LoopTypeSpecification {
+abstract class LoopTypeSpecification extends TargetMappingNode {
 	int dimension
 	
 	op String getName()
@@ -269,7 +289,7 @@ enum ALPHA_LOOP_TYPE {
 }
 
 
-class IsolateSpecification {
+class IsolateSpecification extends TargetMappingNode {
 	contains JNIDomain isolateDomainExpr
 	contains LoopTypeSpecification[] loopTypeSpecifications
 	
@@ -278,14 +298,31 @@ class IsolateSpecification {
 		else isolateDomainExpr.ISLObject as ISLSet
 	}
 	
+	/**
+	 * Gives a view of the isolate domain expected by ISL.
+	 * ISL expects a relation where the input dims correspond to
+	 * outer schedule dimensions.
+	 */
+	op JNIISLMap getIsolateMap() {
+		val isolateDom = getIsolateDomain()
+		if (isolateDom === null) return null
+		
+		val abe = EcoreUtil2.getContainerOfType(this, AbstractBandExpression)
+		val bandSize = abe.bandSize
+		val dims = isolateDom.nbIndices
+		val dimsToMove = dims - bandSize
+		
+		val map = ISLMap.buildFromRange(isolateDom)
+		
+		map.moveDims(ISLDimType.isl_dim_in, 0, ISLDimType.isl_dim_out, 0, dimsToMove);
+	}
+	
 }
 
 /**
  * TileBandExpression is a more complicated variant of the BandExpression to handle tiling.
- * Since the treatment is drastically different, it is not a sub-class of BandExpression,
- * although it would be possible to model it as a sub-class.
  * 
- * TileBandExpression is always the leaf of the ScheduleTreeExpression, but has a chain of 
+ * TileBandExpression is always the leaf of the ScheduleTree, but has a chain of 
  * TilingSpecifications that are used to expressed d-dimensional loop nests that correspond
  * to either tile or point loops, given a d-dimensional TileBand.
  * 
@@ -293,18 +330,16 @@ class IsolateSpecification {
  * the tiles), tile sizes for tile loops, and loop types for the point loops.  
  * 
  */
-class TileBandExpression extends ScheduleTreeExpression {
-	contains BandPiece[] bandPieces
-	String[] scheduleDimensionNames
-	
+class TileBandExpression extends AbstractBandExpression {
+
 	contains TilingSpecification tilingSpecification
 	
 	op void accept(TargetMappingVisitor visitor) {
 		visitor.visitTileBandExpression(this)
 	}
 }
-abstract class TilingSpecification {
-	contains JNIFunctionInArrayNotation loopScheduleExpr
+abstract class TilingSpecification extends TargetMappingNode {
+	contains JNIFunction loopScheduleExpr
 	
 	op JNIISLMultiAff getLoopSchedule() {
 		if (loopScheduleExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
@@ -329,7 +364,7 @@ enum TILING_TYPE {
 	COMPILE_TIME_CONSTANT as "compile-time-constant"
 }
 
-abstract class TileSizeSpecification {}
+abstract class TileSizeSpecification extends TargetMappingNode {}
 class FixedTileSize extends TileSizeSpecification {
 	int tileSize		
 }
@@ -350,7 +385,7 @@ class ExtensionExpression extends ScheduleTreeExpression, ScopingEntity {
 	}
 }
 
-class ExtensionTarget extends AlphaScheduleTarget {
+class ExtensionTarget extends AlphaScheduleTarget, TargetMappingNode {
 	String name
 	String[] indexNames
 	contains JNIRelation extensionMapExpr
@@ -360,3 +395,27 @@ class ExtensionTarget extends AlphaScheduleTarget {
 		else extensionMapExpr.ISLObject as ISLMap
 	}
 }
+
+/**
+ * An additional type of function that is interpreted with identity
+ * once the context is known. In Alpha, it is not possible to have
+ * such "identity given context" because the Show notation requires
+ * all polyhedral objects to be interpreted without any context information.
+ * (It also has little use for writing Alpha)
+ * 
+ * JNIIdentityFunction was introduced in TargetMapping, because there are
+ * situations where identity schedule/memory map would be given. In particular,
+ * schedule of tile/point loops after tiling is often untouched. In such cases,
+ * the grammar allows the schedule to be unspecified, which will leave the 
+ * schedule as null. A post-processing hook in the parser automatically creates
+ * JNIIdentityFunction so that null objects are avoided to prevent having
+ * != null checks everywhere.
+ * 
+ * 
+ */
+class JNIIdentityFunction extends JNIFunction {
+	op String plainToString() {
+		'Id'
+	}
+}
+

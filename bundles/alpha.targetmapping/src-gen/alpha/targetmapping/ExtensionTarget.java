@@ -27,7 +27,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ExtensionTarget extends AlphaScheduleTarget {
+public interface ExtensionTarget extends AlphaScheduleTarget, TargetMappingNode {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

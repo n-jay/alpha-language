@@ -199,6 +199,14 @@ public interface TargetMappingVisitor extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model abeUnique="false"
+	 * @generated
+	 */
+	void inAbstractBandExpression(AbstractBandExpression abe);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model beUnique="false"
 	 * @generated
 	 */
@@ -294,6 +302,14 @@ public interface TargetMappingVisitor extends EObject {
 	 * @generated
 	 */
 	void outMarkExpression(MarkExpression me);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model abeUnique="false"
+	 * @generated
+	 */
+	void outAbstractBandExpression(AbstractBandExpression abe);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -2,7 +2,7 @@
  */
 package alpha.targetmapping.impl;
 
-import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.JNIFunction;
 import alpha.model.POLY_OBJECT_TYPE;
 
 import alpha.targetmapping.BandPiece;
@@ -57,7 +57,7 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 	 * @generated
 	 * @ordered
 	 */
-	protected JNIFunctionInArrayNotation partialScheduleExpr;
+	protected JNIFunction partialScheduleExpr;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,7 +126,7 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public JNIFunctionInArrayNotation getPartialScheduleExpr() {
+	public JNIFunction getPartialScheduleExpr() {
 		return partialScheduleExpr;
 	}
 
@@ -135,8 +135,8 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetPartialScheduleExpr(JNIFunctionInArrayNotation newPartialScheduleExpr, NotificationChain msgs) {
-		JNIFunctionInArrayNotation oldPartialScheduleExpr = partialScheduleExpr;
+	public NotificationChain basicSetPartialScheduleExpr(JNIFunction newPartialScheduleExpr, NotificationChain msgs) {
+		JNIFunction oldPartialScheduleExpr = partialScheduleExpr;
 		partialScheduleExpr = newPartialScheduleExpr;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR, oldPartialScheduleExpr, newPartialScheduleExpr);
@@ -150,7 +150,7 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPartialScheduleExpr(JNIFunctionInArrayNotation newPartialScheduleExpr) {
+	public void setPartialScheduleExpr(JNIFunction newPartialScheduleExpr) {
 		if (newPartialScheduleExpr != partialScheduleExpr) {
 			NotificationChain msgs = null;
 			if (partialScheduleExpr != null)
@@ -227,7 +227,7 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 				setPieceDomain((ScheduleTargetRestrictDomain)newValue);
 				return;
 			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR:
-				setPartialScheduleExpr((JNIFunctionInArrayNotation)newValue);
+				setPartialScheduleExpr((JNIFunction)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -245,7 +245,7 @@ public class BandPieceImpl extends MinimalEObjectImpl.Container implements BandP
 				setPieceDomain((ScheduleTargetRestrictDomain)null);
 				return;
 			case TargetmappingPackage.BAND_PIECE__PARTIAL_SCHEDULE_EXPR:
-				setPartialScheduleExpr((JNIFunctionInArrayNotation)null);
+				setPartialScheduleExpr((JNIFunction)null);
 				return;
 		}
 		super.eUnset(featureID);

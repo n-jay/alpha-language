@@ -2,11 +2,9 @@
  */
 package alpha.targetmapping;
 
-import alpha.model.JNIFunctionInArrayNotation;
+import alpha.model.JNIFunction;
 
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface BandPiece extends EObject {
+public interface BandPiece extends TargetMappingNode {
 	/**
 	 * Returns the value of the '<em><b>Piece Domain</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -53,12 +51,12 @@ public interface BandPiece extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Partial Schedule Expr</em>' containment reference.
-	 * @see #setPartialScheduleExpr(JNIFunctionInArrayNotation)
+	 * @see #setPartialScheduleExpr(JNIFunction)
 	 * @see alpha.targetmapping.TargetmappingPackage#getBandPiece_PartialScheduleExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
-	JNIFunctionInArrayNotation getPartialScheduleExpr();
+	JNIFunction getPartialScheduleExpr();
 
 	/**
 	 * Sets the value of the '{@link alpha.targetmapping.BandPiece#getPartialScheduleExpr <em>Partial Schedule Expr</em>}' containment reference.
@@ -68,7 +66,7 @@ public interface BandPiece extends EObject {
 	 * @see #getPartialScheduleExpr()
 	 * @generated
 	 */
-	void setPartialScheduleExpr(JNIFunctionInArrayNotation value);
+	void setPartialScheduleExpr(JNIFunction value);
 
 	/**
 	 * <!-- begin-user-doc -->

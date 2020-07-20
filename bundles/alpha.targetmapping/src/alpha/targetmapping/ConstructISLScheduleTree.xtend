@@ -227,7 +227,7 @@ class ConstructISLScheduleTree extends AbstractTargetMappingVisitor {
 		}
 		
 		if (be.isolateSpecification !== null) {
-			val map = ISLMap.buildFromRange(be.isolateSpecification.isolateDomain)
+			val map = be.isolateSpecification.isolateMap
 			val isolateOption = map.wrap.tupleName = "isolate"
 			bandNode = bandNode.ASTBuildOptions = isolateOption.toUnionSet
 			

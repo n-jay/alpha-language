@@ -1,10 +1,10 @@
 package alpha.targetmapping.util
 
-import alpha.targetmapping.TargetMappingForSystemBody
-import alpha.targetmapping.TargetMapping
-import org.eclipse.emf.ecore.EObject
 import alpha.model.AlphaSystem
 import alpha.model.SystemBody
+import alpha.targetmapping.TargetMapping
+import alpha.targetmapping.TargetMappingForSystemBody
+import org.eclipse.emf.ecore.EObject
 
 class TargetMappingUtil {
 	
@@ -43,5 +43,4 @@ class TargetMappingUtil {
 		
 		return tm.targetBody
 	}
-	
 }

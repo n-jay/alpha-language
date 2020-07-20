@@ -4,6 +4,7 @@ package alpha.targetmapping.impl;
 
 import alpha.model.ModelPackage;
 
+import alpha.targetmapping.AbstractBandExpression;
 import alpha.targetmapping.AlphaLoopTypeSpecification;
 import alpha.targetmapping.BandExpression;
 import alpha.targetmapping.BandPiece;
@@ -16,6 +17,7 @@ import alpha.targetmapping.FixedTileSize;
 import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.ISLLoopTypeSpecification;
 import alpha.targetmapping.IsolateSpecification;
+import alpha.targetmapping.JNIIdentityFunction;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.MarkExpression;
 import alpha.targetmapping.ParametricTileSize;
@@ -166,6 +168,13 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass abstractBandExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass bandExpressionEClass = null;
 
 	/**
@@ -272,6 +281,13 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * @generated
 	 */
 	private EClass extensionTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jniIdentityFunctionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -685,6 +701,33 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAbstractBandExpression() {
+		return abstractBandExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractBandExpression_BandPieces() {
+		return (EReference)abstractBandExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAbstractBandExpression_ScheduleDimensionNames() {
+		return (EAttribute)abstractBandExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getBandExpression() {
 		return bandExpressionEClass;
 	}
@@ -694,7 +737,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBandExpression_BandPieces() {
+	public EReference getBandExpression_LoopTypeSpecifications() {
 		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -703,26 +746,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBandExpression_ScheduleDimensionNames() {
-		return (EAttribute)bandExpressionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getBandExpression_LoopTypeSpecifications() {
-		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getBandExpression_IsolateSpecification() {
-		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(3);
+		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -731,7 +756,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * @generated
 	 */
 	public EReference getBandExpression_Child() {
-		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(4);
+		return (EReference)bandExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -856,26 +881,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTileBandExpression_BandPieces() {
-		return (EReference)tileBandExpressionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTileBandExpression_ScheduleDimensionNames() {
-		return (EAttribute)tileBandExpressionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getTileBandExpression_TilingSpecification() {
-		return (EReference)tileBandExpressionEClass.getEStructuralFeatures().get(2);
+		return (EReference)tileBandExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1108,6 +1115,15 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getJNIIdentityFunction() {
+		return jniIdentityFunctionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getALPHA_LOOP_TYPE() {
 		return alphA_LOOP_TYPEEEnum;
 	}
@@ -1257,9 +1273,11 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		createEAttribute(markExpressionEClass, MARK_EXPRESSION__IDENTIFIER);
 		createEReference(markExpressionEClass, MARK_EXPRESSION__CHILD);
 
+		abstractBandExpressionEClass = createEClass(ABSTRACT_BAND_EXPRESSION);
+		createEReference(abstractBandExpressionEClass, ABSTRACT_BAND_EXPRESSION__BAND_PIECES);
+		createEAttribute(abstractBandExpressionEClass, ABSTRACT_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES);
+
 		bandExpressionEClass = createEClass(BAND_EXPRESSION);
-		createEReference(bandExpressionEClass, BAND_EXPRESSION__BAND_PIECES);
-		createEAttribute(bandExpressionEClass, BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES);
 		createEReference(bandExpressionEClass, BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS);
 		createEReference(bandExpressionEClass, BAND_EXPRESSION__ISOLATE_SPECIFICATION);
 		createEReference(bandExpressionEClass, BAND_EXPRESSION__CHILD);
@@ -1282,8 +1300,6 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		createEReference(isolateSpecificationEClass, ISOLATE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS);
 
 		tileBandExpressionEClass = createEClass(TILE_BAND_EXPRESSION);
-		createEReference(tileBandExpressionEClass, TILE_BAND_EXPRESSION__BAND_PIECES);
-		createEAttribute(tileBandExpressionEClass, TILE_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES);
 		createEReference(tileBandExpressionEClass, TILE_BAND_EXPRESSION__TILING_SPECIFICATION);
 
 		tilingSpecificationEClass = createEClass(TILING_SPECIFICATION);
@@ -1319,6 +1335,8 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__NAME);
 		createEAttribute(extensionTargetEClass, EXTENSION_TARGET__INDEX_NAMES);
 		createEReference(extensionTargetEClass, EXTENSION_TARGET__EXTENSION_MAP_EXPR);
+
+		jniIdentityFunctionEClass = createEClass(JNI_IDENTITY_FUNCTION);
 
 		// Create enums
 		alphA_LOOP_TYPEEEnum = createEEnum(ALPHA_LOOP_TYPE);
@@ -1379,20 +1397,29 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		sequenceExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
 		filterExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
 		filterExpressionEClass.getESuperTypes().add(this.getScopingEntity());
+		scheduleTargetRestrictDomainEClass.getESuperTypes().add(this.getTargetMappingNode());
 		guardExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
 		markExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
-		bandExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		abstractBandExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		bandExpressionEClass.getESuperTypes().add(this.getAbstractBandExpression());
+		bandPieceEClass.getESuperTypes().add(this.getTargetMappingNode());
+		loopTypeSpecificationEClass.getESuperTypes().add(this.getTargetMappingNode());
 		islLoopTypeSpecificationEClass.getESuperTypes().add(this.getLoopTypeSpecification());
 		alphaLoopTypeSpecificationEClass.getESuperTypes().add(this.getLoopTypeSpecification());
-		tileBandExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
+		isolateSpecificationEClass.getESuperTypes().add(this.getTargetMappingNode());
+		tileBandExpressionEClass.getESuperTypes().add(this.getAbstractBandExpression());
+		tilingSpecificationEClass.getESuperTypes().add(this.getTargetMappingNode());
 		tileLoopSpecificationEClass.getESuperTypes().add(this.getTilingSpecification());
 		pointLoopSpecificationEClass.getESuperTypes().add(this.getTilingSpecification());
+		tileSizeSpecificationEClass.getESuperTypes().add(this.getTargetMappingNode());
 		fixedTileSizeEClass.getESuperTypes().add(this.getTileSizeSpecification());
 		parametricTileSizeEClass.getESuperTypes().add(this.getTileSizeSpecification());
 		compileTimeConstantTileSizeEClass.getESuperTypes().add(this.getTileSizeSpecification());
 		extensionExpressionEClass.getESuperTypes().add(this.getScheduleTreeExpression());
 		extensionExpressionEClass.getESuperTypes().add(this.getScopingEntity());
 		extensionTargetEClass.getESuperTypes().add(theModelPackage.getAlphaScheduleTarget());
+		extensionTargetEClass.getESuperTypes().add(this.getTargetMappingNode());
+		jniIdentityFunctionEClass.getESuperTypes().add(theModelPackage.getJNIFunction());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(targetMappingNodeEClass, TargetMappingNode.class, "TargetMappingNode", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1467,6 +1494,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		op = addEOperation(targetMappingVisitorEClass, null, "inMarkExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getMarkExpression(), "me", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(targetMappingVisitorEClass, null, "inAbstractBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAbstractBandExpression(), "abe", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(targetMappingVisitorEClass, null, "inBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getBandExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -1503,6 +1533,9 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		op = addEOperation(targetMappingVisitorEClass, null, "outMarkExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getMarkExpression(), "me", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		op = addEOperation(targetMappingVisitorEClass, null, "outAbstractBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getAbstractBandExpression(), "abe", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		op = addEOperation(targetMappingVisitorEClass, null, "outBandExpression", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getBandExpression(), "be", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -1531,7 +1564,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEClass(scheduleTreeExpressionEClass, ScheduleTreeExpression.class, "ScheduleTreeExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(contextExpressionEClass, ContextExpression.class, "ContextExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getContextExpression_ContextDomainExpr(), theModelPackage.getJNIDomain(), null, "contextDomainExpr", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContextExpression_ContextDomainExpr(), theModelPackage.getJNIDomainInArrayNotation(), null, "contextDomainExpr", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContextExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, ContextExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(contextExpressionEClass, this.getJNIISLSet(), "getContextDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -1561,7 +1594,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEClass(scheduleTargetRestrictDomainEClass, ScheduleTargetRestrictDomain.class, "ScheduleTargetRestrictDomain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getScheduleTargetRestrictDomain_ScheduleTarget(), theModelPackage.getAlphaScheduleTarget(), null, "scheduleTarget", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getScheduleTargetRestrictDomain_IndexNames(), theEcorePackage.getEString(), "indexNames", null, 0, -1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getScheduleTargetRestrictDomain_RestrictDomainExpr(), theModelPackage.getJNIDomainInArrayNotation(), null, "restrictDomainExpr", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getScheduleTargetRestrictDomain_RestrictDomainExpr(), theModelPackage.getJNIDomain(), null, "restrictDomainExpr", null, 0, 1, ScheduleTargetRestrictDomain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(scheduleTargetRestrictDomainEClass, this.getJNIISLSet(), "getRestrictDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -1581,9 +1614,13 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		op = addEOperation(markExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		initEClass(abstractBandExpressionEClass, AbstractBandExpression.class, "AbstractBandExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAbstractBandExpression_BandPieces(), this.getBandPiece(), null, "bandPieces", null, 0, -1, AbstractBandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbstractBandExpression_ScheduleDimensionNames(), theEcorePackage.getEString(), "scheduleDimensionNames", null, 0, -1, AbstractBandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(abstractBandExpressionEClass, theEcorePackage.getEInt(), "bandSize", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(bandExpressionEClass, BandExpression.class, "BandExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBandExpression_BandPieces(), this.getBandPiece(), null, "bandPieces", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBandExpression_ScheduleDimensionNames(), theEcorePackage.getEString(), "scheduleDimensionNames", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBandExpression_LoopTypeSpecifications(), this.getLoopTypeSpecification(), null, "loopTypeSpecifications", null, 0, -1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBandExpression_IsolateSpecification(), this.getIsolateSpecification(), null, "isolateSpecification", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBandExpression_Child(), this.getScheduleTreeExpression(), null, "child", null, 0, 1, BandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1593,7 +1630,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		initEClass(bandPieceEClass, BandPiece.class, "BandPiece", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBandPiece_PieceDomain(), this.getScheduleTargetRestrictDomain(), null, "pieceDomain", null, 0, 1, BandPiece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBandPiece_PartialScheduleExpr(), theModelPackage.getJNIFunctionInArrayNotation(), null, "partialScheduleExpr", null, 0, 1, BandPiece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBandPiece_PartialScheduleExpr(), theModelPackage.getJNIFunction(), null, "partialScheduleExpr", null, 0, 1, BandPiece.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(bandPieceEClass, this.getJNIISLMultiAff(), "getPartialSchedule", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -1618,16 +1655,16 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		addEOperation(isolateSpecificationEClass, this.getJNIISLSet(), "getIsolateDomain", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(isolateSpecificationEClass, this.getJNIISLMap(), "getIsolateMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(tileBandExpressionEClass, TileBandExpression.class, "TileBandExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTileBandExpression_BandPieces(), this.getBandPiece(), null, "bandPieces", null, 0, -1, TileBandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTileBandExpression_ScheduleDimensionNames(), theEcorePackage.getEString(), "scheduleDimensionNames", null, 0, -1, TileBandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTileBandExpression_TilingSpecification(), this.getTilingSpecification(), null, "tilingSpecification", null, 0, 1, TileBandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(tileBandExpressionEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(tilingSpecificationEClass, TilingSpecification.class, "TilingSpecification", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTilingSpecification_LoopScheduleExpr(), theModelPackage.getJNIFunctionInArrayNotation(), null, "loopScheduleExpr", null, 0, 1, TilingSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTilingSpecification_LoopScheduleExpr(), theModelPackage.getJNIFunction(), null, "loopScheduleExpr", null, 0, 1, TilingSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(tilingSpecificationEClass, this.getJNIISLMultiAff(), "getLoopSchedule", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
@@ -1666,6 +1703,10 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEReference(getExtensionTarget_ExtensionMapExpr(), theModelPackage.getJNIRelation(), null, "extensionMapExpr", null, 0, 1, ExtensionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(extensionTargetEClass, this.getJNIISLMap(), "getExtensionMap", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		initEClass(jniIdentityFunctionEClass, JNIIdentityFunction.class, "JNIIdentityFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		addEOperation(jniIdentityFunctionEClass, theEcorePackage.getEString(), "plainToString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(alphA_LOOP_TYPEEEnum, alpha.targetmapping.ALPHA_LOOP_TYPE.class, "ALPHA_LOOP_TYPE");

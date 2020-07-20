@@ -371,9 +371,9 @@ ruleContextExpression returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainParserRuleCall_1_0());
+					newCompositeNode(grammarAccess.getContextExpressionAccess().getContextDomainExprJNIDomainInArrayNotationParserRuleCall_1_0());
 				}
-				lv_contextDomainExpr_1_0=ruleJNIDomain
+				lv_contextDomainExpr_1_0=ruleJNIDomainInArrayNotation
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getContextExpressionRule());
@@ -382,7 +382,7 @@ ruleContextExpression returns [EObject current=null]
 						$current,
 						"contextDomainExpr",
 						lv_contextDomainExpr_1_0,
-						"alpha.model.Alpha.JNIDomain");
+						"alpha.model.Alpha.JNIDomainInArrayNotation");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -604,21 +604,39 @@ ruleScheduleTargetRestrictDomain returns [EObject current=null]
 		)?
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprJNIDomainInArrayNotationParserRuleCall_2_0());
-				}
-				lv_restrictDomainExpr_6_0=ruleJNIDomainInArrayNotation
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getScheduleTargetRestrictDomainRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprJNIDomainParserRuleCall_2_0_0());
 					}
-					set(
-						$current,
-						"restrictDomainExpr",
-						lv_restrictDomainExpr_6_0,
-						"alpha.model.Alpha.JNIDomainInArrayNotation");
-					afterParserOrEnumRuleCall();
-				}
+					lv_restrictDomainExpr_6_1=ruleJNIDomain
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getScheduleTargetRestrictDomainRule());
+						}
+						set(
+							$current,
+							"restrictDomainExpr",
+							lv_restrictDomainExpr_6_1,
+							"alpha.model.Alpha.JNIDomain");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getScheduleTargetRestrictDomainAccess().getRestrictDomainExprJNIDomainInArrayNotationParserRuleCall_2_0_1());
+					}
+					lv_restrictDomainExpr_6_2=ruleJNIDomainInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getScheduleTargetRestrictDomainRule());
+						}
+						set(
+							$current,
+							"restrictDomainExpr",
+							lv_restrictDomainExpr_6_2,
+							"alpha.model.Alpha.JNIDomainInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)?
 	)
@@ -734,21 +752,39 @@ ruleGuardExpression returns [EObject current=null]
 		}
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getGuardExpressionAccess().getGuardDomainExprJNIDomainParserRuleCall_1_0());
-				}
-				lv_guardDomainExpr_1_0=ruleJNIDomain
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getGuardExpressionRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getGuardExpressionAccess().getGuardDomainExprJNIDomainParserRuleCall_1_0_0());
 					}
-					set(
-						$current,
-						"guardDomainExpr",
-						lv_guardDomainExpr_1_0,
-						"alpha.model.Alpha.JNIDomain");
-					afterParserOrEnumRuleCall();
-				}
+					lv_guardDomainExpr_1_1=ruleJNIDomain
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getGuardExpressionRule());
+						}
+						set(
+							$current,
+							"guardDomainExpr",
+							lv_guardDomainExpr_1_1,
+							"alpha.model.Alpha.JNIDomain");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getGuardExpressionAccess().getGuardDomainExprJNIDomainInArrayNotationParserRuleCall_1_0_1());
+					}
+					lv_guardDomainExpr_1_2=ruleJNIDomainInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getGuardExpressionRule());
+						}
+						set(
+							$current,
+							"guardDomainExpr",
+							lv_guardDomainExpr_1_2,
+							"alpha.model.Alpha.JNIDomainInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)
 		(
@@ -1047,21 +1083,39 @@ ruleBandPiece returns [EObject current=null]
 		}
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0());
-				}
-				lv_partialScheduleExpr_2_0=ruleJNIFunctionInArrayNotation
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getBandPieceRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionParserRuleCall_2_0_0());
 					}
-					set(
-						$current,
-						"partialScheduleExpr",
-						lv_partialScheduleExpr_2_0,
-						"alpha.model.Alpha.JNIFunctionInArrayNotation");
-					afterParserOrEnumRuleCall();
-				}
+					lv_partialScheduleExpr_2_1=ruleJNIFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getBandPieceRule());
+						}
+						set(
+							$current,
+							"partialScheduleExpr",
+							lv_partialScheduleExpr_2_1,
+							"alpha.model.Alpha.JNIFunction");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getBandPieceAccess().getPartialScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1());
+					}
+					lv_partialScheduleExpr_2_2=ruleJNIFunctionInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getBandPieceRule());
+						}
+						set(
+							$current,
+							"partialScheduleExpr",
+							lv_partialScheduleExpr_2_2,
+							"alpha.model.Alpha.JNIFunctionInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)
 	)
@@ -1093,21 +1147,39 @@ ruleIsolateSpecification returns [EObject current=null]
 		}
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprJNIDomainParserRuleCall_2_0());
-				}
-				lv_isolateDomainExpr_2_0=ruleJNIDomain
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getIsolateSpecificationRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprJNIDomainParserRuleCall_2_0_0());
 					}
-					set(
-						$current,
-						"isolateDomainExpr",
-						lv_isolateDomainExpr_2_0,
-						"alpha.model.Alpha.JNIDomain");
-					afterParserOrEnumRuleCall();
-				}
+					lv_isolateDomainExpr_2_1=ruleJNIDomain
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getIsolateSpecificationRule());
+						}
+						set(
+							$current,
+							"isolateDomainExpr",
+							lv_isolateDomainExpr_2_1,
+							"alpha.model.Alpha.JNIDomain");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getIsolateSpecificationAccess().getIsolateDomainExprJNIDomainInArrayNotationParserRuleCall_2_0_1());
+					}
+					lv_isolateDomainExpr_2_2=ruleJNIDomainInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getIsolateSpecificationRule());
+						}
+						set(
+							$current,
+							"isolateDomainExpr",
+							lv_isolateDomainExpr_2_2,
+							"alpha.model.Alpha.JNIDomainInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)
 		(
@@ -1629,21 +1701,55 @@ ruleFixedTilingTileLoopSpecification returns [EObject current=null]
 		)?
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0());
-				}
-				lv_loopScheduleExpr_2_0=ruleJNIFunctionInArrayNotation
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0());
 					}
-					set(
-						$current,
-						"loopScheduleExpr",
-						lv_loopScheduleExpr_2_0,
-						"alpha.model.Alpha.JNIFunctionInArrayNotation");
-					afterParserOrEnumRuleCall();
-				}
+					lv_loopScheduleExpr_2_1=ruleJNIFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_1,
+							"alpha.model.Alpha.JNIFunction");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1());
+					}
+					lv_loopScheduleExpr_2_2=ruleJNIFunctionInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_2,
+							"alpha.model.Alpha.JNIFunctionInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2());
+					}
+					lv_loopScheduleExpr_2_3=ruleJNIIdentityFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_3,
+							"alpha.targetmapping.TargetMapping.JNIIdentityFunction");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)?
 		otherlv_3='('
@@ -1756,21 +1862,55 @@ ruleParametricTilingTileLoopSpecification returns [EObject current=null]
 		)?
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0());
-				}
-				lv_loopScheduleExpr_2_0=ruleJNIFunctionInArrayNotation
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0());
 					}
-					set(
-						$current,
-						"loopScheduleExpr",
-						lv_loopScheduleExpr_2_0,
-						"alpha.model.Alpha.JNIFunctionInArrayNotation");
-					afterParserOrEnumRuleCall();
-				}
+					lv_loopScheduleExpr_2_1=ruleJNIFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_1,
+							"alpha.model.Alpha.JNIFunction");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1());
+					}
+					lv_loopScheduleExpr_2_2=ruleJNIFunctionInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_2,
+							"alpha.model.Alpha.JNIFunctionInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2());
+					}
+					lv_loopScheduleExpr_2_3=ruleJNIIdentityFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_3,
+							"alpha.targetmapping.TargetMapping.JNIIdentityFunction");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)?
 		otherlv_3='('
@@ -1883,21 +2023,55 @@ ruleCompileTimeConstantTilingTileLoopSpecification returns [EObject current=null
 		)?
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0());
-				}
-				lv_loopScheduleExpr_2_0=ruleJNIFunctionInArrayNotation
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0());
 					}
-					set(
-						$current,
-						"loopScheduleExpr",
-						lv_loopScheduleExpr_2_0,
-						"alpha.model.Alpha.JNIFunctionInArrayNotation");
-					afterParserOrEnumRuleCall();
-				}
+					lv_loopScheduleExpr_2_1=ruleJNIFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_1,
+							"alpha.model.Alpha.JNIFunction");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1());
+					}
+					lv_loopScheduleExpr_2_2=ruleJNIFunctionInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_2,
+							"alpha.model.Alpha.JNIFunctionInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2());
+					}
+					lv_loopScheduleExpr_2_3=ruleJNIIdentityFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_3,
+							"alpha.targetmapping.TargetMapping.JNIIdentityFunction");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)?
 		otherlv_3='('
@@ -2003,21 +2177,55 @@ rulePointLoopSpecification returns [EObject current=null]
 		}
 		(
 			(
-				{
-					newCompositeNode(grammarAccess.getPointLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0());
-				}
-				lv_loopScheduleExpr_2_0=ruleJNIFunctionInArrayNotation
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getPointLoopSpecificationRule());
+				(
+					{
+						newCompositeNode(grammarAccess.getPointLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0());
 					}
-					set(
-						$current,
-						"loopScheduleExpr",
-						lv_loopScheduleExpr_2_0,
-						"alpha.model.Alpha.JNIFunctionInArrayNotation");
-					afterParserOrEnumRuleCall();
-				}
+					lv_loopScheduleExpr_2_1=ruleJNIFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getPointLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_1,
+							"alpha.model.Alpha.JNIFunction");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getPointLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1());
+					}
+					lv_loopScheduleExpr_2_2=ruleJNIFunctionInArrayNotation
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getPointLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_2,
+							"alpha.model.Alpha.JNIFunctionInArrayNotation");
+						afterParserOrEnumRuleCall();
+					}
+					    |
+					{
+						newCompositeNode(grammarAccess.getPointLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2());
+					}
+					lv_loopScheduleExpr_2_3=ruleJNIIdentityFunction
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getPointLoopSpecificationRule());
+						}
+						set(
+							$current,
+							"loopScheduleExpr",
+							lv_loopScheduleExpr_2_3,
+							"alpha.targetmapping.TargetMapping.JNIIdentityFunction");
+						afterParserOrEnumRuleCall();
+					}
+				)
 			)
 		)?
 		(
@@ -2393,6 +2601,36 @@ ruleCompileTimeConstantTileSize returns [EObject current=null]
 				}
 			)
 		)
+	)
+;
+
+// Entry rule entryRuleJNIIdentityFunction
+entryRuleJNIIdentityFunction returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getJNIIdentityFunctionRule()); }
+	iv_ruleJNIIdentityFunction=ruleJNIIdentityFunction
+	{ $current=$iv_ruleJNIIdentityFunction.current; }
+	EOF;
+
+// Rule JNIIdentityFunction
+ruleJNIIdentityFunction returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getJNIIdentityFunctionAccess().getJNIIdentityFunctionAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='Id'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getJNIIdentityFunctionAccess().getIdKeyword_1());
+		}
 	)
 ;
 

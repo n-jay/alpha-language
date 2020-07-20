@@ -12,7 +12,6 @@ import alpha.targetmapping.TargetMappingVisitable
 import alpha.targetmapping.TileBandExpression
 import alpha.targetmapping.TileLoopSpecification
 import alpha.targetmapping.PointLoopSpecification
-import alpha.targetmapping.TilingSpecification
 import org.eclipse.emf.ecore.EObject
 
 /**
@@ -138,7 +137,8 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 	
 	def dispatch void visitTilingSpecification(TileLoopSpecification tls) {
 		defaultIn(tls);
-		printStr("+--", tls.loopSchedule)
+		if (tls.loopSchedule !== null)
+			printStr("+--", tls.loopSchedule)
 		if (tls.parallel)
 			printStr("+--", "parallel");
 		printStr("+--", tls.tilingType);

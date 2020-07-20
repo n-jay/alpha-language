@@ -3,7 +3,6 @@
 package alpha.targetmapping.impl;
 
 import alpha.targetmapping.BandExpression;
-import alpha.targetmapping.BandPiece;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.ScheduleTreeExpression;
@@ -22,7 +21,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -34,8 +32,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link alpha.targetmapping.impl.BandExpressionImpl#getBandPieces <em>Band Pieces</em>}</li>
- *   <li>{@link alpha.targetmapping.impl.BandExpressionImpl#getScheduleDimensionNames <em>Schedule Dimension Names</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.BandExpressionImpl#getLoopTypeSpecifications <em>Loop Type Specifications</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.BandExpressionImpl#getIsolateSpecification <em>Isolate Specification</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.BandExpressionImpl#getChild <em>Child</em>}</li>
@@ -43,27 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class BandExpressionImpl extends ScheduleTreeExpressionImpl implements BandExpression {
-	/**
-	 * The cached value of the '{@link #getBandPieces() <em>Band Pieces</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBandPieces()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<BandPiece> bandPieces;
-
-	/**
-	 * The cached value of the '{@link #getScheduleDimensionNames() <em>Schedule Dimension Names</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getScheduleDimensionNames()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<String> scheduleDimensionNames;
-
+public class BandExpressionImpl extends AbstractBandExpressionImpl implements BandExpression {
 	/**
 	 * The cached value of the '{@link #getLoopTypeSpecifications() <em>Loop Type Specifications</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -111,30 +87,6 @@ public class BandExpressionImpl extends ScheduleTreeExpressionImpl implements Ba
 	@Override
 	protected EClass eStaticClass() {
 		return TargetmappingPackage.Literals.BAND_EXPRESSION;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<BandPiece> getBandPieces() {
-		if (bandPieces == null) {
-			bandPieces = new EObjectContainmentEList<BandPiece>(BandPiece.class, this, TargetmappingPackage.BAND_EXPRESSION__BAND_PIECES);
-		}
-		return bandPieces;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<String> getScheduleDimensionNames() {
-		if (scheduleDimensionNames == null) {
-			scheduleDimensionNames = new EDataTypeEList<String>(String.class, this, TargetmappingPackage.BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES);
-		}
-		return scheduleDimensionNames;
 	}
 
 	/**
@@ -252,8 +204,6 @@ public class BandExpressionImpl extends ScheduleTreeExpressionImpl implements Ba
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TargetmappingPackage.BAND_EXPRESSION__BAND_PIECES:
-				return ((InternalEList<?>)getBandPieces()).basicRemove(otherEnd, msgs);
 			case TargetmappingPackage.BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS:
 				return ((InternalEList<?>)getLoopTypeSpecifications()).basicRemove(otherEnd, msgs);
 			case TargetmappingPackage.BAND_EXPRESSION__ISOLATE_SPECIFICATION:
@@ -272,10 +222,6 @@ public class BandExpressionImpl extends ScheduleTreeExpressionImpl implements Ba
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TargetmappingPackage.BAND_EXPRESSION__BAND_PIECES:
-				return getBandPieces();
-			case TargetmappingPackage.BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES:
-				return getScheduleDimensionNames();
 			case TargetmappingPackage.BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS:
 				return getLoopTypeSpecifications();
 			case TargetmappingPackage.BAND_EXPRESSION__ISOLATE_SPECIFICATION:
@@ -295,14 +241,6 @@ public class BandExpressionImpl extends ScheduleTreeExpressionImpl implements Ba
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TargetmappingPackage.BAND_EXPRESSION__BAND_PIECES:
-				getBandPieces().clear();
-				getBandPieces().addAll((Collection<? extends BandPiece>)newValue);
-				return;
-			case TargetmappingPackage.BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES:
-				getScheduleDimensionNames().clear();
-				getScheduleDimensionNames().addAll((Collection<? extends String>)newValue);
-				return;
 			case TargetmappingPackage.BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS:
 				getLoopTypeSpecifications().clear();
 				getLoopTypeSpecifications().addAll((Collection<? extends LoopTypeSpecification>)newValue);
@@ -325,12 +263,6 @@ public class BandExpressionImpl extends ScheduleTreeExpressionImpl implements Ba
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.BAND_EXPRESSION__BAND_PIECES:
-				getBandPieces().clear();
-				return;
-			case TargetmappingPackage.BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES:
-				getScheduleDimensionNames().clear();
-				return;
 			case TargetmappingPackage.BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS:
 				getLoopTypeSpecifications().clear();
 				return;
@@ -352,10 +284,6 @@ public class BandExpressionImpl extends ScheduleTreeExpressionImpl implements Ba
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TargetmappingPackage.BAND_EXPRESSION__BAND_PIECES:
-				return bandPieces != null && !bandPieces.isEmpty();
-			case TargetmappingPackage.BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES:
-				return scheduleDimensionNames != null && !scheduleDimensionNames.isEmpty();
 			case TargetmappingPackage.BAND_EXPRESSION__LOOP_TYPE_SPECIFICATIONS:
 				return loopTypeSpecifications != null && !loopTypeSpecifications.isEmpty();
 			case TargetmappingPackage.BAND_EXPRESSION__ISOLATE_SPECIFICATION:
@@ -364,22 +292,6 @@ public class BandExpressionImpl extends ScheduleTreeExpressionImpl implements Ba
 				return child != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (scheduleDimensionNames: ");
-		result.append(scheduleDimensionNames);
-		result.append(')');
-		return result.toString();
 	}
 
 } //BandExpressionImpl

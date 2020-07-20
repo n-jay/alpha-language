@@ -1,5 +1,6 @@
 package alpha.targetmapping.util;
 
+import alpha.targetmapping.AbstractBandExpression;
 import alpha.targetmapping.BandExpression;
 import alpha.targetmapping.ContextExpression;
 import alpha.targetmapping.ExtensionExpression;
@@ -155,13 +156,18 @@ public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	}
 	
 	@Override
+	default void inAbstractBandExpression(AbstractBandExpression abe) {
+		inScheduleTreeExpression(abe);
+	}
+	
+	@Override
 	default void inBandExpression(BandExpression be) {
-		inScheduleTreeExpression(be);
+		inAbstractBandExpression(be);
 	}
 	
 	@Override
 	default void inTileBandExpression(TileBandExpression tbe) {
-		inScheduleTreeExpression(tbe);
+		inAbstractBandExpression(tbe);
 	}
 	
 	@Override
@@ -218,13 +224,18 @@ public interface DefaultTargetMappingVisitor extends TargetMappingVisitor {
 	}
 	
 	@Override
+	default void outAbstractBandExpression(AbstractBandExpression abe) {
+		outScheduleTreeExpression(abe);
+	}
+	
+	@Override
 	default void outBandExpression(BandExpression be) {
-		outScheduleTreeExpression(be);
+		outAbstractBandExpression(be);
 	}
 	
 	@Override
 	default void outTileBandExpression(TileBandExpression tbe) {
-		outScheduleTreeExpression(tbe);
+		outAbstractBandExpression(tbe);
 	}
 	
 	@Override
