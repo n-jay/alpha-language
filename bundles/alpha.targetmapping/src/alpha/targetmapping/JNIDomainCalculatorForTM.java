@@ -229,6 +229,12 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 		int totalDims = bandSizeHistory.parallelStream().reduce((a,b)->(a+b)).get();
 		
 		issues.addAll(CalculatorExpressionEvaluatorForTM.calculate(ts.getLoopScheduleExpr(), getLocalScheduleDimNameContext(), bandSize, totalDims-bandSize));
+		
+		if (ts instanceof TileLoopSpecification) {
+			TilingSpecification child = ((TileLoopSpecification) ts).getTilingSpecification();
+			if (child != null)
+				processTilingSpecification(child);
+		}
 	}
 	
 	/**
