@@ -135,7 +135,7 @@ class AlphaPrintingUtil {
 		toShowString(set, paramDom, null)
 	}
 	static def String toShowString(ISLSet set, ISLSet paramDom, List<String> names) {
-		if (set.getNbIndices == 0)
+		if (set.getNbIndices == 0 && set.plainIsUniverse)
 			return "{}"
 			
 		val ISLSet setRenamed = if (names !== null) set.renameIndices(names) 

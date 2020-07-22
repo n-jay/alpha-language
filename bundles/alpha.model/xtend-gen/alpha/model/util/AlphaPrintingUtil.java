@@ -263,9 +263,7 @@ public class AlphaPrintingUtil {
   }
   
   public static String toShowString(final ISLSet set, final ISLSet paramDom, final List<String> names) {
-    int _nbIndices = set.getNbIndices();
-    boolean _equals = (_nbIndices == 0);
-    if (_equals) {
+    if (((set.getNbIndices() == 0) && set.plainIsUniverse())) {
       return "{}";
     }
     ISLSet _xifexpression = null;
