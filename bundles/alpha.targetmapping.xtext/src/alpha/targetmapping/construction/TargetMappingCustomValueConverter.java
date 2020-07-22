@@ -7,6 +7,7 @@ import org.eclipse.xtext.conversion.ValueConverterException;
 import org.eclipse.xtext.nodemodel.INode;
 
 import alpha.targetmapping.ALPHA_LOOP_TYPE;
+import alpha.targetmapping.util.TargetMappingUtil;
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
 
 public class TargetMappingCustomValueConverter extends Ecore2XtextTerminalConverters {
@@ -35,19 +36,7 @@ public class TargetMappingCustomValueConverter extends Ecore2XtextTerminalConver
 
 			@Override
 			public String toString(ISLASTLoopType value) throws ValueConverterException {
-				
-				switch (value.getValue()) {
-					case ISLASTLoopType.ISL_AST_LOOP_DEFAULT:
-						return "default";
-					case ISLASTLoopType.ISL_AST_LOOP_ATOMIC:
-						return "atomic";
-					case ISLASTLoopType.ISL_AST_LOOP_UNROLL:
-						return "unroll";
-					case ISLASTLoopType.ISL_AST_LOOP_SEPARATE:
-						return "separate";
-					default:
-						throw new IllegalArgumentException();
-				}
+				return TargetMappingUtil.toString(value);
 			}
 		};
 	}
@@ -81,4 +70,30 @@ public class TargetMappingCustomValueConverter extends Ecore2XtextTerminalConver
 		};
 	}
 
+	/*
+	 * This is copy pasted from value converter for Alpha.
+	 * 
+	 * Alpha uses a special short-hand for zero-dimensional universe domain.
+	 * Since the printing of polyhedral objects in TargetMapping uses the
+	 * same methods for Alpha, the same notation must be supported in TargetMapping.
+	 * 
+	 */
+	@ValueConverter(rule = "AISLSet")
+	public IValueConverter<String> islSet() {
+		return new IValueConverter<String> () {
+
+			@Override
+			public String toValue(String string, INode node) throws ValueConverterException {
+				if (string.contentEquals("{}"))  return "{ [] : }"; 
+				
+				return string;
+			}
+
+			@Override
+			public String toString(String value) throws ValueConverterException {
+				return value;
+			}
+			
+		};
+	}
 }
