@@ -12,6 +12,7 @@
 
   <modules>
     <module>alpha.model.tests</module>
+    <module>alpha.targetmapping.tests</module>
   </modules>
 
 </project>
