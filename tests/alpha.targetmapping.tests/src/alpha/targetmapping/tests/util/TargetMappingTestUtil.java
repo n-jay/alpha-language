@@ -152,8 +152,6 @@ public class TargetMappingTestUtil {
 		File file = new File(dir, tempFileName(0));
 		AlphaModelSaver.writeToFile(file, f.apply(tm));
 		
-		System.out.println(f.apply(tm));
-		
 		AlphaLoader.initialize();
 		
 		ITargetMappingTestInput newInput = copyWithTempFile(input, file);
