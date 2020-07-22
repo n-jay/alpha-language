@@ -4,31 +4,32 @@ import alpha.model.AlphaSystem
 import alpha.model.SystemBody
 import alpha.targetmapping.TargetMapping
 import alpha.targetmapping.TargetMappingForSystemBody
-import org.eclipse.emf.ecore.EObject
+import alpha.targetmapping.TargetMappingNode
+import fr.irisa.cairn.jnimap.isl.ISLASTLoopType
 
 class TargetMappingUtil {
 	
-	static def TargetMapping getContainerTM(EObject node) {
+	static def TargetMapping getContainerTM(TargetMappingNode node) {
 		if (node instanceof TargetMapping)
 			return node as TargetMapping
 		
 		if (node.eContainer() === null)
 			return null
 		
-		return TargetMappingUtil.getContainerTM(node.eContainer())
+		return TargetMappingUtil.getContainerTM(node.eContainer() as TargetMappingNode)
 	}
 	
-	static def TargetMappingForSystemBody getContainerTMforSystemBody(EObject node) {
+	static def TargetMappingForSystemBody getContainerTMforSystemBody(TargetMappingNode node) {
 		if (node instanceof TargetMappingForSystemBody)
 			return node as TargetMappingForSystemBody
 		
 		if (node.eContainer() === null)
 			return null
 		
-		return TargetMappingUtil.getContainerTMforSystemBody(node.eContainer())
+		return TargetMappingUtil.getContainerTMforSystemBody(node.eContainer() as TargetMappingNode)
 	}
 
-	static def AlphaSystem getTargetSystem(EObject node) {
+	static def AlphaSystem getTargetSystem(TargetMappingNode node) {
 		val tm = TargetMappingUtil.getContainerTM(node)
 		
 		if (tm === null) return null;
@@ -36,11 +37,26 @@ class TargetMappingUtil {
 		return tm.targetSystem
 	}
 
-	static def SystemBody getTargetSystemBody(EObject node) {
+	static def SystemBody getTargetSystemBody(TargetMappingNode node) {
 		val tm = TargetMappingUtil.getContainerTMforSystemBody(node)
 		
 		if (tm === null) return null;
 		
 		return tm.targetBody
+	}
+	
+	static def toString(ISLASTLoopType value) {
+		switch (value.getValue()) {
+			case ISLASTLoopType.ISL_AST_LOOP_DEFAULT:
+				return "default"
+			case ISLASTLoopType.ISL_AST_LOOP_ATOMIC:
+				return "atomic"
+			case ISLASTLoopType.ISL_AST_LOOP_UNROLL:
+				return "unroll"
+			case ISLASTLoopType.ISL_AST_LOOP_SEPARATE:
+				return "separate"
+			default:
+				throw new IllegalArgumentException()
+		}
 	}
 }

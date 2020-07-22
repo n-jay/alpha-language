@@ -65,4 +65,12 @@ public interface CompileTimeConstantTileSize extends TileSizeSpecification {
 	 */
 	void setDefaultValue(int value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 * @generated
+	 */
+	String unparseString();
+
 } // CompileTimeConstantTileSize

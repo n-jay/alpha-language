@@ -12,6 +12,7 @@ import alpha.model.JNIFunction
 import alpha.model.JNIRelation
 import alpha.model.POLY_OBJECT_TYPE
 import alpha.model.SystemBody
+import alpha.targetmapping.util.TargetMappingUtil
 import org.eclipse.xtext.EcoreUtil2
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType
 import fr.irisa.cairn.jnimap.isl.ISLMap
@@ -118,7 +119,7 @@ interface ScopingEntity {}
  */
 class TargetMapping extends TargetMappingNode, TargetMappingVisitable, ScopingEntity {
 	refers AlphaSystem targetSystem
-	contains TargetMappingForSystemBody[] systemBodyTMs
+	contains TargetMappingForSystemBody[] systemBodyTMs opposite targetMapping
 	
 	op void accept(TargetMappingVisitor visitor) {
 		visitor.visitTargetMapping(this)
@@ -127,6 +128,8 @@ class TargetMapping extends TargetMappingNode, TargetMappingVisitable, ScopingEn
 
 class TargetMappingForSystemBody extends TargetMappingNode, TargetMappingVisitable, ScopingEntity {
 	refers SystemBody targetBody
+	refers TargetMapping targetMapping opposite systemBodyTMs
+	
 	contains ScheduleTreeExpression scheduleTreeRoot
 	
 	op void accept(TargetMappingVisitor visitor) {
@@ -273,16 +276,19 @@ abstract class LoopTypeSpecification extends TargetMappingNode {
 	int dimension
 	
 	op String getName()
+	op String unparseString()
 }
 class ISLLoopTypeSpecification extends LoopTypeSpecification {
 	ISLASTLoopType loopType
 	
 	op String getName() { loopType.name }
+	op String unparseString() { TargetMappingUtil.toString(loopType) }
 }
 class AlphaLoopTypeSpecification extends LoopTypeSpecification {
 	ALPHA_LOOP_TYPE loopType
 	
 	op String getName() { loopType.literal }
+	op String unparseString() { loopType.literal }
 }
 enum ALPHA_LOOP_TYPE {
 	PARALLEL as "parallel"
@@ -364,16 +370,24 @@ enum TILING_TYPE {
 	COMPILE_TIME_CONSTANT as "compile-time-constant"
 }
 
-abstract class TileSizeSpecification extends TargetMappingNode {}
+abstract class TileSizeSpecification extends TargetMappingNode {
+	op String unparseString()
+}
 class FixedTileSize extends TileSizeSpecification {
-	int tileSize		
+	int tileSize
+	
+	op String unparseString() { Integer.toString(tileSize) }
 }
 class ParametricTileSize extends TileSizeSpecification {
 	String tileSizeName
+	
+	op String uparseString() { tileSizeName }
 }
 class CompileTimeConstantTileSize extends TileSizeSpecification {
 	String tileSizeName
 	int defaultValue
+	
+	op String unparseString() { String.format("%s=%d", tileSizeName, defaultValue) }
 }
 
 class ExtensionExpression extends ScheduleTreeExpression, ScopingEntity {

@@ -49,7 +49,7 @@ class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEvaluator {
 	}
 	
 	override getReferredSystem(CalculatorExpression expr) {
-		return TargetMappingUtil.getTargetSystem(expr)
+		return TargetMappingUtil.getTargetSystem(expr.eContainer as TargetMappingNode)
 	}
 	
 	protected def dispatch parseJNIFunctionInContext(JNIFunctionInArrayNotation jniFunction, TargetMappingNode parent) {
@@ -62,8 +62,6 @@ class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEvaluator {
 							indexNameContext 
 						else
 							(bandIdOffset..<bandIdOffset+currentBandSize).map[i|DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER.apply(i)].toList
-							
-		println(String.format("{ %s -> %s }", dimNames, dimNames))
 		
 		try {
 			val jnimaff = ISLFactory.islMultiAff(

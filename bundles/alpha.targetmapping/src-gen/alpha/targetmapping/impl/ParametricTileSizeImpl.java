@@ -90,6 +90,15 @@ public class ParametricTileSizeImpl extends TileSizeSpecificationImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String uparseString() {
+		return this.getTileSizeName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {

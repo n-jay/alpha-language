@@ -36,4 +36,15 @@ public abstract class TileSizeSpecificationImpl extends MinimalEObjectImpl.Conta
 		return TargetmappingPackage.Literals.TILE_SIZE_SPECIFICATION;
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String unparseString() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
 } //TileSizeSpecificationImpl

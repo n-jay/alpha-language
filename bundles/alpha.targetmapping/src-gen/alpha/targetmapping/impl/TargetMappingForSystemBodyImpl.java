@@ -5,6 +5,7 @@ package alpha.targetmapping.impl;
 import alpha.model.SystemBody;
 
 import alpha.targetmapping.ScheduleTreeExpression;
+import alpha.targetmapping.TargetMapping;
 import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
@@ -18,6 +19,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Target Mapping For System Body</b></em>'.
@@ -27,6 +30,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.impl.TargetMappingForSystemBodyImpl#getTargetBody <em>Target Body</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.TargetMappingForSystemBodyImpl#getTargetMapping <em>Target Mapping</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.TargetMappingForSystemBodyImpl#getScheduleTreeRoot <em>Schedule Tree Root</em>}</li>
  * </ul>
  *
@@ -115,6 +119,57 @@ public class TargetMappingForSystemBodyImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TargetMapping getTargetMapping() {
+		if (eContainerFeatureID() != TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING) return null;
+		return (TargetMapping)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TargetMapping basicGetTargetMapping() {
+		if (eContainerFeatureID() != TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING) return null;
+		return (TargetMapping)eInternalContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTargetMapping(TargetMapping newTargetMapping, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newTargetMapping, TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTargetMapping(TargetMapping newTargetMapping) {
+		if (newTargetMapping != eInternalContainer() || (eContainerFeatureID() != TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING && newTargetMapping != null)) {
+			if (EcoreUtil.isAncestor(this, newTargetMapping))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newTargetMapping != null)
+				msgs = ((InternalEObject)newTargetMapping).eInverseAdd(this, TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS, TargetMapping.class, msgs);
+			msgs = basicSetTargetMapping(newTargetMapping, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING, newTargetMapping, newTargetMapping));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ScheduleTreeExpression getScheduleTreeRoot() {
 		return scheduleTreeRoot;
 	}
@@ -168,12 +223,44 @@ public class TargetMappingForSystemBodyImpl extends MinimalEObjectImpl.Container
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetTargetMapping((TargetMapping)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING:
+				return basicSetTargetMapping(null, msgs);
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT:
 				return basicSetScheduleTreeRoot(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING:
+				return eInternalContainer().eInverseRemove(this, TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS, TargetMapping.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -187,6 +274,9 @@ public class TargetMappingForSystemBodyImpl extends MinimalEObjectImpl.Container
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY:
 				if (resolve) return getTargetBody();
 				return basicGetTargetBody();
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING:
+				if (resolve) return getTargetMapping();
+				return basicGetTargetMapping();
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT:
 				return getScheduleTreeRoot();
 		}
@@ -203,6 +293,9 @@ public class TargetMappingForSystemBodyImpl extends MinimalEObjectImpl.Container
 		switch (featureID) {
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY:
 				setTargetBody((SystemBody)newValue);
+				return;
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING:
+				setTargetMapping((TargetMapping)newValue);
 				return;
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT:
 				setScheduleTreeRoot((ScheduleTreeExpression)newValue);
@@ -222,6 +315,9 @@ public class TargetMappingForSystemBodyImpl extends MinimalEObjectImpl.Container
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY:
 				setTargetBody((SystemBody)null);
 				return;
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING:
+				setTargetMapping((TargetMapping)null);
+				return;
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT:
 				setScheduleTreeRoot((ScheduleTreeExpression)null);
 				return;
@@ -239,6 +335,8 @@ public class TargetMappingForSystemBodyImpl extends MinimalEObjectImpl.Container
 		switch (featureID) {
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY:
 				return targetBody != null;
+			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING:
+				return basicGetTargetMapping() != null;
 			case TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT:
 				return scheduleTreeRoot != null;
 		}

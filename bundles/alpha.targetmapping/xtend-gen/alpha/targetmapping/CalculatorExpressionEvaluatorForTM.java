@@ -26,7 +26,6 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
@@ -73,7 +72,8 @@ public class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEval
   
   @Override
   public AlphaSystem getReferredSystem(final CalculatorExpression expr) {
-    return TargetMappingUtil.getTargetSystem(expr);
+    EObject _eContainer = expr.eContainer();
+    return TargetMappingUtil.getTargetSystem(((TargetMappingNode) _eContainer));
   }
   
   protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final TargetMappingNode parent) {
@@ -91,7 +91,6 @@ public class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEval
       _xifexpression = IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(this.bandIdOffset, (this.bandIdOffset + this.currentBandSize), true), _function));
     }
     final List<String> dimNames = _xifexpression;
-    InputOutput.<String>println(String.format("{ %s -> %s }", dimNames, dimNames));
     try {
       final ISLMultiAff jnimaff = ISLFactory.islMultiAff(
         AlphaUtil.toContextFreeISLString(this.getReferredSystem(jniFunction), 

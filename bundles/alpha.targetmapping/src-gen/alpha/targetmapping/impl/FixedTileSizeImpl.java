@@ -90,6 +90,15 @@ public class FixedTileSizeImpl extends TileSizeSpecificationImpl implements Fixe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String unparseString() {
+		return Integer.toString(this.getTileSize());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {

@@ -5,6 +5,8 @@ package alpha.targetmapping.impl;
 import alpha.targetmapping.ISLLoopTypeSpecification;
 import alpha.targetmapping.TargetmappingPackage;
 
+import alpha.targetmapping.util.TargetMappingUtil;
+
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -94,6 +96,15 @@ public class ISLLoopTypeSpecificationImpl extends LoopTypeSpecificationImpl impl
 	 */
 	public String getName() {
 		return this.getLoopType().getName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String unparseString() {
+		return TargetMappingUtil.toString(this.getLoopType());
 	}
 
 	/**

@@ -100,6 +100,15 @@ public class AlphaLoopTypeSpecificationImpl extends LoopTypeSpecificationImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String unparseString() {
+		return this.getLoopType().getLiteral();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {

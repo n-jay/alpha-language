@@ -42,4 +42,12 @@ public interface ParametricTileSize extends TileSizeSpecification {
 	 */
 	void setTileSizeName(String value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 * @generated
+	 */
+	String uparseString();
+
 } // ParametricTileSize

@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -124,7 +124,7 @@ public class TargetMappingImpl extends MinimalEObjectImpl.Container implements T
 	 */
 	public EList<TargetMappingForSystemBody> getSystemBodyTMs() {
 		if (systemBodyTMs == null) {
-			systemBodyTMs = new EObjectContainmentEList<TargetMappingForSystemBody>(TargetMappingForSystemBody.class, this, TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS);
+			systemBodyTMs = new EObjectContainmentWithInverseEList<TargetMappingForSystemBody>(TargetMappingForSystemBody.class, this, TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS, TargetmappingPackage.TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING);
 		}
 		return systemBodyTMs;
 	}
@@ -136,6 +136,21 @@ public class TargetMappingImpl extends MinimalEObjectImpl.Container implements T
 	 */
 	public void accept(final TargetMappingVisitor visitor) {
 		visitor.visitTargetMapping(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TargetmappingPackage.TARGET_MAPPING__SYSTEM_BODY_TMS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSystemBodyTMs()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**

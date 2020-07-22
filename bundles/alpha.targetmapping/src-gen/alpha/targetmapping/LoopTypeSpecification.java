@@ -50,4 +50,12 @@ public interface LoopTypeSpecification extends TargetMappingNode {
 	 */
 	String getName();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 * @generated
+	 */
+	String unparseString();
+
 } // LoopTypeSpecification

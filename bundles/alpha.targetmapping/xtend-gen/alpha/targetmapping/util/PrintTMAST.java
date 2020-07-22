@@ -17,6 +17,7 @@ import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingVisitable;
 import alpha.targetmapping.TileBandExpression;
 import alpha.targetmapping.TileLoopSpecification;
+import alpha.targetmapping.TileSizeSpecification;
 import alpha.targetmapping.TilingSpecification;
 import alpha.targetmapping.util.AbstractTargetMappingVisitor;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
@@ -26,6 +27,8 @@ import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
  * PrintTMAST is a dump of the TargetMapping IR, mainly used for debugging.
@@ -197,7 +200,10 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
       this.printStr("+--", "parallel");
     }
     this.printStr("+--", tls.getTilingType());
-    this.printStr("+--", tls.getTileSizeSpecifications());
+    final Function1<TileSizeSpecification, CharSequence> _function = (TileSizeSpecification tss) -> {
+      return tss.unparseString();
+    };
+    this.printStr("+--", IterableExtensions.<TileSizeSpecification>join(tls.getTileSizeSpecifications(), ", ", _function));
     this.visitTilingSpecification(tls.getTilingSpecification());
     this.defaultOut(tls);
   }

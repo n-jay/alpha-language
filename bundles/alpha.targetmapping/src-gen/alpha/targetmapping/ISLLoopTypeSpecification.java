@@ -51,4 +51,12 @@ public interface ISLLoopTypeSpecification extends LoopTypeSpecification {
 	 */
 	String getName();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 * @generated
+	 */
+	String unparseString();
+
 } // ISLLoopTypeSpecification

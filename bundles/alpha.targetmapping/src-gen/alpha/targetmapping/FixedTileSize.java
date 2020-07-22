@@ -42,4 +42,12 @@ public interface FixedTileSize extends TileSizeSpecification {
 	 */
 	void setTileSize(int value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 * @generated
+	 */
+	String unparseString();
+
 } // FixedTileSize

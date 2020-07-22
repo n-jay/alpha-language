@@ -14,6 +14,7 @@ import alpha.model.SystemBody;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.TargetMappingForSystemBody#getTargetBody <em>Target Body</em>}</li>
+ *   <li>{@link alpha.targetmapping.TargetMappingForSystemBody#getTargetMapping <em>Target Mapping</em>}</li>
  *   <li>{@link alpha.targetmapping.TargetMappingForSystemBody#getScheduleTreeRoot <em>Schedule Tree Root</em>}</li>
  * </ul>
  *
@@ -43,6 +44,30 @@ public interface TargetMappingForSystemBody extends TargetMappingNode, TargetMap
 	 * @generated
 	 */
 	void setTargetBody(SystemBody value);
+
+	/**
+	 * Returns the value of the '<em><b>Target Mapping</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link alpha.targetmapping.TargetMapping#getSystemBodyTMs <em>System Body TMs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Target Mapping</em>' container reference.
+	 * @see #setTargetMapping(TargetMapping)
+	 * @see alpha.targetmapping.TargetmappingPackage#getTargetMappingForSystemBody_TargetMapping()
+	 * @see alpha.targetmapping.TargetMapping#getSystemBodyTMs
+	 * @model opposite="systemBodyTMs" transient="false"
+	 * @generated
+	 */
+	TargetMapping getTargetMapping();
+
+	/**
+	 * Sets the value of the '{@link alpha.targetmapping.TargetMappingForSystemBody#getTargetMapping <em>Target Mapping</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Target Mapping</em>' container reference.
+	 * @see #getTargetMapping()
+	 * @generated
+	 */
+	void setTargetMapping(TargetMapping value);
 
 	/**
 	 * Returns the value of the '<em><b>Schedule Tree Root</b></em>' containment reference.

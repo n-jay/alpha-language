@@ -54,11 +54,13 @@ public interface TargetMapping extends TargetMappingNode, TargetMappingVisitable
 	/**
 	 * Returns the value of the '<em><b>System Body TMs</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.targetmapping.TargetMappingForSystemBody}.
+	 * It is bidirectional and its opposite is '{@link alpha.targetmapping.TargetMappingForSystemBody#getTargetMapping <em>Target Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>System Body TMs</em>' containment reference list.
 	 * @see alpha.targetmapping.TargetmappingPackage#getTargetMapping_SystemBodyTMs()
-	 * @model containment="true"
+	 * @see alpha.targetmapping.TargetMappingForSystemBody#getTargetMapping
+	 * @model opposite="targetMapping" containment="true"
 	 * @generated
 	 */
 	EList<TargetMappingForSystemBody> getSystemBodyTMs();

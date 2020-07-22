@@ -192,13 +192,22 @@ public interface TargetmappingPackage extends EPackage {
 	int TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Target Mapping</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Schedule Tree Root</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
+	int TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT = TARGET_MAPPING_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Target Mapping For System Body</em>' class.
@@ -207,7 +216,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_MAPPING_FOR_SYSTEM_BODY_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 2;
+	int TARGET_MAPPING_FOR_SYSTEM_BODY_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.ScheduleTreeExpressionImpl <em>Schedule Tree Expression</em>}' class.
@@ -1365,6 +1374,17 @@ public interface TargetmappingPackage extends EPackage {
 	EReference getTargetMappingForSystemBody_TargetBody();
 
 	/**
+	 * Returns the meta object for the container reference '{@link alpha.targetmapping.TargetMappingForSystemBody#getTargetMapping <em>Target Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Target Mapping</em>'.
+	 * @see alpha.targetmapping.TargetMappingForSystemBody#getTargetMapping()
+	 * @see #getTargetMappingForSystemBody()
+	 * @generated
+	 */
+	EReference getTargetMappingForSystemBody_TargetMapping();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.TargetMappingForSystemBody#getScheduleTreeRoot <em>Schedule Tree Root</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2299,6 +2319,14 @@ public interface TargetmappingPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY = eINSTANCE.getTargetMappingForSystemBody_TargetBody();
+
+		/**
+		 * The meta object literal for the '<em><b>Target Mapping</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING = eINSTANCE.getTargetMappingForSystemBody_TargetMapping();
 
 		/**
 		 * The meta object literal for the '<em><b>Schedule Tree Root</b></em>' containment reference feature.

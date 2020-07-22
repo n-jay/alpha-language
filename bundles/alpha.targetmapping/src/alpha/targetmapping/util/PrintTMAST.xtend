@@ -142,7 +142,7 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 		if (tls.parallel)
 			printStr("+--", "parallel");
 		printStr("+--", tls.tilingType);
-		printStr("+--", tls.tileSizeSpecifications);
+		printStr("+--", tls.tileSizeSpecifications.join(", ", [tss|tss.unparseString]));
 		
 		visitTilingSpecification(tls.tilingSpecification)
 		defaultOut(tls);

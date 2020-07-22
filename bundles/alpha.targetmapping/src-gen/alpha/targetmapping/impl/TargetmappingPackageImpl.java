@@ -503,8 +503,17 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTargetMappingForSystemBody_ScheduleTreeRoot() {
+	public EReference getTargetMappingForSystemBody_TargetMapping() {
 		return (EReference)targetMappingForSystemBodyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTargetMappingForSystemBody_ScheduleTreeRoot() {
+		return (EReference)targetMappingForSystemBodyEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1242,6 +1251,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		targetMappingForSystemBodyEClass = createEClass(TARGET_MAPPING_FOR_SYSTEM_BODY);
 		createEReference(targetMappingForSystemBodyEClass, TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_BODY);
+		createEReference(targetMappingForSystemBodyEClass, TARGET_MAPPING_FOR_SYSTEM_BODY__TARGET_MAPPING);
 		createEReference(targetMappingForSystemBodyEClass, TARGET_MAPPING_FOR_SYSTEM_BODY__SCHEDULE_TREE_ROOT);
 
 		scheduleTreeExpressionEClass = createEClass(SCHEDULE_TREE_EXPRESSION);
@@ -1549,13 +1559,14 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		initEClass(targetMappingEClass, TargetMapping.class, "TargetMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTargetMapping_TargetSystem(), theModelPackage.getAlphaSystem(), null, "targetSystem", null, 0, 1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTargetMapping_SystemBodyTMs(), this.getTargetMappingForSystemBody(), null, "systemBodyTMs", null, 0, -1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetMapping_SystemBodyTMs(), this.getTargetMappingForSystemBody(), this.getTargetMappingForSystemBody_TargetMapping(), "systemBodyTMs", null, 0, -1, TargetMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(targetMappingEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getTargetMappingVisitor(), "visitor", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(targetMappingForSystemBodyEClass, TargetMappingForSystemBody.class, "TargetMappingForSystemBody", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTargetMappingForSystemBody_TargetBody(), theModelPackage.getSystemBody(), null, "targetBody", null, 0, 1, TargetMappingForSystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetMappingForSystemBody_TargetMapping(), this.getTargetMapping(), this.getTargetMapping_SystemBodyTMs(), "targetMapping", null, 0, 1, TargetMappingForSystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTargetMappingForSystemBody_ScheduleTreeRoot(), this.getScheduleTreeExpression(), null, "scheduleTreeRoot", null, 0, 1, TargetMappingForSystemBody.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(targetMappingForSystemBodyEClass, null, "accept", 0, 1, !IS_UNIQUE, IS_ORDERED);
@@ -1639,15 +1650,21 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		addEOperation(loopTypeSpecificationEClass, theEcorePackage.getEString(), "getName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(loopTypeSpecificationEClass, theEcorePackage.getEString(), "unparseString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(islLoopTypeSpecificationEClass, ISLLoopTypeSpecification.class, "ISLLoopTypeSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getISLLoopTypeSpecification_LoopType(), this.getISLASTLoopType(), "loopType", null, 0, 1, ISLLoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(islLoopTypeSpecificationEClass, theEcorePackage.getEString(), "getName", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(islLoopTypeSpecificationEClass, theEcorePackage.getEString(), "unparseString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(alphaLoopTypeSpecificationEClass, AlphaLoopTypeSpecification.class, "AlphaLoopTypeSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAlphaLoopTypeSpecification_LoopType(), this.getALPHA_LOOP_TYPE(), "loopType", null, 0, 1, AlphaLoopTypeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(alphaLoopTypeSpecificationEClass, theEcorePackage.getEString(), "getName", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(alphaLoopTypeSpecificationEClass, theEcorePackage.getEString(), "unparseString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(isolateSpecificationEClass, IsolateSpecification.class, "IsolateSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIsolateSpecification_IsolateDomainExpr(), theModelPackage.getJNIDomain(), null, "isolateDomainExpr", null, 0, 1, IsolateSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1680,15 +1697,23 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		initEClass(tileSizeSpecificationEClass, TileSizeSpecification.class, "TileSizeSpecification", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		addEOperation(tileSizeSpecificationEClass, theEcorePackage.getEString(), "unparseString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(fixedTileSizeEClass, FixedTileSize.class, "FixedTileSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFixedTileSize_TileSize(), theEcorePackage.getEInt(), "tileSize", null, 0, 1, FixedTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(fixedTileSizeEClass, theEcorePackage.getEString(), "unparseString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(parametricTileSizeEClass, ParametricTileSize.class, "ParametricTileSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getParametricTileSize_TileSizeName(), theEcorePackage.getEString(), "tileSizeName", null, 0, 1, ParametricTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		addEOperation(parametricTileSizeEClass, theEcorePackage.getEString(), "uparseString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+
 		initEClass(compileTimeConstantTileSizeEClass, CompileTimeConstantTileSize.class, "CompileTimeConstantTileSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCompileTimeConstantTileSize_TileSizeName(), theEcorePackage.getEString(), "tileSizeName", null, 0, 1, CompileTimeConstantTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCompileTimeConstantTileSize_DefaultValue(), theEcorePackage.getEInt(), "defaultValue", null, 0, 1, CompileTimeConstantTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(compileTimeConstantTileSizeEClass, theEcorePackage.getEString(), "unparseString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(extensionExpressionEClass, ExtensionExpression.class, "ExtensionExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExtensionExpression_ExtensionTargets(), this.getExtensionTarget(), null, "extensionTargets", null, 0, -1, ExtensionExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

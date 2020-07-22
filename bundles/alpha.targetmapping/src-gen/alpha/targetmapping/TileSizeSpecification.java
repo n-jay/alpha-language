@@ -14,4 +14,12 @@ package alpha.targetmapping;
  * @generated
  */
 public interface TileSizeSpecification extends TargetMappingNode {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model unique="false"
+	 * @generated
+	 */
+	String unparseString();
+
 } // TileSizeSpecification

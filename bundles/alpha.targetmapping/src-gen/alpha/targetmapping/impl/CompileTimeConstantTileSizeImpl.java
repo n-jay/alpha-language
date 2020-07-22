@@ -132,6 +132,15 @@ public class CompileTimeConstantTileSizeImpl extends TileSizeSpecificationImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String unparseString() {
+		return String.format("%s=%d", this.getTileSizeName(), Integer.valueOf(this.getDefaultValue()));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
