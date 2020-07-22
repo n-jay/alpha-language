@@ -6,8 +6,11 @@ import alpha.targetmapping.TargetMapping
 import alpha.targetmapping.TargetMappingForSystemBody
 import alpha.targetmapping.TargetMappingNode
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType
+import java.util.function.Function
 
 class TargetMappingUtil {
+	
+	public static Function<Integer,String> DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER = [x|'''i«x»''']
 	
 	static def TargetMapping getContainerTM(TargetMappingNode node) {
 		if (node instanceof TargetMapping)

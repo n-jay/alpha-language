@@ -8,15 +8,12 @@ import alpha.model.util.AlphaUtil
 import alpha.targetmapping.util.TargetMappingUtil
 import fr.irisa.cairn.jnimap.isl.ISLFactory
 import java.util.List
-import java.util.function.Function
 
 class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEvaluator {
 	
 	//current band size is used to interpret JNIIdentityFunction
 	val int currentBandSize
 	val int bandIdOffset
-	
-	public static Function<Integer,String> DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER = [x|'''i«x»''']
 	
 	/*
 	 * These static method should shadow the ones in parent class.
@@ -61,7 +58,7 @@ class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEvaluator {
 		val dimNames = if (indexNameContext !== null) 
 							indexNameContext 
 						else
-							(bandIdOffset..<bandIdOffset+currentBandSize).map[i|DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER.apply(i)].toList
+							(bandIdOffset..<bandIdOffset+currentBandSize).map[i|TargetMappingUtil.DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER.apply(i)].toList
 		
 		try {
 			val jnimaff = ISLFactory.islMultiAff(

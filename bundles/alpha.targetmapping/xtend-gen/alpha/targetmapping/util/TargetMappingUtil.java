@@ -6,10 +6,19 @@ import alpha.targetmapping.TargetMapping;
 import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingNode;
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
+import java.util.function.Function;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtend2.lib.StringConcatenation;
 
 @SuppressWarnings("all")
 public class TargetMappingUtil {
+  public static Function<Integer, String> DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER = ((Function<Integer, String>) (Integer x) -> {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("i");
+    _builder.append(x);
+    return _builder.toString();
+  });
+  
   public static TargetMapping getContainerTM(final TargetMappingNode node) {
     if ((node instanceof TargetMapping)) {
       return ((TargetMapping) node);

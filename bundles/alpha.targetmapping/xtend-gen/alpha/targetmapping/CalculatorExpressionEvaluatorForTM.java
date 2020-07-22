@@ -20,9 +20,7 @@ import fr.irisa.cairn.jnimap.isl.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -33,13 +31,6 @@ public class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEval
   private final int currentBandSize;
   
   private final int bandIdOffset;
-  
-  public static Function<Integer, String> DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER = ((Function<Integer, String>) (Integer x) -> {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("i");
-    _builder.append(x);
-    return _builder.toString();
-  });
   
   /**
    * These static method should shadow the ones in parent class.
@@ -86,7 +77,7 @@ public class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEval
       _xifexpression = this.indexNameContext;
     } else {
       final Function1<Integer, String> _function = (Integer i) -> {
-        return CalculatorExpressionEvaluatorForTM.DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER.apply(i);
+        return TargetMappingUtil.DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER.apply(i);
       };
       _xifexpression = IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(this.bandIdOffset, (this.bandIdOffset + this.currentBandSize), true), _function));
     }

@@ -21,10 +21,9 @@ import alpha.targetmapping.TargetMappingNode
 import alpha.targetmapping.TileBandExpression
 import alpha.targetmapping.TileLoopSpecification
 import alpha.targetmapping.TileSizeSpecification
+import alpha.targetmapping.TilingSpecification
 import fr.irisa.cairn.jnimap.isl.ISLMap
-import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLSet
-import org.eclipse.emf.common.util.EList
 
 /**
  * Prints the TargetMapping in Show notation. The show notation
@@ -43,43 +42,59 @@ class TMShow extends TargetmappingSwitch<CharSequence> {
 		show.doSwitch(tmn).toString()
 	}
 	
-	protected def printContextDomain(ISLSet set) {
-		AlphaPrintingUtil.toAShowString(set, parameterContext)
+	protected def printDomain(ContextExpression ce) {
+		AlphaPrintingUtil.toAShowString(ce.contextDomain, parameterContext)
 	}
 	
-	protected def printRestrictDomain(ISLSet set) {
-		AlphaPrintingUtil.toShowString(set, parameterContext)
+	protected def printDomain(ScheduleTargetRestrictDomain strd) {
+		AlphaPrintingUtil.toShowString(strd.restrictDomain, parameterContext)
 	}
 	
-	protected def printGuardDomain(ISLSet set) {
-		AlphaPrintingUtil.toShowString(set, parameterContext)
+	protected def printDomain(GuardExpression ge) {
+		AlphaPrintingUtil.toShowString(ge.guardDomain, parameterContext)
 	}
 	
-	protected def printIsolateDomain(ISLSet set) {
-		AlphaPrintingUtil.toShowString(set, parameterContext)
+	protected def printDomain(IsolateSpecification is) {
+		AlphaPrintingUtil.toShowString(is.isolateDomain, parameterContext)
 	}
 	
-	protected def printBandSchedule(ISLMultiAff maff) {
-		AlphaPrintingUtil.toShowString(maff)
+	protected def printSchedule(BandPiece bp) {
+		AlphaPrintingUtil.toShowString(bp.partialSchedule)
 	}
 	
-	protected def printLoopSchedule(ISLMultiAff maff) {
-		if (maff.identity)
+	protected def printSchedule(TilingSpecification ts) {
+		if (ts.loopSchedule.identity)
 			''''''
 		else
-			AlphaPrintingUtil.toShowString(maff)
+			AlphaPrintingUtil.toShowString(ts.loopSchedule)
 	}
 	
 	protected def printExtensionMap(ISLMap map) {
 		AlphaPrintingUtil.toShowString(map)
 	}
 	
+	/*
+	 * All the printDimNames methods are to be overridden by AShow.
+	 * Context is not used for Show.
+	 */
+	protected def printDimNames(ScheduleTargetRestrictDomain strd) {
+		''''''
+	}
+	protected def printDimNames(BandExpression be) {
+		''''''
+	}
+	protected def printDimNames(TileBandExpression tbe) {
+		''''''
+	}
+	protected def printDimNames(ExtensionTarget et) {
+		''''''
+	}
+	
+	
 	override caseTargetMappingNode(TargetMappingNode object) {
 		super.caseTargetMappingNode(object)
 	}
 	
-	/* this should be changed by AShow */
-	protected def printDimNames(EList<String> names) ''''''
 	
 	/*override*/ def caseTargetMapping(TargetMapping object) '''
 		target «object.targetSystem.fullyQualifiedName»
@@ -100,7 +115,7 @@ class TMShow extends TargetmappingSwitch<CharSequence> {
 	}
 	
 	/*override*/ def caseContextExpression(ContextExpression object) '''
-		context «object.contextDomain.printContextDomain»
+		context «object.printDomain»
 		«object.child.doSwitch»
 	'''
 	
@@ -120,41 +135,41 @@ class TMShow extends TargetmappingSwitch<CharSequence> {
 		'''«object.filterDomains.join(', ', [doSwitch])»«IF object.child !== null» : «object.child.doSwitch»«ENDIF»'''
 	
 	/*override*/ def caseScheduleTargetRestrictDomain(ScheduleTargetRestrictDomain object) 
-		'''«object.scheduleTarget.name»«object.indexNames.printDimNames»«object.restrictDomain.printRestrictDomain»'''
+		'''«object.scheduleTarget.name»«object.printDimNames»«object.printDomain»'''
 	
 	/*override*/ def caseGuardExpression(GuardExpression object)
-		'''if «object.guardDomain.printGuardDomain» «object.child.doSwitch»'''
+		'''if «object.printDomain» «object.child.doSwitch»'''
 	
 	/*override*/ def caseMarkExpression(MarkExpression object)
 		'''mark(«object.identifier») «object.child.doSwitch»'''
 	
 	/*override*/ def caseBandExpression(BandExpression object)
 	'''
-		band«object.scheduleDimensionNames.printDimNames» {
+		band«object.printDimNames» {
 			«object.bandPieces.join('\n', [doSwitch])»
 			«object.loopTypeSpecifications.join('\n', [doSwitch])»
 			«IF object.isolateSpecification !== null»«object.isolateSpecification.doSwitch»«ENDIF»
 		}«IF object.child !== null» + «object.child.doSwitch»«ENDIF»'''
 	
 	/*override*/ def caseBandPiece(BandPiece object) 
-		'''«object.pieceDomain.doSwitch» : «object.partialSchedule.printBandSchedule»'''
+		'''«object.pieceDomain.doSwitch» : «object.printSchedule»'''
 	
 	override caseLoopTypeSpecification(LoopTypeSpecification object)
 		'''«object.unparseString»(«object.dimension»)'''
 	
 	/*override*/ def caseIsolateSpecification(IsolateSpecification object) '''
-		isolate («object.isolateDomain.printIsolateDomain»«object.loopTypeSpecifications.join(" ", ", ", "", [doSwitch])»)
+		isolate («object.printDomain»«object.loopTypeSpecifications.join(" ", ", ", "", [doSwitch])»)
 	'''
 	
 	/*override*/ def caseTileBandExpression(TileBandExpression object)
 	'''
-		tile-band«object.scheduleDimensionNames.printDimNames» {
+		tile-band«object.printDimNames» {
 			«object.bandPieces.join('\n', [doSwitch])»
 			«object.tilingSpecification.doSwitch»
 		}'''
 	
 	/*override*/ def caseTileLoopSpecification(TileLoopSpecification object) '''
-		«object.tilingType.literal»«IF object.parallel» parallel«ENDIF» «object.loopSchedule.printLoopSchedule» («object.tileSizeSpecifications.join(",", [doSwitch])»)
+		«object.tilingType.literal»«IF object.parallel» parallel«ENDIF» «object.printSchedule» («object.tileSizeSpecifications.join(",", [doSwitch])»)
 		«object.tilingSpecification.doSwitch»
 	'''
 	
@@ -163,7 +178,7 @@ class TMShow extends TargetmappingSwitch<CharSequence> {
 	}
 	
 	/*override*/ def casePointLoopSpecification(PointLoopSpecification object) '''
-		point «object.loopSchedule.printLoopSchedule» «object.loopTypeSpecifications.join(' ', [doSwitch])»
+		point «object.printSchedule» «object.loopTypeSpecifications.join(' ', [doSwitch])»
 		«IF object.isolateSpecification !== null»«object.isolateSpecification.doSwitch»«ENDIF»
 	'''
 	
@@ -171,5 +186,7 @@ class TMShow extends TargetmappingSwitch<CharSequence> {
 		'''extend («object.extensionTargets.join(', ', [doSwitch])») «object.child.doSwitch»'''
 	
 	/*override*/ def caseExtensionTarget(ExtensionTarget object) 
-		'''«object.extensionMap.printExtensionMap» as «object.name»«object.indexNames.printDimNames»'''
+		'''«object.extensionMap.printExtensionMap» as «object.name»«object.printDimNames»'''
+		
+		
 }
