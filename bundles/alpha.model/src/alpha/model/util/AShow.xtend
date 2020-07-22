@@ -16,7 +16,6 @@ import java.util.LinkedList
 import java.util.List
 import java.util.Stack
 import org.eclipse.emf.ecore.EObject
-import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLSet

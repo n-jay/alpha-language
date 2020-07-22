@@ -1,22 +1,20 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Tests
+Bundle-Name: Alpha Tests
 Bundle-SymbolicName: alpha.model.tests
 Bundle-Version: 0.1.0.qualifier
 Automatic-Module-Name: alpha.model.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: alpha.model,
  alpha.model.xtext,
+ alpha.loader,
+ alpha.interactive,
  org.junit,
  com.google.guava,
  org.eclipse.xtext,
  org.codehaus.groovy.eclipse.ui,
  org.eclipse.jdt.groovy.core,
- alpha.commands,
  alpha.commands.groovy,
+ alpha.commands,
  fr.irisa.cairn.jnimap.barvinok;resolution:=optional,
- fr.irisa.cairn.jnimap.polylib;resolution:=optional,
- alpha.interactive,
- alpha.targetmapping,
- alpha.targetmapping.xtext,
- alpha.loader
+ fr.irisa.cairn.jnimap.polylib;resolution:=optional
