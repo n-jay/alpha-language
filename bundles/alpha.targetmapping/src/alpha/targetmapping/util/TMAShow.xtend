@@ -20,14 +20,14 @@ import alpha.targetmapping.TargetMappingNode
 import alpha.targetmapping.TileBandExpression
 import alpha.targetmapping.TilingSpecification
 import fr.irisa.cairn.jnimap.isl.ISLMap
-import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
 import java.util.Map
 import java.util.Stack
 import org.eclipse.xtext.EcoreUtil2
-import java.util.Collections
+import org.eclipse.emf.ecore.EObject
+import alpha.targetmapping.TargetMapping
 
 /**
  * Prints TargetMapping in array notation.
@@ -59,8 +59,27 @@ class TMAShow extends TMShow {
 		
 		ashow.parameterContext = TargetMappingUtil.getTargetSystem(tmn).parameterDomain;
 		
+		//if AShow was called for some sub-tree of TM, then collect the context first
+		// and pass it to another instance for actual printing
+		if (!(tmn instanceof TargetMapping || tmn instanceof TargetMappingForSystemBody)) {
+			val contextCollector = new TMAShow(tmn);
+			contextCollector.doSwitch(TargetMappingUtil.getContainerTM(tmn))
+			ashow.indexNameContexts = contextCollector.indexNameContexts
+			ashow.scheduleDimNameContextHistory = contextCollector.scheduleDimNameContextHistory
+			ashow.bandSizeHistory = contextCollector.bandSizeHistory
+		}
+		
 		ashow.doSwitch(tmn).toString()
 	}
+	
+	override doSwitch(EObject obj) {
+		if (haltTarget !== null && haltTarget === obj) {
+			''''''
+		} else {
+			super.doSwitch(obj)
+		}
+	}
+	
 	
 	override printDomain(ContextExpression ce) {
 		AlphaPrintingUtil.toAShowString(ce.contextDomain, parameterContext, scheduleDimNameContextHistory.peek)

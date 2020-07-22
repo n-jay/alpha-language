@@ -15,6 +15,7 @@ import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.JNIDomainCalculatorForTM;
 import alpha.targetmapping.ScheduleTargetRestrictDomain;
+import alpha.targetmapping.TargetMapping;
 import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingNode;
 import alpha.targetmapping.TileBandExpression;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
@@ -68,9 +70,28 @@ public class TMAShow extends TMShow {
     {
       final TMAShow ashow = new TMAShow();
       ashow.parameterContext = TargetMappingUtil.getTargetSystem(tmn).getParameterDomain();
+      if ((!((tmn instanceof TargetMapping) || (tmn instanceof TargetMappingForSystemBody)))) {
+        final TMAShow contextCollector = new TMAShow(tmn);
+        contextCollector.doSwitch(TargetMappingUtil.getContainerTM(tmn));
+        ashow.indexNameContexts = contextCollector.indexNameContexts;
+        ashow.scheduleDimNameContextHistory = contextCollector.scheduleDimNameContextHistory;
+        ashow.bandSizeHistory = contextCollector.bandSizeHistory;
+      }
       _xblockexpression = ashow.doSwitch(tmn).toString();
     }
     return _xblockexpression;
+  }
+  
+  @Override
+  public CharSequence doSwitch(final EObject obj) {
+    CharSequence _xifexpression = null;
+    if (((this.haltTarget != null) && (this.haltTarget == obj))) {
+      StringConcatenation _builder = new StringConcatenation();
+      _xifexpression = _builder;
+    } else {
+      _xifexpression = super.doSwitch(obj);
+    }
+    return _xifexpression;
   }
   
   @Override
