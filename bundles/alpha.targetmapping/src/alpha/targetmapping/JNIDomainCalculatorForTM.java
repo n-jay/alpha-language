@@ -212,9 +212,18 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 			
 			if (et.getIndexNames().size() == et.getExtensionMap().getNbOutputs()) {
 				contexts.add(et.getIndexNames());
+			} else {
+				contexts.add(null);
 			}
 			
 			indexNameContexts.put(et, contexts);
+		}
+	}
+	
+	@Override
+	public void outExtensionExpression(ExtensionExpression ee) {
+		for (ExtensionTarget et : ee.getExtensionTargets()) {
+			indexNameContexts.remove(et);
 		}
 	}
 	
@@ -249,7 +258,7 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 		if (strd.getIndexNames().size() > 0) {
 			context = strd.getIndexNames();
 		} else {
-			context = new ArrayList<>(indexNameContexts.get(strd.getScheduleTarget()).peek());
+			context = indexNameContexts.get(strd.getScheduleTarget()).peek();
 		}
 
 		issues.addAll(CalculatorExpressionEvaluatorForTM.calculate(strd.getRestrictDomainExpr(), context));
