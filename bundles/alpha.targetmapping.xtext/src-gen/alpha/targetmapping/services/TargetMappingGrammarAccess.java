@@ -911,390 +911,666 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//'parallel'
 		public Keyword getParallelKeyword() { return cParallelKeyword; }
 	}
+	public class FixedSizeTilingTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FixedSizeTilingType");
+		private final Keyword cFixedSizeKeyword = (Keyword)rule.eContents().get(1);
+		
+		//FixedSizeTilingType TILING_TYPE:
+		//	'fixed-size';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'fixed-size'
+		public Keyword getFixedSizeKeyword() { return cFixedSizeKeyword; }
+	}
+	public class ParametricTilingTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ParametricTilingType");
+		private final Keyword cParametricKeyword = (Keyword)rule.eContents().get(1);
+		
+		//ParametricTilingType TILING_TYPE:
+		//	'parametric';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'parametric'
+		public Keyword getParametricKeyword() { return cParametricKeyword; }
+	}
+	public class CompileTimeConstantTilingTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.CompileTimeConstantTilingType");
+		private final Keyword cCompileTimeConstantKeyword = (Keyword)rule.eContents().get(1);
+		
+		//CompileTimeConstantTilingType TILING_TYPE:
+		//	'compile-time-constant';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'compile-time-constant'
+		public Keyword getCompileTimeConstantKeyword() { return cCompileTimeConstantKeyword; }
+	}
 	public class TileBandExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.TileBandExpression");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cFixedSizeTileBandExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cParametricTileBandExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cCompileTimeConstantTileBandExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		
+		///*
+		// * TileBandExpression has lots of copy & paste to fake context sensitive parsing.
+		// * The tiling type is specified at the TileBandExpression (default = fixed size)
+		// * and the later TileLoopSpecifications are forced to only accept the 
+		// * corresponding TileSizeSpecifications.
+		// * 
+		// */ TileBandExpression:
+		//	FixedSizeTileBandExpression | ParametricTileBandExpression | CompileTimeConstantTileBandExpression;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//FixedSizeTileBandExpression | ParametricTileBandExpression | CompileTimeConstantTileBandExpression
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//FixedSizeTileBandExpression
+		public RuleCall getFixedSizeTileBandExpressionParserRuleCall_0() { return cFixedSizeTileBandExpressionParserRuleCall_0; }
+		
+		//ParametricTileBandExpression
+		public RuleCall getParametricTileBandExpressionParserRuleCall_1() { return cParametricTileBandExpressionParserRuleCall_1; }
+		
+		//CompileTimeConstantTileBandExpression
+		public RuleCall getCompileTimeConstantTileBandExpressionParserRuleCall_2() { return cCompileTimeConstantTileBandExpressionParserRuleCall_2; }
+	}
+	public class FixedSizeTileBandExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FixedSizeTileBandExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cTileBandKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cScheduleDimensionNamesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_1_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_1_1.eContents().get(0);
-		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
-		private final Keyword cCommaKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
-		private final Assignment cScheduleDimensionNamesAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
-		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_1_2_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
-		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cBandPiecesAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cBandPiecesBandPieceParserRuleCall_3_0 = (RuleCall)cBandPiecesAssignment_3.eContents().get(0);
-		private final Assignment cTilingSpecificationAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cTilingSpecificationTileLoopSpecificationParserRuleCall_4_0 = (RuleCall)cTilingSpecificationAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cTilingTypeAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cTilingTypeFixedSizeTilingTypeParserRuleCall_1_1_0 = (RuleCall)cTilingTypeAssignment_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_2_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_2_1.eContents().get(0);
+		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
+		private final Keyword cCommaKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_2_2_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_2_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_2_3 = (Keyword)cGroup_2.eContents().get(3);
+		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cBandPiecesAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cBandPiecesBandPieceParserRuleCall_4_0 = (RuleCall)cBandPiecesAssignment_4.eContents().get(0);
+		private final Assignment cTilingSpecificationAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cTilingSpecificationFixedSizeTilingTileLoopSpecificationParserRuleCall_5_0 = (RuleCall)cTilingSpecificationAssignment_5.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//TileBandExpression:
-		//	'tile-band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
+		//FixedSizeTileBandExpression TileBandExpression:
+		//	'tile-band' ('(' tilingType=FixedSizeTilingType ')')? ('[' scheduleDimensionNames+=ID (','
+		//	scheduleDimensionNames+=ID)* ']')? '{'
 		//	bandPieces+=BandPiece+
-		//	tilingSpecification=TileLoopSpecification
+		//	tilingSpecification=FixedSizeTilingTileLoopSpecification
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'tile-band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{' bandPieces+=BandPiece+
-		//tilingSpecification=TileLoopSpecification '}'
+		//'tile-band' ('(' tilingType=FixedSizeTilingType ')')? ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)*
+		//']')? '{' bandPieces+=BandPiece+ tilingSpecification=FixedSizeTilingTileLoopSpecification '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'tile-band'
 		public Keyword getTileBandKeyword_0() { return cTileBandKeyword_0; }
 		
-		//('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')?
+		//('(' tilingType=FixedSizeTilingType ')')?
 		public Group getGroup_1() { return cGroup_1; }
 		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1_0() { return cLeftParenthesisKeyword_1_0; }
+		
+		//tilingType=FixedSizeTilingType
+		public Assignment getTilingTypeAssignment_1_1() { return cTilingTypeAssignment_1_1; }
+		
+		//FixedSizeTilingType
+		public RuleCall getTilingTypeFixedSizeTilingTypeParserRuleCall_1_1_0() { return cTilingTypeFixedSizeTilingTypeParserRuleCall_1_1_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
+		
+		//('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')?
+		public Group getGroup_2() { return cGroup_2; }
+		
 		//'['
-		public Keyword getLeftSquareBracketKeyword_1_0() { return cLeftSquareBracketKeyword_1_0; }
+		public Keyword getLeftSquareBracketKeyword_2_0() { return cLeftSquareBracketKeyword_2_0; }
 		
 		//scheduleDimensionNames+=ID
-		public Assignment getScheduleDimensionNamesAssignment_1_1() { return cScheduleDimensionNamesAssignment_1_1; }
+		public Assignment getScheduleDimensionNamesAssignment_2_1() { return cScheduleDimensionNamesAssignment_2_1; }
 		
 		//ID
-		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_1_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_1_1_0; }
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_2_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_2_1_0; }
 		
 		//(',' scheduleDimensionNames+=ID)*
-		public Group getGroup_1_2() { return cGroup_1_2; }
+		public Group getGroup_2_2() { return cGroup_2_2; }
 		
 		//','
-		public Keyword getCommaKeyword_1_2_0() { return cCommaKeyword_1_2_0; }
+		public Keyword getCommaKeyword_2_2_0() { return cCommaKeyword_2_2_0; }
 		
 		//scheduleDimensionNames+=ID
-		public Assignment getScheduleDimensionNamesAssignment_1_2_1() { return cScheduleDimensionNamesAssignment_1_2_1; }
+		public Assignment getScheduleDimensionNamesAssignment_2_2_1() { return cScheduleDimensionNamesAssignment_2_2_1; }
 		
 		//ID
-		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0; }
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_2_2_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_2_2_1_0; }
 		
 		//']'
-		public Keyword getRightSquareBracketKeyword_1_3() { return cRightSquareBracketKeyword_1_3; }
+		public Keyword getRightSquareBracketKeyword_2_3() { return cRightSquareBracketKeyword_2_3; }
 		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 		
 		//bandPieces+=BandPiece+
-		public Assignment getBandPiecesAssignment_3() { return cBandPiecesAssignment_3; }
+		public Assignment getBandPiecesAssignment_4() { return cBandPiecesAssignment_4; }
 		
 		//BandPiece
-		public RuleCall getBandPiecesBandPieceParserRuleCall_3_0() { return cBandPiecesBandPieceParserRuleCall_3_0; }
+		public RuleCall getBandPiecesBandPieceParserRuleCall_4_0() { return cBandPiecesBandPieceParserRuleCall_4_0; }
 		
-		//tilingSpecification=TileLoopSpecification
-		public Assignment getTilingSpecificationAssignment_4() { return cTilingSpecificationAssignment_4; }
+		//tilingSpecification=FixedSizeTilingTileLoopSpecification
+		public Assignment getTilingSpecificationAssignment_5() { return cTilingSpecificationAssignment_5; }
 		
-		//TileLoopSpecification
-		public RuleCall getTilingSpecificationTileLoopSpecificationParserRuleCall_4_0() { return cTilingSpecificationTileLoopSpecificationParserRuleCall_4_0; }
+		//FixedSizeTilingTileLoopSpecification
+		public RuleCall getTilingSpecificationFixedSizeTilingTileLoopSpecificationParserRuleCall_5_0() { return cTilingSpecificationFixedSizeTilingTileLoopSpecificationParserRuleCall_5_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
-	public class TilingSpecificationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.TilingSpecification");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cTileLoopSpecificationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cPointLoopSpecificationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+	public class ParametricTileBandExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ParametricTileBandExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTileBandKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTilingTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTilingTypeParametricTilingTypeParserRuleCall_2_0 = (RuleCall)cTilingTypeAssignment_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cLeftSquareBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_4_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_4_1.eContents().get(0);
+		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
+		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_4_2_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_4_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
+		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cBandPiecesAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cBandPiecesBandPieceParserRuleCall_6_0 = (RuleCall)cBandPiecesAssignment_6.eContents().get(0);
+		private final Assignment cTilingSpecificationAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cTilingSpecificationParametricTilingTileLoopSpecificationParserRuleCall_7_0 = (RuleCall)cTilingSpecificationAssignment_7.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
-		//TilingSpecification:
-		//	TileLoopSpecification | PointLoopSpecification;
+		//ParametricTileBandExpression TileBandExpression:
+		//	'tile-band' '(' tilingType=ParametricTilingType ')' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)*
+		//	']')? '{'
+		//	bandPieces+=BandPiece+
+		//	tilingSpecification=ParametricTilingTileLoopSpecification
+		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//TileLoopSpecification | PointLoopSpecification
+		//'tile-band' '(' tilingType=ParametricTilingType ')' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)*
+		//']')? '{' bandPieces+=BandPiece+ tilingSpecification=ParametricTilingTileLoopSpecification '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'tile-band'
+		public Keyword getTileBandKeyword_0() { return cTileBandKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//tilingType=ParametricTilingType
+		public Assignment getTilingTypeAssignment_2() { return cTilingTypeAssignment_2; }
+		
+		//ParametricTilingType
+		public RuleCall getTilingTypeParametricTilingTypeParserRuleCall_2_0() { return cTilingTypeParametricTilingTypeParserRuleCall_2_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+		
+		//('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
+		
+		//scheduleDimensionNames+=ID
+		public Assignment getScheduleDimensionNamesAssignment_4_1() { return cScheduleDimensionNamesAssignment_4_1; }
+		
+		//ID
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_4_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_4_1_0; }
+		
+		//(',' scheduleDimensionNames+=ID)*
+		public Group getGroup_4_2() { return cGroup_4_2; }
+		
+		//','
+		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
+		
+		//scheduleDimensionNames+=ID
+		public Assignment getScheduleDimensionNamesAssignment_4_2_1() { return cScheduleDimensionNamesAssignment_4_2_1; }
+		
+		//ID
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_4_2_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_4_2_1_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_4_3() { return cRightSquareBracketKeyword_4_3; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
+		
+		//bandPieces+=BandPiece+
+		public Assignment getBandPiecesAssignment_6() { return cBandPiecesAssignment_6; }
+		
+		//BandPiece
+		public RuleCall getBandPiecesBandPieceParserRuleCall_6_0() { return cBandPiecesBandPieceParserRuleCall_6_0; }
+		
+		//tilingSpecification=ParametricTilingTileLoopSpecification
+		public Assignment getTilingSpecificationAssignment_7() { return cTilingSpecificationAssignment_7; }
+		
+		//ParametricTilingTileLoopSpecification
+		public RuleCall getTilingSpecificationParametricTilingTileLoopSpecificationParserRuleCall_7_0() { return cTilingSpecificationParametricTilingTileLoopSpecificationParserRuleCall_7_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+	}
+	public class CompileTimeConstantTileBandExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.CompileTimeConstantTileBandExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTileBandKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cTilingTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTilingTypeCompileTimeConstantTilingTypeParserRuleCall_2_0 = (RuleCall)cTilingTypeAssignment_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cLeftSquareBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_4_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_4_1.eContents().get(0);
+		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
+		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
+		private final Assignment cScheduleDimensionNamesAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
+		private final RuleCall cScheduleDimensionNamesIDTerminalRuleCall_4_2_1_0 = (RuleCall)cScheduleDimensionNamesAssignment_4_2_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
+		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cBandPiecesAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cBandPiecesBandPieceParserRuleCall_6_0 = (RuleCall)cBandPiecesAssignment_6.eContents().get(0);
+		private final Assignment cTilingSpecificationAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cTilingSpecificationCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_7_0 = (RuleCall)cTilingSpecificationAssignment_7.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		
+		//CompileTimeConstantTileBandExpression TileBandExpression:
+		//	'tile-band' '(' tilingType=CompileTimeConstantTilingType ')' ('[' scheduleDimensionNames+=ID (','
+		//	scheduleDimensionNames+=ID)* ']')? '{'
+		//	bandPieces+=BandPiece+
+		//	tilingSpecification=CompileTimeConstantTilingTileLoopSpecification
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'tile-band' '(' tilingType=CompileTimeConstantTilingType ')' ('[' scheduleDimensionNames+=ID (','
+		//scheduleDimensionNames+=ID)* ']')? '{' bandPieces+=BandPiece+
+		//tilingSpecification=CompileTimeConstantTilingTileLoopSpecification '}'
+		public Group getGroup() { return cGroup; }
+		
+		//'tile-band'
+		public Keyword getTileBandKeyword_0() { return cTileBandKeyword_0; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		
+		//tilingType=CompileTimeConstantTilingType
+		public Assignment getTilingTypeAssignment_2() { return cTilingTypeAssignment_2; }
+		
+		//CompileTimeConstantTilingType
+		public RuleCall getTilingTypeCompileTimeConstantTilingTypeParserRuleCall_2_0() { return cTilingTypeCompileTimeConstantTilingTypeParserRuleCall_2_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+		
+		//('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
+		
+		//scheduleDimensionNames+=ID
+		public Assignment getScheduleDimensionNamesAssignment_4_1() { return cScheduleDimensionNamesAssignment_4_1; }
+		
+		//ID
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_4_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_4_1_0; }
+		
+		//(',' scheduleDimensionNames+=ID)*
+		public Group getGroup_4_2() { return cGroup_4_2; }
+		
+		//','
+		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
+		
+		//scheduleDimensionNames+=ID
+		public Assignment getScheduleDimensionNamesAssignment_4_2_1() { return cScheduleDimensionNamesAssignment_4_2_1; }
+		
+		//ID
+		public RuleCall getScheduleDimensionNamesIDTerminalRuleCall_4_2_1_0() { return cScheduleDimensionNamesIDTerminalRuleCall_4_2_1_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_4_3() { return cRightSquareBracketKeyword_4_3; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
+		
+		//bandPieces+=BandPiece+
+		public Assignment getBandPiecesAssignment_6() { return cBandPiecesAssignment_6; }
+		
+		//BandPiece
+		public RuleCall getBandPiecesBandPieceParserRuleCall_6_0() { return cBandPiecesBandPieceParserRuleCall_6_0; }
+		
+		//tilingSpecification=CompileTimeConstantTilingTileLoopSpecification
+		public Assignment getTilingSpecificationAssignment_7() { return cTilingSpecificationAssignment_7; }
+		
+		//CompileTimeConstantTilingTileLoopSpecification
+		public RuleCall getTilingSpecificationCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_7_0() { return cTilingSpecificationCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_7_0; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+	}
+	public class FixedSizeTilingSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FixedSizeTilingSpecification");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cFixedSizeTilingTileLoopSpecificationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cPointLoopSpecificationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//FixedSizeTilingSpecification TilingSpecification:
+		//	FixedSizeTilingTileLoopSpecification | PointLoopSpecification;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//FixedSizeTilingTileLoopSpecification | PointLoopSpecification
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//TileLoopSpecification
-		public RuleCall getTileLoopSpecificationParserRuleCall_0() { return cTileLoopSpecificationParserRuleCall_0; }
+		//FixedSizeTilingTileLoopSpecification
+		public RuleCall getFixedSizeTilingTileLoopSpecificationParserRuleCall_0() { return cFixedSizeTilingTileLoopSpecificationParserRuleCall_0; }
 		
 		//PointLoopSpecification
 		public RuleCall getPointLoopSpecificationParserRuleCall_1() { return cPointLoopSpecificationParserRuleCall_1; }
 	}
-	public class TileLoopSpecificationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.TileLoopSpecification");
+	public class ParametricTilingSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ParametricTilingSpecification");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cFixedTilingTileLoopSpecificationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cParametricTilingTileLoopSpecificationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cParametricTilingTileLoopSpecificationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cPointLoopSpecificationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//TileLoopSpecification:
-		//	FixedTilingTileLoopSpecification | ParametricTilingTileLoopSpecification |
-		//	CompileTimeConstantTilingTileLoopSpecification;
+		//ParametricTilingSpecification TilingSpecification:
+		//	ParametricTilingTileLoopSpecification | PointLoopSpecification;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//FixedTilingTileLoopSpecification | ParametricTilingTileLoopSpecification |
-		//CompileTimeConstantTilingTileLoopSpecification
+		//ParametricTilingTileLoopSpecification | PointLoopSpecification
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//FixedTilingTileLoopSpecification
-		public RuleCall getFixedTilingTileLoopSpecificationParserRuleCall_0() { return cFixedTilingTileLoopSpecificationParserRuleCall_0; }
-		
 		//ParametricTilingTileLoopSpecification
-		public RuleCall getParametricTilingTileLoopSpecificationParserRuleCall_1() { return cParametricTilingTileLoopSpecificationParserRuleCall_1; }
+		public RuleCall getParametricTilingTileLoopSpecificationParserRuleCall_0() { return cParametricTilingTileLoopSpecificationParserRuleCall_0; }
 		
-		//CompileTimeConstantTilingTileLoopSpecification
-		public RuleCall getCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_2() { return cCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_2; }
+		//PointLoopSpecification
+		public RuleCall getPointLoopSpecificationParserRuleCall_1() { return cPointLoopSpecificationParserRuleCall_1; }
 	}
-	public class FixedTilingTileLoopSpecificationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FixedTilingTileLoopSpecification");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cFixedKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cParallelAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Keyword cParallelParallelKeyword_1_0 = (Keyword)cParallelAssignment_1.eContents().get(0);
-		private final Assignment cLoopScheduleExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Alternatives cLoopScheduleExprAlternatives_2_0 = (Alternatives)cLoopScheduleExprAssignment_2.eContents().get(0);
-		private final RuleCall cLoopScheduleExprJNIFunctionParserRuleCall_2_0_0 = (RuleCall)cLoopScheduleExprAlternatives_2_0.eContents().get(0);
-		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1 = (RuleCall)cLoopScheduleExprAlternatives_2_0.eContents().get(1);
-		private final RuleCall cLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2 = (RuleCall)cLoopScheduleExprAlternatives_2_0.eContents().get(2);
-		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cTileSizeSpecificationsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cTileSizeSpecificationsFixedTileSizeParserRuleCall_4_0 = (RuleCall)cTileSizeSpecificationsAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cTileSizeSpecificationsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cTileSizeSpecificationsFixedTileSizeParserRuleCall_5_1_0 = (RuleCall)cTileSizeSpecificationsAssignment_5_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cTilingSpecificationAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cTilingSpecificationTilingSpecificationParserRuleCall_7_0 = (RuleCall)cTilingSpecificationAssignment_7.eContents().get(0);
+	public class CompileTimeConstantTilingSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.CompileTimeConstantTilingSpecification");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cPointLoopSpecificationParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//FixedTilingTileLoopSpecification TileLoopSpecification:
-		//	'fixed' parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
-		//	'(' tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
-		//	tilingSpecification=TilingSpecification;
+		//CompileTimeConstantTilingSpecification TilingSpecification:
+		//	CompileTimeConstantTilingTileLoopSpecification | PointLoopSpecification;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'fixed' parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)? '('
+		//CompileTimeConstantTilingTileLoopSpecification | PointLoopSpecification
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//CompileTimeConstantTilingTileLoopSpecification
+		public RuleCall getCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_0() { return cCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_0; }
+		
+		//PointLoopSpecification
+		public RuleCall getPointLoopSpecificationParserRuleCall_1() { return cPointLoopSpecificationParserRuleCall_1; }
+	}
+	public class FixedSizeTilingTileLoopSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FixedSizeTilingTileLoopSpecification");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cParallelAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cParallelParallelKeyword_0_0 = (Keyword)cParallelAssignment_0.eContents().get(0);
+		private final Assignment cLoopScheduleExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Alternatives cLoopScheduleExprAlternatives_1_0 = (Alternatives)cLoopScheduleExprAssignment_1.eContents().get(0);
+		private final RuleCall cLoopScheduleExprJNIFunctionParserRuleCall_1_0_0 = (RuleCall)cLoopScheduleExprAlternatives_1_0.eContents().get(0);
+		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1 = (RuleCall)cLoopScheduleExprAlternatives_1_0.eContents().get(1);
+		private final RuleCall cLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2 = (RuleCall)cLoopScheduleExprAlternatives_1_0.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTileSizeSpecificationsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTileSizeSpecificationsFixedTileSizeParserRuleCall_3_0 = (RuleCall)cTileSizeSpecificationsAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cCommaKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cTileSizeSpecificationsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cTileSizeSpecificationsFixedTileSizeParserRuleCall_4_1_0 = (RuleCall)cTileSizeSpecificationsAssignment_4_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cTilingSpecificationAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cTilingSpecificationFixedSizeTilingSpecificationParserRuleCall_6_0 = (RuleCall)cTilingSpecificationAssignment_6.eContents().get(0);
+		
+		//FixedSizeTilingTileLoopSpecification TileLoopSpecification:
+		//	parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
+		//	'(' tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
+		//	tilingSpecification=FixedSizeTilingSpecification;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)? '('
 		//tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
-		//tilingSpecification=TilingSpecification
+		//tilingSpecification=FixedSizeTilingSpecification
 		public Group getGroup() { return cGroup; }
 		
-		//'fixed'
-		public Keyword getFixedKeyword_0() { return cFixedKeyword_0; }
-		
 		//parallel?='parallel'?
-		public Assignment getParallelAssignment_1() { return cParallelAssignment_1; }
+		public Assignment getParallelAssignment_0() { return cParallelAssignment_0; }
 		
 		//'parallel'
-		public Keyword getParallelParallelKeyword_1_0() { return cParallelParallelKeyword_1_0; }
+		public Keyword getParallelParallelKeyword_0_0() { return cParallelParallelKeyword_0_0; }
 		
 		//loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
-		public Assignment getLoopScheduleExprAssignment_2() { return cLoopScheduleExprAssignment_2; }
+		public Assignment getLoopScheduleExprAssignment_1() { return cLoopScheduleExprAssignment_1; }
 		
 		//(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)
-		public Alternatives getLoopScheduleExprAlternatives_2_0() { return cLoopScheduleExprAlternatives_2_0; }
+		public Alternatives getLoopScheduleExprAlternatives_1_0() { return cLoopScheduleExprAlternatives_1_0; }
 		
 		//JNIFunction
-		public RuleCall getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0() { return cLoopScheduleExprJNIFunctionParserRuleCall_2_0_0; }
+		public RuleCall getLoopScheduleExprJNIFunctionParserRuleCall_1_0_0() { return cLoopScheduleExprJNIFunctionParserRuleCall_1_0_0; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1; }
+		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1; }
 		
 		//JNIIdentityFunction
-		public RuleCall getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2() { return cLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2; }
+		public RuleCall getLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2() { return cLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 		
 		//tileSizeSpecifications+=FixedTileSize
-		public Assignment getTileSizeSpecificationsAssignment_4() { return cTileSizeSpecificationsAssignment_4; }
+		public Assignment getTileSizeSpecificationsAssignment_3() { return cTileSizeSpecificationsAssignment_3; }
 		
 		//FixedTileSize
-		public RuleCall getTileSizeSpecificationsFixedTileSizeParserRuleCall_4_0() { return cTileSizeSpecificationsFixedTileSizeParserRuleCall_4_0; }
+		public RuleCall getTileSizeSpecificationsFixedTileSizeParserRuleCall_3_0() { return cTileSizeSpecificationsFixedTileSizeParserRuleCall_3_0; }
 		
 		//(',' tileSizeSpecifications+=FixedTileSize)*
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_4() { return cGroup_4; }
 		
 		//','
-		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
+		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
 		
 		//tileSizeSpecifications+=FixedTileSize
-		public Assignment getTileSizeSpecificationsAssignment_5_1() { return cTileSizeSpecificationsAssignment_5_1; }
+		public Assignment getTileSizeSpecificationsAssignment_4_1() { return cTileSizeSpecificationsAssignment_4_1; }
 		
 		//FixedTileSize
-		public RuleCall getTileSizeSpecificationsFixedTileSizeParserRuleCall_5_1_0() { return cTileSizeSpecificationsFixedTileSizeParserRuleCall_5_1_0; }
+		public RuleCall getTileSizeSpecificationsFixedTileSizeParserRuleCall_4_1_0() { return cTileSizeSpecificationsFixedTileSizeParserRuleCall_4_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 		
-		//tilingSpecification=TilingSpecification
-		public Assignment getTilingSpecificationAssignment_7() { return cTilingSpecificationAssignment_7; }
+		//tilingSpecification=FixedSizeTilingSpecification
+		public Assignment getTilingSpecificationAssignment_6() { return cTilingSpecificationAssignment_6; }
 		
-		//TilingSpecification
-		public RuleCall getTilingSpecificationTilingSpecificationParserRuleCall_7_0() { return cTilingSpecificationTilingSpecificationParserRuleCall_7_0; }
+		//FixedSizeTilingSpecification
+		public RuleCall getTilingSpecificationFixedSizeTilingSpecificationParserRuleCall_6_0() { return cTilingSpecificationFixedSizeTilingSpecificationParserRuleCall_6_0; }
 	}
 	public class ParametricTilingTileLoopSpecificationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.ParametricTilingTileLoopSpecification");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cParametricKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cParallelAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Keyword cParallelParallelKeyword_1_0 = (Keyword)cParallelAssignment_1.eContents().get(0);
-		private final Assignment cLoopScheduleExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Alternatives cLoopScheduleExprAlternatives_2_0 = (Alternatives)cLoopScheduleExprAssignment_2.eContents().get(0);
-		private final RuleCall cLoopScheduleExprJNIFunctionParserRuleCall_2_0_0 = (RuleCall)cLoopScheduleExprAlternatives_2_0.eContents().get(0);
-		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1 = (RuleCall)cLoopScheduleExprAlternatives_2_0.eContents().get(1);
-		private final RuleCall cLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2 = (RuleCall)cLoopScheduleExprAlternatives_2_0.eContents().get(2);
-		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cTileSizeSpecificationsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cTileSizeSpecificationsParametricTileSizeParserRuleCall_4_0 = (RuleCall)cTileSizeSpecificationsAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cTileSizeSpecificationsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cTileSizeSpecificationsParametricTileSizeParserRuleCall_5_1_0 = (RuleCall)cTileSizeSpecificationsAssignment_5_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cTilingSpecificationAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cTilingSpecificationTilingSpecificationParserRuleCall_7_0 = (RuleCall)cTilingSpecificationAssignment_7.eContents().get(0);
+		private final Assignment cParallelAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cParallelParallelKeyword_0_0 = (Keyword)cParallelAssignment_0.eContents().get(0);
+		private final Assignment cLoopScheduleExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Alternatives cLoopScheduleExprAlternatives_1_0 = (Alternatives)cLoopScheduleExprAssignment_1.eContents().get(0);
+		private final RuleCall cLoopScheduleExprJNIFunctionParserRuleCall_1_0_0 = (RuleCall)cLoopScheduleExprAlternatives_1_0.eContents().get(0);
+		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1 = (RuleCall)cLoopScheduleExprAlternatives_1_0.eContents().get(1);
+		private final RuleCall cLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2 = (RuleCall)cLoopScheduleExprAlternatives_1_0.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTileSizeSpecificationsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTileSizeSpecificationsParametricTileSizeParserRuleCall_3_0 = (RuleCall)cTileSizeSpecificationsAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cCommaKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cTileSizeSpecificationsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cTileSizeSpecificationsParametricTileSizeParserRuleCall_4_1_0 = (RuleCall)cTileSizeSpecificationsAssignment_4_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cTilingSpecificationAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cTilingSpecificationParametricTilingSpecificationParserRuleCall_6_0 = (RuleCall)cTilingSpecificationAssignment_6.eContents().get(0);
 		
 		//ParametricTilingTileLoopSpecification TileLoopSpecification:
-		//	'parametric' parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
+		//	parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
 		//	'(' tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
-		//	tilingSpecification=TilingSpecification;
+		//	tilingSpecification=ParametricTilingSpecification;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'parametric' parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
-		//'(' tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
-		//tilingSpecification=TilingSpecification
+		//parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)? '('
+		//tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
+		//tilingSpecification=ParametricTilingSpecification
 		public Group getGroup() { return cGroup; }
 		
-		//'parametric'
-		public Keyword getParametricKeyword_0() { return cParametricKeyword_0; }
-		
 		//parallel?='parallel'?
-		public Assignment getParallelAssignment_1() { return cParallelAssignment_1; }
+		public Assignment getParallelAssignment_0() { return cParallelAssignment_0; }
 		
 		//'parallel'
-		public Keyword getParallelParallelKeyword_1_0() { return cParallelParallelKeyword_1_0; }
+		public Keyword getParallelParallelKeyword_0_0() { return cParallelParallelKeyword_0_0; }
 		
 		//loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
-		public Assignment getLoopScheduleExprAssignment_2() { return cLoopScheduleExprAssignment_2; }
+		public Assignment getLoopScheduleExprAssignment_1() { return cLoopScheduleExprAssignment_1; }
 		
 		//(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)
-		public Alternatives getLoopScheduleExprAlternatives_2_0() { return cLoopScheduleExprAlternatives_2_0; }
+		public Alternatives getLoopScheduleExprAlternatives_1_0() { return cLoopScheduleExprAlternatives_1_0; }
 		
 		//JNIFunction
-		public RuleCall getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0() { return cLoopScheduleExprJNIFunctionParserRuleCall_2_0_0; }
+		public RuleCall getLoopScheduleExprJNIFunctionParserRuleCall_1_0_0() { return cLoopScheduleExprJNIFunctionParserRuleCall_1_0_0; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1; }
+		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1; }
 		
 		//JNIIdentityFunction
-		public RuleCall getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2() { return cLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2; }
+		public RuleCall getLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2() { return cLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 		
 		//tileSizeSpecifications+=ParametricTileSize
-		public Assignment getTileSizeSpecificationsAssignment_4() { return cTileSizeSpecificationsAssignment_4; }
+		public Assignment getTileSizeSpecificationsAssignment_3() { return cTileSizeSpecificationsAssignment_3; }
 		
 		//ParametricTileSize
-		public RuleCall getTileSizeSpecificationsParametricTileSizeParserRuleCall_4_0() { return cTileSizeSpecificationsParametricTileSizeParserRuleCall_4_0; }
+		public RuleCall getTileSizeSpecificationsParametricTileSizeParserRuleCall_3_0() { return cTileSizeSpecificationsParametricTileSizeParserRuleCall_3_0; }
 		
 		//(',' tileSizeSpecifications+=ParametricTileSize)*
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_4() { return cGroup_4; }
 		
 		//','
-		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
+		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
 		
 		//tileSizeSpecifications+=ParametricTileSize
-		public Assignment getTileSizeSpecificationsAssignment_5_1() { return cTileSizeSpecificationsAssignment_5_1; }
+		public Assignment getTileSizeSpecificationsAssignment_4_1() { return cTileSizeSpecificationsAssignment_4_1; }
 		
 		//ParametricTileSize
-		public RuleCall getTileSizeSpecificationsParametricTileSizeParserRuleCall_5_1_0() { return cTileSizeSpecificationsParametricTileSizeParserRuleCall_5_1_0; }
+		public RuleCall getTileSizeSpecificationsParametricTileSizeParserRuleCall_4_1_0() { return cTileSizeSpecificationsParametricTileSizeParserRuleCall_4_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 		
-		//tilingSpecification=TilingSpecification
-		public Assignment getTilingSpecificationAssignment_7() { return cTilingSpecificationAssignment_7; }
+		//tilingSpecification=ParametricTilingSpecification
+		public Assignment getTilingSpecificationAssignment_6() { return cTilingSpecificationAssignment_6; }
 		
-		//TilingSpecification
-		public RuleCall getTilingSpecificationTilingSpecificationParserRuleCall_7_0() { return cTilingSpecificationTilingSpecificationParserRuleCall_7_0; }
+		//ParametricTilingSpecification
+		public RuleCall getTilingSpecificationParametricTilingSpecificationParserRuleCall_6_0() { return cTilingSpecificationParametricTilingSpecificationParserRuleCall_6_0; }
 	}
 	public class CompileTimeConstantTilingTileLoopSpecificationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.CompileTimeConstantTilingTileLoopSpecification");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cCompileTimeConstantKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cParallelAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Keyword cParallelParallelKeyword_1_0 = (Keyword)cParallelAssignment_1.eContents().get(0);
-		private final Assignment cLoopScheduleExprAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Alternatives cLoopScheduleExprAlternatives_2_0 = (Alternatives)cLoopScheduleExprAssignment_2.eContents().get(0);
-		private final RuleCall cLoopScheduleExprJNIFunctionParserRuleCall_2_0_0 = (RuleCall)cLoopScheduleExprAlternatives_2_0.eContents().get(0);
-		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1 = (RuleCall)cLoopScheduleExprAlternatives_2_0.eContents().get(1);
-		private final RuleCall cLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2 = (RuleCall)cLoopScheduleExprAlternatives_2_0.eContents().get(2);
-		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cTileSizeSpecificationsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_0 = (RuleCall)cTileSizeSpecificationsAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cTileSizeSpecificationsAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_5_1_0 = (RuleCall)cTileSizeSpecificationsAssignment_5_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cTilingSpecificationAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cTilingSpecificationTilingSpecificationParserRuleCall_7_0 = (RuleCall)cTilingSpecificationAssignment_7.eContents().get(0);
+		private final Assignment cParallelAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cParallelParallelKeyword_0_0 = (Keyword)cParallelAssignment_0.eContents().get(0);
+		private final Assignment cLoopScheduleExprAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Alternatives cLoopScheduleExprAlternatives_1_0 = (Alternatives)cLoopScheduleExprAssignment_1.eContents().get(0);
+		private final RuleCall cLoopScheduleExprJNIFunctionParserRuleCall_1_0_0 = (RuleCall)cLoopScheduleExprAlternatives_1_0.eContents().get(0);
+		private final RuleCall cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1 = (RuleCall)cLoopScheduleExprAlternatives_1_0.eContents().get(1);
+		private final RuleCall cLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2 = (RuleCall)cLoopScheduleExprAlternatives_1_0.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTileSizeSpecificationsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_3_0 = (RuleCall)cTileSizeSpecificationsAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cCommaKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cTileSizeSpecificationsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_1_0 = (RuleCall)cTileSizeSpecificationsAssignment_4_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cTilingSpecificationAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cTilingSpecificationCompileTimeConstantTilingSpecificationParserRuleCall_6_0 = (RuleCall)cTilingSpecificationAssignment_6.eContents().get(0);
 		
 		//CompileTimeConstantTilingTileLoopSpecification TileLoopSpecification:
-		//	'compile-time-constant' parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation |
-		//	JNIIdentityFunction)?
+		//	parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
 		//	'(' tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
-		//	tilingSpecification=TilingSpecification;
+		//	tilingSpecification=CompileTimeConstantTilingSpecification;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'compile-time-constant' parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation |
-		//JNIIdentityFunction)? '(' tileSizeSpecifications+=CompileTimeConstantTileSize (','
-		//tileSizeSpecifications+=CompileTimeConstantTileSize)* ')' tilingSpecification=TilingSpecification
+		//parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)? '('
+		//tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
+		//tilingSpecification=CompileTimeConstantTilingSpecification
 		public Group getGroup() { return cGroup; }
 		
-		//'compile-time-constant'
-		public Keyword getCompileTimeConstantKeyword_0() { return cCompileTimeConstantKeyword_0; }
-		
 		//parallel?='parallel'?
-		public Assignment getParallelAssignment_1() { return cParallelAssignment_1; }
+		public Assignment getParallelAssignment_0() { return cParallelAssignment_0; }
 		
 		//'parallel'
-		public Keyword getParallelParallelKeyword_1_0() { return cParallelParallelKeyword_1_0; }
+		public Keyword getParallelParallelKeyword_0_0() { return cParallelParallelKeyword_0_0; }
 		
 		//loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
-		public Assignment getLoopScheduleExprAssignment_2() { return cLoopScheduleExprAssignment_2; }
+		public Assignment getLoopScheduleExprAssignment_1() { return cLoopScheduleExprAssignment_1; }
 		
 		//(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)
-		public Alternatives getLoopScheduleExprAlternatives_2_0() { return cLoopScheduleExprAlternatives_2_0; }
+		public Alternatives getLoopScheduleExprAlternatives_1_0() { return cLoopScheduleExprAlternatives_1_0; }
 		
 		//JNIFunction
-		public RuleCall getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0() { return cLoopScheduleExprJNIFunctionParserRuleCall_2_0_0; }
+		public RuleCall getLoopScheduleExprJNIFunctionParserRuleCall_1_0_0() { return cLoopScheduleExprJNIFunctionParserRuleCall_1_0_0; }
 		
 		//JNIFunctionInArrayNotation
-		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1; }
+		public RuleCall getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1() { return cLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1; }
 		
 		//JNIIdentityFunction
-		public RuleCall getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2() { return cLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2; }
+		public RuleCall getLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2() { return cLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2; }
 		
 		//'('
-		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 		
 		//tileSizeSpecifications+=CompileTimeConstantTileSize
-		public Assignment getTileSizeSpecificationsAssignment_4() { return cTileSizeSpecificationsAssignment_4; }
+		public Assignment getTileSizeSpecificationsAssignment_3() { return cTileSizeSpecificationsAssignment_3; }
 		
 		//CompileTimeConstantTileSize
-		public RuleCall getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_0() { return cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_0; }
+		public RuleCall getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_3_0() { return cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_3_0; }
 		
 		//(',' tileSizeSpecifications+=CompileTimeConstantTileSize)*
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_4() { return cGroup_4; }
 		
 		//','
-		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
+		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
 		
 		//tileSizeSpecifications+=CompileTimeConstantTileSize
-		public Assignment getTileSizeSpecificationsAssignment_5_1() { return cTileSizeSpecificationsAssignment_5_1; }
+		public Assignment getTileSizeSpecificationsAssignment_4_1() { return cTileSizeSpecificationsAssignment_4_1; }
 		
 		//CompileTimeConstantTileSize
-		public RuleCall getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_5_1_0() { return cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_5_1_0; }
+		public RuleCall getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_1_0() { return cTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
 		
-		//tilingSpecification=TilingSpecification
-		public Assignment getTilingSpecificationAssignment_7() { return cTilingSpecificationAssignment_7; }
+		//tilingSpecification=CompileTimeConstantTilingSpecification
+		public Assignment getTilingSpecificationAssignment_6() { return cTilingSpecificationAssignment_6; }
 		
-		//TilingSpecification
-		public RuleCall getTilingSpecificationTilingSpecificationParserRuleCall_7_0() { return cTilingSpecificationTilingSpecificationParserRuleCall_7_0; }
+		//CompileTimeConstantTilingSpecification
+		public RuleCall getTilingSpecificationCompileTimeConstantTilingSpecificationParserRuleCall_6_0() { return cTilingSpecificationCompileTimeConstantTilingSpecificationParserRuleCall_6_0; }
 	}
 	public class PointLoopSpecificationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.PointLoopSpecification");
@@ -1477,29 +1753,6 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		//']'
 		public Keyword getRightSquareBracketKeyword_3_3() { return cRightSquareBracketKeyword_3_3; }
 	}
-	public class TileSizeSpecificationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.TileSizeSpecification");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cFixedTileSizeParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cParametricTileSizeParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cCompileTimeConstantTileSizeParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		
-		//TileSizeSpecification:
-		//	FixedTileSize | ParametricTileSize | CompileTimeConstantTileSize;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//FixedTileSize | ParametricTileSize | CompileTimeConstantTileSize
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//FixedTileSize
-		public RuleCall getFixedTileSizeParserRuleCall_0() { return cFixedTileSizeParserRuleCall_0; }
-		
-		//ParametricTileSize
-		public RuleCall getParametricTileSizeParserRuleCall_1() { return cParametricTileSizeParserRuleCall_1; }
-		
-		//CompileTimeConstantTileSize
-		public RuleCall getCompileTimeConstantTileSizeParserRuleCall_2() { return cCompileTimeConstantTileSizeParserRuleCall_2; }
-	}
 	public class FixedTileSizeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "alpha.targetmapping.TargetMapping.FixedTileSize");
 		private final Assignment cTileSizeAssignment = (Assignment)rule.eContents().get(1);
@@ -1603,16 +1856,22 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	private final AlphaLoopTypeSpecificationElements pAlphaLoopTypeSpecification;
 	private final ISLASTLoopTypeElements pISLASTLoopType;
 	private final AlphaLoopTypeElements pAlphaLoopType;
+	private final FixedSizeTilingTypeElements pFixedSizeTilingType;
+	private final ParametricTilingTypeElements pParametricTilingType;
+	private final CompileTimeConstantTilingTypeElements pCompileTimeConstantTilingType;
 	private final TileBandExpressionElements pTileBandExpression;
-	private final TilingSpecificationElements pTilingSpecification;
-	private final TileLoopSpecificationElements pTileLoopSpecification;
-	private final FixedTilingTileLoopSpecificationElements pFixedTilingTileLoopSpecification;
+	private final FixedSizeTileBandExpressionElements pFixedSizeTileBandExpression;
+	private final ParametricTileBandExpressionElements pParametricTileBandExpression;
+	private final CompileTimeConstantTileBandExpressionElements pCompileTimeConstantTileBandExpression;
+	private final FixedSizeTilingSpecificationElements pFixedSizeTilingSpecification;
+	private final ParametricTilingSpecificationElements pParametricTilingSpecification;
+	private final CompileTimeConstantTilingSpecificationElements pCompileTimeConstantTilingSpecification;
+	private final FixedSizeTilingTileLoopSpecificationElements pFixedSizeTilingTileLoopSpecification;
 	private final ParametricTilingTileLoopSpecificationElements pParametricTilingTileLoopSpecification;
 	private final CompileTimeConstantTilingTileLoopSpecificationElements pCompileTimeConstantTilingTileLoopSpecification;
 	private final PointLoopSpecificationElements pPointLoopSpecification;
 	private final ExtensionExpressionElements pExtensionExpression;
 	private final ExtensionTargetElements pExtensionTarget;
-	private final TileSizeSpecificationElements pTileSizeSpecification;
 	private final FixedTileSizeElements pFixedTileSize;
 	private final ParametricTileSizeElements pParametricTileSize;
 	private final CompileTimeConstantTileSizeElements pCompileTimeConstantTileSize;
@@ -1652,16 +1911,22 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		this.pAlphaLoopTypeSpecification = new AlphaLoopTypeSpecificationElements();
 		this.pISLASTLoopType = new ISLASTLoopTypeElements();
 		this.pAlphaLoopType = new AlphaLoopTypeElements();
+		this.pFixedSizeTilingType = new FixedSizeTilingTypeElements();
+		this.pParametricTilingType = new ParametricTilingTypeElements();
+		this.pCompileTimeConstantTilingType = new CompileTimeConstantTilingTypeElements();
 		this.pTileBandExpression = new TileBandExpressionElements();
-		this.pTilingSpecification = new TilingSpecificationElements();
-		this.pTileLoopSpecification = new TileLoopSpecificationElements();
-		this.pFixedTilingTileLoopSpecification = new FixedTilingTileLoopSpecificationElements();
+		this.pFixedSizeTileBandExpression = new FixedSizeTileBandExpressionElements();
+		this.pParametricTileBandExpression = new ParametricTileBandExpressionElements();
+		this.pCompileTimeConstantTileBandExpression = new CompileTimeConstantTileBandExpressionElements();
+		this.pFixedSizeTilingSpecification = new FixedSizeTilingSpecificationElements();
+		this.pParametricTilingSpecification = new ParametricTilingSpecificationElements();
+		this.pCompileTimeConstantTilingSpecification = new CompileTimeConstantTilingSpecificationElements();
+		this.pFixedSizeTilingTileLoopSpecification = new FixedSizeTilingTileLoopSpecificationElements();
 		this.pParametricTilingTileLoopSpecification = new ParametricTilingTileLoopSpecificationElements();
 		this.pCompileTimeConstantTilingTileLoopSpecification = new CompileTimeConstantTilingTileLoopSpecificationElements();
 		this.pPointLoopSpecification = new PointLoopSpecificationElements();
 		this.pExtensionExpression = new ExtensionExpressionElements();
 		this.pExtensionTarget = new ExtensionTargetElements();
-		this.pTileSizeSpecification = new TileSizeSpecificationElements();
 		this.pFixedTileSize = new FixedTileSizeElements();
 		this.pParametricTileSize = new ParametricTileSizeElements();
 		this.pCompileTimeConstantTileSize = new CompileTimeConstantTileSizeElements();
@@ -1925,11 +2190,44 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getAlphaLoopTypeAccess().getRule();
 	}
 	
-	//TileBandExpression:
-	//	'tile-band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
-	//	bandPieces+=BandPiece+
-	//	tilingSpecification=TileLoopSpecification
-	//	'}';
+	//FixedSizeTilingType TILING_TYPE:
+	//	'fixed-size';
+	public FixedSizeTilingTypeElements getFixedSizeTilingTypeAccess() {
+		return pFixedSizeTilingType;
+	}
+	
+	public ParserRule getFixedSizeTilingTypeRule() {
+		return getFixedSizeTilingTypeAccess().getRule();
+	}
+	
+	//ParametricTilingType TILING_TYPE:
+	//	'parametric';
+	public ParametricTilingTypeElements getParametricTilingTypeAccess() {
+		return pParametricTilingType;
+	}
+	
+	public ParserRule getParametricTilingTypeRule() {
+		return getParametricTilingTypeAccess().getRule();
+	}
+	
+	//CompileTimeConstantTilingType TILING_TYPE:
+	//	'compile-time-constant';
+	public CompileTimeConstantTilingTypeElements getCompileTimeConstantTilingTypeAccess() {
+		return pCompileTimeConstantTilingType;
+	}
+	
+	public ParserRule getCompileTimeConstantTilingTypeRule() {
+		return getCompileTimeConstantTilingTypeAccess().getRule();
+	}
+	
+	///*
+	// * TileBandExpression has lots of copy & paste to fake context sensitive parsing.
+	// * The tiling type is specified at the TileBandExpression (default = fixed size)
+	// * and the later TileLoopSpecifications are forced to only accept the 
+	// * corresponding TileSizeSpecifications.
+	// * 
+	// */ TileBandExpression:
+	//	FixedSizeTileBandExpression | ParametricTileBandExpression | CompileTimeConstantTileBandExpression;
 	public TileBandExpressionElements getTileBandExpressionAccess() {
 		return pTileBandExpression;
 	}
@@ -1938,43 +2236,94 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 		return getTileBandExpressionAccess().getRule();
 	}
 	
-	//TilingSpecification:
-	//	TileLoopSpecification | PointLoopSpecification;
-	public TilingSpecificationElements getTilingSpecificationAccess() {
-		return pTilingSpecification;
+	//FixedSizeTileBandExpression TileBandExpression:
+	//	'tile-band' ('(' tilingType=FixedSizeTilingType ')')? ('[' scheduleDimensionNames+=ID (','
+	//	scheduleDimensionNames+=ID)* ']')? '{'
+	//	bandPieces+=BandPiece+
+	//	tilingSpecification=FixedSizeTilingTileLoopSpecification
+	//	'}';
+	public FixedSizeTileBandExpressionElements getFixedSizeTileBandExpressionAccess() {
+		return pFixedSizeTileBandExpression;
 	}
 	
-	public ParserRule getTilingSpecificationRule() {
-		return getTilingSpecificationAccess().getRule();
+	public ParserRule getFixedSizeTileBandExpressionRule() {
+		return getFixedSizeTileBandExpressionAccess().getRule();
 	}
 	
-	//TileLoopSpecification:
-	//	FixedTilingTileLoopSpecification | ParametricTilingTileLoopSpecification |
-	//	CompileTimeConstantTilingTileLoopSpecification;
-	public TileLoopSpecificationElements getTileLoopSpecificationAccess() {
-		return pTileLoopSpecification;
+	//ParametricTileBandExpression TileBandExpression:
+	//	'tile-band' '(' tilingType=ParametricTilingType ')' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)*
+	//	']')? '{'
+	//	bandPieces+=BandPiece+
+	//	tilingSpecification=ParametricTilingTileLoopSpecification
+	//	'}';
+	public ParametricTileBandExpressionElements getParametricTileBandExpressionAccess() {
+		return pParametricTileBandExpression;
 	}
 	
-	public ParserRule getTileLoopSpecificationRule() {
-		return getTileLoopSpecificationAccess().getRule();
+	public ParserRule getParametricTileBandExpressionRule() {
+		return getParametricTileBandExpressionAccess().getRule();
 	}
 	
-	//FixedTilingTileLoopSpecification TileLoopSpecification:
-	//	'fixed' parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
+	//CompileTimeConstantTileBandExpression TileBandExpression:
+	//	'tile-band' '(' tilingType=CompileTimeConstantTilingType ')' ('[' scheduleDimensionNames+=ID (','
+	//	scheduleDimensionNames+=ID)* ']')? '{'
+	//	bandPieces+=BandPiece+
+	//	tilingSpecification=CompileTimeConstantTilingTileLoopSpecification
+	//	'}';
+	public CompileTimeConstantTileBandExpressionElements getCompileTimeConstantTileBandExpressionAccess() {
+		return pCompileTimeConstantTileBandExpression;
+	}
+	
+	public ParserRule getCompileTimeConstantTileBandExpressionRule() {
+		return getCompileTimeConstantTileBandExpressionAccess().getRule();
+	}
+	
+	//FixedSizeTilingSpecification TilingSpecification:
+	//	FixedSizeTilingTileLoopSpecification | PointLoopSpecification;
+	public FixedSizeTilingSpecificationElements getFixedSizeTilingSpecificationAccess() {
+		return pFixedSizeTilingSpecification;
+	}
+	
+	public ParserRule getFixedSizeTilingSpecificationRule() {
+		return getFixedSizeTilingSpecificationAccess().getRule();
+	}
+	
+	//ParametricTilingSpecification TilingSpecification:
+	//	ParametricTilingTileLoopSpecification | PointLoopSpecification;
+	public ParametricTilingSpecificationElements getParametricTilingSpecificationAccess() {
+		return pParametricTilingSpecification;
+	}
+	
+	public ParserRule getParametricTilingSpecificationRule() {
+		return getParametricTilingSpecificationAccess().getRule();
+	}
+	
+	//CompileTimeConstantTilingSpecification TilingSpecification:
+	//	CompileTimeConstantTilingTileLoopSpecification | PointLoopSpecification;
+	public CompileTimeConstantTilingSpecificationElements getCompileTimeConstantTilingSpecificationAccess() {
+		return pCompileTimeConstantTilingSpecification;
+	}
+	
+	public ParserRule getCompileTimeConstantTilingSpecificationRule() {
+		return getCompileTimeConstantTilingSpecificationAccess().getRule();
+	}
+	
+	//FixedSizeTilingTileLoopSpecification TileLoopSpecification:
+	//	parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
 	//	'(' tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
-	//	tilingSpecification=TilingSpecification;
-	public FixedTilingTileLoopSpecificationElements getFixedTilingTileLoopSpecificationAccess() {
-		return pFixedTilingTileLoopSpecification;
+	//	tilingSpecification=FixedSizeTilingSpecification;
+	public FixedSizeTilingTileLoopSpecificationElements getFixedSizeTilingTileLoopSpecificationAccess() {
+		return pFixedSizeTilingTileLoopSpecification;
 	}
 	
-	public ParserRule getFixedTilingTileLoopSpecificationRule() {
-		return getFixedTilingTileLoopSpecificationAccess().getRule();
+	public ParserRule getFixedSizeTilingTileLoopSpecificationRule() {
+		return getFixedSizeTilingTileLoopSpecificationAccess().getRule();
 	}
 	
 	//ParametricTilingTileLoopSpecification TileLoopSpecification:
-	//	'parametric' parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
+	//	parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
 	//	'(' tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
-	//	tilingSpecification=TilingSpecification;
+	//	tilingSpecification=ParametricTilingSpecification;
 	public ParametricTilingTileLoopSpecificationElements getParametricTilingTileLoopSpecificationAccess() {
 		return pParametricTilingTileLoopSpecification;
 	}
@@ -1984,10 +2333,9 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	}
 	
 	//CompileTimeConstantTilingTileLoopSpecification TileLoopSpecification:
-	//	'compile-time-constant' parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation |
-	//	JNIIdentityFunction)?
+	//	parallel?='parallel'? loopScheduleExpr=(JNIFunction | JNIFunctionInArrayNotation | JNIIdentityFunction)?
 	//	'(' tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
-	//	tilingSpecification=TilingSpecification;
+	//	tilingSpecification=CompileTimeConstantTilingSpecification;
 	public CompileTimeConstantTilingTileLoopSpecificationElements getCompileTimeConstantTilingTileLoopSpecificationAccess() {
 		return pCompileTimeConstantTilingTileLoopSpecification;
 	}
@@ -2027,16 +2375,6 @@ public class TargetMappingGrammarAccess extends AbstractElementFinder.AbstractGr
 	
 	public ParserRule getExtensionTargetRule() {
 		return getExtensionTargetAccess().getRule();
-	}
-	
-	//TileSizeSpecification:
-	//	FixedTileSize | ParametricTileSize | CompileTimeConstantTileSize;
-	public TileSizeSpecificationElements getTileSizeSpecificationAccess() {
-		return pTileSizeSpecification;
-	}
-	
-	public ParserRule getTileSizeSpecificationRule() {
-		return getTileSizeSpecificationAccess().getRule();
 	}
 	
 	//FixedTileSize:

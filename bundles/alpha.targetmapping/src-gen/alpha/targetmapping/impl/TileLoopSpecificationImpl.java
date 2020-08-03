@@ -2,7 +2,6 @@
  */
 package alpha.targetmapping.impl;
 
-import alpha.targetmapping.TILING_TYPE;
 import alpha.targetmapping.TargetmappingPackage;
 import alpha.targetmapping.TileLoopSpecification;
 import alpha.targetmapping.TileSizeSpecification;
@@ -32,7 +31,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.impl.TileLoopSpecificationImpl#isParallel <em>Parallel</em>}</li>
- *   <li>{@link alpha.targetmapping.impl.TileLoopSpecificationImpl#getTilingType <em>Tiling Type</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.TileLoopSpecificationImpl#getTileSizeSpecifications <em>Tile Size Specifications</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.TileLoopSpecificationImpl#getTilingSpecification <em>Tiling Specification</em>}</li>
  * </ul>
@@ -59,26 +57,6 @@ public class TileLoopSpecificationImpl extends TilingSpecificationImpl implement
 	 * @ordered
 	 */
 	protected boolean parallel = PARALLEL_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getTilingType() <em>Tiling Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTilingType()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final TILING_TYPE TILING_TYPE_EDEFAULT = TILING_TYPE.FIXED;
-
-	/**
-	 * The cached value of the '{@link #getTilingType() <em>Tiling Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTilingType()
-	 * @generated
-	 * @ordered
-	 */
-	protected TILING_TYPE tilingType = TILING_TYPE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getTileSizeSpecifications() <em>Tile Size Specifications</em>}' containment reference list.
@@ -138,27 +116,6 @@ public class TileLoopSpecificationImpl extends TilingSpecificationImpl implement
 		parallel = newParallel;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.TILE_LOOP_SPECIFICATION__PARALLEL, oldParallel, parallel));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TILING_TYPE getTilingType() {
-		return tilingType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTilingType(TILING_TYPE newTilingType) {
-		TILING_TYPE oldTilingType = tilingType;
-		tilingType = newTilingType == null ? TILING_TYPE_EDEFAULT : newTilingType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILING_TYPE, oldTilingType, tilingType));
 	}
 
 	/**
@@ -242,8 +199,6 @@ public class TileLoopSpecificationImpl extends TilingSpecificationImpl implement
 		switch (featureID) {
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__PARALLEL:
 				return isParallel();
-			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILING_TYPE:
-				return getTilingType();
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILE_SIZE_SPECIFICATIONS:
 				return getTileSizeSpecifications();
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILING_SPECIFICATION:
@@ -263,9 +218,6 @@ public class TileLoopSpecificationImpl extends TilingSpecificationImpl implement
 		switch (featureID) {
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__PARALLEL:
 				setParallel((Boolean)newValue);
-				return;
-			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILING_TYPE:
-				setTilingType((TILING_TYPE)newValue);
 				return;
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILE_SIZE_SPECIFICATIONS:
 				getTileSizeSpecifications().clear();
@@ -289,9 +241,6 @@ public class TileLoopSpecificationImpl extends TilingSpecificationImpl implement
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__PARALLEL:
 				setParallel(PARALLEL_EDEFAULT);
 				return;
-			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILING_TYPE:
-				setTilingType(TILING_TYPE_EDEFAULT);
-				return;
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILE_SIZE_SPECIFICATIONS:
 				getTileSizeSpecifications().clear();
 				return;
@@ -312,8 +261,6 @@ public class TileLoopSpecificationImpl extends TilingSpecificationImpl implement
 		switch (featureID) {
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__PARALLEL:
 				return parallel != PARALLEL_EDEFAULT;
-			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILING_TYPE:
-				return tilingType != TILING_TYPE_EDEFAULT;
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILE_SIZE_SPECIFICATIONS:
 				return tileSizeSpecifications != null && !tileSizeSpecifications.isEmpty();
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION__TILING_SPECIFICATION:
@@ -334,8 +281,6 @@ public class TileLoopSpecificationImpl extends TilingSpecificationImpl implement
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (parallel: ");
 		result.append(parallel);
-		result.append(", tilingType: ");
-		result.append(tilingType);
 		result.append(')');
 		return result.toString();
 	}

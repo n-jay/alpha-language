@@ -16,6 +16,7 @@ import alpha.targetmapping.ScheduleTargetRestrictDomain;
 import alpha.targetmapping.ScheduleTreeExpression;
 import alpha.targetmapping.SequenceExpression;
 import alpha.targetmapping.SetExpression;
+import alpha.targetmapping.TILING_TYPE;
 import alpha.targetmapping.TargetMapping;
 import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingNode;
@@ -25,6 +26,7 @@ import alpha.targetmapping.TileSizeSpecification;
 import alpha.targetmapping.TilingSpecification;
 import alpha.targetmapping.util.TargetMappingUtil;
 import alpha.targetmapping.util.TargetmappingSwitch;
+import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.ISLMap;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -371,6 +373,8 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
   public CharSequence caseTileBandExpression(final TileBandExpression object) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("tile-band");
+    CharSequence _printTilingType = this.printTilingType(object);
+    _builder.append(_printTilingType);
     CharSequence _printDimNames = this.printDimNames(object);
     _builder.append(_printDimNames);
     _builder.append(" {");
@@ -390,13 +394,29 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     return _builder;
   }
   
+  private CharSequence printTilingType(final TileBandExpression tbe) {
+    CharSequence _xifexpression = null;
+    TILING_TYPE _tilingType = tbe.getTilingType();
+    boolean _equals = Objects.equal(_tilingType, TILING_TYPE.FIXED_SIZE);
+    if (_equals) {
+      _xifexpression = "";
+    } else {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append(" ");
+      _builder.append("(");
+      String _literal = tbe.getTilingType().getLiteral();
+      _builder.append(_literal, " ");
+      _builder.append(")");
+      _xifexpression = _builder;
+    }
+    return _xifexpression;
+  }
+  
   /**
    * override
    */
   public CharSequence caseTileLoopSpecification(final TileLoopSpecification object) {
     StringConcatenation _builder = new StringConcatenation();
-    String _literal = object.getTilingType().getLiteral();
-    _builder.append(_literal);
     {
       boolean _isParallel = object.isParallel();
       if (_isParallel) {

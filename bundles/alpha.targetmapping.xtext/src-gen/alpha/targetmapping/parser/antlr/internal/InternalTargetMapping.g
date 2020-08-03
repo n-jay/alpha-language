@@ -1463,6 +1463,72 @@ ruleAlphaLoopType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
 	}
 ;
 
+// Entry rule entryRuleFixedSizeTilingType
+entryRuleFixedSizeTilingType returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getFixedSizeTilingTypeRule()); }
+	iv_ruleFixedSizeTilingType=ruleFixedSizeTilingType
+	{ $current=$iv_ruleFixedSizeTilingType.current.getText(); }
+	EOF;
+
+// Rule FixedSizeTilingType
+ruleFixedSizeTilingType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	kw='fixed-size'
+	{
+		$current.merge(kw);
+		newLeafNode(kw, grammarAccess.getFixedSizeTilingTypeAccess().getFixedSizeKeyword());
+	}
+;
+
+// Entry rule entryRuleParametricTilingType
+entryRuleParametricTilingType returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getParametricTilingTypeRule()); }
+	iv_ruleParametricTilingType=ruleParametricTilingType
+	{ $current=$iv_ruleParametricTilingType.current.getText(); }
+	EOF;
+
+// Rule ParametricTilingType
+ruleParametricTilingType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	kw='parametric'
+	{
+		$current.merge(kw);
+		newLeafNode(kw, grammarAccess.getParametricTilingTypeAccess().getParametricKeyword());
+	}
+;
+
+// Entry rule entryRuleCompileTimeConstantTilingType
+entryRuleCompileTimeConstantTilingType returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getCompileTimeConstantTilingTypeRule()); }
+	iv_ruleCompileTimeConstantTilingType=ruleCompileTimeConstantTilingType
+	{ $current=$iv_ruleCompileTimeConstantTilingType.current.getText(); }
+	EOF;
+
+// Rule CompileTimeConstantTilingType
+ruleCompileTimeConstantTilingType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	kw='compile-time-constant'
+	{
+		$current.merge(kw);
+		newLeafNode(kw, grammarAccess.getCompileTimeConstantTilingTypeAccess().getCompileTimeConstantKeyword());
+	}
+;
+
 // Entry rule entryRuleTileBandExpression
 entryRuleTileBandExpression returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getTileBandExpressionRule()); }
@@ -1479,80 +1545,154 @@ ruleTileBandExpression returns [EObject current=null]
 	leaveRule();
 }:
 	(
+		{
+			newCompositeNode(grammarAccess.getTileBandExpressionAccess().getFixedSizeTileBandExpressionParserRuleCall_0());
+		}
+		this_FixedSizeTileBandExpression_0=ruleFixedSizeTileBandExpression
+		{
+			$current = $this_FixedSizeTileBandExpression_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getTileBandExpressionAccess().getParametricTileBandExpressionParserRuleCall_1());
+		}
+		this_ParametricTileBandExpression_1=ruleParametricTileBandExpression
+		{
+			$current = $this_ParametricTileBandExpression_1.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getTileBandExpressionAccess().getCompileTimeConstantTileBandExpressionParserRuleCall_2());
+		}
+		this_CompileTimeConstantTileBandExpression_2=ruleCompileTimeConstantTileBandExpression
+		{
+			$current = $this_CompileTimeConstantTileBandExpression_2.current;
+			afterParserOrEnumRuleCall();
+		}
+	)
+;
+
+// Entry rule entryRuleFixedSizeTileBandExpression
+entryRuleFixedSizeTileBandExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getFixedSizeTileBandExpressionRule()); }
+	iv_ruleFixedSizeTileBandExpression=ruleFixedSizeTileBandExpression
+	{ $current=$iv_ruleFixedSizeTileBandExpression.current; }
+	EOF;
+
+// Rule FixedSizeTileBandExpression
+ruleFixedSizeTileBandExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
 		otherlv_0='tile-band'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getTileBandExpressionAccess().getTileBandKeyword_0());
+			newLeafNode(otherlv_0, grammarAccess.getFixedSizeTileBandExpressionAccess().getTileBandKeyword_0());
 		}
 		(
-			otherlv_1='['
+			otherlv_1='('
 			{
-				newLeafNode(otherlv_1, grammarAccess.getTileBandExpressionAccess().getLeftSquareBracketKeyword_1_0());
+				newLeafNode(otherlv_1, grammarAccess.getFixedSizeTileBandExpressionAccess().getLeftParenthesisKeyword_1_0());
 			}
 			(
 				(
-					lv_scheduleDimensionNames_2_0=RULE_ID
 					{
-						newLeafNode(lv_scheduleDimensionNames_2_0, grammarAccess.getTileBandExpressionAccess().getScheduleDimensionNamesIDTerminalRuleCall_1_1_0());
+						newCompositeNode(grammarAccess.getFixedSizeTileBandExpressionAccess().getTilingTypeFixedSizeTilingTypeParserRuleCall_1_1_0());
+					}
+					lv_tilingType_2_0=ruleFixedSizeTilingType
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFixedSizeTileBandExpressionRule());
+						}
+						set(
+							$current,
+							"tilingType",
+							lv_tilingType_2_0,
+							"alpha.targetmapping.TargetMapping.FixedSizeTilingType");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_3=')'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getFixedSizeTileBandExpressionAccess().getRightParenthesisKeyword_1_2());
+			}
+		)?
+		(
+			otherlv_4='['
+			{
+				newLeafNode(otherlv_4, grammarAccess.getFixedSizeTileBandExpressionAccess().getLeftSquareBracketKeyword_2_0());
+			}
+			(
+				(
+					lv_scheduleDimensionNames_5_0=RULE_ID
+					{
+						newLeafNode(lv_scheduleDimensionNames_5_0, grammarAccess.getFixedSizeTileBandExpressionAccess().getScheduleDimensionNamesIDTerminalRuleCall_2_1_0());
 					}
 					{
 						if ($current==null) {
-							$current = createModelElement(grammarAccess.getTileBandExpressionRule());
+							$current = createModelElement(grammarAccess.getFixedSizeTileBandExpressionRule());
 						}
 						addWithLastConsumed(
 							$current,
 							"scheduleDimensionNames",
-							lv_scheduleDimensionNames_2_0,
+							lv_scheduleDimensionNames_5_0,
 							"alpha.model.Alpha.ID");
 					}
 				)
 			)
 			(
-				otherlv_3=','
+				otherlv_6=','
 				{
-					newLeafNode(otherlv_3, grammarAccess.getTileBandExpressionAccess().getCommaKeyword_1_2_0());
+					newLeafNode(otherlv_6, grammarAccess.getFixedSizeTileBandExpressionAccess().getCommaKeyword_2_2_0());
 				}
 				(
 					(
-						lv_scheduleDimensionNames_4_0=RULE_ID
+						lv_scheduleDimensionNames_7_0=RULE_ID
 						{
-							newLeafNode(lv_scheduleDimensionNames_4_0, grammarAccess.getTileBandExpressionAccess().getScheduleDimensionNamesIDTerminalRuleCall_1_2_1_0());
+							newLeafNode(lv_scheduleDimensionNames_7_0, grammarAccess.getFixedSizeTileBandExpressionAccess().getScheduleDimensionNamesIDTerminalRuleCall_2_2_1_0());
 						}
 						{
 							if ($current==null) {
-								$current = createModelElement(grammarAccess.getTileBandExpressionRule());
+								$current = createModelElement(grammarAccess.getFixedSizeTileBandExpressionRule());
 							}
 							addWithLastConsumed(
 								$current,
 								"scheduleDimensionNames",
-								lv_scheduleDimensionNames_4_0,
+								lv_scheduleDimensionNames_7_0,
 								"alpha.model.Alpha.ID");
 						}
 					)
 				)
 			)*
-			otherlv_5=']'
+			otherlv_8=']'
 			{
-				newLeafNode(otherlv_5, grammarAccess.getTileBandExpressionAccess().getRightSquareBracketKeyword_1_3());
+				newLeafNode(otherlv_8, grammarAccess.getFixedSizeTileBandExpressionAccess().getRightSquareBracketKeyword_2_3());
 			}
 		)?
-		otherlv_6='{'
+		otherlv_9='{'
 		{
-			newLeafNode(otherlv_6, grammarAccess.getTileBandExpressionAccess().getLeftCurlyBracketKeyword_2());
+			newLeafNode(otherlv_9, grammarAccess.getFixedSizeTileBandExpressionAccess().getLeftCurlyBracketKeyword_3());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getTileBandExpressionAccess().getBandPiecesBandPieceParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getFixedSizeTileBandExpressionAccess().getBandPiecesBandPieceParserRuleCall_4_0());
 				}
-				lv_bandPieces_7_0=ruleBandPiece
+				lv_bandPieces_10_0=ruleBandPiece
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getTileBandExpressionRule());
+						$current = createModelElementForParent(grammarAccess.getFixedSizeTileBandExpressionRule());
 					}
 					add(
 						$current,
 						"bandPieces",
-						lv_bandPieces_7_0,
+						lv_bandPieces_10_0,
 						"alpha.targetmapping.TargetMapping.BandPiece");
 					afterParserOrEnumRuleCall();
 				}
@@ -1561,38 +1701,334 @@ ruleTileBandExpression returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getTileBandExpressionAccess().getTilingSpecificationTileLoopSpecificationParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getFixedSizeTileBandExpressionAccess().getTilingSpecificationFixedSizeTilingTileLoopSpecificationParserRuleCall_5_0());
 				}
-				lv_tilingSpecification_8_0=ruleTileLoopSpecification
+				lv_tilingSpecification_11_0=ruleFixedSizeTilingTileLoopSpecification
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getTileBandExpressionRule());
+						$current = createModelElementForParent(grammarAccess.getFixedSizeTileBandExpressionRule());
 					}
 					set(
 						$current,
 						"tilingSpecification",
-						lv_tilingSpecification_8_0,
-						"alpha.targetmapping.TargetMapping.TileLoopSpecification");
+						lv_tilingSpecification_11_0,
+						"alpha.targetmapping.TargetMapping.FixedSizeTilingTileLoopSpecification");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_9='}'
+		otherlv_12='}'
 		{
-			newLeafNode(otherlv_9, grammarAccess.getTileBandExpressionAccess().getRightCurlyBracketKeyword_5());
+			newLeafNode(otherlv_12, grammarAccess.getFixedSizeTileBandExpressionAccess().getRightCurlyBracketKeyword_6());
 		}
 	)
 ;
 
-// Entry rule entryRuleTilingSpecification
-entryRuleTilingSpecification returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getTilingSpecificationRule()); }
-	iv_ruleTilingSpecification=ruleTilingSpecification
-	{ $current=$iv_ruleTilingSpecification.current; }
+// Entry rule entryRuleParametricTileBandExpression
+entryRuleParametricTileBandExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getParametricTileBandExpressionRule()); }
+	iv_ruleParametricTileBandExpression=ruleParametricTileBandExpression
+	{ $current=$iv_ruleParametricTileBandExpression.current; }
 	EOF;
 
-// Rule TilingSpecification
-ruleTilingSpecification returns [EObject current=null]
+// Rule ParametricTileBandExpression
+ruleParametricTileBandExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='tile-band'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getParametricTileBandExpressionAccess().getTileBandKeyword_0());
+		}
+		otherlv_1='('
+		{
+			newLeafNode(otherlv_1, grammarAccess.getParametricTileBandExpressionAccess().getLeftParenthesisKeyword_1());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getParametricTileBandExpressionAccess().getTilingTypeParametricTilingTypeParserRuleCall_2_0());
+				}
+				lv_tilingType_2_0=ruleParametricTilingType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getParametricTileBandExpressionRule());
+					}
+					set(
+						$current,
+						"tilingType",
+						lv_tilingType_2_0,
+						"alpha.targetmapping.TargetMapping.ParametricTilingType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_3=')'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getParametricTileBandExpressionAccess().getRightParenthesisKeyword_3());
+		}
+		(
+			otherlv_4='['
+			{
+				newLeafNode(otherlv_4, grammarAccess.getParametricTileBandExpressionAccess().getLeftSquareBracketKeyword_4_0());
+			}
+			(
+				(
+					lv_scheduleDimensionNames_5_0=RULE_ID
+					{
+						newLeafNode(lv_scheduleDimensionNames_5_0, grammarAccess.getParametricTileBandExpressionAccess().getScheduleDimensionNamesIDTerminalRuleCall_4_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getParametricTileBandExpressionRule());
+						}
+						addWithLastConsumed(
+							$current,
+							"scheduleDimensionNames",
+							lv_scheduleDimensionNames_5_0,
+							"alpha.model.Alpha.ID");
+					}
+				)
+			)
+			(
+				otherlv_6=','
+				{
+					newLeafNode(otherlv_6, grammarAccess.getParametricTileBandExpressionAccess().getCommaKeyword_4_2_0());
+				}
+				(
+					(
+						lv_scheduleDimensionNames_7_0=RULE_ID
+						{
+							newLeafNode(lv_scheduleDimensionNames_7_0, grammarAccess.getParametricTileBandExpressionAccess().getScheduleDimensionNamesIDTerminalRuleCall_4_2_1_0());
+						}
+						{
+							if ($current==null) {
+								$current = createModelElement(grammarAccess.getParametricTileBandExpressionRule());
+							}
+							addWithLastConsumed(
+								$current,
+								"scheduleDimensionNames",
+								lv_scheduleDimensionNames_7_0,
+								"alpha.model.Alpha.ID");
+						}
+					)
+				)
+			)*
+			otherlv_8=']'
+			{
+				newLeafNode(otherlv_8, grammarAccess.getParametricTileBandExpressionAccess().getRightSquareBracketKeyword_4_3());
+			}
+		)?
+		otherlv_9='{'
+		{
+			newLeafNode(otherlv_9, grammarAccess.getParametricTileBandExpressionAccess().getLeftCurlyBracketKeyword_5());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getParametricTileBandExpressionAccess().getBandPiecesBandPieceParserRuleCall_6_0());
+				}
+				lv_bandPieces_10_0=ruleBandPiece
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getParametricTileBandExpressionRule());
+					}
+					add(
+						$current,
+						"bandPieces",
+						lv_bandPieces_10_0,
+						"alpha.targetmapping.TargetMapping.BandPiece");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)+
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getParametricTileBandExpressionAccess().getTilingSpecificationParametricTilingTileLoopSpecificationParserRuleCall_7_0());
+				}
+				lv_tilingSpecification_11_0=ruleParametricTilingTileLoopSpecification
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getParametricTileBandExpressionRule());
+					}
+					set(
+						$current,
+						"tilingSpecification",
+						lv_tilingSpecification_11_0,
+						"alpha.targetmapping.TargetMapping.ParametricTilingTileLoopSpecification");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_12='}'
+		{
+			newLeafNode(otherlv_12, grammarAccess.getParametricTileBandExpressionAccess().getRightCurlyBracketKeyword_8());
+		}
+	)
+;
+
+// Entry rule entryRuleCompileTimeConstantTileBandExpression
+entryRuleCompileTimeConstantTileBandExpression returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getCompileTimeConstantTileBandExpressionRule()); }
+	iv_ruleCompileTimeConstantTileBandExpression=ruleCompileTimeConstantTileBandExpression
+	{ $current=$iv_ruleCompileTimeConstantTileBandExpression.current; }
+	EOF;
+
+// Rule CompileTimeConstantTileBandExpression
+ruleCompileTimeConstantTileBandExpression returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='tile-band'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getTileBandKeyword_0());
+		}
+		otherlv_1='('
+		{
+			newLeafNode(otherlv_1, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getLeftParenthesisKeyword_1());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getTilingTypeCompileTimeConstantTilingTypeParserRuleCall_2_0());
+				}
+				lv_tilingType_2_0=ruleCompileTimeConstantTilingType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTileBandExpressionRule());
+					}
+					set(
+						$current,
+						"tilingType",
+						lv_tilingType_2_0,
+						"alpha.targetmapping.TargetMapping.CompileTimeConstantTilingType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_3=')'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getRightParenthesisKeyword_3());
+		}
+		(
+			otherlv_4='['
+			{
+				newLeafNode(otherlv_4, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getLeftSquareBracketKeyword_4_0());
+			}
+			(
+				(
+					lv_scheduleDimensionNames_5_0=RULE_ID
+					{
+						newLeafNode(lv_scheduleDimensionNames_5_0, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getScheduleDimensionNamesIDTerminalRuleCall_4_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getCompileTimeConstantTileBandExpressionRule());
+						}
+						addWithLastConsumed(
+							$current,
+							"scheduleDimensionNames",
+							lv_scheduleDimensionNames_5_0,
+							"alpha.model.Alpha.ID");
+					}
+				)
+			)
+			(
+				otherlv_6=','
+				{
+					newLeafNode(otherlv_6, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getCommaKeyword_4_2_0());
+				}
+				(
+					(
+						lv_scheduleDimensionNames_7_0=RULE_ID
+						{
+							newLeafNode(lv_scheduleDimensionNames_7_0, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getScheduleDimensionNamesIDTerminalRuleCall_4_2_1_0());
+						}
+						{
+							if ($current==null) {
+								$current = createModelElement(grammarAccess.getCompileTimeConstantTileBandExpressionRule());
+							}
+							addWithLastConsumed(
+								$current,
+								"scheduleDimensionNames",
+								lv_scheduleDimensionNames_7_0,
+								"alpha.model.Alpha.ID");
+						}
+					)
+				)
+			)*
+			otherlv_8=']'
+			{
+				newLeafNode(otherlv_8, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getRightSquareBracketKeyword_4_3());
+			}
+		)?
+		otherlv_9='{'
+		{
+			newLeafNode(otherlv_9, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getLeftCurlyBracketKeyword_5());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getBandPiecesBandPieceParserRuleCall_6_0());
+				}
+				lv_bandPieces_10_0=ruleBandPiece
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTileBandExpressionRule());
+					}
+					add(
+						$current,
+						"bandPieces",
+						lv_bandPieces_10_0,
+						"alpha.targetmapping.TargetMapping.BandPiece");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)+
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getTilingSpecificationCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_7_0());
+				}
+				lv_tilingSpecification_11_0=ruleCompileTimeConstantTilingTileLoopSpecification
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTileBandExpressionRule());
+					}
+					set(
+						$current,
+						"tilingSpecification",
+						lv_tilingSpecification_11_0,
+						"alpha.targetmapping.TargetMapping.CompileTimeConstantTilingTileLoopSpecification");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_12='}'
+		{
+			newLeafNode(otherlv_12, grammarAccess.getCompileTimeConstantTileBandExpressionAccess().getRightCurlyBracketKeyword_8());
+		}
+	)
+;
+
+// Entry rule entryRuleFixedSizeTilingSpecification
+entryRuleFixedSizeTilingSpecification returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getFixedSizeTilingSpecificationRule()); }
+	iv_ruleFixedSizeTilingSpecification=ruleFixedSizeTilingSpecification
+	{ $current=$iv_ruleFixedSizeTilingSpecification.current; }
+	EOF;
+
+// Rule FixedSizeTilingSpecification
+ruleFixedSizeTilingSpecification returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -1601,16 +2037,16 @@ ruleTilingSpecification returns [EObject current=null]
 }:
 	(
 		{
-			newCompositeNode(grammarAccess.getTilingSpecificationAccess().getTileLoopSpecificationParserRuleCall_0());
+			newCompositeNode(grammarAccess.getFixedSizeTilingSpecificationAccess().getFixedSizeTilingTileLoopSpecificationParserRuleCall_0());
 		}
-		this_TileLoopSpecification_0=ruleTileLoopSpecification
+		this_FixedSizeTilingTileLoopSpecification_0=ruleFixedSizeTilingTileLoopSpecification
 		{
-			$current = $this_TileLoopSpecification_0.current;
+			$current = $this_FixedSizeTilingTileLoopSpecification_0.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getTilingSpecificationAccess().getPointLoopSpecificationParserRuleCall_1());
+			newCompositeNode(grammarAccess.getFixedSizeTilingSpecificationAccess().getPointLoopSpecificationParserRuleCall_1());
 		}
 		this_PointLoopSpecification_1=rulePointLoopSpecification
 		{
@@ -1620,15 +2056,15 @@ ruleTilingSpecification returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleTileLoopSpecification
-entryRuleTileLoopSpecification returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getTileLoopSpecificationRule()); }
-	iv_ruleTileLoopSpecification=ruleTileLoopSpecification
-	{ $current=$iv_ruleTileLoopSpecification.current; }
+// Entry rule entryRuleParametricTilingSpecification
+entryRuleParametricTilingSpecification returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getParametricTilingSpecificationRule()); }
+	iv_ruleParametricTilingSpecification=ruleParametricTilingSpecification
+	{ $current=$iv_ruleParametricTilingSpecification.current; }
 	EOF;
 
-// Rule TileLoopSpecification
-ruleTileLoopSpecification returns [EObject current=null]
+// Rule ParametricTilingSpecification
+ruleParametricTilingSpecification returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -1637,43 +2073,34 @@ ruleTileLoopSpecification returns [EObject current=null]
 }:
 	(
 		{
-			newCompositeNode(grammarAccess.getTileLoopSpecificationAccess().getFixedTilingTileLoopSpecificationParserRuleCall_0());
+			newCompositeNode(grammarAccess.getParametricTilingSpecificationAccess().getParametricTilingTileLoopSpecificationParserRuleCall_0());
 		}
-		this_FixedTilingTileLoopSpecification_0=ruleFixedTilingTileLoopSpecification
+		this_ParametricTilingTileLoopSpecification_0=ruleParametricTilingTileLoopSpecification
 		{
-			$current = $this_FixedTilingTileLoopSpecification_0.current;
+			$current = $this_ParametricTilingTileLoopSpecification_0.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getTileLoopSpecificationAccess().getParametricTilingTileLoopSpecificationParserRuleCall_1());
+			newCompositeNode(grammarAccess.getParametricTilingSpecificationAccess().getPointLoopSpecificationParserRuleCall_1());
 		}
-		this_ParametricTilingTileLoopSpecification_1=ruleParametricTilingTileLoopSpecification
+		this_PointLoopSpecification_1=rulePointLoopSpecification
 		{
-			$current = $this_ParametricTilingTileLoopSpecification_1.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getTileLoopSpecificationAccess().getCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_2());
-		}
-		this_CompileTimeConstantTilingTileLoopSpecification_2=ruleCompileTimeConstantTilingTileLoopSpecification
-		{
-			$current = $this_CompileTimeConstantTilingTileLoopSpecification_2.current;
+			$current = $this_PointLoopSpecification_1.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
 ;
 
-// Entry rule entryRuleFixedTilingTileLoopSpecification
-entryRuleFixedTilingTileLoopSpecification returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationRule()); }
-	iv_ruleFixedTilingTileLoopSpecification=ruleFixedTilingTileLoopSpecification
-	{ $current=$iv_ruleFixedTilingTileLoopSpecification.current; }
+// Entry rule entryRuleCompileTimeConstantTilingSpecification
+entryRuleCompileTimeConstantTilingSpecification returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getCompileTimeConstantTilingSpecificationRule()); }
+	iv_ruleCompileTimeConstantTilingSpecification=ruleCompileTimeConstantTilingSpecification
+	{ $current=$iv_ruleCompileTimeConstantTilingSpecification.current; }
 	EOF;
 
-// Rule FixedTilingTileLoopSpecification
-ruleFixedTilingTileLoopSpecification returns [EObject current=null]
+// Rule CompileTimeConstantTilingSpecification
+ruleCompileTimeConstantTilingSpecification returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -1681,21 +2108,53 @@ ruleFixedTilingTileLoopSpecification returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='fixed'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getFixedTilingTileLoopSpecificationAccess().getFixedKeyword_0());
+			newCompositeNode(grammarAccess.getCompileTimeConstantTilingSpecificationAccess().getCompileTimeConstantTilingTileLoopSpecificationParserRuleCall_0());
 		}
+		this_CompileTimeConstantTilingTileLoopSpecification_0=ruleCompileTimeConstantTilingTileLoopSpecification
+		{
+			$current = $this_CompileTimeConstantTilingTileLoopSpecification_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getCompileTimeConstantTilingSpecificationAccess().getPointLoopSpecificationParserRuleCall_1());
+		}
+		this_PointLoopSpecification_1=rulePointLoopSpecification
+		{
+			$current = $this_PointLoopSpecification_1.current;
+			afterParserOrEnumRuleCall();
+		}
+	)
+;
+
+// Entry rule entryRuleFixedSizeTilingTileLoopSpecification
+entryRuleFixedSizeTilingTileLoopSpecification returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getFixedSizeTilingTileLoopSpecificationRule()); }
+	iv_ruleFixedSizeTilingTileLoopSpecification=ruleFixedSizeTilingTileLoopSpecification
+	{ $current=$iv_ruleFixedSizeTilingTileLoopSpecification.current; }
+	EOF;
+
+// Rule FixedSizeTilingTileLoopSpecification
+ruleFixedSizeTilingTileLoopSpecification returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
 		(
 			(
-				lv_parallel_1_0='parallel'
+				lv_parallel_0_0='parallel'
 				{
-					newLeafNode(lv_parallel_1_0, grammarAccess.getFixedTilingTileLoopSpecificationAccess().getParallelParallelKeyword_1_0());
+					newLeafNode(lv_parallel_0_0, grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getParallelParallelKeyword_0_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+						$current = createModelElement(grammarAccess.getFixedSizeTilingTileLoopSpecificationRule());
 					}
-					setWithLastConsumed($current, "parallel", lv_parallel_1_0 != null, "parallel");
+					setWithLastConsumed($current, "parallel", lv_parallel_0_0 != null, "parallel");
 				}
 			)
 		)?
@@ -1703,122 +2162,122 @@ ruleFixedTilingTileLoopSpecification returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0());
+						newCompositeNode(grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_1_0_0());
 					}
-					lv_loopScheduleExpr_2_1=ruleJNIFunction
+					lv_loopScheduleExpr_1_1=ruleJNIFunction
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+							$current = createModelElementForParent(grammarAccess.getFixedSizeTilingTileLoopSpecificationRule());
 						}
 						set(
 							$current,
 							"loopScheduleExpr",
-							lv_loopScheduleExpr_2_1,
+							lv_loopScheduleExpr_1_1,
 							"alpha.model.Alpha.JNIFunction");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1());
+						newCompositeNode(grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1());
 					}
-					lv_loopScheduleExpr_2_2=ruleJNIFunctionInArrayNotation
+					lv_loopScheduleExpr_1_2=ruleJNIFunctionInArrayNotation
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+							$current = createModelElementForParent(grammarAccess.getFixedSizeTilingTileLoopSpecificationRule());
 						}
 						set(
 							$current,
 							"loopScheduleExpr",
-							lv_loopScheduleExpr_2_2,
+							lv_loopScheduleExpr_1_2,
 							"alpha.model.Alpha.JNIFunctionInArrayNotation");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2());
+						newCompositeNode(grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2());
 					}
-					lv_loopScheduleExpr_2_3=ruleJNIIdentityFunction
+					lv_loopScheduleExpr_1_3=ruleJNIIdentityFunction
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+							$current = createModelElementForParent(grammarAccess.getFixedSizeTilingTileLoopSpecificationRule());
 						}
 						set(
 							$current,
 							"loopScheduleExpr",
-							lv_loopScheduleExpr_2_3,
+							lv_loopScheduleExpr_1_3,
 							"alpha.targetmapping.TargetMapping.JNIIdentityFunction");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)?
-		otherlv_3='('
+		otherlv_2='('
 		{
-			newLeafNode(otherlv_3, grammarAccess.getFixedTilingTileLoopSpecificationAccess().getLeftParenthesisKeyword_3());
+			newLeafNode(otherlv_2, grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getLeftParenthesisKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getTileSizeSpecificationsFixedTileSizeParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getTileSizeSpecificationsFixedTileSizeParserRuleCall_3_0());
 				}
-				lv_tileSizeSpecifications_4_0=ruleFixedTileSize
+				lv_tileSizeSpecifications_3_0=ruleFixedTileSize
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+						$current = createModelElementForParent(grammarAccess.getFixedSizeTilingTileLoopSpecificationRule());
 					}
 					add(
 						$current,
 						"tileSizeSpecifications",
-						lv_tileSizeSpecifications_4_0,
+						lv_tileSizeSpecifications_3_0,
 						"alpha.targetmapping.TargetMapping.FixedTileSize");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
 		(
-			otherlv_5=','
+			otherlv_4=','
 			{
-				newLeafNode(otherlv_5, grammarAccess.getFixedTilingTileLoopSpecificationAccess().getCommaKeyword_5_0());
+				newLeafNode(otherlv_4, grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getCommaKeyword_4_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getTileSizeSpecificationsFixedTileSizeParserRuleCall_5_1_0());
+						newCompositeNode(grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getTileSizeSpecificationsFixedTileSizeParserRuleCall_4_1_0());
 					}
-					lv_tileSizeSpecifications_6_0=ruleFixedTileSize
+					lv_tileSizeSpecifications_5_0=ruleFixedTileSize
 					{
 						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+							$current = createModelElementForParent(grammarAccess.getFixedSizeTilingTileLoopSpecificationRule());
 						}
 						add(
 							$current,
 							"tileSizeSpecifications",
-							lv_tileSizeSpecifications_6_0,
+							lv_tileSizeSpecifications_5_0,
 							"alpha.targetmapping.TargetMapping.FixedTileSize");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
-		otherlv_7=')'
+		otherlv_6=')'
 		{
-			newLeafNode(otherlv_7, grammarAccess.getFixedTilingTileLoopSpecificationAccess().getRightParenthesisKeyword_6());
+			newLeafNode(otherlv_6, grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getRightParenthesisKeyword_5());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getFixedTilingTileLoopSpecificationAccess().getTilingSpecificationTilingSpecificationParserRuleCall_7_0());
+					newCompositeNode(grammarAccess.getFixedSizeTilingTileLoopSpecificationAccess().getTilingSpecificationFixedSizeTilingSpecificationParserRuleCall_6_0());
 				}
-				lv_tilingSpecification_8_0=ruleTilingSpecification
+				lv_tilingSpecification_7_0=ruleFixedSizeTilingSpecification
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getFixedTilingTileLoopSpecificationRule());
+						$current = createModelElementForParent(grammarAccess.getFixedSizeTilingTileLoopSpecificationRule());
 					}
 					set(
 						$current,
 						"tilingSpecification",
-						lv_tilingSpecification_8_0,
-						"alpha.targetmapping.TargetMapping.TilingSpecification");
+						lv_tilingSpecification_7_0,
+						"alpha.targetmapping.TargetMapping.FixedSizeTilingSpecification");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1842,21 +2301,17 @@ ruleParametricTilingTileLoopSpecification returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='parametric'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getParametricTilingTileLoopSpecificationAccess().getParametricKeyword_0());
-		}
 		(
 			(
-				lv_parallel_1_0='parallel'
+				lv_parallel_0_0='parallel'
 				{
-					newLeafNode(lv_parallel_1_0, grammarAccess.getParametricTilingTileLoopSpecificationAccess().getParallelParallelKeyword_1_0());
+					newLeafNode(lv_parallel_0_0, grammarAccess.getParametricTilingTileLoopSpecificationAccess().getParallelParallelKeyword_0_0());
 				}
 				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getParametricTilingTileLoopSpecificationRule());
 					}
-					setWithLastConsumed($current, "parallel", lv_parallel_1_0 != null, "parallel");
+					setWithLastConsumed($current, "parallel", lv_parallel_0_0 != null, "parallel");
 				}
 			)
 		)?
@@ -1864,9 +2319,9 @@ ruleParametricTilingTileLoopSpecification returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0());
+						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_1_0_0());
 					}
-					lv_loopScheduleExpr_2_1=ruleJNIFunction
+					lv_loopScheduleExpr_1_1=ruleJNIFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
@@ -1874,15 +2329,15 @@ ruleParametricTilingTileLoopSpecification returns [EObject current=null]
 						set(
 							$current,
 							"loopScheduleExpr",
-							lv_loopScheduleExpr_2_1,
+							lv_loopScheduleExpr_1_1,
 							"alpha.model.Alpha.JNIFunction");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1());
+						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1());
 					}
-					lv_loopScheduleExpr_2_2=ruleJNIFunctionInArrayNotation
+					lv_loopScheduleExpr_1_2=ruleJNIFunctionInArrayNotation
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
@@ -1890,15 +2345,15 @@ ruleParametricTilingTileLoopSpecification returns [EObject current=null]
 						set(
 							$current,
 							"loopScheduleExpr",
-							lv_loopScheduleExpr_2_2,
+							lv_loopScheduleExpr_1_2,
 							"alpha.model.Alpha.JNIFunctionInArrayNotation");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2());
+						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2());
 					}
-					lv_loopScheduleExpr_2_3=ruleJNIIdentityFunction
+					lv_loopScheduleExpr_1_3=ruleJNIIdentityFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
@@ -1906,23 +2361,23 @@ ruleParametricTilingTileLoopSpecification returns [EObject current=null]
 						set(
 							$current,
 							"loopScheduleExpr",
-							lv_loopScheduleExpr_2_3,
+							lv_loopScheduleExpr_1_3,
 							"alpha.targetmapping.TargetMapping.JNIIdentityFunction");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)?
-		otherlv_3='('
+		otherlv_2='('
 		{
-			newLeafNode(otherlv_3, grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLeftParenthesisKeyword_3());
+			newLeafNode(otherlv_2, grammarAccess.getParametricTilingTileLoopSpecificationAccess().getLeftParenthesisKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getTileSizeSpecificationsParametricTileSizeParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getTileSizeSpecificationsParametricTileSizeParserRuleCall_3_0());
 				}
-				lv_tileSizeSpecifications_4_0=ruleParametricTileSize
+				lv_tileSizeSpecifications_3_0=ruleParametricTileSize
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
@@ -1930,23 +2385,23 @@ ruleParametricTilingTileLoopSpecification returns [EObject current=null]
 					add(
 						$current,
 						"tileSizeSpecifications",
-						lv_tileSizeSpecifications_4_0,
+						lv_tileSizeSpecifications_3_0,
 						"alpha.targetmapping.TargetMapping.ParametricTileSize");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
 		(
-			otherlv_5=','
+			otherlv_4=','
 			{
-				newLeafNode(otherlv_5, grammarAccess.getParametricTilingTileLoopSpecificationAccess().getCommaKeyword_5_0());
+				newLeafNode(otherlv_4, grammarAccess.getParametricTilingTileLoopSpecificationAccess().getCommaKeyword_4_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getTileSizeSpecificationsParametricTileSizeParserRuleCall_5_1_0());
+						newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getTileSizeSpecificationsParametricTileSizeParserRuleCall_4_1_0());
 					}
-					lv_tileSizeSpecifications_6_0=ruleParametricTileSize
+					lv_tileSizeSpecifications_5_0=ruleParametricTileSize
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
@@ -1954,23 +2409,23 @@ ruleParametricTilingTileLoopSpecification returns [EObject current=null]
 						add(
 							$current,
 							"tileSizeSpecifications",
-							lv_tileSizeSpecifications_6_0,
+							lv_tileSizeSpecifications_5_0,
 							"alpha.targetmapping.TargetMapping.ParametricTileSize");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
-		otherlv_7=')'
+		otherlv_6=')'
 		{
-			newLeafNode(otherlv_7, grammarAccess.getParametricTilingTileLoopSpecificationAccess().getRightParenthesisKeyword_6());
+			newLeafNode(otherlv_6, grammarAccess.getParametricTilingTileLoopSpecificationAccess().getRightParenthesisKeyword_5());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getTilingSpecificationTilingSpecificationParserRuleCall_7_0());
+					newCompositeNode(grammarAccess.getParametricTilingTileLoopSpecificationAccess().getTilingSpecificationParametricTilingSpecificationParserRuleCall_6_0());
 				}
-				lv_tilingSpecification_8_0=ruleTilingSpecification
+				lv_tilingSpecification_7_0=ruleParametricTilingSpecification
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getParametricTilingTileLoopSpecificationRule());
@@ -1978,8 +2433,8 @@ ruleParametricTilingTileLoopSpecification returns [EObject current=null]
 					set(
 						$current,
 						"tilingSpecification",
-						lv_tilingSpecification_8_0,
-						"alpha.targetmapping.TargetMapping.TilingSpecification");
+						lv_tilingSpecification_7_0,
+						"alpha.targetmapping.TargetMapping.ParametricTilingSpecification");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -2003,21 +2458,17 @@ ruleCompileTimeConstantTilingTileLoopSpecification returns [EObject current=null
 	leaveRule();
 }:
 	(
-		otherlv_0='compile-time-constant'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getCompileTimeConstantKeyword_0());
-		}
 		(
 			(
-				lv_parallel_1_0='parallel'
+				lv_parallel_0_0='parallel'
 				{
-					newLeafNode(lv_parallel_1_0, grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getParallelParallelKeyword_1_0());
+					newLeafNode(lv_parallel_0_0, grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getParallelParallelKeyword_0_0());
 				}
 				{
 					if ($current==null) {
 						$current = createModelElement(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
 					}
-					setWithLastConsumed($current, "parallel", lv_parallel_1_0 != null, "parallel");
+					setWithLastConsumed($current, "parallel", lv_parallel_0_0 != null, "parallel");
 				}
 			)
 		)?
@@ -2025,9 +2476,9 @@ ruleCompileTimeConstantTilingTileLoopSpecification returns [EObject current=null
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_2_0_0());
+						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionParserRuleCall_1_0_0());
 					}
-					lv_loopScheduleExpr_2_1=ruleJNIFunction
+					lv_loopScheduleExpr_1_1=ruleJNIFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
@@ -2035,15 +2486,15 @@ ruleCompileTimeConstantTilingTileLoopSpecification returns [EObject current=null
 						set(
 							$current,
 							"loopScheduleExpr",
-							lv_loopScheduleExpr_2_1,
+							lv_loopScheduleExpr_1_1,
 							"alpha.model.Alpha.JNIFunction");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_2_0_1());
+						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIFunctionInArrayNotationParserRuleCall_1_0_1());
 					}
-					lv_loopScheduleExpr_2_2=ruleJNIFunctionInArrayNotation
+					lv_loopScheduleExpr_1_2=ruleJNIFunctionInArrayNotation
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
@@ -2051,15 +2502,15 @@ ruleCompileTimeConstantTilingTileLoopSpecification returns [EObject current=null
 						set(
 							$current,
 							"loopScheduleExpr",
-							lv_loopScheduleExpr_2_2,
+							lv_loopScheduleExpr_1_2,
 							"alpha.model.Alpha.JNIFunctionInArrayNotation");
 						afterParserOrEnumRuleCall();
 					}
 					    |
 					{
-						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_2_0_2());
+						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLoopScheduleExprJNIIdentityFunctionParserRuleCall_1_0_2());
 					}
-					lv_loopScheduleExpr_2_3=ruleJNIIdentityFunction
+					lv_loopScheduleExpr_1_3=ruleJNIIdentityFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
@@ -2067,23 +2518,23 @@ ruleCompileTimeConstantTilingTileLoopSpecification returns [EObject current=null
 						set(
 							$current,
 							"loopScheduleExpr",
-							lv_loopScheduleExpr_2_3,
+							lv_loopScheduleExpr_1_3,
 							"alpha.targetmapping.TargetMapping.JNIIdentityFunction");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)?
-		otherlv_3='('
+		otherlv_2='('
 		{
-			newLeafNode(otherlv_3, grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLeftParenthesisKeyword_3());
+			newLeafNode(otherlv_2, grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getLeftParenthesisKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_3_0());
 				}
-				lv_tileSizeSpecifications_4_0=ruleCompileTimeConstantTileSize
+				lv_tileSizeSpecifications_3_0=ruleCompileTimeConstantTileSize
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
@@ -2091,23 +2542,23 @@ ruleCompileTimeConstantTilingTileLoopSpecification returns [EObject current=null
 					add(
 						$current,
 						"tileSizeSpecifications",
-						lv_tileSizeSpecifications_4_0,
+						lv_tileSizeSpecifications_3_0,
 						"alpha.targetmapping.TargetMapping.CompileTimeConstantTileSize");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
 		(
-			otherlv_5=','
+			otherlv_4=','
 			{
-				newLeafNode(otherlv_5, grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getCommaKeyword_5_0());
+				newLeafNode(otherlv_4, grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getCommaKeyword_4_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_5_1_0());
+						newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getTileSizeSpecificationsCompileTimeConstantTileSizeParserRuleCall_4_1_0());
 					}
-					lv_tileSizeSpecifications_6_0=ruleCompileTimeConstantTileSize
+					lv_tileSizeSpecifications_5_0=ruleCompileTimeConstantTileSize
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
@@ -2115,23 +2566,23 @@ ruleCompileTimeConstantTilingTileLoopSpecification returns [EObject current=null
 						add(
 							$current,
 							"tileSizeSpecifications",
-							lv_tileSizeSpecifications_6_0,
+							lv_tileSizeSpecifications_5_0,
 							"alpha.targetmapping.TargetMapping.CompileTimeConstantTileSize");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
-		otherlv_7=')'
+		otherlv_6=')'
 		{
-			newLeafNode(otherlv_7, grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getRightParenthesisKeyword_6());
+			newLeafNode(otherlv_6, grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getRightParenthesisKeyword_5());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getTilingSpecificationTilingSpecificationParserRuleCall_7_0());
+					newCompositeNode(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationAccess().getTilingSpecificationCompileTimeConstantTilingSpecificationParserRuleCall_6_0());
 				}
-				lv_tilingSpecification_8_0=ruleTilingSpecification
+				lv_tilingSpecification_7_0=ruleCompileTimeConstantTilingSpecification
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getCompileTimeConstantTilingTileLoopSpecificationRule());
@@ -2139,8 +2590,8 @@ ruleCompileTimeConstantTilingTileLoopSpecification returns [EObject current=null
 					set(
 						$current,
 						"tilingSpecification",
-						lv_tilingSpecification_8_0,
-						"alpha.targetmapping.TargetMapping.TilingSpecification");
+						lv_tilingSpecification_7_0,
+						"alpha.targetmapping.TargetMapping.CompileTimeConstantTilingSpecification");
 					afterParserOrEnumRuleCall();
 				}
 			)

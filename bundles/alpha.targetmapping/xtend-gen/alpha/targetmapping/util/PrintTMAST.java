@@ -175,6 +175,7 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
   @Override
   public void inTileBandExpression(final TileBandExpression tbe) {
     this.defaultIn(tbe);
+    this.printStr("+--", tbe.getTilingType());
     EList<BandPiece> _bandPieces = tbe.getBandPieces();
     for (final BandPiece bp : _bandPieces) {
       boolean _plainIsUniverse = bp.getPieceDomain().getRestrictDomain().plainIsUniverse();
@@ -199,7 +200,6 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
     if (_isParallel) {
       this.printStr("+--", "parallel");
     }
-    this.printStr("+--", tls.getTilingType());
     final Function1<TileSizeSpecification, CharSequence> _function = (TileSizeSpecification tss) -> {
       return tss.unparseString();
     };

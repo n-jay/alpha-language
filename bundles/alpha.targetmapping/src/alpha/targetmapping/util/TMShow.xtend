@@ -24,6 +24,7 @@ import alpha.targetmapping.TileSizeSpecification
 import alpha.targetmapping.TilingSpecification
 import fr.irisa.cairn.jnimap.isl.ISLMap
 import fr.irisa.cairn.jnimap.isl.ISLSet
+import alpha.targetmapping.TILING_TYPE
 
 /**
  * Prints the TargetMapping in Show notation. The show notation
@@ -163,13 +164,20 @@ class TMShow extends TargetmappingSwitch<CharSequence> {
 	
 	/*override*/ def caseTileBandExpression(TileBandExpression object)
 	'''
-		tile-band«object.printDimNames» {
+		tile-band«object.printTilingType»«object.printDimNames» {
 			«object.bandPieces.join('\n', [doSwitch])»
 			«object.tilingSpecification.doSwitch»
 		}'''
 	
+	private def printTilingType(TileBandExpression tbe) {
+		if (tbe.tilingType == TILING_TYPE.FIXED_SIZE)
+			''
+		else
+			''' («tbe.tilingType.literal»)'''
+	}
+	
 	/*override*/ def caseTileLoopSpecification(TileLoopSpecification object) '''
-		«object.tilingType.literal»«IF object.parallel» parallel«ENDIF» «object.printSchedule» («object.tileSizeSpecifications.join(",", [doSwitch])»)
+		«IF object.parallel» parallel«ENDIF» «object.printSchedule» («object.tileSizeSpecifications.join(",", [doSwitch])»)
 		«object.tilingSpecification.doSwitch»
 	'''
 	

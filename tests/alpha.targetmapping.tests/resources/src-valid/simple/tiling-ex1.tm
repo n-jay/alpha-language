@@ -3,6 +3,6 @@ target tm.test.simple2D
 tile-band [a,b] {
 	A : [i,j]
 	B : [i,j]
-	fixed parallel [a+b,b] (32, 8)
+	parallel [a+b,b] (32, 8)
 	point [b,a] unroll(1) parallel (0)
 }

@@ -2,6 +2,7 @@
  */
 package alpha.targetmapping.impl;
 
+import alpha.targetmapping.TILING_TYPE;
 import alpha.targetmapping.TargetMappingVisitor;
 import alpha.targetmapping.TargetmappingPackage;
 import alpha.targetmapping.TileBandExpression;
@@ -23,12 +24,33 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link alpha.targetmapping.impl.TileBandExpressionImpl#getTilingType <em>Tiling Type</em>}</li>
  *   <li>{@link alpha.targetmapping.impl.TileBandExpressionImpl#getTilingSpecification <em>Tiling Specification</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class TileBandExpressionImpl extends AbstractBandExpressionImpl implements TileBandExpression {
+	/**
+	 * The default value of the '{@link #getTilingType() <em>Tiling Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTilingType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final TILING_TYPE TILING_TYPE_EDEFAULT = TILING_TYPE.FIXED_SIZE;
+
+	/**
+	 * The cached value of the '{@link #getTilingType() <em>Tiling Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTilingType()
+	 * @generated
+	 * @ordered
+	 */
+	protected TILING_TYPE tilingType = TILING_TYPE_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getTilingSpecification() <em>Tiling Specification</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -56,6 +78,27 @@ public class TileBandExpressionImpl extends AbstractBandExpressionImpl implement
 	@Override
 	protected EClass eStaticClass() {
 		return TargetmappingPackage.Literals.TILE_BAND_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TILING_TYPE getTilingType() {
+		return tilingType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTilingType(TILING_TYPE newTilingType) {
+		TILING_TYPE oldTilingType = tilingType;
+		tilingType = newTilingType == null ? TILING_TYPE_EDEFAULT : newTilingType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.TILE_BAND_EXPRESSION__TILING_TYPE, oldTilingType, tilingType));
 	}
 
 	/**
@@ -132,6 +175,8 @@ public class TileBandExpressionImpl extends AbstractBandExpressionImpl implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case TargetmappingPackage.TILE_BAND_EXPRESSION__TILING_TYPE:
+				return getTilingType();
 			case TargetmappingPackage.TILE_BAND_EXPRESSION__TILING_SPECIFICATION:
 				return getTilingSpecification();
 		}
@@ -146,6 +191,9 @@ public class TileBandExpressionImpl extends AbstractBandExpressionImpl implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case TargetmappingPackage.TILE_BAND_EXPRESSION__TILING_TYPE:
+				setTilingType((TILING_TYPE)newValue);
+				return;
 			case TargetmappingPackage.TILE_BAND_EXPRESSION__TILING_SPECIFICATION:
 				setTilingSpecification((TilingSpecification)newValue);
 				return;
@@ -161,6 +209,9 @@ public class TileBandExpressionImpl extends AbstractBandExpressionImpl implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case TargetmappingPackage.TILE_BAND_EXPRESSION__TILING_TYPE:
+				setTilingType(TILING_TYPE_EDEFAULT);
+				return;
 			case TargetmappingPackage.TILE_BAND_EXPRESSION__TILING_SPECIFICATION:
 				setTilingSpecification((TilingSpecification)null);
 				return;
@@ -176,10 +227,28 @@ public class TileBandExpressionImpl extends AbstractBandExpressionImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case TargetmappingPackage.TILE_BAND_EXPRESSION__TILING_TYPE:
+				return tilingType != TILING_TYPE_EDEFAULT;
 			case TargetmappingPackage.TILE_BAND_EXPRESSION__TILING_SPECIFICATION:
 				return tilingSpecification != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (tilingType: ");
+		result.append(tilingType);
+		result.append(')');
+		return result.toString();
 	}
 
 } //TileBandExpressionImpl

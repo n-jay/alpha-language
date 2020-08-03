@@ -35,7 +35,7 @@
 'band'=28
 'body'=13
 'case'=83
-'compile-time-constant'=39
+'compile-time-constant'=38
 'complement'=100
 'constant'=45
 'context'=15
@@ -47,7 +47,7 @@
 'else'=58
 'extend'=41
 'external'=46
-'fixed'=37
+'fixed-size'=36
 'floor'=70
 'from'=90
 'fuzzy'=60
@@ -67,7 +67,7 @@
 'over'=54
 'package'=48
 'parallel'=35
-'parametric'=38
+'parametric'=37
 'point'=40
 'poly-hull'=102
 'prod'=93
@@ -82,7 +82,7 @@
 'sum'=94
 'target'=12
 'then'=81
-'tile-band'=36
+'tile-band'=39
 'unroll'=33
 'val'=85
 'when'=57

@@ -14,7 +14,6 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.TileLoopSpecification#isParallel <em>Parallel</em>}</li>
- *   <li>{@link alpha.targetmapping.TileLoopSpecification#getTilingType <em>Tiling Type</em>}</li>
  *   <li>{@link alpha.targetmapping.TileLoopSpecification#getTileSizeSpecifications <em>Tile Size Specifications</em>}</li>
  *   <li>{@link alpha.targetmapping.TileLoopSpecification#getTilingSpecification <em>Tiling Specification</em>}</li>
  * </ul>
@@ -45,31 +44,6 @@ public interface TileLoopSpecification extends TilingSpecification {
 	 * @generated
 	 */
 	void setParallel(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Tiling Type</b></em>' attribute.
-	 * The literals are from the enumeration {@link alpha.targetmapping.TILING_TYPE}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tiling Type</em>' attribute.
-	 * @see alpha.targetmapping.TILING_TYPE
-	 * @see #setTilingType(TILING_TYPE)
-	 * @see alpha.targetmapping.TargetmappingPackage#getTileLoopSpecification_TilingType()
-	 * @model unique="false"
-	 * @generated
-	 */
-	TILING_TYPE getTilingType();
-
-	/**
-	 * Sets the value of the '{@link alpha.targetmapping.TileLoopSpecification#getTilingType <em>Tiling Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Tiling Type</em>' attribute.
-	 * @see alpha.targetmapping.TILING_TYPE
-	 * @see #getTilingType()
-	 * @generated
-	 */
-	void setTilingType(TILING_TYPE value);
 
 	/**
 	 * Returns the value of the '<em><b>Tile Size Specifications</b></em>' containment reference list.

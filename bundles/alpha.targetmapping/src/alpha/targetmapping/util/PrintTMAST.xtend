@@ -123,6 +123,7 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 	
 	override inTileBandExpression(TileBandExpression tbe) {
 		defaultIn(tbe);
+		printStr("+--", tbe.tilingType);
 		for (bp : tbe.bandPieces) {
 			if (bp.pieceDomain.restrictDomain.plainIsUniverse) {
 				printStr("+--", bp.pieceDomain.scheduleTarget.name , "@" , bp.partialSchedule);
@@ -141,7 +142,6 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 			printStr("+--", tls.loopSchedule)
 		if (tls.parallel)
 			printStr("+--", "parallel");
-		printStr("+--", tls.tilingType);
 		printStr("+--", tls.tileSizeSpecifications.join(", ", [tss|tss.unparseString]));
 		
 		visitTilingSpecification(tls.tilingSpecification)

@@ -102,38 +102,74 @@ ISLASTLoopType returns ISLASTLoopType:
 AlphaLoopType returns ALPHA_LOOP_TYPE:
 	'parallel' 
 ;
+FixedSizeTilingType returns TILING_TYPE:
+	'fixed-size'
+;
+ParametricTilingType returns TILING_TYPE:
+	'parametric'
+;
+CompileTimeConstantTilingType returns TILING_TYPE:
+	'compile-time-constant'
+;
 
+/*
+ * TileBandExpression has lots of copy & paste to fake context sensitive parsing.
+ * The tiling type is specified at the TileBandExpression (default = fixed size)
+ * and the later TileLoopSpecifications are forced to only accept the 
+ * corresponding TileSizeSpecifications.
+ * 
+ */
 TileBandExpression:
-	'tile-band' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
+	FixedSizeTileBandExpression |
+	ParametricTileBandExpression |
+	CompileTimeConstantTileBandExpression
+;
+FixedSizeTileBandExpression returns TileBandExpression:
+	'tile-band' ('(' tilingType=FixedSizeTilingType ')')? ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
 		(bandPieces+=BandPiece)+
-		tilingSpecification=TileLoopSpecification
+		tilingSpecification=FixedSizeTilingTileLoopSpecification
+	'}'
+;
+ParametricTileBandExpression returns TileBandExpression:
+	'tile-band' '(' tilingType=ParametricTilingType ')' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
+		(bandPieces+=BandPiece)+
+		tilingSpecification=ParametricTilingTileLoopSpecification
+	'}'
+;
+CompileTimeConstantTileBandExpression returns TileBandExpression:
+	'tile-band' '(' tilingType=CompileTimeConstantTilingType ')' ('[' scheduleDimensionNames+=ID (',' scheduleDimensionNames+=ID)* ']')? '{'
+		(bandPieces+=BandPiece)+
+		tilingSpecification=CompileTimeConstantTilingTileLoopSpecification
 	'}'
 ;
 
-TilingSpecification:
-	TileLoopSpecification | 
+FixedSizeTilingSpecification returns TilingSpecification:
+	FixedSizeTilingTileLoopSpecification | 
+	PointLoopSpecification
+;
+ParametricTilingSpecification returns TilingSpecification:
+	ParametricTilingTileLoopSpecification | 
+	PointLoopSpecification
+;
+CompileTimeConstantTilingSpecification returns TilingSpecification:
+	CompileTimeConstantTilingTileLoopSpecification | 
 	PointLoopSpecification
 ;
 
-TileLoopSpecification:
-	FixedTilingTileLoopSpecification | 
-	ParametricTilingTileLoopSpecification |
-	CompileTimeConstantTilingTileLoopSpecification
-;
-FixedTilingTileLoopSpecification returns TileLoopSpecification:
-	'fixed' parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
-		'(' tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
-		tilingSpecification=TilingSpecification
+FixedSizeTilingTileLoopSpecification returns TileLoopSpecification:
+	parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
+	'(' tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
+	tilingSpecification=FixedSizeTilingSpecification
 ;
 ParametricTilingTileLoopSpecification returns TileLoopSpecification:
-	'parametric' parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
-		'(' tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
-		tilingSpecification=TilingSpecification
+	parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
+	'(' tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
+	tilingSpecification=ParametricTilingSpecification
 ;
 CompileTimeConstantTilingTileLoopSpecification returns TileLoopSpecification:
-	'compile-time-constant' parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
-		'(' tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
-		tilingSpecification=TilingSpecification
+	parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
+	'(' tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
+	tilingSpecification=CompileTimeConstantTilingSpecification
 ;
 
 PointLoopSpecification:
@@ -150,11 +186,6 @@ ExtensionTarget:
 	extensionMapExpr=JNIRelation 'as' name=ID ('[' indexNames+=ID (',' indexNames+=ID)* ']')? 
 ;
 
-TileSizeSpecification: 
-	FixedTileSize | 
-	ParametricTileSize |
-	CompileTimeConstantTileSize
-;
 FixedTileSize:
 	tileSize=INT
 ;

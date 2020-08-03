@@ -793,13 +793,22 @@ public interface TargetmappingPackage extends EPackage {
 	int TILE_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES = ABSTRACT_BAND_EXPRESSION__SCHEDULE_DIMENSION_NAMES;
 
 	/**
+	 * The feature id for the '<em><b>Tiling Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TILE_BAND_EXPRESSION__TILING_TYPE = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Tiling Specification</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_BAND_EXPRESSION__TILING_SPECIFICATION = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 0;
+	int TILE_BAND_EXPRESSION__TILING_SPECIFICATION = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Tile Band Expression</em>' class.
@@ -808,7 +817,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_BAND_EXPRESSION_FEATURE_COUNT = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 1;
+	int TILE_BAND_EXPRESSION_FEATURE_COUNT = ABSTRACT_BAND_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.TilingSpecificationImpl <em>Tiling Specification</em>}' class.
@@ -867,22 +876,13 @@ public interface TargetmappingPackage extends EPackage {
 	int TILE_LOOP_SPECIFICATION__PARALLEL = TILING_SPECIFICATION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Tiling Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TILE_LOOP_SPECIFICATION__TILING_TYPE = TILING_SPECIFICATION_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Tile Size Specifications</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_LOOP_SPECIFICATION__TILE_SIZE_SPECIFICATIONS = TILING_SPECIFICATION_FEATURE_COUNT + 2;
+	int TILE_LOOP_SPECIFICATION__TILE_SIZE_SPECIFICATIONS = TILING_SPECIFICATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Tiling Specification</b></em>' containment reference.
@@ -891,7 +891,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_LOOP_SPECIFICATION__TILING_SPECIFICATION = TILING_SPECIFICATION_FEATURE_COUNT + 3;
+	int TILE_LOOP_SPECIFICATION__TILING_SPECIFICATION = TILING_SPECIFICATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Tile Loop Specification</em>' class.
@@ -900,7 +900,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_LOOP_SPECIFICATION_FEATURE_COUNT = TILING_SPECIFICATION_FEATURE_COUNT + 4;
+	int TILE_LOOP_SPECIFICATION_FEATURE_COUNT = TILING_SPECIFICATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.PointLoopSpecificationImpl <em>Point Loop Specification</em>}' class.
@@ -1831,6 +1831,17 @@ public interface TargetmappingPackage extends EPackage {
 	EClass getTileBandExpression();
 
 	/**
+	 * Returns the meta object for the attribute '{@link alpha.targetmapping.TileBandExpression#getTilingType <em>Tiling Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Tiling Type</em>'.
+	 * @see alpha.targetmapping.TileBandExpression#getTilingType()
+	 * @see #getTileBandExpression()
+	 * @generated
+	 */
+	EAttribute getTileBandExpression_TilingType();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.TileBandExpression#getTilingSpecification <em>Tiling Specification</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1882,17 +1893,6 @@ public interface TargetmappingPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTileLoopSpecification_Parallel();
-
-	/**
-	 * Returns the meta object for the attribute '{@link alpha.targetmapping.TileLoopSpecification#getTilingType <em>Tiling Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Tiling Type</em>'.
-	 * @see alpha.targetmapping.TileLoopSpecification#getTilingType()
-	 * @see #getTileLoopSpecification()
-	 * @generated
-	 */
-	EAttribute getTileLoopSpecification_TilingType();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.TileLoopSpecification#getTileSizeSpecifications <em>Tile Size Specifications</em>}'.
@@ -2697,6 +2697,14 @@ public interface TargetmappingPackage extends EPackage {
 		EClass TILE_BAND_EXPRESSION = eINSTANCE.getTileBandExpression();
 
 		/**
+		 * The meta object literal for the '<em><b>Tiling Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TILE_BAND_EXPRESSION__TILING_TYPE = eINSTANCE.getTileBandExpression_TilingType();
+
+		/**
 		 * The meta object literal for the '<em><b>Tiling Specification</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2739,14 +2747,6 @@ public interface TargetmappingPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TILE_LOOP_SPECIFICATION__PARALLEL = eINSTANCE.getTileLoopSpecification_Parallel();
-
-		/**
-		 * The meta object literal for the '<em><b>Tiling Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TILE_LOOP_SPECIFICATION__TILING_TYPE = eINSTANCE.getTileLoopSpecification_TilingType();
 
 		/**
 		 * The meta object literal for the '<em><b>Tile Size Specifications</b></em>' containment reference list feature.

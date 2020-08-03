@@ -338,6 +338,7 @@ class IsolateSpecification extends TargetMappingNode {
  */
 class TileBandExpression extends AbstractBandExpression {
 
+	TILING_TYPE tilingType
 	contains TilingSpecification tilingSpecification
 	
 	op void accept(TargetMappingVisitor visitor) {
@@ -354,7 +355,6 @@ abstract class TilingSpecification extends TargetMappingNode {
 }
 class TileLoopSpecification extends TilingSpecification {
 	boolean parallel
-	TILING_TYPE tilingType
 
 	contains TileSizeSpecification[] tileSizeSpecifications
 	contains TilingSpecification tilingSpecification
@@ -365,7 +365,7 @@ class PointLoopSpecification extends TilingSpecification {
 }
 
 enum TILING_TYPE {
-	FIXED as "fixed"
+	FIXED_SIZE as "fixed-size"
 	PARAMETRIC as "parametric"
 	COMPILE_TIME_CONSTANT as "compile-time-constant"
 }

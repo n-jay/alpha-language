@@ -19,14 +19,14 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum TILING_TYPE implements Enumerator {
 	/**
-	 * The '<em><b>FIXED</b></em>' literal object.
+	 * The '<em><b>FIXED SIZE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #FIXED_VALUE
+	 * @see #FIXED_SIZE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	FIXED(0, "FIXED", "fixed"),
+	FIXED_SIZE(0, "FIXED_SIZE", "fixed-size"),
 
 	/**
 	 * The '<em><b>PARAMETRIC</b></em>' literal object.
@@ -49,15 +49,15 @@ public enum TILING_TYPE implements Enumerator {
 	COMPILE_TIME_CONSTANT(0, "COMPILE_TIME_CONSTANT", "compile-time-constant");
 
 	/**
-	 * The '<em><b>FIXED</b></em>' literal value.
+	 * The '<em><b>FIXED SIZE</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #FIXED
-	 * @model literal="fixed"
+	 * @see #FIXED_SIZE
+	 * @model literal="fixed-size"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FIXED_VALUE = 0;
+	public static final int FIXED_SIZE_VALUE = 0;
 
 	/**
 	 * The '<em><b>PARAMETRIC</b></em>' literal value.
@@ -89,7 +89,7 @@ public enum TILING_TYPE implements Enumerator {
 	 */
 	private static final TILING_TYPE[] VALUES_ARRAY =
 		new TILING_TYPE[] {
-			FIXED,
+			FIXED_SIZE,
 			PARAMETRIC,
 			COMPILE_TIME_CONSTANT,
 		};
@@ -148,7 +148,7 @@ public enum TILING_TYPE implements Enumerator {
 	 */
 	public static TILING_TYPE get(int value) {
 		switch (value) {
-			case FIXED_VALUE: return FIXED;
+			case FIXED_SIZE_VALUE: return FIXED_SIZE;
 		}
 		return null;
 	}
