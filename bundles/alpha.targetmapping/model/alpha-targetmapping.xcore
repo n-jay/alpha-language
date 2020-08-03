@@ -366,8 +366,8 @@ class PointLoopSpecification extends TilingSpecification {
 
 enum TILING_TYPE {
 	FIXED_SIZE as "fixed-size"
-	PARAMETRIC as "parametric"
-	COMPILE_TIME_CONSTANT as "compile-time-constant"
+	PARAMETRIC as "parametric" = 1
+	COMPILE_TIME_CONSTANT as "compile-time-constant" = 2
 }
 
 abstract class TileSizeSpecification extends TargetMappingNode {
@@ -381,7 +381,7 @@ class FixedTileSize extends TileSizeSpecification {
 class ParametricTileSize extends TileSizeSpecification {
 	String tileSizeName
 	
-	op String uparseString() { tileSizeName }
+	op String unparseString() { tileSizeName }
 }
 class CompileTimeConstantTileSize extends TileSizeSpecification {
 	String tileSizeName

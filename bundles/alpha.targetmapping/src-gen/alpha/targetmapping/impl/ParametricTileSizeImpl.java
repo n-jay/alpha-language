@@ -90,7 +90,7 @@ public class ParametricTileSizeImpl extends TileSizeSpecificationImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String uparseString() {
+	public String unparseString() {
 		return this.getTileSizeName();
 	}
 

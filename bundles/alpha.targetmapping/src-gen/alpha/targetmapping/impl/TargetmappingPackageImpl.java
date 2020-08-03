@@ -1707,7 +1707,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		initEClass(parametricTileSizeEClass, ParametricTileSize.class, "ParametricTileSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getParametricTileSize_TileSizeName(), theEcorePackage.getEString(), "tileSizeName", null, 0, 1, ParametricTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(parametricTileSizeEClass, theEcorePackage.getEString(), "uparseString", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEOperation(parametricTileSizeEClass, theEcorePackage.getEString(), "unparseString", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(compileTimeConstantTileSizeEClass, CompileTimeConstantTileSize.class, "CompileTimeConstantTileSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCompileTimeConstantTileSize_TileSizeName(), theEcorePackage.getEString(), "tileSizeName", null, 0, 1, CompileTimeConstantTileSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -48,6 +48,6 @@ public interface ParametricTileSize extends TileSizeSpecification {
 	 * @model unique="false"
 	 * @generated
 	 */
-	String uparseString();
+	String unparseString();
 
 } // ParametricTileSize

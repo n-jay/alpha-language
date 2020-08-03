@@ -7,6 +7,7 @@ import org.eclipse.xtext.conversion.ValueConverterException;
 import org.eclipse.xtext.nodemodel.INode;
 
 import alpha.targetmapping.ALPHA_LOOP_TYPE;
+import alpha.targetmapping.TILING_TYPE;
 import alpha.targetmapping.util.TargetMappingUtil;
 import fr.irisa.cairn.jnimap.isl.ISLASTLoopType;
 
@@ -59,13 +60,45 @@ public class TargetMappingCustomValueConverter extends Ecore2XtextTerminalConver
 
 			@Override
 			public String toString(ALPHA_LOOP_TYPE value) throws ValueConverterException {
+				return value.getLiteral();
+			}
+		};
+	}
+
+	@ValueConverter(rule = "FixedSizeTilingType")
+	public IValueConverter<TILING_TYPE> FixedSizeTilingType() {
+		return tilingType();
+	}
+	@ValueConverter(rule = "ParametricTilingType")
+	public IValueConverter<TILING_TYPE> ParametricTilingType() {
+		return tilingType();
+	}
+	@ValueConverter(rule = "CompileTimeConstantTilingType")
+	public IValueConverter<TILING_TYPE> CompileTimeConstantTilingType() {
+		return tilingType();
+	}
+	
+	public IValueConverter<TILING_TYPE> tilingType() {
+
+		return new IValueConverter<TILING_TYPE> () {
+			@Override
+			public TILING_TYPE toValue(String string, INode node) throws ValueConverterException {
 				
-				switch (value) {
-					case PARALLEL:
-						return "parallel";
+				switch (string) {
+					case "fixed-size":
+						return TILING_TYPE.FIXED_SIZE;
+					case "parametric":
+						return TILING_TYPE.PARAMETRIC;
+					case "compile-time-constant":
+						return TILING_TYPE.COMPILE_TIME_CONSTANT;
 					default:
 						throw new IllegalArgumentException();
 				}
+			}
+
+			@Override
+			public String toString(TILING_TYPE value) throws ValueConverterException {
+				return value.getLiteral();
 			}
 		};
 	}

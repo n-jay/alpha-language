@@ -36,7 +36,7 @@ public enum TILING_TYPE implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PARAMETRIC(0, "PARAMETRIC", "parametric"),
+	PARAMETRIC(1, "PARAMETRIC", "parametric"),
 
 	/**
 	 * The '<em><b>COMPILE TIME CONSTANT</b></em>' literal object.
@@ -46,7 +46,7 @@ public enum TILING_TYPE implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPILE_TIME_CONSTANT(0, "COMPILE_TIME_CONSTANT", "compile-time-constant");
+	COMPILE_TIME_CONSTANT(2, "COMPILE_TIME_CONSTANT", "compile-time-constant");
 
 	/**
 	 * The '<em><b>FIXED SIZE</b></em>' literal value.
@@ -68,7 +68,7 @@ public enum TILING_TYPE implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int PARAMETRIC_VALUE = 0;
+	public static final int PARAMETRIC_VALUE = 1;
 
 	/**
 	 * The '<em><b>COMPILE TIME CONSTANT</b></em>' literal value.
@@ -79,7 +79,7 @@ public enum TILING_TYPE implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int COMPILE_TIME_CONSTANT_VALUE = 0;
+	public static final int COMPILE_TIME_CONSTANT_VALUE = 2;
 
 	/**
 	 * An array of all the '<em><b>TILING TYPE</b></em>' enumerators.
@@ -149,6 +149,8 @@ public enum TILING_TYPE implements Enumerator {
 	public static TILING_TYPE get(int value) {
 		switch (value) {
 			case FIXED_SIZE_VALUE: return FIXED_SIZE;
+			case PARAMETRIC_VALUE: return PARAMETRIC;
+			case COMPILE_TIME_CONSTANT_VALUE: return COMPILE_TIME_CONSTANT;
 		}
 		return null;
 	}
