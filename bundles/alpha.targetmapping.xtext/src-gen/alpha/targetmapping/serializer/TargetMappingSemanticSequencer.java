@@ -73,6 +73,7 @@ import alpha.targetmapping.ExtensionExpression;
 import alpha.targetmapping.ExtensionTarget;
 import alpha.targetmapping.FilterExpression;
 import alpha.targetmapping.FixedTileSize;
+import alpha.targetmapping.FullTileSpecification;
 import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.ISLLoopTypeSpecification;
 import alpha.targetmapping.IsolateSpecification;
@@ -350,6 +351,9 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 			case TargetmappingPackage.FIXED_TILE_SIZE:
 				sequence_FixedTileSize(context, (FixedTileSize) semanticObject); 
 				return; 
+			case TargetmappingPackage.FULL_TILE_SPECIFICATION:
+				sequence_FullTileSpecification(context, (FullTileSpecification) semanticObject); 
+				return; 
 			case TargetmappingPackage.GUARD_EXPRESSION:
 				sequence_GuardExpression(context, (GuardExpression) semanticObject); 
 				return; 
@@ -565,9 +569,9 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         parallel?='parallel'? 
-	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *         tileSizeSpecifications+=CompileTimeConstantTileSize 
 	 *         tileSizeSpecifications+=CompileTimeConstantTileSize* 
+	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *         tilingSpecification=CompileTimeConstantTilingSpecification
 	 *     )
 	 */
@@ -661,9 +665,9 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         parallel?='parallel'? 
-	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *         tileSizeSpecifications+=FixedTileSize 
 	 *         tileSizeSpecifications+=FixedTileSize* 
+	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *         tilingSpecification=FixedSizeTilingSpecification
 	 *     )
 	 */
@@ -687,6 +691,18 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getFixedTileSizeAccess().getTileSizeINTTerminalRuleCall_0(), semanticObject.getTileSize());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FullTileSpecification returns FullTileSpecification
+	 *
+	 * Constraint:
+	 *     (loopTypeSpecifications+=LoopTypeSpecification loopTypeSpecifications+=LoopTypeSpecification*)?
+	 */
+	protected void sequence_FullTileSpecification(ISerializationContext context, FullTileSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -817,9 +833,9 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         parallel?='parallel'? 
-	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *         tileSizeSpecifications+=ParametricTileSize 
 	 *         tileSizeSpecifications+=ParametricTileSize* 
+	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
 	 *         tilingSpecification=ParametricTilingSpecification
 	 *     )
 	 */
@@ -836,11 +852,7 @@ public class TargetMappingSemanticSequencer extends AlphaSemanticSequencer {
 	 *     PointLoopSpecification returns PointLoopSpecification
 	 *
 	 * Constraint:
-	 *     (
-	 *         (loopScheduleExpr=JNIFunction | loopScheduleExpr=JNIFunctionInArrayNotation | loopScheduleExpr=JNIIdentityFunction)? 
-	 *         loopTypeSpecifications+=LoopTypeSpecification* 
-	 *         isolateSpecification=IsolateSpecification?
-	 *     )
+	 *     (loopTypeSpecifications+=LoopTypeSpecification* fullTileSpecification=FullTileSpecification?)
 	 */
 	protected void sequence_PointLoopSpecification(ISerializationContext context, PointLoopSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

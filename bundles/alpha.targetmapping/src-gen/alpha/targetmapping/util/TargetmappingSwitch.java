@@ -274,6 +274,13 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case TargetmappingPackage.FULL_TILE_SPECIFICATION: {
+				FullTileSpecification fullTileSpecification = (FullTileSpecification)theEObject;
+				T result = caseFullTileSpecification(fullTileSpecification);
+				if (result == null) result = caseTargetMappingNode(fullTileSpecification);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case TargetmappingPackage.TILE_SIZE_SPECIFICATION: {
 				TileSizeSpecification tileSizeSpecification = (TileSizeSpecification)theEObject;
 				T result = caseTileSizeSpecification(tileSizeSpecification);
@@ -710,6 +717,21 @@ public class TargetmappingSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePointLoopSpecification(PointLoopSpecification object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Full Tile Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Full Tile Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFullTileSpecification(FullTileSpecification object) {
 		return null;
 	}
 

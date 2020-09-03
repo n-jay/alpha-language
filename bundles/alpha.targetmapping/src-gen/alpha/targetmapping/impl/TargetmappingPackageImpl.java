@@ -14,6 +14,7 @@ import alpha.targetmapping.ExtensionExpression;
 import alpha.targetmapping.ExtensionTarget;
 import alpha.targetmapping.FilterExpression;
 import alpha.targetmapping.FixedTileSize;
+import alpha.targetmapping.FullTileSpecification;
 import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.ISLLoopTypeSpecification;
 import alpha.targetmapping.IsolateSpecification;
@@ -239,6 +240,13 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * @generated
 	 */
 	private EClass pointLoopSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fullTileSpecificationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -980,8 +988,26 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPointLoopSpecification_IsolateSpecification() {
+	public EReference getPointLoopSpecification_FullTileSpecification() {
 		return (EReference)pointLoopSpecificationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFullTileSpecification() {
+		return fullTileSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFullTileSpecification_LoopTypeSpecifications() {
+		return (EReference)fullTileSpecificationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1323,7 +1349,10 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		pointLoopSpecificationEClass = createEClass(POINT_LOOP_SPECIFICATION);
 		createEReference(pointLoopSpecificationEClass, POINT_LOOP_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS);
-		createEReference(pointLoopSpecificationEClass, POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION);
+		createEReference(pointLoopSpecificationEClass, POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION);
+
+		fullTileSpecificationEClass = createEClass(FULL_TILE_SPECIFICATION);
+		createEReference(fullTileSpecificationEClass, FULL_TILE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS);
 
 		tileSizeSpecificationEClass = createEClass(TILE_SIZE_SPECIFICATION);
 
@@ -1421,6 +1450,7 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 		tilingSpecificationEClass.getESuperTypes().add(this.getTargetMappingNode());
 		tileLoopSpecificationEClass.getESuperTypes().add(this.getTilingSpecification());
 		pointLoopSpecificationEClass.getESuperTypes().add(this.getTilingSpecification());
+		fullTileSpecificationEClass.getESuperTypes().add(this.getTargetMappingNode());
 		tileSizeSpecificationEClass.getESuperTypes().add(this.getTargetMappingNode());
 		fixedTileSizeEClass.getESuperTypes().add(this.getTileSizeSpecification());
 		parametricTileSizeEClass.getESuperTypes().add(this.getTileSizeSpecification());
@@ -1693,7 +1723,10 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 
 		initEClass(pointLoopSpecificationEClass, PointLoopSpecification.class, "PointLoopSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPointLoopSpecification_LoopTypeSpecifications(), this.getLoopTypeSpecification(), null, "loopTypeSpecifications", null, 0, -1, PointLoopSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPointLoopSpecification_IsolateSpecification(), this.getIsolateSpecification(), null, "isolateSpecification", null, 0, 1, PointLoopSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPointLoopSpecification_FullTileSpecification(), this.getFullTileSpecification(), null, "fullTileSpecification", null, 0, 1, PointLoopSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(fullTileSpecificationEClass, FullTileSpecification.class, "FullTileSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFullTileSpecification_LoopTypeSpecifications(), this.getLoopTypeSpecification(), null, "loopTypeSpecifications", null, 0, -1, FullTileSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(tileSizeSpecificationEClass, TileSizeSpecification.class, "TileSizeSpecification", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

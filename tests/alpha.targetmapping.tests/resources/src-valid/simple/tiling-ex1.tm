@@ -1,8 +1,8 @@
 target tm.test.simple2D
 
+//context {:N%32=0}
 tile-band [a,b] {
 	A : [i,j]
-	B : [i,j]
-	parallel [a+b,b] (32, 8)
-	point [b,a] unroll(1) parallel (0)
+	tile parallel (8, 8) [a+b,b]
+	point full-tile
 }

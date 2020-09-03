@@ -361,7 +361,10 @@ class TileLoopSpecification extends TilingSpecification {
 }
 class PointLoopSpecification extends TilingSpecification {
 	contains LoopTypeSpecification[] loopTypeSpecifications
-	contains IsolateSpecification isolateSpecification
+	contains FullTileSpecification fullTileSpecification
+}
+class FullTileSpecification extends TargetMappingNode {
+	contains LoopTypeSpecification[] loopTypeSpecifications
 }
 
 enum TILING_TYPE {

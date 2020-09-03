@@ -25,6 +25,7 @@ import alpha.targetmapping.TilingSpecification
 import fr.irisa.cairn.jnimap.isl.ISLMap
 import fr.irisa.cairn.jnimap.isl.ISLSet
 import alpha.targetmapping.TILING_TYPE
+import alpha.targetmapping.FullTileSpecification
 
 /**
  * Prints the TargetMapping in Show notation. The show notation
@@ -177,7 +178,7 @@ class TMShow extends TargetmappingSwitch<CharSequence> {
 	}
 	
 	/*override*/ def caseTileLoopSpecification(TileLoopSpecification object) '''
-		«IF object.parallel» parallel«ENDIF» «object.printSchedule» («object.tileSizeSpecifications.join(",", [doSwitch])»)
+		tile«IF object.parallel» parallel«ENDIF» («object.tileSizeSpecifications.join(",", [doSwitch])») «object.printSchedule»
 		«object.tilingSpecification.doSwitch»
 	'''
 	
@@ -186,9 +187,12 @@ class TMShow extends TargetmappingSwitch<CharSequence> {
 	}
 	
 	/*override*/ def casePointLoopSpecification(PointLoopSpecification object) '''
-		point «object.printSchedule» «object.loopTypeSpecifications.join(' ', [doSwitch])»
-		«IF object.isolateSpecification !== null»«object.isolateSpecification.doSwitch»«ENDIF»
+		point «object.printSchedule» «object.loopTypeSpecifications.join(' ', [doSwitch])»«
+			IF object.fullTileSpecification !== null»«object.fullTileSpecification.doSwitch»«ENDIF»
 	'''
+	
+	/*override*/ def caseFullTileSpecification(FullTileSpecification object)
+		'''full-tile «IF object.loopTypeSpecifications.length > 0»(«object.loopTypeSpecifications.join(' ', [doSwitch])»)«ENDIF»'''
 	
 	/*override*/ def caseExtensionExpression(ExtensionExpression object)
 		'''extend («object.extensionTargets.join(', ', [doSwitch])») «object.child.doSwitch»'''

@@ -2,7 +2,7 @@
  */
 package alpha.targetmapping.impl;
 
-import alpha.targetmapping.IsolateSpecification;
+import alpha.targetmapping.FullTileSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
 import alpha.targetmapping.PointLoopSpecification;
 import alpha.targetmapping.TargetmappingPackage;
@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.impl.PointLoopSpecificationImpl#getLoopTypeSpecifications <em>Loop Type Specifications</em>}</li>
- *   <li>{@link alpha.targetmapping.impl.PointLoopSpecificationImpl#getIsolateSpecification <em>Isolate Specification</em>}</li>
+ *   <li>{@link alpha.targetmapping.impl.PointLoopSpecificationImpl#getFullTileSpecification <em>Full Tile Specification</em>}</li>
  * </ul>
  *
  * @generated
@@ -48,14 +48,14 @@ public class PointLoopSpecificationImpl extends TilingSpecificationImpl implemen
 	protected EList<LoopTypeSpecification> loopTypeSpecifications;
 
 	/**
-	 * The cached value of the '{@link #getIsolateSpecification() <em>Isolate Specification</em>}' containment reference.
+	 * The cached value of the '{@link #getFullTileSpecification() <em>Full Tile Specification</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsolateSpecification()
+	 * @see #getFullTileSpecification()
 	 * @generated
 	 * @ordered
 	 */
-	protected IsolateSpecification isolateSpecification;
+	protected FullTileSpecification fullTileSpecification;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -93,8 +93,8 @@ public class PointLoopSpecificationImpl extends TilingSpecificationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IsolateSpecification getIsolateSpecification() {
-		return isolateSpecification;
+	public FullTileSpecification getFullTileSpecification() {
+		return fullTileSpecification;
 	}
 
 	/**
@@ -102,11 +102,11 @@ public class PointLoopSpecificationImpl extends TilingSpecificationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetIsolateSpecification(IsolateSpecification newIsolateSpecification, NotificationChain msgs) {
-		IsolateSpecification oldIsolateSpecification = isolateSpecification;
-		isolateSpecification = newIsolateSpecification;
+	public NotificationChain basicSetFullTileSpecification(FullTileSpecification newFullTileSpecification, NotificationChain msgs) {
+		FullTileSpecification oldFullTileSpecification = fullTileSpecification;
+		fullTileSpecification = newFullTileSpecification;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION, oldIsolateSpecification, newIsolateSpecification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TargetmappingPackage.POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION, oldFullTileSpecification, newFullTileSpecification);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -117,18 +117,18 @@ public class PointLoopSpecificationImpl extends TilingSpecificationImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsolateSpecification(IsolateSpecification newIsolateSpecification) {
-		if (newIsolateSpecification != isolateSpecification) {
+	public void setFullTileSpecification(FullTileSpecification newFullTileSpecification) {
+		if (newFullTileSpecification != fullTileSpecification) {
 			NotificationChain msgs = null;
-			if (isolateSpecification != null)
-				msgs = ((InternalEObject)isolateSpecification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION, null, msgs);
-			if (newIsolateSpecification != null)
-				msgs = ((InternalEObject)newIsolateSpecification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION, null, msgs);
-			msgs = basicSetIsolateSpecification(newIsolateSpecification, msgs);
+			if (fullTileSpecification != null)
+				msgs = ((InternalEObject)fullTileSpecification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION, null, msgs);
+			if (newFullTileSpecification != null)
+				msgs = ((InternalEObject)newFullTileSpecification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TargetmappingPackage.POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION, null, msgs);
+			msgs = basicSetFullTileSpecification(newFullTileSpecification, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION, newIsolateSpecification, newIsolateSpecification));
+			eNotify(new ENotificationImpl(this, Notification.SET, TargetmappingPackage.POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION, newFullTileSpecification, newFullTileSpecification));
 	}
 
 	/**
@@ -141,8 +141,8 @@ public class PointLoopSpecificationImpl extends TilingSpecificationImpl implemen
 		switch (featureID) {
 			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS:
 				return ((InternalEList<?>)getLoopTypeSpecifications()).basicRemove(otherEnd, msgs);
-			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION:
-				return basicSetIsolateSpecification(null, msgs);
+			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION:
+				return basicSetFullTileSpecification(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -157,8 +157,8 @@ public class PointLoopSpecificationImpl extends TilingSpecificationImpl implemen
 		switch (featureID) {
 			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS:
 				return getLoopTypeSpecifications();
-			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION:
-				return getIsolateSpecification();
+			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION:
+				return getFullTileSpecification();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -176,8 +176,8 @@ public class PointLoopSpecificationImpl extends TilingSpecificationImpl implemen
 				getLoopTypeSpecifications().clear();
 				getLoopTypeSpecifications().addAll((Collection<? extends LoopTypeSpecification>)newValue);
 				return;
-			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION:
-				setIsolateSpecification((IsolateSpecification)newValue);
+			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION:
+				setFullTileSpecification((FullTileSpecification)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -194,8 +194,8 @@ public class PointLoopSpecificationImpl extends TilingSpecificationImpl implemen
 			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS:
 				getLoopTypeSpecifications().clear();
 				return;
-			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION:
-				setIsolateSpecification((IsolateSpecification)null);
+			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION:
+				setFullTileSpecification((FullTileSpecification)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -211,8 +211,8 @@ public class PointLoopSpecificationImpl extends TilingSpecificationImpl implemen
 		switch (featureID) {
 			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS:
 				return loopTypeSpecifications != null && !loopTypeSpecifications.isEmpty();
-			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION:
-				return isolateSpecification != null;
+			case TargetmappingPackage.POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION:
+				return fullTileSpecification != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link alpha.targetmapping.PointLoopSpecification#getLoopTypeSpecifications <em>Loop Type Specifications</em>}</li>
- *   <li>{@link alpha.targetmapping.PointLoopSpecification#getIsolateSpecification <em>Isolate Specification</em>}</li>
+ *   <li>{@link alpha.targetmapping.PointLoopSpecification#getFullTileSpecification <em>Full Tile Specification</em>}</li>
  * </ul>
  *
  * @see alpha.targetmapping.TargetmappingPackage#getPointLoopSpecification()
@@ -35,25 +35,25 @@ public interface PointLoopSpecification extends TilingSpecification {
 	EList<LoopTypeSpecification> getLoopTypeSpecifications();
 
 	/**
-	 * Returns the value of the '<em><b>Isolate Specification</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Full Tile Specification</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Isolate Specification</em>' containment reference.
-	 * @see #setIsolateSpecification(IsolateSpecification)
-	 * @see alpha.targetmapping.TargetmappingPackage#getPointLoopSpecification_IsolateSpecification()
+	 * @return the value of the '<em>Full Tile Specification</em>' containment reference.
+	 * @see #setFullTileSpecification(FullTileSpecification)
+	 * @see alpha.targetmapping.TargetmappingPackage#getPointLoopSpecification_FullTileSpecification()
 	 * @model containment="true"
 	 * @generated
 	 */
-	IsolateSpecification getIsolateSpecification();
+	FullTileSpecification getFullTileSpecification();
 
 	/**
-	 * Sets the value of the '{@link alpha.targetmapping.PointLoopSpecification#getIsolateSpecification <em>Isolate Specification</em>}' containment reference.
+	 * Sets the value of the '{@link alpha.targetmapping.PointLoopSpecification#getFullTileSpecification <em>Full Tile Specification</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Isolate Specification</em>' containment reference.
-	 * @see #getIsolateSpecification()
+	 * @param value the new value of the '<em>Full Tile Specification</em>' containment reference.
+	 * @see #getFullTileSpecification()
 	 * @generated
 	 */
-	void setIsolateSpecification(IsolateSpecification value);
+	void setFullTileSpecification(FullTileSpecification value);
 
 } // PointLoopSpecification

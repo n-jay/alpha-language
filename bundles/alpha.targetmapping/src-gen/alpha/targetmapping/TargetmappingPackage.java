@@ -931,13 +931,13 @@ public interface TargetmappingPackage extends EPackage {
 	int POINT_LOOP_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS = TILING_SPECIFICATION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Isolate Specification</b></em>' containment reference.
+	 * The feature id for the '<em><b>Full Tile Specification</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION = TILING_SPECIFICATION_FEATURE_COUNT + 1;
+	int POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION = TILING_SPECIFICATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Point Loop Specification</em>' class.
@@ -949,6 +949,34 @@ public interface TargetmappingPackage extends EPackage {
 	int POINT_LOOP_SPECIFICATION_FEATURE_COUNT = TILING_SPECIFICATION_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link alpha.targetmapping.impl.FullTileSpecificationImpl <em>Full Tile Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see alpha.targetmapping.impl.FullTileSpecificationImpl
+	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getFullTileSpecification()
+	 * @generated
+	 */
+	int FULL_TILE_SPECIFICATION = 25;
+
+	/**
+	 * The feature id for the '<em><b>Loop Type Specifications</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FULL_TILE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS = TARGET_MAPPING_NODE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Full Tile Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FULL_TILE_SPECIFICATION_FEATURE_COUNT = TARGET_MAPPING_NODE_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link alpha.targetmapping.impl.TileSizeSpecificationImpl <em>Tile Size Specification</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -956,7 +984,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getTileSizeSpecification()
 	 * @generated
 	 */
-	int TILE_SIZE_SPECIFICATION = 25;
+	int TILE_SIZE_SPECIFICATION = 26;
 
 	/**
 	 * The number of structural features of the '<em>Tile Size Specification</em>' class.
@@ -975,7 +1003,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getFixedTileSize()
 	 * @generated
 	 */
-	int FIXED_TILE_SIZE = 26;
+	int FIXED_TILE_SIZE = 27;
 
 	/**
 	 * The feature id for the '<em><b>Tile Size</b></em>' attribute.
@@ -1003,7 +1031,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getParametricTileSize()
 	 * @generated
 	 */
-	int PARAMETRIC_TILE_SIZE = 27;
+	int PARAMETRIC_TILE_SIZE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Tile Size Name</b></em>' attribute.
@@ -1031,7 +1059,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getCompileTimeConstantTileSize()
 	 * @generated
 	 */
-	int COMPILE_TIME_CONSTANT_TILE_SIZE = 28;
+	int COMPILE_TIME_CONSTANT_TILE_SIZE = 29;
 
 	/**
 	 * The feature id for the '<em><b>Tile Size Name</b></em>' attribute.
@@ -1068,7 +1096,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getExtensionExpression()
 	 * @generated
 	 */
-	int EXTENSION_EXPRESSION = 29;
+	int EXTENSION_EXPRESSION = 30;
 
 	/**
 	 * The feature id for the '<em><b>Extension Targets</b></em>' containment reference list.
@@ -1105,7 +1133,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getExtensionTarget()
 	 * @generated
 	 */
-	int EXTENSION_TARGET = 30;
+	int EXTENSION_TARGET = 31;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1151,7 +1179,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIIdentityFunction()
 	 * @generated
 	 */
-	int JNI_IDENTITY_FUNCTION = 31;
+	int JNI_IDENTITY_FUNCTION = 32;
 
 	/**
 	 * The feature id for the '<em><b>Node ID</b></em>' attribute list.
@@ -1197,7 +1225,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getALPHA_LOOP_TYPE()
 	 * @generated
 	 */
-	int ALPHA_LOOP_TYPE = 32;
+	int ALPHA_LOOP_TYPE = 33;
 
 	/**
 	 * The meta object id for the '{@link alpha.targetmapping.TILING_TYPE <em>TILING TYPE</em>}' enum.
@@ -1207,7 +1235,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getTILING_TYPE()
 	 * @generated
 	 */
-	int TILING_TYPE = 33;
+	int TILING_TYPE = 34;
 
 	/**
 	 * The meta object id for the '<em>JNI Object</em>' data type.
@@ -1217,7 +1245,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIObject()
 	 * @generated
 	 */
-	int JNI_OBJECT = 34;
+	int JNI_OBJECT = 35;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Set</em>' data type.
@@ -1227,7 +1255,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLSet()
 	 * @generated
 	 */
-	int JNIISL_SET = 35;
+	int JNIISL_SET = 36;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Map</em>' data type.
@@ -1237,7 +1265,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLMap()
 	 * @generated
 	 */
-	int JNIISL_MAP = 36;
+	int JNIISL_MAP = 37;
 
 	/**
 	 * The meta object id for the '<em>JNIISL Multi Aff</em>' data type.
@@ -1247,7 +1275,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLMultiAff()
 	 * @generated
 	 */
-	int JNIISL_MULTI_AFF = 37;
+	int JNIISL_MULTI_AFF = 38;
 
 	/**
 	 * The meta object id for the '<em>JNIISLPWQ Polynomial</em>' data type.
@@ -1257,7 +1285,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getJNIISLPWQPolynomial()
 	 * @generated
 	 */
-	int JNIISLPWQ_POLYNOMIAL = 38;
+	int JNIISLPWQ_POLYNOMIAL = 39;
 
 	/**
 	 * The meta object id for the '<em>ISL FORMAT</em>' data type.
@@ -1267,7 +1295,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getISL_FORMAT()
 	 * @generated
 	 */
-	int ISL_FORMAT = 39;
+	int ISL_FORMAT = 40;
 
 	/**
 	 * The meta object id for the '<em>ISLAST Loop Type</em>' data type.
@@ -1277,7 +1305,7 @@ public interface TargetmappingPackage extends EPackage {
 	 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getISLASTLoopType()
 	 * @generated
 	 */
-	int ISLAST_LOOP_TYPE = 40;
+	int ISLAST_LOOP_TYPE = 41;
 
 
 	/**
@@ -1938,15 +1966,36 @@ public interface TargetmappingPackage extends EPackage {
 	EReference getPointLoopSpecification_LoopTypeSpecifications();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.PointLoopSpecification#getIsolateSpecification <em>Isolate Specification</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.targetmapping.PointLoopSpecification#getFullTileSpecification <em>Full Tile Specification</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Isolate Specification</em>'.
-	 * @see alpha.targetmapping.PointLoopSpecification#getIsolateSpecification()
+	 * @return the meta object for the containment reference '<em>Full Tile Specification</em>'.
+	 * @see alpha.targetmapping.PointLoopSpecification#getFullTileSpecification()
 	 * @see #getPointLoopSpecification()
 	 * @generated
 	 */
-	EReference getPointLoopSpecification_IsolateSpecification();
+	EReference getPointLoopSpecification_FullTileSpecification();
+
+	/**
+	 * Returns the meta object for class '{@link alpha.targetmapping.FullTileSpecification <em>Full Tile Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Full Tile Specification</em>'.
+	 * @see alpha.targetmapping.FullTileSpecification
+	 * @generated
+	 */
+	EClass getFullTileSpecification();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link alpha.targetmapping.FullTileSpecification#getLoopTypeSpecifications <em>Loop Type Specifications</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Loop Type Specifications</em>'.
+	 * @see alpha.targetmapping.FullTileSpecification#getLoopTypeSpecifications()
+	 * @see #getFullTileSpecification()
+	 * @generated
+	 */
+	EReference getFullTileSpecification_LoopTypeSpecifications();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.targetmapping.TileSizeSpecification <em>Tile Size Specification</em>}'.
@@ -2783,12 +2832,30 @@ public interface TargetmappingPackage extends EPackage {
 		EReference POINT_LOOP_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS = eINSTANCE.getPointLoopSpecification_LoopTypeSpecifications();
 
 		/**
-		 * The meta object literal for the '<em><b>Isolate Specification</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Full Tile Specification</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference POINT_LOOP_SPECIFICATION__ISOLATE_SPECIFICATION = eINSTANCE.getPointLoopSpecification_IsolateSpecification();
+		EReference POINT_LOOP_SPECIFICATION__FULL_TILE_SPECIFICATION = eINSTANCE.getPointLoopSpecification_FullTileSpecification();
+
+		/**
+		 * The meta object literal for the '{@link alpha.targetmapping.impl.FullTileSpecificationImpl <em>Full Tile Specification</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see alpha.targetmapping.impl.FullTileSpecificationImpl
+		 * @see alpha.targetmapping.impl.TargetmappingPackageImpl#getFullTileSpecification()
+		 * @generated
+		 */
+		EClass FULL_TILE_SPECIFICATION = eINSTANCE.getFullTileSpecification();
+
+		/**
+		 * The meta object literal for the '<em><b>Loop Type Specifications</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FULL_TILE_SPECIFICATION__LOOP_TYPE_SPECIFICATIONS = eINSTANCE.getFullTileSpecification_LoopTypeSpecifications();
 
 		/**
 		 * The meta object literal for the '{@link alpha.targetmapping.impl.TileSizeSpecificationImpl <em>Tile Size Specification</em>}' class.

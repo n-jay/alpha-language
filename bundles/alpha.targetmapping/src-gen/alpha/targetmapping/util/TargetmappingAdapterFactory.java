@@ -175,6 +175,10 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 				return createPointLoopSpecificationAdapter();
 			}
 			@Override
+			public Adapter caseFullTileSpecification(FullTileSpecification object) {
+				return createFullTileSpecificationAdapter();
+			}
+			@Override
 			public Adapter caseTileSizeSpecification(TileSizeSpecification object) {
 				return createTileSizeSpecificationAdapter();
 			}
@@ -593,6 +597,20 @@ public class TargetmappingAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPointLoopSpecificationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link alpha.targetmapping.FullTileSpecification <em>Full Tile Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see alpha.targetmapping.FullTileSpecification
+	 * @generated
+	 */
+	public Adapter createFullTileSpecificationAdapter() {
 		return null;
 	}
 

@@ -6,6 +6,7 @@ import alpha.targetmapping.ContextExpression;
 import alpha.targetmapping.ExtensionExpression;
 import alpha.targetmapping.ExtensionTarget;
 import alpha.targetmapping.FilterExpression;
+import alpha.targetmapping.FullTileSpecification;
 import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
@@ -189,6 +190,25 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
     this.visitTilingSpecification(tbe.getTilingSpecification());
   }
   
+  protected void _visitTilingSpecification(final PointLoopSpecification pls) {
+    this.defaultIn(pls);
+    this.printStr("+--", pls.getLoopSchedule());
+    EList<LoopTypeSpecification> _loopTypeSpecifications = pls.getLoopTypeSpecifications();
+    for (final LoopTypeSpecification lts : _loopTypeSpecifications) {
+      this.printStr("+--", lts.getName(), ":", Integer.valueOf(lts.getDimension()));
+    }
+    FullTileSpecification _fullTileSpecification = pls.getFullTileSpecification();
+    boolean _tripleNotEquals = (_fullTileSpecification != null);
+    if (_tripleNotEquals) {
+      this.printStr("+--", "full-tile");
+      EList<LoopTypeSpecification> _loopTypeSpecifications_1 = pls.getFullTileSpecification().getLoopTypeSpecifications();
+      for (final LoopTypeSpecification lts_1 : _loopTypeSpecifications_1) {
+        this.printStr("   +--", lts_1.getName(), ":", Integer.valueOf(lts_1.getDimension()));
+      }
+    }
+    this.defaultOut(pls);
+  }
+  
   protected void _visitTilingSpecification(final TileLoopSpecification tls) {
     this.defaultIn(tls);
     ISLMultiAff _loopSchedule = tls.getLoopSchedule();
@@ -206,25 +226,6 @@ public class PrintTMAST extends AbstractTargetMappingVisitor {
     this.printStr("+--", IterableExtensions.<TileSizeSpecification>join(tls.getTileSizeSpecifications(), ", ", _function));
     this.visitTilingSpecification(tls.getTilingSpecification());
     this.defaultOut(tls);
-  }
-  
-  protected void _visitTilingSpecification(final PointLoopSpecification pls) {
-    this.defaultIn(pls);
-    this.printStr("+--", pls.getLoopSchedule());
-    EList<LoopTypeSpecification> _loopTypeSpecifications = pls.getLoopTypeSpecifications();
-    for (final LoopTypeSpecification lts : _loopTypeSpecifications) {
-      this.printStr("+--", lts.getName(), ":", Integer.valueOf(lts.getDimension()));
-    }
-    IsolateSpecification _isolateSpecification = pls.getIsolateSpecification();
-    boolean _tripleNotEquals = (_isolateSpecification != null);
-    if (_tripleNotEquals) {
-      this.printStr("+--", "isolate", pls.getIsolateSpecification().getIsolateDomain());
-      EList<LoopTypeSpecification> _loopTypeSpecifications_1 = pls.getIsolateSpecification().getLoopTypeSpecifications();
-      for (final LoopTypeSpecification lts_1 : _loopTypeSpecifications_1) {
-        this.printStr("   +--", lts_1.getName(), ":", Integer.valueOf(lts_1.getDimension()));
-      }
-    }
-    this.defaultOut(pls);
   }
   
   @Override

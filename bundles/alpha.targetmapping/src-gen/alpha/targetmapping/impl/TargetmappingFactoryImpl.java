@@ -84,6 +84,7 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 			case TargetmappingPackage.TILE_BAND_EXPRESSION: return createTileBandExpression();
 			case TargetmappingPackage.TILE_LOOP_SPECIFICATION: return createTileLoopSpecification();
 			case TargetmappingPackage.POINT_LOOP_SPECIFICATION: return createPointLoopSpecification();
+			case TargetmappingPackage.FULL_TILE_SPECIFICATION: return createFullTileSpecification();
 			case TargetmappingPackage.FIXED_TILE_SIZE: return createFixedTileSize();
 			case TargetmappingPackage.PARAMETRIC_TILE_SIZE: return createParametricTileSize();
 			case TargetmappingPackage.COMPILE_TIME_CONSTANT_TILE_SIZE: return createCompileTimeConstantTileSize();
@@ -335,6 +336,16 @@ public class TargetmappingFactoryImpl extends EFactoryImpl implements Targetmapp
 	public PointLoopSpecification createPointLoopSpecification() {
 		PointLoopSpecificationImpl pointLoopSpecification = new PointLoopSpecificationImpl();
 		return pointLoopSpecification;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FullTileSpecification createFullTileSpecification() {
+		FullTileSpecificationImpl fullTileSpecification = new FullTileSpecificationImpl();
+		return fullTileSpecification;
 	}
 
 	/**

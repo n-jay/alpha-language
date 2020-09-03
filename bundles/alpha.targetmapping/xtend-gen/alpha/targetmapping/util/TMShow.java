@@ -7,6 +7,7 @@ import alpha.targetmapping.ContextExpression;
 import alpha.targetmapping.ExtensionExpression;
 import alpha.targetmapping.ExtensionTarget;
 import alpha.targetmapping.FilterExpression;
+import alpha.targetmapping.FullTileSpecification;
 import alpha.targetmapping.GuardExpression;
 import alpha.targetmapping.IsolateSpecification;
 import alpha.targetmapping.LoopTypeSpecification;
@@ -30,6 +31,7 @@ import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.ISLMap;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
@@ -417,22 +419,22 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
    */
   public CharSequence caseTileLoopSpecification(final TileLoopSpecification object) {
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("tile");
     {
       boolean _isParallel = object.isParallel();
       if (_isParallel) {
         _builder.append(" parallel");
       }
     }
-    _builder.append(" ");
-    CharSequence _printSchedule = this.printSchedule(object);
-    _builder.append(_printSchedule);
     _builder.append(" (");
     final Function1<TileSizeSpecification, CharSequence> _function = (TileSizeSpecification it) -> {
       return this.doSwitch(it);
     };
     String _join = IterableExtensions.<TileSizeSpecification>join(object.getTileSizeSpecifications(), ",", _function);
     _builder.append(_join);
-    _builder.append(")");
+    _builder.append(") ");
+    CharSequence _printSchedule = this.printSchedule(object);
+    _builder.append(_printSchedule);
     _builder.newLineIfNotEmpty();
     CharSequence _doSwitch = this.doSwitch(object.getTilingSpecification());
     _builder.append(_doSwitch);
@@ -459,16 +461,37 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     };
     String _join = IterableExtensions.<LoopTypeSpecification>join(object.getLoopTypeSpecifications(), " ", _function);
     _builder.append(_join);
-    _builder.newLineIfNotEmpty();
     {
-      IsolateSpecification _isolateSpecification = object.getIsolateSpecification();
-      boolean _tripleNotEquals = (_isolateSpecification != null);
+      FullTileSpecification _fullTileSpecification = object.getFullTileSpecification();
+      boolean _tripleNotEquals = (_fullTileSpecification != null);
       if (_tripleNotEquals) {
-        CharSequence _doSwitch = this.doSwitch(object.getIsolateSpecification());
+        CharSequence _doSwitch = this.doSwitch(object.getFullTileSpecification());
         _builder.append(_doSwitch);
       }
     }
     _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  /**
+   * override
+   */
+  public CharSequence caseFullTileSpecification(final FullTileSpecification object) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("full-tile ");
+    {
+      int _length = ((Object[])Conversions.unwrapArray(object.getLoopTypeSpecifications(), Object.class)).length;
+      boolean _greaterThan = (_length > 0);
+      if (_greaterThan) {
+        _builder.append("(");
+        final Function1<LoopTypeSpecification, CharSequence> _function = (LoopTypeSpecification it) -> {
+          return this.doSwitch(it);
+        };
+        String _join = IterableExtensions.<LoopTypeSpecification>join(object.getLoopTypeSpecifications(), " ", _function);
+        _builder.append(_join);
+        _builder.append(")");
+      }
+    }
     return _builder;
   }
   

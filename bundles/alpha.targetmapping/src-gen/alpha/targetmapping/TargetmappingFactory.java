@@ -184,6 +184,15 @@ public interface TargetmappingFactory extends EFactory {
 	PointLoopSpecification createPointLoopSpecification();
 
 	/**
+	 * Returns a new object of class '<em>Full Tile Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Full Tile Specification</em>'.
+	 * @generated
+	 */
+	FullTileSpecification createFullTileSpecification();
+
+	/**
 	 * Returns a new object of class '<em>Fixed Tile Size</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -135,6 +135,22 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 		
 		visitTilingSpecification(tbe.tilingSpecification)
 	}
+	def dispatch void visitTilingSpecification(PointLoopSpecification pls) {
+		defaultIn(pls);
+		printStr("+--", pls.loopSchedule)
+		for (lts : pls.loopTypeSpecifications) {
+			printStr("+--", lts.name, ":", lts.dimension);	
+		}
+		
+		if (pls.fullTileSpecification !== null) {
+			printStr("+--", "full-tile");
+			for (lts : pls.fullTileSpecification.loopTypeSpecifications) {
+				printStr("   +--", lts.name, ":", lts.dimension);	
+			}
+		}
+
+		defaultOut(pls);		
+	}
 	
 	def dispatch void visitTilingSpecification(TileLoopSpecification tls) {
 		defaultIn(tls);
@@ -147,22 +163,6 @@ class PrintTMAST extends AbstractTargetMappingVisitor {
 		visitTilingSpecification(tls.tilingSpecification)
 		defaultOut(tls);
 	}
-	def dispatch void visitTilingSpecification(PointLoopSpecification pls) {
-		defaultIn(pls);
-		printStr("+--", pls.loopSchedule)
-		for (lts : pls.loopTypeSpecifications) {
-			printStr("+--", lts.name, ":", lts.dimension);	
-		}
-		if (pls.isolateSpecification !== null) {
-			printStr("+--", "isolate", pls.isolateSpecification.isolateDomain);
-			for (lts : pls.isolateSpecification.loopTypeSpecifications) {
-				printStr("   +--", lts.name, ":", lts.dimension);	
-			}
-		}
-		
-		defaultOut(pls);		
-	}
-
 	override inExtensionExpression(ExtensionExpression ee) {
 		defaultIn(ee);
 		for (et : ee.extensionTargets) {

@@ -243,7 +243,14 @@ public class JNIDomainCalculatorForTM extends AbstractTargetMappingVisitor {
 			TilingSpecification child = ((TileLoopSpecification) ts).getTilingSpecification();
 			if (child != null)
 				processTilingSpecification(child);
+		} else if (ts instanceof PointLoopSpecification) {
+			PointLoopSpecification pls = (PointLoopSpecification)ts;
+			processIsolateSpecificationForPointLoops(pls);
 		}
+	}
+	
+	private void processIsolateSpecificationForPointLoops(PointLoopSpecification pls) {
+		
 	}
 	
 	/**

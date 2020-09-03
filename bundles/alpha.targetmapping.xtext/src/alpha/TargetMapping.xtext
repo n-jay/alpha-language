@@ -157,25 +157,34 @@ CompileTimeConstantTilingSpecification returns TilingSpecification:
 ;
 
 FixedSizeTilingTileLoopSpecification returns TileLoopSpecification:
-	parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
+	'tile' parallel?='parallel'?
 	'(' tileSizeSpecifications+=FixedTileSize (',' tileSizeSpecifications+=FixedTileSize)* ')'
+	loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
 	tilingSpecification=FixedSizeTilingSpecification
 ;
 ParametricTilingTileLoopSpecification returns TileLoopSpecification:
-	parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
+	'tile' parallel?='parallel'?
 	'(' tileSizeSpecifications+=ParametricTileSize (',' tileSizeSpecifications+=ParametricTileSize)* ')'
+	loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
 	tilingSpecification=ParametricTilingSpecification
 ;
 CompileTimeConstantTilingTileLoopSpecification returns TileLoopSpecification:
-	parallel?='parallel'? loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
+	'tile' parallel?='parallel'?
 	'(' tileSizeSpecifications+=CompileTimeConstantTileSize (',' tileSizeSpecifications+=CompileTimeConstantTileSize)* ')'
+	loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
 	tilingSpecification=CompileTimeConstantTilingSpecification
 ;
 
 PointLoopSpecification:
-	{PointLoopSpecification} 'point' loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
+	{PointLoopSpecification} 'point' //loopScheduleExpr=(JNIFunction|JNIFunctionInArrayNotation|JNIIdentityFunction)?
 		 loopTypeSpecifications+=LoopTypeSpecification*
-		 isolateSpecification=IsolateSpecification?
+		 fullTileSpecification=FullTileSpecification?
+;
+
+FullTileSpecification:
+	{FullTileSpecification} 'full-tile' ('(' 
+		loopTypeSpecifications+=LoopTypeSpecification (',' loopTypeSpecifications+=LoopTypeSpecification)*
+	')')?
 ;
 
 ExtensionExpression:
