@@ -26,14 +26,14 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public class RemoveUnusedEquations {
   private RemoveUnusedEquations() {
   }
-  
+
   public static void apply(final AlphaRoot root) {
     final Consumer<AlphaSystem> _function = (AlphaSystem s) -> {
       RemoveUnusedEquations.apply(s);
     };
     root.getSystems().forEach(_function);
   }
-  
+
   public static void apply(final AlphaSystem system) {
     final HashMap<Variable, Boolean> map = new HashMap<Variable, Boolean>();
     final Function1<VariableExpression, Boolean> _function = (VariableExpression ve) -> {

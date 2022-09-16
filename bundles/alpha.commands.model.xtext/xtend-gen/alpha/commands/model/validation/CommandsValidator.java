@@ -5,7 +5,6 @@ package alpha.commands.model.validation;
 
 import alpha.commands.model.AlphaCommandSpecialization;
 import alpha.commands.model.ModelPackage;
-import alpha.commands.model.validation.AbstractCommandsValidator;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.xbase.lib.Conversions;
 

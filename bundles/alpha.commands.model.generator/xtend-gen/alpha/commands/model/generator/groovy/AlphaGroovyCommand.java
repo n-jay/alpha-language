@@ -11,7 +11,7 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 public class AlphaGroovyCommand {
   @Extension
   private CommonExtensions commonEx = new CommonExtensions();
-  
+
   public CharSequence javaCommandFQN(final AlphaCommand command) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("alpha.commands.");
@@ -22,7 +22,7 @@ public class AlphaGroovyCommand {
     _builder.append(_name);
     return _builder;
   }
-  
+
   public CharSequence generate(final AlphaCommand command) {
     StringConcatenation _builder = new StringConcatenation();
     String _returnTypeName = this.commonEx.returnTypeName(command.getSignature());
@@ -47,7 +47,7 @@ public class AlphaGroovyCommand {
     _builder.newLine();
     return _builder;
   }
-  
+
   public CharSequence generate(final AlphaCommandSpecialization specialization) {
     CharSequence _xblockexpression = null;
     {

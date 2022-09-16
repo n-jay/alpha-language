@@ -8,7 +8,6 @@ import alpha.commands.model.ArgumentBinding;
 import alpha.commands.model.ArgumentRenaming;
 import alpha.commands.model.CommandBinding;
 import alpha.commands.model.ModelPackage;
-import alpha.commands.model.scoping.AbstractCommandsScopeProvider;
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import java.util.List;
@@ -29,8 +28,7 @@ import org.eclipse.xtext.scoping.Scopes;
 public class CommandsScopeProvider extends AbstractCommandsScopeProvider {
   @Inject
   private IQualifiedNameProvider nameProvider;
-  
-  @Override
+
   public IScope getScope(final EObject context, final EReference reference) {
     IScope _xblockexpression = null;
     {

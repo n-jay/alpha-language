@@ -3,8 +3,6 @@
  */
 package alpha.commands.model.ide;
 
-import alpha.commands.model.ide.AbstractCommandsIdeModule;
-
 /**
  * Use this class to register ide components.
  */

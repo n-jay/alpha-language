@@ -13,7 +13,6 @@ import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.UnexpectedISLErrorIssue;
-import alpha.model.util.AlphaUtil;
 import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
 import fr.irisa.cairn.jnimap.isl.ISLAffList;
@@ -49,28 +48,28 @@ public class AlphaExpressionUtil {
     };
     return expr.eContents().stream().filter(_function).<T>map(_function_1);
   }
-  
+
   public static boolean testNonNullContextDomain(final Stream<AlphaExpression> exprs) {
     final Predicate<AlphaExpression> _function = (AlphaExpression e) -> {
       return ((e != null) && (e.getContextDomain() != null));
     };
     return exprs.allMatch(_function);
   }
-  
+
   public static boolean testNonNullExpressionDomain(final Stream<AlphaExpression> exprs) {
     final Predicate<AlphaExpression> _function = (AlphaExpression e) -> {
       return ((e != null) && (e.getExpressionDomain() != null));
     };
     return exprs.allMatch(_function);
   }
-  
+
   public static boolean testNonNullCalcExpression(final Stream<CalculatorExpression> exprs) {
     final Predicate<CalculatorExpression> _function = (CalculatorExpression e) -> {
       return ((e != null) && (e.getISLObject() != null));
     };
     return exprs.allMatch(_function);
   }
-  
+
   /**
    * parentContext gives the context domain of the parent node
    * There are a few cases to consider:
@@ -83,7 +82,7 @@ public class AlphaExpressionUtil {
   protected static ISLSet _parentContext(final AlphaExpression child, final AlphaExpression parent, final Consumer<AlphaIssue> f) {
     return parent.getContextDomain();
   }
-  
+
   protected static ISLSet _parentContext(final AlphaExpression child, final StandardEquation parent, final Consumer<AlphaIssue> f) {
     ISLSet _xblockexpression = null;
     {
@@ -98,7 +97,7 @@ public class AlphaExpressionUtil {
     }
     return _xblockexpression;
   }
-  
+
   protected static ISLSet _parentContext(final AlphaExpression child, final UseEquation parent, final Consumer<AlphaIssue> f) {
     if ((AlphaExpressionUtil.checkCalcExprType(parent.getInstantiationDomainExpr(), POLY_OBJECT_TYPE.SET, f) && 
       (parent.getSystemBody().getParameterDomain() != null))) {
@@ -131,7 +130,7 @@ public class AlphaExpressionUtil {
     }
     return null;
   }
-  
+
   private static boolean checkCalcExprType(final CalculatorExpression cexpr, final POLY_OBJECT_TYPE expected, final Consumer<AlphaIssue> f) {
     POLY_OBJECT_TYPE _type = cexpr.getType();
     boolean _notEquals = (!Objects.equal(_type, expected));
@@ -143,7 +142,7 @@ public class AlphaExpressionUtil {
     }
     return true;
   }
-  
+
   /**
    * Extends the domain of a subsystem (variable) by the instantiation domain.
    * 
@@ -166,7 +165,7 @@ public class AlphaExpressionUtil {
     final ISLMap ctxMap = paramCallRel.applyRange(p2sEx);
     return ctxMap.toSet();
   }
-  
+
   /**
    * Computes the domain where a convolution operation is completely defined. That is, for each point
    * in the kernel domain, there must be a valid definition of the expression (= in expression domain).
@@ -212,7 +211,7 @@ public class AlphaExpressionUtil {
     }
     return res;
   }
-  
+
   /**
    * Helper for preimageByConvolutionDependences. Converts MultiAff to a set of constraints (basic set).
    */
@@ -233,7 +232,7 @@ public class AlphaExpressionUtil {
     }
     return constraints;
   }
-  
+
   /**
    * Helper for preimageByConvolutionDependences. Converts Aff to an equality constraint equating to a
    * specified dimension.
@@ -249,7 +248,7 @@ public class AlphaExpressionUtil {
     c = c.setConstant(aff.getConstantVal());
     return c;
   }
-  
+
   /**
    * Extends a dependence by adding additional input dimensions, that are
    * mapped to the output space as identity.
@@ -301,7 +300,7 @@ public class AlphaExpressionUtil {
     }
     return ISLMultiAff.buildFromAffList(exSpace, affList);
   }
-  
+
   public static final Function<AlphaExpression, AlphaExpression> filterAutoRestrict = ((Function<AlphaExpression, AlphaExpression>) (AlphaExpression expr) -> {
     AlphaExpression _xifexpression = null;
     if ((expr instanceof AutoRestrictExpression)) {
@@ -319,7 +318,7 @@ public class AlphaExpressionUtil {
     }
     return _xifexpression;
   });
-  
+
   public static ISLSet parentContext(final AlphaExpression child, final EObject parent, final Consumer<AlphaIssue> f) {
     if (parent instanceof StandardEquation) {
       return _parentContext(child, (StandardEquation)parent, f);

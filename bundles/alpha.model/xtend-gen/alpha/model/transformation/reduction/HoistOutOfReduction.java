@@ -10,7 +10,6 @@ import alpha.model.MultiArgExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.transformation.Normalize;
-import alpha.model.transformation.reduction.ReductionUtil;
 import alpha.model.util.AlphaOperatorUtil;
 import com.google.common.base.Objects;
 import java.util.Arrays;
@@ -31,13 +30,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 @SuppressWarnings("all")
 public class HoistOutOfReduction {
   private final AlphaExpression targetExpr;
-  
+
   private AbstractReduceExpression targetReduce;
-  
+
   private HoistOutOfReduction(final AlphaExpression expr) {
     this.targetExpr = expr;
   }
-  
+
   /**
    * Applies HoistOutOfReduction to the specified expression.
    * 
@@ -52,7 +51,7 @@ public class HoistOutOfReduction {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * Applies HoistOutOfReduction to the specified expression.
    * 
@@ -67,7 +66,7 @@ public class HoistOutOfReduction {
     }
     return _xblockexpression;
   }
-  
+
   private AlphaExpression transform() {
     final BINARY_OP targetExprOp = AlphaOperatorUtil.getBinaryOP(this.targetExpr);
     this.traverse(this.targetExpr.eContainer());
@@ -82,7 +81,7 @@ public class HoistOutOfReduction {
     Normalize.apply(replacement);
     return replacement;
   }
-  
+
   private AlphaExpression _createReplacement(final BinaryExpression binExpr) {
     BinaryExpression _xblockexpression = null;
     {
@@ -96,7 +95,7 @@ public class HoistOutOfReduction {
     }
     return _xblockexpression;
   }
-  
+
   private AlphaExpression _createReplacement(final MultiArgExpression mae) {
     MultiArgExpression _xblockexpression = null;
     {
@@ -114,31 +113,31 @@ public class HoistOutOfReduction {
     }
     return _xblockexpression;
   }
-  
+
   private void _traverse(final EObject obj) {
     Class<? extends EObject> _class = obj.getClass();
     String _plus = ("[HoistOutOfReduction] Found unexpected object type while traversing the AST: " + _class);
     throw new IllegalArgumentException(_plus);
   }
-  
+
   private void _traverse(final AlphaExpression expr) {
     Class<? extends AlphaExpression> _class = expr.getClass();
     String _plus = ("[HoistOutOfReduction] Found unexpected expression type while traversing the AST: " + _class);
     throw new IllegalArgumentException(_plus);
   }
-  
+
   private void _traverse(final DependenceExpression de) {
     throw new IllegalArgumentException("[HoistOutOfReduction] DependenceExpression are not allowed between the specified expression and the enclosing reduction.");
   }
-  
+
   private void _traverse(final AbstractReduceExpression are) {
     this.targetReduce = are;
   }
-  
+
   private void _traverse(final RestrictExpression re) {
     this.traverse(re.eContainer());
   }
-  
+
   private AlphaExpression createReplacement(final AlphaExpression binExpr) {
     if (binExpr instanceof BinaryExpression) {
       return _createReplacement((BinaryExpression)binExpr);
@@ -149,7 +148,7 @@ public class HoistOutOfReduction {
         Arrays.<Object>asList(binExpr).toString());
     }
   }
-  
+
   private void traverse(final EObject are) {
     if (are instanceof AbstractReduceExpression) {
       _traverse((AbstractReduceExpression)are);

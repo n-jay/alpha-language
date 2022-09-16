@@ -49,45 +49,45 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
   public AlphaLabelProvider(final AdapterFactoryLabelProvider delegate) {
     super(delegate);
   }
-  
+
   public String text(final AlphaNode node) {
     return node.eClass().getName();
   }
-  
+
   public String text(final Variable v) {
     String _name = v.getName();
     String _plus = (_name + " : ");
     String _string = v.getDomain().toString();
     return (_plus + _string);
   }
-  
+
   public String text(final AlphaSystem system) {
     String _name = system.getName();
     String _plus = (_name + " ");
     String _string = system.getParameterDomain().toString();
     return (_plus + _string);
   }
-  
+
   public String text(final SystemBody sysBody) {
     return sysBody.getParameterDomain().toString();
   }
-  
+
   public String text(final PolyhedralObject pobj) {
     String _name = pobj.getName();
     String _plus = (_name + " = ");
     String _string = pobj.getISLObject().toString();
     return (_plus + _string);
   }
-  
+
   public String text(final BinaryCalculatorExpression bce) {
     return bce.getOperator().getLiteral();
   }
-  
+
   public String text(final StandardEquation seq) {
     String _name = seq.getVariable().getName();
     return (_name + " = ");
   }
-  
+
   public String text(final RestrictExpression re) {
     String _xifexpression = null;
     CalculatorExpression _domainExpr = re.getDomainExpr();
@@ -99,11 +99,11 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
     }
     return _xifexpression;
   }
-  
+
   public String text(final AutoRestrictExpression are) {
     return "auto";
   }
-  
+
   public String text(final CaseExpression cexpr) {
     String _xifexpression = null;
     if (((cexpr.getName() != null) && (cexpr.getName().length() > 0))) {
@@ -119,11 +119,11 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
     }
     return _xifexpression;
   }
-  
+
   public String text(final IfExpression ifexpr) {
     return "if-then-else";
   }
-  
+
   public String text(final DependenceExpression dep) {
     String _xifexpression = null;
     ISLMultiAff _function = dep.getFunction();
@@ -148,70 +148,70 @@ public class AlphaLabelProvider extends DefaultEObjectLabelProvider {
     }
     return _xifexpression;
   }
-  
+
   public String text(final ReduceExpression reduce) {
     String _literal = reduce.getOperator().getLiteral();
     return ("reduce " + _literal);
   }
-  
+
   public String text(final ExternalReduceExpression reduce) {
     String _name = reduce.getExternalFunction().getName();
     return ("reduce " + _name);
   }
-  
+
   public String text(final ArgReduceExpression reduce) {
     String _literal = reduce.getOperator().getLiteral();
     return ("argreduce " + _literal);
   }
-  
+
   public String text(final ExternalArgReduceExpression reduce) {
     String _name = reduce.getExternalFunction().getName();
     return ("argreduce " + _name);
   }
-  
+
   public String text(final ConvolutionExpression conv) {
     ISLSet _kernelDomain = conv.getKernelDomain();
     return ("conv " + _kernelDomain);
   }
-  
+
   public String text(final UnaryExpression ue) {
     String _literal = ue.getOperator().getLiteral();
     return ("UnaryExpression " + _literal);
   }
-  
+
   public String text(final BinaryExpression be) {
     String _literal = be.getOperator().getLiteral();
     return ("BinaryExpression " + _literal);
   }
-  
+
   public String text(final MultiArgExpression mae) {
     String _literal = mae.getOperator().getLiteral();
     return ("MultiArgExpression " + _literal);
   }
-  
+
   public String text(final ExternalMultiArgExpression emae) {
     String _name = emae.getExternalFunction().getName();
     return ("ExternalFunction " + _name);
   }
-  
+
   public String text(final SelectExpression se) {
     return "select";
   }
-  
+
   public String text(final IndexExpression ie) {
     String _plainToString = ie.getFunctionExpr().plainToString();
     return ("val " + _plainToString);
   }
-  
+
   public String text(final PolynomialIndexExpression pie) {
     String _plainToString = pie.getPolynomialExpr().plainToString();
     return ("val " + _plainToString);
   }
-  
+
   public String text(final VariableExpression ve) {
     return ve.getVariable().getName();
   }
-  
+
   public ConstantExpression text(final ConstantExpression ce) {
     return ce;
   }

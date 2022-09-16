@@ -25,8 +25,6 @@ import alpha.targetmapping.TileBandExpression;
 import alpha.targetmapping.TileLoopSpecification;
 import alpha.targetmapping.TileSizeSpecification;
 import alpha.targetmapping.TilingSpecification;
-import alpha.targetmapping.util.TargetMappingUtil;
-import alpha.targetmapping.util.TargetmappingSwitch;
 import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.ISLMap;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
@@ -44,7 +42,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 @SuppressWarnings("all")
 public class TMShow extends TargetmappingSwitch<CharSequence> {
   protected ISLSet parameterContext = null;
-  
+
   public static <T extends TargetMappingNode> String print(final T tmn) {
     String _xblockexpression = null;
     {
@@ -54,27 +52,27 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     }
     return _xblockexpression;
   }
-  
+
   protected String printDomain(final ContextExpression ce) {
     return AlphaPrintingUtil.toAShowString(ce.getContextDomain(), this.parameterContext);
   }
-  
+
   protected String printDomain(final ScheduleTargetRestrictDomain strd) {
     return AlphaPrintingUtil.toShowString(strd.getRestrictDomain(), this.parameterContext);
   }
-  
+
   protected String printDomain(final GuardExpression ge) {
     return AlphaPrintingUtil.toShowString(ge.getGuardDomain(), this.parameterContext);
   }
-  
+
   protected String printDomain(final IsolateSpecification is) {
     return AlphaPrintingUtil.toShowString(is.getIsolateDomain(), this.parameterContext);
   }
-  
+
   protected String printSchedule(final BandPiece bp) {
     return AlphaPrintingUtil.toShowString(bp.getPartialSchedule());
   }
-  
+
   protected CharSequence printSchedule(final TilingSpecification ts) {
     CharSequence _xifexpression = null;
     boolean _isIdentity = ts.getLoopSchedule().isIdentity();
@@ -86,11 +84,11 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     }
     return _xifexpression;
   }
-  
+
   protected String printExtensionMap(final ISLMap map) {
     return AlphaPrintingUtil.toShowString(map);
   }
-  
+
   /**
    * All the printDimNames methods are to be overridden by AShow.
    * Context is not used for Show.
@@ -99,27 +97,26 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     StringConcatenation _builder = new StringConcatenation();
     return _builder;
   }
-  
+
   protected CharSequence printDimNames(final BandExpression be) {
     StringConcatenation _builder = new StringConcatenation();
     return _builder;
   }
-  
+
   protected CharSequence printDimNames(final TileBandExpression tbe) {
     StringConcatenation _builder = new StringConcatenation();
     return _builder;
   }
-  
+
   protected CharSequence printDimNames(final ExtensionTarget et) {
     StringConcatenation _builder = new StringConcatenation();
     return _builder;
   }
-  
-  @Override
+
   public CharSequence caseTargetMappingNode(final TargetMappingNode object) {
     return super.caseTargetMappingNode(object);
   }
-  
+
   /**
    * override
    */
@@ -130,15 +127,17 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append(_fullyQualifiedName);
     _builder.newLineIfNotEmpty();
     _builder.newLine();
-    final Function1<TargetMappingForSystemBody, CharSequence> _function = (TargetMappingForSystemBody it) -> {
-      return this.doSwitch(it);
+    final Function1<TargetMappingForSystemBody, CharSequence> _function = new Function1<TargetMappingForSystemBody, CharSequence>() {
+      public CharSequence apply(final TargetMappingForSystemBody it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<TargetMappingForSystemBody>join(object.getSystemBodyTMs(), "\n\n", _function);
     _builder.append(_join);
     _builder.newLineIfNotEmpty();
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -161,7 +160,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
       return _builder.toString();
     }
   }
-  
+
   /**
    * override
    */
@@ -176,7 +175,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.newLineIfNotEmpty();
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -185,8 +184,10 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append("set {");
     _builder.newLine();
     _builder.append("\t");
-    final Function1<ScheduleTreeExpression, CharSequence> _function = (ScheduleTreeExpression it) -> {
-      return this.doSwitch(it);
+    final Function1<ScheduleTreeExpression, CharSequence> _function = new Function1<ScheduleTreeExpression, CharSequence>() {
+      public CharSequence apply(final ScheduleTreeExpression it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<ScheduleTreeExpression>join(object.getChildren(), "", ";\n", ";", _function);
     _builder.append(_join, "\t");
@@ -195,7 +196,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.newLine();
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -204,8 +205,10 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append("seq {");
     _builder.newLine();
     _builder.append("\t");
-    final Function1<ScheduleTreeExpression, CharSequence> _function = (ScheduleTreeExpression it) -> {
-      return this.doSwitch(it);
+    final Function1<ScheduleTreeExpression, CharSequence> _function = new Function1<ScheduleTreeExpression, CharSequence>() {
+      public CharSequence apply(final ScheduleTreeExpression it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<ScheduleTreeExpression>join(object.getChildren(), "", ";\n", ";", _function);
     _builder.append(_join, "\t");
@@ -214,14 +217,16 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.newLine();
     return _builder;
   }
-  
+
   /**
    * override
    */
   public CharSequence caseFilterExpression(final FilterExpression object) {
     StringConcatenation _builder = new StringConcatenation();
-    final Function1<ScheduleTargetRestrictDomain, CharSequence> _function = (ScheduleTargetRestrictDomain it) -> {
-      return this.doSwitch(it);
+    final Function1<ScheduleTargetRestrictDomain, CharSequence> _function = new Function1<ScheduleTargetRestrictDomain, CharSequence>() {
+      public CharSequence apply(final ScheduleTargetRestrictDomain it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<ScheduleTargetRestrictDomain>join(object.getFilterDomains(), ", ", _function);
     _builder.append(_join);
@@ -236,7 +241,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     }
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -250,7 +255,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append(_printDomain);
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -264,7 +269,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append(_doSwitch);
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -278,7 +283,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append(_doSwitch);
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -290,15 +295,19 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append(" {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
-    final Function1<BandPiece, CharSequence> _function = (BandPiece it) -> {
-      return this.doSwitch(it);
+    final Function1<BandPiece, CharSequence> _function = new Function1<BandPiece, CharSequence>() {
+      public CharSequence apply(final BandPiece it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<BandPiece>join(object.getBandPieces(), "\n", _function);
     _builder.append(_join, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
-    final Function1<LoopTypeSpecification, CharSequence> _function_1 = (LoopTypeSpecification it) -> {
-      return this.doSwitch(it);
+    final Function1<LoopTypeSpecification, CharSequence> _function_1 = new Function1<LoopTypeSpecification, CharSequence>() {
+      public CharSequence apply(final LoopTypeSpecification it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join_1 = IterableExtensions.<LoopTypeSpecification>join(object.getLoopTypeSpecifications(), "\n", _function_1);
     _builder.append(_join_1, "\t");
@@ -325,7 +334,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     }
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -338,8 +347,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append(_printSchedule);
     return _builder;
   }
-  
-  @Override
+
   public CharSequence caseLoopTypeSpecification(final LoopTypeSpecification object) {
     StringConcatenation _builder = new StringConcatenation();
     String _unparseString = object.unparseString();
@@ -350,7 +358,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -359,8 +367,10 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append("isolate (");
     String _printDomain = this.printDomain(object);
     _builder.append(_printDomain);
-    final Function1<LoopTypeSpecification, CharSequence> _function = (LoopTypeSpecification it) -> {
-      return this.doSwitch(it);
+    final Function1<LoopTypeSpecification, CharSequence> _function = new Function1<LoopTypeSpecification, CharSequence>() {
+      public CharSequence apply(final LoopTypeSpecification it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<LoopTypeSpecification>join(object.getLoopTypeSpecifications(), " ", ", ", "", _function);
     _builder.append(_join);
@@ -368,7 +378,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.newLineIfNotEmpty();
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -382,8 +392,10 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append(" {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
-    final Function1<BandPiece, CharSequence> _function = (BandPiece it) -> {
-      return this.doSwitch(it);
+    final Function1<BandPiece, CharSequence> _function = new Function1<BandPiece, CharSequence>() {
+      public CharSequence apply(final BandPiece it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<BandPiece>join(object.getBandPieces(), "\n", _function);
     _builder.append(_join, "\t");
@@ -395,7 +407,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append("}");
     return _builder;
   }
-  
+
   private CharSequence printTilingType(final TileBandExpression tbe) {
     CharSequence _xifexpression = null;
     TILING_TYPE _tilingType = tbe.getTilingType();
@@ -413,7 +425,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     }
     return _xifexpression;
   }
-  
+
   /**
    * override
    */
@@ -427,8 +439,10 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
       }
     }
     _builder.append(" (");
-    final Function1<TileSizeSpecification, CharSequence> _function = (TileSizeSpecification it) -> {
-      return this.doSwitch(it);
+    final Function1<TileSizeSpecification, CharSequence> _function = new Function1<TileSizeSpecification, CharSequence>() {
+      public CharSequence apply(final TileSizeSpecification it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<TileSizeSpecification>join(object.getTileSizeSpecifications(), ",", _function);
     _builder.append(_join);
@@ -441,12 +455,11 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.newLineIfNotEmpty();
     return _builder;
   }
-  
-  @Override
+
   public CharSequence caseTileSizeSpecification(final TileSizeSpecification object) {
     return object.unparseString();
   }
-  
+
   /**
    * override
    */
@@ -456,8 +469,10 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     CharSequence _printSchedule = this.printSchedule(object);
     _builder.append(_printSchedule);
     _builder.append(" ");
-    final Function1<LoopTypeSpecification, CharSequence> _function = (LoopTypeSpecification it) -> {
-      return this.doSwitch(it);
+    final Function1<LoopTypeSpecification, CharSequence> _function = new Function1<LoopTypeSpecification, CharSequence>() {
+      public CharSequence apply(final LoopTypeSpecification it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<LoopTypeSpecification>join(object.getLoopTypeSpecifications(), " ", _function);
     _builder.append(_join);
@@ -472,7 +487,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.newLineIfNotEmpty();
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -484,8 +499,10 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
       boolean _greaterThan = (_length > 0);
       if (_greaterThan) {
         _builder.append("(");
-        final Function1<LoopTypeSpecification, CharSequence> _function = (LoopTypeSpecification it) -> {
-          return this.doSwitch(it);
+        final Function1<LoopTypeSpecification, CharSequence> _function = new Function1<LoopTypeSpecification, CharSequence>() {
+          public CharSequence apply(final LoopTypeSpecification it) {
+            return TMShow.this.doSwitch(it);
+          }
         };
         String _join = IterableExtensions.<LoopTypeSpecification>join(object.getLoopTypeSpecifications(), " ", _function);
         _builder.append(_join);
@@ -494,15 +511,17 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     }
     return _builder;
   }
-  
+
   /**
    * override
    */
   public CharSequence caseExtensionExpression(final ExtensionExpression object) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("extend (");
-    final Function1<ExtensionTarget, CharSequence> _function = (ExtensionTarget it) -> {
-      return this.doSwitch(it);
+    final Function1<ExtensionTarget, CharSequence> _function = new Function1<ExtensionTarget, CharSequence>() {
+      public CharSequence apply(final ExtensionTarget it) {
+        return TMShow.this.doSwitch(it);
+      }
     };
     String _join = IterableExtensions.<ExtensionTarget>join(object.getExtensionTargets(), ", ", _function);
     _builder.append(_join);
@@ -511,7 +530,7 @@ public class TMShow extends TargetmappingSwitch<CharSequence> {
     _builder.append(_doSwitch);
     return _builder;
   }
-  
+
   /**
    * override
    */

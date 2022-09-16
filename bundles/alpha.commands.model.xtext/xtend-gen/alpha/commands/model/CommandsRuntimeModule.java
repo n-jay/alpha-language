@@ -3,7 +3,6 @@
  */
 package alpha.commands.model;
 
-import alpha.commands.model.AbstractCommandsRuntimeModule;
 import alpha.commands.model.scoping.CommandsQualifiedNameProvider;
 import fr.irisa.cairn.xtend.protectedregion.ProtectedRegionResolverAsPostProcessor;
 import org.eclipse.xtext.generator.IFilePostProcessor;
@@ -17,8 +16,7 @@ public class CommandsRuntimeModule extends AbstractCommandsRuntimeModule {
   public Class<? extends IFilePostProcessor> bindPostProcessor() {
     return ProtectedRegionResolverAsPostProcessor.class;
   }
-  
-  @Override
+
   public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
     return CommandsQualifiedNameProvider.class;
   }

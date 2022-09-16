@@ -22,13 +22,15 @@ import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 
 @SuppressWarnings("all")
 public class TargetMappingUtil {
-  public static Function<Integer, String> DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER = ((Function<Integer, String>) (Integer x) -> {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("i");
-    _builder.append(x);
-    return _builder.toString();
-  });
-  
+  public static Function<Integer, String> DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER = new Function<Integer, String>() {
+    public String apply(final Integer x) {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("i");
+      _builder.append(x);
+      return _builder.toString();
+    }
+  };
+
   public static TargetMapping getContainerTM(final TargetMappingNode node) {
     if ((node instanceof TargetMapping)) {
       return ((TargetMapping) node);
@@ -41,7 +43,7 @@ public class TargetMappingUtil {
     EObject _eContainer_1 = node.eContainer();
     return TargetMappingUtil.getContainerTM(((TargetMappingNode) _eContainer_1));
   }
-  
+
   public static TargetMappingForSystemBody getContainerTMforSystemBody(final TargetMappingNode node) {
     if ((node instanceof TargetMappingForSystemBody)) {
       return ((TargetMappingForSystemBody) node);
@@ -54,7 +56,7 @@ public class TargetMappingUtil {
     EObject _eContainer_1 = node.eContainer();
     return TargetMappingUtil.getContainerTMforSystemBody(((TargetMappingNode) _eContainer_1));
   }
-  
+
   public static AlphaSystem getTargetSystem(final TargetMappingNode node) {
     final TargetMapping tm = TargetMappingUtil.getContainerTM(node);
     if ((tm == null)) {
@@ -62,7 +64,7 @@ public class TargetMappingUtil {
     }
     return tm.getTargetSystem();
   }
-  
+
   public static SystemBody getTargetSystemBody(final TargetMappingNode node) {
     final TargetMappingForSystemBody tm = TargetMappingUtil.getContainerTMforSystemBody(node);
     if ((tm == null)) {
@@ -70,7 +72,7 @@ public class TargetMappingUtil {
     }
     return tm.getTargetBody();
   }
-  
+
   public static String toString(final ISLASTLoopType value) {
     int _value = value.getValue();
     switch (_value) {
@@ -86,7 +88,7 @@ public class TargetMappingUtil {
         throw new IllegalArgumentException();
     }
   }
-  
+
   /**
    * Returns a mult-dimensional affine function expressing the transformation applied to express the tile loop schedule.
    * Each dimension of the returned function has the form (i -> i - i%ts)
@@ -94,18 +96,20 @@ public class TargetMappingUtil {
    * Input ISLSpace is not consumed.
    */
   public static ISLMultiAff tileLoopTransformation(final ISLSpace space, final List<Integer> tileSizes) {
-    final BiFunction<ISLLocalSpace, Integer, ISLAff> _function = (ISLLocalSpace ls, Integer dim) -> {
-      ISLAff _xblockexpression = null;
-      {
-        final ISLAff divisor = ISLAff.buildZero(ls.copy()).addConstant((tileSizes.get((dim).intValue())).intValue());
-        ISLAff aff = ISLAff.buildZero(ls);
-        _xblockexpression = aff.addCoefficient(ISLDimType.isl_dim_in, (dim).intValue(), 1).div(divisor);
+    final BiFunction<ISLLocalSpace, Integer, ISLAff> _function = new BiFunction<ISLLocalSpace, Integer, ISLAff>() {
+      public ISLAff apply(final ISLLocalSpace ls, final Integer dim) {
+        ISLAff _xblockexpression = null;
+        {
+          final ISLAff divisor = ISLAff.buildZero(ls.copy()).addConstant((tileSizes.get((dim).intValue())).intValue());
+          ISLAff aff = ISLAff.buildZero(ls);
+          _xblockexpression = aff.addCoefficient(ISLDimType.isl_dim_in, (dim).intValue(), 1).div(divisor);
+        }
+        return _xblockexpression;
       }
-      return _xblockexpression;
     };
     return TargetMappingUtil.tilingTransformationHelper(_function, space, tileSizes);
   }
-  
+
   /**
    * Returns a mult-dimensional affine function expressing the transformation applied to express the point loop schedule.
    * Each dimension of the returned function has the form (i -> i%ts)
@@ -113,17 +117,19 @@ public class TargetMappingUtil {
    * Input ISLSpace is not consumed.
    */
   public static ISLMultiAff pointLoopTransformation(final ISLSpace space, final List<Integer> tileSizes) {
-    final BiFunction<ISLLocalSpace, Integer, ISLAff> _function = (ISLLocalSpace ls, Integer dim) -> {
-      ISLAff _xblockexpression = null;
-      {
-        ISLAff aff = ISLAff.buildZero(ls);
-        _xblockexpression = aff.addCoefficient(ISLDimType.isl_dim_in, (dim).intValue(), 1).mod((tileSizes.get((dim).intValue())).intValue());
+    final BiFunction<ISLLocalSpace, Integer, ISLAff> _function = new BiFunction<ISLLocalSpace, Integer, ISLAff>() {
+      public ISLAff apply(final ISLLocalSpace ls, final Integer dim) {
+        ISLAff _xblockexpression = null;
+        {
+          ISLAff aff = ISLAff.buildZero(ls);
+          _xblockexpression = aff.addCoefficient(ISLDimType.isl_dim_in, (dim).intValue(), 1).mod((tileSizes.get((dim).intValue())).intValue());
+        }
+        return _xblockexpression;
       }
-      return _xblockexpression;
     };
     return TargetMappingUtil.tilingTransformationHelper(_function, space, tileSizes);
   }
-  
+
   /**
    * Helper to avoid replicating all the setup code for construction tile and point loop functions.
    */

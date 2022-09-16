@@ -3,7 +3,6 @@ package alpha.commands.model.generator.groovy;
 import alpha.commands.model.AlphaCommand;
 import alpha.commands.model.AlphaCommandCategory;
 import alpha.commands.model.AlphaCommandSpecialization;
-import alpha.commands.model.generator.groovy.AlphaGroovyCommand;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
@@ -12,7 +11,7 @@ import org.eclipse.xtext.xbase.lib.Extension;
 public class AlphaGroovyCommandCategory {
   @Extension
   private AlphaGroovyCommand groovyCommand = new AlphaGroovyCommand();
-  
+
   public CharSequence generate(final AlphaCommandCategory cat) {
     StringConcatenation _builder = new StringConcatenation();
     {

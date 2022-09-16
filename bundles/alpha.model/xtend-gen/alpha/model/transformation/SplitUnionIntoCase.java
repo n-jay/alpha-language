@@ -40,7 +40,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 public class SplitUnionIntoCase {
   private SplitUnionIntoCase() {
   }
-  
+
   /**
    * Apply the transformation to all RestrictExpressions in an AlphaSystem.
    * Silently ignores any RestrictExpressions where it is not applicable.
@@ -56,7 +56,7 @@ public class SplitUnionIntoCase {
     };
     return IterableExtensions.<Integer>reduce(ListExtensions.<SystemBody, Integer>map(system.getSystemBodies(), _function), _function_1);
   }
-  
+
   /**
    * Apply the transformation to all RestrictExpressions in a SystemBody.
    * Silently ignores any RestrictExpressions where it is not applicable.
@@ -74,7 +74,7 @@ public class SplitUnionIntoCase {
     };
     return IterableExtensions.<Integer>reduce(IterableExtensions.<AlphaExpression, Integer>map(Iterables.<AlphaExpression>concat(_allContentsOfType, _allContentsOfType_1), _function), _function_1);
   }
-  
+
   /**
    * Applies SplitUnionIntoCase to the specified restrict expression.
    * This method throws an exception when it is not applicable to the specified expression.
@@ -86,7 +86,7 @@ public class SplitUnionIntoCase {
       throw new IllegalArgumentException("[SplitUnionIntoCase] Target RestrictExpression must have unions of polyhedra as its restrict domain.");
     }
   }
-  
+
   /**
    * Applies SplitUnionIntoCase to the specified restrict expression.
    * This method throws an exception when it is not applicable to the specified expression.
@@ -98,7 +98,7 @@ public class SplitUnionIntoCase {
       throw new IllegalArgumentException("[SplitUnionIntoCase] Target AutoRestrictExpression must have unions of polyhedra as its (inferred) restrict domain.");
     }
   }
-  
+
   /**
    * Implementation of the transformation.
    */
@@ -119,15 +119,15 @@ public class SplitUnionIntoCase {
     AlphaInternalStateConstructor.recomputeContextDomain(caseExpr);
     return 1;
   }
-  
+
   private static int _transform(final RestrictExpression re) {
     return SplitUnionIntoCase.transform(re, re.getRestrictDomain(), re.getExpr());
   }
-  
+
   private static int _transform(final AutoRestrictExpression re) {
     return SplitUnionIntoCase.transform(re, re.getInferredDomain(), re.getExpr());
   }
-  
+
   private static int transform(final AlphaExpression re) {
     if (re instanceof AutoRestrictExpression) {
       return _transform((AutoRestrictExpression)re);

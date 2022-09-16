@@ -14,7 +14,6 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.transformation.Normalize;
 import alpha.model.transformation.SplitUnionIntoCase;
-import alpha.model.transformation.automation.ProgramState;
 import alpha.model.transformation.reduction.Distributivity;
 import alpha.model.transformation.reduction.HigherOrderOperator;
 import alpha.model.transformation.reduction.Idempotence;
@@ -60,15 +59,15 @@ import org.eclipse.xtext.xbase.lib.Pair;
 public class SimplifyingReductionOptimalSimplificationAlgorithm {
   protected static class DynamicProgrammingContext {
     protected ProgramState state;
-    
+
     protected Set<String> excludedEquations = new TreeSet<String>();
-    
+
     protected Set<String> exploredEquations = new TreeSet<String>();
-    
+
     public DynamicProgrammingContext(final ProgramState state) {
       this.state = state;
     }
-    
+
     protected boolean markFinishedEquation(final String eqName) {
       boolean _xblockexpression = false;
       {
@@ -77,7 +76,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
       }
       return _xblockexpression;
     }
-    
+
     protected boolean markFinishedEquation(final StandardEquation eq) {
       boolean _xblockexpression = false;
       {
@@ -86,7 +85,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
       }
       return _xblockexpression;
     }
-    
+
     public SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext copy() {
       ProgramState _copy = this.state.copy();
       final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext copy = new SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext(_copy);
@@ -96,99 +95,99 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
       return copy;
     }
   }
-  
+
   protected static abstract class DynamicProgrammingStep {
     protected final EList<Integer> nodeID;
-    
+
     public DynamicProgrammingStep(final AbstractReduceExpression targetRE) {
       this.nodeID = targetRE.getNodeID();
     }
-    
+
     public abstract String description();
   }
-  
+
   protected static class StepSimplifyingReduction extends SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingStep {
     private long[] reuseDepNoParams;
-    
+
     public StepSimplifyingReduction(final AbstractReduceExpression targetRE, final long[] reuseDepNoParams, final int nbParams) {
       super(targetRE);
       this.reuseDepNoParams = reuseDepNoParams;
     }
-    
+
     @Override
     public String description() {
       return String.format("Apply SimplifyingReduction with: %s", MatrixOperations.toString(this.reuseDepNoParams));
     }
   }
-  
+
   protected static class StepIdempotence extends SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingStep {
     public StepIdempotence(final AbstractReduceExpression targetRE) {
       super(targetRE);
     }
-    
+
     @Override
     public String description() {
       return String.format("Apply Idempotence");
     }
   }
-  
+
   protected static class StepHigherOrderOperator extends SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingStep {
     public StepHigherOrderOperator(final AbstractReduceExpression targetRE) {
       super(targetRE);
     }
-    
+
     @Override
     public String description() {
       return String.format("Apply HigherOrderOperator");
     }
   }
-  
+
   protected static class StepReductionDecomposition extends SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingStep {
     private ISLMultiAff innerProjection;
-    
+
     private ISLMultiAff outerProjection;
-    
+
     public StepReductionDecomposition(final AbstractReduceExpression targetRE, final ISLMultiAff innerF, final ISLMultiAff outerF) {
       super(targetRE);
       this.innerProjection = innerF;
       this.outerProjection = outerF;
     }
-    
+
     @Override
     public String description() {
       return String.format("Apply ReductionDecomposition with %s o %s", this.outerProjection, this.innerProjection);
     }
   }
-  
+
   public static boolean DEBUG = false;
-  
+
   private void debug(final String content) {
     if (SimplifyingReductionOptimalSimplificationAlgorithm.DEBUG) {
       System.out.println(("[SROptimalSimplification] " + content));
     }
   }
-  
+
   private void debug(final String content, final ProgramState state) {
     this.debug(content);
     if (SimplifyingReductionOptimalSimplificationAlgorithm.DEBUG) {
       System.out.println(AShow.print(this.getBody(state)));
     }
   }
-  
+
   protected final AlphaRoot originalProgram;
-  
+
   protected final String systemName;
-  
+
   protected final int systemBodyID;
-  
+
   protected AlphaRoot optimizedProgram;
-  
+
   protected SimplifyingReductionOptimalSimplificationAlgorithm(final SystemBody body) {
     this.originalProgram = AlphaUtil.getContainerRoot(body);
     this.systemName = body.getSystem().getFullyQualifiedName();
     this.systemBodyID = body.getSystem().getSystemBodies().indexOf(body);
   }
-  
+
   public static AlphaRoot apply(final AlphaSystem system) {
     AlphaRoot _xifexpression = null;
     int _size = system.getSystemBodies().size();
@@ -200,13 +199,13 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     }
     return _xifexpression;
   }
-  
+
   public static AlphaRoot apply(final SystemBody body) {
     final SimplifyingReductionOptimalSimplificationAlgorithm SROSA = new SimplifyingReductionOptimalSimplificationAlgorithm(body);
     SROSA.run();
     return SROSA.optimizedProgram;
   }
-  
+
   /**
    * Entry point to the algorithm
    */
@@ -222,7 +221,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * Preprocessing involves exposing equations with reductions
    * being the immediate child expression, and making sure
@@ -245,7 +244,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * The algorithm optimizes each equation one by one. There are some
    * cases where the order and choice of reuse vectors influences schedulability,
@@ -260,7 +259,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
       }
     }
   }
-  
+
   /**
    * Optimization of an equation. This mostly corresponds to Algorithm 2.
    * 
@@ -343,7 +342,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
       context.markFinishedEquation(eq);
     }
   }
-  
+
   /**
    * Side effect free transformations are repeatedly applied until convergence.
    */
@@ -375,7 +374,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     }
     return true;
   }
-  
+
   /**
    * Creates a list of possible transformations that are valid steps in the DP.
    */
@@ -407,7 +406,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     }
     return candidates;
   }
-  
+
   private boolean hasNext(final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext context) {
     final Function1<StandardEquation, Boolean> _function = (StandardEquation e) -> {
       boolean _contains = context.excludedEquations.contains(e.getVariable().getName());
@@ -415,7 +414,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     };
     return IterableExtensions.<StandardEquation>exists(this.getBody(context.state).getStandardEquations(), _function);
   }
-  
+
   private StandardEquation getNext(final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext context) {
     final Function1<StandardEquation, Boolean> _function = (StandardEquation e) -> {
       boolean _contains = context.excludedEquations.contains(e.getVariable().getName());
@@ -423,7 +422,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     };
     return IterableExtensions.<StandardEquation>findFirst(this.getBody(context.state).getStandardEquations(), _function);
   }
-  
+
   private void excludeExploredEquationsInChildContext(final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext context, final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext childContext) {
     final Function1<String, Boolean> _function = (String e) -> {
       StandardEquation _standardEquation = this.getBody(context.state).getStandardEquation(e);
@@ -434,7 +433,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     };
     IterableExtensions.<String>filter(childContext.exploredEquations, _function).forEach(_function_1);
   }
-  
+
   protected Object _applyDPStep(final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext context, final SimplifyingReductionOptimalSimplificationAlgorithm.StepSimplifyingReduction step) {
     int _xblockexpression = (int) 0;
     {
@@ -446,7 +445,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     }
     return Integer.valueOf(_xblockexpression);
   }
-  
+
   protected Object _applyDPStep(final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext context, final SimplifyingReductionOptimalSimplificationAlgorithm.StepIdempotence step) {
     int _xblockexpression = (int) 0;
     {
@@ -458,7 +457,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     }
     return Integer.valueOf(_xblockexpression);
   }
-  
+
   protected Object _applyDPStep(final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext context, final SimplifyingReductionOptimalSimplificationAlgorithm.StepHigherOrderOperator step) {
     int _xblockexpression = (int) 0;
     {
@@ -470,7 +469,7 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     }
     return Integer.valueOf(_xblockexpression);
   }
-  
+
   protected Object _applyDPStep(final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext context, final SimplifyingReductionOptimalSimplificationAlgorithm.StepReductionDecomposition step) {
     List<AlphaIssue> _xblockexpression = null;
     {
@@ -480,15 +479,15 @@ public class SimplifyingReductionOptimalSimplificationAlgorithm {
     }
     return _xblockexpression;
   }
-  
+
   private AlphaSystem getSystem(final ProgramState state) {
     return state.root.getSystem(this.systemName);
   }
-  
+
   private SystemBody getBody(final ProgramState state) {
     return this.getSystem(state).getSystemBodies().get(this.systemBodyID);
   }
-  
+
   protected Object applyDPStep(final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingContext context, final SimplifyingReductionOptimalSimplificationAlgorithm.DynamicProgrammingStep step) {
     if (step instanceof SimplifyingReductionOptimalSimplificationAlgorithm.StepHigherOrderOperator) {
       return _applyDPStep(context, (SimplifyingReductionOptimalSimplificationAlgorithm.StepHigherOrderOperator)step);

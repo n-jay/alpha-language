@@ -63,26 +63,26 @@ public class SimplifyingReductions {
    */
   private static class BasicElements {
     private long[][] kerQ;
-    
+
     private ISLMultiAff reuseDir;
-    
+
     private ISLMultiAff reuseDepProjected;
-    
+
     private ISLSet origDE;
-    
+
     private ISLSet DEp;
-    
+
     private ISLSet Dadd;
-    
+
     private ISLSet Dsub;
-    
+
     private ISLSet Dint;
-    
+
     private BINARY_OP invOP;
   }
-  
+
   public static boolean DEBUG = false;
-  
+
   /**
    * Setting this variable to true disables all the
    * post processing simplifications. Intended to be
@@ -90,7 +90,7 @@ public class SimplifyingReductions {
    * result of SR against the theorem in the paper.
    */
   public static boolean DISABLE_POST_PROCESSING = false;
-  
+
   public static Function<SimplifyingReductions, String> defineXaddEquationName = ((Function<SimplifyingReductions, String>) (SimplifyingReductions sr) -> {
     String _xblockexpression = null;
     {
@@ -100,7 +100,7 @@ public class SimplifyingReductions {
     }
     return _xblockexpression;
   });
-  
+
   public static Function<SimplifyingReductions, String> defineXsubEquationName = ((Function<SimplifyingReductions, String>) (SimplifyingReductions sr) -> {
     String _xblockexpression = null;
     {
@@ -110,23 +110,23 @@ public class SimplifyingReductions {
     }
     return _xblockexpression;
   });
-  
+
   private static void debug(final String msg) {
     if (SimplifyingReductions.DEBUG) {
       InputOutput.<String>println(("[SimplifyingReductions] " + msg));
     }
   }
-  
+
   private final ReduceExpression targetReduce;
-  
+
   private final StandardEquation reductionEquation;
-  
+
   private final ISLMultiAff reuseDep;
-  
+
   private final AlphaSystem containerSystem;
-  
+
   private final SystemBody containerSystemBody;
-  
+
   private SimplifyingReductions(final ReduceExpression reduce, final ISLMultiAff reuseDep) {
     this.targetReduce = reduce;
     Equation _containerEquation = AlphaUtil.getContainerEquation(reduce);
@@ -135,23 +135,23 @@ public class SimplifyingReductions {
     this.containerSystem = AlphaUtil.getContainerSystem(this.targetReduce);
     this.containerSystemBody = AlphaUtil.getContainerSystemBody(this.targetReduce);
   }
-  
+
   public static void apply(final ReduceExpression reduce, final ISLMultiAff reuseDep) {
     final SimplifyingReductions sr = new SimplifyingReductions(reduce, reuseDep);
     sr.simplify();
   }
-  
+
   public static void apply(final ReduceExpression reduce, final int[] reuseDepNoParams) {
     final Function1<Integer, Long> _function = (Integer v) -> {
       return Long.valueOf(((long) (v).intValue()));
     };
     SimplifyingReductions.apply(reduce, ((long[])Conversions.unwrapArray(ListExtensions.<Integer, Long>map(((List<Integer>)Conversions.doWrapArray(reuseDepNoParams)), _function), long.class)));
   }
-  
+
   public static void apply(final ReduceExpression reduce, final long[] reuseDepNoParams) {
     SimplifyingReductions.apply(reduce, SimplifyingReductions.longVecToMultiAff(reduce, reuseDepNoParams));
   }
-  
+
   protected void simplify() {
     final SimplifyingReductions.BasicElements BE = SimplifyingReductions.computeBasicElements(this.targetReduce, this.reuseDep);
     final String XaddName = SimplifyingReductions.defineXaddEquationName.apply(this);
@@ -231,7 +231,7 @@ public class SimplifyingReductions {
       Normalize.apply(this.containerSystemBody);
     }
   }
-  
+
   /**
    * Computes BasicElements while performing all the legality tests.
    */
@@ -275,18 +275,18 @@ public class SimplifyingReductions {
     }
     return BE;
   }
-  
+
   public static boolean testLegality(final AbstractReduceExpression reduce, final int[] reuseDepNoParams) {
     final Function1<Integer, Long> _function = (Integer v) -> {
       return Long.valueOf(((long) (v).intValue()));
     };
     return SimplifyingReductions.testLegality(reduce, ((long[])Conversions.unwrapArray(ListExtensions.<Integer, Long>map(((List<Integer>)Conversions.doWrapArray(reuseDepNoParams)), _function), long.class)));
   }
-  
+
   public static boolean testLegality(final AbstractReduceExpression reduce, final long[] reuseDepNoParams) {
     return SimplifyingReductions.testLegality(reduce, SimplifyingReductions.longVecToMultiAff(reduce, reuseDepNoParams));
   }
-  
+
   public static boolean testLegality(final AbstractReduceExpression reduce, final ISLMultiAff reuseDep) {
     try {
       SimplifyingReductions.computeBasicElements(reduce, reuseDep);
@@ -301,7 +301,7 @@ public class SimplifyingReductions {
     }
     return true;
   }
-  
+
   /**
    * The reuse dependence is specified in the space of reduction body,
    * but the actual dependence will be among the reduction instance.
@@ -352,7 +352,7 @@ public class SimplifyingReductions {
     final ISLSpace space = ISLSpace.idMapDimFromSetDim(variableDomainSpace.copy());
     return AffineFunctionOperations.createUniformFunction(space, projectedB);
   }
-  
+
   /**
    * Creates a list of ISLMultiAff that are valid reuse vectors given the share space.
    * Exposed to be used by SimplifyingReductionExploration.
@@ -387,7 +387,7 @@ public class SimplifyingReductions {
     }
     return vectors;
   }
-  
+
   /**
    * Creates a list of Pair<ISLMultiAff, ISLMultiAff> that are valid projection functions for decomposing
    * the given reduction. The first element is the projection for the inner reduction.
@@ -454,7 +454,7 @@ public class SimplifyingReductions {
     }
     return candidates;
   }
-  
+
   private static ISLMultiAff longVecToMultiAff(final AbstractReduceExpression reduce, final long[] reuseDepNoParams) {
     ISLMultiAff _xblockexpression = null;
     {

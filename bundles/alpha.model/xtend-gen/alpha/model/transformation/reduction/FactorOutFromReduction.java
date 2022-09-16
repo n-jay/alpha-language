@@ -41,17 +41,17 @@ public class FactorOutFromReduction {
     this.enclosingOperation = null;
     this.targetReduce = null;
   }
-  
+
   private final DependenceExpression targetExpr;
-  
+
   private AbstractReduceExpression targetReduce;
-  
+
   private AlphaExpression enclosingOperation;
-  
+
   private int childExprID;
-  
+
   private BINARY_OP enclosingOperationOP = null;
-  
+
   /**
    * Applies FactorOutFromReduction to the specified expression.
    * 
@@ -65,7 +65,7 @@ public class FactorOutFromReduction {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * Tests for legality of the transformation. Throw IllegalArgumentException when
    * the transformation is illegal.
@@ -90,7 +90,7 @@ public class FactorOutFromReduction {
       throw new IllegalArgumentException("[FactorOutFromReduction] The nullspace of the target expression must include the nullspace of the projection function.");
     }
   }
-  
+
   private BinaryExpression transform() {
     this.traverse(this.targetExpr, this.targetExpr.eContainer());
     FactorOutFromReduction.testLegality(this.targetReduce, this.enclosingOperationOP, this.targetExpr);
@@ -127,31 +127,31 @@ public class FactorOutFromReduction {
     Normalize.apply(newBinExpr);
     return newBinExpr;
   }
-  
+
   private void _traverse(final AlphaExpression child, final EObject obj) {
     Class<? extends EObject> _class = obj.getClass();
     String _plus = ("[FactorOutFromReduction] Found unexpected object type while traversing the AST: " + _class);
     throw new IllegalArgumentException(_plus);
   }
-  
+
   private void _traverse(final AlphaExpression child, final AlphaExpression expr) {
     Class<? extends AlphaExpression> _class = expr.getClass();
     String _plus = ("[FactorOutFromReduction] Found unexpected expression type while traversing the AST: " + _class);
     throw new IllegalArgumentException(_plus);
   }
-  
+
   private void _traverse(final AlphaExpression child, final DependenceExpression de) {
     throw new IllegalArgumentException("[FactorOutFromReduction] DependenceExpression are not allowed between the specified expression and the enclosing reduction. (The target expression must be a DependenceExpression, but compositions are not allowed.)");
   }
-  
+
   private void _traverse(final AlphaExpression child, final AbstractReduceExpression are) {
     this.targetReduce = are;
   }
-  
+
   private void _traverse(final AlphaExpression child, final RestrictExpression re) {
     this.traverse(re, re.eContainer());
   }
-  
+
   private void _traverse(final AlphaExpression child, final BinaryExpression bexpr) {
     if ((this.enclosingOperation == null)) {
       int _xifexpression = (int) 0;
@@ -174,7 +174,7 @@ public class FactorOutFromReduction {
     }
     this.traverse(bexpr, bexpr.eContainer());
   }
-  
+
   private void _traverse(final AlphaExpression child, final MultiArgExpression mae) {
     if ((this.enclosingOperation == null)) {
       this.childExprID = mae.getExprs().indexOf(child);
@@ -189,7 +189,7 @@ public class FactorOutFromReduction {
     }
     this.traverse(mae, mae.eContainer());
   }
-  
+
   private void traverse(final AlphaExpression child, final EObject are) {
     if (are instanceof AbstractReduceExpression) {
       _traverse(child, (AbstractReduceExpression)are);

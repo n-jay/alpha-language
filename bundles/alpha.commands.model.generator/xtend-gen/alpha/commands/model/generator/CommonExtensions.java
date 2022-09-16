@@ -35,7 +35,7 @@ public class CommonExtensions {
   public String typeName(final AlphaCommandArgument arg) {
     return this.typeName(arg.getArgumentType());
   }
-  
+
   public String typeName(final ArgumentType type) {
     String _switchResult = null;
     if (type != null) {
@@ -56,7 +56,7 @@ public class CommonExtensions {
     }
     return _switchResult;
   }
-  
+
   public CharSequence qualifiedName(final AlphaCommand command) {
     StringConcatenation _builder = new StringConcatenation();
     String _firstUpper = StringExtensions.toFirstUpper(command.getCategory().getName());
@@ -66,7 +66,7 @@ public class CommonExtensions {
     _builder.append(_firstUpper_1);
     return _builder;
   }
-  
+
   public CharSequence protectedRegionID(final AlphaCommand command) {
     CharSequence _xblockexpression = null;
     {
@@ -78,8 +78,10 @@ public class CommonExtensions {
       } else {
         String _xblockexpression_1 = null;
         {
-          final Function1<AlphaCommand, Boolean> _function = (AlphaCommand c) -> {
-            return Boolean.valueOf(c.getName().contentEquals(command.getName()));
+          final Function1<AlphaCommand, Boolean> _function = new Function1<AlphaCommand, Boolean>() {
+            public Boolean apply(final AlphaCommand c) {
+              return Boolean.valueOf(c.getName().contentEquals(command.getName()));
+            }
           };
           final int index = IterableExtensions.<AlphaCommand>toList(IterableExtensions.<AlphaCommand>filter(command.getCategory().getCommands(), _function)).indexOf(command);
           String _xifexpression_1 = null;
@@ -106,7 +108,7 @@ public class CommonExtensions {
     }
     return _xblockexpression;
   }
-  
+
   public String returnTypeName(final AlphaCommandSignature sig) {
     String _xifexpression = null;
     ArgumentType _returnType = sig.getReturnType();
@@ -118,41 +120,49 @@ public class CommonExtensions {
     }
     return _xifexpression;
   }
-  
+
   public String inputsList(final AlphaCommandSignature sig) {
-    final Function1<AlphaCommandArgument, CharSequence> _function = (AlphaCommandArgument a) -> {
-      StringConcatenation _builder = new StringConcatenation();
-      String _typeName = this.typeName(a.getArgumentType());
-      _builder.append(_typeName);
-      _builder.append(" ");
-      String _name = a.getName();
-      _builder.append(_name);
-      return _builder.toString();
+    final Function1<AlphaCommandArgument, CharSequence> _function = new Function1<AlphaCommandArgument, CharSequence>() {
+      public CharSequence apply(final AlphaCommandArgument a) {
+        StringConcatenation _builder = new StringConcatenation();
+        String _typeName = CommonExtensions.this.typeName(a.getArgumentType());
+        _builder.append(_typeName);
+        _builder.append(" ");
+        String _name = a.getName();
+        _builder.append(_name);
+        return _builder.toString();
+      }
     };
     return IterableExtensions.<AlphaCommandArgument>join(sig.getArguments(), ", ", _function);
   }
-  
+
   public String callArgumentsList(final AlphaCommandSignature sig) {
-    final Function1<AlphaCommandArgument, CharSequence> _function = (AlphaCommandArgument a) -> {
-      StringConcatenation _builder = new StringConcatenation();
-      String _name = a.getName();
-      _builder.append(_name);
-      return _builder.toString();
+    final Function1<AlphaCommandArgument, CharSequence> _function = new Function1<AlphaCommandArgument, CharSequence>() {
+      public CharSequence apply(final AlphaCommandArgument a) {
+        StringConcatenation _builder = new StringConcatenation();
+        String _name = a.getName();
+        _builder.append(_name);
+        return _builder.toString();
+      }
     };
     return IterableExtensions.<AlphaCommandArgument>join(sig.getArguments(), ", ", _function);
   }
-  
+
   public String callArgumentsList(final AlphaCommandSpecialization specialization) {
-    final BiFunction<AlphaCommandArgument, CommandArgumentSpecialization, Object> _function = (AlphaCommandArgument orig, CommandArgumentSpecialization spec) -> {
-      return this.specializationInputName(spec, orig);
+    final BiFunction<AlphaCommandArgument, CommandArgumentSpecialization, Object> _function = new BiFunction<AlphaCommandArgument, CommandArgumentSpecialization, Object>() {
+      public Object apply(final AlphaCommandArgument orig, final CommandArgumentSpecialization spec) {
+        return CommonExtensions.this.specializationInputName(spec, orig);
+      }
     };
     final Stream<Object> list = this.<Object>zipArgumentPairs(specialization, _function);
-    final Predicate<Object> _function_1 = (Object v) -> {
-      return (v != null);
+    final Predicate<Object> _function_1 = new Predicate<Object>() {
+      public boolean test(final Object v) {
+        return (v != null);
+      }
     };
     return IterableExtensions.join(((Iterable<?>)Conversions.doWrapArray(list.filter(_function_1).toArray())), ", ");
   }
-  
+
   public Set<CharSequence> fullPath(final ArgumentType type) {
     Set<CharSequence> _switchResult = null;
     if (type != null) {
@@ -221,49 +231,65 @@ public class CommonExtensions {
     }
     return _switchResult;
   }
-  
+
   public Iterable<CharSequence> collectUsedClassesInBaseMethods(final AlphaCommandCategory cat) {
-    final Function1<AlphaCommandSignature, ArgumentType> _function = (AlphaCommandSignature o) -> {
-      return o.getReturnType();
+    final Function1<AlphaCommandSignature, ArgumentType> _function = new Function1<AlphaCommandSignature, ArgumentType>() {
+      public ArgumentType apply(final AlphaCommandSignature o) {
+        return o.getReturnType();
+      }
     };
     List<ArgumentType> _map = ListExtensions.<AlphaCommandSignature, ArgumentType>map(EcoreUtil2.<AlphaCommandSignature>getAllContentsOfType(cat, AlphaCommandSignature.class), _function);
-    final Function1<AlphaCommandArgument, ArgumentType> _function_1 = (AlphaCommandArgument o) -> {
-      return o.getArgumentType();
+    final Function1<AlphaCommandArgument, ArgumentType> _function_1 = new Function1<AlphaCommandArgument, ArgumentType>() {
+      public ArgumentType apply(final AlphaCommandArgument o) {
+        return o.getArgumentType();
+      }
     };
     List<ArgumentType> _map_1 = ListExtensions.<AlphaCommandArgument, ArgumentType>map(EcoreUtil2.<AlphaCommandArgument>getAllContentsOfType(cat, AlphaCommandArgument.class), _function_1);
-    final Function1<ArgumentType, Set<CharSequence>> _function_2 = (ArgumentType t) -> {
-      return this.fullPath(t);
+    final Function1<ArgumentType, Set<CharSequence>> _function_2 = new Function1<ArgumentType, Set<CharSequence>>() {
+      public Set<CharSequence> apply(final ArgumentType t) {
+        return CommonExtensions.this.fullPath(t);
+      }
     };
     return IterableExtensions.<ArgumentType, CharSequence>flatMap(IterableExtensions.<ArgumentType>toSet(Iterables.<ArgumentType>concat(_map, _map_1)), _function_2);
   }
-  
+
   public Iterable<CharSequence> collectUsedClasses(final AlphaCommandCategory cat) {
-    final Function1<AlphaCommandSignature, ArgumentType> _function = (AlphaCommandSignature o) -> {
-      return o.getReturnType();
+    final Function1<AlphaCommandSignature, ArgumentType> _function = new Function1<AlphaCommandSignature, ArgumentType>() {
+      public ArgumentType apply(final AlphaCommandSignature o) {
+        return o.getReturnType();
+      }
     };
     List<ArgumentType> _map = ListExtensions.<AlphaCommandSignature, ArgumentType>map(EcoreUtil2.<AlphaCommandSignature>getAllContentsOfType(cat, AlphaCommandSignature.class), _function);
-    final Function1<AlphaCommandArgument, ArgumentType> _function_1 = (AlphaCommandArgument o) -> {
-      return o.getArgumentType();
+    final Function1<AlphaCommandArgument, ArgumentType> _function_1 = new Function1<AlphaCommandArgument, ArgumentType>() {
+      public ArgumentType apply(final AlphaCommandArgument o) {
+        return o.getArgumentType();
+      }
     };
     List<ArgumentType> _map_1 = ListExtensions.<AlphaCommandArgument, ArgumentType>map(EcoreUtil2.<AlphaCommandArgument>getAllContentsOfType(cat, AlphaCommandArgument.class), _function_1);
     Iterable<ArgumentType> _plus = Iterables.<ArgumentType>concat(_map, _map_1);
-    final Function1<OverrideArgument, ArgumentType> _function_2 = (OverrideArgument o) -> {
-      return o.getArgumentType();
+    final Function1<OverrideArgument, ArgumentType> _function_2 = new Function1<OverrideArgument, ArgumentType>() {
+      public ArgumentType apply(final OverrideArgument o) {
+        return o.getArgumentType();
+      }
     };
     List<ArgumentType> _map_2 = ListExtensions.<OverrideArgument, ArgumentType>map(EcoreUtil2.<OverrideArgument>getAllContentsOfType(cat, OverrideArgument.class), _function_2);
-    final Function1<ArgumentType, Set<CharSequence>> _function_3 = (ArgumentType t) -> {
-      return this.fullPath(t);
+    final Function1<ArgumentType, Set<CharSequence>> _function_3 = new Function1<ArgumentType, Set<CharSequence>>() {
+      public Set<CharSequence> apply(final ArgumentType t) {
+        return CommonExtensions.this.fullPath(t);
+      }
     };
     return IterableExtensions.<ArgumentType, CharSequence>flatMap(IterableExtensions.<ArgumentType>toSet(Iterables.<ArgumentType>concat(_plus, _map_2)), _function_3);
   }
-  
+
   public Iterable<CharSequence> collectUsedClasses(final AlphaCommandsRoot root) {
-    final Function1<AlphaCommandCategory, Iterable<CharSequence>> _function = (AlphaCommandCategory it) -> {
-      return this.collectUsedClasses(it);
+    final Function1<AlphaCommandCategory, Iterable<CharSequence>> _function = new Function1<AlphaCommandCategory, Iterable<CharSequence>>() {
+      public Iterable<CharSequence> apply(final AlphaCommandCategory it) {
+        return CommonExtensions.this.collectUsedClasses(it);
+      }
     };
     return IterableExtensions.<AlphaCommandCategory, CharSequence>flatMap(root.getCategories(), _function);
   }
-  
+
   /**
    * Helper function to manage traversal of parallel lists holding arguments of
    * the base and the specialized command.
@@ -283,21 +309,25 @@ public class CommonExtensions {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * Generates input arguments list to a specialized command.
    */
   public String inputsList(final AlphaCommandSpecialization specialization) {
-    final BiFunction<AlphaCommandArgument, CommandArgumentSpecialization, Object> _function = (AlphaCommandArgument orig, CommandArgumentSpecialization spec) -> {
-      return this.getSpecializedArgument(spec, orig);
+    final BiFunction<AlphaCommandArgument, CommandArgumentSpecialization, Object> _function = new BiFunction<AlphaCommandArgument, CommandArgumentSpecialization, Object>() {
+      public Object apply(final AlphaCommandArgument orig, final CommandArgumentSpecialization spec) {
+        return CommonExtensions.this.getSpecializedArgument(spec, orig);
+      }
     };
     final Stream<Object> list = this.<Object>zipArgumentPairs(specialization, _function);
-    final Predicate<Object> _function_1 = (Object v) -> {
-      return (v != null);
+    final Predicate<Object> _function_1 = new Predicate<Object>() {
+      public boolean test(final Object v) {
+        return (v != null);
+      }
     };
     return IterableExtensions.join(((Iterable<?>)Conversions.doWrapArray(list.filter(_function_1).toArray())), ", ");
   }
-  
+
   protected CharSequence _specializationInputName(final OverrideArgument cas, final AlphaCommandArgument orig) {
     CharSequence _xifexpression = null;
     boolean _contentEquals = cas.getName().contentEquals(orig.getName());
@@ -312,15 +342,15 @@ public class CommonExtensions {
     }
     return _xifexpression;
   }
-  
+
   protected CharSequence _specializationInputName(final DefaultValueArgument dva, final AlphaCommandArgument orig) {
     return null;
   }
-  
+
   protected CharSequence _specializationInputName(final CommandArgumentSpecialization cas, final AlphaCommandArgument orig) {
     return orig.getName();
   }
-  
+
   protected CharSequence _getSpecializedArgument(final OverrideArgument cas, final AlphaCommandArgument orig) {
     CharSequence _xblockexpression = null;
     {
@@ -334,11 +364,11 @@ public class CommonExtensions {
     }
     return _xblockexpression;
   }
-  
+
   protected CharSequence _getSpecializedArgument(final DefaultValueArgument cas, final AlphaCommandArgument orig) {
     return null;
   }
-  
+
   protected CharSequence _getSpecializedArgument(final SameAsParentArgument cas, final AlphaCommandArgument orig) {
     CharSequence _xblockexpression = null;
     {
@@ -352,7 +382,7 @@ public class CommonExtensions {
     }
     return _xblockexpression;
   }
-  
+
   public CharSequence specializationInputName(final CommandArgumentSpecialization dva, final AlphaCommandArgument orig) {
     if (dva instanceof DefaultValueArgument) {
       return _specializationInputName((DefaultValueArgument)dva, orig);
@@ -365,7 +395,7 @@ public class CommonExtensions {
         Arrays.<Object>asList(dva, orig).toString());
     }
   }
-  
+
   public CharSequence getSpecializedArgument(final CommandArgumentSpecialization cas, final AlphaCommandArgument orig) {
     if (cas instanceof DefaultValueArgument) {
       return _getSpecializedArgument((DefaultValueArgument)cas, orig);

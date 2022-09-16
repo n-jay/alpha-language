@@ -5,7 +5,6 @@ package alpha.commands.model.ide;
 
 import alpha.commands.model.CommandsRuntimeModule;
 import alpha.commands.model.CommandsStandaloneSetup;
-import alpha.commands.model.ide.CommandsIdeModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.eclipse.xtext.util.Modules2;
@@ -15,7 +14,6 @@ import org.eclipse.xtext.util.Modules2;
  */
 @SuppressWarnings("all")
 public class CommandsIdeSetup extends CommandsStandaloneSetup {
-  @Override
   public Injector createInjector() {
     CommandsRuntimeModule _commandsRuntimeModule = new CommandsRuntimeModule();
     CommandsIdeModule _commandsIdeModule = new CommandsIdeModule();

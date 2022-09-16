@@ -7,7 +7,6 @@ import alpha.model.BinaryExpression;
 import alpha.model.MultiArgExpression;
 import alpha.model.REDUCTION_OP;
 import alpha.model.RestrictExpression;
-import alpha.model.transformation.reduction.HoistOutOfReduction;
 import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.ModelSwitch;
 import com.google.common.base.Objects;
@@ -32,7 +31,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public class SameOperatorSimplification {
   private static class TargetIdentifier extends ModelSwitch<AlphaExpression> {
     private AbstractReduceExpression reduction;
-    
+
     /**
      * The Switch is used to find the BinaryExpression or MultiArgExpression
      * immediately enclosed by the reduction, only allowing RestrictExpression
@@ -46,7 +45,7 @@ public class SameOperatorSimplification {
     public AlphaExpression defaultCase(final EObject eObject) {
       return null;
     }
-    
+
     @Override
     public AlphaExpression caseAbstractReduceExpression(final AbstractReduceExpression object) {
       AlphaExpression _xifexpression = null;
@@ -62,14 +61,14 @@ public class SameOperatorSimplification {
       }
       return _xifexpression;
     }
-    
+
     /**
      * override
      */
     public AlphaExpression caseRestrictExpression(final RestrictExpression object) {
       return this.doSwitch(object.getExpr());
     }
-    
+
     /**
      * override
      */
@@ -85,7 +84,7 @@ public class SameOperatorSimplification {
       }
       return object;
     }
-    
+
     /**
      * override
      */
@@ -102,7 +101,7 @@ public class SameOperatorSimplification {
       return object;
     }
   }
-  
+
   /**
    * Applies SameOperatorSimplification to the specified expression.
    * 
@@ -112,7 +111,7 @@ public class SameOperatorSimplification {
     final SameOperatorSimplification SOS = new SameOperatorSimplification();
     return SOS.transform(targetReduce);
   }
-  
+
   private int transform(final AbstractReduceExpression are) {
     final AlphaExpression targetExpr = new SameOperatorSimplification.TargetIdentifier().doSwitch(are);
     if ((targetExpr == null)) {
@@ -120,7 +119,7 @@ public class SameOperatorSimplification {
     }
     return this.applyHoisting(targetExpr);
   }
-  
+
   private int _applyHoisting(final BinaryExpression bexpr) {
     final BinaryExpression hoistedExpr = HoistOutOfReduction.apply(bexpr);
     final AlphaExpression targetLeft = new SameOperatorSimplification.TargetIdentifier().doSwitch(hoistedExpr.getLeft());
@@ -141,7 +140,7 @@ public class SameOperatorSimplification {
     final int rightCount = _xifexpression_1;
     return (leftCount + rightCount);
   }
-  
+
   private int _applyHoisting(final MultiArgExpression mae) {
     final MultiArgExpression hoistedExpr = HoistOutOfReduction.apply(mae);
     final List<AlphaExpression> exprs = IterableExtensions.<AlphaExpression>toList(hoistedExpr.getExprs());
@@ -161,7 +160,7 @@ public class SameOperatorSimplification {
     }
     return count;
   }
-  
+
   private int applyHoisting(final AlphaExpression bexpr) {
     if (bexpr instanceof BinaryExpression) {
       return _applyHoisting((BinaryExpression)bexpr);

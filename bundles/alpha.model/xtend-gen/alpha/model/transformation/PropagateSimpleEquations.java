@@ -9,8 +9,6 @@ import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
 import alpha.model.VariableExpression;
-import alpha.model.transformation.RemoveUnusedEquations;
-import alpha.model.transformation.SubstituteByDef;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -39,14 +37,14 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public class PropagateSimpleEquations {
   private PropagateSimpleEquations() {
   }
-  
+
   public static void apply(final AlphaSystem system) {
     final Consumer<SystemBody> _function = (SystemBody body) -> {
       PropagateSimpleEquations.apply(body);
     };
     system.getSystemBodies().forEach(_function);
   }
-  
+
   public static void apply(final SystemBody body) {
     final Function1<StandardEquation, Boolean> _function = (StandardEquation eq) -> {
       return Boolean.valueOf(PropagateSimpleEquations.isSimple(eq.getExpr()));
@@ -60,31 +58,31 @@ public class PropagateSimpleEquations {
       RemoveUnusedEquations.apply(body.getSystem());
     }
   }
-  
+
   private static boolean _isSimple(final AlphaExpression expr) {
     return false;
   }
-  
+
   private static boolean _isSimple(final VariableExpression expr) {
     return true;
   }
-  
+
   private static boolean _isSimple(final ConstantExpression expr) {
     return true;
   }
-  
+
   private static boolean _isSimple(final IndexExpression expr) {
     return true;
   }
-  
+
   private static boolean _isSimple(final RestrictExpression expr) {
     return PropagateSimpleEquations.isSimple(expr.getExpr());
   }
-  
+
   private static boolean _isSimple(final DependenceExpression expr) {
     return PropagateSimpleEquations.isSimple(expr.getExpr());
   }
-  
+
   private static boolean isSimple(final AlphaExpression expr) {
     if (expr instanceof ConstantExpression) {
       return _isSimple((ConstantExpression)expr);

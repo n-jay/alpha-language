@@ -7,7 +7,6 @@ import alpha.model.BinaryExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.MultiArgExpression;
 import alpha.model.RestrictExpression;
-import alpha.model.transformation.reduction.FactorOutFromReduction;
 import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.ModelSwitch;
 import com.google.common.base.Objects;
@@ -30,9 +29,9 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 public class Distributivity {
   private static class TargetIdentifier extends ModelSwitch<AlphaExpression> {
     private AbstractReduceExpression reduction = null;
-    
+
     private BINARY_OP enclosingOperatorOP = null;
-    
+
     /**
      * The Switch is used to find the DependenceExpression enclosed in a compatible
      * BinaryExpression or MultiArgExpression.
@@ -45,7 +44,7 @@ public class Distributivity {
     public AlphaExpression defaultCase(final EObject eObject) {
       return null;
     }
-    
+
     @Override
     public AlphaExpression caseAbstractReduceExpression(final AbstractReduceExpression object) {
       AlphaExpression _xifexpression = null;
@@ -61,7 +60,7 @@ public class Distributivity {
       }
       return _xifexpression;
     }
-    
+
     /**
      * override
      */
@@ -84,14 +83,14 @@ public class Distributivity {
       }
       return _xblockexpression;
     }
-    
+
     /**
      * override
      */
     public AlphaExpression caseRestrictExpression(final RestrictExpression object) {
       return this.doSwitch(object.getExpr());
     }
-    
+
     /**
      * override
      */
@@ -119,7 +118,7 @@ public class Distributivity {
       }
       return this.doSwitch(object.getRight());
     }
-    
+
     /**
      * override
      */
@@ -153,10 +152,10 @@ public class Distributivity {
       return null;
     }
   }
-  
+
   private Distributivity() {
   }
-  
+
   /**
    * Applies Distributivity to the specified expression.
    * 

@@ -42,7 +42,7 @@ import org.eclipse.xtext.xbase.lib.InputOutput;
 @SuppressWarnings("all")
 public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
   private static boolean DEBUG = false;
-  
+
   protected String debug(final String ruleID, final String rule) {
     String _xifexpression = null;
     if (SimplifyExpressions.DEBUG) {
@@ -50,7 +50,7 @@ public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
     }
     return _xifexpression;
   }
-  
+
   protected String debug(final AlphaExpression expr) {
     String _xifexpression = null;
     if (SimplifyExpressions.DEBUG) {
@@ -58,14 +58,14 @@ public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
     }
     return _xifexpression;
   }
-  
+
   protected void warning(final String message) {
     System.err.println(String.format("[Simplify] %s.", message));
   }
-  
+
   protected SimplifyExpressions() {
   }
-  
+
   public static void apply(final AlphaCompleteVisitable acv) {
     if ((acv instanceof AlphaVisitable)) {
       SimplifyExpressions.apply(((AlphaVisitable) acv));
@@ -77,17 +77,17 @@ public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
       }
     }
   }
-  
+
   public static void apply(final AlphaVisitable av) {
     final SimplifyExpressions visitor = new SimplifyExpressions();
     av.accept(visitor);
   }
-  
+
   public static void apply(final AlphaExpressionVisitable aev) {
     final SimplifyExpressions visitor = new SimplifyExpressions();
     aev.accept(visitor);
   }
-  
+
   @Override
   public void outBinaryExpression(final BinaryExpression be) {
     if (((AlphaOperatorUtil.isIdentity(be.getOperator(), be.getLeft()) && (!Objects.equal(be.getOperator(), BINARY_OP.DIV))) && (!Objects.equal(be.getOperator(), BINARY_OP.MOD)))) {
@@ -99,7 +99,7 @@ public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
       }
     }
   }
-  
+
   @Override
   public void outIndexExpression(final IndexExpression ie) {
     if (((ie.getFunction().getNbOutputs() == 1) && ie.getFunction().getAff(0).isConstant())) {
@@ -108,7 +108,7 @@ public class SimplifyExpressions extends AbstractAlphaCompleteVisitor {
       EcoreUtil.replace(ie, intExpr);
     }
   }
-  
+
   @Override
   public void outReduceExpression(final ReduceExpression re) {
     ISLMap map = re.getProjection().toMap();

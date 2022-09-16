@@ -20,8 +20,6 @@ import alpha.targetmapping.TargetMappingForSystemBody;
 import alpha.targetmapping.TargetMappingNode;
 import alpha.targetmapping.TileBandExpression;
 import alpha.targetmapping.TilingSpecification;
-import alpha.targetmapping.util.TMShow;
-import alpha.targetmapping.util.TargetMappingUtil;
 import fr.irisa.cairn.jnimap.isl.ISLMap;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,21 +48,21 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 @SuppressWarnings("all")
 public class TMAShow extends TMShow {
   protected Map<AlphaScheduleTarget, Stack<List<String>>> indexNameContexts;
-  
+
   protected Stack<List<String>> scheduleDimNameContextHistory = new Stack<List<String>>();
-  
+
   protected Stack<Integer> bandSizeHistory = new Stack<Integer>();
-  
+
   private final TargetMappingNode haltTarget;
-  
+
   private TMAShow() {
     this.haltTarget = null;
   }
-  
+
   private TMAShow(final TargetMappingNode target) {
     this.haltTarget = target;
   }
-  
+
   public static <T extends TargetMappingNode> String print(final T tmn) {
     String _xblockexpression = null;
     {
@@ -81,8 +79,7 @@ public class TMAShow extends TMShow {
     }
     return _xblockexpression;
   }
-  
-  @Override
+
   public CharSequence doSwitch(final EObject obj) {
     CharSequence _xifexpression = null;
     if (((this.haltTarget != null) && (this.haltTarget == obj))) {
@@ -93,13 +90,11 @@ public class TMAShow extends TMShow {
     }
     return _xifexpression;
   }
-  
-  @Override
+
   public String printDomain(final ContextExpression ce) {
     return AlphaPrintingUtil.toAShowString(ce.getContextDomain(), this.parameterContext, this.scheduleDimNameContextHistory.peek());
   }
-  
-  @Override
+
   public String printDomain(final ScheduleTargetRestrictDomain strd) {
     String _xifexpression = null;
     boolean _isEmpty = strd.getRestrictDomain().complement().isEmpty();
@@ -112,23 +107,19 @@ public class TMAShow extends TMShow {
     }
     return _xifexpression;
   }
-  
-  @Override
+
   public String printDomain(final GuardExpression ge) {
     return AlphaPrintingUtil.toAShowString(ge.getGuardDomain(), this.parameterContext, this.scheduleDimNameContextHistory.peek());
   }
-  
-  @Override
+
   public String printDomain(final IsolateSpecification is) {
     return AlphaPrintingUtil.toAShowString(is.getIsolateDomain(), this.parameterContext, this.scheduleDimNameContextHistory.peek());
   }
-  
-  @Override
+
   public String printSchedule(final BandPiece bp) {
     return AlphaPrintingUtil.toAShowString(bp.getPartialSchedule(), this.indexNameContexts.get(bp.getPieceDomain().getScheduleTarget()).peek());
   }
-  
-  @Override
+
   public CharSequence printSchedule(final TilingSpecification ts) {
     CharSequence _xifexpression = null;
     boolean _isIdentity = ts.getLoopSchedule().isIdentity();
@@ -140,13 +131,11 @@ public class TMAShow extends TMShow {
     }
     return _xifexpression;
   }
-  
-  @Override
+
   public String printExtensionMap(final ISLMap map) {
     return AlphaPrintingUtil.toShowString(map);
   }
-  
-  @Override
+
   public CharSequence printDimNames(final ScheduleTargetRestrictDomain strd) {
     CharSequence _xblockexpression = null;
     {
@@ -172,8 +161,7 @@ public class TMAShow extends TMShow {
     }
     return _xblockexpression;
   }
-  
-  @Override
+
   public CharSequence printDimNames(final BandExpression be) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("[");
@@ -182,8 +170,7 @@ public class TMAShow extends TMShow {
     _builder.append("]");
     return _builder;
   }
-  
-  @Override
+
   public CharSequence printDimNames(final TileBandExpression tbe) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("[");
@@ -192,8 +179,7 @@ public class TMAShow extends TMShow {
     _builder.append("]");
     return _builder;
   }
-  
-  @Override
+
   public CharSequence printDimNames(final ExtensionTarget et) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("[");
@@ -202,7 +188,7 @@ public class TMAShow extends TMShow {
     _builder.append("]");
     return _builder;
   }
-  
+
   /**
    * Schedule dim names are successively declared in case of nested band expressions.
    */
@@ -216,8 +202,7 @@ public class TMAShow extends TMShow {
     }
     return _xblockexpression;
   }
-  
-  @Override
+
   public CharSequence caseTargetMappingForSystemBody(final TargetMappingForSystemBody object) {
     CharSequence _xblockexpression = null;
     {
@@ -239,8 +224,7 @@ public class TMAShow extends TMShow {
     }
     return _xblockexpression;
   }
-  
-  @Override
+
   public CharSequence caseFilterExpression(final FilterExpression object) {
     EList<ScheduleTargetRestrictDomain> _filterDomains = object.getFilterDomains();
     for (final ScheduleTargetRestrictDomain fd : _filterDomains) {
@@ -253,8 +237,7 @@ public class TMAShow extends TMShow {
     }
     return res;
   }
-  
-  @Override
+
   public CharSequence caseBandExpression(final BandExpression object) {
     this.registerScheduleDimNames(object);
     final CharSequence res = super.caseBandExpression(object);
@@ -262,8 +245,7 @@ public class TMAShow extends TMShow {
     this.scheduleDimNameContextHistory.pop();
     return res;
   }
-  
-  @Override
+
   public CharSequence caseTileBandExpression(final TileBandExpression object) {
     this.registerScheduleDimNames(object);
     final CharSequence res = super.caseTileBandExpression(object);
@@ -271,12 +253,14 @@ public class TMAShow extends TMShow {
     this.scheduleDimNameContextHistory.pop();
     return res;
   }
-  
+
   private Integer registerScheduleDimNames(final AbstractBandExpression abe) {
     Integer _xblockexpression = null;
     {
-      final Function2<Integer, Integer, Integer> _function = (Integer p1, Integer p2) -> {
-        return Integer.valueOf(((p1).intValue() + (p2).intValue()));
+      final Function2<Integer, Integer, Integer> _function = new Function2<Integer, Integer, Integer>() {
+        public Integer apply(final Integer p1, final Integer p2) {
+          return Integer.valueOf(((p1).intValue() + (p2).intValue()));
+        }
       };
       final Integer priorBands = IterableExtensions.<Integer>reduce(this.bandSizeHistory, _function);
       final List<String> additionalDims = this.findScheduleDimNames(abe, (priorBands).intValue());
@@ -288,8 +272,7 @@ public class TMAShow extends TMShow {
     }
     return _xblockexpression;
   }
-  
-  @Override
+
   public CharSequence caseExtensionExpression(final ExtensionExpression object) {
     EList<ExtensionTarget> _extensionTargets = object.getExtensionTargets();
     for (final ExtensionTarget et : _extensionTargets) {
@@ -313,14 +296,14 @@ public class TMAShow extends TMShow {
     }
     return res;
   }
-  
+
   /**
    * Helper to find index names
    */
   private List<String> _findIndexNames(final AlphaScheduleTarget target) {
     return null;
   }
-  
+
   private List<String> _findIndexNames(final StandardEquation eq) {
     List<String> _xifexpression = null;
     if ((eq.getIndexNames().isEmpty() && (eq.getVariable().getDomain().getNbIndices() > 0))) {
@@ -330,11 +313,11 @@ public class TMAShow extends TMShow {
     }
     return _xifexpression;
   }
-  
+
   private List<String> _findIndexNames(final UseEquation eq) {
     return eq.getInstantiationDomain().getIndexNames();
   }
-  
+
   private List<String> findScheduleDimNames(final AbstractBandExpression abe, final int priorBands) {
     List<String> _xblockexpression = null;
     {
@@ -346,8 +329,10 @@ public class TMAShow extends TMShow {
       if (_equals) {
         _xifexpression = abe.getScheduleDimensionNames();
       } else {
-        final Function1<Integer, String> _function = (Integer i) -> {
-          return TargetMappingUtil.DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER.apply(i);
+        final Function1<Integer, String> _function = new Function1<Integer, String>() {
+          public String apply(final Integer i) {
+            return TargetMappingUtil.DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER.apply(i);
+          }
         };
         _xifexpression = IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(priorBands, (priorBands + bandSize), true), _function));
       }
@@ -355,7 +340,7 @@ public class TMAShow extends TMShow {
     }
     return _xblockexpression;
   }
-  
+
   private List<String> findIndexNames(final AlphaScheduleTarget eq) {
     if (eq instanceof StandardEquation) {
       return _findIndexNames((StandardEquation)eq);

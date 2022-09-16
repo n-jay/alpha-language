@@ -3,7 +3,6 @@
  */
 package alpha.commands.model.ui;
 
-import alpha.commands.model.ui.AbstractCommandsUiModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor;
 

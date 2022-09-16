@@ -10,7 +10,6 @@ import alpha.model.RestrictExpression;
 import alpha.model.SystemBody;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.transformation.Normalize;
-import alpha.model.transformation.reduction.ReductionUtil;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaOperatorUtil;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
@@ -46,7 +45,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 public class PermutationCaseReduce {
   private PermutationCaseReduce() {
   }
-  
+
   /**
    * Apply the transformation to all AbstractReduceExpressions in an AlphaSystem.
    * Silently ignores any AbstractReduceExpression where it is not applicable.
@@ -62,7 +61,7 @@ public class PermutationCaseReduce {
     };
     return IterableExtensions.<Integer>reduce(ListExtensions.<SystemBody, Integer>map(system.getSystemBodies(), _function), _function_1);
   }
-  
+
   /**
    * Apply the transformation to all AbstractReduceExpressions in a SystemBody.
    * Silently ignores any AbstractReduceExpression where it is not applicable.
@@ -78,7 +77,7 @@ public class PermutationCaseReduce {
     };
     return IterableExtensions.<Integer>reduce(ListExtensions.<AbstractReduceExpression, Integer>map(EcoreUtil2.<AbstractReduceExpression>getAllContentsOfType(body, AbstractReduceExpression.class), _function), _function_1);
   }
-  
+
   /**
    * Applies Permutation Case Reduce to the specified reduction.
    * This method throws an exception when it is not applicable to the specified expression.
@@ -90,7 +89,7 @@ public class PermutationCaseReduce {
       throw new IllegalArgumentException("[PermutationCaseReduce] Target AbstractReduceExpression must have a CaseExpression as its body.");
     }
   }
-  
+
   /**
    * Implementation of the transformation.
    */

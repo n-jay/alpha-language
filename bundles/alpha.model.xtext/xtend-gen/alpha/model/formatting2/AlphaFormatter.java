@@ -40,14 +40,14 @@ public class AlphaFormatter extends AbstractFormatter2 {
   @Inject
   @Extension
   private AlphaGrammarAccess _alphaGrammarAccess;
-  
+
   protected void _format(final AlphaRoot alphaRoot, @Extension final IFormattableDocument document) {
     EList<AlphaElement> _elements = alphaRoot.getElements();
     for (final AlphaElement alphaElement : _elements) {
       document.<AlphaElement>format(alphaElement);
     }
   }
-  
+
   protected void _format(final AlphaPackage alphaPackage, @Extension final IFormattableDocument document) {
     final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
       it.newLine();
@@ -62,7 +62,7 @@ public class AlphaFormatter extends AbstractFormatter2 {
       document.<AlphaElement>format(alphaElement);
     }
   }
-  
+
   private void newLineAndIndent(final EObject element, final Object start, final Object end, @Extension final IFormattableDocument document) {
     final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
       it.newLine();
@@ -73,21 +73,21 @@ public class AlphaFormatter extends AbstractFormatter2 {
     };
     document.<ISemanticRegion, ISemanticRegion>interior(this.getISemanticRegion(element, start), this.getISemanticRegion(element, end), _function_1);
   }
-  
+
   private ISemanticRegion _getISemanticRegion(final EObject element, final String obj) {
     return this.textRegionExtensions.regionFor(element).keyword(obj);
   }
-  
+
   private ISemanticRegion _getISemanticRegion(final EObject element, final Keyword obj) {
     return this.textRegionExtensions.regionFor(element).keyword(obj);
   }
-  
+
   private ISemanticRegion _getISemanticRegion(final EObject element, final EStructuralFeature obj) {
     return this.textRegionExtensions.regionFor(element).feature(obj);
   }
-  
+
   private static final ArrayList<String> SysKWs = CollectionLiterals.<String>newArrayList("define", "inputs", "outputs", "locals", "fuzzy", "over", "let", ".");
-  
+
   private String getNextApplicableKeyword(final AlphaSystem system, final String keyword) {
     boolean _switchResult = false;
     if (keyword != null) {
@@ -124,7 +124,7 @@ public class AlphaFormatter extends AbstractFormatter2 {
     }
     return _xifexpression;
   }
-  
+
   private String next(final String current) {
     final int index = AlphaFormatter.SysKWs.indexOf(current);
     if (((index == (-1)) || (index == 7))) {
@@ -132,7 +132,7 @@ public class AlphaFormatter extends AbstractFormatter2 {
     }
     return AlphaFormatter.SysKWs.get((index + 1));
   }
-  
+
   protected void _format(final AlphaSystem alphaSystem, @Extension final IFormattableDocument document) {
     final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
       it.indent();
@@ -177,7 +177,7 @@ public class AlphaFormatter extends AbstractFormatter2 {
       }
     }
   }
-  
+
   protected void _format(final SystemBody sysBody, @Extension final IFormattableDocument document) {
     EList<Equation> _equations = sysBody.getEquations();
     for (final Equation eq : _equations) {
@@ -190,14 +190,14 @@ public class AlphaFormatter extends AbstractFormatter2 {
       }
     }
   }
-  
+
   protected void _format(final Variable v, @Extension final IFormattableDocument document) {
     final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
       it.oneSpace();
     };
     document.surround(this.textRegionExtensions.regionFor(v).keyword(":"), _function);
   }
-  
+
   protected void _format(final StandardEquation eq, @Extension final IFormattableDocument document) {
     final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
       it.noSpace();
@@ -205,18 +205,18 @@ public class AlphaFormatter extends AbstractFormatter2 {
     document.prepend(this.textRegionExtensions.regionFor(eq).keyword(";"), _function);
     document.<AlphaExpression>format(eq.getExpr());
   }
-  
+
   private void formatChildren(final AlphaExpression expr, @Extension final IFormattableDocument document) {
     Iterable<AlphaExpression> _filter = Iterables.<AlphaExpression>filter(expr.eContents(), AlphaExpression.class);
     for (final AlphaExpression child : _filter) {
       document.<AlphaExpression>format(child);
     }
   }
-  
+
   protected void _format(final AlphaExpression expr, @Extension final IFormattableDocument document) {
     this.formatChildren(expr, document);
   }
-  
+
   protected void _format(final CaseExpression caseExpr, @Extension final IFormattableDocument document) {
     final Procedure1<IHiddenRegionFormatter> _function = (IHiddenRegionFormatter it) -> {
       it.oneSpace();
@@ -245,7 +245,7 @@ public class AlphaFormatter extends AbstractFormatter2 {
     this.textRegionExtensions.allRegionsFor(caseExpr).keywords(";").forEach(_function_5);
     this.formatChildren(caseExpr, document);
   }
-  
+
   public void format(final Object alphaPackage, final IFormattableDocument document) {
     if (alphaPackage instanceof AlphaPackage) {
       _format((AlphaPackage)alphaPackage, document);
@@ -288,7 +288,7 @@ public class AlphaFormatter extends AbstractFormatter2 {
         Arrays.<Object>asList(alphaPackage, document).toString());
     }
   }
-  
+
   private ISemanticRegion getISemanticRegion(final EObject element, final Object obj) {
     if (obj instanceof EStructuralFeature) {
       return _getISemanticRegion(element, (EStructuralFeature)obj);

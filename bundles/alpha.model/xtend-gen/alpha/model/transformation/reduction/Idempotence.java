@@ -7,7 +7,6 @@ import alpha.model.analysis.reduction.ShareSpaceAnalysis;
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.transformation.Normalize;
-import alpha.model.transformation.reduction.ReductionUtil;
 import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
@@ -40,7 +39,7 @@ public class Idempotence {
   public static void apply(final AbstractReduceExpression are) {
     Idempotence.transform(are);
   }
-  
+
   /**
    * Legality test that should match the one in transform.
    * Exposed to be used by SimplifyingReductionExploration.
@@ -65,7 +64,7 @@ public class Idempotence {
     }
     return false;
   }
-  
+
   private static void transform(final AbstractReduceExpression are) {
     boolean _isIdempotent = AlphaOperatorUtil.isIdempotent(are.getOperator());
     boolean _not = (!_isIdempotent);

@@ -20,7 +20,6 @@ import alpha.model.RestrictExpression;
 import alpha.model.UnaryExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
-import alpha.model.transformation.LiftAutoRestrict;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
@@ -138,9 +137,9 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
    *  - replaces case with its child if it only has a branch
    */
   private final boolean DEEP;
-  
+
   public static boolean DEBUG = false;
-  
+
   protected String debug(final String ruleID, final String rule) {
     String _xifexpression = null;
     if (Normalize.DEBUG) {
@@ -148,7 +147,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return _xifexpression;
   }
-  
+
   protected String debug(final AlphaExpression expr) {
     String _xifexpression = null;
     if (Normalize.DEBUG) {
@@ -156,22 +155,22 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return _xifexpression;
   }
-  
+
   /**
    * Default constructor uses shallow normalize
    */
   protected Normalize() {
     this.DEEP = false;
   }
-  
+
   protected Normalize(final boolean isDeepNormalize) {
     this.DEEP = isDeepNormalize;
   }
-  
+
   public static void apply(final AlphaCompleteVisitable acv) {
     Normalize.apply(acv, false);
   }
-  
+
   public static void apply(final AlphaCompleteVisitable acv, final boolean isDeepNormalize) {
     if ((acv instanceof AlphaVisitable)) {
       Normalize.apply(((AlphaVisitable) acv), isDeepNormalize);
@@ -183,38 +182,38 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       }
     }
   }
-  
+
   public static void apply(final AlphaVisitable av) {
     Normalize.apply(av, false);
   }
-  
+
   public static void apply(final AlphaVisitable av, final boolean isDeepNormalize) {
     final Normalize visitor = new Normalize(isDeepNormalize);
     av.accept(visitor);
   }
-  
+
   public static void apply(final AlphaExpressionVisitable aev) {
     Normalize.apply(aev, false);
   }
-  
+
   public static void apply(final AlphaExpressionVisitable aev, final boolean isDeepNormalize) {
     final Normalize visitor = new Normalize(isDeepNormalize);
     aev.accept(visitor);
   }
-  
+
   private void _reapply(final AlphaVisitable av) {
     this.accept(av);
   }
-  
+
   private void _reapply(final AlphaExpressionVisitable aev) {
     this.accept(aev);
   }
-  
+
   private boolean invalidState(final EObject obj) {
     EObject _eContainer = obj.eContainer();
     return (_eContainer == null);
   }
-  
+
   @Override
   public void outDependenceExpression(final DependenceExpression de) {
     boolean _invalidState = this.invalidState(de);
@@ -228,7 +227,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       EcoreUtil.replace(de, de.getExpr());
     }
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final DependenceExpression innerDep) {
     String _xblockexpression = null;
     {
@@ -240,7 +239,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return _xblockexpression;
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final IndexExpression innerIE) {
     String _xblockexpression = null;
     {
@@ -252,7 +251,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return _xblockexpression;
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final RestrictExpression innerRE) {
     this.debug("preimage", "f @ D : E -> f-1(D) : f@E");
     final ISLSet preimage = innerRE.getRestrictDomain().preimage(de.getFunction());
@@ -264,7 +263,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(innerRE);
     return null;
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final BinaryExpression binExpr) {
     this.debug("push-dep BinExpr", "f @ (A op B) -> (f @ A op f @ B)");
     EcoreUtil.replace(de, binExpr);
@@ -276,7 +275,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(binExpr);
     return null;
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final UnaryExpression ue) {
     this.debug("push-dep UnaryExpr", "f @ (op E) -> (op f@E)");
     EcoreUtil.replace(de, ue);
@@ -286,7 +285,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(ue);
     return null;
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final MultiArgExpression mae) {
     this.debug("push-dep MAExpr", "f @ (op E) -> (op f@E)");
     this.propagateDownwards(de, mae);
@@ -294,7 +293,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(mae);
     return null;
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final CaseExpression ce) {
     this.debug("push-dep CaseExpr", "f @ (op E) -> (op f@E)");
     this.propagateDownwards(de, ce);
@@ -303,7 +302,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(ce);
     return null;
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final IfExpression ie) {
     this.debug("push-dep IfExpr", "f @ if (E1, E2, E3) -> if (f@E1, f@E2, f@E3)");
     EcoreUtil.replace(de, ie);
@@ -317,7 +316,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(ie);
     return null;
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final ConvolutionExpression ce) {
     boolean _isBijective = de.getFunction().toMap().isBijective();
     boolean _not = (!_isBijective);
@@ -335,11 +334,11 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(ce);
     return null;
   }
-  
+
   protected String _dependenceExpressionRules(final DependenceExpression de, final AlphaExpression expr) {
     return null;
   }
-  
+
   @Override
   public void outRestrictExpression(final RestrictExpression re) {
     boolean _invalidState = this.invalidState(re);
@@ -357,7 +356,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       EcoreUtil.replace(re, re.getExpr());
     }
   }
-  
+
   protected String _restrictExpressionRules(final RestrictExpression re, final RestrictExpression innerRE) {
     String _xblockexpression = null;
     {
@@ -369,7 +368,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return _xblockexpression;
   }
-  
+
   protected String _restrictExpressionRules(final RestrictExpression re, final AutoRestrictExpression are) {
     String _xblockexpression = null;
     {
@@ -379,7 +378,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return _xblockexpression;
   }
-  
+
   protected String _restrictExpressionRules(final RestrictExpression re, final CaseExpression ce) {
     this.debug("push restrict", "D : case { E1; E2; ... } -> case { D:E1; D:E2; ... }");
     this.propagateDownwards(re, ce);
@@ -388,7 +387,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(ce);
     return null;
   }
-  
+
   protected String _restrictExpressionRules(final RestrictExpression re, final AbstractReduceExpression are) {
     EObject _eContainer = re.eContainer();
     if ((_eContainer instanceof AbstractReduceExpression)) {
@@ -403,11 +402,11 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return null;
   }
-  
+
   protected String _restrictExpressionRules(final RestrictExpression re, final AlphaExpression expr) {
     return null;
   }
-  
+
   @Override
   public void outBinaryExpression(final BinaryExpression be) {
     boolean _invalidState = this.invalidState(be);
@@ -424,7 +423,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       this.reapply(origContainer);
     }
   }
-  
+
   protected List<AlphaIssue> _binaryExpressionRules(final BinaryExpression be, final RestrictExpression re) {
     List<AlphaIssue> _xblockexpression = null;
     {
@@ -437,7 +436,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return _xblockexpression;
   }
-  
+
   protected List<AlphaIssue> _binaryExpressionRules(final BinaryExpression be, final CaseExpression ce) {
     List<AlphaIssue> _xblockexpression = null;
     {
@@ -472,11 +471,11 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return _xblockexpression;
   }
-  
+
   protected List<AlphaIssue> _binaryExpressionRules(final BinaryExpression be, final AlphaExpression expr) {
     return null;
   }
-  
+
   @Override
   public void outUnaryExpression(final UnaryExpression ue) {
     boolean _invalidState = this.invalidState(ue);
@@ -485,7 +484,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     this.unaryExpressionRules(ue, ue.getExpr());
   }
-  
+
   protected String _unaryExpressionRules(final UnaryExpression ue, final RestrictExpression innerRE) {
     String _xblockexpression = null;
     {
@@ -498,7 +497,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     return _xblockexpression;
   }
-  
+
   protected String _unaryExpressionRules(final UnaryExpression ue, final CaseExpression ce) {
     this.debug("pull-case UnaryExpr", "op case { E1; E2; ... }-> case { op E1; op E2; ... }");
     this.propagateDownwards(ue, ce);
@@ -506,11 +505,11 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(ce);
     return null;
   }
-  
+
   protected String _unaryExpressionRules(final UnaryExpression ue, final AlphaExpression expr) {
     return null;
   }
-  
+
   @Override
   public void outMultiArgExpression(final MultiArgExpression mae) {
     boolean _invalidState = this.invalidState(mae);
@@ -552,7 +551,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       return;
     }
   }
-  
+
   protected CaseExpression _multiArgExpressionRules(final MultiArgExpression mae, final CaseExpression ce) {
     final int index = mae.getExprs().indexOf(ce);
     if ((index <= (-1))) {
@@ -577,11 +576,11 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     AlphaInternalStateConstructor.recomputeContextDomain(ce);
     return ce;
   }
-  
+
   protected CaseExpression _multiArgExpressionRules(final MultiArgExpression mae, final AlphaExpression expr) {
     return null;
   }
-  
+
   @Override
   public void outCaseExpression(final CaseExpression ce) {
     boolean _invalidState = this.invalidState(ce);
@@ -638,7 +637,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       EcoreUtil.replace(ce, ce.getExprs().get(0));
     }
   }
-  
+
   @Override
   public void outIfExpression(final IfExpression ie) {
     boolean _invalidState = this.invalidState(ie);
@@ -667,7 +666,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       return;
     }
   }
-  
+
   protected AlphaExpression _ifExpressionRules(final IfExpression ie, final RestrictExpression re) {
     if (Normalize.DEBUG) {
       EReference _eContainmentFeature = re.eContainmentFeature();
@@ -695,7 +694,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     AlphaInternalStateConstructor.recomputeContextDomain(re);
     return re;
   }
-  
+
   protected AlphaExpression _ifExpressionRules(final IfExpression ie, final CaseExpression ce) {
     EReference _eContainmentFeature = ce.eContainmentFeature();
     final boolean isCond = Objects.equal(_eContainmentFeature, ModelPackage.Literals.IF_EXPRESSION__COND_EXPR);
@@ -748,11 +747,11 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     AlphaInternalStateConstructor.recomputeContextDomain(newCE);
     return newCE;
   }
-  
+
   protected AlphaExpression _ifExpressionRules(final IfExpression ie, final AlphaExpression expr) {
     return null;
   }
-  
+
   @Override
   public void outAutoRestrictExpression(final AutoRestrictExpression are) {
     AlphaExpression _expr = are.getExpr();
@@ -766,7 +765,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       EcoreUtil.replace(are.getExpr(), ((AutoRestrictExpression) _expr_3).getExpr());
     }
   }
-  
+
   /**
    * Helper function to propagate dependence/restrict expressions downwards.
    * 
@@ -790,27 +789,27 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     };
     children.forEach(_function_1);
   }
-  
+
   private EList<AlphaExpression> _getChildrenEList(final CaseExpression ce) {
     return ce.getExprs();
   }
-  
+
   private EList<AlphaExpression> _getChildrenEList(final MultiArgExpression mae) {
     return mae.getExprs();
   }
-  
+
   private AlphaExpression _wrapExpression(final RestrictExpression wrapper, final AlphaExpression expr) {
     return AlphaUserFactory.createRestrictExpression(wrapper.getRestrictDomain(), expr);
   }
-  
+
   private AlphaExpression _wrapExpression(final DependenceExpression wrapper, final AlphaExpression expr) {
     return AlphaUserFactory.createDependenceExpression(wrapper.getFunction(), expr);
   }
-  
+
   private AlphaExpression _wrapExpression(final UnaryExpression wrapper, final AlphaExpression expr) {
     return AlphaUserFactory.createUnaryExpression(wrapper.getOperator(), expr);
   }
-  
+
   private void reapply(final AlphaCompleteVisitable aev) {
     if (aev instanceof AlphaExpressionVisitable) {
       _reapply((AlphaExpressionVisitable)aev);
@@ -823,7 +822,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
         Arrays.<Object>asList(aev).toString());
     }
   }
-  
+
   protected String dependenceExpressionRules(final DependenceExpression de, final AlphaExpression binExpr) {
     if (binExpr instanceof BinaryExpression) {
       return _dependenceExpressionRules(de, (BinaryExpression)binExpr);
@@ -850,7 +849,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
         Arrays.<Object>asList(de, binExpr).toString());
     }
   }
-  
+
   protected String restrictExpressionRules(final RestrictExpression re, final AlphaExpression are) {
     if (are instanceof AbstractReduceExpression) {
       return _restrictExpressionRules(re, (AbstractReduceExpression)are);
@@ -867,7 +866,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
         Arrays.<Object>asList(re, are).toString());
     }
   }
-  
+
   protected List<AlphaIssue> binaryExpressionRules(final BinaryExpression be, final AlphaExpression ce) {
     if (ce instanceof CaseExpression) {
       return _binaryExpressionRules(be, (CaseExpression)ce);
@@ -880,7 +879,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
         Arrays.<Object>asList(be, ce).toString());
     }
   }
-  
+
   protected String unaryExpressionRules(final UnaryExpression ue, final AlphaExpression ce) {
     if (ce instanceof CaseExpression) {
       return _unaryExpressionRules(ue, (CaseExpression)ce);
@@ -893,7 +892,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
         Arrays.<Object>asList(ue, ce).toString());
     }
   }
-  
+
   protected CaseExpression multiArgExpressionRules(final MultiArgExpression mae, final AlphaExpression ce) {
     if (ce instanceof CaseExpression) {
       return _multiArgExpressionRules(mae, (CaseExpression)ce);
@@ -904,7 +903,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
         Arrays.<Object>asList(mae, ce).toString());
     }
   }
-  
+
   protected AlphaExpression ifExpressionRules(final IfExpression ie, final AlphaExpression ce) {
     if (ce instanceof CaseExpression) {
       return _ifExpressionRules(ie, (CaseExpression)ce);
@@ -917,7 +916,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
         Arrays.<Object>asList(ie, ce).toString());
     }
   }
-  
+
   private EList<AlphaExpression> getChildrenEList(final AlphaExpression ce) {
     if (ce instanceof CaseExpression) {
       return _getChildrenEList((CaseExpression)ce);
@@ -928,7 +927,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
         Arrays.<Object>asList(ce).toString());
     }
   }
-  
+
   private AlphaExpression wrapExpression(final AlphaExpression wrapper, final AlphaExpression expr) {
     if (wrapper instanceof DependenceExpression) {
       return _wrapExpression((DependenceExpression)wrapper, expr);

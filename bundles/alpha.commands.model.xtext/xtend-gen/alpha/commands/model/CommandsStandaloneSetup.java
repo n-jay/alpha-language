@@ -3,8 +3,6 @@
  */
 package alpha.commands.model;
 
-import alpha.commands.model.CommandsStandaloneSetupGenerated;
-
 /**
  * Initialization support for running Xtext languages without Equinox extension registry.
  */

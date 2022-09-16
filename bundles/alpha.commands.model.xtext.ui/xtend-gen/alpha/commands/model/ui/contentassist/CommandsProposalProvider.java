@@ -3,8 +3,6 @@
  */
 package alpha.commands.model.ui.contentassist;
 
-import alpha.commands.model.ui.contentassist.AbstractCommandsProposalProvider;
-
 /**
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
  * on how to customize the content assistant.

@@ -28,7 +28,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 public class ReductionComposition {
   private ReductionComposition() {
   }
-  
+
   /**
    * Apply the transformation to all AbstractReduceExpressions in an AlphaSystem.
    * Silently ignores any AbstractReduceExpression where composition is not applicable.
@@ -44,7 +44,7 @@ public class ReductionComposition {
     };
     return IterableExtensions.<Integer>reduce(ListExtensions.<SystemBody, Integer>map(system.getSystemBodies(), _function), _function_1);
   }
-  
+
   /**
    * Apply the transformation to all AbstractReduceExpressions in a SystemBody.
    * Silently ignores any AbstractReduceExpression where composition is not applicable.
@@ -60,7 +60,7 @@ public class ReductionComposition {
     };
     return IterableExtensions.<Integer>reduce(ListExtensions.<AbstractReduceExpression, Integer>map(EcoreUtil2.<AbstractReduceExpression>getAllContentsOfType(body, AbstractReduceExpression.class), _function), _function_1);
   }
-  
+
   /**
    * Composes two AbstractReduceExpressions into one.
    * This method throws an exception when composition is not applicable to the specified expression.
@@ -72,7 +72,7 @@ public class ReductionComposition {
       throw new IllegalArgumentException("[ReductionComposition] Target AbstractReduceExpression must have another reduction with the same operator as its body.");
     }
   }
-  
+
   /**
    * Implementation of the transformation.
    */
@@ -89,7 +89,7 @@ public class ReductionComposition {
     are.setBody(innerARE.getBody());
     return 1;
   }
-  
+
   /**
    * Tests if ReductionComposition is applicable.
    * Exposed to be used by SimplifyReductionExploration.

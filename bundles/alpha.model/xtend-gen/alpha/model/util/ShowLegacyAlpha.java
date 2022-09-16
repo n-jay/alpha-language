@@ -17,8 +17,6 @@ import alpha.model.SystemBody;
 import alpha.model.UnaryExpression;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
-import alpha.model.util.AlphaPrintingUtil;
-import alpha.model.util.Show;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -44,26 +42,26 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 public class ShowLegacyAlpha {
   public static class ShowLegacyAlphaForSystem extends Show {
     protected SystemBody targetBody;
-    
+
     public ShowLegacyAlphaForSystem(final SystemBody targetBody) {
       this.targetBody = targetBody;
     }
-    
+
     @Override
     protected String printDomain(final ISLSet set) {
       return AlphaPrintingUtil.toLegacyAlphaString(set);
     }
-    
+
     @Override
     protected String printParameterDomain(final JNIDomain dom) {
       return AlphaPrintingUtil.toLegacyAlphaStringParameterDomain(dom.getISLSet());
     }
-    
+
     @Override
     protected String printVariableDeclarationDomain(final ISLSet set) {
       return AlphaPrintingUtil.toLegacyAlphaString(set);
     }
-    
+
     @Override
     public CharSequence caseAlphaSystem(final AlphaSystem s) {
       CharSequence _xblockexpression = null;
@@ -148,7 +146,7 @@ public class ShowLegacyAlpha {
       }
       return _xblockexpression;
     }
-    
+
     @Override
     public CharSequence caseVariable(final Variable v) {
       StringConcatenation _builder = new StringConcatenation();
@@ -161,22 +159,22 @@ public class ShowLegacyAlpha {
       _builder.append(";");
       return _builder;
     }
-    
+
     @Override
     public CharSequence caseUseEquation(final UseEquation ue) {
       throw new UnsupportedOperationException("[ShowLegacyAlpha] Use equations are not yet supported.");
     }
-    
+
     @Override
     public CharSequence caseRestrictExpression(final RestrictExpression re) {
       return this.caseRestrict(re, re.getRestrictDomain(), re.getExpr());
     }
-    
+
     @Override
     public CharSequence caseAutoRestrictExpression(final AutoRestrictExpression are) {
       return this.caseRestrict(are, are.getInferredDomain(), are.getExpr());
     }
-    
+
     private CharSequence caseRestrict(final AlphaExpression expr, final ISLSet domain, final AlphaExpression child) {
       CharSequence _xblockexpression = null;
       {
@@ -203,7 +201,7 @@ public class ShowLegacyAlpha {
       }
       return _xblockexpression;
     }
-    
+
     @Override
     public CharSequence caseCaseExpression(final CaseExpression ce) {
       StringConcatenation _builder = new StringConcatenation();
@@ -219,30 +217,30 @@ public class ShowLegacyAlpha {
       _builder.append("esac");
       return _builder;
     }
-    
+
     @Override
     public CharSequence casePolynomialIndexExpression(final PolynomialIndexExpression pie) {
       throw new IllegalArgumentException("[ShowLegacyAlpha] PolynomialIndexExpression is not allowed.");
     }
-    
+
     @Override
     public CharSequence caseSelectExpression(final SelectExpression se) {
       throw new IllegalArgumentException("[ShowLegacyAlpha] SelectExpression is not allowed.");
     }
-    
+
     @Override
     public CharSequence caseConvolutionExpression(final ConvolutionExpression ce) {
       throw new IllegalArgumentException("[ShowLegacyAlpha] ConvolutionExpression is not allowed.");
     }
   }
-  
+
   public static String print(final AlphaRoot root) {
     final Function1<AlphaSystem, CharSequence> _function = (AlphaSystem s) -> {
       return ShowLegacyAlpha.print(s);
     };
     return IterableExtensions.<AlphaSystem>join(root.getSystems(), "\n", _function);
   }
-  
+
   public static String print(final AlphaSystem system) {
     String _xblockexpression = null;
     {
@@ -257,7 +255,7 @@ public class ShowLegacyAlpha {
     }
     return _xblockexpression;
   }
-  
+
   public static String print(final SystemBody systemBody) {
     String _xblockexpression = null;
     {

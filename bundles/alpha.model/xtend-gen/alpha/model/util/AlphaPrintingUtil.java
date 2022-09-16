@@ -1,6 +1,5 @@
 package alpha.model.util;
 
-import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
 import fr.irisa.cairn.jnimap.isl.ISLBasicMap;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
@@ -52,7 +51,7 @@ public class AlphaPrintingUtil {
     _builder.append(")");
     return _builder.toString();
   }
-  
+
   public static String toAShowString(final ISLMultiAff maff) {
     if ((maff == null)) {
       return null;
@@ -67,14 +66,14 @@ public class AlphaPrintingUtil {
     _builder.append("]");
     return _builder.toString();
   }
-  
+
   public static String toAShowString(final ISLMultiAff maff, final List<String> context) {
     if ((maff == null)) {
       return null;
     }
     return AlphaPrintingUtil.toAShowString(AlphaUtil.renameIndices(maff, context));
   }
-  
+
   /**
    * JNIISLAff to AlphaString
    * 
@@ -96,7 +95,7 @@ public class AlphaPrintingUtil {
     AlphaPrintingUtil.toAlphaStringHelperForDiv(aff, commonD, posList, negList);
     return AlphaPrintingUtil.constructExpressionString(aff, posList, negList);
   }
-  
+
   /**
    * Helper for printAff that collects positive/negative values of a given dim type
    */
@@ -141,7 +140,7 @@ public class AlphaPrintingUtil {
       }
     }
   }
-  
+
   private static void toAlphaStringHelperForDiv(final ISLAff aff, final long commonD, final List<String> posList, final List<String> negList) {
     final int n = aff.dim(ISLDimType.isl_dim_div);
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
@@ -194,7 +193,7 @@ public class AlphaPrintingUtil {
       }
     }
   }
-  
+
   private static String constructExpressionString(final ISLAff aff, final List<String> posList, final List<String> negList) {
     String _xblockexpression = null;
     {
@@ -248,7 +247,7 @@ public class AlphaPrintingUtil {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * ISLSet to AlphaString
    * 
@@ -257,11 +256,11 @@ public class AlphaPrintingUtil {
   public static String toShowString(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, null);
   }
-  
+
   public static String toShowString(final ISLSet set, final ISLSet paramDom) {
     return AlphaPrintingUtil.toShowString(set, paramDom, null);
   }
-  
+
   public static String toShowString(final ISLSet set, final ISLSet paramDom, final List<String> names) {
     if (((set.getNbIndices() == 0) && set.plainIsUniverse())) {
       return "{}";
@@ -297,15 +296,15 @@ public class AlphaPrintingUtil {
     final String out = (_plus_2 + "}");
     return out;
   }
-  
+
   public static String toAShowString(final ISLSet set) {
     return AlphaPrintingUtil.toAShowString(set, null);
   }
-  
+
   public static String toAShowString(final ISLSet set, final ISLSet paramDom) {
     return AlphaPrintingUtil.toAShowString(set, paramDom, null);
   }
-  
+
   public static String toAShowString(final ISLSet set, final ISLSet paramDom, final List<String> names) {
     ISLSet _xifexpression = null;
     if ((names != null)) {
@@ -327,36 +326,36 @@ public class AlphaPrintingUtil {
     final String out = (_plus + "}");
     return out;
   }
-  
+
   public static List<String> collectBasicSets(final ISLSet set) {
     final Function1<ISLBasicSet, String> _function = (ISLBasicSet c) -> {
       return AlphaPrintingUtil.extractConstraints(c.toString());
     };
     return ListExtensions.<ISLBasicSet, String>map(set.getBasicSets(), _function);
   }
-  
+
   public static List<List<String>> collectConstraints(final ISLSet set) {
     final Function1<ISLBasicSet, List<String>> _function = (ISLBasicSet it) -> {
       return AlphaPrintingUtil.collectConstraints(it);
     };
     return ListExtensions.<ISLBasicSet, List<String>>map(set.getBasicSets(), _function);
   }
-  
+
   public static List<String> collectConstraints(final ISLBasicSet bset) {
     final Function1<ISLConstraint, String> _function = (ISLConstraint c) -> {
       return AlphaPrintingUtil.extractConstraints(c.toString());
     };
     return ListExtensions.<ISLConstraint, String>map(bset.getConstraints(), _function);
   }
-  
+
   public static String toShowStringParameterDomain(final ISLSet set) {
     return set.toString();
   }
-  
+
   public static String toShowStringSystemBodyDomain(final ISLSet set) {
     return AlphaPrintingUtil.removeParameters(set.toString());
   }
-  
+
   /**
    * ISLMap to Alpha string
    */
@@ -365,55 +364,55 @@ public class AlphaPrintingUtil {
     String _plus = ("{" + _join);
     return (_plus + "}");
   }
-  
+
   public static List<String> collectBasicMaps(final ISLMap map) {
     final Function1<ISLBasicMap, String> _function = (ISLBasicMap c) -> {
       return c.toString().replaceFirst("\\[.*\\]\\s->\\s*\\{", "").replaceFirst("\\}", "");
     };
     return ListExtensions.<ISLBasicMap, String>map(map.getBasicMaps(), _function);
   }
-  
+
   /**
    * ISLPWQPolynomial to Alpha string
    */
   public static String toShowString(final ISLPWQPolynomial poly) {
     return AlphaPrintingUtil.removeParameters(poly.toString());
   }
-  
+
   public static String toAShowString(final ISLPWQPolynomial poly, final List<String> context) {
     return AlphaPrintingUtil.toAShowString(AlphaUtil.renameIndices(poly, context));
   }
-  
+
   private static String toAShowString(final ISLPWQPolynomial poly) {
     return AlphaPrintingUtil.removeParameters(poly.toString()).replaceAll("\\[.*\\]\\s*->\\s*", "");
   }
-  
+
   /**
    * ISLQPolynomial to Alpha string
    */
   public static String toShowString(final ISLQPolynomial poly) {
     return AlphaPrintingUtil.removeParameters(poly.toString());
   }
-  
+
   public static String toAShowString(final ISLQPolynomial poly, final List<String> context) {
     return AlphaPrintingUtil.toAShowString(AlphaUtil.renameIndices(poly, context));
   }
-  
+
   private static String toAShowString(final ISLQPolynomial poly) {
     return AlphaPrintingUtil.removeParameters(poly.toString()).replaceAll("\\[.*\\]\\s*->\\s*", "");
   }
-  
+
   /**
    * Legacy Alpha Syntax
    */
   public static String toLegacyAlphaString(final ISLSet set) {
     return AlphaPrintingUtil.toLegacyAlphaString(set, null);
   }
-  
+
   public static String toLegacyAlphaString(final ISLSet set, final ISLSet paramDom) {
     return AlphaPrintingUtil.toLegacyAlphaString(set, paramDom, null);
   }
-  
+
   public static String toLegacyAlphaString(final ISLSet set, final ISLSet paramDom, final List<String> names) {
     String _xblockexpression = null;
     {
@@ -443,7 +442,7 @@ public class AlphaPrintingUtil {
     }
     return _xblockexpression;
   }
-  
+
   private static String toLegacyAlphaString(final ISLBasicSet bset) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("{ ");
@@ -458,7 +457,7 @@ public class AlphaPrintingUtil {
     _builder.append(" }");
     return _builder.toString();
   }
-  
+
   public static String toLegacyAlphaStringParameterDomain(final ISLSet set) {
     String _xblockexpression = null;
     {
@@ -482,14 +481,14 @@ public class AlphaPrintingUtil {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * Helper
    */
   private static String extractConstraints(final String str) {
     return str.replaceFirst("(\\[.*\\]\\s->\\s*)?\\{", "").replaceAll("(\\[[^\\[\\]]*\\])?\\s*:\\s*", "").replaceFirst("\\}", "");
   }
-  
+
   private static String removeParameters(final String str) {
     return str.replaceFirst("\\[.*\\]\\s*->\\s*\\{", "{");
   }

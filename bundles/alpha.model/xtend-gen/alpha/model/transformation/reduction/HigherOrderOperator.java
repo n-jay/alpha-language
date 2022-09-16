@@ -12,7 +12,6 @@ import alpha.model.analysis.reduction.ShareSpaceAnalysisResult;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.transformation.Normalize;
-import alpha.model.transformation.reduction.ReductionUtil;
 import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaOperatorUtil;
 import alpha.model.util.AlphaUtil;
@@ -70,7 +69,7 @@ public class HigherOrderOperator {
   public static void apply(final AbstractReduceExpression are) {
     HigherOrderOperator.transform(are);
   }
-  
+
   /**
    * Legality test that should match the one in transform.
    * Exposed to be used by SimplifyingReductionExploration.
@@ -94,7 +93,7 @@ public class HigherOrderOperator {
     }
     return false;
   }
-  
+
   private static void transform(final AbstractReduceExpression are) {
     boolean _hasHigherOrderOperator = AlphaOperatorUtil.hasHigherOrderOperator(are.getOperator());
     boolean _not = (!_hasHigherOrderOperator);
@@ -131,7 +130,7 @@ public class HigherOrderOperator {
     AlphaInternalStateConstructor.recomputeContextDomain(replacement);
     Normalize.apply(replacement);
   }
-  
+
   private static BinaryExpression constructHigherOrderOperation(final AbstractReduceExpression are, final ISLMultiAff Fc) {
     BinaryExpression _xblockexpression = null;
     {

@@ -21,18 +21,18 @@ public class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
     this.target = variable;
     this.CoBfunctionInverse = AffineFunctionOperations.inverseInContext(this.CoBfunction, null, f.getSpace().getInputNames());
   }
-  
+
   private ISLMultiAff CoBfunction;
-  
+
   private ISLMultiAff CoBfunctionInverse;
-  
+
   private Variable target;
-  
+
   public static void apply(final AlphaSystem system, final Variable variable, final ISLMultiAff f) {
     final ChangeOfBasis CoB = new ChangeOfBasis(system, variable, f);
     system.accept(CoB);
   }
-  
+
   @Override
   public void inVariable(final Variable variable) {
     boolean _equals = Objects.equal(variable, this.target);
@@ -41,7 +41,7 @@ public class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
       variable.setDomainExpr(AlphaUserFactory.createJNIDomain(newDom));
     }
   }
-  
+
   @Override
   public void inStandardEquation(final StandardEquation se) {
     Variable _variable = se.getVariable();
@@ -51,7 +51,7 @@ public class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
       se.setExpr(newExpr);
     }
   }
-  
+
   @Override
   public void outVariableExpression(final VariableExpression ve) {
     Variable _variable = ve.getVariable();
@@ -62,7 +62,7 @@ public class ChangeOfBasis extends AbstractAlphaCompleteVisitor {
       newExpr.setExpr(ve);
     }
   }
-  
+
   @Override
   public void inUseEquation(final UseEquation ue) {
     super.inUseEquation(ue);

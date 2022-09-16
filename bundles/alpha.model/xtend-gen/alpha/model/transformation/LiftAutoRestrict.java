@@ -21,7 +21,7 @@ public class LiftAutoRestrict extends AbstractAlphaCompleteVisitor {
   public static RestrictExpression apply(final AutoRestrictExpression are) {
     return LiftAutoRestrict.transform(are);
   }
-  
+
   /**
    * Lifts any AutoRestrictExpression in the sub-tree
    * starting from the given node.
@@ -35,7 +35,7 @@ public class LiftAutoRestrict extends AbstractAlphaCompleteVisitor {
       visitor.accept(((AlphaExpressionVisitable) acv));
     }
   }
-  
+
   private static RestrictExpression transform(final AutoRestrictExpression are) {
     final RestrictExpression re = AlphaUserFactory.createRestrictExpression(are.getInferredDomain(), are.getExpr());
     re.setZ__internal_cache_exprDom(are.getExpressionDomain());
@@ -43,7 +43,7 @@ public class LiftAutoRestrict extends AbstractAlphaCompleteVisitor {
     EcoreUtil2.replace(are, re);
     return re;
   }
-  
+
   @Override
   public void outAutoRestrictExpression(final AutoRestrictExpression are) {
     LiftAutoRestrict.transform(are);

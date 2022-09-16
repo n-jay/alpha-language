@@ -13,8 +13,6 @@ import alpha.model.ReduceExpression;
 import alpha.model.UseEquation;
 import alpha.model.issue.CalculatorExpressionIssue;
 import alpha.model.util.AlphaUtil;
-import alpha.targetmapping.JNIIdentityFunction;
-import alpha.targetmapping.TargetMappingNode;
 import alpha.targetmapping.util.TargetMappingUtil;
 import fr.irisa.cairn.jnimap.isl.ISLFactory;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
@@ -29,20 +27,20 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 @SuppressWarnings("all")
 public class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEvaluator {
   private final int currentBandSize;
-  
+
   private final int bandIdOffset;
-  
+
   /**
    * These static method should shadow the ones in parent class.
    */
   public static List<CalculatorExpressionIssue> calculate(final CalculatorExpression expr) {
     return CalculatorExpressionEvaluatorForTM.calculate(expr, null);
   }
-  
+
   public static List<CalculatorExpressionIssue> calculate(final CalculatorExpression expr, final List<String> indexNameContext) {
     return CalculatorExpressionEvaluatorForTM.calculate(expr, indexNameContext, (-1), 0);
   }
-  
+
   public static List<CalculatorExpressionIssue> calculate(final CalculatorExpression expr, final List<String> indexNameContext, final int currentBandSize, final int bandIdOffset) {
     final CalculatorExpressionEvaluatorForTM calc = new CalculatorExpressionEvaluatorForTM(indexNameContext, currentBandSize, bandIdOffset);
     calc.testSystemConsistency(expr);
@@ -54,30 +52,31 @@ public class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEval
     expr.accept(calc);
     return calc.issues;
   }
-  
+
   protected CalculatorExpressionEvaluatorForTM(final List<String> indexNameContext, final int currentBandSize, final int bandIdOffset) {
     super(indexNameContext);
     this.currentBandSize = currentBandSize;
     this.bandIdOffset = bandIdOffset;
   }
-  
-  @Override
+
   public AlphaSystem getReferredSystem(final CalculatorExpression expr) {
     EObject _eContainer = expr.eContainer();
     return TargetMappingUtil.getTargetSystem(((TargetMappingNode) _eContainer));
   }
-  
+
   protected StringBuffer _parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final TargetMappingNode parent) {
     return this.parseJNIFunctionAsFunction(jniFunction);
   }
-  
+
   protected void _parseJNIFunction(final JNIIdentityFunction jniFunction) {
     List<String> _xifexpression = null;
     if ((this.indexNameContext != null)) {
       _xifexpression = this.indexNameContext;
     } else {
-      final Function1<Integer, String> _function = (Integer i) -> {
-        return TargetMappingUtil.DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER.apply(i);
+      final Function1<Integer, String> _function = new Function1<Integer, String>() {
+        public String apply(final Integer i) {
+          return TargetMappingUtil.DEFAULT_SCHEDULE_DIMENSION_NAME_PROVIDER.apply(i);
+        }
       };
       _xifexpression = IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(this.bandIdOffset, (this.bandIdOffset + this.currentBandSize), true), _function));
     }
@@ -105,7 +104,7 @@ public class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEval
       }
     }
   }
-  
+
   protected StringBuffer parseJNIFunctionInContext(final JNIFunctionInArrayNotation jniFunction, final EObject parent) {
     if (parent instanceof ArgReduceExpression) {
       return _parseJNIFunctionInContext(jniFunction, (ArgReduceExpression)parent);
@@ -128,7 +127,7 @@ public class CalculatorExpressionEvaluatorForTM extends CalculatorExpressionEval
         Arrays.<Object>asList(jniFunction, parent).toString());
     }
   }
-  
+
   protected void parseJNIFunction(final JNIFunction jniFunction) {
     if (jniFunction instanceof JNIFunctionInArrayNotation) {
       _parseJNIFunction((JNIFunctionInArrayNotation)jniFunction);

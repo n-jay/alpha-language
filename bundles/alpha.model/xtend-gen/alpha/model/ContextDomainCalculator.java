@@ -1,17 +1,5 @@
 package alpha.model;
 
-import alpha.model.AlphaCompleteVisitable;
-import alpha.model.AlphaExpression;
-import alpha.model.AlphaExpressionVisitable;
-import alpha.model.AlphaNode;
-import alpha.model.AlphaVisitable;
-import alpha.model.ArgReduceExpression;
-import alpha.model.AutoRestrictExpression;
-import alpha.model.CaseExpression;
-import alpha.model.ConvolutionExpression;
-import alpha.model.DependenceExpression;
-import alpha.model.ReduceExpression;
-import alpha.model.SelectExpression;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.UnexpectedISLErrorIssue;
@@ -45,28 +33,28 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 @SuppressWarnings("all")
 public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
   private List<AlphaIssue> issues = new LinkedList<AlphaIssue>();
-  
+
   protected static List<AlphaIssue> _calculate(final AlphaVisitable node) {
     final ContextDomainCalculator calc = new ContextDomainCalculator();
     calc.visit(node);
     return calc.issues;
   }
-  
+
   protected static List<AlphaIssue> _calculate(final AlphaExpressionVisitable expr) {
     final ContextDomainCalculator calc = new ContextDomainCalculator();
     expr.accept(calc);
     return calc.issues;
   }
-  
+
   private void registerIssue(final String errMsg, final AlphaNode node) {
     UnexpectedISLErrorIssue _unexpectedISLErrorIssue = new UnexpectedISLErrorIssue(errMsg, node, null);
     this.issues.add(_unexpectedISLErrorIssue);
   }
-  
+
   private void registerIssue(final AlphaIssue issue) {
     this.issues.add(issue);
   }
-  
+
   @Override
   public void inAutoRestrictExpression(final AutoRestrictExpression are) {
     EObject _eContainer = are.eContainer();
@@ -130,7 +118,7 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     are.setInferredDomain(inferredDomain);
     are.setContextDomain(inferredDomain.copy());
   }
-  
+
   @Override
   public void inAlphaExpression(final AlphaExpression ae) {
     EObject _eContainer = ae.eContainer();
@@ -167,50 +155,50 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     final ISLSet context = this.<ISLSet>runISLoperations(ae, _function_1);
     ae.setContextDomain(context);
   }
-  
+
   private ISLSet _processContext(final DependenceExpression expr, final ISLSet context) {
     final Supplier<ISLSet> _function = () -> {
       return context.apply(expr.getFunction().toMap());
     };
     return this.<ISLSet>runISLoperations(expr, _function);
   }
-  
+
   private ISLSet _processContext(final SelectExpression expr, final ISLSet context) {
     final Supplier<ISLSet> _function = () -> {
       return context.apply(expr.getSelectRelation());
     };
     return this.<ISLSet>runISLoperations(expr, _function);
   }
-  
+
   private ISLSet _processContext(final ReduceExpression expr, final ISLSet context) {
     final Supplier<ISLSet> _function = () -> {
       return context.preimage(expr.getProjection());
     };
     return this.<ISLSet>runISLoperations(expr, _function);
   }
-  
+
   private ISLSet _processContext(final ArgReduceExpression expr, final ISLSet context) {
     final Supplier<ISLSet> _function = () -> {
       return context.preimage(expr.getProjection());
     };
     return this.<ISLSet>runISLoperations(expr, _function);
   }
-  
+
   private ISLSet _processContext(final ConvolutionExpression expr, final ISLSet context) {
     final Supplier<ISLSet> _function = () -> {
       return context.flatProduct(expr.getKernelDomain());
     };
     return this.<ISLSet>runISLoperations(expr, _function);
   }
-  
+
   private ISLSet _processContext(final AlphaNode expr, final ISLSet context) {
     return context;
   }
-  
+
   private ISLSet _processContext(final EObject expr, final ISLSet context) {
     return null;
   }
-  
+
   private <T extends Object> T runISLoperations(final AlphaExpression expr, final Supplier<T> r) {
     boolean _testNonNullExpressionDomain = AlphaExpressionUtil.testNonNullExpressionDomain(AlphaExpressionUtil.<AlphaExpression>getChildrenOfType(expr, AlphaExpression.class));
     if (_testNonNullExpressionDomain) {
@@ -221,7 +209,7 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
     }
     return null;
   }
-  
+
   public static List<AlphaIssue> calculate(final AlphaCompleteVisitable expr) {
     if (expr instanceof AlphaExpressionVisitable) {
       return _calculate((AlphaExpressionVisitable)expr);
@@ -232,7 +220,7 @@ public class ContextDomainCalculator extends AbstractAlphaExpressionVisitor {
         Arrays.<Object>asList(expr).toString());
     }
   }
-  
+
   private ISLSet processContext(final EObject expr, final ISLSet context) {
     if (expr instanceof ArgReduceExpression) {
       return _processContext((ArgReduceExpression)expr, context);

@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 @SuppressWarnings("all")
 public class NormalizeReduction extends AbstractAlphaCompleteVisitor {
   private List<AbstractReduceExpression> targetREs = new LinkedList<AbstractReduceExpression>();
-  
+
   public static Function<StandardEquation, String> defineNormalizeReductionEquationName = ((Function<StandardEquation, String>) (StandardEquation se) -> {
     String _xblockexpression = null;
     {
@@ -38,7 +38,7 @@ public class NormalizeReduction extends AbstractAlphaCompleteVisitor {
     }
     return _xblockexpression;
   });
-  
+
   /**
    * Applies the transformation to the specified expression.
    * 
@@ -54,7 +54,7 @@ public class NormalizeReduction extends AbstractAlphaCompleteVisitor {
     }
     return _xifexpression;
   }
-  
+
   /**
    * Applies the transformation to all applicable expressions in the given input.
    * 
@@ -71,7 +71,7 @@ public class NormalizeReduction extends AbstractAlphaCompleteVisitor {
     visitor.targetREs.forEach(_function);
     return visitor.targetREs.size();
   }
-  
+
   private static StandardEquation transform(final AbstractReduceExpression are) {
     Equation _containerEquation = AlphaUtil.getContainerEquation(are);
     final StandardEquation equation = ((StandardEquation) _containerEquation);
@@ -88,7 +88,7 @@ public class NormalizeReduction extends AbstractAlphaCompleteVisitor {
     AlphaInternalStateConstructor.recomputeContextDomain(newEq);
     return newEq;
   }
-  
+
   /**
    * Skip UseEquations. It is not expected to have reductions in UseEquation inputs.
    */
@@ -96,7 +96,7 @@ public class NormalizeReduction extends AbstractAlphaCompleteVisitor {
   public void visitUseEquation(final UseEquation ue) {
     return;
   }
-  
+
   @Override
   public void visitAbstractReduceExpression(final AbstractReduceExpression are) {
     EObject _eContainer = are.eContainer();

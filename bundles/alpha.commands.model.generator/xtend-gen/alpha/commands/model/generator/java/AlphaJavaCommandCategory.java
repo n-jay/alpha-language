@@ -4,7 +4,6 @@ import alpha.commands.model.AlphaCommand;
 import alpha.commands.model.AlphaCommandCategory;
 import alpha.commands.model.CommandBinding;
 import alpha.commands.model.generator.CommonExtensions;
-import alpha.commands.model.generator.java.AlphaJavaCommand;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Extension;
@@ -16,10 +15,10 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 public class AlphaJavaCommandCategory {
   @Extension
   private CommonExtensions commonEx = new CommonExtensions();
-  
+
   @Extension
   private AlphaJavaCommand javaCommands = new AlphaJavaCommand();
-  
+
   public CharSequence generateBase(final AlphaCommandCategory cat) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package alpha.commands;");
@@ -35,12 +34,14 @@ public class AlphaJavaCommandCategory {
     _builder.append("/*PROTECTED REGION END*/");
     _builder.newLine();
     _builder.newLine();
-    final Function1<CharSequence, CharSequence> _function = (CharSequence o) -> {
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("import ");
-      _builder_1.append(o);
-      _builder_1.append(";");
-      return _builder_1.toString();
+    final Function1<CharSequence, CharSequence> _function = new Function1<CharSequence, CharSequence>() {
+      public CharSequence apply(final CharSequence o) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("import ");
+        _builder.append(o);
+        _builder.append(";");
+        return _builder.toString();
+      }
     };
     String _join = IterableExtensions.<CharSequence>join(this.commonEx.collectUsedClassesInBaseMethods(cat), "\n", _function);
     _builder.append(_join);
@@ -65,18 +66,20 @@ public class AlphaJavaCommandCategory {
     _builder.newLine();
     return _builder;
   }
-  
+
   public CharSequence generate(final AlphaCommandCategory cat) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package alpha.commands;");
     _builder.newLine();
     _builder.newLine();
-    final Function1<CharSequence, CharSequence> _function = (CharSequence o) -> {
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("import ");
-      _builder_1.append(o);
-      _builder_1.append(";");
-      return _builder_1.toString();
+    final Function1<CharSequence, CharSequence> _function = new Function1<CharSequence, CharSequence>() {
+      public CharSequence apply(final CharSequence o) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("import ");
+        _builder.append(o);
+        _builder.append(";");
+        return _builder.toString();
+      }
     };
     String _join = IterableExtensions.<CharSequence>join(this.commonEx.collectUsedClasses(cat), "\n", _function);
     _builder.append(_join);

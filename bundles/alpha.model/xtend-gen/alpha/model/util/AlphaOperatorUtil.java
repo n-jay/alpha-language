@@ -47,7 +47,7 @@ public class AlphaOperatorUtil {
     }
     return _switchResult;
   }
-  
+
   public static BINARY_OP reductionOPtoBinaryInverseOP(final REDUCTION_OP op) {
     BINARY_OP _switchResult = null;
     if (op != null) {
@@ -72,7 +72,7 @@ public class AlphaOperatorUtil {
     }
     return _switchResult;
   }
-  
+
   public static boolean isIdentity(final BINARY_OP op, final AlphaExpression expr) {
     boolean _xblockexpression = false;
     {
@@ -125,7 +125,7 @@ public class AlphaOperatorUtil {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * Tests if op1 distributes over op2.
    * 
@@ -155,15 +155,15 @@ public class AlphaOperatorUtil {
     }
     return _xblockexpression;
   }
-  
+
   public static boolean isDistributiveOver(final BINARY_OP op1, final REDUCTION_OP op2) {
     return AlphaOperatorUtil.isDistributiveOver(op1, AlphaOperatorUtil.reductionOPtoBinaryOP(op2));
   }
-  
+
   public static boolean isDistributiveOver(final REDUCTION_OP op1, final REDUCTION_OP op2) {
     return AlphaOperatorUtil.isDistributiveOver(AlphaOperatorUtil.reductionOPtoBinaryOP(op1), AlphaOperatorUtil.reductionOPtoBinaryOP(op2));
   }
-  
+
   /**
    * Returns true if the operator is idempotent, i.e., x op x = x
    */
@@ -186,7 +186,7 @@ public class AlphaOperatorUtil {
     }
     return _switchResult;
   }
-  
+
   /**
    * Returns true if the operator has a higher order operator.
    */
@@ -206,7 +206,7 @@ public class AlphaOperatorUtil {
     }
     return _switchResult;
   }
-  
+
   /**
    * Expects BinaryExpression, MultiArgExpression, or AbstractReduceExpression and returns
    * BINARY_OP after converting the OP if it was MultiArgExpression/AbstractReduceExpression.
@@ -214,19 +214,19 @@ public class AlphaOperatorUtil {
   protected static BINARY_OP _getBinaryOP(final AlphaExpression expr) {
     throw new IllegalArgumentException("[AlphaOperatorUtil] Expecting BinaryExpression or MultiArgExpression.");
   }
-  
+
   protected static BINARY_OP _getBinaryOP(final BinaryExpression expr) {
     return expr.getOperator();
   }
-  
+
   protected static BINARY_OP _getBinaryOP(final MultiArgExpression expr) {
     return AlphaOperatorUtil.reductionOPtoBinaryOP(expr.getOperator());
   }
-  
+
   protected static BINARY_OP _getBinaryOP(final AbstractReduceExpression expr) {
     return AlphaOperatorUtil.reductionOPtoBinaryOP(expr.getOperator());
   }
-  
+
   public static BINARY_OP getBinaryOP(final AlphaExpression expr) {
     if (expr instanceof AbstractReduceExpression) {
       return _getBinaryOP((AbstractReduceExpression)expr);

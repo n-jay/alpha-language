@@ -21,21 +21,21 @@ public class CommandsFormatter extends AbstractFormatter2 {
   @Inject
   @Extension
   private CommandsGrammarAccess _commandsGrammarAccess;
-  
+
   protected void _format(final AlphaCommandsRoot alphaCommandsRoot, @Extension final IFormattableDocument document) {
     EList<AlphaCommandCategory> _categories = alphaCommandsRoot.getCategories();
     for (final AlphaCommandCategory alphaCommandCategory : _categories) {
       document.<AlphaCommandCategory>format(alphaCommandCategory);
     }
   }
-  
+
   protected void _format(final AlphaCommandCategory alphaCommandCategory, @Extension final IFormattableDocument document) {
     EList<AlphaCommand> _commands = alphaCommandCategory.getCommands();
     for (final AlphaCommand alphaCommand : _commands) {
       document.<AlphaCommand>format(alphaCommand);
     }
   }
-  
+
   public void format(final Object alphaCommandCategory, final IFormattableDocument document) {
     if (alphaCommandCategory instanceof XtextResource) {
       _format((XtextResource)alphaCommandCategory, document);

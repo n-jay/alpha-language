@@ -378,7 +378,6 @@ public class TargetmappingPackageImpl extends EPackageImpl implements Targetmapp
 	private TargetmappingPackageImpl() {
 		super(eNS_URI, TargetmappingFactory.eINSTANCE);
 	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -33,50 +33,50 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 @SuppressWarnings("all")
 public class SubstituteByDef extends AbstractAlphaCompleteVisitor {
   protected StandardEquation substituteEquation;
-  
+
   private SubstituteByDef(final StandardEquation substituteEquation) {
     this.substituteEquation = substituteEquation;
   }
-  
+
   public static void apply(final AlphaSystem system, final Variable substituteVar) {
     final Consumer<SystemBody> _function = (SystemBody body) -> {
       SubstituteByDef.apply(body, substituteVar);
     };
     system.getSystemBodies().forEach(_function);
   }
-  
+
   public static void apply(final AlphaSystem system, final StandardEquation targetEq, final Variable substituteVar) {
     final Consumer<SystemBody> _function = (SystemBody body) -> {
       SubstituteByDef.apply(targetEq, substituteVar);
     };
     system.getSystemBodies().forEach(_function);
   }
-  
+
   public static void apply(final SystemBody body, final Variable substituteVar) {
     final StandardEquation subEq = body.getStandardEquation(substituteVar);
     final SubstituteByDef visitor = new SubstituteByDef(subEq);
     visitor.accept(body);
   }
-  
+
   public static void apply(final StandardEquation targetEq, final Variable substituteVar) {
     final SystemBody body = AlphaUtil.getContainerSystemBody(targetEq);
     final StandardEquation subEq = body.getStandardEquation(substituteVar);
     final SubstituteByDef visitor = new SubstituteByDef(subEq);
     visitor.accept(targetEq);
   }
-  
+
   public static void apply(final AlphaExpression targetExpr, final Variable substituteVar) {
     final SystemBody body = AlphaUtil.getContainerSystemBody(targetExpr);
     final StandardEquation subEq = body.getStandardEquation(substituteVar);
     final SubstituteByDef visitor = new SubstituteByDef(subEq);
     visitor.accept(targetExpr);
   }
-  
+
   @Override
   public void visitUseEquation(final UseEquation ue) {
     return;
   }
-  
+
   @Override
   public void outVariableExpression(final VariableExpression ve) {
     Variable _variable = ve.getVariable();

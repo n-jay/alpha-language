@@ -23,11 +23,11 @@ public class ReductionUtil {
   protected static AbstractReduceExpression _constructConcreteReduction(final ReduceExpression base, final REDUCTION_OP op, final ISLMultiAff projection, final AlphaExpression body) {
     return AlphaUserFactory.createReduceExpression(op, projection, body);
   }
-  
+
   protected static AbstractReduceExpression _constructConcreteReduction(final ArgReduceExpression base, final REDUCTION_OP op, final ISLMultiAff projection, final AlphaExpression body) {
     return AlphaUserFactory.createArgReduceExpression(op, projection, body);
   }
-  
+
   /**
    * Takes a reduction and a function that have overlapping nullspace as the reduction body
    * and projects the entire reduction by the given function.
@@ -56,7 +56,7 @@ public class ReductionUtil {
     };
     EcoreUtil2.<RestrictExpression>getAllContentsOfType(are, RestrictExpression.class).forEach(_function_1);
   }
-  
+
   public static AbstractReduceExpression constructConcreteReduction(final AbstractReduceExpression base, final REDUCTION_OP op, final ISLMultiAff projection, final AlphaExpression body) {
     if (base instanceof ArgReduceExpression) {
       return _constructConcreteReduction((ArgReduceExpression)base, op, projection, body);

@@ -1,13 +1,5 @@
 package alpha.model;
 
-import alpha.model.AffineFuzzyVariableUse;
-import alpha.model.AlphaNode;
-import alpha.model.AlphaSystem;
-import alpha.model.CalculatorExpressionEvaluator;
-import alpha.model.FuzzyFunction;
-import alpha.model.FuzzyFunctionInArrayNotation;
-import alpha.model.FuzzyVariableUse;
-import alpha.model.NestedFuzzyFunction;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.issue.AlphaIssueFactory;
 import alpha.model.issue.CalculatorExpressionIssue;
@@ -33,32 +25,32 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 @SuppressWarnings("all")
 public class FuzzyFunctionEvaluator {
   private List<AlphaIssue> issues = new LinkedList<AlphaIssue>();
-  
+
   private Stack<List<String>> contextHistory = new Stack<List<String>>();
-  
+
   private List<String> indexNameContext;
-  
+
   protected FuzzyFunctionEvaluator(final List<String> indexNameContext) {
     this.indexNameContext = indexNameContext;
   }
-  
+
   public static List<AlphaIssue> calculate(final FuzzyFunction ff) {
     return FuzzyFunctionEvaluator.calculate(ff, null);
   }
-  
+
   public static List<AlphaIssue> calculate(final FuzzyFunction ff, final List<String> indexNameContext) {
     final FuzzyFunctionEvaluator calc = new FuzzyFunctionEvaluator(indexNameContext);
     calc.visitFuzzyFunction(ff);
     return calc.issues;
   }
-  
+
   private boolean registerIssue(final String msg, final AlphaNode node) {
     EObject _eContainer = node.eContainer();
     EStructuralFeature _eContainingFeature = node.eContainingFeature();
     CalculatorExpressionIssue _calculatorExpressionIssue = new CalculatorExpressionIssue(AlphaIssue.TYPE.ERROR, msg, _eContainer, _eContainingFeature);
     return this.issues.add(_calculatorExpressionIssue);
   }
-  
+
   /**
    * Computes the ISL representation of the textual representation.
    * This is done top-down, since the computed map gives the context
@@ -101,16 +93,16 @@ public class FuzzyFunctionEvaluator {
       }
     }
   }
-  
+
   private void _computeBaseMap(final FuzzyFunctionInArrayNotation ff) {
     this.contextHistory.push(this.indexNameContext);
     this.indexNameContext = null;
   }
-  
+
   private void _computeBaseMap(final AffineFuzzyVariableUse afvu) {
     this.issues.addAll(CalculatorExpressionEvaluator.calculate(afvu.getUseFunction(), this.indexNameContext));
   }
-  
+
   /**
    * Computes the dependence relation, which is the set of values
    * that a FuzzyFunction may use. This is computed by first adding the constraints
@@ -148,7 +140,7 @@ public class FuzzyFunctionEvaluator {
     }
     ff.setDependenceRelation(ff.getFuzzyMap().intersectDomain(depRel.wrap()).flatten().projectOut(ISLDimType.isl_dim_in, nDdim, ((Object[])Conversions.unwrapArray(ranNames, Object.class)).length));
   }
-  
+
   /**
    * Simple visitor to calculate bottom-up.
    */
@@ -160,15 +152,15 @@ public class FuzzyFunctionEvaluator {
     }
     this.computeDependenceRelation(ff);
   }
-  
+
   protected void _visitFuzzyVariableUse(final NestedFuzzyFunction nff) {
     this.visitFuzzyFunction(nff);
   }
-  
+
   protected void _visitFuzzyVariableUse(final AffineFuzzyVariableUse afvu) {
     this.computeBaseMap(afvu);
   }
-  
+
   private void computeBaseMap(final AlphaNode afvu) {
     if (afvu instanceof AffineFuzzyVariableUse) {
       _computeBaseMap((AffineFuzzyVariableUse)afvu);
@@ -184,7 +176,7 @@ public class FuzzyFunctionEvaluator {
         Arrays.<Object>asList(afvu).toString());
     }
   }
-  
+
   protected void visitFuzzyVariableUse(final FuzzyVariableUse afvu) {
     if (afvu instanceof AffineFuzzyVariableUse) {
       _visitFuzzyVariableUse((AffineFuzzyVariableUse)afvu);

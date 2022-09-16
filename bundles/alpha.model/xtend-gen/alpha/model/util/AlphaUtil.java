@@ -63,7 +63,7 @@ public class AlphaUtil {
     };
     return _function;
   }
-  
+
   /**
    * Given a name candidate, ensures that it does not conflict
    * with existing variables. If a variable is in conflict,
@@ -84,7 +84,7 @@ public class AlphaUtil {
     };
     return _function;
   }
-  
+
   public static AlphaRoot getContainerRoot(final EObject node) {
     if ((node instanceof AlphaRoot)) {
       return ((AlphaRoot) node);
@@ -96,7 +96,7 @@ public class AlphaUtil {
     }
     return AlphaUtil.getContainerRoot(node.eContainer());
   }
-  
+
   public static AlphaSystem getContainerSystem(final EObject node) {
     if ((node instanceof AlphaSystem)) {
       return ((AlphaSystem) node);
@@ -108,7 +108,7 @@ public class AlphaUtil {
     }
     return AlphaUtil.getContainerSystem(node.eContainer());
   }
-  
+
   public static SystemBody getContainerSystemBody(final EObject node) {
     if ((node instanceof SystemBody)) {
       return ((SystemBody) node);
@@ -120,7 +120,7 @@ public class AlphaUtil {
     }
     return AlphaUtil.getContainerSystemBody(node.eContainer());
   }
-  
+
   public static Equation getContainerEquation(final EObject node) {
     if ((node instanceof Equation)) {
       return ((Equation) node);
@@ -132,7 +132,7 @@ public class AlphaUtil {
     }
     return AlphaUtil.getContainerEquation(node.eContainer());
   }
-  
+
   /**
    * Selects an AlphaRoot that contains a given system name. The given system name may be
    * fully qualified or just the bare name. If the bare name cannot uniquely identify a
@@ -175,7 +175,7 @@ public class AlphaUtil {
     }
     throw new RuntimeException((("System " + systemName) + " was not found."));
   }
-  
+
   public static ISLSet getParameterDomain(final EObject node) {
     final AlphaSystem system = AlphaUtil.getContainerSystem(node);
     if ((system == null)) {
@@ -186,7 +186,7 @@ public class AlphaUtil {
     }
     return system.getParameterDomain();
   }
-  
+
   /**
    * Replaces all AlphaConstants in the given string with its integer values.
    * It is based on String.replaceAll, so it may fail on some inputs.
@@ -204,7 +204,7 @@ public class AlphaUtil {
     }
     return jniString;
   }
-  
+
   public static Iterable<AlphaConstant> getAlphaConstants(final AlphaSystem system) {
     if (((system != null) && (system.eContainer() != null))) {
       EObject _eContainer = system.eContainer();
@@ -212,35 +212,35 @@ public class AlphaUtil {
     }
     return null;
   }
-  
+
   private static Iterable<AlphaConstant> _gatherAlphaConstants(final AlphaPackage ap) {
     return Iterables.<AlphaConstant>filter(ap.getElements(), AlphaConstant.class);
   }
-  
+
   private static Iterable<AlphaConstant> _gatherAlphaConstants(final AlphaRoot ar) {
     return Iterables.<AlphaConstant>filter(ar.getElements(), AlphaConstant.class);
   }
-  
+
   protected static JNIObject _copy(final Void n) {
     return null;
   }
-  
+
   protected static JNIObject _copy(final ISLMap map) {
     return map.copy();
   }
-  
+
   protected static JNIObject _copy(final ISLSet set) {
     return set.copy();
   }
-  
+
   protected static JNIObject _copy(final ISLMultiAff maff) {
     return maff.copy();
   }
-  
+
   protected static JNIObject _copy(final ISLUnionMap umap) {
     return umap.copy();
   }
-  
+
   /**
    * Method that adds parameter domain names and replaces AlphaConstants with its value.
    * Last step before passing the string to ISL.
@@ -256,7 +256,7 @@ public class AlphaUtil {
     }
     return _xblockexpression;
   }
-  
+
   protected static ISLSet _getScalarDomain(final AlphaSystem system) {
     ISLSet _xblockexpression = null;
     {
@@ -266,7 +266,7 @@ public class AlphaUtil {
     }
     return _xblockexpression;
   }
-  
+
   protected static ISLSet _getScalarDomain(final AlphaExpression expr) {
     ISLSet _xblockexpression = null;
     {
@@ -279,7 +279,7 @@ public class AlphaUtil {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * Helper function to obtain the additional indices due to while expressions when parsing polyhedral objects specified in ArrayNotation
    */
@@ -299,11 +299,11 @@ public class AlphaUtil {
     }
     return _xblockexpression;
   }
-  
+
   public static <T extends Object> T callISLwithErrorHandling(final Supplier<T> r, final Consumer<String> f) {
     return AlphaUtil.<T>callISLwithErrorHandling(r, f, null);
   }
-  
+
   public static <T extends Object> T callISLwithErrorHandling(final Supplier<T> r, final Consumer<String> f, final T defaultValue) {
     try {
       return JNIISLTools.<T>recordError(r);
@@ -317,7 +317,7 @@ public class AlphaUtil {
       }
     }
   }
-  
+
   public static void callISLwithErrorHandling(final Runnable r, final Consumer<String> f) {
     try {
       JNIISLTools.recordError(r);
@@ -330,7 +330,7 @@ public class AlphaUtil {
       }
     }
   }
-  
+
   public static ISLSet renameIndices(final ISLSet set, final List<String> names) {
     final int n = set.getNbIndices();
     ISLSet res = set;
@@ -345,7 +345,7 @@ public class AlphaUtil {
     }
     return res;
   }
-  
+
   public static ISLMap renameIndices(final ISLMap map, final List<String> names) {
     final int n = map.getNbInputs();
     ISLMap res = map;
@@ -360,7 +360,7 @@ public class AlphaUtil {
     }
     return res;
   }
-  
+
   public static ISLMultiAff renameIndices(final ISLMultiAff maff, final List<String> names) {
     final int n = maff.getNbInputs();
     int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
@@ -375,7 +375,7 @@ public class AlphaUtil {
     }
     return res;
   }
-  
+
   public static ISLPWQPolynomial renameIndices(final ISLPWQPolynomial pwqp, final List<String> names) {
     final int n = pwqp.dim(ISLDimType.isl_dim_in);
     int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
@@ -390,7 +390,7 @@ public class AlphaUtil {
     }
     return res;
   }
-  
+
   public static ISLQPolynomial renameIndices(final ISLQPolynomial qp, final List<String> names) {
     final int n = qp.dim(ISLDimType.isl_dim_in);
     int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
@@ -405,22 +405,22 @@ public class AlphaUtil {
     }
     return res;
   }
-  
+
   public static List<String> defaultDimNames(final int n) {
     return AlphaUtil.defaultDimNames(0, n);
   }
-  
+
   public static List<String> defaultDimNames(final int offset, final int n) {
     final Function1<Integer, String> _function = (Integer i) -> {
       return ("i" + i);
     };
     return IterableExtensions.<String>toList(IterableExtensions.<Integer, String>map(new ExclusiveRange(offset, (offset + n), true), _function));
   }
-  
+
   public static List<String> defaultDimNames(final ISLSet set) {
     return AlphaUtil.defaultDimNames(set.getNbIndices());
   }
-  
+
   public static int[] parseIntArray(final String intVecStr) {
     int[] _xifexpression = null;
     boolean _contains = intVecStr.contains(",");
@@ -437,11 +437,11 @@ public class AlphaUtil {
     }
     return _xifexpression;
   }
-  
+
   public static List<Integer> parseIntVector(final String intVecStr) {
     return IterableExtensions.<Integer>toList(((Iterable<Integer>)Conversions.doWrapArray(AlphaUtil.parseIntArray(intVecStr))));
   }
-  
+
   private static Iterable<AlphaConstant> gatherAlphaConstants(final EObject ap) {
     if (ap instanceof AlphaPackage) {
       return _gatherAlphaConstants((AlphaPackage)ap);
@@ -452,7 +452,7 @@ public class AlphaUtil {
         Arrays.<Object>asList(ap).toString());
     }
   }
-  
+
   public static JNIObject copy(final JNIObject map) {
     if (map instanceof ISLMap) {
       return _copy((ISLMap)map);
@@ -469,7 +469,7 @@ public class AlphaUtil {
         Arrays.<Object>asList(map).toString());
     }
   }
-  
+
   public static ISLSet getScalarDomain(final EObject system) {
     if (system instanceof AlphaSystem) {
       return _getScalarDomain((AlphaSystem)system);

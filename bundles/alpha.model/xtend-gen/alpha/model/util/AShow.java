@@ -12,9 +12,6 @@ import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
 import alpha.model.UseEquation;
 import alpha.model.VariableExpression;
-import alpha.model.util.AlphaPrintingUtil;
-import alpha.model.util.AlphaUtil;
-import alpha.model.util.Show;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
@@ -45,23 +42,23 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 @SuppressWarnings("all")
 public class AShow extends Show {
   protected List<String> indexNameContext;
-  
+
   protected Stack<List<String>> contextHistory = new Stack<List<String>>();
-  
+
   private final AlphaCompleteVisitable haltTarget;
-  
+
   private List<String> indexNameContextWhenHalted;
-  
+
   private Show show = new Show();
-  
+
   private AShow() {
     this.haltTarget = null;
   }
-  
+
   private AShow(final AlphaCompleteVisitable target) {
     this.haltTarget = target;
   }
-  
+
   public static String print(final AlphaCompleteVisitable av) {
     String _xblockexpression = null;
     {
@@ -79,7 +76,7 @@ public class AShow extends Show {
     }
     return _xblockexpression;
   }
-  
+
   @Override
   public CharSequence doSwitch(final EObject obj) {
     CharSequence _xifexpression = null;
@@ -102,26 +99,26 @@ public class AShow extends Show {
     }
     return _xifexpression;
   }
-  
+
   @Override
   protected String printDomain(final ISLSet set) {
     return AlphaPrintingUtil.toAShowString(set, this.parameterContext, this.indexNameContext);
   }
-  
+
   @Override
   public String printFunction(final ISLMultiAff f) {
     return AlphaPrintingUtil.toAShowString(f, this.indexNameContext);
   }
-  
+
   @Override
   protected String printPolynomial(final ISLPWQPolynomial p) {
     return AlphaPrintingUtil.toAShowString(p, this.indexNameContext);
   }
-  
+
   protected String printDomainInShowSytanxWithIndexNameContext(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext, this.indexNameContext);
   }
-  
+
   /**
    * CalculatorExpressions are printed differently depending on the context.
    */
@@ -156,7 +153,7 @@ public class AShow extends Show {
     }
     return _xblockexpression;
   }
-  
+
   @Override
   public CharSequence caseUseEquation(final UseEquation ue) {
     CharSequence _xblockexpression = null;
@@ -218,7 +215,7 @@ public class AShow extends Show {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * AlphaExpression
    */
@@ -237,7 +234,7 @@ public class AShow extends Show {
     }
     return _xifexpression;
   }
-  
+
   @Override
   protected String printProjectionFunction(final ISLMultiAff maff) {
     String _xblockexpression = null;
@@ -250,14 +247,14 @@ public class AShow extends Show {
     }
     return _xblockexpression;
   }
-  
+
   @Override
   protected String printAbstractReduceExpression(final AbstractReduceExpression are) {
     final String res = super.printAbstractReduceExpression(are);
     this.indexNameContext = this.contextHistory.pop();
     return res;
   }
-  
+
   @Override
   public CharSequence caseConvolutionExpression(final ConvolutionExpression ce) {
     final List<String> kernelDomainNames = ce.getKernelDomain().getIndexNames();
@@ -294,7 +291,7 @@ public class AShow extends Show {
     this.indexNameContext = this.contextHistory.pop();
     return res;
   }
-  
+
   @Override
   public CharSequence caseSelectExpression(final SelectExpression se) {
     this.contextHistory.push(this.indexNameContext);

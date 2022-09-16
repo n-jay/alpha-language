@@ -54,9 +54,6 @@ import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.VariableDomain;
 import alpha.model.VariableExpression;
-import alpha.model.util.AlphaPrintingUtil;
-import alpha.model.util.AlphaUtil;
-import alpha.model.util.ModelSwitch;
 import fr.irisa.cairn.jnimap.isl.ISLMap;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
@@ -79,7 +76,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 @SuppressWarnings("all")
 public class Show extends ModelSwitch<CharSequence> {
   protected ISLSet parameterContext = null;
-  
+
   public static <T extends AlphaCompleteVisitable> String print(final T av) {
     String _xblockexpression = null;
     {
@@ -91,50 +88,50 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * CalculatorExpressions are printed differently depending on the context.
    */
   protected String printParameterDomain(final JNIDomain dom) {
     return AlphaPrintingUtil.toShowStringParameterDomain(dom.getISLSet());
   }
-  
+
   protected String printSystemBodyDomain(final JNIDomain dom) {
     return AlphaPrintingUtil.toShowStringSystemBodyDomain(dom.getISLSet());
   }
-  
+
   protected String printVariableDeclarationDomain(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
-  
+
   protected String printUECallParams(final JNIFunctionInArrayNotation f) {
     return f.plainToString();
   }
-  
+
   protected String printInstantiationDomain(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
-  
+
   protected String printWhileDomain(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
-  
+
   protected String printDomain(final ISLSet set) {
     return AlphaPrintingUtil.toShowString(set, this.parameterContext);
   }
-  
+
   protected String printFunction(final ISLMultiAff f) {
     return AlphaPrintingUtil.toShowString(f);
   }
-  
+
   protected String printRelation(final ISLMap rel) {
     return AlphaPrintingUtil.toShowString(rel);
   }
-  
+
   protected String printPolynomial(final ISLPWQPolynomial p) {
     return AlphaPrintingUtil.toShowString(p);
   }
-  
+
   protected CharSequence printSubsystemCallParams(final JNIFunctionInArrayNotation f, final ISLSet instantiationDomain) {
     CharSequence _xblockexpression = null;
     {
@@ -146,7 +143,7 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * override
    */
@@ -167,7 +164,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.newLineIfNotEmpty();
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -181,7 +178,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(_value);
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -196,7 +193,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -207,7 +204,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(_importedNamespace);
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -230,7 +227,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.newLine();
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -325,7 +322,7 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * override
    */
@@ -358,7 +355,7 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -371,7 +368,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(_printVariableDeclarationDomain);
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -385,7 +382,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(";");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -429,7 +426,7 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * override
    */
@@ -446,7 +443,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(_doSwitch_2);
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -487,7 +484,7 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * override
    */
@@ -509,7 +506,7 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xifexpression;
   }
-  
+
   /**
    * override
    */
@@ -536,7 +533,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append("}");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -562,7 +559,7 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xifexpression;
   }
-  
+
   /**
    * override
    */
@@ -573,7 +570,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(_printFunction);
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -584,35 +581,35 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(_printPolynomial);
     return _builder;
   }
-  
+
   /**
    * override
    */
   public String caseReduceExpression(final ReduceExpression re) {
     return this.printAbstractReduceExpression(re);
   }
-  
+
   /**
    * override
    */
   public String caseExternalReduceExpression(final ExternalReduceExpression ere) {
     return this.printAbstractReduceExpression(ere);
   }
-  
+
   /**
    * override
    */
   public String caseArgReduceExpression(final ArgReduceExpression re) {
     return this.printAbstractReduceExpression(re);
   }
-  
+
   /**
    * override
    */
   public String caseExternalArgReduceExpression(final ExternalArgReduceExpression ere) {
     return this.printAbstractReduceExpression(ere);
   }
-  
+
   protected CharSequence _printReduceExpression(final ReduceExpression re, final CharSequence proj, final CharSequence body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("reduce(");
@@ -625,7 +622,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   protected CharSequence _printReduceExpression(final ExternalReduceExpression ere, final CharSequence proj, final CharSequence body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("reduce(");
@@ -638,7 +635,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   protected CharSequence _printReduceExpression(final ArgReduceExpression are, final CharSequence proj, final CharSequence body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("argreduce(");
@@ -651,7 +648,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   protected CharSequence _printReduceExpression(final ExternalArgReduceExpression aere, final CharSequence proj, final CharSequence body) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("argreduce(");
@@ -664,15 +661,15 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   protected String printProjectionFunction(final ISLMultiAff maff) {
     return AlphaPrintingUtil.toShowString(maff);
   }
-  
+
   protected CharSequence printReductionBody(final AlphaExpression expr) {
     return this.doSwitch(expr);
   }
-  
+
   protected String printReductionOP(final REDUCTION_OP op) {
     if (op != null) {
       switch (op) {
@@ -687,7 +684,7 @@ public class Show extends ModelSwitch<CharSequence> {
       return op.getLiteral();
     }
   }
-  
+
   protected String printAbstractReduceExpression(final AbstractReduceExpression are) {
     String _xblockexpression = null;
     {
@@ -697,7 +694,7 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * override
    */
@@ -715,7 +712,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -729,7 +726,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(_doSwitch);
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -747,7 +744,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -764,7 +761,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -781,7 +778,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -807,35 +804,35 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xifexpression;
   }
-  
+
   /**
    * override
    */
   public String caseVariableExpression(final VariableExpression ve) {
     return ve.getVariable().getName();
   }
-  
+
   /**
    * override
    */
   public String caseBooleanExpression(final BooleanExpression be) {
     return be.getValue().toString();
   }
-  
+
   /**
    * override
    */
   public String caseIntegerExpression(final IntegerExpression ie) {
     return ie.getValue().toString();
   }
-  
+
   /**
    * override
    */
   public String caseRealExpression(final RealExpression re) {
     return re.getValue().toString();
   }
-  
+
   /**
    * override
    */
@@ -853,7 +850,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -867,7 +864,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(")");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -879,7 +876,7 @@ public class Show extends ModelSwitch<CharSequence> {
     _builder.append(" }");
     return _builder;
   }
-  
+
   /**
    * override
    */
@@ -909,14 +906,14 @@ public class Show extends ModelSwitch<CharSequence> {
     }
     return _xblockexpression;
   }
-  
+
   /**
    * override
    */
   public String caseDefinedObject(final DefinedObject dobj) {
     return dobj.getObject().getName();
   }
-  
+
   protected CharSequence printReduceExpression(final AbstractReduceExpression aere, final CharSequence proj, final CharSequence body) {
     if (aere instanceof ExternalArgReduceExpression) {
       return _printReduceExpression((ExternalArgReduceExpression)aere, proj, body);

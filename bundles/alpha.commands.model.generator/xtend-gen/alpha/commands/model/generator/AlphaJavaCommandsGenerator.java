@@ -16,18 +16,17 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 public class AlphaJavaCommandsGenerator implements IGenerator {
   @Extension
   private AlphaJavaCommandCategory javaCat = new AlphaJavaCommandCategory();
-  
+
   public CharSequence javaRootPath() {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("./src-gen/");
     return _builder;
   }
-  
+
   public String targetProject() {
     return "alpha.commands";
   }
-  
-  @Override
+
   public void doGenerate(final Resource input, final IFileSystemAccess fsa) {
     EObject _get = input.getContents().get(0);
     final AlphaCommandsRoot root = ((AlphaCommandsRoot) _get);
@@ -39,7 +38,7 @@ public class AlphaJavaCommandsGenerator implements IGenerator {
       }
     }
   }
-  
+
   public String categoryFilepath(final AlphaCommandCategory cat) {
     CharSequence _javaRootPath = this.javaRootPath();
     String _plus = (_javaRootPath + "/alpha/commands/");
@@ -47,7 +46,7 @@ public class AlphaJavaCommandsGenerator implements IGenerator {
     String _plus_1 = (_plus + _firstUpper);
     return (_plus_1 + ".java");
   }
-  
+
   public String categoryBaseFilepath(final AlphaCommandCategory cat) {
     CharSequence _javaRootPath = this.javaRootPath();
     String _plus = (_javaRootPath + "/alpha/commands/");
