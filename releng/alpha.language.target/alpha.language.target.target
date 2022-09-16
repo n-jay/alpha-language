@@ -4,18 +4,18 @@
 <!-- GeCoS -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.jnimapper.feature.feature.group" range="[1.4.0,2.0.0)"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-jnimapper/release/v1.4.0/"/>
+<repository location="https://gecos.gitlabpages.inria.fr/gecos-tools/gecos-tools-jnimapper/artifacts/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.emf.feature.feature.group" range="[1.0.0,2.0.0)"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools/emf/release/v1.0.0/"/>
+<repository location="https://gecos.gitlabpages.inria.fr/gecos-tools/gecos-tools-emf/artifacts/"/>
 </location>
 
 <!-- ISL -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" range="[2.4.0,3.0.0)"/>
 <unit id="fr.irisa.cairn.gecos.tools.barvinok.feature.feature.group" range="[2.3.0,3.0.0)"/>
-<repository location="http://gecos.gforge.inria.fr/updatesite/gecos/tools-isl/release/v2.4.0/"/>
+<repository location="https://gecos.gitlabpages.inria.fr/gecos-tools/gecos-tools-isl/artifacts/"/>
 </location>
 
 <!-- Eclipse/Xtend/Xtext -->
@@ -27,8 +27,8 @@
 <unit id="org.eclipse.xtend.sdk.feature.group" range="[2.22.0,3.0.0)"/>
 <unit id="org.eclipse.xtext.sdk.feature.group" range="[2.22.0,3.0.0)"/>
 <unit id="org.eclipse.equinox.sdk.feature.group" range="[3.13.0,4.0.0)"/>
-<!--<repository location="http://download.eclipse.org/releases/2018-12/"/>-->
-<repository location="http://mirror.ibcp.fr/pub/eclipse/releases//2020-06/"/>
+<repository location="https://download.eclipse.org/releases/2020-06/"/>
+<!--<repository location="http://mirror.ibcp.fr/pub/eclipse/releases//2020-06/"/>-->
 </location>
 
 <!-- Groovy -->
