@@ -49,7 +49,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <import plugin="org.eclipse.xtext.ui.shared"/>
       <import plugin="org.eclipse.xtext.ui.codetemplates.ui"/>
       <import plugin="org.eclipse.xtext.builder"/>
-      <import plugin="org.eclipse.xtext.xbase.lib"/>
       <import plugin="fr.irisa.cairn.jnimap.isl"/>
    </requires>
 
