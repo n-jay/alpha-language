@@ -16,12 +16,12 @@
     <!-- property used maven-resources-plugin -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <mvn.compiler.version>3.8.0</mvn.compiler.version>
+    <mvn.compiler.version>3.8.6</mvn.compiler.version>
     <!-- set (implicitely) the java compiler source and target configuration of tycho-compiler-plugin -->
-    <mvn.compiler.source>11</mvn.compiler.source>
-    <mvn.compiler.target>11</mvn.compiler.target>
+    <mvn.compiler.source>17</mvn.compiler.source>
+    <mvn.compiler.target>17</mvn.compiler.target>
 
-    <tycho.version>1.7.0</tycho.version>
+    <tycho.version>2.7.5</tycho.version>
 
     <!-- define timestamp format used by 'maven.build.timestamp' property -->
     <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
