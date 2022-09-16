@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.emf.ecore.xcore.lib,
  org.eclipse.xtext,
- org.eclipse.xtext.generator,
+ org.eclipse.xtext.xtext.generator,
  alpha.commands.model,
  alpha.commands.model.xtext,
  fr.irisa.cairn.xtend.protectedregion
