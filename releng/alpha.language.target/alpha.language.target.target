@@ -3,18 +3,18 @@
 <locations>
 <!-- GeCoS -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.tools.jnimapper.feature.feature.group" range="[1.4.0,2.0.0)"/>
+<unit id="fr.irisa.cairn.gecos.tools.jnimapper.feature.feature.group" range="[1.2.0,2.0.0)"/>
 <repository location="https://gecos.gitlabpages.inria.fr/gecos-tools/gecos-tools-jnimapper/artifacts/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.tools.emf.feature.feature.group" range="[1.0.0,2.0.0)"/>
+<unit id="fr.irisa.cairn.gecos.tools.emf.feature.feature.group" range="[1.0.1,2.0.0)"/>
 <repository location="https://gecos.gitlabpages.inria.fr/gecos-tools/gecos-tools-emf/artifacts/"/>
 </location>
 
 <!-- ISL -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" range="[2.4.0,3.0.0)"/>
-<unit id="fr.irisa.cairn.gecos.tools.barvinok.feature.feature.group" range="[2.3.0,3.0.0)"/>
+<unit id="fr.irisa.cairn.gecos.tools.isl.feature.feature.group" range="[1.8.1,2.0.0)"/>
+<unit id="fr.irisa.cairn.gecos.tools.barvinok.feature.feature.group" range="[1.8.1,2.0.0)"/>
 <repository location="https://gecos.gitlabpages.inria.fr/gecos-tools/gecos-tools-isl/artifacts/"/>
 </location>
 
@@ -24,17 +24,28 @@
 <unit id="org.eclipse.emf.ecore.xcore.sdk.feature.group" range="[1.8.0,2.0.0)"/>
 <unit id="org.eclipse.emf.sdk.feature.group" range="[2.15.0,3.0.0)"/>
 <unit id="org.eclipse.emf.validation.sdk.feature.group" range="[1.11.0, 2.0.0)"/>
-<unit id="org.eclipse.xtend.sdk.feature.group" range="[2.22.0,3.0.0)"/>
-<unit id="org.eclipse.xtext.sdk.feature.group" range="[2.22.0,3.0.0)"/>
+<unit id="org.eclipse.xtend.sdk.feature.group" range="[2.16.0,3.0.0)"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" range="[2.16.0,3.0.0)"/>
 <unit id="org.eclipse.equinox.sdk.feature.group" range="[3.13.0,4.0.0)"/>
-<repository location="https://download.eclipse.org/releases/2020-06/"/>
-<!--<repository location="http://mirror.ibcp.fr/pub/eclipse/releases//2020-06/"/>-->
+<repository location="https://download.eclipse.org/releases/2022-06"/>
+</location>
+
+<!-- TomMapping -->
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="fr.irisa.cairn.gecos.tools.tommapping.feature.feature.group" />
+<repository location="https://gecos.gitlabpages.inria.fr/gecos-tools/gecos-tools-tommapping/artifacts/"/>
+</location>
+
+<!-- Tom SDK -->
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="fr.irisa.cairn.gecos.tools.tomsdk.feature.feature.group"/>
+<repository location="https://gecos.gitlabpages.inria.fr/gecos-tools/gecos-tools-tomsdk/artifacts/"/>
 </location>
 
 <!-- Groovy -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.codehaus.groovy.eclipse.feature.feature.group" range="[3.4.0,4.0.0)"/>
-<repository location="https://dist.springsource.org/snapshot/GRECLIPSE/e4.16"/>
+<unit id="org.codehaus.groovy.eclipse.feature.feature.group" range="[3.2.0,4.0.0)"/>
+<repository location="https://groovy.jfrog.io/artifactory/plugins-release/e4.24"/>"
 </location>
 </locations>
 </target>
