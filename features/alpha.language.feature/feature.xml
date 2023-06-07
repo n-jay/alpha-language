@@ -41,6 +41,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       <import plugin="org.eclipse.xtext.xbase"/>
       <import plugin="org.eclipse.xtext.xbase.lib" version="2.12.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.util"/>
+      <import plugin="org.eclipse.xtend.core" version="2.22.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtend.lib" version="2.12.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext"/>
       <import plugin="org.eclipse.xtext.ide"/>
@@ -69,5 +70,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    <plugin id="alpha.commands.ui" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
 
    <plugin id="alpha.interactive" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+
+   <plugin id="alpha.loader" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+
+   <plugin id="alpha.targetmapping" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+
+   <plugin id="alpha.targetmapping.xtext" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+
+   <plugin id="alpha.targetmapping.xtext.ide" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+
+   <plugin id="alpha.targetmapping.xtext.ui" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
 
 </feature>

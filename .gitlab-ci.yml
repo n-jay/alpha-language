@@ -14,26 +14,24 @@ variables:
   #     This will expose secret variables !
   #CI_DEBUG_TRACE: "true"
 
-  # Update site artifacts storage dir (local) 
-  UPSITE_ARTIFACTS_DIR: "artifacts__updatesite"
-
+  # Update site artifacts storage dir
+  # gitlab pages expects there to be a public/ directory
+  UPDATESITE_ARTIFACTS_DIR: "public"
 
 # default docker image. can be overriden per job.
 image: maven:3-jdk-11
 
-
-build:
-  stage: build
+pages:
   script:
-    - mvn -B -e -fae clean integration-test
-    #- mvn -B -e -fae -Dmaven.test.failure.ignore clean integration-test
-    #- mvn surefire-report:report-only -Daggregate
-    #- echo -e "Tests\tErrors\tFailures\tSkipped\tSuccess Rate\tTime"
-    #- tmp=$(cat target/site/surefire-report.html | grep  -A 17 -m 3 Summary | sed -n 12,17p | sed -e 's/<[^>]*>//g' | tr "\n" "\t")
-    # find update site and copy it to ./artifacts
-    - upsite_zip="`find releng/*.update/target -maxdepth 1 -name '*.update-*.zip' | head -1`"
-    - mkdir "${UPSITE_ARTIFACTS_DIR}" && cp "${upsite_zip}" "${UPSITE_ARTIFACTS_DIR}"
+    - mvn -B -e -fae clean package
+    - mkdir -p $UPDATESITE_ARTIFACTS_DIR
+    - mv releng/alpha.language.update/target/repository $UPDATESITE_ARTIFACTS_DIR/update-site
+    - echo 
   artifacts:
     paths:
-      - "${UPSITE_ARTIFACTS_DIR}"
-
+      # files to be exposed at the Page URL
+      - $UPDATESITE_ARTIFACTS_DIR
+  rules:
+    # This ensures that only pushes to the default branch will trigger
+    # a pages deploy
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
