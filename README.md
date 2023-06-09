@@ -1,1 +1,1 @@
-New version of the Alpha language under development.
+This repository is a fork of alpha-language repository originally developed at Inria.
