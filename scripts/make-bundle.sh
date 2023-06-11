@@ -7,20 +7,19 @@ if [[ -z $1 ]]; then
     exit 1
 fi
 
-base_url="https://archive.eclipse.org/eclipse/downloads/drops4/R-4.24-202206070700/download.php?dropFile="
-
+base_url="https://www.eclipse.org/downloads/download.php?file=/eclipse/downloads/drops4/R-4.24-202206070700"
 
 if [[ $1 == "linux-x86" ]]; then
     OS="linux"
-    eclipse_url="${base_url}eclipse-SDK-4.24-linux-gtk-x86_64.tar.gz"
+    eclipse_url="$base_url/eclipse-SDK-4.24-linux-gtk-x86_64.tar.gz"
     suffix="tar.gz"
 elif [[ $1 == "mac-x86" ]]; then
     OS="mac"
-    eclipse_url="${base_url}eclipse-SDK-4.24-macosx-cocoa-x86_64.dmg"
+    eclipse_url="$base_url/eclipse-SDK-4.24-macosx-cocoa-x86_64.dmg"
     suffix="dmg"
 elif [[ $1 == "mac-aarch64" ]]; then
     OS="mac"
-    eclipse_url="${base_url}eclipse-SDK-4.24-macosx-cocoa-aarch64.dmg"
+    eclipse_url="$base_url/eclipse-SDK-4.24-macosx-cocoa-aarch64.dmg"
     suffix="dmg"
 else
     echo "error: unsupported OS type"

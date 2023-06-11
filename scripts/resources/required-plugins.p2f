@@ -1,7 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?p2f version='1.0.0'?>
 <p2f version='1.0.0'>
-  <ius size='17'>
+  <ius size='18'>
+    <iu id='org.codehaus.groovy.eclipse.feature.feature.group' name='Eclipse Groovy Development Tools' version='4.9.0.v202303311525-e2206'>
+      <repositories size='1'>
+        <repository location='https://groovy.jfrog.io/artifactory/plugins-release/e4.24'/>
+      </repositories>
+    </iu>
     <iu id='org.eclipse.emf.ecore.xcore.sdk.feature.group' name='EMF - Eclipse Modeling Framework Xcore SDK' version='1.21.0.v20220426-0617'>
       <repositories size='1'>
         <repository location='https://download.eclipse.org/releases/2022-06'/>

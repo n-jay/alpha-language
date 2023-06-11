@@ -2,7 +2,7 @@
 <?p2f version='1.0.0'?>
 <p2f version='1.0.0'>
   <ius size='1'>
-    <iu id='alpha.language.feature.feature.group' name='Alpha Language'>
+    <iu id='alpha.language.feature.feature.group' name='Alpha Language' version='0.1.0.202306110656'>
       <repositories size='1'>
         <repository location='https://csu-cs-melange.github.io/alpha-language'/>
       </repositories>
