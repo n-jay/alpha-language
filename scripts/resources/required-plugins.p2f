@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?p2f version='1.0.0'?>
+<p2f version='1.0.0'>
+  <ius size='18'>
+    <iu id='org.codehaus.groovy.eclipse.feature.feature.group' name='Eclipse Groovy Development Tools' version='4.9.0.v202303311525-e2206'>
+      <repositories size='1'>
+        <repository location='https://groovy.jfrog.io/artifactory/plugins-release/e4.24'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.ecore.xcore.sdk.feature.group' name='EMF - Eclipse Modeling Framework Xcore SDK' version='1.21.0.v20220426-0617'>
+      <repositories size='1'>
+        <repository location='https://download.eclipse.org/releases/2022-06'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.emf.feature.feature.group' name='GeCoS EMF Tools' version='1.0.1.202202021419'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-emf/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.emf.feature.source.feature.group' name='GeCoS EMF Tools Developer Resources' version='1.0.1.202202021419'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-emf/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.barvinok.feature.feature.group' name='GeCoS JNI Barvinok bindings' version='2.4.0.202202030940'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-isl/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.barvinok.feature.source.feature.group' name='GeCoS JNI Barvinok bindings Developer Resources' version='2.4.0.202202030940'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-isl/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.isl.feature.feature.group' name='GeCoS JNI ISL bindings' version='2.4.0.202202030940'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-isl/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.isl.feature.source.feature.group' name='GeCoS JNI ISL bindings Developer Resources' version='2.4.0.202202030940'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-isl/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.jnimapper.feature.feature.group' name='GeCoS JNI Mapper Tools' version='1.4.0.202202030956'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-jnimapper/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.jnimapper.feature.source.feature.group' name='GeCoS JNI Mapper Tools Developer Resources' version='1.4.0.202202030956'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-jnimapper/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.tommapping.feature.feature.group' name='GeCoS TOM Mapping Tools' version='1.0.1.202202021203'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-tommapping/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.tommapping.feature.source.feature.group' name='GeCoS TOM Mapping Tools Developer Resources' version='1.0.1.202202021203'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-tommapping/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.tomsdk.feature.feature.group' name='GeCoS TOM Tools' version='2.10.6.202202011652'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-tomsdk/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='fr.irisa.cairn.gecos.tools.tomsdk.feature.source.feature.group' name='GeCoS TOM Tools Developer Resources' version='2.10.6.202202011652'>
+      <repositories size='1'>
+        <repository location='https://cs.colostate.edu/AlphaZ/gecos-mirror/gecos-tools-tomsdk/artifacts/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.egit.feature.group' name='Git integration for Eclipse' version='6.2.0.202206071550-r'>
+      <repositories size='1'>
+        <repository location='https://download.eclipse.org/releases/2022-06'/>
+      </repositories>
+    </iu>
+    <iu id='org.codehaus.groovy30.feature.feature.group' name='Groovy Compiler 3.0' version='4.9.0.v202303311525-e2206'>
+      <repositories size='1'>
+        <repository location='https://groovy.jfrog.io/artifactory/plugins-release/e4.24'/>
+      </repositories>
+    </iu>
+    <iu id='org.codehaus.groovy40.feature.feature.group' name='Groovy Compiler 4.0' version='4.9.0.v202303311525-e2206'>
+      <repositories size='1'>
+        <repository location='https://groovy.jfrog.io/artifactory/plugins-release/e4.24'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.xtext.sdk.feature.group' name='Xtext Complete SDK' version='2.27.0.v20220530-0508'>
+      <repositories size='1'>
+        <repository location='https://download.eclipse.org/releases/2022-06'/>
+      </repositories>
+    </iu>
+  </ius>
+</p2f>
