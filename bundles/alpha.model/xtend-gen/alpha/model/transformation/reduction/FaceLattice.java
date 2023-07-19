@@ -2,9 +2,9 @@ package alpha.model.transformation.reduction;
 
 import alpha.model.util.DomainOperations;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
-import fr.irisa.cairn.jnimap.isl.ISLConstraint;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +18,7 @@ import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.Pure;
 
 /**
@@ -245,9 +246,26 @@ public class FaceLattice {
     private final BigInteger finalValue;
 
     /**
-     * The set being used to generate the power set of inequality constraints.
+     * The space in which the generated polyhedra exist.
      */
-    private final ISLBasicSet startingSet;
+    private final ISLSpace space;
+
+    /**
+     * The matrix of inequality constraints that the initial set started with.
+     */
+    private final ISLMatrix startingEqualities;
+
+    /**
+     * The matrix of inequality constraints that involve at least one index dimension
+     * that the initial set started with.
+     */
+    private final ISLMatrix startingIndexInequalities;
+
+    /**
+     * The matrix of inequality constraints that involve only parameter dimensions
+     * that the initial set started with.
+     */
+    private final ISLMatrix startingParameterInequalities;
 
     /**
      * The dimensionality of the starting set.
@@ -256,24 +274,21 @@ public class FaceLattice {
     private final int startingSetDimensionality;
 
     /**
-     * The number of inequality constraints in the starting set.
-     */
-    private final int inequalityConstraintCount;
-
-    /**
      * Creates a new iterator which will iterate the power set of all inequality constraints of the given set.
      * The number of inequalities saturated will not exceed the dimensionality of the given set.
      */
     public UnorderedPowerSetIterator(final ISLBasicSet startingSet) {
-      this.startingSet = startingSet.copy();
-      this.startingSetDimensionality = FaceLattice.dimensionality(this.startingSet);
-      final Function1<ISLConstraint, Boolean> _function = (ISLConstraint it) -> {
-        return Boolean.valueOf(it.isEquality());
-      };
-      this.inequalityConstraintCount = IterableExtensions.size(IterableExtensions.<ISLConstraint>reject(this.startingSet.getConstraints(), _function));
+      this.space = startingSet.getSpace();
+      this.startingEqualities = DomainOperations.toISLEqualityMatrix(startingSet);
+      this.startingSetDimensionality = FaceLattice.dimensionality(startingSet);
+      final Pair<ISLMatrix, ISLMatrix> bothInequalityMatrices = FaceLattice.UnorderedPowerSetIterator.separateIndexInequalities(startingSet);
+      this.startingIndexInequalities = bothInequalityMatrices.getKey();
+      this.startingParameterInequalities = bothInequalityMatrices.getValue();
       BigInteger _pow = new BigInteger("2").pow(this.startingSetDimensionality);
       final BigInteger dimensionalityMax = _pow.subtract(BigInteger.ONE);
-      this.finalValue = dimensionalityMax.shiftLeft((this.inequalityConstraintCount - this.startingSetDimensionality));
+      int _nbRows = this.startingIndexInequalities.getNbRows();
+      int _minus = (_nbRows - this.startingSetDimensionality);
+      this.finalValue = dimensionalityMax.shiftLeft(_minus);
     }
 
     /**
@@ -298,10 +313,11 @@ public class FaceLattice {
      */
     @Override
     public FaceLattice.FaceLatticeNode next() {
+      int _nbRows = this.startingIndexInequalities.getNbRows();
       final Function1<Integer, Boolean> _function = (Integer it) -> {
         return Boolean.valueOf(this.currentValue.testBit((it).intValue()));
       };
-      final Iterable<Integer> indicesToSaturate = IterableExtensions.<Integer>filter(new ExclusiveRange(0, this.inequalityConstraintCount, true), _function);
+      final Iterable<Integer> indicesToSaturate = IterableExtensions.<Integer>filter(new ExclusiveRange(0, _nbRows, true), _function);
       final FaceLattice.FaceLatticeNode node = this.toFaceLatticeNode(indicesToSaturate);
       BigInteger _currentValue = this.currentValue;
       this.currentValue = _currentValue.add(BigInteger.ONE);
@@ -309,23 +325,52 @@ public class FaceLattice {
     }
 
     /**
+     * Separates the given set's inequality constraint matrix into two separate matrices:
+     * one for constraints which involve at least one index, and one for constraints involving
+     * only parameters.
+     * 
+     * @keep startingSet Keep. The set to split the inequality constraints of.
+     * @return Returns a pair of ISL matrices.
+     *         The one in the "key" position contains the constraints involving at least one index.
+     *         The one in the "value" position contains the constraints involving only parameters.
+     */
+    private static Pair<ISLMatrix, ISLMatrix> separateIndexInequalities(final ISLBasicSet startingSet) {
+      ISLMatrix indexConstraints = DomainOperations.toISLInequalityMatrix(startingSet);
+      ISLMatrix parameterConstraints = indexConstraints.copy();
+      final int indexCount = FaceLattice.indexDimensionCount(startingSet);
+      int _nbRows = indexConstraints.getNbRows();
+      ExclusiveRange _greaterThanDoubleDot = new ExclusiveRange(_nbRows, 0, false);
+      for (final Integer row : _greaterThanDoubleDot) {
+        boolean _constraintInvolvesIndex = FaceLattice.constraintInvolvesIndex(indexConstraints, (row).intValue(), indexCount);
+        if (_constraintInvolvesIndex) {
+          parameterConstraints = parameterConstraints.dropRows((row).intValue(), 1);
+        } else {
+          indexConstraints = indexConstraints.dropRows((row).intValue(), 1);
+        }
+      }
+      return Pair.<ISLMatrix, ISLMatrix>of(indexConstraints, parameterConstraints);
+    }
+
+    /**
      * Generates a face lattice node from a set of indexes to saturate.
      */
     private FaceLattice.FaceLatticeNode toFaceLatticeNode(final Iterable<Integer> toSaturate) {
-      ISLMatrix saturated = DomainOperations.toISLInequalityMatrix(this.startingSet);
-      ISLMatrix unsaturated = saturated.copy();
-      ExclusiveRange _greaterThanDoubleDot = new ExclusiveRange(this.inequalityConstraintCount, 0, false);
+      ISLMatrix equalities = this.startingIndexInequalities.copy();
+      ISLMatrix inequalities = equalities.copy();
+      int _nbRows = this.startingIndexInequalities.getNbRows();
+      ExclusiveRange _greaterThanDoubleDot = new ExclusiveRange(_nbRows, 0, false);
       for (final Integer row : _greaterThanDoubleDot) {
         boolean _contains = IterableExtensions.contains(toSaturate, row);
         if (_contains) {
-          unsaturated = unsaturated.dropRows((row).intValue(), 1);
+          inequalities = inequalities.dropRows((row).intValue(), 1);
         } else {
-          saturated = saturated.dropRows((row).intValue(), 1);
+          equalities = equalities.dropRows((row).intValue(), 1);
         }
       }
-      final ISLMatrix updatedEqualities = DomainOperations.toISLEqualityMatrix(this.startingSet).concat(saturated);
+      equalities = equalities.concat(this.startingEqualities.copy());
+      inequalities = inequalities.concat(this.startingParameterInequalities.copy());
       final ISLBasicSet basicSet = ISLBasicSet.fromConstraintMatrices(
-        this.startingSet.getSpace(), updatedEqualities, unsaturated, 
+        this.space.copy(), equalities, inequalities, 
         ISLDimType.isl_dim_param, ISLDimType.isl_dim_set, 
         ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst);
       return new FaceLattice.FaceLatticeNode(((int[])Conversions.unwrapArray(toSaturate, int.class)), basicSet);
@@ -352,7 +397,7 @@ public class FaceLattice {
   public FaceLattice(final ISLBasicSet givenSet) throws UnsupportedOperationException {
     final ISLBasicSet startingSet = givenSet.copy().removeRedundancies();
     int _nbParams = startingSet.getNbParams();
-    boolean _greaterThan = (_nbParams > 0);
+    boolean _greaterThan = (_nbParams > 1);
     if (_greaterThan) {
       throw new UnsupportedOperationException("Parameterized polyhedra are not supported at this time.");
     }
@@ -380,20 +425,24 @@ public class FaceLattice {
   /**
    * Determines the dimensionality (number of free dimensions) for a set.
    * This is defined as the number of index variables minus the number of
-   * equality constraints which involve at least one index variable.
+   * linearly independent equality constraints which involve at least one index variable.
    * 
    * @keep set Keep. The set to find the dimensionality of.
    */
   private static int dimensionality(final ISLBasicSet set) {
-    final int indexCount = set.dim(ISLDimType.isl_dim_set);
-    final Function1<ISLConstraint, Boolean> _function = (ISLConstraint it) -> {
-      return Boolean.valueOf(it.isEquality());
-    };
-    final Function1<ISLConstraint, Boolean> _function_1 = (ISLConstraint it) -> {
-      return Boolean.valueOf(it.involvesDims(ISLDimType.isl_dim_set, 0, indexCount));
-    };
-    final int equalityCount = IterableExtensions.size(IterableExtensions.<ISLConstraint>filter(IterableExtensions.<ISLConstraint>filter(set.getConstraints(), _function), _function_1));
-    return (indexCount - equalityCount);
+    final int indexCount = FaceLattice.indexDimensionCount(set);
+    ISLMatrix equalityMatrix = DomainOperations.toISLEqualityMatrix(set);
+    int _nbRows = equalityMatrix.getNbRows();
+    ExclusiveRange _greaterThanDoubleDot = new ExclusiveRange(_nbRows, 0, false);
+    for (final Integer row : _greaterThanDoubleDot) {
+      boolean _constraintInvolvesIndex = FaceLattice.constraintInvolvesIndex(equalityMatrix, (row).intValue(), indexCount);
+      boolean _not = (!_constraintInvolvesIndex);
+      if (_not) {
+        equalityMatrix = equalityMatrix.dropRows((row).intValue(), 1);
+      }
+    }
+    int _rank = equalityMatrix.rank();
+    return (indexCount - _rank);
   }
 
   /**
@@ -418,5 +467,26 @@ public class FaceLattice {
       this.lattice.add(_arrayList);
     }
     this.lattice.get(layer).add(node);
+  }
+
+  /**
+   * Checks if the row of a constraint matrix has a non-zero coefficient for at least one index dimension.
+   */
+  private static boolean constraintInvolvesIndex(final ISLMatrix matrix, final int row, final int indexCount) {
+    int _nbCols = matrix.getNbCols();
+    final int endExclusive = (_nbCols - 1);
+    final int start = (endExclusive - indexCount);
+    final Function1<Integer, Boolean> _function = (Integer col) -> {
+      long _element = matrix.getElement(row, (col).intValue());
+      return Boolean.valueOf((_element != 0));
+    };
+    return IterableExtensions.<Integer>exists(new ExclusiveRange(start, endExclusive, true), _function);
+  }
+
+  /**
+   * Gets the number of index dimensions in the given set.
+   */
+  private static int indexDimensionCount(final ISLBasicSet set) {
+    return set.dim(ISLDimType.isl_dim_set);
   }
 }
