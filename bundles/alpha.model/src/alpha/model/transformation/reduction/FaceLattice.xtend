@@ -39,12 +39,6 @@ class FaceLattice {
 			throw new UnsupportedOperationException("Parameterized polyhedra are not supported at this time.")
 		}
 		
-		// Right now, we do not support polyhedra with equality constraints.
-		val equalities = DomainOperations.toISLEqualityMatrix(startingSet)
-		if (equalities.nbRows > 0) {
-			throw new UnsupportedOperationException("Polyhedra with equality constraints are not supported at this time.")
-		}
-		
 		givenSetDimensionality = dimensionality(givenSet)
 		
 		// Get all of the lattice nodes and put them into their appropriate layers.
@@ -211,6 +205,19 @@ class FaceLattice {
 		}
 		
 		/**
+		 * Prints this node's saturated inequalities.
+		 * If the node has children, it also prints them.
+		 * Otherwise, it prints the ISL set it represents.
+		 */
+		def toStringWithChildrenOrSet() {
+			if (children.size() > 0) {
+				return toStringWithChildren()
+			} else {
+				return toStringWithSet()
+			}
+		}
+		
+		/**
 		 * Prints this node's saturated inequalities and children.
 		 */
 		def toStringWithChildren() {
@@ -247,20 +254,42 @@ class FaceLattice {
 		final ISLBasicSet startingSet
 		
 		/**
-		 * The number of inequality constraints in the starting set.
+		 * The dimensionality of the starting set.
+		 * The maximum number of inequalities to saturate is equal to this.
 		 */
-		final int constraintCount;
+		final int startingSetDimensionality
 		
 		/**
-		 * Creates a new iterator which will iterate the power set of all
-		 * inequality constraints of the given set.
+		 * The number of inequality constraints in the starting set.
+		 */
+		final int inequalityConstraintCount;
+		
+		/**
+		 * Creates a new iterator which will iterate the power set of all inequality constraints of the given set.
+		 * The number of inequalities saturated will not exceed the dimensionality of the given set. 
 		 */
 		new(ISLBasicSet startingSet) {
-			this.startingSet = startingSet
-			constraintCount = startingSet.constraints.reject[it.isEquality()].size()
+			// Make a copy of the given starting set, that way we don't need to trust that the user
+			// won't destroy the copy that we're working with.
+			this.startingSet = startingSet.copy()
+			startingSetDimensionality = dimensionality(this.startingSet)
+			
+			//TODO: When adding support for parameterized polyhedra, only count constraints involving at least one index.
+			inequalityConstraintCount = this.startingSet.constraints.reject[it.isEquality()].size() 
 
-			// We want to use one bit per inequality. A number formed by n 1's has a value of (2^n)-1. 
-			finalValue = (new BigInteger("2")).pow(constraintCount) - BigInteger.ONE
+			// For this comment, let n be the number of inequality constraints involving at least one index,
+			// and let d be the dimensionality of the starting set.
+			// We can use an n-bit binary number to represent whether or not the n inequalities are saturated.
+			// By doing so, we can simply iterate through numbers and use the binary representation to generate each node.
+			// This will result in generating the power set of all inequality constraints.
+			// However, we only want to consider sets formed by saturating d inequalities,
+			// as saturating more than that will result in an empty set (its dimensionality will be negative).
+			// Thus, the final number we want to generate a set for is an n-bit number starting with d 1's.
+			// A number of d 1's can be calculated as (2^d)-1.
+			// Then, we can left-shift this by n-d bits, resulting in the final number we want to generate a set for.
+			// Any numbers larger will be saturating more than d inequalities.
+			val dimensionalityMax = (new BigInteger("2")).pow(startingSetDimensionality) - BigInteger.ONE
+			finalValue = dimensionalityMax.shiftLeft(inequalityConstraintCount - startingSetDimensionality)
 		}
 		
 		/**
@@ -283,9 +312,13 @@ class FaceLattice {
 		 */
 		override next() {
 			// The bits of the current value indicate whether or not a constraint is saturated.
-			val indicesToSaturate = (0 ..< constraintCount).filter[currentValue.testBit(it)]
+			// Note: only modify the current value after generating the face lattice node,
+			// as the indices to saturate won't actually be determined until it's enumerated.
+			// Thus, incrementing the current value too early will result in the wrong node being generated.
+			val indicesToSaturate = (0 ..< inequalityConstraintCount).filter[currentValue.testBit(it)]
+			val node = toFaceLatticeNode(indicesToSaturate)
 			currentValue += BigInteger.ONE
-			return toFaceLatticeNode(indicesToSaturate)
+			return node
 		}
 		
 		/**
@@ -296,7 +329,7 @@ class FaceLattice {
 			// Do so by dropping rows, going from high to low to avoid issues with dropping by index.
 			var saturated = DomainOperations.toISLInequalityMatrix(startingSet)
 			var unsaturated = saturated.copy()
-			for (row : constraintCount >.. 0) {
+			for (row : inequalityConstraintCount >.. 0) {
 				if (toSaturate.contains(row)) {
 					unsaturated = unsaturated.dropRows(row, 1)
 				} else {

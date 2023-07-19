@@ -131,6 +131,21 @@ public class FaceLattice {
     }
 
     /**
+     * Prints this node's saturated inequalities.
+     * If the node has children, it also prints them.
+     * Otherwise, it prints the ISL set it represents.
+     */
+    public String toStringWithChildrenOrSet() {
+      int _size = this.children.size();
+      boolean _greaterThan = (_size > 0);
+      if (_greaterThan) {
+        return this.toStringWithChildren();
+      } else {
+        return this.toStringWithSet();
+      }
+    }
+
+    /**
      * Prints this node's saturated inequalities and children.
      */
     public String toStringWithChildren() {
@@ -235,23 +250,30 @@ public class FaceLattice {
     private final ISLBasicSet startingSet;
 
     /**
-     * The number of inequality constraints in the starting set.
+     * The dimensionality of the starting set.
+     * The maximum number of inequalities to saturate is equal to this.
      */
-    private final int constraintCount;
+    private final int startingSetDimensionality;
 
     /**
-     * Creates a new iterator which will iterate the power set of all
-     * inequality constraints of the given set.
+     * The number of inequality constraints in the starting set.
+     */
+    private final int inequalityConstraintCount;
+
+    /**
+     * Creates a new iterator which will iterate the power set of all inequality constraints of the given set.
+     * The number of inequalities saturated will not exceed the dimensionality of the given set.
      */
     public UnorderedPowerSetIterator(final ISLBasicSet startingSet) {
-      this.startingSet = startingSet;
+      this.startingSet = startingSet.copy();
+      this.startingSetDimensionality = FaceLattice.dimensionality(this.startingSet);
       final Function1<ISLConstraint, Boolean> _function = (ISLConstraint it) -> {
         return Boolean.valueOf(it.isEquality());
       };
-      this.constraintCount = IterableExtensions.size(IterableExtensions.<ISLConstraint>reject(startingSet.getConstraints(), _function));
-      BigInteger _pow = new BigInteger("2").pow(this.constraintCount);
-      BigInteger _minus = _pow.subtract(BigInteger.ONE);
-      this.finalValue = _minus;
+      this.inequalityConstraintCount = IterableExtensions.size(IterableExtensions.<ISLConstraint>reject(this.startingSet.getConstraints(), _function));
+      BigInteger _pow = new BigInteger("2").pow(this.startingSetDimensionality);
+      final BigInteger dimensionalityMax = _pow.subtract(BigInteger.ONE);
+      this.finalValue = dimensionalityMax.shiftLeft((this.inequalityConstraintCount - this.startingSetDimensionality));
     }
 
     /**
@@ -279,10 +301,11 @@ public class FaceLattice {
       final Function1<Integer, Boolean> _function = (Integer it) -> {
         return Boolean.valueOf(this.currentValue.testBit((it).intValue()));
       };
-      final Iterable<Integer> indicesToSaturate = IterableExtensions.<Integer>filter(new ExclusiveRange(0, this.constraintCount, true), _function);
+      final Iterable<Integer> indicesToSaturate = IterableExtensions.<Integer>filter(new ExclusiveRange(0, this.inequalityConstraintCount, true), _function);
+      final FaceLattice.FaceLatticeNode node = this.toFaceLatticeNode(indicesToSaturate);
       BigInteger _currentValue = this.currentValue;
       this.currentValue = _currentValue.add(BigInteger.ONE);
-      return this.toFaceLatticeNode(indicesToSaturate);
+      return node;
     }
 
     /**
@@ -291,7 +314,7 @@ public class FaceLattice {
     private FaceLattice.FaceLatticeNode toFaceLatticeNode(final Iterable<Integer> toSaturate) {
       ISLMatrix saturated = DomainOperations.toISLInequalityMatrix(this.startingSet);
       ISLMatrix unsaturated = saturated.copy();
-      ExclusiveRange _greaterThanDoubleDot = new ExclusiveRange(this.constraintCount, 0, false);
+      ExclusiveRange _greaterThanDoubleDot = new ExclusiveRange(this.inequalityConstraintCount, 0, false);
       for (final Integer row : _greaterThanDoubleDot) {
         boolean _contains = IterableExtensions.contains(toSaturate, row);
         if (_contains) {
@@ -332,12 +355,6 @@ public class FaceLattice {
     boolean _greaterThan = (_nbParams > 0);
     if (_greaterThan) {
       throw new UnsupportedOperationException("Parameterized polyhedra are not supported at this time.");
-    }
-    final ISLMatrix equalities = DomainOperations.toISLEqualityMatrix(startingSet);
-    int _nbRows = equalities.getNbRows();
-    boolean _greaterThan_1 = (_nbRows > 0);
-    if (_greaterThan_1) {
-      throw new UnsupportedOperationException("Polyhedra with equality constraints are not supported at this time.");
     }
     this.givenSetDimensionality = FaceLattice.dimensionality(givenSet);
     final FaceLattice.UnorderedPowerSetIterator powerSetIterator = new FaceLattice.UnorderedPowerSetIterator(startingSet);
