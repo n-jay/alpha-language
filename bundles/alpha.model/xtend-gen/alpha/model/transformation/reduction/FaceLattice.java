@@ -310,10 +310,18 @@ public class FaceLattice {
   }
 
   /**
-   * The layers of the face lattice.
-   * Each layer stores all of the nodes in that layer.
+   * The container for the face lattice itself, organized into layers.
+   * Layer 0 is the top level of the lattice (highest dimensionality),
+   * which should contain only the starting set.
+   * Each successive layer has one fewer dimension than the previous layer.
+   * The last layer will be the vertices.
    */
-  private final ArrayList<ArrayList<FaceLattice.FaceLatticeNode>> layers = new ArrayList<ArrayList<FaceLattice.FaceLatticeNode>>();
+  private final ArrayList<ArrayList<FaceLattice.FaceLatticeNode>> lattice = new ArrayList<ArrayList<FaceLattice.FaceLatticeNode>>();
+
+  /**
+   * The dimensionality of the given set, which is at the top of the lattice.
+   */
+  private final int givenSetDimensionality;
 
   /**
    * Constructs a new face lattice for the given set.
@@ -331,17 +339,18 @@ public class FaceLattice {
     if (_greaterThan_1) {
       throw new UnsupportedOperationException("Polyhedra with equality constraints are not supported at this time.");
     }
+    this.givenSetDimensionality = FaceLattice.dimensionality(givenSet);
     final FaceLattice.UnorderedPowerSetIterator powerSetIterator = new FaceLattice.UnorderedPowerSetIterator(startingSet);
     final Consumer<FaceLattice.FaceLatticeNode> _function = (FaceLattice.FaceLatticeNode it) -> {
       this.checkAddNode(it);
     };
     powerSetIterator.forEach(_function);
-    int _size = this.layers.size();
+    int _size = this.lattice.size();
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(1, _size, true);
     for (final Integer i : _doubleDotLessThan) {
       {
-        final ArrayList<FaceLattice.FaceLatticeNode> parentLayer = this.layers.get(((i).intValue() - 1));
-        final ArrayList<FaceLattice.FaceLatticeNode> currentLayer = this.layers.get((i).intValue());
+        final ArrayList<FaceLattice.FaceLatticeNode> parentLayer = this.lattice.get(((i).intValue() - 1));
+        final ArrayList<FaceLattice.FaceLatticeNode> currentLayer = this.lattice.get((i).intValue());
         for (final FaceLattice.FaceLatticeNode parent : parentLayer) {
           for (final FaceLattice.FaceLatticeNode child : currentLayer) {
             parent.checkAddChild(child);
@@ -352,6 +361,25 @@ public class FaceLattice {
   }
 
   /**
+   * Determines the dimensionality (number of free dimensions) for a set.
+   * This is defined as the number of index variables minus the number of
+   * equality constraints which involve at least one index variable.
+   * 
+   * @keep set Keep. The set to find the dimensionality of.
+   */
+  private static int dimensionality(final ISLBasicSet set) {
+    final int indexCount = set.dim(ISLDimType.isl_dim_set);
+    final Function1<ISLConstraint, Boolean> _function = (ISLConstraint it) -> {
+      return Boolean.valueOf(it.isEquality());
+    };
+    final Function1<ISLConstraint, Boolean> _function_1 = (ISLConstraint it) -> {
+      return Boolean.valueOf(it.involvesDims(ISLDimType.isl_dim_set, 0, indexCount));
+    };
+    final int equalityCount = IterableExtensions.size(IterableExtensions.<ISLConstraint>filter(IterableExtensions.<ISLConstraint>filter(set.getConstraints(), _function), _function_1));
+    return (indexCount - equalityCount);
+  }
+
+  /**
    * Checks if a node is valid to be added to the face lattice, adding it if it is.
    */
   private void checkAddNode(final FaceLattice.FaceLatticeNode node) {
@@ -359,11 +387,19 @@ public class FaceLattice {
     if (_isEmpty) {
       return;
     }
-    final int layer = node.saturatedInequalityIndices.length;
-    while ((this.layers.size() <= layer)) {
-      ArrayList<FaceLattice.FaceLatticeNode> _arrayList = new ArrayList<FaceLattice.FaceLatticeNode>();
-      this.layers.add(_arrayList);
+    final int dimensionality = FaceLattice.dimensionality(node.basicSet);
+    final int layer = (this.givenSetDimensionality - dimensionality);
+    int _length = node.saturatedInequalityIndices.length;
+    boolean _notEquals = (layer != _length);
+    if (_notEquals) {
+      String _string = node.toString();
+      String _plus = ((("Node layer and saturated inequality count mismatch! Layer: " + Integer.valueOf(layer)) + ", node: ") + _string);
+      System.err.println(_plus);
     }
-    this.layers.get(layer).add(node);
+    while ((this.lattice.size() <= layer)) {
+      ArrayList<FaceLattice.FaceLatticeNode> _arrayList = new ArrayList<FaceLattice.FaceLatticeNode>();
+      this.lattice.add(_arrayList);
+    }
+    this.lattice.get(layer).add(node);
   }
 }

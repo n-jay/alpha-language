@@ -14,10 +14,18 @@ import alpha.model.transformation.reduction.FaceLattice.FaceLatticeNode
  */
 class FaceLattice {
 	/**
-	 * The layers of the face lattice.
-	 * Each layer stores all of the nodes in that layer.
+	 * The container for the face lattice itself, organized into layers.
+	 * Layer 0 is the top level of the lattice (highest dimensionality),
+	 * which should contain only the starting set.
+	 * Each successive layer has one fewer dimension than the previous layer.
+	 * The last layer will be the vertices.
 	 */
-	val layers = new ArrayList<ArrayList<FaceLatticeNode>>() 
+	val lattice = new ArrayList<ArrayList<FaceLatticeNode>>()
+	
+	/**
+	 * The dimensionality of the given set, which is at the top of the lattice.
+	 */
+	final int givenSetDimensionality
 	
 	/**
 	 * Constructs a new face lattice for the given set.
@@ -37,15 +45,17 @@ class FaceLattice {
 			throw new UnsupportedOperationException("Polyhedra with equality constraints are not supported at this time.")
 		}
 		
+		givenSetDimensionality = dimensionality(givenSet)
+		
 		// Get all of the lattice nodes and put them into their appropriate layers.
 		val powerSetIterator = new UnorderedPowerSetIterator(startingSet)
 		powerSetIterator.forEach[checkAddNode]
 		
 		// Set up the parent-child relations between each node.
 		// These relationships can only exist between adjacent layers.
-		for (i: 1 ..< layers.size()) {
-			val parentLayer = layers.get(i-1)
-			val currentLayer = layers.get(i)
+		for (i: 1 ..< lattice.size()) {
+			val parentLayer = lattice.get(i-1)
+			val currentLayer = lattice.get(i)
 
 			for (parent : parentLayer) {
 				for (child : currentLayer) {
@@ -53,6 +63,24 @@ class FaceLattice {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Determines the dimensionality (number of free dimensions) for a set.
+	 * This is defined as the number of index variables minus the number of
+	 * equality constraints which involve at least one index variable.
+	 * 
+	 * @keep set Keep. The set to find the dimensionality of. 
+	 */
+	def private static int dimensionality(ISLBasicSet set) {
+		val indexCount = set.dim(ISLDimType.isl_dim_set)
+		val equalityCount =
+			set.constraints
+			.filter[it.isEquality()]
+			.filter[it.involvesDims(ISLDimType.isl_dim_set, 0, indexCount)]
+			.size()
+		
+		return indexCount - equalityCount
 	}
 	
 	/**
@@ -64,14 +92,27 @@ class FaceLattice {
 			return
 		}
 		
-		// Determine which layer of the lattice this node goes in.
-		val layer = node.saturatedInequalityIndices.length
+		// The nodes are organized into layers with the same dimensionality.
+		// The layer this node should be at is the difference in dimensionality
+		// between the given set (at the top of the lattice) and this set. 
+		val dimensionality = dimensionality(node.basicSet)
+		val layer = givenSetDimensionality - dimensionality
+		
+		// It seems reasonable that the layer index and the number of saturated inequalities
+		// should always match, but I'm not 100% confident on this.
+		// My intuition is that we should skip the node if they don't match, as it will end up being redundant
+		// with a different node which saturates fewer inequalities.
+		// For now, just print a warning if this is detected.
+		//TODO: Investigate this further.
+		if (layer != node.saturatedInequalityIndices.length()) {
+			System.err.println("Node layer and saturated inequality count mismatch! Layer: " + layer + ", node: " + node.toString())
+		}
 		
 		// Make sure we have enough layers allocated, then add the node to that layer.
-		while (layers.size() <= layer) {
-			layers.add(new ArrayList<FaceLatticeNode>)
+		while (lattice.size() <= layer) {
+			lattice.add(new ArrayList<FaceLatticeNode>)
 		}
-		layers.get(layer).add(node)
+		lattice.get(layer).add(node)
 	}
 
 	//////////////////////////////////////////////////////////////
