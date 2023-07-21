@@ -5,426 +5,287 @@ import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMatrix
 import fr.irisa.cairn.jnimap.isl.ISLSpace
-import org.eclipse.xtend.lib.annotations.Data
 import java.util.ArrayList
-import java.util.Iterator
-import java.math.BigInteger
-import alpha.model.transformation.reduction.FaceLattice.FaceLatticeNode
+import java.util.LinkedList
+import org.eclipse.xtend.lib.annotations.Data
 
-/**
- * Constructs the face lattice for an <code>ISLBasicSet</code>. 
- */
+/** Constructs the face lattice of a given <code>ISLBasicSet</code> */
 class FaceLattice {
-	/**
-	 * The container for the face lattice itself, organized into layers.
-	 * Layer 0 is the top level of the lattice (highest dimensionality),
-	 * which should contain only the starting set.
-	 * Each successive layer has one fewer dimension than the previous layer.
-	 * The last layer will be the vertices.
-	 */
-	val lattice = new ArrayList<ArrayList<FaceLatticeNode>>()
+	/** The information about the set which forms the root of the lattice. */
+	val SetInfo rootInfo
 	
 	/**
-	 * The dimensionality of the given set, which is at the top of the lattice.
+	 * The storage of the lattice itself.
+	 * The index of each layer (the outermost list) is the dimensionality.
+	 * I.e., <code>lattice[2]</code> contains all the 2D faces of the lattice.
+	 * Each layer is a list of all the sets which are in that layer.
 	 */
-	final int givenSetDimensionality
-
-	/**
-	 * Constructs a new face lattice for the given set.
-	 */
-	new(ISLBasicSet givenSet) throws UnsupportedOperationException {
-		// Remove any redundancies in the set.
-		val startingSet = givenSet.copy().removeRedundancies()
-		
-		// Right now, we do not support parameterized polyhedra.
-		if (startingSet.nbParams > 1) {
-			throw new UnsupportedOperationException("Parameterized polyhedra are not supported at this time.")
+	val ArrayList<ArrayList<SetInfo>> lattice
+	
+	/** Constructs a new, empty lattice. */
+	private new(SetInfo rootInfo) { 
+		this.rootInfo = rootInfo
+		lattice = new ArrayList<ArrayList<SetInfo>>
+	}
+	
+	/** Gets the set of all children of the indicated face. */
+	def getChildren(SetInfo face) {
+		// If there are no layers below this face's layer,
+		// or if this face's layer doesn't even exist,
+		// it must not have any children.
+		val faceLayer = Integer.max(0, face.dimensionality)
+		if ((faceLayer == 0) || (faceLayer >= lattice.size)) {
+			return new ArrayList<SetInfo>
 		}
 		
-		givenSetDimensionality = dimensionality(givenSet)
+		// All children of the given face must be on the layer below it.
+		return lattice.get(faceLayer - 1).filter[node | node.isChildOf(face)]
+	}
+	
+	/**
+	 * Checks if a face is valid to add to the lattice, and adds it if so.
+	 * @returns Returns <code>true</code> if the face was valid and added, and <code>false</code> otherwise.
+	 */
+	def private checkAddFace(ArrayList<Integer> toSaturate) {
+		// Create the proposed face by saturating the indicated inequality constraints,
+		// and check whether or not this creates a valid face.
+		val face = SetInfo.createFace(rootInfo, toSaturate)
+		if (!face.isValidFace(rootInfo)) {
+			return false
+		}
 		
-		// Get all of the lattice nodes and put them into their appropriate layers.
-		val powerSetIterator = new UnorderedPowerSetIterator(startingSet)
-		powerSetIterator.forEach[checkAddNode]
+		// Lattice layer indices match the dimensionality of the faces in that layer.
+		// Be careful to avoid out of bounds accesses!
+		val layerIndex = Integer.max(0, face.dimensionality)
+		while (lattice.size <= layerIndex) {
+			lattice.add(new ArrayList<SetInfo>)
+		}
+		lattice.get(layerIndex).add(face)
+		return true
+	}
+	
+	/** Creates a new face lattice for the given set. */
+	def static create(ISLBasicSet root) {
+		// Set up the face lattice which is rooted at the given set.
+		val rootInfo = new SetInfo(root)
+		val lattice = new FaceLattice(rootInfo)
 		
-		// Set up the parent-child relations between each node.
-		// These relationships can only exist between adjacent layers.
-		for (i: 1 ..< lattice.size()) {
-			val parentLayer = lattice.get(i-1)
-			val currentLayer = lattice.get(i)
+		// The lattice will be populated by iterating through the power set of all constraints.
+		// A queue of constraint combinations to check will be used to avoid recursion.
+		// We will start with the top-level face which doesn't saturate any constraints (i.e., the root).
+		val toSaturate = new LinkedList<ArrayList<Integer>>
+		toSaturate.add(new ArrayList<Integer>)
 
-			for (parent : parentLayer) {
-				for (child : currentLayer) {
-					parent.checkAddChild(child)
+		// While there are combinations of constraints left, try creating faces.
+		while (!toSaturate.empty) {
+			// Get the next set of constraints and try constructing a face from them.
+			val currentConstraints = toSaturate.remove
+			val isValidFace = lattice.checkAddFace(currentConstraints)
+			
+			// If the face was valid and the maximum number of constraints haven't been saturated,
+			// queue up more sets of constraints to try saturating.
+			val hasChildren = isValidFace && (currentConstraints.size < rootInfo.dimensionality)
+			if (hasChildren) {
+				// The next constraint sets are created by adding a single constraint to this set.
+				// To avoid duplicating faces, only try saturating constraints whose index is
+				// greater than the largest index of constraint already saturated.
+				// Since the arrays are already sorted, we can just grab the last element and add 1.
+				// If the current set of constraints is empty, any constraint is valid to saturate.
+				val minimumIndex = currentConstraints.empty ? 0 : (currentConstraints.last + 1)
+				for (constraint: minimumIndex ..< rootInfo.indexInequalityCount) {
+					val nextSet = new ArrayList<Integer>(currentConstraints)
+					nextSet.add(constraint)
+					toSaturate.add(nextSet)
 				}
 			}
 		}
+		
+		return lattice
 	}
 	
-	/**
-	 * Determines the dimensionality (number of free dimensions) for a set.
-	 * This is defined as the number of index variables minus the number of
-	 * linearly independent equality constraints which involve at least one index variable.
-	 * 
-	 * @keep set Keep. The set to find the dimensionality of. 
-	 */
-	def private static int dimensionality(ISLBasicSet set) {
-		// To get the number of linearly independent equality constraints,
-		// get the matrix of equality constraints for the set,
-		// drop any rows which do not involve any index dimensions,
-		// then calculate the rank of that matrix.
-		val indexCount = indexDimensionCount(set)
-		var equalityMatrix = DomainOperations.toISLEqualityMatrix(set)
-		for (row: equalityMatrix.nbRows >.. 0) {
-			if (!constraintInvolvesIndex(equalityMatrix, row, indexCount)) {
-				equalityMatrix = equalityMatrix.dropRows(row, 1)
-			}
-		}
-
-		return indexCount - equalityMatrix.rank()
-	}
-	
-	/**
-	 * Checks if a node is valid to be added to the face lattice, adding it if it is.
-	 */
-	def private void checkAddNode(FaceLatticeNode node) {
-		// Nodes may not be empty.
-		if (node.basicSet.empty) {
-			return
-		}
-		
-		// The nodes are organized into layers with the same dimensionality.
-		// The layer this node should be at is the difference in dimensionality
-		// between the given set (at the top of the lattice) and this set. 
-		val dimensionality = dimensionality(node.basicSet)
-		val layer = givenSetDimensionality - dimensionality
-		
-		// It seems reasonable that the layer index and the number of saturated inequalities
-		// should always match, but I'm not 100% confident on this.
-		// My intuition is that we should skip the node if they don't match, as it will end up being redundant
-		// with a different node which saturates fewer inequalities.
-		// For now, just print a warning if this is detected.
-		//TODO: Investigate this further.
-		if (layer != node.saturatedInequalityIndices.length()) {
-			System.err.println("Node layer and saturated inequality count mismatch! Layer: " + layer + ", node: " + node.toString())
-		}
-		
-		// Make sure we have enough layers allocated, then add the node to that layer.
-		while (lattice.size() <= layer) {
-			lattice.add(new ArrayList<FaceLatticeNode>)
-		}
-		lattice.get(layer).add(node)
-	}
-
-	/**
-	 * Checks if the row of a constraint matrix has a non-zero coefficient for at least one index dimension.
-	 */
-	def private static constraintInvolvesIndex(ISLMatrix matrix, int row, int indexCount) {
-		// The constraint matrix puts columns in the order: parameters, indexes, constant.
-		// Thus, the exclusive ending index is the number of columns minus one (for the constant column).
-		// Since we want to check each index, the first column to check is the end minus the number of indexes.
-		val endExclusive = matrix.nbCols - 1
-		val start = endExclusive - indexCount
-
-		// The constraint at this row involves an index if any of the columns in that range
-		// have a non-zero coefficient value.
-		return (start ..< endExclusive).exists[col | matrix.getElement(row, col) != 0]
-	}
-
-	/**
-	 * Gets the number of index dimensions in the given set.
-	 */
-	def private static indexDimensionCount(ISLBasicSet set) {
-		return set.dim(ISLDimType.isl_dim_set)
-	}
-
-	//////////////////////////////////////////////////////////////
-	// Internal Classes
-	//////////////////////////////////////////////////////////////
-	
-	/**
-	 * A single node of the face lattice.
-	 */
+	/** Contains useful information about a set. */
 	@Data
-	protected static class FaceLatticeNode implements Comparable<FaceLatticeNode> {
-		/**
-		 * The indexes of the inequalities saturated in this node.
-		 */
-		int[] saturatedInequalityIndices
+	static class SetInfo {
+		/** The dimensionality of the set. */
+		int dimensionality
 		
-		/**
-		 * The ISL basic set which is formed by saturating the inequalities.
-		 */
-		ISLBasicSet basicSet
+		/** The equality constraints defining the set. */
+		ISLMatrix equalities
 		
-		/**
-		 * The children nodes of this node.
-		 */
-		val children = new ArrayList<FaceLatticeNode>
+		/** The number of index variables in the set's space. */
+		int indexCount
+		
+		/** The inequality constraints which involve at least one index variable. */
+		ISLMatrix indexInequalities
+		
+		/** The number of index inequalities. */
+		int indexInequalityCount
+		
+		boolean isEmpty
+		
+		/** The number of equality constraints which involve only parameter variables. */
+		int parameterEqualityCount
+		
+		/** The inequality constraints which only involve parameter variables. */
+		ISLMatrix parameterInequalities
+		
+		/** The indices of the inequalities which were saturated to form this set. */
+		ArrayList<Integer> saturatedInequalityIndices
+		
+		/** The space that the set resides in. */
+		ISLSpace space
+		
+		/** Extract the information from the given set, assuming that no constraints were saturated to form it. */
+		new(ISLBasicSet basicSet) { this(basicSet, new ArrayList<Integer>(0)) }
+		
+		/** Extract the information from the given set. */
+		new(ISLBasicSet basicSet, ArrayList<Integer> saturatedInequalityIndices) {
+			equalities = DomainOperations.toISLEqualityMatrix(basicSet)
+			indexCount = basicSet.dim(ISLDimType.isl_dim_set)
+			indexInequalities = getInequalities(basicSet, indexCount, true)
+			indexInequalityCount = indexInequalities.nbRows
+			isEmpty = basicSet.empty
+			parameterEqualityCount = countParameterConstraints(equalities, indexCount)
+			parameterInequalities = getInequalities(basicSet, indexCount, false)
+			this.saturatedInequalityIndices = saturatedInequalityIndices
+			space = basicSet.space 
 
-		/**
-		 * Checks if this is the parent of the other node, and adds it as a child if so.
-		 */
-		def void checkAddChild(FaceLatticeNode other) {
-			if (isParentOf(other)) {
-				children.add(other)
-			}
+			dimensionality = dimensionality(equalities, indexCount)
 		}
-
-		/**
-		 * Determines if this node is the parent of another node.
-		 */
-		def private boolean isParentOf(FaceLatticeNode other) {
-			// Make sure there are no indices in this node which are missing from the other.
-			val thisIsSubsetOfOther = saturatedInequalityIndices.forall[other.saturatedInequalityIndices.contains(it)]
-			if (!thisIsSubsetOfOther) {
+		
+		/** Saturates the given index inequalities from the ancestor to form a potential face. */
+		def static createFace(SetInfo ancestor, ArrayList<Integer> toSaturate) {
+			// Create the new equalities matrix by taking the ancestor's index inequality constraints,
+			// dropping any which are not to be saturated (leaving only the ones to saturate),
+			// then combining it with the ancestor's equality constraints.
+			val saturatedInequalities =
+				(ancestor.indexInequalityCount >.. 0)
+				.reject[row | toSaturate.contains(row)]
+				.fold(ancestor.indexInequalities.copy, [mat, row | mat.dropRows(row, 1)])
+			val equalities = ancestor.equalities.copy.concat(saturatedInequalities)
+			
+			// Create the new inequalities matrix by taking the acestor's index inequality constraints
+			// and dropping any which were saturated, leaving only the non-saturated ones,
+			// then combining it with the ancestor's parameter inequality constraints.
+			val indexInequalities =
+				(ancestor.indexInequalities.nbRows >.. 0)
+				.filter[row | toSaturate.contains(row)]
+				.fold(ancestor.indexInequalities.copy, [mat, row | mat.dropRows(row, 1)])
+			val inequalities = indexInequalities.concat(ancestor.parameterInequalities.copy)
+			
+			// Construct a basic set from these matrices, plus info from the ancestor,
+			// and use that to extract the desired information.
+			val basicSet = ISLBasicSet.fromConstraintMatrices(
+					ancestor.space.copy, equalities, inequalities,
+					ISLDimType.isl_dim_param, ISLDimType.isl_dim_set,
+					ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst)
+				.removeRedundancies
+			return new SetInfo(basicSet, toSaturate)
+		}
+		
+		/** Returns <code>true</code> if this set is a child face of the given set, and <code>false</code> otherwise. */
+		def isChildOf(SetInfo other) {
+			// This set must saturate exactly one more constraint than the other set.
+			if (saturatedInequalityIndices.size != 1 + other.saturatedInequalityIndices.size) {
 				return false
 			}
 			
-			// Make sure the other node has at least one node which is not in in this node.
-			val indicesUniqueToOther = other.saturatedInequalityIndices.reject[saturatedInequalityIndices.contains(it)]
-			if (indicesUniqueToOther.empty) {
+			// All constraints saturated by the other set must also be saturated in this set.
+			if (!other.saturatedInequalityIndices.forall[saturatedInequalityIndices.contains(it)]) {
 				return false
 			}
 			
-			// Make sure there is no more than 1 index in the other node which is not in this node.
-			if (!indicesUniqueToOther.tail.empty) {
+			// There must only be exactly one constraint in this set which is not saturated by the other set.
+			val notSaturatedCount = saturatedInequalityIndices.reject[other.saturatedInequalityIndices.contains(it)].size
+			if (notSaturatedCount != 1) {
 				return false
 			}
 			
 			return true
 		}
 		
-		/**
-		 * Compares two nodes to see which one comes in lexicographical order.
-		 * Intended to be used only for sorting nodes so they're easier for a human to read.
-		 */
-		override compareTo(FaceLatticeNode other) {
-			// If a node has fewer saturated inequalities, it comes first.
-			if (saturatedInequalityIndices.length < other.saturatedInequalityIndices.length) {
-				return -1
-			}
-			if (saturatedInequalityIndices.length > other.saturatedInequalityIndices.length) {
-				return 1
-			}
-			
-			// Check the saturated inequality indexes. If they differ at any point,
-			// the one with the lower index comes first.
-			for (i: 0 ..< saturatedInequalityIndices.length) {
-				val thisIndex = saturatedInequalityIndices.get(i)
-				val otherIndex = other.saturatedInequalityIndices.get(i)
-				
-				if (thisIndex < otherIndex) {
-					return -1
-				}
-				
-				if (thisIndex > otherIndex) {
-					return 1
-				}
+		/** Returns <code>true</code> if this set is a valid face of the given set, and <code>false</code> otherwise. */
+		def isValidFace(SetInfo startingSetInfo) {
+			// Faces cannot be empty.
+			if (isEmpty) {
+				return false
 			}
 
-			return 0
-		}
-		
-		/**
-		 * Prints the indexes of the inequalities that this node saturates.
-		 */
-		override toString() {
-			return "{" + String.join(',', saturatedInequalityIndices.map[it.toString()]) + "}"
-		}
-		
-		/**
-		 * Prints this node's saturated inequalities.
-		 * If the node has children, it also prints them.
-		 * Otherwise, it prints the ISL set it represents.
-		 */
-		def toStringWithChildrenOrSet() {
-			if (children.size() > 0) {
-				return toStringWithChildren()
-			} else {
-				return toStringWithSet()
+			// Faces cannot have more equality constraints involving only parameters than the starting set.
+			if (parameterEqualityCount > startingSetInfo.parameterEqualityCount) {
+				return false
 			}
+						
+			return true
 		}
 		
-		/**
-		 * Prints this node's saturated inequalities and children.
-		 */
-		def toStringWithChildren() {
-			return toString() + ": " + String.join(", ", children.sort().map[it.toString()])
+		/** Creates a basic set from this information. */
+		def toBasicSet() {
+			val allInequalities = indexInequalities.copy.concat(parameterInequalities.copy)
+			return ISLBasicSet.fromConstraintMatrices(
+					space.copy, equalities.copy, allInequalities,
+					ISLDimType.isl_dim_param, ISLDimType.isl_dim_set,
+					ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst)
+				.removeRedundancies
 		}
 		
-		/**
-		 * Prints this node's saturated inequalities and the ISL string for the basic set it creates.
-		 */
-		def toStringWithSet() {
-			return toString() + ": " + basicSet.toString()
-		}
-	}
+		/** Returns a string indicating which inequalities were saturated to form this face. */
+		override toString() { return "{" + saturatedInequalityIndices.join(',') + "}" }
+		
+		/** Checks if the row of a constraint matrix has a non-zero coefficient for at least one index dimension. */
+		def private static constraintInvolvesIndex(ISLMatrix matrix, int row, int indexCount) {
+			// The constraint matrix puts columns in the order: parameters, indexes, constant.
+			// Thus, the exclusive ending index is the number of columns minus one (for the constant column).
+			// Since we want to check each index, the first column to check is the end minus the number of indexes.
+			val endExclusive = matrix.nbCols - 1
+			val start = endExclusive - indexCount
 	
-	/**
-	 * Iterates through the power set of all inequality constraints of a given set.
-	 */
-	protected static class UnorderedPowerSetIterator implements Iterable<FaceLatticeNode>, Iterator<FaceLatticeNode> {
-		/**
-		 * Since each inequality can be saturated or not, we can use the bits of an integer
-		 * to determine at each step which constraints to saturate.
-		 */
-		BigInteger currentValue = BigInteger.ZERO
+			// The constraint at this row involves an index if any of the columns in that range
+			// have a non-zero coefficient value.
+			return (start ..< endExclusive).exists[col | matrix.getElement(row, col) != 0]
+		}
 		
-		/**
-		 * The final value to use for generating members of the power set.
-		 * If there are n constraints, this should be (2^n)-1 (n bits of all 1's).
-		 */
-		final BigInteger finalValue
+		/** Counts the number of constraints which involve only parameter variables. */
+		def private static countParameterConstraints(ISLMatrix matrix, int indexCount) {
+			return (0 ..< matrix.nbRows)
+				.reject[row | constraintInvolvesIndex(matrix, row, indexCount)]
+				.size
+		}
 		
-		/**
-		 * The space in which the generated polyhedra exist.
-		 */
-		final ISLSpace space
-		
-		/**
-		 * The matrix of inequality constraints that the initial set started with.
-		 */
-		final ISLMatrix startingEqualities
-		
-		/**
-		 * The matrix of inequality constraints that involve at least one index dimension
-		 * that the initial set started with.
-		 */
-		final ISLMatrix startingIndexInequalities
-
-		/**
-		 * The matrix of inequality constraints that involve only parameter dimensions
-		 * that the initial set started with.
-		 */
-		final ISLMatrix startingParameterInequalities
-
-		/**
-		 * The dimensionality of the starting set.
-		 * The maximum number of inequalities to saturate is equal to this.
-		 */
-		final int startingSetDimensionality
-		
-		/**
-		 * Creates a new iterator which will iterate the power set of all inequality constraints of the given set.
-		 * The number of inequalities saturated will not exceed the dimensionality of the given set. 
-		 */
-		new(ISLBasicSet startingSet) {
-			space = startingSet.space
-			startingEqualities = DomainOperations.toISLEqualityMatrix(startingSet)
-			startingSetDimensionality = dimensionality(startingSet)
+		/** Returns the dimensionality of a set using the equality constraints and number of index variables. */
+		def private static dimensionality(ISLMatrix equalities, int indexCount) {
+			// The dimensionality of a set is defined as the number of index variables
+			// minus the number of linearly independent equality constraints which involve
+			// at least one index variable (the rank of said matrix).
 			
-			val bothInequalityMatrices = separateIndexInequalities(startingSet)
-			startingIndexInequalities = bothInequalityMatrices.key
-			startingParameterInequalities = bothInequalityMatrices.value
+			// Take the set of equality constraints,
+			// drop any rows which do not involve at least one constraint,
+			// then compute the rank of the remaining matrix.
+			val linearlyIndependentIndexEqualities =
+				(equalities.nbRows >.. 0)
+				.reject[row | constraintInvolvesIndex(equalities, row, indexCount)]
+				.fold(equalities.copy(), [mat, row | mat.dropRows(row, 1)])
+				.rank
 
-			// For this comment, let n be the number of inequality constraints involving at least one index,
-			// and let d be the dimensionality of the starting set.
-			// We can use an n-bit binary number to represent whether or not the n inequalities are saturated.
-			// By doing so, we can simply iterate through numbers and use the binary representation to generate each node.
-			// This will result in generating the power set of all inequality constraints.
-			// However, we only want to consider sets formed by saturating d inequalities,
-			// as saturating more than that will result in an empty set (its dimensionality will be negative).
-			// Thus, the final number we want to generate a set for is an n-bit number starting with d 1's.
-			// A number of d 1's can be calculated as (2^d)-1.
-			// Then, we can left-shift this by n-d bits, resulting in the final number we want to generate a set for.
-			// Any numbers larger will be saturating more than d inequalities.
-			val dimensionalityMax = (new BigInteger("2")).pow(startingSetDimensionality) - BigInteger.ONE
-			finalValue = dimensionalityMax.shiftLeft(startingIndexInequalities.nbRows - startingSetDimensionality)
+			return indexCount - linearlyIndependentIndexEqualities
 		}
 		
 		/**
-		 * Gets a new iterator for the power set of all inequality constraints of a given set.
-		 * Warning: this is only intended to be used once per instance of this class.
+		 * Gets a matrix of inequality constraints from a set.
+		 * Retrieves either only the constraints which involve at least one index variable,
+		 * or only the constraints which only involve parameter variables.
 		 */
-		override iterator() {
-			return this
-		}
-
-		/**
-		 * Returns true if there are any more nodes to iterate through and false otherwise.
-		 */
-		override hasNext() {
-			return currentValue <= finalValue
-		}
-		
-		/**
-		 * Returns a face lattice node in the power set of all constraints to saturate.
-		 */
-		override next() {
-			// The bits of the current value indicate whether or not a constraint is saturated.
-			// Note: only modify the current value after generating the face lattice node,
-			// as the indices to saturate won't actually be determined until it's enumerated.
-			// Thus, incrementing the current value too early will result in the wrong node being generated.
-			val indicesToSaturate = (0 ..< startingIndexInequalities.nbRows).filter[currentValue.testBit(it)]
-			val node = toFaceLatticeNode(indicesToSaturate)
-			currentValue += BigInteger.ONE
-			return node
-		}
-		
-		/**
-		 * Separates the given set's inequality constraint matrix into two separate matrices:
-		 * one for constraints which involve at least one index, and one for constraints involving
-		 * only parameters.
-		 *
-		 * @keep startingSet Keep. The set to split the inequality constraints of.
-		 * @return Returns a pair of ISL matrices.
-		 *         The one in the "key" position contains the constraints involving at least one index.
-		 *         The one in the "value" position contains the constraints involving only parameters.
-		 */
-		def private static separateIndexInequalities(ISLBasicSet startingSet) {
-			// Start with two copies of the set's inequalities matrix.
-			// One will end up containing all inequalities with at least one index,
-			// and the other will end up containing all inequalities with only parameters.
-			var indexConstraints = DomainOperations.toISLInequalityMatrix(startingSet)
-			var parameterConstraints = indexConstraints.copy()
-
-			// Drop rows from one matrix or the other depending on whether the row represents
-			// a constraint involving an index or not.
-			// Go from end to start to avoid issues with dropping rows by index.
-			val indexCount = indexDimensionCount(startingSet)
-			for (row : indexConstraints.nbRows >.. 0) {
-				if (constraintInvolvesIndex(indexConstraints, row, indexCount)) {
-					parameterConstraints = parameterConstraints.dropRows(row, 1)
-				} else {
-					indexConstraints = indexConstraints.dropRows(row, 1)
-				}
-			}
-
-			return indexConstraints -> parameterConstraints
-		}
-
-		/**
-		 * Generates a face lattice node from a set of indexes to saturate.
-		 */
-		def private toFaceLatticeNode(Iterable<Integer> toSaturate) {
-			// Separate the index inequalities into saturated and unsaturated constraints.
-			// Do so by dropping rows, going from high to low to avoid issues with dropping by index.
-			var equalities = startingIndexInequalities.copy()
-			var inequalities = equalities.copy()
-			for (row : startingIndexInequalities.nbRows >.. 0) {
-				if (toSaturate.contains(row)) {
-					inequalities = inequalities.dropRows(row, 1)
-				} else {
-					equalities = equalities.dropRows(row, 1)
-				}
-			}
-
-			// Combine the saturated inequalities with the starting equalities.
-			// Combine the unsaturated inequalities with the parameter inequalities.
-			// Make sure the starting matrices are copied, as concat will destroy them otherwise.
-			equalities = equalities.concat(startingEqualities.copy())
-			inequalities = inequalities.concat(startingParameterInequalities.copy())
-
-			// Construct a new basic set from the new equality and inequality matrices.
-			// The order of the dimension types should match those in the
-			// DomainOperations.toISLEqualityMatrix() and toISLInequalityMatrix() methods. 
-			val basicSet = ISLBasicSet.fromConstraintMatrices(
-				space.copy(), equalities, inequalities,
-				ISLDimType.isl_dim_param, ISLDimType.isl_dim_set,
-				ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst)
-
-			return new FaceLatticeNode(toSaturate, basicSet)
+		def private static getInequalities(ISLBasicSet startingSet, int indexCount, boolean getIndexConstraints) {
+			// Start with a list of all rows of the inequality matrix.
+			// This must be in reverse order so dropping rows doesn't affect how they are numbered. 
+			// Skip any rows that we want to keep.
+			// For example, if we want to keep the index rows, skip it if the row contains an index.
+			// Finally, starting with the original matrix, drop all necessary rows.
+			val inequalities = DomainOperations.toISLInequalityMatrix(startingSet)
+			return (inequalities.nbRows >.. 0)
+				.filter[row | getIndexConstraints != constraintInvolvesIndex(inequalities, row, indexCount)]
+				.toList
+				.fold(inequalities, [mat, row | mat.dropRows(row, 1)])
 		}
 	}
 }
