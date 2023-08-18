@@ -7,11 +7,13 @@ import fr.irisa.cairn.jnimap.isl.ISLMatrix
 import fr.irisa.cairn.jnimap.isl.ISLSpace
 import java.util.ArrayList
 import java.util.LinkedList
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
 
 /** Constructs the face lattice of a given <code>ISLBasicSet</code> */
 class FaceLattice {
 	/** The information about the set which forms the root of the lattice. */
+	@Accessors(PUBLIC_GETTER)
 	val SetInfo rootInfo
 	
 	/**
@@ -40,6 +42,14 @@ class FaceLattice {
 		
 		// All children of the given face must be on the layer below it.
 		return lattice.get(faceLayer - 1).filter[node | node.isChildOf(face)]
+	}
+	
+	def getAllFaces() {
+		return lattice.flatten
+	}
+
+	def getLattice() {
+		return lattice
 	}
 	
 	/**
@@ -103,6 +113,29 @@ class FaceLattice {
 		return lattice
 	}
 	
+	/** Indicates whether or not the set used as the root of the lattice is simplicial (hyper-triangular) or not. */
+	def isSimplicial() {
+		// Empty and unbounded sets can never be null.
+		if (rootInfo.isEmpty) {
+			return false
+		}
+		if (!rootInfo.isBounded) {
+			return false
+		}
+		
+		// A set of dimensionality n is a simplex if and only if it has exactly n+1 vertices.
+		// Note: dimensionality is calculated such that it indicates the fewest dimensions needed
+		// to express the set. I.e., if the set is a 2D surface in 3D space, the dimensionality will be 2.
+		val zeroFaces = lattice.get(0)
+		if (zeroFaces === null) {
+			return false
+		}
+		if (zeroFaces.size != rootInfo.dimensionality + 1) {
+			return false
+		}
+		return true
+	}
+	
 	/** Contains useful information about a set. */
 	@Data
 	static class SetInfo {
@@ -121,6 +154,10 @@ class FaceLattice {
 		/** The number of index inequalities. */
 		int indexInequalityCount
 		
+		/** Whether or not the set is bounded, or unbounded. */
+		boolean isBounded
+		
+		/** Whether or not the set is empty, or contains at least one point. */
 		boolean isEmpty
 		
 		/** The number of equality constraints which involve only parameter variables. */
@@ -144,6 +181,7 @@ class FaceLattice {
 			indexCount = basicSet.dim(ISLDimType.isl_dim_set)
 			indexInequalities = getInequalities(basicSet, indexCount, true)
 			indexInequalityCount = indexInequalities.nbRows
+			isBounded = basicSet.bounded
 			isEmpty = basicSet.empty
 			parameterEqualityCount = countParameterConstraints(equalities, indexCount)
 			parameterInequalities = getInequalities(basicSet, indexCount, false)

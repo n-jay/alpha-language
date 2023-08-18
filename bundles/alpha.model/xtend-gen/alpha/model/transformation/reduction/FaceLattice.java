@@ -1,12 +1,15 @@
 package alpha.model.transformation.reduction;
 
 import alpha.model.util.DomainOperations;
+import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import org.eclipse.xtend.lib.annotations.AccessorType;
+import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtend.lib.annotations.Data;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -49,6 +52,14 @@ public class FaceLattice {
      */
     private final int indexInequalityCount;
 
+    /**
+     * Whether or not the set is bounded, or unbounded.
+     */
+    private final boolean isBounded;
+
+    /**
+     * Whether or not the set is empty, or contains at least one point.
+     */
     private final boolean isEmpty;
 
     /**
@@ -86,6 +97,7 @@ public class FaceLattice {
       this.indexCount = basicSet.dim(ISLDimType.isl_dim_set);
       this.indexInequalities = FaceLattice.SetInfo.getInequalities(basicSet, this.indexCount, true);
       this.indexInequalityCount = this.indexInequalities.getNbRows();
+      this.isBounded = basicSet.isBounded();
       this.isEmpty = basicSet.isEmpty();
       this.parameterEqualityCount = FaceLattice.SetInfo.countParameterConstraints(this.equalities, this.indexCount);
       this.parameterInequalities = FaceLattice.SetInfo.getInequalities(basicSet, this.indexCount, false);
@@ -253,6 +265,7 @@ public class FaceLattice {
       result = prime * result + this.indexCount;
       result = prime * result + ((this.indexInequalities== null) ? 0 : this.indexInequalities.hashCode());
       result = prime * result + this.indexInequalityCount;
+      result = prime * result + (this.isBounded ? 1231 : 1237);
       result = prime * result + (this.isEmpty ? 1231 : 1237);
       result = prime * result + this.parameterEqualityCount;
       result = prime * result + ((this.parameterInequalities== null) ? 0 : this.parameterInequalities.hashCode());
@@ -285,6 +298,8 @@ public class FaceLattice {
       } else if (!this.indexInequalities.equals(other.indexInequalities))
         return false;
       if (other.indexInequalityCount != this.indexInequalityCount)
+        return false;
+      if (other.isBounded != this.isBounded)
         return false;
       if (other.isEmpty != this.isEmpty)
         return false;
@@ -334,6 +349,11 @@ public class FaceLattice {
     }
 
     @Pure
+    public boolean isBounded() {
+      return this.isBounded;
+    }
+
+    @Pure
     public boolean isEmpty() {
       return this.isEmpty;
     }
@@ -362,6 +382,7 @@ public class FaceLattice {
   /**
    * The information about the set which forms the root of the lattice.
    */
+  @Accessors(AccessorType.PUBLIC_GETTER)
   private final FaceLattice.SetInfo rootInfo;
 
   /**
@@ -393,6 +414,14 @@ public class FaceLattice {
       return Boolean.valueOf(node.isChildOf(face));
     };
     return IterableExtensions.<FaceLattice.SetInfo>filter(this.lattice.get((faceLayer - 1)), _function);
+  }
+
+  public Iterable<FaceLattice.SetInfo> getAllFaces() {
+    return Iterables.<FaceLattice.SetInfo>concat(this.lattice);
+  }
+
+  public ArrayList<ArrayList<FaceLattice.SetInfo>> getLattice() {
+    return this.lattice;
   }
 
   /**
@@ -451,5 +480,32 @@ public class FaceLattice {
       }
     }
     return lattice;
+  }
+
+  /**
+   * Indicates whether or not the set used as the root of the lattice is simplicial (hyper-triangular) or not.
+   */
+  public boolean isSimplicial() {
+    if (this.rootInfo.isEmpty) {
+      return false;
+    }
+    if ((!this.rootInfo.isBounded)) {
+      return false;
+    }
+    final ArrayList<FaceLattice.SetInfo> zeroFaces = this.lattice.get(0);
+    if ((zeroFaces == null)) {
+      return false;
+    }
+    int _size = zeroFaces.size();
+    boolean _notEquals = (_size != (this.rootInfo.dimensionality + 1));
+    if (_notEquals) {
+      return false;
+    }
+    return true;
+  }
+
+  @Pure
+  public FaceLattice.SetInfo getRootInfo() {
+    return this.rootInfo;
   }
 }
