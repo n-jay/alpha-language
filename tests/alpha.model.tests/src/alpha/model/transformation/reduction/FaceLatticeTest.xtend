@@ -419,7 +419,7 @@ class FaceLatticeTest {
 	// The issue is that saturating certain combinations of constraints
 	// causes additional constraints to be saturated.
 	// The face lattice code does not currently handle this correctly,
-	// resulting in many vertex nodes having the wrong number of
+	// resulting in many vertex nodes having the wrong number of saturated inequalities.
 //	@Test
 //	def squarePyramidTest() {
 //		val lattice = makeLattice("[N]->{[i,j,k]: 0<=i<=k and 0<=j<=k and 0<=k<=N}")
