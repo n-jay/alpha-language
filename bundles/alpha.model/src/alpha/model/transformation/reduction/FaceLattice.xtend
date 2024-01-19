@@ -10,8 +10,16 @@ import java.util.LinkedList
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.Data
 
-/** Constructs the face lattice of a given <code>ISLBasicSet</code> */
+/**
+ * Constructs the face lattice of a given <code>ISLBasicSet</code>.
+ * Usage: to create the face lattice, call the static function: <code>FaceLattice.create(root)</code>.
+ * 
+ */
 class FaceLattice {
+	////////////////////////////////////////////////////////////
+	// Fields and Properties
+	////////////////////////////////////////////////////////////
+	
 	/** The information about the set which forms the root of the lattice. */
 	@Accessors(PUBLIC_GETTER)
 	val SetInfo rootInfo
@@ -22,56 +30,18 @@ class FaceLattice {
 	 * I.e., <code>lattice[2]</code> contains all the 2D faces of the lattice.
 	 * Each layer is a list of all the sets which are in that layer.
 	 */
+	 @Accessors(PUBLIC_GETTER)
 	val ArrayList<ArrayList<SetInfo>> lattice
+	
+	
+	////////////////////////////////////////////////////////////
+	// Construction
+	////////////////////////////////////////////////////////////
 	
 	/** Constructs a new, empty lattice. */
 	private new(SetInfo rootInfo) { 
 		this.rootInfo = rootInfo
 		lattice = new ArrayList<ArrayList<SetInfo>>
-	}
-	
-	/** Gets the set of all children of the indicated face. */
-	def getChildren(SetInfo face) {
-		// If there are no layers below this face's layer,
-		// or if this face's layer doesn't even exist,
-		// it must not have any children.
-		val faceLayer = Integer.max(0, face.dimensionality)
-		if ((faceLayer == 0) || (faceLayer >= lattice.size)) {
-			return new ArrayList<SetInfo>
-		}
-		
-		// All children of the given face must be on the layer below it.
-		return lattice.get(faceLayer - 1).filter[node | node.isChildOf(face)]
-	}
-	
-	def getAllFaces() {
-		return lattice.flatten
-	}
-
-	def getLattice() {
-		return lattice
-	}
-	
-	/**
-	 * Checks if a face is valid to add to the lattice, and adds it if so.
-	 * @returns Returns <code>true</code> if the face was valid and added, and <code>false</code> otherwise.
-	 */
-	def private checkAddFace(ArrayList<Integer> toSaturate) {
-		// Create the proposed face by saturating the indicated inequality constraints,
-		// and check whether or not this creates a valid face.
-		val face = SetInfo.createFace(rootInfo, toSaturate)
-		if (!face.isValidFace(rootInfo)) {
-			return false
-		}
-		
-		// Lattice layer indices match the dimensionality of the faces in that layer.
-		// Be careful to avoid out of bounds accesses!
-		val layerIndex = Integer.max(0, face.dimensionality)
-		while (lattice.size <= layerIndex) {
-			lattice.add(new ArrayList<SetInfo>)
-		}
-		lattice.get(layerIndex).add(face)
-		return true
 	}
 	
 	/** Creates a new face lattice for the given set. */
@@ -113,6 +83,30 @@ class FaceLattice {
 		return lattice
 	}
 	
+	
+	////////////////////////////////////////////////////////////
+	// Public Methods
+	////////////////////////////////////////////////////////////
+	
+	/** Gets the set of all children of the indicated face. */
+	def getChildren(SetInfo face) {
+		// If there are no layers below this face's layer,
+		// or if this face's layer doesn't even exist,
+		// it must not have any children.
+		val faceLayer = Integer.max(0, face.dimensionality)
+		if ((faceLayer == 0) || (faceLayer >= lattice.size)) {
+			return new ArrayList<SetInfo>
+		}
+		
+		// All children of the given face must be on the layer below it.
+		return lattice.get(faceLayer - 1).filter[node | node.isChildOf(face)]
+	}
+	
+	/** Returns the set of all faces, not organized by dimension. */
+	def getAllFaces() {
+		return lattice.flatten
+	}
+	
 	/** Indicates whether or not the set used as the root of the lattice is simplicial (hyper-triangular) or not. */
 	def isSimplicial() {
 		// Empty and unbounded sets can never be null.
@@ -136,7 +130,40 @@ class FaceLattice {
 		return true
 	}
 	
-	/** Contains useful information about a set. */
+	
+	////////////////////////////////////////////////////////////
+	// Private Methods
+	////////////////////////////////////////////////////////////
+	
+	/**
+	 * Checks if a face is valid to add to the lattice, and adds it if so.
+	 * @returns Returns <code>true</code> if the face was valid and added, and <code>false</code> otherwise.
+	 */
+	def private checkAddFace(ArrayList<Integer> toSaturate) {
+		// Create the proposed face by saturating the indicated inequality constraints,
+		// and check whether or not this creates a valid face.
+		val face = SetInfo.createFace(rootInfo, toSaturate)
+		if (!face.isValidFace(rootInfo)) {
+			return false
+		}
+		
+		// Lattice layer indices match the dimensionality of the faces in that layer.
+		// Be careful to avoid out of bounds accesses!
+		val layerIndex = Integer.max(0, face.dimensionality)
+		while (lattice.size <= layerIndex) {
+			lattice.add(new ArrayList<SetInfo>)
+		}
+		lattice.get(layerIndex).add(face)
+		return true
+	}
+	
+	/**
+	 * Contains useful information about an <code>ISLBasicSet</code>.
+	 * Intended for use with the <code>FaceLattice</code> class.
+	 * Allows for inequalities within the set to be saturated,
+	 * and can check whether two sets have a child/parent relationship
+	 * based on which inequalities have been saturated.
+	 */
 	@Data
 	static class SetInfo {
 		/** The dimensionality of the set. */
