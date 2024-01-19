@@ -1,15 +1,14 @@
 package alpha.model.transformation.reduction
 
-import static org.junit.Assert.*
-import java.util.ArrayList
-import org.junit.Test
-import alpha.model.transformation.reduction.FaceLattice.SetInfo
+import alpha.model.util.SetInfo
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import fr.irisa.cairn.jnimap.isl.ISLContext
-import java.util.List
-import static extension org.junit.Assert.fail
 import fr.irisa.cairn.jnimap.isl.ISLVertex
-import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import java.util.ArrayList
+import java.util.List
+import org.junit.Test
+
+import static org.junit.Assert.*
 
 class FaceLatticeTest {
 	////////////////////////////////////////////////////////////

@@ -1,5 +1,6 @@
 package alpha.model.transformation.reduction;
 
+import alpha.model.util.SetInfo;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLVertex;
@@ -29,7 +30,7 @@ public class FaceLatticeTest {
    * @param faceCounts The number of nodes to expect in each layer, sorted from 0-face to N-faces.
    */
   private static void assertFaceCounts(final FaceLattice lattice, final int... faceCounts) {
-    final ArrayList<ArrayList<FaceLattice.SetInfo>> latticeStorage = lattice.getLattice();
+    final ArrayList<ArrayList<SetInfo>> latticeStorage = lattice.getLattice();
     Assert.assertEquals(faceCounts.length, latticeStorage.size());
     int _length = faceCounts.length;
     final Consumer<Integer> _function = (Integer dim) -> {
@@ -47,18 +48,18 @@ public class FaceLatticeTest {
    * @param addedInequalities     The additional inequalities that the children can saturate (one per child).
    */
   private static void assertFaceHasChildren(final FaceLattice lattice, final List<Integer> saturatedInequalities, final int... addedInequalities) {
-    final FaceLattice.SetInfo face = FaceLatticeTest.getFaceBySaturatedInequalities(lattice, ((int[])Conversions.unwrapArray(saturatedInequalities, int.class)));
+    final SetInfo face = FaceLatticeTest.getFaceBySaturatedInequalities(lattice, ((int[])Conversions.unwrapArray(saturatedInequalities, int.class)));
     Assert.assertNotNull(face);
-    final Iterable<FaceLattice.SetInfo> children = lattice.getChildren(face);
+    final Iterable<SetInfo> children = lattice.getChildren(face);
     Assert.assertEquals(addedInequalities.length, IterableExtensions.size(children));
     for (final int addedInequality : addedInequalities) {
       {
         final ArrayList<Integer> childInequalities = new ArrayList<Integer>(saturatedInequalities);
         childInequalities.add(Integer.valueOf(addedInequality));
-        final Function1<FaceLattice.SetInfo, Boolean> _function = (FaceLattice.SetInfo child) -> {
+        final Function1<SetInfo, Boolean> _function = (SetInfo child) -> {
           return Boolean.valueOf(FaceLatticeTest.faceSaturatesInequalities(child, ((int[])Conversions.unwrapArray(childInequalities, int.class))));
         };
-        Assert.assertTrue(IterableExtensions.<FaceLattice.SetInfo>exists(children, _function));
+        Assert.assertTrue(IterableExtensions.<SetInfo>exists(children, _function));
       }
     }
   }
@@ -93,26 +94,26 @@ public class FaceLatticeTest {
   private static void assertVerticesMatchISL(final FaceLattice lattice) {
     boolean _isEmpty = lattice.getRootInfo().isEmpty();
     if (_isEmpty) {
-      ArrayList<ArrayList<FaceLattice.SetInfo>> _elvis = null;
-      ArrayList<ArrayList<FaceLattice.SetInfo>> _lattice = lattice.getLattice();
+      ArrayList<ArrayList<SetInfo>> _elvis = null;
+      ArrayList<ArrayList<SetInfo>> _lattice = lattice.getLattice();
       if (_lattice != null) {
         _elvis = _lattice;
       } else {
-        ArrayList<ArrayList<FaceLattice.SetInfo>> _arrayList = new ArrayList<ArrayList<FaceLattice.SetInfo>>();
+        ArrayList<ArrayList<SetInfo>> _arrayList = new ArrayList<ArrayList<SetInfo>>();
         _elvis = _arrayList;
       }
-      final ArrayList<ArrayList<FaceLattice.SetInfo>> nonNullLattice = _elvis;
-      final Function1<ArrayList<FaceLattice.SetInfo>, Boolean> _function = (ArrayList<FaceLattice.SetInfo> layer) -> {
+      final ArrayList<ArrayList<SetInfo>> nonNullLattice = _elvis;
+      final Function1<ArrayList<SetInfo>, Boolean> _function = (ArrayList<SetInfo> layer) -> {
         return Boolean.valueOf(layer.isEmpty());
       };
-      final boolean isEmpty = IterableExtensions.<ArrayList<FaceLattice.SetInfo>>forall(nonNullLattice, _function);
+      final boolean isEmpty = IterableExtensions.<ArrayList<SetInfo>>forall(nonNullLattice, _function);
       Assert.assertTrue(isEmpty);
       return;
     }
-    final Function1<FaceLattice.SetInfo, ISLVertices> _function_1 = (FaceLattice.SetInfo setInfo) -> {
+    final Function1<SetInfo, ISLVertices> _function_1 = (SetInfo setInfo) -> {
       return setInfo.toBasicSet().computeVertices();
     };
-    final List<ISLVertices> latticeVertexSets = IterableExtensions.<ISLVertices>toList(ListExtensions.<FaceLattice.SetInfo, ISLVertices>map(ListExtensions.<FaceLattice.SetInfo>reverseView(lattice.getLattice().get(0)), _function_1));
+    final List<ISLVertices> latticeVertexSets = IterableExtensions.<ISLVertices>toList(ListExtensions.<SetInfo, ISLVertices>map(ListExtensions.<SetInfo>reverseView(lattice.getLattice().get(0)), _function_1));
     final Consumer<ISLVertices> _function_2 = (ISLVertices vertexSet) -> {
       Assert.assertEquals(1, vertexSet.getNbVertices());
     };
@@ -252,18 +253,18 @@ public class FaceLatticeTest {
   /**
    * Indicates whether a face saturates the indicated inequalities (no more, no fewer).
    */
-  private static boolean faceSaturatesInequalities(final FaceLattice.SetInfo face, final int... inequalities) {
+  private static boolean faceSaturatesInequalities(final SetInfo face, final int... inequalities) {
     return (((face.getSaturatedInequalityIndices().size() == inequalities.length) && face.getSaturatedInequalityIndices().containsAll(((Collection<?>)Conversions.doWrapArray(inequalities)))) && ((List<Integer>)Conversions.doWrapArray(inequalities)).containsAll(face.getSaturatedInequalityIndices()));
   }
 
   /**
    * Gets the face from the lattice which saturates the indicated inequalities, or <code>null</code> if no such face exists.
    */
-  private static FaceLattice.SetInfo getFaceBySaturatedInequalities(final FaceLattice lattice, final int... saturatedInequalities) {
-    final Function1<FaceLattice.SetInfo, Boolean> _function = (FaceLattice.SetInfo face) -> {
+  private static SetInfo getFaceBySaturatedInequalities(final FaceLattice lattice, final int... saturatedInequalities) {
+    final Function1<SetInfo, Boolean> _function = (SetInfo face) -> {
       return Boolean.valueOf(FaceLatticeTest.faceSaturatesInequalities(face, saturatedInequalities));
     };
-    return IterableExtensions.<FaceLattice.SetInfo>findFirst(lattice.getAllFaces(), _function);
+    return IterableExtensions.<SetInfo>findFirst(lattice.getAllFaces(), _function);
   }
 
   /**
