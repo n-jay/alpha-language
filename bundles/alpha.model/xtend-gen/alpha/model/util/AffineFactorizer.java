@@ -1,7 +1,11 @@
 package alpha.model.util;
 
+import fr.irisa.cairn.jnimap.isl.ISLAff;
+import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLVal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -63,5 +67,56 @@ public class AffineFactorizer {
       return left.flatRangeProduct(right);
     };
     return IterableExtensions.<ISLMultiAff>reduce(((Iterable<? extends ISLMultiAff>)Conversions.doWrapArray(expressions)), _function);
+  }
+
+  /**
+   * Copies the coefficients from one expression in a multi-expression into a matrix.
+   */
+  private static ISLMatrix outputToMatrixRow(final ISLAff expression, final ISLMatrix matrix, final int row) {
+    ISLMatrix updatedMatrix = matrix;
+    final int paramCount = expression.dim(ISLDimType.isl_dim_param);
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, paramCount, true);
+    for (final Integer i : _doubleDotLessThan) {
+      {
+        final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_param, (i).intValue());
+        updatedMatrix = updatedMatrix.setElement(row, (i).intValue(), coefficient);
+      }
+    }
+    final int inCount = expression.dim(ISLDimType.isl_dim_in);
+    ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, inCount, true);
+    for (final Integer i_1 : _doubleDotLessThan_1) {
+      {
+        final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_in, (i_1).intValue());
+        updatedMatrix = updatedMatrix.setElement(row, (paramCount + (i_1).intValue()), coefficient);
+      }
+    }
+    final ISLVal constant = expression.getConstantVal();
+    updatedMatrix = updatedMatrix.setElement(row, (paramCount + inCount), constant);
+    return updatedMatrix;
+  }
+
+  /**
+   * Converts an expression into a matrix of its parameters, input indexes, and constants.
+   * Throws an error if the expression uses division, as that may not work correctly.
+   */
+  public static ISLMatrix expressionToMatrix(final ISLMultiAff expression) {
+    int _dim = expression.dim(ISLDimType.isl_dim_div);
+    boolean _greaterThan = (_dim > 0);
+    if (_greaterThan) {
+      throw new IllegalArgumentException("Affine expressions with division are not currently supported.");
+    }
+    final int rows = expression.dim(ISLDimType.isl_dim_out);
+    int _dim_1 = expression.dim(ISLDimType.isl_dim_param);
+    int _dim_2 = expression.dim(ISLDimType.isl_dim_in);
+    int _plus = (_dim_1 + _dim_2);
+    final int cols = (_plus + 1);
+    final List<ISLAff> affs = expression.getAffs();
+    final Function2<ISLMatrix, Integer, ISLMatrix> _function = (ISLMatrix mat, Integer row) -> {
+      return AffineFactorizer.outputToMatrixRow(affs.get(row), mat, row);
+    };
+    final Function2<ISLMatrix, Integer, ISLMatrix> updateRow = _function;
+    final ISLContext ctx = expression.getContext();
+    final ISLMatrix matrix = IterableExtensions.<Integer, ISLMatrix>fold(new ExclusiveRange(0, rows, true), ISLMatrix.build(ctx, rows, cols), updateRow);
+    return matrix;
   }
 }
