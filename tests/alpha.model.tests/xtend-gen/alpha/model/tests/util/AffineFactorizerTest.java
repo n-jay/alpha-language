@@ -2,7 +2,9 @@ package alpha.model.tests.util;
 
 import alpha.model.util.AffineFactorizer;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -30,6 +32,22 @@ public class AffineFactorizerTest {
     final ISLMultiAff expectedAff = AffineFactorizerTest.stringToMultiAff(expectedOutput);
     final ISLMultiAff actualAff = AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(inputAffs, ISLMultiAff.class)));
     Assert.assertTrue(expectedAff.isPlainEqual(actualAff));
+  }
+
+  @Test
+  public void nameOutputs_01() {
+    final List<ISLMultiAff> input = AffineFactorizerTest.stringsToMultiAff(
+      "[N] -> { [i,j] -> [j,i] }", 
+      "[N] -> { [i,j] -> [i+j,i-j] }");
+    final ArrayList<ISLMultiAff> result = AffineFactorizer.nameExpressionOutputs(((ISLMultiAff[])Conversions.unwrapArray(input, ISLMultiAff.class)));
+    Assert.assertEquals("orig_out_0", result.get(0).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
+    Assert.assertEquals("orig_out_1", result.get(0).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
+    Assert.assertEquals("orig_out_2", result.get(1).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
+    Assert.assertEquals("orig_out_3", result.get(1).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
+    Assert.assertEquals("orig_out_0", result.get(0).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
+    Assert.assertEquals("orig_out_1", result.get(0).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
+    Assert.assertEquals("orig_out_2", result.get(1).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
+    Assert.assertEquals("orig_out_3", result.get(1).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
   }
 
   @Test

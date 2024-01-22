@@ -6,6 +6,7 @@ import org.junit.Test
 
 import static org.junit.Assert.*
 import fr.irisa.cairn.jnimap.isl.ISLContext
+import fr.irisa.cairn.jnimap.isl.ISLDimType
 
 class AffineFactorizerTest {
 	////////////////////////////////////////////////////////////
@@ -28,8 +29,30 @@ class AffineFactorizerTest {
 	
 	
 	////////////////////////////////////////////////////////////
-	// Unit Tests
+	// Unit Tests - Merging Expressions Into One
 	////////////////////////////////////////////////////////////
+	
+	@Test
+	def nameOutputs_01() {
+		val input = stringsToMultiAff(
+			"[N] -> { [i,j] -> [j,i] }",
+			"[N] -> { [i,j] -> [i+j,i-j] }"
+		)
+		val result = AffineFactorizer.nameExpressionOutputs(input)
+		
+		// Ensure the names are all correct.
+		assertEquals("orig_out_0", result.get(0).space.getDimName(ISLDimType.isl_dim_out, 0))
+		assertEquals("orig_out_1", result.get(0).space.getDimName(ISLDimType.isl_dim_out, 1))
+		assertEquals("orig_out_2", result.get(1).space.getDimName(ISLDimType.isl_dim_out, 0))
+		assertEquals("orig_out_3", result.get(1).space.getDimName(ISLDimType.isl_dim_out, 1))
+		
+		// During development, lazy evaluation caused names to be re-generated
+		// each time the objects are accessed, so double-check that this isn't an issue.
+		assertEquals("orig_out_0", result.get(0).space.getDimName(ISLDimType.isl_dim_out, 0))
+		assertEquals("orig_out_1", result.get(0).space.getDimName(ISLDimType.isl_dim_out, 1))
+		assertEquals("orig_out_2", result.get(1).space.getDimName(ISLDimType.isl_dim_out, 0))
+		assertEquals("orig_out_3", result.get(1).space.getDimName(ISLDimType.isl_dim_out, 1))
+	}
 	
 	@Test
 	def mergeExpressions_oneInput() {
