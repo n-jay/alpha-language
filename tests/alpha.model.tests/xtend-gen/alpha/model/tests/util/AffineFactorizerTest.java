@@ -83,7 +83,7 @@ public class AffineFactorizerTest {
     for (final Integer row : _doubleDotLessThan) {
       ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, 3, true);
       for (final Integer col : _doubleDotLessThan_1) {
-        Assert.assertEquals(0, Long.valueOf(result.getElement((row).intValue(), (col).intValue())).intValue());
+        Assert.assertEquals(0, result.getElement((row).intValue(), (col).intValue()));
       }
     }
   }
@@ -94,14 +94,14 @@ public class AffineFactorizerTest {
     final ISLMatrix result = AffineFactorizer.expressionToMatrix(input);
     Assert.assertEquals(2, result.getNbRows());
     Assert.assertEquals(4, result.getNbCols());
-    Assert.assertEquals(2, Long.valueOf(result.getElement(0, 0)).intValue());
-    Assert.assertEquals(4, Long.valueOf(result.getElement(0, 1)).intValue());
-    Assert.assertEquals((-3), Long.valueOf(result.getElement(0, 2)).intValue());
-    Assert.assertEquals(1, Long.valueOf(result.getElement(0, 3)).intValue());
-    Assert.assertEquals((-4), Long.valueOf(result.getElement(1, 0)).intValue());
-    Assert.assertEquals((-2), Long.valueOf(result.getElement(1, 1)).intValue());
-    Assert.assertEquals(3, Long.valueOf(result.getElement(1, 2)).intValue());
-    Assert.assertEquals(7, Long.valueOf(result.getElement(1, 3)).intValue());
+    Assert.assertEquals(2, result.getElement(0, 0));
+    Assert.assertEquals(4, result.getElement(0, 1));
+    Assert.assertEquals((-3), result.getElement(0, 2));
+    Assert.assertEquals(1, result.getElement(0, 3));
+    Assert.assertEquals((-4), result.getElement(1, 0));
+    Assert.assertEquals((-2), result.getElement(1, 1));
+    Assert.assertEquals(3, result.getElement(1, 2));
+    Assert.assertEquals(7, result.getElement(1, 3));
   }
 
   @Test
@@ -110,6 +110,6 @@ public class AffineFactorizerTest {
     final ISLMatrix result = AffineFactorizer.expressionToMatrix(input);
     Assert.assertEquals(1, result.getNbRows());
     Assert.assertEquals(1, result.getNbCols());
-    Assert.assertEquals(7, Long.valueOf(result.getElement(0, 0)).intValue());
+    Assert.assertEquals(7, result.getElement(0, 0));
   }
 }

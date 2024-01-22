@@ -75,7 +75,7 @@ class AffineFactorizer {
 		
 		return updatedMatrix
 	}
-	
+
 	/**
 	 * Converts an expression into a matrix of its parameters, input indexes, and constants.
 	 * Throws an error if the expression uses division, as that may not work correctly.
@@ -84,19 +84,54 @@ class AffineFactorizer {
 		if (expression.dim(ISLDimType.isl_dim_div) > 0) {
 			throw new IllegalArgumentException("Affine expressions with division are not currently supported.")
 		}
-		
+
 		// The matrix will have one row per output and one column per parameter or input variable,
 		// plus one additional column for constants.
 		val rows = expression.dim(ISLDimType.isl_dim_out)
 		val cols = expression.dim(ISLDimType.isl_dim_param) + expression.dim(ISLDimType.isl_dim_in) + 1
-		
+
 		// Create a lambda that calls the function for updating a row of the matrix.
 		val affs = expression.affs
 		val updateRow = [ISLMatrix mat, int row | outputToMatrixRow(affs.get(row), mat, row)]
-		
+
 		// Starting with an empty matrix, update all the rows and return the final result. 
 		val ctx = expression.context
 		val matrix = (0 ..< rows).fold(ISLMatrix.build(ctx, rows, cols), updateRow)
 		return matrix
 	}
+
+	/** Checks if a row of the given matrix is empty or not. */
+	def private static isRowEmpty(ISLMatrix matrix, int row) {
+		val cols = matrix.nbCols
+		return ! (0 ..< cols).exists[col | matrix.getElement(row, col) != 0]
+	}
+
+	/**
+	 * Returns the number of empty rows in the given matrix.
+	 * Assumes that the empty rows appear only at the end of the matrix.
+	 */
+	def private static countEmptyRows(ISLMatrix matrix) {
+		val rows = matrix.nbRows
+		val emptyRowCount = (rows >.. 0).takeWhile[row | isRowEmpty(matrix, row)].size
+		return emptyRowCount
+	}
+
+	/**
+	 * Reduces the dimensionality of the matrices constructed by the
+	 * Hermite Normal Form calculation.
+	 * This is done by dropping the rows of zeros from the end of H
+	 * along with the same number of columns from the right of Q.
+	 * This assumes that all rows of zeros are at the bottom of H.
+	 */
+//	def static reduceHermiteDimensionality(ISLMatrix h, ISLMatrix q) {
+//		val emptyRows = countEmptyRows(h)
+//		if (emptyRows == 0) {
+//			return h -> q
+//		}
+//
+//		val firstToDrop = h.nbRows - emptyRows
+//		val hUpdated = h.dropRows(firstToDrop, emptyRows)
+//		val qUpdated = q.dropCols(firstToDrop, emptyRows)
+//		return hUpdated -> qUpdated
+//	}
 }

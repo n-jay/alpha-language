@@ -119,4 +119,30 @@ public class AffineFactorizer {
     final ISLMatrix matrix = IterableExtensions.<Integer, ISLMatrix>fold(new ExclusiveRange(0, rows, true), ISLMatrix.build(ctx, rows, cols), updateRow);
     return matrix;
   }
+
+  /**
+   * Checks if a row of the given matrix is empty or not.
+   */
+  private static boolean isRowEmpty(final ISLMatrix matrix, final int row) {
+    final int cols = matrix.getNbCols();
+    final Function1<Integer, Boolean> _function = (Integer col) -> {
+      long _element = matrix.getElement(row, (col).intValue());
+      return Boolean.valueOf((_element != 0));
+    };
+    boolean _exists = IterableExtensions.<Integer>exists(new ExclusiveRange(0, cols, true), _function);
+    return (!_exists);
+  }
+
+  /**
+   * Returns the number of empty rows in the given matrix.
+   * Assumes that the empty rows appear only at the end of the matrix.
+   */
+  private static int countEmptyRows(final ISLMatrix matrix) {
+    final int rows = matrix.getNbRows();
+    final Function1<Integer, Boolean> _function = (Integer row) -> {
+      return Boolean.valueOf(AffineFactorizer.isRowEmpty(matrix, (row).intValue()));
+    };
+    final int emptyRowCount = IterableExtensions.size(IterableExtensions.<Integer>takeWhile(new ExclusiveRange(rows, 0, false), _function));
+    return emptyRowCount;
+  }
 }

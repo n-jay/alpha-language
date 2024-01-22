@@ -99,7 +99,7 @@ class AffineFactorizerTest {
 		// All of the coefficients should be zero.
 		for (row : 0 ..< 2) {
 			for (col : 0 ..< 3) {
-				assertEquals(0, result.getElement(row, col).intValue)
+				assertEquals(0, result.getElement(row, col))
 			}
 		}
 	}
@@ -114,15 +114,15 @@ class AffineFactorizerTest {
 		assertEquals(4, result.nbCols)
 		
 		// Check all the coefficients.
-		assertEquals(2, result.getElement(0,0).intValue)	// Eq 1, N
-		assertEquals(4, result.getElement(0,1).intValue)	// Eq 1, i
-		assertEquals(-3, result.getElement(0,2).intValue)	// Eq 1, j
-		assertEquals(1, result.getElement(0,3).intValue)	// Eq 1, constant
+		assertEquals(2, result.getElement(0,0))     // Eq 1, N
+		assertEquals(4, result.getElement(0,1))     // Eq 1, i
+		assertEquals(-3, result.getElement(0,2))    // Eq 1, j
+		assertEquals(1, result.getElement(0,3))     // Eq 1, constant
 		
-		assertEquals(-4, result.getElement(1,0).intValue)	// Eq 2, N
-		assertEquals(-2, result.getElement(1,1).intValue)	// Eq 2, i
-		assertEquals(3, result.getElement(1,2).intValue)	// Eq 2, j
-		assertEquals(7, result.getElement(1,3).intValue)	// Eq 2, constant
+		assertEquals(-4, result.getElement(1,0))    // Eq 2, N
+		assertEquals(-2, result.getElement(1,1))    // Eq 2, i
+		assertEquals(3, result.getElement(1,2))     // Eq 2, j
+		assertEquals(7, result.getElement(1,3))     // Eq 2, constant
 	}
 	
 	@Test
@@ -133,6 +133,6 @@ class AffineFactorizerTest {
 		// This should be a 1x1 matrix with coefficient 7.
 		assertEquals(1, result.nbRows)
 		assertEquals(1, result.nbCols)
-		assertEquals(7, result.getElement(0,0).intValue)
+		assertEquals(7, result.getElement(0,0))
 	}
 }
