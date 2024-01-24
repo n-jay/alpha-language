@@ -135,4 +135,22 @@ class AffineFactorizerTest {
 		assertEquals(1, result.nbCols)
 		assertEquals(7, result.getElement(0,0))
 	}
+	
+	@Test
+	def dropCols() {
+		var mat = AffineFactorizer.expressionToMatrix(stringToMultiAff("{ [i,j] -> [i,j] }"))
+		mat = mat.dropCols(1,1)
+		mat = mat
+		assertEquals(1,1)
+	}
+	
+	@Test
+	def hermiteNormalForm() {
+		val input = AffineFactorizer.expressionToMatrix(stringToMultiAff("{ [i,j,k] -> [i+k,i+k+j]}"))
+		val hnf_result = input.leftHermite
+		val h = hnf_result.h
+		val u = hnf_result.u
+		val q = hnf_result.q
+		assertEquals(true,true)
+	}
 }

@@ -123,15 +123,16 @@ class AffineFactorizer {
 	 * along with the same number of columns from the right of Q.
 	 * This assumes that all rows of zeros are at the bottom of H.
 	 */
-//	def static reduceHermiteDimensionality(ISLMatrix h, ISLMatrix q) {
-//		val emptyRows = countEmptyRows(h)
-//		if (emptyRows == 0) {
-//			return h -> q
-//		}
-//
-//		val firstToDrop = h.nbRows - emptyRows
-//		val hUpdated = h.dropRows(firstToDrop, emptyRows)
-//		val qUpdated = q.dropCols(firstToDrop, emptyRows)
-//		return hUpdated -> qUpdated
-//	}
+	def static reduceHermiteDimensionality(ISLMatrix h, ISLMatrix q) {
+		val emptyRows = countEmptyRows(h)
+		if (emptyRows == 0) {
+			return h -> q
+		}
+
+		val firstToDrop = h.nbRows - emptyRows
+		val hUpdated = h.dropRows(firstToDrop, emptyRows)
+		val qUpdated = q.dropCols(firstToDrop, emptyRows)
+		val asdf = qUpdated.leftHermite
+		return hUpdated -> qUpdated
+	}
 }
