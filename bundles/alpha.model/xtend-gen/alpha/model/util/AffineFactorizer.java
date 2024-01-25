@@ -6,6 +6,7 @@ import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLHermiteResult;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import fr.irisa.cairn.jnimap.isl.ISLVal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 
@@ -145,7 +147,7 @@ public class AffineFactorizer {
     final Function1<Integer, Boolean> _function = (Integer col) -> {
       return Boolean.valueOf(AffineFactorizer.isColEmpty(matrix, (col).intValue()));
     };
-    final int emptyRowCount = IterableExtensions.size(IterableExtensions.<Integer>takeWhile(new ExclusiveRange(cols, 0, false), _function));
+    final int emptyRowCount = IterableExtensions.size(IterableExtensions.<Integer>takeWhile(new ExclusiveRange(cols, 1, false), _function));
     return emptyRowCount;
   }
 
@@ -179,5 +181,103 @@ public class AffineFactorizer {
   public static Pair<ISLMatrix, ISLMatrix> hermiteDecomposition(final ISLMatrix matrix) {
     final ISLHermiteResult hermiteResult = matrix.leftHermite();
     return AffineFactorizer.reduceHermiteDimensionality(hermiteResult.getH(), hermiteResult.getQ());
+  }
+
+  /**
+   * Creates the new spaces for the decomposition of the original space,
+   * returned as a key->value pair. The key has the same domain as the
+   * original space, and the value has the same range as the original space.
+   * The unspecified range/domain are the same, with a number of dimensions
+   * equal to the desired amount.
+   */
+  private static Pair<ISLSpace, ISLSpace> createDecompositionSpaces(final ISLSpace originalSpace, final int innerDimensionCount) {
+    int _xifexpression = (int) 0;
+    if ((innerDimensionCount > 0)) {
+      _xifexpression = innerDimensionCount;
+    } else {
+      _xifexpression = 1;
+    }
+    final int namesToMake = _xifexpression;
+    final List<String> innerNames = IteratorExtensions.<String>toList(IteratorExtensions.<String>take(AffineFactorizer.getNameGenerator("mid"), namesToMake));
+    final ISLSpace firstSpace = originalSpace.copy().domain().reverse().<ISLSpace>addOutputs(innerNames);
+    final int paramCount = originalSpace.dim(ISLDimType.isl_dim_param);
+    final ISLSpace secondSpace = originalSpace.copy().range().dropDims(ISLDimType.isl_dim_param, 0, paramCount).<ISLSpace>addInputs(innerNames);
+    return Pair.<ISLSpace, ISLSpace>of(firstSpace, secondSpace);
+  }
+
+  /**
+   * Converts a column of a matrix into an expression.
+   */
+  private static ISLMultiAff columnToExpression(final ISLMatrix matrix, final ISLSpace space, final int col) {
+    ISLAff expression = ISLAff.buildZero(space.copy().domain().toLocalSpace());
+    final int paramCount = space.dim(ISLDimType.isl_dim_param);
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, paramCount, true);
+    for (final Integer i : _doubleDotLessThan) {
+      {
+        final ISLVal coefficient = matrix.getElementVal((i).intValue(), col);
+        expression = expression.setCoefficient(ISLDimType.isl_dim_param, (i).intValue(), coefficient);
+      }
+    }
+    final int inCount = space.dim(ISLDimType.isl_dim_in);
+    ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, inCount, true);
+    for (final Integer i_1 : _doubleDotLessThan_1) {
+      {
+        final ISLVal coefficient = matrix.getElementVal((paramCount + (i_1).intValue()), col);
+        expression = expression.setCoefficient(ISLDimType.isl_dim_in, (i_1).intValue(), coefficient);
+      }
+    }
+    int _nbRows = matrix.getNbRows();
+    boolean _greaterThan = (_nbRows > (paramCount + inCount));
+    if (_greaterThan) {
+      final ISLVal constant = matrix.getElementVal((paramCount + inCount), col);
+      expression = expression.setConstant(constant);
+    } else {
+      expression = expression.setConstant(0);
+    }
+    final String outputName = space.getDimName(ISLDimType.isl_dim_out, col);
+    ISLMultiAff _multiAff = expression.toMultiAff();
+    String _elvis = null;
+    if (outputName != null) {
+      _elvis = outputName;
+    } else {
+      _elvis = "None";
+    }
+    return _multiAff.setDimName(ISLDimType.isl_dim_out, 0, _elvis);
+  }
+
+  /**
+   * converts a matrix into an expression. Each column is for one of the output dimensions.
+   */
+  private static ISLMultiAff matrixToExpression(final ISLMatrix matrix, final ISLSpace space) {
+    int _nbCols = matrix.getNbCols();
+    final Function1<Integer, ISLMultiAff> _function = (Integer col) -> {
+      return AffineFactorizer.columnToExpression(matrix, space, (col).intValue());
+    };
+    return AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(IterableExtensions.<Integer, ISLMultiAff>map(new ExclusiveRange(0, _nbCols, true), _function), ISLMultiAff.class)));
+  }
+
+  /**
+   * Decomposes an expression using the Hermite decomposition of the matrix
+   * which represents the given expression. The decomposition is returned as
+   * a key->value pair, where the key has the same domain as the original
+   * expression, and the value has the same range as the original expression.
+   * The range of the key is the same as the domain of the value.
+   */
+  public static Pair<ISLMultiAff, ISLMultiAff> decomposeExpression(final ISLMultiAff expression) {
+    int _dim = expression.dim(ISLDimType.isl_dim_out);
+    boolean _equals = (_dim == 0);
+    if (_equals) {
+      final ISLMultiAff emptyExpr = ISLMultiAff.buildFromString(expression.getContext(), "{ [] -> [] }");
+      return Pair.<ISLMultiAff, ISLMultiAff>of(expression, emptyExpr);
+    }
+    final Pair<ISLMatrix, ISLMatrix> decomposed = AffineFactorizer.hermiteDecomposition(AffineFactorizer.expressionToMatrix(expression));
+    final ISLMatrix hMatrix = decomposed.getKey();
+    final ISLMatrix qMatrix = decomposed.getValue();
+    final Pair<ISLSpace, ISLSpace> spaces = AffineFactorizer.createDecompositionSpaces(expression.getSpace(), hMatrix.getNbCols());
+    final ISLSpace hSpace = spaces.getKey();
+    final ISLSpace qSpace = spaces.getValue();
+    final ISLMultiAff hExpression = AffineFactorizer.matrixToExpression(hMatrix, hSpace);
+    final ISLMultiAff qExpression = AffineFactorizer.matrixToExpression(qMatrix, qSpace);
+    return Pair.<ISLMultiAff, ISLMultiAff>of(hExpression, qExpression);
   }
 }

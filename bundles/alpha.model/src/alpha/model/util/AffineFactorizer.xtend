@@ -6,6 +6,7 @@ import java.util.ArrayList
 import java.util.Iterator
 import fr.irisa.cairn.jnimap.isl.ISLMatrix
 import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.ISLSpace
 
 /**
  * Factorizes a set of multi-dimensional affine maps (i.e., <code>ISLMultiAff</code>).
@@ -112,8 +113,10 @@ class AffineFactorizer {
 	 * Assumes that the empty rows appear only on the right of the matrix.
 	 */
 	def private static countEmptyCols(ISLMatrix matrix) {
+		// Note: Don't check if column 0 is empty, as we never want a situation
+		// where we've dropped every single column, as ISL doesn't like that.
 		val cols = matrix.nbCols
-		val emptyRowCount = (cols >.. 0).takeWhile[col | isColEmpty(matrix, col)].size
+		val emptyRowCount = (cols >.. 1).takeWhile[col | isColEmpty(matrix, col)].size
 		return emptyRowCount
 	}
 
@@ -148,5 +151,126 @@ class AffineFactorizer {
 	def static hermiteDecomposition(ISLMatrix matrix) {
 		val hermiteResult = matrix.leftHermite
 		return reduceHermiteDimensionality(hermiteResult.h, hermiteResult.q)
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Constructing New Expressions from the Decomposition
+	////////////////////////////////////////////////////////////
+	
+	/**
+	 * Creates the new spaces for the decomposition of the original space,
+	 * returned as a key->value pair. The key has the same domain as the
+	 * original space, and the value has the same range as the original space.
+	 * The unspecified range/domain are the same, with a number of dimensions
+	 * equal to the desired amount.
+	 */
+	def private static createDecompositionSpaces(ISLSpace originalSpace, int innerDimensionCount) {
+		// Get the names of the indexes for the inner dimension.
+		// Note: we need at least one inner dimension,
+		// otherwise we'll need to deal with null values.
+		val namesToMake = (innerDimensionCount > 0) ? innerDimensionCount : 1
+		val innerNames = getNameGenerator("mid").take(namesToMake).toList
+		
+		// ISLSpace.domain returns indexes as "out" indexes,
+		// so the space needs to be reversed to make them "in" indexes.
+		// Then, we need to add the specified number of dimensions as "out" dimensions.
+		val ISLSpace firstSpace =
+			originalSpace
+			.copy
+			.domain
+			.reverse
+			.addOutputs(innerNames)
+		
+		// Since the first space will handle all the parameters,
+		// we need to drop them from this space, then add the
+		// inner dimensions as the inputs to this space.
+		val paramCount = originalSpace.dim(ISLDimType.isl_dim_param)
+		val ISLSpace secondSpace =
+			originalSpace
+			.copy
+			.range
+			.dropDims(ISLDimType.isl_dim_param, 0, paramCount)
+			.addInputs(innerNames)
+			
+		return firstSpace -> secondSpace
+	}
+	
+	/** Converts a column of a matrix into an expression. */
+	def private static columnToExpression(ISLMatrix matrix, ISLSpace space, int col) {
+		// Start with a new, empty affine expression from the domain of the given space.
+		// This only represents the single output being built.
+		var expression = ISLAff.buildZero(space.copy.domain.toLocalSpace)
+
+		// Populate all of the coefficients for the size parameters.
+		val paramCount = space.dim(ISLDimType.isl_dim_param)
+		for (i : 0 ..< paramCount) {
+			val coefficient = matrix.getElementVal(i, col)
+			expression = expression.setCoefficient(ISLDimType.isl_dim_param, i, coefficient)
+		}
+		
+		// Populate all of the coefficients for the input indexes.
+		val inCount = space.dim(ISLDimType.isl_dim_in)
+		for (i : 0 ..< inCount) {
+			val coefficient = matrix.getElementVal(paramCount + i, col)
+			expression = expression.setCoefficient(ISLDimType.isl_dim_in, i, coefficient)
+		}
+		
+		// If there is one remaining row of the matrix, then it encodes a constant.
+		// In this case, populate the constant with that. Otherwise, the constant is 0.
+		// Note: don't let xtend simplify expression.setConstant(constant)
+		// to expression.constant = constant, as that will likely break things.
+		if (matrix.nbRows > paramCount + inCount) {
+			val constant = matrix.getElementVal(paramCount + inCount, col)
+			expression = expression.setConstant(constant)
+		} else {
+			expression = expression.setConstant(0)
+		}
+		
+		// Convert the single expression into a multi-expression,
+		// and set the dimension name of this output to be the name of the output
+		// from the given space associated with this column.
+		val outputName = space.getDimName(ISLDimType.isl_dim_out, col)
+		return expression
+			.toMultiAff
+			.setDimName(ISLDimType.isl_dim_out, 0, outputName ?: "None")
+	}
+	
+	/** converts a matrix into an expression. Each column is for one of the output dimensions. */
+	def private static matrixToExpression(ISLMatrix matrix, ISLSpace space) {
+		return (0 ..< matrix.nbCols)
+			.map[col | columnToExpression(matrix, space, col)]
+			.mergeExpressions
+	}
+	
+	/**
+	 * Decomposes an expression using the Hermite decomposition of the matrix
+	 * which represents the given expression. The decomposition is returned as
+	 * a key->value pair, where the key has the same domain as the original
+	 * expression, and the value has the same range as the original expression.
+	 * The range of the key is the same as the domain of the value.
+	 */
+	def static decomposeExpression(ISLMultiAff expression) {
+		// If we don't have any outputs (which is how AlphaZ handles constants),
+		// then the "decomposition" is the given expression and an empty expression.
+		if (expression.dim(ISLDimType.isl_dim_out) == 0) {
+			val emptyExpr = ISLMultiAff.buildFromString(expression.context, "{ [] -> [] }")
+			return expression -> emptyExpr
+		}
+
+		// Convert the expression into a matrix, then decompose that matrix.
+		val decomposed = expression.expressionToMatrix.hermiteDecomposition
+		val hMatrix = decomposed.key
+		val qMatrix = decomposed.value
+
+		// Construct spaces for the decomposed expressions to reside in.
+		val spaces = createDecompositionSpaces(expression.space, hMatrix.nbCols)
+		val hSpace = spaces.key
+		val qSpace = spaces.value
+
+		// Construct and return the decomposed expressions.
+		val hExpression = matrixToExpression(hMatrix, hSpace)
+		val qExpression = matrixToExpression(qMatrix, qSpace)
+		return hExpression -> qExpression
 	}
 }

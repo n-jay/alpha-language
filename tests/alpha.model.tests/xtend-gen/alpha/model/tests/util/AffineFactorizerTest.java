@@ -222,4 +222,64 @@ public class AffineFactorizerTest {
     AffineFactorizerTest.assertMatrixIsCorrect(hExpected, hActual);
     AffineFactorizerTest.assertMatrixIsCorrect(qExpected, qActual);
   }
+
+  @Test
+  public void decomposeExpression_constants() {
+    final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [] }");
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final ISLMultiAff hActual = decomposed.getKey();
+    final ISLMultiAff qActual = decomposed.getValue();
+    final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [] -> [] }");
+    Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
+    Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
+  }
+
+  @Test
+  public void decomposeExpression_01() {
+    final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }");
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final ISLMultiAff hActual = decomposed.getKey();
+    final ISLMultiAff qActual = decomposed.getValue();
+    final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [i,j,k] -> [i,j,k] }");
+    Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
+    Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
+  }
+
+  @Test
+  public void decomposeExpression_02() {
+    final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,i+j+k] }");
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final ISLMultiAff hActual = decomposed.getKey();
+    final ISLMultiAff qActual = decomposed.getValue();
+    final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [x,y] -> [x,x+y] }");
+    Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
+    Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
+  }
+
+  @Test
+  public void decomposeExpression_03() {
+    final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,i+j+k,i+k] }");
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final ISLMultiAff hActual = decomposed.getKey();
+    final ISLMultiAff qActual = decomposed.getValue();
+    final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [x,y] -> [x,x+y,x] }");
+    Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
+    Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
+  }
+
+  @Test
+  public void decomposeExpression_04() {
+    final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [0,0,0,0] }");
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final ISLMultiAff hActual = decomposed.getKey();
+    final ISLMultiAff qActual = decomposed.getValue();
+    final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [0] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [i] -> [i,0,0,0] }");
+    Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
+    Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
+  }
 }

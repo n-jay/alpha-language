@@ -319,4 +319,80 @@ class AffineFactorizerTest {
 		assertMatrixIsCorrect(hExpected, hActual)
 		assertMatrixIsCorrect(qExpected, qActual)
 	}
+	
+	@Test
+	def decomposeExpression_constants() {
+		// This type of expression is how AlphaZ handles constants.
+		// For example, the constant 17 is expressed as: (i,j->)@17
+		val original = stringToMultiAff("[N] -> { [i,j,k] -> [] }")
+		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val hActual = decomposed.key
+		val qActual = decomposed.value
+		
+		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [] }")
+		val qExpected = stringToMultiAff("{ [] -> [] }")
+		
+		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
+		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
+	}
+	
+	@Test
+	def decomposeExpression_01() {
+		// Nothing is expected to happen here.
+		val original = stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }")
+		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val hActual = decomposed.key
+		val qActual = decomposed.value
+		
+		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }")
+		val qExpected = stringToMultiAff("{ [i,j,k] -> [i,j,k] }")
+		
+		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
+		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
+	}
+	
+	@Test
+	def decomposeExpression_02() {
+		// There is a decomposition here, but it doesn't remove any dimensions.
+		val original = stringToMultiAff("[N] -> { [i,j,k] -> [i+k,i+j+k] }")
+		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val hActual = decomposed.key
+		val qActual = decomposed.value
+		
+		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }")
+		val qExpected = stringToMultiAff("{ [x,y] -> [x,x+y] }")
+		
+		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
+		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
+	}
+	
+	@Test
+	def decomposeExpression_03() {
+		// This is a decomposition to a lower dimensional space.
+		val original = stringToMultiAff("[N] -> { [i,j,k] -> [i+k,i+j+k,i+k] }")
+		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val hActual = decomposed.key
+		val qActual = decomposed.value
+		
+		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }")
+		val qExpected = stringToMultiAff("{ [x,y] -> [x,x+y,x] }")
+		
+		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
+		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
+	}
+	
+	@Test
+	def decomposeExpression_04() {
+		// This should completely remove everything.
+		val original = stringToMultiAff("[N] -> { [i,j,k] -> [0,0,0,0] }")
+		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val hActual = decomposed.key
+		val qActual = decomposed.value
+		
+		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [0] }")
+		val qExpected = stringToMultiAff("{ [i] -> [i,0,0,0] }")
+		
+		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
+		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
+	}
 }
