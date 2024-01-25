@@ -3,6 +3,7 @@ package alpha.model.tests.util;
 import alpha.model.util.AffineFactorizer;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLHermiteResult;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.Pair;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,6 +22,10 @@ import org.junit.Test;
 public class AffineFactorizerTest {
   private static ISLMultiAff stringToMultiAff(final String str) {
     return ISLMultiAff.buildFromString(ISLContext.getInstance(), str);
+  }
+
+  private static ISLMatrix stringToMatrix(final String str) {
+    return AffineFactorizer.expressionToMatrix(AffineFactorizerTest.stringToMultiAff(str));
   }
 
   private static List<ISLMultiAff> stringsToMultiAff(final String... strs) {
@@ -34,6 +40,46 @@ public class AffineFactorizerTest {
     final ISLMultiAff expectedAff = AffineFactorizerTest.stringToMultiAff(expectedOutput);
     final ISLMultiAff actualAff = AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(inputAffs, ISLMultiAff.class)));
     Assert.assertTrue(expectedAff.isPlainEqual(actualAff));
+  }
+
+  private static void assertMatrixIsCorrect(final List<List<Integer>> expected, final ISLMatrix actual) {
+    final int rows = expected.size();
+    final int cols = expected.get(0).size();
+    Assert.assertEquals("Wrong number of rows", rows, actual.getNbRows());
+    Assert.assertEquals("Wrong number of cols", cols, actual.getNbCols());
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, rows, true);
+    for (final Integer row : _doubleDotLessThan) {
+      ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, cols, true);
+      for (final Integer col : _doubleDotLessThan_1) {
+        {
+          final String message = ((("Wrong value at row " + row) + ", col ") + col);
+          Assert.assertEquals(message, (expected.get((row).intValue()).get((col).intValue())).intValue(), actual.getElement((row).intValue(), (col).intValue()));
+        }
+      }
+    }
+  }
+
+  @Test
+  public void dropCols() {
+    ISLMatrix mat = AffineFactorizerTest.stringToMatrix("{ [i,j,k] -> [k,i,j] }");
+    Assert.assertEquals(3, mat.getNbCols());
+    mat = mat.dropCols(2, 1);
+    Assert.assertEquals(2, mat.getNbCols());
+  }
+
+  @Test
+  public void hermiteNormalForm() {
+    final ISLMatrix input = AffineFactorizerTest.stringToMatrix("{ [i,j,k] -> [i+k,i+k+j]}");
+    final ISLHermiteResult hnf_result = input.leftHermite();
+    final ISLMatrix h = hnf_result.getH();
+    final ISLMatrix u = hnf_result.getU();
+    final ISLMatrix q = hnf_result.getQ();
+    final List<List<Integer>> hExpected = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(0)))));
+    final List<List<Integer>> uExpected = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf((-1)))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1)))));
+    final List<List<Integer>> qExpected = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1)))));
+    AffineFactorizerTest.assertMatrixIsCorrect(hExpected, h);
+    AffineFactorizerTest.assertMatrixIsCorrect(uExpected, u);
+    AffineFactorizerTest.assertMatrixIsCorrect(qExpected, q);
   }
 
   @Test
@@ -77,11 +123,11 @@ public class AffineFactorizerTest {
   public void expressionToMatrix_01() {
     final ISLMultiAff input = AffineFactorizerTest.stringToMultiAff("{ [i,j] -> [0, 0] }");
     final ISLMatrix result = AffineFactorizer.expressionToMatrix(input);
-    Assert.assertEquals(2, result.getNbRows());
-    Assert.assertEquals(3, result.getNbCols());
-    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, 2, true);
+    Assert.assertEquals(3, result.getNbRows());
+    Assert.assertEquals(2, result.getNbCols());
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, 3, true);
     for (final Integer row : _doubleDotLessThan) {
-      ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, 3, true);
+      ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, 2, true);
       for (final Integer col : _doubleDotLessThan_1) {
         Assert.assertEquals(0, result.getElement((row).intValue(), (col).intValue()));
       }
@@ -92,16 +138,16 @@ public class AffineFactorizerTest {
   public void expressionToMatrix_02() {
     final ISLMultiAff input = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j] -> [2N -3j +4i +1, 7-2i+3j-4N] }");
     final ISLMatrix result = AffineFactorizer.expressionToMatrix(input);
-    Assert.assertEquals(2, result.getNbRows());
-    Assert.assertEquals(4, result.getNbCols());
+    Assert.assertEquals(4, result.getNbRows());
+    Assert.assertEquals(2, result.getNbCols());
     Assert.assertEquals(2, result.getElement(0, 0));
-    Assert.assertEquals(4, result.getElement(0, 1));
-    Assert.assertEquals((-3), result.getElement(0, 2));
-    Assert.assertEquals(1, result.getElement(0, 3));
-    Assert.assertEquals((-4), result.getElement(1, 0));
+    Assert.assertEquals(4, result.getElement(1, 0));
+    Assert.assertEquals((-3), result.getElement(2, 0));
+    Assert.assertEquals(1, result.getElement(3, 0));
+    Assert.assertEquals((-4), result.getElement(0, 1));
     Assert.assertEquals((-2), result.getElement(1, 1));
-    Assert.assertEquals(3, result.getElement(1, 2));
-    Assert.assertEquals(7, result.getElement(1, 3));
+    Assert.assertEquals(3, result.getElement(2, 1));
+    Assert.assertEquals(7, result.getElement(3, 1));
   }
 
   @Test
@@ -111,5 +157,44 @@ public class AffineFactorizerTest {
     Assert.assertEquals(1, result.getNbRows());
     Assert.assertEquals(1, result.getNbCols());
     Assert.assertEquals(7, result.getElement(0, 0));
+  }
+
+  @Test
+  public void reduceHermiteDimensionality_01() {
+    final ISLMatrix hOriginal = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 0, 0 }, new long[] { 1, 1 }, new long[] { 2, 0 } });
+    final ISLMatrix qOriginal = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 1, 1 }, new long[] { 2, 2 } });
+    final Pair<ISLMatrix, ISLMatrix> result = AffineFactorizer.reduceHermiteDimensionality(hOriginal, qOriginal);
+    final List<List<Integer>> expectedH = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(2), Integer.valueOf(0)))));
+    final List<List<Integer>> expectedQ = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(2), Integer.valueOf(2)))));
+    AffineFactorizerTest.assertMatrixIsCorrect(expectedH, result.getKey());
+    AffineFactorizerTest.assertMatrixIsCorrect(expectedQ, result.getValue());
+  }
+
+  @Test
+  public void reduceHermiteDimensionality_02() {
+    final ISLMatrix hOriginal = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 0, 0 }, new long[] { 1, 0 }, new long[] { 2, 0 } });
+    final ISLMatrix qOriginal = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 1, 1 }, new long[] { 2, 2 } });
+    final Pair<ISLMatrix, ISLMatrix> result = AffineFactorizer.reduceHermiteDimensionality(hOriginal, qOriginal);
+    final List<List<Integer>> expectedH = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(2)))));
+    final List<List<Integer>> expectedQ = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(1)))));
+    AffineFactorizerTest.assertMatrixIsCorrect(expectedH, result.getKey());
+    AffineFactorizerTest.assertMatrixIsCorrect(expectedQ, result.getValue());
+  }
+
+  @Test
+  public void reduceHermiteDimensionality_03() {
+    final ISLMatrix hOriginal = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 0, 0, 0 }, new long[] { 1, 0, 0 }, new long[] { 2, 0, 0 } });
+    final ISLMatrix qOriginal = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 1, 1 }, new long[] { 2, 2 }, new long[] { 3, 3 } });
+    final Pair<ISLMatrix, ISLMatrix> result = AffineFactorizer.reduceHermiteDimensionality(hOriginal, qOriginal);
+    final List<List<Integer>> expectedH = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(2)))));
+    final List<List<Integer>> expectedQ = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(1)))));
+    AffineFactorizerTest.assertMatrixIsCorrect(expectedH, result.getKey());
+    AffineFactorizerTest.assertMatrixIsCorrect(expectedQ, result.getValue());
   }
 }

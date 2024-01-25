@@ -51,7 +51,7 @@ class AffineFactorizer {
 	////////////////////////////////////////////////////////////
 	
 	/** Copies the coefficients from one expression in a multi-expression into a matrix. */
-	def private static outputToMatrixRow(ISLAff expression, ISLMatrix matrix, int row) {
+	def private static outputToMatrixCol(ISLAff expression, ISLMatrix matrix, int col) {
 		// Copy the parameter to a variable that can be updated.
 		var updatedMatrix = matrix
 		
@@ -59,25 +59,26 @@ class AffineFactorizer {
 		val paramCount = expression.dim(ISLDimType.isl_dim_param)
 		for (i : 0 ..< paramCount) {
 			val coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_param, i)
-			updatedMatrix = updatedMatrix.setElement(row, i, coefficient)
+			updatedMatrix = updatedMatrix.setElement(i, col, coefficient)
 		}
 		
 		// Copy the coefficients for the input variables.
 		val inCount = expression.dim(ISLDimType.isl_dim_in)
 		for (i : 0 ..< inCount) {
 			val coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_in, i)
-			updatedMatrix = updatedMatrix.setElement(row, paramCount + i, coefficient)
+			updatedMatrix = updatedMatrix.setElement(paramCount + i, col, coefficient)
 		}
 		
 		// Finally, copy the constant.
 		val constant = expression.constantVal
-		updatedMatrix = updatedMatrix.setElement(row, paramCount + inCount, constant)
+		updatedMatrix = updatedMatrix.setElement(paramCount + inCount, col, constant)
 		
 		return updatedMatrix
 	}
 
 	/**
 	 * Converts an expression into a matrix of its parameters, input indexes, and constants.
+	 * The matrix is column-oriented (i.e., each affine expression is one column).
 	 * Throws an error if the expression uses division, as that may not work correctly.
 	 */
 	def static expressionToMatrix(ISLMultiAff expression) {
@@ -85,54 +86,55 @@ class AffineFactorizer {
 			throw new IllegalArgumentException("Affine expressions with division are not currently supported.")
 		}
 
-		// The matrix will have one row per output and one column per parameter or input variable,
-		// plus one additional column for constants.
-		val rows = expression.dim(ISLDimType.isl_dim_out)
-		val cols = expression.dim(ISLDimType.isl_dim_param) + expression.dim(ISLDimType.isl_dim_in) + 1
+		// The matrix will have one column per output and one row per parameter or input variable,
+		// plus one additional row for constants.
+		val cols = expression.dim(ISLDimType.isl_dim_out)
+		val rows = expression.dim(ISLDimType.isl_dim_param) + expression.dim(ISLDimType.isl_dim_in) + 1
 
 		// Create a lambda that calls the function for updating a row of the matrix.
 		val affs = expression.affs
-		val updateRow = [ISLMatrix mat, int row | outputToMatrixRow(affs.get(row), mat, row)]
+		val updateCol = [ISLMatrix mat, int col | outputToMatrixCol(affs.get(col), mat, col)]
 
 		// Starting with an empty matrix, update all the rows and return the final result. 
 		val ctx = expression.context
-		val matrix = (0 ..< rows).fold(ISLMatrix.build(ctx, rows, cols), updateRow)
+		val matrix = (0 ..< cols).fold(ISLMatrix.build(ctx, rows, cols), updateCol)
 		return matrix
 	}
 
-	/** Checks if a row of the given matrix is empty or not. */
-	def private static isRowEmpty(ISLMatrix matrix, int row) {
-		val cols = matrix.nbCols
-		return ! (0 ..< cols).exists[col | matrix.getElement(row, col) != 0]
+	/** Checks if a column of the given matrix is empty or not. */
+	def private static isColEmpty(ISLMatrix matrix, int col) {
+		val rows = matrix.nbRows
+		return ! (0 ..< rows).exists[row | matrix.getElement(row, col) != 0]
 	}
 
 	/**
-	 * Returns the number of empty rows in the given matrix.
-	 * Assumes that the empty rows appear only at the end of the matrix.
+	 * Returns the number of empty columns in the given matrix.
+	 * Assumes that the empty rows appear only on the right of the matrix.
 	 */
-	def private static countEmptyRows(ISLMatrix matrix) {
-		val rows = matrix.nbRows
-		val emptyRowCount = (rows >.. 0).takeWhile[row | isRowEmpty(matrix, row)].size
+	def private static countEmptyCols(ISLMatrix matrix) {
+		val cols = matrix.nbCols
+		val emptyRowCount = (cols >.. 0).takeWhile[col | isColEmpty(matrix, col)].size
 		return emptyRowCount
 	}
 
 	/**
 	 * Reduces the dimensionality of the matrices constructed by the
 	 * Hermite Normal Form calculation.
-	 * This is done by dropping the rows of zeros from the end of H
-	 * along with the same number of columns from the right of Q.
-	 * This assumes that all rows of zeros are at the bottom of H.
+	 * This is done by dropping the columns of zeros from the right of H
+	 * along with the same number of rows from the bottom of Q.
+	 * This assumes that all columns of zeros are on the right of H,
+	 * which matches ISL's implementation.
 	 */
 	def static reduceHermiteDimensionality(ISLMatrix h, ISLMatrix q) {
-		val emptyRows = countEmptyRows(h)
-		if (emptyRows == 0) {
+		val emptyCols = countEmptyCols(h)
+		if (emptyCols == 0) {
 			return h -> q
 		}
 
-		val firstToDrop = h.nbRows - emptyRows
-		val hUpdated = h.dropRows(firstToDrop, emptyRows)
-		val qUpdated = q.dropCols(firstToDrop, emptyRows)
-		val asdf = qUpdated.leftHermite
+		val firstToDrop = h.nbCols - emptyCols
+		val hUpdated = h.dropCols(firstToDrop, emptyCols)
+		val qUpdated = q.dropRows(firstToDrop, emptyCols)
+
 		return hUpdated -> qUpdated
 	}
 }

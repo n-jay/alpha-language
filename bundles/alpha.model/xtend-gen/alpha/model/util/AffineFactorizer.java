@@ -16,6 +16,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.Pair;
 
 /**
  * Factorizes a set of multi-dimensional affine maps (i.e., <code>ISLMultiAff</code>).
@@ -72,14 +73,14 @@ public class AffineFactorizer {
   /**
    * Copies the coefficients from one expression in a multi-expression into a matrix.
    */
-  private static ISLMatrix outputToMatrixRow(final ISLAff expression, final ISLMatrix matrix, final int row) {
+  private static ISLMatrix outputToMatrixCol(final ISLAff expression, final ISLMatrix matrix, final int col) {
     ISLMatrix updatedMatrix = matrix;
     final int paramCount = expression.dim(ISLDimType.isl_dim_param);
     ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, paramCount, true);
     for (final Integer i : _doubleDotLessThan) {
       {
         final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_param, (i).intValue());
-        updatedMatrix = updatedMatrix.setElement(row, (i).intValue(), coefficient);
+        updatedMatrix = updatedMatrix.setElement((i).intValue(), col, coefficient);
       }
     }
     final int inCount = expression.dim(ISLDimType.isl_dim_in);
@@ -87,16 +88,17 @@ public class AffineFactorizer {
     for (final Integer i_1 : _doubleDotLessThan_1) {
       {
         final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_in, (i_1).intValue());
-        updatedMatrix = updatedMatrix.setElement(row, (paramCount + (i_1).intValue()), coefficient);
+        updatedMatrix = updatedMatrix.setElement((paramCount + (i_1).intValue()), col, coefficient);
       }
     }
     final ISLVal constant = expression.getConstantVal();
-    updatedMatrix = updatedMatrix.setElement(row, (paramCount + inCount), constant);
+    updatedMatrix = updatedMatrix.setElement((paramCount + inCount), col, constant);
     return updatedMatrix;
   }
 
   /**
    * Converts an expression into a matrix of its parameters, input indexes, and constants.
+   * The matrix is column-oriented (i.e., each affine expression is one column).
    * Throws an error if the expression uses division, as that may not work correctly.
    */
   public static ISLMatrix expressionToMatrix(final ISLMultiAff expression) {
@@ -105,44 +107,64 @@ public class AffineFactorizer {
     if (_greaterThan) {
       throw new IllegalArgumentException("Affine expressions with division are not currently supported.");
     }
-    final int rows = expression.dim(ISLDimType.isl_dim_out);
+    final int cols = expression.dim(ISLDimType.isl_dim_out);
     int _dim_1 = expression.dim(ISLDimType.isl_dim_param);
     int _dim_2 = expression.dim(ISLDimType.isl_dim_in);
     int _plus = (_dim_1 + _dim_2);
-    final int cols = (_plus + 1);
+    final int rows = (_plus + 1);
     final List<ISLAff> affs = expression.getAffs();
-    final Function2<ISLMatrix, Integer, ISLMatrix> _function = (ISLMatrix mat, Integer row) -> {
-      return AffineFactorizer.outputToMatrixRow(affs.get(row), mat, row);
+    final Function2<ISLMatrix, Integer, ISLMatrix> _function = (ISLMatrix mat, Integer col) -> {
+      return AffineFactorizer.outputToMatrixCol(affs.get(col), mat, col);
     };
-    final Function2<ISLMatrix, Integer, ISLMatrix> updateRow = _function;
+    final Function2<ISLMatrix, Integer, ISLMatrix> updateCol = _function;
     final ISLContext ctx = expression.getContext();
-    final ISLMatrix matrix = IterableExtensions.<Integer, ISLMatrix>fold(new ExclusiveRange(0, rows, true), ISLMatrix.build(ctx, rows, cols), updateRow);
+    final ISLMatrix matrix = IterableExtensions.<Integer, ISLMatrix>fold(new ExclusiveRange(0, cols, true), ISLMatrix.build(ctx, rows, cols), updateCol);
     return matrix;
   }
 
   /**
-   * Checks if a row of the given matrix is empty or not.
+   * Checks if a column of the given matrix is empty or not.
    */
-  private static boolean isRowEmpty(final ISLMatrix matrix, final int row) {
-    final int cols = matrix.getNbCols();
-    final Function1<Integer, Boolean> _function = (Integer col) -> {
-      long _element = matrix.getElement(row, (col).intValue());
+  private static boolean isColEmpty(final ISLMatrix matrix, final int col) {
+    final int rows = matrix.getNbRows();
+    final Function1<Integer, Boolean> _function = (Integer row) -> {
+      long _element = matrix.getElement((row).intValue(), col);
       return Boolean.valueOf((_element != 0));
     };
-    boolean _exists = IterableExtensions.<Integer>exists(new ExclusiveRange(0, cols, true), _function);
+    boolean _exists = IterableExtensions.<Integer>exists(new ExclusiveRange(0, rows, true), _function);
     return (!_exists);
   }
 
   /**
-   * Returns the number of empty rows in the given matrix.
-   * Assumes that the empty rows appear only at the end of the matrix.
+   * Returns the number of empty columns in the given matrix.
+   * Assumes that the empty rows appear only on the right of the matrix.
    */
-  private static int countEmptyRows(final ISLMatrix matrix) {
-    final int rows = matrix.getNbRows();
-    final Function1<Integer, Boolean> _function = (Integer row) -> {
-      return Boolean.valueOf(AffineFactorizer.isRowEmpty(matrix, (row).intValue()));
+  private static int countEmptyCols(final ISLMatrix matrix) {
+    final int cols = matrix.getNbCols();
+    final Function1<Integer, Boolean> _function = (Integer col) -> {
+      return Boolean.valueOf(AffineFactorizer.isColEmpty(matrix, (col).intValue()));
     };
-    final int emptyRowCount = IterableExtensions.size(IterableExtensions.<Integer>takeWhile(new ExclusiveRange(rows, 0, false), _function));
+    final int emptyRowCount = IterableExtensions.size(IterableExtensions.<Integer>takeWhile(new ExclusiveRange(cols, 0, false), _function));
     return emptyRowCount;
+  }
+
+  /**
+   * Reduces the dimensionality of the matrices constructed by the
+   * Hermite Normal Form calculation.
+   * This is done by dropping the columns of zeros from the right of H
+   * along with the same number of rows from the bottom of Q.
+   * This assumes that all columns of zeros are on the right of H,
+   * which matches ISL's implementation.
+   */
+  public static Pair<ISLMatrix, ISLMatrix> reduceHermiteDimensionality(final ISLMatrix h, final ISLMatrix q) {
+    final int emptyCols = AffineFactorizer.countEmptyCols(h);
+    if ((emptyCols == 0)) {
+      return Pair.<ISLMatrix, ISLMatrix>of(h, q);
+    }
+    int _nbCols = h.getNbCols();
+    final int firstToDrop = (_nbCols - emptyCols);
+    final ISLMatrix hUpdated = h.dropCols(firstToDrop, emptyCols);
+    final ISLMatrix qUpdated = q.dropRows(firstToDrop, emptyCols);
+    return Pair.<ISLMatrix, ISLMatrix>of(hUpdated, qUpdated);
   }
 }
