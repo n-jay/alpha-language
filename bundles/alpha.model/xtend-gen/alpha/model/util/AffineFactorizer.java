@@ -3,6 +3,7 @@ package alpha.model.util;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLHermiteResult;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLVal;
@@ -166,5 +167,17 @@ public class AffineFactorizer {
     final ISLMatrix hUpdated = h.dropCols(firstToDrop, emptyCols);
     final ISLMatrix qUpdated = q.dropRows(firstToDrop, emptyCols);
     return Pair.<ISLMatrix, ISLMatrix>of(hUpdated, qUpdated);
+  }
+
+  /**
+   * Performs the column-oriented Hermite decomposition of the given
+   * matrix, returning H and Q as the two outputs (as a key->value pair,
+   * in that order respectively). Any columns of 0's have been dropped
+   * from the right of H, along with the same number of rows from the
+   * bottom of Q.
+   */
+  public static Pair<ISLMatrix, ISLMatrix> hermiteDecomposition(final ISLMatrix matrix) {
+    final ISLHermiteResult hermiteResult = matrix.leftHermite();
+    return AffineFactorizer.reduceHermiteDimensionality(hermiteResult.getH(), hermiteResult.getQ());
   }
 }

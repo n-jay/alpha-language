@@ -273,4 +273,50 @@ class AffineFactorizerTest {
 		assertMatrixIsCorrect(expectedH, result.key)
 		assertMatrixIsCorrect(expectedQ, result.value)
 	}
+	
+	@Test
+	def hermiteDecomposition_01() {
+		val original = ISLMatrix.buildFromLongMatrix(#[
+			#[1, 0, 0],
+			#[0, 1, 0],
+			#[0, 0, 1]
+		])
+		val decomposeResult = AffineFactorizer.hermiteDecomposition(original)
+		val hActual = decomposeResult.key
+		val qActual = decomposeResult.value
+		
+		val bothExpected = #[
+			#[1, 0, 0],
+			#[0, 1, 0],
+			#[0, 0, 1]
+		]
+		
+		assertMatrixIsCorrect(bothExpected, hActual)
+		assertMatrixIsCorrect(bothExpected, qActual)
+	}
+	
+	@Test
+	def hermiteDecomposition_02() {
+		val original = ISLMatrix.buildFromLongMatrix(#[
+			#[1, 1, 1],
+			#[0, 1, 0],
+			#[1, 1, 1]
+		])
+		val decomposeResult = AffineFactorizer.hermiteDecomposition(original)
+		val hActual = decomposeResult.key
+		val qActual = decomposeResult.value
+		
+		val hExpected = #[
+			#[1, 0],
+			#[0, 1],
+			#[1, 0]
+		]
+		val qExpected = #[
+			#[1, 1, 1],
+			#[0, 1, 0]
+		]
+		
+		assertMatrixIsCorrect(hExpected, hActual)
+		assertMatrixIsCorrect(qExpected, qActual)
+	}
 }

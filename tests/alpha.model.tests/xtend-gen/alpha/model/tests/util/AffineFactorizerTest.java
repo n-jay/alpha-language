@@ -197,4 +197,29 @@ public class AffineFactorizerTest {
     AffineFactorizerTest.assertMatrixIsCorrect(expectedH, result.getKey());
     AffineFactorizerTest.assertMatrixIsCorrect(expectedQ, result.getValue());
   }
+
+  @Test
+  public void hermiteDecomposition_01() {
+    final ISLMatrix original = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 1, 0, 0 }, new long[] { 0, 1, 0 }, new long[] { 0, 0, 1 } });
+    final Pair<ISLMatrix, ISLMatrix> decomposeResult = AffineFactorizer.hermiteDecomposition(original);
+    final ISLMatrix hActual = decomposeResult.getKey();
+    final ISLMatrix qActual = decomposeResult.getValue();
+    final List<List<Integer>> bothExpected = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(1)))));
+    AffineFactorizerTest.assertMatrixIsCorrect(bothExpected, hActual);
+    AffineFactorizerTest.assertMatrixIsCorrect(bothExpected, qActual);
+  }
+
+  @Test
+  public void hermiteDecomposition_02() {
+    final ISLMatrix original = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 1, 1, 1 }, new long[] { 0, 1, 0 }, new long[] { 1, 1, 1 } });
+    final Pair<ISLMatrix, ISLMatrix> decomposeResult = AffineFactorizer.hermiteDecomposition(original);
+    final ISLMatrix hActual = decomposeResult.getKey();
+    final ISLMatrix qActual = decomposeResult.getValue();
+    final List<List<Integer>> hExpected = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(0)))));
+    final List<List<Integer>> qExpected = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0)))));
+    AffineFactorizerTest.assertMatrixIsCorrect(hExpected, hActual);
+    AffineFactorizerTest.assertMatrixIsCorrect(qExpected, qActual);
+  }
 }

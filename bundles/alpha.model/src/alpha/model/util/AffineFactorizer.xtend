@@ -137,4 +137,16 @@ class AffineFactorizer {
 
 		return hUpdated -> qUpdated
 	}
+	
+	/**
+	 * Performs the column-oriented Hermite decomposition of the given
+	 * matrix, returning H and Q as the two outputs (as a key->value pair,
+	 * in that order respectively). Any columns of 0's have been dropped
+	 * from the right of H, along with the same number of rows from the
+	 * bottom of Q.
+	 */
+	def static hermiteDecomposition(ISLMatrix matrix) {
+		val hermiteResult = matrix.leftHermite
+		return reduceHermiteDimensionality(hermiteResult.h, hermiteResult.q)
+	}
 }
