@@ -37,3 +37,4 @@ jobs:
         org.junit.runner.JUnitCore alpha.model.tests.transformations.SimplifyingReductionsTest
         org.junit.runner.JUnitCore alpha.model.tests.transformations.SplitUnionIntoCaseTest
         org.junit.runner.JUnitCore alpha.model.tests.transformations.SubstituteByDefTest
+        org.junit.runner.JUnitCore alpha.model.tests.util.FaceLatticeTest
