@@ -8,10 +8,32 @@ on:
 jobs:
 
   build-plugin:
-    runs-on: maven:3-jdk-11
+    runs-on: self-hosted
+    container: ghcr.io/csu-cs-melange/alpha-language-image:latest
 
     steps:
     - uses: actions/checkout@v2
 
     - name: build alpha
       run: mvn clean package
+
+    # the ghcr.io/csu-cs-melange/alpha-language-image image exposes a junit CLI
+    - name: run junit tests
+      run: |
+        export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}"
+        org.junit.runner.JUnitCore alpha.model.tests.AlphaAShowTest
+        org.junit.runner.JUnitCore alpha.model.tests.AlphaCheckProgramTest
+        org.junit.runner.JUnitCore alpha.model.tests.AlphaNormalizeTest
+        org.junit.runner.JUnitCore alpha.model.tests.AlphaShowTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.DistributivityTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.FactorOutFromReductionTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.HigherOrderOperatorTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.HoistOutOfReductionTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.IdempotenceTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.PermutationCaseReduceTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.PropagateSimpleEquationsTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SameOperatorSimplificationTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SimplifyExpressionsTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SimplifyingReductionsTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SplitUnionIntoCaseTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SubstituteByDefTest
