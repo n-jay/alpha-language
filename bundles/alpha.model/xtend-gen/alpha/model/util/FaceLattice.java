@@ -21,7 +21,7 @@ public class FaceLattice {
    * The information about the set which forms the root of the lattice.
    */
   @Accessors(AccessorType.PUBLIC_GETTER)
-  private final SetInfo rootInfo;
+  private final Facet rootInfo;
 
   /**
    * The storage of the lattice itself.
@@ -30,14 +30,14 @@ public class FaceLattice {
    * Each layer is a list of all the sets which are in that layer.
    */
   @Accessors(AccessorType.PUBLIC_GETTER)
-  private final ArrayList<ArrayList<SetInfo>> lattice;
+  private final ArrayList<ArrayList<Facet>> lattice;
 
   /**
    * Constructs a new, empty lattice.
    */
-  private FaceLattice(final SetInfo rootInfo) {
+  private FaceLattice(final Facet rootInfo) {
     this.rootInfo = rootInfo;
-    ArrayList<ArrayList<SetInfo>> _arrayList = new ArrayList<ArrayList<SetInfo>>();
+    ArrayList<ArrayList<Facet>> _arrayList = new ArrayList<ArrayList<Facet>>();
     this.lattice = _arrayList;
   }
 
@@ -45,7 +45,7 @@ public class FaceLattice {
    * Creates a new face lattice for the given set.
    */
   public static FaceLattice create(final ISLBasicSet root) {
-    final SetInfo rootInfo = new SetInfo(root);
+    final Facet rootInfo = new Facet(root);
     final FaceLattice lattice = new FaceLattice(rootInfo);
     final LinkedList<ArrayList<Integer>> toSaturate = new LinkedList<ArrayList<Integer>>();
     ArrayList<Integer> _arrayList = new ArrayList<Integer>();
@@ -83,22 +83,22 @@ public class FaceLattice {
   /**
    * Gets the set of all children of the indicated face.
    */
-  public Iterable<SetInfo> getChildren(final SetInfo face) {
+  public Iterable<Facet> getChildren(final Facet face) {
     final int faceLayer = Integer.max(0, face.getDimensionality());
     if (((faceLayer == 0) || (faceLayer >= this.lattice.size()))) {
-      return new ArrayList<SetInfo>();
+      return new ArrayList<Facet>();
     }
-    final Function1<SetInfo, Boolean> _function = (SetInfo node) -> {
+    final Function1<Facet, Boolean> _function = (Facet node) -> {
       return Boolean.valueOf(node.isChildOf(face));
     };
-    return IterableExtensions.<SetInfo>filter(this.lattice.get((faceLayer - 1)), _function);
+    return IterableExtensions.<Facet>filter(this.lattice.get((faceLayer - 1)), _function);
   }
 
   /**
    * Returns the set of all faces, not organized by dimension.
    */
-  public Iterable<SetInfo> getAllFaces() {
-    return Iterables.<SetInfo>concat(this.lattice);
+  public Iterable<Facet> getAllFaces() {
+    return Iterables.<Facet>concat(this.lattice);
   }
 
   /**
@@ -114,7 +114,7 @@ public class FaceLattice {
     if (_not) {
       return false;
     }
-    final ArrayList<SetInfo> zeroFaces = this.lattice.get(0);
+    final ArrayList<Facet> zeroFaces = this.lattice.get(0);
     if ((zeroFaces == null)) {
       return false;
     }
@@ -133,7 +133,7 @@ public class FaceLattice {
    * @returns Returns <code>true</code> if the face was valid and added, and <code>false</code> otherwise.
    */
   private boolean checkAddFace(final ArrayList<Integer> toSaturate) {
-    final SetInfo face = SetInfo.createFace(this.rootInfo, toSaturate);
+    final Facet face = Facet.createFace(this.rootInfo, toSaturate);
     boolean _isValidFace = face.isValidFace(this.rootInfo);
     boolean _not = (!_isValidFace);
     if (_not) {
@@ -141,7 +141,7 @@ public class FaceLattice {
     }
     final int layerIndex = Integer.max(0, face.getDimensionality());
     while ((this.lattice.size() <= layerIndex)) {
-      ArrayList<SetInfo> _arrayList = new ArrayList<SetInfo>();
+      ArrayList<Facet> _arrayList = new ArrayList<Facet>();
       this.lattice.add(_arrayList);
     }
     this.lattice.get(layerIndex).add(face);
@@ -149,12 +149,12 @@ public class FaceLattice {
   }
 
   @Pure
-  public SetInfo getRootInfo() {
+  public Facet getRootInfo() {
     return this.rootInfo;
   }
 
   @Pure
-  public ArrayList<ArrayList<SetInfo>> getLattice() {
+  public ArrayList<ArrayList<Facet>> getLattice() {
     return this.lattice;
   }
 }

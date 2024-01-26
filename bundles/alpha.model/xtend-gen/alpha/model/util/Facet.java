@@ -35,7 +35,7 @@ import org.eclipse.xtext.xbase.lib.Pure;
  */
 @Data
 @SuppressWarnings("all")
-public class SetInfo {
+public class Facet {
   /**
    * The dimensionality of the set.
    */
@@ -94,31 +94,31 @@ public class SetInfo {
   /**
    * Extract the information from the given set, assuming that no constraints were saturated to form it.
    */
-  public SetInfo(final ISLBasicSet basicSet) {
+  public Facet(final ISLBasicSet basicSet) {
     this(basicSet, new ArrayList<Integer>(0));
   }
 
   /**
    * Extract the information from the given set.
    */
-  public SetInfo(final ISLBasicSet basicSet, final ArrayList<Integer> saturatedInequalityIndices) {
+  public Facet(final ISLBasicSet basicSet, final ArrayList<Integer> saturatedInequalityIndices) {
     this.equalities = DomainOperations.toISLEqualityMatrix(basicSet);
     this.indexCount = basicSet.dim(ISLDimType.isl_dim_set);
-    this.indexInequalities = SetInfo.getInequalities(basicSet, this.indexCount, true);
+    this.indexInequalities = Facet.getInequalities(basicSet, this.indexCount, true);
     this.indexInequalityCount = this.indexInequalities.getNbRows();
     this.isBounded = basicSet.bounded();
     this.isEmpty = basicSet.isEmpty();
-    this.parameterEqualityCount = SetInfo.countParameterConstraints(this.equalities, this.indexCount);
-    this.parameterInequalities = SetInfo.getInequalities(basicSet, this.indexCount, false);
+    this.parameterEqualityCount = Facet.countParameterConstraints(this.equalities, this.indexCount);
+    this.parameterInequalities = Facet.getInequalities(basicSet, this.indexCount, false);
     this.saturatedInequalityIndices = saturatedInequalityIndices;
     this.space = basicSet.getSpace();
-    this.dimensionality = SetInfo.dimensionality(this.equalities, this.indexCount);
+    this.dimensionality = Facet.dimensionality(this.equalities, this.indexCount);
   }
 
   /**
    * Saturates the given index inequalities from the ancestor to form a potential face.
    */
-  public static SetInfo createFace(final SetInfo ancestor, final ArrayList<Integer> toSaturate) {
+  public static Facet createFace(final Facet ancestor, final ArrayList<Integer> toSaturate) {
     final Function1<Integer, Boolean> _function = (Integer row) -> {
       return Boolean.valueOf(toSaturate.contains(row));
     };
@@ -140,13 +140,13 @@ public class SetInfo {
       ancestor.space.copy(), equalities, inequalities, 
       ISLDimType.isl_dim_param, ISLDimType.isl_dim_set, 
       ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst).removeRedundancies();
-    return new SetInfo(basicSet, toSaturate);
+    return new Facet(basicSet, toSaturate);
   }
 
   /**
    * Returns <code>true</code> if this set is a child face of the given set, and <code>false</code> otherwise.
    */
-  public boolean isChildOf(final SetInfo other) {
+  public boolean isChildOf(final Facet other) {
     int _size = this.saturatedInequalityIndices.size();
     int _size_1 = other.saturatedInequalityIndices.size();
     int _plus = (1 + _size_1);
@@ -175,7 +175,7 @@ public class SetInfo {
   /**
    * Returns <code>true</code> if this set is a valid face of the given set, and <code>false</code> otherwise.
    */
-  public boolean isValidFace(final SetInfo startingSetInfo) {
+  public boolean isValidFace(final Facet startingSetInfo) {
     if (this.isEmpty) {
       return false;
     }
@@ -226,7 +226,7 @@ public class SetInfo {
   private static int countParameterConstraints(final ISLMatrix matrix, final int indexCount) {
     int _nbRows = matrix.getNbRows();
     final Function1<Integer, Boolean> _function = (Integer row) -> {
-      return Boolean.valueOf(SetInfo.constraintInvolvesIndex(matrix, (row).intValue(), indexCount));
+      return Boolean.valueOf(Facet.constraintInvolvesIndex(matrix, (row).intValue(), indexCount));
     };
     return IterableExtensions.size(IterableExtensions.<Integer>reject(new ExclusiveRange(0, _nbRows, true), _function));
   }
@@ -237,7 +237,7 @@ public class SetInfo {
   private static int dimensionality(final ISLMatrix equalities, final int indexCount) {
     int _nbRows = equalities.getNbRows();
     final Function1<Integer, Boolean> _function = (Integer row) -> {
-      return Boolean.valueOf(SetInfo.constraintInvolvesIndex(equalities, (row).intValue(), indexCount));
+      return Boolean.valueOf(Facet.constraintInvolvesIndex(equalities, (row).intValue(), indexCount));
     };
     final Function2<ISLMatrix, Integer, ISLMatrix> _function_1 = (ISLMatrix mat, Integer row) -> {
       return mat.dropRows((row).intValue(), 1);
@@ -255,7 +255,7 @@ public class SetInfo {
     final ISLMatrix inequalities = DomainOperations.toISLInequalityMatrix(startingSet);
     int _nbRows = inequalities.getNbRows();
     final Function1<Integer, Boolean> _function = (Integer row) -> {
-      boolean _constraintInvolvesIndex = SetInfo.constraintInvolvesIndex(inequalities, (row).intValue(), indexCount);
+      boolean _constraintInvolvesIndex = Facet.constraintInvolvesIndex(inequalities, (row).intValue(), indexCount);
       return Boolean.valueOf((getIndexConstraints != _constraintInvolvesIndex));
     };
     final Function2<ISLMatrix, Integer, ISLMatrix> _function_1 = (ISLMatrix mat, Integer row) -> {
@@ -291,7 +291,7 @@ public class SetInfo {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    SetInfo other = (SetInfo) obj;
+    Facet other = (Facet) obj;
     if (other.dimensionality != this.dimensionality)
       return false;
     if (this.equalities == null) {

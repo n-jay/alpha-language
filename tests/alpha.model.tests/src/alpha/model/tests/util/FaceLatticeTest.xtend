@@ -1,7 +1,7 @@
 package alpha.model.tests.util
 
 import alpha.model.util.FaceLattice
-import alpha.model.util.SetInfo
+import alpha.model.util.Facet
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import fr.irisa.cairn.jnimap.isl.ISLContext
 import fr.irisa.cairn.jnimap.isl.ISLVertex
@@ -90,7 +90,7 @@ class FaceLatticeTest {
 		// and check that there is only one vertex.
 		val latticeVertexSets =
 			lattice.lattice.get(0).reverseView
-			.map[setInfo | setInfo.toBasicSet.computeVertices]
+			.map[facet | facet.toBasicSet.computeVertices]
 			.toList
 		latticeVertexSets.forEach[vertexSet | assertEquals(1, vertexSet.nbVertices)]
 
@@ -239,7 +239,7 @@ class FaceLatticeTest {
 	////////////////////////////////////////////////////////////
 	
 	/** Indicates whether a face saturates the indicated inequalities (no more, no fewer). */
-	def private static faceSaturatesInequalities(SetInfo face, int... inequalities) {
+	def private static faceSaturatesInequalities(Facet face, int... inequalities) {
 		// The saturated inequalities in the face must be exactly the same as the given inequalities.
 		return face.saturatedInequalityIndices.size == inequalities.length
 			&& face.saturatedInequalityIndices.containsAll(inequalities)

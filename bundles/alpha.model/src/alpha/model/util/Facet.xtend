@@ -29,7 +29,7 @@ import fr.irisa.cairn.jnimap.isl.ISLDimType
  *     keeping any previously saturated inequalities as saturated.
  */
 @Data
-class SetInfo {
+class Facet {
 	////////////////////////////////////////////////////////////
 	// Fields and Properties
 	////////////////////////////////////////////////////////////
@@ -92,7 +92,7 @@ class SetInfo {
 	}
 	
 	/** Saturates the given index inequalities from the ancestor to form a potential face. */
-	def static createFace(SetInfo ancestor, ArrayList<Integer> toSaturate) {
+	def static createFace(Facet ancestor, ArrayList<Integer> toSaturate) {
 		// Create the new equalities matrix by taking the ancestor's index inequality constraints,
 		// dropping any which are not to be saturated (leaving only the ones to saturate),
 		// then combining it with the ancestor's equality constraints.
@@ -118,7 +118,7 @@ class SetInfo {
 				ISLDimType.isl_dim_param, ISLDimType.isl_dim_set,
 				ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst)
 			.removeRedundancies
-		return new SetInfo(basicSet, toSaturate)
+		return new Facet(basicSet, toSaturate)
 	}
 	
 	
@@ -127,7 +127,7 @@ class SetInfo {
 	////////////////////////////////////////////////////////////
 	
 	/** Returns <code>true</code> if this set is a child face of the given set, and <code>false</code> otherwise. */
-	def isChildOf(SetInfo other) {
+	def isChildOf(Facet other) {
 		// This set must saturate exactly one more constraint than the other set.
 		if (saturatedInequalityIndices.size != 1 + other.saturatedInequalityIndices.size) {
 			return false
@@ -148,7 +148,7 @@ class SetInfo {
 	}
 	
 	/** Returns <code>true</code> if this set is a valid face of the given set, and <code>false</code> otherwise. */
-	def isValidFace(SetInfo startingSetInfo) {
+	def isValidFace(Facet startingSetInfo) {
 		// Faces cannot be empty.
 		if (isEmpty) {
 			return false

@@ -16,7 +16,7 @@ class FaceLattice {
 	
 	/** The information about the set which forms the root of the lattice. */
 	@Accessors(PUBLIC_GETTER)
-	val SetInfo rootInfo
+	val Facet rootInfo
 	
 	/**
 	 * The storage of the lattice itself.
@@ -25,7 +25,7 @@ class FaceLattice {
 	 * Each layer is a list of all the sets which are in that layer.
 	 */
 	 @Accessors(PUBLIC_GETTER)
-	val ArrayList<ArrayList<SetInfo>> lattice
+	val ArrayList<ArrayList<Facet>> lattice
 	
 	
 	////////////////////////////////////////////////////////////
@@ -33,15 +33,15 @@ class FaceLattice {
 	////////////////////////////////////////////////////////////
 	
 	/** Constructs a new, empty lattice. */
-	private new(SetInfo rootInfo) { 
+	private new(Facet rootInfo) { 
 		this.rootInfo = rootInfo
-		lattice = new ArrayList<ArrayList<SetInfo>>
+		lattice = new ArrayList<ArrayList<Facet>>
 	}
 	
 	/** Creates a new face lattice for the given set. */
 	def static create(ISLBasicSet root) {
 		// Set up the face lattice which is rooted at the given set.
-		val rootInfo = new SetInfo(root)
+		val rootInfo = new Facet(root)
 		val lattice = new FaceLattice(rootInfo)
 		
 		// The lattice will be populated by iterating through the power set of all constraints.
@@ -83,13 +83,13 @@ class FaceLattice {
 	////////////////////////////////////////////////////////////
 	
 	/** Gets the set of all children of the indicated face. */
-	def getChildren(SetInfo face) {
+	def getChildren(Facet face) {
 		// If there are no layers below this face's layer,
 		// or if this face's layer doesn't even exist,
 		// it must not have any children.
 		val faceLayer = Integer.max(0, face.dimensionality)
 		if ((faceLayer == 0) || (faceLayer >= lattice.size)) {
-			return new ArrayList<SetInfo>
+			return new ArrayList<Facet>
 		}
 		
 		// All children of the given face must be on the layer below it.
@@ -136,7 +136,7 @@ class FaceLattice {
 	def private checkAddFace(ArrayList<Integer> toSaturate) {
 		// Create the proposed face by saturating the indicated inequality constraints,
 		// and check whether or not this creates a valid face.
-		val face = SetInfo.createFace(rootInfo, toSaturate)
+		val face = Facet.createFace(rootInfo, toSaturate)
 		if (!face.isValidFace(rootInfo)) {
 			return false
 		}
@@ -145,7 +145,7 @@ class FaceLattice {
 		// Be careful to avoid out of bounds accesses!
 		val layerIndex = Integer.max(0, face.dimensionality)
 		while (lattice.size <= layerIndex) {
-			lattice.add(new ArrayList<SetInfo>)
+			lattice.add(new ArrayList<Facet>)
 		}
 		lattice.get(layerIndex).add(face)
 		return true
