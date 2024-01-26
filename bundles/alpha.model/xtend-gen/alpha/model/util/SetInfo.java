@@ -106,7 +106,7 @@ public class SetInfo {
     this.indexCount = basicSet.dim(ISLDimType.isl_dim_set);
     this.indexInequalities = SetInfo.getInequalities(basicSet, this.indexCount, true);
     this.indexInequalityCount = this.indexInequalities.getNbRows();
-    this.isBounded = basicSet.isBounded();
+    this.isBounded = basicSet.bounded();
     this.isEmpty = basicSet.isEmpty();
     this.parameterEqualityCount = SetInfo.countParameterConstraints(this.equalities, this.indexCount);
     this.parameterInequalities = SetInfo.getInequalities(basicSet, this.indexCount, false);
