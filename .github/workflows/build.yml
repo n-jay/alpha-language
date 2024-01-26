@@ -1,116 +1,39 @@
 name: build
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
-      - main
-  schedule:
-    - cron:  '0 8 * * *'  # 3am MT, 9am UTC
+    - main
 
 jobs:
-  clear-cache:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clear cache
-        uses: actions/github-script@v6
-        with:
-          script: |
-            console.log("About to clear")
-            const caches = await github.rest.actions.getActionsCacheList({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
-            const keys_to_clear = [
-              'cache-plugin',
-            ]
-            for (const cache of caches.data.actions_caches) {
-              if (!keys_to_clear.includes(cache.key)) {
-                continue
-              }
-              console.log(cache)
-              github.rest.actions.deleteActionsCacheById({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                cache_id: cache.id,
-              })
-            }
-            console.log("Clear completed")
-
 
   build-plugin:
-    needs: clear-cache
-
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    container: ghcr.io/csu-cs-melange/alpha-language-image:latest
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Set up java 11
-      uses: actions/setup-java@v1
-      with:
-        java-version: 11
-
-    - name: Cache alpha plugin
-      id: cache-plugin
-      uses: actions/cache@v3
-      with:
-        path: ./releng/alpha.language.update/target/repository
-        key: cache-plugin
 
     - name: build alpha
       run: mvn clean package
 
-
-  deploy:
-    needs: 
-    - build-plugin
-
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-      
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Cache alpha language plugin
-      id: cache-plugin
-      uses: actions/cache@v3
-      with:
-        path: ./releng/alpha.language.update/target/repository
-        key: cache-plugin
-
-    - name: Set SHORT_SHA 
-      run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
-
-    - name: Make downloads directory
-      run: mkdir -p ./releng/alpha.language.update/target/repository/downloads
-
-    - name: make update-site readme
-      run: ./scripts/make-update-site-readme.sh
- 
-    - name: build update-site
-      uses: actions/jekyll-build-pages@v1
-      with:
-        source: "./releng/alpha.language.update/target/repository"
-        destination: "./update-site"
-
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
-      with:
-        path: "./update-site"
-
-    - name: deploy update-site
-      id: deployment
-      uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
-
-
-
+    # the ghcr.io/csu-cs-melange/alpha-language-image image exposes a junit CLI
+    - name: run junit tests
+      run: |
+        export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}"
+        org.junit.runner.JUnitCore alpha.model.tests.AlphaAShowTest
+        org.junit.runner.JUnitCore alpha.model.tests.AlphaCheckProgramTest
+        org.junit.runner.JUnitCore alpha.model.tests.AlphaNormalizeTest
+        org.junit.runner.JUnitCore alpha.model.tests.AlphaShowTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.DistributivityTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.FactorOutFromReductionTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.HigherOrderOperatorTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.HoistOutOfReductionTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.IdempotenceTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.PermutationCaseReduceTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.PropagateSimpleEquationsTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SameOperatorSimplificationTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SimplifyExpressionsTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SimplifyingReductionsTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SplitUnionIntoCaseTest
+        org.junit.runner.JUnitCore alpha.model.tests.transformations.SubstituteByDefTest
