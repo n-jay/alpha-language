@@ -1,19 +1,58 @@
 package alpha.model.util
 
-import fr.irisa.cairn.jnimap.isl.ISLDimType
-import fr.irisa.cairn.jnimap.isl.ISLMultiAff
-import java.util.ArrayList
-import java.util.Iterator
-import fr.irisa.cairn.jnimap.isl.ISLMatrix
 import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.ISLContext
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMatrix
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLSpace
+import java.util.HashMap
+import java.util.Iterator
 
 /**
  * Factorizes a set of multi-dimensional affine maps (i.e., <code>ISLMultiAff</code>).
+ * The main way this class is expected to be used is by calling the <code>factorizeExpressions</code>
+ * static method with a set of affine expressions.
+ * This returns a key->value pair, where the key is the "common factor" that can be pulled out,
+ * and the value is a dictionary mapping each of the original expressions
+ * to the "remaining term" that is left after pulling out the common factor.
+ * Each expression can be rewritten as the composition of the common factor and the remaining term
+ * as follows: <code>remainingTerm.pullback(commonFactor)</code>
  * 
  * @see <a href="https://impact-workshop.org/papers/paper3.pdf">Reuse Analysis via Affine Factorization</a>
  */
 class AffineFactorizer {
+	/**
+	 * Factors a set of affine expressions which have the same domain.
+	 * 
+	 * @param  expressions A list or array of affine multi-dimensional expressions to factor.
+	 * @return A key->value pair where the key is the "common factor" and the value is a map
+	 *         from each of the input expressions to the "remaining term" that is left after
+	 *         pulling out the common factor. That is, the following would return true,
+	 *         where <code>expr</code> is one of the input expressions and <code>result</code>
+	 *         is the return value of this function:
+	 *         <code>expr.isPlainEqual(result.value.get(expr).pullback(result.key.copy))</code>
+	 */
+	def static factorizeExpressions(ISLMultiAff... expressions) {
+		// Name all the outputs from the expressions so we can track them.
+		// Note: this is saved as a map from the original expression to the named one.
+		val named = expressions.nameExpressionOutputs
+		
+		// Merge everything into one big expression, and decompose it.
+		// Since we need them again later, copy the named expressions first.
+		val decomposed = named.values.map[it.copy].mergeExpressions.decomposeExpression
+		val hExpression = decomposed.key
+		val qExpression = decomposed.value
+		
+		// Construct a map from each of the original expressions
+		// to the projection of Q which is associated with it.
+		// Wrap it in a HashMap to avoid recomputing values whenever they're accessed.
+		val projectionMap = new HashMap<ISLMultiAff, ISLMultiAff>(
+			expressions.toInvertedMap[expr | getDecompositionProjection(named.get(expr), qExpression)])
+		return hExpression -> projectionMap
+	}
+
+
 	////////////////////////////////////////////////////////////
 	// Merging Expressions Into One
 	////////////////////////////////////////////////////////////
@@ -26,19 +65,21 @@ class AffineFactorizer {
 	/** Gives each output of the provided expression a unique name, overwriting any existing names. */
 	def private static nameSingleExpressionOutputs(ISLMultiAff expression, Iterator<String> names) {
 		val outCount = expression.dim(ISLDimType.isl_dim_out)
-		val setName = [ISLMultiAff expr, int outIndex | expr.setDimName(ISLDimType.isl_dim_out, outIndex, names.next)]
-		return (0 ..< outCount).fold(expression.copy(), setName)
+		val assignName = [ISLMultiAff expr, int outIndex | expr.setDimName(ISLDimType.isl_dim_out, outIndex, names.next)]
+		return (0 ..< outCount).fold(expression.copy, assignName)
 	}
 
-	/** Gives each output of all the provided expressions a unique name, overwriting any existing names. */
+	/** 
+	 * Creates a copy of each input expression, but renames all the outputs so they can be tracked.
+	 * Returns a map from the original expressions to the named ones.
+	 */
 	def static nameExpressionOutputs(ISLMultiAff... expressions) {
 		val names = getNameGenerator("orig_out")
-		val retVal = expressions.map[nameSingleExpressionOutputs(it, names)]
+		val retVal = expressions.toInvertedMap[nameSingleExpressionOutputs(it, names)]
 
-		// Wrapping the return value in an ArrayList this was (as opposed to using .toList)
-		// ensures that the names are computed exactly once, as opposed to being lazily
-		// re-generated every single time the objects are accessed.
-		return new ArrayList<ISLMultiAff>(retVal)
+		// Wrapping the return value in a HashMap ensures that the names are generated exactly once,
+		// as opposed to being lazily re-generated every single time the objects are accessed.
+		return new HashMap<ISLMultiAff, ISLMultiAff>(retVal)
 	}
 
 	/** Merges a set of affine expressions into a single expression via their flat product. */
@@ -158,6 +199,11 @@ class AffineFactorizer {
 	// Constructing New Expressions from the Decomposition
 	////////////////////////////////////////////////////////////
 	
+	/** Returns an empty expression. I.e., { [] -> [] } */
+	def static emptyExpr(ISLContext context) {
+		return ISLMultiAff.buildFromString(context, "{ [] -> [] }")
+	}
+	
 	/**
 	 * Creates the new spaces for the decomposition of the original space,
 	 * returned as a key->value pair. The key has the same domain as the
@@ -236,7 +282,7 @@ class AffineFactorizer {
 			.setDimName(ISLDimType.isl_dim_out, 0, outputName ?: "None")
 	}
 	
-	/** converts a matrix into an expression. Each column is for one of the output dimensions. */
+	/** Converts a matrix into an expression. Each column is for one of the output dimensions. */
 	def private static matrixToExpression(ISLMatrix matrix, ISLSpace space) {
 		return (0 ..< matrix.nbCols)
 			.map[col | columnToExpression(matrix, space, col)]
@@ -254,8 +300,7 @@ class AffineFactorizer {
 		// If we don't have any outputs (which is how AlphaZ handles constants),
 		// then the "decomposition" is the given expression and an empty expression.
 		if (expression.dim(ISLDimType.isl_dim_out) == 0) {
-			val emptyExpr = ISLMultiAff.buildFromString(expression.context, "{ [] -> [] }")
-			return expression -> emptyExpr
+			return expression -> emptyExpr(expression.context)
 		}
 
 		// Convert the expression into a matrix, then decompose that matrix.
@@ -272,5 +317,55 @@ class AffineFactorizer {
 		val hExpression = matrixToExpression(hMatrix, hSpace)
 		val qExpression = matrixToExpression(qMatrix, qSpace)
 		return hExpression -> qExpression
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Reconstructing the Original Expressions
+	////////////////////////////////////////////////////////////
+	
+	/**
+	 * Returns the projection of the decomposed expression (Q)
+	 * which can be used to recreate the given original expression.
+	 */
+	def private static getDecompositionProjection(ISLMultiAff original, ISLMultiAff q) {
+		// If the range of Q is empty, then there was nothing to decompose,
+		// so just return an empty expression.
+		if (q.dim(ISLDimType.isl_dim_out) == 0) {
+			return emptyExpr(original.context)
+		}
+		
+		// If the range of the original is empty, then we just want
+		// a map from the domain of Q to an empty set "[]".
+		if (original.dim(ISLDimType.isl_dim_out) == 0) {
+			val qRange = q.space.domain.toLocalSpace
+			val mapToZero = ISLAff.buildZero(qRange).toMultiAff
+			val outs = mapToZero.dim(ISLDimType.isl_dim_out)
+			return mapToZero.dropDims(ISLDimType.isl_dim_out, 0, outs)
+		}
+		
+		// We want to create a mapping from Q to the range of the original expression.
+		// Thus, the domain of the projection is the range of Q.
+		val domain = q.space.range
+		
+		// For each output of the original expression, get the index at which
+		// that output occurs, searching by name.
+		val wantedIndexes =
+			original.space
+			.getDimNames(ISLDimType.isl_dim_out)
+			.map[name | domain.findDimByName(ISLDimType.isl_dim_out, name)]
+
+		// Construct an affine expression for each of the outputs.
+		// This is done by creating a single expression for each output,
+		// converting them to multi-expressions, and merging them together.
+		// This requires the domain to be a "local space" object.
+		val localDomain = domain.copy.toLocalSpace
+		val first = wantedIndexes.map[i | ISLAff.buildVarOnDomain(localDomain.copy, ISLDimType.isl_dim_out, i)]
+		val second = first.map[expr | expr.toMultiAff]
+		val projection = second.mergeExpressions
+			
+		// Finally, we want to compose Q with this projection to get just the
+		// part of Q associated with the range of the original expression.
+		return projection.pullback(q.copy)
 	}
 }

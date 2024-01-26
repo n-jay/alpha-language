@@ -8,6 +8,7 @@ import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -28,15 +29,16 @@ public class AffineFactorizerTest {
     return AffineFactorizer.expressionToMatrix(AffineFactorizerTest.stringToMultiAff(str));
   }
 
-  private static List<ISLMultiAff> stringsToMultiAff(final String... strs) {
+  private static ArrayList<ISLMultiAff> stringsToMultiAffs(final String... strs) {
     final Function1<String, ISLMultiAff> _function = (String it) -> {
       return AffineFactorizerTest.stringToMultiAff(it);
     };
-    return ListExtensions.<String, ISLMultiAff>map(((List<String>)Conversions.doWrapArray(strs)), _function);
+    List<ISLMultiAff> _map = ListExtensions.<String, ISLMultiAff>map(((List<String>)Conversions.doWrapArray(strs)), _function);
+    return new ArrayList<ISLMultiAff>(_map);
   }
 
   private static void mergeExpressionsTest(final String expectedOutput, final String... inputs) {
-    final List<ISLMultiAff> inputAffs = AffineFactorizerTest.stringsToMultiAff(inputs);
+    final ArrayList<ISLMultiAff> inputAffs = AffineFactorizerTest.stringsToMultiAffs(inputs);
     final ISLMultiAff expectedAff = AffineFactorizerTest.stringToMultiAff(expectedOutput);
     final ISLMultiAff actualAff = AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(inputAffs, ISLMultiAff.class)));
     Assert.assertTrue(expectedAff.isPlainEqual(actualAff));
@@ -55,6 +57,31 @@ public class AffineFactorizerTest {
           final String message = ((("Wrong value at row " + row) + ", col ") + col);
           Assert.assertEquals(message, (expected.get((row).intValue()).get((col).intValue())).intValue(), actual.getElement((row).intValue(), (col).intValue()));
         }
+      }
+    }
+  }
+
+  private static void assertPlainEqual(final String message, final ISLMultiAff expected, final ISLMultiAff actual) {
+    Assert.assertTrue(message, expected.isPlainEqual(actual));
+  }
+
+  private static ISLMultiAff getRemainingTerm(final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> result, final int index, final ISLMultiAff... inputs) {
+    return result.getValue().get(inputs[index]);
+  }
+
+  private static void assertFactorizationIsCorrect(final int expectedInnerDims, final String... inputs) {
+    final ArrayList<ISLMultiAff> expressions = AffineFactorizerTest.stringsToMultiAffs(inputs);
+    final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> result = AffineFactorizer.factorizeExpressions(((ISLMultiAff[])Conversions.unwrapArray(expressions, ISLMultiAff.class)));
+    final int actualInnerDims = result.getKey().dim(ISLDimType.isl_dim_out);
+    Assert.assertEquals("Wrong number of inner dimensions.", expectedInnerDims, actualInnerDims);
+    int _length = inputs.length;
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _length, true);
+    for (final Integer i : _doubleDotLessThan) {
+      {
+        final ISLMultiAff expr = expressions.get((i).intValue());
+        final ISLMultiAff remainingTerm = result.getValue().get(expr);
+        final ISLMultiAff reconstructed = remainingTerm.pullback(result.getKey().copy());
+        AffineFactorizerTest.assertPlainEqual((("Remaining term " + i) + " is wrong."), expr, reconstructed);
       }
     }
   }
@@ -84,18 +111,18 @@ public class AffineFactorizerTest {
 
   @Test
   public void nameOutputs_01() {
-    final List<ISLMultiAff> input = AffineFactorizerTest.stringsToMultiAff(
+    final ArrayList<ISLMultiAff> input = AffineFactorizerTest.stringsToMultiAffs(
       "[N] -> { [i,j] -> [j,i] }", 
       "[N] -> { [i,j] -> [i+j,i-j] }");
-    final ArrayList<ISLMultiAff> result = AffineFactorizer.nameExpressionOutputs(((ISLMultiAff[])Conversions.unwrapArray(input, ISLMultiAff.class)));
-    Assert.assertEquals("orig_out_0", result.get(0).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
-    Assert.assertEquals("orig_out_1", result.get(0).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
-    Assert.assertEquals("orig_out_2", result.get(1).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
-    Assert.assertEquals("orig_out_3", result.get(1).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
-    Assert.assertEquals("orig_out_0", result.get(0).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
-    Assert.assertEquals("orig_out_1", result.get(0).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
-    Assert.assertEquals("orig_out_2", result.get(1).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
-    Assert.assertEquals("orig_out_3", result.get(1).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
+    final HashMap<ISLMultiAff, ISLMultiAff> result = AffineFactorizer.nameExpressionOutputs(((ISLMultiAff[])Conversions.unwrapArray(input, ISLMultiAff.class)));
+    Assert.assertEquals("orig_out_0", result.get(input.get(0)).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
+    Assert.assertEquals("orig_out_1", result.get(input.get(0)).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
+    Assert.assertEquals("orig_out_2", result.get(input.get(1)).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
+    Assert.assertEquals("orig_out_3", result.get(input.get(1)).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
+    Assert.assertEquals("orig_out_0", result.get(input.get(0)).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
+    Assert.assertEquals("orig_out_1", result.get(input.get(0)).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
+    Assert.assertEquals("orig_out_2", result.get(input.get(1)).getSpace().getDimName(ISLDimType.isl_dim_out, 0));
+    Assert.assertEquals("orig_out_3", result.get(input.get(1)).getSpace().getDimName(ISLDimType.isl_dim_out, 1));
   }
 
   @Test
@@ -281,5 +308,98 @@ public class AffineFactorizerTest {
     final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [i] -> [i,0,0,0] }");
     Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
     Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
+  }
+
+  @Test
+  public void factorizeExpressions_nothing01() {
+    final ISLMultiAff input = AffineFactorizerTest.stringToMultiAff("{ [] -> [] }");
+    final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> result = AffineFactorizer.factorizeExpressions(input);
+    final ISLMultiAff allExpected = AffineFactorizerTest.stringToMultiAff("{ [] -> [] }");
+    final ISLMultiAff remainingActual = AffineFactorizerTest.getRemainingTerm(result, 0, input);
+    AffineFactorizerTest.assertPlainEqual("Common factor is wrong.", allExpected, result.getKey());
+    Assert.assertEquals("Number of remaining terms is wrong.", 1, result.getValue().size());
+    AffineFactorizerTest.assertPlainEqual("Remaining term is wrong.", allExpected, remainingActual);
+  }
+
+  @Test
+  public void factorizeExpressions_nothing02() {
+    final ArrayList<ISLMultiAff> inputs = AffineFactorizerTest.stringsToMultiAffs(
+      "{ [] -> [] }", 
+      "{ [] -> [] }", 
+      "{ [] -> [] }");
+    final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> result = AffineFactorizer.factorizeExpressions(((ISLMultiAff[])Conversions.unwrapArray(inputs, ISLMultiAff.class)));
+    final ISLMultiAff allExpected = AffineFactorizerTest.stringToMultiAff("{ [] -> [] }");
+    AffineFactorizerTest.assertPlainEqual("Common factor is wrong.", allExpected, result.getKey());
+    Assert.assertEquals("Number of remaining terms is wrong.", 3, result.getValue().size());
+    AffineFactorizerTest.assertPlainEqual("Remaining term 0 is wrong.", allExpected, AffineFactorizerTest.getRemainingTerm(result, 0, ((ISLMultiAff[])Conversions.unwrapArray(inputs, ISLMultiAff.class))));
+    AffineFactorizerTest.assertPlainEqual("Remaining term 1 is wrong.", allExpected, AffineFactorizerTest.getRemainingTerm(result, 1, ((ISLMultiAff[])Conversions.unwrapArray(inputs, ISLMultiAff.class))));
+    AffineFactorizerTest.assertPlainEqual("Remaining term 2 is wrong.", allExpected, AffineFactorizerTest.getRemainingTerm(result, 2, ((ISLMultiAff[])Conversions.unwrapArray(inputs, ISLMultiAff.class))));
+  }
+
+  @Test
+  public void factorizeExpressions_oneConstant() {
+    final ISLMultiAff input = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j] -> [] }");
+    final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> result = AffineFactorizer.factorizeExpressions(input);
+    final ISLMultiAff commonExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j] -> [] }");
+    final ISLMultiAff remainingExpected = AffineFactorizerTest.stringToMultiAff("{ [] -> [] }");
+    final ISLMultiAff remainingActual = AffineFactorizerTest.getRemainingTerm(result, 0, input);
+    AffineFactorizerTest.assertPlainEqual("Common factor is wrong.", commonExpected, result.getKey());
+    Assert.assertEquals("Number of remaining terms is wrong.", 1, result.getValue().size());
+    AffineFactorizerTest.assertPlainEqual("Remaining term is wrong.", remainingExpected, remainingActual);
+  }
+
+  @Test
+  public void factorizeExpressions_multipleConstants() {
+    final ArrayList<ISLMultiAff> inputs = AffineFactorizerTest.stringsToMultiAffs(
+      "[N] -> { [i,j] -> [] }", 
+      "[N] -> { [i,j] -> [] }", 
+      "[N] -> { [i,j] -> [] }");
+    final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> result = AffineFactorizer.factorizeExpressions(((ISLMultiAff[])Conversions.unwrapArray(inputs, ISLMultiAff.class)));
+    final ISLMultiAff commonExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j] -> [] }");
+    final ISLMultiAff remainingExpected = AffineFactorizerTest.stringToMultiAff("{ [] -> [] }");
+    AffineFactorizerTest.assertPlainEqual("Common factor is wrong.", commonExpected, result.getKey());
+    Assert.assertEquals("Number of remaining terms is wrong.", 3, result.getValue().size());
+    AffineFactorizerTest.assertPlainEqual("Remaining term 0 is wrong.", remainingExpected, AffineFactorizerTest.getRemainingTerm(result, 0, ((ISLMultiAff[])Conversions.unwrapArray(inputs, ISLMultiAff.class))));
+    AffineFactorizerTest.assertPlainEqual("Remaining term 1 is wrong.", remainingExpected, AffineFactorizerTest.getRemainingTerm(result, 1, ((ISLMultiAff[])Conversions.unwrapArray(inputs, ISLMultiAff.class))));
+    AffineFactorizerTest.assertPlainEqual("Remaining term 2 is wrong.", remainingExpected, AffineFactorizerTest.getRemainingTerm(result, 2, ((ISLMultiAff[])Conversions.unwrapArray(inputs, ISLMultiAff.class))));
+  }
+
+  @Test
+  public void factorizeExpressions_01() {
+    final int expectedInnerDimensions = 3;
+    AffineFactorizerTest.assertFactorizationIsCorrect(expectedInnerDimensions, 
+      "[N] -> { [i,j,k] -> [i,j,k] }");
+  }
+
+  @Test
+  public void factorizeExpressions_02() {
+    final int expectedInnerDimensions = 3;
+    AffineFactorizerTest.assertFactorizationIsCorrect(expectedInnerDimensions, 
+      "[N] -> { [i,j,k] -> [k,j,i] }");
+  }
+
+  @Test
+  public void factorizeExpressions_03() {
+    final int expectedInnerDimensions = 5;
+    AffineFactorizerTest.assertFactorizationIsCorrect(expectedInnerDimensions, 
+      "[N] -> { [i,j,k] -> [k,j,i,N,4] }");
+  }
+
+  @Test
+  public void factorizeExpressions_04() {
+    final int expectedInnerDimensions = 4;
+    AffineFactorizerTest.assertFactorizationIsCorrect(expectedInnerDimensions, 
+      "[N] -> { [i,j,k] -> [i+j, N+k] }", 
+      "[N] -> { [i,j,k] -> [j+k, N+j+3] }");
+  }
+
+  @Test
+  public void factorizeExpressions_05() {
+    final int expectedInnerDimensions = 4;
+    AffineFactorizerTest.assertFactorizationIsCorrect(expectedInnerDimensions, 
+      "[N,M] -> { [i,j,k] -> [i+k, N-j+4] }", 
+      "[N,M] -> { [i,j,k] -> [M+N+4, N+M+4] }", 
+      "[N,M] -> { [i,j,k] -> [] }", 
+      "[N,M] -> { [i,j,k] -> [i+k+M] }");
   }
 }

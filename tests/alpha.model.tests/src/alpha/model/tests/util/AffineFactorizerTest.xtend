@@ -9,6 +9,8 @@ import fr.irisa.cairn.jnimap.isl.ISLContext
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMatrix
 import java.util.List
+import java.util.ArrayList
+import java.util.HashMap
 
 class AffineFactorizerTest {
 	////////////////////////////////////////////////////////////
@@ -23,12 +25,14 @@ class AffineFactorizerTest {
 		return AffineFactorizer.expressionToMatrix(stringToMultiAff(str))		
 	}
 
-	def private static stringsToMultiAff(String... strs) {
-		return strs.map[stringToMultiAff]
+	def private static stringsToMultiAffs(String... strs) {
+		// Wrapping this in an ArrayList prevents the lazy evaluation from
+		// recreating the expressions each time they're accessed.
+		return new ArrayList<ISLMultiAff>(strs.map[stringToMultiAff])
 	}
 
 	def private static mergeExpressionsTest(String expectedOutput, String... inputs) {
-		val inputAffs = stringsToMultiAff(inputs)
+		val inputAffs = stringsToMultiAffs(inputs)
 		val expectedAff = stringToMultiAff(expectedOutput)
 		val actualAff = AffineFactorizer.mergeExpressions(inputAffs)
 		assertTrue(expectedAff.isPlainEqual(actualAff))
@@ -47,6 +51,31 @@ class AffineFactorizerTest {
 				val message = "Wrong value at row " + row + ", col " + col
 				assertEquals(message, expected.get(row).get(col), actual.getElement(row, col))
 			}
+		}
+	}
+	
+	def private static assertPlainEqual(String message, ISLMultiAff expected, ISLMultiAff actual) {
+		assertTrue(message, expected.isPlainEqual(actual))
+	}
+	
+	def private static getRemainingTerm(Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> result, int index, ISLMultiAff... inputs) {
+		return result.value.get(inputs.get(index))
+	}
+	
+	def private static assertFactorizationIsCorrect(int expectedInnerDims, String... inputs) {
+		val expressions = stringsToMultiAffs(inputs)
+		val result = AffineFactorizer.factorizeExpressions(expressions)
+
+		val actualInnerDims = result.key.dim(ISLDimType.isl_dim_out)
+		assertEquals("Wrong number of inner dimensions.", expectedInnerDims, actualInnerDims)
+		
+		// Check that each input expression can be reconstructed as the composition of
+		// the remaining term for that input with the common factor.
+		for (i: 0 ..< inputs.length) {
+			val expr = expressions.get(i)
+			val remainingTerm = result.value.get(expr)
+			val reconstructed = remainingTerm.pullback(result.key.copy)
+			assertPlainEqual("Remaining term " + i + " is wrong.", expr, reconstructed)
 		}
 	}
 
@@ -105,24 +134,24 @@ class AffineFactorizerTest {
 	
 	@Test
 	def nameOutputs_01() {
-		val input = stringsToMultiAff(
+		val input = stringsToMultiAffs(
 			"[N] -> { [i,j] -> [j,i] }",
 			"[N] -> { [i,j] -> [i+j,i-j] }"
 		)
 		val result = AffineFactorizer.nameExpressionOutputs(input)
 		
 		// Ensure the names are all correct.
-		assertEquals("orig_out_0", result.get(0).space.getDimName(ISLDimType.isl_dim_out, 0))
-		assertEquals("orig_out_1", result.get(0).space.getDimName(ISLDimType.isl_dim_out, 1))
-		assertEquals("orig_out_2", result.get(1).space.getDimName(ISLDimType.isl_dim_out, 0))
-		assertEquals("orig_out_3", result.get(1).space.getDimName(ISLDimType.isl_dim_out, 1))
+		assertEquals("orig_out_0", result.get(input.get(0)).space.getDimName(ISLDimType.isl_dim_out, 0))
+		assertEquals("orig_out_1", result.get(input.get(0)).space.getDimName(ISLDimType.isl_dim_out, 1))
+		assertEquals("orig_out_2", result.get(input.get(1)).space.getDimName(ISLDimType.isl_dim_out, 0))
+		assertEquals("orig_out_3", result.get(input.get(1)).space.getDimName(ISLDimType.isl_dim_out, 1))
 		
 		// During development, lazy evaluation caused names to be re-generated
 		// each time the objects are accessed, so double-check that this isn't an issue.
-		assertEquals("orig_out_0", result.get(0).space.getDimName(ISLDimType.isl_dim_out, 0))
-		assertEquals("orig_out_1", result.get(0).space.getDimName(ISLDimType.isl_dim_out, 1))
-		assertEquals("orig_out_2", result.get(1).space.getDimName(ISLDimType.isl_dim_out, 0))
-		assertEquals("orig_out_3", result.get(1).space.getDimName(ISLDimType.isl_dim_out, 1))
+		assertEquals("orig_out_0", result.get(input.get(0)).space.getDimName(ISLDimType.isl_dim_out, 0))
+		assertEquals("orig_out_1", result.get(input.get(0)).space.getDimName(ISLDimType.isl_dim_out, 1))
+		assertEquals("orig_out_2", result.get(input.get(1)).space.getDimName(ISLDimType.isl_dim_out, 0))
+		assertEquals("orig_out_3", result.get(input.get(1)).space.getDimName(ISLDimType.isl_dim_out, 1))
 	}
 	
 	@Test
@@ -394,5 +423,118 @@ class AffineFactorizerTest {
 		
 		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
 		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Full Factorization
+	////////////////////////////////////////////////////////////
+	
+	@Test
+	def factorizeExpressions_nothing01() {
+		val input = stringToMultiAff("{ [] -> [] }")
+		val result = AffineFactorizer.factorizeExpressions(input)
+		
+		val allExpected = stringToMultiAff("{ [] -> [] }")
+		val remainingActual = result.getRemainingTerm(0, input)
+		
+		assertPlainEqual("Common factor is wrong.", allExpected, result.key)
+		assertEquals("Number of remaining terms is wrong.", 1, result.value.size)
+		assertPlainEqual("Remaining term is wrong.", allExpected, remainingActual)
+	}
+	
+	@Test
+	def factorizeExpressions_nothing02() {
+		val inputs = stringsToMultiAffs(
+			"{ [] -> [] }",
+			"{ [] -> [] }",
+			"{ [] -> [] }")
+		val result = AffineFactorizer.factorizeExpressions(inputs)
+		
+		val allExpected = stringToMultiAff("{ [] -> [] }")
+		
+		assertPlainEqual("Common factor is wrong.", allExpected, result.key)
+		assertEquals("Number of remaining terms is wrong.", 3, result.value.size)
+		assertPlainEqual("Remaining term 0 is wrong.", allExpected, result.getRemainingTerm(0, inputs))
+		assertPlainEqual("Remaining term 1 is wrong.", allExpected, result.getRemainingTerm(1, inputs))
+		assertPlainEqual("Remaining term 2 is wrong.", allExpected, result.getRemainingTerm(2, inputs))
+	}
+	
+	@Test
+	def factorizeExpressions_oneConstant() {
+		// This is the format for a single constant.
+		val input = stringToMultiAff("[N] -> { [i,j] -> [] }")
+		val result = AffineFactorizer.factorizeExpressions(input)
+		
+		val commonExpected = stringToMultiAff("[N] -> { [i,j] -> [] }")
+		val remainingExpected = stringToMultiAff("{ [] -> [] }")
+		val remainingActual = result.getRemainingTerm(0, input)
+		
+		assertPlainEqual("Common factor is wrong.", commonExpected, result.key)
+		assertEquals("Number of remaining terms is wrong.", 1, result.value.size)		
+		assertPlainEqual("Remaining term is wrong.", remainingExpected, remainingActual)
+	}
+
+	@Test
+	def factorizeExpressions_multipleConstants() {
+		// This is the format for a single constant.
+		val inputs = stringsToMultiAffs(
+			"[N] -> { [i,j] -> [] }",
+			"[N] -> { [i,j] -> [] }",
+			"[N] -> { [i,j] -> [] }")
+		val result = AffineFactorizer.factorizeExpressions(inputs)
+		
+		val commonExpected = stringToMultiAff("[N] -> { [i,j] -> [] }")
+		val remainingExpected = stringToMultiAff("{ [] -> [] }")
+		
+		assertPlainEqual("Common factor is wrong.", commonExpected, result.key)
+		assertEquals("Number of remaining terms is wrong.", 3, result.value.size)
+		assertPlainEqual("Remaining term 0 is wrong.", remainingExpected, result.getRemainingTerm(0, inputs))
+		assertPlainEqual("Remaining term 1 is wrong.", remainingExpected, result.getRemainingTerm(1, inputs))
+		assertPlainEqual("Remaining term 2 is wrong.", remainingExpected, result.getRemainingTerm(2, inputs))
+	}
+
+	@Test
+	def factorizeExpressions_01() {
+		val expectedInnerDimensions = 3
+		assertFactorizationIsCorrect(expectedInnerDimensions,
+			"[N] -> { [i,j,k] -> [i,j,k] }")
+	}
+	
+	@Test
+	def factorizeExpressions_02() {
+		val expectedInnerDimensions = 3
+		assertFactorizationIsCorrect(expectedInnerDimensions,
+			"[N] -> { [i,j,k] -> [k,j,i] }")
+	}
+	
+	@Test
+	def factorizeExpressions_03() {
+		val expectedInnerDimensions = 5
+		assertFactorizationIsCorrect(expectedInnerDimensions,
+			"[N] -> { [i,j,k] -> [k,j,i,N,4] }")
+	}
+	
+	@Test
+	def factorizeExpressions_04() {
+		// The inner dimensions roughly map to i, j, k, and N,
+		// but they also have +/- constants in there so we don't
+		// need to directly express them.
+		val expectedInnerDimensions = 4
+		assertFactorizationIsCorrect(expectedInnerDimensions,
+			"[N] -> { [i,j,k] -> [i+j, N+k] }",
+			"[N] -> { [i,j,k] -> [j+k, N+j+3] }")
+	}
+	
+	@Test
+	def factorizeExpressions_05() {
+		// The inner dimensions are: N+4, M, i+k, j
+		val expectedInnerDimensions = 4
+		assertFactorizationIsCorrect(expectedInnerDimensions,
+			"[N,M] -> { [i,j,k] -> [i+k, N-j+4] }",
+			"[N,M] -> { [i,j,k] -> [M+N+4, N+M+4] }",
+			"[N,M] -> { [i,j,k] -> [] }",
+			"[N,M] -> { [i,j,k] -> [i+k+M] }"
+		)
 	}
 }

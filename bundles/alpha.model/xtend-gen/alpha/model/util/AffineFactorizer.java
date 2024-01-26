@@ -4,13 +4,15 @@ import fr.irisa.cairn.jnimap.isl.ISLAff;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLHermiteResult;
+import fr.irisa.cairn.jnimap.isl.ISLLocalSpace;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import fr.irisa.cairn.jnimap.isl.ISLVal;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -23,11 +25,45 @@ import org.eclipse.xtext.xbase.lib.Pair;
 
 /**
  * Factorizes a set of multi-dimensional affine maps (i.e., <code>ISLMultiAff</code>).
+ * The main way this class is expected to be used is by calling the <code>factorizeExpressions</code>
+ * static method with a set of affine expressions.
+ * This returns a key->value pair, where the key is the "common factor" that can be pulled out,
+ * and the value is a dictionary mapping each of the original expressions
+ * to the "remaining term" that is left after pulling out the common factor.
+ * Each expression can be rewritten as the composition of the common factor and the remaining term
+ * as follows: <code>remainingTerm.pullback(commonFactor)</code>
  * 
  * @see <a href="https://impact-workshop.org/papers/paper3.pdf">Reuse Analysis via Affine Factorization</a>
  */
 @SuppressWarnings("all")
 public class AffineFactorizer {
+  /**
+   * Factors a set of affine expressions which have the same domain.
+   * 
+   * @param  expressions A list or array of affine multi-dimensional expressions to factor.
+   * @return A key->value pair where the key is the "common factor" and the value is a map
+   *         from each of the input expressions to the "remaining term" that is left after
+   *         pulling out the common factor. That is, the following would return true,
+   *         where <code>expr</code> is one of the input expressions and <code>result</code>
+   *         is the return value of this function:
+   *         <code>expr.isPlainEqual(result.value.get(expr).pullback(result.key.copy))</code>
+   */
+  public static Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> factorizeExpressions(final ISLMultiAff... expressions) {
+    final HashMap<ISLMultiAff, ISLMultiAff> named = AffineFactorizer.nameExpressionOutputs(expressions);
+    final Function1<ISLMultiAff, ISLMultiAff> _function = (ISLMultiAff it) -> {
+      return it.copy();
+    };
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(IterableExtensions.<ISLMultiAff, ISLMultiAff>map(named.values(), _function), ISLMultiAff.class))));
+    final ISLMultiAff hExpression = decomposed.getKey();
+    final ISLMultiAff qExpression = decomposed.getValue();
+    final Function1<ISLMultiAff, ISLMultiAff> _function_1 = (ISLMultiAff expr) -> {
+      return AffineFactorizer.getDecompositionProjection(named.get(expr), qExpression);
+    };
+    Map<ISLMultiAff, ISLMultiAff> _invertedMap = IterableExtensions.<ISLMultiAff, ISLMultiAff>toInvertedMap(((Iterable<? extends ISLMultiAff>)Conversions.doWrapArray(expressions)), _function_1);
+    final HashMap<ISLMultiAff, ISLMultiAff> projectionMap = new HashMap<ISLMultiAff, ISLMultiAff>(_invertedMap);
+    return Pair.<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>>of(hExpression, projectionMap);
+  }
+
   /**
    * Generates names containing the given prefix and an incrementing value, separated by an underscore.
    */
@@ -47,20 +83,21 @@ public class AffineFactorizer {
     final Function2<ISLMultiAff, Integer, ISLMultiAff> _function = (ISLMultiAff expr, Integer outIndex) -> {
       return expr.setDimName(ISLDimType.isl_dim_out, outIndex, names.next());
     };
-    final Function2<ISLMultiAff, Integer, ISLMultiAff> setName = _function;
-    return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, outCount, true), expression.copy(), setName);
+    final Function2<ISLMultiAff, Integer, ISLMultiAff> assignName = _function;
+    return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, outCount, true), expression.copy(), assignName);
   }
 
   /**
-   * Gives each output of all the provided expressions a unique name, overwriting any existing names.
+   * Creates a copy of each input expression, but renames all the outputs so they can be tracked.
+   * Returns a map from the original expressions to the named ones.
    */
-  public static ArrayList<ISLMultiAff> nameExpressionOutputs(final ISLMultiAff... expressions) {
+  public static HashMap<ISLMultiAff, ISLMultiAff> nameExpressionOutputs(final ISLMultiAff... expressions) {
     final Iterator<String> names = AffineFactorizer.getNameGenerator("orig_out");
     final Function1<ISLMultiAff, ISLMultiAff> _function = (ISLMultiAff it) -> {
       return AffineFactorizer.nameSingleExpressionOutputs(it, names);
     };
-    final List<ISLMultiAff> retVal = ListExtensions.<ISLMultiAff, ISLMultiAff>map(((List<ISLMultiAff>)Conversions.doWrapArray(expressions)), _function);
-    return new ArrayList<ISLMultiAff>(retVal);
+    final Map<ISLMultiAff, ISLMultiAff> retVal = IterableExtensions.<ISLMultiAff, ISLMultiAff>toInvertedMap(((Iterable<? extends ISLMultiAff>)Conversions.doWrapArray(expressions)), _function);
+    return new HashMap<ISLMultiAff, ISLMultiAff>(retVal);
   }
 
   /**
@@ -184,6 +221,13 @@ public class AffineFactorizer {
   }
 
   /**
+   * Returns an empty expression. I.e., { [] -> [] }
+   */
+  public static ISLMultiAff emptyExpr(final ISLContext context) {
+    return ISLMultiAff.buildFromString(context, "{ [] -> [] }");
+  }
+
+  /**
    * Creates the new spaces for the decomposition of the original space,
    * returned as a key->value pair. The key has the same domain as the
    * original space, and the value has the same range as the original space.
@@ -246,7 +290,7 @@ public class AffineFactorizer {
   }
 
   /**
-   * converts a matrix into an expression. Each column is for one of the output dimensions.
+   * Converts a matrix into an expression. Each column is for one of the output dimensions.
    */
   private static ISLMultiAff matrixToExpression(final ISLMatrix matrix, final ISLSpace space) {
     int _nbCols = matrix.getNbCols();
@@ -267,8 +311,8 @@ public class AffineFactorizer {
     int _dim = expression.dim(ISLDimType.isl_dim_out);
     boolean _equals = (_dim == 0);
     if (_equals) {
-      final ISLMultiAff emptyExpr = ISLMultiAff.buildFromString(expression.getContext(), "{ [] -> [] }");
-      return Pair.<ISLMultiAff, ISLMultiAff>of(expression, emptyExpr);
+      ISLMultiAff _emptyExpr = AffineFactorizer.emptyExpr(expression.getContext());
+      return Pair.<ISLMultiAff, ISLMultiAff>of(expression, _emptyExpr);
     }
     final Pair<ISLMatrix, ISLMatrix> decomposed = AffineFactorizer.hermiteDecomposition(AffineFactorizer.expressionToMatrix(expression));
     final ISLMatrix hMatrix = decomposed.getKey();
@@ -279,5 +323,41 @@ public class AffineFactorizer {
     final ISLMultiAff hExpression = AffineFactorizer.matrixToExpression(hMatrix, hSpace);
     final ISLMultiAff qExpression = AffineFactorizer.matrixToExpression(qMatrix, qSpace);
     return Pair.<ISLMultiAff, ISLMultiAff>of(hExpression, qExpression);
+  }
+
+  /**
+   * Returns the projection of the decomposed expression (Q)
+   * which can be used to recreate the given original expression.
+   */
+  private static ISLMultiAff getDecompositionProjection(final ISLMultiAff original, final ISLMultiAff q) {
+    int _dim = q.dim(ISLDimType.isl_dim_out);
+    boolean _equals = (_dim == 0);
+    if (_equals) {
+      return AffineFactorizer.emptyExpr(original.getContext());
+    }
+    int _dim_1 = original.dim(ISLDimType.isl_dim_out);
+    boolean _equals_1 = (_dim_1 == 0);
+    if (_equals_1) {
+      final ISLLocalSpace qRange = q.getSpace().domain().toLocalSpace();
+      final ISLMultiAff mapToZero = ISLAff.buildZero(qRange).toMultiAff();
+      final int outs = mapToZero.dim(ISLDimType.isl_dim_out);
+      return mapToZero.dropDims(ISLDimType.isl_dim_out, 0, outs);
+    }
+    final ISLSpace domain = q.getSpace().range();
+    final Function1<String, Integer> _function = (String name) -> {
+      return Integer.valueOf(domain.findDimByName(ISLDimType.isl_dim_out, name));
+    };
+    final List<Integer> wantedIndexes = ListExtensions.<String, Integer>map(original.getSpace().getDimNames(ISLDimType.isl_dim_out), _function);
+    final ISLLocalSpace localDomain = domain.copy().toLocalSpace();
+    final Function1<Integer, ISLAff> _function_1 = (Integer i) -> {
+      return ISLAff.buildVarOnDomain(localDomain.copy(), ISLDimType.isl_dim_out, (i).intValue());
+    };
+    final List<ISLAff> first = ListExtensions.<Integer, ISLAff>map(wantedIndexes, _function_1);
+    final Function1<ISLAff, ISLMultiAff> _function_2 = (ISLAff expr) -> {
+      return expr.toMultiAff();
+    };
+    final List<ISLMultiAff> second = ListExtensions.<ISLAff, ISLMultiAff>map(first, _function_2);
+    final ISLMultiAff projection = AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(second, ISLMultiAff.class)));
+    return projection.pullback(q.copy());
   }
 }
