@@ -11,6 +11,7 @@ import fr.irisa.cairn.jnimap.isl.ISLMatrix
 import java.util.List
 import java.util.ArrayList
 import java.util.HashMap
+import fr.irisa.cairn.jnimap.isl.ISLSpace
 
 class AffineFactorizerTest {
 	////////////////////////////////////////////////////////////
@@ -54,6 +55,10 @@ class AffineFactorizerTest {
 		}
 	}
 	
+	def private static assertPlainEqual(ISLMultiAff expected, ISLMultiAff actual) {
+		assertTrue(expected.isPlainEqual(actual))
+	}
+
 	def private static assertPlainEqual(String message, ISLMultiAff expected, ISLMultiAff actual) {
 		assertTrue(message, expected.isPlainEqual(actual))
 	}
@@ -81,7 +86,7 @@ class AffineFactorizerTest {
 
 
 	////////////////////////////////////////////////////////////
-	// Unit Tests - ISL Bindings
+	// ISL Bindings
 	////////////////////////////////////////////////////////////
 	
 	@Test
@@ -129,7 +134,7 @@ class AffineFactorizerTest {
 
 
 	////////////////////////////////////////////////////////////
-	// Unit Tests - Merging Expressions Into One
+	// Merging Expressions Into One
 	////////////////////////////////////////////////////////////
 	
 	@Test
@@ -184,9 +189,9 @@ class AffineFactorizerTest {
 	
 	
 	////////////////////////////////////////////////////////////
-	// Decomposing the Merged Expression
+	// Expression to Matrix Conversion
 	////////////////////////////////////////////////////////////
-	
+		
 	@Test
 	def expressionToMatrix_01() {
 		val input = stringToMultiAff("{ [i,j] -> [0, 0] }")
@@ -233,9 +238,15 @@ class AffineFactorizerTest {
 		// This should be a 1x1 matrix with coefficient 7.
 		assertEquals(1, result.nbRows)
 		assertEquals(1, result.nbCols)
+
 		assertEquals(7, result.getElement(0,0))
 	}
 	
+	
+	////////////////////////////////////////////////////////////
+	// Hermite Decomposition
+	////////////////////////////////////////////////////////////
+
 	@Test
 	def reduceHermiteDimensionality_01() {
 		// Expecting nothing to be dropped.
@@ -348,6 +359,52 @@ class AffineFactorizerTest {
 		assertMatrixIsCorrect(hExpected, hActual)
 		assertMatrixIsCorrect(qExpected, qActual)
 	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Matrix to Expression Conversion
+	////////////////////////////////////////////////////////////
+	
+	@Test
+	def matrixToExpression_01() {
+		val matrix = ISLMatrix.buildFromLongMatrix(#[
+			#[0, 0],
+			#[0, 0],
+			#[0, 0]
+		])
+		val expected = stringToMultiAff("{ [i,j] -> [0, 0] }")
+
+		val result = AffineFactorizer.matrixToExpression(matrix, expected.space)
+		assertPlainEqual(expected, result)
+	}
+	
+	@Test
+	def matrixToExpression_02() {
+		val matrix = ISLMatrix.buildFromLongMatrix(#[
+			#[ 2, -4],
+			#[ 4, -2],
+			#[-3,  3],
+			#[ 1,  7]
+		])
+		val expected = stringToMultiAff("[N] -> { [i,j] -> [2N -3j +4i +1, 7-2i+3j-4N] }")
+
+		val result = AffineFactorizer.matrixToExpression(matrix, expected.space)
+		assertPlainEqual(expected, result)
+	}
+	
+	@Test
+	def matrixToExpression_03() {
+		val matrix = ISLMatrix.buildFromLongMatrix(#[ #[7] ])
+		val expected = stringToMultiAff("{ [] -> [7] }")
+
+		val result = AffineFactorizer.matrixToExpression(matrix, expected.space)
+		assertPlainEqual(expected, result)
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Expression Decomposition
+	////////////////////////////////////////////////////////////
 	
 	@Test
 	def decomposeExpression_constants() {

@@ -65,6 +65,18 @@ public class AffineFactorizer {
   }
 
   /**
+   * Creates a copy of each input expression, but renames all the outputs so they can be tracked.
+   * Returns a map from the original expressions to the named ones.
+   */
+  public static HashMap<ISLMultiAff, ISLMultiAff> nameExpressionOutputs(final ISLMultiAff... expressions) {
+    final Iterator<String> names = AffineFactorizer.getNameGenerator("orig_out");
+    final Function1<ISLMultiAff, ISLMultiAff> _function = (ISLMultiAff it) -> {
+      return AffineFactorizer.nameSingleExpressionOutputs(it, names);
+    };
+    return AffineFactorizer.<ISLMultiAff, ISLMultiAff>toHashMap(IterableExtensions.<ISLMultiAff, ISLMultiAff>toInvertedMap(((Iterable<? extends ISLMultiAff>)Conversions.doWrapArray(expressions)), _function));
+  }
+
+  /**
    * Generates names containing the given prefix and an incrementing value, separated by an underscore.
    */
   private static Iterator<String> getNameGenerator(final String prefix) {
@@ -84,56 +96,17 @@ public class AffineFactorizer {
       return expr.setDimName(ISLDimType.isl_dim_out, outIndex, names.next());
     };
     final Function2<ISLMultiAff, Integer, ISLMultiAff> assignName = _function;
-    return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, outCount, true), expression.copy(), assignName);
+    final ISLMultiAff merged = IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, outCount, true), expression.copy(), assignName);
+    return merged;
   }
 
   /**
-   * Creates a copy of each input expression, but renames all the outputs so they can be tracked.
-   * Returns a map from the original expressions to the named ones.
+   * Wraps a map into a hash map so its values are only computed once.
+   * Intended for use with Xtend's iterable/map extensions, which can recompute values
+   * each time they're accessed due to lazy evaluation.
    */
-  public static HashMap<ISLMultiAff, ISLMultiAff> nameExpressionOutputs(final ISLMultiAff... expressions) {
-    final Iterator<String> names = AffineFactorizer.getNameGenerator("orig_out");
-    final Function1<ISLMultiAff, ISLMultiAff> _function = (ISLMultiAff it) -> {
-      return AffineFactorizer.nameSingleExpressionOutputs(it, names);
-    };
-    final Map<ISLMultiAff, ISLMultiAff> retVal = IterableExtensions.<ISLMultiAff, ISLMultiAff>toInvertedMap(((Iterable<? extends ISLMultiAff>)Conversions.doWrapArray(expressions)), _function);
-    return new HashMap<ISLMultiAff, ISLMultiAff>(retVal);
-  }
-
-  /**
-   * Merges a set of affine expressions into a single expression via their flat product.
-   */
-  public static ISLMultiAff mergeExpressions(final ISLMultiAff... expressions) {
-    final Function2<ISLMultiAff, ISLMultiAff, ISLMultiAff> _function = (ISLMultiAff left, ISLMultiAff right) -> {
-      return left.flatRangeProduct(right);
-    };
-    return IterableExtensions.<ISLMultiAff>reduce(((Iterable<? extends ISLMultiAff>)Conversions.doWrapArray(expressions)), _function);
-  }
-
-  /**
-   * Copies the coefficients from one expression in a multi-expression into a matrix.
-   */
-  private static ISLMatrix outputToMatrixCol(final ISLAff expression, final ISLMatrix matrix, final int col) {
-    ISLMatrix updatedMatrix = matrix;
-    final int paramCount = expression.dim(ISLDimType.isl_dim_param);
-    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, paramCount, true);
-    for (final Integer i : _doubleDotLessThan) {
-      {
-        final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_param, (i).intValue());
-        updatedMatrix = updatedMatrix.setElement((i).intValue(), col, coefficient);
-      }
-    }
-    final int inCount = expression.dim(ISLDimType.isl_dim_in);
-    ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, inCount, true);
-    for (final Integer i_1 : _doubleDotLessThan_1) {
-      {
-        final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_in, (i_1).intValue());
-        updatedMatrix = updatedMatrix.setElement((paramCount + (i_1).intValue()), col, coefficient);
-      }
-    }
-    final ISLVal constant = expression.getConstantVal();
-    updatedMatrix = updatedMatrix.setElement((paramCount + inCount), col, constant);
-    return updatedMatrix;
+  private static <K extends Object, V extends Object> HashMap<K, V> toHashMap(final Map<K, V> map) {
+    return new HashMap<K, V>(map);
   }
 
   /**
@@ -163,29 +136,41 @@ public class AffineFactorizer {
   }
 
   /**
-   * Checks if a column of the given matrix is empty or not.
+   * Copies the coefficients from one expression in a multi-expression into a matrix.
    */
-  private static boolean isColEmpty(final ISLMatrix matrix, final int col) {
-    final int rows = matrix.getNbRows();
-    final Function1<Integer, Boolean> _function = (Integer row) -> {
-      long _element = matrix.getElement((row).intValue(), col);
-      return Boolean.valueOf((_element != 0));
-    };
-    boolean _exists = IterableExtensions.<Integer>exists(new ExclusiveRange(0, rows, true), _function);
-    return (!_exists);
+  private static ISLMatrix outputToMatrixCol(final ISLAff expression, final ISLMatrix matrix, final int col) {
+    ISLMatrix updatedMatrix = matrix;
+    final int paramCount = expression.dim(ISLDimType.isl_dim_param);
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, paramCount, true);
+    for (final Integer i : _doubleDotLessThan) {
+      {
+        final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_param, (i).intValue());
+        updatedMatrix = updatedMatrix.setElement((i).intValue(), col, coefficient);
+      }
+    }
+    final int inCount = expression.dim(ISLDimType.isl_dim_in);
+    ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, inCount, true);
+    for (final Integer i_1 : _doubleDotLessThan_1) {
+      {
+        final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_in, (i_1).intValue());
+        updatedMatrix = updatedMatrix.setElement((paramCount + (i_1).intValue()), col, coefficient);
+      }
+    }
+    final ISLVal constant = expression.getConstantVal();
+    updatedMatrix = updatedMatrix.setElement((paramCount + inCount), col, constant);
+    return updatedMatrix;
   }
 
   /**
-   * Returns the number of empty columns in the given matrix.
-   * Assumes that the empty rows appear only on the right of the matrix.
+   * Performs the column-oriented Hermite decomposition of the given
+   * matrix, returning H and Q as the two outputs (as a key->value pair,
+   * in that order respectively). Any columns of 0's have been dropped
+   * from the right of H, along with the same number of rows from the
+   * bottom of Q.
    */
-  private static int countEmptyCols(final ISLMatrix matrix) {
-    final int cols = matrix.getNbCols();
-    final Function1<Integer, Boolean> _function = (Integer col) -> {
-      return Boolean.valueOf(AffineFactorizer.isColEmpty(matrix, (col).intValue()));
-    };
-    final int emptyRowCount = IterableExtensions.size(IterableExtensions.<Integer>takeWhile(new ExclusiveRange(cols, 1, false), _function));
-    return emptyRowCount;
+  public static Pair<ISLMatrix, ISLMatrix> hermiteDecomposition(final ISLMatrix matrix) {
+    final ISLHermiteResult hermiteResult = matrix.leftHermite();
+    return AffineFactorizer.reduceHermiteDimensionality(hermiteResult.getH(), hermiteResult.getQ());
   }
 
   /**
@@ -209,44 +194,40 @@ public class AffineFactorizer {
   }
 
   /**
-   * Performs the column-oriented Hermite decomposition of the given
-   * matrix, returning H and Q as the two outputs (as a key->value pair,
-   * in that order respectively). Any columns of 0's have been dropped
-   * from the right of H, along with the same number of rows from the
-   * bottom of Q.
+   * Returns the number of empty columns in the given matrix.
+   * Assumes that the empty rows appear only on the right of the matrix.
    */
-  public static Pair<ISLMatrix, ISLMatrix> hermiteDecomposition(final ISLMatrix matrix) {
-    final ISLHermiteResult hermiteResult = matrix.leftHermite();
-    return AffineFactorizer.reduceHermiteDimensionality(hermiteResult.getH(), hermiteResult.getQ());
+  private static int countEmptyCols(final ISLMatrix matrix) {
+    final int cols = matrix.getNbCols();
+    final Function1<Integer, Boolean> _function = (Integer col) -> {
+      return Boolean.valueOf(AffineFactorizer.isColEmpty(matrix, (col).intValue()));
+    };
+    final int emptyRowCount = IterableExtensions.size(IterableExtensions.<Integer>takeWhile(new ExclusiveRange(cols, 1, false), _function));
+    return emptyRowCount;
   }
 
   /**
-   * Returns an empty expression. I.e., { [] -> [] }
+   * Checks if a column of the given matrix is empty or not.
    */
-  public static ISLMultiAff emptyExpr(final ISLContext context) {
-    return ISLMultiAff.buildFromString(context, "{ [] -> [] }");
+  private static boolean isColEmpty(final ISLMatrix matrix, final int col) {
+    final int rows = matrix.getNbRows();
+    final Function1<Integer, Boolean> _function = (Integer row) -> {
+      long _element = matrix.getElement((row).intValue(), col);
+      return Boolean.valueOf((_element != 0));
+    };
+    boolean _exists = IterableExtensions.<Integer>exists(new ExclusiveRange(0, rows, true), _function);
+    return (!_exists);
   }
 
   /**
-   * Creates the new spaces for the decomposition of the original space,
-   * returned as a key->value pair. The key has the same domain as the
-   * original space, and the value has the same range as the original space.
-   * The unspecified range/domain are the same, with a number of dimensions
-   * equal to the desired amount.
+   * Converts a matrix into an expression. Each column is for one of the output dimensions.
    */
-  private static Pair<ISLSpace, ISLSpace> createDecompositionSpaces(final ISLSpace originalSpace, final int innerDimensionCount) {
-    int _xifexpression = (int) 0;
-    if ((innerDimensionCount > 0)) {
-      _xifexpression = innerDimensionCount;
-    } else {
-      _xifexpression = 1;
-    }
-    final int namesToMake = _xifexpression;
-    final List<String> innerNames = IteratorExtensions.<String>toList(IteratorExtensions.<String>take(AffineFactorizer.getNameGenerator("mid"), namesToMake));
-    final ISLSpace firstSpace = originalSpace.copy().domain().reverse().<ISLSpace>addOutputs(innerNames);
-    final int paramCount = originalSpace.dim(ISLDimType.isl_dim_param);
-    final ISLSpace secondSpace = originalSpace.copy().range().dropDims(ISLDimType.isl_dim_param, 0, paramCount).<ISLSpace>addInputs(innerNames);
-    return Pair.<ISLSpace, ISLSpace>of(firstSpace, secondSpace);
+  public static ISLMultiAff matrixToExpression(final ISLMatrix matrix, final ISLSpace space) {
+    int _nbCols = matrix.getNbCols();
+    final Function1<Integer, ISLMultiAff> _function = (Integer col) -> {
+      return AffineFactorizer.columnToExpression(matrix, space, (col).intValue());
+    };
+    return AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(IterableExtensions.<Integer, ISLMultiAff>map(new ExclusiveRange(0, _nbCols, true), _function), ISLMultiAff.class)));
   }
 
   /**
@@ -290,14 +271,13 @@ public class AffineFactorizer {
   }
 
   /**
-   * Converts a matrix into an expression. Each column is for one of the output dimensions.
+   * Merges a set of affine expressions into a single expression via their flat product.
    */
-  private static ISLMultiAff matrixToExpression(final ISLMatrix matrix, final ISLSpace space) {
-    int _nbCols = matrix.getNbCols();
-    final Function1<Integer, ISLMultiAff> _function = (Integer col) -> {
-      return AffineFactorizer.columnToExpression(matrix, space, (col).intValue());
+  public static ISLMultiAff mergeExpressions(final ISLMultiAff... expressions) {
+    final Function2<ISLMultiAff, ISLMultiAff, ISLMultiAff> _function = (ISLMultiAff left, ISLMultiAff right) -> {
+      return left.flatRangeProduct(right);
     };
-    return AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(IterableExtensions.<Integer, ISLMultiAff>map(new ExclusiveRange(0, _nbCols, true), _function), ISLMultiAff.class)));
+    return IterableExtensions.<ISLMultiAff>reduce(((Iterable<? extends ISLMultiAff>)Conversions.doWrapArray(expressions)), _function);
   }
 
   /**
@@ -323,6 +303,35 @@ public class AffineFactorizer {
     final ISLMultiAff hExpression = AffineFactorizer.matrixToExpression(hMatrix, hSpace);
     final ISLMultiAff qExpression = AffineFactorizer.matrixToExpression(qMatrix, qSpace);
     return Pair.<ISLMultiAff, ISLMultiAff>of(hExpression, qExpression);
+  }
+
+  /**
+   * Returns an empty expression. I.e., { [] -> [] }
+   */
+  private static ISLMultiAff emptyExpr(final ISLContext context) {
+    return ISLMultiAff.buildFromString(context, "{ [] -> [] }");
+  }
+
+  /**
+   * Creates the new spaces for the decomposition of the original space,
+   * returned as a key->value pair. The key has the same domain as the
+   * original space, and the value has the same range as the original space.
+   * The unspecified range/domain are the same, with a number of dimensions
+   * equal to the desired amount.
+   */
+  private static Pair<ISLSpace, ISLSpace> createDecompositionSpaces(final ISLSpace originalSpace, final int innerDimensionCount) {
+    int _xifexpression = (int) 0;
+    if ((innerDimensionCount > 0)) {
+      _xifexpression = innerDimensionCount;
+    } else {
+      _xifexpression = 1;
+    }
+    final int namesToMake = _xifexpression;
+    final List<String> innerNames = IteratorExtensions.<String>toList(IteratorExtensions.<String>take(AffineFactorizer.getNameGenerator("mid"), namesToMake));
+    final ISLSpace firstSpace = originalSpace.copy().domain().reverse().<ISLSpace>addOutputs(innerNames);
+    final int paramCount = originalSpace.dim(ISLDimType.isl_dim_param);
+    final ISLSpace secondSpace = originalSpace.copy().range().dropDims(ISLDimType.isl_dim_param, 0, paramCount).<ISLSpace>addInputs(innerNames);
+    return Pair.<ISLSpace, ISLSpace>of(firstSpace, secondSpace);
   }
 
   /**

@@ -61,6 +61,10 @@ public class AffineFactorizerTest {
     }
   }
 
+  private static void assertPlainEqual(final ISLMultiAff expected, final ISLMultiAff actual) {
+    Assert.assertTrue(expected.isPlainEqual(actual));
+  }
+
   private static void assertPlainEqual(final String message, final ISLMultiAff expected, final ISLMultiAff actual) {
     Assert.assertTrue(message, expected.isPlainEqual(actual));
   }
@@ -248,6 +252,32 @@ public class AffineFactorizerTest {
     final List<List<Integer>> qExpected = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0)))));
     AffineFactorizerTest.assertMatrixIsCorrect(hExpected, hActual);
     AffineFactorizerTest.assertMatrixIsCorrect(qExpected, qActual);
+  }
+
+  @Test
+  public void matrixToExpression_01() {
+    final ISLMatrix matrix = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 0, 0 }, new long[] { 0, 0 }, new long[] { 0, 0 } });
+    final ISLMultiAff expected = AffineFactorizerTest.stringToMultiAff("{ [i,j] -> [0, 0] }");
+    final ISLMultiAff result = AffineFactorizer.matrixToExpression(matrix, expected.getSpace());
+    AffineFactorizerTest.assertPlainEqual(expected, result);
+  }
+
+  @Test
+  public void matrixToExpression_02() {
+    final ISLMatrix matrix = ISLMatrix.buildFromLongMatrix(
+      new long[][] { new long[] { 2, (-4) }, new long[] { 4, (-2) }, new long[] { (-3), 3 }, new long[] { 1, 7 } });
+    final ISLMultiAff expected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j] -> [2N -3j +4i +1, 7-2i+3j-4N] }");
+    final ISLMultiAff result = AffineFactorizer.matrixToExpression(matrix, expected.getSpace());
+    AffineFactorizerTest.assertPlainEqual(expected, result);
+  }
+
+  @Test
+  public void matrixToExpression_03() {
+    final ISLMatrix matrix = ISLMatrix.buildFromLongMatrix(new long[][] { new long[] { 7 } });
+    final ISLMultiAff expected = AffineFactorizerTest.stringToMultiAff("{ [] -> [7] }");
+    final ISLMultiAff result = AffineFactorizer.matrixToExpression(matrix, expected.getSpace());
+    AffineFactorizerTest.assertPlainEqual(expected, result);
   }
 
   @Test

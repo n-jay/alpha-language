@@ -8,6 +8,7 @@ import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLSpace
 import java.util.HashMap
 import java.util.Iterator
+import java.util.Map
 
 /**
  * Factorizes a set of multi-dimensional affine maps (i.e., <code>ISLMultiAff</code>).
@@ -22,6 +23,7 @@ import java.util.Iterator
  * @see <a href="https://impact-workshop.org/papers/paper3.pdf">Reuse Analysis via Affine Factorization</a>
  */
 class AffineFactorizer {
+
 	/**
 	 * Factors a set of affine expressions which have the same domain.
 	 * 
@@ -57,40 +59,70 @@ class AffineFactorizer {
 	// Merging Expressions Into One
 	////////////////////////////////////////////////////////////
 
-	/** Generates names containing the given prefix and an incrementing value, separated by an underscore. */
-	def private static getNameGenerator(String prefix) {
-		return (0..Integer.MAX_VALUE).map[prefix + "_" + it.toString()].iterator()
-	}
-
-	/** Gives each output of the provided expression a unique name, overwriting any existing names. */
-	def private static nameSingleExpressionOutputs(ISLMultiAff expression, Iterator<String> names) {
-		val outCount = expression.dim(ISLDimType.isl_dim_out)
-		val assignName = [ISLMultiAff expr, int outIndex | expr.setDimName(ISLDimType.isl_dim_out, outIndex, names.next)]
-		return (0 ..< outCount).fold(expression.copy, assignName)
-	}
-
 	/** 
 	 * Creates a copy of each input expression, but renames all the outputs so they can be tracked.
 	 * Returns a map from the original expressions to the named ones.
 	 */
 	def static nameExpressionOutputs(ISLMultiAff... expressions) {
 		val names = getNameGenerator("orig_out")
-		val retVal = expressions.toInvertedMap[nameSingleExpressionOutputs(it, names)]
-
-		// Wrapping the return value in a HashMap ensures that the names are generated exactly once,
-		// as opposed to being lazily re-generated every single time the objects are accessed.
-		return new HashMap<ISLMultiAff, ISLMultiAff>(retVal)
+		return expressions
+			.toInvertedMap[nameSingleExpressionOutputs(it, names)]
+			.toHashMap
 	}
 
-	/** Merges a set of affine expressions into a single expression via their flat product. */
-	def static mergeExpressions(ISLMultiAff... expressions) {
-		return expressions.reduce[left, right | left.flatRangeProduct(right)]
+	/** Generates names containing the given prefix and an incrementing value, separated by an underscore. */
+	def private static getNameGenerator(String prefix) {
+		return (0..Integer.MAX_VALUE)
+			.map[prefix + "_" + it.toString()]
+			.iterator()
+	}
+
+	/** Gives each output of the provided expression a unique name, overwriting any existing names. */
+	def private static nameSingleExpressionOutputs(ISLMultiAff expression, Iterator<String> names) {
+		val outCount = expression.dim(ISLDimType.isl_dim_out)
+		val assignName = [ISLMultiAff expr, int outIndex | expr.setDimName(ISLDimType.isl_dim_out, outIndex, names.next)]
+		val merged = (0 ..< outCount).fold(expression.copy, assignName)
+		return merged
+	}
+	
+	/**
+	 * Wraps a map into a hash map so its values are only computed once.
+	 * Intended for use with Xtend's iterable/map extensions, which can recompute values
+	 * each time they're accessed due to lazy evaluation.
+	 */
+	def private static <K,V> toHashMap(Map<K,V> map) {
+		return new HashMap<K,V>(map)
 	}
 	
 	
 	////////////////////////////////////////////////////////////
-	// Decomposing the Merged Expression
+	// Expression to Matrix Conversion
 	////////////////////////////////////////////////////////////
+
+	/**
+	 * Converts an expression into a matrix of its parameters, input indexes, and constants.
+	 * The matrix is column-oriented (i.e., each affine expression is one column).
+	 * Throws an error if the expression uses division, as that may not work correctly.
+	 */
+	def static expressionToMatrix(ISLMultiAff expression) {
+		if (expression.dim(ISLDimType.isl_dim_div) > 0) {
+			throw new IllegalArgumentException("Affine expressions with division are not currently supported.")
+		}
+
+		// The matrix will have one column per output and one row per parameter or input variable,
+		// plus one additional row for constants.
+		val cols = expression.dim(ISLDimType.isl_dim_out)
+		val rows = expression.dim(ISLDimType.isl_dim_param) + expression.dim(ISLDimType.isl_dim_in) + 1
+
+		// Create a lambda that calls the function for updating a row of the matrix.
+		val affs = expression.affs
+		val updateCol = [ISLMatrix mat, int col | outputToMatrixCol(affs.get(col), mat, col)]
+
+		// Starting with an empty matrix, update all the rows and return the final result. 
+		val ctx = expression.context
+		val matrix = (0 ..< cols).fold(ISLMatrix.build(ctx, rows, cols), updateCol)
+		return matrix
+	}
 	
 	/** Copies the coefficients from one expression in a multi-expression into a matrix. */
 	def private static outputToMatrixCol(ISLAff expression, ISLMatrix matrix, int col) {
@@ -117,48 +149,22 @@ class AffineFactorizer {
 		
 		return updatedMatrix
 	}
-
+	
+	
+	////////////////////////////////////////////////////////////
+	// Hermite Decomposition
+	////////////////////////////////////////////////////////////
+	
 	/**
-	 * Converts an expression into a matrix of its parameters, input indexes, and constants.
-	 * The matrix is column-oriented (i.e., each affine expression is one column).
-	 * Throws an error if the expression uses division, as that may not work correctly.
+	 * Performs the column-oriented Hermite decomposition of the given
+	 * matrix, returning H and Q as the two outputs (as a key->value pair,
+	 * in that order respectively). Any columns of 0's have been dropped
+	 * from the right of H, along with the same number of rows from the
+	 * bottom of Q.
 	 */
-	def static expressionToMatrix(ISLMultiAff expression) {
-		if (expression.dim(ISLDimType.isl_dim_div) > 0) {
-			throw new IllegalArgumentException("Affine expressions with division are not currently supported.")
-		}
-
-		// The matrix will have one column per output and one row per parameter or input variable,
-		// plus one additional row for constants.
-		val cols = expression.dim(ISLDimType.isl_dim_out)
-		val rows = expression.dim(ISLDimType.isl_dim_param) + expression.dim(ISLDimType.isl_dim_in) + 1
-
-		// Create a lambda that calls the function for updating a row of the matrix.
-		val affs = expression.affs
-		val updateCol = [ISLMatrix mat, int col | outputToMatrixCol(affs.get(col), mat, col)]
-
-		// Starting with an empty matrix, update all the rows and return the final result. 
-		val ctx = expression.context
-		val matrix = (0 ..< cols).fold(ISLMatrix.build(ctx, rows, cols), updateCol)
-		return matrix
-	}
-
-	/** Checks if a column of the given matrix is empty or not. */
-	def private static isColEmpty(ISLMatrix matrix, int col) {
-		val rows = matrix.nbRows
-		return ! (0 ..< rows).exists[row | matrix.getElement(row, col) != 0]
-	}
-
-	/**
-	 * Returns the number of empty columns in the given matrix.
-	 * Assumes that the empty rows appear only on the right of the matrix.
-	 */
-	def private static countEmptyCols(ISLMatrix matrix) {
-		// Note: Don't check if column 0 is empty, as we never want a situation
-		// where we've dropped every single column, as ISL doesn't like that.
-		val cols = matrix.nbCols
-		val emptyRowCount = (cols >.. 1).takeWhile[col | isColEmpty(matrix, col)].size
-		return emptyRowCount
+	def static hermiteDecomposition(ISLMatrix matrix) {
+		val hermiteResult = matrix.leftHermite
+		return reduceHermiteDimensionality(hermiteResult.h, hermiteResult.q)
 	}
 
 	/**
@@ -181,67 +187,37 @@ class AffineFactorizer {
 
 		return hUpdated -> qUpdated
 	}
-	
+
 	/**
-	 * Performs the column-oriented Hermite decomposition of the given
-	 * matrix, returning H and Q as the two outputs (as a key->value pair,
-	 * in that order respectively). Any columns of 0's have been dropped
-	 * from the right of H, along with the same number of rows from the
-	 * bottom of Q.
+	 * Returns the number of empty columns in the given matrix.
+	 * Assumes that the empty rows appear only on the right of the matrix.
 	 */
-	def static hermiteDecomposition(ISLMatrix matrix) {
-		val hermiteResult = matrix.leftHermite
-		return reduceHermiteDimensionality(hermiteResult.h, hermiteResult.q)
+	def private static countEmptyCols(ISLMatrix matrix) {
+		// Note: Don't check if column 0 is empty, as we never want a situation
+		// where we've dropped every single column, as ISL doesn't like that.
+		val cols = matrix.nbCols
+		val emptyRowCount = (cols >.. 1).takeWhile[col | isColEmpty(matrix, col)].size
+		return emptyRowCount
+	}
+
+	/** Checks if a column of the given matrix is empty or not. */
+	def private static isColEmpty(ISLMatrix matrix, int col) {
+		val rows = matrix.nbRows
+		return ! (0 ..< rows).exists[row | matrix.getElement(row, col) != 0]
 	}
 	
 	
 	////////////////////////////////////////////////////////////
-	// Constructing New Expressions from the Decomposition
+	// Matrix to Expression Conversion
 	////////////////////////////////////////////////////////////
 	
-	/** Returns an empty expression. I.e., { [] -> [] } */
-	def static emptyExpr(ISLContext context) {
-		return ISLMultiAff.buildFromString(context, "{ [] -> [] }")
+	/** Converts a matrix into an expression. Each column is for one of the output dimensions. */
+	def static matrixToExpression(ISLMatrix matrix, ISLSpace space) {
+		return (0 ..< matrix.nbCols)
+			.map[col | columnToExpression(matrix, space, col)]
+			.mergeExpressions
 	}
-	
-	/**
-	 * Creates the new spaces for the decomposition of the original space,
-	 * returned as a key->value pair. The key has the same domain as the
-	 * original space, and the value has the same range as the original space.
-	 * The unspecified range/domain are the same, with a number of dimensions
-	 * equal to the desired amount.
-	 */
-	def private static createDecompositionSpaces(ISLSpace originalSpace, int innerDimensionCount) {
-		// Get the names of the indexes for the inner dimension.
-		// Note: we need at least one inner dimension,
-		// otherwise we'll need to deal with null values.
-		val namesToMake = (innerDimensionCount > 0) ? innerDimensionCount : 1
-		val innerNames = getNameGenerator("mid").take(namesToMake).toList
-		
-		// ISLSpace.domain returns indexes as "out" indexes,
-		// so the space needs to be reversed to make them "in" indexes.
-		// Then, we need to add the specified number of dimensions as "out" dimensions.
-		val ISLSpace firstSpace =
-			originalSpace
-			.copy
-			.domain
-			.reverse
-			.addOutputs(innerNames)
-		
-		// Since the first space will handle all the parameters,
-		// we need to drop them from this space, then add the
-		// inner dimensions as the inputs to this space.
-		val paramCount = originalSpace.dim(ISLDimType.isl_dim_param)
-		val ISLSpace secondSpace =
-			originalSpace
-			.copy
-			.range
-			.dropDims(ISLDimType.isl_dim_param, 0, paramCount)
-			.addInputs(innerNames)
-			
-		return firstSpace -> secondSpace
-	}
-	
+
 	/** Converts a column of a matrix into an expression. */
 	def private static columnToExpression(ISLMatrix matrix, ISLSpace space, int col) {
 		// Start with a new, empty affine expression from the domain of the given space.
@@ -281,13 +257,15 @@ class AffineFactorizer {
 			.toMultiAff
 			.setDimName(ISLDimType.isl_dim_out, 0, outputName ?: "None")
 	}
-	
-	/** Converts a matrix into an expression. Each column is for one of the output dimensions. */
-	def private static matrixToExpression(ISLMatrix matrix, ISLSpace space) {
-		return (0 ..< matrix.nbCols)
-			.map[col | columnToExpression(matrix, space, col)]
-			.mergeExpressions
+
+	/** Merges a set of affine expressions into a single expression via their flat product. */
+	def static mergeExpressions(ISLMultiAff... expressions) {
+		return expressions.reduce[left, right | left.flatRangeProduct(right)]
 	}
+	
+	////////////////////////////////////////////////////////////
+	// Expression Decomposition
+	////////////////////////////////////////////////////////////
 	
 	/**
 	 * Decomposes an expression using the Hermite decomposition of the matrix
@@ -317,6 +295,48 @@ class AffineFactorizer {
 		val hExpression = matrixToExpression(hMatrix, hSpace)
 		val qExpression = matrixToExpression(qMatrix, qSpace)
 		return hExpression -> qExpression
+	}
+	
+	/** Returns an empty expression. I.e., { [] -> [] } */
+	def private static emptyExpr(ISLContext context) {
+		return ISLMultiAff.buildFromString(context, "{ [] -> [] }")
+	}
+	
+	/**
+	 * Creates the new spaces for the decomposition of the original space,
+	 * returned as a key->value pair. The key has the same domain as the
+	 * original space, and the value has the same range as the original space.
+	 * The unspecified range/domain are the same, with a number of dimensions
+	 * equal to the desired amount.
+	 */
+	def private static createDecompositionSpaces(ISLSpace originalSpace, int innerDimensionCount) {
+		// Get the names of the indexes for the inner dimension.
+		// Note: we need at least one inner dimension, otherwise we'll get null values.
+		val namesToMake = (innerDimensionCount > 0) ? innerDimensionCount : 1
+		val innerNames = getNameGenerator("mid").take(namesToMake).toList
+		
+		// ISLSpace.domain returns indexes as "out" indexes,
+		// so the space needs to be reversed to make them "in" indexes.
+		// Then, we need to add the specified number of dimensions as "out" dimensions.
+		val ISLSpace firstSpace =
+			originalSpace
+			.copy
+			.domain
+			.reverse
+			.addOutputs(innerNames)
+		
+		// The second space has the same range as the original space.
+		// Parameters are no longer needed, so we drop them.
+		// The inputs here are the newly created inner dimensions.
+		val paramCount = originalSpace.dim(ISLDimType.isl_dim_param)
+		val ISLSpace secondSpace =
+			originalSpace
+			.copy
+			.range
+			.dropDims(ISLDimType.isl_dim_param, 0, paramCount)
+			.addInputs(innerNames)
+			
+		return firstSpace -> secondSpace
 	}
 	
 	
