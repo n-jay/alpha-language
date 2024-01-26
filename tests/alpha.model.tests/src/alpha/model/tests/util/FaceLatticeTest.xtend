@@ -1,5 +1,6 @@
-package alpha.model.transformation.reduction
+package alpha.model.tests.util
 
+import alpha.model.util.FaceLattice
 import alpha.model.util.SetInfo
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import fr.irisa.cairn.jnimap.isl.ISLContext

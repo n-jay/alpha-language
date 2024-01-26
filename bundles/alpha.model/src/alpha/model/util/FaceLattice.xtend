@@ -1,6 +1,5 @@
-package alpha.model.transformation.reduction
+package alpha.model.util
 
-import alpha.model.util.SetInfo
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import java.util.ArrayList
 import java.util.LinkedList

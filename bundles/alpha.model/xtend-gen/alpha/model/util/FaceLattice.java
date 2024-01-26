@@ -1,6 +1,5 @@
-package alpha.model.transformation.reduction;
+package alpha.model.util;
 
-import alpha.model.util.SetInfo;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import java.util.ArrayList;
