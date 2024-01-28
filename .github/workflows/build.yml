@@ -4,6 +4,11 @@ on:
   pull_request:
     branches:
     - main
+  workflow_call:
+
+env:
+  JACOCO_PREFIX: "/opt/jacoco/reports"
+  CC_TEST_REPORTER_ID: "03784faf7d0769cad010b278e10be0f353f8a40a902143e87cb3a44e37884c2e"
 
 jobs:
 
@@ -14,11 +19,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: prepare code coverage instrumentation
+      run: cc-test-reporter before-build
+
     - name: build alpha
       run: mvn clean package
 
     # the ghcr.io/csu-cs-melange/alpha-language-image image exposes a junit CLI
-    - name: run junit tests
+    - name: run junit tests and collect code coverage
       run: |
         export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}"
         org.junit.runner.JUnitCore alpha.model.tests.AlphaAShowTest
@@ -37,3 +45,23 @@ jobs:
         org.junit.runner.JUnitCore alpha.model.tests.transformations.SimplifyingReductionsTest
         org.junit.runner.JUnitCore alpha.model.tests.transformations.SplitUnionIntoCaseTest
         org.junit.runner.JUnitCore alpha.model.tests.transformations.SubstituteByDefTest
+
+    - name: generate code coverage report
+      run: |
+        export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}"
+        mkdir -p "${JACOCO_PREFIX}/coverage"
+        jacococli report "${JACOCO_PREFIX}/jacoco-${GITHUB_SHA}.exec" \
+          --classfiles "${ALPHA_REPO_ROOT}/bundles/alpha.model/bin" \
+          --xml "${JACOCO_PREFIX}/coverage/cc-${GITHUB_SHA}.xml" \
+          --html "${JACOCO_PREFIX}/coverage/html"
+
+    - name: finish and report Codeclimate statistics
+      run: |
+        mkdir -p all-src
+        cp -R bundles/alpha.model/src/* all-src/
+        cp -R bundles/alpha.model/src-gen/* all-src/
+        cp -R bundles/alpha.model/xtend-gen/* all-src/
+        cd all-src
+        cc-test-reporter format-coverage -t jacoco "${JACOCO_PREFIX}/coverage/cc-${GITHUB_SHA}.xml" --output "codeclimate.json"
+        cc-test-reporter upload-coverage --input "codeclimate.json"
+
