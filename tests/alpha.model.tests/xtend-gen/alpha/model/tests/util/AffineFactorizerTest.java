@@ -230,10 +230,10 @@ public class AffineFactorizerTest {
   }
 
   @Test
-  public void hermiteDecomposition_01() {
+  public void hermiteMatrixDecomposition_01() {
     final ISLMatrix original = ISLMatrix.buildFromLongMatrix(
       new long[][] { new long[] { 1, 0, 0 }, new long[] { 0, 1, 0 }, new long[] { 0, 0, 1 } });
-    final Pair<ISLMatrix, ISLMatrix> decomposeResult = AffineFactorizer.hermiteDecomposition(original);
+    final Pair<ISLMatrix, ISLMatrix> decomposeResult = AffineFactorizer.hermiteMatrixDecomposition(original);
     final ISLMatrix hActual = decomposeResult.getKey();
     final ISLMatrix qActual = decomposeResult.getValue();
     final List<List<Integer>> bothExpected = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(1)))));
@@ -242,10 +242,10 @@ public class AffineFactorizerTest {
   }
 
   @Test
-  public void hermiteDecomposition_02() {
+  public void hermiteMatrixDecomposition_02() {
     final ISLMatrix original = ISLMatrix.buildFromLongMatrix(
       new long[][] { new long[] { 1, 1, 1 }, new long[] { 0, 1, 0 }, new long[] { 1, 1, 1 } });
-    final Pair<ISLMatrix, ISLMatrix> decomposeResult = AffineFactorizer.hermiteDecomposition(original);
+    final Pair<ISLMatrix, ISLMatrix> decomposeResult = AffineFactorizer.hermiteMatrixDecomposition(original);
     final ISLMatrix hActual = decomposeResult.getKey();
     final ISLMatrix qActual = decomposeResult.getValue();
     final List<List<Integer>> hExpected = Collections.<List<Integer>>unmodifiableList(CollectionLiterals.<List<Integer>>newArrayList(Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(0))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(0)))));
@@ -281,9 +281,9 @@ public class AffineFactorizerTest {
   }
 
   @Test
-  public void decomposeExpression_constants() {
+  public void hermiteExpressionDecomposition_constants() {
     final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [] }");
-    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.hermiteExpressionDecomposition(original);
     final ISLMultiAff hActual = decomposed.getKey();
     final ISLMultiAff qActual = decomposed.getValue();
     final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [] }");
@@ -293,9 +293,9 @@ public class AffineFactorizerTest {
   }
 
   @Test
-  public void decomposeExpression_01() {
+  public void hermiteExpressionDecomposition_01() {
     final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }");
-    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.hermiteExpressionDecomposition(original);
     final ISLMultiAff hActual = decomposed.getKey();
     final ISLMultiAff qActual = decomposed.getValue();
     final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }");
@@ -305,9 +305,9 @@ public class AffineFactorizerTest {
   }
 
   @Test
-  public void decomposeExpression_02() {
+  public void hermiteExpressionDecomposition_02() {
     final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,i+j+k] }");
-    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.hermiteExpressionDecomposition(original);
     final ISLMultiAff hActual = decomposed.getKey();
     final ISLMultiAff qActual = decomposed.getValue();
     final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }");
@@ -317,9 +317,9 @@ public class AffineFactorizerTest {
   }
 
   @Test
-  public void decomposeExpression_03() {
+  public void hermiteExpressionDecomposition_03() {
     final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,i+j+k,i+k] }");
-    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.hermiteExpressionDecomposition(original);
     final ISLMultiAff hActual = decomposed.getKey();
     final ISLMultiAff qActual = decomposed.getValue();
     final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }");
@@ -329,9 +329,9 @@ public class AffineFactorizerTest {
   }
 
   @Test
-  public void decomposeExpression_04() {
+  public void hermiteExpressionDecomposition_04() {
     final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [0,0,0,0] }");
-    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(original);
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.hermiteExpressionDecomposition(original);
     final ISLMultiAff hActual = decomposed.getKey();
     final ISLMultiAff qActual = decomposed.getValue();
     final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [0] }");

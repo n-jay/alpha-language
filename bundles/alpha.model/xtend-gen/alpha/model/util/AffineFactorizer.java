@@ -53,7 +53,7 @@ public class AffineFactorizer {
     final Function1<ISLMultiAff, ISLMultiAff> _function = (ISLMultiAff it) -> {
       return it.copy();
     };
-    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.decomposeExpression(AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(IterableExtensions.<ISLMultiAff, ISLMultiAff>map(named.values(), _function), ISLMultiAff.class))));
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.hermiteExpressionDecomposition(AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(IterableExtensions.<ISLMultiAff, ISLMultiAff>map(named.values(), _function), ISLMultiAff.class))));
     final ISLMultiAff hExpression = decomposed.getKey();
     final ISLMultiAff qExpression = decomposed.getValue();
     final Function1<ISLMultiAff, ISLMultiAff> _function_1 = (ISLMultiAff expr) -> {
@@ -168,7 +168,7 @@ public class AffineFactorizer {
    * from the right of H, along with the same number of rows from the
    * bottom of Q.
    */
-  public static Pair<ISLMatrix, ISLMatrix> hermiteDecomposition(final ISLMatrix matrix) {
+  public static Pair<ISLMatrix, ISLMatrix> hermiteMatrixDecomposition(final ISLMatrix matrix) {
     final ISLHermiteResult hermiteResult = matrix.leftHermite();
     return AffineFactorizer.reduceHermiteDimensionality(hermiteResult.getH(), hermiteResult.getQ());
   }
@@ -287,14 +287,14 @@ public class AffineFactorizer {
    * expression, and the value has the same range as the original expression.
    * The range of the key is the same as the domain of the value.
    */
-  public static Pair<ISLMultiAff, ISLMultiAff> decomposeExpression(final ISLMultiAff expression) {
+  public static Pair<ISLMultiAff, ISLMultiAff> hermiteExpressionDecomposition(final ISLMultiAff expression) {
     int _dim = expression.dim(ISLDimType.isl_dim_out);
     boolean _equals = (_dim == 0);
     if (_equals) {
       ISLMultiAff _emptyExpr = AffineFactorizer.emptyExpr(expression.getContext());
       return Pair.<ISLMultiAff, ISLMultiAff>of(expression, _emptyExpr);
     }
-    final Pair<ISLMatrix, ISLMatrix> decomposed = AffineFactorizer.hermiteDecomposition(AffineFactorizer.expressionToMatrix(expression));
+    final Pair<ISLMatrix, ISLMatrix> decomposed = AffineFactorizer.hermiteMatrixDecomposition(AffineFactorizer.expressionToMatrix(expression));
     final ISLMatrix hMatrix = decomposed.getKey();
     final ISLMatrix qMatrix = decomposed.getValue();
     final Pair<ISLSpace, ISLSpace> spaces = AffineFactorizer.createDecompositionSpaces(expression.getSpace(), hMatrix.getNbCols());

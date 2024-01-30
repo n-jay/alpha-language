@@ -42,7 +42,7 @@ class AffineFactorizer {
 		
 		// Merge everything into one big expression, and decompose it.
 		// Since we need them again later, copy the named expressions first.
-		val decomposed = named.values.map[it.copy].mergeExpressions.decomposeExpression
+		val decomposed = named.values.map[it.copy].mergeExpressions.hermiteExpressionDecomposition
 		val hExpression = decomposed.key
 		val qExpression = decomposed.value
 		
@@ -162,7 +162,7 @@ class AffineFactorizer {
 	 * from the right of H, along with the same number of rows from the
 	 * bottom of Q.
 	 */
-	def static hermiteDecomposition(ISLMatrix matrix) {
+	def static hermiteMatrixDecomposition(ISLMatrix matrix) {
 		val hermiteResult = matrix.leftHermite
 		return reduceHermiteDimensionality(hermiteResult.h, hermiteResult.q)
 	}
@@ -274,7 +274,7 @@ class AffineFactorizer {
 	 * expression, and the value has the same range as the original expression.
 	 * The range of the key is the same as the domain of the value.
 	 */
-	def static decomposeExpression(ISLMultiAff expression) {
+	def static hermiteExpressionDecomposition(ISLMultiAff expression) {
 		// If we don't have any outputs (which is how AlphaZ handles constants),
 		// then the "decomposition" is the given expression and an empty expression.
 		if (expression.dim(ISLDimType.isl_dim_out) == 0) {
@@ -282,7 +282,7 @@ class AffineFactorizer {
 		}
 
 		// Convert the expression into a matrix, then decompose that matrix.
-		val decomposed = expression.expressionToMatrix.hermiteDecomposition
+		val decomposed = expression.expressionToMatrix.hermiteMatrixDecomposition
 		val hMatrix = decomposed.key
 		val qMatrix = decomposed.value
 

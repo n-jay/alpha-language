@@ -315,13 +315,13 @@ class AffineFactorizerTest {
 	}
 	
 	@Test
-	def hermiteDecomposition_01() {
+	def hermiteMatrixDecomposition_01() {
 		val original = ISLMatrix.buildFromLongMatrix(#[
 			#[1, 0, 0],
 			#[0, 1, 0],
 			#[0, 0, 1]
 		])
-		val decomposeResult = AffineFactorizer.hermiteDecomposition(original)
+		val decomposeResult = AffineFactorizer.hermiteMatrixDecomposition(original)
 		val hActual = decomposeResult.key
 		val qActual = decomposeResult.value
 		
@@ -336,13 +336,13 @@ class AffineFactorizerTest {
 	}
 	
 	@Test
-	def hermiteDecomposition_02() {
+	def hermiteMatrixDecomposition_02() {
 		val original = ISLMatrix.buildFromLongMatrix(#[
 			#[1, 1, 1],
 			#[0, 1, 0],
 			#[1, 1, 1]
 		])
-		val decomposeResult = AffineFactorizer.hermiteDecomposition(original)
+		val decomposeResult = AffineFactorizer.hermiteMatrixDecomposition(original)
 		val hActual = decomposeResult.key
 		val qActual = decomposeResult.value
 		
@@ -407,11 +407,11 @@ class AffineFactorizerTest {
 	////////////////////////////////////////////////////////////
 	
 	@Test
-	def decomposeExpression_constants() {
+	def hermiteExpressionDecomposition_constants() {
 		// This type of expression is how AlphaZ handles constants.
 		// For example, the constant 17 is expressed as: (i,j->)@17
 		val original = stringToMultiAff("[N] -> { [i,j,k] -> [] }")
-		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val decomposed = AffineFactorizer.hermiteExpressionDecomposition(original)
 		val hActual = decomposed.key
 		val qActual = decomposed.value
 		
@@ -423,10 +423,10 @@ class AffineFactorizerTest {
 	}
 	
 	@Test
-	def decomposeExpression_01() {
+	def hermiteExpressionDecomposition_01() {
 		// Nothing is expected to happen here.
 		val original = stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }")
-		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val decomposed = AffineFactorizer.hermiteExpressionDecomposition(original)
 		val hActual = decomposed.key
 		val qActual = decomposed.value
 		
@@ -438,10 +438,10 @@ class AffineFactorizerTest {
 	}
 	
 	@Test
-	def decomposeExpression_02() {
+	def hermiteExpressionDecomposition_02() {
 		// There is a decomposition here, but it doesn't remove any dimensions.
 		val original = stringToMultiAff("[N] -> { [i,j,k] -> [i+k,i+j+k] }")
-		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val decomposed = AffineFactorizer.hermiteExpressionDecomposition(original)
 		val hActual = decomposed.key
 		val qActual = decomposed.value
 		
@@ -453,10 +453,10 @@ class AffineFactorizerTest {
 	}
 	
 	@Test
-	def decomposeExpression_03() {
+	def hermiteExpressionDecomposition_03() {
 		// This is a decomposition to a lower dimensional space.
 		val original = stringToMultiAff("[N] -> { [i,j,k] -> [i+k,i+j+k,i+k] }")
-		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val decomposed = AffineFactorizer.hermiteExpressionDecomposition(original)
 		val hActual = decomposed.key
 		val qActual = decomposed.value
 		
@@ -468,10 +468,10 @@ class AffineFactorizerTest {
 	}
 	
 	@Test
-	def decomposeExpression_04() {
+	def hermiteExpressionDecomposition_04() {
 		// This should completely remove everything.
 		val original = stringToMultiAff("[N] -> { [i,j,k] -> [0,0,0,0] }")
-		val decomposed = AffineFactorizer.decomposeExpression(original)
+		val decomposed = AffineFactorizer.hermiteExpressionDecomposition(original)
 		val hActual = decomposed.key
 		val qActual = decomposed.value
 		
