@@ -12,6 +12,8 @@ import org.junit.Test
 
 import static org.junit.Assert.*
 
+import static extension alpha.model.util.AffineFunctionOperations.*
+
 class AffineFactorizerTest {
 	////////////////////////////////////////////////////////////
 	// Helper Methods
@@ -34,7 +36,7 @@ class AffineFactorizerTest {
 	def private static mergeExpressionsTest(String expectedOutput, String... inputs) {
 		val inputAffs = stringsToMultiAffs(inputs)
 		val expectedAff = stringToMultiAff(expectedOutput)
-		val actualAff = AffineFactorizer.mergeExpressions(inputAffs)
+		val actualAff = inputAffs.mergeExpressions
 		assertTrue(expectedAff.isPlainEqual(actualAff))
 	}
 	

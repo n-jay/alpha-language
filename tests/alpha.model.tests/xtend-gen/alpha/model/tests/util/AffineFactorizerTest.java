@@ -1,6 +1,7 @@
 package alpha.model.tests.util;
 
 import alpha.model.util.AffineFactorizer;
+import alpha.model.util.AffineFunctionOperations;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLHermiteResult;
@@ -40,7 +41,7 @@ public class AffineFactorizerTest {
   private static void mergeExpressionsTest(final String expectedOutput, final String... inputs) {
     final ArrayList<ISLMultiAff> inputAffs = AffineFactorizerTest.stringsToMultiAffs(inputs);
     final ISLMultiAff expectedAff = AffineFactorizerTest.stringToMultiAff(expectedOutput);
-    final ISLMultiAff actualAff = AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(inputAffs, ISLMultiAff.class)));
+    final ISLMultiAff actualAff = AffineFunctionOperations.mergeExpressions(inputAffs);
     Assert.assertTrue(expectedAff.isPlainEqual(actualAff));
   }
 
