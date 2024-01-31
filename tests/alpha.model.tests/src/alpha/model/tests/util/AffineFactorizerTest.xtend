@@ -1,17 +1,19 @@
 package alpha.model.tests.util
 
 import alpha.model.util.AffineFactorizer
-import fr.irisa.cairn.jnimap.isl.ISLMultiAff
-import org.junit.Test
-
-import static org.junit.Assert.*
+import alpha.model.util.AffineFunctionOperations
 import fr.irisa.cairn.jnimap.isl.ISLContext
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMatrix
-import java.util.List
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import java.util.ArrayList
 import java.util.HashMap
-import fr.irisa.cairn.jnimap.isl.ISLSpace
+import java.util.List
+import org.junit.Test
+
+import static org.junit.Assert.*
+
+import static extension alpha.model.matrix.MatrixOperations.*
 
 class AffineFactorizerTest {
 	////////////////////////////////////////////////////////////
@@ -83,7 +85,6 @@ class AffineFactorizerTest {
 			assertPlainEqual("Remaining term " + i + " is wrong.", expr, reconstructed)
 		}
 	}
-
 
 	////////////////////////////////////////////////////////////
 	// ISL Bindings

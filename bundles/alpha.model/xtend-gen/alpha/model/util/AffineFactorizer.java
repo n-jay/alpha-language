@@ -1,5 +1,6 @@
 package alpha.model.util;
 
+import alpha.model.matrix.MatrixOperations;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
@@ -115,50 +116,16 @@ public class AffineFactorizer {
    * Throws an error if the expression uses division, as that may not work correctly.
    */
   public static ISLMatrix expressionToMatrix(final ISLMultiAff expression) {
-    int _dim = expression.dim(ISLDimType.isl_dim_div);
-    boolean _greaterThan = (_dim > 0);
+    int _nbDivs = expression.getNbDivs();
+    boolean _greaterThan = (_nbDivs > 0);
     if (_greaterThan) {
       throw new IllegalArgumentException("Affine expressions with division are not currently supported.");
     }
-    final int cols = expression.dim(ISLDimType.isl_dim_out);
-    int _dim_1 = expression.dim(ISLDimType.isl_dim_param);
-    int _dim_2 = expression.dim(ISLDimType.isl_dim_in);
-    int _plus = (_dim_1 + _dim_2);
-    final int rows = (_plus + 1);
-    final List<ISLAff> affs = expression.getAffs();
-    final Function2<ISLMatrix, Integer, ISLMatrix> _function = (ISLMatrix mat, Integer col) -> {
-      return AffineFactorizer.outputToMatrixCol(affs.get(col), mat, col);
-    };
-    final Function2<ISLMatrix, Integer, ISLMatrix> updateCol = _function;
-    final ISLContext ctx = expression.getContext();
-    final ISLMatrix matrix = IterableExtensions.<Integer, ISLMatrix>fold(new ExclusiveRange(0, cols, true), ISLMatrix.build(ctx, rows, cols), updateCol);
+    long[][] _transpose = MatrixOperations.transpose(AffineFunctionOperations.toMatrix(expression).toArray());
+    int _nbParams = expression.getNbParams();
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _nbParams, true);
+    final ISLMatrix matrix = ISLMatrix.buildFromLongMatrix(MatrixOperations.removeColumns(_transpose, ((int[])Conversions.unwrapArray(_doubleDotLessThan, int.class))));
     return matrix;
-  }
-
-  /**
-   * Copies the coefficients from one expression in a multi-expression into a matrix.
-   */
-  private static ISLMatrix outputToMatrixCol(final ISLAff expression, final ISLMatrix matrix, final int col) {
-    ISLMatrix updatedMatrix = matrix;
-    final int paramCount = expression.dim(ISLDimType.isl_dim_param);
-    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, paramCount, true);
-    for (final Integer i : _doubleDotLessThan) {
-      {
-        final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_param, (i).intValue());
-        updatedMatrix = updatedMatrix.setElement((i).intValue(), col, coefficient);
-      }
-    }
-    final int inCount = expression.dim(ISLDimType.isl_dim_in);
-    ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, inCount, true);
-    for (final Integer i_1 : _doubleDotLessThan_1) {
-      {
-        final ISLVal coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_in, (i_1).intValue());
-        updatedMatrix = updatedMatrix.setElement((paramCount + (i_1).intValue()), col, coefficient);
-      }
-    }
-    final ISLVal constant = expression.getConstantVal();
-    updatedMatrix = updatedMatrix.setElement((paramCount + inCount), col, constant);
-    return updatedMatrix;
   }
 
   /**

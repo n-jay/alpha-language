@@ -10,6 +10,10 @@ import java.util.HashMap
 import java.util.Iterator
 import java.util.Map
 
+import static extension alpha.model.matrix.MatrixOperations.*
+import static extension alpha.model.util.AffineFunctionOperations.toMatrix
+import static extension fr.irisa.cairn.jnimap.isl.ISLMatrix.buildFromLongMatrix
+
 /**
  * Factorizes a set of multi-dimensional affine maps (i.e., <code>ISLMultiAff</code>).
  * The main way this class is expected to be used is by calling the <code>factorizeExpressions</code>
@@ -105,52 +109,22 @@ class AffineFactorizer {
 	 * Throws an error if the expression uses division, as that may not work correctly.
 	 */
 	def static expressionToMatrix(ISLMultiAff expression) {
-		if (expression.dim(ISLDimType.isl_dim_div) > 0) {
+		if (expression.nbDivs > 0) {
 			throw new IllegalArgumentException("Affine expressions with division are not currently supported.")
 		}
 
-		// The matrix will have one column per output and one row per parameter or input variable,
-		// plus one additional row for constants.
-		val cols = expression.dim(ISLDimType.isl_dim_out)
-		val rows = expression.dim(ISLDimType.isl_dim_param) + expression.dim(ISLDimType.isl_dim_in) + 1
+		// TODO: comment why we're removing the columns.
+		val matrix = expression
+			.toMatrix
+			.toArray
+			.transpose
+			.removeColumns(0 ..< expression.nbParams)
+			.buildFromLongMatrix
 
-		// Create a lambda that calls the function for updating a row of the matrix.
-		val affs = expression.affs
-		val updateCol = [ISLMatrix mat, int col | outputToMatrixCol(affs.get(col), mat, col)]
-
-		// Starting with an empty matrix, update all the rows and return the final result. 
-		val ctx = expression.context
-		val matrix = (0 ..< cols).fold(ISLMatrix.build(ctx, rows, cols), updateCol)
 		return matrix
 	}
-	
-	/** Copies the coefficients from one expression in a multi-expression into a matrix. */
-	def private static outputToMatrixCol(ISLAff expression, ISLMatrix matrix, int col) {
-		// Copy the parameter to a variable that can be updated.
-		var updatedMatrix = matrix
-		
-		// Copy the coefficients for the parameters.
-		val paramCount = expression.dim(ISLDimType.isl_dim_param)
-		for (i : 0 ..< paramCount) {
-			val coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_param, i)
-			updatedMatrix = updatedMatrix.setElement(i, col, coefficient)
-		}
-		
-		// Copy the coefficients for the input variables.
-		val inCount = expression.dim(ISLDimType.isl_dim_in)
-		for (i : 0 ..< inCount) {
-			val coefficient = expression.getCoefficientVal(ISLDimType.isl_dim_in, i)
-			updatedMatrix = updatedMatrix.setElement(paramCount + i, col, coefficient)
-		}
-		
-		// Finally, copy the constant.
-		val constant = expression.constantVal
-		updatedMatrix = updatedMatrix.setElement(paramCount + inCount, col, constant)
-		
-		return updatedMatrix
-	}
-	
-	
+
+
 	////////////////////////////////////////////////////////////
 	// Hermite Decomposition
 	////////////////////////////////////////////////////////////
