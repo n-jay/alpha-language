@@ -113,7 +113,11 @@ class AffineFactorizer {
 			throw new IllegalArgumentException("Affine expressions with division are not currently supported.")
 		}
 
-		// TODO: comment why we're removing the columns.
+		// isl's HNF function expects the matrix to be column-oriented,
+		// but the "toMatrix" method outputs it as row-oriented.
+		// We also need to remove some columns, as the "toMatrix" method
+		// adds extra rows (columns after transposing) for the parameters,
+		// and we do not want these (they will cause issues).
 		val matrix = expression
 			.toMatrix
 			.toArray
@@ -186,7 +190,7 @@ class AffineFactorizer {
 	////////////////////////////////////////////////////////////
 	
 	/** Converts a matrix into an expression. Each column is for one of the output dimensions. */
-	def static matrixToExpression(ISLMatrix matrix, ISLSpace space) {
+	def static toExpression(ISLMatrix matrix, ISLSpace space) {
 		val paramNames = space.paramNames
 		val inputNames = space.inputNames
 		val linearOnly = matrix.nbRows == (space.nbParams + space.nbInputs)
@@ -240,8 +244,8 @@ class AffineFactorizer {
 		val qSpace = spaces.value
 
 		// Construct and return the decomposed expressions.
-		val hExpression = matrixToExpression(hMatrix, hSpace)
-		val qExpression = matrixToExpression(qMatrix, qSpace)
+		val hExpression = alpha.model.util.AffineFactorizer.toExpression(hMatrix, hSpace)
+		val qExpression = alpha.model.util.AffineFactorizer.toExpression(qMatrix, qSpace)
 		return hExpression -> qExpression
 	}
 	

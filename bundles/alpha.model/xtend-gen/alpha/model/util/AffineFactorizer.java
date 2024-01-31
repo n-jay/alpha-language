@@ -190,7 +190,7 @@ public class AffineFactorizer {
   /**
    * Converts a matrix into an expression. Each column is for one of the output dimensions.
    */
-  public static ISLMultiAff matrixToExpression(final ISLMatrix matrix, final ISLSpace space) {
+  public static ISLMultiAff toExpression(final ISLMatrix matrix, final ISLSpace space) {
     final List<String> paramNames = space.getParamNames();
     final List<String> inputNames = space.getInputNames();
     int _nbRows = matrix.getNbRows();
@@ -245,8 +245,8 @@ public class AffineFactorizer {
     final Pair<ISLSpace, ISLSpace> spaces = AffineFactorizer.createDecompositionSpaces(expression.getSpace(), hMatrix.getNbCols());
     final ISLSpace hSpace = spaces.getKey();
     final ISLSpace qSpace = spaces.getValue();
-    final ISLMultiAff hExpression = AffineFactorizer.matrixToExpression(hMatrix, hSpace);
-    final ISLMultiAff qExpression = AffineFactorizer.matrixToExpression(qMatrix, qSpace);
+    final ISLMultiAff hExpression = AffineFactorizer.toExpression(hMatrix, hSpace);
+    final ISLMultiAff qExpression = AffineFactorizer.toExpression(qMatrix, qSpace);
     return Pair.<ISLMultiAff, ISLMultiAff>of(hExpression, qExpression);
   }
 

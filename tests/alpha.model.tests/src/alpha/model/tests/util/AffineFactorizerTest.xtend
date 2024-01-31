@@ -372,7 +372,7 @@ class AffineFactorizerTest {
 		])
 		val expected = stringToMultiAff("{ [i,j] -> [0, 0] }")
 
-		val result = AffineFactorizer.matrixToExpression(matrix, expected.space)
+		val result = AffineFactorizer.toExpression(matrix, expected.space)
 		assertPlainEqual(expected, result)
 	}
 	
@@ -386,7 +386,7 @@ class AffineFactorizerTest {
 		])
 		val expected = stringToMultiAff("[N] -> { [i,j] -> [2N -3j +4i +1, 7-2i+3j-4N] }")
 
-		val result = AffineFactorizer.matrixToExpression(matrix, expected.space)
+		val result = AffineFactorizer.toExpression(matrix, expected.space)
 		assertPlainEqual(expected, result)
 	}
 	
@@ -395,7 +395,7 @@ class AffineFactorizerTest {
 		val matrix = ISLMatrix.buildFromLongMatrix(#[ #[7] ])
 		val expected = stringToMultiAff("{ [] -> [7] }")
 
-		val result = AffineFactorizer.matrixToExpression(matrix, expected.space)
+		val result = AffineFactorizer.toExpression(matrix, expected.space)
 		assertPlainEqual(expected, result)
 	}
 	
