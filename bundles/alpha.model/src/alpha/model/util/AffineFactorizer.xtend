@@ -187,49 +187,23 @@ class AffineFactorizer {
 	
 	/** Converts a matrix into an expression. Each column is for one of the output dimensions. */
 	def static matrixToExpression(ISLMatrix matrix, ISLSpace space) {
-		return (0 ..< matrix.nbCols)
-			.map[col | columnToExpression(matrix, space, col)]
-			.mergeExpressions
-	}
-
-	/** Converts a column of a matrix into an expression. */
-	def private static columnToExpression(ISLMatrix matrix, ISLSpace space, int col) {
-		// Start with a new, empty affine expression from the domain of the given space.
-		// This only represents the single output being built.
-		var expression = ISLAff.buildZero(space.copy.domain.toLocalSpace)
-
-		// Populate all of the coefficients for the size parameters.
-		val paramCount = space.dim(ISLDimType.isl_dim_param)
-		for (i : 0 ..< paramCount) {
-			val coefficient = matrix.getElementVal(i, col)
-			expression = expression.setCoefficient(ISLDimType.isl_dim_param, i, coefficient)
-		}
+		val paramNames = space.paramNames
+		val inputNames = space.inputNames
+		val linearOnly = matrix.nbRows == (space.nbParams + space.nbInputs)
 		
-		// Populate all of the coefficients for the input indexes.
-		val inCount = space.dim(ISLDimType.isl_dim_in)
-		for (i : 0 ..< inCount) {
-			val coefficient = matrix.getElementVal(paramCount + i, col)
-			expression = expression.setCoefficient(ISLDimType.isl_dim_in, i, coefficient)
-		}
-		
-		// If there is one remaining row of the matrix, then it encodes a constant.
-		// In this case, populate the constant with that. Otherwise, the constant is 0.
-		// Note: don't let xtend simplify expression.setConstant(constant)
-		// to expression.constant = constant, as that will likely break things.
-		if (matrix.nbRows > paramCount + inCount) {
-			val constant = matrix.getElementVal(paramCount + inCount, col)
-			expression = expression.setConstant(constant)
-		} else {
-			expression = expression.setConstant(0)
-		}
-		
-		// Convert the single expression into a multi-expression,
-		// and set the dimension name of this output to be the name of the output
-		// from the given space associated with this column.
-		val outputName = space.getDimName(ISLDimType.isl_dim_out, col)
-		return expression
+		var expression =
+			matrix
+			.toLongMatrix
+			.transpose
+			.toMatrix(paramNames, inputNames, linearOnly, true)
 			.toMultiAff
-			.setDimName(ISLDimType.isl_dim_out, 0, outputName ?: "None")
+			
+		 val outputNames = space.outputNames ?: #[]
+		 for (i: 0 ..< outputNames.length) {
+		 	expression = expression.setDimName(ISLDimType.isl_dim_out, i, outputNames.get(i))
+		 }
+			
+		return expression
 	}
 
 	/** Merges a set of affine expressions into a single expression via their flat product. */

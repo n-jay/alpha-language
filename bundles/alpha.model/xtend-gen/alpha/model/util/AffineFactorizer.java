@@ -9,11 +9,12 @@ import fr.irisa.cairn.jnimap.isl.ISLLocalSpace;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
-import fr.irisa.cairn.jnimap.isl.ISLVal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -190,51 +191,28 @@ public class AffineFactorizer {
    * Converts a matrix into an expression. Each column is for one of the output dimensions.
    */
   public static ISLMultiAff matrixToExpression(final ISLMatrix matrix, final ISLSpace space) {
-    int _nbCols = matrix.getNbCols();
-    final Function1<Integer, ISLMultiAff> _function = (Integer col) -> {
-      return AffineFactorizer.columnToExpression(matrix, space, (col).intValue());
-    };
-    return AffineFactorizer.mergeExpressions(((ISLMultiAff[])Conversions.unwrapArray(IterableExtensions.<Integer, ISLMultiAff>map(new ExclusiveRange(0, _nbCols, true), _function), ISLMultiAff.class)));
-  }
-
-  /**
-   * Converts a column of a matrix into an expression.
-   */
-  private static ISLMultiAff columnToExpression(final ISLMatrix matrix, final ISLSpace space, final int col) {
-    ISLAff expression = ISLAff.buildZero(space.copy().domain().toLocalSpace());
-    final int paramCount = space.dim(ISLDimType.isl_dim_param);
-    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, paramCount, true);
-    for (final Integer i : _doubleDotLessThan) {
-      {
-        final ISLVal coefficient = matrix.getElementVal((i).intValue(), col);
-        expression = expression.setCoefficient(ISLDimType.isl_dim_param, (i).intValue(), coefficient);
-      }
-    }
-    final int inCount = space.dim(ISLDimType.isl_dim_in);
-    ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, inCount, true);
-    for (final Integer i_1 : _doubleDotLessThan_1) {
-      {
-        final ISLVal coefficient = matrix.getElementVal((paramCount + (i_1).intValue()), col);
-        expression = expression.setCoefficient(ISLDimType.isl_dim_in, (i_1).intValue(), coefficient);
-      }
-    }
+    final List<String> paramNames = space.getParamNames();
+    final List<String> inputNames = space.getInputNames();
     int _nbRows = matrix.getNbRows();
-    boolean _greaterThan = (_nbRows > (paramCount + inCount));
-    if (_greaterThan) {
-      final ISLVal constant = matrix.getElementVal((paramCount + inCount), col);
-      expression = expression.setConstant(constant);
+    int _nbParams = space.getNbParams();
+    int _nbInputs = space.getNbInputs();
+    int _plus = (_nbParams + _nbInputs);
+    final boolean linearOnly = (_nbRows == _plus);
+    ISLMultiAff expression = MatrixOperations.toMatrix(MatrixOperations.transpose(matrix.toLongMatrix()), paramNames, inputNames, linearOnly, true).toMultiAff();
+    List<String> _elvis = null;
+    List<String> _outputNames = space.getOutputNames();
+    if (_outputNames != null) {
+      _elvis = _outputNames;
     } else {
-      expression = expression.setConstant(0);
+      _elvis = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList());
     }
-    final String outputName = space.getDimName(ISLDimType.isl_dim_out, col);
-    ISLMultiAff _multiAff = expression.toMultiAff();
-    String _elvis = null;
-    if (outputName != null) {
-      _elvis = outputName;
-    } else {
-      _elvis = "None";
+    final List<String> outputNames = _elvis;
+    int _length = ((Object[])Conversions.unwrapArray(outputNames, Object.class)).length;
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _length, true);
+    for (final Integer i : _doubleDotLessThan) {
+      expression = expression.setDimName(ISLDimType.isl_dim_out, (i).intValue(), outputNames.get((i).intValue()));
     }
-    return _multiAff.setDimName(ISLDimType.isl_dim_out, 0, _elvis);
+    return expression;
   }
 
   /**

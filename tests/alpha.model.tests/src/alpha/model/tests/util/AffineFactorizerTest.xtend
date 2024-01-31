@@ -1,7 +1,6 @@
 package alpha.model.tests.util
 
 import alpha.model.util.AffineFactorizer
-import alpha.model.util.AffineFunctionOperations
 import fr.irisa.cairn.jnimap.isl.ISLContext
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMatrix
@@ -12,8 +11,6 @@ import java.util.List
 import org.junit.Test
 
 import static org.junit.Assert.*
-
-import static extension alpha.model.matrix.MatrixOperations.*
 
 class AffineFactorizerTest {
 	////////////////////////////////////////////////////////////
