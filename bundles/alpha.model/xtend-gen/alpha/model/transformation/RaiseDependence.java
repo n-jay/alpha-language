@@ -41,11 +41,44 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
    * Applies the binary expression rules.
    */
   @Override
+  public void outDependenceExpression(final DependenceExpression de) {
+    this.dependenceExpressionRule(de, de.getExpr());
+  }
+
+  /**
+   * Merge nested dependence expressions.
+   * 
+   * From:  f1 @ (f2 @ X)
+   * To:    f @ X
+   * Where: f = f1 @ f2
+   */
+  protected Object _dependenceExpressionRule(final DependenceExpression de, final DependenceExpression innerDe) {
+    final ISLMultiAff f1 = de.getFunction();
+    final ISLMultiAff f2 = innerDe.getFunction();
+    final ISLMultiAff f = f2.pullback(f1);
+    final DependenceExpression newDe = AlphaUserFactory.createDependenceExpression(f, innerDe.getExpr());
+    EcoreUtil.replace(de, newDe);
+    return null;
+  }
+
+  /**
+   * No matching dependence expression rule: do nothing.
+   */
+  protected Object _dependenceExpressionRule(final DependenceExpression de, final AlphaExpression inner) {
+    return null;
+  }
+
+  /**
+   * Applies the binary expression rules.
+   */
+  @Override
   public void outBinaryExpression(final BinaryExpression be) {
     this.binaryExpressionRule(be, be.getLeft(), be.getRight());
   }
 
   /**
+   * Pull out a common factor from dependence expressions within a binary expression
+   * 
    * From:  f1@A op f2@B
    * To:    (f')@(f1'@A op f2'@B)
    * Where: f1 = f' @ f1' and f2 = f' @ f2'
@@ -70,6 +103,17 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
    */
   protected Object _binaryExpressionRule(final BinaryExpression be, final AlphaExpression left, final AlphaExpression right) {
     return null;
+  }
+
+  protected Object dependenceExpressionRule(final DependenceExpression de, final AlphaExpression innerDe) {
+    if (innerDe instanceof DependenceExpression) {
+      return _dependenceExpressionRule(de, (DependenceExpression)innerDe);
+    } else if (innerDe != null) {
+      return _dependenceExpressionRule(de, innerDe);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(de, innerDe).toString());
+    }
   }
 
   protected Object binaryExpressionRule(final BinaryExpression be, final AlphaExpression left, final AlphaExpression right) {

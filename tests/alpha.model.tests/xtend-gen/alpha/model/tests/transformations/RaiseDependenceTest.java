@@ -4,10 +4,10 @@ import alpha.commands.Utility;
 import alpha.commands.UtilityBase;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaModelLoader;
-import alpha.model.AlphaSystem;
 import alpha.model.BinaryExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.StandardEquation;
+import alpha.model.VariableExpression;
 import alpha.model.transformation.RaiseDependence;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -22,19 +22,36 @@ public class RaiseDependenceTest {
   private static final String alphaFile = "resources/src-valid/transformation-tests/raise-dependence/raiseDependence.alpha";
 
   /**
-   * Gets the desired system for these unit tests.
+   * Gets the desired equation for these unit tests.
    */
-  public static AlphaSystem getSystem(final String name) {
+  public static StandardEquation getEquation(final String system, final String equation) {
     try {
-      return UtilityBase.GetSystem(AlphaModelLoader.loadModel(RaiseDependenceTest.alphaFile), name);
+      return UtilityBase.GetEquation(Utility.GetSystemBody(UtilityBase.GetSystem(AlphaModelLoader.loadModel(RaiseDependenceTest.alphaFile), system)), equation);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
 
   @Test
+  public void nestedDependenceFunction_01() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("nestedDependenceFunction01", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression originalDependence = ((DependenceExpression) _expr);
+    final ISLMultiAff f1 = originalDependence.getFunction();
+    AlphaExpression _expr_1 = originalDependence.getExpr();
+    final ISLMultiAff f2 = ((DependenceExpression) _expr_1).getFunction();
+    RaiseDependence.apply(equation.getExpr());
+    Assert.assertTrue(DependenceExpression.class.isInstance(equation.getExpr()));
+    AlphaExpression _expr_2 = equation.getExpr();
+    final DependenceExpression topDependence = ((DependenceExpression) _expr_2);
+    Assert.assertTrue(VariableExpression.class.isInstance(topDependence.getExpr()));
+    final ISLMultiAff f = topDependence.getFunction();
+    Assert.assertTrue(f.isPlainEqual(f2.pullback(f1)));
+  }
+
+  @Test
   public void simpleBinaryExpression_01() {
-    final StandardEquation equation = UtilityBase.GetEquation(Utility.GetSystemBody(RaiseDependenceTest.getSystem("simpleBinaryExpression01")), "X");
+    final StandardEquation equation = RaiseDependenceTest.getEquation("simpleBinaryExpression01", "X");
     AlphaExpression _expr = equation.getExpr();
     final BinaryExpression originalBinaryExpr = ((BinaryExpression) _expr);
     AlphaExpression _left = originalBinaryExpr.getLeft();

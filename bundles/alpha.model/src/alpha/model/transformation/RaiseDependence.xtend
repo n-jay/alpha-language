@@ -31,6 +31,33 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	
 	
 	////////////////////////////////////////////////////////////
+	// Dependence Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	/** Applies the binary expression rules. */
+	override outDependenceExpression(DependenceExpression de) {
+		dependenceExpressionRule(de, de.expr)
+	}
+	
+	/**
+	 * Merge nested dependence expressions.
+	 * 
+	 * From:  f1 @ (f2 @ X)
+	 * To:    f @ X
+	 * Where: f = f1 @ f2
+	 */
+	protected def dispatch dependenceExpressionRule(DependenceExpression de, DependenceExpression innerDe) {
+		val f1 = de.function
+		val f2 = innerDe.function
+		val f = f2.pullback(f1)
+		val newDe = createDependenceExpression(f, innerDe.expr)
+		EcoreUtil.replace(de, newDe)
+	}
+	
+	/** No matching dependence expression rule: do nothing. */
+	protected def dispatch dependenceExpressionRule(DependenceExpression de, AlphaExpression inner) { }
+	
+	////////////////////////////////////////////////////////////
 	// Binary Expression Rules
 	////////////////////////////////////////////////////////////
 	
@@ -40,6 +67,8 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	}
 	
 	/**
+	 * Pull out a common factor from dependence expressions within a binary expression
+	 * 
 	 * From:  f1@A op f2@B
 	 * To:    (f')@(f1'@A op f2'@B)
 	 * Where: f1 = f' @ f1' and f2 = f' @ f2'

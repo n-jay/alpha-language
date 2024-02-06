@@ -1,4 +1,10 @@
 package alpha.model.tests.transformations.raiseDependence {
+	affine nestedDependenceFunction01 [N] -> {: N > 0}
+		inputs  A: [2N]
+		outputs X: [N]
+		let     X = (i->2i)@(j->2N-j-1)@A;
+	.
+	
 	affine simpleBinaryExpression01 [N] -> {: N > 0}
 		inputs  A: [N]
 				B: [2N]
