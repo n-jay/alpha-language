@@ -34,7 +34,7 @@ public class RaiseDependenceTest {
 
   @Test
   public void nestedDependenceFunction_01() {
-    final StandardEquation equation = RaiseDependenceTest.getEquation("nestedDependenceFunction01", "X");
+    final StandardEquation equation = RaiseDependenceTest.getEquation("nestedDependenceFunction_01", "X");
     AlphaExpression _expr = equation.getExpr();
     final DependenceExpression originalDependence = ((DependenceExpression) _expr);
     final ISLMultiAff f1 = originalDependence.getFunction();
@@ -51,7 +51,7 @@ public class RaiseDependenceTest {
 
   @Test
   public void simpleBinaryExpression_01() {
-    final StandardEquation equation = RaiseDependenceTest.getEquation("simpleBinaryExpression01", "X");
+    final StandardEquation equation = RaiseDependenceTest.getEquation("simpleBinaryExpression_01", "X");
     AlphaExpression _expr = equation.getExpr();
     final BinaryExpression originalBinaryExpr = ((BinaryExpression) _expr);
     AlphaExpression _left = originalBinaryExpr.getLeft();
@@ -76,5 +76,39 @@ public class RaiseDependenceTest {
     final ISLMultiAff f2Prime = right.getFunction();
     Assert.assertTrue(f1.isPlainEqual(f1Prime.pullback(fPrime.copy())));
     Assert.assertTrue(f2.isPlainEqual(f2Prime.pullback(fPrime)));
+  }
+
+  @Test
+  public void binaryExpressionBecomesNested_01() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("binaryExpressionBecomesNested_01", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression originalDependence = ((DependenceExpression) _expr);
+    final ISLMultiAff f1 = originalDependence.getFunction();
+    AlphaExpression _expr_1 = originalDependence.getExpr();
+    final BinaryExpression originalBinaryExpr = ((BinaryExpression) _expr_1);
+    AlphaExpression _left = originalBinaryExpr.getLeft();
+    final ISLMultiAff f2 = ((DependenceExpression) _left).getFunction();
+    AlphaExpression _right = originalBinaryExpr.getRight();
+    final ISLMultiAff f3 = ((DependenceExpression) _right).getFunction();
+    RaiseDependence.apply(equation.getExpr());
+    Assert.assertTrue(DependenceExpression.class.isInstance(equation.getExpr()));
+    AlphaExpression _expr_2 = equation.getExpr();
+    final DependenceExpression topDependence = ((DependenceExpression) _expr_2);
+    final ISLMultiAff f1Prime = topDependence.getFunction();
+    Assert.assertTrue(BinaryExpression.class.isInstance(topDependence.getExpr()));
+    AlphaExpression _expr_3 = topDependence.getExpr();
+    final BinaryExpression binaryExpr = ((BinaryExpression) _expr_3);
+    Assert.assertTrue(DependenceExpression.class.isInstance(binaryExpr.getLeft()));
+    Assert.assertTrue(DependenceExpression.class.isInstance(binaryExpr.getRight()));
+    AlphaExpression _left_1 = binaryExpr.getLeft();
+    final ISLMultiAff f2Prime = ((DependenceExpression) _left_1).getFunction();
+    AlphaExpression _right_1 = binaryExpr.getRight();
+    final ISLMultiAff f3Prime = ((DependenceExpression) _right_1).getFunction();
+    final ISLMultiAff firstExpected = f2.pullback(f1.copy());
+    final ISLMultiAff firstActual = f2Prime.pullback(f1Prime.copy());
+    Assert.assertTrue(firstExpected.isPlainEqual(firstActual));
+    final ISLMultiAff secondExpected = f3.pullback(f1);
+    final ISLMultiAff secondActual = f3Prime.pullback(f1Prime);
+    Assert.assertTrue(secondExpected.isPlainEqual(secondActual));
   }
 }
