@@ -4,17 +4,25 @@ import alpha.model.AlphaExpression
 import alpha.model.AlphaExpressionVisitable
 import alpha.model.AlphaInternalStateConstructor
 import alpha.model.BinaryExpression
+import alpha.model.BooleanExpression
+import alpha.model.ConstantExpression
 import alpha.model.DependenceExpression
+import alpha.model.IntegerExpression
+import alpha.model.RealExpression
 import alpha.model.VariableExpression
 import alpha.model.util.AbstractAlphaExpressionVisitor
 import alpha.model.util.AffineFactorizer
 import org.eclipse.emf.ecore.util.EcoreUtil
 
 import static alpha.model.factory.AlphaUserFactory.createBinaryExpression
+import static alpha.model.factory.AlphaUserFactory.createBooleanExpression
 import static alpha.model.factory.AlphaUserFactory.createDependenceExpression
+import static alpha.model.factory.AlphaUserFactory.createIntegerExpression
+import static alpha.model.factory.AlphaUserFactory.createRealExpression
 import static alpha.model.factory.AlphaUserFactory.createVariableExpression
 
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
+import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildZero
 import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
 
 /**
@@ -32,19 +40,64 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	
 	/** Applies dependence raising to the AST of the given visitable expression. */
 	static def apply(AlphaExpressionVisitable visitable) {
-		new RaiseDependence().accept(visitable) 
+		new RaiseDependence().accept(visitable)
 	}
 	
 	
 	////////////////////////////////////////////////////////////
-	// Variable Expression Rules
+	// Constant and Variable Expression Rules
 	////////////////////////////////////////////////////////////
+	
+	override outConstantExpression(ConstantExpression ce) {
+		constantExpressionRule(ce)
+	}
+	
+	/**
+	 * Wraps a constant expression in a dependence expression,
+	 * assuming it's not already wrapped.
+	 * 
+	 * From:  X
+	 * To:    f @ X
+	 * Where: X is a constant, and f is a map with a zero-dimensional range.
+	 */
+	protected def constantExpressionRule(ConstantExpression expr) {
+		// Only need to wrap the expression if it isn't inside a dependence function.
+		if (typeof(DependenceExpression).isInstance(expr.eContainer)) {
+			return
+		}
+		
+		// Create a function from the context domain to the empty set.
+		val toEmpty = expr.contextDomain
+			.space
+			.buildZero
+			
+		// Wrap the current expression with a dependence expression of the empty function.
+		// Note: the constant expression is copied, otherwise it can't be replaced in the AST.
+		val replacementConstant = switch expr {
+			BooleanExpression case expr : createBooleanExpression(expr.value)
+			IntegerExpression case expr : createIntegerExpression(expr.value)
+			RealExpression case expr : createRealExpression(expr.value)
+			default: throw new IllegalArgumentException("Unrecognized constant expression type.")
+		}
+		val wrappingDependence = createDependenceExpression(toEmpty, replacementConstant)
+		EcoreUtil.replace(expr, wrappingDependence)
+		AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence)
+		println()
+	}
 	
 	override outVariableExpression(VariableExpression ve) {
-		wrapInIdentityRule(ve)
+		variableExpressionRule(ve)
 	}
 	
-	protected def wrapInIdentityRule(VariableExpression expr) {
+	/**
+	 * Wraps a variable expression in a dependence expression,
+	 * assuming it's not already wrapped.
+	 * 
+	 * From:  X
+	 * To:    f @ X
+	 * Where: f is the identity function
+	 */
+	protected def variableExpressionRule(VariableExpression expr) {
 		// Only need to wrap the expression with an identity dependence function
 		// if the expression isn't inside a dependence function.
 		if (typeof(DependenceExpression).isInstance(expr.eContainer)) {
@@ -57,8 +110,8 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 			.idMapDimFromSetDim
 			.buildIdentity
 			
-		// Wrap the current expression with a dependence expression
-		// of the identity function.
+		// Wrap the current expression with a dependence expression of the identity function.
+		// Note: the variable expression is copied, otherwise it can't be replaced in the AST.
 		val replacementVar = createVariableExpression(expr.variable)
 		val wrappingDependence = createDependenceExpression(identity, replacementVar)
 		EcoreUtil.replace(expr, wrappingDependence)

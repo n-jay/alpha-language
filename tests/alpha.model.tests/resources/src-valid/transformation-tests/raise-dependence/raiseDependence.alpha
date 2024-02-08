@@ -3,6 +3,11 @@ package alpha.model.tests.transformations.raiseDependence {
 	// Constant and Variable Expression Rules
 	////////////////////////////////////////////////////////////
 	
+	affine wrapConstantExpression_01 [N] -> {: N > 0}
+		outputs X: {}
+		let     X = 7;
+	.
+	
 	affine wrapVariableExpression_01 [N] -> {: N > 0}
 		inputs  A: [N]
 		outputs X: [N]

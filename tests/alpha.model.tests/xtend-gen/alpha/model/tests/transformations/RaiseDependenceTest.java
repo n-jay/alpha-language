@@ -5,6 +5,7 @@ import alpha.commands.UtilityBase;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaModelLoader;
 import alpha.model.BinaryExpression;
+import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.StandardEquation;
 import alpha.model.VariableExpression;
@@ -30,6 +31,16 @@ public class RaiseDependenceTest {
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+
+  @Test
+  public void wrapConstantExpression_01() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("wrapConstantExpression_01", "X");
+    RaiseDependence.apply(equation.getExpr());
+    Assert.assertTrue(DependenceExpression.class.isInstance(equation.getExpr()));
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression topDependence = ((DependenceExpression) _expr);
+    Assert.assertTrue(ConstantExpression.class.isInstance(topDependence.getExpr()));
   }
 
   @Test

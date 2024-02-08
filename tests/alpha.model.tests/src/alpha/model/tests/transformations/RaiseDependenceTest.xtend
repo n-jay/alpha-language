@@ -13,6 +13,7 @@ import static org.junit.Assert.*
 
 import static extension alpha.commands.Utility.*
 import static extension alpha.commands.UtilityBase.*
+import alpha.model.ConstantExpression
 
 class RaiseDependenceTest {
 	/** The path to the Alpha file for these unit tests. */
@@ -30,6 +31,19 @@ class RaiseDependenceTest {
 	////////////////////////////////////////////////////////////
 	// Constant and Variable Expression Rules
 	////////////////////////////////////////////////////////////
+	
+	@Test
+	def wrapConstantExpression_01() {
+		// Wrap a variable in a dependence expression of the identity function.
+		val equation = getEquation("wrapConstantExpression_01", "X")
+		RaiseDependence.apply(equation.expr)
+		
+		// The equation should now have a dependence function at the top level
+		// which contains a constant expression.
+		assertTrue(typeof(DependenceExpression).isInstance(equation.expr))
+		val topDependence = equation.expr as DependenceExpression
+		assertTrue(typeof(ConstantExpression).isInstance(topDependence.expr))
+	}
 	
 	@Test
 	def wrapVariableExpression_01() {

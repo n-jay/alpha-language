@@ -4,18 +4,24 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.BinaryExpression;
+import alpha.model.BooleanExpression;
+import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
+import alpha.model.IntegerExpression;
+import alpha.model.RealExpression;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AffineFactorizer;
+import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.Pair;
 
 /**
@@ -43,11 +49,72 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
   }
 
   @Override
-  public void outVariableExpression(final VariableExpression ve) {
-    this.wrapInIdentityRule(ve);
+  public void outConstantExpression(final ConstantExpression ce) {
+    this.constantExpressionRule(ce);
   }
 
-  protected void wrapInIdentityRule(final VariableExpression expr) {
+  /**
+   * Wraps a constant expression in a dependence expression,
+   * assuming it's not already wrapped.
+   * 
+   * From:  X
+   * To:    f @ X
+   * Where: X is a constant, and f is a map with a zero-dimensional range.
+   */
+  protected void constantExpressionRule(final ConstantExpression expr) {
+    boolean _isInstance = DependenceExpression.class.isInstance(expr.eContainer());
+    if (_isInstance) {
+      return;
+    }
+    final ISLMultiAff toEmpty = ISLMultiAff.buildZero(expr.getContextDomain().getSpace());
+    ConstantExpression _switchResult = null;
+    boolean _matched = false;
+    if (expr instanceof BooleanExpression) {
+      if (Objects.equal(expr, ((BooleanExpression)expr))) {
+        _matched=true;
+        _switchResult = AlphaUserFactory.createBooleanExpression((((BooleanExpression)expr).getValue()).booleanValue());
+      }
+    }
+    if (!_matched) {
+      if (expr instanceof IntegerExpression) {
+        if (Objects.equal(expr, ((IntegerExpression)expr))) {
+          _matched=true;
+          _switchResult = AlphaUserFactory.createIntegerExpression((((IntegerExpression)expr).getValue()).intValue());
+        }
+      }
+    }
+    if (!_matched) {
+      if (expr instanceof RealExpression) {
+        if (Objects.equal(expr, ((RealExpression)expr))) {
+          _matched=true;
+          _switchResult = AlphaUserFactory.createRealExpression((((RealExpression)expr).getValue()).floatValue());
+        }
+      }
+    }
+    if (!_matched) {
+      throw new IllegalArgumentException("Unrecognized constant expression type.");
+    }
+    final ConstantExpression replacementConstant = _switchResult;
+    final DependenceExpression wrappingDependence = AlphaUserFactory.createDependenceExpression(toEmpty, replacementConstant);
+    EcoreUtil.replace(expr, wrappingDependence);
+    AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence);
+    InputOutput.println();
+  }
+
+  @Override
+  public void outVariableExpression(final VariableExpression ve) {
+    this.variableExpressionRule(ve);
+  }
+
+  /**
+   * Wraps a variable expression in a dependence expression,
+   * assuming it's not already wrapped.
+   * 
+   * From:  X
+   * To:    f @ X
+   * Where: f is the identity function
+   */
+  protected void variableExpressionRule(final VariableExpression expr) {
     boolean _isInstance = DependenceExpression.class.isInstance(expr.eContainer());
     if (_isInstance) {
       return;
