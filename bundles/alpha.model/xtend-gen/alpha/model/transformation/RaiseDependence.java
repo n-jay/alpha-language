@@ -8,20 +8,31 @@ import alpha.model.BooleanExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.IntegerExpression;
+import alpha.model.MultiArgExpression;
 import alpha.model.RealExpression;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AffineFactorizer;
+import alpha.model.util.CommonExtensions;
 import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.MapExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 
 /**
@@ -48,6 +59,9 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
     new RaiseDependence().accept(visitable);
   }
 
+  /**
+   * Applies the constant expression rules.
+   */
   @Override
   public void outConstantExpression(final ConstantExpression ce) {
     this.constantExpressionRule(ce);
@@ -101,6 +115,9 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
     InputOutput.println();
   }
 
+  /**
+   * Applies the variable expression rules.
+   */
   @Override
   public void outVariableExpression(final VariableExpression ve) {
     this.variableExpressionRule(ve);
@@ -170,7 +187,7 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
   }
 
   /**
-   * Pull out a common factor from dependence expressions within a binary expression
+   * Pull out a common factor from dependence expressions within a binary expression.
    * 
    * From:  f1@A op f2@B
    * To:    (f')@(f1'@A op f2'@B)
@@ -200,6 +217,61 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
    */
   protected List<AlphaIssue> _binaryExpressionRule(final BinaryExpression be, final AlphaExpression left, final AlphaExpression right) {
     return null;
+  }
+
+  /**
+   * Applies the multi-argument expression rules.
+   */
+  @Override
+  public void outMultiArgExpression(final MultiArgExpression me) {
+    final EList<AlphaExpression> children = me.getExprs();
+    final Function1<AlphaExpression, Boolean> _function = (AlphaExpression child) -> {
+      return Boolean.valueOf(DependenceExpression.class.isInstance(child));
+    };
+    boolean _forall = IterableExtensions.<AlphaExpression>forall(children, _function);
+    if (_forall) {
+      final Function1<AlphaExpression, DependenceExpression> _function_1 = (AlphaExpression child) -> {
+        return ((DependenceExpression) child);
+      };
+      this.multiArgExpressionRule(me, ((DependenceExpression[])Conversions.unwrapArray(ListExtensions.<AlphaExpression, DependenceExpression>map(children, _function_1), DependenceExpression.class)));
+    }
+  }
+
+  /**
+   * Pull out a common factor from dependence expressions within a multi-arg expression.
+   * 
+   * From:  op (f1@A1, f2@A2, ...)
+   * To:    (f')@ op(f1'@A1, f2'@A2, ...)
+   * Where: fn = f' @ fn'
+   */
+  protected List<AlphaIssue> multiArgExpressionRule(final MultiArgExpression me, final DependenceExpression... children) {
+    List<AlphaIssue> _xblockexpression = null;
+    {
+      final Function1<DependenceExpression, AlphaExpression> _function = (DependenceExpression de) -> {
+        return de.getExpr();
+      };
+      final Function1<DependenceExpression, ISLMultiAff> _function_1 = (DependenceExpression de) -> {
+        return de.getFunction();
+      };
+      final HashMap<AlphaExpression, ISLMultiAff> innerExpressionAndDependence = CommonExtensions.<AlphaExpression, ISLMultiAff>toHashMap(MapExtensions.<AlphaExpression, DependenceExpression, ISLMultiAff>mapValues(IterableExtensions.<AlphaExpression, DependenceExpression>toMap(((Iterable<? extends DependenceExpression>)Conversions.doWrapArray(children)), _function), _function_1));
+      final Collection<ISLMultiAff> functions = innerExpressionAndDependence.values();
+      final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> factorizationResult = AffineFactorizer.factorizeExpressions(((ISLMultiAff[])Conversions.unwrapArray(functions, ISLMultiAff.class)));
+      final ISLMultiAff commonFactor = factorizationResult.getKey();
+      final HashMap<ISLMultiAff, ISLMultiAff> remainingTermsMap = factorizationResult.getValue();
+      final Function1<ISLMultiAff, ISLMultiAff> _function_2 = (ISLMultiAff de) -> {
+        return remainingTermsMap.get(de);
+      };
+      final Function1<Map.Entry<AlphaExpression, ISLMultiAff>, DependenceExpression> _function_3 = (Map.Entry<AlphaExpression, ISLMultiAff> innerExprAndRemainder) -> {
+        return AlphaUserFactory.createDependenceExpression(innerExprAndRemainder.getValue(), innerExprAndRemainder.getKey());
+      };
+      final ArrayList<DependenceExpression> newChildren = CommonExtensions.<DependenceExpression>toArrayList(IterableExtensions.<Map.Entry<AlphaExpression, ISLMultiAff>, DependenceExpression>map(MapExtensions.<AlphaExpression, ISLMultiAff, ISLMultiAff>mapValues(innerExpressionAndDependence, _function_2).entrySet(), _function_3));
+      final MultiArgExpression newMultiArgExpr = AlphaUserFactory.createMultiArgExpression(me.getOperator());
+      newMultiArgExpr.getExprs().addAll(newChildren);
+      final DependenceExpression newParent = AlphaUserFactory.createDependenceExpression(commonFactor, newMultiArgExpr);
+      EcoreUtil.replace(me, newParent);
+      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(newParent);
+    }
+    return _xblockexpression;
   }
 
   protected List<AlphaIssue> dependenceExpressionRule(final DependenceExpression de, final AlphaExpression innerDe) {

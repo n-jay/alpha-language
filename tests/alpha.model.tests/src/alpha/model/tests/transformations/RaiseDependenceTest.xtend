@@ -2,7 +2,9 @@ package alpha.model.tests.transformations
 
 import alpha.model.AlphaModelLoader
 import alpha.model.BinaryExpression
+import alpha.model.ConstantExpression
 import alpha.model.DependenceExpression
+import alpha.model.MultiArgExpression
 import alpha.model.StandardEquation
 import alpha.model.VariableExpression
 import alpha.model.transformation.RaiseDependence
@@ -13,7 +15,7 @@ import static org.junit.Assert.*
 
 import static extension alpha.commands.Utility.*
 import static extension alpha.commands.UtilityBase.*
-import alpha.model.ConstantExpression
+import static extension alpha.model.util.CommonExtensions.toHashMap
 
 class RaiseDependenceTest {
 	/** The path to the Alpha file for these unit tests. */
@@ -246,5 +248,52 @@ class RaiseDependenceTest {
 
 		val secondActual = f3Prime.pullback(f1Prime)
 		assertTrue(secondExpected.isPlainEqual(secondActual))
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Multi-Arg Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	@Test
+	def multiArgTest_01() {
+		// From:  op(f1@A1, f2@A2, f3@A3)
+		// To:    (f')@ op(f1'@A1, f2'@A2, f3'@A3)
+		// Where: fn = f' @ fn' for n=1,2,3
+		
+		// Get the equation for the expression under test,
+		// extract the original dependence functions (mapped by their inner expression),
+		// then apply dependence raising.
+		val equation = getEquation("multiArgTest_01", "X")
+		val expectedFunctions = (equation.expr as MultiArgExpression).exprs
+			.map[expr | expr as DependenceExpression]
+			.toMap[expr | expr.expr]
+			.mapValues[expr | expr.function]
+			.toHashMap
+
+		RaiseDependence.apply(equation.expr)
+		
+		// The equation should now have a dependence function at the top level,
+		// a multi-arg expression in that, and dependence expressions as the children.
+		assertTrue(typeof(DependenceExpression).isInstance(equation.expr))
+		val topDependence = equation.expr as DependenceExpression
+		val commonFactor = topDependence.function
+		
+		assertTrue(typeof(MultiArgExpression).isInstance(topDependence.expr))
+		val multiArgExpr = topDependence.expr as MultiArgExpression
+		
+		multiArgExpr.exprs.forEach[child | assertTrue(typeof(DependenceExpression).isInstance(child))]
+		val remainingTerms = multiArgExpr.exprs
+			.map[child | child as DependenceExpression]
+			.toMap[child | child.expr]
+			.mapValues[child | child.function]
+			.toHashMap
+		
+		// Make sure that fn = f' @ fn' for all n.
+		for (innerExpr : expectedFunctions.keySet) {
+			val expected = expectedFunctions.get(innerExpr)
+			val actual = remainingTerms.get(innerExpr).pullback(commonFactor.copy())
+			assertTrue(expected.isPlainEqual(actual))
+		}
 	}
 }

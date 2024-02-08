@@ -70,4 +70,17 @@ package alpha.model.tests.transformations.raiseDependence {
 		outputs X: [N]
 		let     X[i] = (z->2z)@(A + B);
 	.
+	
+	
+	////////////////////////////////////////////////////////////
+	// Multi-Arg Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	affine multiArgTest_01 [N] -> {: N > 0}
+		inputs  A: [2N]
+				B: [3N]
+				C: [4N]
+		outputs X: [N]
+		let     X[i] = max(A[2i], B[N-i], C[i+1]);
+	.
 }

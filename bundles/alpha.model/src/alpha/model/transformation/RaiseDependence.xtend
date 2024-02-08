@@ -8,6 +8,7 @@ import alpha.model.BooleanExpression
 import alpha.model.ConstantExpression
 import alpha.model.DependenceExpression
 import alpha.model.IntegerExpression
+import alpha.model.MultiArgExpression
 import alpha.model.RealExpression
 import alpha.model.VariableExpression
 import alpha.model.util.AbstractAlphaExpressionVisitor
@@ -18,9 +19,12 @@ import static alpha.model.factory.AlphaUserFactory.createBinaryExpression
 import static alpha.model.factory.AlphaUserFactory.createBooleanExpression
 import static alpha.model.factory.AlphaUserFactory.createDependenceExpression
 import static alpha.model.factory.AlphaUserFactory.createIntegerExpression
+import static alpha.model.factory.AlphaUserFactory.createMultiArgExpression
 import static alpha.model.factory.AlphaUserFactory.createRealExpression
 import static alpha.model.factory.AlphaUserFactory.createVariableExpression
 
+import static extension alpha.model.util.CommonExtensions.toArrayList
+import static extension alpha.model.util.CommonExtensions.toHashMap
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildZero
 import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
@@ -48,6 +52,7 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	// Constant and Variable Expression Rules
 	////////////////////////////////////////////////////////////
 	
+	/** Applies the constant expression rules. */
 	override outConstantExpression(ConstantExpression ce) {
 		constantExpressionRule(ce)
 	}
@@ -85,6 +90,7 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 		println()
 	}
 	
+	/** Applies the variable expression rules. */
 	override outVariableExpression(VariableExpression ve) {
 		variableExpressionRule(ve)
 	}
@@ -148,6 +154,7 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	/** No matching dependence expression rule: do nothing. */
 	protected def dispatch dependenceExpressionRule(DependenceExpression de, AlphaExpression inner) { }
 	
+	
 	////////////////////////////////////////////////////////////
 	// Binary Expression Rules
 	////////////////////////////////////////////////////////////
@@ -158,7 +165,7 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	}
 	
 	/**
-	 * Pull out a common factor from dependence expressions within a binary expression
+	 * Pull out a common factor from dependence expressions within a binary expression.
 	 * 
 	 * From:  f1@A op f2@B
 	 * To:    (f')@(f1'@A op f2'@B)
@@ -190,4 +197,62 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	
 	/** No matching binary expression rule: do nothing. */
 	protected def dispatch binaryExpressionRule(BinaryExpression be, AlphaExpression left, AlphaExpression right) { }
+	
+	
+	////////////////////////////////////////////////////////////
+	// Multi-Arg Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	/** Applies the multi-argument expression rules. */
+	override outMultiArgExpression(MultiArgExpression me) {
+		// We only try to apply the rule if all the children are dependence expressions.
+		val children = me.exprs
+		if (children.forall[child | typeof(DependenceExpression).isInstance(child)]) {
+			multiArgExpressionRule(me, children.map[child | child as DependenceExpression])
+		}
+	}
+	
+	/**
+	 * Pull out a common factor from dependence expressions within a multi-arg expression.
+	 * 
+	 * From:  op (f1@A1, f2@A2, ...)
+	 * To:    (f')@ op(f1'@A1, f2'@A2, ...)
+	 * Where: fn = f' @ fn'
+	 */
+	protected def multiArgExpressionRule(MultiArgExpression me, DependenceExpression... children) {
+		// f' and the fn' functions are determined by the Hermite factorization of all fn,
+		// where f' is the "common factor", and each fn' is the "remaining term" for fn.
+
+		// To reliably reconstruct the new dependence expressions, we need both the dependence function
+		// and the expression inside. We do this in a few steps:
+		// 1) Turn the list of children into a map from the expression they contain to themselves.
+		// 2) Map the AST nodes (the values) to the expression they contain.
+		// 3) Convert to a HashMap to prevent lazy evaluation from recomputing everything.
+		// 4) Extract the values, which are the affine functions to factorize.
+		val innerExpressionAndDependence = children
+			.toMap[de | de.expr]
+			.mapValues[de | de.function]
+			.toHashMap
+		val functions = innerExpressionAndDependence.values
+		
+		val factorizationResult = AffineFactorizer.factorizeExpressions(functions)
+		val commonFactor = factorizationResult.key
+		val remainingTermsMap = factorizationResult.value
+		
+		// We want to replace the child dependence functions with the appropriate remaining term,
+		// then wrap them all in a new multi-arg expression, then wrap that in a new dependence function
+		// which applies f' before the multi-arg expression.
+		// This can be done simply by mapping the functions (values) to their remaining term.
+		val newChildren = innerExpressionAndDependence
+			.mapValues[de | remainingTermsMap.get(de)]
+			.entrySet
+			.map[innerExprAndRemainder | createDependenceExpression(innerExprAndRemainder.value, innerExprAndRemainder.key)]
+			.toArrayList
+		val newMultiArgExpr = createMultiArgExpression(me.operator)
+		newMultiArgExpr.exprs.addAll(newChildren)
+		val newParent = createDependenceExpression(commonFactor, newMultiArgExpr)
+		
+		EcoreUtil.replace(me, newParent)
+		AlphaInternalStateConstructor.recomputeContextDomain(newParent)
+	}
 }
