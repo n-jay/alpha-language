@@ -2,14 +2,19 @@ package alpha.model.transformation;
 
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
+import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.BinaryExpression;
 import alpha.model.DependenceExpression;
+import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
+import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AffineFactorizer;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.xbase.lib.Pair;
 
@@ -37,6 +42,23 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
     new RaiseDependence().accept(visitable);
   }
 
+  @Override
+  public void outVariableExpression(final VariableExpression ve) {
+    this.wrapInIdentityRule(ve);
+  }
+
+  protected void wrapInIdentityRule(final VariableExpression expr) {
+    boolean _isInstance = DependenceExpression.class.isInstance(expr.eContainer());
+    if (_isInstance) {
+      return;
+    }
+    final ISLMultiAff identity = ISLMultiAff.buildIdentity(ISLSpace.idMapDimFromSetDim(expr.getContextDomain().getSpace()));
+    final VariableExpression replacementVar = AlphaUserFactory.createVariableExpression(expr.getVariable());
+    final DependenceExpression wrappingDependence = AlphaUserFactory.createDependenceExpression(identity, replacementVar);
+    EcoreUtil.replace(expr, wrappingDependence);
+    AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence);
+  }
+
   /**
    * Applies the binary expression rules.
    */
@@ -52,19 +74,23 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
    * To:    f @ X
    * Where: f = f1 @ f2
    */
-  protected Object _dependenceExpressionRule(final DependenceExpression de, final DependenceExpression innerDe) {
-    final ISLMultiAff f1 = de.getFunction();
-    final ISLMultiAff f2 = innerDe.getFunction();
-    final ISLMultiAff f = f2.pullback(f1);
-    final DependenceExpression newDe = AlphaUserFactory.createDependenceExpression(f, innerDe.getExpr());
-    EcoreUtil.replace(de, newDe);
-    return null;
+  protected List<AlphaIssue> _dependenceExpressionRule(final DependenceExpression de, final DependenceExpression innerDe) {
+    List<AlphaIssue> _xblockexpression = null;
+    {
+      final ISLMultiAff f1 = de.getFunction();
+      final ISLMultiAff f2 = innerDe.getFunction();
+      final ISLMultiAff f = f2.pullback(f1);
+      final DependenceExpression newDe = AlphaUserFactory.createDependenceExpression(f, innerDe.getExpr());
+      EcoreUtil.replace(de, newDe);
+      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(newDe);
+    }
+    return _xblockexpression;
   }
 
   /**
    * No matching dependence expression rule: do nothing.
    */
-  protected Object _dependenceExpressionRule(final DependenceExpression de, final AlphaExpression inner) {
+  protected List<AlphaIssue> _dependenceExpressionRule(final DependenceExpression de, final AlphaExpression inner) {
     return null;
   }
 
@@ -83,29 +109,33 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
    * To:    (f')@(f1'@A op f2'@B)
    * Where: f1 = f' @ f1' and f2 = f' @ f2'
    */
-  protected Object _binaryExpressionRule(final BinaryExpression be, final DependenceExpression left, final DependenceExpression right) {
-    final ISLMultiAff f1 = left.getFunction();
-    final ISLMultiAff f2 = right.getFunction();
-    final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> factorizationResult = AffineFactorizer.factorizeExpressions(f1, f2);
-    final ISLMultiAff fPrime = factorizationResult.getKey();
-    final ISLMultiAff f1Prime = factorizationResult.getValue().get(f1);
-    final ISLMultiAff f2Prime = factorizationResult.getValue().get(f2);
-    final DependenceExpression newLeft = AlphaUserFactory.createDependenceExpression(f1Prime, left.getExpr());
-    final DependenceExpression newRight = AlphaUserFactory.createDependenceExpression(f2Prime, right.getExpr());
-    final BinaryExpression newBinaryExpr = AlphaUserFactory.createBinaryExpression(be.getOperator(), newLeft, newRight);
-    final DependenceExpression newParent = AlphaUserFactory.createDependenceExpression(fPrime, newBinaryExpr);
-    EcoreUtil.replace(be, newParent);
-    return null;
+  protected List<AlphaIssue> _binaryExpressionRule(final BinaryExpression be, final DependenceExpression left, final DependenceExpression right) {
+    List<AlphaIssue> _xblockexpression = null;
+    {
+      final ISLMultiAff f1 = left.getFunction();
+      final ISLMultiAff f2 = right.getFunction();
+      final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> factorizationResult = AffineFactorizer.factorizeExpressions(f1, f2);
+      final ISLMultiAff fPrime = factorizationResult.getKey();
+      final ISLMultiAff f1Prime = factorizationResult.getValue().get(f1);
+      final ISLMultiAff f2Prime = factorizationResult.getValue().get(f2);
+      final DependenceExpression newLeft = AlphaUserFactory.createDependenceExpression(f1Prime, left.getExpr());
+      final DependenceExpression newRight = AlphaUserFactory.createDependenceExpression(f2Prime, right.getExpr());
+      final BinaryExpression newBinaryExpr = AlphaUserFactory.createBinaryExpression(be.getOperator(), newLeft, newRight);
+      final DependenceExpression newParent = AlphaUserFactory.createDependenceExpression(fPrime, newBinaryExpr);
+      EcoreUtil.replace(be, newParent);
+      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(newParent);
+    }
+    return _xblockexpression;
   }
 
   /**
    * No matching binary expression rule: do nothing.
    */
-  protected Object _binaryExpressionRule(final BinaryExpression be, final AlphaExpression left, final AlphaExpression right) {
+  protected List<AlphaIssue> _binaryExpressionRule(final BinaryExpression be, final AlphaExpression left, final AlphaExpression right) {
     return null;
   }
 
-  protected Object dependenceExpressionRule(final DependenceExpression de, final AlphaExpression innerDe) {
+  protected List<AlphaIssue> dependenceExpressionRule(final DependenceExpression de, final AlphaExpression innerDe) {
     if (innerDe instanceof DependenceExpression) {
       return _dependenceExpressionRule(de, (DependenceExpression)innerDe);
     } else if (innerDe != null) {
@@ -116,7 +146,7 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
     }
   }
 
-  protected Object binaryExpressionRule(final BinaryExpression be, final AlphaExpression left, final AlphaExpression right) {
+  protected List<AlphaIssue> binaryExpressionRule(final BinaryExpression be, final AlphaExpression left, final AlphaExpression right) {
     if (left instanceof DependenceExpression
          && right instanceof DependenceExpression) {
       return _binaryExpressionRule(be, (DependenceExpression)left, (DependenceExpression)right);

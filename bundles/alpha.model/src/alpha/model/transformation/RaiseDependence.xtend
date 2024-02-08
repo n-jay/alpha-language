@@ -2,14 +2,20 @@ package alpha.model.transformation
 
 import alpha.model.AlphaExpression
 import alpha.model.AlphaExpressionVisitable
+import alpha.model.AlphaInternalStateConstructor
 import alpha.model.BinaryExpression
 import alpha.model.DependenceExpression
+import alpha.model.VariableExpression
 import alpha.model.util.AbstractAlphaExpressionVisitor
 import alpha.model.util.AffineFactorizer
 import org.eclipse.emf.ecore.util.EcoreUtil
 
 import static alpha.model.factory.AlphaUserFactory.createBinaryExpression
 import static alpha.model.factory.AlphaUserFactory.createDependenceExpression
+import static alpha.model.factory.AlphaUserFactory.createVariableExpression
+
+import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
+import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
 
 /**
  * Raises up dependence functions through the AST of a given expression.
@@ -27,6 +33,36 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	/** Applies dependence raising to the AST of the given visitable expression. */
 	static def apply(AlphaExpressionVisitable visitable) {
 		new RaiseDependence().accept(visitable) 
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Variable Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	override outVariableExpression(VariableExpression ve) {
+		wrapInIdentityRule(ve)
+	}
+	
+	protected def wrapInIdentityRule(VariableExpression expr) {
+		// Only need to wrap the expression with an identity dependence function
+		// if the expression isn't inside a dependence function.
+		if (typeof(DependenceExpression).isInstance(expr.eContainer)) {
+			return
+		}
+		
+		// Create an appropriate identity function.
+		val identity = expr.contextDomain
+			.space
+			.idMapDimFromSetDim
+			.buildIdentity
+			
+		// Wrap the current expression with a dependence expression
+		// of the identity function.
+		val replacementVar = createVariableExpression(expr.variable)
+		val wrappingDependence = createDependenceExpression(identity, replacementVar)
+		EcoreUtil.replace(expr, wrappingDependence)
+		AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence)
 	}
 	
 	
@@ -50,8 +86,10 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 		val f1 = de.function
 		val f2 = innerDe.function
 		val f = f2.pullback(f1)
+		
 		val newDe = createDependenceExpression(f, innerDe.expr)
 		EcoreUtil.replace(de, newDe)
+		AlphaInternalStateConstructor.recomputeContextDomain(newDe)
 	}
 	
 	/** No matching dependence expression rule: do nothing. */
@@ -92,7 +130,9 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 		val newRight = createDependenceExpression(f2Prime, right.expr)
 		val newBinaryExpr = createBinaryExpression(be.operator, newLeft, newRight)
 		val newParent = createDependenceExpression(fPrime, newBinaryExpr)
+		
 		EcoreUtil.replace(be, newParent)
+		AlphaInternalStateConstructor.recomputeContextDomain(newParent)
 	}
 	
 	/** No matching binary expression rule: do nothing. */

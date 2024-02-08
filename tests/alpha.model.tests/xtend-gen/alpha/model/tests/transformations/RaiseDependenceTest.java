@@ -33,6 +33,26 @@ public class RaiseDependenceTest {
   }
 
   @Test
+  public void wrapVariableExpression_01() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("wrapVariableExpression_01", "X");
+    RaiseDependence.apply(equation.getExpr());
+    Assert.assertTrue(DependenceExpression.class.isInstance(equation.getExpr()));
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression topDependence = ((DependenceExpression) _expr);
+    Assert.assertTrue(VariableExpression.class.isInstance(topDependence.getExpr()));
+  }
+
+  @Test
+  public void wrapVariableExpression_02() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("wrapVariableExpression_02", "X");
+    RaiseDependence.apply(equation.getExpr());
+    Assert.assertTrue(DependenceExpression.class.isInstance(equation.getExpr()));
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression topDependence = ((DependenceExpression) _expr);
+    Assert.assertTrue(VariableExpression.class.isInstance(topDependence.getExpr()));
+  }
+
+  @Test
   public void nestedDependenceFunction_01() {
     final StandardEquation equation = RaiseDependenceTest.getEquation("nestedDependenceFunction_01", "X");
     AlphaExpression _expr = equation.getExpr();
@@ -58,24 +78,7 @@ public class RaiseDependenceTest {
     final ISLMultiAff f1 = ((DependenceExpression) _left).getFunction();
     AlphaExpression _right = originalBinaryExpr.getRight();
     final ISLMultiAff f2 = ((DependenceExpression) _right).getFunction();
-    RaiseDependence.apply(equation.getExpr());
-    Assert.assertTrue(DependenceExpression.class.isInstance(equation.getExpr()));
-    AlphaExpression _expr_1 = equation.getExpr();
-    final DependenceExpression topDependence = ((DependenceExpression) _expr_1);
-    Assert.assertTrue(BinaryExpression.class.isInstance(topDependence.getExpr()));
-    AlphaExpression _expr_2 = topDependence.getExpr();
-    final BinaryExpression binaryExpr = ((BinaryExpression) _expr_2);
-    Assert.assertTrue(DependenceExpression.class.isInstance(binaryExpr.getLeft()));
-    Assert.assertTrue(DependenceExpression.class.isInstance(binaryExpr.getRight()));
-    AlphaExpression _left_1 = binaryExpr.getLeft();
-    final DependenceExpression left = ((DependenceExpression) _left_1);
-    AlphaExpression _right_1 = binaryExpr.getRight();
-    final DependenceExpression right = ((DependenceExpression) _right_1);
-    final ISLMultiAff fPrime = topDependence.getFunction();
-    final ISLMultiAff f1Prime = left.getFunction();
-    final ISLMultiAff f2Prime = right.getFunction();
-    Assert.assertTrue(f1.isPlainEqual(f1Prime.pullback(fPrime.copy())));
-    Assert.assertTrue(f2.isPlainEqual(f2Prime.pullback(fPrime)));
+    RaiseDependenceTest.assertBinaryEquationCorrect(equation, f1, f2);
   }
 
   @Test
@@ -90,24 +93,69 @@ public class RaiseDependenceTest {
     final ISLMultiAff f2 = ((DependenceExpression) _left).getFunction();
     AlphaExpression _right = originalBinaryExpr.getRight();
     final ISLMultiAff f3 = ((DependenceExpression) _right).getFunction();
+    final ISLMultiAff firstExpected = f2.pullback(f1.copy());
+    final ISLMultiAff secondExpected = f3.pullback(f1);
+    RaiseDependenceTest.assertBinaryEquationCorrect(equation, firstExpected, secondExpected);
+  }
+
+  @Test
+  public void binaryExpressionBecomesNested_02() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("binaryExpressionBecomesNested_02", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression originalDependence = ((DependenceExpression) _expr);
+    final ISLMultiAff f1 = originalDependence.getFunction();
+    AlphaExpression _expr_1 = originalDependence.getExpr();
+    final BinaryExpression originalBinaryExpr = ((BinaryExpression) _expr_1);
+    AlphaExpression _left = originalBinaryExpr.getLeft();
+    final ISLMultiAff f2 = ((DependenceExpression) _left).getFunction();
+    final ISLMultiAff firstExpected = f2.pullback(f1.copy());
+    final ISLMultiAff secondExpected = f1;
+    RaiseDependenceTest.assertBinaryEquationCorrect(equation, firstExpected, secondExpected);
+  }
+
+  @Test
+  public void binaryExpressionBecomesNested_03() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("binaryExpressionBecomesNested_03", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression originalDependence = ((DependenceExpression) _expr);
+    final ISLMultiAff f1 = originalDependence.getFunction();
+    AlphaExpression _expr_1 = originalDependence.getExpr();
+    final BinaryExpression originalBinaryExpr = ((BinaryExpression) _expr_1);
+    AlphaExpression _right = originalBinaryExpr.getRight();
+    final ISLMultiAff f3 = ((DependenceExpression) _right).getFunction();
+    final ISLMultiAff firstExpected = f1.copy();
+    final ISLMultiAff secondExpected = f3.pullback(f1);
+    RaiseDependenceTest.assertBinaryEquationCorrect(equation, firstExpected, secondExpected);
+  }
+
+  @Test
+  public void binaryExpressionBecomesNested_04() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("binaryExpressionBecomesNested_04", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression originalDependence = ((DependenceExpression) _expr);
+    final ISLMultiAff f1 = originalDependence.getFunction();
+    final ISLMultiAff firstExpected = f1.copy();
+    final ISLMultiAff secondExpected = f1;
+    RaiseDependenceTest.assertBinaryEquationCorrect(equation, firstExpected, secondExpected);
+  }
+
+  public static void assertBinaryEquationCorrect(final StandardEquation equation, final ISLMultiAff firstExpected, final ISLMultiAff secondExpected) {
     RaiseDependence.apply(equation.getExpr());
     Assert.assertTrue(DependenceExpression.class.isInstance(equation.getExpr()));
-    AlphaExpression _expr_2 = equation.getExpr();
-    final DependenceExpression topDependence = ((DependenceExpression) _expr_2);
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression topDependence = ((DependenceExpression) _expr);
     final ISLMultiAff f1Prime = topDependence.getFunction();
     Assert.assertTrue(BinaryExpression.class.isInstance(topDependence.getExpr()));
-    AlphaExpression _expr_3 = topDependence.getExpr();
-    final BinaryExpression binaryExpr = ((BinaryExpression) _expr_3);
+    AlphaExpression _expr_1 = topDependence.getExpr();
+    final BinaryExpression binaryExpr = ((BinaryExpression) _expr_1);
     Assert.assertTrue(DependenceExpression.class.isInstance(binaryExpr.getLeft()));
     Assert.assertTrue(DependenceExpression.class.isInstance(binaryExpr.getRight()));
-    AlphaExpression _left_1 = binaryExpr.getLeft();
-    final ISLMultiAff f2Prime = ((DependenceExpression) _left_1).getFunction();
-    AlphaExpression _right_1 = binaryExpr.getRight();
-    final ISLMultiAff f3Prime = ((DependenceExpression) _right_1).getFunction();
-    final ISLMultiAff firstExpected = f2.pullback(f1.copy());
+    AlphaExpression _left = binaryExpr.getLeft();
+    final ISLMultiAff f2Prime = ((DependenceExpression) _left).getFunction();
+    AlphaExpression _right = binaryExpr.getRight();
+    final ISLMultiAff f3Prime = ((DependenceExpression) _right).getFunction();
     final ISLMultiAff firstActual = f2Prime.pullback(f1Prime.copy());
     Assert.assertTrue(firstExpected.isPlainEqual(firstActual));
-    final ISLMultiAff secondExpected = f3.pullback(f1);
     final ISLMultiAff secondActual = f3Prime.pullback(f1Prime);
     Assert.assertTrue(secondExpected.isPlainEqual(secondActual));
   }

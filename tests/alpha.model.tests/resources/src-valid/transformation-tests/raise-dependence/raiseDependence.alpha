@@ -18,4 +18,37 @@ package alpha.model.tests.transformations.raiseDependence {
 		outputs X: [N]
 		let     X[i] = (i->2i)@((i0->2N-i0-1)@A + (i0->i0)@B);
 	.
+	
+	affine binaryExpressionBecomesNested_02 [N] -> {: N > 0}
+		inputs  A: [2N]
+				B: [4N]
+		outputs X: [N]
+		let     X[i] = (i->2i)@((i0->2N-i0-1)@A + B);
+	.
+	
+	affine binaryExpressionBecomesNested_03 [N] -> {: N > 0}
+		inputs  A: [2N]
+				B: [4N]
+		outputs X: [N]
+		let     X[i] = (z->2z)@(A + (i0->2N-i0)@B);
+	.
+	
+	affine binaryExpressionBecomesNested_04 [N] -> {: N > 0}
+		inputs  A: [2N]
+				B: [4N]
+		outputs X: [N]
+		let     X[i] = (z->2z)@(A + B);
+	.
+	
+	affine wrapVariableExpression_01 [N] -> {: N > 0}
+		inputs  A: [N]
+		outputs X: [N]
+		let     X = A;
+	.
+	
+	affine wrapVariableExpression_02 [N] -> {: N > 0}
+		inputs  A: [N]
+		outputs X: [N]
+		let     X[i] = A[N-i-1];
+	.
 }
