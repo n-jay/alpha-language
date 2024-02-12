@@ -3,12 +3,17 @@ package alpha.model.util;
 import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
 import org.eclipse.xtend.lib.annotations.AccessorType;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 
 /**
@@ -89,6 +94,7 @@ public class FaceLattice {
         }
       }
     }
+    lattice.removeRedundancies();
     return lattice;
   }
 
@@ -142,7 +148,8 @@ public class FaceLattice {
 
   /**
    * Checks if a face is valid to add to the lattice, and adds it if so.
-   * @returns Returns <code>true</code> if the face was valid and added, and <code>false</code> otherwise.
+   * @returns Returns <code>true</code> if the face was valid, didn't exist already, and was added.
+   * 			Otherwise, returns <code>false</code>.
    */
   private boolean checkAddFace(final ArrayList<Integer> toSaturate) {
     final Facet face = Facet.createFace(this.rootInfo, toSaturate);
@@ -156,8 +163,80 @@ public class FaceLattice {
       ArrayList<Facet> _arrayList = new ArrayList<Facet>();
       this.lattice.add(_arrayList);
     }
-    this.lattice.get(layerIndex).add(face);
+    final ArrayList<Facet> layer = this.lattice.get(layerIndex);
+    final Function1<Facet, Boolean> _function = (Facet other) -> {
+      return Boolean.valueOf(face.isDuplicateOf(other));
+    };
+    boolean _exists = IterableExtensions.<Facet>exists(layer, _function);
+    if (_exists) {
+      return false;
+    }
+    layer.add(face);
     return true;
+  }
+
+  /**
+   * Removes all redundant facets from the entire lattice.
+   */
+  private void removeRedundancies() {
+    int _size = this.lattice.size();
+    final Consumer<Integer> _function = (Integer dimension) -> {
+      this.removeRedundancies((dimension).intValue());
+    };
+    new ExclusiveRange(0, _size, true).forEach(_function);
+  }
+
+  /**
+   * Removes all redundant facets from a specific layer of the lattice.
+   */
+  private void removeRedundancies(final int dimension) {
+    if (((dimension < 0) || (dimension >= this.lattice.size()))) {
+      return;
+    }
+    final ArrayList<Facet> currentLayer = this.lattice.get(dimension);
+    int _dimensionality = this.rootInfo.getDimensionality();
+    final int expectedSaturations = (_dimensionality - dimension);
+    final Function1<Facet, Boolean> _function = (Facet facet) -> {
+      int _size = facet.getSaturatedInequalityIndices().size();
+      return Boolean.valueOf((_size < expectedSaturations));
+    };
+    List<Facet> _list = IterableExtensions.<Facet>toList(IterableExtensions.<Facet>filter(currentLayer, _function));
+    final ArrayList<Facet> facetsWithAdditionalSaturations = new ArrayList<Facet>(_list);
+    boolean _isEmpty = facetsWithAdditionalSaturations.isEmpty();
+    if (_isEmpty) {
+      return;
+    }
+    final Function1<Facet, ArrayList<Integer>> _function_1 = (Facet facet) -> {
+      return FaceLattice.getUnionOfSupersets(facet, currentLayer);
+    };
+    final Consumer<ArrayList<Integer>> _function_2 = (ArrayList<Integer> toSaturate) -> {
+      this.checkAddFace(toSaturate);
+    };
+    ListExtensions.<Facet, ArrayList<Integer>>map(facetsWithAdditionalSaturations, _function_1).forEach(_function_2);
+    final Function1<Facet, Boolean> _function_3 = (Facet facet) -> {
+      final Function1<Facet, Boolean> _function_4 = (Facet other) -> {
+        return Boolean.valueOf(facet.isStrictSubsetOf(other));
+      };
+      return Boolean.valueOf(IterableExtensions.<Facet>exists(currentLayer, _function_4));
+    };
+    List<Facet> _list_1 = IterableExtensions.<Facet>toList(IterableExtensions.<Facet>filter(currentLayer, _function_3));
+    final ArrayList<Facet> toRemove = new ArrayList<Facet>(_list_1);
+    currentLayer.removeAll(toRemove);
+  }
+
+  /**
+   * Gets all facets which are a superset of the given one,
+   * returning the union of their saturated inequalities.
+   */
+  private static ArrayList<Integer> getUnionOfSupersets(final Facet facet, final Collection<Facet> toSearch) {
+    final Function1<Facet, Boolean> _function = (Facet other) -> {
+      return Boolean.valueOf(facet.isStrictSubsetOf(other));
+    };
+    final Function1<Facet, ArrayList<Integer>> _function_1 = (Facet superset) -> {
+      return superset.getSaturatedInequalityIndices();
+    };
+    Set<Integer> _set = IterableExtensions.<Integer>toSet(Iterables.<Integer>concat(IterableExtensions.<Facet, ArrayList<Integer>>map(IterableExtensions.<Facet>filter(toSearch, _function), _function_1)));
+    return new ArrayList<Integer>(_set);
   }
 
   @Pure

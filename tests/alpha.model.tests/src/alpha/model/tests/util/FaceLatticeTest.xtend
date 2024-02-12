@@ -29,15 +29,36 @@ class FaceLatticeTest {
 		(0 ..< faceCounts.length).forEach[dim | assertEquals(latticeStorage.get(dim).size, faceCounts.get(dim))]
 	}
 	
+	def private static assertFaceHasNoChildren(FaceLattice lattice, List<Integer> saturatedInequalities) {
+		val face = getFaceBySaturatedInequalities(lattice, saturatedInequalities)
+		assertNotNull(face)
+
+		val children = lattice.getChildren(face)
+		assertEquals(0, children.size)
+	}
+	
 	/**
 	 * Asserts that a face exists in the lattice, and that it has the correct child faces.
-	 * Reminder: a child node saturates all the inequalities of its parents, plus one more.
+	 * In this case, a child node saturates all the inequalities of its parents, plus exactly one more.
 	 * 
 	 * @param lattice               The lattice to check.
 	 * @param saturatedInequalities The inequalities that the desired face saturates.
 	 * @param addedInequalities     The additional inequalities that the children can saturate (one per child).
 	 */
 	def private static assertFaceHasChildren(FaceLattice lattice, List<Integer> saturatedInequalities, int... addedInequalities) {
+		val wrappedAddedInequalities = addedInequalities.map[index | #[index]]
+		assertFaceHasChildren(lattice, saturatedInequalities, wrappedAddedInequalities)
+	}
+	
+	/**
+	 * Asserts that a face exists in the lattice, and that it has the correct child faces.
+	 * Reminder: a child node saturates all the inequalities of its parents, plus one more.
+	 * 
+	 * @param lattice               The lattice to check.
+	 * @param saturatedInequalities The inequalities that the desired face saturates.
+	 * @param addedInequalities     The list additional inequalities that the children can saturate (one list per child).
+	 */
+	def private static assertFaceHasChildren(FaceLattice lattice, List<Integer> saturatedInequalities, List<Integer>... addedInequalities) {
 		val face = getFaceBySaturatedInequalities(lattice, saturatedInequalities)
 		assertNotNull(face)
 
@@ -46,7 +67,7 @@ class FaceLatticeTest {
 		
 		for (addedInequality: addedInequalities) {
 			val childInequalities = new ArrayList<Integer>(saturatedInequalities)
-			childInequalities.add(addedInequality)
+			childInequalities.addAll(addedInequality)
 			
 			assertTrue(children.exists[child | faceSaturatesInequalities(child, childInequalities)])
 		}
@@ -69,7 +90,7 @@ class FaceLatticeTest {
 	 * @param vertices A list of lists, where each sub-list indicates the saturated inequalities that make up a vertex.
 	 */
 	def private static assertVerticesExist(FaceLattice lattice, List<Integer>... vertices) {
-		vertices.forEach[vertex | assertFaceHasChildren(lattice, vertex, #[])]
+		vertices.forEach[vertex | assertFaceHasNoChildren(lattice, vertex)]
 	}
 	
 	/**
@@ -373,8 +394,8 @@ class FaceLatticeTest {
 		assertRootHasChildren(lattice, 0, 1)
 		
 		// Check that the 1-faces have no children.
-		assertFaceHasChildren(lattice, #[0])
-		assertFaceHasChildren(lattice, #[1])
+		assertFaceHasNoChildren(lattice, #[0])
+		assertFaceHasNoChildren(lattice, #[1])
 	}
 	
 	@Test
@@ -414,34 +435,30 @@ class FaceLatticeTest {
 		assertRootHasChildren(lattice)  // Don't include any children, as the root has none.
 	}
 	
-	// The following partially completed test does not currently work.
-	// The set represents a pyramid with a square base.
-	// The issue is that saturating certain combinations of constraints
-	// causes additional constraints to be saturated.
-	// The face lattice code does not currently handle this correctly,
-	// resulting in many vertex nodes having the wrong number of saturated inequalities.
-//	@Test
-//	def squarePyramidTest() {
-//		val lattice = makeLattice("[N]->{[i,j,k]: 0<=i<=k and 0<=j<=k and 0<=k<=N}")
-//		assertFalse(lattice.isSimplicial)
-//		assertFaceCounts(lattice, 5, 8, 5, 1)
-//		assertRootHasChildren(lattice, 0..4)
-//		
-//		// Check the 2-faces.
-//		assertFaceHasChildren(lattice, #[0], 1, 3, 4)
-//		assertFaceHasChildren(lattice, #[1], 0, 2, 4)
-//		assertFaceHasChildren(lattice, #[2], 1, 3, 4)
-//		assertFaceHasChildren(lattice, #[3], 0, 2, 4)
-//		assertFaceHasChildren(lattice, #[4], 0, 1, 2, 3)
-//		
-//		// Check the 1-faces.
-//		assertFaceHasChildren(lattice, #[0,1], 4)     // Also has the child #[0,1,2,3]
-//		assertFaceHasChildren(lattice, #[0,3], 4)     // Also has the child #[0,1,2,3]
-//		assertFaceHasChildren(lattice, #[0,4], 1, 3)
-//		assertFaceHasChildren(lattice, #[1,2], 4)     // Also has the child #[0,1,2,3]
-//		assertFaceHasChildren(lattice, #[1,4], 0, 2)
-//		assertFaceHasChildren(lattice, #[2,3], 4)     // Also has the child #[0,1,2,3]
-//		assertFaceHasChildren(lattice, #[2,4], 1, 3)
-//		assertFaceHasChildren(lattice, #[3,4], 0, 2)
-//	}
+	@Test
+	def squarePyramidTest() {
+		val lattice = makeLattice("[N]->{[i,j,k]: 0<=i<=k and 0<=j<=k and 0<=k<=N}")
+		assertFalse(lattice.isSimplicial)
+		assertFaceCounts(lattice, 5, 8, 5, 1)
+		assertRootHasChildren(lattice, 0..4)
+		
+		// Check the 2-faces.
+		assertFaceHasChildren(lattice, #[0], 1, 3, 4)
+		assertFaceHasChildren(lattice, #[1], 0, 2, 4)
+		assertFaceHasChildren(lattice, #[2], 1, 3, 4)
+		assertFaceHasChildren(lattice, #[3], 0, 2, 4)
+		assertFaceHasChildren(lattice, #[4], 0, 1, 2, 3)
+		
+		// Check the 1-faces.
+		assertFaceHasChildren(lattice, #[0,1], #[#[4], #[2,3]])
+		assertFaceHasChildren(lattice, #[0,3], #[#[4], #[1,2]])
+		assertFaceHasChildren(lattice, #[0,4], 1, 3)
+		assertFaceHasChildren(lattice, #[1,2], #[#[4], #[0,3]])
+		assertFaceHasChildren(lattice, #[1,4], 0, 2)
+		assertFaceHasChildren(lattice, #[2,3], #[#[4], #[0,1]])
+		assertFaceHasChildren(lattice, #[2,4], 1, 3)
+		assertFaceHasChildren(lattice, #[3,4], 0, 2)
+		
+		assertVerticesExist(lattice, #[0,1,4], #[0,1,2,3], #[0,3,4], #[1,2,4], #[2,3,4])
+	}
 }

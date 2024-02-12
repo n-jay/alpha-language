@@ -149,9 +149,8 @@ public class Facet {
   public boolean isChildOf(final Facet other) {
     int _size = this.saturatedInequalityIndices.size();
     int _size_1 = other.saturatedInequalityIndices.size();
-    int _plus = (1 + _size_1);
-    boolean _notEquals = (_size != _plus);
-    if (_notEquals) {
+    boolean _lessEqualsThan = (_size <= _size_1);
+    if (_lessEqualsThan) {
       return false;
     }
     final Function1<Integer, Boolean> _function = (Integer it) -> {
@@ -166,10 +165,27 @@ public class Facet {
       return Boolean.valueOf(other.saturatedInequalityIndices.contains(it));
     };
     final int notSaturatedCount = IterableExtensions.size(IterableExtensions.<Integer>reject(this.saturatedInequalityIndices, _function_1));
-    if ((notSaturatedCount != 1)) {
+    if ((notSaturatedCount < 1)) {
       return false;
     }
     return true;
+  }
+
+  /**
+   * Returns <code>true</code> if this set has the same saturated inequalities as the other.
+   * Otherwise, returns <code>false</code>.
+   */
+  public boolean isDuplicateOf(final Facet other) {
+    return (this.saturatedInequalityIndices.containsAll(other.saturatedInequalityIndices) && other.saturatedInequalityIndices.containsAll(this.saturatedInequalityIndices));
+  }
+
+  /**
+   * Returns <code>true</code> if this set is of the same dimension as the other,
+   * and the inequalities saturated by this facet is a subset of the other.
+   * Otherwise, returns <code>false</code>.
+   */
+  public boolean isStrictSubsetOf(final Facet other) {
+    return (((this.dimensionality == other.dimensionality) && (this.saturatedInequalityIndices.size() < other.saturatedInequalityIndices.size())) && other.saturatedInequalityIndices.containsAll(this.saturatedInequalityIndices));
   }
 
   /**
