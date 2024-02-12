@@ -40,6 +40,18 @@ class FaceLattice {
 	
 	/** Creates a new face lattice for the given set. */
 	def static create(ISLBasicSet root) {
+		return create(root, true)
+	}
+	
+	/**
+	 * Creates a new face lattice for the given set.
+	 * 
+	 * @param   root        The set to use as the root of the lattice.  
+	 * @param   fullLattice If <code>true</code>, generate the full lattice.
+	 *                      Otherwise, only generate the partial lattice from saturating exactly one inequality.
+	 * @returns An instance of the face lattice (or partial lattice) for the root.
+	 */
+	def static create(ISLBasicSet root, boolean fullLattice) {
 		// Set up the face lattice which is rooted at the given set.
 		val rootInfo = new Facet(root)
 		val lattice = new FaceLattice(rootInfo)
@@ -58,7 +70,8 @@ class FaceLattice {
 			
 			// If the face was valid and the maximum number of constraints haven't been saturated,
 			// queue up more sets of constraints to try saturating.
-			val hasChildren = isValidFace && (currentConstraints.size < rootInfo.dimensionality)
+			// Skip this if we're only generating the partial lattice.
+			val hasChildren = fullLattice && isValidFace && (currentConstraints.size < rootInfo.dimensionality)
 			if (hasChildren) {
 				// The next constraint sets are created by adding a single constraint to this set.
 				// To avoid duplicating faces, only try saturating constraints whose index is
