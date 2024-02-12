@@ -45,6 +45,18 @@ public class FaceLattice {
    * Creates a new face lattice for the given set.
    */
   public static FaceLattice create(final ISLBasicSet root) {
+    return FaceLattice.create(root, true);
+  }
+
+  /**
+   * Creates a new face lattice for the given set.
+   * 
+   * @param   root        The set to use as the root of the lattice.
+   * @param   fullLattice If <code>true</code>, generate the full lattice.
+   *                      Otherwise, only generate the partial lattice from saturating exactly one inequality.
+   * @returns An instance of the face lattice (or partial lattice) for the root.
+   */
+  public static FaceLattice create(final ISLBasicSet root, final boolean fullLattice) {
     final Facet rootInfo = new Facet(root);
     final FaceLattice lattice = new FaceLattice(rootInfo);
     final LinkedList<ArrayList<Integer>> toSaturate = new LinkedList<ArrayList<Integer>>();
@@ -54,7 +66,7 @@ public class FaceLattice {
       {
         final ArrayList<Integer> currentConstraints = toSaturate.remove();
         final boolean isValidFace = lattice.checkAddFace(currentConstraints);
-        final boolean hasChildren = (isValidFace && (currentConstraints.size() < rootInfo.getDimensionality()));
+        final boolean hasChildren = ((fullLattice && isValidFace) && (currentConstraints.size() < rootInfo.getDimensionality()));
         if (hasChildren) {
           int _xifexpression = (int) 0;
           boolean _isEmpty = currentConstraints.isEmpty();
