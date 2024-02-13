@@ -128,8 +128,8 @@ class Facet {
 	
 	/** Returns <code>true</code> if this set is a child face of the given set, and <code>false</code> otherwise. */
 	def isChildOf(Facet other) {
-		// This set must saturate exactly one more constraint than the other set.
-		if (saturatedInequalityIndices.size != 1 + other.saturatedInequalityIndices.size) {
+		// This set must saturate more constraints than the other set.
+		if (saturatedInequalityIndices.size <= other.saturatedInequalityIndices.size) {
 			return false
 		}
 		
@@ -138,13 +138,33 @@ class Facet {
 			return false
 		}
 		
-		// There must only be exactly one constraint in this set which is not saturated by the other set.
+		// There must only at least one constraint in this set which is not saturated by the other set.
 		val notSaturatedCount = saturatedInequalityIndices.reject[other.saturatedInequalityIndices.contains(it)].size
-		if (notSaturatedCount != 1) {
+		if (notSaturatedCount < 1) {
 			return false
 		}
 		
 		return true
+	}
+	
+	/**
+	 * Returns <code>true</code> if this set has the same saturated inequalities as the other.
+	 * Otherwise, returns <code>false</code>.
+	 */
+	def isDuplicateOf(Facet other) {
+		return this.saturatedInequalityIndices.containsAll(other.saturatedInequalityIndices)
+			&& other.saturatedInequalityIndices.containsAll(this.saturatedInequalityIndices)
+	}
+	
+	/**
+	 * Returns <code>true</code> if this set is of the same dimension as the other,
+	 * and the inequalities saturated by this facet is a subset of the other.
+	 * Otherwise, returns <code>false</code>.
+	 */
+	def isStrictSubsetOf(Facet other) {
+		return this.dimensionality == other.dimensionality
+			&& this.saturatedInequalityIndices.size < other.saturatedInequalityIndices.size
+			&& other.saturatedInequalityIndices.containsAll(this.saturatedInequalityIndices)
 	}
 	
 	/** Returns <code>true</code> if this set is a valid face of the given set, and <code>false</code> otherwise. */
