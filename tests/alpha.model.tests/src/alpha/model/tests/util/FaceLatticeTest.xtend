@@ -480,8 +480,6 @@ class FaceLatticeTest {
 		val lattice = makeLattice("[N]->{[i,j,k]: 0<=k<=-N+i+j and k<=2N-2i+j and -5+2N+i-2j<=k<=2N+i-2j}")
 		val dim = lattice.rootInfo.dimensionality
 		assertEquals(dim, 2)
-		
-		lattice.lattice.forEach[l | println(l.toString)]
 		assertFaceCounts(lattice, 3, 3, 1)
 		
 		val facets = lattice.getChildren(lattice.rootInfo)
