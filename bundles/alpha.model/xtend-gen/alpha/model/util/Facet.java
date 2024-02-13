@@ -298,11 +298,19 @@ public class Facet {
    * Creates a basic set from this information.
    */
   public ISLBasicSet toBasicSet() {
-    final ISLMatrix allInequalities = this.indexInequalities.copy().concat(this.parameterInequalities.copy());
+    final ISLMatrix allInequalities = this.indexInequalities.copy().concat(this.parameterInequalities.copy()).concat(this.effectivelySaturatedInequalities.copy());
     return ISLBasicSet.fromConstraintMatrices(
       this.space.copy(), this.equalities.copy(), allInequalities, 
       ISLDimType.isl_dim_param, ISLDimType.isl_dim_set, 
       ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst).removeRedundancies();
+  }
+
+  /**
+   * Returns <code>true</code> if the facet has at least one thick face, and <code>false</code> otherwise.
+   */
+  public boolean hasThickFaces() {
+    int _nbRows = this.effectivelySaturatedInequalities.getNbRows();
+    return (_nbRows > 0);
   }
 
   /**

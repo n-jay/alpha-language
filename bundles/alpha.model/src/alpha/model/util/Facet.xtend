@@ -260,11 +260,17 @@ class Facet {
 	/** Creates a basic set from this information. */
 	def toBasicSet() {
 		val allInequalities = indexInequalities.copy.concat(parameterInequalities.copy)
+		                                            .concat(effectivelySaturatedInequalities.copy)
 		return ISLBasicSet.fromConstraintMatrices(
 				space.copy, equalities.copy, allInequalities,
 				ISLDimType.isl_dim_param, ISLDimType.isl_dim_set,
 				ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst)
 			.removeRedundancies
+	}
+	
+	/** Returns <code>true</code> if the facet has at least one thick face, and <code>false</code> otherwise. */
+	def hasThickFaces() {
+		return effectivelySaturatedInequalities.nbRows > 0
 	}
 	
 	/** Returns a string indicating which inequalities were saturated to form this face. */

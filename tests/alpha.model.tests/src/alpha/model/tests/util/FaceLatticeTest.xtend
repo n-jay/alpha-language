@@ -470,7 +470,6 @@ class FaceLatticeTest {
 	@Test
 	def testThickEquality_1() {
 		val lattice = makeLattice("[N]->{[i,j]: 0<=i<2 and -N+10<j<N}")
-		lattice.lattice.forEach[l | println(l.toString)]
 		val dim = lattice.rootInfo.dimensionality
 		
 		assertEquals(dim, 1)
@@ -478,10 +477,15 @@ class FaceLatticeTest {
 	
 	@Test
 	def testThickEquality_2() {
-		val lattice = makeLattice("[N]->{[i,j,k]: 0<=k<=-N+i+j and k<=2N-2i+j and -1+2N+i-2j<=k<=2N+i-2j}")
+		val lattice = makeLattice("[N]->{[i,j,k]: 0<=k<=-N+i+j and k<=2N-2i+j and -5+2N+i-2j<=k<=2N+i-2j}")
 		val dim = lattice.rootInfo.dimensionality
-		
 		assertEquals(dim, 2)
+		
+		lattice.lattice.forEach[l | println(l.toString)]
+		assertFaceCounts(lattice, 3, 3, 1)
+		
+		val facets = lattice.getChildren(lattice.rootInfo)
+		facets.forEach[f | assertTrue(f.hasThickFaces)]
 	}
 	
 }

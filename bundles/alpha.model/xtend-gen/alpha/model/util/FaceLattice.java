@@ -147,7 +147,7 @@ public class FaceLattice {
   }
 
   /**
-   * Returns <code>true</code> if the root of the lattice has thick face, and <code>false</code> otherwise.
+   * Returns <code>true</code> if the root has at least one thick face, and <code>false</code> otherwise.
    */
   public boolean hasThickFaces() {
     int _nbRows = this.rootInfo.getEffectivelySaturatedInequalities().getNbRows();
