@@ -1,10 +1,13 @@
 package alpha.model.util;
 
+import alpha.model.matrix.MatrixOperations;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.function.Consumer;
 import org.eclipse.xtend.lib.annotations.Data;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -45,6 +48,11 @@ public class Facet {
    * The equality constraints defining the set.
    */
   private final ISLMatrix equalities;
+
+  /**
+   * The pairs of inequality constraints that are effectively saturated
+   */
+  private final ISLMatrix effectivelySaturatedInequalities;
 
   /**
    * The number of index variables in the set's space.
@@ -102,17 +110,42 @@ public class Facet {
    * Extract the information from the given set.
    */
   public Facet(final ISLBasicSet basicSet, final ArrayList<Integer> saturatedInequalityIndices) {
-    this.equalities = DomainOperations.toISLEqualityMatrix(basicSet);
-    this.indexCount = basicSet.dim(ISLDimType.isl_dim_set);
-    this.indexInequalities = Facet.getInequalities(basicSet, this.indexCount, true);
+    final ISLBasicSet basicSetNoRedundancies = basicSet.copy().removeRedundancies();
+    this.equalities = DomainOperations.toISLEqualityMatrix(basicSetNoRedundancies);
+    this.indexCount = basicSetNoRedundancies.dim(ISLDimType.isl_dim_set);
+    this.indexInequalities = Facet.getInequalities(basicSetNoRedundancies, this.indexCount, true);
+    this.effectivelySaturatedInequalities = Facet.moveEffectivelySaturatedConstraints(basicSetNoRedundancies);
     this.indexInequalityCount = this.indexInequalities.getNbRows();
-    this.isBounded = basicSet.bounded();
-    this.isEmpty = basicSet.isEmpty();
+    this.isBounded = basicSetNoRedundancies.bounded();
+    this.isEmpty = basicSetNoRedundancies.isEmpty();
     this.parameterEqualityCount = Facet.countParameterConstraints(this.equalities, this.indexCount);
-    this.parameterInequalities = Facet.getInequalities(basicSet, this.indexCount, false);
+    this.parameterInequalities = Facet.getInequalities(basicSetNoRedundancies, this.indexCount, false);
     this.saturatedInequalityIndices = saturatedInequalityIndices;
-    this.space = basicSet.getSpace();
+    this.space = basicSetNoRedundancies.getSpace();
     this.dimensionality = Facet.dimensionality(this.equalities, this.indexCount);
+  }
+
+  /**
+   * Separates effectively saturated inequalities from true (unsaturated) inequalities
+   */
+  public static ISLMatrix moveEffectivelySaturatedConstraints(final ISLBasicSet basicSet) {
+    ISLMatrix _xblockexpression = null;
+    {
+      ISLMatrix _iSLInequalityMatrix = DomainOperations.toISLInequalityMatrix(basicSet);
+      int _nbParams = basicSet.getNbParams();
+      int _nbIndices = basicSet.getNbIndices();
+      int _plus = (_nbParams + _nbIndices);
+      final long[][] matrix = _iSLInequalityMatrix.dropCols(_plus, 1).toLongMatrix();
+      final long[][] negMatrix = MatrixOperations.scalarMultiplication(matrix, (-1));
+      final HashMap<String, Long> idxMap = new HashMap<String, Long>();
+      int _length = matrix.length;
+      final Consumer<Integer> _function = (Integer i) -> {
+        idxMap.put(MatrixOperations.toString(matrix[(i).intValue()]), Long.valueOf((i).intValue()));
+      };
+      new ExclusiveRange(0, _length, true).forEach(_function);
+      _xblockexpression = ((ISLMatrix) null);
+    }
+    return _xblockexpression;
   }
 
   /**
@@ -287,6 +320,7 @@ public class Facet {
     int result = 1;
     result = prime * result + this.dimensionality;
     result = prime * result + ((this.equalities== null) ? 0 : this.equalities.hashCode());
+    result = prime * result + ((this.effectivelySaturatedInequalities== null) ? 0 : this.effectivelySaturatedInequalities.hashCode());
     result = prime * result + this.indexCount;
     result = prime * result + ((this.indexInequalities== null) ? 0 : this.indexInequalities.hashCode());
     result = prime * result + this.indexInequalityCount;
@@ -314,6 +348,11 @@ public class Facet {
       if (other.equalities != null)
         return false;
     } else if (!this.equalities.equals(other.equalities))
+      return false;
+    if (this.effectivelySaturatedInequalities == null) {
+      if (other.effectivelySaturatedInequalities != null)
+        return false;
+    } else if (!this.effectivelySaturatedInequalities.equals(other.effectivelySaturatedInequalities))
       return false;
     if (other.indexCount != this.indexCount)
       return false;
@@ -356,6 +395,11 @@ public class Facet {
   @Pure
   public ISLMatrix getEqualities() {
     return this.equalities;
+  }
+
+  @Pure
+  public ISLMatrix getEffectivelySaturatedInequalities() {
+    return this.effectivelySaturatedInequalities;
   }
 
   @Pure

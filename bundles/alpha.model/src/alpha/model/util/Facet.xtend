@@ -1,11 +1,16 @@
 package alpha.model.util
 
-import org.eclipse.xtend.lib.annotations.Data
-import fr.irisa.cairn.jnimap.isl.ISLMatrix
-import java.util.ArrayList
-import fr.irisa.cairn.jnimap.isl.ISLSpace
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMatrix
+import fr.irisa.cairn.jnimap.isl.ISLSpace
+import java.util.ArrayList
+import java.util.Arrays
+import org.eclipse.xtend.lib.annotations.Data
+
+import static extension alpha.model.matrix.MatrixOperations.*
+import static extension alpha.model.util.DomainOperations.*
+import java.util.HashMap
 
 /**
  * Contains useful information about an <code>ISLBasicSet</code>.
@@ -39,6 +44,9 @@ class Facet {
 	
 	/** The equality constraints defining the set. */
 	ISLMatrix equalities
+	
+	/** The pairs of inequality constraints that are effectively saturated */
+	ISLMatrix effectivelySaturatedInequalities
 	
 	/** The number of index variables in the set's space. */
 	int indexCount
@@ -77,18 +85,39 @@ class Facet {
 	
 	/** Extract the information from the given set. */
 	new(ISLBasicSet basicSet, ArrayList<Integer> saturatedInequalityIndices) {
-		equalities = DomainOperations.toISLEqualityMatrix(basicSet)
-		indexCount = basicSet.dim(ISLDimType.isl_dim_set)
-		indexInequalities = getInequalities(basicSet, indexCount, true)
+		val basicSetNoRedundancies = basicSet.copy.removeRedundancies
+		
+		equalities = DomainOperations.toISLEqualityMatrix(basicSetNoRedundancies)
+		indexCount = basicSetNoRedundancies.dim(ISLDimType.isl_dim_set)
+		indexInequalities = getInequalities(basicSetNoRedundancies, indexCount, true)
+		
+		// this may modify the state of indexIndequalities
+		effectivelySaturatedInequalities = moveEffectivelySaturatedConstraints(basicSetNoRedundancies)
+		
 		indexInequalityCount = indexInequalities.nbRows
-		isBounded = basicSet.bounded
-		isEmpty = basicSet.empty
+		isBounded = basicSetNoRedundancies.bounded
+		isEmpty = basicSetNoRedundancies.empty
 		parameterEqualityCount = countParameterConstraints(equalities, indexCount)
-		parameterInequalities = getInequalities(basicSet, indexCount, false)
+		parameterInequalities = getInequalities(basicSetNoRedundancies, indexCount, false)
 		this.saturatedInequalityIndices = saturatedInequalityIndices
-		space = basicSet.space 
-
+		space = basicSetNoRedundancies.space 
+		
 		dimensionality = dimensionality(equalities, indexCount)
+	}
+	
+	/** Separates effectively saturated inequalities from true (unsaturated) inequalities */
+	def static moveEffectivelySaturatedConstraints(ISLBasicSet basicSet) {
+		val matrix = basicSet.toISLInequalityMatrix.dropCols(basicSet.nbParams + basicSet.nbIndices, 1)
+		                     .toLongMatrix
+		val negMatrix = matrix.scalarMultiplication(-1)
+		
+		val idxMap = new HashMap<String, Long>()
+		(0..<matrix.length).forEach[i | idxMap.put(matrix.get(i).toString, Long.valueOf(i))]
+		
+		
+		
+		
+		null as ISLMatrix
 	}
 	
 	/** Saturates the given index inequalities from the ancestor to form a potential face. */
