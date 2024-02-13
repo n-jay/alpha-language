@@ -1,11 +1,17 @@
 package alpha.model.util
 
-import org.eclipse.xtend.lib.annotations.Data
-import fr.irisa.cairn.jnimap.isl.ISLMatrix
-import java.util.ArrayList
-import fr.irisa.cairn.jnimap.isl.ISLSpace
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMatrix
+import fr.irisa.cairn.jnimap.isl.ISLSpace
+import java.util.ArrayList
+import java.util.HashSet
+import org.eclipse.xtend.lib.annotations.Data
+
+import static extension alpha.model.matrix.MatrixOperations.*
+import static extension alpha.model.util.CommonExtensions.toHashMap
+import static extension alpha.model.util.DomainOperations.toISLEqualityMatrix
+import static extension fr.irisa.cairn.jnimap.isl.ISLMatrix.buildFromLongMatrix
 
 /**
  * Contains useful information about an <code>ISLBasicSet</code>.
@@ -39,6 +45,9 @@ class Facet {
 	
 	/** The equality constraints defining the set. */
 	ISLMatrix equalities
+	
+	/** The pairs of inequality constraints that are effectively saturated */
+	ISLMatrix thickEqualities
 	
 	/** The number of index variables in the set's space. */
 	int indexCount
@@ -77,18 +86,39 @@ class Facet {
 	
 	/** Extract the information from the given set. */
 	new(ISLBasicSet basicSet, ArrayList<Integer> saturatedInequalityIndices) {
-		equalities = DomainOperations.toISLEqualityMatrix(basicSet)
-		indexCount = basicSet.dim(ISLDimType.isl_dim_set)
-		indexInequalities = getInequalities(basicSet, indexCount, true)
+		val basicSetNoRedundancies = basicSet.copy.removeRedundancies
+		
+		space = basicSetNoRedundancies.space 
+		equalities = DomainOperations.toISLEqualityMatrix(basicSetNoRedundancies)
+		indexCount = basicSetNoRedundancies.dim(ISLDimType.isl_dim_set)
+		
+		val allInequalities = getInequalities(basicSetNoRedundancies, indexCount, true)
+		val inequalities = separateEffectivelySaturatedInequalities(allInequalities, space)
+		indexInequalities = inequalities.key
+		thickEqualities = inequalities.value
+		
+		if (thickEqualities.nbRows % 2 != 0) {
+			throw new Exception('Failed to create lattice, there should be an even number of (or zero) effectively saturated constraints')
+		}
+		
 		indexInequalityCount = indexInequalities.nbRows
-		isBounded = basicSet.bounded
-		isEmpty = basicSet.empty
+		isBounded = basicSetNoRedundancies.bounded
+		isEmpty = basicSetNoRedundancies.empty
 		parameterEqualityCount = countParameterConstraints(equalities, indexCount)
-		parameterInequalities = getInequalities(basicSet, indexCount, false)
+		parameterInequalities = getInequalities(basicSetNoRedundancies, indexCount, false)
 		this.saturatedInequalityIndices = saturatedInequalityIndices
-		space = basicSet.space 
-
-		dimensionality = dimensionality(equalities, indexCount)
+		
+		dimensionality = dimensionality(thickEqualities, equalities, indexCount)
+	}
+	
+	/** 
+	 * ISLMatrix buildFromLongMatrix throws an exception if the input matrix has no rows
+	 */
+	def static buildFromLongMatrixEvenIfEmpty(long[][] matrix, ISLSpace space) {
+		if (matrix.length == 0) {
+			return ISLBasicSet.buildUniverse(space.copy).toISLEqualityMatrix
+		}
+		return matrix.buildFromLongMatrix
 	}
 	
 	/** Saturates the given index inequalities from the ancestor to form a potential face. */
@@ -104,12 +134,14 @@ class Facet {
 		
 		// Create the new inequalities matrix by taking the acestor's index inequality constraints
 		// and dropping any which were saturated, leaving only the non-saturated ones,
-		// then combining it with the ancestor's parameter inequality constraints.
+		// then combining it with the ancestor's parameter inequality constraints and effectively
+		// saturated inequality constraints.
 		val indexInequalities =
 			(ancestor.indexInequalities.nbRows >.. 0)
 			.filter[row | toSaturate.contains(row)]
 			.fold(ancestor.indexInequalities.copy, [mat, row | mat.dropRows(row, 1)])
 		val inequalities = indexInequalities.concat(ancestor.parameterInequalities.copy)
+		                                    .concat(ancestor.thickEqualities.copy)
 		
 		// Construct a basic set from these matrices, plus info from the ancestor,
 		// and use that to extract the desired information.
@@ -185,11 +217,17 @@ class Facet {
 	/** Creates a basic set from this information. */
 	def toBasicSet() {
 		val allInequalities = indexInequalities.copy.concat(parameterInequalities.copy)
+		                                            .concat(thickEqualities.copy)
 		return ISLBasicSet.fromConstraintMatrices(
 				space.copy, equalities.copy, allInequalities,
 				ISLDimType.isl_dim_param, ISLDimType.isl_dim_set,
 				ISLDimType.isl_dim_div, ISLDimType.isl_dim_cst)
 			.removeRedundancies
+	}
+	
+	/** Returns <code>true</code> if the facet has at least one thick face, and <code>false</code> otherwise. */
+	def hasThickFaces() {
+		return thickEqualities.nbRows > 0
 	}
 	
 	/** Returns a string indicating which inequalities were saturated to form this face. */
@@ -220,8 +258,11 @@ class Facet {
 			.size
 	}
 	
-	/** Returns the dimensionality of a set using the equality constraints and number of index variables. */
-	def private static dimensionality(ISLMatrix equalities, int indexCount) {
+	/** 
+	 * Returns the dimensionality of a set using the effectively saturated constraints, 
+	 * equality constraints and number of index variables.
+	 */
+	def private static dimensionality(ISLMatrix thickEqualities, ISLMatrix equalities, int indexCount) {
 		// The dimensionality of a set is defined as the number of index variables
 		// minus the number of linearly independent equality constraints which involve
 		// at least one index variable (the rank of said matrix).
@@ -235,7 +276,11 @@ class Facet {
 			.fold(equalities.copy(), [mat, row | mat.dropRows(row, 1)])
 			.rank
 
-		return indexCount - linearlyIndependentIndexEqualities
+		// There will always be an even number of (or zero) effectively saturated
+		// inequality constraints. Each pair represents one thick equality constraint.
+		val numThickEqualities = thickEqualities.getNbRows / 2
+
+		return indexCount - linearlyIndependentIndexEqualities - numThickEqualities
 	}
 	
 	/**
@@ -255,4 +300,43 @@ class Facet {
 			.toList
 			.fold(inequalities, [mat, row | mat.dropRows(row, 1)])
 	}
+	
+	/** Separates the effectively saturated inequalities from true unsaturated inequalities */
+	def private static separateEffectivelySaturatedInequalities(ISLMatrix allInequalities, ISLSpace space) {
+		val matrix = allInequalities.copy.dropCols(space.nbParams + space.nbIndices, 1).toLongMatrix
+
+		// Use a hash map to get the index of a particular vector in matrix
+		val idxMap = (0 ..< matrix.length)
+			.toMap[rowIdx | matrix.get(rowIdx).toString]
+			.mapValues[rowIdx | Long.valueOf(rowIdx)]
+			.toHashMap
+		
+		// Identify the indices of any parallel constraints. For each vector in matrix, check
+		// to see if its negation exists (i.e., is a key in idxMap). Label such vectors as 
+		// having a colinear partner.
+		val negMatrix = matrix.scalarMultiplication(-1)
+		
+		val colinearConstraints = (0 ..< matrix.length)
+			.toInvertedMap[rowIdx | negMatrix.get(rowIdx).toString]
+			.filter[rowIdx, rowStr | idxMap.containsKey(rowStr)]
+			.toHashMap
+			.keySet
+		
+		// Construct the matrix of all colinear inequalities. The GR06 paper defines pairs of
+		// colinear inequalities as thick equalities (or thick faces).
+		val longMatrix = allInequalities.toLongMatrix
+		val thickEqualities = (0..<matrix.length)
+			.filter[i | colinearConstraints.contains(i)]
+			.map[i | longMatrix.get(i)]
+			.buildFromLongMatrixEvenIfEmpty(space)
+		
+		// Construct the matrix of remaining true unsaturated inequalities
+		val unsaturatedInequalities = (0..<matrix.length)
+			.reject[i | colinearConstraints.contains(i)]
+			.map[i | longMatrix.get(i)]
+			.buildFromLongMatrixEvenIfEmpty(space)
+		
+		return unsaturatedInequalities -> thickEqualities 
+	}
+	
 }
