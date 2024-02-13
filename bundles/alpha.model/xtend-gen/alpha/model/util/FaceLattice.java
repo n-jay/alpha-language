@@ -147,6 +147,14 @@ public class FaceLattice {
   }
 
   /**
+   * Returns <code>true</code> if the root of the lattice has thick face, and <code>false</code> otherwise.
+   */
+  public boolean hasThickFaces() {
+    int _nbRows = this.rootInfo.getEffectivelySaturatedInequalities().getNbRows();
+    return (_nbRows > 0);
+  }
+
+  /**
    * Checks if a face is valid to add to the lattice, and adds it if so.
    * @returns Returns <code>true</code> if the face was valid, didn't exist already, and was added.
    * 			Otherwise, returns <code>false</code>.

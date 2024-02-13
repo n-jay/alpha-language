@@ -141,6 +141,10 @@ class FaceLattice {
 		return true
 	}
 	
+	/** Returns <code>true</code> if the root of the lattice has thick face, and <code>false</code> otherwise. */
+	def hasThickFaces() {
+		return rootInfo.effectivelySaturatedInequalities.nbRows > 0
+	}
 	
 	////////////////////////////////////////////////////////////
 	// Private Methods

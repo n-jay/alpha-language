@@ -15,6 +15,7 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
@@ -116,6 +117,10 @@ public class FaceLatticeTest {
    * exactly match the vertices that ISL calculates for the same set.
    */
   private static void assertVerticesMatchISL(final FaceLattice lattice) {
+    boolean _hasThickFaces = lattice.hasThickFaces();
+    if (_hasThickFaces) {
+      return;
+    }
     boolean _isEmpty = lattice.getRootInfo().isEmpty();
     if (_isEmpty) {
       ArrayList<ArrayList<Facet>> _elvis = null;
@@ -320,7 +325,7 @@ public class FaceLatticeTest {
 
   @Test
   public void testLineSegment_3() {
-    FaceLatticeTest.assertLineSegment("{[i,j,k]: 0<=i,j,k and i=j and j=k and k<=50}");
+    FaceLatticeTest.assertLineSegment("[N]->{[i,j,k]: 0<=i,j,k and i=j and j=k and k<=N}");
   }
 
   @Test
@@ -379,7 +384,7 @@ public class FaceLatticeTest {
 
   @Test
   public void testNonSimplex_2() {
-    final FaceLattice lattice = FaceLatticeTest.makeLattice("[N]->{[i,j]: 0<i<20 and i<j<N}");
+    final FaceLattice lattice = FaceLatticeTest.makeLattice("[N,M]->{[i,j]: 0<i<M and i<j<2N}");
     Assert.assertFalse(lattice.isSimplicial());
     FaceLatticeTest.assertFaceCounts(lattice, 5, 4, 1);
     IntegerRange _upTo = new IntegerRange(0, 3);
@@ -462,5 +467,23 @@ public class FaceLatticeTest {
     FaceLatticeTest.assertFaceHasChildren(lattice, Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(2), Integer.valueOf(4))), 1, 3);
     FaceLatticeTest.assertFaceHasChildren(lattice, Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(3), Integer.valueOf(4))), 0, 2);
     FaceLatticeTest.assertVerticesExist(lattice, Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(4))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(0), Integer.valueOf(3), Integer.valueOf(4))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(4))), Collections.<Integer>unmodifiableList(CollectionLiterals.<Integer>newArrayList(Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4))));
+  }
+
+  @Test
+  public void testThickEquality_1() {
+    final FaceLattice lattice = FaceLatticeTest.makeLattice("[N]->{[i,j]: 0<=i<2 and -N+10<j<N}");
+    final Consumer<ArrayList<Facet>> _function = (ArrayList<Facet> l) -> {
+      InputOutput.<String>println(l.toString());
+    };
+    lattice.getLattice().forEach(_function);
+    final int dim = lattice.getRootInfo().getDimensionality();
+    Assert.assertEquals(dim, 1);
+  }
+
+  @Test
+  public void testThickEquality_2() {
+    final FaceLattice lattice = FaceLatticeTest.makeLattice("[N]->{[i,j,k]: 0<=k<=-N+i+j and k<=2N-2i+j and -1+2N+i-2j<=k<=2N+i-2j}");
+    final int dim = lattice.getRootInfo().getDimensionality();
+    Assert.assertEquals(dim, 2);
   }
 }

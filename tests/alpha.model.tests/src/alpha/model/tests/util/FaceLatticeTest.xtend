@@ -98,6 +98,11 @@ class FaceLatticeTest {
 	 * exactly match the vertices that ISL calculates for the same set.
 	 */
 	def private static assertVerticesMatchISL(FaceLattice lattice) {
+		// This assertion only works for input sets without thick faces
+		if (lattice.hasThickFaces) {
+			return
+		}
+		
 		// If the root set is empty, just check that the lattice is empty.
 		if (lattice.rootInfo.empty) {
 			val nonNullLattice = lattice.lattice ?: new ArrayList
@@ -303,7 +308,7 @@ class FaceLatticeTest {
 	
 	@Test
 	def testLineSegment_3() {
-		assertLineSegment("{[i,j,k]: 0<=i,j,k and i=j and j=k and k<=50}")
+		assertLineSegment("[N]->{[i,j,k]: 0<=i,j,k and i=j and j=k and k<=N}")
 	}
 	
 	@Test
@@ -364,7 +369,7 @@ class FaceLatticeTest {
 	
 	@Test
 	def testNonSimplex_2() {
-		val lattice = makeLattice("[N]->{[i,j]: 0<i<20 and i<j<N}")
+		val lattice = makeLattice("[N,M]->{[i,j]: 0<i<M and i<j<2N}")
 		assertFalse(lattice.isSimplicial)
 		assertFaceCounts(lattice, 5, 4, 1)
 		assertRootHasChildren(lattice, 0..3)
@@ -461,4 +466,22 @@ class FaceLatticeTest {
 		
 		assertVerticesExist(lattice, #[0,1,4], #[0,1,2,3], #[0,3,4], #[1,2,4], #[2,3,4])
 	}
+	
+	@Test
+	def testThickEquality_1() {
+		val lattice = makeLattice("[N]->{[i,j]: 0<=i<2 and -N+10<j<N}")
+		lattice.lattice.forEach[l | println(l.toString)]
+		val dim = lattice.rootInfo.dimensionality
+		
+		assertEquals(dim, 1)
+	}
+	
+	@Test
+	def testThickEquality_2() {
+		val lattice = makeLattice("[N]->{[i,j,k]: 0<=k<=-N+i+j and k<=2N-2i+j and -1+2N+i-2j<=k<=2N+i-2j}")
+		val dim = lattice.rootInfo.dimensionality
+		
+		assertEquals(dim, 2)
+	}
+	
 }
