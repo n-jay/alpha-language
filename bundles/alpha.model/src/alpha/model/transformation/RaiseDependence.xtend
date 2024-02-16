@@ -28,6 +28,7 @@ import static extension alpha.model.util.CommonExtensions.toHashMap
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildZero
 import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
+import alpha.model.UnaryExpression
 
 /**
  * Raises up dependence functions through the AST of a given expression.
@@ -176,6 +177,39 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	
 	/** No matching dependence expression rule: do nothing. */
 	protected def dispatch dependenceExpressionRule(DependenceExpression de, AlphaExpression inner) { }
+	
+	
+	////////////////////////////////////////////////////////////
+	// Unary Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	/** Applies the unary expression rules. */
+	override outUnaryExpression(UnaryExpression ue) {
+		unaryExpressionRule(ue, ue.expr)
+	}
+	
+	/**
+	 * Pull up the dependence expressions within a unary expression.
+	 * 
+	 * From:  op (f @ E)
+	 * To:    f @ (op E)
+	 */
+	protected def dispatch unaryExpressionRule(UnaryExpression ue, DependenceExpression de) {
+		// Replace the dependence expression with its child,
+		// which moves the child up to be inside the unary expression. 
+		EcoreUtil.replace(de, de.expr)
+		
+		// Replace the unary expression with the dependence expression,
+		// then put the unary expression inside the dependence.
+		EcoreUtil.replace(ue, de)
+		de.expr = ue
+		
+		// Recompute the context domains.
+		AlphaInternalStateConstructor.recomputeContextDomain(de)
+	}
+	
+	/** No matching unary expression rule: do nothing. */
+	protected def dispatch unaryExpressionRule(UnaryExpression ue, AlphaExpression expr) { }
 	
 	
 	////////////////////////////////////////////////////////////

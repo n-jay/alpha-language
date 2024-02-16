@@ -10,6 +10,7 @@ import alpha.model.DependenceExpression;
 import alpha.model.IntegerExpression;
 import alpha.model.MultiArgExpression;
 import alpha.model.RealExpression;
+import alpha.model.UnaryExpression;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
@@ -202,6 +203,38 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
   }
 
   /**
+   * Applies the unary expression rules.
+   */
+  @Override
+  public void outUnaryExpression(final UnaryExpression ue) {
+    this.unaryExpressionRule(ue, ue.getExpr());
+  }
+
+  /**
+   * Pull up the dependence expressions within a unary expression.
+   * 
+   * From:  op (f @ E)
+   * To:    f @ (op E)
+   */
+  protected List<AlphaIssue> _unaryExpressionRule(final UnaryExpression ue, final DependenceExpression de) {
+    List<AlphaIssue> _xblockexpression = null;
+    {
+      EcoreUtil.replace(de, de.getExpr());
+      EcoreUtil.replace(ue, de);
+      de.setExpr(ue);
+      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(de);
+    }
+    return _xblockexpression;
+  }
+
+  /**
+   * No matching unary expression rule: do nothing.
+   */
+  protected List<AlphaIssue> _unaryExpressionRule(final UnaryExpression ue, final AlphaExpression expr) {
+    return null;
+  }
+
+  /**
    * Applies the binary expression rules.
    */
   @Override
@@ -305,6 +338,17 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(de, innerDe).toString());
+    }
+  }
+
+  protected List<AlphaIssue> unaryExpressionRule(final UnaryExpression ue, final AlphaExpression de) {
+    if (de instanceof DependenceExpression) {
+      return _unaryExpressionRule(ue, (DependenceExpression)de);
+    } else if (de != null) {
+      return _unaryExpressionRule(ue, de);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(ue, de).toString());
     }
   }
 

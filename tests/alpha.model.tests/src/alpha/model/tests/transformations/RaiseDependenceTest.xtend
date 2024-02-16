@@ -16,6 +16,7 @@ import static org.junit.Assert.*
 import static extension alpha.commands.Utility.*
 import static extension alpha.commands.UtilityBase.*
 import static extension alpha.model.util.CommonExtensions.toHashMap
+import alpha.model.UnaryExpression
 
 class RaiseDependenceTest {
 	/** The path to the Alpha file for these unit tests. */
@@ -102,6 +103,31 @@ class RaiseDependenceTest {
 		// Make sure that f = f1 @ f2.
 		val f = topDependence.function
 		assertTrue(f.isPlainEqual(f2.pullback(f1)))
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Unary Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	@Test
+	def unaryExpression_01() {
+		// From:  op (f @ E)
+		// To:    f @ (op E)
+		
+		// Get the equation for the unary expression under test,
+		// extract the dependence function, and apply dependence raising.
+		val equation = getEquation("unaryExpression_01", "X")
+		val originalUnaryExpr = equation.expr as UnaryExpression
+		val f = (originalUnaryExpr.expr as DependenceExpression).function
+		
+		RaiseDependence.apply(equation.expr)
+		
+		// Make sure the equation now has a dependence expression at the top level
+		// and that its function is the same as the original one.
+		assertTrue(equation.expr instanceof DependenceExpression)
+		val newDependence = equation.expr as DependenceExpression
+		assertTrue(f.isPlainEqual(newDependence.function))
 	}
 	
 	

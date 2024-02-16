@@ -9,6 +9,7 @@ import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.MultiArgExpression;
 import alpha.model.StandardEquation;
+import alpha.model.UnaryExpression;
 import alpha.model.VariableExpression;
 import alpha.model.transformation.RaiseDependence;
 import alpha.model.util.CommonExtensions;
@@ -87,6 +88,21 @@ public class RaiseDependenceTest {
     Assert.assertTrue(VariableExpression.class.isInstance(topDependence.getExpr()));
     final ISLMultiAff f = topDependence.getFunction();
     Assert.assertTrue(f.isPlainEqual(f2.pullback(f1)));
+  }
+
+  @Test
+  public void unaryExpression_01() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("unaryExpression_01", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final UnaryExpression originalUnaryExpr = ((UnaryExpression) _expr);
+    AlphaExpression _expr_1 = originalUnaryExpr.getExpr();
+    final ISLMultiAff f = ((DependenceExpression) _expr_1).getFunction();
+    RaiseDependence.apply(equation.getExpr());
+    AlphaExpression _expr_2 = equation.getExpr();
+    Assert.assertTrue((_expr_2 instanceof DependenceExpression));
+    AlphaExpression _expr_3 = equation.getExpr();
+    final DependenceExpression newDependence = ((DependenceExpression) _expr_3);
+    Assert.assertTrue(f.isPlainEqual(newDependence.getFunction()));
   }
 
   @Test
