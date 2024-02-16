@@ -37,6 +37,30 @@ import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
  * 
  * One use case is to expose the maximum amount of reuse, enabling automatic reuse vector selection
  * for the Simlpifying Reductions optimization.
+ * 
+ * List of Rules:
+ * Constant and Variable Expressions:
+ *     These rules effectively just wrap constants and variables in dependence functions.
+ *     Note: they only apply if the constant/variable isn't already wrapped in a dependence function.
+ * 
+ *     (X) goes to (f @ X) where X is a constant and f is a map from the context domain to a zero-dimensional range.
+ *     (X) goes to (f @ X) where X is a variable and f is the identity function.
+ * 
+ * Dependence Expressions:
+ *     This rule simply merges nested dependence functions.
+ * 
+ *     (f1 @ f2 @ E) goes to (f @ E) where f=f1 @ f2
+ * 
+ * Binary Expressions:
+ *     This rule factorizes the dependence functions f1 and f2,
+ *     wrapping the binary expression in a dependence function of the common factor.
+ * 
+ *     ((f1 @ E1) op (f2 @ E2)) goes to ((f')@((f1' @ E1) op (f2' @ E2))) where f1 = f' @ f1' and f2 = f' @ f2'
+ * 
+ * Multi-Arg Expressions:
+ *     This is the same as the Binary Expressions rule, but factorizes more than one expression.
+ * 
+ *     op(f1@E1, f2@E2, ...) goes to (f')@ op(f1'@E1, f2'@E2, ...) where fn = f' @ fn'
  */
 class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	/** Protected constructor to restrict access to the instance methods. */
@@ -63,11 +87,11 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	 * 
 	 * From:  X
 	 * To:    f @ X
-	 * Where: X is a constant, and f is a map with a zero-dimensional range.
+	 * Where: X is a constant, and f is a map from the context domain to a zero-dimensional range.
 	 */
 	protected def constantExpressionRule(ConstantExpression expr) {
 		// Only need to wrap the expression if it isn't inside a dependence function.
-		if (typeof(DependenceExpression).isInstance(expr.eContainer)) {
+		if (expr.eContainer instanceof DependenceExpression) {
 			return
 		}
 		
@@ -87,7 +111,6 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 		val wrappingDependence = createDependenceExpression(toEmpty, replacementConstant)
 		EcoreUtil.replace(expr, wrappingDependence)
 		AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence)
-		println()
 	}
 	
 	/** Applies the variable expression rules. */
@@ -137,8 +160,8 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	/**
 	 * Merge nested dependence expressions.
 	 * 
-	 * From:  f1 @ (f2 @ X)
-	 * To:    f @ X
+	 * From:  f1 @ (f2 @ E)
+	 * To:    f @ E
 	 * Where: f = f1 @ f2
 	 */
 	protected def dispatch dependenceExpressionRule(DependenceExpression de, DependenceExpression innerDe) {
@@ -167,8 +190,8 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	/**
 	 * Pull out a common factor from dependence expressions within a binary expression.
 	 * 
-	 * From:  f1@A op f2@B
-	 * To:    (f')@(f1'@A op f2'@B)
+	 * From:  f1 @ E1 op f2 @ E2
+	 * To:    (f')@((f1' @ E1) op (f2' @ E2))
 	 * Where: f1 = f' @ f1' and f2 = f' @ f2'
 	 */
 	protected def dispatch binaryExpressionRule(BinaryExpression be, DependenceExpression left, DependenceExpression right) {
@@ -215,8 +238,8 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	/**
 	 * Pull out a common factor from dependence expressions within a multi-arg expression.
 	 * 
-	 * From:  op (f1@A1, f2@A2, ...)
-	 * To:    (f')@ op(f1'@A1, f2'@A2, ...)
+	 * From:  op (f1@E1, f2@E2, ...)
+	 * To:    (f')@ op(f1'@E1, f2'@E2, ...)
 	 * Where: fn = f' @ fn'
 	 */
 	protected def multiArgExpressionRule(MultiArgExpression me, DependenceExpression... children) {
