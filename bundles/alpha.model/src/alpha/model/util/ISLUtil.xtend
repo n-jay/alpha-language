@@ -64,4 +64,51 @@ class ISLUtil {
 		
 		set.subtract(origin).isEmpty
 	}
+	
+	/** Returns true if c is effectively saturated per Theorem 1 in GR06, and false otherwise */
+	def static boolean isEffectivelySaturated(ISLConstraint c, ISLBasicSet P) {
+		if (c.isEquality) {
+			return true
+		}
+		
+		// get the maximum constant term among all constraints in P
+		val tau = P.getConstraints.map[constant].max.intValue
+		
+		// construct the effective inverse of c per bullet 1 of Theorem 1 in GR06
+		val cPrime = c.aff.negate
+			.setConstant(c.constant.intValue + tau)
+			.toInequalityConstraint
+			.toBasicSet
+		
+		return (cPrime.intersect(P.copy)).isEqual(P)
+	}
+	
+	
+	/** 
+	 * Given the ISLAff of an effectively saturated constraint return a long[] of the linear part
+	 * the first non-zero value is guaranteed to be positive
+	 */
+	def static long[] toLinearUnitVector(ISLAff aff) {
+		val constantCol = aff.nbParams + aff.nbInputs
+		val vec = aff.toEqualityConstraint.toBasicSet.toISLEqualityMatrix
+			.dropCols(constantCol, 1)
+			.toLongMatrix.get(0)
+		
+		if (vec.reject[v|v==0].toList.get(0) < 0) {
+			return vec.scalarMultiplication(-1)
+		}
+		
+		return vec
+	}
+	
+	def static int dimensionality(ISLBasicSet set) {
+		val effectivelySaturatedConstraints = newHashSet
+
+		effectivelySaturatedConstraints.addAll(set.constraints
+			.filter[c | c.isEffectivelySaturated(set)]
+			.map[aff.toLinearUnitVector.toString]	
+		)
+		
+		return set.nbIndices - effectivelySaturatedConstraints.size
+	}
 }
