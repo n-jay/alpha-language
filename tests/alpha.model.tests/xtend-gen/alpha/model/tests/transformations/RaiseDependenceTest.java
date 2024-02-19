@@ -5,6 +5,7 @@ import alpha.commands.UtilityBase;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaModelLoader;
 import alpha.model.BinaryExpression;
+import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.MultiArgExpression;
@@ -232,6 +233,52 @@ public class RaiseDependenceTest {
       return child.getFunction();
     };
     final HashMap<AlphaExpression, ISLMultiAff> remainingTerms = CommonExtensions.<AlphaExpression, ISLMultiAff>toHashMap(MapExtensions.<AlphaExpression, DependenceExpression, ISLMultiAff>mapValues(IterableExtensions.<AlphaExpression, DependenceExpression>toMap(ListExtensions.<AlphaExpression, DependenceExpression>map(multiArgExpr.getExprs(), _function_4), _function_5), _function_6));
+    Set<AlphaExpression> _keySet = expectedFunctions.keySet();
+    for (final AlphaExpression innerExpr : _keySet) {
+      {
+        final ISLMultiAff expected = expectedFunctions.get(innerExpr);
+        final ISLMultiAff actual = remainingTerms.get(innerExpr).pullback(commonFactor.copy());
+        Assert.assertTrue(expected.isPlainEqual(actual));
+      }
+    }
+  }
+
+  @Test
+  public void caseTest_01() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("caseTest_01", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final Function1<AlphaExpression, DependenceExpression> _function = (AlphaExpression expr) -> {
+      return ((DependenceExpression) expr);
+    };
+    final Function1<DependenceExpression, AlphaExpression> _function_1 = (DependenceExpression expr) -> {
+      return expr.getExpr();
+    };
+    final Function1<DependenceExpression, ISLMultiAff> _function_2 = (DependenceExpression expr) -> {
+      return expr.getFunction();
+    };
+    final HashMap<AlphaExpression, ISLMultiAff> expectedFunctions = CommonExtensions.<AlphaExpression, ISLMultiAff>toHashMap(MapExtensions.<AlphaExpression, DependenceExpression, ISLMultiAff>mapValues(IterableExtensions.<AlphaExpression, DependenceExpression>toMap(ListExtensions.<AlphaExpression, DependenceExpression>map(((CaseExpression) _expr).getExprs(), _function), _function_1), _function_2));
+    RaiseDependence.apply(equation.getExpr());
+    Assert.assertTrue(DependenceExpression.class.isInstance(equation.getExpr()));
+    AlphaExpression _expr_1 = equation.getExpr();
+    final DependenceExpression topDependence = ((DependenceExpression) _expr_1);
+    final ISLMultiAff commonFactor = topDependence.getFunction();
+    Assert.assertTrue(CaseExpression.class.isInstance(topDependence.getExpr()));
+    AlphaExpression _expr_2 = topDependence.getExpr();
+    final CaseExpression caseExpr = ((CaseExpression) _expr_2);
+    final Consumer<AlphaExpression> _function_3 = (AlphaExpression child) -> {
+      Assert.assertTrue(DependenceExpression.class.isInstance(child));
+    };
+    caseExpr.getExprs().forEach(_function_3);
+    final Function1<AlphaExpression, DependenceExpression> _function_4 = (AlphaExpression child) -> {
+      return ((DependenceExpression) child);
+    };
+    final Function1<DependenceExpression, AlphaExpression> _function_5 = (DependenceExpression child) -> {
+      return child.getExpr();
+    };
+    final Function1<DependenceExpression, ISLMultiAff> _function_6 = (DependenceExpression child) -> {
+      return child.getFunction();
+    };
+    final HashMap<AlphaExpression, ISLMultiAff> remainingTerms = CommonExtensions.<AlphaExpression, ISLMultiAff>toHashMap(MapExtensions.<AlphaExpression, DependenceExpression, ISLMultiAff>mapValues(IterableExtensions.<AlphaExpression, DependenceExpression>toMap(ListExtensions.<AlphaExpression, DependenceExpression>map(caseExpr.getExprs(), _function_4), _function_5), _function_6));
     Set<AlphaExpression> _keySet = expectedFunctions.keySet();
     for (final AlphaExpression innerExpr : _keySet) {
       {

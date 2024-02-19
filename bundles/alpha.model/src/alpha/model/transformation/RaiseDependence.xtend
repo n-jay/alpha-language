@@ -5,11 +5,13 @@ import alpha.model.AlphaExpressionVisitable
 import alpha.model.AlphaInternalStateConstructor
 import alpha.model.BinaryExpression
 import alpha.model.BooleanExpression
+import alpha.model.CaseExpression
 import alpha.model.ConstantExpression
 import alpha.model.DependenceExpression
 import alpha.model.IntegerExpression
 import alpha.model.MultiArgExpression
 import alpha.model.RealExpression
+import alpha.model.UnaryExpression
 import alpha.model.VariableExpression
 import alpha.model.util.AbstractAlphaExpressionVisitor
 import alpha.model.util.AffineFactorizer
@@ -17,6 +19,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 
 import static alpha.model.factory.AlphaUserFactory.createBinaryExpression
 import static alpha.model.factory.AlphaUserFactory.createBooleanExpression
+import static alpha.model.factory.AlphaUserFactory.createCaseExpression
 import static alpha.model.factory.AlphaUserFactory.createDependenceExpression
 import static alpha.model.factory.AlphaUserFactory.createIntegerExpression
 import static alpha.model.factory.AlphaUserFactory.createMultiArgExpression
@@ -28,7 +31,6 @@ import static extension alpha.model.util.CommonExtensions.toHashMap
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildZero
 import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
-import alpha.model.UnaryExpression
 
 /**
  * Raises up dependence functions through the AST of a given expression.
@@ -264,7 +266,7 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	override outMultiArgExpression(MultiArgExpression me) {
 		// We only try to apply the rule if all the children are dependence expressions.
 		val children = me.exprs
-		if (children.forall[child | typeof(DependenceExpression).isInstance(child)]) {
+		if (children.forall[child | child instanceof DependenceExpression]) {
 			multiArgExpressionRule(me, children.map[child | child as DependenceExpression])
 		}
 	}
@@ -312,4 +314,64 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 		EcoreUtil.replace(me, newParent)
 		AlphaInternalStateConstructor.recomputeContextDomain(newParent)
 	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Case Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	/** Applies the case expression rules. */
+	override outCaseExpression(CaseExpression ce) {
+		// We only try to apply the rule if all the children are dependence expressions.
+		val children = ce.exprs
+		if (children.forall[child | child instanceof DependenceExpression]) {
+			caseExpressionRule(ce, children.map[child | child as DependenceExpression])
+		}
+	}
+	
+	/**
+	 * Pull out a common factor from dependence expressions within a multi-arg expression.
+	 * 
+	 * From:  case {f1@E1, f2@E2, ...}
+	 * To:    (f')@ case{f1'@E1, f2'@E2, ...}
+	 * Where: fn = f' @ fn'
+	 */
+	protected def caseExpressionRule(CaseExpression ce, DependenceExpression... children) {
+		// f' and the fn' functions are determined by the Hermite factorization of all fn,
+		// where f' is the "common factor", and each fn' is the "remaining term" for fn.
+
+		// To reliably reconstruct the new dependence expressions, we need both the dependence function
+		// and the expression inside. We do this in a few steps:
+		// 1) Turn the list of children into a map from the expression they contain to themselves.
+		// 2) Map the AST nodes (the values) to the expression they contain.
+		// 3) Convert to a HashMap to prevent lazy evaluation from recomputing everything.
+		// 4) Extract the values, which are the affine functions to factorize.
+		val innerExpressionAndDependence = children
+			.toMap[de | de.expr]
+			.mapValues[de | de.function]
+			.toHashMap
+		val functions = innerExpressionAndDependence.values
+		
+		val factorizationResult = AffineFactorizer.factorizeExpressions(functions)
+		val commonFactor = factorizationResult.key
+		val remainingTermsMap = factorizationResult.value
+		
+		// We want to replace the child dependence functions with the appropriate remaining term,
+		// then wrap them all in a new case expression, then wrap that in a new dependence function
+		// which applies f' before the case expression.
+		// This can be done simply by mapping the functions (values) to their remaining term.
+		val newChildren = innerExpressionAndDependence
+			.mapValues[de | remainingTermsMap.get(de)]
+			.entrySet
+			.map[innerExprAndRemainder | createDependenceExpression(innerExprAndRemainder.value, innerExprAndRemainder.key)]
+			.toArrayList
+		val newCaseExpr = createCaseExpression()
+		newCaseExpr.exprs.addAll(newChildren)
+		val newParent = createDependenceExpression(commonFactor, newCaseExpr)
+		
+		EcoreUtil.replace(ce, newParent)
+		AlphaInternalStateConstructor.recomputeContextDomain(newParent)
+	}
+	
+	
 }

@@ -17,6 +17,7 @@ import static extension alpha.commands.Utility.*
 import static extension alpha.commands.UtilityBase.*
 import static extension alpha.model.util.CommonExtensions.toHashMap
 import alpha.model.UnaryExpression
+import alpha.model.CaseExpression
 
 class RaiseDependenceTest {
 	/** The path to the Alpha file for these unit tests. */
@@ -310,6 +311,53 @@ class RaiseDependenceTest {
 		
 		multiArgExpr.exprs.forEach[child | assertTrue(typeof(DependenceExpression).isInstance(child))]
 		val remainingTerms = multiArgExpr.exprs
+			.map[child | child as DependenceExpression]
+			.toMap[child | child.expr]
+			.mapValues[child | child.function]
+			.toHashMap
+		
+		// Make sure that fn = f' @ fn' for all n.
+		for (innerExpr : expectedFunctions.keySet) {
+			val expected = expectedFunctions.get(innerExpr)
+			val actual = remainingTerms.get(innerExpr).pullback(commonFactor.copy())
+			assertTrue(expected.isPlainEqual(actual))
+		}
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Case Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	@Test
+	def caseTest_01() {
+		// From:  case {f1@E1, f2@E2, ...}
+		// To:    (f')@ case{f1'@E1, f2'@E2, ...}
+		// Where: fn = f' @ fn'
+		
+		// Get the equation for the expression under test,
+		// extract the original dependence functions (mapped by their inner expression),
+		// then apply dependence raising.
+		val equation = getEquation("caseTest_01", "X")
+		val expectedFunctions = (equation.expr as CaseExpression).exprs
+			.map[expr | expr as DependenceExpression]
+			.toMap[expr | expr.expr]
+			.mapValues[expr | expr.function]
+			.toHashMap
+
+		RaiseDependence.apply(equation.expr)
+		
+		// The equation should now have a dependence function at the top level,
+		// a case expression in that, and dependence expressions as the children.
+		assertTrue(typeof(DependenceExpression).isInstance(equation.expr))
+		val topDependence = equation.expr as DependenceExpression
+		val commonFactor = topDependence.function
+		
+		assertTrue(typeof(CaseExpression).isInstance(topDependence.expr))
+		val caseExpr = topDependence.expr as CaseExpression
+		
+		caseExpr.exprs.forEach[child | assertTrue(typeof(DependenceExpression).isInstance(child))]
+		val remainingTerms = caseExpr.exprs
 			.map[child | child as DependenceExpression]
 			.toMap[child | child.expr]
 			.mapValues[child | child.function]
