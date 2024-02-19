@@ -84,7 +84,7 @@ package alpha.model.tests.transformations.raiseDependence {
 	
 	
 	////////////////////////////////////////////////////////////
-	// Multi-Arg Expression Rules
+	// Multi-Arg and Case Expression Rules
 	////////////////////////////////////////////////////////////
 	
 	affine multiArgTest_01 [N] -> {: N > 0}
@@ -95,10 +95,6 @@ package alpha.model.tests.transformations.raiseDependence {
 		let     X[i] = max(A[2i], B[N-i], C[i+1]);
 	.
 	
-	
-	////////////////////////////////////////////////////////////
-	// Case Expression Rules
-	////////////////////////////////////////////////////////////
 	affine caseTest_01 [N] -> {: N > 0}
 		inputs  A: {[i]: 0 <= i <  N}
 				B: {[i]: N <= i < 2N}
