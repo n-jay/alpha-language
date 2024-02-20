@@ -59,20 +59,19 @@ import org.eclipse.xtext.xbase.lib.Pair;
  * 
  *     (f1 @ f2 @ E) goes to (f @ E) where f=f1 @ f2
  * 
- * Binary Expressions:
- *     This rule factorizes the dependence functions f1 and f2,
- *     wrapping the binary expression in a dependence function of the common factor.
+ * Unary Expressions:
+ *     This rule simply pulls a dependence function out of the unary operation.
+ * 
+ *     op(f @ E) goes to f@(op E)
+ * 
+ * Binary, Multi-Arg, and Case Expressions:
+ *     These rules require all children to be dependence expressions.
+ *     They factorize the child functions, wrap the parent in a dependence expression of the common factor,
+ *     and replace the child dependence expressions with the remaining terms.
+ *     Each original function is thus the composition of the common factor and the correct remaining term.
  * 
  *     ((f1 @ E1) op (f2 @ E2)) goes to ((f')@((f1' @ E1) op (f2' @ E2))) where f1 = f' @ f1' and f2 = f' @ f2'
- * 
- * Multi-Arg Expressions:
- *     This is the same as the Binary Expressions rule, but factorizes more than one expression.
- * 
  *     op(f1@E1, f2@E2, ...) goes to (f')@ op(f1'@E1, f2'@E2, ...) where fn = f' @ fn'
- * 
- * Case Expressions:
- *     This is effectively the same as the Multi-Arg Expressions rule.
- * 
  *     case {f1@E1, f2@E2, ...} goes to (f')@ case{f1'@E1, f2'@E2, ...} where fn = f' @ fn'
  */
 @SuppressWarnings("all")
