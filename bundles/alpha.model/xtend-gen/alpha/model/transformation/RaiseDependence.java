@@ -8,6 +8,7 @@ import alpha.model.BooleanExpression;
 import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
+import alpha.model.IndexExpression;
 import alpha.model.IntegerExpression;
 import alpha.model.JNIFunction;
 import alpha.model.MultiArgExpression;
@@ -47,12 +48,13 @@ import org.eclipse.xtext.xbase.lib.Pair;
  * for the Simlpifying Reductions optimization.
  * 
  * List of Rules:
- * Constant and Variable Expressions:
- *     These rules effectively just wrap constants and variables in dependence functions.
- *     Note: they only apply if the constant/variable isn't already wrapped in a dependence function.
+ * Constant, Variable, and Index Expressions:
+ *     These rules effectively just wrap these expressions in an appropriate dependence expression.
+ *     Note: for constants and variables, this only applies if it isn't already inside a dependence expression.
  * 
  *     (X) goes to (f @ X) where X is a constant and f is a map from the context domain to a zero-dimensional range.
  *     (X) goes to (f @ X) where X is a variable and f is the identity function.
+ *     val[f] goes to f@(val(i->i))
  * 
  * Dependence Expressions:
  *     This rule simply merges nested dependence functions.
@@ -169,6 +171,22 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
     final VariableExpression replacementVar = AlphaUserFactory.createVariableExpression(expr.getVariable());
     final DependenceExpression wrappingDependence = AlphaUserFactory.createDependenceExpression(identity, replacementVar);
     EcoreUtil.replace(expr, wrappingDependence);
+    AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence);
+  }
+
+  /**
+   * Moves the affine map outside of an index ("val") expression.
+   * Since an index expression requires an affine function,
+   * the new function is just the identity.
+   * 
+   * From: val(f)
+   * To:   f @ (val(i->i))
+   */
+  @Override
+  public void outIndexExpression(final IndexExpression ie) {
+    final IndexExpression identityIndex = AlphaUserFactory.createIndexExpression(ISLMultiAff.buildIdentity(ISLSpace.idMapDimFromSetDim(ie.getFunction().getSpace().range())));
+    final DependenceExpression wrappingDependence = AlphaUserFactory.createDependenceExpression(ie.getFunction(), identityIndex);
+    EcoreUtil.replace(ie, wrappingDependence);
     AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence);
   }
 

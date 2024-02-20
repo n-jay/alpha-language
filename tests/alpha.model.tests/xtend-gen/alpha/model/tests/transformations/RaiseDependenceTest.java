@@ -8,6 +8,7 @@ import alpha.model.BinaryExpression;
 import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
+import alpha.model.IndexExpression;
 import alpha.model.MultiArgExpression;
 import alpha.model.StandardEquation;
 import alpha.model.UnaryExpression;
@@ -72,6 +73,45 @@ public class RaiseDependenceTest {
     AlphaExpression _expr = equation.getExpr();
     final DependenceExpression topDependence = ((DependenceExpression) _expr);
     Assert.assertTrue(VariableExpression.class.isInstance(topDependence.getExpr()));
+  }
+
+  @Test
+  public void wrapIndexExpression_01() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("wrapIndexExpression_01", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final ISLMultiAff originalFunction = ((IndexExpression) _expr).getFunction();
+    RaiseDependence.apply(equation.getExpr());
+    AlphaExpression _expr_1 = equation.getExpr();
+    Assert.assertTrue((_expr_1 instanceof DependenceExpression));
+    AlphaExpression _expr_2 = equation.getExpr();
+    final DependenceExpression dependence = ((DependenceExpression) _expr_2);
+    Assert.assertTrue(originalFunction.isPlainEqual(dependence.getFunction()));
+    AlphaExpression _expr_3 = dependence.getExpr();
+    Assert.assertTrue((_expr_3 instanceof IndexExpression));
+    AlphaExpression _expr_4 = dependence.getExpr();
+    final IndexExpression index = ((IndexExpression) _expr_4);
+    Assert.assertTrue(index.getFunction().isIdentity());
+  }
+
+  @Test
+  public void wrapIndexExpression_02() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("wrapIndexExpression_02", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final DependenceExpression originalDependence = ((DependenceExpression) _expr);
+    AlphaExpression _expr_1 = originalDependence.getExpr();
+    final IndexExpression originalIndex = ((IndexExpression) _expr_1);
+    final ISLMultiAff expectedFunction = originalIndex.getFunction().pullback(originalDependence.getFunction());
+    RaiseDependence.apply(equation.getExpr());
+    AlphaExpression _expr_2 = equation.getExpr();
+    Assert.assertTrue((_expr_2 instanceof DependenceExpression));
+    AlphaExpression _expr_3 = equation.getExpr();
+    final DependenceExpression dependence = ((DependenceExpression) _expr_3);
+    Assert.assertTrue(expectedFunction.isPlainEqual(dependence.getFunction()));
+    AlphaExpression _expr_4 = dependence.getExpr();
+    Assert.assertTrue((_expr_4 instanceof IndexExpression));
+    AlphaExpression _expr_5 = dependence.getExpr();
+    final IndexExpression index = ((IndexExpression) _expr_5);
+    Assert.assertTrue(index.getFunction().isIdentity());
   }
 
   @Test

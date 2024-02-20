@@ -18,6 +18,8 @@ import static extension alpha.commands.UtilityBase.*
 import static extension alpha.model.util.CommonExtensions.toHashMap
 import alpha.model.UnaryExpression
 import alpha.model.CaseExpression
+import alpha.model.util.PrintAST
+import alpha.model.IndexExpression
 
 class RaiseDependenceTest {
 	/** The path to the Alpha file for these unit tests. */
@@ -33,7 +35,7 @@ class RaiseDependenceTest {
 	
 	
 	////////////////////////////////////////////////////////////
-	// Constant and Variable Expression Rules
+	// Constant, Variable, and Index Expression Rules
 	////////////////////////////////////////////////////////////
 	
 	@Test
@@ -73,6 +75,51 @@ class RaiseDependenceTest {
 		assertTrue(typeof(DependenceExpression).isInstance(equation.expr))
 		val topDependence = equation.expr as DependenceExpression
 		assertTrue(typeof(VariableExpression).isInstance(topDependence.expr))
+	}
+	
+	@Test
+	def wrapIndexExpression_01() {
+		// Save the original dependence function inside the index expression,
+		// then apply dependence raising.
+		val equation = getEquation("wrapIndexExpression_01", "X")
+		val originalFunction = (equation.expr as IndexExpression).function
+		RaiseDependence.apply(equation.expr)
+		
+		// The equation should now be a dependence expression with the original function.
+		// Inside that should be an index expression with an identity function.
+		assertTrue(equation.expr instanceof DependenceExpression)
+		val dependence = equation.expr as DependenceExpression
+		
+		assertTrue(originalFunction.isPlainEqual(dependence.function))
+		
+		assertTrue(dependence.expr instanceof IndexExpression)
+		val index = dependence.expr as IndexExpression
+		
+		assertTrue(index.function.isIdentity)
+	}
+	
+	@Test
+	def wrapIndexExpression_02() {
+		// The expected dependence function at the end should be the composition
+		// of the wrapping dependence function and the function inside the index expression.
+		val equation = getEquation("wrapIndexExpression_02", "X")
+		val originalDependence = equation.expr as DependenceExpression
+		val originalIndex = originalDependence.expr as IndexExpression
+		val expectedFunction = originalIndex.function.pullback(originalDependence.function)
+		
+		RaiseDependence.apply(equation.expr)
+		
+		// The equation should now be a dependence expression with the original function.
+		// Inside that should be an index expression with an identity function.
+		assertTrue(equation.expr instanceof DependenceExpression)
+		val dependence = equation.expr as DependenceExpression
+		
+		assertTrue(expectedFunction.isPlainEqual(dependence.function))
+		
+		assertTrue(dependence.expr instanceof IndexExpression)
+		val index = dependence.expr as IndexExpression
+		
+		assertTrue(index.function.isIdentity)
 	}
 	
 	

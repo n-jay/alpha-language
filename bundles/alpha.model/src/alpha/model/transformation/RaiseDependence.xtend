@@ -8,26 +8,24 @@ import alpha.model.BooleanExpression
 import alpha.model.CaseExpression
 import alpha.model.ConstantExpression
 import alpha.model.DependenceExpression
+import alpha.model.IndexExpression
 import alpha.model.IntegerExpression
 import alpha.model.MultiArgExpression
 import alpha.model.RealExpression
 import alpha.model.UnaryExpression
 import alpha.model.VariableExpression
 import alpha.model.util.AbstractAlphaExpressionVisitor
-import alpha.model.util.AffineFactorizer
 import org.eclipse.emf.ecore.util.EcoreUtil
 
-import static alpha.model.factory.AlphaUserFactory.createBinaryExpression
 import static alpha.model.factory.AlphaUserFactory.createBooleanExpression
 import static alpha.model.factory.AlphaUserFactory.createDependenceExpression
 import static alpha.model.factory.AlphaUserFactory.createIntegerExpression
-import static alpha.model.factory.AlphaUserFactory.createMultiArgExpression
 import static alpha.model.factory.AlphaUserFactory.createRealExpression
 import static alpha.model.factory.AlphaUserFactory.createVariableExpression
 
+import static extension alpha.model.factory.AlphaUserFactory.createIndexExpression
 import static extension alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static extension alpha.model.util.AffineFactorizer.factorizeExpressions
-import static extension alpha.model.util.CommonExtensions.toArrayList
 import static extension alpha.model.util.CommonExtensions.toHashMap
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildZero
@@ -43,12 +41,13 @@ import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
  * for the Simlpifying Reductions optimization.
  * 
  * List of Rules:
- * Constant and Variable Expressions:
- *     These rules effectively just wrap constants and variables in dependence functions.
- *     Note: they only apply if the constant/variable isn't already wrapped in a dependence function.
+ * Constant, Variable, and Index Expressions:
+ *     These rules effectively just wrap these expressions in an appropriate dependence expression.
+ *     Note: for constants and variables, this only applies if it isn't already inside a dependence expression.
  * 
  *     (X) goes to (f @ X) where X is a constant and f is a map from the context domain to a zero-dimensional range.
  *     (X) goes to (f @ X) where X is a variable and f is the identity function.
+ *     val[f] goes to f@(val(i->i))
  * 
  * Dependence Expressions:
  *     This rule simply merges nested dependence functions.
@@ -81,7 +80,7 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	
 	
 	////////////////////////////////////////////////////////////
-	// Constant and Variable Expression Rules
+	// Constant, Variable, and Index Expression Rules
 	////////////////////////////////////////////////////////////
 	
 	/** Applies the constant expression rules. */
@@ -142,16 +141,31 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 		}
 		
 		// Create an appropriate identity function.
-		val identity = expr.contextDomain
-			.space
-			.idMapDimFromSetDim
-			.buildIdentity
+		val identity = expr.contextDomain.space.idMapDimFromSetDim.buildIdentity
 			
 		// Wrap the current expression with a dependence expression of the identity function.
 		// Note: the variable expression is copied, otherwise it can't be replaced in the AST.
 		val replacementVar = createVariableExpression(expr.variable)
 		val wrappingDependence = createDependenceExpression(identity, replacementVar)
 		EcoreUtil.replace(expr, wrappingDependence)
+		AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence)
+	}
+	
+	/**
+	 * Moves the affine map outside of an index ("val") expression.
+	 * Since an index expression requires an affine function,
+	 * the new function is just the identity.
+	 * 
+	 * From: val(f)
+	 * To:   f @ (val(i->i))
+	 */
+	override outIndexExpression(IndexExpression ie) {
+		// We want to replace the index expression's affine function with an identity function
+		// and wrap the index expression with a dependence expression
+		// containing the original affine function.
+		val identityIndex = ie.function.space.range.idMapDimFromSetDim.buildIdentity.createIndexExpression
+		val wrappingDependence = createDependenceExpression(ie.function, identityIndex)
+		EcoreUtil.replace(ie, wrappingDependence)
 		AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence)
 	}
 	
