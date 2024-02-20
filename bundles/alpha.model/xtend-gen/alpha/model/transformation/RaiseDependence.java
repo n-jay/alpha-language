@@ -4,15 +4,12 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.BinaryExpression;
-import alpha.model.BooleanExpression;
 import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.IndexExpression;
-import alpha.model.IntegerExpression;
 import alpha.model.JNIFunction;
 import alpha.model.MultiArgExpression;
-import alpha.model.RealExpression;
 import alpha.model.UnaryExpression;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
@@ -20,7 +17,6 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AbstractAlphaExpressionVisitor;
 import alpha.model.util.AffineFactorizer;
 import alpha.model.util.CommonExtensions;
-import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import java.util.Arrays;
@@ -92,14 +88,6 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
   }
 
   /**
-   * Applies the constant expression rules.
-   */
-  @Override
-  public void outConstantExpression(final ConstantExpression ce) {
-    this.constantExpressionRule(ce);
-  }
-
-  /**
    * Wraps a constant expression in a dependence expression,
    * assuming it's not already wrapped.
    * 
@@ -107,51 +95,16 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
    * To:    f @ X
    * Where: X is a constant, and f is a map from the context domain to a zero-dimensional range.
    */
-  protected void constantExpressionRule(final ConstantExpression expr) {
-    EObject _eContainer = expr.eContainer();
+  @Override
+  public void outConstantExpression(final ConstantExpression ce) {
+    EObject _eContainer = ce.eContainer();
     if ((_eContainer instanceof DependenceExpression)) {
       return;
     }
-    final ISLMultiAff toEmpty = ISLMultiAff.buildZero(expr.getContextDomain().getSpace());
-    ConstantExpression _switchResult = null;
-    boolean _matched = false;
-    if (expr instanceof BooleanExpression) {
-      if (Objects.equal(expr, ((BooleanExpression)expr))) {
-        _matched=true;
-        _switchResult = AlphaUserFactory.createBooleanExpression((((BooleanExpression)expr).getValue()).booleanValue());
-      }
-    }
-    if (!_matched) {
-      if (expr instanceof IntegerExpression) {
-        if (Objects.equal(expr, ((IntegerExpression)expr))) {
-          _matched=true;
-          _switchResult = AlphaUserFactory.createIntegerExpression((((IntegerExpression)expr).getValue()).intValue());
-        }
-      }
-    }
-    if (!_matched) {
-      if (expr instanceof RealExpression) {
-        if (Objects.equal(expr, ((RealExpression)expr))) {
-          _matched=true;
-          _switchResult = AlphaUserFactory.createRealExpression((((RealExpression)expr).getValue()).floatValue());
-        }
-      }
-    }
-    if (!_matched) {
-      throw new IllegalArgumentException("Unrecognized constant expression type.");
-    }
-    final ConstantExpression replacementConstant = _switchResult;
-    final DependenceExpression wrappingDependence = AlphaUserFactory.createDependenceExpression(toEmpty, replacementConstant);
-    EcoreUtil.replace(expr, wrappingDependence);
-    AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence);
-  }
-
-  /**
-   * Applies the variable expression rules.
-   */
-  @Override
-  public void outVariableExpression(final VariableExpression ve) {
-    this.variableExpressionRule(ve);
+    final DependenceExpression toEmpty = AlphaUserFactory.createDependenceExpression(ISLMultiAff.buildZero(ce.getContextDomain().getSpace()));
+    EcoreUtil.replace(ce, toEmpty);
+    toEmpty.setExpr(ce);
+    AlphaInternalStateConstructor.recomputeContextDomain(toEmpty);
   }
 
   /**
@@ -162,16 +115,16 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
    * To:    f @ X
    * Where: f is the identity function
    */
-  protected void variableExpressionRule(final VariableExpression expr) {
-    boolean _isInstance = DependenceExpression.class.isInstance(expr.eContainer());
-    if (_isInstance) {
+  @Override
+  public void outVariableExpression(final VariableExpression ve) {
+    EObject _eContainer = ve.eContainer();
+    if ((_eContainer instanceof DependenceExpression)) {
       return;
     }
-    final ISLMultiAff identity = ISLMultiAff.buildIdentity(ISLSpace.idMapDimFromSetDim(expr.getContextDomain().getSpace()));
-    final VariableExpression replacementVar = AlphaUserFactory.createVariableExpression(expr.getVariable());
-    final DependenceExpression wrappingDependence = AlphaUserFactory.createDependenceExpression(identity, replacementVar);
-    EcoreUtil.replace(expr, wrappingDependence);
-    AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence);
+    final DependenceExpression identity = AlphaUserFactory.createDependenceExpression(ISLMultiAff.buildIdentity(ISLSpace.idMapDimFromSetDim(ve.getContextDomain().getSpace())));
+    EcoreUtil.replace(ve, identity);
+    identity.setExpr(ve);
+    AlphaInternalStateConstructor.recomputeContextDomain(identity);
   }
 
   /**
@@ -205,14 +158,14 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
    * To:    f @ E
    * Where: f = f1 @ f2
    */
-  protected List<AlphaIssue> _dependenceExpressionRule(final DependenceExpression de, final DependenceExpression innerDe) {
+  protected List<AlphaIssue> _dependenceExpressionRule(final DependenceExpression outerDe, final DependenceExpression innerDe) {
     List<AlphaIssue> _xblockexpression = null;
     {
-      final ISLMultiAff f1 = de.getFunction();
+      final ISLMultiAff f1 = outerDe.getFunction();
       final ISLMultiAff f2 = innerDe.getFunction();
       final ISLMultiAff f = f2.pullback(f1);
       final DependenceExpression newDe = AlphaUserFactory.createDependenceExpression(f, innerDe.getExpr());
-      EcoreUtil.replace(de, newDe);
+      EcoreUtil.replace(outerDe, newDe);
       _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(newDe);
     }
     return _xblockexpression;
@@ -365,14 +318,14 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
     return _xblockexpression;
   }
 
-  protected List<AlphaIssue> dependenceExpressionRule(final DependenceExpression de, final AlphaExpression innerDe) {
+  protected List<AlphaIssue> dependenceExpressionRule(final DependenceExpression outerDe, final AlphaExpression innerDe) {
     if (innerDe instanceof DependenceExpression) {
-      return _dependenceExpressionRule(de, (DependenceExpression)innerDe);
+      return _dependenceExpressionRule(outerDe, (DependenceExpression)innerDe);
     } else if (innerDe != null) {
-      return _dependenceExpressionRule(de, innerDe);
+      return _dependenceExpressionRule(outerDe, innerDe);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(de, innerDe).toString());
+        Arrays.<Object>asList(outerDe, innerDe).toString());
     }
   }
 
