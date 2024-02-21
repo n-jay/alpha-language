@@ -3,13 +3,16 @@ package alpha.model.transformation;
 import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaInternalStateConstructor;
+import alpha.model.AutoRestrictExpression;
 import alpha.model.BinaryExpression;
 import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.IndexExpression;
+import alpha.model.JNIDomain;
 import alpha.model.JNIFunction;
 import alpha.model.MultiArgExpression;
+import alpha.model.RestrictExpression;
 import alpha.model.UnaryExpression;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
@@ -29,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.MapExtensions;
@@ -53,9 +57,20 @@ import org.eclipse.xtext.xbase.lib.Pair;
  *     val[f] goes to f@(val(i->i))
  * 
  * Dependence Expressions:
- *     This rule simply merges nested dependence functions.
+ *     This rule simply merges nested dependence expressions.
  * 
  *     (f1 @ f2 @ E) goes to (f @ E) where f=f1 @ f2
+ * 
+ * Restrict Expressions:
+ *     This rule pulls a dependence expression outside of a restrict expression.
+ * 
+ *     D:(f@E) goes to f@(f(D): E)
+ * 
+ * Auto-Restrict Expressions:
+ *     The "LiftAutoRestrict" transformation is automatically applied
+ *     whenever an Auto-Restrict Expression is found.
+ *     This is done during "inCaseExpression", that way they're removed before navigating
+ *     the children of the case expression it's in (as all auto-restricts must be inside a case).
  * 
  * Unary Expressions:
  *     This rule simply pulls a dependence function out of the unary operation.
@@ -179,6 +194,40 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
   }
 
   /**
+   * Applies the restrict expression rules.
+   */
+  @Override
+  public void outRestrictExpression(final RestrictExpression re) {
+    this.restrictExpressionRule(re, re.getExpr());
+  }
+
+  /**
+   * Pulls a dependence expression outside of a restrict expression.
+   * 
+   * From:  D:(f@E)
+   * To:    f @ (f(D) : E)
+   */
+  protected List<AlphaIssue> _restrictExpressionRule(final RestrictExpression re, final DependenceExpression de) {
+    List<AlphaIssue> _xblockexpression = null;
+    {
+      EcoreUtil.replace(de, de.getExpr());
+      EcoreUtil.replace(re, de);
+      de.setExpr(re);
+      final JNIDomain updatedDomain = AlphaUserFactory.createJNIDomain(re.getRestrictDomain().apply(de.getFunction().copy().toMap()));
+      re.setDomainExpr(updatedDomain);
+      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(de);
+    }
+    return _xblockexpression;
+  }
+
+  /**
+   * No matching restrict expression rule: do nothing.
+   */
+  protected List<AlphaIssue> _restrictExpressionRule(final RestrictExpression re, final AlphaExpression expr) {
+    return null;
+  }
+
+  /**
    * Applies the unary expression rules.
    */
   @Override
@@ -259,6 +308,23 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
   }
 
   /**
+   * Applies the <code>LiftAutoRestrict</code> transformation if needed.
+   * This is done when going into a case statement so that the Auto-Restrict Expressions
+   * are removed prior to visiting the children.
+   */
+  @Override
+  public void inCaseExpression(final CaseExpression ce) {
+    final Function1<AlphaExpression, Boolean> _function = (AlphaExpression child) -> {
+      return Boolean.valueOf((child instanceof AutoRestrictExpression));
+    };
+    final boolean hasAutoRestrict = IterableExtensions.<AlphaExpression>exists(ce.getExprs(), _function);
+    if (hasAutoRestrict) {
+      LiftAutoRestrict.apply(ce);
+    }
+    InputOutput.println();
+  }
+
+  /**
    * Pull out a common factor from dependence expressions within a case expression.
    * 
    * From:  case {f1@E1, f2@E2, ...}
@@ -326,6 +392,17 @@ public class RaiseDependence extends AbstractAlphaExpressionVisitor {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(outerDe, innerDe).toString());
+    }
+  }
+
+  protected List<AlphaIssue> restrictExpressionRule(final RestrictExpression re, final AlphaExpression de) {
+    if (de instanceof DependenceExpression) {
+      return _restrictExpressionRule(re, (DependenceExpression)de);
+    } else if (de != null) {
+      return _restrictExpressionRule(re, de);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(re, de).toString());
     }
   }
 

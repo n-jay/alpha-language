@@ -9,6 +9,7 @@ import alpha.model.ConstantExpression
 import alpha.model.DependenceExpression
 import alpha.model.IndexExpression
 import alpha.model.MultiArgExpression
+import alpha.model.RestrictExpression
 import alpha.model.UnaryExpression
 import alpha.model.VariableExpression
 import alpha.model.util.AbstractAlphaExpressionVisitor
@@ -16,12 +17,14 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 
 import static extension alpha.model.factory.AlphaUserFactory.createDependenceExpression
 import static extension alpha.model.factory.AlphaUserFactory.createIndexExpression
+import static extension alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static extension alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static extension alpha.model.util.AffineFactorizer.factorizeExpressions
 import static extension alpha.model.util.CommonExtensions.toHashMap
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildZero
 import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
+import alpha.model.AutoRestrictExpression
 
 /**
  * Raises up dependence functions through the AST of a given expression.
@@ -42,9 +45,20 @@ import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
  *     val[f] goes to f@(val(i->i))
  * 
  * Dependence Expressions:
- *     This rule simply merges nested dependence functions.
+ *     This rule simply merges nested dependence expressions.
  * 
  *     (f1 @ f2 @ E) goes to (f @ E) where f=f1 @ f2
+ * 
+ * Restrict Expressions:
+ *     This rule pulls a dependence expression outside of a restrict expression.
+ * 
+ *     D:(f@E) goes to f@(f(D): E)
+ * 
+ * Auto-Restrict Expressions:
+ *     The "LiftAutoRestrict" transformation is automatically applied
+ *     whenever an Auto-Restrict Expression is found.
+ *     This is done during "inCaseExpression", that way they're removed before navigating
+ *     the children of the case expression it's in (as all auto-restricts must be inside a case). 
  * 
  * Unary Expressions:
  *     This rule simply pulls a dependence function out of the unary operation.
@@ -174,6 +188,40 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 	
 	
 	////////////////////////////////////////////////////////////
+	// Restrict and Auto-Restrict Expression Rules
+	////////////////////////////////////////////////////////////
+	 
+	 /** Applies the restrict expression rules. */
+	 override outRestrictExpression(RestrictExpression re) {
+	 	restrictExpressionRule(re, re.expr)
+	 }
+	 
+	 /**
+	  * Pulls a dependence expression outside of a restrict expression.
+	  * 
+	  * From:  D:(f@E)
+	  * To:    f @ (f(D) : E)
+	  */
+	 protected def dispatch restrictExpressionRule(RestrictExpression re, DependenceExpression de) {
+	 	// Reorder the tree to swap the places of the restrict and dependence expression.
+	 	// This ordering avoids stack overflow issues.
+	 	EcoreUtil.replace(de, de.expr)
+	 	EcoreUtil.replace(re, de)
+	 	de.expr = re
+	 	
+	 	// Transform the restrict domain using the dependence function.
+	 	val updatedDomain = re.restrictDomain.apply(de.function.copy.toMap).createJNIDomain
+	 	re.domainExpr = updatedDomain
+	 	
+	 	// Fix the context domains.
+		AlphaInternalStateConstructor.recomputeContextDomain(de)
+	 }
+	 
+	/** No matching restrict expression rule: do nothing. */
+	 protected def dispatch restrictExpressionRule(RestrictExpression re, AlphaExpression expr) { }
+	 
+	 
+	////////////////////////////////////////////////////////////
 	// Unary Expression Rules
 	////////////////////////////////////////////////////////////
 	
@@ -243,6 +291,19 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 		if (children.forall[child | child instanceof DependenceExpression]) {
 			factorizeChildDependences(me, children.map[child | child as DependenceExpression])
 		}
+	}
+	
+	/**
+	 * Applies the <code>LiftAutoRestrict</code> transformation if needed.
+	 * This is done when going into a case statement so that the Auto-Restrict Expressions
+	 * are removed prior to visiting the children.
+	 */
+	override inCaseExpression(CaseExpression ce) {
+		val hasAutoRestrict = ce.exprs.exists[child | child instanceof AutoRestrictExpression]
+		if (hasAutoRestrict) {
+			LiftAutoRestrict.apply(ce)
+		}
+		println()
 	}
 	
 	/**

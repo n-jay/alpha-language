@@ -43,6 +43,33 @@ package alpha.model.tests.transformations.raiseDependence {
 	
 	
 	////////////////////////////////////////////////////////////
+	// Restrict and Auto-Restrict Expression Rules
+	////////////////////////////////////////////////////////////
+	
+	affine restrictExpression_01 [N] -> {: N > 0}
+		inputs  A: {[i]: 0 <= i < 3N}
+		outputs X: {[i]: N <= i < 2N}
+		let     X[i] = case { {[i]: i>=N}: A[i-N]; };
+	.
+	
+	affine autoRestrictExpression_01 [N] -> {: N > 0}
+		inputs  A: {[i]: 0 <= i < 3N}
+		outputs X: {[i]: N <= i < 2N}
+		let		X[i] = case { auto: A[i-N]; };
+	.
+	
+	affine autoRestrictExpression_02 [N] -> {: N > 10}
+		inputs  A: [N]
+		outputs X: [N]
+		let
+		X[i] = case {
+			{[i]: i < 5}: A[N-i-1];
+			auto: A[N-i+2];
+		};
+	.
+	
+	
+	////////////////////////////////////////////////////////////
 	// Unary Expression Rules
 	////////////////////////////////////////////////////////////
 	
