@@ -1,17 +1,20 @@
 package alpha.model.tests.transformations
 
 import alpha.model.AlphaModelLoader
+import alpha.model.AutoRestrictExpression
 import alpha.model.BinaryExpression
 import alpha.model.CaseExpression
 import alpha.model.ConstantExpression
 import alpha.model.DependenceExpression
 import alpha.model.IndexExpression
 import alpha.model.MultiArgExpression
+import alpha.model.RestrictExpression
 import alpha.model.StandardEquation
 import alpha.model.UnaryExpression
 import alpha.model.VariableExpression
 import alpha.model.transformation.RaiseDependence
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLSet
 import org.junit.Test
 
 import static org.junit.Assert.*
@@ -19,10 +22,6 @@ import static org.junit.Assert.*
 import static extension alpha.commands.Utility.*
 import static extension alpha.commands.UtilityBase.*
 import static extension alpha.model.util.CommonExtensions.toHashMap
-import alpha.model.util.PrintAST
-import alpha.model.RestrictExpression
-import alpha.model.AutoRestrictExpression
-import fr.irisa.cairn.jnimap.isl.ISLSet
 
 class RaiseDependenceTest {
 	/** The path to the Alpha file for these unit tests. */

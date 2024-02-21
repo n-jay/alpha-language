@@ -3,6 +3,7 @@ package alpha.model.transformation
 import alpha.model.AlphaExpression
 import alpha.model.AlphaExpressionVisitable
 import alpha.model.AlphaInternalStateConstructor
+import alpha.model.AutoRestrictExpression
 import alpha.model.BinaryExpression
 import alpha.model.CaseExpression
 import alpha.model.ConstantExpression
@@ -24,7 +25,6 @@ import static extension alpha.model.util.CommonExtensions.toHashMap
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildZero
 import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
-import alpha.model.AutoRestrictExpression
 
 /**
  * Raises up dependence functions through the AST of a given expression.
