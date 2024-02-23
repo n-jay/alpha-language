@@ -2,6 +2,7 @@ package alpha.model.tests.util;
 
 import alpha.model.util.FaceLattice;
 import alpha.model.util.Facet;
+import alpha.model.util.ISLUtil;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLVertex;
@@ -486,5 +487,13 @@ public class FaceLatticeTest {
       Assert.assertTrue(f.hasThickFaces());
     };
     facets.forEach(_function);
+  }
+
+  @Test
+  public void testThickEquality_3() {
+    final ISLBasicSet set1 = ISLUtil.toISLBasicSet("[N]->{[i,j,k,l]: N>=11 and i<=3 and 2+i<=j<=N and i<=k<=-2+2i and -2+i+j<=l<i+j}");
+    final ISLBasicSet set2 = ISLUtil.toISLBasicSet("[N]->{[i,j]: N>=11 and 0<=i<=N and i<j and j<i+5}");
+    Assert.assertEquals(ISLUtil.dimensionality(set1), 1);
+    Assert.assertEquals(ISLUtil.dimensionality(set2), 1);
   }
 }

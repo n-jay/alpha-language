@@ -2,9 +2,9 @@ package alpha.model.util
 
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import java.util.ArrayList
+import java.util.Collection
 import java.util.LinkedList
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.Collection
 
 /**
  * Constructs the face lattice of a given <code>ISLBasicSet</code>.

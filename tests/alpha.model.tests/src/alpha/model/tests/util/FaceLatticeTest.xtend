@@ -11,6 +11,8 @@ import org.junit.Test
 
 import static org.junit.Assert.*
 
+import static extension alpha.model.util.ISLUtil.*
+
 class FaceLatticeTest {
 	////////////////////////////////////////////////////////////
 	// Assertions for Specific Aspects of the Face Lattice
@@ -486,4 +488,12 @@ class FaceLatticeTest {
 		facets.forEach[f | assertTrue(f.hasThickFaces)]
 	}
 	
+	@Test
+	def testThickEquality_3() {
+		val set1 = "[N]->{[i,j,k,l]: N>=11 and i<=3 and 2+i<=j<=N and i<=k<=-2+2i and -2+i+j<=l<i+j}".toISLBasicSet
+		val set2 = "[N]->{[i,j]: N>=11 and 0<=i<=N and i<j and j<i+5}".toISLBasicSet
+		
+		assertEquals(set1.dimensionality, 1)
+		assertEquals(set2.dimensionality, 1)
+	}
 }
