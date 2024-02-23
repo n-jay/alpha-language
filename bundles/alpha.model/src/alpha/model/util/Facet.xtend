@@ -5,12 +5,12 @@ import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMatrix
 import fr.irisa.cairn.jnimap.isl.ISLSpace
 import java.util.ArrayList
-import java.util.HashSet
 import org.eclipse.xtend.lib.annotations.Data
 
 import static extension alpha.model.matrix.MatrixOperations.*
 import static extension alpha.model.util.CommonExtensions.toHashMap
 import static extension alpha.model.util.DomainOperations.toISLEqualityMatrix
+import static extension alpha.model.util.ISLUtil.dimensionality
 import static extension fr.irisa.cairn.jnimap.isl.ISLMatrix.buildFromLongMatrix
 
 /**
@@ -108,7 +108,7 @@ class Facet {
 		parameterInequalities = getInequalities(basicSetNoRedundancies, indexCount, false)
 		this.saturatedInequalityIndices = saturatedInequalityIndices
 		
-		dimensionality = dimensionality(thickEqualities, equalities, indexCount)
+		dimensionality = basicSet.dimensionality
 	}
 	
 	/** 
@@ -256,31 +256,6 @@ class Facet {
 		return (0 ..< matrix.nbRows)
 			.reject[row | constraintInvolvesIndex(matrix, row, indexCount)]
 			.size
-	}
-	
-	/** 
-	 * Returns the dimensionality of a set using the effectively saturated constraints, 
-	 * equality constraints and number of index variables.
-	 */
-	def private static dimensionality(ISLMatrix thickEqualities, ISLMatrix equalities, int indexCount) {
-		// The dimensionality of a set is defined as the number of index variables
-		// minus the number of linearly independent equality constraints which involve
-		// at least one index variable (the rank of said matrix).
-		
-		// Take the set of equality constraints,
-		// drop any rows which do not involve at least one constraint,
-		// then compute the rank of the remaining matrix.
-		val linearlyIndependentIndexEqualities =
-			(equalities.nbRows >.. 0)
-			.reject[row | constraintInvolvesIndex(equalities, row, indexCount)]
-			.fold(equalities.copy(), [mat, row | mat.dropRows(row, 1)])
-			.rank
-
-		// There will always be an even number of (or zero) effectively saturated
-		// inequality constraints. Each pair represents one thick equality constraint.
-		val numThickEqualities = thickEqualities.getNbRows / 2
-
-		return indexCount - linearlyIndependentIndexEqualities - numThickEqualities
 	}
 	
 	/**

@@ -135,7 +135,7 @@ public class Facet {
       this.parameterEqualityCount = Facet.countParameterConstraints(this.equalities, this.indexCount);
       this.parameterInequalities = Facet.getInequalities(basicSetNoRedundancies, this.indexCount, false);
       this.saturatedInequalityIndices = saturatedInequalityIndices;
-      this.dimensionality = Facet.dimensionality(this.thickEqualities, this.equalities, this.indexCount);
+      this.dimensionality = ISLUtil.dimensionality(basicSet);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -291,24 +291,6 @@ public class Facet {
       return Boolean.valueOf(Facet.constraintInvolvesIndex(matrix, (row).intValue(), indexCount));
     };
     return IterableExtensions.size(IterableExtensions.<Integer>reject(new ExclusiveRange(0, _nbRows, true), _function));
-  }
-
-  /**
-   * Returns the dimensionality of a set using the effectively saturated constraints,
-   * equality constraints and number of index variables.
-   */
-  private static int dimensionality(final ISLMatrix thickEqualities, final ISLMatrix equalities, final int indexCount) {
-    int _nbRows = equalities.getNbRows();
-    final Function1<Integer, Boolean> _function = (Integer row) -> {
-      return Boolean.valueOf(Facet.constraintInvolvesIndex(equalities, (row).intValue(), indexCount));
-    };
-    final Function2<ISLMatrix, Integer, ISLMatrix> _function_1 = (ISLMatrix mat, Integer row) -> {
-      return mat.dropRows((row).intValue(), 1);
-    };
-    final int linearlyIndependentIndexEqualities = IterableExtensions.<Integer, ISLMatrix>fold(IterableExtensions.<Integer>reject(new ExclusiveRange(_nbRows, 0, false), _function), equalities.copy(), _function_1).rank();
-    int _nbRows_1 = thickEqualities.getNbRows();
-    final int numThickEqualities = (_nbRows_1 / 2);
-    return ((indexCount - linearlyIndependentIndexEqualities) - numThickEqualities);
   }
 
   /**
