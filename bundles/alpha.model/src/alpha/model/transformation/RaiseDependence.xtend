@@ -3,6 +3,7 @@ package alpha.model.transformation
 import alpha.model.AlphaExpression
 import alpha.model.AlphaExpressionVisitable
 import alpha.model.AlphaInternalStateConstructor
+import alpha.model.AlphaVisitable
 import alpha.model.AutoRestrictExpression
 import alpha.model.BinaryExpression
 import alpha.model.CaseExpression
@@ -13,7 +14,7 @@ import alpha.model.MultiArgExpression
 import alpha.model.RestrictExpression
 import alpha.model.UnaryExpression
 import alpha.model.VariableExpression
-import alpha.model.util.AbstractAlphaExpressionVisitor
+import alpha.model.util.AbstractAlphaCompleteVisitor
 import org.eclipse.emf.ecore.util.EcoreUtil
 
 import static extension alpha.model.factory.AlphaUserFactory.createDependenceExpression
@@ -75,7 +76,7 @@ import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
  *     op(f1@E1, f2@E2, ...) goes to (f')@ op(f1'@E1, f2'@E2, ...) where fn = f' @ fn'
  *     case {f1@E1, f2@E2, ...} goes to (f')@ case{f1'@E1, f2'@E2, ...} where fn = f' @ fn'
  */
-class RaiseDependence extends AbstractAlphaExpressionVisitor {
+class RaiseDependence extends AbstractAlphaCompleteVisitor {
 	/** Protected constructor to restrict access to the instance methods. */
 	protected new() {}
 	
@@ -84,6 +85,10 @@ class RaiseDependence extends AbstractAlphaExpressionVisitor {
 		new RaiseDependence().accept(visitable)
 	}
 	
+	/** Applies dependence raising to the AST of the given visitable object (system). */
+	static def void apply(AlphaVisitable av) {
+		new RaiseDependence().accept(av)
+	}
 	
 	////////////////////////////////////////////////////////////
 	// Constant, Variable, and Index Expression Rules
