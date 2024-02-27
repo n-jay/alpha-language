@@ -1,0 +1,200 @@
+package alpha.model.tests.transformation.reduction
+
+import alpha.model.AlphaModelLoader
+import alpha.model.ReduceExpression
+import alpha.model.transformation.reduction.NormalizeReductionDeep
+import org.junit.Test
+
+import static org.junit.Assert.*
+
+import static extension alpha.commands.Utility.*
+import static extension alpha.commands.UtilityBase.*
+import alpha.model.DependenceExpression
+import alpha.model.VariableExpression
+import alpha.model.StandardEquation
+
+class NormalizeReductionDeepTest {
+	/** The path to the Alpha file for these unit tests. */
+	static val alphaFile = "resources/src-valid/transformation-reduction-tests/normalize-reduction-deep/normalizeReductionDeep.alpha";
+	
+	/** Gets the desired system for these unit tests. */
+	static def getSystem(String system) {
+		return AlphaModelLoader.loadModel(alphaFile).GetSystem(system)
+	}
+	
+	/** Gets the desired equation for these unit tests. */
+	static def getEquation(String system, String equation) {
+		return getSystem(system).GetSystemBody().GetEquation(equation)
+	}
+	
+	/**
+	 * Tests that applying NormalizeReductionDeep to a system
+	 * won't move a top-level reduction into a separate equation.
+	 */
+	@Test
+	def topLevelReduction_01() {
+		val system = getSystem("topLevelReduction")
+		val equation = system.GetSystemBody().GetEquation("X")
+		val reduction = equation.expr as ReduceExpression
+		
+		NormalizeReductionDeep.apply(system)
+		
+		// The reduction should still be directly inside the equation.
+		assertEquals(equation, reduction.eContainer) 
+	}
+	
+	/**
+	 * Tests that applying NormalizeReductionDeep to an equation
+	 * won't move a top-level reduction into a separate equation.
+	 */
+	@Test
+	def topLevelReduction_02() {
+		val equation = getEquation("topLevelReduction", "X")
+		val reduction = equation.expr as ReduceExpression
+		
+		NormalizeReductionDeep.apply(equation)
+		
+		// The reduction should still be directly inside the equation.
+		assertEquals(equation, reduction.eContainer) 
+	}
+	
+	/**
+	 * Tests that applying NormalizeReductionDeep to a top-level reduction
+	 * won't move it into a separate equation.
+	 */
+	@Test
+	def topLevelReduction_03() {
+		val equation = getEquation("topLevelReduction", "X")
+		val reduction = equation.expr as ReduceExpression
+		
+		NormalizeReductionDeep.apply(reduction)
+		
+		// The reduction should still be directly inside the equation.
+		assertEquals(equation, reduction.eContainer) 
+	}
+	
+	/**
+	 * Tests that applying NormalizeReductionDeep will move a reduction
+	 * that's inside a dependence expression to its own equation.
+	 */
+	@Test
+	def reductionInsideDependence_01() {
+		val systemBody = getSystem("reductionInsideDependence").GetSystemBody()
+		val originalEquation = systemBody.GetEquation("X")
+		val dependence = originalEquation.expr as DependenceExpression
+		val reduction = dependence.expr as ReduceExpression
+		
+		NormalizeReductionDeep.apply(reduction)
+		
+		// The original equation should still contain the same dependence,
+		// but the dependence should now contain a variable expression.
+		assertEquals(dependence, originalEquation.expr)
+		assertTrue(dependence.expr instanceof VariableExpression)
+		val variable = dependence.expr as VariableExpression
+		
+		// We should now have a new equation that the variable points to
+		// which contains the original reduction.
+		val newEquationName = variable.variable.name
+		val newEquation = systemBody.equations
+			.filter(typeof(StandardEquation))
+			.filter[eq | eq.variable.name == newEquationName]
+			.head
+			
+		assertNotNull(newEquation)
+		assertEquals(newEquation, reduction.eContainer)
+	}
+	
+	/**
+	 * Tests that applying NormalizeReductionDeep to a system
+	 * will move a nested reduction to its own equation.
+	 */
+	 @Test
+	 def nestedReduction_01() {
+		val system = getSystem("nestedReduction")
+		val systemBody = system.GetSystemBody
+		val originalEquation = systemBody.GetEquation("X")
+		val outerReduction = originalEquation.expr as ReduceExpression
+		val innerReduction = outerReduction.body as ReduceExpression
+		
+		NormalizeReductionDeep.apply(system)
+		
+		// The outer reduction should still be directly inside the equation,
+		// but its body should now be a variable expression.
+		assertEquals(originalEquation, outerReduction.eContainer)
+		assertTrue(outerReduction.body instanceof VariableExpression)
+		val variable = outerReduction.body as VariableExpression
+		
+		// We should now have a new equation that the variable points to
+		// which contains the inner reduction.
+		val newEquationName = variable.variable.name
+		val newEquation = systemBody.equations
+			.filter(typeof(StandardEquation))
+			.filter[eq | eq.variable.name == newEquationName]
+			.head
+			
+		assertNotNull(newEquation)
+		assertEquals(newEquation, innerReduction.eContainer)
+	 }
+	
+	/**
+	 * Tests that applying NormalizeReductionDeep to an outer reduction
+	 * will move a nested reduction to its own equation.
+	 */
+	 @Test
+	 def nestedReduction_02() {
+		val systemBody = getSystem("nestedReduction").GetSystemBody
+		val originalEquation = systemBody.GetEquation("X")
+		val outerReduction = originalEquation.expr as ReduceExpression
+		val innerReduction = outerReduction.body as ReduceExpression
+		
+		NormalizeReductionDeep.apply(outerReduction)
+		
+		// The outer reduction should still be directly inside the equation,
+		// but its body should now be a variable expression.
+		assertEquals(originalEquation, outerReduction.eContainer)
+		assertTrue(outerReduction.body instanceof VariableExpression)
+		val variable = outerReduction.body as VariableExpression
+		
+		// We should now have a new equation that the variable points to
+		// which contains the inner reduction.
+		val newEquationName = variable.variable.name
+		val newEquation = systemBody.equations
+			.filter(typeof(StandardEquation))
+			.filter[eq | eq.variable.name == newEquationName]
+			.head
+			
+		assertNotNull(newEquation)
+		assertEquals(newEquation, innerReduction.eContainer)
+	 }
+	
+	/**
+	 * Tests that applying NormalizeReductionDeep to an inner reduction
+	 * will move it to its own equation.
+	 */
+	 @Test
+	 def nestedReduction_03() {
+		val systemBody = getSystem("nestedReduction").GetSystemBody
+		val originalEquation = systemBody.GetEquation("X")
+		val outerReduction = originalEquation.expr as ReduceExpression
+		val innerReduction = outerReduction.body as ReduceExpression
+		
+		NormalizeReductionDeep.apply(innerReduction)
+		
+		// The outer reduction should still be directly inside the equation,
+		// but its body should now be a variable expression.
+		assertEquals(originalEquation, outerReduction.eContainer)
+		assertTrue(outerReduction.body instanceof VariableExpression)
+		val variable = outerReduction.body as VariableExpression
+		
+		// We should now have a new equation that the variable points to
+		// which contains the inner reduction.
+		val newEquationName = variable.variable.name
+		val newEquation = systemBody.equations
+			.filter(typeof(StandardEquation))
+			.filter[eq | eq.variable.name == newEquationName]
+			.head
+			
+		assertNotNull(newEquation)
+		assertEquals(newEquation, innerReduction.eContainer)
+	 }
+}
