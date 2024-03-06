@@ -10,8 +10,14 @@ affine reductionInsideDependence [N] -> {:N>10}
 	let		X = (a->N-a-1)@reduce(+, (i,j->i), A[i,j]);
 .
 
-affine nestedReduction [N] -> {:N>10}
+affine nestedReduction_01 [N] -> {:N>10}
 	inputs 	A,B: [N,N]
 	outputs X: [N]
 	let		X = reduce(max, (i,j->i), reduce(+, (i,j,k->i,j), A[i,k]*B[k,j]));
+.
+
+affine nestedReduction_02 [N] -> {:N>10}
+	inputs 	A,B: [N,N]
+	outputs X: [N]
+	let		X = reduce(max, (i,j->i), reduce(+, (i,j,k->i,j), reduce(*, (i,j,k,l->i,j,k), A[i,j]*B[k,l])));
 .
