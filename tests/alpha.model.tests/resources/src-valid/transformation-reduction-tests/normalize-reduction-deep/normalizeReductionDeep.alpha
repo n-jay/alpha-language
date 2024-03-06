@@ -21,3 +21,9 @@ affine nestedReduction_02 [N] -> {:N>10}
 	outputs X: [N]
 	let		X = reduce(max, (i,j->i), reduce(+, (i,j,k->i,j), reduce(*, (i,j,k,l->i,j,k), A[i,j]*B[k,l])));
 .
+
+affine nestedReduction_03 [N] -> {:N>10}
+	inputs 	A,B,C: [N,N]
+	outputs X: [N]
+	let		X = reduce(max, (i,j->i), C[i,j] * reduce(+, (i,j,k->i,j), C[j,k] * reduce(*, (i,j,k,l->i,j,k), A[i,j]*B[k,l])));
+.

@@ -1,7 +1,11 @@
 package alpha.model.tests.transformation.reduction
 
 import alpha.model.AlphaModelLoader
+import alpha.model.BinaryExpression
+import alpha.model.DependenceExpression
 import alpha.model.ReduceExpression
+import alpha.model.StandardEquation
+import alpha.model.VariableExpression
 import alpha.model.transformation.reduction.NormalizeReductionDeep
 import org.junit.Test
 
@@ -9,10 +13,6 @@ import static org.junit.Assert.*
 
 import static extension alpha.commands.Utility.*
 import static extension alpha.commands.UtilityBase.*
-import alpha.model.DependenceExpression
-import alpha.model.VariableExpression
-import alpha.model.StandardEquation
-import alpha.model.util.AShow
 
 class NormalizeReductionDeepTest {
 	/** The path to the Alpha file for these unit tests. */
@@ -214,7 +214,6 @@ class NormalizeReductionDeepTest {
 	 	val innerReduction = middleReduction.body as ReduceExpression
 	 	
 		NormalizeReductionDeep.apply(outerReduction)
-		println(AShow.print(systemBody))
 		
 		// The outer reduction should still be directly inside the equation,
 		// but its body should now be a variable expression.
@@ -235,6 +234,62 @@ class NormalizeReductionDeepTest {
 		assertEquals(middleEquation, middleReduction.eContainer)
 		assertTrue(middleReduction.body instanceof VariableExpression)
 		val middleVariable = middleReduction.body as VariableExpression
+		
+		// Finally, the inner reduction should be in its own equation.
+		val innerEquationName = middleVariable.variable.name
+		val innerEquation = systemBody.equations
+			.filter(typeof(StandardEquation))
+			.filter[eq | eq.variable.name == innerEquationName]
+			.head
+		
+		assertNotNull(innerEquation)
+		assertEquals(innerEquation, innerReduction.eContainer)
+	 }
+	 
+	 /**
+	  * Tests that applying NormalizeReductionDeep to the outermost reduction
+	  * of a triply nested reduction will move all three reductions to their
+	  * own equations. Both inner reductions are nested inside binary expressions.
+	  */
+	 @Test
+	 def nestedReduction_05() {
+	 	val systemBody = getSystem("nestedReduction_03").GetSystemBody
+	 	val originalEquation = systemBody.GetEquation("X")
+	 	
+	 	val outerReduction = originalEquation.expr as ReduceExpression
+	 	val outerBinary = outerReduction.body as BinaryExpression
+	 	
+	 	val middleReduction = outerBinary.right as ReduceExpression
+	 	val middleBinary = middleReduction.body as BinaryExpression
+	 	
+	 	val innerReduction = middleBinary.right as ReduceExpression
+	 	
+		NormalizeReductionDeep.apply(outerReduction)
+		
+		// The outer reduction should still be directly inside the equation,
+		// and it should still contain the same binary expression.
+		// However, the right-hand side of that binary expression should now be
+		// a variable expression (instead of the middle reduction).
+		assertEquals(originalEquation, outerReduction.eContainer)
+		assertEquals(outerReduction.body, outerBinary)
+		assertTrue(outerBinary.right instanceof VariableExpression)
+		val outerVariable = outerBinary.right as VariableExpression
+		
+		// We should now have a new equation that the variable points to.
+		// This equation should point to the middle reduction.
+		// The reduction should still contain the same binary expression,
+		// but the right-hand side of it should be another variable expression.
+		val middleEquationName = outerVariable.variable.name
+		val middleEquation = systemBody.equations
+			.filter(typeof(StandardEquation))
+			.filter[eq | eq.variable.name == middleEquationName]
+			.head
+		
+		assertNotNull(middleEquation)
+		assertEquals(middleEquation, middleReduction.eContainer)
+		assertEquals(middleReduction, middleBinary.eContainer)
+		assertTrue(middleBinary.right instanceof VariableExpression)
+		val middleVariable = middleBinary.right as VariableExpression
 		
 		// Finally, the inner reduction should be in its own equation.
 		val innerEquationName = middleVariable.variable.name
