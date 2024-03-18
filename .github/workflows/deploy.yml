@@ -28,8 +28,6 @@ jobs:
     container: ghcr.io/csu-cs-melange/alpha-language-image:latest
 
     steps:
-    - uses: actions/checkout@v2
-
     - name: Cache alpha language plugin
       id: cache-plugin
       uses: actions/cache@v3
