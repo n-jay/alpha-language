@@ -36,6 +36,7 @@ import static alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static alpha.model.factory.AlphaUserFactory.createRestrictExpression
 import static alpha.model.factory.AlphaUserFactory.createUnaryExpression
 import alpha.model.factory.AlphaUserFactory
+import alpha.model.ConstantExpression
 
 /**
  * Normalization of Alpha programs.
@@ -197,7 +198,11 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		dependenceExpressionRules(de, de.expr);
 
 		// f @ E = E if f = I
-		if (de.function.isIdentity) {
+		// Note: checking if a function is the identity function fails
+		// if the function has no inputs or outputs, which may occur in dependence raising.
+		// This is caused because the "isIdentity" function tries to build an identity function
+		// from the dependence function's space, but can't do so if there are no inputs or outputs.
+		if ((de.function.nbInputs > 0) &&  de.function.isIdentity) {
 			debug("identity", "f @ E = E if f = I");
 			EcoreUtil.replace(de, de.expr);
 		}

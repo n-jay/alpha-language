@@ -221,8 +221,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       return;
     }
     this.dependenceExpressionRules(de, de.getExpr());
-    boolean _isIdentity = de.getFunction().isIdentity();
-    if (_isIdentity) {
+    if (((de.getFunction().getNbInputs() > 0) && de.getFunction().isIdentity())) {
       this.debug("identity", "f @ E = E if f = I");
       EcoreUtil.replace(de, de.getExpr());
     }
