@@ -5,6 +5,7 @@ import java.util.ArrayList
 
 import static extension alpha.model.util.CommonExtensions.toArrayList
 import static extension alpha.model.util.Face.removeDuplicates
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * Represents and constructs an entire face lattice from a basic set.
@@ -16,6 +17,7 @@ class FaceLattice {
 	 * I.e., <code>lattice[2]</code> contains all the 2D faces of the lattice.
 	 * Each layer is a list of all the sets which are in that layer.
 	 */
+	@Accessors(PUBLIC_GETTER, PROTECTED_SETTER)
 	val ArrayList<ArrayList<Face>> lattice
 	
 	/** Constructs the face lattice of the given set. */
@@ -60,9 +62,5 @@ class FaceLattice {
 	 */
 	def getVertices() {
 		return getFaces(0)
-	}
-	
-	def getLattice() {
-		return lattice
 	}
 }

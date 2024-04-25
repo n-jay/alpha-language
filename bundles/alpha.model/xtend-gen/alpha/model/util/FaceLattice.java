@@ -4,12 +4,15 @@ import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.eclipse.xtend.lib.annotations.AccessorType;
+import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.Pure;
 
 /**
  * Represents and constructs an entire face lattice from a basic set.
@@ -22,6 +25,7 @@ public class FaceLattice {
    * I.e., <code>lattice[2]</code> contains all the 2D faces of the lattice.
    * Each layer is a list of all the sets which are in that layer.
    */
+  @Accessors({ AccessorType.PUBLIC_GETTER, AccessorType.PROTECTED_SETTER })
   private final ArrayList<ArrayList<Face>> lattice;
 
   /**
@@ -75,6 +79,7 @@ public class FaceLattice {
     return this.getFaces(0);
   }
 
+  @Pure
   public ArrayList<ArrayList<Face>> getLattice() {
     return this.lattice;
   }
