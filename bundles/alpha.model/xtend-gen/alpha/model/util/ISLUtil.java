@@ -154,7 +154,16 @@ public class ISLUtil {
     return vec;
   }
 
+  /**
+   * Determines the number of effective dimensions for the set.
+   * For example, if the set represents a 2D object embedded in 3D space,
+   * this will indicate that the set is 2D.
+   */
   public static int dimensionality(final ISLBasicSet set) {
+    boolean _isEmpty = set.isEmpty();
+    if (_isEmpty) {
+      return 0;
+    }
     final Function1<ISLConstraint, Boolean> _function = (ISLConstraint c) -> {
       return Boolean.valueOf(c.involvesDims(ISLDimType.isl_dim_out, 0, set.getSpace().getNbOutputs()));
     };

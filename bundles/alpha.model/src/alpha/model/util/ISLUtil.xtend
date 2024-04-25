@@ -117,7 +117,19 @@ class ISLUtil {
 		return vec
 	}
 	
+	/**
+	 * Determines the number of effective dimensions for the set.
+	 * For example, if the set represents a 2D object embedded in 3D space,
+	 * this will indicate that the set is 2D.
+	 */
 	def static int dimensionality(ISLBasicSet set) {
+		// The empty set has no effectively saturated constraints
+		// but can have any number of indices,
+		// which would cause this computation to fail.
+		if (set.isEmpty) {
+			return 0
+		}
+		
 		val effectivelySaturatedCount =
 			set.constraints
 			.filter[c | c.involvesDims(ISLDimType.isl_dim_out, 0, set.space.nbOutputs)]
