@@ -1,4 +1,6 @@
 package alpha.model.tests.transformations.raiseDependence {
+	external test(2)
+	
 	////////////////////////////////////////////////////////////
 	// Constant, Variable, and Index Expression Rules
 	////////////////////////////////////////////////////////////
@@ -130,6 +132,12 @@ package alpha.model.tests.transformations.raiseDependence {
 				C: [4N]
 		outputs X: [N]
 		let     X[i] = max(A[2i], B[N-i], C[i+1]);
+	.
+	
+	// External functions like this should be treated as multi-arg expressions.
+	affine externalFunctionTest_01 [N] -> {: N > 0}
+		outputs X: [N,N]
+		let     X[i,j] = test(val[i+j], val[i+j]);
 	.
 	
 	affine caseTest_01 [N] -> {: N > 0}

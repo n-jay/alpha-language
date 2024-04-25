@@ -25,6 +25,8 @@ import static extension alpha.model.util.CommonExtensions.toHashMap
 import alpha.model.transformation.Normalize
 import alpha.model.util.AShow
 import alpha.model.transformation.LiftAutoRestrict
+import alpha.model.ExternalFunction
+import alpha.model.ExternalMultiArgExpression
 
 class RaiseDependenceTest {
 	/** The path to the Alpha file for these unit tests. */
@@ -555,6 +557,51 @@ class RaiseDependenceTest {
 	}
 	
 	@Test
+	def externalFunction_01() {
+		// External functions like these are supposed to be treated as multi-arg expressions.
+		// From:  x(f1@e1, f2@e2)
+		// To:    f'@(x(f1'@e1, f2'@e2))
+		// Where: x is an external function, f1=f'@f1', and f2=f'@f2'
+		
+		val equation = getEquation("externalFunctionTest_01", "X")
+		
+		// Capture the two index expressions inside the external function call.
+		val external = equation.expr as ExternalMultiArgExpression
+		val index1 = external.exprs.get(0) as IndexExpression
+		val f1 = index1.function
+		val index2 = external.exprs.get(1) as IndexExpression
+		val f2 = index2.function
+		
+		// Apply dependence raising.
+		RaiseDependence.apply(equation.expr)
+		
+		// Verify that the top-level expression in the equation is now a dependence.
+		assertTrue(equation.expr instanceof DependenceExpression)
+		val topExpression = equation.expr as DependenceExpression
+		val fPrime = topExpression.function
+		
+		// Inside the dependence should now be our external function.
+		assertTrue(topExpression.expr instanceof ExternalMultiArgExpression)
+		val updatedExternal = topExpression.expr as ExternalMultiArgExpression
+		
+		// Inside the external function should be two dependence expressions
+		// representing the remaining terms from factorization.
+		assertEquals(2, updatedExternal.exprs.size)
+		
+		assertTrue(updatedExternal.exprs.get(0) instanceof DependenceExpression)
+		val dependence1 = updatedExternal.exprs.get(0) as DependenceExpression
+		val f1Prime = dependence1.function
+		
+		assertTrue(updatedExternal.exprs.get(1) instanceof DependenceExpression)
+		val dependence2 = updatedExternal.exprs.get(1) as DependenceExpression
+		val f2Prime = dependence2.function
+		
+		// Verify that f1 = f' @ f1' and that f2 = f' @ f2'
+		assertTrue(f1.isPlainEqual(f1Prime.pullback(fPrime.copy)))
+		assertTrue(f2.isPlainEqual(f2Prime.pullback(fPrime)))
+	}
+	
+	@Test
 	def caseTest_01() {
 		// From:  case {f1@E1, f2@E2, ...}
 		// To:    (f')@ case{f1'@E1, f2'@E2, ...}
@@ -641,6 +688,8 @@ class RaiseDependenceTest {
 	@Test def normalizeUndoesRaising_Test17() { normalizeTest("caseTest_01", "X") }
 	
 	@Test def normalizeUndoesRaising_Test18() { normalizeTest("prefixScan", "X") }
+	
+	@Test def normalizeUndoesRaising_Test19() { normalizeTest("externalFunctionTest_01", "X") }
 
 	/**
 	 * Used by several tests to ensure that the system can be normalized,

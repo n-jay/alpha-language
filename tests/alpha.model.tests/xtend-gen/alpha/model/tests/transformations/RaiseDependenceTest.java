@@ -9,6 +9,7 @@ import alpha.model.BinaryExpression;
 import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
+import alpha.model.ExternalMultiArgExpression;
 import alpha.model.IndexExpression;
 import alpha.model.MultiArgExpression;
 import alpha.model.RestrictExpression;
@@ -438,6 +439,42 @@ public class RaiseDependenceTest {
   }
 
   @Test
+  public void externalFunction_01() {
+    final StandardEquation equation = RaiseDependenceTest.getEquation("externalFunctionTest_01", "X");
+    AlphaExpression _expr = equation.getExpr();
+    final ExternalMultiArgExpression external = ((ExternalMultiArgExpression) _expr);
+    AlphaExpression _get = external.getExprs().get(0);
+    final IndexExpression index1 = ((IndexExpression) _get);
+    final ISLMultiAff f1 = index1.getFunction();
+    AlphaExpression _get_1 = external.getExprs().get(1);
+    final IndexExpression index2 = ((IndexExpression) _get_1);
+    final ISLMultiAff f2 = index2.getFunction();
+    RaiseDependence.apply(equation.getExpr());
+    AlphaExpression _expr_1 = equation.getExpr();
+    Assert.assertTrue((_expr_1 instanceof DependenceExpression));
+    AlphaExpression _expr_2 = equation.getExpr();
+    final DependenceExpression topExpression = ((DependenceExpression) _expr_2);
+    final ISLMultiAff fPrime = topExpression.getFunction();
+    AlphaExpression _expr_3 = topExpression.getExpr();
+    Assert.assertTrue((_expr_3 instanceof ExternalMultiArgExpression));
+    AlphaExpression _expr_4 = topExpression.getExpr();
+    final ExternalMultiArgExpression updatedExternal = ((ExternalMultiArgExpression) _expr_4);
+    Assert.assertEquals(2, updatedExternal.getExprs().size());
+    AlphaExpression _get_2 = updatedExternal.getExprs().get(0);
+    Assert.assertTrue((_get_2 instanceof DependenceExpression));
+    AlphaExpression _get_3 = updatedExternal.getExprs().get(0);
+    final DependenceExpression dependence1 = ((DependenceExpression) _get_3);
+    final ISLMultiAff f1Prime = dependence1.getFunction();
+    AlphaExpression _get_4 = updatedExternal.getExprs().get(1);
+    Assert.assertTrue((_get_4 instanceof DependenceExpression));
+    AlphaExpression _get_5 = updatedExternal.getExprs().get(1);
+    final DependenceExpression dependence2 = ((DependenceExpression) _get_5);
+    final ISLMultiAff f2Prime = dependence2.getFunction();
+    Assert.assertTrue(f1.isPlainEqual(f1Prime.pullback(fPrime.copy())));
+    Assert.assertTrue(f2.isPlainEqual(f2Prime.pullback(fPrime)));
+  }
+
+  @Test
   public void caseTest_01() {
     final StandardEquation equation = RaiseDependenceTest.getEquation("caseTest_01", "X");
     AlphaExpression _expr = equation.getExpr();
@@ -566,6 +603,11 @@ public class RaiseDependenceTest {
   @Test
   public void normalizeUndoesRaising_Test18() {
     RaiseDependenceTest.normalizeTest("prefixScan", "X");
+  }
+
+  @Test
+  public void normalizeUndoesRaising_Test19() {
+    RaiseDependenceTest.normalizeTest("externalFunctionTest_01", "X");
   }
 
   /**
