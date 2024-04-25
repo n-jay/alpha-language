@@ -79,6 +79,26 @@ class ISLUtil {
 		return (cPrime.intersect(P.copy)).isEqual(P)
 	}
 	
+	/** Converts a constraint into an equality constraint with the same coefficients and constant. */
+	def static toEqualityConstraint(ISLConstraint constraint) {
+		val space = constraint.space
+		var equality = ISLConstraint.buildEquality(space.copy)
+		
+		// Copy all of the coefficients.
+		val dimTypes = #[ISLDimType.isl_dim_param, ISLDimType.isl_dim_in, ISLDimType.isl_dim_out, ISLDimType.isl_dim_div]
+		for (dimType : dimTypes) {
+			val count = space.dim(dimType)
+			for (i : 0 ..< count) {
+				val coeff = constraint.getCoefficientVal(dimType, i)
+				equality = equality.setCoefficient(dimType, i, coeff)
+			}
+		}
+
+		// Copy the constsant.
+		equality = equality.setConstant(constraint.constant)
+		
+		return equality
+	}
 	
 	/** 
 	 * Given the ISLAff of an effectively saturated constraint return a long[] of the linear part
