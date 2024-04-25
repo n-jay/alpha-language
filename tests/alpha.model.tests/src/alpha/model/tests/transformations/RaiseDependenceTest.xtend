@@ -648,12 +648,7 @@ class RaiseDependenceTest {
 	// Normalizing Undoes Dependence Raising
 	////////////////////////////////////////////////////////////
 
-	// Note: this test does not work, as the normalized original program outputs "X = 7",
-	// but the normalized program after dependence raising outputs "X = 7[]",
-	// as there is a dependence function with no outputs (i.e., map to a scalar)
-	// around the constant, which normalizing does not remove.
-	// However, looking at the output and AST shows that this works as expected as of 16-Apr-2024.
-//	@Test def normalizeUndoesRaising_Test01() { normalizeTest("wrapConstantExpression_01", "X") }
+	@Test def normalizeUndoesRaising_Test01() { normalizeTest("wrapConstantExpression_01", "X") }
 	
 	@Test def normalizeUndoesRaising_Test02() { normalizeTest("wrapVariableExpression_01", "X") }
 	

@@ -17,6 +17,7 @@ import alpha.model.ModelPackage
 import alpha.model.MultiArgExpression
 import alpha.model.RestrictExpression
 import alpha.model.UnaryExpression
+import alpha.model.factory.AlphaUserFactory
 import alpha.model.util.AbstractAlphaCompleteVisitor
 import alpha.model.util.AlphaExpressionUtil
 import alpha.model.util.AlphaUtil
@@ -35,8 +36,8 @@ import static alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static alpha.model.factory.AlphaUserFactory.createRestrictExpression
 import static alpha.model.factory.AlphaUserFactory.createUnaryExpression
-import alpha.model.factory.AlphaUserFactory
-import alpha.model.ConstantExpression
+
+import static extension alpha.model.util.ISLUtil.isNoneToNone
 
 /**
  * Normalization of Alpha programs.
@@ -202,7 +203,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		// if the function has no inputs or outputs, which may occur in dependence raising.
 		// This is caused because the "isIdentity" function tries to build an identity function
 		// from the dependence function's space, but can't do so if there are no inputs or outputs.
-		if ((de.function.nbInputs > 0) &&  de.function.isIdentity) {
+		if (de.function.isNoneToNone || de.function.isIdentity) {
 			debug("identity", "f @ E = E if f = I");
 			EcoreUtil.replace(de, de.expr);
 		}

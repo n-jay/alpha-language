@@ -23,6 +23,7 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
+import alpha.model.util.ISLUtil;
 import alpha.model.util.Show;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
@@ -221,7 +222,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
       return;
     }
     this.dependenceExpressionRules(de, de.getExpr());
-    if (((de.getFunction().getNbInputs() > 0) && de.getFunction().isIdentity())) {
+    if ((ISLUtil.isNoneToNone(de.getFunction()) || de.getFunction().isIdentity())) {
       this.debug("identity", "f @ E = E if f = I");
       EcoreUtil.replace(de, de.getExpr());
     }

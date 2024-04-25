@@ -521,6 +521,11 @@ public class RaiseDependenceTest {
   }
 
   @Test
+  public void normalizeUndoesRaising_Test01() {
+    RaiseDependenceTest.normalizeTest("wrapConstantExpression_01", "X");
+  }
+
+  @Test
   public void normalizeUndoesRaising_Test02() {
     RaiseDependenceTest.normalizeTest("wrapVariableExpression_01", "X");
   }
