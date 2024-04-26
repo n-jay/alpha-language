@@ -472,6 +472,7 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
       _equations.add(eq);
       final VariableExpression ve = AlphaUserFactory.createVariableExpression(variable);
       de.setExpr(ve);
+      AlphaInternalStateConstructor.recomputeContextDomain(eq);
       _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(re);
     }
     return _xblockexpression;

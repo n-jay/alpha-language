@@ -452,6 +452,7 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 		de.expr = ve
 		
 		// Recompute context domain
+		AlphaInternalStateConstructor.recomputeContextDomain(eq)
 		AlphaInternalStateConstructor.recomputeContextDomain(re)
 	}
 	def dispatch reduceExpressionRules(ReduceExpression re, AlphaExpression ae) {
