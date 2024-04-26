@@ -111,12 +111,24 @@ public class ISLUtil {
     final Function1<ISLConstraint, Long> _function = (ISLConstraint it) -> {
       return Long.valueOf(it.getConstant());
     };
-    final int tau = IterableExtensions.<Long>max(ListExtensions.<ISLConstraint, Long>map(P.getConstraints(), _function)).intValue();
+    final Function1<Long, Long> _function_1 = (Long v) -> {
+      Long _xifexpression = null;
+      if (((v).longValue() < 0)) {
+        _xifexpression = Long.valueOf(((-1) * (v).longValue()));
+      } else {
+        _xifexpression = v;
+      }
+      return _xifexpression;
+    };
+    final Function2<Long, Long, Long> _function_2 = (Long v1, Long v2) -> {
+      return Long.valueOf(((v1).longValue() + (v2).longValue()));
+    };
+    final int tau = IterableExtensions.<Long>reduce(ListExtensions.<Long, Long>map(ListExtensions.<ISLConstraint, Long>map(P.getConstraints(), _function), _function_1), _function_2).intValue();
     ISLAff _negate = c.getAff().negate();
     int _intValue = Long.valueOf(c.getConstant()).intValue();
     int _plus = (_intValue + tau);
     final ISLBasicSet cPrime = _negate.setConstant(_plus).toInequalityConstraint().toBasicSet();
-    return cPrime.intersect(P.copy()).isEqual(P);
+    return cPrime.intersect(P.copy()).isEqual(P.copy());
   }
 
   /**
@@ -154,9 +166,8 @@ public class ISLUtil {
     final Function1<Long, Boolean> _function = (Long v) -> {
       return Boolean.valueOf(((v).longValue() == 0));
     };
-    Long _get = IterableExtensions.<Long>toList(IterableExtensions.<Long>reject(((Iterable<Long>)Conversions.doWrapArray(vec)), _function)).get(0);
-    boolean _lessThan = ((_get).longValue() < 0);
-    if (_lessThan) {
+    final Iterable<Long> nonZeros = IterableExtensions.<Long>reject(((Iterable<Long>)Conversions.doWrapArray(vec)), _function);
+    if (((IterableExtensions.size(nonZeros) > 0) && ((IterableExtensions.<Long>toList(nonZeros).get(0)).longValue() < 0))) {
       return MatrixOperations.scalarMultiplication(vec, (-1));
     }
     return vec;
@@ -167,6 +178,13 @@ public class ISLUtil {
    * For example, if the set represents a 2D object embedded in 3D space,
    * this will indicate that the set is 2D.
    */
+  public static int dimensionality(final ISLSet set) {
+    final Function1<ISLBasicSet, Integer> _function = (ISLBasicSet it) -> {
+      return Integer.valueOf(ISLUtil.dimensionality(it));
+    };
+    return (int) IterableExtensions.<Integer>max(ListExtensions.<ISLBasicSet, Integer>map(set.computeDivs().getBasicSets(), _function));
+  }
+
   public static int dimensionality(final ISLBasicSet set) {
     boolean _isEmpty = set.isEmpty();
     if (_isEmpty) {
