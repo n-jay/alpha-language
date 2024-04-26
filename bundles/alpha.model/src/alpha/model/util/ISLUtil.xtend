@@ -133,7 +133,8 @@ class ISLUtil {
 	 */
 	def static int dimensionality(ISLSet set) {
 		set.computeDivs.basicSets.map[dimensionality].max
-	}	
+	}
+	
 	def static int dimensionality(ISLBasicSet set) {
 		// The empty set has no effectively saturated constraints
 		// but can have any number of indices,

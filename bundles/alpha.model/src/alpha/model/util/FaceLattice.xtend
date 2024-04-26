@@ -21,7 +21,6 @@ class FaceLattice {
 	@Accessors(PUBLIC_GETTER, PROTECTED_SETTER)
 	val ArrayList<ArrayList<Face>> lattice
 	
-	
 	/** Creates the face lattice of the given set if it is convex */
 	def static create(ISLSet root) {
 		if (root.nbBasicSets != 1) {
