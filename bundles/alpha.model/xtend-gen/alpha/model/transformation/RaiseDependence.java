@@ -10,7 +10,6 @@ import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.IndexExpression;
-import alpha.model.JNIDomain;
 import alpha.model.JNIFunction;
 import alpha.model.MultiArgExpression;
 import alpha.model.RestrictExpression;
@@ -21,8 +20,12 @@ import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AffineFactorizer;
 import alpha.model.util.CommonExtensions;
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
+import fr.irisa.cairn.jnimap.isl.ISLConstraint;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +36,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.MapExtensions;
@@ -65,7 +67,7 @@ import org.eclipse.xtext.xbase.lib.Pair;
  * Restrict Expressions:
  *     This rule pulls a dependence expression outside of a restrict expression.
  * 
- *     D:(f@E) goes to f@(f(D): E)
+ *     D:(f@E) goes to f1@(D1: f2@E) where D=Preimage(D1,f1) and f=f1 @ f2
  * 
  * Auto-Restrict Expressions:
  *     The "LiftAutoRestrict" transformation is automatically applied
@@ -213,17 +215,31 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
    * Pulls a dependence expression outside of a restrict expression.
    * 
    * From:  D:(f@E)
-   * To:    f @ (f(D) : E)
+   * To:    f1@(D1: f2@E)
+   * Where: D=Preimage(D1,f1) and f=f1 @ f2
    */
   protected List<AlphaIssue> _restrictExpressionRule(final RestrictExpression re, final DependenceExpression de) {
     List<AlphaIssue> _xblockexpression = null;
     {
-      EcoreUtil.replace(de, de.getExpr());
-      EcoreUtil.replace(re, de);
-      de.setExpr(re);
-      final JNIDomain updatedDomain = AlphaUserFactory.createJNIDomain(re.getRestrictDomain().apply(de.getFunction().copy().toMap()));
-      re.setDomainExpr(updatedDomain);
-      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(de);
+      final Function1<ISLBasicSet, List<ISLConstraint>> _function = (ISLBasicSet it) -> {
+        return it.getConstraints();
+      };
+      final Function1<ISLConstraint, ISLMultiAff> _function_1 = (ISLConstraint it) -> {
+        return it.getAff().toMultiAff();
+      };
+      final ArrayList<ISLMultiAff> toFactorize = CommonExtensions.<ISLMultiAff>toArrayList(IterableExtensions.<ISLConstraint, ISLMultiAff>map(IterableExtensions.<ISLBasicSet, ISLConstraint>flatMap(re.getRestrictDomain().getBasicSets(), _function), _function_1));
+      final ISLMultiAff dependenceFunction = de.getFunction();
+      toFactorize.add(dependenceFunction);
+      final Pair<ISLMultiAff, HashMap<ISLMultiAff, ISLMultiAff>> factorizationResult = AffineFactorizer.factorizeExpressions(((ISLMultiAff[])Conversions.unwrapArray(toFactorize, ISLMultiAff.class)));
+      final ISLMultiAff remainingDependence = factorizationResult.getValue().get(dependenceFunction);
+      de.setFunctionExpr(AlphaUserFactory.createJNIFunction(remainingDependence));
+      final ISLMultiAff commonFactor = factorizationResult.getKey();
+      final ISLSet updatedDomain = re.getRestrictDomain().apply(commonFactor.copy().toMap());
+      re.setDomainExpr(AlphaUserFactory.createJNIDomain(updatedDomain));
+      final DependenceExpression wrappingDependence = AlphaUserFactory.createDependenceExpression(commonFactor);
+      EcoreUtil.replace(re, wrappingDependence);
+      wrappingDependence.setExpr(re);
+      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence);
     }
     return _xblockexpression;
   }
@@ -329,7 +345,6 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
     if (hasAutoRestrict) {
       LiftAutoRestrict.apply(ce);
     }
-    InputOutput.println();
   }
 
   /**

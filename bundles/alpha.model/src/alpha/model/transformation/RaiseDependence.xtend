@@ -22,10 +22,12 @@ import static extension alpha.model.factory.AlphaUserFactory.createIndexExpressi
 import static extension alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static extension alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static extension alpha.model.util.AffineFactorizer.factorizeExpressions
+import static extension alpha.model.util.CommonExtensions.toArrayList
 import static extension alpha.model.util.CommonExtensions.toHashMap
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildZero
 import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
+import alpha.model.AlphaCompleteVisitable
 
 /**
  * Raises up dependence functions through the AST of a given expression.
@@ -53,7 +55,7 @@ import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
  * Restrict Expressions:
  *     This rule pulls a dependence expression outside of a restrict expression.
  * 
- *     D:(f@E) goes to f@(f(D): E)
+ *     D:(f@E) goes to f1@(D1: f2@E) where D=Preimage(D1,f1) and f=f1 @ f2
  * 
  * Auto-Restrict Expressions:
  *     The "LiftAutoRestrict" transformation is automatically applied
@@ -205,21 +207,39 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 	  * Pulls a dependence expression outside of a restrict expression.
 	  * 
 	  * From:  D:(f@E)
-	  * To:    f @ (f(D) : E)
+	  * To:    f1@(D1: f2@E)
+	  * Where: D=Preimage(D1,f1) and f=f1 @ f2
 	  */
 	 protected def dispatch restrictExpressionRule(RestrictExpression re, DependenceExpression de) {
-	 	// Reorder the tree to swap the places of the restrict and dependence expression.
-	 	// This ordering avoids stack overflow issues.
-	 	EcoreUtil.replace(de, de.expr)
-	 	EcoreUtil.replace(re, de)
-	 	de.expr = re
-	 	
-	 	// Transform the restrict domain using the dependence function.
-	 	val updatedDomain = re.restrictDomain.apply(de.function.copy.toMap).createJNIDomain
-	 	re.domainExpr = updatedDomain
-	 	
-	 	// Fix the context domains.
-		AlphaInternalStateConstructor.recomputeContextDomain(de)
+		// Convert the restrict domain into a set of affine expressions representing the constraints.
+		// For factorization with the dependence function, we need these as multi-affine expressions.
+		val toFactorize = re.restrictDomain.basicSets
+			.flatMap[it.constraints]
+			.map[it.aff.toMultiAff]
+			.toArrayList
+		
+		// Add the dependence expression to this list, then factorize everything.
+		val dependenceFunction = de.function
+		toFactorize.add(dependenceFunction)
+		val factorizationResult = toFactorize.factorizeExpressions
+		
+		// Replace the dependence expression with the appropriate remaining term.
+		val remainingDependence = factorizationResult.value.get(dependenceFunction)
+		de.functionExpr = remainingDependence.createJNIFunction
+		
+		// Apply the common factor to the restrict domain.
+		val commonFactor = factorizationResult.key
+		val updatedDomain = re.restrictDomain.apply(commonFactor.copy.toMap)
+		re.domainExpr = updatedDomain.createJNIDomain
+		
+		// Create a new dependence expression for the common factor
+		// and wrap the restrict expression with it.
+		val wrappingDependence = createDependenceExpression(commonFactor)
+		EcoreUtil.replace(re, wrappingDependence)
+		wrappingDependence.expr = re
+		
+		// Fix the context domains.
+		AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence)
 	 }
 	 
 	/** No matching restrict expression rule: do nothing. */
@@ -308,7 +328,6 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 		if (hasAutoRestrict) {
 			LiftAutoRestrict.apply(ce)
 		}
-		println()
 	}
 	
 	/**
