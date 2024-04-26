@@ -6,6 +6,7 @@ import static org.junit.Assert.*
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import fr.irisa.cairn.jnimap.isl.ISLContext
 import alpha.model.util.Face
+import fr.irisa.cairn.jnimap.isl.ISLConstraint
 
 class FaceTest {
 	////////////////////////////////////////////////////////////
@@ -19,22 +20,28 @@ class FaceTest {
 	}
 	
 	/** The empty set. */
-	static def emptySet() { makeFace("{[i,j]: 0<i<j and j<0}") }
+	static val emptySetString = "{[i,j]: 0<i<j and j<0}"
+	static def emptySet() { makeFace(emptySetString) }
 	
 	/** A set containing a single point. */
-	static def vertex() { makeFace("{[i,j]: i=0 and j=1}")}
+	static val vertexString = "{[i,j]: i=0 and j=1}"
+	static def vertex() { makeFace(vertexString)}
 	
 	/** A line which is infinite in both directions. */
-	static def infiniteLine() { makeFace("{[i]:}")}
+	static val infiniteLineString = "{[i]:}"
+	static def infiniteLine() { makeFace(infiniteLineString)}
 	
 	/** A ray, or a line which has one point and extends infinitely in one direction. */
-	static def ray() { makeFace("{[i]: 0<=i}")}
+	static val rayString = "{[i]: 0<=i}"
+	static def ray() { makeFace(rayString)}
 	
 	/** A line segment which is defined between two constants. */
-	static def constantLineSegment() { makeFace("{[i]: 0<=i<=10}")}
+	static val constantLineSegmentString = "{[i]: 0<=i<=10}"
+	static def constantLineSegment() { makeFace(constantLineSegmentString)}
 	
 	/** A line segment from 0 to N. */
-	static def parameterizedLineSegment() { makeFace("[N]->{[i]: 0<=i<N}")}
+	static val parameterizedLineSegmentString = "[N]->{[i]: 0<=i<N}"
+	static def parameterizedLineSegment() { makeFace(parameterizedLineSegmentString)}
 	
 	
 	////////////////////////////////////////////////////////////
@@ -69,4 +76,35 @@ class FaceTest {
 	 * resulting in the face being reported as being effectively the same as a vertex.
 	 */
 	@Test def testDimensionality_06() { constantLineSegment.assertDimensionality(0) }
+	
+	static def assertBasicSetMatches(String descriptor) {
+		val basicSet = ISLBasicSet.buildFromString(ISLContext.instance, descriptor)
+		val face = makeFace(descriptor)
+		assertTrue(basicSet.isEqual(face.toBasicSet))
+	}
+	
+	@Test def testBasicSetMatches_01() { emptySetString.assertBasicSetMatches }
+	@Test def testBasicSetMatches_02() { vertexString.assertBasicSetMatches }
+	@Test def testBasicSetMatches_03() { infiniteLineString.assertBasicSetMatches }
+	@Test def testBasicSetMatches_04() { rayString.assertBasicSetMatches }
+	@Test def testBasicSetMatches_05() { constantLineSegmentString.assertBasicSetMatches }
+	@Test def testBasicSetMatches_06() { parameterizedLineSegmentString.assertBasicSetMatches }
+	
+	@Test
+	def testChildren_01() {
+		// Build a face from a known set.
+		val descriptor = "[N] -> {[i]: 0<=i<=N and N>=1}"
+		val face = makeFace(descriptor)
+		
+		// We are expecting two child faces: i=0 and i=N.
+		val children = face.generateChildren
+		assertEquals(2, children.size)
+		
+		// We don't care what order they are in, so just check that both expected children exist.
+		val iEqualsZero = ISLBasicSet.buildFromString(ISLContext.instance, "[N] -> {[i]: i=0 and N>=1}")
+		assertTrue(children.exists[it.toBasicSet.isEqual(iEqualsZero.copy)])
+		
+		val iEqualsN = ISLBasicSet.buildFromString(ISLContext.instance, "[N] -> {[i]: i=N and N>=1}")
+		assertTrue(children.exists[it.toBasicSet.isEqual(iEqualsN.copy)])
+	}
 }
