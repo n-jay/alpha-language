@@ -89,7 +89,7 @@ import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
  * Reduce Expressions:
  *     The current implementation does not pull dependence expressions out of reduce expressions.
  *     However, the child of any raised dependence expressions in reduction bodies may be separated
- *     into a new variable. This is controlled by hoistFromReduce flag in apply. If hoistFromReduce
+ *     into a new variable. This is controlled by the hoistFromReduce flag in apply. If hoistFromReduce
  *     is passed as true, then the following rule is applied.
  * 
  *     reduce(op, f, g@E) goes to reduce(op, f, g@V) where V is a new local variable defined as V=E
@@ -100,13 +100,10 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 	 *  separate equation. This flag controls when to do this. See outReduceExpression
 	 *  and reduceExpressionRules.
 	 */
-	protected boolean hoistFromReduce = false
+	val boolean hoistFromReduce
 	
 	/** Protected constructor to restrict access to the instance methods. */
-	protected new() {}
-	
 	protected new(boolean hoistFromReduce) {
-		this()
 		this.hoistFromReduce = hoistFromReduce
 	}
 	
@@ -418,6 +415,10 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 		// Finally, update the context domains for the entire subtree rooted at the wrapping dependence.
 		AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence)
 	}
+	
+	////////////////////////////////////////////////////////////
+	// Reduce Expressions
+	////////////////////////////////////////////////////////////
 	
 	/**
 	 * Separate the child of a top level dependence expression in the reduction body if hoisting

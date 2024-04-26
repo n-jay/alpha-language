@@ -98,7 +98,7 @@ import org.eclipse.xtext.xbase.lib.Pair;
  * Reduce Expressions:
  *     The current implementation does not pull dependence expressions out of reduce expressions.
  *     However, the child of any raised dependence expressions in reduction bodies may be separated
- *     into a new variable. This is controlled by hoistFromReduce flag in apply. If hoistFromReduce
+ *     into a new variable. This is controlled by the hoistFromReduce flag in apply. If hoistFromReduce
  *     is passed as true, then the following rule is applied.
  * 
  *     reduce(op, f, g@E) goes to reduce(op, f, g@V) where V is a new local variable defined as V=E
@@ -110,16 +110,12 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
    *  separate equation. This flag controls when to do this. See outReduceExpression
    *  and reduceExpressionRules.
    */
-  protected boolean hoistFromReduce = false;
+  private final boolean hoistFromReduce;
 
   /**
    * Protected constructor to restrict access to the instance methods.
    */
-  protected RaiseDependence() {
-  }
-
   protected RaiseDependence(final boolean hoistFromReduce) {
-    this();
     this.hoistFromReduce = hoistFromReduce;
   }
 
