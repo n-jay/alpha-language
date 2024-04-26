@@ -22,7 +22,7 @@ public class FaceTest {
   /**
    * The empty set.
    */
-  private static final String emptySetString = "{[i,j]: 0<i<j and j<0}";
+  public static final String emptySetString = "{[i,j]: 0<i<j and j<0}";
 
   public static Face emptySet() {
     return FaceTest.makeFace(FaceTest.emptySetString);
@@ -31,7 +31,7 @@ public class FaceTest {
   /**
    * A set containing a single point.
    */
-  private static final String vertexString = "{[i,j]: i=0 and j=1}";
+  public static final String vertexString = "{[i,j]: i=0 and j=1}";
 
   public static Face vertex() {
     return FaceTest.makeFace(FaceTest.vertexString);
@@ -40,7 +40,7 @@ public class FaceTest {
   /**
    * A line which is infinite in both directions.
    */
-  private static final String infiniteLineString = "{[i]:}";
+  public static final String infiniteLineString = "{[i]:}";
 
   public static Face infiniteLine() {
     return FaceTest.makeFace(FaceTest.infiniteLineString);
@@ -49,7 +49,7 @@ public class FaceTest {
   /**
    * A ray, or a line which has one point and extends infinitely in one direction.
    */
-  private static final String rayString = "{[i]: 0<=i}";
+  public static final String rayString = "{[i]: 0<=i}";
 
   public static Face ray() {
     return FaceTest.makeFace(FaceTest.rayString);
@@ -58,7 +58,7 @@ public class FaceTest {
   /**
    * A line segment which is defined between two constants.
    */
-  private static final String constantLineSegmentString = "{[i]: 0<=i<=10}";
+  public static final String constantLineSegmentString = "{[i]: 0<=i<=10}";
 
   public static Face constantLineSegment() {
     return FaceTest.makeFace(FaceTest.constantLineSegmentString);
@@ -67,7 +67,7 @@ public class FaceTest {
   /**
    * A line segment from 0 to N.
    */
-  private static final String parameterizedLineSegmentString = "[N]->{[i]: 0<=i<N}";
+  public static final String parameterizedLineSegmentString = "[N]->{[i]: 0<=i<N}";
 
   public static Face parameterizedLineSegment() {
     return FaceTest.makeFace(FaceTest.parameterizedLineSegmentString);

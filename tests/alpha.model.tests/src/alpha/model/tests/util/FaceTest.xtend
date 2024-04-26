@@ -1,12 +1,11 @@
 package alpha.model.tests.util
 
+import alpha.model.util.Face
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet
+import fr.irisa.cairn.jnimap.isl.ISLContext
 import org.junit.Test
 
 import static org.junit.Assert.*
-import fr.irisa.cairn.jnimap.isl.ISLBasicSet
-import fr.irisa.cairn.jnimap.isl.ISLContext
-import alpha.model.util.Face
-import fr.irisa.cairn.jnimap.isl.ISLConstraint
 
 class FaceTest {
 	////////////////////////////////////////////////////////////
@@ -20,27 +19,27 @@ class FaceTest {
 	}
 	
 	/** The empty set. */
-	static val emptySetString = "{[i,j]: 0<i<j and j<0}"
+	public static val emptySetString = "{[i,j]: 0<i<j and j<0}"
 	static def emptySet() { makeFace(emptySetString) }
 	
 	/** A set containing a single point. */
-	static val vertexString = "{[i,j]: i=0 and j=1}"
+	public static val vertexString = "{[i,j]: i=0 and j=1}"
 	static def vertex() { makeFace(vertexString)}
 	
 	/** A line which is infinite in both directions. */
-	static val infiniteLineString = "{[i]:}"
+	public static val infiniteLineString = "{[i]:}"
 	static def infiniteLine() { makeFace(infiniteLineString)}
 	
 	/** A ray, or a line which has one point and extends infinitely in one direction. */
-	static val rayString = "{[i]: 0<=i}"
+	public static val rayString = "{[i]: 0<=i}"
 	static def ray() { makeFace(rayString)}
 	
 	/** A line segment which is defined between two constants. */
-	static val constantLineSegmentString = "{[i]: 0<=i<=10}"
+	public static val constantLineSegmentString = "{[i]: 0<=i<=10}"
 	static def constantLineSegment() { makeFace(constantLineSegmentString)}
 	
 	/** A line segment from 0 to N. */
-	static val parameterizedLineSegmentString = "[N]->{[i]: 0<=i<N}"
+	public static val parameterizedLineSegmentString = "[N]->{[i]: 0<=i<N}"
 	static def parameterizedLineSegment() { makeFace(parameterizedLineSegmentString)}
 	
 	

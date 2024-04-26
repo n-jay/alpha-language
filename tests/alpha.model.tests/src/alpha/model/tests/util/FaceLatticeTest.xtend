@@ -1,19 +1,117 @@
-//package alpha.model.tests.util
-//
-//import alpha.model.util.FaceLattice
-//import alpha.model.util.Facet
-//import fr.irisa.cairn.jnimap.isl.ISLBasicSet
-//import fr.irisa.cairn.jnimap.isl.ISLContext
-//import fr.irisa.cairn.jnimap.isl.ISLVertex
-//import java.util.ArrayList
-//import java.util.List
-//import org.junit.Test
-//
-//import static org.junit.Assert.*
-//
-//import static extension alpha.model.util.ISLUtil.*
-//
-//class FaceLatticeTest {
+package alpha.model.tests.util
+
+import alpha.model.util.FaceLattice
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet
+import fr.irisa.cairn.jnimap.isl.ISLContext
+import org.junit.Test
+
+import static org.junit.Assert.*
+
+import static extension alpha.model.util.CommonExtensions.toArrayList
+
+/**
+ * Note: all the old unit tests from the previous implementation of the face lattice
+ * are still present, but commented out. This is intentional, and will be fixed
+ * when GitHub Issue #29 (link below) is addressed.
+ * 
+ * https://github.com/CSU-CS-Melange/alpha-language/issues/29
+ */
+class FaceLatticeTest {
+	////////////////////////////////////////////////////////////
+	// Lattice Creation
+	////////////////////////////////////////////////////////////
+	
+	/** Creates a face from the desired set. */
+	private static def makeLattice(String setDescriptor) {
+		val set = ISLBasicSet.buildFromString(ISLContext.instance, setDescriptor).removeRedundancies
+		return new FaceLattice(set)
+	}
+	
+	/** The empty set. */
+	static def emptySet() { makeLattice(FaceTest.emptySetString) }
+	
+	/** A set containing a single point. */
+	static def vertex() { makeLattice(FaceTest.vertexString)}
+	
+	/** A line which is infinite in both directions. */
+	static def infiniteLine() { makeLattice(FaceTest.infiniteLineString)}
+	
+	/** A ray, or a line which has one point and extends infinitely in one direction. */
+	static def ray() { makeLattice(FaceTest.rayString)}
+	
+	/** A line segment which is defined between two constants. */
+	static def constantLineSegment() { makeLattice(FaceTest.constantLineSegmentString)}
+	
+	/** A line segment from 0 to N. */
+	static def parameterizedLineSegment() { makeLattice(FaceTest.parameterizedLineSegmentString)}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Unit Tests
+	////////////////////////////////////////////////////////////
+	
+	static def assertRootMatchesInput(String descriptor) {
+		val basicSet = ISLBasicSet.buildFromString(ISLContext.instance, descriptor)
+		val lattice = makeLattice(descriptor)
+		assertTrue(basicSet.isEqual(lattice.root.toBasicSet))
+	}
+	
+	@Test def testRootMatchesInput_01() { FaceTest.emptySetString.assertRootMatchesInput }
+	@Test def testRootMatchesInput_02() { FaceTest.vertexString.assertRootMatchesInput }
+	@Test def testRootMatchesInput_03() { FaceTest.infiniteLineString.assertRootMatchesInput }
+	@Test def testRootMatchesInput_04() { FaceTest.rayString.assertRootMatchesInput }
+	@Test def testRootMatchesInput_05() { FaceTest.constantLineSegmentString.assertRootMatchesInput }
+	@Test def testRootMatchesInput_06() { FaceTest.parameterizedLineSegmentString.assertRootMatchesInput }
+	
+	static def assertVerticesMatchIsl(FaceLattice lattice) {
+		// Get the vertices produced by isl as basic sets.
+		// These vertices can be converted into an ISLMultiAff, then into a basic set.
+		// However, this may drop some of the parameter constraints,
+		// so we need to intersect that basic set with the root of our lattice.
+		val islVerticesList = lattice.root.toBasicSet.computeVertices
+		val islVertices = (0 ..< islVerticesList.nbVertex)
+			.map[islVerticesList.getVertexAt(it).expr.toBasicSet]
+			.map[it.intersect(lattice.root.toBasicSet)]
+			.toArrayList
+		
+		// Get the vertices produced by the lattice as basic sets.
+		val latticeVertices = lattice.vertices.map[it.toBasicSet].toArrayList
+		
+		// Make sure all the vertices produced by isl are in the vertices produced by the lattice.
+		assertEquals(islVertices.size, latticeVertices.size)
+		
+		for (islVertex : islVertices) {
+			assertTrue(latticeVertices.exists[it.copy.isEqual(islVertex.copy)])
+		}
+	}
+	
+	@Test def testVertices_01() {
+		// isl doesn't output any vertices for the empty set,
+		// but the lattice will output the empty set as a vertex.
+		val lattice = emptySet
+		val vertices = lattice.getVertices
+		assertEquals(1, vertices.size)
+		assertTrue(vertices.get(0).toBasicSet.isEmpty)
+	}
+	
+	@Test def testVertices_02() { vertex.assertVerticesMatchIsl }
+	@Test def testVertices_03() { infiniteLine.assertVerticesMatchIsl }
+	@Test def testVertices_04() { ray.assertVerticesMatchIsl }
+	
+	@Test def testVertices_05() {
+		// isl will output the actual vertices for a set with "thick equalities",
+		// such as a line bounded by two constants.
+		// For such a line, we want to check that there is a single "vertex"
+		// which represents that same line (i.e., the root of the lattice).
+		val lattice = constantLineSegment
+		val vertices = lattice.getVertices
+		assertEquals(1, vertices.size)
+		assertTrue(vertices.get(0).toBasicSet.isEqual(lattice.root.toBasicSet))
+	}
+	
+	@Test def testVertices_06() { parameterizedLineSegment.assertVerticesMatchIsl }
+	
+	
 //	////////////////////////////////////////////////////////////
 //	// Assertions for Specific Aspects of the Face Lattice
 //	////////////////////////////////////////////////////////////
@@ -496,4 +594,4 @@
 //		assertEquals(set1.dimensionality, 1)
 //		assertEquals(set2.dimensionality, 1)
 //	}
-//}
+}
