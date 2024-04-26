@@ -29,7 +29,7 @@ public class FaceLatticeTest {
    */
   private static FaceLattice makeLattice(final String setDescriptor) {
     final ISLBasicSet set = ISLBasicSet.buildFromString(ISLContext.getInstance(), setDescriptor).removeRedundancies();
-    return new FaceLattice(set);
+    return FaceLattice.create(set);
   }
 
   /**

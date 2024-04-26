@@ -1,11 +1,12 @@
 package alpha.model.util
 
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet
+import fr.irisa.cairn.jnimap.isl.ISLSet
 import java.util.ArrayList
+import org.eclipse.xtend.lib.annotations.Accessors
 
 import static extension alpha.model.util.CommonExtensions.toArrayList
 import static extension alpha.model.util.Face.removeDuplicates
-import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * Represents and constructs an entire face lattice from a basic set.
@@ -20,8 +21,22 @@ class FaceLattice {
 	@Accessors(PUBLIC_GETTER, PROTECTED_SETTER)
 	val ArrayList<ArrayList<Face>> lattice
 	
-	/** Constructs the face lattice of the given set. */
-	new(ISLBasicSet root) {
+	
+	/** Creates the face lattice of the given set if it is convex */
+	def static create(ISLSet root) {
+		if (root.nbBasicSets != 1) {
+			throw new Exception("Face lattice construction expects the input set to be convex")
+		}
+		new FaceLattice(root.getBasicSetAt(0))
+	}
+	
+	/** Creates the face lattice of the given set. */
+	def static create(ISLBasicSet root) {
+		new FaceLattice(root)
+	}
+	
+	/** Internal construct to build the face lattice of the given set. */
+	protected new(ISLBasicSet root) {
 		val rootFace = new Face(root, this)
 		val dimensionality = rootFace.dimensionality
 		
