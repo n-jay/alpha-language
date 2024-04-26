@@ -10,7 +10,11 @@ import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLSpace;
+import fr.irisa.cairn.jnimap.isl.ISLVal;
+import java.util.Collections;
 import java.util.List;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -116,6 +120,29 @@ public class ISLUtil {
   }
 
   /**
+   * Converts a constraint into an equality constraint with the same coefficients and constant.
+   */
+  public static ISLConstraint toEqualityConstraint(final ISLConstraint constraint) {
+    final ISLSpace space = constraint.getSpace();
+    ISLConstraint equality = ISLConstraint.buildEquality(space.copy());
+    final List<ISLDimType> dimTypes = Collections.<ISLDimType>unmodifiableList(CollectionLiterals.<ISLDimType>newArrayList(ISLDimType.isl_dim_param, ISLDimType.isl_dim_in, ISLDimType.isl_dim_out, ISLDimType.isl_dim_div));
+    for (final ISLDimType dimType : dimTypes) {
+      {
+        final int count = space.dim(dimType);
+        ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, count, true);
+        for (final Integer i : _doubleDotLessThan) {
+          {
+            final ISLVal coeff = constraint.getCoefficientVal(dimType, (i).intValue());
+            equality = equality.setCoefficient(dimType, (i).intValue(), coeff);
+          }
+        }
+      }
+    }
+    equality = equality.setConstant(constraint.getConstant());
+    return equality;
+  }
+
+  /**
    * Given the ISLAff of an effectively saturated constraint return a long[] of the linear part
    * the first non-zero value is guaranteed to be positive
    */
@@ -135,7 +162,16 @@ public class ISLUtil {
     return vec;
   }
 
+  /**
+   * Determines the number of effective dimensions for the set.
+   * For example, if the set represents a 2D object embedded in 3D space,
+   * this will indicate that the set is 2D.
+   */
   public static int dimensionality(final ISLBasicSet set) {
+    boolean _isEmpty = set.isEmpty();
+    if (_isEmpty) {
+      return 0;
+    }
     final Function1<ISLConstraint, Boolean> _function = (ISLConstraint c) -> {
       return Boolean.valueOf(c.involvesDims(ISLDimType.isl_dim_out, 0, set.getSpace().getNbOutputs()));
     };

@@ -11,6 +11,7 @@ import alpha.model.Equation;
 import alpha.model.SystemBody;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
+import fr.irisa.cairn.jnimap.isl.ISLAff;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.ISLFactory;
@@ -449,6 +450,23 @@ public class AlphaUtil {
       return _maff.setDimName(ISLDimType.isl_dim_out, (dim).intValue(), names.get((dim).intValue()));
     };
     return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, nbDims, true), maff, _function);
+  }
+
+  /**
+   * Renames the dimensions of an affine expression.
+   * Does not destroy the given affine expression.
+   */
+  public static ISLAff renameDims(final ISLAff aff, final ISLDimType dimType, final String... names) {
+    final int n = aff.dim(dimType);
+    int _length = names.length;
+    boolean _greaterThan = (n > _length);
+    if (_greaterThan) {
+      throw new RuntimeException("Need n or more names to rename n-d space.");
+    }
+    final Function2<ISLAff, Integer, ISLAff> _function = (ISLAff a, Integer i) -> {
+      return a.setDimName(dimType, (i).intValue(), names[(i).intValue()]);
+    };
+    return IterableExtensions.<Integer, ISLAff>fold(new ExclusiveRange(0, n, true), aff.copy(), _function);
   }
 
   public static List<String> defaultDimNames(final int n) {

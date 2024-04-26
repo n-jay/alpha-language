@@ -26,6 +26,7 @@ import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLSet
 import fr.irisa.cairn.jnimap.isl.ISLUnionMap
+import fr.irisa.cairn.jnimap.isl.ISLAff
 
 /**
  * Utility methods for analysis and transformation of Alpha programs.
@@ -336,6 +337,18 @@ class AlphaUtil {
 		return (0..<nbDims).fold(maff, [_maff, dim | _maff.setDimName(ISLDimType.isl_dim_out,  dim, names.get(dim))])
 	}
 	
+	/**
+	 * Renames the dimensions of an affine expression.
+	 * Does not destroy the given affine expression.
+	 */
+	static def renameDims(ISLAff aff, ISLDimType dimType, String... names) {
+		val n = aff.dim(dimType)
+		if (n > names.length) { 
+			throw new RuntimeException("Need n or more names to rename n-d space.");
+		}
+		
+		return (0 ..< n).fold(aff.copy, [a, i | a.setDimName(dimType, i, names.get(i))])
+	}
 	
 	static def defaultDimNames(int n) {
 		defaultDimNames(0, n)

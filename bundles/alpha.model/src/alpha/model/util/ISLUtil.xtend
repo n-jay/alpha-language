@@ -83,6 +83,26 @@ class ISLUtil {
 		return (cPrime.intersect(P.copy)).isEqual(P)
 	}
 	
+	/** Converts a constraint into an equality constraint with the same coefficients and constant. */
+	def static toEqualityConstraint(ISLConstraint constraint) {
+		val space = constraint.space
+		var equality = ISLConstraint.buildEquality(space.copy)
+		
+		// Copy all of the coefficients.
+		val dimTypes = #[ISLDimType.isl_dim_param, ISLDimType.isl_dim_in, ISLDimType.isl_dim_out, ISLDimType.isl_dim_div]
+		for (dimType : dimTypes) {
+			val count = space.dim(dimType)
+			for (i : 0 ..< count) {
+				val coeff = constraint.getCoefficientVal(dimType, i)
+				equality = equality.setCoefficient(dimType, i, coeff)
+			}
+		}
+
+		// Copy the constsant.
+		equality = equality.setConstant(constraint.constant)
+		
+		return equality
+	}
 	
 	/** 
 	 * Given the ISLAff of an effectively saturated constraint return a long[] of the linear part
@@ -101,7 +121,19 @@ class ISLUtil {
 		return vec
 	}
 	
+	/**
+	 * Determines the number of effective dimensions for the set.
+	 * For example, if the set represents a 2D object embedded in 3D space,
+	 * this will indicate that the set is 2D.
+	 */
 	def static int dimensionality(ISLBasicSet set) {
+		// The empty set has no effectively saturated constraints
+		// but can have any number of indices,
+		// which would cause this computation to fail.
+		if (set.isEmpty) {
+			return 0
+		}
+		
 		val effectivelySaturatedCount =
 			set.constraints
 			.filter[c | c.involvesDims(ISLDimType.isl_dim_out, 0, set.space.nbOutputs)]
