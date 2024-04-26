@@ -1,0 +1,373 @@
+package alpha.codegen
+
+////////////////////////////////////////////////
+// Programs and Includes
+////////////////////////////////////////////////
+
+/** Represents a program consisting of a single C file. */
+class Program {
+	/** A comment at the top of the file. */
+	refers CommentStmt headerComment
+	
+	/** The list of #include directives. */
+	refers Include[] includes
+	
+	/** A set of macros. Intended to be used for defining common functions like min(a,b) or floor(a). */
+	refers MacroStmt[] functionMacros
+	
+	/** Global variable declarations. */
+	refers VariableDecl[] globalVariables
+	
+	/** Another set of macros. Intended to be used for defining how the global variables are accessed. */
+	refers MacroStmt[] memoryMacros
+	
+	/** The function definitions for this program. */
+	refers Function[] functions
+}
+
+/** An include statement. Only needs to specify the file path to include. */
+class Include {
+	/** The name of the file to include. The file extension must be provided. */
+	String file
+	
+	/**
+	 * If <code>true</code>, the file will be surrounded in quotes (").
+	 * If <code>false</code>, the file will be surrounded in angle brackets (< and >).
+	 * See the following link for details: https://en.cppreference.com/w/c/preprocessor/include
+	 */
+	boolean useQuotes
+}
+
+
+////////////////////////////////////////////////
+// Variables and Data Types
+////////////////////////////////////////////////
+
+/**
+ * Represents a non-pointer data type.
+ * Not all types are currently included, only the ones we need.
+ * See the following link for details on the data types available in C:
+ * https://en.wikipedia.org/wiki/C_data_types
+ */
+enum BaseDataType {
+	/** Represents the lack of a type. */
+	VOID,
+	
+	/** A single ASCII character. */
+	CHAR,
+	
+	/** A long integer. */
+	LONG,
+	
+	/** An IEEE floating point value. */
+	FLOAT
+}
+
+/** Represents a data type which may or may not be a pointer. */
+class DataType {
+	/** The underlying data type being represented. */
+	BaseDataType baseType
+	
+	/**
+	 * The level of indirection for the type.
+	 * If this is zero (or negative), then this type is not a pointer.
+	 * Otherwise, this type is a pointer with <code>indirectionLevel</code> stars.
+	 */
+	int indirectionLevel
+}
+
+/**
+ * Declares a variable.
+ * Even though C allows assigning the variable immediately, we will not do that.
+ */
+class VariableDecl {
+	/** The variable's data type. */
+	refers DataType dataType
+	
+	/** The name of the variable. */
+	String name
+}
+
+
+////////////////////////////////////////////////
+// Functions
+////////////////////////////////////////////////
+
+/** The definition of a function. */
+class Function {
+	/** If <code>true</code>, the function will be marked with the <code>inline</code> keyword. */
+	Boolean isInline
+	
+	/** The return type of the function. */
+	refers DataType returnType
+	
+	/** The name of the function. */
+	String name
+	
+	/** The list of parameters for the function. May be empty. */
+	refers Parameter[] parameters
+	
+	/** The list of variables to declare at the start of the function. May be empty. */
+	refers VariableDecl[] declarations
+	
+	/** The list of statements inside the function. May be empty. */
+	refers Statement[] statements
+}
+
+/** A parameter for a function. */
+class Parameter {
+	/** The type of the parameter. */
+	refers DataType dataType
+	
+	/** The name of the parameter. */
+	String name
+}
+
+
+////////////////////////////////////////////////
+// Statements
+////////////////////////////////////////////////
+
+/** Represents any statement, or something that can take the place of a statement. */
+interface Statement{}
+
+/** An empty line, intended to add space between two statements for readability. */
+class EmptyLineStmt extends Statement { }
+
+/** A comment in C. Each item of the string array will have '// ' prepended automatically. */
+class CommentStmt extends Statement {
+	/** The individual lines of the comment. */
+	String[] commentLines
+	
+	/**
+	 * Adds lines to the comment.
+	 * If there are any newlines in any of the provided strings,
+	 * they will be broken into separate lines within this comment.
+	 */
+	op void addLines(String[] lines) {
+		// If there are any newlines in any of the given strings, break them up.
+		val separated = lines.flatMap[it.split("\n").toList]
+		commentLines.addAll(separated)
+	}
+}
+
+/**
+ * This is a statement which simply contains an expression.
+ * Intended for use with function call expressions
+ * (if its return type is "void" or if you're discarding the returned value),
+ * or for "custom expressions", which would allow you to use any statement you'd like.
+ */
+class ExpressionStmt extends Statement {
+	refers Expression expression
+}
+
+/** Defines a macro. */
+class MacroStmt extends Statement {
+	/** The name of the macro, which is what will get replaced. */
+	String name
+	
+	/** The names of the arguments to the macro. May be empty. */
+	String[] arguments
+	
+	/** The expression to replace the macro with. */
+	refers Expression replacement
+}
+
+/** Un-defines a macro. */
+class UndefStmt extends Statement {
+	/** The name of the macro being un-defined. */
+	String name
+}
+
+/**
+ * An entire if..else if..else block.
+ * The "ifBranch" is required, but the other fields are optional.
+ */
+class IfStmt extends Statement {
+	/** The main "if" branch for this statement. */
+	refers ConditionalBranch ifBranch
+	
+	/** The optional "else if" branches. */
+	refers ConditionalBranch[] elseIfBranches
+	
+	/** An optional "else" branch at the end of the statement. */
+	refers Branch elseBranch
+}
+
+/** Represents any kind of branch of an "if" statement (i.e., "if", "else if", or "else"). */
+class Branch extends Statement {
+	/** The statements within the block. */
+	refers Statement[] body
+}
+
+/** Represents a conditional branch of an "if" statement (i.e., "if" or "else if"). */
+class ConditionalBranch extends Branch {
+	refers Expression conditional
+}
+
+/** Represents a "for" loop. */
+class LoopStmt extends Statement {
+	/** The variable being looped over. */
+	String loopVariable
+	
+	/** The initial value of the loop variable. */
+	refers Expression initializer
+	
+	/** The conditional expression to check each iteration of the loop. */
+	refers Expression conditional
+	
+	/**
+	 * Increments the loop variable by the given amount.
+	 * This is intended only for additive increments (i.e., "+=").
+	 */
+	refers Expression incrementBy
+	
+	/** The statements to loop over. */
+	refers Statement[] body
+}
+
+/** Assigns the left-hand expression according to the right-hand expression. */
+class AssignmentStmt extends Statement, Expression {
+	/** The expression which is getting assigned a value. */
+	refers Expression left
+	
+	/** Which kind of assignment to perform (e.g., = or +=). */
+	AssignmentOperator assignType
+	
+	/** The expression to assign to the left side. */
+	refers Expression right
+}
+
+/** Represents one of the assignment operators. */
+enum AssignmentOperator {
+	/** Assignment using the "=" operator. */
+	STANDARD,
+	
+	/** Assignment using the "+=" operator. */
+	PLUS,
+	
+	/** Assignment using the "*=" operator. */
+	TIMES
+}
+
+/** Causes the function to return. May optionally return a value. */
+class ReturnStmt extends Statement {
+	/** The value to return. If <code>null</code>, no value will be returned. */
+	refers Expression expression
+}
+
+
+////////////////////////////////////////////////
+// Expressions
+////////////////////////////////////////////////
+
+/** Represents an expression, which is a part of a statement. */
+interface Expression {}
+
+/**
+ * When generating C code, the contained string will be printed exactly as provided
+ * in the place where this expression appears.
+ */
+class CustomExpr extends Expression {
+	/** The string to print as this expression. */
+	String expression
+}
+
+/**
+ * Represents an expression surrounded in parentheses.
+ * Note: when generating C code, some expressions are already wrapped in parentheses,
+ * so using this may result in double parentheses.
+ */
+class ParenthesizedExpr extends Expression {
+	/** The expression to wrap in parentheses. */
+	refers Expression expression
+}
+
+/** Casts an expression to a specific data type. */
+class CastExpr extends Expression {
+	/** The type to cast to. */
+	refers DataType dataType
+	
+	/** The expression being cast. */
+	refers Expression expression
+}
+
+/** Accesses an array variable at some index. */
+class ArrayAccessExpr extends Expression {
+	/** The name of the variable being accessed. */
+	String variableName
+	
+	/**
+	 * The expressions used to index the variable.
+	 * This should never be empty.
+	 * If there are multiple values, they will all be wrapped in square brackets
+	 * and appear left to right (i.e., index 0 is the leftmost indexing expression).
+	 */
+	refers Expression[] indexExpressions
+}
+
+/**
+ * A function call expression.
+ * Note: min and max are valid options for a binary operator.
+ */
+class CallExpr extends Expression {
+	/** The name of the function being called. */
+	String functionName
+	
+	/** The arguments to the function. May be empty. */
+	refers Expression[] arguments
+}
+
+/** An expression which applies an operator to one operand. */
+class UnaryExpr extends Expression {
+	/** The operator to apply. */
+	UnaryOperator operator
+	
+	/** The operand the operator is being applied to. */
+	refers Expression expression
+}
+
+/** Represents a unary operator. */
+enum UnaryOperator {
+	/** Algebraic negation (i.e., -). */
+	NEGATE,
+	
+	/** Logical negation (i.e., !) */
+	NOT
+}
+
+/** An expression which applies some operator over two operands. */
+class BinaryExpr extends Expression {
+	/** The operator to apply. */
+	BinaryOperator operator
+	
+	/** The operand on the left-hand side. */
+	refers Expression left
+	
+	/** The operand on the right-hand side. */
+	refers Expression right 
+}
+
+/**
+ * Represents a binary operator.
+ * This includes both standard C infix operators and some custom functions (e.g., min and max).
+ */
+enum BinaryOperator {
+	PLUS, MINUS,
+	TIMES, DIVIDE, MODULUS,
+	MIN, MAX,
+	AND, OR,
+	LT, LEQ, GT, GEQ, EQ, NEQ
+}
+
+/** A conditional expression of the form "a ? b : c". */
+class TernaryExpr extends Expression {
+	/** The condition to check that selects one of the two expressions. */
+	refers Expression conditional
+	
+	/** The expression to return if the condition evaluates to <code>true</code>. */
+	refers Expression thenExpr
+	
+	/** The expression to return if the condition evaluates to <code>false</code>. */
+	refers Expression elseExpr
+}
