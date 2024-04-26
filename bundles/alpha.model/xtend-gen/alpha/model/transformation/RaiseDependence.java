@@ -9,16 +9,21 @@ import alpha.model.BinaryExpression;
 import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
+import alpha.model.Equation;
 import alpha.model.IndexExpression;
 import alpha.model.JNIFunction;
 import alpha.model.MultiArgExpression;
+import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
+import alpha.model.StandardEquation;
 import alpha.model.UnaryExpression;
+import alpha.model.Variable;
 import alpha.model.VariableExpression;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.issue.AlphaIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AffineFactorizer;
+import alpha.model.util.AlphaUtil;
 import alpha.model.util.CommonExtensions;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLConstraint;
@@ -89,27 +94,51 @@ import org.eclipse.xtext.xbase.lib.Pair;
  *     ((f1 @ E1) op (f2 @ E2)) goes to ((f')@((f1' @ E1) op (f2' @ E2))) where f1 = f' @ f1' and f2 = f' @ f2'
  *     op(f1@E1, f2@E2, ...) goes to (f')@ op(f1'@E1, f2'@E2, ...) where fn = f' @ fn'
  *     case {f1@E1, f2@E2, ...} goes to (f')@ case{f1'@E1, f2'@E2, ...} where fn = f' @ fn'
+ * 
+ * Reduce Expressions:
+ *     The current implementation does not pull dependence expressions out of reduce expressions.
+ *     However, the child of any raised dependence expressions in reduction bodies may be separated
+ *     into a new variable. This is controlled by the hoistFromReduce flag in apply. If hoistFromReduce
+ *     is passed as true, then the following rule is applied.
+ * 
+ *     reduce(op, f, g@E) goes to reduce(op, f, g@V) where V is a new local variable defined as V=E
  */
 @SuppressWarnings("all")
 public class RaiseDependence extends AbstractAlphaCompleteVisitor {
   /**
+   * Dependence expressions raised in the body of a reduction may be hoisted into a
+   *  separate equation. This flag controls when to do this. See outReduceExpression
+   *  and reduceExpressionRules.
+   */
+  private final boolean hoistFromReduce;
+
+  /**
    * Protected constructor to restrict access to the instance methods.
    */
-  protected RaiseDependence() {
+  protected RaiseDependence(final boolean hoistFromReduce) {
+    this.hoistFromReduce = hoistFromReduce;
   }
 
   /**
    * Applies dependence raising to the AST of the given visitable expression.
    */
   public static void apply(final AlphaExpressionVisitable visitable) {
-    new RaiseDependence().accept(visitable);
+    RaiseDependence.apply(visitable, false);
+  }
+
+  public static void apply(final AlphaExpressionVisitable visitable, final boolean hoistFromReduce) {
+    new RaiseDependence(hoistFromReduce).accept(visitable);
   }
 
   /**
    * Applies dependence raising to the AST of the given visitable object (system).
    */
   public static void apply(final AlphaVisitable av) {
-    new RaiseDependence().accept(av);
+    RaiseDependence.apply(av, false);
+  }
+
+  public static void apply(final AlphaVisitable av, final boolean hoistFromReduce) {
+    new RaiseDependence(hoistFromReduce).accept(av);
   }
 
   /**
@@ -407,6 +436,48 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
     return _xblockexpression;
   }
 
+  /**
+   * Separate the child of a top level dependence expression in the reduction body if hoisting
+   * is specified.
+   */
+  @Override
+  public void outReduceExpression(final ReduceExpression re) {
+    if (this.hoistFromReduce) {
+      this.reduceExpressionRules(re, re.getBody());
+    }
+  }
+
+  /**
+   * Pull out a common factor from dependence expressions within a case expression.
+   * 
+   * From:  reduce(op, f, g@E)
+   * To:    reduce(op, f, g@V)
+   * Where: V is a new local variable, V=E, defined as over the context domain of E
+   */
+  protected List<AlphaIssue> _reduceExpressionRules(final ReduceExpression re, final DependenceExpression de) {
+    List<AlphaIssue> _xblockexpression = null;
+    {
+      final ISLSet domain = de.getExpr().getContextDomain().computeDivs();
+      Equation _containerEquation = AlphaUtil.getContainerEquation(re);
+      final String varName = ((StandardEquation) _containerEquation).getVariable().getName();
+      final Variable variable = AlphaUserFactory.createVariable((varName + "_body"), domain.copy());
+      EList<Variable> _locals = AlphaUtil.getContainerSystem(re).getLocals();
+      _locals.add(variable);
+      final StandardEquation eq = AlphaUserFactory.createStandardEquation(variable, de.getExpr());
+      EList<Equation> _equations = AlphaUtil.getContainerSystemBody(re).getEquations();
+      _equations.add(eq);
+      final VariableExpression ve = AlphaUserFactory.createVariableExpression(variable);
+      de.setExpr(ve);
+      AlphaInternalStateConstructor.recomputeContextDomain(eq);
+      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(re);
+    }
+    return _xblockexpression;
+  }
+
+  protected List<AlphaIssue> _reduceExpressionRules(final ReduceExpression re, final AlphaExpression ae) {
+    return null;
+  }
+
   protected List<AlphaIssue> dependenceExpressionRule(final DependenceExpression outerDe, final AlphaExpression innerDe) {
     if (innerDe instanceof DependenceExpression) {
       return _dependenceExpressionRule(outerDe, (DependenceExpression)innerDe);
@@ -450,6 +521,17 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(be, left, right).toString());
+    }
+  }
+
+  public List<AlphaIssue> reduceExpressionRules(final ReduceExpression re, final AlphaExpression de) {
+    if (de instanceof DependenceExpression) {
+      return _reduceExpressionRules(re, (DependenceExpression)de);
+    } else if (de != null) {
+      return _reduceExpressionRules(re, de);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(re, de).toString());
     }
   }
 }
