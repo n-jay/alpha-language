@@ -28,8 +28,8 @@ public class FaceLatticeTest {
    * Creates a face from the desired set.
    */
   private static FaceLattice makeLattice(final String setDescriptor) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe constructor FaceLattice(ISLBasicSet) is not visible");
+    final ISLBasicSet set = ISLBasicSet.buildFromString(ISLContext.getInstance(), setDescriptor).removeRedundancies();
+    return FaceLattice.create(set);
   }
 
   /**

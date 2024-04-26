@@ -24,7 +24,7 @@ class FaceLatticeTest {
 	/** Creates a face from the desired set. */
 	private static def makeLattice(String setDescriptor) {
 		val set = ISLBasicSet.buildFromString(ISLContext.instance, setDescriptor).removeRedundancies
-		return new FaceLattice(set)
+		return FaceLattice.create(set)
 	}
 	
 	/** The empty set. */
