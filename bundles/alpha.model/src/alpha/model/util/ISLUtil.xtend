@@ -7,13 +7,12 @@ import fr.irisa.cairn.jnimap.isl.ISLConstraint
 import fr.irisa.cairn.jnimap.isl.ISLContext
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMatrix
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLSet
 
 import static extension alpha.model.matrix.MatrixOperations.scalarMultiplication
 import static extension alpha.model.matrix.MatrixOperations.transpose
 import static extension alpha.model.util.DomainOperations.*
-
-import static extension java.lang.Math.abs
 
 class ISLUtil {
 	
@@ -45,6 +44,11 @@ class ISLUtil {
 	/** Returns the integer point closest to the origin in set without parameter context */
 	def static long[] integerPointClosestToOrigin(ISLBasicSet set) {
 		set.copy.samplePoint.coordinates.subList(set.nbParams, set.nbParams + set.nbIndices)
+	}
+	
+	/** Checks if this is a function from an empty domain to an empty range. */
+	def static isNoneToNone(ISLMultiAff aff) {
+		return (aff.nbInputs == 0) && (aff.nbOutputs == 0)
 	}
 	
 	def static isTrivial(ISLBasicSet set) {

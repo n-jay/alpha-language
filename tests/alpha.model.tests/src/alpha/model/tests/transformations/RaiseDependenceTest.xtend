@@ -22,6 +22,11 @@ import static org.junit.Assert.*
 import static extension alpha.commands.Utility.*
 import static extension alpha.commands.UtilityBase.*
 import static extension alpha.model.util.CommonExtensions.toHashMap
+import alpha.model.transformation.Normalize
+import alpha.model.util.AShow
+import alpha.model.transformation.LiftAutoRestrict
+import alpha.model.ExternalFunction
+import alpha.model.ExternalMultiArgExpression
 
 class RaiseDependenceTest {
 	/** The path to the Alpha file for these unit tests. */
@@ -162,73 +167,106 @@ class RaiseDependenceTest {
 	
 	@Test
 	def restrictExpression_01() {
-		// From:  case { D:(f@E); }
-		// To:    f1 @ case { f2 @ (f(D) : E); }
-		// Where: f = f1@f2
+		// From:  D:(f@E)
+		// To:    f1@(D1: f2@E)
+		// Where: D=Preimage(D1,f1) and f=f1 @ f2
 		
 		val equation = getEquation("restrictExpression_01", "X")
 		
-		val originalCase = equation.expr as CaseExpression
-		val originalRestrict = originalCase.exprs.get(0) as RestrictExpression
+		
+		// Capture the original AST nodes we need and extract D and f from them
+		val originalRestrict = equation.expr as RestrictExpression
 		val originalDependence = originalRestrict.expr as DependenceExpression
+
+		val d = originalRestrict.restrictDomain.copy
+		val f = originalDependence.function.copy
+
+		RaiseDependence.apply(equation.expr)
 		
-		val expectedDependenceFunction = originalDependence.function.copy
-		val expectedRestrictDomain = originalRestrict.restrictDomain.copy.apply(expectedDependenceFunction.copy.toMap)
+		// The top-level node of the equation should now be the f1 dependence expression.
+		assertTrue(equation.expr instanceof DependenceExpression)
+		val outerDependence = equation.expr as DependenceExpression
+		val f1 = outerDependence.function
 		
-		assertSingleRestrictionCorrect(equation, expectedRestrictDomain, expectedDependenceFunction)
+		// Inside there is the D1 restriction expression.
+		assertTrue(outerDependence.expr instanceof RestrictExpression)
+		val updatedRestrict = outerDependence.expr as RestrictExpression
+		val d1 = updatedRestrict.restrictDomain
+		
+		// Finally, there is an inner dependence function, f2, inside the restriction.
+		assertTrue(updatedRestrict.expr instanceof DependenceExpression)
+		val innerDependence = updatedRestrict.expr as DependenceExpression
+		val f2 = innerDependence.function
+		
+		// We require that f = f1 @ f2.
+		assertTrue(f.isPlainEqual(f2.pullback(f1.copy)))
+		
+		// We require that D is the preimage of D1 by f1.
+		assertTrue(d.isPlainEqual(d1.preimage(f1)))
 	}
 	
 	@Test
 	def autoRestrictExpression_01() {
 		// From:  case { auto: f @ E }
-		// To:    f1 @ case { f2 @ (D:E) }
-		// Where: f = f1@f2 and D is a restriction to the context domain.
+		// To:    f1 @ case { f2 @ (D1: f3 @ E) }
+		// Where: f = f1@f2@f3 and the context domain of f is the preimage of D1 by f1@f2.
 		
 		val equation = getEquation("autoRestrictExpression_01", "X")
 		
+		// Capture the original AST nodes we need.
 		val originalCase = equation.expr as CaseExpression
 		val originalRestrict = originalCase.exprs.get(0) as AutoRestrictExpression
 		val originalDependence = originalRestrict.expr as DependenceExpression
 		
-		val expectedDependenceFunction = originalDependence.function.copy
-		val expectedRestrictDomain = originalDependence.expr.contextDomain.copy
+		// We will use the context domain of the original restriction (f)
+		// as our original domain (D).
+		val f = originalDependence.function.copy
+		val d = originalDependence.contextDomain.copy 
 		
-		assertSingleRestrictionCorrect(equation, expectedRestrictDomain, expectedDependenceFunction)
-	}
-	
-	static def assertSingleRestrictionCorrect(StandardEquation equation, ISLSet expectedRestrictDomain, ISLMultiAff expectedDependenceFunction) {
 		RaiseDependence.apply(equation.expr)
 		
-		// The equation should now be a dependence expression (f1) at the top level.
-		// Inside that should be a case expression with a single dependence expression (f2).
-		// Inside there is a restrict expression with the expected domain.
+		// Since dependence raising was also applied to the case statement
+		// (it's required for the auto-restrict to be correctly replaced with a standard restrict),
+		// the top-level will be the f1 dependence.
 		assertTrue(equation.expr instanceof DependenceExpression)
 		val outerDependence = equation.expr as DependenceExpression
 		val f1 = outerDependence.function
 		
+		// Inside f1 is our case statement.
 		assertTrue(outerDependence.expr instanceof CaseExpression)
 		val updatedCase = outerDependence.expr as CaseExpression
 		
+		// The case statement should only have one child, which is the dependence f2.
 		assertEquals(1, updatedCase.exprs.size)
 		assertTrue(updatedCase.exprs.get(0) instanceof DependenceExpression)
-		val innerDependence = updatedCase.exprs.get(0) as DependenceExpression
-		val f2 = innerDependence.function
+		val middleDependence = updatedCase.exprs.get(0) as DependenceExpression
+		val f2 = middleDependence.function
 		
-		val updatedRestrict = innerDependence.expr as RestrictExpression
+		// Our updated restriction D1 (which is no longer an auto-restrict) is inside f2.
+		assertTrue(middleDependence.expr instanceof RestrictExpression)
+		val updatedRestriction = middleDependence.expr as RestrictExpression
+		val d1 = updatedRestriction.restrictDomain
 		
-		// Check that the restrict domain is correct and that f = f1@f2
-		assertTrue(updatedRestrict.restrictDomain.isEqual(expectedRestrictDomain))
-		assertTrue(expectedDependenceFunction.isPlainEqual(f2.pullback(f1)))
+		// Finally, the f3 dependence is inside that restriction.
+		assertTrue(updatedRestriction.expr instanceof DependenceExpression)
+		val innerDependence = updatedRestriction.expr as DependenceExpression
+		val f3 = innerDependence.function
 		
+		// We require that f = f1 @ f2 @ f3.
+		assertTrue(f.isPlainEqual(f3.pullback(f2.copy.pullback(f1.copy))))
+		
+		// We require that D is the preimage of D1 by f1 @ f2.
+		assertTrue(d.isPlainEqual(d1.preimage(f2.pullback(f1))))
 	}
 	
 	@Test
 	def autoRestrictExpression_02() {
 		// From:  case { D1: f1@E1; auto: f2 @ E2 }
-		// To:    f' @ case { f1' @ (f1(D1): E1); f2' @ (D2: E2) }
-		// Where: fn = f'@fn' and D2 is a restriction to the context domain.
+		// To:    f' @ case { f1' @ (D1': f1" @ E1); f2' @ (D2': f2" @ E2) }
+		// Where: fn = f'@fn'@fn", D1 = Preimage(D1', f'@f1')
+		//        and the context domain of f2 equals Preimage(D2', f'@f2')
 		
-		// Get the original equation and extract d1, d2, f1, and f2.
+		// Get the original equation and extract the required domains and dependences.
 		val equation = getEquation("autoRestrictExpression_02", "X")
 		
 		val originalCase = equation.expr as CaseExpression
@@ -244,39 +282,60 @@ class RaiseDependenceTest {
 		val f1 = originalDependence1.function.copy
 		val f2 = originalDependence2.function.copy
 		
-		// Apply dependence raising and check that the AST is correct.
 		RaiseDependence.apply(equation.expr)
-		
+
+		// Since applied dependence raising to the entire expression (to fix the auto-restrict),
+		// the top-level expression is the dependence f'.		
 		assertTrue(equation.expr instanceof DependenceExpression)
 		val outerDependence = equation.expr as DependenceExpression
+		val fPrime = outerDependence.function
 		
+		// Inside there is our case expression, which must have two children.
 		assertTrue(outerDependence.expr instanceof CaseExpression)
 		val updatedCase = outerDependence.expr as CaseExpression
-		
 		assertEquals(2, updatedCase.exprs.size)
+		
+		// The first child is the dependence function f1'.
+		// This contains our restriction D1' and the remaining term f1".
 		assertTrue(updatedCase.exprs.get(0) instanceof DependenceExpression)
-		assertTrue(updatedCase.exprs.get(1) instanceof DependenceExpression)
 		val updatedDep1 = updatedCase.exprs.get(0) as DependenceExpression
-		val updatedDep2 = updatedCase.exprs.get(1) as DependenceExpression
+		val f1Prime = updatedDep1.function
 		
 		assertTrue(updatedDep1.expr instanceof RestrictExpression)
 		val updatedRestrict1 = updatedDep1.expr as RestrictExpression
-		val updatedRestrict2 = updatedDep2.expr as RestrictExpression
-		
-		// Extract out the actual domains and dependence functions.
 		val d1Prime = updatedRestrict1.restrictDomain
+		
+		assertTrue(updatedRestrict1.expr instanceof DependenceExpression)
+		val innermostDep1 = updatedRestrict1.expr as DependenceExpression
+		val f1Prime2 = innermostDep1.function
+
+		// The second child is the dependence function f2'.
+		// This contains our restriction D2' and the remaining term f2".
+		assertTrue(updatedCase.exprs.get(1) instanceof DependenceExpression)
+		val updatedDep2 = updatedCase.exprs.get(1) as DependenceExpression
+		val f2Prime = updatedDep2.function
+		
+		assertTrue(updatedDep2.expr instanceof RestrictExpression)
+		val updatedRestrict2 = updatedDep2.expr as RestrictExpression
 		val d2Prime = updatedRestrict2.restrictDomain
 		
-		val fPrime = outerDependence.function.copy
-		val f1Prime = updatedDep1.function.copy
-		val f2Prime = updatedDep2.function.copy
+		assertTrue(updatedRestrict2.expr instanceof DependenceExpression)
+		val innermostDep2 = updatedRestrict2.expr as DependenceExpression
+		val f2Prime2 = innermostDep2.function
 		
-		// Check that everything is still correct.
-		assertTrue(d1Prime.isEqual(d1.apply(f1.copy.toMap)))
-		assertTrue(d2Prime.isEqual(d2.apply(f2.copy.toMap)))
+		// We require f1 = f' @ f1' @ f1"
+		val fPrimeAtF1Prime = f1Prime.copy.pullback(fPrime.copy)
+		assertTrue(f1.isPlainEqual(f1Prime2.pullback(fPrimeAtF1Prime.copy)))
 		
-		assertTrue(f1.isPlainEqual(f1Prime.pullback(fPrime.copy)))
-		assertTrue(f2.isPlainEqual(f2Prime.pullback(fPrime)))
+		// We require f2 = f' @ f2' @ f2"
+		val fPrimeAtF2Prime = f2Prime.copy.pullback(fPrime.copy)
+		assertTrue(f2.isPlainEqual(f2Prime2.pullback(fPrimeAtF2Prime.copy)))
+		
+		// We require D1 = Preimage(D1', f' @ f1')
+		assertTrue(d1.isEqual(d1Prime.preimage(fPrimeAtF1Prime)))
+				
+		// We require D2 = Preimage(D2', f' @ f2')
+		assertTrue(d2.isEqual(d2Prime.preimage(fPrimeAtF2Prime)))
 	}
 	
 	
@@ -498,6 +557,51 @@ class RaiseDependenceTest {
 	}
 	
 	@Test
+	def externalFunction_01() {
+		// External functions like these are supposed to be treated as multi-arg expressions.
+		// From:  x(f1@e1, f2@e2)
+		// To:    f'@(x(f1'@e1, f2'@e2))
+		// Where: x is an external function, f1=f'@f1', and f2=f'@f2'
+		
+		val equation = getEquation("externalFunctionTest_01", "X")
+		
+		// Capture the two index expressions inside the external function call.
+		val external = equation.expr as ExternalMultiArgExpression
+		val index1 = external.exprs.get(0) as IndexExpression
+		val f1 = index1.function
+		val index2 = external.exprs.get(1) as IndexExpression
+		val f2 = index2.function
+		
+		// Apply dependence raising.
+		RaiseDependence.apply(equation.expr)
+		
+		// Verify that the top-level expression in the equation is now a dependence.
+		assertTrue(equation.expr instanceof DependenceExpression)
+		val topExpression = equation.expr as DependenceExpression
+		val fPrime = topExpression.function
+		
+		// Inside the dependence should now be our external function.
+		assertTrue(topExpression.expr instanceof ExternalMultiArgExpression)
+		val updatedExternal = topExpression.expr as ExternalMultiArgExpression
+		
+		// Inside the external function should be two dependence expressions
+		// representing the remaining terms from factorization.
+		assertEquals(2, updatedExternal.exprs.size)
+		
+		assertTrue(updatedExternal.exprs.get(0) instanceof DependenceExpression)
+		val dependence1 = updatedExternal.exprs.get(0) as DependenceExpression
+		val f1Prime = dependence1.function
+		
+		assertTrue(updatedExternal.exprs.get(1) instanceof DependenceExpression)
+		val dependence2 = updatedExternal.exprs.get(1) as DependenceExpression
+		val f2Prime = dependence2.function
+		
+		// Verify that f1 = f' @ f1' and that f2 = f' @ f2'
+		assertTrue(f1.isPlainEqual(f1Prime.pullback(fPrime.copy)))
+		assertTrue(f2.isPlainEqual(f2Prime.pullback(fPrime)))
+	}
+	
+	@Test
 	def caseTest_01() {
 		// From:  case {f1@E1, f2@E2, ...}
 		// To:    (f')@ case{f1'@E1, f2'@E2, ...}
@@ -537,5 +641,67 @@ class RaiseDependenceTest {
 			val actual = remainingTerms.get(innerExpr).pullback(commonFactor.copy())
 			assertTrue(expected.isPlainEqual(actual))
 		}
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Normalizing Undoes Dependence Raising
+	////////////////////////////////////////////////////////////
+
+	@Test def normalizeUndoesRaising_Test01() { normalizeTest("wrapConstantExpression_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test02() { normalizeTest("wrapVariableExpression_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test03() { normalizeTest("wrapVariableExpression_02", "X") }
+	
+	@Test def normalizeUndoesRaising_Test04() { normalizeTest("wrapIndexExpression_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test05() { normalizeTest("wrapIndexExpression_02", "X") }
+	
+	@Test def normalizeUndoesRaising_Test06() { normalizeTest("nestedDependenceFunction_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test07() { normalizeTest("restrictExpression_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test08() { normalizeTest("autoRestrictExpression_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test09() { normalizeTest("autoRestrictExpression_02", "X") }
+	
+	@Test def normalizeUndoesRaising_Test10() { normalizeTest("unaryExpression_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test11() { normalizeTest("simpleBinaryExpression_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test12() { normalizeTest("binaryExpressionBecomesNested_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test13() { normalizeTest("binaryExpressionBecomesNested_02", "X") }
+	
+	@Test def normalizeUndoesRaising_Test14() { normalizeTest("binaryExpressionBecomesNested_03", "X") }
+	
+	@Test def normalizeUndoesRaising_Test15() { normalizeTest("binaryExpressionBecomesNested_04", "X") }
+	
+	@Test def normalizeUndoesRaising_Test16() { normalizeTest("multiArgTest_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test17() { normalizeTest("caseTest_01", "X") }
+	
+	@Test def normalizeUndoesRaising_Test18() { normalizeTest("prefixScan", "X") }
+	
+	@Test def normalizeUndoesRaising_Test19() { normalizeTest("externalFunctionTest_01", "X") }
+
+	/**
+	 * Used by several tests to ensure that the system can be normalized,
+	 * dependence raising can be applied, and then normalized again
+	 * to recreate the original normalization.
+	 */
+	static def normalizeTest(String systemName, String equationName) {
+		val equation = getEquation(systemName, equationName)
+		
+		LiftAutoRestrict.apply(equation)
+		Normalize.apply(equation)
+		val expected = AShow.print(equation)
+		
+		RaiseDependence.apply(equation)
+		Normalize.apply(equation)
+		val actual = AShow.print(equation)
+		
+		assertEquals(expected, actual)
 	}
 }

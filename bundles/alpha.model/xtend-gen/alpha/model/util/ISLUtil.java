@@ -8,6 +8,7 @@ import fr.irisa.cairn.jnimap.isl.ISLConstraint;
 import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import fr.irisa.cairn.jnimap.isl.ISLVal;
@@ -68,6 +69,13 @@ public class ISLUtil {
     int _nbIndices = set.getNbIndices();
     int _plus = (_nbParams_1 + _nbIndices);
     return ((long[])Conversions.unwrapArray(_coordinates.subList(_nbParams, _plus), long.class));
+  }
+
+  /**
+   * Checks if this is a function from an empty domain to an empty range.
+   */
+  public static boolean isNoneToNone(final ISLMultiAff aff) {
+    return ((aff.getNbInputs() == 0) && (aff.getNbOutputs() == 0));
   }
 
   public static boolean isTrivial(final ISLBasicSet set) {
