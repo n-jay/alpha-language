@@ -95,4 +95,12 @@ public interface StandardEquation extends Equation {
 	 */
 	void accept(AlphaVisitor visitor);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataType="alpha.model.String" unique="false"
+	 * @generated
+	 */
+	String toString();
+
 } // StandardEquation
