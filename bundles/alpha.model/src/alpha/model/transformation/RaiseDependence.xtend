@@ -11,23 +11,31 @@ import alpha.model.ConstantExpression
 import alpha.model.DependenceExpression
 import alpha.model.IndexExpression
 import alpha.model.MultiArgExpression
+import alpha.model.ReduceExpression
 import alpha.model.RestrictExpression
+import alpha.model.StandardEquation
 import alpha.model.UnaryExpression
 import alpha.model.VariableExpression
 import alpha.model.util.AbstractAlphaCompleteVisitor
 import org.eclipse.emf.ecore.util.EcoreUtil
+
+import static alpha.model.factory.AlphaUserFactory.createStandardEquation
+import static alpha.model.factory.AlphaUserFactory.createVariable
+import static alpha.model.factory.AlphaUserFactory.createVariableExpression
 
 import static extension alpha.model.factory.AlphaUserFactory.createDependenceExpression
 import static extension alpha.model.factory.AlphaUserFactory.createIndexExpression
 import static extension alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static extension alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static extension alpha.model.util.AffineFactorizer.factorizeExpressions
+import static extension alpha.model.util.AlphaUtil.getContainerEquation
+import static extension alpha.model.util.AlphaUtil.getContainerSystem
+import static extension alpha.model.util.AlphaUtil.getContainerSystemBody
 import static extension alpha.model.util.CommonExtensions.toArrayList
 import static extension alpha.model.util.CommonExtensions.toHashMap
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildZero
 import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
-import alpha.model.AlphaCompleteVisitable
 
 /**
  * Raises up dependence functions through the AST of a given expression.
@@ -77,19 +85,44 @@ import alpha.model.AlphaCompleteVisitable
  *     ((f1 @ E1) op (f2 @ E2)) goes to ((f')@((f1' @ E1) op (f2' @ E2))) where f1 = f' @ f1' and f2 = f' @ f2'
  *     op(f1@E1, f2@E2, ...) goes to (f')@ op(f1'@E1, f2'@E2, ...) where fn = f' @ fn'
  *     case {f1@E1, f2@E2, ...} goes to (f')@ case{f1'@E1, f2'@E2, ...} where fn = f' @ fn'
+ * 
+ * Reduce Expressions:
+ *     The current implementation does not pull dependence expressions out of reduce expressions.
+ *     However, the child of any raised dependence expressions in reduction bodies may be separated
+ *     into a new variable. This is controlled by the hoistFromReduce flag in apply. If hoistFromReduce
+ *     is passed as true, then the following rule is applied.
+ * 
+ *     reduce(op, f, g@E) goes to reduce(op, f, g@V) where V is a new local variable defined as V=E
  */
 class RaiseDependence extends AbstractAlphaCompleteVisitor {
+	
+	/** Dependence expressions raised in the body of a reduction may be hoisted into a  
+	 *  separate equation. This flag controls when to do this. See outReduceExpression
+	 *  and reduceExpressionRules.
+	 */
+	val boolean hoistFromReduce
+	
 	/** Protected constructor to restrict access to the instance methods. */
-	protected new() {}
+	protected new(boolean hoistFromReduce) {
+		this.hoistFromReduce = hoistFromReduce
+	}
 	
 	/** Applies dependence raising to the AST of the given visitable expression. */
 	static def apply(AlphaExpressionVisitable visitable) {
-		new RaiseDependence().accept(visitable)
+		apply(visitable, false)
+	}
+	
+	static def apply(AlphaExpressionVisitable visitable, boolean hoistFromReduce) {
+		new RaiseDependence(hoistFromReduce).accept(visitable)
 	}
 	
 	/** Applies dependence raising to the AST of the given visitable object (system). */
 	static def void apply(AlphaVisitable av) {
-		new RaiseDependence().accept(av)
+		apply(av, false)
+	}
+	
+	static def void apply(AlphaVisitable av, boolean hoistFromReduce) {
+		new RaiseDependence(hoistFromReduce).accept(av)
 	}
 	
 	////////////////////////////////////////////////////////////
@@ -381,5 +414,49 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 		
 		// Finally, update the context domains for the entire subtree rooted at the wrapping dependence.
 		AlphaInternalStateConstructor.recomputeContextDomain(wrappingDependence)
+	}
+	
+	////////////////////////////////////////////////////////////
+	// Reduce Expressions
+	////////////////////////////////////////////////////////////
+	
+	/**
+	 * Separate the child of a top level dependence expression in the reduction body if hoisting
+	 * is specified.
+	 */
+	override outReduceExpression(ReduceExpression re) {
+		if (hoistFromReduce) {
+			reduceExpressionRules(re, re.body)
+		}
+	}
+	
+	/**
+	 * Pull out a common factor from dependence expressions within a case expression.
+	 * 
+	 * From:  reduce(op, f, g@E)
+	 * To:    reduce(op, f, g@V)
+	 * Where: V is a new local variable, V=E, defined as over the context domain of E
+	 */
+	def dispatch reduceExpressionRules(ReduceExpression re, DependenceExpression de) {
+		// Add a new local variable V
+		val domain = de.expr.contextDomain.computeDivs
+		val varName = (re.getContainerEquation as StandardEquation).variable.name
+		val variable = createVariable(varName + '_body', domain.copy)
+		re.getContainerSystem.locals += variable
+		
+		// Add an equation for V=E
+		val eq = createStandardEquation(variable, de.expr)
+		re.getContainerSystemBody.equations += eq
+		
+		// Reference the variable in de.expr
+		val ve = createVariableExpression(variable)
+		de.expr = ve
+		
+		// Recompute context domain
+		AlphaInternalStateConstructor.recomputeContextDomain(eq)
+		AlphaInternalStateConstructor.recomputeContextDomain(re)
+	}
+	def dispatch reduceExpressionRules(ReduceExpression re, AlphaExpression ae) {
+		// do nothing
 	}
 }
