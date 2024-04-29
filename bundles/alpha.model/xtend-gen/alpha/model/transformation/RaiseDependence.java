@@ -73,6 +73,7 @@ import org.eclipse.xtext.xbase.lib.Pair;
  * 
  * Restrict Expressions:
  *     This rule pulls a dependence expression outside of a restrict expression.
+ *     Note: this does not apply if the restrict expression is the direct child of a reduce expression.
  * 
  *     D:(f@E) goes to f1@(D1: f2@E) where D=Preimage(D1,f1) and f=f1 @ f2
  * 
@@ -109,8 +110,8 @@ import org.eclipse.xtext.xbase.lib.Pair;
 public class RaiseDependence extends AbstractAlphaCompleteVisitor {
   /**
    * Dependence expressions raised in the body of a reduction may be hoisted into a
-   *  separate equation. This flag controls when to do this. See outReduceExpression
-   *  and reduceExpressionRules.
+   * separate equation. This flag controls when to do this. See outReduceExpression
+   * and reduceExpressionRules.
    */
   private final boolean hoistFromReduce;
 

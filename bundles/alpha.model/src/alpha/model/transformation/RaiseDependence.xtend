@@ -62,6 +62,7 @@ import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
  * 
  * Restrict Expressions:
  *     This rule pulls a dependence expression outside of a restrict expression.
+ *     Note: this does not apply if the restrict expression is the direct child of a reduce expression.
  * 
  *     D:(f@E) goes to f1@(D1: f2@E) where D=Preimage(D1,f1) and f=f1 @ f2
  * 
@@ -96,9 +97,10 @@ import static extension fr.irisa.cairn.jnimap.isl.ISLSpace.idMapDimFromSetDim
  */
 class RaiseDependence extends AbstractAlphaCompleteVisitor {
 	
-	/** Dependence expressions raised in the body of a reduction may be hoisted into a  
-	 *  separate equation. This flag controls when to do this. See outReduceExpression
-	 *  and reduceExpressionRules.
+	/**
+	 * Dependence expressions raised in the body of a reduction may be hoisted into a
+	 * separate equation. This flag controls when to do this. See outReduceExpression
+	 * and reduceExpressionRules.
 	 */
 	val boolean hoistFromReduce
 	
