@@ -47,28 +47,26 @@ import static extension java.lang.String.format
  */
 class OptimalSimplifyingReductions {
 	
-	public static boolean DEBUG = true
-	
-	static boolean THROTTLE = true
-	static int THROTTLE_LIMIT = 10
-	static long optimizationNum
-	
-	static String saveDirectory = 'resources/opt'
+	public static boolean DEBUG = false
 	
 	protected AlphaRoot root
 	protected AlphaSystem system
 	protected SystemBody systemBody
 	protected int systemBodyID
 	protected String originalSystemName
+	protected int initialComplexity
+	protected boolean throttle
+	protected int throttleLimit
+	protected long optimizationNum
 	
 	private static def void debug(String msg) {
 		if (DEBUG)
 			println("[OSR] " + msg)
 	}
 	
-	protected final Map<Integer, List<State>> optimizations
+	public Map<Integer, List<State>> optimizations
 	
-	protected new (SystemBody originalSystemBody) {
+	protected new (SystemBody originalSystemBody, int limit) {
 		root = EcoreUtil.copy(AlphaUtil.getContainerRoot(originalSystemBody))
 		system = root.getSystem(originalSystemBody.system.fullyQualifiedName)
 		systemBodyID = originalSystemBody.system.systemBodies.indexOf(originalSystemBody)
@@ -76,17 +74,27 @@ class OptimalSimplifyingReductions {
 		optimizations = newHashMap
 		originalSystemName = system.name
 		optimizationNum = 0
+		initialComplexity = systemBody.complexity
+		throttle = throttleLimit > 0
+		throttleLimit = limit
 	}
 	
 	static def apply(AlphaSystem system) {
+		apply(system, 0)
+	}
+	static def apply(AlphaSystem system, int limit) {
 		if (system.systemBodies.size == 1)
-			apply(system.systemBodies.get(0))
+			apply(system.systemBodies.get(0), limit)
 		else
 			throw new IllegalArgumentException("A SystemBody must be specified for an AlphaSystem with multiple bodies.")
 	}
 	
 	static def apply(SystemBody body) {
-		val osr = new OptimalSimplifyingReductions(body)
+		apply(body, 0)
+	}
+	static def apply(SystemBody body, int limit) {
+		
+		val osr = new OptimalSimplifyingReductions(body, limit)
 		osr.run
 		return osr
 	}
@@ -98,8 +106,8 @@ class OptimalSimplifyingReductions {
 		NormalizeReduction.apply(systemBody)
 		Normalize.apply(systemBody)
 		
-		println('After preprocessing:')
-		println(Show.print(systemBody))
+		debug('After preprocessing:')
+		debug(Show.print(systemBody))
 		
 		val state = new State(systemBody, newLinkedList)
 		
@@ -118,25 +126,8 @@ class OptimalSimplifyingReductions {
 		try {
 			state.optimizeUnexploredEquations
 		} catch (ThrottleException e) {
-			println('Throttled search to stop after ' + THROTTLE_LIMIT + ' results')
+			debug('Throttled search to stop after ' + throttleLimit + ' results')
 		}
-		println
-		
-		val foundOptimizations = optimizations.keySet
-			.reject[k | optimizations.get(k).size == 0]
-			.map[k | k -> optimizations.get(k)]
-			.toList
-		foundOptimizations.forEach[keyOpts | 
-			val opts = keyOpts.value
-			opts.forEach[println(show)]
-		]
-		
-		println
-		foundOptimizations.forEach[keyOpts | 
-			val key = keyOpts.key
-			val opts = keyOpts.value
-			println('Number of ' + key + 'D optimizations: ' + opts.size)
-		]
 	}
 	
 	private def addToOptimzations(State state) {
@@ -161,22 +152,11 @@ class OptimalSimplifyingReductions {
 		}
 		
 		val stateComplexity = state.complexity
-		if (stateComplexity <= 3) {
+		if (stateComplexity < initialComplexity) {
 			optimizationNum++
-			print('\rnumber of 3D optimizations found: ' + optimizationNum)
 			state.addToOptimzations
-			
-			if (saveDirectory !== null) {
-				val fileName = '%s/%s.v%03d.alpha'.format(saveDirectory, state.body.system.name, optimizationNum)
-				//println(state.show)
-				val stateStr = state.show.toString
-				stateStr.writeToFile(fileName)
-			}
-			
-			println(state.show)
-			if (THROTTLE && optimizationNum >= THROTTLE_LIMIT)
+			if (throttle && optimizationNum >= throttleLimit)
 				throw new ThrottleException
-			
 		}
 	}
 	
@@ -206,7 +186,7 @@ class OptimalSimplifyingReductions {
 		candidates.forEach[c |
 			debug("candidate: " + c.description)
 		]
-		println
+		
 		for (step : candidates) {
 			val optimizedRoot = EcoreUtil.copy(containerSystemBody.getContainerRoot)
 			val optimizedBody = optimizedRoot.getSystem(originalSystemName).systemBodies.get(systemBodyID)
@@ -297,7 +277,10 @@ class OptimalSimplifyingReductions {
 		return true;
 	}
 
-	/** Only raise dependences when reduction body is not [de|ve|re(de)|re(ve)] */
+	/** 
+	 * Only raise dependences when reduction body is not [de|ve|re(de)|re(ve)]
+	 * 
+	 */
 	private dispatch def shouldRaiseDependence(RestrictExpression re) {
 		!(re.expr instanceof DependenceExpression) &&
 		!(re.expr instanceof VariableExpression)
@@ -306,8 +289,8 @@ class OptimalSimplifyingReductions {
 	private dispatch def shouldRaiseDependence(VariableExpression ve) { false }
 	private dispatch def shouldRaiseDependence(AlphaExpression ae) { true }
 	
-	/**
-	 * Creates a list of possible transformations that are valid steps in the DP.
+	/** 
+	 * Creates a list of possible transformations that are valid steps in the DP
 	 * 
 	 */
 	protected def enumerateCandidates(AbstractReduceExpression targetRE) {
@@ -337,8 +320,8 @@ class OptimalSimplifyingReductions {
 		}
 		
 		// Decomposition with side-effects
-		val x = SimplifyingReductions.generateDecompositionCandidates(SSAR, targetRE).toArrayList
-		for (pair : x) {
+		val decompositionCandidates = SimplifyingReductions.generateDecompositionCandidates(SSAR, targetRE)
+		for (pair : decompositionCandidates) {
 			candidates.add(new StepReductionDecomposition(targetRE, pair.key, pair.value))
 		}
 		
@@ -503,9 +486,7 @@ class OptimalSimplifyingReductions {
 		}
 	}
 	
-	static class ThrottleException extends Exception {
-		
-	}
+	static class ThrottleException extends Exception {}
 	
 	static def writeToFile(String blob, String fileName) {
 	    val writer = new BufferedWriter(new FileWriter(fileName));
