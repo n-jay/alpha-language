@@ -20,8 +20,6 @@ import alpha.model.util.AffineFunctionOperations
 import alpha.model.util.AlphaOperatorUtil
 import alpha.model.util.AlphaUtil
 import alpha.model.util.DomainOperations
-import alpha.model.util.Face
-import alpha.model.util.Face.Label
 import fr.irisa.cairn.jnimap.isl.ISLContext
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
@@ -412,17 +410,8 @@ class SimplifyingReductions {
 		if (facets.size == 0) 
 			return vectors
 		
-		// identify valid labels
-		// TODO -- this does not take into account that NEG boundary facets are allowed
-		//         when it should
-		val validLabels = new ArrayList<Face.Label>
-		validLabels.addAll(#[Label.POS, Label.ZERO])
-		val includeNeg = AlphaOperatorUtil.hasInverse(are.operator)
-		if (includeNeg) {
-			validLabels.add(Label.NEG)
-		}
 		// enumerate all valid labelings
-		val labelings = enumerateAllPossibleLabelings(facets.size, includeNeg).toList
+		val labelings = enumerateAllPossibleLabelings(facets.size, true).toList
 		
 		// find the labelings that have none-empty domains 
 		val labelingInducingDomains = labelings.map[l | face.getLabelingDomain(l)]

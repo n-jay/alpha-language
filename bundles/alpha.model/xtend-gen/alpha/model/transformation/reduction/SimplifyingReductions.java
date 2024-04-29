@@ -41,7 +41,6 @@ import fr.irisa.cairn.jnimap.isl.ISLSet;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import fr.irisa.cairn.jnimap.isl.ISLVal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +49,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
@@ -418,13 +416,7 @@ public class SimplifyingReductions {
     if (_equals) {
       return vectors;
     }
-    final ArrayList<Face.Label> validLabels = new ArrayList<Face.Label>();
-    validLabels.addAll(Collections.<Face.Label>unmodifiableList(CollectionLiterals.<Face.Label>newArrayList(Face.Label.POS, Face.Label.ZERO)));
-    final boolean includeNeg = AlphaOperatorUtil.hasInverse(are.getOperator());
-    if (includeNeg) {
-      validLabels.add(Face.Label.NEG);
-    }
-    final List<ArrayList<Face.Label>> labelings = IterableExtensions.<ArrayList<Face.Label>>toList(Face.enumerateAllPossibleLabelings(facets.size(), includeNeg));
+    final List<ArrayList<Face.Label>> labelings = IterableExtensions.<ArrayList<Face.Label>>toList(Face.enumerateAllPossibleLabelings(facets.size(), true));
     final Function1<ArrayList<Face.Label>, Pair<Face.Label[], ISLBasicSet>> _function = (ArrayList<Face.Label> l) -> {
       return face.getLabelingDomain(((Face.Label[])Conversions.unwrapArray(l, Face.Label.class)));
     };
