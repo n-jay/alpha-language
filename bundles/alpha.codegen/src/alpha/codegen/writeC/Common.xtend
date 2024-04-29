@@ -1,18 +1,19 @@
 package alpha.codegen.writeC
 
+import alpha.codegen.BaseDataType
+import alpha.codegen.BinaryOperator
+import alpha.codegen.UnaryOperator
+import alpha.model.BINARY_OP
+import alpha.model.REDUCTION_OP
+import alpha.model.UNARY_OP
+import alpha.model.Variable
+
 import static alpha.codegen.Factory.commentStmt
 import static alpha.codegen.Factory.dataType
 import static alpha.codegen.Factory.macroStmt
 
 import static extension alpha.codegen.Factory.customExpr
 import static extension alpha.codegen.Factory.include
-import alpha.codegen.BaseDataType
-import alpha.model.Variable
-import alpha.model.UNARY_OP
-import alpha.codegen.UnaryOperator
-import alpha.model.BINARY_OP
-import alpha.codegen.BinaryOperator
-import alpha.model.REDUCTION_OP
 
 /** Defines common functions used in this package. */
 class Common {
