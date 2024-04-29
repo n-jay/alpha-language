@@ -577,11 +577,6 @@ class StandardEquation extends Equation {
 	op void accept(AlphaVisitor visitor) {
 		visitor.visitStandardEquation(this)
 	}
-	
-	op String toString() {
-		val hasBeenExplored = if (explored) '*' else ' '
-		return variable.name + ' ('+hasBeenExplored+'): ' + Show.print(expr)
-	}
 }
 class UseEquation extends Equation {
 	String identifier
