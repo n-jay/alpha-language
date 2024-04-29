@@ -1,6 +1,7 @@
 package alpha.codegen;
 
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
+import org.eclipse.xtext.xbase.lib.Conversions;
 
 @SuppressWarnings("all")
 public class Factory {
@@ -8,6 +9,13 @@ public class Factory {
    * The eCore instance of the factory for creating new object instances.
    */
   protected static final CodegenFactory factory = CodegenFactory.eINSTANCE;
+
+  /**
+   * Creates a "#include" directive using angle brackets (&lt; and &gt;).
+   */
+  public static Include include(final String file) {
+    return Factory.include(file, false);
+  }
 
   public static Include include(final String file, final boolean useQuotes) {
     final Include include = Factory.factory.createInclude();
@@ -41,9 +49,9 @@ public class Factory {
     return Factory.factory.createEmptyLineStmt();
   }
 
-  public static CommentStmt commentStmt(final Iterable<String> commentLines) {
+  public static CommentStmt commentStmt(final String... commentLines) {
     final CommentStmt comment = Factory.factory.createCommentStmt();
-    comment.addAll(commentLines);
+    comment.addAll(((Iterable<String>)Conversions.doWrapArray(commentLines)));
     return comment;
   }
 
@@ -53,11 +61,17 @@ public class Factory {
     return stmt;
   }
 
-  public static void macroStmt(final String name, final String[] arguments, final Expression replacement) {
+  public static MacroStmt macroStmt(final String name, final String[] arguments, final String replacement) {
+    final CustomExpr replacementExpr = Factory.customExpr(replacement);
+    return Factory.macroStmt(name, arguments, replacementExpr);
+  }
+
+  public static MacroStmt macroStmt(final String name, final String[] arguments, final Expression replacement) {
     final MacroStmt macro = Factory.factory.createMacroStmt();
     macro.setName(name);
     CollectionExtensions.<String>addAll(macro.getArguments(), arguments);
     macro.setReplacement(replacement);
+    return macro;
   }
 
   public static UndefStmt undefStmt(final String name) {

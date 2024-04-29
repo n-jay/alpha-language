@@ -8,6 +8,11 @@ class Factory {
 	// Programs and Includes
 	////////////////////////////////////////////////
 	
+	/** Creates a "#include" directive using angle brackets (&lt; and &gt;). */
+	def static include(String file) {
+		include(file, false)
+	}
+	
 	def static include(String file, boolean useQuotes) {
 		val include = factory.createInclude
 		include.file = file
@@ -55,7 +60,7 @@ class Factory {
 		return factory.createEmptyLineStmt
 	}
 	
-	def static commentStmt(Iterable<String> commentLines) {
+	def static commentStmt(String... commentLines) {
 		val comment = factory.createCommentStmt
 		comment.addAll(commentLines)
 		return comment
@@ -67,11 +72,17 @@ class Factory {
 		return stmt
 	}
 	
+	def static macroStmt(String name, String[] arguments, String replacement) {
+		val replacementExpr = replacement.customExpr
+		return macroStmt(name, arguments, replacementExpr)
+	}
+	
 	def static macroStmt(String name, String[] arguments, Expression replacement) {
 		val macro = factory.createMacroStmt
 		macro.name = name
 		macro.arguments.addAll(arguments)
 		macro.replacement = replacement
+		return macro
 	}
 	
 	def static undefStmt(String name) {

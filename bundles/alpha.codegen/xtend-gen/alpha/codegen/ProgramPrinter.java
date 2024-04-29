@@ -24,11 +24,88 @@ public class ProgramPrinter {
 
   public static CharSequence print(final Program program) {
     StringConcatenation _builder = new StringConcatenation();
+    CharSequence _printStmt = ProgramPrinter.printStmt(program.getHeaderComment());
+    _builder.append(_printStmt);
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
     {
       EList<Include> _includes = program.getIncludes();
       for(final Include include : _includes) {
         String _print = ProgramPrinter.print(include);
         _builder.append(_print);
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.newLine();
+    _builder.append("// Function Macros");
+    _builder.newLine();
+    {
+      EList<MacroStmt> _functionMacros = program.getFunctionMacros();
+      for(final MacroStmt macro : _functionMacros) {
+        CharSequence _printStmt_1 = ProgramPrinter.printStmt(macro);
+        _builder.append(_printStmt_1);
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.newLine();
+    _builder.append("// Global Variables");
+    _builder.newLine();
+    {
+      EList<VariableDecl> _globalVariables = program.getGlobalVariables();
+      for(final VariableDecl variable : _globalVariables) {
+        CharSequence _print_1 = ProgramPrinter.print(variable);
+        _builder.append(_print_1);
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.newLine();
+    _builder.append("// Memory Macros");
+    _builder.newLine();
+    {
+      EList<MacroStmt> _memoryMacros = program.getMemoryMacros();
+      for(final MacroStmt macro_1 : _memoryMacros) {
+        CharSequence _printStmt_2 = ProgramPrinter.printStmt(macro_1);
+        _builder.append(_printStmt_2);
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.newLine();
+    _builder.append("// Function Declarations");
+    _builder.newLine();
+    {
+      EList<Function> _functions = program.getFunctions();
+      for(final Function func : _functions) {
+        CharSequence _printDeclaration = ProgramPrinter.printDeclaration(func);
+        _builder.append(_printDeclaration);
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.newLine();
+    {
+      EList<Function> _functions_1 = program.getFunctions();
+      for(final Function func_1 : _functions_1) {
+        CharSequence _printDefinition = ProgramPrinter.printDefinition(func_1);
+        _builder.append(_printDefinition);
+        _builder.newLineIfNotEmpty();
+        _builder.newLine();
+      }
+    }
+    _builder.newLine();
+    _builder.append("// Undefine the Memory and Function Macros");
+    _builder.newLine();
+    {
+      EList<MacroStmt> _memoryMacros_1 = program.getMemoryMacros();
+      for(final MacroStmt macro_2 : _memoryMacros_1) {
+        CharSequence _undefine = ProgramPrinter.undefine(macro_2);
+        _builder.append(_undefine);
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    {
+      EList<MacroStmt> _functionMacros_1 = program.getFunctionMacros();
+      for(final MacroStmt macro_3 : _functionMacros_1) {
+        CharSequence _undefine_1 = ProgramPrinter.undefine(macro_3);
+        _builder.append(_undefine_1);
         _builder.newLineIfNotEmpty();
       }
     }
@@ -248,6 +325,15 @@ public class ProgramPrinter {
       _builder_1.append(_printExpr_1);
       return _builder_1.toString();
     }
+  }
+
+  public static CharSequence undefine(final MacroStmt stmt) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("#undef ");
+    String _name = stmt.getName();
+    _builder.append(_name);
+    _builder.newLineIfNotEmpty();
+    return _builder;
   }
 
   protected static CharSequence _printStmt(final UndefStmt stmt) {

@@ -12,8 +12,43 @@ class ProgramPrinter {
 	////////////////////////////////////////////////
 	
 	def static print(Program program) '''
+		«program.headerComment.printStmt»
+		
 		«FOR include : program.includes»
 		«include.print»
+		«ENDFOR»
+		
+		// Function Macros
+		«FOR macro : program.functionMacros»
+		«macro.printStmt»
+		«ENDFOR»
+		
+		// Global Variables
+		«FOR variable : program.globalVariables»
+		«variable.print»
+		«ENDFOR»
+		
+		// Memory Macros
+		«FOR macro : program.memoryMacros»
+		«macro.printStmt»
+		«ENDFOR»
+		
+		// Function Declarations
+		«FOR func : program.functions»
+		«func.printDeclaration»
+		«ENDFOR»
+		
+		«FOR func : program.functions»
+		«func.printDefinition»
+		
+		«ENDFOR»
+		
+		// Undefine the Memory and Function Macros
+		«FOR macro : program.memoryMacros»
+		«macro.undefine»
+		«ENDFOR»
+		«FOR macro : program.functionMacros»
+		«macro.undefine»
 		«ENDFOR»
 	'''
 	
@@ -113,6 +148,10 @@ class ProgramPrinter {
 			return '''#define «stmt.name»(«stmt.arguments.join(",")») «stmt.replacement.printExpr»'''
 		}
 	}
+	
+	def static undefine(MacroStmt stmt) '''
+		#undef «stmt.name»
+	'''
 	
 	def static dispatch printStmt(UndefStmt stmt) '''
 		#undef «stmt.name»
