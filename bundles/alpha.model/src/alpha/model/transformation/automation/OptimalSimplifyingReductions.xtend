@@ -7,8 +7,10 @@ import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
 import alpha.model.DependenceExpression
 import alpha.model.ReduceExpression
+import alpha.model.RestrictExpression
 import alpha.model.StandardEquation
 import alpha.model.SystemBody
+import alpha.model.VariableExpression
 import alpha.model.analysis.reduction.ShareSpaceAnalysis
 import alpha.model.matrix.MatrixOperations
 import alpha.model.transformation.Normalize
@@ -38,7 +40,6 @@ import static extension alpha.model.util.AlphaUtil.*
 import static extension alpha.model.util.CommonExtensions.*
 import static extension alpha.model.util.ISLUtil.dimensionality
 import static extension java.lang.String.format
-import alpha.model.VariableExpression
 
 /**
  * Implements Algorithm 2 in the Simplifying Reductions paper.
@@ -295,11 +296,15 @@ class OptimalSimplifyingReductions {
 		
 		return true;
 	}
-	
-	private def shouldRaiseDependence(AbstractReduceExpression targetRE) {
-		!(targetRE.body instanceof DependenceExpression) && 
-		!(targetRE.body instanceof VariableExpression)
+
+	/** Only raise dependences when reduction body is not [de|ve|re(de)|re(ve)] */
+	private dispatch def shouldRaiseDependence(RestrictExpression re) {
+		!(re.expr instanceof DependenceExpression) &&
+		!(re.expr instanceof VariableExpression)
 	}
+	private dispatch def shouldRaiseDependence(DependenceExpression de) { false }
+	private dispatch def shouldRaiseDependence(VariableExpression ve) { false }
+	private dispatch def shouldRaiseDependence(AlphaExpression ae) { true }
 	
 	/**
 	 * Creates a list of possible transformations that are valid steps in the DP.
@@ -338,7 +343,7 @@ class OptimalSimplifyingReductions {
 		}
 		
 		// RaiseDependence
-		if (targetRE.shouldRaiseDependence) {
+		if (targetRE.body.shouldRaiseDependence) {
 			candidates.add(new StepRaiseDependence(targetRE))
 		}
 		
