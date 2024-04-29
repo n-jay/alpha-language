@@ -9,6 +9,13 @@ public class Factory {
    */
   protected static final CodegenFactory factory = CodegenFactory.eINSTANCE;
 
+  public static Include include(final String file, final boolean useQuotes) {
+    final Include include = Factory.factory.createInclude();
+    include.setFile(file);
+    include.setUseQuotes(useQuotes);
+    return include;
+  }
+
   public static DataType dataType(final BaseDataType baseType, final int indirectionLevel) {
     final DataType dataType = Factory.factory.createDataType();
     dataType.setBaseType(baseType);

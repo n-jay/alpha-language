@@ -3,6 +3,18 @@ package alpha.codegen
 class Factory {
 	/** The eCore instance of the factory for creating new object instances. */
 	protected static val factory = CodegenFactory.eINSTANCE
+
+	////////////////////////////////////////////////
+	// Programs and Includes
+	////////////////////////////////////////////////
+	
+	def static include(String file, boolean useQuotes) {
+		val include = factory.createInclude
+		include.file = file
+		include.useQuotes = useQuotes
+		return include
+	} 
+	
 	
 	////////////////////////////////////////////////
 	// Variables and Data Types
