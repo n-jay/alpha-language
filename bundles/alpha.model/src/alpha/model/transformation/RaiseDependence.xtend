@@ -244,6 +244,11 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 	  * Where: D=Preimage(D1,f1) and f=f1 @ f2
 	  */
 	 protected def dispatch restrictExpressionRule(RestrictExpression re, DependenceExpression de) {
+	 	// If the parent of the restrict is a reduction, don't pull the dependence higher.
+	 	if (re.eContainer instanceof ReduceExpression) {
+	 		return newArrayList
+	 	}
+	 	
 		// Convert the restrict domain into a set of affine expressions representing the constraints.
 		// For factorization with the dependence function, we need these as multi-affine expressions.
 		val toFactorize = re.restrictDomain.basicSets
@@ -430,6 +435,16 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 		}
 	}
 	
+	def dispatch reduceExpressionRules(ReduceExpression reduce, RestrictExpression restrict) {
+		if (!(restrict.expr instanceof DependenceExpression)) {
+			throw new Exception("After dependence raising, we did not find a dependence expression we expected. Something is wrong.")
+		}
+		
+		val de = restrict.expr as DependenceExpression
+		de.isolate
+		AlphaInternalStateConstructor.recomputeContextDomain(reduce)
+	}
+	
 	/**
 	 * Pull out a common factor from dependence expressions within a case expression.
 	 * 
@@ -438,15 +453,20 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 	 * Where: V is a new local variable, V=E, defined as over the context domain of E
 	 */
 	def dispatch reduceExpressionRules(ReduceExpression re, DependenceExpression de) {
+		de.isolate
+		AlphaInternalStateConstructor.recomputeContextDomain(re)
+	}
+	
+	def isolate(DependenceExpression de) {
 		// Add a new local variable V
 		val domain = de.expr.contextDomain.computeDivs
-		val varName = (re.getContainerEquation as StandardEquation).variable.name
+		val varName = (de.getContainerEquation as StandardEquation).variable.name
 		val variable = createVariable(varName + '_body', domain.copy)
-		re.getContainerSystem.locals += variable
+		de.getContainerSystem.locals += variable
 		
 		// Add an equation for V=E
 		val eq = createStandardEquation(variable, de.expr)
-		re.getContainerSystemBody.equations += eq
+		de.getContainerSystemBody.equations += eq
 		
 		// Reference the variable in de.expr
 		val ve = createVariableExpression(variable)
@@ -454,8 +474,8 @@ class RaiseDependence extends AbstractAlphaCompleteVisitor {
 		
 		// Recompute context domain
 		AlphaInternalStateConstructor.recomputeContextDomain(eq)
-		AlphaInternalStateConstructor.recomputeContextDomain(re)
 	}
+	
 	def dispatch reduceExpressionRules(ReduceExpression re, AlphaExpression ae) {
 		// do nothing
 	}
