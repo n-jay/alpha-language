@@ -38,6 +38,7 @@ import alpha.codegen.VariableDecl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -269,6 +270,13 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 	 * @generated
 	 */
 	private EEnum binaryOperatorEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType stringIterableEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -609,7 +617,7 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EOperation getCommentStmt__AddLines__EList() {
+	public EOperation getCommentStmt__AddAll__Iterable() {
 		return commentStmtEClass.getEOperations().get(0);
 	}
 
@@ -1131,6 +1139,15 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getStringIterable() {
+		return stringIterableEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public CodegenFactory getCodegenFactory() {
 		return (CodegenFactory)getEFactoryInstance();
 	}
@@ -1192,7 +1209,7 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 
 		commentStmtEClass = createEClass(COMMENT_STMT);
 		createEAttribute(commentStmtEClass, COMMENT_STMT__COMMENT_LINES);
-		createEOperation(commentStmtEClass, COMMENT_STMT___ADD_LINES__ELIST);
+		createEOperation(commentStmtEClass, COMMENT_STMT___ADD_ALL__ITERABLE);
 
 		expressionStmtEClass = createEClass(EXPRESSION_STMT);
 		createEReference(expressionStmtEClass, EXPRESSION_STMT__EXPRESSION);
@@ -1270,6 +1287,9 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 		assignmentOperatorEEnum = createEEnum(ASSIGNMENT_OPERATOR);
 		unaryOperatorEEnum = createEEnum(UNARY_OPERATOR);
 		binaryOperatorEEnum = createEEnum(BINARY_OPERATOR);
+
+		// Create data types
+		stringIterableEDataType = createEDataType(STRING_ITERABLE);
 	}
 
 	/**
@@ -1364,8 +1384,8 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 		initEClass(commentStmtEClass, CommentStmt.class, "CommentStmt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCommentStmt_CommentLines(), theEcorePackage.getEString(), "commentLines", null, 0, -1, CommentStmt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		EOperation op = initEOperation(getCommentStmt__AddLines__EList(), null, "addLines", 0, 1, !IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theEcorePackage.getEString(), "lines", 0, -1, !IS_UNIQUE, IS_ORDERED);
+		EOperation op = initEOperation(getCommentStmt__AddAll__Iterable(), null, "addAll", 0, 1, !IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getStringIterable(), "lines", 0, 1, !IS_UNIQUE, IS_ORDERED);
 
 		initEClass(expressionStmtEClass, ExpressionStmt.class, "ExpressionStmt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpressionStmt_Expression(), this.getExpression(), null, "expression", null, 0, 1, ExpressionStmt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1470,6 +1490,9 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 		addEEnumLiteral(binaryOperatorEEnum, BinaryOperator.GEQ);
 		addEEnumLiteral(binaryOperatorEEnum, BinaryOperator.EQ);
 		addEEnumLiteral(binaryOperatorEEnum, BinaryOperator.NEQ);
+
+		// Initialize data types
+		initEDataType(stringIterableEDataType, Iterable.class, "StringIterable", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS, "java.lang.Iterable<java.lang.String>");
 
 		// Create resource
 		createResource(eNS_URI);

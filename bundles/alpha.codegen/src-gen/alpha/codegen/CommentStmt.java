@@ -49,9 +49,9 @@ public interface CommentStmt extends Statement {
 	 * If there are any newlines in any of the provided strings,
 	 * they will be broken into separate lines within this comment.
 	 * <!-- end-model-doc -->
-	 * @model linesUnique="false" linesMany="true"
+	 * @model linesDataType="alpha.codegen.StringIterable" linesUnique="false"
 	 * @generated
 	 */
-	void addLines(EList<String> lines);
+	void addAll(Iterable<String> lines);
 
 } // CommentStmt

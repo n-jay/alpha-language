@@ -84,7 +84,7 @@ public class CommentStmtImpl extends MinimalEObjectImpl.Container implements Com
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void addLines(final EList<String> lines) {
+	public void addAll(final Iterable<String> lines) {
 		final Function1<String, List<String>> _function = new Function1<String, List<String>>() {
 			public List<String> apply(final String it) {
 				return IterableExtensions.<String>toList(((Iterable<String>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(it.split("\n"))));
@@ -163,8 +163,8 @@ public class CommentStmtImpl extends MinimalEObjectImpl.Container implements Com
 	@SuppressWarnings("unchecked")
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
-			case CodegenPackage.COMMENT_STMT___ADD_LINES__ELIST:
-				addLines((EList<String>)arguments.get(0));
+			case CodegenPackage.COMMENT_STMT___ADD_ALL__ITERABLE:
+				addAll((Iterable<String>)arguments.get(0));
 				return null;
 		}
 		return super.eInvoke(operationID, arguments);

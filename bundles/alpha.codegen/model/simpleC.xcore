@@ -1,5 +1,9 @@
 package alpha.codegen
 
+import java.lang.Iterable
+
+type StringIterable wraps Iterable<String>
+
 ////////////////////////////////////////////////
 // Programs and Includes
 ////////////////////////////////////////////////
@@ -144,7 +148,7 @@ class CommentStmt extends Statement {
 	 * If there are any newlines in any of the provided strings,
 	 * they will be broken into separate lines within this comment.
 	 */
-	op void addLines(String[] lines) {
+	op void addAll(StringIterable lines) {
 		// If there are any newlines in any of the given strings, break them up.
 		val separated = lines.flatMap[it.split("\n").toList]
 		commentLines.addAll(separated)

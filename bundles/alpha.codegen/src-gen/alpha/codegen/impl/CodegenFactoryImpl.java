@@ -103,6 +103,8 @@ public class CodegenFactoryImpl extends EFactoryImpl implements CodegenFactory {
 				return createUnaryOperatorFromString(eDataType, initialValue);
 			case CodegenPackage.BINARY_OPERATOR:
 				return createBinaryOperatorFromString(eDataType, initialValue);
+			case CodegenPackage.STRING_ITERABLE:
+				return createStringIterableFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -124,6 +126,8 @@ public class CodegenFactoryImpl extends EFactoryImpl implements CodegenFactory {
 				return convertUnaryOperatorToString(eDataType, instanceValue);
 			case CodegenPackage.BINARY_OPERATOR:
 				return convertBinaryOperatorToString(eDataType, instanceValue);
+			case CodegenPackage.STRING_ITERABLE:
+				return convertStringIterableToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -457,6 +461,25 @@ public class CodegenFactoryImpl extends EFactoryImpl implements CodegenFactory {
 	 */
 	public String convertBinaryOperatorToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	public Iterable<String> createStringIterableFromString(EDataType eDataType, String initialValue) {
+		return (Iterable<String>)super.createFromString(initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertStringIterableToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(instanceValue);
 	}
 
 	/**

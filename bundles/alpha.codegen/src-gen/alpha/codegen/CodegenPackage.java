@@ -4,6 +4,7 @@ package alpha.codegen;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -491,13 +492,13 @@ public interface CodegenPackage extends EPackage {
 	int COMMENT_STMT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The operation id for the '<em>Add Lines</em>' operation.
+	 * The operation id for the '<em>Add All</em>' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMMENT_STMT___ADD_LINES__ELIST = STATEMENT_OPERATION_COUNT + 0;
+	int COMMENT_STMT___ADD_ALL__ITERABLE = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Comment Stmt</em>' class.
@@ -1376,6 +1377,16 @@ public interface CodegenPackage extends EPackage {
 	 */
 	int BINARY_OPERATOR = 30;
 
+	/**
+	 * The meta object id for the '<em>String Iterable</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.Iterable
+	 * @see alpha.codegen.impl.CodegenPackageImpl#getStringIterable()
+	 * @generated
+	 */
+	int STRING_ITERABLE = 31;
+
 
 	/**
 	 * Returns the meta object for class '{@link alpha.codegen.Program <em>Program</em>}'.
@@ -1699,14 +1710,14 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getCommentStmt_CommentLines();
 
 	/**
-	 * Returns the meta object for the '{@link alpha.codegen.CommentStmt#addLines(org.eclipse.emf.common.util.EList) <em>Add Lines</em>}' operation.
+	 * Returns the meta object for the '{@link alpha.codegen.CommentStmt#addAll(java.lang.Iterable) <em>Add All</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the '<em>Add Lines</em>' operation.
-	 * @see alpha.codegen.CommentStmt#addLines(org.eclipse.emf.common.util.EList)
+	 * @return the meta object for the '<em>Add All</em>' operation.
+	 * @see alpha.codegen.CommentStmt#addAll(java.lang.Iterable)
 	 * @generated
 	 */
-	EOperation getCommentStmt__AddLines__EList();
+	EOperation getCommentStmt__AddAll__Iterable();
 
 	/**
 	 * Returns the meta object for class '{@link alpha.codegen.ExpressionStmt <em>Expression Stmt</em>}'.
@@ -2314,6 +2325,17 @@ public interface CodegenPackage extends EPackage {
 	EEnum getBinaryOperator();
 
 	/**
+	 * Returns the meta object for data type '{@link java.lang.Iterable <em>String Iterable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>String Iterable</em>'.
+	 * @see java.lang.Iterable
+	 * @model instanceClass="java.lang.Iterable&lt;java.lang.String&gt;"
+	 * @generated
+	 */
+	EDataType getStringIterable();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2595,12 +2617,12 @@ public interface CodegenPackage extends EPackage {
 		EAttribute COMMENT_STMT__COMMENT_LINES = eINSTANCE.getCommentStmt_CommentLines();
 
 		/**
-		 * The meta object literal for the '<em><b>Add Lines</b></em>' operation.
+		 * The meta object literal for the '<em><b>Add All</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EOperation COMMENT_STMT___ADD_LINES__ELIST = eINSTANCE.getCommentStmt__AddLines__EList();
+		EOperation COMMENT_STMT___ADD_ALL__ITERABLE = eINSTANCE.getCommentStmt__AddAll__Iterable();
 
 		/**
 		 * The meta object literal for the '{@link alpha.codegen.impl.ExpressionStmtImpl <em>Expression Stmt</em>}' class.
@@ -3101,6 +3123,16 @@ public interface CodegenPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum BINARY_OPERATOR = eINSTANCE.getBinaryOperator();
+
+		/**
+		 * The meta object literal for the '<em>String Iterable</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.Iterable
+		 * @see alpha.codegen.impl.CodegenPackageImpl#getStringIterable()
+		 * @generated
+		 */
+		EDataType STRING_ITERABLE = eINSTANCE.getStringIterable();
 
 	}
 
