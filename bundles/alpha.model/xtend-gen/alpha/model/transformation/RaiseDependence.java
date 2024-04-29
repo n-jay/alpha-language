@@ -39,7 +39,9 @@ import java.util.function.BiConsumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
@@ -71,6 +73,7 @@ import org.eclipse.xtext.xbase.lib.Pair;
  * 
  * Restrict Expressions:
  *     This rule pulls a dependence expression outside of a restrict expression.
+ *     Note: this does not apply if the restrict expression is the direct child of a reduce expression.
  * 
  *     D:(f@E) goes to f1@(D1: f2@E) where D=Preimage(D1,f1) and f=f1 @ f2
  * 
@@ -107,8 +110,8 @@ import org.eclipse.xtext.xbase.lib.Pair;
 public class RaiseDependence extends AbstractAlphaCompleteVisitor {
   /**
    * Dependence expressions raised in the body of a reduction may be hoisted into a
-   *  separate equation. This flag controls when to do this. See outReduceExpression
-   *  and reduceExpressionRules.
+   * separate equation. This flag controls when to do this. See outReduceExpression
+   * and reduceExpressionRules.
    */
   private final boolean hoistFromReduce;
 
@@ -250,6 +253,10 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
   protected List<AlphaIssue> _restrictExpressionRule(final RestrictExpression re, final DependenceExpression de) {
     List<AlphaIssue> _xblockexpression = null;
     {
+      EObject _eContainer = re.eContainer();
+      if ((_eContainer instanceof ReduceExpression)) {
+        return CollectionLiterals.<AlphaIssue>newArrayList();
+      }
       final Function1<ISLBasicSet, List<ISLConstraint>> _function = (ISLBasicSet it) -> {
         return it.getConstraints();
       };
@@ -447,6 +454,26 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
     }
   }
 
+  protected List<AlphaIssue> _reduceExpressionRules(final ReduceExpression reduce, final RestrictExpression restrict) {
+    try {
+      List<AlphaIssue> _xblockexpression = null;
+      {
+        AlphaExpression _expr = restrict.getExpr();
+        boolean _not = (!(_expr instanceof DependenceExpression));
+        if (_not) {
+          throw new Exception("After dependence raising, we did not find a dependence expression we expected. Something is wrong.");
+        }
+        AlphaExpression _expr_1 = restrict.getExpr();
+        final DependenceExpression de = ((DependenceExpression) _expr_1);
+        this.isolate(de);
+        _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(reduce);
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+
   /**
    * Pull out a common factor from dependence expressions within a case expression.
    * 
@@ -457,19 +484,27 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
   protected List<AlphaIssue> _reduceExpressionRules(final ReduceExpression re, final DependenceExpression de) {
     List<AlphaIssue> _xblockexpression = null;
     {
+      this.isolate(de);
+      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(re);
+    }
+    return _xblockexpression;
+  }
+
+  public List<AlphaIssue> isolate(final DependenceExpression de) {
+    List<AlphaIssue> _xblockexpression = null;
+    {
       final ISLSet domain = de.getExpr().getContextDomain().computeDivs();
-      Equation _containerEquation = AlphaUtil.getContainerEquation(re);
+      Equation _containerEquation = AlphaUtil.getContainerEquation(de);
       final String varName = ((StandardEquation) _containerEquation).getVariable().getName();
       final Variable variable = AlphaUserFactory.createVariable((varName + "_body"), domain.copy());
-      EList<Variable> _locals = AlphaUtil.getContainerSystem(re).getLocals();
+      EList<Variable> _locals = AlphaUtil.getContainerSystem(de).getLocals();
       _locals.add(variable);
       final StandardEquation eq = AlphaUserFactory.createStandardEquation(variable, de.getExpr());
-      EList<Equation> _equations = AlphaUtil.getContainerSystemBody(re).getEquations();
+      EList<Equation> _equations = AlphaUtil.getContainerSystemBody(de).getEquations();
       _equations.add(eq);
       final VariableExpression ve = AlphaUserFactory.createVariableExpression(variable);
       de.setExpr(ve);
-      AlphaInternalStateConstructor.recomputeContextDomain(eq);
-      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(re);
+      _xblockexpression = AlphaInternalStateConstructor.recomputeContextDomain(eq);
     }
     return _xblockexpression;
   }
@@ -527,6 +562,8 @@ public class RaiseDependence extends AbstractAlphaCompleteVisitor {
   public List<AlphaIssue> reduceExpressionRules(final ReduceExpression re, final AlphaExpression de) {
     if (de instanceof DependenceExpression) {
       return _reduceExpressionRules(re, (DependenceExpression)de);
+    } else if (de instanceof RestrictExpression) {
+      return _reduceExpressionRules(re, (RestrictExpression)de);
     } else if (de != null) {
       return _reduceExpressionRules(re, de);
     } else {
