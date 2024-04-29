@@ -1,6 +1,7 @@
 package alpha.model.util;
 
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.eclipse.xtend.lib.annotations.AccessorType;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
@@ -29,9 +31,37 @@ public class FaceLattice {
   private final ArrayList<ArrayList<Face>> lattice;
 
   /**
-   * Constructs the face lattice of the given set.
+   * Creates the face lattice of the given set if it is convex
    */
-  public FaceLattice(final ISLBasicSet root) {
+  public static FaceLattice create(final ISLSet root) {
+    try {
+      FaceLattice _xblockexpression = null;
+      {
+        int _nbBasicSets = root.getNbBasicSets();
+        boolean _notEquals = (_nbBasicSets != 1);
+        if (_notEquals) {
+          throw new Exception("Face lattice construction expects the input set to be convex");
+        }
+        ISLBasicSet _basicSetAt = root.getBasicSetAt(0);
+        _xblockexpression = new FaceLattice(_basicSetAt);
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+
+  /**
+   * Creates the face lattice of the given set.
+   */
+  public static FaceLattice create(final ISLBasicSet root) {
+    return new FaceLattice(root);
+  }
+
+  /**
+   * Internal construct to build the face lattice of the given set.
+   */
+  protected FaceLattice(final ISLBasicSet root) {
     final Face rootFace = new Face(root, this);
     final int dimensionality = rootFace.getDimensionality();
     final Function1<Integer, ArrayList<Face>> _function = (Integer it) -> {
