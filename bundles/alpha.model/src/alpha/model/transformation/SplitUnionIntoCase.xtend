@@ -1,15 +1,20 @@
 package alpha.model.transformation
 
+import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaExpression
+import alpha.model.AlphaInternalStateConstructor
 import alpha.model.AlphaSystem
 import alpha.model.AutoRestrictExpression
 import alpha.model.RestrictExpression
 import alpha.model.SystemBody
 import alpha.model.factory.AlphaUserFactory
+import fr.irisa.cairn.jnimap.isl.ISLSet
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.EcoreUtil2
-import alpha.model.AlphaInternalStateConstructor
-import fr.irisa.cairn.jnimap.isl.ISLSet
+
+import static extension alpha.model.factory.AlphaUserFactory.createRestrictExpression
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.copy
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.replace
 
 /**
  * Transforms a RestrictExpression with restrict domain being unions of polyhedra
@@ -73,6 +78,23 @@ class SplitUnionIntoCase {
 		}
 	}
 	
+	/**
+	 * Applies SplitUnionIntoCase to the specified reduce expression.
+	 * If the body is not an instance of a restrict expression, then one is inserted.
+	 * It is always legal to restrict an expression to its context domain.
+	 */
+	static def apply(AbstractReduceExpression are) {
+		val body = are.body
+		if (body instanceof RestrictExpression) {
+			body.apply
+			return
+		}
+		val re = body.contextDomain.createRestrictExpression(body.copy)
+		body.replace(re)
+		AlphaInternalStateConstructor.recomputeContextDomain(are)
+		re.apply
+	}
+
 	
 	/**
 	 * Implementation of the transformation.

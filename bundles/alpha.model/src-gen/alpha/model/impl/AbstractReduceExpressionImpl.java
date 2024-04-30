@@ -10,6 +10,9 @@ import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
 import alpha.model.REDUCTION_OP;
 
+import alpha.model.util.Face;
+import alpha.model.util.FaceLattice;
+
 import com.google.common.base.Objects;
 
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
@@ -35,6 +38,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link alpha.model.impl.AbstractReduceExpressionImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link alpha.model.impl.AbstractReduceExpressionImpl#getProjectionExpr <em>Projection Expr</em>}</li>
  *   <li>{@link alpha.model.impl.AbstractReduceExpressionImpl#getBody <em>Body</em>}</li>
+ *   <li>{@link alpha.model.impl.AbstractReduceExpressionImpl#getZ__internal_facet <em>Zinternal facet</em>}</li>
+ *   <li>{@link alpha.model.impl.AbstractReduceExpressionImpl#getNbFreeDimensionsInBody <em>Nb Free Dimensions In Body</em>}</li>
  * </ul>
  *
  * @generated
@@ -79,6 +84,46 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * @ordered
 	 */
 	protected AlphaExpression body;
+
+	/**
+	 * The default value of the '{@link #getZ__internal_facet() <em>Zinternal facet</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getZ__internal_facet()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Face ZINTERNAL_FACET_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getZ__internal_facet() <em>Zinternal facet</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getZ__internal_facet()
+	 * @generated
+	 * @ordered
+	 */
+	protected Face z__internal_facet = ZINTERNAL_FACET_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getNbFreeDimensionsInBody() <em>Nb Free Dimensions In Body</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNbFreeDimensionsInBody()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Integer NB_FREE_DIMENSIONS_IN_BODY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getNbFreeDimensionsInBody() <em>Nb Free Dimensions In Body</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNbFreeDimensionsInBody()
+	 * @generated
+	 * @ordered
+	 */
+	protected Integer nbFreeDimensionsInBody = NB_FREE_DIMENSIONS_IN_BODY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -211,6 +256,48 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Face getZ__internal_facet() {
+		return z__internal_facet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setZ__internal_facet(Face newZ__internal_facet) {
+		Face oldZ__internal_facet = z__internal_facet;
+		z__internal_facet = newZ__internal_facet;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_FACET, oldZ__internal_facet, z__internal_facet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Integer getNbFreeDimensionsInBody() {
+		return nbFreeDimensionsInBody;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNbFreeDimensionsInBody(Integer newNbFreeDimensionsInBody) {
+		Integer oldNbFreeDimensionsInBody = nbFreeDimensionsInBody;
+		nbFreeDimensionsInBody = newNbFreeDimensionsInBody;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.ABSTRACT_REDUCE_EXPRESSION__NB_FREE_DIMENSIONS_IN_BODY, oldNbFreeDimensionsInBody, nbFreeDimensionsInBody));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ISLMultiAff getProjection() {
 		ISLMultiAff _xifexpression = null;
 		POLY_OBJECT_TYPE _type = this.getProjectionExpr().getType();
@@ -232,6 +319,33 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 	 */
 	public void accept(final AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractReduceExpression(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Face getFacet() {
+		Face _xifexpression = null;
+		Face _z__internal_facet = this.getZ__internal_facet();
+		boolean _tripleEquals = (_z__internal_facet == null);
+		if (_tripleEquals) {
+			_xifexpression = FaceLattice.create(this.getBody().getContextDomain()).getRoot();
+		}
+		else {
+			_xifexpression = this.getZ__internal_facet();
+		}
+		return _xifexpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFacet(final Face face) {
+		this.setZ__internal_facet(this.getFacet());
 	}
 
 	/**
@@ -264,6 +378,10 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 				return getProjectionExpr();
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__BODY:
 				return getBody();
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_FACET:
+				return getZ__internal_facet();
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__NB_FREE_DIMENSIONS_IN_BODY:
+				return getNbFreeDimensionsInBody();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -284,6 +402,12 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 				return;
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__BODY:
 				setBody((AlphaExpression)newValue);
+				return;
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_FACET:
+				setZ__internal_facet((Face)newValue);
+				return;
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__NB_FREE_DIMENSIONS_IN_BODY:
+				setNbFreeDimensionsInBody((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -306,6 +430,12 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__BODY:
 				setBody((AlphaExpression)null);
 				return;
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_FACET:
+				setZ__internal_facet(ZINTERNAL_FACET_EDEFAULT);
+				return;
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__NB_FREE_DIMENSIONS_IN_BODY:
+				setNbFreeDimensionsInBody(NB_FREE_DIMENSIONS_IN_BODY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -324,6 +454,10 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 				return projectionExpr != null;
 			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__BODY:
 				return body != null;
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__ZINTERNAL_FACET:
+				return ZINTERNAL_FACET_EDEFAULT == null ? z__internal_facet != null : !ZINTERNAL_FACET_EDEFAULT.equals(z__internal_facet);
+			case ModelPackage.ABSTRACT_REDUCE_EXPRESSION__NB_FREE_DIMENSIONS_IN_BODY:
+				return NB_FREE_DIMENSIONS_IN_BODY_EDEFAULT == null ? nbFreeDimensionsInBody != null : !NB_FREE_DIMENSIONS_IN_BODY_EDEFAULT.equals(nbFreeDimensionsInBody);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -340,6 +474,10 @@ public abstract class AbstractReduceExpressionImpl extends AlphaExpressionImpl i
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (operator: ");
 		result.append(operator);
+		result.append(", z__internal_facet: ");
+		result.append(z__internal_facet);
+		result.append(", nbFreeDimensionsInBody: ");
+		result.append(nbFreeDimensionsInBody);
 		result.append(')');
 		return result.toString();
 	}

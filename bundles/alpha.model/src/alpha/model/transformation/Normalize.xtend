@@ -342,6 +342,10 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		// Nothing when there is no matching rule
 	}
 
+	static def childOfCaseExpression(AlphaExpression expr) {
+		expr.eContainer instanceof CaseExpression
+	}
+
 	override outRestrictExpression(RestrictExpression re) {
 		if (invalidState(re)) return;
 		
@@ -350,7 +354,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		if (invalidState(re)) return;
 
 		// D : E -> E if expression domain ofD : E and E are the same (i.e., restrict has no effect)
-		if (re.expressionDomain.isEqual(re.expr.expressionDomain)) {
+		if (re.expressionDomain.isEqual(re.expr.expressionDomain) && !re.childOfCaseExpression) {
 			debug("redundant restrict", "D : E -> E");
 			EcoreUtil.replace(re, re.expr);
 		}
@@ -409,12 +413,26 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		
 		val origContainer = be.eContainer  as AlphaCompleteVisitable 
 		
-		binaryExpressionRules(be, be.left)
-		binaryExpressionRules(be, be.right)
+		/*
+		 * There is a containment issue related to the way that Normalize handles
+		 * binary expressions and case expressions together. It is not clear why
+		 * this logic is needed yet, but it breaks without this explicit separation
+		 * of scenarios with one case vs. two cases.
+		 * Cleaning this up is tracked in github:
+		 * https://github.com/CSU-CS-Melange/alpha-language/issues/44
+		 * 
+		 */
+		val bothCase = be.left instanceof CaseExpression && be.right instanceof CaseExpression
+		if (!bothCase) {
+			binaryExpressionRules(be, be.left)
+			binaryExpressionRules(be, be.right)
+		} else {
+			binaryExpressionRules(be, EcoreUtil.copy(be.left))
+		}
 		
 		//This is required when multiple restricts are moved upwards.
 		//The moved restricts should be merged when possible, but visiting order must be changed to catch those cases.
-		if (origContainer != be.eContainer) {
+		if (origContainer != be.eContainer || bothCase) {
 			reapply(origContainer)
 		}
 	}
