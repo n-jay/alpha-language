@@ -91,6 +91,20 @@ class Factory {
 		return undef
 	}
 	
+	def static loopStmt(String loopVariable, Expression initializer, Expression conditional, Expression incrementBy, Statement... body) {
+		val stmt = factory.createLoopStmt
+		stmt.loopVariable = loopVariable
+		stmt.initializer = initializer
+		stmt.conditional = conditional
+		stmt.incrementBy = incrementBy
+		stmt.body.addAll(body)
+		return stmt
+	}
+	
+	def static assignmentStmt(Expression left, Expression right) {
+		return assignmentStmt(left, AssignmentOperator.STANDARD, right)
+	}
+	
 	def static assignmentStmt(Expression left, AssignmentOperator assignType, Expression right) {
 		val stmt = factory.createAssignmentStmt
 		stmt.left = left
@@ -104,6 +118,10 @@ class Factory {
 		stmt.expression = expression
 		return stmt
 	}
+	
+	def static customStmt(String stmt) {
+		return stmt.customExpr.expressionStmt
+	}
 
 
 	////////////////////////////////////////////////
@@ -114,6 +132,11 @@ class Factory {
 		val expr = factory.createCustomExpr
 		expr.expression = expression
 		return expr
+	}
+	
+	/** Creates a custom expression wrapped in a parenthesized expression. */
+	def static parenthesizedExpr(String expression) {
+		return expression.customExpr.parenthesizedExpr
 	}
 	
 	def static parenthesizedExpr(Expression expression) {
@@ -134,6 +157,10 @@ class Factory {
 		expr.variableName = variableName
 		expr.indexExpressions.addAll(indexExpressions)
 		return expr
+	}
+	
+	def static callExpr(String functionName, String... arguments) {
+		return callExpr(functionName, arguments.map[customExpr])
 	}
 	
 	def static callExpr(String functionName, Expression... arguments) {

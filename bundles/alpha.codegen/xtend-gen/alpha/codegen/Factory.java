@@ -1,9 +1,12 @@
 package alpha.codegen;
 
+import java.util.List;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
 public class Factory {
@@ -82,6 +85,20 @@ public class Factory {
     return undef;
   }
 
+  public static LoopStmt loopStmt(final String loopVariable, final Expression initializer, final Expression conditional, final Expression incrementBy, final Statement... body) {
+    final LoopStmt stmt = Factory.factory.createLoopStmt();
+    stmt.setLoopVariable(loopVariable);
+    stmt.setInitializer(initializer);
+    stmt.setConditional(conditional);
+    stmt.setIncrementBy(incrementBy);
+    CollectionExtensions.<Statement>addAll(stmt.getBody(), body);
+    return stmt;
+  }
+
+  public static AssignmentStmt assignmentStmt(final Expression left, final Expression right) {
+    return Factory.assignmentStmt(left, AssignmentOperator.STANDARD, right);
+  }
+
   public static AssignmentStmt assignmentStmt(final Expression left, final AssignmentOperator assignType, final Expression right) {
     final AssignmentStmt stmt = Factory.factory.createAssignmentStmt();
     stmt.setLeft(left);
@@ -96,10 +113,21 @@ public class Factory {
     return stmt;
   }
 
+  public static ExpressionStmt customStmt(final String stmt) {
+    return Factory.expressionStmt(Factory.customExpr(stmt));
+  }
+
   public static CustomExpr customExpr(final String expression) {
     final CustomExpr expr = Factory.factory.createCustomExpr();
     expr.setExpression(expression);
     return expr;
+  }
+
+  /**
+   * Creates a custom expression wrapped in a parenthesized expression.
+   */
+  public static ParenthesizedExpr parenthesizedExpr(final String expression) {
+    return Factory.parenthesizedExpr(Factory.customExpr(expression));
   }
 
   public static ParenthesizedExpr parenthesizedExpr(final Expression expression) {
@@ -120,6 +148,13 @@ public class Factory {
     expr.setVariableName(variableName);
     CollectionExtensions.<Expression>addAll(expr.getIndexExpressions(), indexExpressions);
     return expr;
+  }
+
+  public static CallExpr callExpr(final String functionName, final String... arguments) {
+    final Function1<String, CustomExpr> _function = (String it) -> {
+      return Factory.customExpr(it);
+    };
+    return Factory.callExpr(functionName, ((Expression[])Conversions.unwrapArray(ListExtensions.<String, CustomExpr>map(((List<String>)Conversions.doWrapArray(arguments)), _function), Expression.class)));
   }
 
   public static CallExpr callExpr(final String functionName, final Expression... arguments) {

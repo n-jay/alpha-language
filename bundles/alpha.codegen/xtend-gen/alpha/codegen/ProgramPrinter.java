@@ -9,6 +9,9 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * Prints the simplified C AST into a C program.
+ */
 @SuppressWarnings("all")
 public class ProgramPrinter {
   /**
@@ -465,16 +468,44 @@ public class ProgramPrinter {
 
   protected static CharSequence _printStmt(final AssignmentStmt stmt) {
     StringConcatenation _builder = new StringConcatenation();
-    CharSequence _printExpr = ProgramPrinter.printExpr(stmt.getLeft());
+    CharSequence _printExpr = ProgramPrinter.printExpr(stmt);
     _builder.append(_printExpr);
-    _builder.append(" ");
-    CharSequence _print = ProgramPrinter.print(stmt.getAssignType());
-    _builder.append(_print);
-    _builder.append(" ");
-    CharSequence _printExpr_1 = ProgramPrinter.printExpr(stmt.getRight());
-    _builder.append(_printExpr_1);
     _builder.append(";");
     _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+
+  protected static CharSequence _printStmt(final ReturnStmt stmt) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("return ");
+    CharSequence _printExpr = ProgramPrinter.printExpr(stmt.getExpression());
+    _builder.append(_printExpr);
+    _builder.append(";");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+
+  protected static CharSequence _printStmt(final Statement stmt) {
+    return ProgramPrinter.fault();
+  }
+
+  protected static CharSequence _printExpr(final CustomExpr expr) {
+    StringConcatenation _builder = new StringConcatenation();
+    String _expression = expr.getExpression();
+    _builder.append(_expression);
+    return _builder;
+  }
+
+  protected static CharSequence _printExpr(final AssignmentStmt expr) {
+    StringConcatenation _builder = new StringConcatenation();
+    CharSequence _printExpr = ProgramPrinter.printExpr(expr.getLeft());
+    _builder.append(_printExpr);
+    _builder.append(" ");
+    CharSequence _print = ProgramPrinter.print(expr.getAssignType());
+    _builder.append(_print);
+    _builder.append(" ");
+    CharSequence _printExpr_1 = ProgramPrinter.printExpr(expr.getRight());
+    _builder.append(_printExpr_1);
     return _builder;
   }
 
@@ -505,27 +536,6 @@ public class ProgramPrinter {
       _switchResult = ProgramPrinter.fault();
     }
     return _switchResult;
-  }
-
-  protected static CharSequence _printStmt(final ReturnStmt stmt) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("return ");
-    CharSequence _printExpr = ProgramPrinter.printExpr(stmt.getExpression());
-    _builder.append(_printExpr);
-    _builder.append(";");
-    _builder.newLineIfNotEmpty();
-    return _builder;
-  }
-
-  protected static CharSequence _printStmt(final Statement stmt) {
-    return ProgramPrinter.fault();
-  }
-
-  protected static CharSequence _printExpr(final CustomExpr expr) {
-    StringConcatenation _builder = new StringConcatenation();
-    String _expression = expr.getExpression();
-    _builder.append(_expression);
-    return _builder;
   }
 
   protected static CharSequence _printExpr(final ParenthesizedExpr expr) {
@@ -756,6 +766,8 @@ public class ProgramPrinter {
   public static CharSequence printExpr(final Expression expr) {
     if (expr instanceof ArrayAccessExpr) {
       return _printExpr((ArrayAccessExpr)expr);
+    } else if (expr instanceof AssignmentStmt) {
+      return _printExpr((AssignmentStmt)expr);
     } else if (expr instanceof BinaryExpr) {
       return _printExpr((BinaryExpr)expr);
     } else if (expr instanceof CastExpr) {

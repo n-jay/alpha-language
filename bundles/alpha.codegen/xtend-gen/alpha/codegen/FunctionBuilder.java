@@ -1,6 +1,10 @@
 package alpha.codegen;
 
+import java.util.List;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
+import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
 public class FunctionBuilder {
@@ -43,6 +47,15 @@ public class FunctionBuilder {
   }
 
   /**
+   * Declares a new variable for use in the function being built.
+   * Note: this does NOT check for name conflicts.
+   */
+  public FunctionBuilder addVariable(final DataType dataType, final String name) {
+    final VariableDecl decl = Factory.variableDecl(dataType, name);
+    return this.addVariable(decl);
+  }
+
+  /**
    * Declares new variables for use in the function being built.
    * Note: this does NOT check for name conflicts.
    */
@@ -72,5 +85,22 @@ public class FunctionBuilder {
    */
   public FunctionBuilder addEmptyLine() {
     return this.addStatement(Factory.emptyLineStmt());
+  }
+
+  /**
+   * Adds undefine statements for the given macros.
+   */
+  public FunctionBuilder addUndefine(final MacroStmt... macros) {
+    final Function1<MacroStmt, UndefStmt> _function = (MacroStmt it) -> {
+      return Factory.undefStmt(it.getName());
+    };
+    return this.addStatement(((Statement[])Conversions.unwrapArray(ListExtensions.<MacroStmt, UndefStmt>map(((List<MacroStmt>)Conversions.doWrapArray(macros)), _function), Statement.class)));
+  }
+
+  /**
+   * Adds a return statement for the given expression.
+   */
+  public FunctionBuilder addReturn(final Expression expr) {
+    return this.addStatement(Factory.returnStmt(expr));
   }
 }

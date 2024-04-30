@@ -46,6 +46,15 @@ class FunctionBuilder {
 	}
 	
 	/**
+	 * Declares a new variable for use in the function being built.
+	 * Note: this does NOT check for name conflicts.
+	 */
+	def addVariable(DataType dataType, String name) {
+		val decl = Factory.variableDecl(dataType, name)
+		return addVariable(decl)
+	}
+	
+	/**
 	 * Declares new variables for use in the function being built.
 	 * Note: this does NOT check for name conflicts.
 	 */
@@ -69,5 +78,15 @@ class FunctionBuilder {
 	/** Adds an empty line to the function being built. */
 	def addEmptyLine() {
 		return addStatement(Factory.emptyLineStmt)
+	}
+	
+	/** Adds undefine statements for the given macros. */
+	def addUndefine(MacroStmt... macros) {
+		return macros.map[Factory.undefStmt(it.name)].addStatement
+	}
+	
+	/** Adds a return statement for the given expression. */
+	def addReturn(Expression expr) {
+		return addStatement(Factory.returnStmt(expr))
 	}
 }

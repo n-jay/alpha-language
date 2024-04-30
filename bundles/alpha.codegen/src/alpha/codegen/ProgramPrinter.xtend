@@ -1,5 +1,6 @@
 package alpha.codegen
 
+/** Prints the simplified C AST into a C program. */
 class ProgramPrinter {
 	/** Throws an exception to indicate a non-implemented function was reached. */
 	def static CharSequence fault() {
@@ -200,17 +201,8 @@ class ProgramPrinter {
 	'''
 	
 	def static dispatch printStmt(AssignmentStmt stmt) '''
-		«stmt.left.printExpr» «stmt.assignType.print» «stmt.right.printExpr»;
+		«stmt.printExpr»;
 	'''
-	
-	def static print(AssignmentOperator op) {
-		return switch op {
-			case STANDARD: '''='''
-			case PLUS: '''+='''
-			case TIMES: '''*='''
-			default: fault
-		}
-	}
 	
 	def static dispatch printStmt(ReturnStmt stmt) '''
 		return «stmt.expression.printExpr»;
@@ -227,6 +219,18 @@ class ProgramPrinter {
 	
 	def static dispatch printExpr(CustomExpr expr)
 		'''«expr.expression»'''
+	
+	def static dispatch CharSequence printExpr(AssignmentStmt expr)
+		'''«expr.left.printExpr» «expr.assignType.print» «expr.right.printExpr»'''
+	
+	def static print(AssignmentOperator op) {
+		return switch op {
+			case STANDARD: '''='''
+			case PLUS: '''+='''
+			case TIMES: '''*='''
+			default: fault
+		}
+	}
 	
 	def static dispatch CharSequence printExpr(ParenthesizedExpr expr)
 		'''(«expr.expression.printExpr»)'''
