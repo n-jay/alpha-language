@@ -143,6 +143,23 @@ class Factory {
 	def static callStmt(String functionName, Expression... arguments) {
 		return callExpr(functionName, arguments).expressionStmt
 	}
+	
+	/** Creates a call to "exit". */
+	def static exitCall(int exitCode) {
+		return callStmt("exit", customExpr(exitCode.toString))
+	}
+	
+	/**
+	 * Creates a call to "printf".
+	 * The format string is used exactly as-provided,
+	 * so make sure you wrap it in quotation mark characters.
+	 */
+	def static printfCall(String format, String... arguments) {
+		val allArgs = newArrayList
+		allArgs.add(format)
+		allArgs.addAll(arguments)
+		return callStmt("printf", allArgs)
+	}
 
 
 	////////////////////////////////////////////////

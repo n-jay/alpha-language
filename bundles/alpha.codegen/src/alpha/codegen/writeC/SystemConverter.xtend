@@ -75,8 +75,7 @@ class SystemConverter {
 		val equations = systemBody.equations.map[it as StandardEquation]
 		
 		// Start a new program builder, then add the defaults to it.
-		val program = ProgramBuilder
-			.start
+		val program = ProgramBuilder.start
 			.addHeaderComment(Common.defaultHeaderComments)
 			.addInclude(Common.defaultIncludes)
 			.addFunctionMacro(Common.defaultFunctionMacros)
@@ -89,14 +88,18 @@ class SystemConverter {
 		equations.forEach[createEvalFunction]
 		
 		// Create the entry point of the program, then return the final program instance.
-		createEntryPoint
+		val entryPoint = FunctionBuilder
+			.start(BaseDataType.VOID, system.name)
+			.prepareEntryArguments()
+			.checkParameters()
+			.allocateMemory()
+			.evaluateOutputs()
+			.freeAllocatedVariables
+			.instance
+		program.addFunction(entryPoint)
+		
 		return program.instance
 	}
-	
-	
-	/////////////////////////////////////////////////////////////////////////////
-	// Helper Functions
-	/////////////////////////////////////////////////////////////////////////////
 	
 	
 	/////////////////////////////////////////////////////////////////////////////
@@ -153,11 +156,11 @@ class SystemConverter {
 	 * at some point in its domain, returning the computed (or fetched) value.
 	 */
 	def protected createEvalFunction(StandardEquation equation) {
-		val variable = equation.variable
-		val evalBuilder = FunctionBuilder.start(Common.alphaValueType, variable.evalName)
+		val evalBuilder = FunctionBuilder.start(Common.alphaValueType, equation.variable.evalName)
 		
-		// Add a function parameter for each parameter and index of the variable's domain.
-		variable.domain.indexNames.forEach[evalBuilder.addParameter(Common.alphaIndexType, it)]
+		// Add a function parameter for each index of the variable's domain.
+		val indexNames = equation.variable.domain.indexNames
+		indexNames.forEach[evalBuilder.addParameter(Common.alphaIndexType, it)]
 		
 		// Add the "if" statement that checks the flag variable and evaluates
 		// the actual variable if needed, then return the value of the variable.
@@ -165,7 +168,7 @@ class SystemConverter {
 		evalBuilder.addComment("Check the flags.")
 			.addStatement(flagCheckingBlock)
 			.addEmptyLine
-			.addReturn(variable.identityAccess(false))
+			.addReturn(equation.variable.identityAccess(false))
 		
 		program.addFunction(evalBuilder.instance)
 	}
@@ -176,6 +179,11 @@ class SystemConverter {
 	 */
 	def protected getFlagCheckingBlock(StandardEquation equation) {
 		val variable = equation.variable
+		
+		// For readability of this code, here is the statement that actually assigns
+		// the variable being computed.
+		val computeValue = ExprConverter.convertExpr(program, equation.expr)
+		val computeAndStore = Factory.assignmentStmt(variable.identityAccess(false), computeValue)
 		
 		// If the flags indicate the value hasn't been evaluated yet:
 		//     Set the flag to "in progress"
@@ -188,13 +196,13 @@ class SystemConverter {
 			.start(variable.ifFlagEquals(FlagStatus.NOT_EVALUATED))
 			.addStatement(
 				variable.setFlagTo(FlagStatus.IN_PROGRESS),
-				Factory.assignmentStmt(variable.identityAccess(false), ExprConverter.convertExpr(program, equation.expr)),
+				computeAndStore,
 				variable.setFlagTo(FlagStatus.EVALUATED)
 			)
 			.startElseIf(variable.ifFlagEquals(FlagStatus.IN_PROGRESS))
 			.addStatement(
 				variable.selfDependencePrintfStmt,
-				Factory.callStmt("exit", Factory.customExpr("-1"))
+				Factory.exitCall(-1)
 			)
 			.instance
 	}
@@ -219,43 +227,19 @@ class SystemConverter {
 	def protected static getSelfDependencePrintfStmt(Variable variable) {
 		val locationFormat = (0 ..< variable.domain.nbIndices).map["%ld"].join(",")
 		val message = '''"There is a self dependence on «variable.name» at («locationFormat»)\n"'''
-		
-		val args = newArrayList
-		args.add(message.toString)
-		args.addAll(variable.domain.indexNames)
-		
-		return Factory.callStmt("printf", args)
+		return Factory.printfCall(message, variable.domain.indexNames)
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////
-	// Entry Point
+	// Entry Point Arguments and Parameter Checking
 	/////////////////////////////////////////////////////////////////////////////
-	
-	/** Creates the function used as the entry point of the function. */
-	def protected createEntryPoint() {
-		val builder = FunctionBuilder
-			.start(BaseDataType.VOID, system.name)
-			.prepareEntryArguments(system)
-			.checkParameters(system)
-			.allocateMemory(system)
-		
-		// Create a loop nest for each output equation and call the appropriate "eval" function.
-		builder.addComment("Evaluate all the outputs.")
-		system.outputs.forEach[builder.evaluateAllPoints(it)]
-		builder.addEmptyLine
-		
-		builder.addComment("Free all allocated memory.")
-		builder.addStatement(allocatedVariables.map[Factory.callStmt("free", it)])
-		
-		program.addFunction(builder.instance)
-	}
 	
 	/**
 	 * Adds parameters to the function for all system parameters, inputs, and outputs,
 	 * then adds statements to the function which copy the function's arguments
 	 * to the global variables they're accessed from.
 	 */
-	def protected static prepareEntryArguments(FunctionBuilder builder, AlphaSystem system) {
+	def protected prepareEntryArguments(FunctionBuilder builder) {
 		builder.addComment("Copy arguments to the global variables.")
 		
 		// All parameters in the system's domain are added as index parameters.
@@ -283,7 +267,7 @@ class SystemConverter {
 	}
 	
 	/** Adds the "if" statements needed to check that the parameters are valid. */
-	def protected static checkParameters(FunctionBuilder builder, AlphaSystem system) {
+	def protected checkParameters(FunctionBuilder builder) {
 		val isValid = ConditionalConverter.convert(system.parameterDomain)
 		val parameterCheck = IfStmtBuilder
 			.start(Factory.unaryExpr(UnaryOperator.NOT, isValid))
@@ -298,8 +282,13 @@ class SystemConverter {
 			.addEmptyLine
 	}
 	
+	
+	/////////////////////////////////////////////////////////////////////////////
+	// Memory Allocation and Deallocation
+	/////////////////////////////////////////////////////////////////////////////
+	
 	/** Adds the statements needed to allocate memory for the Alpha variables and any necessary flags. */
-	def protected allocateMemory(FunctionBuilder builder, AlphaSystem system) {
+	def protected allocateMemory(FunctionBuilder builder) {
 		// Allocate the Alpha local variables first.
 		builder.addComment("Allocate memory for local storage.")
 		system.locals.forEach[builder.allocateMemory(it, false)]
@@ -349,6 +338,24 @@ class SystemConverter {
 			val flagStatusExpr = Common.toExpr(FlagStatus.NOT_EVALUATED)
 			builder.addStatement(Factory.callStmt("memset", name.customExpr, flagStatusExpr, cardinality.convert))
 		}
+	}
+	
+	/** Frees all allocated variables. */
+	def protected freeAllocatedVariables(FunctionBuilder builder) {
+		builder.addComment("Free all allocated memory.")
+		builder.addStatement(allocatedVariables.map[Factory.callStmt("free", it)])
+	}
+	
+	
+	/////////////////////////////////////////////////////////////////////////////
+	// Output Evaluating
+	/////////////////////////////////////////////////////////////////////////////
+	
+	/** Evaluates all points of all outputs of the system. */
+	def protected evaluateOutputs(FunctionBuilder builder) {
+		builder.addComment("Evaluate all the outputs.")
+		system.outputs.forEach[builder.evaluateAllPoints(it)]
+		builder.addEmptyLine
 	}
 	
 	/** Evaluates all the points within an output variable. */

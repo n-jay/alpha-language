@@ -12,6 +12,7 @@ import alpha.codegen.DataType;
 import alpha.codegen.Expression;
 import alpha.codegen.ExpressionStmt;
 import alpha.codegen.Factory;
+import alpha.codegen.Function;
 import alpha.codegen.FunctionBuilder;
 import alpha.codegen.IfStmt;
 import alpha.codegen.IfStmtBuilder;
@@ -126,7 +127,8 @@ public class SystemConverter {
       this.createEvalFunction(it);
     };
     equations.forEach(_function_4);
-    this.createEntryPoint();
+    final Function entryPoint = this.freeAllocatedVariables(this.evaluateOutputs(this.allocateMemory(this.checkParameters(this.prepareEntryArguments(FunctionBuilder.start(BaseDataType.VOID, this.system.getName())))))).getInstance();
+    program.addFunction(entryPoint);
     return program.getInstance();
   }
 
@@ -189,14 +191,14 @@ public class SystemConverter {
   protected ProgramBuilder createEvalFunction(final StandardEquation equation) {
     ProgramBuilder _xblockexpression = null;
     {
-      final Variable variable = equation.getVariable();
-      final FunctionBuilder evalBuilder = FunctionBuilder.start(Common.alphaValueType(), Common.getEvalName(variable));
+      final FunctionBuilder evalBuilder = FunctionBuilder.start(Common.alphaValueType(), Common.getEvalName(equation.getVariable()));
+      final List<String> indexNames = equation.getVariable().getDomain().getIndexNames();
       final Consumer<String> _function = (String it) -> {
         evalBuilder.addParameter(Common.alphaIndexType(), it);
       };
-      variable.getDomain().getIndexNames().forEach(_function);
+      indexNames.forEach(_function);
       final IfStmt flagCheckingBlock = this.getFlagCheckingBlock(equation);
-      evalBuilder.addComment("Check the flags.").addStatement(flagCheckingBlock).addEmptyLine().addReturn(SystemConverter.identityAccess(variable, false));
+      evalBuilder.addComment("Check the flags.").addStatement(flagCheckingBlock).addEmptyLine().addReturn(SystemConverter.identityAccess(equation.getVariable(), false));
       _xblockexpression = this.program.addFunction(evalBuilder.getInstance());
     }
     return _xblockexpression;
@@ -208,12 +210,13 @@ public class SystemConverter {
    */
   protected IfStmt getFlagCheckingBlock(final StandardEquation equation) {
     final Variable variable = equation.getVariable();
+    final Expression computeValue = ExprConverter.convertExpr(this.program, equation.getExpr());
+    final AssignmentStmt computeAndStore = Factory.assignmentStmt(SystemConverter.identityAccess(variable, false), computeValue);
     return IfStmtBuilder.start(SystemConverter.ifFlagEquals(variable, FlagStatus.NOT_EVALUATED)).addStatement(
-      SystemConverter.setFlagTo(variable, FlagStatus.IN_PROGRESS), 
-      Factory.assignmentStmt(SystemConverter.identityAccess(variable, false), ExprConverter.convertExpr(this.program, equation.getExpr())), 
+      SystemConverter.setFlagTo(variable, FlagStatus.IN_PROGRESS), computeAndStore, 
       SystemConverter.setFlagTo(variable, FlagStatus.EVALUATED)).startElseIf(SystemConverter.ifFlagEquals(variable, FlagStatus.IN_PROGRESS)).addStatement(
       SystemConverter.getSelfDependencePrintfStmt(variable), 
-      Factory.callStmt("exit", Factory.customExpr("-1"))).getInstance();
+      Factory.exitCall((-1))).getInstance();
   }
 
   /**
@@ -261,33 +264,7 @@ public class SystemConverter {
     _builder.append(locationFormat);
     _builder.append(")\\n\"");
     final String message = _builder.toString();
-    final ArrayList<String> args = CollectionLiterals.<String>newArrayList();
-    args.add(message.toString());
-    args.addAll(variable.getDomain().getIndexNames());
-    return Factory.callStmt("printf", ((String[])Conversions.unwrapArray(args, String.class)));
-  }
-
-  /**
-   * Creates the function used as the entry point of the function.
-   */
-  protected ProgramBuilder createEntryPoint() {
-    ProgramBuilder _xblockexpression = null;
-    {
-      final FunctionBuilder builder = this.allocateMemory(SystemConverter.checkParameters(SystemConverter.prepareEntryArguments(FunctionBuilder.start(BaseDataType.VOID, this.system.getName()), this.system), this.system), this.system);
-      builder.addComment("Evaluate all the outputs.");
-      final Consumer<Variable> _function = (Variable it) -> {
-        this.evaluateAllPoints(builder, it);
-      };
-      this.system.getOutputs().forEach(_function);
-      builder.addEmptyLine();
-      builder.addComment("Free all allocated memory.");
-      final Function1<String, ExpressionStmt> _function_1 = (String it) -> {
-        return Factory.callStmt("free", it);
-      };
-      builder.addStatement(((Statement[])Conversions.unwrapArray(ListExtensions.<String, ExpressionStmt>map(this.allocatedVariables, _function_1), Statement.class)));
-      _xblockexpression = this.program.addFunction(builder.getInstance());
-    }
-    return _xblockexpression;
+    return Factory.printfCall(message, ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)));
   }
 
   /**
@@ -295,22 +272,22 @@ public class SystemConverter {
    * then adds statements to the function which copy the function's arguments
    * to the global variables they're accessed from.
    */
-  protected static FunctionBuilder prepareEntryArguments(final FunctionBuilder builder, final AlphaSystem system) {
+  protected FunctionBuilder prepareEntryArguments(final FunctionBuilder builder) {
     FunctionBuilder _xblockexpression = null;
     {
       builder.addComment("Copy arguments to the global variables.");
       final Consumer<String> _function = (String it) -> {
         SystemConverter.prepareEntryArgument(builder, it, Common.alphaIndexType());
       };
-      system.getParameterDomain().getParamNames().forEach(_function);
+      this.system.getParameterDomain().getParamNames().forEach(_function);
       final Consumer<Variable> _function_1 = (Variable it) -> {
         SystemConverter.prepareEntryArgument(builder, it.getName(), Common.alphaVariableType());
       };
-      system.getInputs().forEach(_function_1);
+      this.system.getInputs().forEach(_function_1);
       final Consumer<Variable> _function_2 = (Variable it) -> {
         SystemConverter.prepareEntryArgument(builder, it.getName(), Common.alphaVariableType());
       };
-      system.getOutputs().forEach(_function_2);
+      this.system.getOutputs().forEach(_function_2);
       _xblockexpression = builder.addEmptyLine();
     }
     return _xblockexpression;
@@ -333,10 +310,10 @@ public class SystemConverter {
   /**
    * Adds the "if" statements needed to check that the parameters are valid.
    */
-  protected static FunctionBuilder checkParameters(final FunctionBuilder builder, final AlphaSystem system) {
+  protected FunctionBuilder checkParameters(final FunctionBuilder builder) {
     FunctionBuilder _xblockexpression = null;
     {
-      final Expression isValid = ConditionalConverter.convert(system.getParameterDomain());
+      final Expression isValid = ConditionalConverter.convert(this.system.getParameterDomain());
       final IfStmt parameterCheck = IfStmtBuilder.start(Factory.unaryExpr(UnaryOperator.NOT, isValid)).addStatement(
         Factory.callStmt("printf", "\"The value of the parameters are invalid.\\n\""), 
         Factory.callStmt("exit", "-1")).getInstance();
@@ -348,24 +325,24 @@ public class SystemConverter {
   /**
    * Adds the statements needed to allocate memory for the Alpha variables and any necessary flags.
    */
-  protected FunctionBuilder allocateMemory(final FunctionBuilder builder, final AlphaSystem system) {
+  protected FunctionBuilder allocateMemory(final FunctionBuilder builder) {
     FunctionBuilder _xblockexpression = null;
     {
       builder.addComment("Allocate memory for local storage.");
       final Consumer<Variable> _function = (Variable it) -> {
         this.allocateMemory(builder, it, false);
       };
-      system.getLocals().forEach(_function);
+      this.system.getLocals().forEach(_function);
       builder.addEmptyLine();
       builder.addComment("Allocate and initialize flag variables.");
       final Consumer<Variable> _function_1 = (Variable it) -> {
         this.allocateMemory(builder, it, true);
       };
-      system.getOutputs().forEach(_function_1);
+      this.system.getOutputs().forEach(_function_1);
       final Consumer<Variable> _function_2 = (Variable it) -> {
         this.allocateMemory(builder, it, true);
       };
-      system.getLocals().forEach(_function_2);
+      this.system.getLocals().forEach(_function_2);
       _xblockexpression = builder.addEmptyLine();
     }
     return _xblockexpression;
@@ -412,6 +389,37 @@ public class SystemConverter {
         _xifexpression_2 = _xblockexpression_1;
       }
       _xblockexpression = _xifexpression_2;
+    }
+    return _xblockexpression;
+  }
+
+  /**
+   * Frees all allocated variables.
+   */
+  protected FunctionBuilder freeAllocatedVariables(final FunctionBuilder builder) {
+    FunctionBuilder _xblockexpression = null;
+    {
+      builder.addComment("Free all allocated memory.");
+      final Function1<String, ExpressionStmt> _function = (String it) -> {
+        return Factory.callStmt("free", it);
+      };
+      _xblockexpression = builder.addStatement(((Statement[])Conversions.unwrapArray(ListExtensions.<String, ExpressionStmt>map(this.allocatedVariables, _function), Statement.class)));
+    }
+    return _xblockexpression;
+  }
+
+  /**
+   * Evaluates all points of all outputs of the system.
+   */
+  protected FunctionBuilder evaluateOutputs(final FunctionBuilder builder) {
+    FunctionBuilder _xblockexpression = null;
+    {
+      builder.addComment("Evaluate all the outputs.");
+      final Consumer<Variable> _function = (Variable it) -> {
+        this.evaluateAllPoints(builder, it);
+      };
+      this.system.getOutputs().forEach(_function);
+      _xblockexpression = builder.addEmptyLine();
     }
     return _xblockexpression;
   }

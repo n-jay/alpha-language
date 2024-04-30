@@ -1,7 +1,9 @@
 package alpha.codegen;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
@@ -136,6 +138,25 @@ public class Factory {
 
   public static ExpressionStmt callStmt(final String functionName, final Expression... arguments) {
     return Factory.expressionStmt(Factory.callExpr(functionName, arguments));
+  }
+
+  /**
+   * Creates a call to "exit".
+   */
+  public static ExpressionStmt exitCall(final int exitCode) {
+    return Factory.callStmt("exit", Factory.customExpr(Integer.valueOf(exitCode).toString()));
+  }
+
+  /**
+   * Creates a call to "printf".
+   * The format string is used exactly as-provided,
+   * so make sure you wrap it in quotation mark characters.
+   */
+  public static ExpressionStmt printfCall(final String format, final String... arguments) {
+    final ArrayList<String> allArgs = CollectionLiterals.<String>newArrayList();
+    allArgs.add(format);
+    CollectionExtensions.<String>addAll(allArgs, arguments);
+    return Factory.callStmt("printf", ((String[])Conversions.unwrapArray(allArgs, String.class)));
   }
 
   public static CustomExpr customExpr(final String expression) {
