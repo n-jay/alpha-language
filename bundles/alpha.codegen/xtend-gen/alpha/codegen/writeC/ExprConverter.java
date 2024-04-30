@@ -34,6 +34,16 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * A collection of methods that convert Alpha expressions to C expression AST nodes.
+ * The C expression node that represents the Alpha expression will be returned
+ * so it can be added to the AST appropriately.
+ * 
+ * The conversion of some expressions requires adding new elements to the program,
+ * thus requiring a program builder to be supplied.
+ * For example, reduce expressions need to add new functions for computing the reduction,
+ * then returns a call expression to that function.
+ */
 @SuppressWarnings("all")
 public class ExprConverter {
   /**
@@ -117,11 +127,7 @@ public class ExprConverter {
    * Dependence expression conversion is handled by a separate class.
    */
   protected static Expression _convertExpr(final ProgramBuilder program, final DependenceExpression expr) {
-    try {
-      throw new Exception("Not implemented yet!");
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    return DependenceExprConverter.convertExpr(program, expr);
   }
 
   protected static Expression _convertExpr(final ProgramBuilder program, final IfExpression expr) {

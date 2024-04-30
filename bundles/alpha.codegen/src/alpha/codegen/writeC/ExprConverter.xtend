@@ -22,6 +22,16 @@ import alpha.model.VariableExpression
 
 import static extension alpha.model.util.CommonExtensions.toArrayList
 
+/**
+ * A collection of methods that convert Alpha expressions to C expression AST nodes.
+ * The C expression node that represents the Alpha expression will be returned
+ * so it can be added to the AST appropriately.
+ * 
+ * The conversion of some expressions requires adding new elements to the program,
+ * thus requiring a program builder to be supplied.
+ * For example, reduce expressions need to add new functions for computing the reduction,
+ * then returns a call expression to that function.  
+ */
 class ExprConverter {
 	/**
 	 * Alpha "restrict" expressions don't need to be wrapped in conditionals,
@@ -97,8 +107,7 @@ class ExprConverter {
 	
 	/** Dependence expression conversion is handled by a separate class. */
 	def static dispatch Expression convertExpr(ProgramBuilder program, DependenceExpression expr) {
-//		return DependenceExprConverter.convert(expr)
-		throw new Exception("Not implemented yet!")
+		return DependenceExprConverter.convertExpr(program, expr)
 	}
 	
 	def static dispatch Expression convertExpr(ProgramBuilder program, IfExpression expr) {
