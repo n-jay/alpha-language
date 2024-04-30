@@ -8,6 +8,7 @@ import alpha.codegen.ProgramBuilder;
 import alpha.codegen.TernaryExprBuilder;
 import alpha.codegen.UnaryOperator;
 import alpha.codegen.isl.ConditionalConverter;
+import alpha.codegen.isl.PolynomialConverter;
 import alpha.model.AlphaExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.BinaryExpression;
@@ -147,11 +148,7 @@ public class ExprConverter {
   }
 
   protected static Expression _convertExpr(final ProgramBuilder program, final PolynomialIndexExpression expr) {
-    try {
-      throw new Exception("Not implemented yet!");
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    return PolynomialConverter.convert(expr.getPolynomial());
   }
 
   /**

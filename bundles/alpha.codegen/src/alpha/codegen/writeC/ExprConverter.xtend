@@ -5,6 +5,7 @@ import alpha.codegen.Factory
 import alpha.codegen.ProgramBuilder
 import alpha.codegen.TernaryExprBuilder
 import alpha.codegen.isl.ConditionalConverter
+import alpha.codegen.isl.PolynomialConverter
 import alpha.model.AlphaExpression
 import alpha.model.AutoRestrictExpression
 import alpha.model.BinaryExpression
@@ -131,8 +132,7 @@ class ExprConverter {
 	}
 	
 	def static dispatch Expression convertExpr(ProgramBuilder program, PolynomialIndexExpression expr) {
-//		return PwQPolynomialConverter.convert(expr.polynomial)
-		throw new Exception("Not implemented yet!")
+		return PolynomialConverter.convert(expr.polynomial)
 	}
 	
 	/** Reduce expression conversion is handled by a separate class. */
