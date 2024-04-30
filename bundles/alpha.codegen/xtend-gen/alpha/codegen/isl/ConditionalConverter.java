@@ -13,17 +13,20 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * Converts an isl set, basic set, or constraint into a conditional expression.
+ */
 @SuppressWarnings("all")
 public class ConditionalConverter {
   /**
-   * Generates a conditional only for the parameters of a set.
+   * Generates a conditional expression only for the parameters of a set.
    */
   public static Expression convertParameters(final ISLSet set) {
     return ConditionalConverter.convert(set.params());
   }
 
   /**
-   * Generates a conditional to determine if a point is within this set.
+   * Generates a conditional expression to determine if a point is within this set.
    */
   public static Expression convert(final ISLSet set) {
     final Function1<ISLBasicSet, Expression> _function = (ISLBasicSet it) -> {
@@ -33,7 +36,7 @@ public class ConditionalConverter {
   }
 
   /**
-   * Generates a conditional to determine if a point is within this basic set.
+   * Generates a conditional expression to determine if a point is within this basic set.
    */
   public static Expression convert(final ISLBasicSet basicSet) {
     final Function1<ISLConstraint, BinaryExpr> _function = (ISLConstraint it) -> {
@@ -43,7 +46,7 @@ public class ConditionalConverter {
   }
 
   /**
-   * Generates a conditional to determine if a point satisfies this constraint.
+   * Generates a conditional expression to determine if a point satisfies this constraint.
    */
   public static BinaryExpr convert(final ISLConstraint constraint) {
     BinaryOperator _xifexpression = null;
