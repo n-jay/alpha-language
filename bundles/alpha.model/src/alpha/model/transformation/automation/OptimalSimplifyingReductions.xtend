@@ -42,7 +42,7 @@ import static extension java.lang.String.format
 
 /**
  * Implements Algorithm 2 in the Simplifying Reductions paper. The current
- * implementation does not prune the search space. It simply explored all possible
+ * implementation does not prune the search space. It simply explores all possible
  * combinations of reduction decomposition, dependence raising, and simplification
  * until termination or it finds the specified (via throttleLimit) number of 
  * optimized versions, whichever comes first.
@@ -154,11 +154,11 @@ class OptimalSimplifyingReductions {
 	}
 	
 	/**
-	 * optimizeUnexploredEquations and optimizeEquation together carry the recursive simplification
+	 * optimizeUnexploredEquations and optimizeEquation together carry out the recursive simplification
 	 * algorithm. The given program state is optimized while it has unexplored equations. Each equation
 	 * has a boolean flag property to indicate whether it has been explored. Any new equations that
-	 * get introduced during the optimization of another equations are effectively queued because they
-	 * have not yet been marked as explored.
+	 * are introduced during the optimization are effectively queued because they have not yet been 
+	 * marked as explored.
 	 * 
 	 * After the program state has been optimized (i.e., all equations have been explored), if the 
 	 * state complexity is smaller than the initialComplexity then the state is added to the list of
@@ -182,7 +182,7 @@ class OptimalSimplifyingReductions {
 	}
 	
 	/** 
-	 * optimizeEquation is implemented as dispatch method, because only equations involving
+	 * optimizeEquation is implemented as a dispatch method, because only equations involving
 	 * reduce expressions need to be recursively explored.
 	 */
 	private def dispatch void optimizeEquation(StandardEquation eq, ReduceExpression re, State state) {
@@ -512,7 +512,7 @@ class OptimalSimplifyingReductions {
 	
 	/** 
 	 * Returns true if the dimensionality reduce expression's body's context domain is the same
-	 * as the dimensionality of the LHS of the container equation.
+	 * as the dimensionality of the variable on the LHS of the container equation.
 	 * The parent of the expression is guaranteed to be a Standard Equation since NormalizeReduction
 	 * has been systematically called.
 	 */
