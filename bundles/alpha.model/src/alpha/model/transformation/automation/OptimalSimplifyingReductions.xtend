@@ -298,9 +298,15 @@ class OptimalSimplifyingReductions {
 		val bodyDim = targetRE.body.contextDomain.dimensionality
 		if (bodyDim > answerDim) {
 			val vectors = SimplifyingReductions.generateCandidateReuseVectors(targetRE, SSAR);
-			for (vec : vectors) {
-				candidates.add(new StepSimplifyingReduction(targetRE, vec, nbParams));
-			}
+			candidates.addAll(vectors.map[vec | new StepSimplifyingReduction(targetRE, vec, nbParams)])
+			
+			/* TODO - place-holder for max simplification splitting step.
+			 * If vectors is empty but bodyDim is larger than answerDim then there is potentially
+			 * reuse that has not yet been exploited, but can be via splitting.
+			 * The call to generate the DP steps for splitting in this case should go here.
+			 * This comment block should be removed by the PR that introduces the splitting logic,
+			 * which will be done separately. 
+			 */
 		}
 		
 		// Idempotent
