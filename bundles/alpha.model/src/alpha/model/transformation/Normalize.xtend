@@ -413,6 +413,15 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		
 		val origContainer = be.eContainer  as AlphaCompleteVisitable 
 		
+		/*
+		 * There is a containment issue related to the way that Normalize handles
+		 * binary expressions and case expressions together. It is not clear why
+		 * this logic is needed yet, but it breaks without this explicit separation
+		 * of scenarios with one case vs. two cases.
+		 * Cleaning this up is tracked in github:
+		 * https://github.com/CSU-CS-Melange/alpha-language/issues/44
+		 * 
+		 */
 		val bothCase = be.left instanceof CaseExpression && be.right instanceof CaseExpression
 		if (!bothCase) {
 			binaryExpressionRules(be, be.left)
