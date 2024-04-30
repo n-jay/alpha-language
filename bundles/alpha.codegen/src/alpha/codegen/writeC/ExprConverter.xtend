@@ -4,7 +4,7 @@ import alpha.codegen.Expression
 import alpha.codegen.Factory
 import alpha.codegen.ProgramBuilder
 import alpha.codegen.TernaryExprBuilder
-//import alpha.codegen.isl.ConditionalConverter
+import alpha.codegen.isl.ConditionalConverter
 import alpha.model.AlphaExpression
 import alpha.model.AutoRestrictExpression
 import alpha.model.BinaryExpression
@@ -83,18 +83,16 @@ class ExprConverter {
 	}
 	
 	/** Creates a conditional expression to ensure a restrict case is being respected. */
-	def static dispatch Expression createConditional(RestrictExpression re) {
-//		return ConditionalConverter.convert(re.restrictDomain)
-		throw new Exception("Not implemented yet!")
+	def static dispatch createConditional(RestrictExpression re) {
+		return ConditionalConverter.convert(re.restrictDomain)
 	}
 	
 	/**
 	 * Creates a conditional expression to ensure this expression (which is neither a restrict
 	 * nor an auto-restrict) is only evaluated within its context domain.
 	 */
-	def static dispatch Expression createConditional(AlphaExpression expr) {
-//		return ConditionalConverter.convert(expr.contextDomain)
-		throw new Exception("Not implemented yet!")
+	def static dispatch createConditional(AlphaExpression expr) {
+		return ConditionalConverter.convert(expr.contextDomain)
 	}
 	
 	/** Dependence expression conversion is handled by a separate class. */

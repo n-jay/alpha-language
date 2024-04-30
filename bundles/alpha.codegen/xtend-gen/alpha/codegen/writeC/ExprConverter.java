@@ -7,6 +7,7 @@ import alpha.codegen.Factory;
 import alpha.codegen.ProgramBuilder;
 import alpha.codegen.TernaryExprBuilder;
 import alpha.codegen.UnaryOperator;
+import alpha.codegen.isl.ConditionalConverter;
 import alpha.model.AlphaExpression;
 import alpha.model.AutoRestrictExpression;
 import alpha.model.BinaryExpression;
@@ -101,11 +102,7 @@ public class ExprConverter {
    * Creates a conditional expression to ensure a restrict case is being respected.
    */
   protected static Expression _createConditional(final RestrictExpression re) {
-    try {
-      throw new Exception("Not implemented yet!");
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    return ConditionalConverter.convert(re.getRestrictDomain());
   }
 
   /**
@@ -113,11 +110,7 @@ public class ExprConverter {
    * nor an auto-restrict) is only evaluated within its context domain.
    */
   protected static Expression _createConditional(final AlphaExpression expr) {
-    try {
-      throw new Exception("Not implemented yet!");
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    return ConditionalConverter.convert(expr.getContextDomain());
   }
 
   /**
