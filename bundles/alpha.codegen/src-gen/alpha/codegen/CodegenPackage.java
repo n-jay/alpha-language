@@ -244,13 +244,22 @@ public interface CodegenPackage extends EPackage {
 	int VARIABLE_DECL = 3;
 
 	/**
+	 * The feature id for the '<em><b>Is Static</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_DECL__IS_STATIC = 0;
+
+	/**
 	 * The feature id for the '<em><b>Data Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECL__DATA_TYPE = 0;
+	int VARIABLE_DECL__DATA_TYPE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -259,7 +268,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECL__NAME = 1;
+	int VARIABLE_DECL__NAME = 2;
 
 	/**
 	 * The number of structural features of the '<em>Variable Decl</em>' class.
@@ -268,7 +277,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECL_FEATURE_COUNT = 2;
+	int VARIABLE_DECL_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Variable Decl</em>' class.
@@ -1539,6 +1548,17 @@ public interface CodegenPackage extends EPackage {
 	EClass getVariableDecl();
 
 	/**
+	 * Returns the meta object for the attribute '{@link alpha.codegen.VariableDecl#isIsStatic <em>Is Static</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Static</em>'.
+	 * @see alpha.codegen.VariableDecl#isIsStatic()
+	 * @see #getVariableDecl()
+	 * @generated
+	 */
+	EAttribute getVariableDecl_IsStatic();
+
+	/**
 	 * Returns the meta object for the reference '{@link alpha.codegen.VariableDecl#getDataType <em>Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2477,6 +2497,14 @@ public interface CodegenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass VARIABLE_DECL = eINSTANCE.getVariableDecl();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Static</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_DECL__IS_STATIC = eINSTANCE.getVariableDecl_IsStatic();
 
 		/**
 		 * The meta object literal for the '<em><b>Data Type</b></em>' reference feature.

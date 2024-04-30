@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link alpha.codegen.impl.VariableDeclImpl#isIsStatic <em>Is Static</em>}</li>
  *   <li>{@link alpha.codegen.impl.VariableDeclImpl#getDataType <em>Data Type</em>}</li>
  *   <li>{@link alpha.codegen.impl.VariableDeclImpl#getName <em>Name</em>}</li>
  * </ul>
@@ -29,6 +30,26 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * @generated
  */
 public class VariableDeclImpl extends MinimalEObjectImpl.Container implements VariableDecl {
+	/**
+	 * The default value of the '{@link #isIsStatic() <em>Is Static</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsStatic()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IS_STATIC_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isIsStatic() <em>Is Static</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsStatic()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean isStatic = IS_STATIC_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getDataType() <em>Data Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -76,6 +97,27 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	@Override
 	protected EClass eStaticClass() {
 		return CodegenPackage.Literals.VARIABLE_DECL;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isIsStatic() {
+		return isStatic;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIsStatic(boolean newIsStatic) {
+		boolean oldIsStatic = isStatic;
+		isStatic = newIsStatic;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.VARIABLE_DECL__IS_STATIC, oldIsStatic, isStatic));
 	}
 
 	/**
@@ -145,6 +187,8 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case CodegenPackage.VARIABLE_DECL__IS_STATIC:
+				return isIsStatic();
 			case CodegenPackage.VARIABLE_DECL__DATA_TYPE:
 				if (resolve) return getDataType();
 				return basicGetDataType();
@@ -162,6 +206,9 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case CodegenPackage.VARIABLE_DECL__IS_STATIC:
+				setIsStatic((Boolean)newValue);
+				return;
 			case CodegenPackage.VARIABLE_DECL__DATA_TYPE:
 				setDataType((DataType)newValue);
 				return;
@@ -180,6 +227,9 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case CodegenPackage.VARIABLE_DECL__IS_STATIC:
+				setIsStatic(IS_STATIC_EDEFAULT);
+				return;
 			case CodegenPackage.VARIABLE_DECL__DATA_TYPE:
 				setDataType((DataType)null);
 				return;
@@ -198,6 +248,8 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case CodegenPackage.VARIABLE_DECL__IS_STATIC:
+				return isStatic != IS_STATIC_EDEFAULT;
 			case CodegenPackage.VARIABLE_DECL__DATA_TYPE:
 				return dataType != null;
 			case CodegenPackage.VARIABLE_DECL__NAME:
@@ -216,7 +268,9 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (name: ");
+		result.append(" (isStatic: ");
+		result.append(isStatic);
+		result.append(", name: ");
 		result.append(name);
 		result.append(')');
 		return result.toString();

@@ -21,6 +21,21 @@ public class FunctionBuilder {
   }
 
   /**
+   * Starts building a new, non-inlined C function with a non-pointer return type.
+   */
+  public static FunctionBuilder start(final BaseDataType returnType, final String name) {
+    final DataType dataType = Factory.dataType(returnType, 0);
+    return new FunctionBuilder(Boolean.valueOf(false), dataType, name);
+  }
+
+  /**
+   * Starts building a new, non-inlined C function.
+   */
+  public static FunctionBuilder start(final DataType returnType, final String name) {
+    return new FunctionBuilder(Boolean.valueOf(false), returnType, name);
+  }
+
+  /**
    * Starts building a new C function.
    */
   public static FunctionBuilder start(final Boolean isInline, final DataType returnType, final String name) {
@@ -38,7 +53,16 @@ public class FunctionBuilder {
   }
 
   /**
-   * Adds new parameter to the function.
+   * Adds a new parameter to the function.
+   * Note: this does NOT check for name conflicts.
+   */
+  public FunctionBuilder addParameter(final DataType dataType, final String name) {
+    final Parameter parameter = Factory.parameter(dataType, name);
+    return this.addParameter(parameter);
+  }
+
+  /**
+   * Adds new parameters to the function.
    * Note: this does NOT check for name conflicts.
    */
   public FunctionBuilder addParameter(final Parameter... parameters) {

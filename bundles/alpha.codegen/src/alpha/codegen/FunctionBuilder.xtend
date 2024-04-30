@@ -18,6 +18,17 @@ class FunctionBuilder {
 	// Builder Construction
 	////////////////////////////////////////////////
 	
+	/** Starts building a new, non-inlined C function with a non-pointer return type. */
+	static def start(BaseDataType returnType, String name) {
+		val dataType = Factory.dataType(returnType, 0)
+		return new FunctionBuilder(false, dataType, name)
+	}
+	
+	/** Starts building a new, non-inlined C function. */
+	static def start(DataType returnType, String name) {
+		return new FunctionBuilder(false, returnType, name)
+	}
+	
 	/** Starts building a new C function. */
 	static def start(Boolean isInline, DataType returnType, String name) {
 		return new FunctionBuilder(isInline, returnType, name)
@@ -37,7 +48,16 @@ class FunctionBuilder {
 	////////////////////////////////////////////////
 	
 	/**
-	 * Adds new parameter to the function.
+	 * Adds a new parameter to the function.
+	 * Note: this does NOT check for name conflicts.
+	 */
+	def addParameter(DataType dataType, String name) {
+		val parameter = Factory.parameter(dataType, name)
+		return addParameter(parameter)
+	}
+	
+	/**
+	 * Adds new parameters to the function.
 	 * Note: this does NOT check for name conflicts.
 	 */
 	def addParameter(Parameter... parameters) {

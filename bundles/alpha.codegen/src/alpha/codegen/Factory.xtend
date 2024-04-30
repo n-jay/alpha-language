@@ -33,7 +33,12 @@ class Factory {
 	}
 	
 	def static variableDecl(DataType dataType, String name) {
+		return variableDecl(false, dataType, name)
+	}
+	
+	def static variableDecl(boolean isStatic, DataType dataType, String name) {
 		val variableDecl = factory.createVariableDecl
+		variableDecl.isStatic = isStatic
 		variableDecl.dataType = dataType
 		variableDecl.name = name
 		return variableDecl
@@ -101,6 +106,14 @@ class Factory {
 		return stmt
 	}
 	
+	def static assignmentStmt(String left, String right) {
+		return assignmentStmt(left.customExpr, right.customExpr)
+	}
+	
+	def static assignmentStmt(String left, Expression right) {
+		return assignmentStmt(left.customExpr, right)
+	}
+	
 	def static assignmentStmt(Expression left, Expression right) {
 		return assignmentStmt(left, AssignmentOperator.STANDARD, right)
 	}
@@ -121,6 +134,14 @@ class Factory {
 	
 	def static customStmt(String stmt) {
 		return stmt.customExpr.expressionStmt
+	}
+	
+	def static callStmt(String functionName, String... arguments) {
+		return callExpr(functionName, arguments).expressionStmt
+	}
+	
+	def static callStmt(String functionName, Expression... arguments) {
+		return callExpr(functionName, arguments).expressionStmt
 	}
 
 
@@ -168,6 +189,25 @@ class Factory {
 		expr.functionName = functionName
 		expr.arguments.addAll(arguments)
 		return expr
+	}
+	
+	/**
+	 * Creates a call to which allocates the desired number of bytes,
+	 * then casts it as the appropriate data type.
+	 */
+	def static mallocCall(DataType dataType, Expression amount) {
+		// First, we need to call "sizeof" on the data type to know
+		// how large each element being allocated is.
+		val dataTypeExpr = customExpr(ProgramPrinter.print(dataType))
+		val sizeofCall = callExpr("sizeof", dataTypeExpr)
+		
+		// Next, we multiply that by the number of elements being allocated
+		// and pass that in to "malloc".
+		val bytesAllocated = binaryExpr(BinaryOperator.TIMES, sizeofCall, amount)
+		val mallocCall = callExpr("malloc", bytesAllocated)
+		
+		// Finally, cast it as the correct data type.
+		return castExpr(dataType, mallocCall)
 	}
 	
 	def static unaryExpr(UnaryOperator operator, Expression expression) {

@@ -59,6 +59,15 @@ public class ProgramBuilder {
   }
 
   /**
+   * Declares a new global variable.
+   * Note: this does NOT check for name conflicts.
+   */
+  public ProgramBuilder addGlobalVariable(final boolean isStatic, final DataType dataType, final String name) {
+    final VariableDecl decl = Factory.variableDecl(isStatic, dataType, name);
+    return this.addGlobalVariable(decl);
+  }
+
+  /**
    * Adds global variable declarations.
    * Note: this does NOT check for name conflicts.
    */

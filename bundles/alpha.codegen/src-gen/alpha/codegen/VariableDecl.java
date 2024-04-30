@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link alpha.codegen.VariableDecl#isIsStatic <em>Is Static</em>}</li>
  *   <li>{@link alpha.codegen.VariableDecl#getDataType <em>Data Type</em>}</li>
  *   <li>{@link alpha.codegen.VariableDecl#getName <em>Name</em>}</li>
  * </ul>
@@ -28,6 +29,31 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface VariableDecl extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Is Static</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * * Whether or not the variable is static.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Is Static</em>' attribute.
+	 * @see #setIsStatic(boolean)
+	 * @see alpha.codegen.CodegenPackage#getVariableDecl_IsStatic()
+	 * @model unique="false"
+	 * @generated
+	 */
+	boolean isIsStatic();
+
+	/**
+	 * Sets the value of the '{@link alpha.codegen.VariableDecl#isIsStatic <em>Is Static</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Is Static</em>' attribute.
+	 * @see #isIsStatic()
+	 * @generated
+	 */
+	void setIsStatic(boolean value);
+
 	/**
 	 * Returns the value of the '<em><b>Data Type</b></em>' reference.
 	 * <!-- begin-user-doc -->

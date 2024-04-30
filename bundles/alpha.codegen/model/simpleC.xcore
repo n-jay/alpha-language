@@ -85,6 +85,9 @@ class DataType {
  * Even though C allows assigning the variable immediately, we will not do that.
  */
 class VariableDecl {
+	/** Whether or not the variable is static. */
+	boolean isStatic
+	
 	/** The variable's data type. */
 	refers DataType dataType
 	

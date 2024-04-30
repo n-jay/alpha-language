@@ -57,6 +57,15 @@ class ProgramBuilder {
 	}
 	
 	/**
+	 * Declares a new global variable.
+	 * Note: this does NOT check for name conflicts.
+	 */
+	def addGlobalVariable(boolean isStatic, DataType dataType, String name) {
+		val decl = Factory.variableDecl(isStatic, dataType, name)
+		return addGlobalVariable(decl)
+	}
+	
+	/**
 	 * Adds global variable declarations.
 	 * Note: this does NOT check for name conflicts.
 	 */

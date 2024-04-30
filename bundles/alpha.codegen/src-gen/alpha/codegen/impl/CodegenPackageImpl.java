@@ -473,8 +473,17 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getVariableDecl_IsStatic() {
+		return (EAttribute)variableDeclEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getVariableDecl_DataType() {
-		return (EReference)variableDeclEClass.getEStructuralFeatures().get(0);
+		return (EReference)variableDeclEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -483,7 +492,7 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 	 * @generated
 	 */
 	public EAttribute getVariableDecl_Name() {
-		return (EAttribute)variableDeclEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)variableDeclEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1188,6 +1197,7 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 		createEAttribute(dataTypeEClass, DATA_TYPE__INDIRECTION_LEVEL);
 
 		variableDeclEClass = createEClass(VARIABLE_DECL);
+		createEAttribute(variableDeclEClass, VARIABLE_DECL__IS_STATIC);
 		createEReference(variableDeclEClass, VARIABLE_DECL__DATA_TYPE);
 		createEAttribute(variableDeclEClass, VARIABLE_DECL__NAME);
 
@@ -1362,6 +1372,7 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 		initEAttribute(getDataType_IndirectionLevel(), theEcorePackage.getEInt(), "indirectionLevel", null, 0, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(variableDeclEClass, VariableDecl.class, "VariableDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getVariableDecl_IsStatic(), theEcorePackage.getEBoolean(), "isStatic", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDecl_DataType(), this.getDataType(), null, "dataType", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVariableDecl_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VariableDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

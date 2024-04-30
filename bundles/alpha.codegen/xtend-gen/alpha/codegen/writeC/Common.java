@@ -2,7 +2,6 @@ package alpha.codegen.writeC;
 
 import alpha.codegen.BaseDataType;
 import alpha.codegen.BinaryOperator;
-import alpha.codegen.CommentStmt;
 import alpha.codegen.CustomExpr;
 import alpha.codegen.DataType;
 import alpha.codegen.Factory;
@@ -28,8 +27,8 @@ public class Common {
   /**
    * The default header comment for a program.
    */
-  public static CommentStmt defaultHeaderComments() {
-    return Factory.commentStmt("This code was auto-generated with AlphaZ.");
+  public static List<String> defaultHeaderComments() {
+    return Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("This code was auto-generated with AlphaZ."));
   }
 
   /**

@@ -23,7 +23,7 @@ class Common {
 	
 	/** The default header comment for a program. */
 	def static defaultHeaderComments() {
-		return commentStmt("This code was auto-generated with AlphaZ.")
+		return #["This code was auto-generated with AlphaZ."]
 	}
 	
 	/** The default "#include" directives for a program. */

@@ -37,7 +37,12 @@ public class Factory {
   }
 
   public static VariableDecl variableDecl(final DataType dataType, final String name) {
+    return Factory.variableDecl(false, dataType, name);
+  }
+
+  public static VariableDecl variableDecl(final boolean isStatic, final DataType dataType, final String name) {
     final VariableDecl variableDecl = Factory.factory.createVariableDecl();
+    variableDecl.setIsStatic(isStatic);
     variableDecl.setDataType(dataType);
     variableDecl.setName(name);
     return variableDecl;
@@ -95,6 +100,14 @@ public class Factory {
     return stmt;
   }
 
+  public static AssignmentStmt assignmentStmt(final String left, final String right) {
+    return Factory.assignmentStmt(Factory.customExpr(left), Factory.customExpr(right));
+  }
+
+  public static AssignmentStmt assignmentStmt(final String left, final Expression right) {
+    return Factory.assignmentStmt(Factory.customExpr(left), right);
+  }
+
   public static AssignmentStmt assignmentStmt(final Expression left, final Expression right) {
     return Factory.assignmentStmt(left, AssignmentOperator.STANDARD, right);
   }
@@ -115,6 +128,14 @@ public class Factory {
 
   public static ExpressionStmt customStmt(final String stmt) {
     return Factory.expressionStmt(Factory.customExpr(stmt));
+  }
+
+  public static ExpressionStmt callStmt(final String functionName, final String... arguments) {
+    return Factory.expressionStmt(Factory.callExpr(functionName, arguments));
+  }
+
+  public static ExpressionStmt callStmt(final String functionName, final Expression... arguments) {
+    return Factory.expressionStmt(Factory.callExpr(functionName, arguments));
   }
 
   public static CustomExpr customExpr(final String expression) {
@@ -162,6 +183,18 @@ public class Factory {
     expr.setFunctionName(functionName);
     CollectionExtensions.<Expression>addAll(expr.getArguments(), arguments);
     return expr;
+  }
+
+  /**
+   * Creates a call to which allocates the desired number of bytes,
+   * then casts it as the appropriate data type.
+   */
+  public static CastExpr mallocCall(final DataType dataType, final Expression amount) {
+    final CustomExpr dataTypeExpr = Factory.customExpr(ProgramPrinter.print(dataType));
+    final CallExpr sizeofCall = Factory.callExpr("sizeof", dataTypeExpr);
+    final BinaryExpr bytesAllocated = Factory.binaryExpr(BinaryOperator.TIMES, sizeofCall, amount);
+    final CallExpr mallocCall = Factory.callExpr("malloc", bytesAllocated);
+    return Factory.castExpr(dataType, mallocCall);
   }
 
   public static UnaryExpr unaryExpr(final UnaryOperator operator, final Expression expression) {
