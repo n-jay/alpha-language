@@ -6,6 +6,9 @@ package alpha.model
 
 import alpha.model.exception.CyclicDefinitionException
 import alpha.model.util.AlphaUtil
+import alpha.model.util.Face
+import alpha.model.util.FaceLattice
+import alpha.model.util.Show
 import fr.irisa.cairn.jnimap.isl.ISL_FORMAT
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
@@ -30,6 +33,8 @@ type ISL_FORMAT wraps ISL_FORMAT
 type ListVariableExpression wraps List<VariableExpression> 
 type IntegerQueue wraps Queue<Integer>
 type String wraps String
+type Face wraps Face
+type FaceLattice wraps FaceLattice
 type int wraps Integer
 type float wraps Float
 type double wraps Double
@@ -527,6 +532,8 @@ class SystemBody extends AlphaNode, AlphaVisitable, AlphaSystemElement {
 abstract class Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement, AlphaScheduleTarget {
 	container SystemBody systemBody opposite equations
 	
+	boolean z__explored
+	
 	op AlphaExpression getExpression(IntegerQueue exprID) {
 		val next = exprID.poll;
 		
@@ -541,6 +548,21 @@ abstract class Equation extends AlphaNode, AlphaVisitable, AlphaSystemElement, A
 	op AlphaExpression getExpression(String exprIDstr) {
 		getExpression(new LinkedList(AlphaUtil.parseIntArray(exprIDstr)))
 	}
+	
+	op boolean getExplored() {
+		if (z__explored === null)
+			return false
+		return z__explored
+	}
+	
+	op void setExplored() {
+		this.z__explored = true
+	}
+	
+	op void setExplored(boolean explored) {
+		this.z__explored = explored
+	}
+	
 }
 
 class StandardEquation extends Equation {
@@ -656,6 +678,10 @@ abstract class AlphaExpression extends AlphaNode, AlphaExpressionVisitable {
 		
 		return AlphaUtil.renameIndices(dom)
 	}
+	
+	op String toString() {
+		return Show.print(this)
+	}
 }
 
 class RestrictExpression extends AlphaExpression {
@@ -770,6 +796,8 @@ abstract class AbstractReduceExpression extends AlphaExpression {
 	REDUCTION_OP operator
 	contains JNIFunction projectionExpr
 	contains AlphaExpression body
+	Face z__internal_facet
+	int nbFreeDimensionsInBody
 	
 	op JNIISLMultiAff getProjection() {
 		if (projectionExpr.^type != POLY_OBJECT_TYPE.FUNCTION ) null
@@ -779,6 +807,9 @@ abstract class AbstractReduceExpression extends AlphaExpression {
 	op void accept(AlphaExpressionVisitor visitor) {
 		visitor.visitAbstractReduceExpression(this)
 	}
+	
+	op Face getFacet() { if (z__internal_facet === null) FaceLattice.create(body.contextDomain).root else z__internal_facet }
+	op void setFacet(Face face) { z__internal_facet = facet }
 }
 class ReduceExpression extends AbstractReduceExpression {
 	

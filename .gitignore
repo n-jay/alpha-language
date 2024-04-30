@@ -37,3 +37,5 @@ workspace/
 */alpha.model.tests/src/alpha/model/tests/Driver*
 */alpha.targetmapping.tests/src/alpha/targetmapping/tests/Driver*
 
+# git specific
+**/.gitignore

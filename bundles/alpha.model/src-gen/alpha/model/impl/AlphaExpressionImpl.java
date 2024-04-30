@@ -7,6 +7,7 @@ import alpha.model.AlphaExpressionVisitor;
 import alpha.model.ModelPackage;
 
 import alpha.model.util.AlphaUtil;
+import alpha.model.util.Show;
 
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 
@@ -103,7 +104,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ISLSet getZ__internal_cache_exprDom() {
 		return z__internal_cache_exprDom;
 	}
@@ -113,7 +113,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setZ__internal_cache_exprDom(ISLSet newZ__internal_cache_exprDom) {
 		ISLSet oldZ__internal_cache_exprDom = z__internal_cache_exprDom;
 		z__internal_cache_exprDom = newZ__internal_cache_exprDom;
@@ -126,7 +125,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ISLSet getZ__internal_cache_contextDom() {
 		return z__internal_cache_contextDom;
 	}
@@ -136,7 +134,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setZ__internal_cache_contextDom(ISLSet newZ__internal_cache_contextDom) {
 		ISLSet oldZ__internal_cache_contextDom = z__internal_cache_contextDom;
 		z__internal_cache_contextDom = newZ__internal_cache_contextDom;
@@ -149,7 +146,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Integer> getExpressionID() {
 		BasicEList<Integer> _xifexpression = null;
 		EObject _eContainer = this.eContainer();
@@ -171,7 +167,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setExpressionDomain(final ISLSet dom) {
 		this.setZ__internal_cache_exprDom(this.ensureDomainIsNamed(dom.coalesce()));
 	}
@@ -181,7 +176,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ISLSet getExpressionDomain() {
 		ISLSet _xifexpression = null;
 		ISLSet _z__internal_cache_exprDom = this.getZ__internal_cache_exprDom();
@@ -200,7 +194,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setContextDomain(final ISLSet dom) {
 		this.setZ__internal_cache_contextDom(this.ensureDomainIsNamed(dom.coalesce()));
 	}
@@ -210,7 +203,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ISLSet getContextDomain() {
 		ISLSet _xifexpression = null;
 		ISLSet _z__internal_cache_contextDom = this.getZ__internal_cache_contextDom();
@@ -229,7 +221,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AlphaExpression getExpression(final Queue<Integer> exprID) {
 		AlphaExpression _xblockexpression = null;
 		{
@@ -252,7 +243,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ISLSet ensureDomainIsNamed(final ISLSet dom) {
 		final List<String> indexNames = dom.getIndexNames();
 		final int indexCount = dom.getNbIndices();
@@ -267,7 +257,15 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	public String toString() {
+		return Show.<AlphaExpression>print(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public void accept(AlphaExpressionVisitor visitor) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -344,24 +342,6 @@ public abstract class AlphaExpressionImpl extends AlphaNodeImpl implements Alpha
 				return !getExpressionID().isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (z__internal_cache_exprDom: ");
-		result.append(z__internal_cache_exprDom);
-		result.append(", z__internal_cache_contextDom: ");
-		result.append(z__internal_cache_contextDom);
-		result.append(')');
-		return result.toString();
 	}
 
 } //AlphaExpressionImpl
