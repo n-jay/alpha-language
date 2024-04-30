@@ -150,6 +150,11 @@ class Factory {
 		return expr
 	}
 	
+	/** Creates a tree of binary expressions which use the same operator. */
+	static def binaryExprTree(BinaryOperator operator, Expression... exprs) {
+		return exprs.tail.fold(exprs.head, [left, right | binaryExpr(operator, left, right)]) 
+	}
+	
 	def static binaryExpr(BinaryOperator operator, Expression left, Expression right) {
 		val expr = factory.createBinaryExpr
 		expr.operator = operator

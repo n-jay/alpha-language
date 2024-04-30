@@ -2,6 +2,8 @@ package alpha.codegen;
 
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Functions.Function2;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class Factory {
@@ -132,6 +134,16 @@ public class Factory {
     expr.setOperator(operator);
     expr.setExpression(expression);
     return expr;
+  }
+
+  /**
+   * Creates a tree of binary expressions which use the same operator.
+   */
+  public static Expression binaryExprTree(final BinaryOperator operator, final Expression... exprs) {
+    final Function2<Expression, Expression, Expression> _function = (Expression left, Expression right) -> {
+      return Factory.binaryExpr(operator, left, right);
+    };
+    return IterableExtensions.<Expression, Expression>fold(IterableExtensions.<Expression>tail(((Iterable<Expression>)Conversions.doWrapArray(exprs))), IterableExtensions.<Expression>head(((Iterable<Expression>)Conversions.doWrapArray(exprs))), _function);
   }
 
   public static BinaryExpr binaryExpr(final BinaryOperator operator, final Expression left, final Expression right) {
