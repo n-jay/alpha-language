@@ -63,6 +63,12 @@ public class SystemConverter {
   private int nextStatementId = 0;
 
   /**
+   * Flag to indicate that the C code being output should be compatible
+   * with the wrapper produced by the older AlphaZ.
+   */
+  protected final boolean oldAlphaZCompatible;
+
+  /**
    * The instance of the program builder.
    */
   protected final ProgramBuilder program;
@@ -75,8 +81,9 @@ public class SystemConverter {
   /**
    * Protected constructor.
    */
-  protected SystemConverter(final AlphaSystem system) {
+  protected SystemConverter(final AlphaSystem system, final boolean oldAlphaZCompatible) {
     this.allocatedVariables = CollectionLiterals.<String>newArrayList();
+    this.oldAlphaZCompatible = oldAlphaZCompatible;
     this.program = ProgramBuilder.start();
     this.system = system;
   }
@@ -86,7 +93,25 @@ public class SystemConverter {
    * Only supports systems with a single body.
    */
   public static Program convert(final AlphaSystem system) {
-    return new SystemConverter(system).convertSystem();
+    return SystemConverter.convert(system, false);
+  }
+
+  /**
+   * Converts an Alpha system to the simplified C AST.
+   * Only supports systems with a single body.
+   * 
+   * If requested, the code produced will aim for compatibility with
+   * the older version of AlphaZ (although with no guarantees).
+   * This means that the inputs to the entry point will assume
+   * that memory for the system's inputs and outputs were allocated
+   * via the bounding box method, as opposed to linearized memory.
+   * 
+   * Note: since the newer Alpha language doesn't have typing,
+   * all indices are assumed to be of type "long",
+   * and all data values are of type "float".
+   */
+  public static Program convert(final AlphaSystem system, final boolean oldAlphaZCompatible) {
+    return new SystemConverter(system, oldAlphaZCompatible).convertSystem();
   }
 
   /**
@@ -141,7 +166,11 @@ public class SystemConverter {
     ProgramBuilder _xblockexpression = null;
     {
       final ISLPWQPolynomial rank = MemoryUtils.rank(variable.getDomain());
-      this.prepareVariable(variable, rank, false);
+      if ((this.oldAlphaZCompatible && ((variable.isInput()).booleanValue() || (variable.isOutput()).booleanValue()))) {
+        this.prepareOldAlphaZCompatibleVariable(variable);
+      } else {
+        this.prepareVariable(variable, rank, false);
+      }
       ProgramBuilder _xifexpression = null;
       Boolean _isInput = variable.isInput();
       boolean _not = (!(_isInput).booleanValue());
@@ -179,6 +208,29 @@ public class SystemConverter {
       final ParenthesizedExpr accessExpression = PolynomialConverter.convert(rank);
       final ArrayAccessExpr macroReplacement = Factory.arrayAccessExpr(name, accessExpression);
       final MacroStmt macro = Factory.macroStmt(name, ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), macroReplacement);
+      _xblockexpression = this.program.addMemoryMacro(macro);
+    }
+    return _xblockexpression;
+  }
+
+  /**
+   * Declares a new global variable for an Alpha input or output variable
+   * and creates its memory macro.
+   * 
+   * Note: this is ONLY intended for compatibility with the older version
+   * of AlphaZ, where memory is allocated as a multi-dimensional bounding
+   * box for the variable in question. This may result in negative indexing,
+   * which does not work correctly.
+   */
+  protected ProgramBuilder prepareOldAlphaZCompatibleVariable(final Variable variable) {
+    ProgramBuilder _xblockexpression = null;
+    {
+      final String name = variable.getName();
+      final DataType type = Common.alphaVariableType();
+      type.setIndirectionLevel(variable.getDomain().getNbIndices());
+      this.program.addGlobalVariable(true, type, name);
+      final ArrayAccessExpr arrayAccess = Factory.arrayAccessExpr(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)));
+      final MacroStmt macro = Factory.macroStmt(name, ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), arrayAccess);
       _xblockexpression = this.program.addMemoryMacro(macro);
     }
     return _xblockexpression;

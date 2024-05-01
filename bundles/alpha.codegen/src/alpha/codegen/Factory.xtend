@@ -190,6 +190,11 @@ class Factory {
 		return expr
 	}
 	
+	/** Indexes an array using custom expressions for the indices. */
+	def static arrayAccessExpr(String variableName, String... indexExpressions) {
+		return arrayAccessExpr(variableName, indexExpressions.map[customExpr])
+	}
+	
 	def static arrayAccessExpr(String variableName, Expression... indexExpressions) {
 		val expr = factory.createArrayAccessExpr
 		expr.variableName = variableName

@@ -185,6 +185,16 @@ public class Factory {
     return expr;
   }
 
+  /**
+   * Indexes an array using custom expressions for the indices.
+   */
+  public static ArrayAccessExpr arrayAccessExpr(final String variableName, final String... indexExpressions) {
+    final Function1<String, CustomExpr> _function = (String it) -> {
+      return Factory.customExpr(it);
+    };
+    return Factory.arrayAccessExpr(variableName, ((Expression[])Conversions.unwrapArray(ListExtensions.<String, CustomExpr>map(((List<String>)Conversions.doWrapArray(indexExpressions)), _function), Expression.class)));
+  }
+
   public static ArrayAccessExpr arrayAccessExpr(final String variableName, final Expression... indexExpressions) {
     final ArrayAccessExpr expr = Factory.factory.createArrayAccessExpr();
     expr.setVariableName(variableName);

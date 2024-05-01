@@ -36,6 +36,12 @@ class SystemConverter {
 	 */
 	var nextStatementId = 0
 	
+	/**
+	 * Flag to indicate that the C code being output should be compatible
+	 * with the wrapper produced by the older AlphaZ.
+	 */
+	protected val boolean oldAlphaZCompatible
+	
 	/** The instance of the program builder. */
 	protected val ProgramBuilder program
 	
@@ -43,9 +49,10 @@ class SystemConverter {
 	protected val AlphaSystem system
 	
 	/** Protected constructor. */
-	protected new(AlphaSystem system) {
-		allocatedVariables = newArrayList
-		program = ProgramBuilder.start
+	protected new(AlphaSystem system, boolean oldAlphaZCompatible) {
+		this.allocatedVariables = newArrayList
+		this.oldAlphaZCompatible = oldAlphaZCompatible
+		this.program = ProgramBuilder.start
 		this.system = system
 	}
 	
@@ -54,7 +61,25 @@ class SystemConverter {
 	 * Only supports systems with a single body.
 	 */
 	def static convert(AlphaSystem system) {
-		return (new SystemConverter(system)).convertSystem
+		return convert(system, false)
+	}
+	
+	/**
+	 * Converts an Alpha system to the simplified C AST.
+	 * Only supports systems with a single body.
+	 * 
+	 * If requested, the code produced will aim for compatibility with
+	 * the older version of AlphaZ (although with no guarantees).
+	 * This means that the inputs to the entry point will assume
+	 * that memory for the system's inputs and outputs were allocated
+	 * via the bounding box method, as opposed to linearized memory.
+	 * 
+	 * Note: since the newer Alpha language doesn't have typing,
+	 * all indices are assumed to be of type "long",
+	 * and all data values are of type "float".
+	 */
+	def static convert(AlphaSystem system, boolean oldAlphaZCompatible) {
+		return (new SystemConverter(system, oldAlphaZCompatible)).convertSystem
 	}
 	
 	/**
@@ -119,10 +144,17 @@ class SystemConverter {
 		// so we compute it with ISL once, but convert that to an expression twice.
 		val rank = MemoryUtils.rank(variable.domain)
 		
-		// We always declare the variable itself (and its memory macros),
-		// but we only need the flags variable if this is not an input,
-		// as inputs have already been computed.
-		prepareVariable(variable, rank, false)
+		// We always declare the variable itself (and its memory macro).
+		// However, if we need to be compatible with the older AlphaZ
+		// and this is an input or output variable, the declarations are different.
+		if (oldAlphaZCompatible && (variable.isInput || variable.isOutput)) {
+			prepareOldAlphaZCompatibleVariable(variable)
+		} else {
+			prepareVariable(variable, rank, false)
+		}
+		
+		// Non-input variables (i.e., locals or outputs) need to have flag variables
+		// be created as well. We don't need to worry about compatibility here, though. 
 		if (!variable.isInput) {
 			prepareVariable(variable, rank, true)
 		}
@@ -143,6 +175,38 @@ class SystemConverter {
 		val accessExpression = PolynomialConverter.convert(rank)
 		val macroReplacement = Factory.arrayAccessExpr(name, accessExpression)
 		val macro = Factory.macroStmt(name, variable.domain.indexNames, macroReplacement)
+		program.addMemoryMacro(macro)
+	}
+	
+	/**
+	 * Declares a new global variable for an Alpha input or output variable
+	 * and creates its memory macro.
+	 * 
+	 * Note: this is ONLY intended for compatibility with the older version
+	 * of AlphaZ, where memory is allocated as a multi-dimensional bounding
+	 * box for the variable in question. This may result in negative indexing,
+	 * which does not work correctly.
+	 */
+	def protected prepareOldAlphaZCompatibleVariable(Variable variable) {
+		// Declare a new global variable.
+		val name = variable.name
+		val type = Common.alphaVariableType
+		
+		// The common Alpha variable type assumes linarized memory,
+		// meaning it's always an array.
+		// However, this was not necessarily the case in the C code produced
+		// by the older AlphaZ, where the level of indirection equaled the number
+		// of indices of the variable.
+		// Fix this for compatibility.
+		type.indirectionLevel = variable.domain.nbIndices
+		
+		program.addGlobalVariable(true, type, name)
+		
+		// Construct a memory macro for accessing the variable.
+		// Since it's a multi-dimensional bounding box,
+		// simply index by the indices in order.
+		val arrayAccess = Factory.arrayAccessExpr(variable.name, variable.domain.indexNames)
+		val macro = Factory.macroStmt(name, variable.domain.indexNames, arrayAccess)
 		program.addMemoryMacro(macro)
 	}
 	
