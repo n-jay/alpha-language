@@ -99,9 +99,8 @@ class SystemConverter {
 		}
 		val equations = systemBody.equations.map[it as StandardEquation]
 		
-		// Start a new program builder, then add the defaults to it.
-		val program = ProgramBuilder.start
-			.addHeaderComment(Common.defaultHeaderComments)
+		// Add the defaults to the program being built.
+		program.addHeaderComment(Common.defaultHeaderComments)
 			.addInclude(Common.defaultIncludes)
 			.addFunctionMacro(Common.defaultFunctionMacros)
 		
@@ -110,7 +109,10 @@ class SystemConverter {
 		system.variables.forEach[prepareAlphaVariable]
 		
 		// Create all the necessary "eval" functions.
-		equations.forEach[createEvalFunction]
+//		equations.forEach[createEvalFunction]
+		for (eq : equations) {
+			eq.createEvalFunction
+		}
 		
 		// Create the entry point of the program, then return the final program instance.
 		val entryPoint = FunctionBuilder

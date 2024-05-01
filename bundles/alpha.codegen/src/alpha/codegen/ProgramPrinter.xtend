@@ -107,7 +107,7 @@ class ProgramPrinter {
 	'''
 	
 	def static printSignature(Function function)
-		'''«function.printInline»«function.returnType.print»«function.name»(«function.printParameters»)'''
+		'''«function.printInline»«function.returnType.print» «function.name»(«function.printParameters»)'''
 	
 	def static printInline(Function function) {
 		if (function.isInline) {
@@ -239,7 +239,7 @@ class ProgramPrinter {
 		'''(«expr.dataType.print»)(«expr.expression.printExpr»)'''
 		
 	def static dispatch CharSequence printExpr(ArrayAccessExpr expr)
-		'''«expr.variableName»«FOR index : expr.indexExpressions»[«expr.printExpr»]«ENDFOR»'''
+		'''«expr.variableName»«FOR index : expr.indexExpressions»[«index.printExpr»]«ENDFOR»'''
 	
 	def static dispatch CharSequence printExpr(CallExpr expr)
 		'''«expr.functionName»(«expr.arguments.map[printExpr].join(',')»)'''

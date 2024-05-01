@@ -239,6 +239,7 @@ public class ProgramPrinter {
     _builder.append(_printInline);
     String _print = ProgramPrinter.print(function.getReturnType());
     _builder.append(_print);
+    _builder.append(" ");
     String _name = function.getName();
     _builder.append(_name);
     _builder.append("(");
@@ -567,7 +568,7 @@ public class ProgramPrinter {
       EList<Expression> _indexExpressions = expr.getIndexExpressions();
       for(final Expression index : _indexExpressions) {
         _builder.append("[");
-        CharSequence _printExpr = ProgramPrinter.printExpr(expr);
+        CharSequence _printExpr = ProgramPrinter.printExpr(index);
         _builder.append(_printExpr);
         _builder.append("]");
       }

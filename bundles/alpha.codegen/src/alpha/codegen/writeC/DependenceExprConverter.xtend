@@ -20,7 +20,7 @@ import alpha.model.VariableExpression
 class DependenceExprConverter {
 	/** Dispatches the conversion of a dependence expression based on the child expression. */
 	def static Expression convertExpr(ProgramBuilder program, DependenceExpression expr) {
-		
+		return convertExpr(program, expr, expr.expr)
 	}
 	
 	/** If the child is a constant, then simply emit that constant. */

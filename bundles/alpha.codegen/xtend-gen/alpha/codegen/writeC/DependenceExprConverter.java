@@ -28,7 +28,7 @@ public class DependenceExprConverter {
    * Dispatches the conversion of a dependence expression based on the child expression.
    */
   public static Expression convertExpr(final ProgramBuilder program, final DependenceExpression expr) {
-    return null;
+    return DependenceExprConverter.convertExpr(program, expr, expr.getExpr());
   }
 
   /**

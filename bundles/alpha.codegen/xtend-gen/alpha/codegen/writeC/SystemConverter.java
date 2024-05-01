@@ -139,22 +139,21 @@ public class SystemConverter {
       return ((StandardEquation) it);
     };
     final List<StandardEquation> equations = ListExtensions.<Equation, StandardEquation>map(systemBody.getEquations(), _function_1);
-    final ProgramBuilder program = ProgramBuilder.start().addHeaderComment(((String[])Conversions.unwrapArray(Common.defaultHeaderComments(), String.class))).addInclude(((Include[])Conversions.unwrapArray(Common.defaultIncludes(), Include.class))).addFunctionMacro(((MacroStmt[])Conversions.unwrapArray(Common.defaultFunctionMacros(), MacroStmt.class)));
+    this.program.addHeaderComment(((String[])Conversions.unwrapArray(Common.defaultHeaderComments(), String.class))).addInclude(((Include[])Conversions.unwrapArray(Common.defaultIncludes(), Include.class))).addFunctionMacro(((MacroStmt[])Conversions.unwrapArray(Common.defaultFunctionMacros(), MacroStmt.class)));
     final Consumer<String> _function_2 = (String it) -> {
-      program.addGlobalVariable(true, Common.alphaIndexType(), it);
+      this.program.addGlobalVariable(true, Common.alphaIndexType(), it);
     };
     this.system.getParameterDomain().getParamNames().forEach(_function_2);
     final Consumer<Variable> _function_3 = (Variable it) -> {
       this.prepareAlphaVariable(it);
     };
     this.system.getVariables().forEach(_function_3);
-    final Consumer<StandardEquation> _function_4 = (StandardEquation it) -> {
-      this.createEvalFunction(it);
-    };
-    equations.forEach(_function_4);
+    for (final StandardEquation eq : equations) {
+      this.createEvalFunction(eq);
+    }
     final Function entryPoint = this.freeAllocatedVariables(this.evaluateOutputs(this.allocateMemory(this.checkParameters(this.prepareEntryArguments(FunctionBuilder.start(BaseDataType.VOID, this.system.getName())))))).getInstance();
-    program.addFunction(entryPoint);
-    return program.getInstance();
+    this.program.addFunction(entryPoint);
+    return this.program.getInstance();
   }
 
   /**
