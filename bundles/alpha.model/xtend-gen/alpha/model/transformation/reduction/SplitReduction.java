@@ -5,13 +5,16 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaInternalStateConstructor;
 import alpha.model.CaseExpression;
 import alpha.model.DependenceExpression;
+import alpha.model.Equation;
 import alpha.model.RestrictExpression;
+import alpha.model.StandardEquation;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.matrix.MatrixOperations;
 import alpha.model.transformation.Normalize;
 import alpha.model.util.AffineFunctionOperations;
 import alpha.model.util.AlphaUtil;
 import alpha.model.util.Face;
+import com.google.common.collect.Iterables;
 import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLConstraint;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
@@ -41,12 +44,14 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  * 1) "covered" (d-2)-faces:
  *    Given an input reduce expression with a d-dimensional body, we need
  *    to compute the (d-2)-dimensional (d-2)-faces of the body that are
- *    covered per definition 4.8.
+ *    covered per definition 4.8 in the max simplification paper.
  * 
  *    Making splits thru covered (d-2)-faces is an optimization. The usefulness
  *    of such splits is that it will result in two non-empty pieces. We could
  *    simply try making splits thru all of (d-2)-faces and only keep the ones
  *    that result in two non-empty pieces.
+ * 
+ *    Detecting covered edges is not currently implemented.
  * 
  * 2) Given a reduction with a 1D REUSE space and a (d-2)-face of the reduction
  *    body, we need to construct a new constraint that saturates the (d-2)-face
@@ -133,6 +138,24 @@ public class SplitReduction {
    * should result in the existence of valid splits at some point in the exploration.
    */
   public static ISLConstraint[] enumerateCandidateSplits(final AbstractReduceExpression are) {
+    if (SplitReduction.DEBUG) {
+      final Equation eq = AlphaUtil.getContainerEquation(are);
+      StandardEquation _xifexpression = null;
+      if ((eq instanceof StandardEquation)) {
+        _xifexpression = ((StandardEquation) eq);
+      } else {
+        _xifexpression = null;
+      }
+      final StandardEquation stdEq = _xifexpression;
+      String _xifexpression_1 = null;
+      if ((stdEq != null)) {
+        _xifexpression_1 = stdEq.getVariable().getName();
+      } else {
+        _xifexpression_1 = (("" + ": ") + are);
+      }
+      String _plus = ("enumerating splits for Equation " + _xifexpression_1);
+      SplitReduction.debug(_plus);
+    }
     final ArrayList<ISLConstraint> splits = CollectionLiterals.<ISLConstraint>newArrayList();
     final Face bodyFace = are.getFacet();
     final ISLBasicSet bodyDomain = bodyFace.toBasicSet();
@@ -143,35 +166,41 @@ public class SplitReduction {
     final List<ISLBasicSet> faces = ListExtensions.<Face, ISLBasicSet>map(bodyFace.getLattice().getFaces((bodyDim - 2)), _function);
     final ISLMultiAff accVec = SplitReduction.construct1DBasis(are.getProjection());
     if ((accVec != null)) {
-      final Consumer<ISLBasicSet> _function_1 = (ISLBasicSet f) -> {
-        splits.add(SplitReduction.constructSplit(f.copy(), accVec));
+      final Function1<ISLBasicSet, ISLConstraint> _function_1 = (ISLBasicSet it) -> {
+        return SplitReduction.constructSplit(it.copy(), accVec);
       };
-      faces.forEach(_function_1);
+      final Function1<ISLConstraint, Boolean> _function_2 = (ISLConstraint s) -> {
+        return Boolean.valueOf((s != null));
+      };
+      Iterables.<ISLConstraint>addAll(splits, IterableExtensions.<ISLConstraint>filter(ListExtensions.<ISLBasicSet, ISLConstraint>map(faces, _function_1), _function_2));
     }
     final ISLMultiAff reuseMaff = SplitReduction.getReuseMaff(are.getBody());
-    ISLMultiAff _xifexpression = null;
+    ISLMultiAff _xifexpression_2 = null;
     if ((reuseMaff != null)) {
-      _xifexpression = SplitReduction.construct1DBasis(reuseMaff);
+      _xifexpression_2 = SplitReduction.construct1DBasis(reuseMaff);
     } else {
-      _xifexpression = null;
+      _xifexpression_2 = null;
     }
-    final ISLMultiAff reuseVec = _xifexpression;
+    final ISLMultiAff reuseVec = _xifexpression_2;
     if ((reuseVec != null)) {
-      final Consumer<ISLBasicSet> _function_2 = (ISLBasicSet f) -> {
-        splits.add(SplitReduction.constructSplit(f.copy(), reuseVec));
+      final Function1<ISLBasicSet, ISLConstraint> _function_3 = (ISLBasicSet it) -> {
+        return SplitReduction.constructSplit(it.copy(), reuseVec);
       };
-      faces.forEach(_function_2);
+      final Function1<ISLConstraint, Boolean> _function_4 = (ISLConstraint s) -> {
+        return Boolean.valueOf((s != null));
+      };
+      Iterables.<ISLConstraint>addAll(splits, IterableExtensions.<ISLConstraint>filter(ListExtensions.<ISLBasicSet, ISLConstraint>map(faces, _function_3), _function_4));
     }
-    final Function1<ISLConstraint, Boolean> _function_3 = (ISLConstraint s) -> {
+    final Function1<ISLConstraint, Boolean> _function_5 = (ISLConstraint s) -> {
       return Boolean.valueOf(SplitReduction.isUseful(s, bodyDomain));
     };
-    final Iterable<ISLConstraint> usefulSplits = IterableExtensions.<ISLConstraint>filter(splits, _function_3);
-    final Consumer<ISLConstraint> _function_4 = (ISLConstraint s) -> {
+    final Iterable<ISLConstraint> usefulSplits = IterableExtensions.<ISLConstraint>filter(splits, _function_5);
+    final Consumer<ISLConstraint> _function_6 = (ISLConstraint s) -> {
       String _string = s.toString();
-      String _plus = ("(enumerateCandidateSplits) " + _string);
-      SplitReduction.debug(_plus);
+      String _plus_1 = ("(enumerateCandidateSplits) " + _string);
+      SplitReduction.debug(_plus_1);
     };
-    usefulSplits.forEach(_function_4);
+    usefulSplits.forEach(_function_6);
     return ((ISLConstraint[])Conversions.unwrapArray(usefulSplits, ISLConstraint.class));
   }
 
@@ -189,12 +218,12 @@ public class SplitReduction {
    * the transitive closure of vec's ISLMap representation. The extended set is
    * guaranteed to have a single equality constraint by construction.
    */
-  private static ISLConstraint constructSplit(final ISLBasicSet set, final ISLMultiAff vec) {
+  private static ISLConstraint constructSplit(final ISLBasicSet edge, final ISLMultiAff vec) {
     try {
       ISLConstraint _xblockexpression = null;
       {
-        final int nbOut = set.dim(ISLDimType.isl_dim_out);
-        final ISLBasicSet setNoParams = set.dropConstraintsNotInvolvingDims(ISLDimType.isl_dim_out, 0, set.dim(ISLDimType.isl_dim_out));
+        final int nbOut = edge.dim(ISLDimType.isl_dim_out);
+        final ISLBasicSet setNoParams = edge.copy().dropConstraintsNotInvolvingDims(ISLDimType.isl_dim_out, 0, edge.dim(ISLDimType.isl_dim_out));
         JNIPtrBoolean exact = new JNIPtrBoolean();
         final ISLMap map = vec.copy().toMap().transitiveClosure(exact);
         if ((!exact.value)) {
@@ -216,7 +245,7 @@ public class SplitReduction {
         int _size = IterableExtensions.size(eqConstraints);
         boolean _notEquals_1 = (_size != 1);
         if (_notEquals_1) {
-          throw new Exception("splitting hyperplane should have a single equality constraint");
+          return null;
         }
         final ISLConstraint splitConstraint = ((ISLConstraint[])Conversions.unwrapArray(eqConstraints, ISLConstraint.class))[0];
         _xblockexpression = splitConstraint;

@@ -20,6 +20,8 @@ import static alpha.model.util.AlphaUtil.*
 import static extension alpha.model.matrix.MatrixOperations.*
 import static extension alpha.model.util.AffineFunctionOperations.*
 import static extension alpha.model.util.AlphaUtil.copyAE
+import static extension alpha.model.util.AlphaUtil.getContainerEquation
+import alpha.model.StandardEquation
 
 /**
  * This class carries out the analysis required for splitting from the max 
@@ -29,12 +31,14 @@ import static extension alpha.model.util.AlphaUtil.copyAE
  * 1) "covered" (d-2)-faces:
  *    Given an input reduce expression with a d-dimensional body, we need 
  *    to compute the (d-2)-dimensional (d-2)-faces of the body that are 
- *    covered per definition 4.8.
+ *    covered per definition 4.8 in the max simplification paper.
  * 
  *    Making splits thru covered (d-2)-faces is an optimization. The usefulness
  *    of such splits is that it will result in two non-empty pieces. We could
  *    simply try making splits thru all of (d-2)-faces and only keep the ones
  *    that result in two non-empty pieces. 
+ * 
+ *    Detecting covered edges is not currently implemented.
  * 
  * 2) Given a reduction with a 1D REUSE space and a (d-2)-face of the reduction 
  *    body, we need to construct a new constraint that saturates the (d-2)-face 
@@ -116,6 +120,12 @@ class SplitReduction {
 	 */
 	static def ISLConstraint[] enumerateCandidateSplits(AbstractReduceExpression are) {
 		
+		if (DEBUG) { 		
+			val eq = are.getContainerEquation
+			val stdEq = if (eq instanceof StandardEquation) eq as StandardEquation else null
+			debug('enumerating splits for Equation ' + if (stdEq !== null) stdEq.variable.name else '' + ': ' + are)
+		}
+		
 		val splits = newArrayList
 		
 		val bodyFace = are.facet
@@ -126,13 +136,13 @@ class SplitReduction {
 		// construct splits that saturate the accumulation space
 		val accVec = are.projection.construct1DBasis
 		if (accVec !== null)
-			faces.forEach[f | splits.add(f.copy.constructSplit(accVec))]
+			splits.addAll(faces.map[copy.constructSplit(accVec)].filter[s | s !== null])
 		
 		// construct splits that saturate the reuse space
 		val reuseMaff = are.body.getReuseMaff
 		val reuseVec = if (reuseMaff !== null) reuseMaff.construct1DBasis else null
 		if (reuseVec !== null)
-			faces.forEach[f | splits.add(f.copy.constructSplit(reuseVec))]
+			splits.addAll(faces.map[copy.constructSplit(reuseVec)].filter[s | s !== null])
 		
 		// remove the splits that don't separate the reduction body into two pieces
 		val usefulSplits = splits.filter[s | s.isUseful(bodyDomain)]
@@ -155,9 +165,9 @@ class SplitReduction {
 	 * the transitive closure of vec's ISLMap representation. The extended set is 
 	 * guaranteed to have a single equality constraint by construction.
 	 */
-	private static def ISLConstraint constructSplit(ISLBasicSet set, ISLMultiAff vec) {
-		val nbOut = set.dim(ISLDimType.isl_dim_out)
-		val setNoParams = set.dropConstraintsNotInvolvingDims(ISLDimType.isl_dim_out, 0, set.dim(ISLDimType.isl_dim_out))
+	private static def ISLConstraint constructSplit(ISLBasicSet edge, ISLMultiAff vec) {
+		val nbOut = edge.dim(ISLDimType.isl_dim_out)
+		val setNoParams = edge.copy.dropConstraintsNotInvolvingDims(ISLDimType.isl_dim_out, 0, edge.dim(ISLDimType.isl_dim_out))
 		
 		var exact = new JNIPtrBoolean
 		val map = vec.copy.toMap.transitiveClosure(exact)
@@ -171,8 +181,21 @@ class SplitReduction {
 		val eqConstraints = hyperplane.constraints
 			.filter[isEquality]
 			.filter[involvesDims(ISLDimType.isl_dim_out, 0, nbOut)]
-		if (eqConstraints.size != 1)
-			throw new Exception('splitting hyperplane should have a single equality constraint')
+		if (eqConstraints.size != 1) {
+			/* 
+			 * If execution reaches here, then the space spanned by vec saturates the edge.
+			 * For example, imagine we have a 1D edge in Z^3 corresponding to the k-axis. 
+			 *  - extending this edge by <1,0,0> (along i) results in a 2D hyperplane (i.e., ik-plane) 
+			 *  - extending this edge by <0,0,1> (along k) results in the same 1D edge
+			 * 
+			 * We can detect when this happens by counting the number of equality constraints in
+			 * the generated hyperplane. This is an instance of an uncovered edge. Ideally, we 
+			 * will only use covered (per definition 4.8) edges to construct splits. But the 
+			 * current implementation simply tries to construct splits from all edges, ignoring
+			 * the ones that don't have any meaning, such as these. 
+			 */
+			return null
+		}
 		
 		val splitConstraint = eqConstraints.get(0)
 		splitConstraint
