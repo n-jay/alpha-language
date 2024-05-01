@@ -12,6 +12,7 @@ import alpha.model.SystemBody;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.ISLFactory;
@@ -32,6 +33,7 @@ import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -50,6 +52,17 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class AlphaUtil {
+  /**
+   * Returns a self-contained copy of the eObject.
+   */
+  public static <T extends EObject> T copyAE(final T eObject) {
+    final EcoreUtil.Copier copier = new EcoreUtil.Copier();
+    final EObject result = copier.copy(eObject);
+    copier.copyReferences();
+    final T t = ((T) result);
+    return t;
+  }
+
   /**
    * Given a name candidate, ensures that it does not conflict
    * with existing variables. If a variable is in conflict,
@@ -339,6 +352,21 @@ public class AlphaUtil {
    */
   public static ISLSet renameIndices(final ISLSet set) {
     return AlphaUtil.renameIndices(set, AlphaUtil.defaultDimNames(set));
+  }
+
+  public static ISLBasicSet renameIndices(final ISLBasicSet set, final List<String> names) {
+    final int n = set.getNbIndices();
+    ISLBasicSet res = set;
+    int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
+    boolean _greaterThan = (n > _length);
+    if (_greaterThan) {
+      throw new RuntimeException("Need n or more index names to rename n-d space.");
+    }
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      res = res.setDimName(ISLDimType.isl_dim_set, (i).intValue(), names.get((i).intValue()));
+    }
+    return res;
   }
 
   public static ISLSet renameIndices(final ISLSet set, final List<String> names) {

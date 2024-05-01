@@ -9,24 +9,26 @@ import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
 import alpha.model.Equation
 import alpha.model.SystemBody
+import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet
+import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLErrorException
 import fr.irisa.cairn.jnimap.isl.ISLFactory
-import fr.irisa.cairn.jnimap.isl.JNIISLTools
-import java.util.LinkedList
-import java.util.List
-import java.util.function.Consumer
-import java.util.function.Supplier
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
-import org.eclipse.xtext.naming.IQualifiedNameProvider
-import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMap
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLSet
 import fr.irisa.cairn.jnimap.isl.ISLUnionMap
-import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.JNIISLTools
+import java.util.LinkedList
+import java.util.List
+import java.util.function.Consumer
+import java.util.function.Supplier
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 /**
  * Utility methods for analysis and transformation of Alpha programs.
@@ -34,6 +36,16 @@ import fr.irisa.cairn.jnimap.isl.ISLAff
  */
 class AlphaUtil {
 	
+	/**
+	 * Returns a self-contained copy of the eObject.
+	 */
+	static def <T extends EObject> T copyAE(T eObject) {
+		val Copier copier = new Copier();
+		val EObject result = copier.copy(eObject);
+		copier.copyReferences();
+		val T t = result as T;
+		return t;
+	}
 	
 	/**
 	 * Given a name candidate, ensures that it does not conflict
@@ -262,7 +274,16 @@ class AlphaUtil {
 	static def renameIndices(ISLSet set) {
 		return renameIndices(set, set.defaultDimNames)
 	}
-	
+	static def renameIndices(ISLBasicSet set, List<String> names) {
+		val n = set.getNbIndices()
+		var res = set;
+		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
+		for (i : 0..<n) {
+			res = res.setDimName(ISLDimType.isl_dim_set, i, names.get(i))
+		}
+		
+		return res
+	}
 	static def renameIndices(ISLSet set, List<String> names) {
 		val n = set.getNbIndices()
 		var res = set;
