@@ -56,7 +56,7 @@ public class ReduceExprConverter {
    * A new function is created and added to the program which computes the reduction,
    * and the appropriate function call expression is returned.
    */
-  public static CallExpr convertExpr(final ProgramBuilder program, final ReduceExpression expr) {
+  public static Expression convertExpr(final ProgramBuilder program, final ReduceExpression expr) {
     final Function reduceFunction = ReduceExprConverter.createReduceFunction(program, expr);
     program.addFunction(reduceFunction);
     List<String> _paramNames = expr.getContextDomain().getParamNames();

@@ -11,6 +11,7 @@ import fr.irisa.cairn.jnimap.isl.ISLConstraint
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLSpace
 import java.util.HashSet
+import alpha.codegen.Expression
 
 /**
  * Converts an Alpha reduce expression into the appropriate C AST nodes.
@@ -33,7 +34,7 @@ class ReduceExprConverter {
 	 * A new function is created and added to the program which computes the reduction,
 	 * and the appropriate function call expression is returned.
 	 */
-	def static convertExpr(ProgramBuilder program, ReduceExpression expr) {
+	def static Expression convertExpr(ProgramBuilder program, ReduceExpression expr) {
 		// Create the reduce function and add it to the program.
 		val reduceFunction = createReduceFunction(program, expr)
 		program.addFunction(reduceFunction)

@@ -94,7 +94,7 @@ class ExprConverter {
 	}
 	
 	/** Creates a conditional expression to ensure a restrict case is being respected. */
-	def static dispatch createConditional(RestrictExpression re) {
+	def static dispatch Expression createConditional(RestrictExpression re) {
 		return ConditionalConverter.convert(re.restrictDomain)
 	}
 	
@@ -102,7 +102,7 @@ class ExprConverter {
 	 * Creates a conditional expression to ensure this expression (which is neither a restrict
 	 * nor an auto-restrict) is only evaluated within its context domain.
 	 */
-	def static dispatch createConditional(AlphaExpression expr) {
+	def static dispatch Expression createConditional(AlphaExpression expr) {
 		return ConditionalConverter.convert(expr.contextDomain)
 	}
 	
@@ -122,7 +122,7 @@ class ExprConverter {
 	 * Index expressions in Alpha convert indices into values.
 	 * Thus, we just need to output the expression itself.
 	 */
-	def static dispatch convertExpr(ProgramBuilder program, IndexExpression ie) {
+	def static dispatch Expression convertExpr(ProgramBuilder program, IndexExpression ie) {
 		// The "plainToString" function prints out the expression to evaluate
 		// enclosed in square brackets, which need to be removed.
 		val exprLiteral = ie.functionExpr
@@ -136,7 +136,7 @@ class ExprConverter {
 	}
 	
 	/** Reduce expression conversion is handled by a separate class. */
-	def static dispatch convertExpr(ProgramBuilder program, ReduceExpression expr) {
+	def static dispatch Expression convertExpr(ProgramBuilder program, ReduceExpression expr) {
 		return ReduceExprConverter.convertExpr(program, expr)
 	}
 	
@@ -189,7 +189,7 @@ class ExprConverter {
 	}
 	
 	/** Default case to catch unknown expression types. */
-	def static dispatch convertExpr(ProgramBuilder program, AlphaExpression expr) {
+	def static dispatch Expression convertExpr(ProgramBuilder program, AlphaExpression expr) {
 		throw new Exception("Not implemented yet!")
 	}
 }
