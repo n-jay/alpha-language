@@ -575,6 +575,20 @@ public class ProgramPrinter {
     return _builder;
   }
 
+  protected static CharSequence _printExpr(final CallExpr expr) {
+    StringConcatenation _builder = new StringConcatenation();
+    String _functionName = expr.getFunctionName();
+    _builder.append(_functionName);
+    _builder.append("(");
+    final Function1<Expression, CharSequence> _function = (Expression it) -> {
+      return ProgramPrinter.printExpr(it);
+    };
+    String _join = IterableExtensions.join(ListExtensions.<Expression, CharSequence>map(expr.getArguments(), _function), ",");
+    _builder.append(_join);
+    _builder.append(")");
+    return _builder;
+  }
+
   protected static CharSequence _printExpr(final UnaryExpr expr) {
     StringConcatenation _builder = new StringConcatenation();
     CharSequence _print = ProgramPrinter.print(expr.getOperator());
@@ -770,6 +784,8 @@ public class ProgramPrinter {
       return _printExpr((AssignmentStmt)expr);
     } else if (expr instanceof BinaryExpr) {
       return _printExpr((BinaryExpr)expr);
+    } else if (expr instanceof CallExpr) {
+      return _printExpr((CallExpr)expr);
     } else if (expr instanceof CastExpr) {
       return _printExpr((CastExpr)expr);
     } else if (expr instanceof CustomExpr) {

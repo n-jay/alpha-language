@@ -137,8 +137,7 @@ class ExprConverter {
 	
 	/** Reduce expression conversion is handled by a separate class. */
 	def static dispatch convertExpr(ProgramBuilder program, ReduceExpression expr) {
-//		return ReduceExprConverter.convert(program, expr)
-		throw new Exception("Not implemented yet!")
+		return ReduceExprConverter.convertExpr(program, expr)
 	}
 	
 	/**

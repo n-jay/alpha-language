@@ -155,11 +155,7 @@ public class ExprConverter {
    * Reduce expression conversion is handled by a separate class.
    */
   protected static Expression _convertExpr(final ProgramBuilder program, final ReduceExpression expr) {
-    try {
-      throw new Exception("Not implemented yet!");
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    return ReduceExprConverter.convertExpr(program, expr);
   }
 
   /**
