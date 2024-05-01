@@ -90,7 +90,7 @@ class OptimalSimplifyingReductions {
 		originalSystemName = system.name
 		optimizationNum = 0
 		initialComplexity = systemBody.complexity
-		throttle = throttleLimit > 0
+		throttle = limit > 0
 		throttleLimit = limit
 	}
 	
