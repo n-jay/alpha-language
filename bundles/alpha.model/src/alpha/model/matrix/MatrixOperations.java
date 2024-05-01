@@ -355,7 +355,27 @@ public class MatrixOperations {
 	public static long[][] columnBind(long[][] A, long[][] newCols) {
 		return columnBind(A, newCols[0].length, newCols);
 	}
-
+	
+	/** 
+	 * Inserts a column of all zeros at the front.
+	 * @param A
+	 * @return
+	 */
+	public static long[][] columnBindToFront(long[][] A) {
+		int nbRows = A.length;
+		int nbCols = (nbRows == 0 || A[0].length == 0) ? 0 : A[0].length; 
+		long[][] B = new long[nbRows][nbCols + 1];
+		
+		for (int i = 0; i < nbRows; i++) {
+			B[i][0] = 0;
+			for (int j = 0; j < nbCols; j++) {
+				B[i][j+1] = A[i][j];
+			}
+		}
+		
+		return B;
+	}
+	
 	/**
 	 * Appends additional columns to an existing matrix.
 	 * 

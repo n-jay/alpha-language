@@ -62,6 +62,11 @@ public class AlphaOperatorUtil {
     }
   }
 
+  public static boolean hasNoInverse(final REDUCTION_OP op) {
+    boolean _hasInverse = AlphaOperatorUtil.hasInverse(op);
+    return (!_hasInverse);
+  }
+
   public static BINARY_OP reductionOPtoBinaryInverseOP(final REDUCTION_OP op) {
     BINARY_OP _switchResult = null;
     if (op != null) {
