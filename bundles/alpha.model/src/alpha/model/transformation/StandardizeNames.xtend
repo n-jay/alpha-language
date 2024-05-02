@@ -14,6 +14,8 @@ import java.util.List
 import static extension alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static extension alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static extension alpha.model.util.AlphaUtil.renameOutputs
+import alpha.model.IndexExpression
+import alpha.model.ReduceExpression
 
 /**
  * Standardizes the names of indices in most context domains,
@@ -80,6 +82,11 @@ class StandardizeNames extends AbstractAlphaCompleteVisitor {
 		return expr.function.space.outputNames
 	}
 	
+	/** Gets the index names to use from a parent reduce expression. */
+	def protected static dispatch getIndexNames(ReduceExpression expr) {
+		return expr.projection.space.outputNames
+	}
+	
 	/** Gets the index names to use from a parent expression. */
 	def protected static dispatch getIndexNames(AlphaExpression expr) {
 		return expr.contextDomain.indexNames
@@ -132,6 +139,42 @@ class StandardizeNames extends AbstractAlphaCompleteVisitor {
 		// context and expression domains, but the output dimensions are set to default names.
 		expr.functionExpr = AlphaUtil
 			.renameIndices(expr.function, indexNames)
+			.renameOutputs
+			.createJNIFunction
+	}
+	
+	/**
+	 * Renames the indices of the context domain and expression domain of the expression.
+	 * Also renames the inputs and outputs of the index function.
+	 */
+	override inIndexExpression(IndexExpression expr) {
+		val indexNames = expr.eContainer.getIndexNames
+		
+		expr.contextDomain = expr.contextDomain.renameIndices(indexNames)
+		expr.expressionDomain = expr.expressionDomain.renameIndices(indexNames)
+		
+		// The inputs to the index function are renamed to be the same as the
+		// context and expression domains, but the output dimensions are set to default names.
+		expr.functionExpr = AlphaUtil
+			.renameIndices(expr.function, indexNames)
+			.renameOutputs
+			.createJNIFunction
+	}
+	
+	/**
+	 * Renames the indices of the context domain and expression domain of the expression.
+	 * Also renames the inputs and outputs of the projection function.
+	 */
+	override inReduceExpression(ReduceExpression expr) {
+		val indexNames = expr.eContainer.getIndexNames
+		
+		expr.contextDomain = expr.contextDomain.renameIndices(indexNames)
+		expr.expressionDomain = expr.expressionDomain.renameIndices(indexNames)
+		
+		// The inputs to the projection function are renamed to be the same as the
+		// context and expression domains, but the output dimensions are set to default names.
+		expr.projectionExpr = AlphaUtil
+			.renameIndices(expr.projection, indexNames)
 			.renameOutputs
 			.createJNIFunction
 	}

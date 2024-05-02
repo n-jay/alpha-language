@@ -4,6 +4,8 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaExpressionVisitable;
 import alpha.model.AlphaVisitable;
 import alpha.model.DependenceExpression;
+import alpha.model.IndexExpression;
+import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
 import alpha.model.Variable;
@@ -79,6 +81,13 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
   }
 
   /**
+   * Gets the index names to use from a parent reduce expression.
+   */
+  protected static List<String> _getIndexNames(final ReduceExpression expr) {
+    return expr.getProjection().getSpace().getOutputNames();
+  }
+
+  /**
    * Gets the index names to use from a parent expression.
    */
   protected static List<String> _getIndexNames(final AlphaExpression expr) {
@@ -130,8 +139,34 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
     expr.setFunctionExpr(AlphaUserFactory.createJNIFunction(AlphaUtil.renameOutputs(AlphaUtil.renameIndices(expr.getFunction(), indexNames))));
   }
 
+  /**
+   * Renames the indices of the context domain and expression domain of the expression.
+   * Also renames the inputs and outputs of the index function.
+   */
+  @Override
+  public void inIndexExpression(final IndexExpression expr) {
+    final List<String> indexNames = StandardizeNames.getIndexNames(expr.eContainer());
+    expr.setContextDomain(expr.getContextDomain().<ISLSet>renameIndices(indexNames));
+    expr.setExpressionDomain(expr.getExpressionDomain().<ISLSet>renameIndices(indexNames));
+    expr.setFunctionExpr(AlphaUserFactory.createJNIFunction(AlphaUtil.renameOutputs(AlphaUtil.renameIndices(expr.getFunction(), indexNames))));
+  }
+
+  /**
+   * Renames the indices of the context domain and expression domain of the expression.
+   * Also renames the inputs and outputs of the projection function.
+   */
+  @Override
+  public void inReduceExpression(final ReduceExpression expr) {
+    final List<String> indexNames = StandardizeNames.getIndexNames(expr.eContainer());
+    expr.setContextDomain(expr.getContextDomain().<ISLSet>renameIndices(indexNames));
+    expr.setExpressionDomain(expr.getExpressionDomain().<ISLSet>renameIndices(indexNames));
+    expr.setProjectionExpr(AlphaUserFactory.createJNIFunction(AlphaUtil.renameOutputs(AlphaUtil.renameIndices(expr.getProjection(), indexNames))));
+  }
+
   protected static List<String> getIndexNames(final Object expr) {
-    if (expr instanceof DependenceExpression) {
+    if (expr instanceof ReduceExpression) {
+      return _getIndexNames((ReduceExpression)expr);
+    } else if (expr instanceof DependenceExpression) {
       return _getIndexNames((DependenceExpression)expr);
     } else if (expr instanceof StandardEquation) {
       return _getIndexNames((StandardEquation)expr);
