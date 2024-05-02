@@ -32,6 +32,7 @@ import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -50,6 +51,17 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class AlphaUtil {
+  /**
+   * Returns a self-contained copy of the eObject.
+   */
+  public static <T extends EObject> T copyAE(final T eObject) {
+    final EcoreUtil.Copier copier = new EcoreUtil.Copier();
+    final EObject result = copier.copy(eObject);
+    copier.copyReferences();
+    final T t = ((T) result);
+    return t;
+  }
+
   /**
    * Given a name candidate, ensures that it does not conflict
    * with existing variables. If a variable is in conflict,
