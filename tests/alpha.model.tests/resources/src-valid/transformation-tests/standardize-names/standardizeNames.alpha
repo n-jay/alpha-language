@@ -1,0 +1,19 @@
+package alpha.model.tests.transformations.standardizeNames {
+	affine useEquationNames [N]->{:N>5}
+		inputs X1, X2: {[i,j]: 0<=i,j<N}
+		outputs Y: {[k,l]: 0<=k,l<N}
+		let Y[p,q] = case {
+			{[r,s]: r >  3}: (t,u->t,u)@X1;
+			{[a,b]: a <= 3}: (c,d->c,d)@X2;
+		};
+	.
+	
+	affine useVariableNames [N]->{:N>5}
+		inputs X1, X2: {[i,j]: 0<=i,j<N}
+		outputs Y: {[k,l]: 0<=k,l<N}
+		let Y = case {
+			{[r,s]: r >  3}: (t,u->t,u)@X1;
+			{[a,b]: a <= 3}: (c,d->c,d)@X2;
+		};
+	.
+}
