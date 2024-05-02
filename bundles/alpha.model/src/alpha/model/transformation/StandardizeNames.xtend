@@ -122,7 +122,7 @@ class StandardizeNames extends AbstractAlphaCompleteVisitor {
 	 * Renames the indices of the context domain and expression domain of the expression.
 	 * Also renames the inputs and outputs of the dependence function.
 	 */
-	override outDependenceExpression(DependenceExpression expr) {
+	override inDependenceExpression(DependenceExpression expr) {
 		val indexNames = expr.eContainer.getIndexNames
 		
 		expr.contextDomain = expr.contextDomain.renameIndices(indexNames)

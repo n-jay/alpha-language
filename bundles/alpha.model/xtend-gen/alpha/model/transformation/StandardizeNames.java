@@ -123,7 +123,7 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
    * Also renames the inputs and outputs of the dependence function.
    */
   @Override
-  public void outDependenceExpression(final DependenceExpression expr) {
+  public void inDependenceExpression(final DependenceExpression expr) {
     final List<String> indexNames = StandardizeNames.getIndexNames(expr.eContainer());
     expr.setContextDomain(expr.getContextDomain().<ISLSet>renameIndices(indexNames));
     expr.setExpressionDomain(expr.getExpressionDomain().<ISLSet>renameIndices(indexNames));
