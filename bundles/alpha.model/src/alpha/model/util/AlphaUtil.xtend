@@ -309,7 +309,7 @@ class AlphaUtil {
 	 * If more names are given than there are inputs, then all the inputs will be renamed.
 	 */
 	static def renameFirstIndices(ISLMultiAff maff, List<String> names) {
-		val maxIndex = Integer.min(maff.nbOutputs, names.size)
+		val maxIndex = Integer.min(maff.nbInputs, names.size)
 		return (0..<maxIndex).fold(maff, [_maff, dim | _maff.setDimName(ISLDimType.isl_dim_in, dim, names.get(dim))])
 	}
 	

@@ -403,7 +403,7 @@ public class AlphaUtil {
    * If more names are given than there are inputs, then all the inputs will be renamed.
    */
   public static ISLMultiAff renameFirstIndices(final ISLMultiAff maff, final List<String> names) {
-    final int maxIndex = Integer.min(maff.getNbOutputs(), names.size());
+    final int maxIndex = Integer.min(maff.getNbInputs(), names.size());
     final Function2<ISLMultiAff, Integer, ISLMultiAff> _function = (ISLMultiAff _maff, Integer dim) -> {
       return _maff.setDimName(ISLDimType.isl_dim_in, (dim).intValue(), names.get((dim).intValue()));
     };
