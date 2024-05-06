@@ -12,11 +12,21 @@ import alpha.model.Variable;
 import alpha.model.factory.AlphaUserFactory;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaUtil;
+import alpha.model.util.CommonExtensions;
+import com.google.common.base.Objects;
+import fr.irisa.cairn.jnimap.isl.ISLAff;
+import fr.irisa.cairn.jnimap.isl.ISLDimType;
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
+import fr.irisa.cairn.jnimap.isl.ISLVal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.ExclusiveRange;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
  * Standardizes the names of indices in most context domains,
@@ -106,6 +116,54 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
   }
 
   /**
+   * Renames the outputs for a mutli-affine expression.
+   * If the output is exactly equal to one of the inputs, the name of that input is used.
+   * Otherwise, a default name based on the index of the output is used.
+   */
+  protected static ISLMultiAff renameOutputs(final ISLMultiAff multiAff) {
+    int _nbOutputs = multiAff.getNbOutputs();
+    final Function1<Integer, String> _function = (Integer it) -> {
+      return StandardizeNames.getOutputName(multiAff, (it).intValue());
+    };
+    final ArrayList<String> outputNames = CommonExtensions.<String>toArrayList(IterableExtensions.<Integer, String>map(new ExclusiveRange(0, _nbOutputs, true), _function));
+    return AlphaUtil.renameOutputs(multiAff, outputNames);
+  }
+
+  /**
+   * Gets the name to use for a specific output of the given multi-affine expression.
+   */
+  protected static String getOutputName(final ISLMultiAff multiAff, final int outputIndex) {
+    final ISLAff aff = multiAff.getAff(outputIndex);
+    final String defaultName = ("o" + Integer.valueOf(outputIndex));
+    ISLVal _constantVal = aff.getConstantVal();
+    boolean _notEquals = (!Objects.equal(_constantVal, Integer.valueOf(0)));
+    if (_notEquals) {
+      return defaultName;
+    }
+    int _nbInputs = aff.getNbInputs();
+    final Function1<Integer, ISLVal> _function = (Integer it) -> {
+      return aff.getCoefficientVal(ISLDimType.isl_dim_in, (it).intValue());
+    };
+    final ArrayList<ISLVal> coefficients = CommonExtensions.<ISLVal>toArrayList(IterableExtensions.<Integer, ISLVal>map(new ExclusiveRange(0, _nbInputs, true), _function));
+    final Function1<ISLVal, Boolean> _function_1 = (ISLVal it) -> {
+      return Boolean.valueOf(((!Objects.equal(it, Integer.valueOf(0))) || (!Objects.equal(it, Integer.valueOf(1)))));
+    };
+    boolean _exists = IterableExtensions.<ISLVal>exists(coefficients, _function_1);
+    if (_exists) {
+      return defaultName;
+    }
+    final Function1<ISLVal, Boolean> _function_2 = (ISLVal it) -> {
+      return Boolean.valueOf(Objects.equal(it, Integer.valueOf(1)));
+    };
+    int _size = IterableExtensions.size(IterableExtensions.<ISLVal>filter(coefficients, _function_2));
+    boolean _notEquals_1 = (_size != 1);
+    if (_notEquals_1) {
+      return defaultName;
+    }
+    return aff.getInputName(coefficients.indexOf(Integer.valueOf(1)));
+  }
+
+  /**
    * Renames the indices of the context domain and expression domain of the expression.
    */
   @Override
@@ -136,7 +194,7 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
     final List<String> indexNames = StandardizeNames.getIndexNames(expr.eContainer());
     expr.setContextDomain(expr.getContextDomain().<ISLSet>renameIndices(indexNames));
     expr.setExpressionDomain(expr.getExpressionDomain().<ISLSet>renameIndices(indexNames));
-    expr.setFunctionExpr(AlphaUserFactory.createJNIFunction(AlphaUtil.renameOutputs(AlphaUtil.renameIndices(expr.getFunction(), indexNames))));
+    expr.setFunctionExpr(AlphaUserFactory.createJNIFunction(StandardizeNames.renameOutputs(AlphaUtil.renameIndices(expr.getFunction(), indexNames))));
   }
 
   /**
@@ -148,7 +206,7 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
     final List<String> indexNames = StandardizeNames.getIndexNames(expr.eContainer());
     expr.setContextDomain(expr.getContextDomain().<ISLSet>renameIndices(indexNames));
     expr.setExpressionDomain(expr.getExpressionDomain().<ISLSet>renameIndices(indexNames));
-    expr.setFunctionExpr(AlphaUserFactory.createJNIFunction(AlphaUtil.renameOutputs(AlphaUtil.renameIndices(expr.getFunction(), indexNames))));
+    expr.setFunctionExpr(AlphaUserFactory.createJNIFunction(StandardizeNames.renameOutputs(AlphaUtil.renameIndices(expr.getFunction(), indexNames))));
   }
 
   /**
@@ -160,7 +218,7 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
     final List<String> indexNames = StandardizeNames.getIndexNames(expr.eContainer());
     expr.setContextDomain(expr.getContextDomain().<ISLSet>renameIndices(indexNames));
     expr.setExpressionDomain(expr.getExpressionDomain().<ISLSet>renameIndices(indexNames));
-    expr.setProjectionExpr(AlphaUserFactory.createJNIFunction(AlphaUtil.renameOutputs(AlphaUtil.renameIndices(expr.getProjection(), indexNames))));
+    expr.setProjectionExpr(AlphaUserFactory.createJNIFunction(StandardizeNames.renameOutputs(AlphaUtil.renameIndices(expr.getProjection(), indexNames))));
   }
 
   protected static List<String> getIndexNames(final Object expr) {

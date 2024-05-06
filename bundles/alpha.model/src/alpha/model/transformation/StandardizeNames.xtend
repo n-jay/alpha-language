@@ -4,18 +4,20 @@ import alpha.model.AlphaExpression
 import alpha.model.AlphaExpressionVisitable
 import alpha.model.AlphaVisitable
 import alpha.model.DependenceExpression
+import alpha.model.IndexExpression
+import alpha.model.ReduceExpression
 import alpha.model.RestrictExpression
 import alpha.model.StandardEquation
 import alpha.model.Variable
 import alpha.model.util.AbstractAlphaCompleteVisitor
 import alpha.model.util.AlphaUtil
+import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import java.util.List
 
 import static extension alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static extension alpha.model.factory.AlphaUserFactory.createJNIFunction
-import static extension alpha.model.util.AlphaUtil.renameOutputs
-import alpha.model.IndexExpression
-import alpha.model.ReduceExpression
+import static extension alpha.model.util.CommonExtensions.toArrayList
 
 /**
  * Standardizes the names of indices in most context domains,
@@ -95,6 +97,51 @@ class StandardizeNames extends AbstractAlphaCompleteVisitor {
 	/** Default rule if none of the other cases matched. */
 	def protected static dispatch getIndexNames(Object obj) {
 		throw new Exception("Cannot get the index names to use from the given parent.")
+	}
+	
+	
+	////////////////////////////////////////////////////////////
+	// Name Standardization Helper Methods
+	////////////////////////////////////////////////////////////
+	
+	/**
+	 * Renames the outputs for a mutli-affine expression.
+	 * If the output is exactly equal to one of the inputs, the name of that input is used.
+	 * Otherwise, a default name based on the index of the output is used.
+	 */
+	def protected static renameOutputs(ISLMultiAff multiAff) {
+		val outputNames = (0 ..< multiAff.nbOutputs).map[getOutputName(multiAff, it)].toArrayList
+		return AlphaUtil.renameOutputs(multiAff, outputNames)
+	}
+	
+	/** Gets the name to use for a specific output of the given multi-affine expression. */
+	def protected static getOutputName(ISLMultiAff multiAff, int outputIndex) {
+		// If the affine expression for the desired output is an identity function for one of the inputs
+		// (the output is exactly equal to the input, such as with i,j,k->j),
+		// then we will use the name of that input as the name of this output.
+		// Otherwise, use the following default name based on the index of the output.
+		val aff = multiAff.getAff(outputIndex)
+		val defaultName = "o" + outputIndex
+		
+		// If the expression has a constant, it's not an identity function.
+		if (aff.constantVal != 0) {
+			return defaultName
+		}
+		
+		// If any coefficients aren't zero or one, it's not an identity function.
+		val coefficients = (0 ..< aff.nbInputs).map[aff.getCoefficientVal(ISLDimType.isl_dim_in, it)].toArrayList
+		if (coefficients.exists[(it != 0) || (it != 1)]) {
+			return defaultName
+		}
+		
+		// Identity functions must have exactly one coefficient of 1.
+		if (coefficients.filter[it == 1].size != 1) {
+			return defaultName
+		}
+		
+		// If this is reached, then the affine expression is an identity function for an input.
+		// Return the name of that input.
+		return aff.getInputName(coefficients.indexOf(1))
 	}
 	
 	
