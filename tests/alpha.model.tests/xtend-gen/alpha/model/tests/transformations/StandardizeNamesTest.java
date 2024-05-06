@@ -6,6 +6,7 @@ import alpha.model.AlphaModelLoader;
 import alpha.model.CaseExpression;
 import alpha.model.DependenceExpression;
 import alpha.model.IndexExpression;
+import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
 import alpha.model.transformation.StandardizeNames;
@@ -54,6 +55,24 @@ public class StandardizeNamesTest {
     StandardizeNames.apply(equation);
     AlphaExpression _expr = equation.getExpr();
     StandardizeNamesTest.assertIndexExprNamesCorrect(expectedNames, ((IndexExpression) _expr));
+  }
+
+  @Test
+  public void useEquationNames_03() {
+    final StandardEquation equation = StandardizeNamesTest.getEquation("useEquationNames_03", "Y");
+    final EList<String> expectedNames = equation.getIndexNames();
+    StandardizeNames.apply(equation);
+    AlphaExpression _expr = equation.getExpr();
+    StandardizeNamesTest.assertReduceNamesCorrect(expectedNames, ((ReduceExpression) _expr));
+  }
+
+  @Test
+  public void useVariableNames_03() {
+    final StandardEquation equation = StandardizeNamesTest.getEquation("useVariableNames_03", "Y");
+    final List<String> expectedNames = equation.getVariable().getDomain().getIndexNames();
+    StandardizeNames.apply(equation);
+    AlphaExpression _expr = equation.getExpr();
+    StandardizeNamesTest.assertReduceNamesCorrect(expectedNames, ((ReduceExpression) _expr));
   }
 
   /**
@@ -124,5 +143,15 @@ public class StandardizeNamesTest {
     Assert.assertTrue(IterableExtensions.elementsEqual(expectedNames, expr.getContextDomain().getIndexNames()));
     Assert.assertTrue(IterableExtensions.elementsEqual(expectedNames, expr.getExpressionDomain().getIndexNames()));
     Assert.assertTrue(IterableExtensions.elementsEqual(expectedNames, expr.getFunction().getSpace().getInputNames()));
+  }
+
+  public static void assertReduceNamesCorrect(final List<String> expectedNames, final ReduceExpression expr) {
+    Assert.assertTrue(IterableExtensions.elementsEqual(expectedNames, expr.getContextDomain().getIndexNames()));
+    Assert.assertTrue(IterableExtensions.elementsEqual(expectedNames, expr.getExpressionDomain().getIndexNames()));
+    final Iterable<String> projectionNamesStart = IterableExtensions.<String>take(expr.getProjection().getSpace().getInputNames(), expectedNames.size());
+    Assert.assertTrue(IterableExtensions.elementsEqual(expectedNames, projectionNamesStart));
+    final List<String> expectedBodyNames = expr.getProjection().getSpace().getInputNames();
+    Assert.assertTrue(IterableExtensions.elementsEqual(expectedBodyNames, expr.getBody().getContextDomain().getIndexNames()));
+    Assert.assertTrue(IterableExtensions.elementsEqual(expectedBodyNames, expr.getBody().getExpressionDomain().getIndexNames()));
   }
 }

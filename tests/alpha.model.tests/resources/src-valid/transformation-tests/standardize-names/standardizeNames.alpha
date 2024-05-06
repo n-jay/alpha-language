@@ -28,4 +28,16 @@ package alpha.model.tests.transformations.standardizeNames {
 		outputs Y: {[j]: 0<=j<N}
 		let Y = val(k->7);
 	.
+	
+	affine useEquationNames_03 [N]->{:N>5}
+		inputs X: {[i,j]: 0<=i,j<N}
+		outputs Y: {[k]: 0<=k<N}
+		let Y[p] = reduce(+, [q], X);
+	.
+	
+	affine useVariableNames_03 [N]->{:N>5}
+		inputs X: {[i,j]: 0<=i,j<N}
+		outputs Y: {[j]: 0<=j<N}
+		let Y = reduce(+, (p,q->p), X);
+	.
 }

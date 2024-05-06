@@ -86,7 +86,7 @@ class StandardizeNames extends AbstractAlphaCompleteVisitor {
 	
 	/** Gets the index names to use from a parent reduce expression. */
 	def protected static dispatch getIndexNames(ReduceExpression expr) {
-		return expr.projection.space.outputNames
+		return expr.projection.space.inputNames
 	}
 	
 	/** Gets the index names to use from a parent expression. */
@@ -111,7 +111,7 @@ class StandardizeNames extends AbstractAlphaCompleteVisitor {
 	 */
 	def protected static renameOutputs(ISLMultiAff multiAff) {
 		val outputNames = (0 ..< multiAff.nbOutputs).map[getOutputName(multiAff, it)].toArrayList
-		return AlphaUtil.renameOutputs(multiAff, outputNames)
+		return AlphaUtil.renameFirstOutputs(multiAff, outputNames)
 	}
 	
 	/** Gets the name to use for a specific output of the given multi-affine expression. */
@@ -221,7 +221,7 @@ class StandardizeNames extends AbstractAlphaCompleteVisitor {
 		// The inputs to the projection function are renamed to be the same as the
 		// context and expression domains, but the output dimensions are set to default names.
 		expr.projectionExpr = AlphaUtil
-			.renameIndices(expr.projection, indexNames)
+			.renameFirstIndices(expr.projection, indexNames)
 			.renameOutputs
 			.createJNIFunction
 	}

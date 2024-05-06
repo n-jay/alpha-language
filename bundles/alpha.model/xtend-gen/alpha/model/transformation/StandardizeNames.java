@@ -94,7 +94,7 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
    * Gets the index names to use from a parent reduce expression.
    */
   protected static List<String> _getIndexNames(final ReduceExpression expr) {
-    return expr.getProjection().getSpace().getOutputNames();
+    return expr.getProjection().getSpace().getInputNames();
   }
 
   /**
@@ -126,7 +126,7 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
       return StandardizeNames.getOutputName(multiAff, (it).intValue());
     };
     final ArrayList<String> outputNames = CommonExtensions.<String>toArrayList(IterableExtensions.<Integer, String>map(new ExclusiveRange(0, _nbOutputs, true), _function));
-    return AlphaUtil.renameOutputs(multiAff, outputNames);
+    return AlphaUtil.renameFirstOutputs(multiAff, outputNames);
   }
 
   /**
@@ -218,7 +218,7 @@ public class StandardizeNames extends AbstractAlphaCompleteVisitor {
     final List<String> indexNames = StandardizeNames.getIndexNames(expr.eContainer());
     expr.setContextDomain(expr.getContextDomain().<ISLSet>renameIndices(indexNames));
     expr.setExpressionDomain(expr.getExpressionDomain().<ISLSet>renameIndices(indexNames));
-    expr.setProjectionExpr(AlphaUserFactory.createJNIFunction(StandardizeNames.renameOutputs(AlphaUtil.renameIndices(expr.getProjection(), indexNames))));
+    expr.setProjectionExpr(AlphaUserFactory.createJNIFunction(StandardizeNames.renameOutputs(AlphaUtil.renameFirstIndices(expr.getProjection(), indexNames))));
   }
 
   protected static List<String> getIndexNames(final Object expr) {

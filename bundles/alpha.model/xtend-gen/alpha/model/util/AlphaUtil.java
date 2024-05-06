@@ -390,12 +390,19 @@ public class AlphaUtil {
     if (_greaterThan) {
       throw new RuntimeException("Need n or more index names to rename n-d space.");
     }
-    ISLMultiAff res = maff;
-    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
-    for (final Integer i : _doubleDotLessThan) {
-      res = res.setDimName(ISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
-    }
-    return res;
+    return AlphaUtil.renameFirstIndices(maff, names);
+  }
+
+  /**
+   * Renames as many inputs of the given multi-affine expression as possible.
+   * If more names are given than there are inputs, then all the inputs will be renamed.
+   */
+  public static ISLMultiAff renameFirstIndices(final ISLMultiAff maff, final List<String> names) {
+    final int maxIndex = Integer.min(maff.getNbOutputs(), names.size());
+    final Function2<ISLMultiAff, Integer, ISLMultiAff> _function = (ISLMultiAff _maff, Integer dim) -> {
+      return _maff.setDimName(ISLDimType.isl_dim_in, (dim).intValue(), names.get((dim).intValue()));
+    };
+    return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, maxIndex, true), maff, _function);
   }
 
   public static ISLPWQPolynomial renameIndices(final ISLPWQPolynomial pwqp, final List<String> names) {
@@ -458,10 +465,19 @@ public class AlphaUtil {
       InputOutput.println();
       throw new RuntimeException("Need n or more index names to rename n-d space.");
     }
+    return AlphaUtil.renameFirstOutputs(maff, names);
+  }
+
+  /**
+   * Renames as many outputs of the given multi-affine expression as possible.
+   * If more names are given than there are outputs, then all the outputs will be renamed.
+   */
+  public static ISLMultiAff renameFirstOutputs(final ISLMultiAff maff, final List<String> names) {
+    final int maxIndex = Integer.min(maff.getNbOutputs(), names.size());
     final Function2<ISLMultiAff, Integer, ISLMultiAff> _function = (ISLMultiAff _maff, Integer dim) -> {
       return _maff.setDimName(ISLDimType.isl_dim_out, (dim).intValue(), names.get((dim).intValue()));
     };
-    return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, nbDims, true), maff, _function);
+    return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, maxIndex, true), maff, _function);
   }
 
   /**
