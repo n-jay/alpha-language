@@ -5,6 +5,7 @@ import alpha.model.AlphaExpression;
 import alpha.model.AlphaModelLoader;
 import alpha.model.CaseExpression;
 import alpha.model.DependenceExpression;
+import alpha.model.IndexExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.StandardEquation;
 import alpha.model.transformation.StandardizeNames;
@@ -24,17 +25,35 @@ public class StandardizeNamesTest {
   private static final String alphaFile = "resources/src-valid/transformation-tests/standardize-names/standardizeNames.alpha";
 
   @Test
-  public void useEquationNames() {
-    final StandardEquation equation = StandardizeNamesTest.getEquation("useEquationNames", "Y");
+  public void useEquationNames_01() {
+    final StandardEquation equation = StandardizeNamesTest.getEquation("useEquationNames_01", "Y");
     final EList<String> expectedNames = equation.getIndexNames();
-    StandardizeNamesTest.assertNamesCorrect(expectedNames, equation);
+    StandardizeNamesTest.assertNamesCorrect_caseRestrictDep(expectedNames, equation);
   }
 
   @Test
-  public void useVariableNames() {
-    final StandardEquation equation = StandardizeNamesTest.getEquation("useVariableNames", "Y");
+  public void useVariableNames_01() {
+    final StandardEquation equation = StandardizeNamesTest.getEquation("useVariableNames_01", "Y");
     final List<String> expectedNames = equation.getVariable().getDomain().getIndexNames();
-    StandardizeNamesTest.assertNamesCorrect(expectedNames, equation);
+    StandardizeNamesTest.assertNamesCorrect_caseRestrictDep(expectedNames, equation);
+  }
+
+  @Test
+  public void useEquationNames_02() {
+    final StandardEquation equation = StandardizeNamesTest.getEquation("useEquationNames_02", "Y");
+    final EList<String> expectedNames = equation.getIndexNames();
+    StandardizeNames.apply(equation);
+    AlphaExpression _expr = equation.getExpr();
+    StandardizeNamesTest.assertIndexExprNamesCorrect(expectedNames, ((IndexExpression) _expr));
+  }
+
+  @Test
+  public void useVariableNames_02() {
+    final StandardEquation equation = StandardizeNamesTest.getEquation("useVariableNames_02", "Y");
+    final List<String> expectedNames = equation.getVariable().getDomain().getIndexNames();
+    StandardizeNames.apply(equation);
+    AlphaExpression _expr = equation.getExpr();
+    StandardizeNamesTest.assertIndexExprNamesCorrect(expectedNames, ((IndexExpression) _expr));
   }
 
   /**
@@ -57,7 +76,7 @@ public class StandardizeNamesTest {
    *     D2: R2@E2;
    * }
    */
-  public static void assertNamesCorrect(final List<String> expectedNames, final StandardEquation equation) {
+  public static void assertNamesCorrect_caseRestrictDep(final List<String> expectedNames, final StandardEquation equation) {
     StandardizeNames.apply(equation);
     AlphaExpression _expr = equation.getExpr();
     final CaseExpression caseExpr = ((CaseExpression) _expr);
@@ -99,5 +118,11 @@ public class StandardizeNamesTest {
         Assert.assertNotEquals("", name);
       }
     }
+  }
+
+  public static void assertIndexExprNamesCorrect(final List<String> expectedNames, final IndexExpression expr) {
+    Assert.assertTrue(IterableExtensions.elementsEqual(expectedNames, expr.getContextDomain().getIndexNames()));
+    Assert.assertTrue(IterableExtensions.elementsEqual(expectedNames, expr.getExpressionDomain().getIndexNames()));
+    Assert.assertTrue(IterableExtensions.elementsEqual(expectedNames, expr.getFunction().getSpace().getInputNames()));
   }
 }

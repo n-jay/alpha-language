@@ -12,6 +12,7 @@ import org.junit.Test
 import static org.junit.Assert.*
 
 import static extension alpha.commands.UtilityBase.*
+import alpha.model.IndexExpression
 
 class StandardizeNamesTest {
 	/** The path to the Alpha file for these unit tests. */
@@ -22,17 +23,33 @@ class StandardizeNamesTest {
 	///////////////////////////////////////////////////
 	
 	@Test
-	def useEquationNames() {
-		val equation = getEquation("useEquationNames", "Y")
+	def useEquationNames_01() {
+		val equation = getEquation("useEquationNames_01", "Y")
 		val expectedNames = equation.indexNames
-		assertNamesCorrect(expectedNames, equation)
+		assertNamesCorrect_caseRestrictDep(expectedNames, equation)
 	}
 	
 	@Test
-	def useVariableNames() {
-		val equation = getEquation("useVariableNames", "Y")
+	def useVariableNames_01() {
+		val equation = getEquation("useVariableNames_01", "Y")
 		val expectedNames = equation.variable.domain.indexNames
-		assertNamesCorrect(expectedNames, equation)
+		assertNamesCorrect_caseRestrictDep(expectedNames, equation)
+	}
+	
+	@Test
+	def void useEquationNames_02() {
+		val equation = getEquation("useEquationNames_02", "Y")
+		val expectedNames = equation.indexNames
+		StandardizeNames.apply(equation)
+		assertIndexExprNamesCorrect(expectedNames, equation.expr as IndexExpression)
+	}
+	
+	@Test
+	def void useVariableNames_02() {
+		val equation = getEquation("useVariableNames_02", "Y")
+		val expectedNames = equation.variable.domain.indexNames
+		StandardizeNames.apply(equation)
+		assertIndexExprNamesCorrect(expectedNames, equation.expr as IndexExpression)
 	}
 	
 	///////////////////////////////////////////////////
@@ -56,7 +73,7 @@ class StandardizeNamesTest {
 	 *     D2: R2@E2;
 	 * }
 	 */
-	def static assertNamesCorrect(List<String> expectedNames, StandardEquation equation) {
+	def static assertNamesCorrect_caseRestrictDep(List<String> expectedNames, StandardEquation equation) {
 		StandardizeNames.apply(equation)
 		
 		// Capture what the AST became.
@@ -97,5 +114,11 @@ class StandardizeNamesTest {
 			assertNotNull(name)
 			assertNotEquals("", name)
 		}
+	}
+	
+	def static assertIndexExprNamesCorrect(List<String> expectedNames, IndexExpression expr) {
+		assertTrue(expectedNames.elementsEqual(expr.contextDomain.indexNames))
+		assertTrue(expectedNames.elementsEqual(expr.expressionDomain.indexNames))
+		assertTrue(expectedNames.elementsEqual(expr.function.space.inputNames))
 	}
 }
