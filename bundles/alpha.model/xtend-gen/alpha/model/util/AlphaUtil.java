@@ -390,7 +390,12 @@ public class AlphaUtil {
     if (_greaterThan) {
       throw new RuntimeException("Need n or more index names to rename n-d space.");
     }
-    return AlphaUtil.renameFirstIndices(maff, names);
+    ISLMultiAff res = maff;
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      res = res.setDimName(ISLDimType.isl_dim_in, (i).intValue(), names.get((i).intValue()));
+    }
+    return res;
   }
 
   /**
@@ -465,7 +470,10 @@ public class AlphaUtil {
       InputOutput.println();
       throw new RuntimeException("Need n or more index names to rename n-d space.");
     }
-    return AlphaUtil.renameFirstOutputs(maff, names);
+    final Function2<ISLMultiAff, Integer, ISLMultiAff> _function = (ISLMultiAff _maff, Integer dim) -> {
+      return _maff.setDimName(ISLDimType.isl_dim_out, (dim).intValue(), names.get((dim).intValue()));
+    };
+    return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, nbDims, true), maff, _function);
   }
 
   /**

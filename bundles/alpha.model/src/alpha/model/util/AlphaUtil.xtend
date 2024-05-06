@@ -296,7 +296,12 @@ class AlphaUtil {
 	static def renameIndices(ISLMultiAff maff, List<String> names) {
 		val n = maff.getNbInputs
 		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
-		return renameFirstIndices(maff, names)
+		var res = maff;
+		for (i : 0..<n) {
+			res = res.setDimName(ISLDimType.isl_dim_in, i, names.get(i))
+		}
+
+		return res
 	}
 	
 	/**
@@ -349,7 +354,7 @@ class AlphaUtil {
 			throw new RuntimeException("Need n or more index names to rename n-d space.")
 		}
 		
-		return renameFirstOutputs(maff, names)
+		return (0..<nbDims).fold(maff, [_maff, dim | _maff.setDimName(ISLDimType.isl_dim_out,  dim, names.get(dim))])
 	}
 	
 	/**
