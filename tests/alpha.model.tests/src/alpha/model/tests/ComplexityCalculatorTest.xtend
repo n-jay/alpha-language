@@ -27,4 +27,19 @@ class ComplexityCalculatorTest {
 		assertEquals(GetSystem(root, 'nestedReduction_02').complexity, 4)
 		assertEquals(GetSystem(root, 'nestedReduction_03').complexity, 4)
 	}
+	
+	@Test
+	def testComplexity_03() {
+		val root = loadValidFile('transformation-tests/substitute-by-def/autoRestrict1.alpha') 
+		val system = GetSystem(root, 'autoRestrict1a')
+		
+		// this program has multiple parameters and should fail
+		try {
+			system.complexity
+		} catch (UnsupportedOperationException e) {
+			assertTrue(true)
+			return
+		}
+		assertTrue(false)
+	}
 }

@@ -5,6 +5,7 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.ComplexityCalculator;
 import alpha.model.tests.util.AlphaTestUtil;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -24,5 +25,22 @@ public class ComplexityCalculatorTest {
     Assert.assertEquals(ComplexityCalculator.complexity(UtilityBase.GetSystem(root, "nestedReduction_01")), 3);
     Assert.assertEquals(ComplexityCalculator.complexity(UtilityBase.GetSystem(root, "nestedReduction_02")), 4);
     Assert.assertEquals(ComplexityCalculator.complexity(UtilityBase.GetSystem(root, "nestedReduction_03")), 4);
+  }
+
+  @Test
+  public void testComplexity_03() {
+    final AlphaRoot root = AlphaTestUtil.loadValidFile("transformation-tests/substitute-by-def/autoRestrict1.alpha");
+    final AlphaSystem system = UtilityBase.GetSystem(root, "autoRestrict1a");
+    try {
+      ComplexityCalculator.complexity(system);
+    } catch (final Throwable _t) {
+      if (_t instanceof UnsupportedOperationException) {
+        Assert.assertTrue(true);
+        return;
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
+    Assert.assertTrue(false);
   }
 }
