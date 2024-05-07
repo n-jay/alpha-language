@@ -5,9 +5,9 @@ import alpha.model.AlphaRoot;
 import alpha.model.AlphaSystem;
 import alpha.model.ComplexityCalculator;
 import alpha.model.tests.util.AlphaTestUtil;
-import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
 @SuppressWarnings("all")
 public class ComplexityCalculatorTest {
@@ -31,16 +31,9 @@ public class ComplexityCalculatorTest {
   public void testComplexity_03() {
     final AlphaRoot root = AlphaTestUtil.loadValidFile("transformation-tests/substitute-by-def/autoRestrict1.alpha");
     final AlphaSystem system = UtilityBase.GetSystem(root, "autoRestrict1a");
-    try {
+    final ThrowingRunnable _function = () -> {
       ComplexityCalculator.complexity(system);
-    } catch (final Throwable _t) {
-      if (_t instanceof UnsupportedOperationException) {
-        Assert.assertTrue(true);
-        return;
-      } else {
-        throw Exceptions.sneakyThrow(_t);
-      }
-    }
-    Assert.assertTrue(false);
+    };
+    Assert.<UnsupportedOperationException>assertThrows(UnsupportedOperationException.class, _function);
   }
 }

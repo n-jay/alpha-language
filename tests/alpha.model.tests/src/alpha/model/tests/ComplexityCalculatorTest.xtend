@@ -11,7 +11,7 @@ import static extension alpha.model.ComplexityCalculator.complexity
 class ComplexityCalculatorTest {
 	
 	@Test
-	def testComplexity_01() {
+	def void testComplexity_01() {
 		val root = loadValidFile('transformation-tests/simplify-expressions/scalarReduction1.alpha') 
 		val system = GetSystem(root, 'scalarReduction1a')
 		
@@ -19,7 +19,7 @@ class ComplexityCalculatorTest {
 	}
 	
 	@Test
-	def testComplexity_02() {
+	def void testComplexity_02() {
 		val root = loadValidFile('transformation-reduction-tests/normalize-reduction-deep/normalizeReductionDeep.alpha') 
 		
 		assertEquals(GetSystem(root, 'topLevelReduction').complexity, 2)
@@ -29,17 +29,12 @@ class ComplexityCalculatorTest {
 	}
 	
 	@Test
-	def testComplexity_03() {
-		val root = loadValidFile('transformation-tests/substitute-by-def/autoRestrict1.alpha') 
+	def void testComplexity_03() {
+		val root = loadValidFile('transformation-tests/substitute-by-def/autoRestrict1.alpha')
 		val system = GetSystem(root, 'autoRestrict1a')
-		
+
 		// this program has multiple parameters and should fail
-		try {
-			system.complexity
-		} catch (UnsupportedOperationException e) {
-			assertTrue(true)
-			return
-		}
-		assertTrue(false)
+		assertThrows(typeof(UnsupportedOperationException), [|system.complexity])
+		
 	}
 }
