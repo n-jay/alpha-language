@@ -9,31 +9,41 @@ import alpha.model.AlphaSystem
 import alpha.model.AlphaVisitable
 import alpha.model.Equation
 import alpha.model.SystemBody
+import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLErrorException
 import fr.irisa.cairn.jnimap.isl.ISLFactory
-import fr.irisa.cairn.jnimap.isl.JNIISLTools
-import java.util.LinkedList
-import java.util.List
-import java.util.function.Consumer
-import java.util.function.Supplier
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
-import org.eclipse.xtext.naming.IQualifiedNameProvider
-import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMap
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLSet
 import fr.irisa.cairn.jnimap.isl.ISLUnionMap
-import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.JNIISLTools
+import java.util.LinkedList
+import java.util.List
+import java.util.function.Consumer
+import java.util.function.Supplier
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier
+import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 /**
  * Utility methods for analysis and transformation of Alpha programs.
  * 
  */
 class AlphaUtil {
-	
+	/**
+	 * Returns a self-contained copy of the eObject.
+	 */
+	static def <T extends EObject> T copyAE(T eObject) {
+		val Copier copier = new Copier();
+		val EObject result = copier.copy(eObject);
+		copier.copyReferences();
+		val T t = result as T;
+		return t;
+	}
 	
 	/**
 	 * Given a name candidate, ensures that it does not conflict
@@ -290,9 +300,19 @@ class AlphaUtil {
 		for (i : 0..<n) {
 			res = res.setDimName(ISLDimType.isl_dim_in, i, names.get(i))
 		}
-			
+
 		return res
 	}
+	
+	/**
+	 * Renames as many inputs of the given multi-affine expression as possible.
+	 * If more names are given than there are inputs, then all the inputs will be renamed.
+	 */
+	static def renameFirstIndices(ISLMultiAff maff, List<String> names) {
+		val maxIndex = Integer.min(maff.nbInputs, names.size)
+		return (0..<maxIndex).fold(maff, [_maff, dim | _maff.setDimName(ISLDimType.isl_dim_in, dim, names.get(dim))])
+	}
+	
 	static def renameIndices(ISLPWQPolynomial pwqp, List<String> names) {
 		val n = pwqp.dim(ISLDimType.isl_dim_in)
 		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
@@ -335,6 +355,15 @@ class AlphaUtil {
 		}
 		
 		return (0..<nbDims).fold(maff, [_maff, dim | _maff.setDimName(ISLDimType.isl_dim_out,  dim, names.get(dim))])
+	}
+	
+	/**
+	 * Renames as many outputs of the given multi-affine expression as possible.
+	 * If more names are given than there are outputs, then all the outputs will be renamed.
+	 */
+	static def renameFirstOutputs(ISLMultiAff maff, List<String> names) {
+		val maxIndex = Integer.min(maff.nbOutputs, names.size)
+		return (0..<maxIndex).fold(maff, [_maff, dim | _maff.setDimName(ISLDimType.isl_dim_out, dim, names.get(dim))])
 	}
 	
 	/**
