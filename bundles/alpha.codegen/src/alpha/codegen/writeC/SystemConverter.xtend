@@ -16,6 +16,8 @@ import alpha.model.AlphaSystem
 import alpha.model.StandardEquation
 import alpha.model.UseEquation
 import alpha.model.Variable
+import alpha.model.transformation.Normalize
+import alpha.model.transformation.StandardizeNames
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 import java.util.ArrayList
 
@@ -23,6 +25,7 @@ import static extension alpha.codegen.Factory.customExpr
 import static extension alpha.codegen.isl.PolynomialConverter.convert
 import static extension alpha.codegen.writeC.Common.getEvalName
 import static extension alpha.codegen.writeC.Common.getFlagName
+import static extension alpha.model.util.AlphaUtil.copyAE
 import static extension fr.irisa.cairn.jnimap.barvinok.BarvinokBindings.card
 
 /** Converts an Alpha system to the simplified C AST. */
@@ -79,7 +82,13 @@ class SystemConverter {
 	 * and all data values are of type "float".
 	 */
 	def static convert(AlphaSystem system, boolean oldAlphaZCompatible) {
-		return (new SystemConverter(system, oldAlphaZCompatible)).convertSystem
+		// Duplicate the system and then preprocess the duplicate
+		// by applying normalization and name standardization.
+		val duplicate = system.copyAE
+		Normalize.apply(duplicate)
+		StandardizeNames.apply(duplicate)
+		
+		return (new SystemConverter(duplicate, oldAlphaZCompatible)).convertSystem
 	}
 	
 	/**
@@ -225,7 +234,7 @@ class SystemConverter {
 		val evalBuilder = FunctionBuilder.start(Common.alphaValueType, equation.variable.evalName)
 		
 		// Add a function parameter for each index of the variable's domain.
-		val indexNames = equation.variable.domain.indexNames
+		val indexNames = equation.expr.contextDomain.indexNames
 		indexNames.forEach[evalBuilder.addParameter(Common.alphaIndexType, it)]
 		
 		// Add the "if" statement that checks the flag variable and evaluates
@@ -234,7 +243,7 @@ class SystemConverter {
 		evalBuilder.addComment("Check the flags.")
 			.addStatement(flagCheckingBlock)
 			.addEmptyLine
-			.addReturn(equation.variable.identityAccess(false))
+			.addReturn(equation.identityAccess(false))
 		
 		program.addFunction(evalBuilder.instance)
 	}
@@ -244,12 +253,10 @@ class SystemConverter {
 	 * evaluates the variable if needed, or reports a self-dependence if detected.
 	 */
 	def protected getFlagCheckingBlock(StandardEquation equation) {
-		val variable = equation.variable
-		
 		// For readability of this code, here is the statement that actually assigns
 		// the variable being computed.
 		val computeValue = ExprConverter.convertExpr(program, equation.expr)
-		val computeAndStore = Factory.assignmentStmt(variable.identityAccess(false), computeValue)
+		val computeAndStore = Factory.assignmentStmt(equation.identityAccess(false), computeValue)
 		
 		// If the flags indicate the value hasn't been evaluated yet:
 		//     Set the flag to "in progress"
@@ -259,41 +266,41 @@ class SystemConverter {
 		//     Let the user know there is a self dependence
 		//     Kill the program
 		return IfStmtBuilder
-			.start(variable.ifFlagEquals(FlagStatus.NOT_EVALUATED))
+			.start(equation.ifFlagEquals(FlagStatus.NOT_EVALUATED))
 			.addStatement(
-				variable.setFlagTo(FlagStatus.IN_PROGRESS),
+				equation.setFlagTo(FlagStatus.IN_PROGRESS),
 				computeAndStore,
-				variable.setFlagTo(FlagStatus.EVALUATED)
+				equation.setFlagTo(FlagStatus.EVALUATED)
 			)
-			.startElseIf(variable.ifFlagEquals(FlagStatus.IN_PROGRESS))
+			.startElseIf(equation.ifFlagEquals(FlagStatus.IN_PROGRESS))
 			.addStatement(
-				variable.selfDependencePrintfStmt,
+				equation.selfDependencePrintfStmt,
 				Factory.exitCall(-1)
 			)
 			.instance
 	}
 	
 	/** Gets the expression to check if a flags variable is set to a given value. */
-	def protected static ifFlagEquals(Variable variable, FlagStatus flagStatus) {
-		return Factory.binaryExpr(BinaryOperator.EQ, variable.identityAccess(true), Common.toExpr(flagStatus))
+	def protected static ifFlagEquals(StandardEquation equation, FlagStatus flagStatus) {
+		return Factory.binaryExpr(BinaryOperator.EQ, equation.identityAccess(true), Common.toExpr(flagStatus))
 	}
 	
 	/** Gets the statement that sets a flags variable to a given value. */
-	def protected static setFlagTo(Variable variable, FlagStatus flagStatus) {
-		Factory.assignmentStmt(variable.identityAccess(true), Common.toExpr(flagStatus))
+	def protected static setFlagTo(StandardEquation equation, FlagStatus flagStatus) {
+		Factory.assignmentStmt(equation.identityAccess(true), Common.toExpr(flagStatus))
 	}
 	
 	/** Gets the expression used to access a variable (or its flag). */
-	def protected static identityAccess(Variable variable, boolean accessFlags) {
-		val name = accessFlags ? variable.flagName : variable.name
-		return Factory.callExpr(name, variable.domain.indexNames)
+	def protected static identityAccess(StandardEquation equation, boolean accessFlags) {
+		val name = accessFlags ? equation.variable.flagName : equation.variable.name
+		return Factory.callExpr(name, equation.expr.contextDomain.indexNames)
 	}
 	
 	/** Gets the "printf" statement that tells the user a self dependence was found (and where it was). */
-	def protected static getSelfDependencePrintfStmt(Variable variable) {
-		val locationFormat = (0 ..< variable.domain.nbIndices).map["%ld"].join(",")
-		val message = '''"There is a self dependence on «variable.name» at («locationFormat»)\n"'''
-		return Factory.printfCall(message, variable.domain.indexNames)
+	def protected static getSelfDependencePrintfStmt(StandardEquation equation) {
+		val locationFormat = (0 ..< equation.expr.contextDomain.nbIndices).map["%ld"].join(",")
+		val message = '''"There is a self dependence on «equation.variable.name» at («locationFormat»)\n"'''
+		return Factory.printfCall(message, equation.expr.contextDomain.indexNames)
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////

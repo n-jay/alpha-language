@@ -33,6 +33,9 @@ import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
+import alpha.model.transformation.Normalize;
+import alpha.model.transformation.StandardizeNames;
+import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.barvinok.BarvinokBindings;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 import java.util.ArrayList;
@@ -111,7 +114,10 @@ public class SystemConverter {
    * and all data values are of type "float".
    */
   public static Program convert(final AlphaSystem system, final boolean oldAlphaZCompatible) {
-    return new SystemConverter(system, oldAlphaZCompatible).convertSystem();
+    final AlphaSystem duplicate = AlphaUtil.<AlphaSystem>copyAE(system);
+    Normalize.apply(duplicate);
+    StandardizeNames.apply(duplicate);
+    return new SystemConverter(duplicate, oldAlphaZCompatible).convertSystem();
   }
 
   /**
@@ -243,13 +249,13 @@ public class SystemConverter {
     ProgramBuilder _xblockexpression = null;
     {
       final FunctionBuilder evalBuilder = FunctionBuilder.start(Common.alphaValueType(), Common.getEvalName(equation.getVariable()));
-      final List<String> indexNames = equation.getVariable().getDomain().getIndexNames();
+      final List<String> indexNames = equation.getExpr().getContextDomain().getIndexNames();
       final Consumer<String> _function = (String it) -> {
         evalBuilder.addParameter(Common.alphaIndexType(), it);
       };
       indexNames.forEach(_function);
       final IfStmt flagCheckingBlock = this.getFlagCheckingBlock(equation);
-      evalBuilder.addComment("Check the flags.").addStatement(flagCheckingBlock).addEmptyLine().addReturn(SystemConverter.identityAccess(equation.getVariable(), false));
+      evalBuilder.addComment("Check the flags.").addStatement(flagCheckingBlock).addEmptyLine().addReturn(SystemConverter.identityAccess(equation, false));
       _xblockexpression = this.program.addFunction(evalBuilder.getInstance());
     }
     return _xblockexpression;
@@ -260,62 +266,61 @@ public class SystemConverter {
    * evaluates the variable if needed, or reports a self-dependence if detected.
    */
   protected IfStmt getFlagCheckingBlock(final StandardEquation equation) {
-    final Variable variable = equation.getVariable();
     final Expression computeValue = ExprConverter.convertExpr(this.program, equation.getExpr());
-    final AssignmentStmt computeAndStore = Factory.assignmentStmt(SystemConverter.identityAccess(variable, false), computeValue);
-    return IfStmtBuilder.start(SystemConverter.ifFlagEquals(variable, FlagStatus.NOT_EVALUATED)).addStatement(
-      SystemConverter.setFlagTo(variable, FlagStatus.IN_PROGRESS), computeAndStore, 
-      SystemConverter.setFlagTo(variable, FlagStatus.EVALUATED)).startElseIf(SystemConverter.ifFlagEquals(variable, FlagStatus.IN_PROGRESS)).addStatement(
-      SystemConverter.getSelfDependencePrintfStmt(variable), 
+    final AssignmentStmt computeAndStore = Factory.assignmentStmt(SystemConverter.identityAccess(equation, false), computeValue);
+    return IfStmtBuilder.start(SystemConverter.ifFlagEquals(equation, FlagStatus.NOT_EVALUATED)).addStatement(
+      SystemConverter.setFlagTo(equation, FlagStatus.IN_PROGRESS), computeAndStore, 
+      SystemConverter.setFlagTo(equation, FlagStatus.EVALUATED)).startElseIf(SystemConverter.ifFlagEquals(equation, FlagStatus.IN_PROGRESS)).addStatement(
+      SystemConverter.getSelfDependencePrintfStmt(equation), 
       Factory.exitCall((-1))).getInstance();
   }
 
   /**
    * Gets the expression to check if a flags variable is set to a given value.
    */
-  protected static BinaryExpr ifFlagEquals(final Variable variable, final FlagStatus flagStatus) {
-    return Factory.binaryExpr(BinaryOperator.EQ, SystemConverter.identityAccess(variable, true), Common.toExpr(flagStatus));
+  protected static BinaryExpr ifFlagEquals(final StandardEquation equation, final FlagStatus flagStatus) {
+    return Factory.binaryExpr(BinaryOperator.EQ, SystemConverter.identityAccess(equation, true), Common.toExpr(flagStatus));
   }
 
   /**
    * Gets the statement that sets a flags variable to a given value.
    */
-  protected static AssignmentStmt setFlagTo(final Variable variable, final FlagStatus flagStatus) {
-    return Factory.assignmentStmt(SystemConverter.identityAccess(variable, true), Common.toExpr(flagStatus));
+  protected static AssignmentStmt setFlagTo(final StandardEquation equation, final FlagStatus flagStatus) {
+    return Factory.assignmentStmt(SystemConverter.identityAccess(equation, true), Common.toExpr(flagStatus));
   }
 
   /**
    * Gets the expression used to access a variable (or its flag).
    */
-  protected static CallExpr identityAccess(final Variable variable, final boolean accessFlags) {
+  protected static CallExpr identityAccess(final StandardEquation equation, final boolean accessFlags) {
     String _xifexpression = null;
     if (accessFlags) {
-      _xifexpression = Common.getFlagName(variable);
+      _xifexpression = Common.getFlagName(equation.getVariable());
     } else {
-      _xifexpression = variable.getName();
+      _xifexpression = equation.getVariable().getName();
     }
     final String name = _xifexpression;
-    return Factory.callExpr(name, ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)));
+    return Factory.callExpr(name, ((String[])Conversions.unwrapArray(equation.getExpr().getContextDomain().getIndexNames(), String.class)));
   }
 
   /**
    * Gets the "printf" statement that tells the user a self dependence was found (and where it was).
    */
-  protected static ExpressionStmt getSelfDependencePrintfStmt(final Variable variable) {
-    int _nbIndices = variable.getDomain().getNbIndices();
+  protected static ExpressionStmt getSelfDependencePrintfStmt(final StandardEquation equation) {
+    int _nbIndices = equation.getExpr().getContextDomain().getNbIndices();
     final Function1<Integer, String> _function = (Integer it) -> {
       return "%ld";
     };
     final String locationFormat = IterableExtensions.join(IterableExtensions.<Integer, String>map(new ExclusiveRange(0, _nbIndices, true), _function), ",");
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("\"There is a self dependence on ");
-    String _name = variable.getName();
+    String _name = equation.getVariable().getName();
     _builder.append(_name);
     _builder.append(" at (");
     _builder.append(locationFormat);
     _builder.append(")\\n\"");
     final String message = _builder.toString();
-    return Factory.printfCall(message, ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)));
+    return Factory.printfCall(message, ((String[])Conversions.unwrapArray(equation.getExpr().getContextDomain().getIndexNames(), String.class)));
   }
 
   /**
