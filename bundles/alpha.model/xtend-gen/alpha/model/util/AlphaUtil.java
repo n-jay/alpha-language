@@ -32,6 +32,7 @@ import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -50,6 +51,17 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class AlphaUtil {
+  /**
+   * Returns a self-contained copy of the eObject.
+   */
+  public static <T extends EObject> T copyAE(final T eObject) {
+    final EcoreUtil.Copier copier = new EcoreUtil.Copier();
+    final EObject result = copier.copy(eObject);
+    copier.copyReferences();
+    final T t = ((T) result);
+    return t;
+  }
+
   /**
    * Given a name candidate, ensures that it does not conflict
    * with existing variables. If a variable is in conflict,
@@ -386,6 +398,18 @@ public class AlphaUtil {
     return res;
   }
 
+  /**
+   * Renames as many inputs of the given multi-affine expression as possible.
+   * If more names are given than there are inputs, then all the inputs will be renamed.
+   */
+  public static ISLMultiAff renameFirstIndices(final ISLMultiAff maff, final List<String> names) {
+    final int maxIndex = Integer.min(maff.getNbInputs(), names.size());
+    final Function2<ISLMultiAff, Integer, ISLMultiAff> _function = (ISLMultiAff _maff, Integer dim) -> {
+      return _maff.setDimName(ISLDimType.isl_dim_in, (dim).intValue(), names.get((dim).intValue()));
+    };
+    return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, maxIndex, true), maff, _function);
+  }
+
   public static ISLPWQPolynomial renameIndices(final ISLPWQPolynomial pwqp, final List<String> names) {
     final int n = pwqp.dim(ISLDimType.isl_dim_in);
     int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
@@ -450,6 +474,18 @@ public class AlphaUtil {
       return _maff.setDimName(ISLDimType.isl_dim_out, (dim).intValue(), names.get((dim).intValue()));
     };
     return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, nbDims, true), maff, _function);
+  }
+
+  /**
+   * Renames as many outputs of the given multi-affine expression as possible.
+   * If more names are given than there are outputs, then all the outputs will be renamed.
+   */
+  public static ISLMultiAff renameFirstOutputs(final ISLMultiAff maff, final List<String> names) {
+    final int maxIndex = Integer.min(maff.getNbOutputs(), names.size());
+    final Function2<ISLMultiAff, Integer, ISLMultiAff> _function = (ISLMultiAff _maff, Integer dim) -> {
+      return _maff.setDimName(ISLDimType.isl_dim_out, (dim).intValue(), names.get((dim).intValue()));
+    };
+    return IterableExtensions.<Integer, ISLMultiAff>fold(new ExclusiveRange(0, maxIndex, true), maff, _function);
   }
 
   /**

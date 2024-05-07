@@ -3,6 +3,7 @@ package alpha.model.tests.util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -148,5 +149,14 @@ public class AlphaTestUtil {
 				.map(Path::getParent)
 				.filter(Objects::nonNull)
 				.distinct();
+	}
+	
+	/** 
+	 * Load specific file, at path "SRC_VALID/<relativePath>"
+	 * 
+	 * @return AlphaRoot
+	 */
+	public static AlphaRoot loadValidFile(String relativePath) {
+		return alpha.commands.Core.ReadAlpha(SRC_VALID.toString() + "/" + relativePath);
 	}
 }
