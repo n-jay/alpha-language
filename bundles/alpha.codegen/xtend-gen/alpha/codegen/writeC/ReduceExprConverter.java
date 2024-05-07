@@ -14,9 +14,13 @@ import alpha.codegen.Parameter;
 import alpha.codegen.ParenthesizedExpr;
 import alpha.codegen.ProgramBuilder;
 import alpha.codegen.Statement;
+import alpha.codegen.VariableDecl;
+import alpha.codegen.isl.ASTConversionResult;
+import alpha.codegen.isl.ASTConverter;
 import alpha.codegen.isl.LoopGenerator;
 import alpha.model.ReduceExpression;
 import com.google.common.collect.Iterables;
+import fr.irisa.cairn.jnimap.isl.ISLASTNode;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
 import fr.irisa.cairn.jnimap.isl.ISLConstraint;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
@@ -75,12 +79,17 @@ public class ReduceExprConverter {
     final ISLSet loopDomain = ReduceExprConverter.createReduceLoopDomain(expr);
     final MacroStmt reducePointMacro = ReduceExprConverter.createReducePointMacro(myId, program, expr);
     final MacroStmt accumulateMacro = ReduceExprConverter.createAccumulationMacro(myId, expr, reducePointMacro);
-    final Iterable<Statement> loopStatements = LoopGenerator.generateLoops(accumulateMacro.getName(), loopDomain);
+    final ISLASTNode islAST = LoopGenerator.generateLoops(accumulateMacro.getName(), loopDomain);
+    final ASTConversionResult loopResult = ASTConverter.convert(islAST);
+    final Function1<String, VariableDecl> _function = (String it) -> {
+      return Factory.variableDecl(Common.alphaIndexType(), it);
+    };
+    final List<VariableDecl> loopVariables = ListExtensions.<String, VariableDecl>map(loopResult.getDeclarations(), _function);
     final String reduceFunctionName = ("reduce" + myId);
-    final Function1<String, Parameter> _function = (String it) -> {
+    final Function1<String, Parameter> _function_1 = (String it) -> {
       return ReduceExprConverter.toParameter(it);
     };
-    return FunctionBuilder.start(Boolean.valueOf(false), Common.alphaValueType(), reduceFunctionName).addParameter(((Parameter[])Conversions.unwrapArray(ListExtensions.<String, Parameter>map(loopDomain.getParamNames(), _function), Parameter.class))).addVariable(Common.alphaIndexType(), ReduceExprConverter.reduceVarName).addStatement(reducePointMacro, accumulateMacro).addStatement(((Statement[])Conversions.unwrapArray(loopStatements, Statement.class))).addUndefine(reducePointMacro, accumulateMacro).addReturn(ReduceExprConverter.reduceVarExpr()).getInstance();
+    return FunctionBuilder.start(Boolean.valueOf(false), Common.alphaValueType(), reduceFunctionName).addParameter(((Parameter[])Conversions.unwrapArray(ListExtensions.<String, Parameter>map(loopDomain.getParamNames(), _function_1), Parameter.class))).addVariable(Common.alphaIndexType(), ReduceExprConverter.reduceVarName).addVariable(((VariableDecl[])Conversions.unwrapArray(loopVariables, VariableDecl.class))).addStatement(reducePointMacro, accumulateMacro).addStatement(((Statement[])Conversions.unwrapArray(loopResult.getStatements(), Statement.class))).addUndefine(reducePointMacro, accumulateMacro).addReturn(ReduceExprConverter.reduceVarExpr()).getInstance();
   }
 
   /**

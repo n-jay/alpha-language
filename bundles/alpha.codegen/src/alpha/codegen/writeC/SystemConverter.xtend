@@ -27,6 +27,7 @@ import static extension alpha.codegen.writeC.Common.getEvalName
 import static extension alpha.codegen.writeC.Common.getFlagName
 import static extension alpha.model.util.AlphaUtil.copyAE
 import static extension fr.irisa.cairn.jnimap.barvinok.BarvinokBindings.card
+import alpha.codegen.isl.ASTConverter
 
 /** Converts an Alpha system to the simplified C AST. */
 class SystemConverter {
@@ -444,10 +445,19 @@ class SystemConverter {
 		builder.addStatement(macro)
 		
 		// We will have ISL create a loop nest that visits all points in their lexicographic order.
-		val loopStmt = LoopGenerator.generateLoops(macroName, variable.domain)
-		builder.addStatement(loopStmt)
+		// Any loop variables used need to also be declared.
+		val islAST = LoopGenerator.generateLoops(macroName, variable.domain)
+		val loopResult = ASTConverter.convert(islAST)
+		
+		builder.addVariable(loopResult.declarations.map[declareIndexVariable])
+			.addStatement(loopResult.statements)
 		
 		// Undefine the macro now that we're done with it.
 		builder.addStatement(Factory.undefStmt(macroName))
+	}
+	
+	/** Declares a variable to use for indexing Alpha variables. */
+	def protected static declareIndexVariable(String name) {
+		return Factory.variableDecl(Common.alphaIndexType, name)
 	}
 }

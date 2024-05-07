@@ -18,5 +18,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.emf.ecore.xcore.lib,
  alpha.model;bundle-version="0.1.0",
- fr.irisa.cairn.jnimap.barvinok;bundle-version="2.5.1"
+ fr.irisa.cairn.jnimap.barvinok;bundle-version="2.5.1",
+ org.eclipse.xtend.lib;bundle-version="2.27.0"
 Bundle-ActivationPolicy: lazy

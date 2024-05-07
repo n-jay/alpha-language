@@ -12,6 +12,7 @@ import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLSpace
 import java.util.HashSet
 import alpha.codegen.Expression
+import alpha.codegen.isl.ASTConverter
 
 /**
  * Converts an Alpha reduce expression into the appropriate C AST nodes.
@@ -59,7 +60,9 @@ class ReduceExprConverter {
 		val accumulateMacro = createAccumulationMacro(myId, expr, reducePointMacro)
 		
 		// Generate the actual loop nest which performs the reduction.
-		val loopStatements = LoopGenerator.generateLoops(accumulateMacro.name, loopDomain)
+		val islAST = LoopGenerator.generateLoops(accumulateMacro.name, loopDomain)
+		val loopResult = ASTConverter.convert(islAST)
+		val loopVariables = loopResult.declarations.map[Factory.variableDecl(Common.alphaIndexType, it)]
 		
 		// Create the reduction function.
 		val reduceFunctionName = "reduce" + myId
@@ -67,8 +70,9 @@ class ReduceExprConverter {
 			.start(false, Common.alphaValueType, reduceFunctionName)
 			.addParameter(loopDomain.paramNames.map[toParameter])
 			.addVariable(Common.alphaIndexType, reduceVarName)
+			.addVariable(loopVariables)
 			.addStatement(reducePointMacro, accumulateMacro)
-			.addStatement(loopStatements)
+			.addStatement(loopResult.statements)
 			.addUndefine(reducePointMacro, accumulateMacro)
 			.addReturn(reduceVarExpr)
 			.instance

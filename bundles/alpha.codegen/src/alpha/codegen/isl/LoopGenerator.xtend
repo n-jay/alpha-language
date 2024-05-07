@@ -38,7 +38,6 @@ class LoopGenerator {
 			.toUnionMap
 		
 		// Have isl generate an AST for the loop, then convert it to the C AST.
-		val islAst = ISLASTBuild.buildFromContext(context).generate(schedule)
-		return ASTConverter.convert(islAst)
+		return ISLASTBuild.buildFromContext(context).generate(schedule)
 	}
 }

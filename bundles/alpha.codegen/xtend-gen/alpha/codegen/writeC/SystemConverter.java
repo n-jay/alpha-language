@@ -23,6 +23,9 @@ import alpha.codegen.Program;
 import alpha.codegen.ProgramBuilder;
 import alpha.codegen.Statement;
 import alpha.codegen.UnaryOperator;
+import alpha.codegen.VariableDecl;
+import alpha.codegen.isl.ASTConversionResult;
+import alpha.codegen.isl.ASTConverter;
 import alpha.codegen.isl.ConditionalConverter;
 import alpha.codegen.isl.LoopGenerator;
 import alpha.codegen.isl.MemoryUtils;
@@ -37,6 +40,7 @@ import alpha.model.transformation.Normalize;
 import alpha.model.transformation.StandardizeNames;
 import alpha.model.util.AlphaUtil;
 import fr.irisa.cairn.jnimap.barvinok.BarvinokBindings;
+import fr.irisa.cairn.jnimap.isl.ISLASTNode;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 import java.util.ArrayList;
 import java.util.List;
@@ -492,10 +496,21 @@ public class SystemConverter {
       final CallExpr callEval = Factory.callExpr(Common.getEvalName(variable), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)));
       final MacroStmt macro = Factory.macroStmt(macroName, ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), callEval);
       builder.addStatement(macro);
-      final Iterable<Statement> loopStmt = LoopGenerator.generateLoops(macroName, variable.getDomain());
-      builder.addStatement(((Statement[])Conversions.unwrapArray(loopStmt, Statement.class)));
+      final ISLASTNode islAST = LoopGenerator.generateLoops(macroName, variable.getDomain());
+      final ASTConversionResult loopResult = ASTConverter.convert(islAST);
+      final Function1<String, VariableDecl> _function = (String it) -> {
+        return SystemConverter.declareIndexVariable(it);
+      };
+      builder.addVariable(((VariableDecl[])Conversions.unwrapArray(ListExtensions.<String, VariableDecl>map(loopResult.getDeclarations(), _function), VariableDecl.class))).addStatement(((Statement[])Conversions.unwrapArray(loopResult.getStatements(), Statement.class)));
       _xblockexpression = builder.addStatement(Factory.undefStmt(macroName));
     }
     return _xblockexpression;
+  }
+
+  /**
+   * Declares a variable to use for indexing Alpha variables.
+   */
+  protected static VariableDecl declareIndexVariable(final String name) {
+    return Factory.variableDecl(Common.alphaIndexType(), name);
   }
 }

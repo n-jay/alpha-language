@@ -14,8 +14,8 @@ import fr.irisa.cairn.jnimap.isl.ISLASTIfNode;
 import fr.irisa.cairn.jnimap.isl.ISLASTNode;
 import fr.irisa.cairn.jnimap.isl.ISLASTNodeList;
 import fr.irisa.cairn.jnimap.isl.ISLASTUserNode;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -23,43 +23,54 @@ import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
+/**
+ * Converts an isl AST node into equivalent C AST nodes and a list of any declared loop variable names.
+ */
 @SuppressWarnings("all")
 public class ASTConverter {
   /**
    * A "user" node is just an expression statement, so we can directly
    * convert the expression it contains into a statement.
    */
-  protected static Iterable<Statement> _convert(final ISLASTUserNode node) {
-    ExpressionStmt _customStmt = Factory.customStmt(node.getExpression().toCString());
-    return Collections.<Statement>unmodifiableList(CollectionLiterals.<Statement>newArrayList(_customStmt));
+  protected static ASTConversionResult _convert(final ISLASTUserNode node) {
+    final ExpressionStmt stmt = Factory.customStmt(node.getExpression().toCString());
+    return new ASTConversionResult(stmt);
   }
 
   /**
    * A "block" node just contains more nodes within it.
    */
-  protected static Iterable<Statement> _convert(final ISLASTBlockNode node) {
+  protected static ASTConversionResult _convert(final ISLASTBlockNode node) {
     final ISLASTNodeList childrenList = node.getChildren();
     int _nbNodes = childrenList.getNbNodes();
-    final Function1<Integer, ISLASTNode> _function = (Integer it) -> {
-      return childrenList.get((it).intValue());
+    final Function1<Integer, ASTConversionResult> _function = (Integer it) -> {
+      return ASTConverter.convert(childrenList.get((it).intValue()));
     };
-    final Function1<ISLASTNode, Iterable<Statement>> _function_1 = (ISLASTNode it) -> {
-      return ASTConverter.convert(it);
+    final Iterable<ASTConversionResult> results = IterableExtensions.<Integer, ASTConversionResult>map(new ExclusiveRange(0, _nbNodes, true), _function);
+    final Function1<ASTConversionResult, ArrayList<String>> _function_1 = (ASTConversionResult it) -> {
+      return it.getDeclarations();
     };
-    return IterableExtensions.<ISLASTNode, Statement>flatMap(IterableExtensions.<Integer, ISLASTNode>map(new ExclusiveRange(0, _nbNodes, true), _function), _function_1);
+    final Iterable<String> declarations = IterableExtensions.<ASTConversionResult, String>flatMap(results, _function_1);
+    final Function1<ASTConversionResult, ArrayList<Statement>> _function_2 = (ASTConversionResult it) -> {
+      return it.getStatements();
+    };
+    final Iterable<Statement> statements = IterableExtensions.<ASTConversionResult, Statement>flatMap(results, _function_2);
+    return new ASTConversionResult(declarations, ((Statement[])Conversions.unwrapArray(statements, Statement.class)));
   }
 
   /**
    * A "for" node corresponds to a loop statement.
    */
-  protected static Iterable<Statement> _convert(final ISLASTForNode node) {
+  protected static ASTConversionResult _convert(final ISLASTForNode node) {
     final String loopVariable = node.getIterator().toCString();
     final CustomExpr initializer = ASTConverter.getCustomExpr(node.getInit());
     final CustomExpr conditional = ASTConverter.getCustomExpr(node.getCond());
     final CustomExpr incrementBy = ASTConverter.getCustomExpr(node.getInc());
-    final Iterable<Statement> body = ASTConverter.convert(node.getBody());
-    LoopStmt _loopStmt = Factory.loopStmt(loopVariable, initializer, conditional, incrementBy, ((Statement[])Conversions.unwrapArray(body, Statement.class)));
-    return Collections.<Statement>unmodifiableList(CollectionLiterals.<Statement>newArrayList(_loopStmt));
+    final ASTConversionResult bodyResult = ASTConverter.convert(node.getBody());
+    final ArrayList<String> declarations = CollectionLiterals.<String>newArrayList(loopVariable);
+    declarations.addAll(bodyResult.getDeclarations());
+    final LoopStmt statement = Factory.loopStmt(loopVariable, initializer, conditional, incrementBy, ((Statement[])Conversions.unwrapArray(bodyResult.getStatements(), Statement.class)));
+    return new ASTConversionResult(declarations, statement);
   }
 
   /**
@@ -68,40 +79,53 @@ public class ASTConverter {
    * then we convert that to an "else if" block using the "convertConditional"
    * dispatch methods.
    */
-  protected static Iterable<Statement> _convert(final ISLASTIfNode node) {
-    final IfStmtBuilder builder = IfStmtBuilder.start(ASTConverter.getCustomExpr(node.getCond())).addStatement(((Statement[])Conversions.unwrapArray(ASTConverter.convert(node.getThen()), Statement.class)));
+  protected static ASTConversionResult _convert(final ISLASTIfNode node) {
+    final ASTConversionResult thenBlock = ASTConverter.convert(node.getThen());
+    ArrayList<String> _declarations = thenBlock.getDeclarations();
+    final ArrayList<String> declarations = new ArrayList<String>(_declarations);
+    final IfStmtBuilder builder = IfStmtBuilder.start(ASTConverter.getCustomExpr(node.getCond())).addStatement(((Statement[])Conversions.unwrapArray(thenBlock.getStatements(), Statement.class)));
     int _hasElse = node.hasElse();
     boolean _greaterThan = (_hasElse > 0);
     if (_greaterThan) {
-      ASTConverter.convertConditional(node.getElse(), builder);
+      final ArrayList<String> elseDeclarations = ASTConverter.convertConditional(node.getElse(), builder);
+      declarations.addAll(elseDeclarations);
     }
     IfStmt _instance = builder.getInstance();
-    return Collections.<Statement>unmodifiableList(CollectionLiterals.<Statement>newArrayList(_instance));
+    return new ASTConversionResult(declarations, _instance);
   }
 
   /**
    * If the "else" of an "if" node is another "if" node, build an "else if" block.
+   * Any declared variables are returned.
    */
-  protected static void _convertConditional(final ISLASTIfNode node, final IfStmtBuilder builder) {
-    builder.startElseIf(ASTConverter.getCustomExpr(node.getCond())).addStatement(((Statement[])Conversions.unwrapArray(ASTConverter.convert(node.getThen()), Statement.class)));
+  protected static ArrayList<String> _convertConditional(final ISLASTIfNode node, final IfStmtBuilder builder) {
+    final ASTConversionResult thenBlock = ASTConverter.convert(node.getThen());
+    ArrayList<String> _declarations = thenBlock.getDeclarations();
+    final ArrayList<String> declarations = new ArrayList<String>(_declarations);
+    builder.startElseIf(ASTConverter.getCustomExpr(node.getCond())).addStatement(((Statement[])Conversions.unwrapArray(thenBlock.getStatements(), Statement.class)));
     int _hasElse = node.hasElse();
     boolean _greaterThan = (_hasElse > 0);
     if (_greaterThan) {
-      ASTConverter.convertConditional(node.getElse(), builder);
+      final ArrayList<String> elseDeclarations = ASTConverter.convertConditional(node.getElse(), builder);
+      declarations.addAll(elseDeclarations);
     }
+    return declarations;
   }
 
   /**
    * If the "else" of an "if" node isn't another "if" node, build an "else" block.
+   * Any declared variables are returned.
    */
-  protected static void _convertConditional(final ISLASTNode node, final IfStmtBuilder builder) {
-    builder.startElse().addStatement(((Statement[])Conversions.unwrapArray(ASTConverter.convert(node), Statement.class)));
+  protected static ArrayList<String> _convertConditional(final ISLASTNode node, final IfStmtBuilder builder) {
+    final ASTConversionResult result = ASTConverter.convert(node);
+    builder.startElse().addStatement(((Statement[])Conversions.unwrapArray(result.getStatements(), Statement.class)));
+    return result.getDeclarations();
   }
 
   /**
    * Handles if the AST node type doesn't have a rule made for it.
    */
-  protected static Iterable<Statement> _convert(final ISLASTNode node) {
+  protected static ASTConversionResult _convert(final ISLASTNode node) {
     try {
       throw new Exception("Not implemented yet!");
     } catch (Throwable _e) {
@@ -116,7 +140,7 @@ public class ASTConverter {
     return Factory.customExpr(expression.toCString());
   }
 
-  public static Iterable<Statement> convert(final ISLASTNode node) {
+  public static ASTConversionResult convert(final ISLASTNode node) {
     if (node instanceof ISLASTBlockNode) {
       return _convert((ISLASTBlockNode)node);
     } else if (node instanceof ISLASTForNode) {
@@ -133,13 +157,11 @@ public class ASTConverter {
     }
   }
 
-  protected static void convertConditional(final ISLASTNode node, final IfStmtBuilder builder) {
+  protected static ArrayList<String> convertConditional(final ISLASTNode node, final IfStmtBuilder builder) {
     if (node instanceof ISLASTIfNode) {
-      _convertConditional((ISLASTIfNode)node, builder);
-      return;
+      return _convertConditional((ISLASTIfNode)node, builder);
     } else if (node != null) {
-      _convertConditional(node, builder);
-      return;
+      return _convertConditional(node, builder);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(node, builder).toString());
