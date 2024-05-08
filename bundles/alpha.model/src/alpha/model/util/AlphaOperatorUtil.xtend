@@ -38,6 +38,10 @@ class AlphaOperatorUtil {
 		}
 	}
 	
+	static def boolean hasNoInverse(REDUCTION_OP op) {
+		return !hasInverse(op)
+	}
+	
 	static def BINARY_OP reductionOPtoBinaryInverseOP(REDUCTION_OP op) {
 		switch (op) {
 			case MIN,

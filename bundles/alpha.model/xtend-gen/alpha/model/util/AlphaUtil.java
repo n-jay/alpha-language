@@ -12,6 +12,7 @@ import alpha.model.SystemBody;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLErrorException;
 import fr.irisa.cairn.jnimap.isl.ISLFactory;
@@ -351,6 +352,21 @@ public class AlphaUtil {
    */
   public static ISLSet renameIndices(final ISLSet set) {
     return AlphaUtil.renameIndices(set, AlphaUtil.defaultDimNames(set));
+  }
+
+  public static ISLBasicSet renameIndices(final ISLBasicSet set, final List<String> names) {
+    final int n = set.getNbIndices();
+    ISLBasicSet res = set;
+    int _length = ((Object[])Conversions.unwrapArray(names, Object.class)).length;
+    boolean _greaterThan = (n > _length);
+    if (_greaterThan) {
+      throw new RuntimeException("Need n or more index names to rename n-d space.");
+    }
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, n, true);
+    for (final Integer i : _doubleDotLessThan) {
+      res = res.setDimName(ISLDimType.isl_dim_set, (i).intValue(), names.get((i).intValue()));
+    }
+    return res;
   }
 
   public static ISLSet renameIndices(final ISLSet set, final List<String> names) {

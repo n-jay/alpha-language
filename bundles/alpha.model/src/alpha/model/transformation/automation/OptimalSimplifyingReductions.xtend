@@ -40,6 +40,9 @@ import static extension alpha.model.util.AlphaUtil.getContainerRoot
 import static extension alpha.model.util.AlphaUtil.getContainerSystemBody
 import static extension alpha.model.util.ISLUtil.dimensionality
 import static extension java.lang.String.format
+import static extension alpha.model.util.AlphaOperatorUtil.hasNoInverse
+import alpha.model.transformation.reduction.SplitReduction
+import fr.irisa.cairn.jnimap.isl.ISLConstraint
 
 /**
  * Implements Algorithm 2 in the Simplifying Reductions paper. The current
@@ -88,7 +91,7 @@ class OptimalSimplifyingReductions {
 		originalSystemName = system.name
 		optimizationNum = 0
 		initialComplexity = systemBody.complexity
-		throttle = throttleLimit > 0
+		throttle = limit > 0
 		throttleLimit = limit
 	}
 	
@@ -273,6 +276,23 @@ class OptimalSimplifyingReductions {
 	private dispatch def shouldRaiseDependence(AlphaExpression ae) { true }
 	
 	/** 
+	 * Return true if the dimensionality of the reduction body is bigger than the dimensionality
+	 * of the variable on the LHS of the containing equation, and false otherwise
+	 */
+	private def shouldSimplify(AbstractReduceExpression are) {
+		val answerDim = (are.getContainerEquation as StandardEquation).variable.domain.dimensionality
+		val bodyDim = are.body.contextDomain.dimensionality
+		return bodyDim > answerDim
+	}
+	
+	/**
+	 * Return true if shouldSimplify returns true and the reduction operator does not admit an inverse
+	 */
+	private def shouldSplit(AbstractReduceExpression are, boolean shouldSimplify) {
+		shouldSimplify && are.operator.hasNoInverse
+	}
+	
+	/** 
 	 * Creates a list of possible transformations that are valid steps in the DP
 	 * 
 	 */
@@ -282,20 +302,17 @@ class OptimalSimplifyingReductions {
 		
 		val candidates = new LinkedList<DynamicProgrammingStep>();
 		
-		// SimplifyingReductions if body is bigger than answer 
-		val answerDim = (targetRE.getContainerEquation as StandardEquation).variable.domain.dimensionality
-		val bodyDim = targetRE.body.contextDomain.dimensionality
-		if (bodyDim > answerDim) {
+		// SimplifyingReductions 
+		val shouldSimplify = targetRE.shouldSimplify
+		if (shouldSimplify) {
 			val vectors = SimplifyingReductions.generateCandidateReuseVectors(targetRE, SSAR);
 			candidates.addAll(vectors.map[vec | new StepSimplifyingReduction(targetRE, vec, nbParams)])
-			
-			/* TODO - place-holder for max simplification splitting step.
-			 * If vectors is empty but bodyDim is larger than answerDim then there is potentially
-			 * reuse that has not yet been exploited, but can be via splitting.
-			 * The call to generate the DP steps for splitting in this case should go here.
-			 * This comment block should be removed by the PR that introduces the splitting logic,
-			 * which will be done separately. 
-			 */
+		}
+		
+		// Splitting
+		if (targetRE.shouldSplit(shouldSimplify)) {
+			 val splits = SplitReduction.enumerateCandidateSplits(targetRE)
+			 candidates.addAll(splits.map[split | new StepSplitReduction(targetRE, split)])
 		}
 		
 		// Idempotent
@@ -344,6 +361,12 @@ class OptimalSimplifyingReductions {
 		RaiseDependence.apply(re, true)
 		AlphaInternalStateConstructor.recomputeContextDomain(systemBody)
 	}
+	protected dispatch def applyDPStep(ReduceExpression re, StepSplitReduction step) {
+		val equation = re.getContainerEquation
+		SplitReduction.apply(re, step.split)
+		// re is no longer contained in the AST
+		NormalizeReduction.apply(equation)
+	}
 	protected dispatch def applyDPStep(AlphaExpression ae, DynamicProgrammingStep step) {
 		// do nothing
 	}
@@ -361,6 +384,12 @@ class OptimalSimplifyingReductions {
 			re = targetRE	
 		}
 		
+		def String toEqStr() {
+			val eq = re.getContainerEquation
+			val eqVarName = (eq instanceof StandardEquation) ? (eq as StandardEquation).variable.name : null 
+			(eqVarName !== null) ? ' to %s'.format(eqVarName) : ''
+		}
+		
 		abstract def String description();
 	}
 	
@@ -370,9 +399,6 @@ class OptimalSimplifyingReductions {
 		}
 		
 		override description() {
-			val eq = re.getContainerEquation
-			val eqVarName = (eq instanceof StandardEquation) ? (eq as StandardEquation).variable.name : null 
-			val toEqStr = (eqVarName !== null) ? 'to %s'.format(eqVarName) : ''
 			String.format("Optimize equation %s", toEqStr);
 		}
 	}
@@ -386,9 +412,6 @@ class OptimalSimplifyingReductions {
 		}
 		
 		override description() {
-			val eq = re.getContainerEquation
-			val eqVarName = (eq instanceof StandardEquation) ? (eq as StandardEquation).variable.name : null 
-			val toEqStr = (eqVarName !== null) ? ' to %s'.format(eqVarName) : ''
 			String.format("Apply SimplifyingReduction%s with: %s", toEqStr, MatrixOperations.toString(reuseDepNoParams));
 		}
 		
@@ -428,9 +451,6 @@ class OptimalSimplifyingReductions {
 		}
 		
 		override description() {
-			val eq = re.getContainerEquation
-			val eqVarName = (eq instanceof StandardEquation) ? (eq as StandardEquation).variable.name : null 
-			val toEqStr = (eqVarName !== null) ? ' to %s'.format(eqVarName) : ''
 			String.format("Apply ReductionDecomposition%s with %s o %s", toEqStr, outerProjection, innerProjection);
 		}
 	}
@@ -442,6 +462,18 @@ class OptimalSimplifyingReductions {
 		
 		override description() {
 			'Apply RaiseDependence'
+		}
+	}
+	
+	static class StepSplitReduction extends DynamicProgrammingStep {
+		ISLConstraint split
+		new(AbstractReduceExpression targetRE, ISLConstraint split) {
+			super(targetRE)
+			this.split = split
+		}
+		
+		override description() {
+			String.format("Apply SplitReduction%s with %s", toEqStr, split);
 		}
 	}
 	
