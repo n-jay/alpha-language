@@ -36,9 +36,8 @@ import alpha.model.StandardEquation
  *    Making splits thru covered (d-2)-faces is an optimization. The usefulness
  *    of such splits is that it will result in two non-empty pieces. We could
  *    simply try making splits thru all of (d-2)-faces and only keep the ones
- *    that result in two non-empty pieces. 
- * 
- *    Detecting covered edges is not currently implemented.
+ *    that result in two non-empty pieces. This is what the current implementation
+ *    does. Detecting covered edges is not currently implemented.
  * 
  * 2) Given a reduction with a 1D REUSE space and a (d-2)-face of the reduction 
  *    body, we need to construct a new constraint that saturates the (d-2)-face 
@@ -133,18 +132,20 @@ class SplitReduction {
 		val bodyDim = bodyFace.dimensionality
 		val faces = bodyFace.lattice.getFaces(bodyDim - 2).map[toLinearSpace]
 		
-		// construct splits that saturate the accumulation space
+		// Construct splits that saturate the accumulation space
 		val accVec = are.projection.construct1DBasis
 		if (accVec !== null)
-			splits.addAll(faces.map[copy.constructSplit(accVec)].filter[s | s !== null])
+			splits.addAll(faces.map[copy.constructSplit(accVec)].reject[s | s === null])
 		
-		// construct splits that saturate the reuse space
+		// Construct splits that saturate the reuse space
 		val reuseMaff = are.body.getReuseMaff
 		val reuseVec = if (reuseMaff !== null) reuseMaff.construct1DBasis else null
 		if (reuseVec !== null)
-			splits.addAll(faces.map[copy.constructSplit(reuseVec)].filter[s | s !== null])
+			splits.addAll(faces.map[copy.constructSplit(reuseVec)].reject[s | s === null])
 		
-		// remove the splits that don't separate the reduction body into two pieces
+		// Remove the splits that don't separate the reduction body into two pieces.
+		// This is not necessary if "faces" is populated with only the "covered" (d-2)-faces.
+		// This is left for future optimization.
 		val usefulSplits = splits.filter[s | s.isUseful(bodyDomain)]
 		
 		usefulSplits.forEach[s | debug('(enumerateCandidateSplits) ' + s.toString)]
@@ -165,7 +166,7 @@ class SplitReduction {
 	 * the transitive closure of vec's ISLMap representation. The extended set is 
 	 * guaranteed to have a single equality constraint by construction.
 	 */
-	private static def ISLConstraint constructSplit(ISLBasicSet edge, ISLMultiAff vec) {
+	static def ISLConstraint constructSplit(ISLBasicSet edge, ISLMultiAff vec) {
 		val nbOut = edge.dim(ISLDimType.isl_dim_out)
 		val setNoParams = edge.copy.dropConstraintsNotInvolvingDims(ISLDimType.isl_dim_out, 0, edge.dim(ISLDimType.isl_dim_out))
 		

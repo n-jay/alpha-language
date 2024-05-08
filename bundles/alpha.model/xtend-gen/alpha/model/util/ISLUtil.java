@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
@@ -46,10 +47,38 @@ public class ISLUtil {
   }
 
   /**
-   * Creates an ISLBasicSet from a string
+   * Creates an ISLAff from a string
    */
   public static ISLAff toISLAff(final String descriptor) {
     return ISLAff.buildFromString(ISLContext.getInstance(), descriptor);
+  }
+
+  /**
+   * Creates an ISLMultiAff from a string
+   */
+  public static ISLMultiAff toISLMultiAff(final String descriptor) {
+    return ISLMultiAff.buildFromString(ISLContext.getInstance(), descriptor);
+  }
+
+  /**
+   * Creates an ISLConstraint from a string
+   */
+  public static ISLConstraint toISLConstraint(final String descriptor) {
+    try {
+      ISLConstraint _xblockexpression = null;
+      {
+        final ISLBasicSet set = ISLBasicSet.buildFromString(ISLContext.getInstance(), descriptor);
+        int _size = set.getConstraints().size();
+        boolean _notEquals = (_size != 1);
+        if (_notEquals) {
+          throw new Exception("Cannot create an ISLConstraint from a set with multiple constraints");
+        }
+        _xblockexpression = set.getConstraintAt(0);
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
 
   /**

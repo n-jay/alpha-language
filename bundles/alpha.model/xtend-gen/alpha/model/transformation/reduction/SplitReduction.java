@@ -49,9 +49,8 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  *    Making splits thru covered (d-2)-faces is an optimization. The usefulness
  *    of such splits is that it will result in two non-empty pieces. We could
  *    simply try making splits thru all of (d-2)-faces and only keep the ones
- *    that result in two non-empty pieces.
- * 
- *    Detecting covered edges is not currently implemented.
+ *    that result in two non-empty pieces. This is what the current implementation
+ *    does. Detecting covered edges is not currently implemented.
  * 
  * 2) Given a reduction with a 1D REUSE space and a (d-2)-face of the reduction
  *    body, we need to construct a new constraint that saturates the (d-2)-face
@@ -170,9 +169,9 @@ public class SplitReduction {
         return SplitReduction.constructSplit(it.copy(), accVec);
       };
       final Function1<ISLConstraint, Boolean> _function_2 = (ISLConstraint s) -> {
-        return Boolean.valueOf((s != null));
+        return Boolean.valueOf((s == null));
       };
-      Iterables.<ISLConstraint>addAll(splits, IterableExtensions.<ISLConstraint>filter(ListExtensions.<ISLBasicSet, ISLConstraint>map(faces, _function_1), _function_2));
+      Iterables.<ISLConstraint>addAll(splits, IterableExtensions.<ISLConstraint>reject(ListExtensions.<ISLBasicSet, ISLConstraint>map(faces, _function_1), _function_2));
     }
     final ISLMultiAff reuseMaff = SplitReduction.getReuseMaff(are.getBody());
     ISLMultiAff _xifexpression_2 = null;
@@ -187,9 +186,9 @@ public class SplitReduction {
         return SplitReduction.constructSplit(it.copy(), reuseVec);
       };
       final Function1<ISLConstraint, Boolean> _function_4 = (ISLConstraint s) -> {
-        return Boolean.valueOf((s != null));
+        return Boolean.valueOf((s == null));
       };
-      Iterables.<ISLConstraint>addAll(splits, IterableExtensions.<ISLConstraint>filter(ListExtensions.<ISLBasicSet, ISLConstraint>map(faces, _function_3), _function_4));
+      Iterables.<ISLConstraint>addAll(splits, IterableExtensions.<ISLConstraint>reject(ListExtensions.<ISLBasicSet, ISLConstraint>map(faces, _function_3), _function_4));
     }
     final Function1<ISLConstraint, Boolean> _function_5 = (ISLConstraint s) -> {
       return Boolean.valueOf(SplitReduction.isUseful(s, bodyDomain));
@@ -218,7 +217,7 @@ public class SplitReduction {
    * the transitive closure of vec's ISLMap representation. The extended set is
    * guaranteed to have a single equality constraint by construction.
    */
-  private static ISLConstraint constructSplit(final ISLBasicSet edge, final ISLMultiAff vec) {
+  public static ISLConstraint constructSplit(final ISLBasicSet edge, final ISLMultiAff vec) {
     try {
       ISLConstraint _xblockexpression = null;
       {
