@@ -45,8 +45,8 @@ public class Common {
    * The default macros for common functions in a program.
    */
   public static List<MacroStmt> defaultFunctionMacros() {
-    MacroStmt _macroStmt = Factory.macroStmt("max", new String[] { "a", "b" }, "((a)>(b))?(a):(b))");
-    MacroStmt _macroStmt_1 = Factory.macroStmt("min", new String[] { "a", "b" }, "((a)<(b))?(a):(b))");
+    MacroStmt _macroStmt = Factory.macroStmt("max", new String[] { "a", "b" }, "(((a)>(b))?(a):(b))");
+    MacroStmt _macroStmt_1 = Factory.macroStmt("min", new String[] { "a", "b" }, "(((a)<(b))?(a):(b))");
     MacroStmt _macroStmt_2 = Factory.macroStmt("mallocCheck", new String[] { "v", "s" }, "if ((v) == NULL) { printf(\"Failed to allocate memory for variable: %s\\n\", (s)); exit(-1); }");
     return Collections.<MacroStmt>unmodifiableList(CollectionLiterals.<MacroStmt>newArrayList(_macroStmt, _macroStmt_1, _macroStmt_2));
   }

@@ -320,10 +320,23 @@ class SystemConverter {
 		system.parameterDomain.paramNames.forEach[builder.prepareEntryArgument(it, Common.alphaIndexType)]
 		
 		// All system inputs and outputs are added as Alpha variable parameters.
-		system.inputs.forEach[builder.prepareEntryArgument(it.name, Common.alphaVariableType)]
-		system.outputs.forEach[builder.prepareEntryArgument(it.name, Common.alphaVariableType)]
+		system.inputs.forEach[builder.prepareEntryArgument(it)]
+		system.outputs.forEach[builder.prepareEntryArgument(it)]
 		
 		builder.addEmptyLine
+	}
+	
+	/** Adds a parameter to the function and the assignment statement needed to copy it to the global variable. */
+	def protected prepareEntryArgument(FunctionBuilder builder, Variable variable) {
+		// Always start with the Alpha variable type, which uses linearized memory.
+		// However, if we need compatibility with the older AlphaZ system,
+		// change the level of indirection to match the number of indices
+		// in the variable's domain.
+		val dataType = Common.alphaVariableType
+		if (oldAlphaZCompatible) {
+			dataType.indirectionLevel = variable.domain.nbIndices
+		}
+		return builder.prepareEntryArgument(variable.name, dataType)
 	}
 	
 	/** Adds a parameter to the function and the assignment statement needed to copy it to the global variable. */

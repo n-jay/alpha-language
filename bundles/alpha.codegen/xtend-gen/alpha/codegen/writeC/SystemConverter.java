@@ -341,16 +341,27 @@ public class SystemConverter {
       };
       this.system.getParameterDomain().getParamNames().forEach(_function);
       final Consumer<Variable> _function_1 = (Variable it) -> {
-        SystemConverter.prepareEntryArgument(builder, it.getName(), Common.alphaVariableType());
+        this.prepareEntryArgument(builder, it);
       };
       this.system.getInputs().forEach(_function_1);
       final Consumer<Variable> _function_2 = (Variable it) -> {
-        SystemConverter.prepareEntryArgument(builder, it.getName(), Common.alphaVariableType());
+        this.prepareEntryArgument(builder, it);
       };
       this.system.getOutputs().forEach(_function_2);
       _xblockexpression = builder.addEmptyLine();
     }
     return _xblockexpression;
+  }
+
+  /**
+   * Adds a parameter to the function and the assignment statement needed to copy it to the global variable.
+   */
+  protected FunctionBuilder prepareEntryArgument(final FunctionBuilder builder, final Variable variable) {
+    final DataType dataType = Common.alphaVariableType();
+    if (this.oldAlphaZCompatible) {
+      dataType.setIndirectionLevel(variable.getDomain().getNbIndices());
+    }
+    return SystemConverter.prepareEntryArgument(builder, variable.getName(), dataType);
   }
 
   /**
