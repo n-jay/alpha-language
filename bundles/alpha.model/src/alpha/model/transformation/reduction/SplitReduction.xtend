@@ -25,8 +25,8 @@ import alpha.model.StandardEquation
 
 /**
  * This class carries out the analysis required for splitting from the max 
- * simplification paper. This is primarily intended to be used with
- * OptimalSimplifyingReductions.
+ * simplification paper (https://arxiv.org/abs/2309.11826). This is primarily
+ * intended to be used with OptimalSimplifyingReductions.
  * 
  * 1) "covered" (d-2)-faces:
  *    Given an input reduce expression with a d-dimensional body, we need 
