@@ -1,5 +1,7 @@
 package alpha.codegen
 
+import static extension alpha.model.util.CommonExtensions.toArrayList
+
 /**
  * A builder to aid in the construction of C functions.
  * 
@@ -82,7 +84,11 @@ class FunctionBuilder {
 	
 	/**
 	 * Declares a new variable for use in the function being built.
-	 * Note: this does NOT check for name conflicts.
+	 * If the variable to add is an exact duplicate of an existing one,
+	 * it will be silently skipped.
+	 * If it has the same name as an existing one, but different type,
+	 * an IllegalArgumentException will be thrown.
+	 * Otherwise, the variable will be added.
 	 */
 	def addVariable(DataType dataType, String name) {
 		val decl = Factory.variableDecl(dataType, name)
@@ -91,11 +97,36 @@ class FunctionBuilder {
 	
 	/**
 	 * Declares new variables for use in the function being built.
-	 * Note: this does NOT check for name conflicts.
+	 * If the variable to add is an exact duplicate of an existing one,
+	 * it will be silently skipped.
+	 * If it has the same name as an existing one, but different type,
+	 * an IllegalArgumentException will be thrown.
+	 * Otherwise, the variable will be added.
 	 */
-	def addVariable(VariableDecl... variables) {
-		instance.declarations.addAll(variables)
+	def addVariable(VariableDecl variable) {
+		// If there aren't any variables of the same name, add it and return.
+		val sameName = instance.declarations.filter[it.hasSameName(variable)].toArrayList
+		if (sameName.empty) {
+			instance.declarations.add(variable)
+			return this
+		}
+		
+		// If any of the same-named variables have a different type,
+		// throw an exception as we can't generate C code for this.
+		if (sameName.exists[it.hasDifferentType(variable)]) { 
+			throw new IllegalArgumentException("Duplicate declarations for variable '" + variable.name + "' with different types.")
+		}
+		
 		return this
+	}
+	
+	def protected hasSameName(VariableDecl first, VariableDecl second) {
+		return first.name == second.name
+	}
+	
+	def protected hasDifferentType(VariableDecl first, VariableDecl second) {
+		return first.dataType.baseType != second.dataType.baseType
+			|| first.dataType.indirectionLevel != second.dataType.indirectionLevel
 	}
 	
 	/** Adds statements to the function being built. */

@@ -459,15 +459,15 @@ class SystemConverter {
 		val islAST = LoopGenerator.generateLoops(macroName, variable.domain)
 		val loopResult = ASTConverter.convert(islAST)
 		
-		builder.addVariable(loopResult.declarations.map[declareIndexVariable])
-			.addStatement(loopResult.statements)
+		loopResult.declarations.forEach[builder.addIndexVariable(it)]
+		builder.addStatement(loopResult.statements)
 		
 		// Undefine the macro now that we're done with it.
 		builder.addStatement(Factory.undefStmt(macroName))
 	}
 	
 	/** Declares a variable to use for indexing Alpha variables. */
-	def protected static declareIndexVariable(String name) {
-		return Factory.variableDecl(Common.alphaIndexType, name)
+	def protected static addIndexVariable(FunctionBuilder builder, String name) {
+		builder.addVariable(Common.alphaIndexType, name)
 	}
 }

@@ -14,7 +14,6 @@ import alpha.codegen.Parameter;
 import alpha.codegen.ParenthesizedExpr;
 import alpha.codegen.ProgramBuilder;
 import alpha.codegen.Statement;
-import alpha.codegen.VariableDecl;
 import alpha.codegen.isl.ASTConversionResult;
 import alpha.codegen.isl.ASTConverter;
 import alpha.codegen.isl.LoopGenerator;
@@ -30,6 +29,7 @@ import fr.irisa.cairn.jnimap.isl.ISLVal;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
@@ -90,10 +90,11 @@ public class ReduceExprConverter {
     };
     function.addParameter(((Parameter[])Conversions.unwrapArray(ListExtensions.<String, Parameter>map(loopDomain.getParamNames(), _function), Parameter.class)));
     final ASTConversionResult loopResult = ASTConverter.convert(islAST);
-    final Function1<String, VariableDecl> _function_1 = (String it) -> {
-      return Factory.variableDecl(Common.alphaIndexType(), it);
+    final Consumer<String> _function_1 = (String it) -> {
+      function.addVariable(Common.alphaIndexType(), it);
     };
-    function.addVariable(((VariableDecl[])Conversions.unwrapArray(ListExtensions.<String, VariableDecl>map(loopResult.getDeclarations(), _function_1), VariableDecl.class))).addStatement(((Statement[])Conversions.unwrapArray(loopResult.getStatements(), Statement.class)));
+    loopResult.getDeclarations().forEach(_function_1);
+    function.addStatement(((Statement[])Conversions.unwrapArray(loopResult.getStatements(), Statement.class)));
     function.addUndefine(reducePointMacro, accumulateMacro).addReturn(ReduceExprConverter.reduceVarExpr());
     return function.getInstance();
   }

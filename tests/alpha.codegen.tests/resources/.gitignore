@@ -1,0 +1,5 @@
+*.out
+*.o
+*.verify
+*.verify-rand
+*.check

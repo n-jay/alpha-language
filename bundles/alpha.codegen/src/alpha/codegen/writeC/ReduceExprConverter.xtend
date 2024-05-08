@@ -77,10 +77,8 @@ class ReduceExprConverter {
 		
 		// Add declarations for all the loop variables and add the loops themselves to the function.
 		val loopResult = ASTConverter.convert(islAST)
-		
-		function
-			.addVariable(loopResult.declarations.map[Factory.variableDecl(Common.alphaIndexType, it)])
-			.addStatement(loopResult.statements)
+		loopResult.declarations.forEach[function.addVariable(Common.alphaIndexType, it)]
+		function.addStatement(loopResult.statements)
 			
 		// Undefine the macros, then have the function return the reduce variable.
 		function

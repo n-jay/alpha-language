@@ -23,7 +23,6 @@ import alpha.codegen.Program;
 import alpha.codegen.ProgramBuilder;
 import alpha.codegen.Statement;
 import alpha.codegen.UnaryOperator;
-import alpha.codegen.VariableDecl;
 import alpha.codegen.isl.ASTConversionResult;
 import alpha.codegen.isl.ASTConverter;
 import alpha.codegen.isl.ConditionalConverter;
@@ -510,10 +509,11 @@ public class SystemConverter {
       builder.addStatement(macro);
       final ISLASTNode islAST = LoopGenerator.generateLoops(macroName, variable.getDomain());
       final ASTConversionResult loopResult = ASTConverter.convert(islAST);
-      final Function1<String, VariableDecl> _function = (String it) -> {
-        return SystemConverter.declareIndexVariable(it);
+      final Consumer<String> _function = (String it) -> {
+        SystemConverter.addIndexVariable(builder, it);
       };
-      builder.addVariable(((VariableDecl[])Conversions.unwrapArray(ListExtensions.<String, VariableDecl>map(loopResult.getDeclarations(), _function), VariableDecl.class))).addStatement(((Statement[])Conversions.unwrapArray(loopResult.getStatements(), Statement.class)));
+      loopResult.getDeclarations().forEach(_function);
+      builder.addStatement(((Statement[])Conversions.unwrapArray(loopResult.getStatements(), Statement.class)));
       _xblockexpression = builder.addStatement(Factory.undefStmt(macroName));
     }
     return _xblockexpression;
@@ -522,7 +522,7 @@ public class SystemConverter {
   /**
    * Declares a variable to use for indexing Alpha variables.
    */
-  protected static VariableDecl declareIndexVariable(final String name) {
-    return Factory.variableDecl(Common.alphaIndexType(), name);
+  protected static FunctionBuilder addIndexVariable(final FunctionBuilder builder, final String name) {
+    return builder.addVariable(Common.alphaIndexType(), name);
   }
 }
