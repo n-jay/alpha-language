@@ -272,4 +272,39 @@ public class Common {
       throw Exceptions.sneakyThrow(_e);
     }
   }
+
+  /**
+   * Gets the expression for the initial value to use for the reduction variable
+   * that gets accumulated into while computing the reduction.
+   * Note: since the current implementation only uses floats to represent data,
+   * there are no initial values for the logical operations (AND, OR, etc.).
+   */
+  public static CustomExpr getReductionInitialValue(final REDUCTION_OP op) {
+    try {
+      String _switchResult = null;
+      if (op != null) {
+        switch (op) {
+          case MIN:
+            _switchResult = "FLT_MAX";
+            break;
+          case MAX:
+            _switchResult = "FLT_MIN";
+            break;
+          case PROD:
+            _switchResult = "1.0f";
+            break;
+          case SUM:
+            _switchResult = "0.0f";
+            break;
+          default:
+            throw new Exception((("There is no initial value for reduction operator \'" + op) + "\'."));
+        }
+      } else {
+        throw new Exception((("There is no initial value for reduction operator \'" + op) + "\'."));
+      }
+      return Factory.customExpr(_switchResult);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
 }

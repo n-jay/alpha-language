@@ -50,32 +50,44 @@ class ReduceExprConverter {
 		// Capture the next reduction ID so we can create function and macro names.
 		val myId = nextReductionId.toString
 		nextReductionId += 1
-
-		// Capture the domain of the loop nest that performs the reduction.
-		val loopDomain = expr.createReduceLoopDomain
 		
+		// Start building the reduce function.
+		val reduceFunctionName = "reduce" + myId
+		val function = FunctionBuilder.start(false, Common.alphaValueType, reduceFunctionName)
+		
+		// Create the "reduction variable", which is what the reduction will accumulate into.
+		// This needs to be initialized to the correct value for the reduction operator.
+		val initializeStmt = Factory.assignmentStmt(reduceVarName, Common.getReductionInitialValue(expr.operator))
+		function
+			.addVariable(Common.alphaValueType, reduceVarName)
+			.addStatement(initializeStmt)
+			
 		// Create the macros that evaluate points within the reduction body
 		// and accumulate them into the reduce variable.
 		val reducePointMacro = createReducePointMacro(myId, program, expr)
 		val accumulateMacro = createAccumulationMacro(myId, expr, reducePointMacro)
+		function.addStatement(reducePointMacro, accumulateMacro)
 		
-		// Generate the actual loop nest which performs the reduction.
+		// Use isl to determine what points need to be reduced and how they get reduced.
+		val loopDomain = expr.createReduceLoopDomain
 		val islAST = LoopGenerator.generateLoops(accumulateMacro.name, loopDomain)
-		val loopResult = ASTConverter.convert(islAST)
-		val loopVariables = loopResult.declarations.map[Factory.variableDecl(Common.alphaIndexType, it)]
 		
-		// Create the reduction function.
-		val reduceFunctionName = "reduce" + myId
-		return FunctionBuilder
-			.start(false, Common.alphaValueType, reduceFunctionName)
-			.addParameter(loopDomain.paramNames.map[toParameter])
-			.addVariable(Common.alphaIndexType, reduceVarName)
-			.addVariable(loopVariables)
-			.addStatement(reducePointMacro, accumulateMacro)
+		// The size parameters for the loop domain need to be added as function parameters.
+		function.addParameter(loopDomain.paramNames.map[toParameter])
+		
+		// Add declarations for all the loop variables and add the loops themselves to the function.
+		val loopResult = ASTConverter.convert(islAST)
+		
+		function
+			.addVariable(loopResult.declarations.map[Factory.variableDecl(Common.alphaIndexType, it)])
 			.addStatement(loopResult.statements)
+			
+		// Undefine the macros, then have the function return the reduce variable.
+		function
 			.addUndefine(reducePointMacro, accumulateMacro)
 			.addReturn(reduceVarExpr)
-			.instance
+			
+		return function.instance
 	}
 	
 	/** Constructs the domain which will represent the loop nest that isl will produce. */

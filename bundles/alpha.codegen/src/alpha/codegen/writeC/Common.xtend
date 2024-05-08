@@ -166,4 +166,20 @@ class Common {
 			default: throw new Exception("Cannot convert Alpha reduction operator '" + op + "' to a C operator.")
 		}
 	}
+	
+	/**
+	 * Gets the expression for the initial value to use for the reduction variable
+	 * that gets accumulated into while computing the reduction.
+	 * Note: since the current implementation only uses floats to represent data,
+	 * there are no initial values for the logical operations (AND, OR, etc.).
+	 */
+	static def getReductionInitialValue(REDUCTION_OP op) {
+		return switch op {
+			case MIN: "FLT_MAX"
+			case MAX: "FLT_MIN"
+			case PROD: "1.0f"
+			case SUM: "0.0f"
+			default: throw new Exception("There is no initial value for reduction operator '" + op + "'.")
+		}.customExpr
+	}
 }
