@@ -8,7 +8,6 @@ import alpha.model.REDUCTION_OP
 import alpha.model.UNARY_OP
 import alpha.model.Variable
 
-import static alpha.codegen.Factory.commentStmt
 import static alpha.codegen.Factory.dataType
 import static alpha.codegen.Factory.macroStmt
 

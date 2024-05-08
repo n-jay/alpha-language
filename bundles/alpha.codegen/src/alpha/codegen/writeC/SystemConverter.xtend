@@ -8,6 +8,7 @@ import alpha.codegen.FunctionBuilder
 import alpha.codegen.IfStmtBuilder
 import alpha.codegen.ProgramBuilder
 import alpha.codegen.UnaryOperator
+import alpha.codegen.isl.ASTConverter
 import alpha.codegen.isl.ConditionalConverter
 import alpha.codegen.isl.LoopGenerator
 import alpha.codegen.isl.MemoryUtils
@@ -27,7 +28,6 @@ import static extension alpha.codegen.writeC.Common.getEvalName
 import static extension alpha.codegen.writeC.Common.getFlagName
 import static extension alpha.model.util.AlphaUtil.copyAE
 import static extension fr.irisa.cairn.jnimap.barvinok.BarvinokBindings.card
-import alpha.codegen.isl.ASTConverter
 
 /** Converts an Alpha system to the simplified C AST. */
 class SystemConverter {
@@ -119,10 +119,7 @@ class SystemConverter {
 		system.variables.forEach[prepareAlphaVariable]
 		
 		// Create all the necessary "eval" functions.
-//		equations.forEach[createEvalFunction]
-		for (eq : equations) {
-			eq.createEvalFunction
-		}
+		equations.forEach[createEvalFunction]
 		
 		// Create the entry point of the program, then return the final program instance.
 		val entryPoint = FunctionBuilder

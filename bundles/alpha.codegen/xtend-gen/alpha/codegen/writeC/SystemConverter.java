@@ -158,9 +158,10 @@ public class SystemConverter {
       this.prepareAlphaVariable(it);
     };
     this.system.getVariables().forEach(_function_3);
-    for (final StandardEquation eq : equations) {
-      this.createEvalFunction(eq);
-    }
+    final Consumer<StandardEquation> _function_4 = (StandardEquation it) -> {
+      this.createEvalFunction(it);
+    };
+    equations.forEach(_function_4);
     final Function entryPoint = this.freeAllocatedVariables(this.evaluateOutputs(this.allocateMemory(this.checkParameters(this.prepareEntryArguments(FunctionBuilder.start(BaseDataType.VOID, this.system.getName())))))).getInstance();
     this.program.addFunction(entryPoint);
     return this.program.getInstance();

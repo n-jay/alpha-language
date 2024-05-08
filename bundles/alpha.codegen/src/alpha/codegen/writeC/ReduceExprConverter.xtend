@@ -1,9 +1,11 @@
 package alpha.codegen.writeC
 
+import alpha.codegen.Expression
 import alpha.codegen.Factory
 import alpha.codegen.FunctionBuilder
 import alpha.codegen.MacroStmt
 import alpha.codegen.ProgramBuilder
+import alpha.codegen.isl.ASTConverter
 import alpha.codegen.isl.LoopGenerator
 import alpha.model.ReduceExpression
 import fr.irisa.cairn.jnimap.isl.ISLAff
@@ -11,8 +13,6 @@ import fr.irisa.cairn.jnimap.isl.ISLConstraint
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLSpace
 import java.util.HashSet
-import alpha.codegen.Expression
-import alpha.codegen.isl.ASTConverter
 
 /**
  * Converts an Alpha reduce expression into the appropriate C AST nodes.
