@@ -31,9 +31,22 @@ class ISLUtil {
 		ISLBasicMap.buildFromString(ISLContext.instance, descriptor)
 	}
 	
-	/** Creates an ISLBasicSet from a string */
+	/** Creates an ISLAff from a string */
 	def static toISLAff(String descriptor) {
 		ISLAff.buildFromString(ISLContext.instance, descriptor)
+	}
+	
+	/** Creates an ISLMultiAff from a string */
+	def static toISLMultiAff(String descriptor) {
+		ISLMultiAff.buildFromString(ISLContext.instance, descriptor)
+	}
+	
+	/** Creates an ISLConstraint from a string */
+	def static toISLConstraint(String descriptor) {
+		val set = ISLBasicSet.buildFromString(ISLContext.instance, descriptor)
+		if (set.constraints.size != 1)
+			throw new Exception('Cannot create an ISLConstraint from a set with multiple constraints')
+		set.getConstraintAt(0)
 	}
 	
 	/** Transposes an ISLMatrix */

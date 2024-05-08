@@ -10,6 +10,7 @@ import alpha.model.AlphaVisitable
 import alpha.model.Equation
 import alpha.model.SystemBody
 import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLErrorException
 import fr.irisa.cairn.jnimap.isl.ISLFactory
@@ -272,7 +273,16 @@ class AlphaUtil {
 	static def renameIndices(ISLSet set) {
 		return renameIndices(set, set.defaultDimNames)
 	}
-	
+	static def renameIndices(ISLBasicSet set, List<String> names) {
+		val n = set.getNbIndices()
+		var res = set;
+		if (n > names.length) throw new RuntimeException("Need n or more index names to rename n-d space.");
+		for (i : 0..<n) {
+			res = res.setDimName(ISLDimType.isl_dim_set, i, names.get(i))
+		}
+		
+		return res
+	}
 	static def renameIndices(ISLSet set, List<String> names) {
 		val n = set.getNbIndices()
 		var res = set;
