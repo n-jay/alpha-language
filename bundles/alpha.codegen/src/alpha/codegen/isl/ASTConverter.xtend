@@ -2,7 +2,6 @@ package alpha.codegen.isl
 
 import alpha.codegen.Factory
 import alpha.codegen.IfStmtBuilder
-import alpha.codegen.Statement
 import fr.irisa.cairn.jnimap.isl.ISLASTBlockNode
 import fr.irisa.cairn.jnimap.isl.ISLASTExpression
 import fr.irisa.cairn.jnimap.isl.ISLASTForNode

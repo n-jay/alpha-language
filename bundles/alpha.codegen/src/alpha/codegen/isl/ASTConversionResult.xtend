@@ -1,7 +1,6 @@
 package alpha.codegen.isl
 
 import alpha.codegen.Statement
-import alpha.codegen.VariableDecl
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Data
 

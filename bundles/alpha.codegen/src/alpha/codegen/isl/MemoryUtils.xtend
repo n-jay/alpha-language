@@ -8,6 +8,7 @@ import fr.irisa.cairn.jnimap.isl.ISLSet
 
 import static extension alpha.model.util.CommonExtensions.toArrayList
 
+/** Helper methods intended for memory allocation and accessing using isl objects. */
 class MemoryUtils {
 	/**
 	 * Returns a piecewise quasi-affine polynomial indicating

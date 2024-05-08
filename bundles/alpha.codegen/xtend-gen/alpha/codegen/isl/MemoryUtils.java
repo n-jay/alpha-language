@@ -17,6 +17,9 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
+/**
+ * Helper methods intended for memory allocation and accessing using isl objects.
+ */
 @SuppressWarnings("all")
 public class MemoryUtils {
   /**
