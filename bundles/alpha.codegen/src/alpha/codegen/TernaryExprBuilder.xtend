@@ -1,5 +1,24 @@
 package alpha.codegen
 
+/**
+ * A builder to aid in the construction a chain of C ternary expressions.
+ * 
+ * To start building, use the static "start" method.
+ * The final result is returned with the "elseCase" method.
+ * 
+ * When you start building the statement, you must provide both
+ * the conditional to check and the expression to evaluate to
+ * if the conditional returns TRUE.
+ * 
+ * You can chain multiple ternary expressions together using the
+ * "addCase" method. Successive cases will behave like "else if"
+ * blocks from an "if" statement.
+ * 
+ * Unlike "if..else if..else" statements, an "else" expression is required.
+ * This is the expression to evaluate to if none of the conditionals
+ * return TRUE. Since no more chaining is possible, adding this final case
+ * will return the ternary expression chain that was built.
+ */
 class TernaryExprBuilder {
 	////////////////////////////////////////////////
 	// Fields and Expression Instance

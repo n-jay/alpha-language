@@ -10,6 +10,14 @@ import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * A collection of static helper methods for creating AST nodes for the simplified C AST.
+ * Some methods are used as a short-hand for populating the AST nodes with some
+ * default information and indicate as such.
+ * 
+ * For more information on what these AST nodes represent and how to populate them,
+ * see "model/simpleC.xcore".
+ */
 @SuppressWarnings("all")
 public class Factory {
   /**

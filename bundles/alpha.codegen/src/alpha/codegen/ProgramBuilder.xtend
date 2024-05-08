@@ -1,5 +1,17 @@
 package alpha.codegen
 
+/**
+ * A builder to aid in the construction of C programs.
+ * 
+ * To start building, use the static "start" method.
+ * To get the final result, use the "getInstance()" method.
+ * 
+ * Each region of the program (header comment, includes, etc.)
+ * can be added to at any point. The various regions are printed
+ * in a deterministic order regardless of when you populated them.
+ * However, elements within each region will appear in the order
+ * you added them.
+ */
 class ProgramBuilder {
 	////////////////////////////////////////////////
 	// Program Instance

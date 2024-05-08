@@ -1,5 +1,33 @@
 package alpha.codegen
 
+/**
+ * A builder to aid in the construction of C "if..else if..else" statement.
+ * 
+ * To start building, use the static "start" method.
+ * To get the final result, use the "getInstance()" method.
+ * 
+ * When you start building the statement, you must provide the conditional
+ * expression to use for the first "if" statement.
+ * Then, you can add any necessary statements to that "if" block.
+ * 
+ * Once the first "if" block is complete, you can create any necessary
+ * "else if" blocks in the same manner by calling the "startElseIf" method
+ * and providing the conditional expression for that block.
+ * Then, statements are added to this block in the same manner.
+ * 
+ * To generate a final "else" block (not "else if"), use the "startElse"
+ * method and add statements to the block.
+ * 
+ * Technically, you can construct the final "else" block and then
+ * go back to constructing "else if" blocks, as the "else" block
+ * will always appear at the end of the "if..else if..else" block.
+ * Be cautious of readability if you do this.
+ * 
+ * If you call "startElse" again after already constructing an
+ * "else" block, the previously built block will be cleared
+ * and replaced with the new one you are now building.
+ * Be cautious of readability if you do this.
+ */
 class IfStmtBuilder {
 	////////////////////////////////////////////////
 	// Fields and Statement Instance

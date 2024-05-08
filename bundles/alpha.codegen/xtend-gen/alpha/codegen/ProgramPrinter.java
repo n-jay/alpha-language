@@ -11,6 +11,16 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 /**
  * Prints the simplified C AST into a C program.
+ * 
+ * The intended entry point is the "print(Program)" method.
+ * However, any of the methods can be used.
+ * 
+ * There are four main kinds of methods:
+ * 1. The "printExpr" methods prints any node inheriting from "Expression".
+ * 2. The "printStmt" methods prints any node inheriting from "Statement".
+ * 3. There are a few methods like "printDeclaration" which are for printing
+ *    parts of a node or for printing nodes in a specific way.
+ * 4. Most everything else is handled with a "print" method.
  */
 @SuppressWarnings("all")
 public class ProgramPrinter {

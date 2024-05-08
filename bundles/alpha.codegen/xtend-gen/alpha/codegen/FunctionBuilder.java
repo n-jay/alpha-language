@@ -6,6 +6,21 @@ import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
+/**
+ * A builder to aid in the construction of C functions.
+ * 
+ * To start building, use one of the static "start" methods.
+ * To get the final result, use the "getInstance()" method.
+ * 
+ * Parameters, local variables, and statements can be added
+ * at any point while building the function.
+ * 
+ * Parameters will appear in the order they're added.
+ * Local variables will all be declared (with no initial value)
+ * at the start of the function in the order they're added.
+ * Statements, comments, etc. will appear after the variable
+ * declarations in the order they're added.
+ */
 @SuppressWarnings("all")
 public class FunctionBuilder {
   /**

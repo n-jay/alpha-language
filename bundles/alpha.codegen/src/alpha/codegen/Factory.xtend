@@ -1,5 +1,13 @@
 package alpha.codegen
 
+/**
+ * A collection of static helper methods for creating AST nodes for the simplified C AST.
+ * Some methods are used as a short-hand for populating the AST nodes with some
+ * default information and indicate as such.
+ * 
+ * For more information on what these AST nodes represent and how to populate them,
+ * see "model/simpleC.xcore".
+ */
 class Factory {
 	/** The eCore instance of the factory for creating new object instances. */
 	protected static val factory = CodegenFactory.eINSTANCE
