@@ -34,6 +34,7 @@ import java.util.Map
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.util.EcoreUtil
 
+import static extension alpha.model.ComplexityCalculator.complexity
 import static extension alpha.model.util.AlphaUtil.getContainerEquation
 import static extension alpha.model.util.AlphaUtil.getContainerRoot
 import static extension alpha.model.util.AlphaUtil.getContainerSystemBody
@@ -233,18 +234,6 @@ class OptimalSimplifyingReductions {
 	}
 	private def dispatch void optimizeEquation(StandardEquation eq, AlphaExpression ae, State state) {
 		eq.explored = true
-	}
-	
-	def static int complexity(SystemBody body) {
-		body.equations
-			.filter[eq | eq instanceof StandardEquation]
-			.map[eq | eq as StandardEquation].map[eq |
-				if (eq.expr instanceof ReduceExpression) {
-					(eq.expr as ReduceExpression).body.contextDomain.dimensionality
-				} else {
-					eq.variable.domain.dimensionality
-				}
-			].max
 	}
 	
 	/**
