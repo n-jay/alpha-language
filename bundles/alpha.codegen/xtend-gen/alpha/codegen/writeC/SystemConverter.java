@@ -23,6 +23,7 @@ import alpha.codegen.Program;
 import alpha.codegen.ProgramBuilder;
 import alpha.codegen.Statement;
 import alpha.codegen.UnaryOperator;
+import alpha.codegen.VariableDecl;
 import alpha.codegen.isl.ASTConversionResult;
 import alpha.codegen.isl.ASTConverter;
 import alpha.codegen.isl.ConditionalConverter;
@@ -38,6 +39,7 @@ import alpha.model.Variable;
 import alpha.model.transformation.Normalize;
 import alpha.model.transformation.StandardizeNames;
 import alpha.model.util.AlphaUtil;
+import alpha.model.util.CommonExtensions;
 import fr.irisa.cairn.jnimap.barvinok.BarvinokBindings;
 import fr.irisa.cairn.jnimap.isl.ISLASTNode;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
@@ -509,20 +511,13 @@ public class SystemConverter {
       builder.addStatement(macro);
       final ISLASTNode islAST = LoopGenerator.generateLoops(macroName, variable.getDomain());
       final ASTConversionResult loopResult = ASTConverter.convert(islAST);
-      final Consumer<String> _function = (String it) -> {
-        SystemConverter.addIndexVariable(builder, it);
+      final Function1<String, VariableDecl> _function = (String it) -> {
+        return Factory.variableDecl(Common.alphaIndexType(), it);
       };
-      loopResult.getDeclarations().forEach(_function);
-      builder.addStatement(((Statement[])Conversions.unwrapArray(loopResult.getStatements(), Statement.class)));
+      final ArrayList<VariableDecl> loopVariables = CommonExtensions.<VariableDecl>toArrayList(ListExtensions.<String, VariableDecl>map(loopResult.getDeclarations(), _function));
+      builder.addVariable(((VariableDecl[])Conversions.unwrapArray(loopVariables, VariableDecl.class))).addStatement(((Statement[])Conversions.unwrapArray(loopResult.getStatements(), Statement.class)));
       _xblockexpression = builder.addStatement(Factory.undefStmt(macroName));
     }
     return _xblockexpression;
-  }
-
-  /**
-   * Declares a variable to use for indexing Alpha variables.
-   */
-  protected static FunctionBuilder addIndexVariable(final FunctionBuilder builder, final String name) {
-    return builder.addVariable(Common.alphaIndexType(), name);
   }
 }

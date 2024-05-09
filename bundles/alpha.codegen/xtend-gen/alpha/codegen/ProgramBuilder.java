@@ -1,5 +1,7 @@
 package alpha.codegen;
 
+import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
 
@@ -72,7 +74,11 @@ public class ProgramBuilder {
 
   /**
    * Declares a new global variable.
-   * Note: this does NOT check for name conflicts.
+   * If the variable to add is an exact duplicate of an existing one,
+   * it will be silently skipped.
+   * If it has the same name as an existing one, but different type,
+   * an IllegalArgumentException will be thrown.
+   * Otherwise, the variable will be added.
    */
   public ProgramBuilder addGlobalVariable(final boolean isStatic, final DataType dataType, final String name) {
     final VariableDecl decl = Factory.variableDecl(isStatic, dataType, name);
@@ -81,10 +87,17 @@ public class ProgramBuilder {
 
   /**
    * Adds global variable declarations.
-   * Note: this does NOT check for name conflicts.
+   * If any variable to add is an exact duplicate of an existing one,
+   * it will be silently skipped.
+   * If any variable has the same name as an existing one but a different type,
+   * an IllegalArgumentException will be thrown.
+   * Otherwise, the variable will be added.
    */
   public ProgramBuilder addGlobalVariable(final VariableDecl... variables) {
-    CollectionExtensions.<VariableDecl>addAll(this.instance.getGlobalVariables(), variables);
+    final Consumer<VariableDecl> _function = (VariableDecl it) -> {
+      NameChecker.checkAdd(this.instance.getGlobalVariables(), it);
+    };
+    ((List<VariableDecl>)Conversions.doWrapArray(variables)).forEach(_function);
     return this;
   }
 

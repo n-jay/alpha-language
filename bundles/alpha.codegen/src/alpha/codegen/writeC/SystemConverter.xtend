@@ -27,6 +27,7 @@ import static extension alpha.codegen.isl.PolynomialConverter.convert
 import static extension alpha.codegen.writeC.Common.getEvalName
 import static extension alpha.codegen.writeC.Common.getFlagName
 import static extension alpha.model.util.AlphaUtil.copyAE
+import static extension alpha.model.util.CommonExtensions.toArrayList
 import static extension fr.irisa.cairn.jnimap.barvinok.BarvinokBindings.card
 
 /** Converts an Alpha system to the simplified C AST. */
@@ -458,16 +459,14 @@ class SystemConverter {
 		// Any loop variables used need to also be declared.
 		val islAST = LoopGenerator.generateLoops(macroName, variable.domain)
 		val loopResult = ASTConverter.convert(islAST)
+		val loopVariables = loopResult.declarations
+			.map[Factory.variableDecl(Common.alphaIndexType, it)]
+			.toArrayList
 		
-		loopResult.declarations.forEach[builder.addIndexVariable(it)]
-		builder.addStatement(loopResult.statements)
+		builder.addVariable(loopVariables)
+			.addStatement(loopResult.statements)
 		
 		// Undefine the macro now that we're done with it.
 		builder.addStatement(Factory.undefStmt(macroName))
-	}
-	
-	/** Declares a variable to use for indexing Alpha variables. */
-	def protected static addIndexVariable(FunctionBuilder builder, String name) {
-		builder.addVariable(Common.alphaIndexType, name)
 	}
 }

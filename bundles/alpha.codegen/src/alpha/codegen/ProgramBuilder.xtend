@@ -70,7 +70,11 @@ class ProgramBuilder {
 	
 	/**
 	 * Declares a new global variable.
-	 * Note: this does NOT check for name conflicts.
+	 * If the variable to add is an exact duplicate of an existing one,
+	 * it will be silently skipped.
+	 * If it has the same name as an existing one, but different type,
+	 * an IllegalArgumentException will be thrown.
+	 * Otherwise, the variable will be added.
 	 */
 	def addGlobalVariable(boolean isStatic, DataType dataType, String name) {
 		val decl = Factory.variableDecl(isStatic, dataType, name)
@@ -79,10 +83,14 @@ class ProgramBuilder {
 	
 	/**
 	 * Adds global variable declarations.
-	 * Note: this does NOT check for name conflicts.
+	 * If any variable to add is an exact duplicate of an existing one,
+	 * it will be silently skipped.
+	 * If any variable has the same name as an existing one but a different type,
+	 * an IllegalArgumentException will be thrown.
+	 * Otherwise, the variable will be added.
 	 */
 	def addGlobalVariable(VariableDecl... variables) {
-		instance.globalVariables.addAll(variables)
+		variables.forEach[NameChecker.checkAdd(instance.globalVariables, it)]
 		return this
 	}
 	

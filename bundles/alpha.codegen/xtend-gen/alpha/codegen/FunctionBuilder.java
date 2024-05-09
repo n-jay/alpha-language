@@ -1,13 +1,10 @@
 package alpha.codegen;
 
-import alpha.model.util.CommonExtensions;
-import com.google.common.base.Objects;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 /**
@@ -104,43 +101,18 @@ public class FunctionBuilder {
 
   /**
    * Declares new variables for use in the function being built.
-   * If the variable to add is an exact duplicate of an existing one,
+   * If any variable to add is an exact duplicate of an existing one,
    * it will be silently skipped.
-   * If it has the same name as an existing one, but different type,
+   * If any variable has the same name as an existing one but a different type,
    * an IllegalArgumentException will be thrown.
    * Otherwise, the variable will be added.
    */
-  public FunctionBuilder addVariable(final VariableDecl variable) {
-    final Function1<VariableDecl, Boolean> _function = (VariableDecl it) -> {
-      return Boolean.valueOf(this.hasSameName(it, variable));
+  public FunctionBuilder addVariable(final VariableDecl... variables) {
+    final Consumer<VariableDecl> _function = (VariableDecl it) -> {
+      NameChecker.checkAdd(this.instance.getDeclarations(), it);
     };
-    final ArrayList<VariableDecl> sameName = CommonExtensions.<VariableDecl>toArrayList(IterableExtensions.<VariableDecl>filter(this.instance.getDeclarations(), _function));
-    boolean _isEmpty = sameName.isEmpty();
-    if (_isEmpty) {
-      this.instance.getDeclarations().add(variable);
-      return this;
-    }
-    final Function1<VariableDecl, Boolean> _function_1 = (VariableDecl it) -> {
-      return Boolean.valueOf(this.hasDifferentType(it, variable));
-    };
-    boolean _exists = IterableExtensions.<VariableDecl>exists(sameName, _function_1);
-    if (_exists) {
-      String _name = variable.getName();
-      String _plus = ("Duplicate declarations for variable \'" + _name);
-      String _plus_1 = (_plus + "\' with different types.");
-      throw new IllegalArgumentException(_plus_1);
-    }
+    ((List<VariableDecl>)Conversions.doWrapArray(variables)).forEach(_function);
     return this;
-  }
-
-  protected boolean hasSameName(final VariableDecl first, final VariableDecl second) {
-    String _name = first.getName();
-    String _name_1 = second.getName();
-    return Objects.equal(_name, _name_1);
-  }
-
-  protected boolean hasDifferentType(final VariableDecl first, final VariableDecl second) {
-    return ((!Objects.equal(first.getDataType().getBaseType(), second.getDataType().getBaseType())) || (first.getDataType().getIndirectionLevel() != second.getDataType().getIndirectionLevel()));
   }
 
   /**
