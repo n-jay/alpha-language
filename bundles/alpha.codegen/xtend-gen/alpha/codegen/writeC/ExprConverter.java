@@ -15,6 +15,11 @@ import alpha.model.BinaryExpression;
 import alpha.model.CaseExpression;
 import alpha.model.ConstantExpression;
 import alpha.model.DependenceExpression;
+import alpha.model.ExternalArgReduceExpression;
+import alpha.model.ExternalFuzzyArgReduceExpression;
+import alpha.model.ExternalFuzzyReduceExpression;
+import alpha.model.ExternalMultiArgExpression;
+import alpha.model.ExternalReduceExpression;
 import alpha.model.IfExpression;
 import alpha.model.IndexExpression;
 import alpha.model.MultiArgExpression;
@@ -47,6 +52,34 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class ExprConverter {
+  protected static Expression externalNotSupported() {
+    try {
+      throw new Exception("Expressions that use external functions are not currently supported.");
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+
+  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalReduceExpression expr) {
+    return ExprConverter.externalNotSupported();
+  }
+
+  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalArgReduceExpression expr) {
+    return ExprConverter.externalNotSupported();
+  }
+
+  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalMultiArgExpression expr) {
+    return ExprConverter.externalNotSupported();
+  }
+
+  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalFuzzyReduceExpression expr) {
+    return ExprConverter.externalNotSupported();
+  }
+
+  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalFuzzyArgReduceExpression expr) {
+    return ExprConverter.externalNotSupported();
+  }
+
   /**
    * Alpha "restrict" expressions don't need to be wrapped in conditionals,
    * as the context domain within Alpha ensures the expression is only accessed where appropriate.
@@ -225,7 +258,17 @@ public class ExprConverter {
   }
 
   public static Expression convertExpr(final ProgramBuilder program, final AlphaExpression expr) {
-    if (expr instanceof ReduceExpression) {
+    if (expr instanceof ExternalArgReduceExpression) {
+      return _convertExpr(program, (ExternalArgReduceExpression)expr);
+    } else if (expr instanceof ExternalFuzzyArgReduceExpression) {
+      return _convertExpr(program, (ExternalFuzzyArgReduceExpression)expr);
+    } else if (expr instanceof ExternalFuzzyReduceExpression) {
+      return _convertExpr(program, (ExternalFuzzyReduceExpression)expr);
+    } else if (expr instanceof ExternalReduceExpression) {
+      return _convertExpr(program, (ExternalReduceExpression)expr);
+    } else if (expr instanceof ExternalMultiArgExpression) {
+      return _convertExpr(program, (ExternalMultiArgExpression)expr);
+    } else if (expr instanceof ReduceExpression) {
       return _convertExpr(program, (ReduceExpression)expr);
     } else if (expr instanceof AutoRestrictExpression) {
       return _convertExpr(program, (AutoRestrictExpression)expr);

@@ -12,6 +12,11 @@ import alpha.model.BinaryExpression
 import alpha.model.CaseExpression
 import alpha.model.ConstantExpression
 import alpha.model.DependenceExpression
+import alpha.model.ExternalArgReduceExpression
+import alpha.model.ExternalFuzzyArgReduceExpression
+import alpha.model.ExternalFuzzyReduceExpression
+import alpha.model.ExternalMultiArgExpression
+import alpha.model.ExternalReduceExpression
 import alpha.model.IfExpression
 import alpha.model.IndexExpression
 import alpha.model.MultiArgExpression
@@ -34,6 +39,25 @@ import static extension alpha.model.util.CommonExtensions.toArrayList
  * then returns a call expression to that function.  
  */
 class ExprConverter {
+	///////////////////////////////////////////////
+	// External Functions are Not Allowed Yet
+	///////////////////////////////////////////////
+	
+	def protected static Expression externalNotSupported() {
+		throw new Exception("Expressions that use external functions are not currently supported.")
+	}
+	
+	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalReduceExpression expr) { externalNotSupported }
+	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalArgReduceExpression expr) { externalNotSupported }
+	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalMultiArgExpression expr) { externalNotSupported }
+	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalFuzzyReduceExpression expr) { externalNotSupported }
+	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalFuzzyArgReduceExpression expr) { externalNotSupported }
+	
+	
+	///////////////////////////////////////////////
+	// Actual Rules
+	///////////////////////////////////////////////
+	
 	/**
 	 * Alpha "restrict" expressions don't need to be wrapped in conditionals,
 	 * as the context domain within Alpha ensures the expression is only accessed where appropriate.
