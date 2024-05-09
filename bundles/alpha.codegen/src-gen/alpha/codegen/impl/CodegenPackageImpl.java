@@ -1339,7 +1339,6 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 		macroStmtEClass.getESuperTypes().add(this.getStatement());
 		undefStmtEClass.getESuperTypes().add(this.getStatement());
 		ifStmtEClass.getESuperTypes().add(this.getStatement());
-		branchEClass.getESuperTypes().add(this.getStatement());
 		conditionalBranchEClass.getESuperTypes().add(this.getBranch());
 		loopStmtEClass.getESuperTypes().add(this.getStatement());
 		assignmentStmtEClass.getESuperTypes().add(this.getStatement());

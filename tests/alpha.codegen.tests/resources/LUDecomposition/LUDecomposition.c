@@ -37,13 +37,13 @@ void LUDecomposition(long _local_N, float** _local_A, float** _local_L, float** 
 
 float reduce0(long N, long ip, long jp) {
 	float reduceVar;
-	long c2;
+	long k;
 	
 	reduceVar = 0.0f;
 	#define RP0(i,j,k) (eval_L((i),(k))) * (eval_U((k),(j)))
 	#define R0(i,j,k) reduceVar = (reduceVar) + (RP0((i),(j),(k)))
-	for (c2 = 0; c2 < ip; c2 += 1) {
-		R0(ip, jp, c2);
+	for (k = 0; k < ip; k += 1) {
+		R0(ip, jp, k);
 	}
 	#undef RP0
 	#undef R0
@@ -68,13 +68,13 @@ float eval_U(long i, long j) {
 
 float reduce1(long N, long ip, long jp) {
 	float reduceVar;
-	long c2;
+	long k;
 	
 	reduceVar = 0.0f;
 	#define RP1(i,j,k) (eval_L((i),(-1 + k))) * (eval_U((k),(j)))
 	#define R1(i,j,k) reduceVar = (reduceVar) + (RP1((i),(j),(k)))
-	for (c2 = 1; c2 <= jp; c2 += 1) {
-		R1(ip, jp, c2);
+	for (k = 1; k <= jp; k += 1) {
+		R1(ip, jp, k);
 	}
 	#undef RP1
 	#undef R1
@@ -98,8 +98,8 @@ float eval_L(long i, long j) {
 }
 
 void LUDecomposition(long _local_N, float** _local_A, float** _local_L, float** _local_U) {
-	long c0;
-	long c1;
+	long i;
+	long j;
 	
 	// Copy arguments to the global variables.
 	N = _local_N;
@@ -125,16 +125,16 @@ void LUDecomposition(long _local_N, float** _local_A, float** _local_L, float** 
 	
 	// Evaluate all the outputs.
 	#define S0(i,j) eval_L(i,j)
-	for (c0 = 1; c0 < N; c0 += 1) {
-		for (c1 = 0; c1 < c0; c1 += 1) {
-			S0(c0, c1);
+	for (i = 1; i < N; i += 1) {
+		for (j = 0; j < i; j += 1) {
+			S0(i, j);
 		}
 	}
 	#undef S0
 	#define S1(i,j) eval_U(i,j)
-	for (c0 = 0; c0 < N; c0 += 1) {
-		for (c1 = c0; c1 < N; c1 += 1) {
-			S1(c0, c1);
+	for (i = 0; i < N; i += 1) {
+		for (j = i; j < N; j += 1) {
+			S1(i, j);
 		}
 	}
 	#undef S1

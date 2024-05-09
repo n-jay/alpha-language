@@ -1,10 +1,14 @@
 package alpha.codegen.isl
 
 import fr.irisa.cairn.jnimap.isl.ISLASTBuild
+import fr.irisa.cairn.jnimap.isl.ISLContext
 import fr.irisa.cairn.jnimap.isl.ISLDimType
+import fr.irisa.cairn.jnimap.isl.ISLIdentifier
+import fr.irisa.cairn.jnimap.isl.ISLIdentifierList
 import fr.irisa.cairn.jnimap.isl.ISLMap
 import fr.irisa.cairn.jnimap.isl.ISLSet
 
+import static extension alpha.model.util.CommonExtensions.toArrayList
 import static extension fr.irisa.cairn.jnimap.isl.ISLMultiAff.buildIdentity
 
 /** Generates the loop statements that iterate through the points in a given domain. */
@@ -36,8 +40,14 @@ class LoopGenerator {
 			.intersectDomain(domain.copy)
 			.setTupleName(ISLDimType.isl_dim_in, macroName)
 			.toUnionMap
+			
+		// Use the index names from the domain as the loop variables. 
+		val ids = domain.indexNames.map[ISLIdentifier.alloc(ISLContext.instance, it)].toArrayList
+		val idList = ids.fold(ISLIdentifierList.build(ISLContext.instance, 0), [list, id | list.add(id)])
 		
-		// Have isl generate an AST for the loop, then convert it to the C AST.
-		return ISLASTBuild.buildFromContext(context).generate(schedule)
+		return ISLASTBuild
+			.buildFromContext(context)
+			.setIterators(idList)
+			.generate(schedule)
 	}
 }

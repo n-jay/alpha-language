@@ -719,7 +719,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BRANCH__BODY = STATEMENT_FEATURE_COUNT + 0;
+	int BRANCH__BODY = 0;
 
 	/**
 	 * The number of structural features of the '<em>Branch</em>' class.
@@ -728,7 +728,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BRANCH_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
+	int BRANCH_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Branch</em>' class.
@@ -737,7 +737,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BRANCH_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+	int BRANCH_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link alpha.codegen.impl.ConditionalBranchImpl <em>Conditional Branch</em>}' class.

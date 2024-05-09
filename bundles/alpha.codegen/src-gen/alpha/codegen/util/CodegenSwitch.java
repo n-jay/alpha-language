@@ -153,7 +153,6 @@ public class CodegenSwitch<T> extends Switch<T> {
 			case CodegenPackage.BRANCH: {
 				Branch branch = (Branch)theEObject;
 				T result = caseBranch(branch);
-				if (result == null) result = caseStatement(branch);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -161,7 +160,6 @@ public class CodegenSwitch<T> extends Switch<T> {
 				ConditionalBranch conditionalBranch = (ConditionalBranch)theEObject;
 				T result = caseConditionalBranch(conditionalBranch);
 				if (result == null) result = caseBranch(conditionalBranch);
-				if (result == null) result = caseStatement(conditionalBranch);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

@@ -202,7 +202,7 @@ class IfStmt extends Statement {
 }
 
 /** Represents any kind of branch of an "if" statement (i.e., "if", "else if", or "else"). */
-class Branch extends Statement {
+class Branch {
 	/** The statements within the block. */
 	refers Statement[] body
 }

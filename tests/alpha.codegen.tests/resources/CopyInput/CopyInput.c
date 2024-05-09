@@ -45,7 +45,7 @@ float eval_Y(long i0) {
 }
 
 void CopyInput(long _local_N, float* _local_X, float* _local_Y) {
-	long c0;
+	long i0;
 	
 	// Copy arguments to the global variables.
 	N = _local_N;
@@ -67,8 +67,8 @@ void CopyInput(long _local_N, float* _local_X, float* _local_Y) {
 	
 	// Evaluate all the outputs.
 	#define S0(i0) eval_Y(i0)
-	for (c0 = 0; c0 < N; c0 += 1) {
-		S0(c0);
+	for (i0 = 0; i0 < N; i0 += 1) {
+		S0(i0);
 	}
 	#undef S0
 	

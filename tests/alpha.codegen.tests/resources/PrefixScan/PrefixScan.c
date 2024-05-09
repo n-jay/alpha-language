@@ -31,13 +31,13 @@ void PrefixScan(long _local_N, float* _local_X, float* _local_Y);
 
 float reduce2(long N, long ip) {
 	float reduceVar;
-	long c1;
+	long j;
 	
 	reduceVar = 0.0f;
 	#define RP2(i,j) X((j))
 	#define R2(i,j) reduceVar = (reduceVar) + (RP2((i),(j)))
-	for (c1 = 0; c1 <= ip; c1 += 1) {
-		R2(ip, c1);
+	for (j = 0; j <= ip; j += 1) {
+		R2(ip, j);
 	}
 	#undef RP2
 	#undef R2
@@ -61,7 +61,7 @@ float eval_Y(long i) {
 }
 
 void PrefixScan(long _local_N, float* _local_X, float* _local_Y) {
-	long c0;
+	long i0;
 	
 	// Copy arguments to the global variables.
 	N = _local_N;
@@ -83,8 +83,8 @@ void PrefixScan(long _local_N, float* _local_X, float* _local_Y) {
 	
 	// Evaluate all the outputs.
 	#define S0(i0) eval_Y(i0)
-	for (c0 = 0; c0 < N; c0 += 1) {
-		S0(c0);
+	for (i0 = 0; i0 < N; i0 += 1) {
+		S0(i0);
 	}
 	#undef S0
 	

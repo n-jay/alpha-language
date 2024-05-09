@@ -4,6 +4,8 @@ package alpha.codegen;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Branch</b></em>'.
@@ -24,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Branch extends Statement {
+public interface Branch extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Body</b></em>' reference list.
 	 * The list contents are of type {@link alpha.codegen.Statement}.
