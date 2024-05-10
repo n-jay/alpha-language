@@ -18,6 +18,7 @@ import alpha.codegen.IfStmt;
 import alpha.codegen.IfStmtBuilder;
 import alpha.codegen.Include;
 import alpha.codegen.MacroStmt;
+import alpha.codegen.NameChecker;
 import alpha.codegen.ParenthesizedExpr;
 import alpha.codegen.Program;
 import alpha.codegen.ProgramBuilder;
@@ -87,13 +88,20 @@ public class SystemConverter {
   protected final AlphaSystem system;
 
   /**
+   * A name checker to ensure names are unique.
+   */
+  protected final NameChecker nameChecker;
+
+  /**
    * Protected constructor.
    */
   protected SystemConverter(final AlphaSystem system, final boolean oldAlphaZCompatible) {
     this.allocatedVariables = CollectionLiterals.<String>newArrayList();
     this.oldAlphaZCompatible = oldAlphaZCompatible;
-    this.program = ProgramBuilder.start();
     this.system = system;
+    NameChecker _nameChecker = new NameChecker();
+    this.nameChecker = _nameChecker;
+    this.program = ProgramBuilder.start(this.nameChecker);
   }
 
   /**
@@ -163,7 +171,7 @@ public class SystemConverter {
       this.createEvalFunction(it);
     };
     equations.forEach(_function_4);
-    final Function entryPoint = this.freeAllocatedVariables(this.evaluateOutputs(this.allocateMemory(this.checkParameters(this.prepareEntryArguments(FunctionBuilder.start(BaseDataType.VOID, this.system.getName())))))).getInstance();
+    final Function entryPoint = this.freeAllocatedVariables(this.evaluateOutputs(this.allocateMemory(this.checkParameters(this.prepareEntryArguments(FunctionBuilder.start(BaseDataType.VOID, this.system.getName(), this.nameChecker)))))).getInstance();
     this.program.addFunction(entryPoint);
     return this.program.getInstance();
   }
@@ -254,7 +262,7 @@ public class SystemConverter {
   protected ProgramBuilder createEvalFunction(final StandardEquation equation) {
     ProgramBuilder _xblockexpression = null;
     {
-      final FunctionBuilder evalBuilder = FunctionBuilder.start(Common.alphaValueType(), Common.getEvalName(equation.getVariable()));
+      final FunctionBuilder evalBuilder = FunctionBuilder.start(Common.alphaValueType(), Common.getEvalName(equation.getVariable()), this.nameChecker);
       final List<String> indexNames = equation.getExpr().getContextDomain().getIndexNames();
       final Consumer<String> _function = (String it) -> {
         evalBuilder.addParameter(Common.alphaIndexType(), it);

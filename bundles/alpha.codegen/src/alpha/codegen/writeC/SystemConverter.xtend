@@ -6,6 +6,7 @@ import alpha.codegen.DataType
 import alpha.codegen.Factory
 import alpha.codegen.FunctionBuilder
 import alpha.codegen.IfStmtBuilder
+import alpha.codegen.NameChecker
 import alpha.codegen.ProgramBuilder
 import alpha.codegen.UnaryOperator
 import alpha.codegen.isl.ASTConverter
@@ -53,12 +54,16 @@ class SystemConverter {
 	/** The system being converted into a C program. */
 	protected val AlphaSystem system
 	
+	/** A name checker to ensure names are unique. */
+	protected val NameChecker nameChecker
+	
 	/** Protected constructor. */
 	protected new(AlphaSystem system, boolean oldAlphaZCompatible) {
 		this.allocatedVariables = newArrayList
 		this.oldAlphaZCompatible = oldAlphaZCompatible
-		this.program = ProgramBuilder.start
 		this.system = system
+		this.nameChecker = new NameChecker
+		this.program = ProgramBuilder.start(this.nameChecker)
 	}
 	
 	/**
@@ -124,7 +129,7 @@ class SystemConverter {
 		
 		// Create the entry point of the program, then return the final program instance.
 		val entryPoint = FunctionBuilder
-			.start(BaseDataType.VOID, system.name)
+			.start(BaseDataType.VOID, system.name, nameChecker)
 			.prepareEntryArguments()
 			.checkParameters()
 			.allocateMemory()
@@ -230,7 +235,7 @@ class SystemConverter {
 	 * at some point in its domain, returning the computed (or fetched) value.
 	 */
 	def protected createEvalFunction(StandardEquation equation) {
-		val evalBuilder = FunctionBuilder.start(Common.alphaValueType, equation.variable.evalName)
+		val evalBuilder = FunctionBuilder.start(Common.alphaValueType, equation.variable.evalName, nameChecker)
 		
 		// Add a function parameter for each index of the variable's domain.
 		val indexNames = equation.expr.contextDomain.indexNames

@@ -30,6 +30,12 @@ public class FunctionBuilder {
   protected final Function instance;
 
   /**
+   * The set of names declared in the global scope which aren't
+   * allowed to be re-defined here (to prevent variable shadowing).
+   */
+  protected NameChecker nameChecker;
+
+  /**
    * Retrieves the instance of the function which was built.
    */
   public Function getInstance() {
@@ -39,33 +45,34 @@ public class FunctionBuilder {
   /**
    * Starts building a new, non-inlined C function with a non-pointer return type.
    */
-  public static FunctionBuilder start(final BaseDataType returnType, final String name) {
+  public static FunctionBuilder start(final BaseDataType returnType, final String name, final NameChecker nameChecker) {
     final DataType dataType = Factory.dataType(returnType, 0);
-    return new FunctionBuilder(Boolean.valueOf(false), dataType, name);
+    return new FunctionBuilder(Boolean.valueOf(false), dataType, name, nameChecker);
   }
 
   /**
    * Starts building a new, non-inlined C function.
    */
-  public static FunctionBuilder start(final DataType returnType, final String name) {
-    return new FunctionBuilder(Boolean.valueOf(false), returnType, name);
+  public static FunctionBuilder start(final DataType returnType, final String name, final NameChecker nameChecker) {
+    return new FunctionBuilder(Boolean.valueOf(false), returnType, name, nameChecker);
   }
 
   /**
    * Starts building a new C function.
    */
-  public static FunctionBuilder start(final Boolean isInline, final DataType returnType, final String name) {
-    return new FunctionBuilder(isInline, returnType, name);
+  public static FunctionBuilder start(final boolean isInline, final DataType returnType, final String name, final NameChecker nameChecker) {
+    return new FunctionBuilder(Boolean.valueOf(isInline), returnType, name, nameChecker);
   }
 
   /**
    * Protected constructor.
    */
-  protected FunctionBuilder(final Boolean isInline, final DataType returnType, final String name) {
+  protected FunctionBuilder(final Boolean isInline, final DataType returnType, final String name, final NameChecker nameChecker) {
     this.instance = CodegenFactory.eINSTANCE.createFunction();
     this.instance.setIsInline(isInline);
     this.instance.setReturnType(returnType);
     this.instance.setName(name);
+    this.nameChecker = nameChecker;
   }
 
   /**
@@ -88,11 +95,7 @@ public class FunctionBuilder {
 
   /**
    * Declares a new variable for use in the function being built.
-   * If the variable to add is an exact duplicate of an existing one,
-   * it will be silently skipped.
-   * If it has the same name as an existing one, but different type,
-   * an IllegalArgumentException will be thrown.
-   * Otherwise, the variable will be added.
+   * Performs name checking to prevent conflicts.
    */
   public FunctionBuilder addVariable(final DataType dataType, final String name) {
     final VariableDecl decl = Factory.variableDecl(dataType, name);
@@ -101,15 +104,11 @@ public class FunctionBuilder {
 
   /**
    * Declares new variables for use in the function being built.
-   * If any variable to add is an exact duplicate of an existing one,
-   * it will be silently skipped.
-   * If any variable has the same name as an existing one but a different type,
-   * an IllegalArgumentException will be thrown.
-   * Otherwise, the variable will be added.
+   * Performs name checking to prevent conflicts.
    */
   public FunctionBuilder addVariable(final VariableDecl... variables) {
     final Consumer<VariableDecl> _function = (VariableDecl it) -> {
-      NameChecker.checkAdd(this.instance.getDeclarations(), it);
+      this.nameChecker.checkAddLocal(it, this.instance.getDeclarations());
     };
     ((List<VariableDecl>)Conversions.doWrapArray(variables)).forEach(_function);
     return this;

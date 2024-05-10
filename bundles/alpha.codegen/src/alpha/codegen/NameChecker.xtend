@@ -1,5 +1,6 @@
 package alpha.codegen
 
+import java.util.HashSet
 import java.util.List
 
 import static extension alpha.model.util.CommonExtensions.toArrayList
@@ -9,47 +10,79 @@ import static extension alpha.model.util.CommonExtensions.toArrayList
  * and adding it to that list if it doesn't.
  */
 class NameChecker {
+	/** The set of all names declared at the global scope. */
+	protected val HashSet<String> globalNames
+	
+	/** If true, a local variable is not allowed to have the same name as a global variable. */
+	protected val boolean preventShadowing
+	
+	/** Creates a new name checker that prevents shadowing global variables. */
+	new() { this(true) }
+	
+	/** Creates a new name checker. */
+	new(boolean preventShadowing) {
+		globalNames = newHashSet
+		this.preventShadowing = preventShadowing
+	}
+	
 	/**
-	 * Adds a new variable declaration to an existing list of declarations
-	 * only if the new variable hasn't been declared yet.
-	 * If there is an existing declaration with the same name but a different type,
-	 * an IllegalArgumentException will be thrown.
-	 * Otherwise, if there is an existing declaration with both the same name
-	 * and same type, nothing will happen.
-	 * 
-	 * Returns true if the variable was added (i.e., it's a new variable),
-	 * false if the variable was not added (i.e., it's an exact duplicate),
-	 * or throws an IllegalArgumentException if it's a duplicate name with
-	 * a differing type.
+	 * Checks if all the given global variables are unique and records them if so.
+	 * If any have already been declared, a NameConflictException is thrown.
 	 */
-	def static boolean checkAdd(List<VariableDecl> existing, VariableDecl toAdd) throws IllegalArgumentException {
-		// Get the list of existing variables with the same name.
-		val sameName = existing.filter[it.hasSameName(toAdd)].toArrayList
+	def checkAddGlobal(String... names) {
+		// Check if any of the names have already been declared.
+		val conflictingNames = names.filter[globalNames.contains(it)].toArrayList
+		if (!conflictingNames.isNullOrEmpty) {
+			throw new NameConflictException(conflictingNames)
+		}
 		
-		// If there aren't any, then this is a new variable, so add it.
+		// Record all the names as having been declared.
+		globalNames.addAll(names)
+	}
+	
+	/**
+	 * Checks if a local variable declaration is unique,
+	 * and adds it to the given list of declarations if so.
+	 * 
+	 * If the name already exists in the global scope and shadowing is disallowed,
+	 * or if the name exists in the local scope with a different data type,
+	 * a NameConflictException is thrown.
+	 * 
+	 * If the variable already exists at the local scope with the same data type,
+	 * the duplicate declaration is silently ignored. 
+	 */
+	def checkAddLocal(VariableDecl variable, List<VariableDecl> existingLocals) {
+		// If shadowing is disallowed, then the variable's name cannot match any of the global names.
+		if (preventShadowing && globalNames.contains(variable.name)) {
+			throw new NameConflictException(variable.name)
+		}
+		
+		// Check if there are any existing local variables with the same name.
+		// If not, then this variable is unique, so add it and return.
+		val sameName = existingLocals.filter[it.hasSameNameAs(variable)].toArrayList
 		if (sameName.isNullOrEmpty) {
-			existing.add(toAdd)
+			existingLocals.add(variable)
 			return true
 		}
 		
-		// If there are any variables with the same name but a different data type,
-		// then the new variable cannot be added, so throw an exception.
-		if (sameName.exists[it.hasDifferentType(toAdd)]) {
-			throw new IllegalArgumentException("Duplicate declarations for variable '" + toAdd.name + "' with different types.")
+		// If there are any variables with the same name but a different type,
+		// throw an exception.
+		if (sameName.exists[it.hasDifferentTypeThan(variable)]) {
+			throw new NameConflictException(variable.name)
 		}
 		
-		// If this is reached, then the variable to add is an exact duplicate
-		// of an existing variable, which is OK.
+		// This is only reached if the new declaration is an exact duplicate.
+		// In this case, ignore it.
 		return false
 	}
 	
 	/** Returns true if the two variables have the same name, and false otherwise. */
-	def protected static hasSameName(VariableDecl first, VariableDecl second) {
+	def protected static hasSameNameAs(VariableDecl first, VariableDecl second) {
 		return first.name == second.name
 	}
 	
 	/** Returns true if the two variables have different types, and false otherwise. */
-	def protected static hasDifferentType(VariableDecl first, VariableDecl second) {
+	def protected static hasDifferentTypeThan(VariableDecl first, VariableDecl second) {
 		return first.dataType.baseType != second.dataType.baseType
 			|| first.dataType.indirectionLevel != second.dataType.indirectionLevel
 	}

@@ -77,7 +77,7 @@ public class ReduceExprConverter {
     int _nextReductionId = ReduceExprConverter.nextReductionId;
     ReduceExprConverter.nextReductionId = (_nextReductionId + 1);
     final String reduceFunctionName = ("reduce" + myId);
-    final FunctionBuilder function = FunctionBuilder.start(Boolean.valueOf(false), Common.alphaValueType(), reduceFunctionName);
+    final FunctionBuilder function = program.startFunction(false, Common.alphaValueType(), reduceFunctionName);
     final AssignmentStmt initializeStmt = Factory.assignmentStmt(ReduceExprConverter.reduceVarName, Common.getReductionInitialValue(expr.getOperator()));
     function.addVariable(Common.alphaValueType(), ReduceExprConverter.reduceVarName).addStatement(initializeStmt);
     final MacroStmt reducePointMacro = ReduceExprConverter.createReducePointMacro(myId, program, expr);

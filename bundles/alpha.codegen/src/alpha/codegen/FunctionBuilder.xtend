@@ -1,7 +1,5 @@
 package alpha.codegen
 
-import static extension alpha.model.util.CommonExtensions.toArrayList
-
 /**
  * A builder to aid in the construction of C functions.
  * 
@@ -25,6 +23,12 @@ class FunctionBuilder {
 	/** The function instance being built. */
 	protected val Function instance
 	
+	/**
+	 * The set of names declared in the global scope which aren't
+	 * allowed to be re-defined here (to prevent variable shadowing).
+	 */
+	protected NameChecker nameChecker
+	
 	/** Retrieves the instance of the function which was built. */
 	def getInstance() {
 		return instance
@@ -36,27 +40,28 @@ class FunctionBuilder {
 	////////////////////////////////////////////////
 	
 	/** Starts building a new, non-inlined C function with a non-pointer return type. */
-	static def start(BaseDataType returnType, String name) {
+	static def start(BaseDataType returnType, String name, NameChecker nameChecker) {
 		val dataType = Factory.dataType(returnType, 0)
-		return new FunctionBuilder(false, dataType, name)
+		return new FunctionBuilder(false, dataType, name, nameChecker)
 	}
 	
 	/** Starts building a new, non-inlined C function. */
-	static def start(DataType returnType, String name) {
-		return new FunctionBuilder(false, returnType, name)
+	static def start(DataType returnType, String name, NameChecker nameChecker) {
+		return new FunctionBuilder(false, returnType, name, nameChecker)
 	}
 	
 	/** Starts building a new C function. */
-	static def start(Boolean isInline, DataType returnType, String name) {
-		return new FunctionBuilder(isInline, returnType, name)
+	static def start(boolean isInline, DataType returnType, String name, NameChecker nameChecker) {
+		return new FunctionBuilder(isInline, returnType, name, nameChecker)
 	}
 	
 	/** Protected constructor. */
-	protected new(Boolean isInline, DataType returnType, String name) {
+	protected new(Boolean isInline, DataType returnType, String name, NameChecker nameChecker) {
 		instance = CodegenFactory.eINSTANCE.createFunction
 		instance.isInline = isInline
 		instance.returnType = returnType
 		instance.name = name
+		this.nameChecker = nameChecker
 	}
 	
 
@@ -84,11 +89,7 @@ class FunctionBuilder {
 	
 	/**
 	 * Declares a new variable for use in the function being built.
-	 * If the variable to add is an exact duplicate of an existing one,
-	 * it will be silently skipped.
-	 * If it has the same name as an existing one, but different type,
-	 * an IllegalArgumentException will be thrown.
-	 * Otherwise, the variable will be added.
+	 * Performs name checking to prevent conflicts.
 	 */
 	def addVariable(DataType dataType, String name) {
 		val decl = Factory.variableDecl(dataType, name)
@@ -97,14 +98,13 @@ class FunctionBuilder {
 	
 	/**
 	 * Declares new variables for use in the function being built.
-	 * If any variable to add is an exact duplicate of an existing one,
-	 * it will be silently skipped.
-	 * If any variable has the same name as an existing one but a different type,
-	 * an IllegalArgumentException will be thrown.
-	 * Otherwise, the variable will be added.
+	 * Performs name checking to prevent conflicts.
 	 */
 	def addVariable(VariableDecl... variables) {
-		variables.forEach[NameChecker.checkAdd(instance.declarations, it)]
+		// Check for duplicate names, and record that the names have been declared.
+		// The name checker will add the declaration to the instance's declarations
+		// if it's not a duplicate.
+		variables.forEach[nameChecker.checkAddLocal(it, instance.declarations)]
 		return this
 	}
 	

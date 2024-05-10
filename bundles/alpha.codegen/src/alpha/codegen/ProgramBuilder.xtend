@@ -20,7 +20,10 @@ class ProgramBuilder {
 	/** The program instance being built. */
 	protected val Program instance
 	
-	/** Retrieves the instance of the function which was built. */
+	/** A name checker to ensure all names are unique. */
+	protected val NameChecker nameChecker
+	
+	/** Retrieves the instance of the program which was built. */
 	def getInstance() {
 		return instance
 	}
@@ -30,16 +33,17 @@ class ProgramBuilder {
 	// Builder Construction
 	////////////////////////////////////////////////
 	
-	/** Starts building a new program. */
-	static def start() {
-		return new ProgramBuilder()
+	/** Starts building a new program using the given name checker. */
+	static def start(NameChecker nameChecker) {
+		return new ProgramBuilder(nameChecker)
 	}
 	
 	/** Protected constructor. */
-	protected new() {
+	protected new(NameChecker nameChecker) {
 		val factory = CodegenFactory.eINSTANCE
 		instance = factory.createProgram
 		instance.headerComment = factory.createCommentStmt
+		this.nameChecker = nameChecker
 	}
 	
 
@@ -62,8 +66,13 @@ class ProgramBuilder {
 	/**
 	 * Adds macros to the "function macros" section of the program.
 	 * Intended to be used for defining common functions like min(a,b) or floor(a).
+	 * If any of the names are duplicates of anything else in the global scope,
+	 * a NameConflictException will be thrown.
 	 */
 	def addFunctionMacro(MacroStmt... macros) {
+		// If the name is a duplicate, then an exception will be thrown here.
+		macros.forEach[nameChecker.checkAddGlobal(it.name)]
+		
 		instance.functionMacros.addAll(macros)
 		return this
 	}
@@ -83,20 +92,22 @@ class ProgramBuilder {
 	
 	/**
 	 * Adds global variable declarations.
-	 * If any variable to add is an exact duplicate of an existing one,
-	 * it will be silently skipped.
-	 * If any variable has the same name as an existing one but a different type,
-	 * an IllegalArgumentException will be thrown.
-	 * Otherwise, the variable will be added.
+	 * If any of the names are duplicates of anything else in the global scope,
+	 * a NameConflictException will be thrown.
 	 */
 	def addGlobalVariable(VariableDecl... variables) {
-		variables.forEach[NameChecker.checkAdd(instance.globalVariables, it)]
+		// If the name is a duplicate, then an exception will be thrown here.
+		variables.forEach[nameChecker.checkAddGlobal(it.name)]
+		
+		instance.globalVariables.addAll(variables)
 		return this
 	}
 	
 	/**
 	 * Adds macros to the "memory macros" section of the program.
 	 * Intended to be used for defining how the global variables are accessed.
+	 * Name checking is not performed, as we often want the memory macro's name
+	 * to match a global variable's name.
 	 */
 	def addMemoryMacro(MacroStmt... macros) {
 		instance.memoryMacros.addAll(macros)
@@ -105,10 +116,19 @@ class ProgramBuilder {
 	
 	/**
 	 * Adds functions to the program.
-	 * Note: this does NOT check for name conflicts.
+	 * If any of the names are duplicates of anything else in the global scope,
+	 * a NameConflictException will be thrown.
 	 */
 	def addFunction(Function... functions) {
+		// If the name is a duplicate, then an exception will be thrown here.
+		functions.forEach[nameChecker.checkAddGlobal(it.name)]
+		
 		instance.functions.addAll(functions)
 		return this
+	}
+	
+	/** Starts building a function using this program's name checker. */
+	def startFunction(boolean isInline, DataType returnType, String name) {
+		return FunctionBuilder.start(isInline, returnType, name, nameChecker)
 	}
 }

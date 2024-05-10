@@ -2,7 +2,6 @@ package alpha.codegen.writeC
 
 import alpha.codegen.Expression
 import alpha.codegen.Factory
-import alpha.codegen.FunctionBuilder
 import alpha.codegen.MacroStmt
 import alpha.codegen.ProgramBuilder
 import alpha.codegen.isl.ASTConverter
@@ -53,7 +52,7 @@ class ReduceExprConverter {
 		
 		// Start building the reduce function.
 		val reduceFunctionName = "reduce" + myId
-		val function = FunctionBuilder.start(false, Common.alphaValueType, reduceFunctionName)
+		val function = program.startFunction(false, Common.alphaValueType, reduceFunctionName)
 		
 		// Create the "reduction variable", which is what the reduction will accumulate into.
 		// This needs to be initialized to the correct value for the reduction operator.
