@@ -67,9 +67,14 @@ class Common {
 		return dataType(BaseDataType.FLOAT, 0)
 	}
 	
-	/** The data type for an Alpha variable itself. */
+	/** The data type for a linearized Alpha variable. */
 	def static alphaVariableType() {
-		return dataType(BaseDataType.FLOAT, 1)
+		return alphaVariableType(1)
+	}
+	
+	/** The data type for an Alpha variable itself. */
+	def static alphaVariableType(int dimensionality) {
+		return dataType(BaseDataType.FLOAT, dimensionality)
 	}
 	
 	/** The data type for an index within Alpha. */
@@ -85,11 +90,6 @@ class Common {
 	/** Gets the name of the function that evaluates an Alpha variable at a specific point. */
 	def static getEvalName(Variable variable) {
 		return "eval_" + variable.name
-	}
-	
-	/** Gets the name of the "flag" variable for an Alpha variable. */
-	def static getFlagName(Variable variable) {
-		return "_flag_" + variable.name
 	}
 	
 	/**

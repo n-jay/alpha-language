@@ -6,7 +6,6 @@ import alpha.codegen.DataType
 import alpha.codegen.Factory
 import alpha.codegen.FunctionBuilder
 import alpha.codegen.IfStmtBuilder
-import alpha.codegen.NameChecker
 import alpha.codegen.ProgramBuilder
 import alpha.codegen.UnaryOperator
 import alpha.codegen.isl.ASTConverter
@@ -20,13 +19,12 @@ import alpha.model.UseEquation
 import alpha.model.Variable
 import alpha.model.transformation.Normalize
 import alpha.model.transformation.StandardizeNames
-import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
+import fr.irisa.cairn.jnimap.isl.ISLSet
 import java.util.ArrayList
 
 import static extension alpha.codegen.Factory.customExpr
 import static extension alpha.codegen.isl.PolynomialConverter.convert
 import static extension alpha.codegen.writeC.Common.getEvalName
-import static extension alpha.codegen.writeC.Common.getFlagName
 import static extension alpha.model.util.AlphaUtil.copyAE
 import static extension alpha.model.util.CommonExtensions.toArrayList
 import static extension fr.irisa.cairn.jnimap.barvinok.BarvinokBindings.card
@@ -55,14 +53,14 @@ class SystemConverter {
 	protected val AlphaSystem system
 	
 	/** A name checker to ensure names are unique. */
-	protected val NameChecker nameChecker
+	protected val WriteCNameChecker nameChecker
 	
 	/** Protected constructor. */
 	protected new(AlphaSystem system, boolean oldAlphaZCompatible) {
 		this.allocatedVariables = newArrayList
 		this.oldAlphaZCompatible = oldAlphaZCompatible
 		this.system = system
-		this.nameChecker = new NameChecker
+		this.nameChecker = new WriteCNameChecker
 		this.program = ProgramBuilder.start(this.nameChecker)
 	}
 	
@@ -120,9 +118,20 @@ class SystemConverter {
 			.addInclude(Common.defaultIncludes)
 			.addFunctionMacro(Common.defaultFunctionMacros)
 		
-		// Prepare all the global variables and their memory macros.
-		system.parameterDomain.paramNames.forEach[program.addGlobalVariable(true, Common.alphaIndexType, it)]
-		system.variables.forEach[prepareAlphaVariable]
+		// Declare global variables and memory macros for system parameters, inputs,
+		// outputs, and locals. If we need compatibility with the older AlphaZ system,
+		// only inputs and outputs need to use the compatibility format.
+		// Everything else uses linearized memory.
+		val inputOutputFormat = oldAlphaZCompatible ? StorageFormat.OldAlphaZCompatible : StorageFormat.Linearized
+		addGlobalIndexVariable(system.parameterDomain.paramNames)
+		addGlobalVariable(inputOutputFormat, system.inputs)
+		addGlobalVariable(inputOutputFormat, system.outputs)
+		addGlobalVariable(StorageFormat.Linearized, system.locals)
+		
+		// Outputs and locals also need flags variables.
+		// These also declare the memory macros for accessing the variables.
+		addFlagsVariable(system.outputs)
+		addFlagsVariable(system.locals)
 		
 		// Create all the necessary "eval" functions.
 		equations.forEach[createEvalFunction]
@@ -146,82 +155,80 @@ class SystemConverter {
 	// Variable and Memory Macro Declarations
 	/////////////////////////////////////////////////////////////////////////////
 	
-	/**
-	 * Declares global variables for the Alpha variable itself
-	 * and its associated flag variable (if needed).
-	 * Also creates the memory access macros needed for accessing values.
-	 */
-	def protected prepareAlphaVariable(Variable variable) {
-		// Variables (and their flags variables) are stored as linearized memory,
-		// but accessed by macros that accept the dimensions declared in the Alpha program.
-		// The "rank" function computes this mapping between the two.
-		// We may need it twice (once for the variable itself, once for its flags),
-		// so we compute it with ISL once, but convert that to an expression twice.
-		val rank = MemoryUtils.rank(variable.domain)
-		
-		// We always declare the variable itself (and its memory macro).
-		// However, if we need to be compatible with the older AlphaZ
-		// and this is an input or output variable, the declarations are different.
-		if (oldAlphaZCompatible && (variable.isInput || variable.isOutput)) {
-			prepareOldAlphaZCompatibleVariable(variable)
-		} else {
-			prepareVariable(variable, rank, false)
-		}
-		
-		// Non-input variables (i.e., locals or outputs) need to have flag variables
-		// be created as well. We don't need to worry about compatibility here, though. 
-		if (!variable.isInput) {
-			prepareVariable(variable, rank, true)
+	/** Adds global variables that store indexes (e.g., system parameters). */
+	def addGlobalIndexVariable(String... names) {
+		for (name : names) {
+			program.addGlobalVariable(true, Common.alphaIndexType, name)
 		}
 	}
 	
 	/**
-	 * Declares a new global variable for either a standard Alpha variable
-	 * or for its flag variable, then constructs the memory macro
-	 * used to access values in that global variable.
+	 * Adds a global variable (and memory macro) for the given variables
+	 * using the desired format for storing the data of those variables.
 	 */
-	def protected prepareVariable(Variable variable, ISLPWQPolynomial rank, boolean createFlag) {
-		// Declare a new global variable (either the variable itself or the flags variable).
-		val name = createFlag ? variable.flagName : variable.name
-		val type = createFlag ? Common.flagVariableType : Common.alphaVariableType
-		program.addGlobalVariable(true, type, name)
+	def addGlobalVariable(StorageFormat format, Variable... variables) {
+		// Create variable declarations and add them to the program.
+		switch (format) {
+			case Linearized: variables.forEach[addLinearizedGlobalVariable]
+			case OldAlphaZCompatible: variables.forEach[addCompatibilityGlobalVariable]
+			default: throw new IllegalArgumentException("Unrecognized format: " + format.toString)
+		}
+	}
+	
+	/**
+	 * Adds a global variable (and memory macro) for the given variable
+	 * which uses a linear array of memory to minimize the space taken up.
+	 */
+	def protected addLinearizedGlobalVariable(Variable variable) {
+		// Name checking is handled by the program builder.
+		program.addGlobalVariable(true, Common.alphaVariableType, variable.name)
+		addLinearMemoryMacro(variable.name, variable.domain)
+	}
+	
+	/**
+	 * Adds a global variable (and memory macro) for the given variable
+	 * which is compatible with wrapper code from the original AlphaZ system.
+	 */
+	def protected addCompatibilityGlobalVariable(Variable variable) {
+		// Create the global variable.
+		// Name checking is handled by the program builder.
+		val dataType = Common.alphaVariableType(variable.domain.nbIndices)
+		program.addGlobalVariable(true, dataType, variable.name)
 		
 		// Construct a memory macro for accessing the variable.
-		val accessExpression = PolynomialConverter.convert(rank)
-		val macroReplacement = Factory.arrayAccessExpr(name, accessExpression)
-		val macro = Factory.macroStmt(name, variable.domain.indexNames, macroReplacement)
+		// Since it's a bounding box, simply index the variable by the indices in order.
+		val arrayAccess = Factory.arrayAccessExpr(variable.name, variable.domain.indexNames)
+		val macro = Factory.macroStmt(variable.name, variable.domain.indexNames, arrayAccess)
 		program.addMemoryMacro(macro)
 	}
 	
 	/**
-	 * Declares a new global variable for an Alpha input or output variable
-	 * and creates its memory macro.
-	 * 
-	 * Note: this is ONLY intended for compatibility with the older version
-	 * of AlphaZ, where memory is allocated as a multi-dimensional bounding
-	 * box for the variable in question. This may result in negative indexing,
-	 * which does not work correctly.
+	 * Adds a global variable (and memory macro) for storing the "flags"
+	 * for the given variables, which indicate if a value has been computed already,
+	 * is currently being computed (i.e., cyclic dependence), or needs to be
+	 * computed still. These always use linearized memory to minimize the amount
+	 * of space taken up.
 	 */
-	def protected prepareOldAlphaZCompatibleVariable(Variable variable) {
-		// Declare a new global variable.
-		val name = variable.name
-		val type = Common.alphaVariableType
-		
-		// The common Alpha variable type assumes linarized memory,
-		// meaning it's always an array.
-		// However, this was not necessarily the case in the C code produced
-		// by the older AlphaZ, where the level of indirection equaled the number
-		// of indices of the variable.
-		// Fix this for compatibility.
-		type.indirectionLevel = variable.domain.nbIndices
-		
-		program.addGlobalVariable(true, type, name)
-		
-		// Construct a memory macro for accessing the variable.
-		// Since it's a multi-dimensional bounding box,
-		// simply index by the indices in order.
-		val arrayAccess = Factory.arrayAccessExpr(variable.name, variable.domain.indexNames)
-		val macro = Factory.macroStmt(name, variable.domain.indexNames, arrayAccess)
+	def protected addFlagsVariable(Variable... variables) {
+		for (variable : variables) {
+			// Create the global variable for the linear flag variable
+			// and a memory macro for easily accessing that memory.
+			// Note: getting the flag name from the name checker will create it.
+			val flagName = nameChecker.getFlagName(variable)
+			program.addGlobalVariable(true, Common.flagVariableType, flagName)
+			addLinearMemoryMacro(flagName, variable.domain)
+		}
+	}
+	
+	/**
+	 * Adds a memory macro for accessing a linearized variable.
+	 * The macro is named the same as the variable.
+	 */
+	def protected addLinearMemoryMacro(String variableName, ISLSet domain) {
+		val rank = MemoryUtils.rank(domain)
+		val accessExpression = PolynomialConverter.convert(rank)
+		val macroReplacement = Factory.arrayAccessExpr(variableName, accessExpression)
+		val macro = Factory.macroStmt(variableName, domain.indexNames, macroReplacement)
 		program.addMemoryMacro(macro)
 	}
 	
@@ -285,18 +292,18 @@ class SystemConverter {
 	}
 	
 	/** Gets the expression to check if a flags variable is set to a given value. */
-	def protected static ifFlagEquals(StandardEquation equation, FlagStatus flagStatus) {
+	def protected ifFlagEquals(StandardEquation equation, FlagStatus flagStatus) {
 		return Factory.binaryExpr(BinaryOperator.EQ, equation.identityAccess(true), Common.toExpr(flagStatus))
 	}
 	
 	/** Gets the statement that sets a flags variable to a given value. */
-	def protected static setFlagTo(StandardEquation equation, FlagStatus flagStatus) {
+	def protected setFlagTo(StandardEquation equation, FlagStatus flagStatus) {
 		Factory.assignmentStmt(equation.identityAccess(true), Common.toExpr(flagStatus))
 	}
 	
 	/** Gets the expression used to access a variable (or its flag). */
-	def protected static identityAccess(StandardEquation equation, boolean accessFlags) {
-		val name = accessFlags ? equation.variable.flagName : equation.variable.name
+	def protected identityAccess(StandardEquation equation, boolean accessFlags) {
+		val name = accessFlags ? nameChecker.getFlagName(equation.variable) : equation.variable.name
 		return Factory.callExpr(name, equation.expr.contextDomain.indexNames)
 	}
 	
@@ -398,7 +405,7 @@ class SystemConverter {
 	def protected allocateMemory(FunctionBuilder builder, Variable variable, boolean allocateFlag) {
 		// Determine the name and data type of the C variable based on
 		// whether we're allocating memory for the standard variable or the flags variable.
-		val name = allocateFlag ? variable.flagName : variable.name
+		val name = allocateFlag ? nameChecker.getFlagName(variable) : variable.name
 		val dataType = allocateFlag ? Common.flagVariableType : Common.alphaValueType
 		
 		// Record that we're allocating this variable so it can be freed later.

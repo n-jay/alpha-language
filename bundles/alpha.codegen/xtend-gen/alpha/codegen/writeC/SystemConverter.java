@@ -18,7 +18,6 @@ import alpha.codegen.IfStmt;
 import alpha.codegen.IfStmtBuilder;
 import alpha.codegen.Include;
 import alpha.codegen.MacroStmt;
-import alpha.codegen.NameChecker;
 import alpha.codegen.ParenthesizedExpr;
 import alpha.codegen.Program;
 import alpha.codegen.ProgramBuilder;
@@ -44,6 +43,7 @@ import alpha.model.util.CommonExtensions;
 import fr.irisa.cairn.jnimap.barvinok.BarvinokBindings;
 import fr.irisa.cairn.jnimap.isl.ISLASTNode;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -90,7 +90,7 @@ public class SystemConverter {
   /**
    * A name checker to ensure names are unique.
    */
-  protected final NameChecker nameChecker;
+  protected final WriteCNameChecker nameChecker;
 
   /**
    * Protected constructor.
@@ -99,8 +99,8 @@ public class SystemConverter {
     this.allocatedVariables = CollectionLiterals.<String>newArrayList();
     this.oldAlphaZCompatible = oldAlphaZCompatible;
     this.system = system;
-    NameChecker _nameChecker = new NameChecker();
-    this.nameChecker = _nameChecker;
+    WriteCNameChecker _writeCNameChecker = new WriteCNameChecker();
+    this.nameChecker = _writeCNameChecker;
     this.program = ProgramBuilder.start(this.nameChecker);
   }
 
@@ -159,97 +159,125 @@ public class SystemConverter {
     };
     final List<StandardEquation> equations = ListExtensions.<Equation, StandardEquation>map(systemBody.getEquations(), _function_1);
     this.program.addHeaderComment(((String[])Conversions.unwrapArray(Common.defaultHeaderComments(), String.class))).addInclude(((Include[])Conversions.unwrapArray(Common.defaultIncludes(), Include.class))).addFunctionMacro(((MacroStmt[])Conversions.unwrapArray(Common.defaultFunctionMacros(), MacroStmt.class)));
-    final Consumer<String> _function_2 = (String it) -> {
-      this.program.addGlobalVariable(true, Common.alphaIndexType(), it);
-    };
-    this.system.getParameterDomain().getParamNames().forEach(_function_2);
-    final Consumer<Variable> _function_3 = (Variable it) -> {
-      this.prepareAlphaVariable(it);
-    };
-    this.system.getVariables().forEach(_function_3);
-    final Consumer<StandardEquation> _function_4 = (StandardEquation it) -> {
+    StorageFormat _xifexpression = null;
+    if (this.oldAlphaZCompatible) {
+      _xifexpression = StorageFormat.OldAlphaZCompatible;
+    } else {
+      _xifexpression = StorageFormat.Linearized;
+    }
+    final StorageFormat inputOutputFormat = _xifexpression;
+    this.addGlobalIndexVariable(((String[])Conversions.unwrapArray(this.system.getParameterDomain().getParamNames(), String.class)));
+    this.addGlobalVariable(inputOutputFormat, ((Variable[])Conversions.unwrapArray(this.system.getInputs(), Variable.class)));
+    this.addGlobalVariable(inputOutputFormat, ((Variable[])Conversions.unwrapArray(this.system.getOutputs(), Variable.class)));
+    this.addGlobalVariable(StorageFormat.Linearized, ((Variable[])Conversions.unwrapArray(this.system.getLocals(), Variable.class)));
+    this.addFlagsVariable(((Variable[])Conversions.unwrapArray(this.system.getOutputs(), Variable.class)));
+    this.addFlagsVariable(((Variable[])Conversions.unwrapArray(this.system.getLocals(), Variable.class)));
+    final Consumer<StandardEquation> _function_2 = (StandardEquation it) -> {
       this.createEvalFunction(it);
     };
-    equations.forEach(_function_4);
+    equations.forEach(_function_2);
     final Function entryPoint = this.freeAllocatedVariables(this.evaluateOutputs(this.allocateMemory(this.checkParameters(this.prepareEntryArguments(FunctionBuilder.start(BaseDataType.VOID, this.system.getName(), this.nameChecker)))))).getInstance();
     this.program.addFunction(entryPoint);
     return this.program.getInstance();
   }
 
   /**
-   * Declares global variables for the Alpha variable itself
-   * and its associated flag variable (if needed).
-   * Also creates the memory access macros needed for accessing values.
+   * Adds global variables that store indexes (e.g., system parameters).
    */
-  protected ProgramBuilder prepareAlphaVariable(final Variable variable) {
+  public void addGlobalIndexVariable(final String... names) {
+    for (final String name : names) {
+      this.program.addGlobalVariable(true, Common.alphaIndexType(), name);
+    }
+  }
+
+  /**
+   * Adds a global variable (and memory macro) for the given variables
+   * using the desired format for storing the data of those variables.
+   */
+  public void addGlobalVariable(final StorageFormat format, final Variable... variables) {
+    if (format != null) {
+      switch (format) {
+        case Linearized:
+          final Consumer<Variable> _function = (Variable it) -> {
+            this.addLinearizedGlobalVariable(it);
+          };
+          ((List<Variable>)Conversions.doWrapArray(variables)).forEach(_function);
+          break;
+        case OldAlphaZCompatible:
+          final Consumer<Variable> _function_1 = (Variable it) -> {
+            this.addCompatibilityGlobalVariable(it);
+          };
+          ((List<Variable>)Conversions.doWrapArray(variables)).forEach(_function_1);
+          break;
+        default:
+          String _string = format.toString();
+          String _plus = ("Unrecognized format: " + _string);
+          throw new IllegalArgumentException(_plus);
+      }
+    } else {
+      String _string = format.toString();
+      String _plus = ("Unrecognized format: " + _string);
+      throw new IllegalArgumentException(_plus);
+    }
+  }
+
+  /**
+   * Adds a global variable (and memory macro) for the given variable
+   * which uses a linear array of memory to minimize the space taken up.
+   */
+  protected ProgramBuilder addLinearizedGlobalVariable(final Variable variable) {
     ProgramBuilder _xblockexpression = null;
     {
-      final ISLPWQPolynomial rank = MemoryUtils.rank(variable.getDomain());
-      if ((this.oldAlphaZCompatible && ((variable.isInput()).booleanValue() || (variable.isOutput()).booleanValue()))) {
-        this.prepareOldAlphaZCompatibleVariable(variable);
-      } else {
-        this.prepareVariable(variable, rank, false);
-      }
-      ProgramBuilder _xifexpression = null;
-      Boolean _isInput = variable.isInput();
-      boolean _not = (!(_isInput).booleanValue());
-      if (_not) {
-        _xifexpression = this.prepareVariable(variable, rank, true);
-      }
-      _xblockexpression = _xifexpression;
+      this.program.addGlobalVariable(true, Common.alphaVariableType(), variable.getName());
+      _xblockexpression = this.addLinearMemoryMacro(variable.getName(), variable.getDomain());
     }
     return _xblockexpression;
   }
 
   /**
-   * Declares a new global variable for either a standard Alpha variable
-   * or for its flag variable, then constructs the memory macro
-   * used to access values in that global variable.
+   * Adds a global variable (and memory macro) for the given variable
+   * which is compatible with wrapper code from the original AlphaZ system.
    */
-  protected ProgramBuilder prepareVariable(final Variable variable, final ISLPWQPolynomial rank, final boolean createFlag) {
+  protected ProgramBuilder addCompatibilityGlobalVariable(final Variable variable) {
     ProgramBuilder _xblockexpression = null;
     {
-      String _xifexpression = null;
-      if (createFlag) {
-        _xifexpression = Common.getFlagName(variable);
-      } else {
-        _xifexpression = variable.getName();
-      }
-      final String name = _xifexpression;
-      DataType _xifexpression_1 = null;
-      if (createFlag) {
-        _xifexpression_1 = Common.flagVariableType();
-      } else {
-        _xifexpression_1 = Common.alphaVariableType();
-      }
-      final DataType type = _xifexpression_1;
-      this.program.addGlobalVariable(true, type, name);
-      final ParenthesizedExpr accessExpression = PolynomialConverter.convert(rank);
-      final ArrayAccessExpr macroReplacement = Factory.arrayAccessExpr(name, accessExpression);
-      final MacroStmt macro = Factory.macroStmt(name, ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), macroReplacement);
+      final DataType dataType = Common.alphaVariableType(variable.getDomain().getNbIndices());
+      this.program.addGlobalVariable(true, dataType, variable.getName());
+      final ArrayAccessExpr arrayAccess = Factory.arrayAccessExpr(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)));
+      final MacroStmt macro = Factory.macroStmt(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), arrayAccess);
       _xblockexpression = this.program.addMemoryMacro(macro);
     }
     return _xblockexpression;
   }
 
   /**
-   * Declares a new global variable for an Alpha input or output variable
-   * and creates its memory macro.
-   * 
-   * Note: this is ONLY intended for compatibility with the older version
-   * of AlphaZ, where memory is allocated as a multi-dimensional bounding
-   * box for the variable in question. This may result in negative indexing,
-   * which does not work correctly.
+   * Adds a global variable (and memory macro) for storing the "flags"
+   * for the given variables, which indicate if a value has been computed already,
+   * is currently being computed (i.e., cyclic dependence), or needs to be
+   * computed still. These always use linearized memory to minimize the amount
+   * of space taken up.
    */
-  protected ProgramBuilder prepareOldAlphaZCompatibleVariable(final Variable variable) {
+  protected void addFlagsVariable(final Variable... variables) {
+    for (final Variable variable : variables) {
+      {
+        final String flagName = this.nameChecker.getFlagName(variable);
+        this.program.addGlobalVariable(true, Common.flagVariableType(), flagName);
+        this.addLinearMemoryMacro(flagName, variable.getDomain());
+      }
+    }
+  }
+
+  /**
+   * Adds a memory macro for accessing a linearized variable.
+   * The macro is named the same as the variable.
+   */
+  protected ProgramBuilder addLinearMemoryMacro(final String variableName, final ISLSet domain) {
     ProgramBuilder _xblockexpression = null;
     {
-      final String name = variable.getName();
-      final DataType type = Common.alphaVariableType();
-      type.setIndirectionLevel(variable.getDomain().getNbIndices());
-      this.program.addGlobalVariable(true, type, name);
-      final ArrayAccessExpr arrayAccess = Factory.arrayAccessExpr(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)));
-      final MacroStmt macro = Factory.macroStmt(name, ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), arrayAccess);
+      final ISLPWQPolynomial rank = MemoryUtils.rank(domain);
+      final ParenthesizedExpr accessExpression = PolynomialConverter.convert(rank);
+      final ArrayAccessExpr macroReplacement = Factory.arrayAccessExpr(variableName, accessExpression);
+      final MacroStmt macro = Factory.macroStmt(variableName, ((String[])Conversions.unwrapArray(domain.getIndexNames(), String.class)), macroReplacement);
       _xblockexpression = this.program.addMemoryMacro(macro);
     }
     return _xblockexpression;
@@ -269,7 +297,7 @@ public class SystemConverter {
       };
       indexNames.forEach(_function);
       final IfStmt flagCheckingBlock = this.getFlagCheckingBlock(equation);
-      evalBuilder.addComment("Check the flags.").addStatement(flagCheckingBlock).addEmptyLine().addReturn(SystemConverter.identityAccess(equation, false));
+      evalBuilder.addComment("Check the flags.").addStatement(flagCheckingBlock).addEmptyLine().addReturn(this.identityAccess(equation, false));
       _xblockexpression = this.program.addFunction(evalBuilder.getInstance());
     }
     return _xblockexpression;
@@ -281,10 +309,10 @@ public class SystemConverter {
    */
   protected IfStmt getFlagCheckingBlock(final StandardEquation equation) {
     final Expression computeValue = ExprConverter.convertExpr(this.program, equation.getExpr());
-    final AssignmentStmt computeAndStore = Factory.assignmentStmt(SystemConverter.identityAccess(equation, false), computeValue);
-    return IfStmtBuilder.start(SystemConverter.ifFlagEquals(equation, FlagStatus.NOT_EVALUATED)).addStatement(
-      SystemConverter.setFlagTo(equation, FlagStatus.IN_PROGRESS), computeAndStore, 
-      SystemConverter.setFlagTo(equation, FlagStatus.EVALUATED)).startElseIf(SystemConverter.ifFlagEquals(equation, FlagStatus.IN_PROGRESS)).addStatement(
+    final AssignmentStmt computeAndStore = Factory.assignmentStmt(this.identityAccess(equation, false), computeValue);
+    return IfStmtBuilder.start(this.ifFlagEquals(equation, FlagStatus.NOT_EVALUATED)).addStatement(
+      this.setFlagTo(equation, FlagStatus.IN_PROGRESS), computeAndStore, 
+      this.setFlagTo(equation, FlagStatus.EVALUATED)).startElseIf(this.ifFlagEquals(equation, FlagStatus.IN_PROGRESS)).addStatement(
       SystemConverter.getSelfDependencePrintfStmt(equation), 
       Factory.exitCall((-1))).getInstance();
   }
@@ -292,24 +320,24 @@ public class SystemConverter {
   /**
    * Gets the expression to check if a flags variable is set to a given value.
    */
-  protected static BinaryExpr ifFlagEquals(final StandardEquation equation, final FlagStatus flagStatus) {
-    return Factory.binaryExpr(BinaryOperator.EQ, SystemConverter.identityAccess(equation, true), Common.toExpr(flagStatus));
+  protected BinaryExpr ifFlagEquals(final StandardEquation equation, final FlagStatus flagStatus) {
+    return Factory.binaryExpr(BinaryOperator.EQ, this.identityAccess(equation, true), Common.toExpr(flagStatus));
   }
 
   /**
    * Gets the statement that sets a flags variable to a given value.
    */
-  protected static AssignmentStmt setFlagTo(final StandardEquation equation, final FlagStatus flagStatus) {
-    return Factory.assignmentStmt(SystemConverter.identityAccess(equation, true), Common.toExpr(flagStatus));
+  protected AssignmentStmt setFlagTo(final StandardEquation equation, final FlagStatus flagStatus) {
+    return Factory.assignmentStmt(this.identityAccess(equation, true), Common.toExpr(flagStatus));
   }
 
   /**
    * Gets the expression used to access a variable (or its flag).
    */
-  protected static CallExpr identityAccess(final StandardEquation equation, final boolean accessFlags) {
+  protected CallExpr identityAccess(final StandardEquation equation, final boolean accessFlags) {
     String _xifexpression = null;
     if (accessFlags) {
-      _xifexpression = Common.getFlagName(equation.getVariable());
+      _xifexpression = this.nameChecker.getFlagName(equation.getVariable());
     } else {
       _xifexpression = equation.getVariable().getName();
     }
@@ -438,7 +466,7 @@ public class SystemConverter {
     {
       String _xifexpression = null;
       if (allocateFlag) {
-        _xifexpression = Common.getFlagName(variable);
+        _xifexpression = this.nameChecker.getFlagName(variable);
       } else {
         _xifexpression = variable.getName();
       }

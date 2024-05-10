@@ -17,15 +17,15 @@
 long N;
 float** A;
 float** L;
-char* _flag_L;
 float** U;
+char* _flag_L;
 char* _flag_U;
 
 // Memory Macros
 #define A(i,j) A[i][j]
 #define L(i,j) L[i][j]
-#define _flag_L(i,j) _flag_L[((-2 + i >= 0 && -1 + N - i >= 0 && -1 + j >= 0 && -1 + i - j >= 0) ? ((((-i + i*i) + 2 * j))/2) : (j == 0 && -2 + i >= 0 && -1 + N - i >= 0) ? (((-i + i*i))/2) : 0)]
 #define U(i,j) U[i][j]
+#define _flag_L(i,j) _flag_L[((-2 + i >= 0 && -1 + N - i >= 0 && -1 + j >= 0 && -1 + i - j >= 0) ? ((((-i + i*i) + 2 * j))/2) : (j == 0 && -2 + i >= 0 && -1 + N - i >= 0) ? (((-i + i*i))/2) : 0)]
 #define _flag_U(i,j) _flag_U[((-1 + i >= 0 && -1 - i + j >= 0 && -1 + N - j >= 0) ? (((((-1 + 2 * N) * i - i*i) + 2 * j))/2) : (-i + j == 0 && -1 + i >= 0 && -1 + N - i >= 0) ? ((((1 + 2 * N) * i - i*i))/2) : (i == 0 && -1 + N - j >= 0 && -1 + j >= 0) ? ((-i + j)) : 0)]
 
 // Function Declarations
@@ -148,8 +148,8 @@ void LUDecomposition(long _local_N, float** _local_A, float** _local_L, float** 
 // Undefine the Memory and Function Macros
 #undef A
 #undef L
-#undef _flag_L
 #undef U
+#undef _flag_L
 #undef _flag_U
 #undef max
 #undef min

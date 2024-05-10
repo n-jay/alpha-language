@@ -73,10 +73,17 @@ public class Common {
   }
 
   /**
-   * The data type for an Alpha variable itself.
+   * The data type for a linearized Alpha variable.
    */
   public static DataType alphaVariableType() {
-    return Factory.dataType(BaseDataType.FLOAT, 1);
+    return Common.alphaVariableType(1);
+  }
+
+  /**
+   * The data type for an Alpha variable itself.
+   */
+  public static DataType alphaVariableType(final int dimensionality) {
+    return Factory.dataType(BaseDataType.FLOAT, dimensionality);
   }
 
   /**
@@ -92,14 +99,6 @@ public class Common {
   public static String getEvalName(final Variable variable) {
     String _name = variable.getName();
     return ("eval_" + _name);
-  }
-
-  /**
-   * Gets the name of the "flag" variable for an Alpha variable.
-   */
-  public static String getFlagName(final Variable variable) {
-    String _name = variable.getName();
-    return ("_flag_" + _name);
   }
 
   /**

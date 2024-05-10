@@ -41,6 +41,22 @@ class NameChecker {
 	}
 	
 	/**
+	 * Repeatedly appends the given suffix to the base name until it is unique.
+	 * If the base name is already unique, the suffix is not added.
+	 * 
+	 * Note: the name returned is NOT added to the list of global names,
+	 * as that would be done when the name is actually declared.
+	 * This is just to get a name that's unique to use in a declaration.
+	 */
+	def getUniqueGlobalName(String baseName, String suffix) {
+		var toAdd = baseName
+		while (globalNames.contains(toAdd)) {
+			toAdd += suffix
+		}
+		return toAdd
+	}
+	
+	/**
 	 * Checks if a local variable declaration is unique,
 	 * and adds it to the given list of declarations if so.
 	 * 
