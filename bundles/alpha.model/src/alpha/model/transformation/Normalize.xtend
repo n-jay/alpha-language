@@ -410,29 +410,55 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 
 	override outBinaryExpression(BinaryExpression be) {
 		if (invalidState(be)) return;
+
+		binaryExpressionRules(be, be.left, be.right)
+	}
+
+	// case { L1; L2; ... } op case { R1; R2; ... } -> case { E1; E2; ... }
+	// where E1, E2, etc. are the set of combos from left and right branches
+	protected def dispatch binaryExpressionRules(BinaryExpression be, CaseExpression ceLeft, CaseExpression ceRight) {
+		val origContainer = be.eContainer  as AlphaCompleteVisitable
 		
+		// compute the subdomains in which the branches of the left and right case expressions overlap
+		val newBranchDomains = ceLeft.exprs.map[contextDomain]
+			.map[l | ceRight.exprs.map[contextDomain].map[r | l.copy.intersect(r)]]
+			.flatten
+			.reject[empty]
+		
+		// create new restrictExprs for each new branch
+		val emptyRestrictExprs = newBranchDomains.map[domain | createRestrictExpression(domain)]
+		
+		// set the restrictExpr.expr depending on whether or not original cases overlap
+		val newCE = createCaseExpression
+		newCE.exprs += emptyRestrictExprs.map[re | 
+			var left = EcoreUtil.copy(ceLeft.exprs.findFirst[e | re.restrictDomain.isSubset(e.expressionDomain)])
+			var right = EcoreUtil.copy(ceRight.exprs.findFirst[e | re.restrictDomain.isSubset(e.expressionDomain)])
+			
+			if (left instanceof RestrictExpression)
+				left = left.expr
+			if (right instanceof RestrictExpression)
+				right = right.expr
+			
+			if (left !== null && right !== null) {
+				re.expr = createBinaryExpression(be.operator, left, right)
+			} else {
+				re.expr = if (left !== null) left else right
+			}
+			re
+		]
+		
+		EcoreUtil.replace(be, newCE)
+		AlphaInternalStateConstructor.recomputeContextDomain(newCE)
+		
+		reapply(origContainer)
+	}
+	
+	protected def dispatch binaryExpressionRules(BinaryExpression be, AlphaExpression aeLeft, AlphaExpression aeRight) {
 		val origContainer = be.eContainer  as AlphaCompleteVisitable 
 		
-		/*
-		 * There is a containment issue related to the way that Normalize handles
-		 * binary expressions and case expressions together. It is not clear why
-		 * this logic is needed yet, but it breaks without this explicit separation
-		 * of scenarios with one case vs. two cases.
-		 * Cleaning this up is tracked in github:
-		 * https://github.com/CSU-CS-Melange/alpha-language/issues/44
-		 * 
-		 */
-		val bothCase = be.left instanceof CaseExpression && be.right instanceof CaseExpression
-		if (!bothCase) {
-			binaryExpressionRules(be, be.left)
-			binaryExpressionRules(be, be.right)
-		} else {
-			binaryExpressionRules(be, EcoreUtil.copy(be.left))
-		}
+		binaryExpressionRules(be, aeLeft)
 		
-		//This is required when multiple restricts are moved upwards.
-		//The moved restricts should be merged when possible, but visiting order must be changed to catch those cases.
-		if (origContainer != be.eContainer || bothCase) {
+		if (origContainer != be.eContainer) {
 			reapply(origContainer)
 		}
 	}
