@@ -7,6 +7,7 @@ import alpha.codegen.ConditionalBranch;
 import alpha.codegen.Expression;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -28,7 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class ConditionalBranchImpl extends BranchImpl implements ConditionalBranch {
 	/**
-	 * The cached value of the '{@link #getConditional() <em>Conditional</em>}' reference.
+	 * The cached value of the '{@link #getConditional() <em>Conditional</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getConditional()
@@ -62,14 +63,6 @@ public class ConditionalBranchImpl extends BranchImpl implements ConditionalBran
 	 * @generated
 	 */
 	public Expression getConditional() {
-		if (conditional != null && conditional.eIsProxy()) {
-			InternalEObject oldConditional = (InternalEObject)conditional;
-			conditional = (Expression)eResolveProxy(oldConditional);
-			if (conditional != oldConditional) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.CONDITIONAL_BRANCH__CONDITIONAL, oldConditional, conditional));
-			}
-		}
 		return conditional;
 	}
 
@@ -78,8 +71,14 @@ public class ConditionalBranchImpl extends BranchImpl implements ConditionalBran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetConditional() {
-		return conditional;
+	public NotificationChain basicSetConditional(Expression newConditional, NotificationChain msgs) {
+		Expression oldConditional = conditional;
+		conditional = newConditional;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.CONDITIONAL_BRANCH__CONDITIONAL, oldConditional, newConditional);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -88,10 +87,31 @@ public class ConditionalBranchImpl extends BranchImpl implements ConditionalBran
 	 * @generated
 	 */
 	public void setConditional(Expression newConditional) {
-		Expression oldConditional = conditional;
-		conditional = newConditional;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.CONDITIONAL_BRANCH__CONDITIONAL, oldConditional, conditional));
+		if (newConditional != conditional) {
+			NotificationChain msgs = null;
+			if (conditional != null)
+				msgs = ((InternalEObject)conditional).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.CONDITIONAL_BRANCH__CONDITIONAL, null, msgs);
+			if (newConditional != null)
+				msgs = ((InternalEObject)newConditional).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.CONDITIONAL_BRANCH__CONDITIONAL, null, msgs);
+			msgs = basicSetConditional(newConditional, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.CONDITIONAL_BRANCH__CONDITIONAL, newConditional, newConditional));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.CONDITIONAL_BRANCH__CONDITIONAL:
+				return basicSetConditional(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -103,8 +123,7 @@ public class ConditionalBranchImpl extends BranchImpl implements ConditionalBran
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CodegenPackage.CONDITIONAL_BRANCH__CONDITIONAL:
-				if (resolve) return getConditional();
-				return basicGetConditional();
+				return getConditional();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

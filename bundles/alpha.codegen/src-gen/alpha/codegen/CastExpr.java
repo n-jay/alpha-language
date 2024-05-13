@@ -26,50 +26,50 @@ package alpha.codegen;
  */
 public interface CastExpr extends Expression {
 	/**
-	 * Returns the value of the '<em><b>Data Type</b></em>' reference.
+	 * Returns the value of the '<em><b>Data Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The type to cast to.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Data Type</em>' reference.
+	 * @return the value of the '<em>Data Type</em>' containment reference.
 	 * @see #setDataType(DataType)
 	 * @see alpha.codegen.CodegenPackage#getCastExpr_DataType()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	DataType getDataType();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.CastExpr#getDataType <em>Data Type</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.CastExpr#getDataType <em>Data Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Type</em>' reference.
+	 * @param value the new value of the '<em>Data Type</em>' containment reference.
 	 * @see #getDataType()
 	 * @generated
 	 */
 	void setDataType(DataType value);
 
 	/**
-	 * Returns the value of the '<em><b>Expression</b></em>' reference.
+	 * Returns the value of the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The expression being cast.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Expression</em>' reference.
+	 * @return the value of the '<em>Expression</em>' containment reference.
 	 * @see #setExpression(Expression)
 	 * @see alpha.codegen.CodegenPackage#getCastExpr_Expression()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getExpression();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.CastExpr#getExpression <em>Expression</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.CastExpr#getExpression <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Expression</em>' reference.
+	 * @param value the new value of the '<em>Expression</em>' containment reference.
 	 * @see #getExpression()
 	 * @generated
 	 */

@@ -7,6 +7,7 @@ import alpha.codegen.DataType;
 import alpha.codegen.VariableDecl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -51,7 +52,7 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	protected boolean isStatic = IS_STATIC_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getDataType() <em>Data Type</em>}' reference.
+	 * The cached value of the '{@link #getDataType() <em>Data Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getDataType()
@@ -126,14 +127,6 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	 * @generated
 	 */
 	public DataType getDataType() {
-		if (dataType != null && dataType.eIsProxy()) {
-			InternalEObject oldDataType = (InternalEObject)dataType;
-			dataType = (DataType)eResolveProxy(oldDataType);
-			if (dataType != oldDataType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.VARIABLE_DECL__DATA_TYPE, oldDataType, dataType));
-			}
-		}
 		return dataType;
 	}
 
@@ -142,8 +135,14 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataType basicGetDataType() {
-		return dataType;
+	public NotificationChain basicSetDataType(DataType newDataType, NotificationChain msgs) {
+		DataType oldDataType = dataType;
+		dataType = newDataType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.VARIABLE_DECL__DATA_TYPE, oldDataType, newDataType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -152,10 +151,17 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	 * @generated
 	 */
 	public void setDataType(DataType newDataType) {
-		DataType oldDataType = dataType;
-		dataType = newDataType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.VARIABLE_DECL__DATA_TYPE, oldDataType, dataType));
+		if (newDataType != dataType) {
+			NotificationChain msgs = null;
+			if (dataType != null)
+				msgs = ((InternalEObject)dataType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.VARIABLE_DECL__DATA_TYPE, null, msgs);
+			if (newDataType != null)
+				msgs = ((InternalEObject)newDataType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.VARIABLE_DECL__DATA_TYPE, null, msgs);
+			msgs = basicSetDataType(newDataType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.VARIABLE_DECL__DATA_TYPE, newDataType, newDataType));
 	}
 
 	/**
@@ -185,13 +191,26 @@ public class VariableDeclImpl extends MinimalEObjectImpl.Container implements Va
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.VARIABLE_DECL__DATA_TYPE:
+				return basicSetDataType(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CodegenPackage.VARIABLE_DECL__IS_STATIC:
 				return isIsStatic();
 			case CodegenPackage.VARIABLE_DECL__DATA_TYPE:
-				if (resolve) return getDataType();
-				return basicGetDataType();
+				return getDataType();
 			case CodegenPackage.VARIABLE_DECL__NAME:
 				return getName();
 		}

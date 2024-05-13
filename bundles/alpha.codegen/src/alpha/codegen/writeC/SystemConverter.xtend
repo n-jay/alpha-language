@@ -365,6 +365,13 @@ class SystemConverter {
 	
 	/** Adds the "if" statements needed to check that the parameters are valid. */
 	def protected checkParameters(FunctionBuilder builder) {
+		// If none of the basic sets in the parameter domain have any constraints
+		// (i.e., the entire set is unconstrained), there is no need to produce an
+		// "if" statement to check if we're in the domain.
+		if (system.parameterDomain.basicSets.forall[it.nbConstraints == 0]) {
+			return builder
+		}
+		
 		val isValid = ConditionalConverter.convert(system.parameterDomain)
 		val parameterCheck = IfStmtBuilder
 			.start(Factory.unaryExpr(UnaryOperator.NOT, isValid))

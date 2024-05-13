@@ -9,15 +9,18 @@ import alpha.codegen.Expression;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -55,7 +58,7 @@ public class ArrayAccessExprImpl extends MinimalEObjectImpl.Container implements
 	protected String variableName = VARIABLE_NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getIndexExpressions() <em>Index Expressions</em>}' reference list.
+	 * The cached value of the '{@link #getIndexExpressions() <em>Index Expressions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getIndexExpressions()
@@ -111,9 +114,23 @@ public class ArrayAccessExprImpl extends MinimalEObjectImpl.Container implements
 	 */
 	public EList<Expression> getIndexExpressions() {
 		if (indexExpressions == null) {
-			indexExpressions = new EObjectResolvingEList<Expression>(Expression.class, this, CodegenPackage.ARRAY_ACCESS_EXPR__INDEX_EXPRESSIONS);
+			indexExpressions = new EObjectContainmentEList<Expression>(Expression.class, this, CodegenPackage.ARRAY_ACCESS_EXPR__INDEX_EXPRESSIONS);
 		}
 		return indexExpressions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.ARRAY_ACCESS_EXPR__INDEX_EXPRESSIONS:
+				return ((InternalEList<?>)getIndexExpressions()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

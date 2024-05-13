@@ -55,50 +55,50 @@ public interface BinaryExpr extends Expression {
 	void setOperator(BinaryOperator value);
 
 	/**
-	 * Returns the value of the '<em><b>Left</b></em>' reference.
+	 * Returns the value of the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The operand on the left-hand side.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Left</em>' reference.
+	 * @return the value of the '<em>Left</em>' containment reference.
 	 * @see #setLeft(Expression)
 	 * @see alpha.codegen.CodegenPackage#getBinaryExpr_Left()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getLeft();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.BinaryExpr#getLeft <em>Left</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.BinaryExpr#getLeft <em>Left</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Left</em>' reference.
+	 * @param value the new value of the '<em>Left</em>' containment reference.
 	 * @see #getLeft()
 	 * @generated
 	 */
 	void setLeft(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Right</b></em>' reference.
+	 * Returns the value of the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The operand on the right-hand side.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Right</em>' reference.
+	 * @return the value of the '<em>Right</em>' containment reference.
 	 * @see #setRight(Expression)
 	 * @see alpha.codegen.CodegenPackage#getBinaryExpr_Right()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getRight();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.BinaryExpr#getRight <em>Right</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.BinaryExpr#getRight <em>Right</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Right</em>' reference.
+	 * @param value the new value of the '<em>Right</em>' containment reference.
 	 * @see #getRight()
 	 * @generated
 	 */

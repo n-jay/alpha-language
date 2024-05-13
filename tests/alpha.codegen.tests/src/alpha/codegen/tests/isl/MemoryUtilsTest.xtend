@@ -16,6 +16,14 @@ import static org.junit.Assert.*
  * such that it doesn't include this point.
  */
 class MemoryUtilsTest {
+	@Test def rankTest_emptySet() {
+		assertExpectedRank("[N]->{[i]: false}", "[N,i]->{0}")
+	}
+	
+	@Test def rankTest_point() {
+		assertExpectedRank("[N]->{[i]: i=N}", "[N,i]->{0}")
+	}
+	
 	@Test def rankTest_lineSegment() {
 		assertExpectedRank("[N]->{[i]: 0<=i<N}", "[N,i]->{ i: 0<i<N }")
 	}

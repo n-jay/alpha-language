@@ -55,57 +55,57 @@ public interface LoopStmt extends Statement {
 	void setLoopVariable(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Initializer</b></em>' reference.
+	 * Returns the value of the '<em><b>Initializer</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The initial value of the loop variable.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Initializer</em>' reference.
+	 * @return the value of the '<em>Initializer</em>' containment reference.
 	 * @see #setInitializer(Expression)
 	 * @see alpha.codegen.CodegenPackage#getLoopStmt_Initializer()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getInitializer();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.LoopStmt#getInitializer <em>Initializer</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.LoopStmt#getInitializer <em>Initializer</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Initializer</em>' reference.
+	 * @param value the new value of the '<em>Initializer</em>' containment reference.
 	 * @see #getInitializer()
 	 * @generated
 	 */
 	void setInitializer(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Conditional</b></em>' reference.
+	 * Returns the value of the '<em><b>Conditional</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The conditional expression to check each iteration of the loop.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Conditional</em>' reference.
+	 * @return the value of the '<em>Conditional</em>' containment reference.
 	 * @see #setConditional(Expression)
 	 * @see alpha.codegen.CodegenPackage#getLoopStmt_Conditional()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getConditional();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.LoopStmt#getConditional <em>Conditional</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.LoopStmt#getConditional <em>Conditional</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Conditional</em>' reference.
+	 * @param value the new value of the '<em>Conditional</em>' containment reference.
 	 * @see #getConditional()
 	 * @generated
 	 */
 	void setConditional(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Increment By</b></em>' reference.
+	 * Returns the value of the '<em><b>Increment By</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -113,35 +113,35 @@ public interface LoopStmt extends Statement {
 	 * Increments the loop variable by the given amount.
 	 * This is intended only for additive increments (i.e., "+=").
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Increment By</em>' reference.
+	 * @return the value of the '<em>Increment By</em>' containment reference.
 	 * @see #setIncrementBy(Expression)
 	 * @see alpha.codegen.CodegenPackage#getLoopStmt_IncrementBy()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getIncrementBy();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.LoopStmt#getIncrementBy <em>Increment By</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.LoopStmt#getIncrementBy <em>Increment By</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Increment By</em>' reference.
+	 * @param value the new value of the '<em>Increment By</em>' containment reference.
 	 * @see #getIncrementBy()
 	 * @generated
 	 */
 	void setIncrementBy(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Body</b></em>' reference list.
+	 * Returns the value of the '<em><b>Body</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.codegen.Statement}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The statements to loop over.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Body</em>' reference list.
+	 * @return the value of the '<em>Body</em>' containment reference list.
 	 * @see alpha.codegen.CodegenPackage#getLoopStmt_Body()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Statement> getBody();

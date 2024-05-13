@@ -70,7 +70,7 @@ public interface CodegenPackage extends EPackage {
 	int PROGRAM = 0;
 
 	/**
-	 * The feature id for the '<em><b>Header Comment</b></em>' reference.
+	 * The feature id for the '<em><b>Header Comment</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -79,7 +79,7 @@ public interface CodegenPackage extends EPackage {
 	int PROGRAM__HEADER_COMMENT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Includes</b></em>' reference list.
+	 * The feature id for the '<em><b>Includes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -88,7 +88,7 @@ public interface CodegenPackage extends EPackage {
 	int PROGRAM__INCLUDES = 1;
 
 	/**
-	 * The feature id for the '<em><b>Function Macros</b></em>' reference list.
+	 * The feature id for the '<em><b>Function Macros</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -97,7 +97,7 @@ public interface CodegenPackage extends EPackage {
 	int PROGRAM__FUNCTION_MACROS = 2;
 
 	/**
-	 * The feature id for the '<em><b>Global Variables</b></em>' reference list.
+	 * The feature id for the '<em><b>Global Variables</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -106,7 +106,7 @@ public interface CodegenPackage extends EPackage {
 	int PROGRAM__GLOBAL_VARIABLES = 3;
 
 	/**
-	 * The feature id for the '<em><b>Memory Macros</b></em>' reference list.
+	 * The feature id for the '<em><b>Memory Macros</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -115,7 +115,7 @@ public interface CodegenPackage extends EPackage {
 	int PROGRAM__MEMORY_MACROS = 4;
 
 	/**
-	 * The feature id for the '<em><b>Functions</b></em>' reference list.
+	 * The feature id for the '<em><b>Functions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -253,7 +253,7 @@ public interface CodegenPackage extends EPackage {
 	int VARIABLE_DECL__IS_STATIC = 0;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * The feature id for the '<em><b>Data Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -308,7 +308,7 @@ public interface CodegenPackage extends EPackage {
 	int FUNCTION__IS_INLINE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Return Type</b></em>' reference.
+	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -326,7 +326,7 @@ public interface CodegenPackage extends EPackage {
 	int FUNCTION__NAME = 2;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' reference list.
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -335,7 +335,7 @@ public interface CodegenPackage extends EPackage {
 	int FUNCTION__PARAMETERS = 3;
 
 	/**
-	 * The feature id for the '<em><b>Declarations</b></em>' reference list.
+	 * The feature id for the '<em><b>Declarations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -344,7 +344,7 @@ public interface CodegenPackage extends EPackage {
 	int FUNCTION__DECLARATIONS = 4;
 
 	/**
-	 * The feature id for the '<em><b>Statements</b></em>' reference list.
+	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -381,7 +381,7 @@ public interface CodegenPackage extends EPackage {
 	int PARAMETER = 5;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * The feature id for the '<em><b>Data Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -529,7 +529,7 @@ public interface CodegenPackage extends EPackage {
 	int EXPRESSION_STMT = 9;
 
 	/**
-	 * The feature id for the '<em><b>Expression</b></em>' reference.
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -584,7 +584,7 @@ public interface CodegenPackage extends EPackage {
 	int MACRO_STMT__ARGUMENTS = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Replacement</b></em>' reference.
+	 * The feature id for the '<em><b>Replacement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -658,7 +658,7 @@ public interface CodegenPackage extends EPackage {
 	int IF_STMT = 12;
 
 	/**
-	 * The feature id for the '<em><b>If Branch</b></em>' reference.
+	 * The feature id for the '<em><b>If Branch</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -667,7 +667,7 @@ public interface CodegenPackage extends EPackage {
 	int IF_STMT__IF_BRANCH = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Else If Branches</b></em>' reference list.
+	 * The feature id for the '<em><b>Else If Branches</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -676,7 +676,7 @@ public interface CodegenPackage extends EPackage {
 	int IF_STMT__ELSE_IF_BRANCHES = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Else Branch</b></em>' reference.
+	 * The feature id for the '<em><b>Else Branch</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -713,7 +713,7 @@ public interface CodegenPackage extends EPackage {
 	int BRANCH = 13;
 
 	/**
-	 * The feature id for the '<em><b>Body</b></em>' reference list.
+	 * The feature id for the '<em><b>Body</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -750,7 +750,7 @@ public interface CodegenPackage extends EPackage {
 	int CONDITIONAL_BRANCH = 14;
 
 	/**
-	 * The feature id for the '<em><b>Body</b></em>' reference list.
+	 * The feature id for the '<em><b>Body</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -759,7 +759,7 @@ public interface CodegenPackage extends EPackage {
 	int CONDITIONAL_BRANCH__BODY = BRANCH__BODY;
 
 	/**
-	 * The feature id for the '<em><b>Conditional</b></em>' reference.
+	 * The feature id for the '<em><b>Conditional</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -805,7 +805,7 @@ public interface CodegenPackage extends EPackage {
 	int LOOP_STMT__LOOP_VARIABLE = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Initializer</b></em>' reference.
+	 * The feature id for the '<em><b>Initializer</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -814,7 +814,7 @@ public interface CodegenPackage extends EPackage {
 	int LOOP_STMT__INITIALIZER = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Conditional</b></em>' reference.
+	 * The feature id for the '<em><b>Conditional</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -823,7 +823,7 @@ public interface CodegenPackage extends EPackage {
 	int LOOP_STMT__CONDITIONAL = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Increment By</b></em>' reference.
+	 * The feature id for the '<em><b>Increment By</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -832,7 +832,7 @@ public interface CodegenPackage extends EPackage {
 	int LOOP_STMT__INCREMENT_BY = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Body</b></em>' reference list.
+	 * The feature id for the '<em><b>Body</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -869,7 +869,7 @@ public interface CodegenPackage extends EPackage {
 	int ASSIGNMENT_STMT = 16;
 
 	/**
-	 * The feature id for the '<em><b>Left</b></em>' reference.
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -887,7 +887,7 @@ public interface CodegenPackage extends EPackage {
 	int ASSIGNMENT_STMT__ASSIGN_TYPE = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Right</b></em>' reference.
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -924,7 +924,7 @@ public interface CodegenPackage extends EPackage {
 	int RETURN_STMT = 17;
 
 	/**
-	 * The feature id for the '<em><b>Expression</b></em>' reference.
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1026,7 +1026,7 @@ public interface CodegenPackage extends EPackage {
 	int PARENTHESIZED_EXPR = 20;
 
 	/**
-	 * The feature id for the '<em><b>Expression</b></em>' reference.
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1063,7 +1063,7 @@ public interface CodegenPackage extends EPackage {
 	int CAST_EXPR = 21;
 
 	/**
-	 * The feature id for the '<em><b>Data Type</b></em>' reference.
+	 * The feature id for the '<em><b>Data Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1072,7 +1072,7 @@ public interface CodegenPackage extends EPackage {
 	int CAST_EXPR__DATA_TYPE = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Expression</b></em>' reference.
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1118,7 +1118,7 @@ public interface CodegenPackage extends EPackage {
 	int ARRAY_ACCESS_EXPR__VARIABLE_NAME = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Index Expressions</b></em>' reference list.
+	 * The feature id for the '<em><b>Index Expressions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1164,7 +1164,7 @@ public interface CodegenPackage extends EPackage {
 	int CALL_EXPR__FUNCTION_NAME = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Arguments</b></em>' reference list.
+	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1210,7 +1210,7 @@ public interface CodegenPackage extends EPackage {
 	int UNARY_EXPR__OPERATOR = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Expression</b></em>' reference.
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1256,7 +1256,7 @@ public interface CodegenPackage extends EPackage {
 	int BINARY_EXPR__OPERATOR = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Left</b></em>' reference.
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1265,7 +1265,7 @@ public interface CodegenPackage extends EPackage {
 	int BINARY_EXPR__LEFT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Right</b></em>' reference.
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1302,7 +1302,7 @@ public interface CodegenPackage extends EPackage {
 	int TERNARY_EXPR = 26;
 
 	/**
-	 * The feature id for the '<em><b>Conditional</b></em>' reference.
+	 * The feature id for the '<em><b>Conditional</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1311,7 +1311,7 @@ public interface CodegenPackage extends EPackage {
 	int TERNARY_EXPR__CONDITIONAL = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Then Expr</b></em>' reference.
+	 * The feature id for the '<em><b>Then Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1320,7 +1320,7 @@ public interface CodegenPackage extends EPackage {
 	int TERNARY_EXPR__THEN_EXPR = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Else Expr</b></em>' reference.
+	 * The feature id for the '<em><b>Else Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1408,10 +1408,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getProgram();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.Program#getHeaderComment <em>Header Comment</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.Program#getHeaderComment <em>Header Comment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Header Comment</em>'.
+	 * @return the meta object for the containment reference '<em>Header Comment</em>'.
 	 * @see alpha.codegen.Program#getHeaderComment()
 	 * @see #getProgram()
 	 * @generated
@@ -1419,10 +1419,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getProgram_HeaderComment();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.Program#getIncludes <em>Includes</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.Program#getIncludes <em>Includes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Includes</em>'.
+	 * @return the meta object for the containment reference list '<em>Includes</em>'.
 	 * @see alpha.codegen.Program#getIncludes()
 	 * @see #getProgram()
 	 * @generated
@@ -1430,10 +1430,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getProgram_Includes();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.Program#getFunctionMacros <em>Function Macros</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.Program#getFunctionMacros <em>Function Macros</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Function Macros</em>'.
+	 * @return the meta object for the containment reference list '<em>Function Macros</em>'.
 	 * @see alpha.codegen.Program#getFunctionMacros()
 	 * @see #getProgram()
 	 * @generated
@@ -1441,10 +1441,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getProgram_FunctionMacros();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.Program#getGlobalVariables <em>Global Variables</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.Program#getGlobalVariables <em>Global Variables</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Global Variables</em>'.
+	 * @return the meta object for the containment reference list '<em>Global Variables</em>'.
 	 * @see alpha.codegen.Program#getGlobalVariables()
 	 * @see #getProgram()
 	 * @generated
@@ -1452,10 +1452,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getProgram_GlobalVariables();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.Program#getMemoryMacros <em>Memory Macros</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.Program#getMemoryMacros <em>Memory Macros</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Memory Macros</em>'.
+	 * @return the meta object for the containment reference list '<em>Memory Macros</em>'.
 	 * @see alpha.codegen.Program#getMemoryMacros()
 	 * @see #getProgram()
 	 * @generated
@@ -1463,10 +1463,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getProgram_MemoryMacros();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.Program#getFunctions <em>Functions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.Program#getFunctions <em>Functions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Functions</em>'.
+	 * @return the meta object for the containment reference list '<em>Functions</em>'.
 	 * @see alpha.codegen.Program#getFunctions()
 	 * @see #getProgram()
 	 * @generated
@@ -1559,10 +1559,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getVariableDecl_IsStatic();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.VariableDecl#getDataType <em>Data Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.VariableDecl#getDataType <em>Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Data Type</em>'.
+	 * @return the meta object for the containment reference '<em>Data Type</em>'.
 	 * @see alpha.codegen.VariableDecl#getDataType()
 	 * @see #getVariableDecl()
 	 * @generated
@@ -1602,10 +1602,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getFunction_IsInline();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.Function#getReturnType <em>Return Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.Function#getReturnType <em>Return Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Return Type</em>'.
+	 * @return the meta object for the containment reference '<em>Return Type</em>'.
 	 * @see alpha.codegen.Function#getReturnType()
 	 * @see #getFunction()
 	 * @generated
@@ -1624,10 +1624,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getFunction_Name();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.Function#getParameters <em>Parameters</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.Function#getParameters <em>Parameters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Parameters</em>'.
+	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
 	 * @see alpha.codegen.Function#getParameters()
 	 * @see #getFunction()
 	 * @generated
@@ -1635,10 +1635,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getFunction_Parameters();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.Function#getDeclarations <em>Declarations</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.Function#getDeclarations <em>Declarations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Declarations</em>'.
+	 * @return the meta object for the containment reference list '<em>Declarations</em>'.
 	 * @see alpha.codegen.Function#getDeclarations()
 	 * @see #getFunction()
 	 * @generated
@@ -1646,10 +1646,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getFunction_Declarations();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.Function#getStatements <em>Statements</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.Function#getStatements <em>Statements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Statements</em>'.
+	 * @return the meta object for the containment reference list '<em>Statements</em>'.
 	 * @see alpha.codegen.Function#getStatements()
 	 * @see #getFunction()
 	 * @generated
@@ -1667,10 +1667,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getParameter();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.Parameter#getDataType <em>Data Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.Parameter#getDataType <em>Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Data Type</em>'.
+	 * @return the meta object for the containment reference '<em>Data Type</em>'.
 	 * @see alpha.codegen.Parameter#getDataType()
 	 * @see #getParameter()
 	 * @generated
@@ -1750,10 +1750,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getExpressionStmt();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.ExpressionStmt#getExpression <em>Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.ExpressionStmt#getExpression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Expression</em>'.
+	 * @return the meta object for the containment reference '<em>Expression</em>'.
 	 * @see alpha.codegen.ExpressionStmt#getExpression()
 	 * @see #getExpressionStmt()
 	 * @generated
@@ -1793,10 +1793,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getMacroStmt_Arguments();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.MacroStmt#getReplacement <em>Replacement</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.MacroStmt#getReplacement <em>Replacement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Replacement</em>'.
+	 * @return the meta object for the containment reference '<em>Replacement</em>'.
 	 * @see alpha.codegen.MacroStmt#getReplacement()
 	 * @see #getMacroStmt()
 	 * @generated
@@ -1835,10 +1835,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getIfStmt();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.IfStmt#getIfBranch <em>If Branch</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.IfStmt#getIfBranch <em>If Branch</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>If Branch</em>'.
+	 * @return the meta object for the containment reference '<em>If Branch</em>'.
 	 * @see alpha.codegen.IfStmt#getIfBranch()
 	 * @see #getIfStmt()
 	 * @generated
@@ -1846,10 +1846,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getIfStmt_IfBranch();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.IfStmt#getElseIfBranches <em>Else If Branches</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.IfStmt#getElseIfBranches <em>Else If Branches</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Else If Branches</em>'.
+	 * @return the meta object for the containment reference list '<em>Else If Branches</em>'.
 	 * @see alpha.codegen.IfStmt#getElseIfBranches()
 	 * @see #getIfStmt()
 	 * @generated
@@ -1857,10 +1857,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getIfStmt_ElseIfBranches();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.IfStmt#getElseBranch <em>Else Branch</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.IfStmt#getElseBranch <em>Else Branch</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Else Branch</em>'.
+	 * @return the meta object for the containment reference '<em>Else Branch</em>'.
 	 * @see alpha.codegen.IfStmt#getElseBranch()
 	 * @see #getIfStmt()
 	 * @generated
@@ -1878,10 +1878,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getBranch();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.Branch#getBody <em>Body</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.Branch#getBody <em>Body</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Body</em>'.
+	 * @return the meta object for the containment reference list '<em>Body</em>'.
 	 * @see alpha.codegen.Branch#getBody()
 	 * @see #getBranch()
 	 * @generated
@@ -1899,10 +1899,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getConditionalBranch();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.ConditionalBranch#getConditional <em>Conditional</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.ConditionalBranch#getConditional <em>Conditional</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Conditional</em>'.
+	 * @return the meta object for the containment reference '<em>Conditional</em>'.
 	 * @see alpha.codegen.ConditionalBranch#getConditional()
 	 * @see #getConditionalBranch()
 	 * @generated
@@ -1931,10 +1931,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getLoopStmt_LoopVariable();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.LoopStmt#getInitializer <em>Initializer</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.LoopStmt#getInitializer <em>Initializer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Initializer</em>'.
+	 * @return the meta object for the containment reference '<em>Initializer</em>'.
 	 * @see alpha.codegen.LoopStmt#getInitializer()
 	 * @see #getLoopStmt()
 	 * @generated
@@ -1942,10 +1942,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getLoopStmt_Initializer();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.LoopStmt#getConditional <em>Conditional</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.LoopStmt#getConditional <em>Conditional</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Conditional</em>'.
+	 * @return the meta object for the containment reference '<em>Conditional</em>'.
 	 * @see alpha.codegen.LoopStmt#getConditional()
 	 * @see #getLoopStmt()
 	 * @generated
@@ -1953,10 +1953,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getLoopStmt_Conditional();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.LoopStmt#getIncrementBy <em>Increment By</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.LoopStmt#getIncrementBy <em>Increment By</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Increment By</em>'.
+	 * @return the meta object for the containment reference '<em>Increment By</em>'.
 	 * @see alpha.codegen.LoopStmt#getIncrementBy()
 	 * @see #getLoopStmt()
 	 * @generated
@@ -1964,10 +1964,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getLoopStmt_IncrementBy();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.LoopStmt#getBody <em>Body</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.LoopStmt#getBody <em>Body</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Body</em>'.
+	 * @return the meta object for the containment reference list '<em>Body</em>'.
 	 * @see alpha.codegen.LoopStmt#getBody()
 	 * @see #getLoopStmt()
 	 * @generated
@@ -1985,10 +1985,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getAssignmentStmt();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.AssignmentStmt#getLeft <em>Left</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.AssignmentStmt#getLeft <em>Left</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Left</em>'.
+	 * @return the meta object for the containment reference '<em>Left</em>'.
 	 * @see alpha.codegen.AssignmentStmt#getLeft()
 	 * @see #getAssignmentStmt()
 	 * @generated
@@ -2007,10 +2007,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getAssignmentStmt_AssignType();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.AssignmentStmt#getRight <em>Right</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.AssignmentStmt#getRight <em>Right</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Right</em>'.
+	 * @return the meta object for the containment reference '<em>Right</em>'.
 	 * @see alpha.codegen.AssignmentStmt#getRight()
 	 * @see #getAssignmentStmt()
 	 * @generated
@@ -2028,10 +2028,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getReturnStmt();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.ReturnStmt#getExpression <em>Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.ReturnStmt#getExpression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Expression</em>'.
+	 * @return the meta object for the containment reference '<em>Expression</em>'.
 	 * @see alpha.codegen.ReturnStmt#getExpression()
 	 * @see #getReturnStmt()
 	 * @generated
@@ -2080,10 +2080,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getParenthesizedExpr();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.ParenthesizedExpr#getExpression <em>Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.ParenthesizedExpr#getExpression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Expression</em>'.
+	 * @return the meta object for the containment reference '<em>Expression</em>'.
 	 * @see alpha.codegen.ParenthesizedExpr#getExpression()
 	 * @see #getParenthesizedExpr()
 	 * @generated
@@ -2101,10 +2101,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getCastExpr();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.CastExpr#getDataType <em>Data Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.CastExpr#getDataType <em>Data Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Data Type</em>'.
+	 * @return the meta object for the containment reference '<em>Data Type</em>'.
 	 * @see alpha.codegen.CastExpr#getDataType()
 	 * @see #getCastExpr()
 	 * @generated
@@ -2112,10 +2112,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getCastExpr_DataType();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.CastExpr#getExpression <em>Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.CastExpr#getExpression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Expression</em>'.
+	 * @return the meta object for the containment reference '<em>Expression</em>'.
 	 * @see alpha.codegen.CastExpr#getExpression()
 	 * @see #getCastExpr()
 	 * @generated
@@ -2144,10 +2144,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getArrayAccessExpr_VariableName();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.ArrayAccessExpr#getIndexExpressions <em>Index Expressions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.ArrayAccessExpr#getIndexExpressions <em>Index Expressions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Index Expressions</em>'.
+	 * @return the meta object for the containment reference list '<em>Index Expressions</em>'.
 	 * @see alpha.codegen.ArrayAccessExpr#getIndexExpressions()
 	 * @see #getArrayAccessExpr()
 	 * @generated
@@ -2176,10 +2176,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getCallExpr_FunctionName();
 
 	/**
-	 * Returns the meta object for the reference list '{@link alpha.codegen.CallExpr#getArguments <em>Arguments</em>}'.
+	 * Returns the meta object for the containment reference list '{@link alpha.codegen.CallExpr#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Arguments</em>'.
+	 * @return the meta object for the containment reference list '<em>Arguments</em>'.
 	 * @see alpha.codegen.CallExpr#getArguments()
 	 * @see #getCallExpr()
 	 * @generated
@@ -2208,10 +2208,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getUnaryExpr_Operator();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.UnaryExpr#getExpression <em>Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.UnaryExpr#getExpression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Expression</em>'.
+	 * @return the meta object for the containment reference '<em>Expression</em>'.
 	 * @see alpha.codegen.UnaryExpr#getExpression()
 	 * @see #getUnaryExpr()
 	 * @generated
@@ -2240,10 +2240,10 @@ public interface CodegenPackage extends EPackage {
 	EAttribute getBinaryExpr_Operator();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.BinaryExpr#getLeft <em>Left</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.BinaryExpr#getLeft <em>Left</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Left</em>'.
+	 * @return the meta object for the containment reference '<em>Left</em>'.
 	 * @see alpha.codegen.BinaryExpr#getLeft()
 	 * @see #getBinaryExpr()
 	 * @generated
@@ -2251,10 +2251,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getBinaryExpr_Left();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.BinaryExpr#getRight <em>Right</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.BinaryExpr#getRight <em>Right</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Right</em>'.
+	 * @return the meta object for the containment reference '<em>Right</em>'.
 	 * @see alpha.codegen.BinaryExpr#getRight()
 	 * @see #getBinaryExpr()
 	 * @generated
@@ -2272,10 +2272,10 @@ public interface CodegenPackage extends EPackage {
 	EClass getTernaryExpr();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.TernaryExpr#getConditional <em>Conditional</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.TernaryExpr#getConditional <em>Conditional</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Conditional</em>'.
+	 * @return the meta object for the containment reference '<em>Conditional</em>'.
 	 * @see alpha.codegen.TernaryExpr#getConditional()
 	 * @see #getTernaryExpr()
 	 * @generated
@@ -2283,10 +2283,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getTernaryExpr_Conditional();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.TernaryExpr#getThenExpr <em>Then Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.TernaryExpr#getThenExpr <em>Then Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Then Expr</em>'.
+	 * @return the meta object for the containment reference '<em>Then Expr</em>'.
 	 * @see alpha.codegen.TernaryExpr#getThenExpr()
 	 * @see #getTernaryExpr()
 	 * @generated
@@ -2294,10 +2294,10 @@ public interface CodegenPackage extends EPackage {
 	EReference getTernaryExpr_ThenExpr();
 
 	/**
-	 * Returns the meta object for the reference '{@link alpha.codegen.TernaryExpr#getElseExpr <em>Else Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link alpha.codegen.TernaryExpr#getElseExpr <em>Else Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Else Expr</em>'.
+	 * @return the meta object for the containment reference '<em>Else Expr</em>'.
 	 * @see alpha.codegen.TernaryExpr#getElseExpr()
 	 * @see #getTernaryExpr()
 	 * @generated
@@ -2389,7 +2389,7 @@ public interface CodegenPackage extends EPackage {
 		EClass PROGRAM = eINSTANCE.getProgram();
 
 		/**
-		 * The meta object literal for the '<em><b>Header Comment</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Header Comment</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2397,7 +2397,7 @@ public interface CodegenPackage extends EPackage {
 		EReference PROGRAM__HEADER_COMMENT = eINSTANCE.getProgram_HeaderComment();
 
 		/**
-		 * The meta object literal for the '<em><b>Includes</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Includes</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2405,7 +2405,7 @@ public interface CodegenPackage extends EPackage {
 		EReference PROGRAM__INCLUDES = eINSTANCE.getProgram_Includes();
 
 		/**
-		 * The meta object literal for the '<em><b>Function Macros</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Function Macros</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2413,7 +2413,7 @@ public interface CodegenPackage extends EPackage {
 		EReference PROGRAM__FUNCTION_MACROS = eINSTANCE.getProgram_FunctionMacros();
 
 		/**
-		 * The meta object literal for the '<em><b>Global Variables</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Global Variables</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2421,7 +2421,7 @@ public interface CodegenPackage extends EPackage {
 		EReference PROGRAM__GLOBAL_VARIABLES = eINSTANCE.getProgram_GlobalVariables();
 
 		/**
-		 * The meta object literal for the '<em><b>Memory Macros</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Memory Macros</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2429,7 +2429,7 @@ public interface CodegenPackage extends EPackage {
 		EReference PROGRAM__MEMORY_MACROS = eINSTANCE.getProgram_MemoryMacros();
 
 		/**
-		 * The meta object literal for the '<em><b>Functions</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Functions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2507,7 +2507,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute VARIABLE_DECL__IS_STATIC = eINSTANCE.getVariableDecl_IsStatic();
 
 		/**
-		 * The meta object literal for the '<em><b>Data Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Data Type</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2541,7 +2541,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute FUNCTION__IS_INLINE = eINSTANCE.getFunction_IsInline();
 
 		/**
-		 * The meta object literal for the '<em><b>Return Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Return Type</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2557,7 +2557,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute FUNCTION__NAME = eINSTANCE.getFunction_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Parameters</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2565,7 +2565,7 @@ public interface CodegenPackage extends EPackage {
 		EReference FUNCTION__PARAMETERS = eINSTANCE.getFunction_Parameters();
 
 		/**
-		 * The meta object literal for the '<em><b>Declarations</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Declarations</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2573,7 +2573,7 @@ public interface CodegenPackage extends EPackage {
 		EReference FUNCTION__DECLARATIONS = eINSTANCE.getFunction_Declarations();
 
 		/**
-		 * The meta object literal for the '<em><b>Statements</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2591,7 +2591,7 @@ public interface CodegenPackage extends EPackage {
 		EClass PARAMETER = eINSTANCE.getParameter();
 
 		/**
-		 * The meta object literal for the '<em><b>Data Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Data Type</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2663,7 +2663,7 @@ public interface CodegenPackage extends EPackage {
 		EClass EXPRESSION_STMT = eINSTANCE.getExpressionStmt();
 
 		/**
-		 * The meta object literal for the '<em><b>Expression</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2697,7 +2697,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute MACRO_STMT__ARGUMENTS = eINSTANCE.getMacroStmt_Arguments();
 
 		/**
-		 * The meta object literal for the '<em><b>Replacement</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Replacement</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2733,7 +2733,7 @@ public interface CodegenPackage extends EPackage {
 		EClass IF_STMT = eINSTANCE.getIfStmt();
 
 		/**
-		 * The meta object literal for the '<em><b>If Branch</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>If Branch</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2741,7 +2741,7 @@ public interface CodegenPackage extends EPackage {
 		EReference IF_STMT__IF_BRANCH = eINSTANCE.getIfStmt_IfBranch();
 
 		/**
-		 * The meta object literal for the '<em><b>Else If Branches</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Else If Branches</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2749,7 +2749,7 @@ public interface CodegenPackage extends EPackage {
 		EReference IF_STMT__ELSE_IF_BRANCHES = eINSTANCE.getIfStmt_ElseIfBranches();
 
 		/**
-		 * The meta object literal for the '<em><b>Else Branch</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Else Branch</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2767,7 +2767,7 @@ public interface CodegenPackage extends EPackage {
 		EClass BRANCH = eINSTANCE.getBranch();
 
 		/**
-		 * The meta object literal for the '<em><b>Body</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2785,7 +2785,7 @@ public interface CodegenPackage extends EPackage {
 		EClass CONDITIONAL_BRANCH = eINSTANCE.getConditionalBranch();
 
 		/**
-		 * The meta object literal for the '<em><b>Conditional</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Conditional</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2811,7 +2811,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute LOOP_STMT__LOOP_VARIABLE = eINSTANCE.getLoopStmt_LoopVariable();
 
 		/**
-		 * The meta object literal for the '<em><b>Initializer</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Initializer</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2819,7 +2819,7 @@ public interface CodegenPackage extends EPackage {
 		EReference LOOP_STMT__INITIALIZER = eINSTANCE.getLoopStmt_Initializer();
 
 		/**
-		 * The meta object literal for the '<em><b>Conditional</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Conditional</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2827,7 +2827,7 @@ public interface CodegenPackage extends EPackage {
 		EReference LOOP_STMT__CONDITIONAL = eINSTANCE.getLoopStmt_Conditional();
 
 		/**
-		 * The meta object literal for the '<em><b>Increment By</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Increment By</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2835,7 +2835,7 @@ public interface CodegenPackage extends EPackage {
 		EReference LOOP_STMT__INCREMENT_BY = eINSTANCE.getLoopStmt_IncrementBy();
 
 		/**
-		 * The meta object literal for the '<em><b>Body</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2853,7 +2853,7 @@ public interface CodegenPackage extends EPackage {
 		EClass ASSIGNMENT_STMT = eINSTANCE.getAssignmentStmt();
 
 		/**
-		 * The meta object literal for the '<em><b>Left</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2869,7 +2869,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute ASSIGNMENT_STMT__ASSIGN_TYPE = eINSTANCE.getAssignmentStmt_AssignType();
 
 		/**
-		 * The meta object literal for the '<em><b>Right</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2887,7 +2887,7 @@ public interface CodegenPackage extends EPackage {
 		EClass RETURN_STMT = eINSTANCE.getReturnStmt();
 
 		/**
-		 * The meta object literal for the '<em><b>Expression</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2933,7 +2933,7 @@ public interface CodegenPackage extends EPackage {
 		EClass PARENTHESIZED_EXPR = eINSTANCE.getParenthesizedExpr();
 
 		/**
-		 * The meta object literal for the '<em><b>Expression</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2951,7 +2951,7 @@ public interface CodegenPackage extends EPackage {
 		EClass CAST_EXPR = eINSTANCE.getCastExpr();
 
 		/**
-		 * The meta object literal for the '<em><b>Data Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Data Type</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2959,7 +2959,7 @@ public interface CodegenPackage extends EPackage {
 		EReference CAST_EXPR__DATA_TYPE = eINSTANCE.getCastExpr_DataType();
 
 		/**
-		 * The meta object literal for the '<em><b>Expression</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2985,7 +2985,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute ARRAY_ACCESS_EXPR__VARIABLE_NAME = eINSTANCE.getArrayAccessExpr_VariableName();
 
 		/**
-		 * The meta object literal for the '<em><b>Index Expressions</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Index Expressions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3011,7 +3011,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute CALL_EXPR__FUNCTION_NAME = eINSTANCE.getCallExpr_FunctionName();
 
 		/**
-		 * The meta object literal for the '<em><b>Arguments</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3037,7 +3037,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute UNARY_EXPR__OPERATOR = eINSTANCE.getUnaryExpr_Operator();
 
 		/**
-		 * The meta object literal for the '<em><b>Expression</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3063,7 +3063,7 @@ public interface CodegenPackage extends EPackage {
 		EAttribute BINARY_EXPR__OPERATOR = eINSTANCE.getBinaryExpr_Operator();
 
 		/**
-		 * The meta object literal for the '<em><b>Left</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3071,7 +3071,7 @@ public interface CodegenPackage extends EPackage {
 		EReference BINARY_EXPR__LEFT = eINSTANCE.getBinaryExpr_Left();
 
 		/**
-		 * The meta object literal for the '<em><b>Right</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3089,7 +3089,7 @@ public interface CodegenPackage extends EPackage {
 		EClass TERNARY_EXPR = eINSTANCE.getTernaryExpr();
 
 		/**
-		 * The meta object literal for the '<em><b>Conditional</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Conditional</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3097,7 +3097,7 @@ public interface CodegenPackage extends EPackage {
 		EReference TERNARY_EXPR__CONDITIONAL = eINSTANCE.getTernaryExpr_Conditional();
 
 		/**
-		 * The meta object literal for the '<em><b>Then Expr</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Then Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3105,7 +3105,7 @@ public interface CodegenPackage extends EPackage {
 		EReference TERNARY_EXPR__THEN_EXPR = eINSTANCE.getTernaryExpr_ThenExpr();
 
 		/**
-		 * The meta object literal for the '<em><b>Else Expr</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Else Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

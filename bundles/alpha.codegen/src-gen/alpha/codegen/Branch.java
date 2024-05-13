@@ -28,16 +28,16 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Branch extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Body</b></em>' reference list.
+	 * Returns the value of the '<em><b>Body</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.codegen.Statement}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The statements within the block.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Body</em>' reference list.
+	 * @return the value of the '<em>Body</em>' containment reference list.
 	 * @see alpha.codegen.CodegenPackage#getBranch_Body()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Statement> getBody();

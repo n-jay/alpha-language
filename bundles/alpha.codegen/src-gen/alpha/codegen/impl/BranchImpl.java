@@ -8,13 +8,17 @@ import alpha.codegen.Statement;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +35,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class BranchImpl extends MinimalEObjectImpl.Container implements Branch {
 	/**
-	 * The cached value of the '{@link #getBody() <em>Body</em>}' reference list.
+	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getBody()
@@ -66,9 +70,23 @@ public class BranchImpl extends MinimalEObjectImpl.Container implements Branch {
 	 */
 	public EList<Statement> getBody() {
 		if (body == null) {
-			body = new EObjectResolvingEList<Statement>(Statement.class, this, CodegenPackage.BRANCH__BODY);
+			body = new EObjectContainmentEList<Statement>(Statement.class, this, CodegenPackage.BRANCH__BODY);
 		}
 		return body;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.BRANCH__BODY:
+				return ((InternalEList<?>)getBody()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

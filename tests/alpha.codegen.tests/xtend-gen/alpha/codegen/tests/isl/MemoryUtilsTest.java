@@ -19,6 +19,16 @@ import org.junit.Test;
 @SuppressWarnings("all")
 public class MemoryUtilsTest {
   @Test
+  public void rankTest_emptySet() {
+    MemoryUtilsTest.assertExpectedRank("[N]->{[i]: false}", "[N,i]->{0}");
+  }
+
+  @Test
+  public void rankTest_point() {
+    MemoryUtilsTest.assertExpectedRank("[N]->{[i]: i=N}", "[N,i]->{0}");
+  }
+
+  @Test
   public void rankTest_lineSegment() {
     MemoryUtilsTest.assertExpectedRank("[N]->{[i]: 0<=i<N}", "[N,i]->{ i: 0<i<N }");
   }

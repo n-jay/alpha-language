@@ -10,6 +10,7 @@ import alpha.codegen.IfStmt;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -19,7 +20,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +40,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	/**
-	 * The cached value of the '{@link #getIfBranch() <em>If Branch</em>}' reference.
+	 * The cached value of the '{@link #getIfBranch() <em>If Branch</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getIfBranch()
@@ -48,7 +50,7 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	protected ConditionalBranch ifBranch;
 
 	/**
-	 * The cached value of the '{@link #getElseIfBranches() <em>Else If Branches</em>}' reference list.
+	 * The cached value of the '{@link #getElseIfBranches() <em>Else If Branches</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getElseIfBranches()
@@ -58,7 +60,7 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	protected EList<ConditionalBranch> elseIfBranches;
 
 	/**
-	 * The cached value of the '{@link #getElseBranch() <em>Else Branch</em>}' reference.
+	 * The cached value of the '{@link #getElseBranch() <em>Else Branch</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getElseBranch()
@@ -92,14 +94,6 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	 * @generated
 	 */
 	public ConditionalBranch getIfBranch() {
-		if (ifBranch != null && ifBranch.eIsProxy()) {
-			InternalEObject oldIfBranch = (InternalEObject)ifBranch;
-			ifBranch = (ConditionalBranch)eResolveProxy(oldIfBranch);
-			if (ifBranch != oldIfBranch) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.IF_STMT__IF_BRANCH, oldIfBranch, ifBranch));
-			}
-		}
 		return ifBranch;
 	}
 
@@ -108,8 +102,14 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConditionalBranch basicGetIfBranch() {
-		return ifBranch;
+	public NotificationChain basicSetIfBranch(ConditionalBranch newIfBranch, NotificationChain msgs) {
+		ConditionalBranch oldIfBranch = ifBranch;
+		ifBranch = newIfBranch;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.IF_STMT__IF_BRANCH, oldIfBranch, newIfBranch);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -118,10 +118,17 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	 * @generated
 	 */
 	public void setIfBranch(ConditionalBranch newIfBranch) {
-		ConditionalBranch oldIfBranch = ifBranch;
-		ifBranch = newIfBranch;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.IF_STMT__IF_BRANCH, oldIfBranch, ifBranch));
+		if (newIfBranch != ifBranch) {
+			NotificationChain msgs = null;
+			if (ifBranch != null)
+				msgs = ((InternalEObject)ifBranch).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.IF_STMT__IF_BRANCH, null, msgs);
+			if (newIfBranch != null)
+				msgs = ((InternalEObject)newIfBranch).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.IF_STMT__IF_BRANCH, null, msgs);
+			msgs = basicSetIfBranch(newIfBranch, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.IF_STMT__IF_BRANCH, newIfBranch, newIfBranch));
 	}
 
 	/**
@@ -131,7 +138,7 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	 */
 	public EList<ConditionalBranch> getElseIfBranches() {
 		if (elseIfBranches == null) {
-			elseIfBranches = new EObjectResolvingEList<ConditionalBranch>(ConditionalBranch.class, this, CodegenPackage.IF_STMT__ELSE_IF_BRANCHES);
+			elseIfBranches = new EObjectContainmentEList<ConditionalBranch>(ConditionalBranch.class, this, CodegenPackage.IF_STMT__ELSE_IF_BRANCHES);
 		}
 		return elseIfBranches;
 	}
@@ -142,14 +149,6 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	 * @generated
 	 */
 	public Branch getElseBranch() {
-		if (elseBranch != null && elseBranch.eIsProxy()) {
-			InternalEObject oldElseBranch = (InternalEObject)elseBranch;
-			elseBranch = (Branch)eResolveProxy(oldElseBranch);
-			if (elseBranch != oldElseBranch) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.IF_STMT__ELSE_BRANCH, oldElseBranch, elseBranch));
-			}
-		}
 		return elseBranch;
 	}
 
@@ -158,8 +157,14 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Branch basicGetElseBranch() {
-		return elseBranch;
+	public NotificationChain basicSetElseBranch(Branch newElseBranch, NotificationChain msgs) {
+		Branch oldElseBranch = elseBranch;
+		elseBranch = newElseBranch;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.IF_STMT__ELSE_BRANCH, oldElseBranch, newElseBranch);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -168,10 +173,35 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	 * @generated
 	 */
 	public void setElseBranch(Branch newElseBranch) {
-		Branch oldElseBranch = elseBranch;
-		elseBranch = newElseBranch;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.IF_STMT__ELSE_BRANCH, oldElseBranch, elseBranch));
+		if (newElseBranch != elseBranch) {
+			NotificationChain msgs = null;
+			if (elseBranch != null)
+				msgs = ((InternalEObject)elseBranch).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.IF_STMT__ELSE_BRANCH, null, msgs);
+			if (newElseBranch != null)
+				msgs = ((InternalEObject)newElseBranch).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.IF_STMT__ELSE_BRANCH, null, msgs);
+			msgs = basicSetElseBranch(newElseBranch, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.IF_STMT__ELSE_BRANCH, newElseBranch, newElseBranch));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.IF_STMT__IF_BRANCH:
+				return basicSetIfBranch(null, msgs);
+			case CodegenPackage.IF_STMT__ELSE_IF_BRANCHES:
+				return ((InternalEList<?>)getElseIfBranches()).basicRemove(otherEnd, msgs);
+			case CodegenPackage.IF_STMT__ELSE_BRANCH:
+				return basicSetElseBranch(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -183,13 +213,11 @@ public class IfStmtImpl extends MinimalEObjectImpl.Container implements IfStmt {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CodegenPackage.IF_STMT__IF_BRANCH:
-				if (resolve) return getIfBranch();
-				return basicGetIfBranch();
+				return getIfBranch();
 			case CodegenPackage.IF_STMT__ELSE_IF_BRANCHES:
 				return getElseIfBranches();
 			case CodegenPackage.IF_STMT__ELSE_BRANCH:
-				if (resolve) return getElseBranch();
-				return basicGetElseBranch();
+				return getElseBranch();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

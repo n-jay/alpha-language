@@ -10,6 +10,7 @@ import alpha.codegen.Statement;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -19,7 +20,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -60,7 +62,7 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	protected String loopVariable = LOOP_VARIABLE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getInitializer() <em>Initializer</em>}' reference.
+	 * The cached value of the '{@link #getInitializer() <em>Initializer</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getInitializer()
@@ -70,7 +72,7 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	protected Expression initializer;
 
 	/**
-	 * The cached value of the '{@link #getConditional() <em>Conditional</em>}' reference.
+	 * The cached value of the '{@link #getConditional() <em>Conditional</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getConditional()
@@ -80,7 +82,7 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	protected Expression conditional;
 
 	/**
-	 * The cached value of the '{@link #getIncrementBy() <em>Increment By</em>}' reference.
+	 * The cached value of the '{@link #getIncrementBy() <em>Increment By</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getIncrementBy()
@@ -90,7 +92,7 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	protected Expression incrementBy;
 
 	/**
-	 * The cached value of the '{@link #getBody() <em>Body</em>}' reference list.
+	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getBody()
@@ -145,14 +147,6 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 * @generated
 	 */
 	public Expression getInitializer() {
-		if (initializer != null && initializer.eIsProxy()) {
-			InternalEObject oldInitializer = (InternalEObject)initializer;
-			initializer = (Expression)eResolveProxy(oldInitializer);
-			if (initializer != oldInitializer) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.LOOP_STMT__INITIALIZER, oldInitializer, initializer));
-			}
-		}
 		return initializer;
 	}
 
@@ -161,8 +155,14 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetInitializer() {
-		return initializer;
+	public NotificationChain basicSetInitializer(Expression newInitializer, NotificationChain msgs) {
+		Expression oldInitializer = initializer;
+		initializer = newInitializer;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.LOOP_STMT__INITIALIZER, oldInitializer, newInitializer);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -171,10 +171,17 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 * @generated
 	 */
 	public void setInitializer(Expression newInitializer) {
-		Expression oldInitializer = initializer;
-		initializer = newInitializer;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.LOOP_STMT__INITIALIZER, oldInitializer, initializer));
+		if (newInitializer != initializer) {
+			NotificationChain msgs = null;
+			if (initializer != null)
+				msgs = ((InternalEObject)initializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.LOOP_STMT__INITIALIZER, null, msgs);
+			if (newInitializer != null)
+				msgs = ((InternalEObject)newInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.LOOP_STMT__INITIALIZER, null, msgs);
+			msgs = basicSetInitializer(newInitializer, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.LOOP_STMT__INITIALIZER, newInitializer, newInitializer));
 	}
 
 	/**
@@ -183,14 +190,6 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 * @generated
 	 */
 	public Expression getConditional() {
-		if (conditional != null && conditional.eIsProxy()) {
-			InternalEObject oldConditional = (InternalEObject)conditional;
-			conditional = (Expression)eResolveProxy(oldConditional);
-			if (conditional != oldConditional) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.LOOP_STMT__CONDITIONAL, oldConditional, conditional));
-			}
-		}
 		return conditional;
 	}
 
@@ -199,8 +198,14 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetConditional() {
-		return conditional;
+	public NotificationChain basicSetConditional(Expression newConditional, NotificationChain msgs) {
+		Expression oldConditional = conditional;
+		conditional = newConditional;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.LOOP_STMT__CONDITIONAL, oldConditional, newConditional);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -209,10 +214,17 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 * @generated
 	 */
 	public void setConditional(Expression newConditional) {
-		Expression oldConditional = conditional;
-		conditional = newConditional;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.LOOP_STMT__CONDITIONAL, oldConditional, conditional));
+		if (newConditional != conditional) {
+			NotificationChain msgs = null;
+			if (conditional != null)
+				msgs = ((InternalEObject)conditional).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.LOOP_STMT__CONDITIONAL, null, msgs);
+			if (newConditional != null)
+				msgs = ((InternalEObject)newConditional).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.LOOP_STMT__CONDITIONAL, null, msgs);
+			msgs = basicSetConditional(newConditional, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.LOOP_STMT__CONDITIONAL, newConditional, newConditional));
 	}
 
 	/**
@@ -221,14 +233,6 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 * @generated
 	 */
 	public Expression getIncrementBy() {
-		if (incrementBy != null && incrementBy.eIsProxy()) {
-			InternalEObject oldIncrementBy = (InternalEObject)incrementBy;
-			incrementBy = (Expression)eResolveProxy(oldIncrementBy);
-			if (incrementBy != oldIncrementBy) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.LOOP_STMT__INCREMENT_BY, oldIncrementBy, incrementBy));
-			}
-		}
 		return incrementBy;
 	}
 
@@ -237,8 +241,14 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetIncrementBy() {
-		return incrementBy;
+	public NotificationChain basicSetIncrementBy(Expression newIncrementBy, NotificationChain msgs) {
+		Expression oldIncrementBy = incrementBy;
+		incrementBy = newIncrementBy;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.LOOP_STMT__INCREMENT_BY, oldIncrementBy, newIncrementBy);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -247,10 +257,17 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 * @generated
 	 */
 	public void setIncrementBy(Expression newIncrementBy) {
-		Expression oldIncrementBy = incrementBy;
-		incrementBy = newIncrementBy;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.LOOP_STMT__INCREMENT_BY, oldIncrementBy, incrementBy));
+		if (newIncrementBy != incrementBy) {
+			NotificationChain msgs = null;
+			if (incrementBy != null)
+				msgs = ((InternalEObject)incrementBy).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.LOOP_STMT__INCREMENT_BY, null, msgs);
+			if (newIncrementBy != null)
+				msgs = ((InternalEObject)newIncrementBy).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.LOOP_STMT__INCREMENT_BY, null, msgs);
+			msgs = basicSetIncrementBy(newIncrementBy, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.LOOP_STMT__INCREMENT_BY, newIncrementBy, newIncrementBy));
 	}
 
 	/**
@@ -260,9 +277,29 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 	 */
 	public EList<Statement> getBody() {
 		if (body == null) {
-			body = new EObjectResolvingEList<Statement>(Statement.class, this, CodegenPackage.LOOP_STMT__BODY);
+			body = new EObjectContainmentEList<Statement>(Statement.class, this, CodegenPackage.LOOP_STMT__BODY);
 		}
 		return body;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.LOOP_STMT__INITIALIZER:
+				return basicSetInitializer(null, msgs);
+			case CodegenPackage.LOOP_STMT__CONDITIONAL:
+				return basicSetConditional(null, msgs);
+			case CodegenPackage.LOOP_STMT__INCREMENT_BY:
+				return basicSetIncrementBy(null, msgs);
+			case CodegenPackage.LOOP_STMT__BODY:
+				return ((InternalEList<?>)getBody()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -276,14 +313,11 @@ public class LoopStmtImpl extends MinimalEObjectImpl.Container implements LoopSt
 			case CodegenPackage.LOOP_STMT__LOOP_VARIABLE:
 				return getLoopVariable();
 			case CodegenPackage.LOOP_STMT__INITIALIZER:
-				if (resolve) return getInitializer();
-				return basicGetInitializer();
+				return getInitializer();
 			case CodegenPackage.LOOP_STMT__CONDITIONAL:
-				if (resolve) return getConditional();
-				return basicGetConditional();
+				return getConditional();
 			case CodegenPackage.LOOP_STMT__INCREMENT_BY:
-				if (resolve) return getIncrementBy();
-				return basicGetIncrementBy();
+				return getIncrementBy();
 			case CodegenPackage.LOOP_STMT__BODY:
 				return getBody();
 		}

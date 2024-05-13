@@ -29,22 +29,22 @@ package alpha.codegen;
  */
 public interface ExpressionStmt extends Statement {
 	/**
-	 * Returns the value of the '<em><b>Expression</b></em>' reference.
+	 * Returns the value of the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Expression</em>' reference.
+	 * @return the value of the '<em>Expression</em>' containment reference.
 	 * @see #setExpression(Expression)
 	 * @see alpha.codegen.CodegenPackage#getExpressionStmt_Expression()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getExpression();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.ExpressionStmt#getExpression <em>Expression</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.ExpressionStmt#getExpression <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Expression</em>' reference.
+	 * @param value the new value of the '<em>Expression</em>' containment reference.
 	 * @see #getExpression()
 	 * @generated
 	 */

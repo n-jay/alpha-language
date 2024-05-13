@@ -42,6 +42,7 @@ import alpha.model.util.AlphaUtil;
 import alpha.model.util.CommonExtensions;
 import fr.irisa.cairn.jnimap.barvinok.BarvinokBindings;
 import fr.irisa.cairn.jnimap.isl.ISLASTNode;
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.ArrayList;
@@ -422,6 +423,14 @@ public class SystemConverter {
   protected FunctionBuilder checkParameters(final FunctionBuilder builder) {
     FunctionBuilder _xblockexpression = null;
     {
+      final Function1<ISLBasicSet, Boolean> _function = (ISLBasicSet it) -> {
+        int _nbConstraints = it.getNbConstraints();
+        return Boolean.valueOf((_nbConstraints == 0));
+      };
+      boolean _forall = IterableExtensions.<ISLBasicSet>forall(this.system.getParameterDomain().getBasicSets(), _function);
+      if (_forall) {
+        return builder;
+      }
       final Expression isValid = ConditionalConverter.convert(this.system.getParameterDomain());
       final IfStmt parameterCheck = IfStmtBuilder.start(Factory.unaryExpr(UnaryOperator.NOT, isValid)).addStatement(
         Factory.callStmt("printf", "\"The value of the parameters are invalid.\\n\""), 

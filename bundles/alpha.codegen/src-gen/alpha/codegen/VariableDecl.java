@@ -55,25 +55,25 @@ public interface VariableDecl extends EObject {
 	void setIsStatic(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Data Type</b></em>' reference.
+	 * Returns the value of the '<em><b>Data Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The variable's data type.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Data Type</em>' reference.
+	 * @return the value of the '<em>Data Type</em>' containment reference.
 	 * @see #setDataType(DataType)
 	 * @see alpha.codegen.CodegenPackage#getVariableDecl_DataType()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	DataType getDataType();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.VariableDecl#getDataType <em>Data Type</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.VariableDecl#getDataType <em>Data Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Type</em>' reference.
+	 * @param value the new value of the '<em>Data Type</em>' containment reference.
 	 * @see #getDataType()
 	 * @generated
 	 */

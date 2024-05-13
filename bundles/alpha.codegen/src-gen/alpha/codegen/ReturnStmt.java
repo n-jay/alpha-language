@@ -25,25 +25,25 @@ package alpha.codegen;
  */
 public interface ReturnStmt extends Statement {
 	/**
-	 * Returns the value of the '<em><b>Expression</b></em>' reference.
+	 * Returns the value of the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The value to return. If <code>null</code>, no value will be returned.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Expression</em>' reference.
+	 * @return the value of the '<em>Expression</em>' containment reference.
 	 * @see #setExpression(Expression)
 	 * @see alpha.codegen.CodegenPackage#getReturnStmt_Expression()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getExpression();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.ReturnStmt#getExpression <em>Expression</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.ReturnStmt#getExpression <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Expression</em>' reference.
+	 * @param value the new value of the '<em>Expression</em>' containment reference.
 	 * @see #getExpression()
 	 * @generated
 	 */

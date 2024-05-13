@@ -12,6 +12,7 @@ import alpha.codegen.VariableDecl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -21,7 +22,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -63,7 +65,7 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	protected Boolean isInline = IS_INLINE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' reference.
+	 * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getReturnType()
@@ -93,7 +95,7 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
+	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getParameters()
@@ -103,7 +105,7 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	protected EList<Parameter> parameters;
 
 	/**
-	 * The cached value of the '{@link #getDeclarations() <em>Declarations</em>}' reference list.
+	 * The cached value of the '{@link #getDeclarations() <em>Declarations</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getDeclarations()
@@ -113,7 +115,7 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	protected EList<VariableDecl> declarations;
 
 	/**
-	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' reference list.
+	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getStatements()
@@ -168,14 +170,6 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	 * @generated
 	 */
 	public DataType getReturnType() {
-		if (returnType != null && returnType.eIsProxy()) {
-			InternalEObject oldReturnType = (InternalEObject)returnType;
-			returnType = (DataType)eResolveProxy(oldReturnType);
-			if (returnType != oldReturnType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.FUNCTION__RETURN_TYPE, oldReturnType, returnType));
-			}
-		}
 		return returnType;
 	}
 
@@ -184,8 +178,14 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataType basicGetReturnType() {
-		return returnType;
+	public NotificationChain basicSetReturnType(DataType newReturnType, NotificationChain msgs) {
+		DataType oldReturnType = returnType;
+		returnType = newReturnType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.FUNCTION__RETURN_TYPE, oldReturnType, newReturnType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -194,10 +194,17 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	 * @generated
 	 */
 	public void setReturnType(DataType newReturnType) {
-		DataType oldReturnType = returnType;
-		returnType = newReturnType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.FUNCTION__RETURN_TYPE, oldReturnType, returnType));
+		if (newReturnType != returnType) {
+			NotificationChain msgs = null;
+			if (returnType != null)
+				msgs = ((InternalEObject)returnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.FUNCTION__RETURN_TYPE, null, msgs);
+			if (newReturnType != null)
+				msgs = ((InternalEObject)newReturnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.FUNCTION__RETURN_TYPE, null, msgs);
+			msgs = basicSetReturnType(newReturnType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.FUNCTION__RETURN_TYPE, newReturnType, newReturnType));
 	}
 
 	/**
@@ -228,7 +235,7 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	 */
 	public EList<Parameter> getParameters() {
 		if (parameters == null) {
-			parameters = new EObjectResolvingEList<Parameter>(Parameter.class, this, CodegenPackage.FUNCTION__PARAMETERS);
+			parameters = new EObjectContainmentEList<Parameter>(Parameter.class, this, CodegenPackage.FUNCTION__PARAMETERS);
 		}
 		return parameters;
 	}
@@ -240,7 +247,7 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	 */
 	public EList<VariableDecl> getDeclarations() {
 		if (declarations == null) {
-			declarations = new EObjectResolvingEList<VariableDecl>(VariableDecl.class, this, CodegenPackage.FUNCTION__DECLARATIONS);
+			declarations = new EObjectContainmentEList<VariableDecl>(VariableDecl.class, this, CodegenPackage.FUNCTION__DECLARATIONS);
 		}
 		return declarations;
 	}
@@ -252,9 +259,29 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	 */
 	public EList<Statement> getStatements() {
 		if (statements == null) {
-			statements = new EObjectResolvingEList<Statement>(Statement.class, this, CodegenPackage.FUNCTION__STATEMENTS);
+			statements = new EObjectContainmentEList<Statement>(Statement.class, this, CodegenPackage.FUNCTION__STATEMENTS);
 		}
 		return statements;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.FUNCTION__RETURN_TYPE:
+				return basicSetReturnType(null, msgs);
+			case CodegenPackage.FUNCTION__PARAMETERS:
+				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
+			case CodegenPackage.FUNCTION__DECLARATIONS:
+				return ((InternalEList<?>)getDeclarations()).basicRemove(otherEnd, msgs);
+			case CodegenPackage.FUNCTION__STATEMENTS:
+				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -268,8 +295,7 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 			case CodegenPackage.FUNCTION__IS_INLINE:
 				return getIsInline();
 			case CodegenPackage.FUNCTION__RETURN_TYPE:
-				if (resolve) return getReturnType();
-				return basicGetReturnType();
+				return getReturnType();
 			case CodegenPackage.FUNCTION__NAME:
 				return getName();
 			case CodegenPackage.FUNCTION__PARAMETERS:

@@ -25,22 +25,22 @@ package alpha.codegen;
  */
 public interface ConditionalBranch extends Branch {
 	/**
-	 * Returns the value of the '<em><b>Conditional</b></em>' reference.
+	 * Returns the value of the '<em><b>Conditional</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Conditional</em>' reference.
+	 * @return the value of the '<em>Conditional</em>' containment reference.
 	 * @see #setConditional(Expression)
 	 * @see alpha.codegen.CodegenPackage#getConditionalBranch_Conditional()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getConditional();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.ConditionalBranch#getConditional <em>Conditional</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.ConditionalBranch#getConditional <em>Conditional</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Conditional</em>' reference.
+	 * @param value the new value of the '<em>Conditional</em>' containment reference.
 	 * @see #getConditional()
 	 * @generated
 	 */

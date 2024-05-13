@@ -27,25 +27,25 @@ package alpha.codegen;
  */
 public interface AssignmentStmt extends Statement, Expression {
 	/**
-	 * Returns the value of the '<em><b>Left</b></em>' reference.
+	 * Returns the value of the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The expression which is getting assigned a value.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Left</em>' reference.
+	 * @return the value of the '<em>Left</em>' containment reference.
 	 * @see #setLeft(Expression)
 	 * @see alpha.codegen.CodegenPackage#getAssignmentStmt_Left()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getLeft();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.AssignmentStmt#getLeft <em>Left</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.AssignmentStmt#getLeft <em>Left</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Left</em>' reference.
+	 * @param value the new value of the '<em>Left</em>' containment reference.
 	 * @see #getLeft()
 	 * @generated
 	 */
@@ -80,25 +80,25 @@ public interface AssignmentStmt extends Statement, Expression {
 	void setAssignType(AssignmentOperator value);
 
 	/**
-	 * Returns the value of the '<em><b>Right</b></em>' reference.
+	 * Returns the value of the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The expression to assign to the left side.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Right</em>' reference.
+	 * @return the value of the '<em>Right</em>' containment reference.
 	 * @see #setRight(Expression)
 	 * @see alpha.codegen.CodegenPackage#getAssignmentStmt_Right()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getRight();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.AssignmentStmt#getRight <em>Right</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.AssignmentStmt#getRight <em>Right</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Right</em>' reference.
+	 * @param value the new value of the '<em>Right</em>' containment reference.
 	 * @see #getRight()
 	 * @generated
 	 */

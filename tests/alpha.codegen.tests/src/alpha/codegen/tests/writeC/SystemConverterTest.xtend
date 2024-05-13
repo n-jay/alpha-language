@@ -1,51 +1,39 @@
 package alpha.codegen.tests.writeC
 
-import alpha.loader.AlphaLoader
-import alpha.commands.Utility
-import alpha.codegen.writeC.SystemConverter
 import alpha.codegen.ProgramPrinter
-import java.io.FileWriter
+import alpha.codegen.writeC.SystemConverter
+import alpha.model.AlphaModelLoader
+import org.junit.Test
 
-/**
- * These are some manual tests which convert systems into C programs.
- * The programs are written to folders that already contain wrappers,
- * verification code, and a makefile.
- * 
- * To test if a program is correct:
- * 1. Run the "main" method here to generate all of the C files.
- * 2. Open a terminal on a system with "gcc" and "make" installed.
- * 3. Navigate to one of the programs to check.
- * 4. Run "make clean" to clean up any previous build files.
- * 5. Run "make verify-rand" to build the verification program.
- * 6. Run that verification program (which has a suffix of ".verify-rand").
- *    You will need to provide values for the parameters with this command.
- * 7. Look at the output and check that it says that all the tests passed.
- * 8. Repeat steps 3-7 for all programs.
- */
+import static org.junit.Assert.*
+
+import static extension alpha.commands.UtilityBase.*
+
 class SystemConverterTest {
-	def static void main(String[] args) {
-		val programs = #[
-			"CopyInput",
-			"LUDecomposition",
-			"PrefixScan"
-		]
-		
-		for (program : programs) {
-			println("Writing program: " + program)
-			val alphaFile = "resources/" + program + "/" + program + ".alpha"
-			val root = AlphaLoader.loadAlpha(alphaFile)
-			val system = Utility.GetSystem(root, program)
-			
-			// Convert the system using older AlphaZ compatibility.
-			val cAST = SystemConverter.convert(system, true)
-			val cProgram = ProgramPrinter.print(cAST).toString
-			
-			// Write the C program out.
-			val cFile = "resources/" + program + "/" + program + ".c"
-			val writer = new FileWriter(cFile)
-			writer.write(cProgram)
-			writer.close()
-		}
-		println("Done")
+	/** The path to the Alpha file for these unit tests. */
+	static val alphaFile = "resources/alpha.codegen.tests.writeC/SystemConverterTest.alpha";
+	
+	/** Gets the desired system for these unit tests. */
+	static def getSystem(String system) {
+		return AlphaModelLoader.loadModel(alphaFile)
+			.GetSystem(system)
+	}
+	
+	@Test
+	def void convertSystem_noParameters() {
+		val system = getSystem("NoParameters")
+		val program = SystemConverter.convert(system)
+		val code = ProgramPrinter.print(program)
+		assertNotNull(code)
+		assertNotEquals("", code)
+	}
+	
+	@Test
+	def void convertSystem_noParameterConstraints() {
+		val system = getSystem("NoParameterConstraints")
+		val program = SystemConverter.convert(system)
+		val code = ProgramPrinter.print(program)
+		assertNotNull(code)
+		assertNotEquals("", code)
 	}
 }

@@ -27,25 +27,25 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Parameter extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Data Type</b></em>' reference.
+	 * Returns the value of the '<em><b>Data Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The type of the parameter.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Data Type</em>' reference.
+	 * @return the value of the '<em>Data Type</em>' containment reference.
 	 * @see #setDataType(DataType)
 	 * @see alpha.codegen.CodegenPackage#getParameter_DataType()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	DataType getDataType();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.Parameter#getDataType <em>Data Type</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.Parameter#getDataType <em>Data Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Type</em>' reference.
+	 * @param value the new value of the '<em>Data Type</em>' containment reference.
 	 * @see #getDataType()
 	 * @generated
 	 */

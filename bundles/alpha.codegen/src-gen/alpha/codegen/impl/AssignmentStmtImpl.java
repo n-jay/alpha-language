@@ -8,6 +8,7 @@ import alpha.codegen.CodegenPackage;
 import alpha.codegen.Expression;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -32,7 +33,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class AssignmentStmtImpl extends MinimalEObjectImpl.Container implements AssignmentStmt {
 	/**
-	 * The cached value of the '{@link #getLeft() <em>Left</em>}' reference.
+	 * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getLeft()
@@ -62,7 +63,7 @@ public class AssignmentStmtImpl extends MinimalEObjectImpl.Container implements 
 	protected AssignmentOperator assignType = ASSIGN_TYPE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getRight() <em>Right</em>}' reference.
+	 * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRight()
@@ -96,14 +97,6 @@ public class AssignmentStmtImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	public Expression getLeft() {
-		if (left != null && left.eIsProxy()) {
-			InternalEObject oldLeft = (InternalEObject)left;
-			left = (Expression)eResolveProxy(oldLeft);
-			if (left != oldLeft) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.ASSIGNMENT_STMT__LEFT, oldLeft, left));
-			}
-		}
 		return left;
 	}
 
@@ -112,8 +105,14 @@ public class AssignmentStmtImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetLeft() {
-		return left;
+	public NotificationChain basicSetLeft(Expression newLeft, NotificationChain msgs) {
+		Expression oldLeft = left;
+		left = newLeft;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.ASSIGNMENT_STMT__LEFT, oldLeft, newLeft);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -122,10 +121,17 @@ public class AssignmentStmtImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	public void setLeft(Expression newLeft) {
-		Expression oldLeft = left;
-		left = newLeft;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.ASSIGNMENT_STMT__LEFT, oldLeft, left));
+		if (newLeft != left) {
+			NotificationChain msgs = null;
+			if (left != null)
+				msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.ASSIGNMENT_STMT__LEFT, null, msgs);
+			if (newLeft != null)
+				msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.ASSIGNMENT_STMT__LEFT, null, msgs);
+			msgs = basicSetLeft(newLeft, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.ASSIGNMENT_STMT__LEFT, newLeft, newLeft));
 	}
 
 	/**
@@ -155,14 +161,6 @@ public class AssignmentStmtImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	public Expression getRight() {
-		if (right != null && right.eIsProxy()) {
-			InternalEObject oldRight = (InternalEObject)right;
-			right = (Expression)eResolveProxy(oldRight);
-			if (right != oldRight) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.ASSIGNMENT_STMT__RIGHT, oldRight, right));
-			}
-		}
 		return right;
 	}
 
@@ -171,8 +169,14 @@ public class AssignmentStmtImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetRight() {
-		return right;
+	public NotificationChain basicSetRight(Expression newRight, NotificationChain msgs) {
+		Expression oldRight = right;
+		right = newRight;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.ASSIGNMENT_STMT__RIGHT, oldRight, newRight);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -181,10 +185,33 @@ public class AssignmentStmtImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 */
 	public void setRight(Expression newRight) {
-		Expression oldRight = right;
-		right = newRight;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.ASSIGNMENT_STMT__RIGHT, oldRight, right));
+		if (newRight != right) {
+			NotificationChain msgs = null;
+			if (right != null)
+				msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.ASSIGNMENT_STMT__RIGHT, null, msgs);
+			if (newRight != null)
+				msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.ASSIGNMENT_STMT__RIGHT, null, msgs);
+			msgs = basicSetRight(newRight, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.ASSIGNMENT_STMT__RIGHT, newRight, newRight));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.ASSIGNMENT_STMT__LEFT:
+				return basicSetLeft(null, msgs);
+			case CodegenPackage.ASSIGNMENT_STMT__RIGHT:
+				return basicSetRight(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -196,13 +223,11 @@ public class AssignmentStmtImpl extends MinimalEObjectImpl.Container implements 
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CodegenPackage.ASSIGNMENT_STMT__LEFT:
-				if (resolve) return getLeft();
-				return basicGetLeft();
+				return getLeft();
 			case CodegenPackage.ASSIGNMENT_STMT__ASSIGN_TYPE:
 				return getAssignType();
 			case CodegenPackage.ASSIGNMENT_STMT__RIGHT:
-				if (resolve) return getRight();
-				return basicGetRight();
+				return getRight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

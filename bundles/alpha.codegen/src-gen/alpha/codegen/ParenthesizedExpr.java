@@ -28,25 +28,25 @@ package alpha.codegen;
  */
 public interface ParenthesizedExpr extends Expression {
 	/**
-	 * Returns the value of the '<em><b>Expression</b></em>' reference.
+	 * Returns the value of the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The expression to wrap in parentheses.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Expression</em>' reference.
+	 * @return the value of the '<em>Expression</em>' containment reference.
 	 * @see #setExpression(Expression)
 	 * @see alpha.codegen.CodegenPackage#getParenthesizedExpr_Expression()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getExpression();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.ParenthesizedExpr#getExpression <em>Expression</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.ParenthesizedExpr#getExpression <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Expression</em>' reference.
+	 * @param value the new value of the '<em>Expression</em>' containment reference.
 	 * @see #getExpression()
 	 * @generated
 	 */

@@ -8,6 +8,7 @@ import alpha.codegen.CodegenPackage;
 import alpha.codegen.Expression;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -52,7 +53,7 @@ public class BinaryExprImpl extends MinimalEObjectImpl.Container implements Bina
 	protected BinaryOperator operator = OPERATOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getLeft() <em>Left</em>}' reference.
+	 * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getLeft()
@@ -62,7 +63,7 @@ public class BinaryExprImpl extends MinimalEObjectImpl.Container implements Bina
 	protected Expression left;
 
 	/**
-	 * The cached value of the '{@link #getRight() <em>Right</em>}' reference.
+	 * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRight()
@@ -117,14 +118,6 @@ public class BinaryExprImpl extends MinimalEObjectImpl.Container implements Bina
 	 * @generated
 	 */
 	public Expression getLeft() {
-		if (left != null && left.eIsProxy()) {
-			InternalEObject oldLeft = (InternalEObject)left;
-			left = (Expression)eResolveProxy(oldLeft);
-			if (left != oldLeft) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.BINARY_EXPR__LEFT, oldLeft, left));
-			}
-		}
 		return left;
 	}
 
@@ -133,8 +126,14 @@ public class BinaryExprImpl extends MinimalEObjectImpl.Container implements Bina
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetLeft() {
-		return left;
+	public NotificationChain basicSetLeft(Expression newLeft, NotificationChain msgs) {
+		Expression oldLeft = left;
+		left = newLeft;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.BINARY_EXPR__LEFT, oldLeft, newLeft);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -143,10 +142,17 @@ public class BinaryExprImpl extends MinimalEObjectImpl.Container implements Bina
 	 * @generated
 	 */
 	public void setLeft(Expression newLeft) {
-		Expression oldLeft = left;
-		left = newLeft;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.BINARY_EXPR__LEFT, oldLeft, left));
+		if (newLeft != left) {
+			NotificationChain msgs = null;
+			if (left != null)
+				msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.BINARY_EXPR__LEFT, null, msgs);
+			if (newLeft != null)
+				msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.BINARY_EXPR__LEFT, null, msgs);
+			msgs = basicSetLeft(newLeft, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.BINARY_EXPR__LEFT, newLeft, newLeft));
 	}
 
 	/**
@@ -155,14 +161,6 @@ public class BinaryExprImpl extends MinimalEObjectImpl.Container implements Bina
 	 * @generated
 	 */
 	public Expression getRight() {
-		if (right != null && right.eIsProxy()) {
-			InternalEObject oldRight = (InternalEObject)right;
-			right = (Expression)eResolveProxy(oldRight);
-			if (right != oldRight) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.BINARY_EXPR__RIGHT, oldRight, right));
-			}
-		}
 		return right;
 	}
 
@@ -171,8 +169,14 @@ public class BinaryExprImpl extends MinimalEObjectImpl.Container implements Bina
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetRight() {
-		return right;
+	public NotificationChain basicSetRight(Expression newRight, NotificationChain msgs) {
+		Expression oldRight = right;
+		right = newRight;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.BINARY_EXPR__RIGHT, oldRight, newRight);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -181,10 +185,33 @@ public class BinaryExprImpl extends MinimalEObjectImpl.Container implements Bina
 	 * @generated
 	 */
 	public void setRight(Expression newRight) {
-		Expression oldRight = right;
-		right = newRight;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.BINARY_EXPR__RIGHT, oldRight, right));
+		if (newRight != right) {
+			NotificationChain msgs = null;
+			if (right != null)
+				msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.BINARY_EXPR__RIGHT, null, msgs);
+			if (newRight != null)
+				msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.BINARY_EXPR__RIGHT, null, msgs);
+			msgs = basicSetRight(newRight, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.BINARY_EXPR__RIGHT, newRight, newRight));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.BINARY_EXPR__LEFT:
+				return basicSetLeft(null, msgs);
+			case CodegenPackage.BINARY_EXPR__RIGHT:
+				return basicSetRight(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -198,11 +225,9 @@ public class BinaryExprImpl extends MinimalEObjectImpl.Container implements Bina
 			case CodegenPackage.BINARY_EXPR__OPERATOR:
 				return getOperator();
 			case CodegenPackage.BINARY_EXPR__LEFT:
-				if (resolve) return getLeft();
-				return basicGetLeft();
+				return getLeft();
 			case CodegenPackage.BINARY_EXPR__RIGHT:
-				if (resolve) return getRight();
-				return basicGetRight();
+				return getRight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

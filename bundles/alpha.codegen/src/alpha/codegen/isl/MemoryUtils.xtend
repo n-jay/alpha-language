@@ -49,8 +49,18 @@ class MemoryUtils {
 	 * 
 	 * @param domain The domain to get the ranking polynomial for. This set is not destroyed ("isl_keep").
 	 * @returns A piecewise quasi-affine polynomial that can be used to compute the rank of a point within the given domain.
+	 * @throws IllegalArgumentException if the domain given is null.
 	 */
 	def static ISLPWQPolynomial rank(ISLSet domain) {
+		if (domain === null) {
+			throw new IllegalArgumentException("The domain provided is null.")
+		}
+		
+		// If the domain is empty, return zero.
+		if (domain.isEmpty) {
+			return ISLPWQPolynomial.buildZero(domain.space)
+		}
+		
 		// At a high level, we will simply construct a set which represents
 		// all points lexicographically smaller or equal to some desired point.
 		// We intersect this with the original domain to get only the points we care about.
@@ -86,7 +96,7 @@ class MemoryUtils {
 		// (the ones that used to be indices), and the point X is encoded in the newly introduced indices.
 		val lessThan = (0 ..< domain.nbIndices)
 			.map[i | createOrderingForIndex(extendedSet, domain.nbParams, i)]
-			.reduce([d1, d2 | d1.union(d2)])
+			.fold(ISLSet.buildEmpty(domain.space), [d1, d2 | d1.union(d2)])
 		
 		// By intersecting the lexicographic ordering with our original domain,
 		// we get the set of points in our domain that are lexicographically less than

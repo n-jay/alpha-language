@@ -8,6 +8,7 @@ import alpha.codegen.DataType;
 import alpha.codegen.Expression;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -31,7 +32,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class CastExprImpl extends MinimalEObjectImpl.Container implements CastExpr {
 	/**
-	 * The cached value of the '{@link #getDataType() <em>Data Type</em>}' reference.
+	 * The cached value of the '{@link #getDataType() <em>Data Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getDataType()
@@ -41,7 +42,7 @@ public class CastExprImpl extends MinimalEObjectImpl.Container implements CastEx
 	protected DataType dataType;
 
 	/**
-	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
+	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getExpression()
@@ -75,14 +76,6 @@ public class CastExprImpl extends MinimalEObjectImpl.Container implements CastEx
 	 * @generated
 	 */
 	public DataType getDataType() {
-		if (dataType != null && dataType.eIsProxy()) {
-			InternalEObject oldDataType = (InternalEObject)dataType;
-			dataType = (DataType)eResolveProxy(oldDataType);
-			if (dataType != oldDataType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.CAST_EXPR__DATA_TYPE, oldDataType, dataType));
-			}
-		}
 		return dataType;
 	}
 
@@ -91,8 +84,14 @@ public class CastExprImpl extends MinimalEObjectImpl.Container implements CastEx
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataType basicGetDataType() {
-		return dataType;
+	public NotificationChain basicSetDataType(DataType newDataType, NotificationChain msgs) {
+		DataType oldDataType = dataType;
+		dataType = newDataType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.CAST_EXPR__DATA_TYPE, oldDataType, newDataType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -101,10 +100,17 @@ public class CastExprImpl extends MinimalEObjectImpl.Container implements CastEx
 	 * @generated
 	 */
 	public void setDataType(DataType newDataType) {
-		DataType oldDataType = dataType;
-		dataType = newDataType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.CAST_EXPR__DATA_TYPE, oldDataType, dataType));
+		if (newDataType != dataType) {
+			NotificationChain msgs = null;
+			if (dataType != null)
+				msgs = ((InternalEObject)dataType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.CAST_EXPR__DATA_TYPE, null, msgs);
+			if (newDataType != null)
+				msgs = ((InternalEObject)newDataType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.CAST_EXPR__DATA_TYPE, null, msgs);
+			msgs = basicSetDataType(newDataType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.CAST_EXPR__DATA_TYPE, newDataType, newDataType));
 	}
 
 	/**
@@ -113,14 +119,6 @@ public class CastExprImpl extends MinimalEObjectImpl.Container implements CastEx
 	 * @generated
 	 */
 	public Expression getExpression() {
-		if (expression != null && expression.eIsProxy()) {
-			InternalEObject oldExpression = (InternalEObject)expression;
-			expression = (Expression)eResolveProxy(oldExpression);
-			if (expression != oldExpression) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.CAST_EXPR__EXPRESSION, oldExpression, expression));
-			}
-		}
 		return expression;
 	}
 
@@ -129,8 +127,14 @@ public class CastExprImpl extends MinimalEObjectImpl.Container implements CastEx
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetExpression() {
-		return expression;
+	public NotificationChain basicSetExpression(Expression newExpression, NotificationChain msgs) {
+		Expression oldExpression = expression;
+		expression = newExpression;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.CAST_EXPR__EXPRESSION, oldExpression, newExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -139,10 +143,33 @@ public class CastExprImpl extends MinimalEObjectImpl.Container implements CastEx
 	 * @generated
 	 */
 	public void setExpression(Expression newExpression) {
-		Expression oldExpression = expression;
-		expression = newExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.CAST_EXPR__EXPRESSION, oldExpression, expression));
+		if (newExpression != expression) {
+			NotificationChain msgs = null;
+			if (expression != null)
+				msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.CAST_EXPR__EXPRESSION, null, msgs);
+			if (newExpression != null)
+				msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.CAST_EXPR__EXPRESSION, null, msgs);
+			msgs = basicSetExpression(newExpression, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.CAST_EXPR__EXPRESSION, newExpression, newExpression));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.CAST_EXPR__DATA_TYPE:
+				return basicSetDataType(null, msgs);
+			case CodegenPackage.CAST_EXPR__EXPRESSION:
+				return basicSetExpression(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -154,11 +181,9 @@ public class CastExprImpl extends MinimalEObjectImpl.Container implements CastEx
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CodegenPackage.CAST_EXPR__DATA_TYPE:
-				if (resolve) return getDataType();
-				return basicGetDataType();
+				return getDataType();
 			case CodegenPackage.CAST_EXPR__EXPRESSION:
-				if (resolve) return getExpression();
-				return basicGetExpression();
+				return getExpression();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

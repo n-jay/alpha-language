@@ -58,25 +58,25 @@ public interface Function extends EObject {
 	void setIsInline(Boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Return Type</b></em>' reference.
+	 * Returns the value of the '<em><b>Return Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The return type of the function.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Return Type</em>' reference.
+	 * @return the value of the '<em>Return Type</em>' containment reference.
 	 * @see #setReturnType(DataType)
 	 * @see alpha.codegen.CodegenPackage#getFunction_ReturnType()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	DataType getReturnType();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.Function#getReturnType <em>Return Type</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.Function#getReturnType <em>Return Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Return Type</em>' reference.
+	 * @param value the new value of the '<em>Return Type</em>' containment reference.
 	 * @see #getReturnType()
 	 * @generated
 	 */
@@ -108,46 +108,46 @@ public interface Function extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Parameters</b></em>' reference list.
+	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.codegen.Parameter}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The list of parameters for the function. May be empty.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Parameters</em>' reference list.
+	 * @return the value of the '<em>Parameters</em>' containment reference list.
 	 * @see alpha.codegen.CodegenPackage#getFunction_Parameters()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Parameter> getParameters();
 
 	/**
-	 * Returns the value of the '<em><b>Declarations</b></em>' reference list.
+	 * Returns the value of the '<em><b>Declarations</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.codegen.VariableDecl}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The list of variables to declare at the start of the function. May be empty.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Declarations</em>' reference list.
+	 * @return the value of the '<em>Declarations</em>' containment reference list.
 	 * @see alpha.codegen.CodegenPackage#getFunction_Declarations()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<VariableDecl> getDeclarations();
 
 	/**
-	 * Returns the value of the '<em><b>Statements</b></em>' reference list.
+	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.codegen.Statement}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The list of statements inside the function. May be empty.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Statements</em>' reference list.
+	 * @return the value of the '<em>Statements</em>' containment reference list.
 	 * @see alpha.codegen.CodegenPackage#getFunction_Statements()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Statement> getStatements();

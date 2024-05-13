@@ -9,15 +9,18 @@ import alpha.codegen.Expression;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -55,7 +58,7 @@ public class CallExprImpl extends MinimalEObjectImpl.Container implements CallEx
 	protected String functionName = FUNCTION_NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' reference list.
+	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getArguments()
@@ -111,9 +114,23 @@ public class CallExprImpl extends MinimalEObjectImpl.Container implements CallEx
 	 */
 	public EList<Expression> getArguments() {
 		if (arguments == null) {
-			arguments = new EObjectResolvingEList<Expression>(Expression.class, this, CodegenPackage.CALL_EXPR__ARGUMENTS);
+			arguments = new EObjectContainmentEList<Expression>(Expression.class, this, CodegenPackage.CALL_EXPR__ARGUMENTS);
 		}
 		return arguments;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.CALL_EXPR__ARGUMENTS:
+				return ((InternalEList<?>)getArguments()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

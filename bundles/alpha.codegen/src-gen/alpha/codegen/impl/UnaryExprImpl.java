@@ -8,6 +8,7 @@ import alpha.codegen.UnaryExpr;
 import alpha.codegen.UnaryOperator;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -51,7 +52,7 @@ public class UnaryExprImpl extends MinimalEObjectImpl.Container implements Unary
 	protected UnaryOperator operator = OPERATOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' reference.
+	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getExpression()
@@ -106,14 +107,6 @@ public class UnaryExprImpl extends MinimalEObjectImpl.Container implements Unary
 	 * @generated
 	 */
 	public Expression getExpression() {
-		if (expression != null && expression.eIsProxy()) {
-			InternalEObject oldExpression = (InternalEObject)expression;
-			expression = (Expression)eResolveProxy(oldExpression);
-			if (expression != oldExpression) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.UNARY_EXPR__EXPRESSION, oldExpression, expression));
-			}
-		}
 		return expression;
 	}
 
@@ -122,8 +115,14 @@ public class UnaryExprImpl extends MinimalEObjectImpl.Container implements Unary
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetExpression() {
-		return expression;
+	public NotificationChain basicSetExpression(Expression newExpression, NotificationChain msgs) {
+		Expression oldExpression = expression;
+		expression = newExpression;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.UNARY_EXPR__EXPRESSION, oldExpression, newExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -132,10 +131,31 @@ public class UnaryExprImpl extends MinimalEObjectImpl.Container implements Unary
 	 * @generated
 	 */
 	public void setExpression(Expression newExpression) {
-		Expression oldExpression = expression;
-		expression = newExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.UNARY_EXPR__EXPRESSION, oldExpression, expression));
+		if (newExpression != expression) {
+			NotificationChain msgs = null;
+			if (expression != null)
+				msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.UNARY_EXPR__EXPRESSION, null, msgs);
+			if (newExpression != null)
+				msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.UNARY_EXPR__EXPRESSION, null, msgs);
+			msgs = basicSetExpression(newExpression, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.UNARY_EXPR__EXPRESSION, newExpression, newExpression));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.UNARY_EXPR__EXPRESSION:
+				return basicSetExpression(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -149,8 +169,7 @@ public class UnaryExprImpl extends MinimalEObjectImpl.Container implements Unary
 			case CodegenPackage.UNARY_EXPR__OPERATOR:
 				return getOperator();
 			case CodegenPackage.UNARY_EXPR__EXPRESSION:
-				if (resolve) return getExpression();
-				return basicGetExpression();
+				return getExpression();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

@@ -52,7 +52,7 @@ public interface ArrayAccessExpr extends Expression {
 	void setVariableName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Index Expressions</b></em>' reference list.
+	 * Returns the value of the '<em><b>Index Expressions</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.codegen.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -63,9 +63,9 @@ public interface ArrayAccessExpr extends Expression {
 	 * If there are multiple values, they will all be wrapped in square brackets
 	 * and appear left to right (i.e., index 0 is the leftmost indexing expression).
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Index Expressions</em>' reference list.
+	 * @return the value of the '<em>Index Expressions</em>' containment reference list.
 	 * @see alpha.codegen.CodegenPackage#getArrayAccessExpr_IndexExpressions()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Expression> getIndexExpressions();

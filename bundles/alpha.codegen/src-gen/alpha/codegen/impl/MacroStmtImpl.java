@@ -9,6 +9,7 @@ import alpha.codegen.MacroStmt;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -67,7 +68,7 @@ public class MacroStmtImpl extends MinimalEObjectImpl.Container implements Macro
 	protected EList<String> arguments;
 
 	/**
-	 * The cached value of the '{@link #getReplacement() <em>Replacement</em>}' reference.
+	 * The cached value of the '{@link #getReplacement() <em>Replacement</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getReplacement()
@@ -134,14 +135,6 @@ public class MacroStmtImpl extends MinimalEObjectImpl.Container implements Macro
 	 * @generated
 	 */
 	public Expression getReplacement() {
-		if (replacement != null && replacement.eIsProxy()) {
-			InternalEObject oldReplacement = (InternalEObject)replacement;
-			replacement = (Expression)eResolveProxy(oldReplacement);
-			if (replacement != oldReplacement) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, CodegenPackage.MACRO_STMT__REPLACEMENT, oldReplacement, replacement));
-			}
-		}
 		return replacement;
 	}
 
@@ -150,8 +143,14 @@ public class MacroStmtImpl extends MinimalEObjectImpl.Container implements Macro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression basicGetReplacement() {
-		return replacement;
+	public NotificationChain basicSetReplacement(Expression newReplacement, NotificationChain msgs) {
+		Expression oldReplacement = replacement;
+		replacement = newReplacement;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CodegenPackage.MACRO_STMT__REPLACEMENT, oldReplacement, newReplacement);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -160,10 +159,31 @@ public class MacroStmtImpl extends MinimalEObjectImpl.Container implements Macro
 	 * @generated
 	 */
 	public void setReplacement(Expression newReplacement) {
-		Expression oldReplacement = replacement;
-		replacement = newReplacement;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.MACRO_STMT__REPLACEMENT, oldReplacement, replacement));
+		if (newReplacement != replacement) {
+			NotificationChain msgs = null;
+			if (replacement != null)
+				msgs = ((InternalEObject)replacement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.MACRO_STMT__REPLACEMENT, null, msgs);
+			if (newReplacement != null)
+				msgs = ((InternalEObject)newReplacement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CodegenPackage.MACRO_STMT__REPLACEMENT, null, msgs);
+			msgs = basicSetReplacement(newReplacement, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.MACRO_STMT__REPLACEMENT, newReplacement, newReplacement));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CodegenPackage.MACRO_STMT__REPLACEMENT:
+				return basicSetReplacement(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -179,8 +199,7 @@ public class MacroStmtImpl extends MinimalEObjectImpl.Container implements Macro
 			case CodegenPackage.MACRO_STMT__ARGUMENTS:
 				return getArguments();
 			case CodegenPackage.MACRO_STMT__REPLACEMENT:
-				if (resolve) return getReplacement();
-				return basicGetReplacement();
+				return getReplacement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

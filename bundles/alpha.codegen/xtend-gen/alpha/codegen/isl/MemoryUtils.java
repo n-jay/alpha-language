@@ -61,8 +61,16 @@ public class MemoryUtils {
    * 
    * @param domain The domain to get the ranking polynomial for. This set is not destroyed ("isl_keep").
    * @returns A piecewise quasi-affine polynomial that can be used to compute the rank of a point within the given domain.
+   * @throws IllegalArgumentException if the domain given is null.
    */
   public static ISLPWQPolynomial rank(final ISLSet domain) {
+    if ((domain == null)) {
+      throw new IllegalArgumentException("The domain provided is null.");
+    }
+    boolean _isEmpty = domain.isEmpty();
+    if (_isEmpty) {
+      return ISLPWQPolynomial.buildZero(domain.getSpace());
+    }
     List<String> _paramNames = domain.getParamNames();
     List<String> _indexNames = domain.getIndexNames();
     final ArrayList<String> existingNames = CommonExtensions.<String>toArrayList(Iterables.<String>concat(Collections.<List<String>>unmodifiableList(CollectionLiterals.<List<String>>newArrayList(_paramNames, _indexNames))));
@@ -81,7 +89,7 @@ public class MemoryUtils {
     final Function2<ISLSet, ISLSet, ISLSet> _function_3 = (ISLSet d1, ISLSet d2) -> {
       return d1.union(d2);
     };
-    final ISLSet lessThan = IterableExtensions.<ISLSet>reduce(IterableExtensions.<Integer, ISLSet>map(new ExclusiveRange(0, _nbIndices, true), _function_2), _function_3);
+    final ISLSet lessThan = IterableExtensions.<ISLSet, ISLSet>fold(IterableExtensions.<Integer, ISLSet>map(new ExclusiveRange(0, _nbIndices, true), _function_2), ISLSet.buildEmpty(domain.getSpace()), _function_3);
     return MemoryUtils.card(lessThan.intersect(domain.copy()));
   }
 

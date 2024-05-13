@@ -68,25 +68,25 @@ public interface MacroStmt extends Statement {
 	EList<String> getArguments();
 
 	/**
-	 * Returns the value of the '<em><b>Replacement</b></em>' reference.
+	 * Returns the value of the '<em><b>Replacement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The expression to replace the macro with.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Replacement</em>' reference.
+	 * @return the value of the '<em>Replacement</em>' containment reference.
 	 * @see #setReplacement(Expression)
 	 * @see alpha.codegen.CodegenPackage#getMacroStmt_Replacement()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getReplacement();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.MacroStmt#getReplacement <em>Replacement</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.MacroStmt#getReplacement <em>Replacement</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Replacement</em>' reference.
+	 * @param value the new value of the '<em>Replacement</em>' containment reference.
 	 * @see #getReplacement()
 	 * @generated
 	 */

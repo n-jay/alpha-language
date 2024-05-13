@@ -30,65 +30,65 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface IfStmt extends Statement {
 	/**
-	 * Returns the value of the '<em><b>If Branch</b></em>' reference.
+	 * Returns the value of the '<em><b>If Branch</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The main "if" branch for this statement.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>If Branch</em>' reference.
+	 * @return the value of the '<em>If Branch</em>' containment reference.
 	 * @see #setIfBranch(ConditionalBranch)
 	 * @see alpha.codegen.CodegenPackage#getIfStmt_IfBranch()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	ConditionalBranch getIfBranch();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.IfStmt#getIfBranch <em>If Branch</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.IfStmt#getIfBranch <em>If Branch</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>If Branch</em>' reference.
+	 * @param value the new value of the '<em>If Branch</em>' containment reference.
 	 * @see #getIfBranch()
 	 * @generated
 	 */
 	void setIfBranch(ConditionalBranch value);
 
 	/**
-	 * Returns the value of the '<em><b>Else If Branches</b></em>' reference list.
+	 * Returns the value of the '<em><b>Else If Branches</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.codegen.ConditionalBranch}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The optional "else if" branches.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Else If Branches</em>' reference list.
+	 * @return the value of the '<em>Else If Branches</em>' containment reference list.
 	 * @see alpha.codegen.CodegenPackage#getIfStmt_ElseIfBranches()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<ConditionalBranch> getElseIfBranches();
 
 	/**
-	 * Returns the value of the '<em><b>Else Branch</b></em>' reference.
+	 * Returns the value of the '<em><b>Else Branch</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * An optional "else" branch at the end of the statement.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Else Branch</em>' reference.
+	 * @return the value of the '<em>Else Branch</em>' containment reference.
 	 * @see #setElseBranch(Branch)
 	 * @see alpha.codegen.CodegenPackage#getIfStmt_ElseBranch()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Branch getElseBranch();
 
 	/**
-	 * Sets the value of the '{@link alpha.codegen.IfStmt#getElseBranch <em>Else Branch</em>}' reference.
+	 * Sets the value of the '{@link alpha.codegen.IfStmt#getElseBranch <em>Else Branch</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Else Branch</em>' reference.
+	 * @param value the new value of the '<em>Else Branch</em>' containment reference.
 	 * @see #getElseBranch()
 	 * @generated
 	 */

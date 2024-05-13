@@ -11,22 +11,22 @@ type StringIterable wraps Iterable<String>
 /** Represents a program consisting of a single C file. */
 class Program {
 	/** A comment at the top of the file. */
-	refers CommentStmt headerComment
+	contains CommentStmt headerComment
 	
 	/** The list of #include directives. */
-	refers Include[] includes
+	contains Include[] includes
 	
 	/** A set of macros. Intended to be used for defining common functions like min(a,b) or floor(a). */
-	refers MacroStmt[] functionMacros
+	contains MacroStmt[] functionMacros
 	
 	/** Global variable declarations. */
-	refers VariableDecl[] globalVariables
+	contains VariableDecl[] globalVariables
 	
 	/** Another set of macros. Intended to be used for defining how the global variables are accessed. */
-	refers MacroStmt[] memoryMacros
+	contains MacroStmt[] memoryMacros
 	
 	/** The function definitions for this program. */
-	refers Function[] functions
+	contains Function[] functions
 }
 
 /** An include statement. Only needs to specify the file path to include. */
@@ -89,7 +89,7 @@ class VariableDecl {
 	boolean isStatic
 	
 	/** The variable's data type. */
-	refers DataType dataType
+	contains DataType dataType
 	
 	/** The name of the variable. */
 	String name
@@ -106,25 +106,25 @@ class Function {
 	Boolean isInline
 	
 	/** The return type of the function. */
-	refers DataType returnType
+	contains DataType returnType
 	
 	/** The name of the function. */
 	String name
 	
 	/** The list of parameters for the function. May be empty. */
-	refers Parameter[] parameters
+	contains Parameter[] parameters
 	
 	/** The list of variables to declare at the start of the function. May be empty. */
-	refers VariableDecl[] declarations
+	contains VariableDecl[] declarations
 	
 	/** The list of statements inside the function. May be empty. */
-	refers Statement[] statements
+	contains Statement[] statements
 }
 
 /** A parameter for a function. */
 class Parameter {
 	/** The type of the parameter. */
-	refers DataType dataType
+	contains DataType dataType
 	
 	/** The name of the parameter. */
 	String name
@@ -165,7 +165,7 @@ class CommentStmt extends Statement {
  * or for "custom expressions", which would allow you to use any statement you'd like.
  */
 class ExpressionStmt extends Statement {
-	refers Expression expression
+	contains Expression expression
 }
 
 /** Defines a macro. */
@@ -177,7 +177,7 @@ class MacroStmt extends Statement {
 	String[] arguments
 	
 	/** The expression to replace the macro with. */
-	refers Expression replacement
+	contains Expression replacement
 }
 
 /** Un-defines a macro. */
@@ -192,24 +192,24 @@ class UndefStmt extends Statement {
  */
 class IfStmt extends Statement {
 	/** The main "if" branch for this statement. */
-	refers ConditionalBranch ifBranch
+	contains ConditionalBranch ifBranch
 	
 	/** The optional "else if" branches. */
-	refers ConditionalBranch[] elseIfBranches
+	contains ConditionalBranch[] elseIfBranches
 	
 	/** An optional "else" branch at the end of the statement. */
-	refers Branch elseBranch
+	contains Branch elseBranch
 }
 
 /** Represents any kind of branch of an "if" statement (i.e., "if", "else if", or "else"). */
 class Branch {
 	/** The statements within the block. */
-	refers Statement[] body
+	contains Statement[] body
 }
 
 /** Represents a conditional branch of an "if" statement (i.e., "if" or "else if"). */
 class ConditionalBranch extends Branch {
-	refers Expression conditional
+	contains Expression conditional
 }
 
 /** Represents a "for" loop. */
@@ -218,31 +218,31 @@ class LoopStmt extends Statement {
 	String loopVariable
 	
 	/** The initial value of the loop variable. */
-	refers Expression initializer
+	contains Expression initializer
 	
 	/** The conditional expression to check each iteration of the loop. */
-	refers Expression conditional
+	contains Expression conditional
 	
 	/**
 	 * Increments the loop variable by the given amount.
 	 * This is intended only for additive increments (i.e., "+=").
 	 */
-	refers Expression incrementBy
+	contains Expression incrementBy
 	
 	/** The statements to loop over. */
-	refers Statement[] body
+	contains Statement[] body
 }
 
 /** Assigns the left-hand expression according to the right-hand expression. */
 class AssignmentStmt extends Statement, Expression {
 	/** The expression which is getting assigned a value. */
-	refers Expression left
+	contains Expression left
 	
 	/** Which kind of assignment to perform (e.g., = or +=). */
 	AssignmentOperator assignType
 	
 	/** The expression to assign to the left side. */
-	refers Expression right
+	contains Expression right
 }
 
 /** Represents one of the assignment operators. */
@@ -260,7 +260,7 @@ enum AssignmentOperator {
 /** Causes the function to return. May optionally return a value. */
 class ReturnStmt extends Statement {
 	/** The value to return. If <code>null</code>, no value will be returned. */
-	refers Expression expression
+	contains Expression expression
 }
 
 
@@ -287,16 +287,16 @@ class CustomExpr extends Expression {
  */
 class ParenthesizedExpr extends Expression {
 	/** The expression to wrap in parentheses. */
-	refers Expression expression
+	contains Expression expression
 }
 
 /** Casts an expression to a specific data type. */
 class CastExpr extends Expression {
 	/** The type to cast to. */
-	refers DataType dataType
+	contains DataType dataType
 	
 	/** The expression being cast. */
-	refers Expression expression
+	contains Expression expression
 }
 
 /** Accesses an array variable at some index. */
@@ -310,7 +310,7 @@ class ArrayAccessExpr extends Expression {
 	 * If there are multiple values, they will all be wrapped in square brackets
 	 * and appear left to right (i.e., index 0 is the leftmost indexing expression).
 	 */
-	refers Expression[] indexExpressions
+	contains Expression[] indexExpressions
 }
 
 /**
@@ -322,7 +322,7 @@ class CallExpr extends Expression {
 	String functionName
 	
 	/** The arguments to the function. May be empty. */
-	refers Expression[] arguments
+	contains Expression[] arguments
 }
 
 /** An expression which applies an operator to one operand. */
@@ -331,7 +331,7 @@ class UnaryExpr extends Expression {
 	UnaryOperator operator
 	
 	/** The operand the operator is being applied to. */
-	refers Expression expression
+	contains Expression expression
 }
 
 /** Represents a unary operator. */
@@ -349,10 +349,10 @@ class BinaryExpr extends Expression {
 	BinaryOperator operator
 	
 	/** The operand on the left-hand side. */
-	refers Expression left
+	contains Expression left
 	
 	/** The operand on the right-hand side. */
-	refers Expression right 
+	contains Expression right 
 }
 
 /**
@@ -370,11 +370,11 @@ enum BinaryOperator {
 /** A conditional expression of the form "a ? b : c". */
 class TernaryExpr extends Expression {
 	/** The condition to check that selects one of the two expressions. */
-	refers Expression conditional
+	contains Expression conditional
 	
 	/** The expression to return if the condition evaluates to <code>true</code>. */
-	refers Expression thenExpr
+	contains Expression thenExpr
 	
 	/** The expression to return if the condition evaluates to <code>false</code>. */
-	refers Expression elseExpr
+	contains Expression elseExpr
 }

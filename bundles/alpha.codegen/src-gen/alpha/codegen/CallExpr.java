@@ -54,16 +54,16 @@ public interface CallExpr extends Expression {
 	void setFunctionName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Arguments</b></em>' reference list.
+	 * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.
 	 * The list contents are of type {@link alpha.codegen.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * * The arguments to the function. May be empty.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Arguments</em>' reference list.
+	 * @return the value of the '<em>Arguments</em>' containment reference list.
 	 * @see alpha.codegen.CodegenPackage#getCallExpr_Arguments()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Expression> getArguments();
