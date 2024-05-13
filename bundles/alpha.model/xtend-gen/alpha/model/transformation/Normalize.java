@@ -272,6 +272,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     binExpr.setLeft(newL);
     binExpr.setRight(newR);
     this.debug(binExpr);
+    AlphaInternalStateConstructor.recomputeContextDomain(binExpr);
     this.reapply(binExpr);
     return null;
   }
@@ -282,6 +283,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     final DependenceExpression newExpr = AlphaUserFactory.createDependenceExpression(de.getFunction(), ue.getExpr());
     ue.setExpr(newExpr);
     this.debug(ue);
+    AlphaInternalStateConstructor.recomputeContextDomain(ue);
     this.reapply(ue);
     return null;
   }
