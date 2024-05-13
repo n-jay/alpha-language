@@ -9,6 +9,7 @@ import fr.irisa.cairn.jnimap.isl.ISLContext;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
 import fr.irisa.cairn.jnimap.isl.ISLVal;
@@ -79,6 +80,13 @@ public class ISLUtil {
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+
+  /**
+   * Creates an ISLPWQPolynomial from a string
+   */
+  public static ISLPWQPolynomial toISLPWQPolynomial(final String descriptor) {
+    return ISLPWQPolynomial.buildFromString(ISLContext.getInstance(), descriptor);
   }
 
   /**

@@ -17,6 +17,7 @@ import alpha.model.ConvolutionExpression
 import alpha.model.JNIDomain
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLSet
+import alpha.model.DependenceExpression
 
 /**
  * Prints the Alpha program in Show notation of the older syntax used in
@@ -98,8 +99,12 @@ class ShowLegacyAlpha {
 		'''
 		}
 		
+		override caseDependenceExpression(DependenceExpression de) {
+			'''«de.function.printFunction»@(«de.expr.doSwitch»)'''
+		}
+		
 		override caseVariable(Variable v) {
-			'''double «v.name» «v.domain.printVariableDeclarationDomain»;'''
+			'''float «v.name» «v.domain.printVariableDeclarationDomain»;'''
 		}
 		
 		override caseUseEquation(UseEquation ue) {
@@ -142,6 +147,5 @@ class ShowLegacyAlpha {
 		override caseConvolutionExpression(ConvolutionExpression ce) {
 			throw new IllegalArgumentException("[ShowLegacyAlpha] ConvolutionExpression is not allowed.")
 		}
-		
 	}
 }

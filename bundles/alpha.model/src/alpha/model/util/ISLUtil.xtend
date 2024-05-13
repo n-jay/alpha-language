@@ -13,6 +13,7 @@ import fr.irisa.cairn.jnimap.isl.ISLSet
 import static extension alpha.model.matrix.MatrixOperations.scalarMultiplication
 import static extension alpha.model.matrix.MatrixOperations.transpose
 import static extension alpha.model.util.DomainOperations.*
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 
 class ISLUtil {
 	
@@ -47,6 +48,11 @@ class ISLUtil {
 		if (set.constraints.size != 1)
 			throw new Exception('Cannot create an ISLConstraint from a set with multiple constraints')
 		set.getConstraintAt(0)
+	}
+	
+	/** Creates an ISLPWQPolynomial from a string */
+	def static toISLPWQPolynomial(String descriptor) {
+		ISLPWQPolynomial.buildFromString(ISLContext.instance, descriptor)
 	}
 	
 	/** Transposes an ISLMatrix */

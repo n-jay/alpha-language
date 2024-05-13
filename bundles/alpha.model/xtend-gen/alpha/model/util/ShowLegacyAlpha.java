@@ -8,6 +8,7 @@ import alpha.model.BinaryExpression;
 import alpha.model.CalculatorExpression;
 import alpha.model.CaseExpression;
 import alpha.model.ConvolutionExpression;
+import alpha.model.DependenceExpression;
 import alpha.model.Equation;
 import alpha.model.JNIDomain;
 import alpha.model.PolynomialIndexExpression;
@@ -148,9 +149,21 @@ public class ShowLegacyAlpha {
     }
 
     @Override
+    public CharSequence caseDependenceExpression(final DependenceExpression de) {
+      StringConcatenation _builder = new StringConcatenation();
+      String _printFunction = this.printFunction(de.getFunction());
+      _builder.append(_printFunction);
+      _builder.append("@(");
+      CharSequence _doSwitch = this.doSwitch(de.getExpr());
+      _builder.append(_doSwitch);
+      _builder.append(")");
+      return _builder;
+    }
+
+    @Override
     public CharSequence caseVariable(final Variable v) {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("double ");
+      _builder.append("float ");
       String _name = v.getName();
       _builder.append(_name);
       _builder.append(" ");

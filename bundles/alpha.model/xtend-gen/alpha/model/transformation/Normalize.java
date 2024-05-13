@@ -171,6 +171,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
 
   public static void apply(final AlphaCompleteVisitable acv) {
     Normalize.apply(acv, false);
+    AlphaInternalStateConstructor.recomputeContextDomain(acv);
   }
 
   public static void apply(final AlphaCompleteVisitable acv, final boolean isDeepNormalize) {
@@ -273,6 +274,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     binExpr.setLeft(newL);
     binExpr.setRight(newR);
     this.debug(binExpr);
+    AlphaInternalStateConstructor.recomputeContextDomain(binExpr);
     this.reapply(binExpr);
     return null;
   }
@@ -283,6 +285,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     final DependenceExpression newExpr = AlphaUserFactory.createDependenceExpression(de.getFunction(), ue.getExpr());
     ue.setExpr(newExpr);
     this.debug(ue);
+    AlphaInternalStateConstructor.recomputeContextDomain(ue);
     this.reapply(ue);
     return null;
   }
@@ -314,6 +317,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     ie.setThenExpr(newT);
     ie.setElseExpr(newE);
     this.debug(ie);
+    AlphaInternalStateConstructor.recomputeContextDomain(ie);
     this.reapply(ie);
     return null;
   }
@@ -332,6 +336,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     ce.setKernelExpression(newKernelExpr);
     ce.setDataExpression(newDataExpr);
     this.debug(ce);
+    AlphaInternalStateConstructor.recomputeContextDomain(ce);
     this.reapply(ce);
     return null;
   }
@@ -574,6 +579,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.debug("pull-case UnaryExpr", "op case { E1; E2; ... }-> case { op E1; op E2; ... }");
     this.propagateDownwards(ue, ce);
     this.debug(ce);
+    AlphaInternalStateConstructor.recomputeContextDomain(ce);
     this.reapply(ce);
     return null;
   }

@@ -159,6 +159,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 
 	static def void apply(AlphaCompleteVisitable acv) {
 		apply(acv, false)
+		AlphaInternalStateConstructor.recomputeContextDomain(acv)
 	}
 	static def void apply(AlphaCompleteVisitable acv, boolean isDeepNormalize) {
 		if (acv instanceof AlphaVisitable) {
@@ -260,6 +261,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 
 		debug(binExpr);
 		// the updated expression must be revisited 
+		AlphaInternalStateConstructor.recomputeContextDomain(binExpr);
 		reapply(binExpr);
 	}
 
@@ -271,7 +273,9 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		ue.expr = newExpr
 
 		debug(ue);
-		// the updated expression must be revisited 
+		// the updated expression must be revisited
+		
+		AlphaInternalStateConstructor.recomputeContextDomain(ue); 
 		reapply(ue);
 	}
 
@@ -313,6 +317,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		
 		debug(ie);
 		// the updated expression must be revisited 
+		AlphaInternalStateConstructor.recomputeContextDomain(ie);
 		reapply(ie);
 	}
 
@@ -335,6 +340,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		debug(ce);
 		
 		// the updated expression must be revisited 
+		AlphaInternalStateConstructor.recomputeContextDomain(ce);
 		reapply(ce);
 	}
 	
@@ -537,6 +543,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		debug(ce);
 		
 		// the updated expression must be revisited 
+		AlphaInternalStateConstructor.recomputeContextDomain(ce)
 		reapply(ce);
 	}
 
