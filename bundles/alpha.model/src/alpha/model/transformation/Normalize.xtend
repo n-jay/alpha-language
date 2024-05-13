@@ -159,6 +159,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 
 	static def void apply(AlphaCompleteVisitable acv) {
 		apply(acv, false)
+		AlphaInternalStateConstructor.recomputeContextDomain(acv)
 	}
 	static def void apply(AlphaCompleteVisitable acv, boolean isDeepNormalize) {
 		if (acv instanceof AlphaVisitable) {
@@ -516,6 +517,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		debug(ce);
 		
 		// the updated expression must be revisited 
+		AlphaInternalStateConstructor.recomputeContextDomain(ce)
 		reapply(ce);
 	}
 

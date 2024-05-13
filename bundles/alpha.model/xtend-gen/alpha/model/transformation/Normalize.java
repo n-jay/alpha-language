@@ -170,6 +170,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
 
   public static void apply(final AlphaCompleteVisitable acv) {
     Normalize.apply(acv, false);
+    AlphaInternalStateConstructor.recomputeContextDomain(acv);
   }
 
   public static void apply(final AlphaCompleteVisitable acv, final boolean isDeepNormalize) {
@@ -513,6 +514,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.debug("pull-case UnaryExpr", "op case { E1; E2; ... }-> case { op E1; op E2; ... }");
     this.propagateDownwards(ue, ce);
     this.debug(ce);
+    AlphaInternalStateConstructor.recomputeContextDomain(ce);
     this.reapply(ce);
     return null;
   }
