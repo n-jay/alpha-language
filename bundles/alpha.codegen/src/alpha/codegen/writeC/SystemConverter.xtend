@@ -190,6 +190,11 @@ class SystemConverter {
 	 * which is compatible with wrapper code from the original AlphaZ system.
 	 */
 	def protected addCompatibilityGlobalVariable(Variable variable) {
+		// Scalars are handled somewhat differently in the older AlphaZ system.
+		if (variable.domain.nbIndices == 0) {
+			return addCompatiblityGlobalScalar(variable)
+		}
+		
 		// Create the global variable.
 		// Name checking is handled by the program builder.
 		val dataType = Common.alphaVariableType(variable.domain.nbIndices)
@@ -198,6 +203,20 @@ class SystemConverter {
 		// Construct a memory macro for accessing the variable.
 		// Since it's a bounding box, simply index the variable by the indices in order.
 		val arrayAccess = Factory.arrayAccessExpr(variable.name, variable.domain.indexNames)
+		val macro = Factory.macroStmt(variable.name, variable.domain.indexNames, arrayAccess)
+		program.addMemoryMacro(macro)
+	}
+	
+	/**
+	 * Adds a global variable (and memory macro) for the given scalar variable
+	 * which is compatible with wrapper code from the original AlphaZ system.
+	 */
+	def protected addCompatiblityGlobalScalar(Variable variable) {
+		// The older AlphaZ system would pass in the variable as a pointer, just to a single value.
+		val dataType = Common.alphaVariableType(1)
+		program.addGlobalVariable(true, dataType, variable.name)
+		
+		val arrayAccess = Factory.arrayAccessExpr(variable.name, "0")
 		val macro = Factory.macroStmt(variable.name, variable.domain.indexNames, arrayAccess)
 		program.addMemoryMacro(macro)
 	}
@@ -341,10 +360,10 @@ class SystemConverter {
 		// Always start with the Alpha variable type, which uses linearized memory.
 		// However, if we need compatibility with the older AlphaZ system,
 		// change the level of indirection to match the number of indices
-		// in the variable's domain.
+		// in the variable's domain (minimum of 1, as scalars are still passed in as pointers).
 		val dataType = Common.alphaVariableType
 		if (oldAlphaZCompatible) {
-			dataType.indirectionLevel = variable.domain.nbIndices
+			dataType.indirectionLevel = Integer.max(1, variable.domain.nbIndices)
 		}
 		return builder.prepareEntryArgument(variable.name, dataType)
 	}

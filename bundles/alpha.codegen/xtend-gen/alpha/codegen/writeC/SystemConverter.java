@@ -242,9 +242,30 @@ public class SystemConverter {
   protected ProgramBuilder addCompatibilityGlobalVariable(final Variable variable) {
     ProgramBuilder _xblockexpression = null;
     {
+      int _nbIndices = variable.getDomain().getNbIndices();
+      boolean _equals = (_nbIndices == 0);
+      if (_equals) {
+        return this.addCompatiblityGlobalScalar(variable);
+      }
       final DataType dataType = Common.alphaVariableType(variable.getDomain().getNbIndices());
       this.program.addGlobalVariable(true, dataType, variable.getName());
       final ArrayAccessExpr arrayAccess = Factory.arrayAccessExpr(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)));
+      final MacroStmt macro = Factory.macroStmt(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), arrayAccess);
+      _xblockexpression = this.program.addMemoryMacro(macro);
+    }
+    return _xblockexpression;
+  }
+
+  /**
+   * Adds a global variable (and memory macro) for the given scalar variable
+   * which is compatible with wrapper code from the original AlphaZ system.
+   */
+  protected ProgramBuilder addCompatiblityGlobalScalar(final Variable variable) {
+    ProgramBuilder _xblockexpression = null;
+    {
+      final DataType dataType = Common.alphaVariableType(1);
+      this.program.addGlobalVariable(true, dataType, variable.getName());
+      final ArrayAccessExpr arrayAccess = Factory.arrayAccessExpr(variable.getName(), "0");
       final MacroStmt macro = Factory.macroStmt(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), arrayAccess);
       _xblockexpression = this.program.addMemoryMacro(macro);
     }
@@ -398,7 +419,7 @@ public class SystemConverter {
   protected FunctionBuilder prepareEntryArgument(final FunctionBuilder builder, final Variable variable) {
     final DataType dataType = Common.alphaVariableType();
     if (this.oldAlphaZCompatible) {
-      dataType.setIndirectionLevel(variable.getDomain().getNbIndices());
+      dataType.setIndirectionLevel(Integer.max(1, variable.getDomain().getNbIndices()));
     }
     return SystemConverter.prepareEntryArgument(builder, variable.getName(), dataType);
   }

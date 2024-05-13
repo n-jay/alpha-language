@@ -155,11 +155,7 @@ class ProgramPrinter {
 	'''
 	
 	def static dispatch printStmt(MacroStmt stmt) {
-		if (stmt.arguments.size == 0) {
-			return '''#define «stmt.name» «stmt.replacement.printExpr»'''
-		} else {
-			return '''#define «stmt.name»(«stmt.arguments.join(",")») «stmt.replacement.printExpr»'''
-		}
+		return '''#define «stmt.name»(«stmt.arguments.join(",")») «stmt.replacement.printExpr»'''
 	}
 	
 	def static undefine(MacroStmt stmt) '''

@@ -315,30 +315,17 @@ public class ProgramPrinter {
   }
 
   protected static CharSequence _printStmt(final MacroStmt stmt) {
-    int _size = stmt.getArguments().size();
-    boolean _equals = (_size == 0);
-    if (_equals) {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("#define ");
-      String _name = stmt.getName();
-      _builder.append(_name);
-      _builder.append(" ");
-      CharSequence _printExpr = ProgramPrinter.printExpr(stmt.getReplacement());
-      _builder.append(_printExpr);
-      return _builder.toString();
-    } else {
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("#define ");
-      String _name_1 = stmt.getName();
-      _builder_1.append(_name_1);
-      _builder_1.append("(");
-      String _join = IterableExtensions.join(stmt.getArguments(), ",");
-      _builder_1.append(_join);
-      _builder_1.append(") ");
-      CharSequence _printExpr_1 = ProgramPrinter.printExpr(stmt.getReplacement());
-      _builder_1.append(_printExpr_1);
-      return _builder_1.toString();
-    }
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("#define ");
+    String _name = stmt.getName();
+    _builder.append(_name);
+    _builder.append("(");
+    String _join = IterableExtensions.join(stmt.getArguments(), ",");
+    _builder.append(_join);
+    _builder.append(") ");
+    CharSequence _printExpr = ProgramPrinter.printExpr(stmt.getReplacement());
+    _builder.append(_printExpr);
+    return _builder.toString();
   }
 
   public static CharSequence undefine(final MacroStmt stmt) {
