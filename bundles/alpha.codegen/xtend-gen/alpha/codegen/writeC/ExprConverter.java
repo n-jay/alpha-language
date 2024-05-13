@@ -30,6 +30,8 @@ import alpha.model.UnaryExpression;
 import alpha.model.VariableExpression;
 import alpha.model.util.CommonExtensions;
 import com.google.common.collect.Iterables;
+import fr.irisa.cairn.jnimap.isl.ISLAff;
+import fr.irisa.cairn.jnimap.isl.ISL_FORMAT;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -176,7 +178,7 @@ public class ExprConverter {
    * Thus, we just need to output the expression itself.
    */
   protected static Expression _convertExpr(final ProgramBuilder program, final IndexExpression ie) {
-    final String exprLiteral = ie.getFunctionExpr().plainToString().replaceAll("[\\[\\]]", "");
+    final String exprLiteral = ISLAff._toString(ie.getFunction().getAff(0), ISL_FORMAT.C.ordinal());
     return Factory.customExpr(exprLiteral);
   }
 

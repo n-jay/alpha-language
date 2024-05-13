@@ -25,6 +25,8 @@ import alpha.model.ReduceExpression
 import alpha.model.RestrictExpression
 import alpha.model.UnaryExpression
 import alpha.model.VariableExpression
+import fr.irisa.cairn.jnimap.isl.ISLAff
+import fr.irisa.cairn.jnimap.isl.ISL_FORMAT
 
 import static extension alpha.model.util.CommonExtensions.toArrayList
 
@@ -147,11 +149,9 @@ class ExprConverter {
 	 * Thus, we just need to output the expression itself.
 	 */
 	def static dispatch Expression convertExpr(ProgramBuilder program, IndexExpression ie) {
-		// The "plainToString" function prints out the expression to evaluate
-		// enclosed in square brackets, which need to be removed.
-		val exprLiteral = ie.functionExpr
-			.plainToString
-			.replaceAll("[\\[\\]]", "")
+		// The ISLMultiAff for an index expression should only contain a single ISLAff
+		// since there is only one output dimension
+		val exprLiteral = ISLAff._toString(ie.function.getAff(0), ISL_FORMAT.C.ordinal())
 		return Factory.customExpr(exprLiteral)
 	}
 	
