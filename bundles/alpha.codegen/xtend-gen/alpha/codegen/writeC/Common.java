@@ -45,10 +45,13 @@ public class Common {
    * The default macros for common functions in a program.
    */
   public static List<MacroStmt> defaultFunctionMacros() {
-    MacroStmt _macroStmt = Factory.macroStmt("max", new String[] { "a", "b" }, "(((a)>(b))?(a):(b))");
-    MacroStmt _macroStmt_1 = Factory.macroStmt("min", new String[] { "a", "b" }, "(((a)<(b))?(a):(b))");
-    MacroStmt _macroStmt_2 = Factory.macroStmt("mallocCheck", new String[] { "v", "s" }, "if ((v) == NULL) { printf(\"Failed to allocate memory for variable: %s\\n\", (s)); exit(-1); }");
-    return Collections.<MacroStmt>unmodifiableList(CollectionLiterals.<MacroStmt>newArrayList(_macroStmt, _macroStmt_1, _macroStmt_2));
+    MacroStmt _macroStmt = Factory.macroStmt("ceild", new String[] { "n", "d" }, "((int)ceil(((double)(n))/((double)(d))))");
+    MacroStmt _macroStmt_1 = Factory.macroStmt("floord", new String[] { "n", "d" }, "((int)floor(((double)(n))/((double)(d))))");
+    MacroStmt _macroStmt_2 = Factory.macroStmt("div", new String[] { "a", "b" }, "(ceild((a),(b)))");
+    MacroStmt _macroStmt_3 = Factory.macroStmt("max", new String[] { "a", "b" }, "(((a)>(b))?(a):(b))");
+    MacroStmt _macroStmt_4 = Factory.macroStmt("min", new String[] { "a", "b" }, "(((a)<(b))?(a):(b))");
+    MacroStmt _macroStmt_5 = Factory.macroStmt("mallocCheck", new String[] { "v", "s" }, "if ((v) == NULL) { printf(\"Failed to allocate memory for variable: %s\\n\", (s)); exit(-1); }");
+    return Collections.<MacroStmt>unmodifiableList(CollectionLiterals.<MacroStmt>newArrayList(_macroStmt, _macroStmt_1, _macroStmt_2, _macroStmt_3, _macroStmt_4, _macroStmt_5));
   }
 
   /**

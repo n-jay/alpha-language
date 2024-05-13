@@ -41,6 +41,9 @@ class Common {
 	/** The default macros for common functions in a program. */
 	def static defaultFunctionMacros() {
 		return #[
+			macroStmt("ceild", #["n", "d"], "((int)ceil(((double)(n))/((double)(d))))"),
+			macroStmt("floord", #["n", "d"], "((int)floor(((double)(n))/((double)(d))))"),
+			macroStmt("div", #["a", "b"], "(ceild((a),(b)))"),
 			macroStmt("max", #["a", "b"], "(((a)>(b))?(a):(b))"),
 			macroStmt("min", #["a", "b"], "(((a)<(b))?(a):(b))"),
 			macroStmt("mallocCheck", #["v", "s"], "if ((v) == NULL) { printf(\"Failed to allocate memory for variable: %s\\n\", (s)); exit(-1); }")
