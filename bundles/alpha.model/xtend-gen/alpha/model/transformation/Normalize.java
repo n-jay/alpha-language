@@ -43,6 +43,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 /**
  * Normalization of Alpha programs.
@@ -417,16 +418,80 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     if (_invalidState) {
       return;
     }
+    this.binaryExpressionRules(be, be.getLeft(), be.getRight());
+  }
+
+  protected void _binaryExpressionRules(final BinaryExpression be, final CaseExpression ceLeft, final CaseExpression ceRight) {
     EObject _eContainer = be.eContainer();
     final AlphaCompleteVisitable origContainer = ((AlphaCompleteVisitable) _eContainer);
-    final boolean bothCase = ((be.getLeft() instanceof CaseExpression) && (be.getRight() instanceof CaseExpression));
-    if ((!bothCase)) {
-      this.binaryExpressionRules(be, be.getLeft());
-      this.binaryExpressionRules(be, be.getRight());
-    } else {
-      this.binaryExpressionRules(be, EcoreUtil.<AlphaExpression>copy(be.getLeft()));
-    }
-    if (((!Objects.equal(origContainer, be.eContainer())) || bothCase)) {
+    final Function1<AlphaExpression, ISLSet> _function = (AlphaExpression it) -> {
+      return it.getContextDomain();
+    };
+    final Function1<ISLSet, List<ISLSet>> _function_1 = (ISLSet l) -> {
+      final Function1<AlphaExpression, ISLSet> _function_2 = (AlphaExpression it) -> {
+        return it.getContextDomain();
+      };
+      final Function1<ISLSet, ISLSet> _function_3 = (ISLSet r) -> {
+        return l.copy().intersect(r);
+      };
+      return ListExtensions.<ISLSet, ISLSet>map(ListExtensions.<AlphaExpression, ISLSet>map(ceRight.getExprs(), _function_2), _function_3);
+    };
+    final Function1<ISLSet, Boolean> _function_2 = (ISLSet it) -> {
+      return Boolean.valueOf(it.isEmpty());
+    };
+    final Iterable<ISLSet> newBranchDomains = IterableExtensions.<ISLSet>reject(Iterables.<ISLSet>concat(ListExtensions.<ISLSet, List<ISLSet>>map(ListExtensions.<AlphaExpression, ISLSet>map(ceLeft.getExprs(), _function), _function_1)), _function_2);
+    final Function1<ISLSet, RestrictExpression> _function_3 = (ISLSet domain) -> {
+      return AlphaUserFactory.createRestrictExpression(domain);
+    };
+    final Iterable<RestrictExpression> emptyRestrictExprs = IterableExtensions.<ISLSet, RestrictExpression>map(newBranchDomains, _function_3);
+    final CaseExpression newCE = AlphaUserFactory.createCaseExpression();
+    EList<AlphaExpression> _exprs = newCE.getExprs();
+    final Function1<RestrictExpression, RestrictExpression> _function_4 = (RestrictExpression re) -> {
+      RestrictExpression _xblockexpression = null;
+      {
+        final Function1<AlphaExpression, Boolean> _function_5 = (AlphaExpression e) -> {
+          return Boolean.valueOf(re.getRestrictDomain().isSubset(e.getExpressionDomain()));
+        };
+        AlphaExpression left = EcoreUtil.<AlphaExpression>copy(IterableExtensions.<AlphaExpression>findFirst(ceLeft.getExprs(), _function_5));
+        final Function1<AlphaExpression, Boolean> _function_6 = (AlphaExpression e) -> {
+          return Boolean.valueOf(re.getRestrictDomain().isSubset(e.getExpressionDomain()));
+        };
+        AlphaExpression right = EcoreUtil.<AlphaExpression>copy(IterableExtensions.<AlphaExpression>findFirst(ceRight.getExprs(), _function_6));
+        if ((left instanceof RestrictExpression)) {
+          left = ((RestrictExpression)left).getExpr();
+        }
+        if ((right instanceof RestrictExpression)) {
+          right = ((RestrictExpression)right).getExpr();
+        }
+        if (((left != null) && (right != null))) {
+          re.setExpr(AlphaUserFactory.createBinaryExpression(be.getOperator(), left, right));
+        } else {
+          AlphaExpression _xifexpression = null;
+          if ((left != null)) {
+            _xifexpression = left;
+          } else {
+            _xifexpression = right;
+          }
+          re.setExpr(_xifexpression);
+        }
+        _xblockexpression = re;
+      }
+      return _xblockexpression;
+    };
+    Iterable<RestrictExpression> _map = IterableExtensions.<RestrictExpression, RestrictExpression>map(emptyRestrictExprs, _function_4);
+    Iterables.<AlphaExpression>addAll(_exprs, _map);
+    EcoreUtil.replace(be, newCE);
+    AlphaInternalStateConstructor.recomputeContextDomain(newCE);
+    this.reapply(origContainer);
+  }
+
+  protected void _binaryExpressionRules(final BinaryExpression be, final AlphaExpression aeLeft, final AlphaExpression aeRight) {
+    EObject _eContainer = be.eContainer();
+    final AlphaCompleteVisitable origContainer = ((AlphaCompleteVisitable) _eContainer);
+    this.binaryExpressionRules(be, aeLeft);
+    EObject _eContainer_1 = be.eContainer();
+    boolean _notEquals = (!Objects.equal(origContainer, _eContainer_1));
+    if (_notEquals) {
       this.reapply(origContainer);
     }
   }
@@ -871,6 +936,21 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(re, are).toString());
+    }
+  }
+
+  protected void binaryExpressionRules(final BinaryExpression be, final AlphaExpression ceLeft, final AlphaExpression ceRight) {
+    if (ceLeft instanceof CaseExpression
+         && ceRight instanceof CaseExpression) {
+      _binaryExpressionRules(be, (CaseExpression)ceLeft, (CaseExpression)ceRight);
+      return;
+    } else if (ceLeft != null
+         && ceRight != null) {
+      _binaryExpressionRules(be, ceLeft, ceRight);
+      return;
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(be, ceLeft, ceRight).toString());
     }
   }
 
