@@ -316,6 +316,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		
 		debug(ie);
 		// the updated expression must be revisited 
+		AlphaInternalStateConstructor.recomputeContextDomain(ie);
 		reapply(ie);
 	}
 
@@ -338,6 +339,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		debug(ce);
 		
 		// the updated expression must be revisited 
+		AlphaInternalStateConstructor.recomputeContextDomain(ce);
 		reapply(ce);
 	}
 	

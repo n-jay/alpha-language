@@ -315,6 +315,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     ie.setThenExpr(newT);
     ie.setElseExpr(newE);
     this.debug(ie);
+    AlphaInternalStateConstructor.recomputeContextDomain(ie);
     this.reapply(ie);
     return null;
   }
@@ -333,6 +334,7 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     ce.setKernelExpression(newKernelExpr);
     ce.setDataExpression(newDataExpr);
     this.debug(ce);
+    AlphaInternalStateConstructor.recomputeContextDomain(ce);
     this.reapply(ce);
     return null;
   }
