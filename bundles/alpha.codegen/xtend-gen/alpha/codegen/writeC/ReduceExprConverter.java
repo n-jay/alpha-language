@@ -10,6 +10,7 @@ import alpha.codegen.Factory;
 import alpha.codegen.Function;
 import alpha.codegen.FunctionBuilder;
 import alpha.codegen.MacroStmt;
+import alpha.codegen.NameChecker;
 import alpha.codegen.Parameter;
 import alpha.codegen.ParenthesizedExpr;
 import alpha.codegen.ProgramBuilder;
@@ -73,17 +74,25 @@ public class ReduceExprConverter {
    * Creates the function which evaluates the reduction at a specific output point.
    */
   protected static Function createReduceFunction(final ProgramBuilder program, final ReduceExpression expr) {
-    final String myId = Integer.valueOf(ReduceExprConverter.nextReductionId).toString();
-    int _nextReductionId = ReduceExprConverter.nextReductionId;
-    ReduceExprConverter.nextReductionId = (_nextReductionId + 1);
-    final String reduceFunctionName = ("reduce" + myId);
+    String reduceFunctionName = null;
+    String reducePointMacroName = null;
+    String accumulateMacroName = null;
+    do {
+      {
+        reduceFunctionName = ("reduce" + Integer.valueOf(ReduceExprConverter.nextReductionId));
+        reducePointMacroName = ("RP" + Integer.valueOf(ReduceExprConverter.nextReductionId));
+        accumulateMacroName = ("R" + Integer.valueOf(ReduceExprConverter.nextReductionId));
+        int _nextReductionId = ReduceExprConverter.nextReductionId;
+        ReduceExprConverter.nextReductionId = (_nextReductionId + 1);
+      }
+    } while(program.getNameChecker().globalNameExists(reduceFunctionName, reducePointMacroName, accumulateMacroName));
     final FunctionBuilder function = program.startFunction(false, Common.alphaValueType(), reduceFunctionName);
     final AssignmentStmt initializeStmt = Factory.assignmentStmt(ReduceExprConverter.reduceVarName, Common.getReductionInitialValue(expr.getOperator()));
     function.addVariable(Common.alphaValueType(), ReduceExprConverter.reduceVarName).addStatement(initializeStmt);
-    final MacroStmt reducePointMacro = ReduceExprConverter.createReducePointMacro(myId, program, expr);
-    final MacroStmt accumulateMacro = ReduceExprConverter.createAccumulationMacro(myId, expr, reducePointMacro);
+    final MacroStmt reducePointMacro = ReduceExprConverter.createReducePointMacro(reducePointMacroName, program, expr);
+    final MacroStmt accumulateMacro = ReduceExprConverter.createAccumulationMacro(accumulateMacroName, expr, reducePointMacro);
     function.addStatement(reducePointMacro, accumulateMacro);
-    final ISLSet loopDomain = ReduceExprConverter.createReduceLoopDomain(expr);
+    final ISLSet loopDomain = ReduceExprConverter.createReduceLoopDomain(program.getNameChecker(), expr);
     final ISLASTNode islAST = LoopGenerator.generateLoops(accumulateMacro.getName(), loopDomain);
     final Function1<String, Parameter> _function = (String it) -> {
       return ReduceExprConverter.toParameter(it);
@@ -102,9 +111,9 @@ public class ReduceExprConverter {
   /**
    * Constructs the domain which will represent the loop nest that isl will produce.
    */
-  protected static ISLSet createReduceLoopDomain(final ReduceExpression reduceExpr) {
+  protected static ISLSet createReduceLoopDomain(final NameChecker nameChecker, final ReduceExpression reduceExpr) {
     ISLSet pointsToReduce = reduceExpr.getBody().getContextDomain().copy();
-    final HashSet<String> existingNames = new HashSet<String>();
+    final HashSet<String> existingNames = CollectionLiterals.<String>newHashSet();
     existingNames.addAll(pointsToReduce.getParamNames());
     existingNames.addAll(pointsToReduce.getIndexNames());
     final ISLSet outputDomain = reduceExpr.getContextDomain();
@@ -113,7 +122,7 @@ public class ReduceExprConverter {
     for (final Integer i : _doubleDotLessThan) {
       {
         final String outputName = outputDomain.getIndexName((i).intValue());
-        final String parameterName = ReduceExprConverter.makeParameterName(outputName, existingNames);
+        final String parameterName = nameChecker.getUniqueLocalName(existingNames, outputName, "p");
         existingNames.add(parameterName);
         pointsToReduce = pointsToReduce.<ISLSet>addParams(Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList(parameterName)));
         final ISLAff outputExpr = reduceExpr.getProjection().getAff((i).intValue());
@@ -122,19 +131,6 @@ public class ReduceExprConverter {
       }
     }
     return pointsToReduce;
-  }
-
-  /**
-   * Turns an index name into a unique parameter name.
-   * The new name is added to the given set of existing names.
-   */
-  protected static String makeParameterName(final String indexName, final HashSet<String> existingNames) {
-    String parameterName = indexName;
-    do {
-      String _parameterName = parameterName;
-      parameterName = (_parameterName + "p");
-    } while(existingNames.contains(parameterName));
-    return parameterName;
   }
 
   /**
@@ -183,18 +179,16 @@ public class ReduceExprConverter {
   /**
    * Constructs the macro that evaluates a point within the reduction body.
    */
-  protected static MacroStmt createReducePointMacro(final String reductionId, final ProgramBuilder program, final ReduceExpression expr) {
-    final String name = ("RP" + reductionId);
+  protected static MacroStmt createReducePointMacro(final String macroName, final ProgramBuilder program, final ReduceExpression expr) {
     final List<String> arguments = expr.getBody().getContextDomain().getIndexNames();
     final Expression replacement = ExprConverter.convertExpr(program, expr.getBody());
-    return Factory.macroStmt(name, ((String[])Conversions.unwrapArray(arguments, String.class)), replacement);
+    return Factory.macroStmt(macroName, ((String[])Conversions.unwrapArray(arguments, String.class)), replacement);
   }
 
   /**
    * Constructs the macro used to accumulate points of the reduction body into the reduce variable.
    */
-  protected static MacroStmt createAccumulationMacro(final String reductionId, final ReduceExpression expr, final MacroStmt reducePointMacro) {
-    final String name = ("R" + reductionId);
+  protected static MacroStmt createAccumulationMacro(final String macroName, final ReduceExpression expr, final MacroStmt reducePointMacro) {
     final Function1<String, ParenthesizedExpr> _function = (String it) -> {
       return Factory.parenthesizedExpr(it);
     };
@@ -203,6 +197,6 @@ public class ReduceExprConverter {
     final BinaryOperator operator = Common.getOperator(expr.getOperator());
     final BinaryExpr accumulateExpr = Factory.binaryExpr(operator, ReduceExprConverter.reduceVarExpr(), reducePointCall);
     final AssignmentStmt accumulateStmt = Factory.assignmentStmt(ReduceExprConverter.reduceVarExpr(), accumulateExpr);
-    return Factory.macroStmt(name, ((String[])Conversions.unwrapArray(expr.getBody().getContextDomain().getIndexNames(), String.class)), accumulateStmt);
+    return Factory.macroStmt(macroName, ((String[])Conversions.unwrapArray(expr.getBody().getContextDomain().getIndexNames(), String.class)), accumulateStmt);
   }
 }

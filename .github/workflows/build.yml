@@ -31,6 +31,7 @@ jobs:
         export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}"
         org.junit.runner.JUnitCore alpha.codegen.tests.FactoryTest
         org.junit.runner.JUnitCore alpha.codegen.tests.ModelTest
+        org.junit.runner.JUnitCore alpha.codegen.tests.NameCheckerTest
         org.junit.runner.JUnitCore alpha.codegen.tests.isl.MemoryUtilsTest
         org.junit.runner.JUnitCore alpha.model.tests.AlphaAShowTest
         org.junit.runner.JUnitCore alpha.model.tests.AlphaCheckProgramTest

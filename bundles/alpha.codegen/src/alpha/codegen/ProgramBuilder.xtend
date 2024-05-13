@@ -28,6 +28,11 @@ class ProgramBuilder {
 		return instance
 	}
 	
+	/** Retrieves the name checker being used for building this program. */
+	def getNameChecker() {
+		return nameChecker
+	}
+	
 
 	////////////////////////////////////////////////
 	// Builder Construction

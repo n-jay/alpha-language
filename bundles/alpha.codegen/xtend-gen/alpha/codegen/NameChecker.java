@@ -3,9 +3,8 @@ package alpha.codegen;
 import alpha.model.util.CommonExtensions;
 import com.google.common.base.Objects;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
-import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -44,25 +43,31 @@ public class NameChecker {
   }
 
   /**
+   * Returns true if any of the given names exist in the global scope.
+   * Otherwise, returns false.
+   */
+  public boolean globalNameExists(final String... names) {
+    final Function1<String, Boolean> _function = (String it) -> {
+      return Boolean.valueOf(this.globalNames.contains(it));
+    };
+    return IterableExtensions.<String>exists(((Iterable<String>)Conversions.doWrapArray(names)), _function);
+  }
+
+  /**
    * Checks if all the given global variables are unique and records them if so.
    * If any have already been declared, a NameConflictException is thrown.
    */
-  public boolean checkAddGlobal(final String... names) {
+  public void checkAddGlobal(final String... names) {
     try {
-      boolean _xblockexpression = false;
-      {
-        final Function1<String, Boolean> _function = (String it) -> {
-          return Boolean.valueOf(this.globalNames.contains(it));
-        };
-        final ArrayList<String> conflictingNames = CommonExtensions.<String>toArrayList(IterableExtensions.<String>filter(((Iterable<String>)Conversions.doWrapArray(names)), _function));
-        boolean _isNullOrEmpty = IterableExtensions.isNullOrEmpty(conflictingNames);
-        boolean _not = (!_isNullOrEmpty);
-        if (_not) {
-          throw new NameConflictException(((String[])Conversions.unwrapArray(conflictingNames, String.class)));
+      for (final String name : names) {
+        {
+          boolean _contains = this.globalNames.contains(name);
+          if (_contains) {
+            throw new NameConflictException(name);
+          }
+          this.globalNames.add(name);
         }
-        _xblockexpression = CollectionExtensions.<String>addAll(this.globalNames, names);
       }
-      return _xblockexpression;
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -96,7 +101,7 @@ public class NameChecker {
    * If the variable already exists at the local scope with the same data type,
    * the duplicate declaration is silently ignored.
    */
-  public boolean checkAddLocal(final VariableDecl variable, final List<VariableDecl> existingLocals) {
+  public boolean checkAddLocal(final VariableDecl variable, final Collection<VariableDecl> existingLocals) {
     try {
       if ((this.preventShadowing && this.globalNames.contains(variable.getName()))) {
         String _name = variable.getName();
@@ -123,6 +128,23 @@ public class NameChecker {
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+
+  /**
+   * Repeatedly appends the given suffix to the base name until it is unique.
+   * If the base name is already unique, the suffix is not added.
+   * 
+   * Note: the name returned is NOT added to the list of global names,
+   * as that would be done when the name is actually declared.
+   * This is just to get a name that's unique to use in a declaration.
+   */
+  public String getUniqueLocalName(final Collection<String> localNames, final String baseName, final String suffix) {
+    String toAdd = baseName;
+    while ((this.globalNames.contains(toAdd) || localNames.contains(toAdd))) {
+      String _add = toAdd;
+      toAdd = (_add + suffix);
+    }
+    return toAdd;
   }
 
   /**

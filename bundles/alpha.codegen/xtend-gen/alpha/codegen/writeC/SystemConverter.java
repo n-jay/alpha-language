@@ -475,7 +475,7 @@ public class SystemConverter {
       if (allocateFlag) {
         _xifexpression_1 = Common.flagVariableType();
       } else {
-        _xifexpression_1 = Common.alphaValueType();
+        _xifexpression_1 = Common.alphaVariableType();
       }
       final DataType dataType = _xifexpression_1;
       this.allocatedVariables.add(name);

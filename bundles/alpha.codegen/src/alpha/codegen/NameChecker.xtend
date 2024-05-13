@@ -1,7 +1,7 @@
 package alpha.codegen
 
+import java.util.Collection
 import java.util.HashSet
-import java.util.List
 
 import static extension alpha.model.util.CommonExtensions.toArrayList
 
@@ -26,18 +26,24 @@ class NameChecker {
 	}
 	
 	/**
+	 * Returns true if any of the given names exist in the global scope.
+	 * Otherwise, returns false.
+	 */
+	def globalNameExists(String... names) {
+		return names.exists[globalNames.contains(it)]
+	}
+	
+	/**
 	 * Checks if all the given global variables are unique and records them if so.
 	 * If any have already been declared, a NameConflictException is thrown.
 	 */
 	def checkAddGlobal(String... names) {
-		// Check if any of the names have already been declared.
-		val conflictingNames = names.filter[globalNames.contains(it)].toArrayList
-		if (!conflictingNames.isNullOrEmpty) {
-			throw new NameConflictException(conflictingNames)
+		for (name : names) {
+			if (globalNames.contains(name)) {
+				throw new NameConflictException(name)
+			}
+			globalNames.add(name)
 		}
-		
-		// Record all the names as having been declared.
-		globalNames.addAll(names)
 	}
 	
 	/**
@@ -67,7 +73,7 @@ class NameChecker {
 	 * If the variable already exists at the local scope with the same data type,
 	 * the duplicate declaration is silently ignored. 
 	 */
-	def checkAddLocal(VariableDecl variable, List<VariableDecl> existingLocals) {
+	def checkAddLocal(VariableDecl variable, Collection<VariableDecl> existingLocals) {
 		// If shadowing is disallowed, then the variable's name cannot match any of the global names.
 		if (preventShadowing && globalNames.contains(variable.name)) {
 			throw new NameConflictException(variable.name)
@@ -90,6 +96,22 @@ class NameChecker {
 		// This is only reached if the new declaration is an exact duplicate.
 		// In this case, ignore it.
 		return false
+	}
+	
+	/**
+	 * Repeatedly appends the given suffix to the base name until it is unique.
+	 * If the base name is already unique, the suffix is not added.
+	 * 
+	 * Note: the name returned is NOT added to the list of global names,
+	 * as that would be done when the name is actually declared.
+	 * This is just to get a name that's unique to use in a declaration.
+	 */
+	def getUniqueLocalName(Collection<String> localNames, String baseName, String suffix) {
+		var toAdd = baseName
+		while (globalNames.contains(toAdd) || localNames.contains(toAdd)) {
+			toAdd += suffix
+		}
+		return toAdd
 	}
 	
 	/** Returns true if the two variables have the same name, and false otherwise. */

@@ -406,7 +406,7 @@ class SystemConverter {
 		// Determine the name and data type of the C variable based on
 		// whether we're allocating memory for the standard variable or the flags variable.
 		val name = allocateFlag ? nameChecker.getFlagName(variable) : variable.name
-		val dataType = allocateFlag ? Common.flagVariableType : Common.alphaValueType
+		val dataType = allocateFlag ? Common.flagVariableType : Common.alphaVariableType
 		
 		// Record that we're allocating this variable so it can be freed later.
 		allocatedVariables.add(name)

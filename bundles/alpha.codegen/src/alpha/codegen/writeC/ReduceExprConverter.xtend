@@ -3,6 +3,7 @@ package alpha.codegen.writeC
 import alpha.codegen.Expression
 import alpha.codegen.Factory
 import alpha.codegen.MacroStmt
+import alpha.codegen.NameChecker
 import alpha.codegen.ProgramBuilder
 import alpha.codegen.isl.ASTConverter
 import alpha.codegen.isl.LoopGenerator
@@ -11,7 +12,6 @@ import fr.irisa.cairn.jnimap.isl.ISLAff
 import fr.irisa.cairn.jnimap.isl.ISLConstraint
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLSpace
-import java.util.HashSet
 
 /**
  * Converts an Alpha reduce expression into the appropriate C AST nodes.
@@ -46,12 +46,20 @@ class ReduceExprConverter {
 	
 	/** Creates the function which evaluates the reduction at a specific output point. */
 	def protected static createReduceFunction(ProgramBuilder program, ReduceExpression expr) {
-		// Capture the next reduction ID so we can create function and macro names.
-		val myId = nextReductionId.toString
-		nextReductionId += 1
+		// Generate unique names for the reduce function, the reduce point macro,
+		// and the accumulation macro. These names are just a prefix plus a common ID number.
+		// Keep incrementing that number until the names are unique.
+		var String reduceFunctionName
+		var String reducePointMacroName
+		var String accumulateMacroName
+		do {
+			reduceFunctionName = "reduce" + nextReductionId
+			reducePointMacroName = "RP" + nextReductionId
+			accumulateMacroName = "R" + nextReductionId
+			nextReductionId += 1
+		} while(program.nameChecker.globalNameExists(reduceFunctionName, reducePointMacroName, accumulateMacroName))
 		
 		// Start building the reduce function.
-		val reduceFunctionName = "reduce" + myId
 		val function = program.startFunction(false, Common.alphaValueType, reduceFunctionName)
 		
 		// Create the "reduction variable", which is what the reduction will accumulate into.
@@ -63,12 +71,12 @@ class ReduceExprConverter {
 			
 		// Create the macros that evaluate points within the reduction body
 		// and accumulate them into the reduce variable.
-		val reducePointMacro = createReducePointMacro(myId, program, expr)
-		val accumulateMacro = createAccumulationMacro(myId, expr, reducePointMacro)
+		val reducePointMacro = createReducePointMacro(reducePointMacroName, program, expr)
+		val accumulateMacro = createAccumulationMacro(accumulateMacroName, expr, reducePointMacro)
 		function.addStatement(reducePointMacro, accumulateMacro)
 		
 		// Use isl to determine what points need to be reduced and how they get reduced.
-		val loopDomain = expr.createReduceLoopDomain
+		val loopDomain = createReduceLoopDomain(program.nameChecker, expr)
 		val islAST = LoopGenerator.generateLoops(accumulateMacro.name, loopDomain)
 		
 		// The size parameters for the loop domain need to be added as function parameters.
@@ -88,7 +96,7 @@ class ReduceExprConverter {
 	}
 	
 	/** Constructs the domain which will represent the loop nest that isl will produce. */
-	def protected static createReduceLoopDomain(ReduceExpression reduceExpr) {
+	def protected static createReduceLoopDomain(NameChecker nameChecker, ReduceExpression reduceExpr) {
 		// We will use ISL to create the loop nest for the reduction.
 		// This needs two things: the domain of points to iterate over,
 		// and a map to the time at which they are computed at.
@@ -105,8 +113,9 @@ class ReduceExprConverter {
 		// We will start with the entire reduction body, then add parameters and constraints to it.
 		var pointsToReduce = reduceExpr.body.contextDomain.copy
 		
-		// Get the list of names that already exist so we don't create duplicates.
-		val existingNames = new HashSet<String>
+		// When we create new names for the domain's parameters,
+		// we want to ensure they are unique.
+		val existingNames = newHashSet
 		existingNames.addAll(pointsToReduce.paramNames)
 		existingNames.addAll(pointsToReduce.indexNames)
 		
@@ -119,7 +128,7 @@ class ReduceExprConverter {
 			// Get a unique parameter name which will represent that output,
 			// record it as an existing name, and add it to the set of points to reduce.
 			val outputName = outputDomain.getIndexName(i)
-			val parameterName = outputName.makeParameterName(existingNames)
+			val parameterName = nameChecker.getUniqueLocalName(existingNames, outputName, "p")
 			existingNames.add(parameterName)
 			pointsToReduce = pointsToReduce.addParams(#[parameterName])
 			
@@ -132,20 +141,6 @@ class ReduceExprConverter {
 		}
 		
 		return pointsToReduce
-	}
-	
-	/**
-	 * Turns an index name into a unique parameter name.
-	 * The new name is added to the given set of existing names.
-	 */
-	def protected static makeParameterName(String indexName, HashSet<String> existingNames) {
-		// Keep adding "p" characters to the end of the name until it's unique.
-		var parameterName = indexName
-		do {
-			parameterName += "p"
-		} while(existingNames.contains(parameterName))
-		
-		return parameterName
 	}
 	
 	/**
@@ -193,18 +188,14 @@ class ReduceExprConverter {
 	}
 	
 	/** Constructs the macro that evaluates a point within the reduction body. */
-	def protected static createReducePointMacro(String reductionId, ProgramBuilder program, ReduceExpression expr) {
-		val name = "RP" + reductionId
+	def protected static createReducePointMacro(String macroName, ProgramBuilder program, ReduceExpression expr) {
 		val arguments = expr.body.contextDomain.indexNames
 		val replacement = ExprConverter.convertExpr(program, expr.body)
-		
-		return Factory.macroStmt(name, arguments, replacement)
+		return Factory.macroStmt(macroName, arguments, replacement)
 	}
 	
 	/** Constructs the macro used to accumulate points of the reduction body into the reduce variable. */
-	def protected static createAccumulationMacro(String reductionId, ReduceExpression expr, MacroStmt reducePointMacro) {
-		val name = "R" + reductionId
-		
+	def protected static createAccumulationMacro(String macroName, ReduceExpression expr, MacroStmt reducePointMacro) {
 		// Construct a call to the reduce point macro.
 		// Since isl's call to this macro doesn't parenthesize the inputs,
 		// and since the macro for the reduction body might not be parenthesized,
@@ -218,6 +209,6 @@ class ReduceExprConverter {
 		val accumulateExpr = Factory.binaryExpr(operator, reduceVarExpr, reducePointCall)
 		val accumulateStmt = Factory.assignmentStmt(reduceVarExpr, accumulateExpr)
 		
-		return Factory.macroStmt(name, expr.body.contextDomain.indexNames, accumulateStmt)
+		return Factory.macroStmt(macroName, expr.body.contextDomain.indexNames, accumulateStmt)
 	}
 }

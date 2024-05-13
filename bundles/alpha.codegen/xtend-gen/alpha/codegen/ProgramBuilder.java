@@ -37,6 +37,13 @@ public class ProgramBuilder {
   }
 
   /**
+   * Retrieves the name checker being used for building this program.
+   */
+  public NameChecker getNameChecker() {
+    return this.nameChecker;
+  }
+
+  /**
    * Starts building a new program using the given name checker.
    */
   public static ProgramBuilder start(final NameChecker nameChecker) {
