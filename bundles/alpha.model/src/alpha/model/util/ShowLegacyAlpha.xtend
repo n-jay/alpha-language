@@ -99,7 +99,7 @@ class ShowLegacyAlpha {
 		}
 		
 		override caseVariable(Variable v) {
-			'''double «v.name» «v.domain.printVariableDeclarationDomain»;'''
+			'''float «v.name» «v.domain.printVariableDeclarationDomain»;'''
 		}
 		
 		override caseUseEquation(UseEquation ue) {

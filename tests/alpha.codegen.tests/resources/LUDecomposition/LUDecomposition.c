@@ -9,6 +9,9 @@
 #include <string.h>
 
 // Function Macros
+#define ceild(n,d) ((int)ceil(((double)(n))/((double)(d))))
+#define floord(n,d) ((int)floor(((double)(n))/((double)(d))))
+#define div(a,b) (ceild((a),(b)))
 #define max(a,b) (((a)>(b))?(a):(b))
 #define min(a,b) (((a)<(b))?(a):(b))
 #define mallocCheck(v,s) if ((v) == NULL) { printf("Failed to allocate memory for variable: %s\n", (s)); exit(-1); }
@@ -151,6 +154,9 @@ void LUDecomposition(long _local_N, float** _local_A, float** _local_L, float** 
 #undef U
 #undef _flag_L
 #undef _flag_U
+#undef ceild
+#undef floord
+#undef div
 #undef max
 #undef min
 #undef mallocCheck

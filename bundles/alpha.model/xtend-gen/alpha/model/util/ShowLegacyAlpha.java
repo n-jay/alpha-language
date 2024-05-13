@@ -150,7 +150,7 @@ public class ShowLegacyAlpha {
     @Override
     public CharSequence caseVariable(final Variable v) {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("double ");
+      _builder.append("float ");
       String _name = v.getName();
       _builder.append(_name);
       _builder.append(" ");
