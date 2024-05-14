@@ -34,8 +34,18 @@ import fr.irisa.cairn.jnimap.isl.ISLSet
  *   - all package and external function declarations are removed 
  */
 class ShowLegacyAlpha {
+	static val defaultValueType = "float"
+	
+	static def print(AlphaRoot root) {
+		return print(root, defaultValueType)
+	}
+	
 	static def print(AlphaRoot root, String valueType) {
 		root.systems.join("\n", [s|print(s, valueType)])
+	}
+	
+	static def print(AlphaSystem system) {
+		return print(system, defaultValueType)
 	}
 	
 	static def print(AlphaSystem system, String valueType) {
@@ -46,6 +56,10 @@ class ShowLegacyAlpha {
 		val show = new ShowLegacyAlphaForSystem(system.systemBodies.get(0), valueType);
 		
 		show.doSwitch(system).toString()
+	}
+	
+	static def print(SystemBody systemBody){
+		print(systemBody, defaultValueType)
 	}
 	
 	static def print(SystemBody systemBody, String valueType) {

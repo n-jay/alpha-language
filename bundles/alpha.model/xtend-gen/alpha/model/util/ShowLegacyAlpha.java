@@ -254,11 +254,21 @@ public class ShowLegacyAlpha {
     }
   }
 
+  private static final String defaultValueType = "float";
+
+  public static String print(final AlphaRoot root) {
+    return ShowLegacyAlpha.print(root, ShowLegacyAlpha.defaultValueType);
+  }
+
   public static String print(final AlphaRoot root, final String valueType) {
     final Function1<AlphaSystem, CharSequence> _function = (AlphaSystem s) -> {
       return ShowLegacyAlpha.print(s, valueType);
     };
     return IterableExtensions.<AlphaSystem>join(root.getSystems(), "\n", _function);
+  }
+
+  public static String print(final AlphaSystem system) {
+    return ShowLegacyAlpha.print(system, ShowLegacyAlpha.defaultValueType);
   }
 
   public static String print(final AlphaSystem system, final String valueType) {
@@ -274,6 +284,10 @@ public class ShowLegacyAlpha {
       _xblockexpression = show.doSwitch(system).toString();
     }
     return _xblockexpression;
+  }
+
+  public static String print(final SystemBody systemBody) {
+    return ShowLegacyAlpha.print(systemBody, ShowLegacyAlpha.defaultValueType);
   }
 
   public static String print(final SystemBody systemBody, final String valueType) {

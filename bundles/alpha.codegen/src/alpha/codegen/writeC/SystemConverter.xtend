@@ -84,6 +84,15 @@ class SystemConverter {
 	/**
 	 * Converts an Alpha system to the simplified C AST.
 	 * Only supports systems with a single body.
+	 * Defaults to data being of type "float".
+	 */
+	def static convert(AlphaSystem system, boolean oldAlphaZCompatible) {
+		return convert(system, BaseDataType.FLOAT, false)
+	}
+	
+	/**
+	 * Converts an Alpha system to the simplified C AST.
+	 * Only supports systems with a single body.
 	 * 
 	 * If requested, the code produced will aim for compatibility with
 	 * the older version of AlphaZ (although with no guarantees).
