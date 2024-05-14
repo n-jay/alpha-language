@@ -17,10 +17,10 @@
 #define mallocCheck(v,s) if ((v) == NULL) { printf("Failed to allocate memory for variable: %s\n", (s)); exit(-1); }
 
 // Global Variables
-long N;
-float* X;
-float* Y;
-char* _flag_Y;
+static long N;
+static float* X;
+static float* Y;
+static char* _flag_Y;
 
 // Memory Macros
 #define X(i0) X[i0]
@@ -28,10 +28,10 @@ char* _flag_Y;
 #define _flag_Y(i0) _flag_Y[((-1 + N - i0 >= 0 && -1 + i0 >= 0) ? (i0) : 0)]
 
 // Function Declarations
-float eval_Y(long i0);
+static float eval_Y(long i0);
 void CopyInput(long _local_N, float* _local_X, float* _local_Y);
 
-float eval_Y(long i0) {
+static float eval_Y(long i0) {
 	
 	// Check the flags.
 	if ((_flag_Y(i0)) == ('N')) {
@@ -64,7 +64,7 @@ void CopyInput(long _local_N, float* _local_X, float* _local_Y) {
 	// Allocate memory for local storage.
 	
 	// Allocate and initialize flag variables.
-	_flag_Y = (char*)(malloc((sizeof(char*)) * (((-1 + N >= 0) ? (N) : 0))));
+	_flag_Y = (char*)(malloc((sizeof(char)) * (((-1 + N >= 0) ? (N) : 0))));
 	mallocCheck(_flag_Y,"_flag_Y");
 	memset(_flag_Y,'N',((-1 + N >= 0) ? (N) : 0));
 	

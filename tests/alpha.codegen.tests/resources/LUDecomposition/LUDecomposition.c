@@ -17,12 +17,12 @@
 #define mallocCheck(v,s) if ((v) == NULL) { printf("Failed to allocate memory for variable: %s\n", (s)); exit(-1); }
 
 // Global Variables
-long N;
-float** A;
-float** L;
-float** U;
-char* _flag_L;
-char* _flag_U;
+static long N;
+static float** A;
+static float** L;
+static float** U;
+static char* _flag_L;
+static char* _flag_U;
 
 // Memory Macros
 #define A(i,j) A[i][j]
@@ -32,13 +32,13 @@ char* _flag_U;
 #define _flag_U(i,j) _flag_U[((-1 + i >= 0 && -1 - i + j >= 0 && -1 + N - j >= 0) ? (((((-1 + 2 * N) * i - i*i) + 2 * j))/2) : (-i + j == 0 && -1 + i >= 0 && -1 + N - i >= 0) ? ((((1 + 2 * N) * i - i*i))/2) : (i == 0 && -1 + N - j >= 0 && -1 + j >= 0) ? ((-i + j)) : 0)]
 
 // Function Declarations
-float reduce0(long N, long ip, long jp);
-float eval_U(long i, long j);
-float reduce1(long N, long ip, long jp);
-float eval_L(long i, long j);
+static float reduce0(long N, long ip, long jp);
+static float eval_U(long i, long j);
+static float reduce1(long N, long ip, long jp);
+static float eval_L(long i, long j);
 void LUDecomposition(long _local_N, float** _local_A, float** _local_L, float** _local_U);
 
-float reduce0(long N, long ip, long jp) {
+static float reduce0(long N, long ip, long jp) {
 	float reduceVar;
 	long k;
 	
@@ -53,7 +53,7 @@ float reduce0(long N, long ip, long jp) {
 	return reduceVar;
 }
 
-float eval_U(long i, long j) {
+static float eval_U(long i, long j) {
 	
 	// Check the flags.
 	if ((_flag_U(i,j)) == ('N')) {
@@ -69,7 +69,7 @@ float eval_U(long i, long j) {
 	return U(i,j);
 }
 
-float reduce1(long N, long ip, long jp) {
+static float reduce1(long N, long ip, long jp) {
 	float reduceVar;
 	long k;
 	
@@ -84,7 +84,7 @@ float reduce1(long N, long ip, long jp) {
 	return reduceVar;
 }
 
-float eval_L(long i, long j) {
+static float eval_L(long i, long j) {
 	
 	// Check the flags.
 	if ((_flag_L(i,j)) == ('N')) {
@@ -119,10 +119,10 @@ void LUDecomposition(long _local_N, float** _local_A, float** _local_L, float** 
 	// Allocate memory for local storage.
 	
 	// Allocate and initialize flag variables.
-	_flag_L = (char*)(malloc((sizeof(char*)) * (((-2 + N >= 0) ? (((-N + N*N))/2) : 0))));
+	_flag_L = (char*)(malloc((sizeof(char)) * (((-2 + N >= 0) ? (((-N + N*N))/2) : 0))));
 	mallocCheck(_flag_L,"_flag_L");
 	memset(_flag_L,'N',((-2 + N >= 0) ? (((-N + N*N))/2) : 0));
-	_flag_U = (char*)(malloc((sizeof(char*)) * (((-1 + N >= 0) ? (((N + N*N))/2) : 0))));
+	_flag_U = (char*)(malloc((sizeof(char)) * (((-1 + N >= 0) ? (((N + N*N))/2) : 0))));
 	mallocCheck(_flag_U,"_flag_U");
 	memset(_flag_U,'N',((-1 + N >= 0) ? (((N + N*N))/2) : 0));
 	

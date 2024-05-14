@@ -133,7 +133,7 @@ class ProgramBuilder {
 	}
 	
 	/** Starts building a function using this program's name checker. */
-	def startFunction(boolean isInline, DataType returnType, String name) {
-		return FunctionBuilder.start(isInline, returnType, name, nameChecker)
+	def startFunction(boolean isStatic, boolean isInline, DataType returnType, String name) {
+		return FunctionBuilder.start(isStatic, isInline, returnType, name, nameChecker)
 	}
 }

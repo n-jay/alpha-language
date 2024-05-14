@@ -105,7 +105,7 @@ public class ReduceExprConverter {
         this.nextReductionId = (_nextReductionId + 1);
       }
     } while(program.getNameChecker().globalNameExists(reduceFunctionName, reducePointMacroName, accumulateMacroName));
-    final FunctionBuilder function = program.startFunction(false, Factory.dataType(this.alphaValueType), reduceFunctionName);
+    final FunctionBuilder function = program.startFunction(true, false, Factory.dataType(this.alphaValueType), reduceFunctionName);
     final AssignmentStmt initializeStmt = Factory.assignmentStmt(ReduceExprConverter.reduceVarName, Common.getReductionInitialValue(expr.getOperator()));
     function.addVariable(Factory.dataType(this.alphaValueType), ReduceExprConverter.reduceVarName).addStatement(initializeStmt);
     final MacroStmt reducePointMacro = this.createReducePointMacro(reducePointMacroName, program, expr);

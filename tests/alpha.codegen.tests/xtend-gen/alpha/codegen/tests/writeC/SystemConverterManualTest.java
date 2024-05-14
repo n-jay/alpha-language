@@ -42,7 +42,7 @@ public class SystemConverterManualTest {
           final String alphaFile = (((("resources/" + program) + "/") + program) + ".alpha");
           final AlphaRoot root = AlphaLoader.loadAlpha(alphaFile);
           final AlphaSystem system = Utility.GetSystem(root, program);
-          final Program cAST = SystemConverter.convert(system, BaseDataType.LONG, true);
+          final Program cAST = SystemConverter.convert(system, BaseDataType.FLOAT, true);
           final String cProgram = ProgramPrinter.print(cAST).toString();
           final String cFile = (((("resources/" + program) + "/") + program) + ".c");
           final FileWriter writer = new FileWriter(cFile);

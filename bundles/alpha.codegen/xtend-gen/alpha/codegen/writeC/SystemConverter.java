@@ -347,7 +347,7 @@ public class SystemConverter {
   protected ProgramBuilder createEvalFunction(final StandardEquation equation) {
     ProgramBuilder _xblockexpression = null;
     {
-      final FunctionBuilder evalBuilder = FunctionBuilder.start(this.alphaValueType(), Common.getEvalName(equation.getVariable()), this.nameChecker);
+      final FunctionBuilder evalBuilder = FunctionBuilder.start(true, false, this.alphaValueType(), Common.getEvalName(equation.getVariable()), this.nameChecker);
       final List<String> indexNames = equation.getExpr().getContextDomain().getIndexNames();
       final Consumer<String> _function = (String it) -> {
         evalBuilder.addParameter(Common.alphaIndexType(), it);

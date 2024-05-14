@@ -296,7 +296,8 @@ class SystemConverter {
 	 * at some point in its domain, returning the computed (or fetched) value.
 	 */
 	def protected createEvalFunction(StandardEquation equation) {
-		val evalBuilder = FunctionBuilder.start(alphaValueType, equation.variable.evalName, nameChecker)
+		// Start building a static, non-inlined function.
+		val evalBuilder = FunctionBuilder.start(true, false, alphaValueType, equation.variable.evalName, nameChecker)
 		
 		// Add a function parameter for each index of the variable's domain.
 		val indexNames = equation.expr.contextDomain.indexNames

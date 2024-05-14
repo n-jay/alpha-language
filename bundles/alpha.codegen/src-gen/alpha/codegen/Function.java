@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link alpha.codegen.Function#getIsStatic <em>Is Static</em>}</li>
  *   <li>{@link alpha.codegen.Function#getIsInline <em>Is Inline</em>}</li>
  *   <li>{@link alpha.codegen.Function#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link alpha.codegen.Function#getName <em>Name</em>}</li>
@@ -32,6 +33,31 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Function extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Is Static</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * * If <code>true</code>, the function will be marked with the <code>static</code> keyword.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Is Static</em>' attribute.
+	 * @see #setIsStatic(Boolean)
+	 * @see alpha.codegen.CodegenPackage#getFunction_IsStatic()
+	 * @model unique="false"
+	 * @generated
+	 */
+	Boolean getIsStatic();
+
+	/**
+	 * Sets the value of the '{@link alpha.codegen.Function#getIsStatic <em>Is Static</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Is Static</em>' attribute.
+	 * @see #getIsStatic()
+	 * @generated
+	 */
+	void setIsStatic(Boolean value);
+
 	/**
 	 * Returns the value of the '<em><b>Is Inline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
