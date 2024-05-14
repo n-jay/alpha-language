@@ -173,6 +173,11 @@ public class ProgramPrinter {
           _builder_4.append("float");
           _switchResult = _builder_4.toString();
           break;
+        case DOUBLE:
+          StringConcatenation _builder_5 = new StringConcatenation();
+          _builder_5.append("double");
+          _switchResult = _builder_5.toString();
+          break;
         default:
           _switchResult = ProgramPrinter.fault();
           break;

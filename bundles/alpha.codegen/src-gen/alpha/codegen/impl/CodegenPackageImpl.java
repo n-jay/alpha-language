@@ -1475,6 +1475,7 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 		addEEnumLiteral(baseDataTypeEEnum, BaseDataType.INT);
 		addEEnumLiteral(baseDataTypeEEnum, BaseDataType.LONG);
 		addEEnumLiteral(baseDataTypeEEnum, BaseDataType.FLOAT);
+		addEEnumLiteral(baseDataTypeEEnum, BaseDataType.DOUBLE);
 
 		initEEnum(assignmentOperatorEEnum, AssignmentOperator.class, "AssignmentOperator");
 		addEEnumLiteral(assignmentOperatorEEnum, AssignmentOperator.STANDARD);

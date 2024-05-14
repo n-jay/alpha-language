@@ -88,7 +88,20 @@ public enum BaseDataType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FLOAT(0, "FLOAT", "FLOAT");
+	FLOAT(0, "FLOAT", "FLOAT"),
+
+	/**
+	 * The '<em><b>DOUBLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * * An IEEE double-precision floating point value.
+	 * <!-- end-model-doc -->
+	 * @see #DOUBLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DOUBLE(0, "DOUBLE", "DOUBLE");
 
 	/**
 	 * The '<em><b>VOID</b></em>' literal value.
@@ -161,6 +174,20 @@ public enum BaseDataType implements Enumerator {
 	public static final int FLOAT_VALUE = 0;
 
 	/**
+	 * The '<em><b>DOUBLE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * * An IEEE double-precision floating point value.
+	 * <!-- end-model-doc -->
+	 * @see #DOUBLE
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DOUBLE_VALUE = 0;
+
+	/**
 	 * An array of all the '<em><b>Base Data Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -173,6 +200,7 @@ public enum BaseDataType implements Enumerator {
 			INT,
 			LONG,
 			FLOAT,
+			DOUBLE,
 		};
 
 	/**

@@ -85,6 +85,7 @@ class ProgramPrinter {
 			case INT: '''int'''
 			case LONG: '''long'''
 			case FLOAT: '''float'''
+			case DOUBLE: '''double'''
 			default: fault
 		}
 	}
