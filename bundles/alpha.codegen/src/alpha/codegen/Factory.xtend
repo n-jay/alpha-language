@@ -233,7 +233,9 @@ class Factory {
 	def static mallocCall(DataType dataType, Expression amount) {
 		// First, we need to call "sizeof" on the data type to know
 		// how large each element being allocated is.
-		val dataTypeExpr = customExpr(ProgramPrinter.print(dataType))
+		// We need to remove one level of indirection first.
+		val sizeofType = Factory.dataType(dataType.baseType, dataType.indirectionLevel - 1)
+		val dataTypeExpr = customExpr(ProgramPrinter.print(sizeofType))
 		val sizeofCall = callExpr("sizeof", dataTypeExpr)
 		
 		// Next, we multiply that by the number of elements being allocated
