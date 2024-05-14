@@ -25,17 +25,29 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 @SuppressWarnings("all")
 public class DependenceExprConverter {
   /**
+   * The converter used for converting the body of a dependence expression into C expressions.
+   */
+  protected final ExprConverter exprConverter;
+
+  /**
+   * Constructs a new converter for dependence expressions.
+   */
+  public DependenceExprConverter(final ExprConverter exprConverter) {
+    this.exprConverter = exprConverter;
+  }
+
+  /**
    * Dispatches the conversion of a dependence expression based on the child expression.
    */
-  public static Expression convertExpr(final ProgramBuilder program, final DependenceExpression expr) {
-    return DependenceExprConverter.convertExpr(program, expr, expr.getExpr());
+  public Expression convertExpr(final ProgramBuilder program, final DependenceExpression expr) {
+    return this.convertExpr(program, expr, expr.getExpr());
   }
 
   /**
    * If the child is a constant, then simply emit that constant.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final DependenceExpression parent, final ConstantExpression child) {
-    return ExprConverter.convertExpr(program, child);
+  protected Expression _convertExpr(final ProgramBuilder program, final DependenceExpression parent, final ConstantExpression child) {
+    return this.exprConverter.convertExpr(program, child);
   }
 
   /**
@@ -43,7 +55,7 @@ public class DependenceExprConverter {
    * If the Alpha variable is an input, it's accessed via the memory macro.
    * Otherwise, it's accessed via the "eval" function.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final DependenceExpression parent, final VariableExpression child) {
+  protected Expression _convertExpr(final ProgramBuilder program, final DependenceExpression parent, final VariableExpression child) {
     final ArrayList<CustomExpr> indexExprs = AffineConverter.convertMultiAff(parent.getFunction());
     Boolean _isInput = child.getVariable().isInput();
     if ((_isInput).booleanValue()) {
@@ -57,7 +69,7 @@ public class DependenceExprConverter {
   /**
    * Default case for child expressions that aren't supported yet.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final DependenceExpression parent, final AlphaExpression child) {
+  protected Expression _convertExpr(final ProgramBuilder program, final DependenceExpression parent, final AlphaExpression child) {
     try {
       throw new Exception("Not implemented yet!");
     } catch (Throwable _e) {
@@ -65,7 +77,7 @@ public class DependenceExprConverter {
     }
   }
 
-  public static Expression convertExpr(final ProgramBuilder program, final DependenceExpression parent, final AlphaExpression child) {
+  public Expression convertExpr(final ProgramBuilder program, final DependenceExpression parent, final AlphaExpression child) {
     if (child instanceof ConstantExpression) {
       return _convertExpr(program, parent, (ConstantExpression)child);
     } else if (child instanceof VariableExpression) {

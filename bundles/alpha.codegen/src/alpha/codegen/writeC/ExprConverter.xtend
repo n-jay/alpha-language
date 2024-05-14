@@ -1,5 +1,6 @@
 package alpha.codegen.writeC
 
+import alpha.codegen.BaseDataType
 import alpha.codegen.Expression
 import alpha.codegen.Factory
 import alpha.codegen.ProgramBuilder
@@ -41,6 +42,23 @@ import static extension alpha.model.util.CommonExtensions.toArrayList
  * then returns a call expression to that function.  
  */
 class ExprConverter {
+	/** The data type to use for Alpha values. */
+	protected val BaseDataType alphaValueType
+	
+	/** The converter to use for reduce expressions. */
+	protected val ReduceExprConverter reduceExprConverter
+	
+	/** The converter to use for dependence expressions. */
+	protected val DependenceExprConverter dependenceExprConverter
+	
+	/** Constructs a new converter for reduce expressions. */
+	new(BaseDataType alphaValueType) {
+		this.alphaValueType = alphaValueType
+		this.reduceExprConverter = new ReduceExprConverter(alphaValueType, this)
+		this.dependenceExprConverter = new DependenceExprConverter(this)
+	}
+	
+	
 	///////////////////////////////////////////////
 	// External Functions are Not Allowed Yet
 	///////////////////////////////////////////////
@@ -49,11 +67,11 @@ class ExprConverter {
 		throw new Exception("Expressions that use external functions are not currently supported.")
 	}
 	
-	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalReduceExpression expr) { externalNotSupported }
-	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalArgReduceExpression expr) { externalNotSupported }
-	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalMultiArgExpression expr) { externalNotSupported }
-	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalFuzzyReduceExpression expr) { externalNotSupported }
-	def static dispatch Expression convertExpr(ProgramBuilder program, ExternalFuzzyArgReduceExpression expr) { externalNotSupported }
+	def dispatch Expression convertExpr(ProgramBuilder program, ExternalReduceExpression expr) { externalNotSupported }
+	def dispatch Expression convertExpr(ProgramBuilder program, ExternalArgReduceExpression expr) { externalNotSupported }
+	def dispatch Expression convertExpr(ProgramBuilder program, ExternalMultiArgExpression expr) { externalNotSupported }
+	def dispatch Expression convertExpr(ProgramBuilder program, ExternalFuzzyReduceExpression expr) { externalNotSupported }
+	def dispatch Expression convertExpr(ProgramBuilder program, ExternalFuzzyArgReduceExpression expr) { externalNotSupported }
 	
 	
 	///////////////////////////////////////////////
@@ -66,7 +84,7 @@ class ExprConverter {
 	 * For restrict expressions inside "case" or "reduce" expressions,
 	 * the conditional checking should be handled by the conversion of the "case" or "reduce.  
 	 */
-	def static dispatch Expression convertExpr(ProgramBuilder program, RestrictExpression re) {
+	def dispatch Expression convertExpr(ProgramBuilder program, RestrictExpression re) {
 		program.convertExpr(re.expr)
 	}
 	
@@ -76,12 +94,12 @@ class ExprConverter {
 	 * For auto-restrict expressions inside "case" or "reduce" expressions,
 	 * the conditional checking should be handled by the conversion of the "case" or "reduce.  
 	 */
-	def static dispatch Expression convertExpr(ProgramBuilder program, AutoRestrictExpression re) {
+	def dispatch Expression convertExpr(ProgramBuilder program, AutoRestrictExpression re) {
 		program.convertExpr(re.expr)
 	}
 	
 	/** Converts an Alpha "case" expression into a C ternary expression. */
-	def static dispatch Expression convertExpr(ProgramBuilder program, CaseExpression ce) {
+	def dispatch Expression convertExpr(ProgramBuilder program, CaseExpression ce) {
 		// Case expressions with no cases, or with multiple auto-restricts, are invalid.
 		if (ce.exprs.size <= 0) {
 			throw new IllegalArgumentException("Alpha case expression found with no cases.")
@@ -133,11 +151,11 @@ class ExprConverter {
 	}
 	
 	/** Dependence expression conversion is handled by a separate class. */
-	def static dispatch Expression convertExpr(ProgramBuilder program, DependenceExpression expr) {
-		return DependenceExprConverter.convertExpr(program, expr)
+	def dispatch Expression convertExpr(ProgramBuilder program, DependenceExpression expr) {
+		return dependenceExprConverter.convertExpr(program, expr)
 	}
 	
-	def static dispatch Expression convertExpr(ProgramBuilder program, IfExpression expr) {
+	def dispatch Expression convertExpr(ProgramBuilder program, IfExpression expr) {
 		val conditional = program.convertExpr(expr.condExpr)
 		val thenExpr = program.convertExpr(expr.thenExpr)
 		val elseExpr = program.convertExpr(expr.elseExpr)
@@ -148,20 +166,20 @@ class ExprConverter {
 	 * Index expressions in Alpha convert indices into values.
 	 * Thus, we just need to output the expression itself.
 	 */
-	def static dispatch Expression convertExpr(ProgramBuilder program, IndexExpression ie) {
+	def dispatch Expression convertExpr(ProgramBuilder program, IndexExpression ie) {
 		// The ISLMultiAff for an index expression should only contain a single ISLAff
 		// since there is only one output dimension
 		val exprLiteral = ISLAff._toString(ie.function.getAff(0), ISL_FORMAT.C.ordinal())
 		return Factory.customExpr(exprLiteral)
 	}
 	
-	def static dispatch Expression convertExpr(ProgramBuilder program, PolynomialIndexExpression expr) {
+	def dispatch Expression convertExpr(ProgramBuilder program, PolynomialIndexExpression expr) {
 		return PolynomialConverter.convert(expr.polynomial)
 	}
 	
 	/** Reduce expression conversion is handled by a separate class. */
-	def static dispatch Expression convertExpr(ProgramBuilder program, ReduceExpression expr) {
-		return ReduceExprConverter.convertExpr(program, expr)
+	def dispatch Expression convertExpr(ProgramBuilder program, ReduceExpression expr) {
+		return reduceExprConverter.convertExpr(program, expr)
 	}
 	
 	/**
@@ -170,7 +188,7 @@ class ExprConverter {
 	 * by the dependence expression converter, not here.
 	 * If this is reached, then the variable is implicitly being accessed by the identity function.
 	 */
-	def static dispatch Expression convertExpr(ProgramBuilder program, VariableExpression expr) {
+	def dispatch Expression convertExpr(ProgramBuilder program, VariableExpression expr) {
 		// Emit a call to this variable's indexing function/macro
 		// using the indices themselves as the arguments (i.e., the identity function).
 		val indexExprs = expr.contextDomain.indexNames.map[Factory.customExpr(it)]
@@ -187,18 +205,18 @@ class ExprConverter {
 	}
 	
 	/** Constants in Alpha simply map to the same constant in C. */
-	def static dispatch Expression convertExpr(ProgramBuilder program, ConstantExpression ce) {
+	def dispatch Expression convertExpr(ProgramBuilder program, ConstantExpression ce) {
 		return Factory.customExpr(ce.valueString)
 	}
 	
 	/** There is a 1-to-1 matching between Alpha and C unary expressions. */
-	def static dispatch Expression convertExpr(ProgramBuilder program, UnaryExpression ue) {
+	def dispatch Expression convertExpr(ProgramBuilder program, UnaryExpression ue) {
 		val op = Common.getOperator(ue.operator)
 		val expr = program.convertExpr(ue.expr)
 		return Factory.unaryExpr(op, expr)
 	}
 	
-	def static dispatch Expression convertExpr(ProgramBuilder program, BinaryExpression be) {
+	def dispatch Expression convertExpr(ProgramBuilder program, BinaryExpression be) {
 		val left = program.convertExpr(be.left)
 		val right = program.convertExpr(be.right)
 		val op = Common.getOperator(be.operator)
@@ -206,14 +224,14 @@ class ExprConverter {
 	}
 	
 	/** Multi-arg expressions are converted into a tree of nested binary expressions. */
-	def static dispatch Expression convertExpr(ProgramBuilder program, MultiArgExpression expr) {
+	def dispatch Expression convertExpr(ProgramBuilder program, MultiArgExpression expr) {
 		val op = Common.getOperator(expr.operator)
 		val children = expr.exprs.map[program.convertExpr(it)]
 		return Factory.binaryExprTree(op, children)
 	}
 	
 	/** Default case to catch unknown expression types. */
-	def static dispatch Expression convertExpr(ProgramBuilder program, AlphaExpression expr) {
+	def dispatch Expression convertExpr(ProgramBuilder program, AlphaExpression expr) {
 		throw new Exception("Not implemented yet!")
 	}
 }

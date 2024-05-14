@@ -1,5 +1,6 @@
 package alpha.codegen.writeC
 
+import alpha.codegen.BaseDataType
 import alpha.codegen.Expression
 import alpha.codegen.Factory
 import alpha.codegen.MacroStmt
@@ -19,22 +20,34 @@ import fr.irisa.cairn.jnimap.isl.ISLSpace
  * and the appropriate function call expression is returned.
  */
 class ReduceExprConverter {
+	/** The name of the reduction variable inside of reduce functions. */
+	protected static val reduceVarName = "reduceVar"
+	
 	/**
 	 * A counter for the number of reductions that have been created.
 	 * This is used for determining the names of functions and macros
 	 * which will be emitted.
 	 */
-	protected static var nextReductionId = 0
+	protected var nextReductionId = 0
 	
-	/** The name of the reduction variable inside of reduce functions. */
-	protected static val reduceVarName = "reduceVar"
+	/** The data type to use for Alpha values. */
+	protected val BaseDataType alphaValueType
+	
+	/** The converter used for converting the body of a reduce expression into C expressions. */
+	protected val ExprConverter exprConverter
+	
+	/** Constructs a new converter for reduce expressions. */
+	new(BaseDataType alphaValueType, ExprConverter exprConverter) {
+		this.alphaValueType = alphaValueType
+		this.exprConverter = exprConverter
+	}
 	
 	/**
 	 * Converts an Alpha reduce expression into the appropriate C AST nodes.
 	 * A new function is created and added to the program which computes the reduction,
 	 * and the appropriate function call expression is returned.
 	 */
-	def static Expression convertExpr(ProgramBuilder program, ReduceExpression expr) {
+	def Expression convertExpr(ProgramBuilder program, ReduceExpression expr) {
 		// Create the reduce function and add it to the program.
 		val reduceFunction = createReduceFunction(program, expr)
 		program.addFunction(reduceFunction)
@@ -45,7 +58,7 @@ class ReduceExprConverter {
 	}
 	
 	/** Creates the function which evaluates the reduction at a specific output point. */
-	def protected static createReduceFunction(ProgramBuilder program, ReduceExpression expr) {
+	def protected createReduceFunction(ProgramBuilder program, ReduceExpression expr) {
 		// Generate unique names for the reduce function, the reduce point macro,
 		// and the accumulation macro. These names are just a prefix plus a common ID number.
 		// Keep incrementing that number until the names are unique.
@@ -60,13 +73,13 @@ class ReduceExprConverter {
 		} while(program.nameChecker.globalNameExists(reduceFunctionName, reducePointMacroName, accumulateMacroName))
 		
 		// Start building the reduce function.
-		val function = program.startFunction(false, Common.alphaValueType, reduceFunctionName)
+		val function = program.startFunction(false, Factory.dataType(alphaValueType), reduceFunctionName)
 		
 		// Create the "reduction variable", which is what the reduction will accumulate into.
 		// This needs to be initialized to the correct value for the reduction operator.
 		val initializeStmt = Factory.assignmentStmt(reduceVarName, Common.getReductionInitialValue(expr.operator))
 		function
-			.addVariable(Common.alphaValueType, reduceVarName)
+			.addVariable(Factory.dataType(alphaValueType), reduceVarName)
 			.addStatement(initializeStmt)
 			
 		// Create the macros that evaluate points within the reduction body
@@ -96,7 +109,7 @@ class ReduceExprConverter {
 	}
 	
 	/** Constructs the domain which will represent the loop nest that isl will produce. */
-	def protected static createReduceLoopDomain(NameChecker nameChecker, ReduceExpression reduceExpr) {
+	def protected createReduceLoopDomain(NameChecker nameChecker, ReduceExpression reduceExpr) {
 		// We will use ISL to create the loop nest for the reduction.
 		// This needs two things: the domain of points to iterate over,
 		// and a map to the time at which they are computed at.
@@ -188,9 +201,9 @@ class ReduceExprConverter {
 	}
 	
 	/** Constructs the macro that evaluates a point within the reduction body. */
-	def protected static createReducePointMacro(String macroName, ProgramBuilder program, ReduceExpression expr) {
+	def protected createReducePointMacro(String macroName, ProgramBuilder program, ReduceExpression expr) {
 		val arguments = expr.body.contextDomain.indexNames
-		val replacement = ExprConverter.convertExpr(program, expr.body)
+		val replacement = exprConverter.convertExpr(program, expr.body)
 		return Factory.macroStmt(macroName, arguments, replacement)
 	}
 	

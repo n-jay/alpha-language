@@ -1,5 +1,6 @@
 package alpha.codegen.writeC;
 
+import alpha.codegen.BaseDataType;
 import alpha.codegen.BinaryOperator;
 import alpha.codegen.CustomExpr;
 import alpha.codegen.Expression;
@@ -54,6 +55,32 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
  */
 @SuppressWarnings("all")
 public class ExprConverter {
+  /**
+   * The data type to use for Alpha values.
+   */
+  protected final BaseDataType alphaValueType;
+
+  /**
+   * The converter to use for reduce expressions.
+   */
+  protected final ReduceExprConverter reduceExprConverter;
+
+  /**
+   * The converter to use for dependence expressions.
+   */
+  protected final DependenceExprConverter dependenceExprConverter;
+
+  /**
+   * Constructs a new converter for reduce expressions.
+   */
+  public ExprConverter(final BaseDataType alphaValueType) {
+    this.alphaValueType = alphaValueType;
+    ReduceExprConverter _reduceExprConverter = new ReduceExprConverter(alphaValueType, this);
+    this.reduceExprConverter = _reduceExprConverter;
+    DependenceExprConverter _dependenceExprConverter = new DependenceExprConverter(this);
+    this.dependenceExprConverter = _dependenceExprConverter;
+  }
+
   protected static Expression externalNotSupported() {
     try {
       throw new Exception("Expressions that use external functions are not currently supported.");
@@ -62,23 +89,23 @@ public class ExprConverter {
     }
   }
 
-  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalReduceExpression expr) {
+  protected Expression _convertExpr(final ProgramBuilder program, final ExternalReduceExpression expr) {
     return ExprConverter.externalNotSupported();
   }
 
-  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalArgReduceExpression expr) {
+  protected Expression _convertExpr(final ProgramBuilder program, final ExternalArgReduceExpression expr) {
     return ExprConverter.externalNotSupported();
   }
 
-  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalMultiArgExpression expr) {
+  protected Expression _convertExpr(final ProgramBuilder program, final ExternalMultiArgExpression expr) {
     return ExprConverter.externalNotSupported();
   }
 
-  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalFuzzyReduceExpression expr) {
+  protected Expression _convertExpr(final ProgramBuilder program, final ExternalFuzzyReduceExpression expr) {
     return ExprConverter.externalNotSupported();
   }
 
-  protected static Expression _convertExpr(final ProgramBuilder program, final ExternalFuzzyArgReduceExpression expr) {
+  protected Expression _convertExpr(final ProgramBuilder program, final ExternalFuzzyArgReduceExpression expr) {
     return ExprConverter.externalNotSupported();
   }
 
@@ -88,8 +115,8 @@ public class ExprConverter {
    * For restrict expressions inside "case" or "reduce" expressions,
    * the conditional checking should be handled by the conversion of the "case" or "reduce.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final RestrictExpression re) {
-    return ExprConverter.convertExpr(program, re.getExpr());
+  protected Expression _convertExpr(final ProgramBuilder program, final RestrictExpression re) {
+    return this.convertExpr(program, re.getExpr());
   }
 
   /**
@@ -98,14 +125,14 @@ public class ExprConverter {
    * For auto-restrict expressions inside "case" or "reduce" expressions,
    * the conditional checking should be handled by the conversion of the "case" or "reduce.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final AutoRestrictExpression re) {
-    return ExprConverter.convertExpr(program, re.getExpr());
+  protected Expression _convertExpr(final ProgramBuilder program, final AutoRestrictExpression re) {
+    return this.convertExpr(program, re.getExpr());
   }
 
   /**
    * Converts an Alpha "case" expression into a C ternary expression.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final CaseExpression ce) {
+  protected Expression _convertExpr(final ProgramBuilder program, final CaseExpression ce) {
     int _size = ce.getExprs().size();
     boolean _lessEqualsThan = (_size <= 0);
     if (_lessEqualsThan) {
@@ -120,7 +147,7 @@ public class ExprConverter {
     int _size_2 = ce.getExprs().size();
     boolean _equals = (_size_2 == 1);
     if (_equals) {
-      return ExprConverter.convertExpr(program, ce.getExprs().get(0));
+      return this.convertExpr(program, ce.getExprs().get(0));
     }
     AlphaExpression _xifexpression = null;
     int _size_3 = autoRestricts.size();
@@ -136,12 +163,12 @@ public class ExprConverter {
     };
     final Iterable<AlphaExpression> remainingCases = IterableExtensions.<AlphaExpression>reject(ce.getExprs(), _function);
     final AlphaExpression firstCase = IterableExtensions.<AlphaExpression>head(remainingCases);
-    final TernaryExprBuilder builder = TernaryExprBuilder.start(ExprConverter.createConditional(firstCase), ExprConverter.convertExpr(program, firstCase));
+    final TernaryExprBuilder builder = TernaryExprBuilder.start(ExprConverter.createConditional(firstCase), this.convertExpr(program, firstCase));
     final Consumer<AlphaExpression> _function_1 = (AlphaExpression it) -> {
-      builder.addCase(ExprConverter.createConditional(it), ExprConverter.convertExpr(program, it));
+      builder.addCase(ExprConverter.createConditional(it), this.convertExpr(program, it));
     };
     IterableExtensions.<AlphaExpression>tail(remainingCases).forEach(_function_1);
-    return builder.elseCase(ExprConverter.convertExpr(program, lastCase));
+    return builder.elseCase(this.convertExpr(program, lastCase));
   }
 
   /**
@@ -162,14 +189,14 @@ public class ExprConverter {
   /**
    * Dependence expression conversion is handled by a separate class.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final DependenceExpression expr) {
-    return DependenceExprConverter.convertExpr(program, expr);
+  protected Expression _convertExpr(final ProgramBuilder program, final DependenceExpression expr) {
+    return this.dependenceExprConverter.convertExpr(program, expr);
   }
 
-  protected static Expression _convertExpr(final ProgramBuilder program, final IfExpression expr) {
-    final Expression conditional = ExprConverter.convertExpr(program, expr.getCondExpr());
-    final Expression thenExpr = ExprConverter.convertExpr(program, expr.getThenExpr());
-    final Expression elseExpr = ExprConverter.convertExpr(program, expr.getElseExpr());
+  protected Expression _convertExpr(final ProgramBuilder program, final IfExpression expr) {
+    final Expression conditional = this.convertExpr(program, expr.getCondExpr());
+    final Expression thenExpr = this.convertExpr(program, expr.getThenExpr());
+    final Expression elseExpr = this.convertExpr(program, expr.getElseExpr());
     return Factory.ternaryExpr(conditional, thenExpr, elseExpr);
   }
 
@@ -177,20 +204,20 @@ public class ExprConverter {
    * Index expressions in Alpha convert indices into values.
    * Thus, we just need to output the expression itself.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final IndexExpression ie) {
+  protected Expression _convertExpr(final ProgramBuilder program, final IndexExpression ie) {
     final String exprLiteral = ISLAff._toString(ie.getFunction().getAff(0), ISL_FORMAT.C.ordinal());
     return Factory.customExpr(exprLiteral);
   }
 
-  protected static Expression _convertExpr(final ProgramBuilder program, final PolynomialIndexExpression expr) {
+  protected Expression _convertExpr(final ProgramBuilder program, final PolynomialIndexExpression expr) {
     return PolynomialConverter.convert(expr.getPolynomial());
   }
 
   /**
    * Reduce expression conversion is handled by a separate class.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final ReduceExpression expr) {
-    return ReduceExprConverter.convertExpr(program, expr);
+  protected Expression _convertExpr(final ProgramBuilder program, final ReduceExpression expr) {
+    return this.reduceExprConverter.convertExpr(program, expr);
   }
 
   /**
@@ -199,7 +226,7 @@ public class ExprConverter {
    * by the dependence expression converter, not here.
    * If this is reached, then the variable is implicitly being accessed by the identity function.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final VariableExpression expr) {
+  protected Expression _convertExpr(final ProgramBuilder program, final VariableExpression expr) {
     final Function1<String, CustomExpr> _function = (String it) -> {
       return Factory.customExpr(it);
     };
@@ -216,22 +243,22 @@ public class ExprConverter {
   /**
    * Constants in Alpha simply map to the same constant in C.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final ConstantExpression ce) {
+  protected Expression _convertExpr(final ProgramBuilder program, final ConstantExpression ce) {
     return Factory.customExpr(ce.valueString());
   }
 
   /**
    * There is a 1-to-1 matching between Alpha and C unary expressions.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final UnaryExpression ue) {
+  protected Expression _convertExpr(final ProgramBuilder program, final UnaryExpression ue) {
     final UnaryOperator op = Common.getOperator(ue.getOperator());
-    final Expression expr = ExprConverter.convertExpr(program, ue.getExpr());
+    final Expression expr = this.convertExpr(program, ue.getExpr());
     return Factory.unaryExpr(op, expr);
   }
 
-  protected static Expression _convertExpr(final ProgramBuilder program, final BinaryExpression be) {
-    final Expression left = ExprConverter.convertExpr(program, be.getLeft());
-    final Expression right = ExprConverter.convertExpr(program, be.getRight());
+  protected Expression _convertExpr(final ProgramBuilder program, final BinaryExpression be) {
+    final Expression left = this.convertExpr(program, be.getLeft());
+    final Expression right = this.convertExpr(program, be.getRight());
     final BinaryOperator op = Common.getOperator(be.getOperator());
     return Factory.binaryExpr(op, left, right);
   }
@@ -239,10 +266,10 @@ public class ExprConverter {
   /**
    * Multi-arg expressions are converted into a tree of nested binary expressions.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final MultiArgExpression expr) {
+  protected Expression _convertExpr(final ProgramBuilder program, final MultiArgExpression expr) {
     final BinaryOperator op = Common.getOperator(expr.getOperator());
     final Function1<AlphaExpression, Expression> _function = (AlphaExpression it) -> {
-      return ExprConverter.convertExpr(program, it);
+      return this.convertExpr(program, it);
     };
     final List<Expression> children = ListExtensions.<AlphaExpression, Expression>map(expr.getExprs(), _function);
     return Factory.binaryExprTree(op, ((Expression[])Conversions.unwrapArray(children, Expression.class)));
@@ -251,7 +278,7 @@ public class ExprConverter {
   /**
    * Default case to catch unknown expression types.
    */
-  protected static Expression _convertExpr(final ProgramBuilder program, final AlphaExpression expr) {
+  protected Expression _convertExpr(final ProgramBuilder program, final AlphaExpression expr) {
     try {
       throw new Exception("Not implemented yet!");
     } catch (Throwable _e) {
@@ -259,7 +286,7 @@ public class ExprConverter {
     }
   }
 
-  public static Expression convertExpr(final ProgramBuilder program, final AlphaExpression expr) {
+  public Expression convertExpr(final ProgramBuilder program, final AlphaExpression expr) {
     if (expr instanceof ExternalArgReduceExpression) {
       return _convertExpr(program, (ExternalArgReduceExpression)expr);
     } else if (expr instanceof ExternalFuzzyArgReduceExpression) {

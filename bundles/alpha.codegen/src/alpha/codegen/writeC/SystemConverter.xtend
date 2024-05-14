@@ -55,21 +55,39 @@ class SystemConverter {
 	/** A name checker to ensure names are unique. */
 	protected val WriteCNameChecker nameChecker
 	
+	/** The data type of values in the Alpha variables. */
+	protected val BaseDataType valueType
+	
+	/** The converter to use for turning Alpha expressions into C code. */
+	protected val ExprConverter exprConverter
+	
 	/** Protected constructor. */
-	protected new(AlphaSystem system, boolean oldAlphaZCompatible) {
+	protected new(AlphaSystem system, BaseDataType valueType, boolean oldAlphaZCompatible) {
 		this.allocatedVariables = newArrayList
 		this.oldAlphaZCompatible = oldAlphaZCompatible
 		this.system = system
 		this.nameChecker = new WriteCNameChecker
 		this.program = ProgramBuilder.start(this.nameChecker)
+		this.valueType = valueType
+		this.exprConverter = new ExprConverter(valueType)
 	}
 	
 	/**
 	 * Converts an Alpha system to the simplified C AST.
 	 * Only supports systems with a single body.
+	 * Defaults to data being of type "float" and linearizing memory usage.
 	 */
 	def static convert(AlphaSystem system) {
-		return convert(system, false)
+		return convert(system, BaseDataType.FLOAT, false)
+	}
+	
+	/**
+	 * Converts an Alpha system to the simplified C AST.
+	 * Only supports systems with a single body.
+	 * Defaults to data being of type "float".
+	 */
+	def static convert(AlphaSystem system, boolean oldAlphaZCompatible) {
+		return convert(system, BaseDataType.FLOAT, false)
 	}
 	
 	/**
@@ -86,14 +104,14 @@ class SystemConverter {
 	 * all indices are assumed to be of type "long",
 	 * and all data values are of type "float".
 	 */
-	def static convert(AlphaSystem system, boolean oldAlphaZCompatible) {
+	def static convert(AlphaSystem system, BaseDataType valueType, boolean oldAlphaZCompatible) {
 		// Duplicate the system and then preprocess the duplicate
 		// by applying normalization and name standardization.
 		val duplicate = system.copyAE
 		Normalize.apply(duplicate)
 		StandardizeNames.apply(duplicate)
 		
-		return (new SystemConverter(duplicate, oldAlphaZCompatible)).convertSystem
+		return (new SystemConverter(duplicate, valueType, oldAlphaZCompatible)).convertSystem
 	}
 	
 	/**
@@ -152,6 +170,23 @@ class SystemConverter {
 	
 	
 	/////////////////////////////////////////////////////////////////////////////
+	// Typing
+	/////////////////////////////////////////////////////////////////////////////
+	
+	def alphaValueType() {
+		return alphaVariableType(0)
+	}
+	
+	def alphaVariableType() {
+		return alphaVariableType(1)
+	}
+	
+	def alphaVariableType(int indirectionLevel) {
+		return Factory.dataType(valueType, indirectionLevel)
+	}
+	
+	
+	/////////////////////////////////////////////////////////////////////////////
 	// Variable and Memory Macro Declarations
 	/////////////////////////////////////////////////////////////////////////////
 	
@@ -181,7 +216,7 @@ class SystemConverter {
 	 */
 	def protected addLinearizedGlobalVariable(Variable variable) {
 		// Name checking is handled by the program builder.
-		program.addGlobalVariable(true, Common.alphaVariableType, variable.name)
+		program.addGlobalVariable(true, alphaVariableType, variable.name)
 		addLinearMemoryMacro(variable.name, variable.domain)
 	}
 	
@@ -197,7 +232,7 @@ class SystemConverter {
 		
 		// Create the global variable.
 		// Name checking is handled by the program builder.
-		val dataType = Common.alphaVariableType(variable.domain.nbIndices)
+		val dataType = alphaVariableType(variable.domain.nbIndices)
 		program.addGlobalVariable(true, dataType, variable.name)
 		
 		// Construct a memory macro for accessing the variable.
@@ -213,7 +248,7 @@ class SystemConverter {
 	 */
 	def protected addCompatiblityGlobalScalar(Variable variable) {
 		// The older AlphaZ system would pass in the variable as a pointer, just to a single value.
-		val dataType = Common.alphaVariableType(1)
+		val dataType = alphaVariableType(1)
 		program.addGlobalVariable(true, dataType, variable.name)
 		
 		val arrayAccess = Factory.arrayAccessExpr(variable.name, "0")
@@ -261,7 +296,7 @@ class SystemConverter {
 	 * at some point in its domain, returning the computed (or fetched) value.
 	 */
 	def protected createEvalFunction(StandardEquation equation) {
-		val evalBuilder = FunctionBuilder.start(Common.alphaValueType, equation.variable.evalName, nameChecker)
+		val evalBuilder = FunctionBuilder.start(alphaValueType, equation.variable.evalName, nameChecker)
 		
 		// Add a function parameter for each index of the variable's domain.
 		val indexNames = equation.expr.contextDomain.indexNames
@@ -285,7 +320,7 @@ class SystemConverter {
 	def protected getFlagCheckingBlock(StandardEquation equation) {
 		// For readability of this code, here is the statement that actually assigns
 		// the variable being computed.
-		val computeValue = ExprConverter.convertExpr(program, equation.expr)
+		val computeValue = exprConverter.convertExpr(program, equation.expr)
 		val computeAndStore = Factory.assignmentStmt(equation.identityAccess(false), computeValue)
 		
 		// If the flags indicate the value hasn't been evaluated yet:
@@ -361,7 +396,7 @@ class SystemConverter {
 		// However, if we need compatibility with the older AlphaZ system,
 		// change the level of indirection to match the number of indices
 		// in the variable's domain (minimum of 1, as scalars are still passed in as pointers).
-		val dataType = Common.alphaVariableType
+		val dataType = alphaVariableType
 		if (oldAlphaZCompatible) {
 			dataType.indirectionLevel = Integer.max(1, variable.domain.nbIndices)
 		}
@@ -432,7 +467,7 @@ class SystemConverter {
 		// Determine the name and data type of the C variable based on
 		// whether we're allocating memory for the standard variable or the flags variable.
 		val name = allocateFlag ? nameChecker.getFlagName(variable) : variable.name
-		val dataType = allocateFlag ? Common.flagVariableType : Common.alphaVariableType
+		val dataType = allocateFlag ? Common.flagVariableType : alphaVariableType
 		
 		// Record that we're allocating this variable so it can be freed later.
 		allocatedVariables.add(name)

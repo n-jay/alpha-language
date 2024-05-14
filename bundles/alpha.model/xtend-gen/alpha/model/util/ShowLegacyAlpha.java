@@ -44,8 +44,14 @@ public class ShowLegacyAlpha {
   public static class ShowLegacyAlphaForSystem extends Show {
     protected SystemBody targetBody;
 
-    public ShowLegacyAlphaForSystem(final SystemBody targetBody) {
+    /**
+     * The data type to use for the Alpha variables.
+     */
+    private final String valueType;
+
+    public ShowLegacyAlphaForSystem(final SystemBody targetBody, final String valueType) {
       this.targetBody = targetBody;
+      this.valueType = valueType;
     }
 
     @Override
@@ -163,7 +169,8 @@ public class ShowLegacyAlpha {
     @Override
     public CharSequence caseVariable(final Variable v) {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("float ");
+      _builder.append(this.valueType);
+      _builder.append(" ");
       String _name = v.getName();
       _builder.append(_name);
       _builder.append(" ");
@@ -247,14 +254,24 @@ public class ShowLegacyAlpha {
     }
   }
 
+  private static final String defaultValueType = "float";
+
   public static String print(final AlphaRoot root) {
+    return ShowLegacyAlpha.print(root, ShowLegacyAlpha.defaultValueType);
+  }
+
+  public static String print(final AlphaRoot root, final String valueType) {
     final Function1<AlphaSystem, CharSequence> _function = (AlphaSystem s) -> {
-      return ShowLegacyAlpha.print(s);
+      return ShowLegacyAlpha.print(s, valueType);
     };
     return IterableExtensions.<AlphaSystem>join(root.getSystems(), "\n", _function);
   }
 
   public static String print(final AlphaSystem system) {
+    return ShowLegacyAlpha.print(system, ShowLegacyAlpha.defaultValueType);
+  }
+
+  public static String print(final AlphaSystem system, final String valueType) {
     String _xblockexpression = null;
     {
       int _size = system.getSystemBodies().size();
@@ -263,16 +280,20 @@ public class ShowLegacyAlpha {
         throw new IllegalArgumentException("[ShowLegacyAlpha] A system with multiple bodies are not supported.");
       }
       SystemBody _get = system.getSystemBodies().get(0);
-      final ShowLegacyAlpha.ShowLegacyAlphaForSystem show = new ShowLegacyAlpha.ShowLegacyAlphaForSystem(_get);
+      final ShowLegacyAlpha.ShowLegacyAlphaForSystem show = new ShowLegacyAlpha.ShowLegacyAlphaForSystem(_get, valueType);
       _xblockexpression = show.doSwitch(system).toString();
     }
     return _xblockexpression;
   }
 
   public static String print(final SystemBody systemBody) {
+    return ShowLegacyAlpha.print(systemBody, ShowLegacyAlpha.defaultValueType);
+  }
+
+  public static String print(final SystemBody systemBody, final String valueType) {
     String _xblockexpression = null;
     {
-      final ShowLegacyAlpha.ShowLegacyAlphaForSystem show = new ShowLegacyAlpha.ShowLegacyAlphaForSystem(systemBody);
+      final ShowLegacyAlpha.ShowLegacyAlphaForSystem show = new ShowLegacyAlpha.ShowLegacyAlphaForSystem(systemBody, valueType);
       _xblockexpression = show.doSwitch(systemBody.getSystem()).toString();
     }
     return _xblockexpression;

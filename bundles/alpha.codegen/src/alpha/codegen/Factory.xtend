@@ -33,6 +33,11 @@ class Factory {
 	// Variables and Data Types
 	////////////////////////////////////////////////
 	
+	/** Creates a non-pointer data type. */
+	def static dataType(BaseDataType baseType) {
+		return dataType(baseType, 0)
+	}
+	
 	def static dataType(BaseDataType baseType, int indirectionLevel) {
 		val dataType = factory.createDataType
 		dataType.baseType = baseType

@@ -158,15 +158,25 @@ public class ProgramPrinter {
           _builder_1.append("char");
           _switchResult = _builder_1.toString();
           break;
-        case LONG:
+        case INT:
           StringConcatenation _builder_2 = new StringConcatenation();
-          _builder_2.append("long");
+          _builder_2.append("int");
           _switchResult = _builder_2.toString();
           break;
-        case FLOAT:
+        case LONG:
           StringConcatenation _builder_3 = new StringConcatenation();
-          _builder_3.append("float");
+          _builder_3.append("long");
           _switchResult = _builder_3.toString();
+          break;
+        case FLOAT:
+          StringConcatenation _builder_4 = new StringConcatenation();
+          _builder_4.append("float");
+          _switchResult = _builder_4.toString();
+          break;
+        case DOUBLE:
+          StringConcatenation _builder_5 = new StringConcatenation();
+          _builder_5.append("double");
+          _switchResult = _builder_5.toString();
           break;
         default:
           _switchResult = ProgramPrinter.fault();

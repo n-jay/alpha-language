@@ -60,11 +60,17 @@ enum BaseDataType {
 	/** A single ASCII character. */
 	CHAR,
 	
+	/** A regular length integer. */
+	INT,
+	
 	/** A long integer. */
 	LONG,
 	
 	/** An IEEE floating point value. */
-	FLOAT
+	FLOAT,
+	
+	/** An IEEE double-precision floating point value. */
+	DOUBLE
 }
 
 /** Represents a data type which may or may not be a pointer. */
