@@ -82,6 +82,7 @@ class ProgramPrinter {
 		return switch type {
 			case VOID: '''void'''
 			case CHAR: '''char'''
+			case INT: '''int'''
 			case LONG: '''long'''
 			case FLOAT: '''float'''
 			default: fault

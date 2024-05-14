@@ -60,6 +60,9 @@ enum BaseDataType {
 	/** A single ASCII character. */
 	CHAR,
 	
+	/** A regular length integer. */
+	INT,
+	
 	/** A long integer. */
 	LONG,
 	

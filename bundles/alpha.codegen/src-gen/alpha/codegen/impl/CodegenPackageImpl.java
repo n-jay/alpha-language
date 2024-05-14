@@ -1472,6 +1472,7 @@ public class CodegenPackageImpl extends EPackageImpl implements CodegenPackage {
 		initEEnum(baseDataTypeEEnum, BaseDataType.class, "BaseDataType");
 		addEEnumLiteral(baseDataTypeEEnum, BaseDataType.VOID);
 		addEEnumLiteral(baseDataTypeEEnum, BaseDataType.CHAR);
+		addEEnumLiteral(baseDataTypeEEnum, BaseDataType.INT);
 		addEEnumLiteral(baseDataTypeEEnum, BaseDataType.LONG);
 		addEEnumLiteral(baseDataTypeEEnum, BaseDataType.FLOAT);
 
