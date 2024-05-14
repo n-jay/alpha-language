@@ -39,6 +39,13 @@ public class Factory {
     return include;
   }
 
+  /**
+   * Creates a non-pointer data type.
+   */
+  public static DataType dataType(final BaseDataType baseType) {
+    return Factory.dataType(baseType, 0);
+  }
+
   public static DataType dataType(final BaseDataType baseType, final int indirectionLevel) {
     final DataType dataType = Factory.factory.createDataType();
     dataType.setBaseType(baseType);

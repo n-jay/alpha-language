@@ -1,6 +1,7 @@
 package alpha.codegen.writeC;
 
 import alpha.codegen.AssignmentStmt;
+import alpha.codegen.BaseDataType;
 import alpha.codegen.BinaryExpr;
 import alpha.codegen.BinaryOperator;
 import alpha.codegen.CallExpr;
@@ -45,24 +46,42 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 @SuppressWarnings("all")
 public class ReduceExprConverter {
   /**
+   * The name of the reduction variable inside of reduce functions.
+   */
+  protected static final String reduceVarName = "reduceVar";
+
+  /**
    * A counter for the number of reductions that have been created.
    * This is used for determining the names of functions and macros
    * which will be emitted.
    */
-  protected static int nextReductionId = 0;
+  protected int nextReductionId = 0;
 
   /**
-   * The name of the reduction variable inside of reduce functions.
+   * The data type to use for Alpha values.
    */
-  protected static final String reduceVarName = "reduceVar";
+  protected final BaseDataType alphaValueType;
+
+  /**
+   * The converter used for converting the body of a reduce expression into C expressions.
+   */
+  protected final ExprConverter exprConverter;
+
+  /**
+   * Constructs a new converter for reduce expressions.
+   */
+  public ReduceExprConverter(final BaseDataType alphaValueType, final ExprConverter exprConverter) {
+    this.alphaValueType = alphaValueType;
+    this.exprConverter = exprConverter;
+  }
 
   /**
    * Converts an Alpha reduce expression into the appropriate C AST nodes.
    * A new function is created and added to the program which computes the reduction,
    * and the appropriate function call expression is returned.
    */
-  public static Expression convertExpr(final ProgramBuilder program, final ReduceExpression expr) {
-    final Function reduceFunction = ReduceExprConverter.createReduceFunction(program, expr);
+  public Expression convertExpr(final ProgramBuilder program, final ReduceExpression expr) {
+    final Function reduceFunction = this.createReduceFunction(program, expr);
     program.addFunction(reduceFunction);
     List<String> _paramNames = expr.getContextDomain().getParamNames();
     List<String> _indexNames = expr.getContextDomain().getIndexNames();
@@ -73,26 +92,26 @@ public class ReduceExprConverter {
   /**
    * Creates the function which evaluates the reduction at a specific output point.
    */
-  protected static Function createReduceFunction(final ProgramBuilder program, final ReduceExpression expr) {
+  protected Function createReduceFunction(final ProgramBuilder program, final ReduceExpression expr) {
     String reduceFunctionName = null;
     String reducePointMacroName = null;
     String accumulateMacroName = null;
     do {
       {
-        reduceFunctionName = ("reduce" + Integer.valueOf(ReduceExprConverter.nextReductionId));
-        reducePointMacroName = ("RP" + Integer.valueOf(ReduceExprConverter.nextReductionId));
-        accumulateMacroName = ("R" + Integer.valueOf(ReduceExprConverter.nextReductionId));
-        int _nextReductionId = ReduceExprConverter.nextReductionId;
-        ReduceExprConverter.nextReductionId = (_nextReductionId + 1);
+        reduceFunctionName = ("reduce" + Integer.valueOf(this.nextReductionId));
+        reducePointMacroName = ("RP" + Integer.valueOf(this.nextReductionId));
+        accumulateMacroName = ("R" + Integer.valueOf(this.nextReductionId));
+        int _nextReductionId = this.nextReductionId;
+        this.nextReductionId = (_nextReductionId + 1);
       }
     } while(program.getNameChecker().globalNameExists(reduceFunctionName, reducePointMacroName, accumulateMacroName));
-    final FunctionBuilder function = program.startFunction(false, Common.alphaValueType(), reduceFunctionName);
+    final FunctionBuilder function = program.startFunction(false, Factory.dataType(this.alphaValueType), reduceFunctionName);
     final AssignmentStmt initializeStmt = Factory.assignmentStmt(ReduceExprConverter.reduceVarName, Common.getReductionInitialValue(expr.getOperator()));
-    function.addVariable(Common.alphaValueType(), ReduceExprConverter.reduceVarName).addStatement(initializeStmt);
-    final MacroStmt reducePointMacro = ReduceExprConverter.createReducePointMacro(reducePointMacroName, program, expr);
+    function.addVariable(Factory.dataType(this.alphaValueType), ReduceExprConverter.reduceVarName).addStatement(initializeStmt);
+    final MacroStmt reducePointMacro = this.createReducePointMacro(reducePointMacroName, program, expr);
     final MacroStmt accumulateMacro = ReduceExprConverter.createAccumulationMacro(accumulateMacroName, expr, reducePointMacro);
     function.addStatement(reducePointMacro, accumulateMacro);
-    final ISLSet loopDomain = ReduceExprConverter.createReduceLoopDomain(program.getNameChecker(), expr);
+    final ISLSet loopDomain = this.createReduceLoopDomain(program.getNameChecker(), expr);
     final ISLASTNode islAST = LoopGenerator.generateLoops(accumulateMacro.getName(), loopDomain);
     final Function1<String, Parameter> _function = (String it) -> {
       return ReduceExprConverter.toParameter(it);
@@ -111,7 +130,7 @@ public class ReduceExprConverter {
   /**
    * Constructs the domain which will represent the loop nest that isl will produce.
    */
-  protected static ISLSet createReduceLoopDomain(final NameChecker nameChecker, final ReduceExpression reduceExpr) {
+  protected ISLSet createReduceLoopDomain(final NameChecker nameChecker, final ReduceExpression reduceExpr) {
     ISLSet pointsToReduce = reduceExpr.getBody().getContextDomain().copy();
     final HashSet<String> existingNames = CollectionLiterals.<String>newHashSet();
     existingNames.addAll(pointsToReduce.getParamNames());
@@ -179,9 +198,9 @@ public class ReduceExprConverter {
   /**
    * Constructs the macro that evaluates a point within the reduction body.
    */
-  protected static MacroStmt createReducePointMacro(final String macroName, final ProgramBuilder program, final ReduceExpression expr) {
+  protected MacroStmt createReducePointMacro(final String macroName, final ProgramBuilder program, final ReduceExpression expr) {
     final List<String> arguments = expr.getBody().getContextDomain().getIndexNames();
-    final Expression replacement = ExprConverter.convertExpr(program, expr.getBody());
+    final Expression replacement = this.exprConverter.convertExpr(program, expr.getBody());
     return Factory.macroStmt(macroName, ((String[])Conversions.unwrapArray(arguments, String.class)), replacement);
   }
 

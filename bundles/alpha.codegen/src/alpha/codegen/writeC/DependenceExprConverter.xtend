@@ -18,14 +18,22 @@ import alpha.model.VariableExpression
  * class, but were split out to improve readability. 
  */
 class DependenceExprConverter {
+	/** The converter used for converting the body of a dependence expression into C expressions. */
+	protected val ExprConverter exprConverter
+	
+	/** Constructs a new converter for dependence expressions. */
+	new(ExprConverter exprConverter) {
+		this.exprConverter = exprConverter
+	}
+	
 	/** Dispatches the conversion of a dependence expression based on the child expression. */
-	def static Expression convertExpr(ProgramBuilder program, DependenceExpression expr) {
+	def Expression convertExpr(ProgramBuilder program, DependenceExpression expr) {
 		return convertExpr(program, expr, expr.expr)
 	}
 	
 	/** If the child is a constant, then simply emit that constant. */
-	def static dispatch convertExpr(ProgramBuilder program, DependenceExpression parent, ConstantExpression child) {
-		ExprConverter.convertExpr(program, child)
+	def dispatch convertExpr(ProgramBuilder program, DependenceExpression parent, ConstantExpression child) {
+		exprConverter.convertExpr(program, child)
 	}
 	
 	/**
@@ -33,7 +41,7 @@ class DependenceExprConverter {
 	 * If the Alpha variable is an input, it's accessed via the memory macro.
 	 * Otherwise, it's accessed via the "eval" function.
 	 */
-	def static dispatch convertExpr(ProgramBuilder program, DependenceExpression parent, VariableExpression child) {
+	def dispatch convertExpr(ProgramBuilder program, DependenceExpression parent, VariableExpression child) {
 		// Build an expression for each index of the variable,
 		// as determined by each output dimension of the dependence function.
 		val indexExprs = AffineConverter.convertMultiAff(parent.function)
@@ -50,7 +58,7 @@ class DependenceExprConverter {
 	}
 	
 	/** Default case for child expressions that aren't supported yet. */
-	def static dispatch convertExpr(ProgramBuilder program, DependenceExpression parent, AlphaExpression child) {
+	def dispatch convertExpr(ProgramBuilder program, DependenceExpression parent, AlphaExpression child) {
 		throw new Exception("Not implemented yet!")
 	}
 }

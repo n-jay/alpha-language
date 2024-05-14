@@ -65,21 +65,6 @@ class Common {
 		return dataType(BaseDataType.CHAR, 1)
 	}
 	
-	/** The data type for a value within an Alpha variable. */
-	def static alphaValueType() {
-		return dataType(BaseDataType.FLOAT, 0)
-	}
-	
-	/** The data type for a linearized Alpha variable. */
-	def static alphaVariableType() {
-		return alphaVariableType(1)
-	}
-	
-	/** The data type for an Alpha variable itself. */
-	def static alphaVariableType(int dimensionality) {
-		return dataType(BaseDataType.FLOAT, dimensionality)
-	}
-	
 	/** The data type for an index within Alpha. */
 	def static alphaIndexType() {
 		return dataType(BaseDataType.LONG, 0)

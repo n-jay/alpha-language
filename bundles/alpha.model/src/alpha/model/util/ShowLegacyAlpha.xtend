@@ -6,18 +6,17 @@ import alpha.model.AlphaSystem
 import alpha.model.AutoRestrictExpression
 import alpha.model.BinaryExpression
 import alpha.model.CaseExpression
+import alpha.model.ConvolutionExpression
+import alpha.model.DependenceExpression
+import alpha.model.JNIDomain
+import alpha.model.PolynomialIndexExpression
 import alpha.model.RestrictExpression
+import alpha.model.SelectExpression
 import alpha.model.SystemBody
 import alpha.model.UnaryExpression
 import alpha.model.UseEquation
 import alpha.model.Variable
-import alpha.model.PolynomialIndexExpression
-import alpha.model.SelectExpression
-import alpha.model.ConvolutionExpression
-import alpha.model.JNIDomain
-import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLSet
-import alpha.model.DependenceExpression
 
 /**
  * Prints the Alpha program in Show notation of the older syntax used in
@@ -35,24 +34,22 @@ import alpha.model.DependenceExpression
  *   - all package and external function declarations are removed 
  */
 class ShowLegacyAlpha {
-
-	
-	static def print(AlphaRoot root) {
-		root.systems.join("\n", [s|print(s)])
+	static def print(AlphaRoot root, String valueType) {
+		root.systems.join("\n", [s|print(s, valueType)])
 	}
 	
-	static def print(AlphaSystem system) {
+	static def print(AlphaSystem system, String valueType) {
 		if (system.systemBodies.size > 1) {
 			throw new IllegalArgumentException("[ShowLegacyAlpha] A system with multiple bodies are not supported.");
 		}
 		
-		val show = new ShowLegacyAlphaForSystem(system.systemBodies.get(0));
+		val show = new ShowLegacyAlphaForSystem(system.systemBodies.get(0), valueType);
 		
 		show.doSwitch(system).toString()
 	}
 	
-	static def print(SystemBody systemBody) {
-		val show = new ShowLegacyAlphaForSystem(systemBody);
+	static def print(SystemBody systemBody, String valueType) {
+		val show = new ShowLegacyAlphaForSystem(systemBody, valueType);
 		
 		show.doSwitch(systemBody.system).toString()
 	}
@@ -60,8 +57,12 @@ class ShowLegacyAlpha {
 	static class ShowLegacyAlphaForSystem extends Show {
 		protected SystemBody targetBody
 		
-		new(SystemBody targetBody) {
+		/** The data type to use for the Alpha variables. */
+		val String valueType
+		
+		new(SystemBody targetBody, String valueType) {
 		 	this.targetBody = targetBody
+		 	this.valueType = valueType
 		}
 		
 		override protected printDomain(ISLSet set) {
@@ -104,7 +105,7 @@ class ShowLegacyAlpha {
 		}
 		
 		override caseVariable(Variable v) {
-			'''float «v.name» «v.domain.printVariableDeclarationDomain»;'''
+			'''«valueType» «v.name» «v.domain.printVariableDeclarationDomain»;'''
 		}
 		
 		override caseUseEquation(UseEquation ue) {

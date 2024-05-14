@@ -69,27 +69,6 @@ public class Common {
   }
 
   /**
-   * The data type for a value within an Alpha variable.
-   */
-  public static DataType alphaValueType() {
-    return Factory.dataType(BaseDataType.FLOAT, 0);
-  }
-
-  /**
-   * The data type for a linearized Alpha variable.
-   */
-  public static DataType alphaVariableType() {
-    return Common.alphaVariableType(1);
-  }
-
-  /**
-   * The data type for an Alpha variable itself.
-   */
-  public static DataType alphaVariableType(final int dimensionality) {
-    return Factory.dataType(BaseDataType.FLOAT, dimensionality);
-  }
-
-  /**
    * The data type for an index within Alpha.
    */
   public static DataType alphaIndexType() {

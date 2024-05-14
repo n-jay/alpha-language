@@ -94,23 +94,37 @@ public class SystemConverter {
   protected final WriteCNameChecker nameChecker;
 
   /**
+   * The data type of values in the Alpha variables.
+   */
+  protected final BaseDataType valueType;
+
+  /**
+   * The converter to use for turning Alpha expressions into C code.
+   */
+  protected final ExprConverter exprConverter;
+
+  /**
    * Protected constructor.
    */
-  protected SystemConverter(final AlphaSystem system, final boolean oldAlphaZCompatible) {
+  protected SystemConverter(final AlphaSystem system, final BaseDataType valueType, final boolean oldAlphaZCompatible) {
     this.allocatedVariables = CollectionLiterals.<String>newArrayList();
     this.oldAlphaZCompatible = oldAlphaZCompatible;
     this.system = system;
     WriteCNameChecker _writeCNameChecker = new WriteCNameChecker();
     this.nameChecker = _writeCNameChecker;
     this.program = ProgramBuilder.start(this.nameChecker);
+    this.valueType = valueType;
+    ExprConverter _exprConverter = new ExprConverter(valueType);
+    this.exprConverter = _exprConverter;
   }
 
   /**
    * Converts an Alpha system to the simplified C AST.
    * Only supports systems with a single body.
+   * Defaults to data being of type "float" and linearizing memory usage.
    */
   public static Program convert(final AlphaSystem system) {
-    return SystemConverter.convert(system, false);
+    return SystemConverter.convert(system, BaseDataType.FLOAT, false);
   }
 
   /**
@@ -127,11 +141,11 @@ public class SystemConverter {
    * all indices are assumed to be of type "long",
    * and all data values are of type "float".
    */
-  public static Program convert(final AlphaSystem system, final boolean oldAlphaZCompatible) {
+  public static Program convert(final AlphaSystem system, final BaseDataType valueType, final boolean oldAlphaZCompatible) {
     final AlphaSystem duplicate = AlphaUtil.<AlphaSystem>copyAE(system);
     Normalize.apply(duplicate);
     StandardizeNames.apply(duplicate);
-    return new SystemConverter(duplicate, oldAlphaZCompatible).convertSystem();
+    return new SystemConverter(duplicate, valueType, oldAlphaZCompatible).convertSystem();
   }
 
   /**
@@ -182,6 +196,18 @@ public class SystemConverter {
     return this.program.getInstance();
   }
 
+  public DataType alphaValueType() {
+    return this.alphaVariableType(0);
+  }
+
+  public DataType alphaVariableType() {
+    return this.alphaVariableType(1);
+  }
+
+  public DataType alphaVariableType(final int indirectionLevel) {
+    return Factory.dataType(this.valueType, indirectionLevel);
+  }
+
   /**
    * Adds global variables that store indexes (e.g., system parameters).
    */
@@ -229,7 +255,7 @@ public class SystemConverter {
   protected ProgramBuilder addLinearizedGlobalVariable(final Variable variable) {
     ProgramBuilder _xblockexpression = null;
     {
-      this.program.addGlobalVariable(true, Common.alphaVariableType(), variable.getName());
+      this.program.addGlobalVariable(true, this.alphaVariableType(), variable.getName());
       _xblockexpression = this.addLinearMemoryMacro(variable.getName(), variable.getDomain());
     }
     return _xblockexpression;
@@ -247,7 +273,7 @@ public class SystemConverter {
       if (_equals) {
         return this.addCompatiblityGlobalScalar(variable);
       }
-      final DataType dataType = Common.alphaVariableType(variable.getDomain().getNbIndices());
+      final DataType dataType = this.alphaVariableType(variable.getDomain().getNbIndices());
       this.program.addGlobalVariable(true, dataType, variable.getName());
       final ArrayAccessExpr arrayAccess = Factory.arrayAccessExpr(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)));
       final MacroStmt macro = Factory.macroStmt(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), arrayAccess);
@@ -263,7 +289,7 @@ public class SystemConverter {
   protected ProgramBuilder addCompatiblityGlobalScalar(final Variable variable) {
     ProgramBuilder _xblockexpression = null;
     {
-      final DataType dataType = Common.alphaVariableType(1);
+      final DataType dataType = this.alphaVariableType(1);
       this.program.addGlobalVariable(true, dataType, variable.getName());
       final ArrayAccessExpr arrayAccess = Factory.arrayAccessExpr(variable.getName(), "0");
       final MacroStmt macro = Factory.macroStmt(variable.getName(), ((String[])Conversions.unwrapArray(variable.getDomain().getIndexNames(), String.class)), arrayAccess);
@@ -312,7 +338,7 @@ public class SystemConverter {
   protected ProgramBuilder createEvalFunction(final StandardEquation equation) {
     ProgramBuilder _xblockexpression = null;
     {
-      final FunctionBuilder evalBuilder = FunctionBuilder.start(Common.alphaValueType(), Common.getEvalName(equation.getVariable()), this.nameChecker);
+      final FunctionBuilder evalBuilder = FunctionBuilder.start(this.alphaValueType(), Common.getEvalName(equation.getVariable()), this.nameChecker);
       final List<String> indexNames = equation.getExpr().getContextDomain().getIndexNames();
       final Consumer<String> _function = (String it) -> {
         evalBuilder.addParameter(Common.alphaIndexType(), it);
@@ -330,7 +356,7 @@ public class SystemConverter {
    * evaluates the variable if needed, or reports a self-dependence if detected.
    */
   protected IfStmt getFlagCheckingBlock(final StandardEquation equation) {
-    final Expression computeValue = ExprConverter.convertExpr(this.program, equation.getExpr());
+    final Expression computeValue = this.exprConverter.convertExpr(this.program, equation.getExpr());
     final AssignmentStmt computeAndStore = Factory.assignmentStmt(this.identityAccess(equation, false), computeValue);
     return IfStmtBuilder.start(this.ifFlagEquals(equation, FlagStatus.NOT_EVALUATED)).addStatement(
       this.setFlagTo(equation, FlagStatus.IN_PROGRESS), computeAndStore, 
@@ -417,7 +443,7 @@ public class SystemConverter {
    * Adds a parameter to the function and the assignment statement needed to copy it to the global variable.
    */
   protected FunctionBuilder prepareEntryArgument(final FunctionBuilder builder, final Variable variable) {
-    final DataType dataType = Common.alphaVariableType();
+    final DataType dataType = this.alphaVariableType();
     if (this.oldAlphaZCompatible) {
       dataType.setIndirectionLevel(Integer.max(1, variable.getDomain().getNbIndices()));
     }
@@ -505,7 +531,7 @@ public class SystemConverter {
       if (allocateFlag) {
         _xifexpression_1 = Common.flagVariableType();
       } else {
-        _xifexpression_1 = Common.alphaVariableType();
+        _xifexpression_1 = this.alphaVariableType();
       }
       final DataType dataType = _xifexpression_1;
       this.allocatedVariables.add(name);
