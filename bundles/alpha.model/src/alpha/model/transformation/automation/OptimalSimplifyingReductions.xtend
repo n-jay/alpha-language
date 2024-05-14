@@ -70,6 +70,8 @@ class OptimalSimplifyingReductions {
 	protected boolean throttle
 	protected int throttleLimit
 	protected long optimizationNum
+	protected int targetComplexity
+	protected boolean trySplitting
 	
 	/**
 	 * This maps contains the simplified versions of the program obtained
@@ -95,21 +97,31 @@ class OptimalSimplifyingReductions {
 		throttleLimit = limit
 	}
 	
+	protected new (SystemBody originalSystemBody, int limit, int complexity) {
+		this(originalSystemBody, limit)
+		this.targetComplexity = complexity
+	}
+	
+	protected new (SystemBody originalSystemBody, int limit, int complexity, boolean _trySplitting) {
+		this(originalSystemBody, limit, complexity)
+		this.trySplitting = _trySplitting
+	}
+	
 	/** 
 	 * Entry points to the optimal simplification algorithm.
 	 * If no limit is specified, then it will explore all possible simplifications.
 	 */
-	static def apply(AlphaSystem system) { apply(system, 0) }
-	static def apply(AlphaSystem system, int limit) {
+	static def apply(AlphaSystem system, int limit, int complexity, boolean trySplitting) {
 		if (system.systemBodies.size == 1)
-			apply(system.systemBodies.get(0), limit)
+			apply(system.systemBodies.get(0), limit, complexity, trySplitting)
 		else
 			throw new IllegalArgumentException("A SystemBody must be specified for an AlphaSystem with multiple bodies.")
 	}
-	static def apply(SystemBody body) { apply(body, 0) }
-	static def apply(SystemBody body, int limit) {
-		
-		val osr = new OptimalSimplifyingReductions(body, limit)
+	
+	static def apply(SystemBody body, int limit) { apply(body, limit, body.complexity)}
+	static def apply(SystemBody body, int limit, int complexity) { apply(body, limit, complexity, false)}
+	static def apply(SystemBody body, int limit, int complexity, boolean trySplitting) {
+		val osr = new OptimalSimplifyingReductions(body, limit, complexity, trySplitting)
 		osr.run
 		return osr
 	}
@@ -177,7 +189,8 @@ class OptimalSimplifyingReductions {
 		}
 		
 		val stateComplexity = state.complexity
-		if (stateComplexity < initialComplexity) {
+		if (stateComplexity == targetComplexity) {
+			println('''[alpha]: found simplification/v«optimizationNum»/«system.name».alpha''')
 			optimizationNum++
 			state.addToOptimzations
 			if (throttle && optimizationNum >= throttleLimit)
@@ -289,7 +302,7 @@ class OptimalSimplifyingReductions {
 	 * Return true if shouldSimplify returns true and the reduction operator does not admit an inverse
 	 */
 	private def shouldSplit(AbstractReduceExpression are, boolean shouldSimplify) {
-		shouldSimplify && are.operator.hasNoInverse
+		trySplitting && shouldSimplify && are.operator.hasNoInverse
 	}
 	
 	/** 
@@ -311,8 +324,8 @@ class OptimalSimplifyingReductions {
 		
 		// Splitting
 		if (targetRE.shouldSplit(shouldSimplify)) {
-			 val splits = SplitReduction.enumerateCandidateSplits(targetRE)
-			 candidates.addAll(splits.map[split | new StepSplitReduction(targetRE, split)])
+			val splits = SplitReduction.enumerateCandidateSplits(targetRE)
+			candidates.addAll(splits.map[split | new StepSplitReduction(targetRE, split)])
 		}
 		
 		// Idempotent
