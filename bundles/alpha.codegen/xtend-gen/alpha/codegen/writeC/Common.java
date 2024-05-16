@@ -315,8 +315,7 @@ public class Common {
       } else {
         throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
       }
-      final String maxValue = _switchResult;
-      return Factory.customExpr(maxValue);
+      return Factory.customExpr(_switchResult);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
