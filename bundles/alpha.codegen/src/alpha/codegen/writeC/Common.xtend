@@ -171,13 +171,13 @@ class Common {
 	}
 	
 	/** Gets the expression for the maximum value of a data type. */
-	static def getMaxValue(BaseDataType ddataType) {
-		val maxValue = switch ddataType {
+	static def getMaxValue(BaseDataType dataType) {
+		val maxValue = switch dataType {
 			case INT: "INT_MAX"
 			case LONG: "LONG_MAX"
 			case FLOAT: "FLT_MAX"
 			case DOUBLE: "DBL_MAX"
-			default: throw new Exception("There is no maximum value for type '" + ddataType + "'.")
+			default: throw new Exception("There is no maximum value for type '" + dataType + "'.")
 		}
 		return maxValue.customExpr
 	}

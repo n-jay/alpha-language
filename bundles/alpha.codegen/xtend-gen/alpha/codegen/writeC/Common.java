@@ -292,11 +292,11 @@ public class Common {
   /**
    * Gets the expression for the maximum value of a data type.
    */
-  public static CustomExpr getMaxValue(final BaseDataType ddataType) {
+  public static CustomExpr getMaxValue(final BaseDataType dataType) {
     try {
       String _switchResult = null;
-      if (ddataType != null) {
-        switch (ddataType) {
+      if (dataType != null) {
+        switch (dataType) {
           case INT:
             _switchResult = "INT_MAX";
             break;
@@ -310,10 +310,10 @@ public class Common {
             _switchResult = "DBL_MAX";
             break;
           default:
-            throw new Exception((("There is no maximum value for type \'" + ddataType) + "\'."));
+            throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
         }
       } else {
-        throw new Exception((("There is no maximum value for type \'" + ddataType) + "\'."));
+        throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
       }
       final String maxValue = _switchResult;
       return Factory.customExpr(maxValue);
