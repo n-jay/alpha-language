@@ -12,7 +12,6 @@ import alpha.model.BINARY_OP;
 import alpha.model.REDUCTION_OP;
 import alpha.model.UNARY_OP;
 import alpha.model.Variable;
-import com.google.common.base.Objects;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -293,51 +292,31 @@ public class Common {
   /**
    * Gets the expression for the maximum value of a data type.
    */
-  public static CustomExpr getMaxValue(final BaseDataType dataType) {
+  public static CustomExpr getMaxValue(final BaseDataType ddataType) {
     try {
       String _switchResult = null;
-      boolean _matched = false;
-      if (Objects.equal(dataType, BaseDataType.INT)) {
-        _matched=true;
-        _switchResult = "INT_MAX";
+      if (ddataType != null) {
+        switch (ddataType) {
+          case INT:
+            _switchResult = "INT_MAX";
+            break;
+          case LONG:
+            _switchResult = "LONG_MAX";
+            break;
+          case FLOAT:
+            _switchResult = "FLT_MAX";
+            break;
+          case DOUBLE:
+            _switchResult = "DBL_MAX";
+            break;
+          default:
+            throw new Exception((("There is no maximum value for type \'" + ddataType) + "\'."));
+        }
+      } else {
+        throw new Exception((("There is no maximum value for type \'" + ddataType) + "\'."));
       }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.LONG)) {
-            _matched=true;
-          }
-        }
-        if (_matched) {
-          _switchResult = "LONG_MAX";
-        }
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.FLOAT)) {
-            _matched=true;
-          }
-        }
-        if (_matched) {
-          _switchResult = "FLT_MAX";
-        }
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.DOUBLE)) {
-            _matched=true;
-          }
-        }
-        if (_matched) {
-          _switchResult = "DBL_MAX";
-        }
-      }
-      if (!_matched) {
-        throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
-      }
-      return Factory.customExpr(_switchResult);
+      final String maxValue = _switchResult;
+      return Factory.customExpr(maxValue);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -349,45 +328,24 @@ public class Common {
   public static CustomExpr getMinValue(final BaseDataType dataType) {
     try {
       String _switchResult = null;
-      boolean _matched = false;
-      if (Objects.equal(dataType, BaseDataType.INT)) {
-        _matched=true;
-        _switchResult = "INT_MIN";
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.LONG)) {
-            _matched=true;
-          }
+      if (dataType != null) {
+        switch (dataType) {
+          case INT:
+            _switchResult = "INT_MIN";
+            break;
+          case LONG:
+            _switchResult = "LONG_MIN";
+            break;
+          case FLOAT:
+            _switchResult = "FLT_MIN";
+            break;
+          case DOUBLE:
+            _switchResult = "DBL_MIN";
+            break;
+          default:
+            throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
         }
-        if (_matched) {
-          _switchResult = "LONG_MIN";
-        }
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.FLOAT)) {
-            _matched=true;
-          }
-        }
-        if (_matched) {
-          _switchResult = "FLT_MIN";
-        }
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.DOUBLE)) {
-            _matched=true;
-          }
-        }
-        if (_matched) {
-          _switchResult = "DBL_MIN";
-        }
-      }
-      if (!_matched) {
+      } else {
         throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
       }
       return Factory.customExpr(_switchResult);
@@ -402,45 +360,24 @@ public class Common {
   public static CustomExpr getOneValue(final BaseDataType dataType) {
     try {
       String _switchResult = null;
-      boolean _matched = false;
-      if (Objects.equal(dataType, BaseDataType.INT)) {
-        _matched=true;
-        _switchResult = "1";
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.LONG)) {
-            _matched=true;
-          }
+      if (dataType != null) {
+        switch (dataType) {
+          case INT:
+            _switchResult = "1";
+            break;
+          case LONG:
+            _switchResult = "1L";
+            break;
+          case FLOAT:
+            _switchResult = "1.0f";
+            break;
+          case DOUBLE:
+            _switchResult = "1.0";
+            break;
+          default:
+            throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
         }
-        if (_matched) {
-          _switchResult = "1L";
-        }
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.FLOAT)) {
-            _matched=true;
-          }
-        }
-        if (_matched) {
-          _switchResult = "1.0f";
-        }
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.DOUBLE)) {
-            _matched=true;
-          }
-        }
-        if (_matched) {
-          _switchResult = "1.0";
-        }
-      }
-      if (!_matched) {
+      } else {
         throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
       }
       return Factory.customExpr(_switchResult);
@@ -455,45 +392,24 @@ public class Common {
   public static CustomExpr getZeroValue(final BaseDataType dataType) {
     try {
       String _switchResult = null;
-      boolean _matched = false;
-      if (Objects.equal(dataType, BaseDataType.INT)) {
-        _matched=true;
-        _switchResult = "0";
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.LONG)) {
-            _matched=true;
-          }
+      if (dataType != null) {
+        switch (dataType) {
+          case INT:
+            _switchResult = "0";
+            break;
+          case LONG:
+            _switchResult = "0L";
+            break;
+          case FLOAT:
+            _switchResult = "0.0f";
+            break;
+          case DOUBLE:
+            _switchResult = "0.0";
+            break;
+          default:
+            throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
         }
-        if (_matched) {
-          _switchResult = "0L";
-        }
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.FLOAT)) {
-            _matched=true;
-          }
-        }
-        if (_matched) {
-          _switchResult = "0.0f";
-        }
-      }
-      if (!_matched) {
-        _matched=true;
-        if (!_matched) {
-          if (Objects.equal(dataType, BaseDataType.DOUBLE)) {
-            _matched=true;
-          }
-        }
-        if (_matched) {
-          _switchResult = "0.0";
-        }
-      }
-      if (!_matched) {
+      } else {
         throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
       }
       return Factory.customExpr(_switchResult);
