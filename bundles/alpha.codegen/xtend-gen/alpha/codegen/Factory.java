@@ -236,7 +236,11 @@ public class Factory {
    * then casts it as the appropriate data type.
    */
   public static CastExpr mallocCall(final DataType dataType, final Expression amount) {
-    final CustomExpr dataTypeExpr = Factory.customExpr(ProgramPrinter.print(dataType));
+    BaseDataType _baseType = dataType.getBaseType();
+    int _indirectionLevel = dataType.getIndirectionLevel();
+    int _minus = (_indirectionLevel - 1);
+    final DataType sizeofType = Factory.dataType(_baseType, _minus);
+    final CustomExpr dataTypeExpr = Factory.customExpr(ProgramPrinter.print(sizeofType));
     final CallExpr sizeofCall = Factory.callExpr("sizeof", dataTypeExpr);
     final BinaryExpr bytesAllocated = Factory.binaryExpr(BinaryOperator.TIMES, sizeofCall, amount);
     final CallExpr mallocCall = Factory.callExpr("malloc", bytesAllocated);

@@ -203,6 +203,8 @@ public class ProgramPrinter {
 
   public static CharSequence print(final VariableDecl decl) {
     StringConcatenation _builder = new StringConcatenation();
+    String _printStatic = ProgramPrinter.printStatic(decl);
+    _builder.append(_printStatic);
     String _print = ProgramPrinter.print(decl.getDataType());
     _builder.append(_print);
     _builder.append(" ");
@@ -211,6 +213,18 @@ public class ProgramPrinter {
     _builder.append(";");
     _builder.newLineIfNotEmpty();
     return _builder;
+  }
+
+  public static String printStatic(final VariableDecl decl) {
+    boolean _isIsStatic = decl.isIsStatic();
+    if (_isIsStatic) {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("static ");
+      return _builder.toString();
+    } else {
+      StringConcatenation _builder_1 = new StringConcatenation();
+      return _builder_1.toString();
+    }
   }
 
   public static CharSequence printDeclaration(final Function function) {
@@ -255,6 +269,8 @@ public class ProgramPrinter {
 
   public static CharSequence printSignature(final Function function) {
     StringConcatenation _builder = new StringConcatenation();
+    String _printStatic = ProgramPrinter.printStatic(function);
+    _builder.append(_printStatic);
     String _printInline = ProgramPrinter.printInline(function);
     _builder.append(_printInline);
     String _print = ProgramPrinter.print(function.getReturnType());
@@ -274,6 +290,18 @@ public class ProgramPrinter {
     if ((_isInline).booleanValue()) {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("inline ");
+      return _builder.toString();
+    } else {
+      StringConcatenation _builder_1 = new StringConcatenation();
+      return _builder_1.toString();
+    }
+  }
+
+  public static String printStatic(final Function function) {
+    Boolean _isStatic = function.getIsStatic();
+    if ((_isStatic).booleanValue()) {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("static ");
       return _builder.toString();
     } else {
       StringConcatenation _builder_1 = new StringConcatenation();

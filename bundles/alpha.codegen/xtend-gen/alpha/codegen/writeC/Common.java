@@ -12,6 +12,7 @@ import alpha.model.BINARY_OP;
 import alpha.model.REDUCTION_OP;
 import alpha.model.UNARY_OP;
 import alpha.model.Variable;
+import com.google.common.base.Objects;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -260,28 +261,240 @@ public class Common {
    * Note: since the current implementation only uses floats to represent data,
    * there are no initial values for the logical operations (AND, OR, etc.).
    */
-  public static CustomExpr getReductionInitialValue(final REDUCTION_OP op) {
+  public static CustomExpr getReductionInitialValue(final BaseDataType dataType, final REDUCTION_OP op) {
     try {
-      String _switchResult = null;
+      CustomExpr _switchResult = null;
       if (op != null) {
         switch (op) {
           case MIN:
-            _switchResult = "FLT_MAX";
+            _switchResult = Common.getMaxValue(dataType);
             break;
           case MAX:
-            _switchResult = "FLT_MIN";
+            _switchResult = Common.getMinValue(dataType);
             break;
           case PROD:
-            _switchResult = "1.0f";
+            _switchResult = Common.getOneValue(dataType);
             break;
           case SUM:
-            _switchResult = "0.0f";
+            _switchResult = Common.getZeroValue(dataType);
             break;
           default:
             throw new Exception((("There is no initial value for reduction operator \'" + op) + "\'."));
         }
       } else {
         throw new Exception((("There is no initial value for reduction operator \'" + op) + "\'."));
+      }
+      return _switchResult;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+
+  /**
+   * Gets the expression for the maximum value of a data type.
+   */
+  public static CustomExpr getMaxValue(final BaseDataType dataType) {
+    try {
+      String _switchResult = null;
+      boolean _matched = false;
+      if (Objects.equal(dataType, BaseDataType.INT)) {
+        _matched=true;
+        _switchResult = "INT_MAX";
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.LONG)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "LONG_MAX";
+        }
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.FLOAT)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "FLT_MAX";
+        }
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.DOUBLE)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "DBL_MAX";
+        }
+      }
+      if (!_matched) {
+        throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
+      }
+      return Factory.customExpr(_switchResult);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+
+  /**
+   * Gets the expression for the minimum value of a data type.
+   */
+  public static CustomExpr getMinValue(final BaseDataType dataType) {
+    try {
+      String _switchResult = null;
+      boolean _matched = false;
+      if (Objects.equal(dataType, BaseDataType.INT)) {
+        _matched=true;
+        _switchResult = "INT_MIN";
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.LONG)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "LONG_MIN";
+        }
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.FLOAT)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "FLT_MIN";
+        }
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.DOUBLE)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "DBL_MIN";
+        }
+      }
+      if (!_matched) {
+        throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
+      }
+      return Factory.customExpr(_switchResult);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+
+  /**
+   * Gets the expression for 1 for the given data type.
+   */
+  public static CustomExpr getOneValue(final BaseDataType dataType) {
+    try {
+      String _switchResult = null;
+      boolean _matched = false;
+      if (Objects.equal(dataType, BaseDataType.INT)) {
+        _matched=true;
+        _switchResult = "1";
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.LONG)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "1L";
+        }
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.FLOAT)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "1.0f";
+        }
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.DOUBLE)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "1.0";
+        }
+      }
+      if (!_matched) {
+        throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
+      }
+      return Factory.customExpr(_switchResult);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+
+  /**
+   * Gets the expression for 0 for the given data type.
+   */
+  public static CustomExpr getZeroValue(final BaseDataType dataType) {
+    try {
+      String _switchResult = null;
+      boolean _matched = false;
+      if (Objects.equal(dataType, BaseDataType.INT)) {
+        _matched=true;
+        _switchResult = "0";
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.LONG)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "0L";
+        }
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.FLOAT)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "0.0f";
+        }
+      }
+      if (!_matched) {
+        _matched=true;
+        if (!_matched) {
+          if (Objects.equal(dataType, BaseDataType.DOUBLE)) {
+            _matched=true;
+          }
+        }
+        if (_matched) {
+          _switchResult = "0.0";
+        }
+      }
+      if (!_matched) {
+        throw new Exception((("There is no maximum value for type \'" + dataType) + "\'."));
       }
       return Factory.customExpr(_switchResult);
     } catch (Throwable _e) {

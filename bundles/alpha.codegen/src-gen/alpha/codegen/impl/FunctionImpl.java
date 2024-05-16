@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link alpha.codegen.impl.FunctionImpl#getIsStatic <em>Is Static</em>}</li>
  *   <li>{@link alpha.codegen.impl.FunctionImpl#getIsInline <em>Is Inline</em>}</li>
  *   <li>{@link alpha.codegen.impl.FunctionImpl#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link alpha.codegen.impl.FunctionImpl#getName <em>Name</em>}</li>
@@ -44,6 +45,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class FunctionImpl extends MinimalEObjectImpl.Container implements Function {
+	/**
+	 * The default value of the '{@link #getIsStatic() <em>Is Static</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIsStatic()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Boolean IS_STATIC_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getIsStatic() <em>Is Static</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIsStatic()
+	 * @generated
+	 * @ordered
+	 */
+	protected Boolean isStatic = IS_STATIC_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getIsInline() <em>Is Inline</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -141,6 +162,27 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	@Override
 	protected EClass eStaticClass() {
 		return CodegenPackage.Literals.FUNCTION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Boolean getIsStatic() {
+		return isStatic;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIsStatic(Boolean newIsStatic) {
+		Boolean oldIsStatic = isStatic;
+		isStatic = newIsStatic;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CodegenPackage.FUNCTION__IS_STATIC, oldIsStatic, isStatic));
 	}
 
 	/**
@@ -292,6 +334,8 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case CodegenPackage.FUNCTION__IS_STATIC:
+				return getIsStatic();
 			case CodegenPackage.FUNCTION__IS_INLINE:
 				return getIsInline();
 			case CodegenPackage.FUNCTION__RETURN_TYPE:
@@ -317,6 +361,9 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case CodegenPackage.FUNCTION__IS_STATIC:
+				setIsStatic((Boolean)newValue);
+				return;
 			case CodegenPackage.FUNCTION__IS_INLINE:
 				setIsInline((Boolean)newValue);
 				return;
@@ -350,6 +397,9 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case CodegenPackage.FUNCTION__IS_STATIC:
+				setIsStatic(IS_STATIC_EDEFAULT);
+				return;
 			case CodegenPackage.FUNCTION__IS_INLINE:
 				setIsInline(IS_INLINE_EDEFAULT);
 				return;
@@ -380,6 +430,8 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case CodegenPackage.FUNCTION__IS_STATIC:
+				return IS_STATIC_EDEFAULT == null ? isStatic != null : !IS_STATIC_EDEFAULT.equals(isStatic);
 			case CodegenPackage.FUNCTION__IS_INLINE:
 				return IS_INLINE_EDEFAULT == null ? isInline != null : !IS_INLINE_EDEFAULT.equals(isInline);
 			case CodegenPackage.FUNCTION__RETURN_TYPE:
@@ -406,7 +458,9 @@ public class FunctionImpl extends MinimalEObjectImpl.Container implements Functi
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (isInline: ");
+		result.append(" (isStatic: ");
+		result.append(isStatic);
+		result.append(", isInline: ");
 		result.append(isInline);
 		result.append(", name: ");
 		result.append(name);

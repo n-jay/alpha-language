@@ -39,25 +39,30 @@ class FunctionBuilder {
 	// Builder Construction
 	////////////////////////////////////////////////
 	
-	/** Starts building a new, non-inlined C function with a non-pointer return type. */
+	/** Starts building a new, non-static, non-inlined C function with a non-pointer return type. */
 	static def start(BaseDataType returnType, String name, NameChecker nameChecker) {
 		val dataType = Factory.dataType(returnType, 0)
-		return new FunctionBuilder(false, dataType, name, nameChecker)
+		return new FunctionBuilder(false, false, dataType, name, nameChecker)
 	}
 	
-	/** Starts building a new, non-inlined C function. */
+	/** Starts building a new, non-static, non-inlined C function. */
 	static def start(DataType returnType, String name, NameChecker nameChecker) {
-		return new FunctionBuilder(false, returnType, name, nameChecker)
+		return new FunctionBuilder(false, false, returnType, name, nameChecker)
 	}
 	
-	/** Starts building a new C function. */
+	/** Starts building a new, non-static C function. */
 	static def start(boolean isInline, DataType returnType, String name, NameChecker nameChecker) {
-		return new FunctionBuilder(isInline, returnType, name, nameChecker)
+		return new FunctionBuilder(false, isInline, returnType, name, nameChecker)
+	}
+	
+	static def start(boolean isStatic, boolean isInline, DataType returnType, String name, NameChecker nameChecker) {
+		return new FunctionBuilder(isStatic, isInline, returnType, name, nameChecker)
 	}
 	
 	/** Protected constructor. */
-	protected new(Boolean isInline, DataType returnType, String name, NameChecker nameChecker) {
+	protected new(boolean isStatic, boolean isInline, DataType returnType, String name, NameChecker nameChecker) {
 		instance = CodegenFactory.eINSTANCE.createFunction
+		instance.isStatic = isStatic
 		instance.isInline = isInline
 		instance.returnType = returnType
 		instance.name = name

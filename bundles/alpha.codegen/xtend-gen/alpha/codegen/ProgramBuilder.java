@@ -146,7 +146,7 @@ public class ProgramBuilder {
   /**
    * Starts building a function using this program's name checker.
    */
-  public FunctionBuilder startFunction(final boolean isInline, final DataType returnType, final String name) {
-    return FunctionBuilder.start(isInline, returnType, name, this.nameChecker);
+  public FunctionBuilder startFunction(final boolean isStatic, final boolean isInline, final DataType returnType, final String name) {
+    return FunctionBuilder.start(isStatic, isInline, returnType, name, this.nameChecker);
   }
 }
