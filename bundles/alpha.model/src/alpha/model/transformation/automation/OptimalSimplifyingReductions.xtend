@@ -54,10 +54,9 @@ import fr.irisa.cairn.jnimap.isl.ISLConstraint
  */
 class OptimalSimplifyingReductions {
 	
-	public static boolean DEBUG = false
 	
-	private static def void debug(String msg) {
-		if (DEBUG)
+	private def void debug(String msg) {
+		if (verbose)
 			println("[OptimalSimplifyingReductions] " + msg)
 	}
 	
@@ -72,6 +71,7 @@ class OptimalSimplifyingReductions {
 	protected long optimizationNum
 	protected int targetComplexity
 	protected boolean trySplitting
+	protected boolean verbose
 	
 	/**
 	 * This maps contains the simplified versions of the program obtained
@@ -84,44 +84,31 @@ class OptimalSimplifyingReductions {
 	/**
 	 * Creates an OSR instance and initializes exploration space parameters 
 	 */
-	protected new (SystemBody originalSystemBody, int limit) {
-		root = EcoreUtil.copy(AlphaUtil.getContainerRoot(originalSystemBody))
-		system = root.getSystem(originalSystemBody.system.fullyQualifiedName)
-		systemBodyID = originalSystemBody.system.systemBodies.indexOf(originalSystemBody)
-		systemBody = system.systemBodies.get(systemBodyID)
-		optimizations = newHashMap
-		originalSystemName = system.name
-		optimizationNum = 0
-		initialComplexity = systemBody.complexity
-		throttle = limit > 0
-		throttleLimit = limit
-	}
-	
-	protected new (SystemBody originalSystemBody, int limit, int complexity) {
-		this(originalSystemBody, limit)
+	protected new (AlphaSystem system, int limit, int complexity, boolean trySplitting, boolean verbose) {
+		if (system.systemBodies.size > 1) {
+			throw new IllegalArgumentException("AlphaSystems with multiple system bodies is not yet supported.")
+		}
+		this.root = EcoreUtil.copy(AlphaUtil.getContainerRoot(system))
+		this.system = this.root.getSystem(system.fullyQualifiedName)
+		this.systemBodyID = 0
+		this.systemBody = this.system.systemBodies.get(this.systemBodyID)
+		this.optimizations = newHashMap
+		this.originalSystemName = this.system.name
+		this.optimizationNum = 0
+		this.initialComplexity = this.systemBody.complexity
+		this.throttle = limit > 0
+		this.throttleLimit = limit
 		this.targetComplexity = complexity
-	}
-	
-	protected new (SystemBody originalSystemBody, int limit, int complexity, boolean _trySplitting) {
-		this(originalSystemBody, limit, complexity)
-		this.trySplitting = _trySplitting
+		this.trySplitting = trySplitting
+		this.verbose = verbose
 	}
 	
 	/** 
 	 * Entry points to the optimal simplification algorithm.
 	 * If no limit is specified, then it will explore all possible simplifications.
 	 */
-	static def apply(AlphaSystem system, int limit, int complexity, boolean trySplitting) {
-		if (system.systemBodies.size == 1)
-			apply(system.systemBodies.get(0), limit, complexity, trySplitting)
-		else
-			throw new IllegalArgumentException("A SystemBody must be specified for an AlphaSystem with multiple bodies.")
-	}
-	
-	static def apply(SystemBody body, int limit) { apply(body, limit, body.complexity)}
-	static def apply(SystemBody body, int limit, int complexity) { apply(body, limit, complexity, false)}
-	static def apply(SystemBody body, int limit, int complexity, boolean trySplitting) {
-		val osr = new OptimalSimplifyingReductions(body, limit, complexity, trySplitting)
+	static def apply(AlphaSystem system, int limit, int targetComplexity, boolean trySplitting, boolean verbose) {
+		val osr = new OptimalSimplifyingReductions(system, limit, targetComplexity, trySplitting, verbose)
 		osr.run
 		return osr
 	}
