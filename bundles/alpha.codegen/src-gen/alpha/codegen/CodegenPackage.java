@@ -299,13 +299,22 @@ public interface CodegenPackage extends EPackage {
 	int FUNCTION = 4;
 
 	/**
+	 * The feature id for the '<em><b>Is Static</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FUNCTION__IS_STATIC = 0;
+
+	/**
 	 * The feature id for the '<em><b>Is Inline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__IS_INLINE = 0;
+	int FUNCTION__IS_INLINE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' containment reference.
@@ -314,7 +323,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__RETURN_TYPE = 1;
+	int FUNCTION__RETURN_TYPE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -323,7 +332,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__NAME = 2;
+	int FUNCTION__NAME = 3;
 
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -332,7 +341,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__PARAMETERS = 3;
+	int FUNCTION__PARAMETERS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Declarations</b></em>' containment reference list.
@@ -341,7 +350,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__DECLARATIONS = 4;
+	int FUNCTION__DECLARATIONS = 5;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -350,7 +359,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__STATEMENTS = 5;
+	int FUNCTION__STATEMENTS = 6;
 
 	/**
 	 * The number of structural features of the '<em>Function</em>' class.
@@ -359,7 +368,7 @@ public interface CodegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION_FEATURE_COUNT = 6;
+	int FUNCTION_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Function</em>' class.
@@ -1591,6 +1600,17 @@ public interface CodegenPackage extends EPackage {
 	EClass getFunction();
 
 	/**
+	 * Returns the meta object for the attribute '{@link alpha.codegen.Function#getIsStatic <em>Is Static</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Static</em>'.
+	 * @see alpha.codegen.Function#getIsStatic()
+	 * @see #getFunction()
+	 * @generated
+	 */
+	EAttribute getFunction_IsStatic();
+
+	/**
 	 * Returns the meta object for the attribute '{@link alpha.codegen.Function#getIsInline <em>Is Inline</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2531,6 +2551,14 @@ public interface CodegenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FUNCTION = eINSTANCE.getFunction();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Static</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FUNCTION__IS_STATIC = eINSTANCE.getFunction_IsStatic();
 
 		/**
 		 * The meta object literal for the '<em><b>Is Inline</b></em>' attribute feature.

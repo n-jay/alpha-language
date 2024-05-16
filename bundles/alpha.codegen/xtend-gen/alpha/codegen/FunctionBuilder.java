@@ -43,33 +43,38 @@ public class FunctionBuilder {
   }
 
   /**
-   * Starts building a new, non-inlined C function with a non-pointer return type.
+   * Starts building a new, non-static, non-inlined C function with a non-pointer return type.
    */
   public static FunctionBuilder start(final BaseDataType returnType, final String name, final NameChecker nameChecker) {
     final DataType dataType = Factory.dataType(returnType, 0);
-    return new FunctionBuilder(Boolean.valueOf(false), dataType, name, nameChecker);
+    return new FunctionBuilder(false, false, dataType, name, nameChecker);
   }
 
   /**
-   * Starts building a new, non-inlined C function.
+   * Starts building a new, non-static, non-inlined C function.
    */
   public static FunctionBuilder start(final DataType returnType, final String name, final NameChecker nameChecker) {
-    return new FunctionBuilder(Boolean.valueOf(false), returnType, name, nameChecker);
+    return new FunctionBuilder(false, false, returnType, name, nameChecker);
   }
 
   /**
-   * Starts building a new C function.
+   * Starts building a new, non-static C function.
    */
   public static FunctionBuilder start(final boolean isInline, final DataType returnType, final String name, final NameChecker nameChecker) {
-    return new FunctionBuilder(Boolean.valueOf(isInline), returnType, name, nameChecker);
+    return new FunctionBuilder(false, isInline, returnType, name, nameChecker);
+  }
+
+  public static FunctionBuilder start(final boolean isStatic, final boolean isInline, final DataType returnType, final String name, final NameChecker nameChecker) {
+    return new FunctionBuilder(isStatic, isInline, returnType, name, nameChecker);
   }
 
   /**
    * Protected constructor.
    */
-  protected FunctionBuilder(final Boolean isInline, final DataType returnType, final String name, final NameChecker nameChecker) {
+  protected FunctionBuilder(final boolean isStatic, final boolean isInline, final DataType returnType, final String name, final NameChecker nameChecker) {
     this.instance = CodegenFactory.eINSTANCE.createFunction();
-    this.instance.setIsInline(isInline);
+    this.instance.setIsStatic(Boolean.valueOf(isStatic));
+    this.instance.setIsInline(Boolean.valueOf(isInline));
     this.instance.setReturnType(returnType);
     this.instance.setName(name);
     this.nameChecker = nameChecker;

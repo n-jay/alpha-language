@@ -108,6 +108,9 @@ class VariableDecl {
 
 /** The definition of a function. */
 class Function {
+	/** If <code>true</code>, the function will be marked with the <code>static</code> keyword. */
+	Boolean isStatic
+	
 	/** If <code>true</code>, the function will be marked with the <code>inline</code> keyword. */
 	Boolean isInline
 	

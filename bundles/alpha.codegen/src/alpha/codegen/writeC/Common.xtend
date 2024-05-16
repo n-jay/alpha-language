@@ -160,13 +160,57 @@ class Common {
 	 * Note: since the current implementation only uses floats to represent data,
 	 * there are no initial values for the logical operations (AND, OR, etc.).
 	 */
-	static def getReductionInitialValue(REDUCTION_OP op) {
+	static def getReductionInitialValue(BaseDataType dataType, REDUCTION_OP op) {
 		return switch op {
-			case MIN: "FLT_MAX"
-			case MAX: "FLT_MIN"
-			case PROD: "1.0f"
-			case SUM: "0.0f"
+			case MIN: dataType.maxValue
+			case MAX: dataType.minValue
+			case PROD: dataType.oneValue
+			case SUM: dataType.zeroValue
 			default: throw new Exception("There is no initial value for reduction operator '" + op + "'.")
+		}
+	}
+	
+	/** Gets the expression for the maximum value of a data type. */
+	static def getMaxValue(BaseDataType dataType) {
+		return switch dataType {
+			case INT: "INT_MAX",
+			case LONG: "LONG_MAX",
+			case FLOAT: "FLT_MAX",
+			case DOUBLE: "DBL_MAX"
+			default: throw new Exception("There is no maximum value for type '" + dataType + "'.")
+		}.customExpr
+	}
+	
+	/** Gets the expression for the minimum value of a data type. */
+	static def getMinValue(BaseDataType dataType) {
+		return switch dataType {
+			case INT: "INT_MIN",
+			case LONG: "LONG_MIN",
+			case FLOAT: "FLT_MIN",
+			case DOUBLE: "DBL_MIN"
+			default: throw new Exception("There is no maximum value for type '" + dataType + "'.")
+		}.customExpr
+	}
+	
+	/** Gets the expression for 1 for the given data type. */
+	static def getOneValue(BaseDataType dataType) {
+		return switch dataType {
+			case INT: "1",
+			case LONG: "1L",
+			case FLOAT: "1.0f",
+			case DOUBLE: "1.0"
+			default: throw new Exception("There is no maximum value for type '" + dataType + "'.")
+		}.customExpr
+	}
+	
+	/** Gets the expression for 0 for the given data type. */
+	static def getZeroValue(BaseDataType dataType) {
+		return switch dataType {
+			case INT: "0",
+			case LONG: "0L",
+			case FLOAT: "0.0f",
+			case DOUBLE: "0.0"
+			default: throw new Exception("There is no maximum value for type '" + dataType + "'.")
 		}.customExpr
 	}
 }

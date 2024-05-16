@@ -1,11 +1,11 @@
 package alpha.codegen.tests.writeC
 
-import alpha.loader.AlphaLoader
-import alpha.commands.Utility
-import alpha.codegen.writeC.SystemConverter
-import alpha.codegen.ProgramPrinter
-import java.io.FileWriter
 import alpha.codegen.BaseDataType
+import alpha.codegen.ProgramPrinter
+import alpha.codegen.writeC.SystemConverter
+import alpha.commands.Utility
+import alpha.loader.AlphaLoader
+import java.io.FileWriter
 
 /**
  * These are some manual tests which convert systems into C programs.
@@ -38,7 +38,7 @@ class SystemConverterManualTest {
 			val system = Utility.GetSystem(root, program)
 			
 			// Convert the system using older AlphaZ compatibility.
-			val cAST = SystemConverter.convert(system, BaseDataType.LONG, true)
+			val cAST = SystemConverter.convert(system, BaseDataType.FLOAT, true)
 			val cProgram = ProgramPrinter.print(cAST).toString
 			
 			// Write the C program out.

@@ -73,11 +73,11 @@ class ReduceExprConverter {
 		} while(program.nameChecker.globalNameExists(reduceFunctionName, reducePointMacroName, accumulateMacroName))
 		
 		// Start building the reduce function.
-		val function = program.startFunction(false, Factory.dataType(alphaValueType), reduceFunctionName)
+		val function = program.startFunction(true, false, Factory.dataType(alphaValueType), reduceFunctionName)
 		
 		// Create the "reduction variable", which is what the reduction will accumulate into.
 		// This needs to be initialized to the correct value for the reduction operator.
-		val initializeStmt = Factory.assignmentStmt(reduceVarName, Common.getReductionInitialValue(expr.operator))
+		val initializeStmt = Factory.assignmentStmt(reduceVarName, Common.getReductionInitialValue(alphaValueType, expr.operator))
 		function
 			.addVariable(Factory.dataType(alphaValueType), reduceVarName)
 			.addStatement(initializeStmt)

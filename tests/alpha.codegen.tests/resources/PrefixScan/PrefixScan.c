@@ -17,10 +17,10 @@
 #define mallocCheck(v,s) if ((v) == NULL) { printf("Failed to allocate memory for variable: %s\n", (s)); exit(-1); }
 
 // Global Variables
-long N;
-float* X;
-float* Y;
-char* _flag_Y;
+static long N;
+static float* X;
+static float* Y;
+static char* _flag_Y;
 
 // Memory Macros
 #define X(i0) X[i0]
@@ -28,31 +28,31 @@ char* _flag_Y;
 #define _flag_Y(i0) _flag_Y[((-1 + N - i0 >= 0 && -1 + i0 >= 0) ? (i0) : 0)]
 
 // Function Declarations
-float reduce2(long N, long ip);
-float eval_Y(long i);
+static float reduce0(long N, long ip);
+static float eval_Y(long i);
 void PrefixScan(long _local_N, float* _local_X, float* _local_Y);
 
-float reduce2(long N, long ip) {
+static float reduce0(long N, long ip) {
 	float reduceVar;
 	long j;
 	
 	reduceVar = 0.0f;
-	#define RP2(i,j) X((j))
-	#define R2(i,j) reduceVar = (reduceVar) + (RP2((i),(j)))
+	#define RP0(i,j) X((j))
+	#define R0(i,j) reduceVar = (reduceVar) + (RP0((i),(j)))
 	for (j = 0; j <= ip; j += 1) {
-		R2(ip, j);
+		R0(ip, j);
 	}
-	#undef RP2
-	#undef R2
+	#undef RP0
+	#undef R0
 	return reduceVar;
 }
 
-float eval_Y(long i) {
+static float eval_Y(long i) {
 	
 	// Check the flags.
 	if ((_flag_Y(i)) == ('N')) {
 		_flag_Y(i) = 'I';
-		Y(i) = reduce2(N,i);
+		Y(i) = reduce0(N,i);
 		_flag_Y(i) = 'F';
 	}
 	else if ((_flag_Y(i)) == ('I')) {
@@ -80,7 +80,7 @@ void PrefixScan(long _local_N, float* _local_X, float* _local_Y) {
 	// Allocate memory for local storage.
 	
 	// Allocate and initialize flag variables.
-	_flag_Y = (char*)(malloc((sizeof(char*)) * (((-1 + N >= 0) ? (N) : 0))));
+	_flag_Y = (char*)(malloc((sizeof(char)) * (((-1 + N >= 0) ? (N) : 0))));
 	mallocCheck(_flag_Y,"_flag_Y");
 	memset(_flag_Y,'N',((-1 + N >= 0) ? (N) : 0));
 	

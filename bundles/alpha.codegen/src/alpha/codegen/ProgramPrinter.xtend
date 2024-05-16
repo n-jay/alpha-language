@@ -96,8 +96,16 @@ class ProgramPrinter {
 	}
 	
 	def static print(VariableDecl decl) '''
-		«decl.dataType.print» «decl.name»;
+		«decl.printStatic»«decl.dataType.print» «decl.name»;
 	'''
+	
+	def static printStatic(VariableDecl decl) {
+		if (decl.isStatic) {
+			return '''static '''
+		} else {
+			return ''''''
+		}
+	}
 
 	
 	////////////////////////////////////////////////
@@ -121,11 +129,19 @@ class ProgramPrinter {
 	'''
 	
 	def static printSignature(Function function)
-		'''«function.printInline»«function.returnType.print» «function.name»(«function.printParameters»)'''
+		'''«function.printStatic»«function.printInline»«function.returnType.print» «function.name»(«function.printParameters»)'''
 	
 	def static printInline(Function function) {
 		if (function.isInline) {
 			return '''inline '''
+		} else {
+			return ''''''
+		}
+	}
+	
+	def static printStatic(Function function) {
+		if (function.isStatic) {
+			return '''static '''
 		} else {
 			return ''''''
 		}
