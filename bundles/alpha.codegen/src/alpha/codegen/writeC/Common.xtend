@@ -173,9 +173,9 @@ class Common {
 	/** Gets the expression for the maximum value of a data type. */
 	static def getMaxValue(BaseDataType dataType) {
 		return switch dataType {
-			case INT: "INT_MAX",
-			case LONG: "LONG_MAX",
-			case FLOAT: "FLT_MAX",
+			case INT: "INT_MAX"
+			case LONG: "LONG_MAX"
+			case FLOAT: "FLT_MAX"
 			case DOUBLE: "DBL_MAX"
 			default: throw new Exception("There is no maximum value for type '" + dataType + "'.")
 		}.customExpr
@@ -184,9 +184,9 @@ class Common {
 	/** Gets the expression for the minimum value of a data type. */
 	static def getMinValue(BaseDataType dataType) {
 		return switch dataType {
-			case INT: "INT_MIN",
-			case LONG: "LONG_MIN",
-			case FLOAT: "FLT_MIN",
+			case INT: "INT_MIN"
+			case LONG: "LONG_MIN"
+			case FLOAT: "FLT_MIN"
 			case DOUBLE: "DBL_MIN"
 			default: throw new Exception("There is no maximum value for type '" + dataType + "'.")
 		}.customExpr
@@ -195,9 +195,9 @@ class Common {
 	/** Gets the expression for 1 for the given data type. */
 	static def getOneValue(BaseDataType dataType) {
 		return switch dataType {
-			case INT: "1",
-			case LONG: "1L",
-			case FLOAT: "1.0f",
+			case INT: "1"
+			case LONG: "1L"
+			case FLOAT: "1.0f"
 			case DOUBLE: "1.0"
 			default: throw new Exception("There is no maximum value for type '" + dataType + "'.")
 		}.customExpr
@@ -206,9 +206,9 @@ class Common {
 	/** Gets the expression for 0 for the given data type. */
 	static def getZeroValue(BaseDataType dataType) {
 		return switch dataType {
-			case INT: "0",
-			case LONG: "0L",
-			case FLOAT: "0.0f",
+			case INT: "0"
+			case LONG: "0L"
+			case FLOAT: "0.0f"
 			case DOUBLE: "0.0"
 			default: throw new Exception("There is no maximum value for type '" + dataType + "'.")
 		}.customExpr
