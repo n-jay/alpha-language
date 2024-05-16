@@ -54,10 +54,9 @@ import fr.irisa.cairn.jnimap.isl.ISLConstraint
  */
 class OptimalSimplifyingReductions {
 	
-	public static boolean DEBUG = false
 	
-	private static def void debug(String msg) {
-		if (DEBUG)
+	private def void debug(String msg) {
+		if (verbose)
 			println("[OptimalSimplifyingReductions] " + msg)
 	}
 	
@@ -70,6 +69,9 @@ class OptimalSimplifyingReductions {
 	protected boolean throttle
 	protected int throttleLimit
 	protected long optimizationNum
+	protected int targetComplexity
+	protected boolean trySplitting
+	protected boolean verbose
 	
 	/**
 	 * This maps contains the simplified versions of the program obtained
@@ -82,34 +84,31 @@ class OptimalSimplifyingReductions {
 	/**
 	 * Creates an OSR instance and initializes exploration space parameters 
 	 */
-	protected new (SystemBody originalSystemBody, int limit) {
-		root = EcoreUtil.copy(AlphaUtil.getContainerRoot(originalSystemBody))
-		system = root.getSystem(originalSystemBody.system.fullyQualifiedName)
-		systemBodyID = originalSystemBody.system.systemBodies.indexOf(originalSystemBody)
-		systemBody = system.systemBodies.get(systemBodyID)
-		optimizations = newHashMap
-		originalSystemName = system.name
-		optimizationNum = 0
-		initialComplexity = systemBody.complexity
-		throttle = limit > 0
-		throttleLimit = limit
+	protected new (AlphaSystem system, int limit, int complexity, boolean trySplitting, boolean verbose) {
+		if (system.systemBodies.size > 1) {
+			throw new IllegalArgumentException("AlphaSystems with multiple system bodies is not yet supported.")
+		}
+		this.root = EcoreUtil.copy(AlphaUtil.getContainerRoot(system))
+		this.system = this.root.getSystem(system.fullyQualifiedName)
+		this.systemBodyID = 0
+		this.systemBody = this.system.systemBodies.get(this.systemBodyID)
+		this.optimizations = newHashMap
+		this.originalSystemName = this.system.name
+		this.optimizationNum = 0
+		this.initialComplexity = this.systemBody.complexity
+		this.throttle = limit > 0
+		this.throttleLimit = limit
+		this.targetComplexity = complexity
+		this.trySplitting = trySplitting
+		this.verbose = verbose
 	}
 	
 	/** 
 	 * Entry points to the optimal simplification algorithm.
 	 * If no limit is specified, then it will explore all possible simplifications.
 	 */
-	static def apply(AlphaSystem system) { apply(system, 0) }
-	static def apply(AlphaSystem system, int limit) {
-		if (system.systemBodies.size == 1)
-			apply(system.systemBodies.get(0), limit)
-		else
-			throw new IllegalArgumentException("A SystemBody must be specified for an AlphaSystem with multiple bodies.")
-	}
-	static def apply(SystemBody body) { apply(body, 0) }
-	static def apply(SystemBody body, int limit) {
-		
-		val osr = new OptimalSimplifyingReductions(body, limit)
+	static def apply(AlphaSystem system, int limit, int targetComplexity, boolean trySplitting, boolean verbose) {
+		val osr = new OptimalSimplifyingReductions(system, limit, targetComplexity, trySplitting, verbose)
 		osr.run
 		return osr
 	}
@@ -177,7 +176,8 @@ class OptimalSimplifyingReductions {
 		}
 		
 		val stateComplexity = state.complexity
-		if (stateComplexity < initialComplexity) {
+		if (stateComplexity == targetComplexity) {
+			println('''[alpha]: found simplification/v«optimizationNum»/«system.name».alpha''')
 			optimizationNum++
 			state.addToOptimzations
 			if (throttle && optimizationNum >= throttleLimit)
@@ -289,7 +289,7 @@ class OptimalSimplifyingReductions {
 	 * Return true if shouldSimplify returns true and the reduction operator does not admit an inverse
 	 */
 	private def shouldSplit(AbstractReduceExpression are, boolean shouldSimplify) {
-		shouldSimplify && are.operator.hasNoInverse
+		trySplitting && shouldSimplify && are.operator.hasNoInverse
 	}
 	
 	/** 
@@ -311,8 +311,8 @@ class OptimalSimplifyingReductions {
 		
 		// Splitting
 		if (targetRE.shouldSplit(shouldSimplify)) {
-			 val splits = SplitReduction.enumerateCandidateSplits(targetRE)
-			 candidates.addAll(splits.map[split | new StepSplitReduction(targetRE, split)])
+			val splits = SplitReduction.enumerateCandidateSplits(targetRE)
+			candidates.addAll(splits.map[split | new StepSplitReduction(targetRE, split)])
 		}
 		
 		// Idempotent
