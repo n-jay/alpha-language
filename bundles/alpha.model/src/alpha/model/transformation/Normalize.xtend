@@ -459,6 +459,14 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		reapply(origContainer)
 	}
 	
+	protected def dispatch binaryExpressionRules(BinaryExpression be, AlphaExpression aeLeft, CaseExpression ceRight) {
+		val origContainer = be.eContainer as AlphaCompleteVisitable
+		binaryExpressionRules(be, ceRight)
+		if (origContainer != be.eContainer) {
+			reapply(origContainer)
+		}
+	}
+	
 	protected def dispatch binaryExpressionRules(BinaryExpression be, AlphaExpression aeLeft, AlphaExpression aeRight) {
 		val origContainer = be.eContainer  as AlphaCompleteVisitable 
 		

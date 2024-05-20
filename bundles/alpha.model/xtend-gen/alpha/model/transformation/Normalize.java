@@ -490,6 +490,17 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     this.reapply(origContainer);
   }
 
+  protected void _binaryExpressionRules(final BinaryExpression be, final AlphaExpression aeLeft, final CaseExpression ceRight) {
+    EObject _eContainer = be.eContainer();
+    final AlphaCompleteVisitable origContainer = ((AlphaCompleteVisitable) _eContainer);
+    this.binaryExpressionRules(be, ceRight);
+    EObject _eContainer_1 = be.eContainer();
+    boolean _notEquals = (!Objects.equal(origContainer, _eContainer_1));
+    if (_notEquals) {
+      this.reapply(origContainer);
+    }
+  }
+
   protected void _binaryExpressionRules(final BinaryExpression be, final AlphaExpression aeLeft, final AlphaExpression aeRight) {
     EObject _eContainer = be.eContainer();
     final AlphaCompleteVisitable origContainer = ((AlphaCompleteVisitable) _eContainer);
@@ -949,6 +960,10 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     if (ceLeft instanceof CaseExpression
          && ceRight instanceof CaseExpression) {
       _binaryExpressionRules(be, (CaseExpression)ceLeft, (CaseExpression)ceRight);
+      return;
+    } else if (ceLeft != null
+         && ceRight instanceof CaseExpression) {
+      _binaryExpressionRules(be, ceLeft, (CaseExpression)ceRight);
       return;
     } else if (ceLeft != null
          && ceRight != null) {
