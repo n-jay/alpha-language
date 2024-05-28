@@ -2,19 +2,14 @@ package alpha.model.transformation.automation
 
 import alpha.model.AbstractReduceExpression
 import alpha.model.AlphaExpression
-import alpha.model.AlphaInternalStateConstructor
 import alpha.model.AlphaRoot
 import alpha.model.AlphaSystem
-import alpha.model.DependenceExpression
 import alpha.model.ReduceExpression
-import alpha.model.RestrictExpression
 import alpha.model.StandardEquation
 import alpha.model.SystemBody
-import alpha.model.VariableExpression
 import alpha.model.analysis.reduction.ShareSpaceAnalysis
 import alpha.model.matrix.MatrixOperations
 import alpha.model.transformation.Normalize
-import alpha.model.transformation.RaiseDependence
 import alpha.model.transformation.SplitUnionIntoCase
 import alpha.model.transformation.reduction.Distributivity
 import alpha.model.transformation.reduction.HigherOrderOperator
@@ -25,8 +20,10 @@ import alpha.model.transformation.reduction.ReductionComposition
 import alpha.model.transformation.reduction.ReductionDecomposition
 import alpha.model.transformation.reduction.SameOperatorSimplification
 import alpha.model.transformation.reduction.SimplifyingReductions
+import alpha.model.transformation.reduction.SplitReduction
 import alpha.model.util.AlphaUtil
 import alpha.model.util.Show
+import fr.irisa.cairn.jnimap.isl.ISLConstraint
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import java.util.LinkedList
 import java.util.List
@@ -35,14 +32,12 @@ import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.util.EcoreUtil
 
 import static extension alpha.model.ComplexityCalculator.complexity
+import static extension alpha.model.util.AlphaOperatorUtil.hasNoInverse
 import static extension alpha.model.util.AlphaUtil.getContainerEquation
 import static extension alpha.model.util.AlphaUtil.getContainerRoot
 import static extension alpha.model.util.AlphaUtil.getContainerSystemBody
 import static extension alpha.model.util.ISLUtil.dimensionality
 import static extension java.lang.String.format
-import static extension alpha.model.util.AlphaOperatorUtil.hasNoInverse
-import alpha.model.transformation.reduction.SplitReduction
-import fr.irisa.cairn.jnimap.isl.ISLConstraint
 
 /**
  * Implements Algorithm 2 in the Simplifying Reductions paper. The current
@@ -259,21 +254,6 @@ class OptimalSimplifyingReductions {
 		
 		return true;
 	}
-
-	/** 
-	 * Only raise dependence expressions when the reduction body is not any of the following:
-	 * - depExpr
-	 * - varExpr
-	 * - restrictExpr(depExpr)
-	 * - restrictExpr(varExpr)
-	 */
-	private dispatch def shouldRaiseDependence(DependenceExpression de) { false }
-	private dispatch def shouldRaiseDependence(VariableExpression ve) { false }
-	private dispatch def shouldRaiseDependence(RestrictExpression re) { shouldRaiseDependence(re, re.expr) }
-	private dispatch def shouldRaiseDependence(RestrictExpression re, DependenceExpression de) { false }
-	private dispatch def shouldRaiseDependence(RestrictExpression re, VariableExpression ve) { false }
-	private dispatch def shouldRaiseDependence(RestrictExpression re, AlphaExpression ae) { true }
-	private dispatch def shouldRaiseDependence(AlphaExpression ae) { true }
 	
 	/** 
 	 * Return true if the dimensionality of the reduction body is bigger than the dimensionality
@@ -331,11 +311,6 @@ class OptimalSimplifyingReductions {
 			candidates.add(new StepReductionDecomposition(targetRE, pair.key, pair.value))
 		}
 		
-		// RaiseDependence
-		if (targetRE.body.shouldRaiseDependence) {
-			candidates.add(new StepRaiseDependence(targetRE))
-		}
-		
 		return candidates;
 	}
 	
@@ -356,10 +331,6 @@ class OptimalSimplifyingReductions {
 		ReductionDecomposition.apply(re, step.innerProjection.copy, step.outerProjection.copy)
 		NormalizeReduction.apply(re.getContainerEquation)
 		Normalize.apply(systemBody)
-	}
-	protected dispatch def applyDPStep(ReduceExpression re, StepRaiseDependence step) {
-		RaiseDependence.apply(re, true)
-		AlphaInternalStateConstructor.recomputeContextDomain(systemBody)
 	}
 	protected dispatch def applyDPStep(ReduceExpression re, StepSplitReduction step) {
 		val equation = re.getContainerEquation
@@ -455,16 +426,6 @@ class OptimalSimplifyingReductions {
 		}
 	}
 	
-	static class StepRaiseDependence extends DynamicProgrammingStep {
-		new(AbstractReduceExpression targetRE) {
-			super(targetRE)
-		}
-		
-		override description() {
-			'Apply RaiseDependence'
-		}
-	}
-	
 	static class StepSplitReduction extends DynamicProgrammingStep {
 		ISLConstraint split
 		new(AbstractReduceExpression targetRE, ISLConstraint split) {
@@ -510,12 +471,16 @@ class OptimalSimplifyingReductions {
 			body.complexity
 		}
 		
-		def show() '''
-			// Complexity: «complexity»D
-			«(0..<steps.size).map[i | 
+		def showSteps() {
+			(0..<steps.size).map[i | 
 				val indent = '// ' + (0..<i).map['+--'].join + '+-- '
 				indent + steps.get(i).description
-			].join('\n')»
+			].join('\n')
+		}
+		
+		def show() '''
+			// Complexity: «complexity»D
+			«showSteps»
 			«Show.print(body.system)»
 		'''
 	}

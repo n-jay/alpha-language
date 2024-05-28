@@ -382,12 +382,6 @@ class SimplifyingReductions {
 		val areSS = SSAR.getShareSpace(are.body)
 		if (areSS === null)
 			return vectors;
-			
-		val kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.projection))
-		
-		if (MatrixOperations.kernelIntersection(areSS, kerFp) !== null) {
-			return vectors;
-		}
 		
 		// construct reuse space
 		val reuseSpace = areSS.toBasicSetFromKernel(are.body.contextDomain.space)

@@ -400,12 +400,6 @@ public class SimplifyingReductions {
     if ((areSS == null)) {
       return vectors;
     }
-    final long[][] kerFp = MatrixOperations.transpose(AffineFunctionOperations.computeKernel(are.getProjection()));
-    long[][] _kernelIntersection = MatrixOperations.kernelIntersection(areSS, kerFp);
-    boolean _tripleNotEquals = (_kernelIntersection != null);
-    if (_tripleNotEquals) {
-      return vectors;
-    }
     final ISLBasicSet reuseSpace = DomainOperations.toBasicSetFromKernel(areSS, are.getBody().getContextDomain().getSpace());
     final Face face = are.getFacet();
     String _string = face.toLinearSpace().toString();
