@@ -300,7 +300,7 @@ public class AffineFactorizerTest {
     final ISLMultiAff hActual = decomposed.getKey();
     final ISLMultiAff qActual = decomposed.getValue();
     final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }");
-    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [i,j,k] -> [i,j,k] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }");
     Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
     Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
   }
@@ -312,7 +312,7 @@ public class AffineFactorizerTest {
     final ISLMultiAff hActual = decomposed.getKey();
     final ISLMultiAff qActual = decomposed.getValue();
     final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }");
-    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [x,y] -> [x,x+y] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [x,y] -> [x,x+y] }");
     Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
     Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
   }
@@ -324,7 +324,7 @@ public class AffineFactorizerTest {
     final ISLMultiAff hActual = decomposed.getKey();
     final ISLMultiAff qActual = decomposed.getValue();
     final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }");
-    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [x,y] -> [x,x+y,x] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [x,y] -> [x,x+y,x] }");
     Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
     Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
   }
@@ -335,8 +335,20 @@ public class AffineFactorizerTest {
     final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.hermiteExpressionDecomposition(original);
     final ISLMultiAff hActual = decomposed.getKey();
     final ISLMultiAff qActual = decomposed.getValue();
-    final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [0] }");
-    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("{ [i] -> [i,0,0,0] }");
+    final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [] -> [0,0,0,0] }");
+    Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
+    Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
+  }
+
+  @Test
+  public void hermiteExpressionDecomposition_05() {
+    final ISLMultiAff original = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [N, N+3, 7] }");
+    final Pair<ISLMultiAff, ISLMultiAff> decomposed = AffineFactorizer.hermiteExpressionDecomposition(original);
+    final ISLMultiAff hActual = decomposed.getKey();
+    final ISLMultiAff qActual = decomposed.getValue();
+    final ISLMultiAff hExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [i,j,k] -> [] }");
+    final ISLMultiAff qExpected = AffineFactorizerTest.stringToMultiAff("[N] -> { [] -> [N,N+3,7] }");
     Assert.assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual));
     Assert.assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual));
   }
@@ -411,14 +423,14 @@ public class AffineFactorizerTest {
 
   @Test
   public void factorizeExpressions_03() {
-    final int expectedInnerDimensions = 5;
+    final int expectedInnerDimensions = 3;
     AffineFactorizerTest.assertFactorizationIsCorrect(expectedInnerDimensions, 
       "[N] -> { [i,j,k] -> [k,j,i,N,4] }");
   }
 
   @Test
   public void factorizeExpressions_04() {
-    final int expectedInnerDimensions = 4;
+    final int expectedInnerDimensions = 3;
     AffineFactorizerTest.assertFactorizationIsCorrect(expectedInnerDimensions, 
       "[N] -> { [i,j,k] -> [i+j, N+k] }", 
       "[N] -> { [i,j,k] -> [j+k, N+j+3] }");
@@ -426,7 +438,7 @@ public class AffineFactorizerTest {
 
   @Test
   public void factorizeExpressions_05() {
-    final int expectedInnerDimensions = 4;
+    final int expectedInnerDimensions = 2;
     AffineFactorizerTest.assertFactorizationIsCorrect(expectedInnerDimensions, 
       "[N,M] -> { [i,j,k] -> [i+k, N-j+4] }", 
       "[N,M] -> { [i,j,k] -> [M+N+4, N+M+4] }", 

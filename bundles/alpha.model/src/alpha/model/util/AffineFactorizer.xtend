@@ -6,11 +6,13 @@ import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMatrix
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import fr.irisa.cairn.jnimap.isl.ISLSpace
+import java.util.Collection
 import java.util.Iterator
 
 import static extension alpha.model.matrix.MatrixOperations.*
 import static extension alpha.model.util.AffineFunctionOperations.*
 import static extension alpha.model.util.CommonExtensions.*
+import static extension alpha.model.util.ISLUtil.*
 import static extension fr.irisa.cairn.jnimap.isl.ISLMatrix.buildFromLongMatrix
 
 /**
@@ -163,14 +165,12 @@ class AffineFactorizer {
 
 	/**
 	 * Returns the number of empty columns in the given matrix.
-	 * Assumes that the empty rows appear only on the right of the matrix.
+	 * Assumes that the empty rows appear only on the top of the matrix.
 	 */
 	def private static countEmptyCols(ISLMatrix matrix) {
-		// Note: Don't check if column 0 is empty, as we never want a situation
-		// where we've dropped every single column, as ISL doesn't like that.
 		val cols = matrix.nbCols
-		val emptyRowCount = (cols >.. 1).takeWhile[col | isColEmpty(matrix, col)].size
-		return emptyRowCount
+		val emptyColCount = (cols >.. 0).takeWhile[col | isColEmpty(matrix, col)].size
+		return emptyColCount
 	}
 
 	/** Checks if a column of the given matrix is empty or not. */
@@ -186,6 +186,12 @@ class AffineFactorizer {
 	
 	/** Converts a matrix into an expression. Each column is for one of the output dimensions. */
 	def static toExpression(ISLMatrix matrix, ISLSpace space) {
+		// If there are no output dimensions, we create the expression directly,
+		// as the standard approach below doesn't play nicely with isl.
+		if (space.nbOutputs == 0) {
+			return mapToEmptySet(space.paramNames, space.inputNames)
+		}
+		
 		val paramNames = space.paramNames
 		val inputNames = space.inputNames
 		val linearOnly = matrix.nbRows == (space.nbParams + space.nbInputs)
@@ -205,6 +211,10 @@ class AffineFactorizer {
 		return expression
 	}
 	
+	def private static mapToEmptySet(Collection<String> paramNames, Collection<String> inputNames) {
+		return '''[«paramNames.join(",")»] -> { [«inputNames.join(",")»] -> [] }'''.toString.toISLMultiAff
+	}
+	
 	////////////////////////////////////////////////////////////
 	// Expression Decomposition
 	////////////////////////////////////////////////////////////
@@ -222,14 +232,37 @@ class AffineFactorizer {
 		if (expression.nbOutputs == 0) {
 			return expression -> emptyExpr(expression.context)
 		}
-
-		// Convert the expression into a matrix, then decompose that matrix.
-		val decomposed = expression.expressionToMatrix.hermiteMatrixDecomposition
-		val hMatrix = decomposed.key
-		val qMatrix = decomposed.value
+		
+		// Convert the expression into a matrix where each column is an output,
+		// the first rows are for the parameters, and the last row is for constants.
+		// Then, split out the parameters and constants rows
+		// and factorize just the linear part.
+		val fullMatrix = expression.expressionToMatrix
+		val paramsRows = fullMatrix.copy.dropRows(expression.nbParams, expression.nbInputs + 1)
+		val indexRows = fullMatrix.copy.dropRows(0, expression.nbParams).dropRows(expression.nbInputs, 1)
+		val constantsRow = fullMatrix.dropRows(0, expression.nbParams + expression.nbInputs)
+		
+		val decomposed = indexRows.hermiteMatrixDecomposition
+		
+		// Since H is just the linear part of the common factor,
+		// we need to add rows of zeros for the parameters and constants
+		// so it can be reconstructed into an expression.
+		val hCols = decomposed.key.nbCols
+		val hMatrix = zeroMatrix(expression.nbParams, hCols)
+			.concat(decomposed.key)
+			.concat(zeroMatrix(1, hCols))
+		
+		// Since Q is just the linear part of the remaining terms,
+		// we need to add in the parameters and constants from the original expression.
+		val qMatrix =  paramsRows.concat(decomposed.value).concat(constantsRow)
+		
+		// If H has no rows (and Q has no columns), then the common factor is a map
+		// from the original domain to the empty set, and the remaining term is a map
+		// from the empty set to the original range.
 
 		// Construct spaces for the decomposed expressions to reside in.
-		val spaces = expression.space.createDecompositionSpaces(hMatrix.nbCols)
+		val originalSpace = expression.space
+		val spaces = originalSpace.createDecompositionSpaces(hMatrix.nbCols)
 		val hSpace = spaces.key
 		val qSpace = spaces.value
 
@@ -244,6 +277,17 @@ class AffineFactorizer {
 		return ISLMultiAff.buildFromString(context, "{ [] -> [] }")
 	}
 	
+	/** Returns a matrix of all zeros. */
+	def private static zeroMatrix(int rows, int cols) {
+		var matrix = ISLMatrix.build(ISLContext.instance, rows, cols)
+		for (r : 0 ..< rows) {
+			for (c : 0 ..< cols) {
+				matrix = matrix.setElement(r, c, 0)
+			}
+		}
+		return matrix
+	}
+	
 	/**
 	 * Creates the new spaces for the decomposition of the original space,
 	 * returned as a key->value pair. The key has the same domain as the
@@ -254,28 +298,24 @@ class AffineFactorizer {
 	def private static createDecompositionSpaces(ISLSpace originalSpace, int innerDimensionCount) {
 		// Get the names of the indexes for the inner dimension.
 		// Note: we need at least one inner dimension, otherwise we'll get null values.
-		val namesToMake = (innerDimensionCount > 0) ? innerDimensionCount : 1
+//		val namesToMake = (innerDimensionCount > 0) ? innerDimensionCount : 1
+		val namesToMake = innerDimensionCount
 		val innerNames = getNameGenerator("mid").take(namesToMake).toList
 		
-		// ISLSpace.domain returns indexes as "out" indexes,
-		// so the space needs to be reversed to make them "in" indexes.
-		// Then, we need to add the specified number of dimensions as "out" dimensions.
+		// The first space we need has the same parameters and inputs as the original
+		// space, and one output per inner dimension (instead of the original outputs).
 		val ISLSpace firstSpace =
 			originalSpace
 			.copy
-			.domain
-			.reverse
+			.dropDims(ISLDimType.isl_dim_out, 0, originalSpace.nbOutputs)
 			.addOutputs(innerNames)
 		
-		// The second space has the same range as the original space.
-		// Parameters are no longer needed, so we drop them.
-		// The inputs here are the newly created inner dimensions.
-		val paramCount = originalSpace.nbParams
+		// The second space we need has the same parameters and outputs as the original
+		// space, and one input per inner dimension (instead of the original inputs).
 		val ISLSpace secondSpace =
 			originalSpace
 			.copy
-			.range
-			.dropDims(ISLDimType.isl_dim_param, 0, paramCount)
+			.dropDims(ISLDimType.isl_dim_in, 0, originalSpace.nbInputs)
 			.addInputs(innerNames)
 			
 		return firstSpace -> secondSpace
