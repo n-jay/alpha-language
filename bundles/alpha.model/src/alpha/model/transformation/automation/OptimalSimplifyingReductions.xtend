@@ -7,6 +7,7 @@ import alpha.model.AlphaSystem
 import alpha.model.ReduceExpression
 import alpha.model.StandardEquation
 import alpha.model.SystemBody
+import alpha.model.analysis.reduction.CandidateReuse
 import alpha.model.analysis.reduction.ShareSpaceAnalysis
 import alpha.model.matrix.MatrixOperations
 import alpha.model.transformation.Normalize
@@ -18,6 +19,7 @@ import alpha.model.transformation.reduction.NormalizeReduction
 import alpha.model.transformation.reduction.PermutationCaseReduce
 import alpha.model.transformation.reduction.ReductionComposition
 import alpha.model.transformation.reduction.ReductionDecomposition
+import alpha.model.transformation.reduction.RemoveIdenticalAnswers
 import alpha.model.transformation.reduction.SameOperatorSimplification
 import alpha.model.transformation.reduction.SimplifyingReductions
 import alpha.model.transformation.reduction.SplitReduction
@@ -25,6 +27,7 @@ import alpha.model.util.AlphaUtil
 import alpha.model.util.Show
 import fr.irisa.cairn.jnimap.isl.ISLConstraint
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLSet
 import java.util.LinkedList
 import java.util.List
 import java.util.Map
@@ -285,8 +288,21 @@ class OptimalSimplifyingReductions {
 		// SimplifyingReductions 
 		val shouldSimplify = targetRE.shouldSimplify
 		if (shouldSimplify) {
-			val vectors = SimplifyingReductions.generateCandidateReuseVectors(targetRE, SSAR);
-			candidates.addAll(vectors.map[vec | new StepSimplifyingReduction(targetRE, vec, nbParams)])
+			val candidateReuse = new CandidateReuse(targetRE, SSAR)
+			if (candidateReuse.hasIdenticalAnswers) {
+				/*
+				 * If identical answers are found, then do not continue processing other DP steps. 
+				 * This is a special case of simplification.Add single step to remove the identical 
+				 * answers and return.
+				 */
+				return #[new StepRemoveIndenticalAnswers(
+					targetRE,
+					candidateReuse.identicalAnswerBasis,
+					candidateReuse.identicalAnswerDomain
+				)]
+			} else {
+				candidates.addAll(candidateReuse.vectors.map[vec | new StepSimplifyingReduction(targetRE, vec, nbParams)])
+			}
 		}
 		
 		// Splitting
@@ -337,6 +353,9 @@ class OptimalSimplifyingReductions {
 		SplitReduction.apply(re, step.split)
 		// re is no longer contained in the AST
 		NormalizeReduction.apply(equation)
+	}
+	protected dispatch def applyDPStep(ReduceExpression re, OptimalSimplifyingReductions.StepRemoveIndenticalAnswers step) {
+		RemoveIdenticalAnswers.transform(re, step.identicalAnswerBasis, step.identicalAnswerDomain)
 	}
 	protected dispatch def applyDPStep(AlphaExpression ae, DynamicProgrammingStep step) {
 		// do nothing
@@ -438,6 +457,20 @@ class OptimalSimplifyingReductions {
 		}
 	}
 	
+	static class StepRemoveIndenticalAnswers extends DynamicProgrammingStep {
+		ISLMultiAff identicalAnswerBasis
+		ISLSet identicalAnswerDomain
+		new(AbstractReduceExpression targetRE, ISLMultiAff rho, ISLSet identicalAnswerDomain) {
+			super(targetRE)
+			this.identicalAnswerBasis = identicalAnswerBasis
+			this.identicalAnswerDomain = identicalAnswerDomain
+		}
+		
+		override description() {
+			String.format("Apply RemoveIdenticalAnswers %s with %s", toEqStr, identicalAnswerBasis);
+		}
+	}
+	
 	////////////////////////////////////////////////////////////
 	// Miscellaneous helper inner classes
 	////////////////////////////////////////////////////////////
@@ -513,7 +546,7 @@ class OptimalSimplifyingReductions {
 			throw new Exception('Reduction has not been normalized: ' + Show.print(re.getContainerEquation))
 		}
 		val eq = re.getContainerEquation as StandardEquation
-		val lhsDim = eq.variable.domain.nbIndices
+		val lhsDim = eq.variable.domain.dimensionality
 		val rhsDim = re.body.contextDomain.dimensionality
 		lhsDim >= rhsDim
 	}
