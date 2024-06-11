@@ -137,6 +137,11 @@ public class ISLUtil {
     return _xblockexpression;
   }
 
+  public static boolean isNonTrivial(final ISLSet set) {
+    boolean _isTrivial = ISLUtil.isTrivial(set);
+    return (!_isTrivial);
+  }
+
   /**
    * Returns true if c is effectively saturated per Theorem 1 in GR06, and false otherwise
    */
@@ -219,7 +224,7 @@ public class ISLUtil {
     final Function1<ISLBasicSet, Integer> _function = (ISLBasicSet it) -> {
       return Integer.valueOf(ISLUtil.dimensionality(it));
     };
-    return (int) IterableExtensions.<Integer>max(ListExtensions.<ISLBasicSet, Integer>map(set.computeDivs().getBasicSets(), _function));
+    return (int) IterableExtensions.<Integer>max(ListExtensions.<ISLBasicSet, Integer>map(set.copy().computeDivs().getBasicSets(), _function));
   }
 
   public static int dimensionality(final ISLBasicSet set) {
@@ -239,5 +244,30 @@ public class ISLUtil {
     final int effectivelySaturatedCount = IterableExtensions.<String>toSet(IterableExtensions.<ISLConstraint, String>map(IterableExtensions.<ISLConstraint>filter(IterableExtensions.<ISLConstraint>filter(set.getConstraints(), _function), _function_1), _function_2)).size();
     int _nbIndices = set.getNbIndices();
     return (_nbIndices - effectivelySaturatedCount);
+  }
+
+  /**
+   * Returns the ISLBasicSet characterizing the null space of the multiAff
+   */
+  public static ISLSet nullSpace(final ISLMultiAff maff) {
+    final Function2<ISLBasicSet, ISLAff, ISLBasicSet> _function = (ISLBasicSet ret, ISLAff c) -> {
+      return ret.addConstraint(c.toEqualityConstraint());
+    };
+    return IterableExtensions.<ISLAff, ISLBasicSet>fold(maff.getAffs(), 
+      ISLBasicSet.buildUniverse(maff.getSpace().domain().copy()), _function).toSet();
+  }
+
+  /**
+   * Returns true if the set is a lower dimensional polyhedron embedded in a higher
+   * dimension space, or false otherwise
+   */
+  public static boolean isEmbedding(final ISLSet set) {
+    boolean _xblockexpression = false;
+    {
+      final int nbIndices = set.dim(ISLDimType.isl_dim_set);
+      int _dimensionality = ISLUtil.dimensionality(set);
+      _xblockexpression = (_dimensionality < nbIndices);
+    }
+    return _xblockexpression;
   }
 }

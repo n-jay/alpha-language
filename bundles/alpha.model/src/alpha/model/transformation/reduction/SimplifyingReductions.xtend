@@ -5,6 +5,7 @@ import alpha.model.AlphaInternalStateConstructor
 import alpha.model.AlphaSystem
 import alpha.model.BINARY_OP
 import alpha.model.ReduceExpression
+import alpha.model.RestrictExpression
 import alpha.model.StandardEquation
 import alpha.model.SystemBody
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult
@@ -32,12 +33,7 @@ import java.util.TreeSet
 import java.util.function.Function
 import org.eclipse.emf.ecore.util.EcoreUtil
 
-import static alpha.model.util.Face.enumerateAllPossibleLabelings
-
 import static extension alpha.model.util.AlphaUtil.getContainerSystemBody
-import static extension alpha.model.util.DomainOperations.toBasicSetFromKernel
-import static extension alpha.model.util.ISLUtil.integerPointClosestToOrigin
-import static extension alpha.model.util.ISLUtil.isTrivial
 
 /**
  * Implementation of Theorem 5 in the original Simplifying Reductions paper.
@@ -106,6 +102,12 @@ class SimplifyingReductions {
 		reuseDep.getAffs.map[aff | aff.getConstant]
 	}
 	
+	protected static def ReduceExpression createXadd(AbstractReduceExpression reduceExpr, BasicElements BE) {
+		val restrictDom = BE.origDE.copy.subtract(BE.DEp.copy)
+		val restrictExpr = AlphaUserFactory.createRestrictExpression(restrictDom, EcoreUtil.copy(reduceExpr.body))
+		return AlphaUserFactory.createReduceExpression(reduceExpr.operator, reduceExpr.projection, restrictExpr);
+	}
+	
 	protected def void simplify() {
 		val BE = computeBasicElements(targetReduce, reuseDep)
 		
@@ -113,9 +115,8 @@ class SimplifyingReductions {
 		val XaddName = defineXaddEquationName.apply(this)
 		var Xadd = null as ReduceExpression
 		{
-			val restrictDom = BE.origDE.copy.subtract(BE.DEp.copy)
-			val restrictExpr = AlphaUserFactory.createRestrictExpression(restrictDom, EcoreUtil.copy(targetReduce.body))
-			Xadd = AlphaUserFactory.createReduceExpression(targetReduce.operator, targetReduce.projection, restrictExpr);
+			Xadd = createXadd(targetReduce, BE)
+			val restrictDom = (Xadd.body as RestrictExpression).restrictDomain
 			
 			val XaddDom = restrictDom.copy.apply(targetReduce.projection.toMap)
 			val XaddVar = AlphaUserFactory.createVariable(XaddName, XaddDom)
@@ -246,16 +247,16 @@ class SimplifyingReductions {
 	 * is to separate legality tests with the transformation.
 	 * 
 	 */
-	private static class BasicElements {
-		long[][] kerQ
-		ISLMultiAff reuseDir
-		ISLMultiAff reuseDepProjected 
-		ISLSet origDE
-		ISLSet DEp 
-		ISLSet Dadd 
-		ISLSet Dsub
-		ISLSet Dint
-		BINARY_OP invOP
+	protected static class BasicElements {
+		protected long[][] kerQ
+		protected ISLMultiAff reuseDir
+		protected ISLMultiAff reuseDepProjected
+		protected ISLSet origDE
+		protected ISLSet DEp
+		protected ISLSet Dadd
+		protected ISLSet Dsub
+		protected ISLSet Dint
+		protected BINARY_OP invOP
 	}
 	
 	/**
@@ -314,7 +315,6 @@ class SimplifyingReductions {
 		return BE
 	}
 	
-	
 	static def testLegality(AbstractReduceExpression reduce, int[] reuseDepNoParams) {
 		testLegality(reduce, reuseDepNoParams.map[v|v as long])
 	}
@@ -344,7 +344,7 @@ class SimplifyingReductions {
 	 * the projection function, and then reconstructing the uniform
 	 * function from the result of the evaluation.
 	 */
-	private static def constructDependenceFunctionInAnswerSpace(ISLSpace variableDomainSpace, ISLMultiAff projection, ISLMultiAff reuseDep) {
+	static def constructDependenceFunctionInAnswerSpace(ISLSpace variableDomainSpace, ISLMultiAff projection, ISLMultiAff reuseDep) {
 		val b = AffineFunctionOperations.getConstantVector(reuseDep)
 		val nbParams = reuseDep.domainSpace.nbParams
 
@@ -369,56 +369,6 @@ class SimplifyingReductions {
 		val space = ISLSpace.idMapDimFromSetDim(variableDomainSpace.copy)
 		
 		return AffineFunctionOperations.createUniformFunction(space, projectedB)
-	}
-	
-	/**
-	 * Creates a list of ISLMultiAff that are valid reuse vectors given the share space.
-	 * Exposed to be used by SimplifyingReductionExploration.
-	 * 
-	 */
-	static def generateCandidateReuseVectors(AbstractReduceExpression are, ShareSpaceAnalysisResult SSAR) {
-		val vectors = new LinkedList<long[]>();
-		
-		val areSS = SSAR.getShareSpace(are.body)
-		if (areSS === null)
-			return vectors;
-		
-		// construct reuse space
-		val reuseSpace = areSS.toBasicSetFromKernel(are.body.contextDomain.space)
-		
-		// construct face lattice
-		val face = are.facet
-		debug('(candidateReuse) Lp = ' + face.toLinearSpace.toString)
-		val facets = face.generateChildren.toList
-		
-		if (facets.size == 0)
-			return vectors
-		
-		// enumerate all valid labelings
-		val labelings = enumerateAllPossibleLabelings(facets.size, true).toList
-		
-		// find the labelings that have none-empty domains
-		val labelingInducingDomains = labelings.map[l | face.getLabelingDomain(l)]
-		                                       .reject[ld | ld.value.isTrivial]
-		                                       .map[ld | ld.key -> ld.value.intersect(reuseSpace.copy)]
-		                                       .reject[ld | ld.value.isTrivial]
-		                                       .toList
-		
-		// select the reuse vector for each labeling domain (closest to the origin)
-		val candidateReuseVectors = labelingInducingDomains.map[ld | ld.key -> ld.value.integerPointClosestToOrigin]
-		val validReuseVectors = candidateReuseVectors.filter[lv | testLegality(are, lv.value)]
-		vectors.addAll(validReuseVectors.map[lv | lv.value])
-		
-		if (DEBUG) {
-			for (f : facets) {
-				debug('(candidateReuse) facet-' + facets.indexOf(f) + ': ' + f.toBasicSet)
-			}
-			for (lv : validReuseVectors) {
-				debug('(candidateReuse) labeling ' + lv.key.toString + ' induced by ' + lv.value.toString)
-			}
-		}
-		
-		return vectors;
 	}
 	
 	/**

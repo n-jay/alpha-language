@@ -9,6 +9,7 @@ import alpha.model.Equation;
 import alpha.model.ReduceExpression;
 import alpha.model.StandardEquation;
 import alpha.model.SystemBody;
+import alpha.model.analysis.reduction.CandidateReuse;
 import alpha.model.analysis.reduction.ShareSpaceAnalysis;
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult;
 import alpha.model.matrix.MatrixOperations;
@@ -21,6 +22,7 @@ import alpha.model.transformation.reduction.NormalizeReduction;
 import alpha.model.transformation.reduction.PermutationCaseReduce;
 import alpha.model.transformation.reduction.ReductionComposition;
 import alpha.model.transformation.reduction.ReductionDecomposition;
+import alpha.model.transformation.reduction.RemoveIdenticalAnswers;
 import alpha.model.transformation.reduction.SameOperatorSimplification;
 import alpha.model.transformation.reduction.SimplifyingReductions;
 import alpha.model.transformation.reduction.SplitReduction;
@@ -31,7 +33,9 @@ import alpha.model.util.Show;
 import com.google.common.base.Objects;
 import fr.irisa.cairn.jnimap.isl.ISLConstraint;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
+import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +177,23 @@ public class OptimalSimplifyingReductions {
     @Override
     public String description() {
       return String.format("Apply SplitReduction%s with %s", this.toEqStr(), this.split);
+    }
+  }
+
+  public static class StepRemoveIndenticalAnswers extends OptimalSimplifyingReductions.DynamicProgrammingStep {
+    private ISLMultiAff identicalAnswerBasis;
+
+    private ISLSet identicalAnswerDomain;
+
+    public StepRemoveIndenticalAnswers(final AbstractReduceExpression targetRE, final ISLMultiAff identicalAnswerBasis, final ISLSet identicalAnswerDomain) {
+      super(targetRE);
+      this.identicalAnswerBasis = identicalAnswerBasis;
+      this.identicalAnswerDomain = identicalAnswerDomain;
+    }
+
+    @Override
+    public String description() {
+      return String.format("Apply RemoveIdenticalAnswers %s with %s", this.toEqStr(), this.identicalAnswerBasis);
     }
   }
 
@@ -426,7 +447,7 @@ public class OptimalSimplifyingReductions {
       return;
     }
     AlphaExpression _expr = targetEq.getExpr();
-    final LinkedList<OptimalSimplifyingReductions.DynamicProgrammingStep> candidates = this.enumerateCandidates(((ReduceExpression) _expr));
+    final List<? extends OptimalSimplifyingReductions.DynamicProgrammingStep> candidates = this.enumerateCandidates(((ReduceExpression) _expr));
     final Consumer<OptimalSimplifyingReductions.DynamicProgrammingStep> _function = (OptimalSimplifyingReductions.DynamicProgrammingStep c) -> {
       String _description = c.description();
       String _plus = ("candidate: " + _description);
@@ -507,17 +528,25 @@ public class OptimalSimplifyingReductions {
   /**
    * Creates a list of possible transformations that are valid steps in the DP
    */
-  protected LinkedList<OptimalSimplifyingReductions.DynamicProgrammingStep> enumerateCandidates(final AbstractReduceExpression targetRE) {
+  protected List<? extends OptimalSimplifyingReductions.DynamicProgrammingStep> enumerateCandidates(final AbstractReduceExpression targetRE) {
     final int nbParams = targetRE.getExpressionDomain().getNbParams();
     final ShareSpaceAnalysisResult SSAR = ShareSpaceAnalysis.apply(targetRE);
     final LinkedList<OptimalSimplifyingReductions.DynamicProgrammingStep> candidates = new LinkedList<OptimalSimplifyingReductions.DynamicProgrammingStep>();
     final boolean shouldSimplify = this.shouldSimplify(targetRE);
     if (shouldSimplify) {
-      final LinkedList<long[]> vectors = SimplifyingReductions.generateCandidateReuseVectors(targetRE, SSAR);
-      final Function1<long[], OptimalSimplifyingReductions.StepSimplifyingReduction> _function = (long[] vec) -> {
-        return new OptimalSimplifyingReductions.StepSimplifyingReduction(targetRE, vec, nbParams);
-      };
-      candidates.addAll(ListExtensions.<long[], OptimalSimplifyingReductions.StepSimplifyingReduction>map(vectors, _function));
+      final CandidateReuse candidateReuse = new CandidateReuse(targetRE, SSAR);
+      boolean _isHasIdenticalAnswers = candidateReuse.isHasIdenticalAnswers();
+      if (_isHasIdenticalAnswers) {
+        ISLMultiAff _identicalAnswerBasis = candidateReuse.identicalAnswerBasis();
+        ISLSet _identicalAnswerDomain = candidateReuse.getIdenticalAnswerDomain();
+        OptimalSimplifyingReductions.StepRemoveIndenticalAnswers _stepRemoveIndenticalAnswers = new OptimalSimplifyingReductions.StepRemoveIndenticalAnswers(targetRE, _identicalAnswerBasis, _identicalAnswerDomain);
+        return Collections.<OptimalSimplifyingReductions.StepRemoveIndenticalAnswers>unmodifiableList(CollectionLiterals.<OptimalSimplifyingReductions.StepRemoveIndenticalAnswers>newArrayList(_stepRemoveIndenticalAnswers));
+      } else {
+        final Function1<long[], OptimalSimplifyingReductions.StepSimplifyingReduction> _function = (long[] vec) -> {
+          return new OptimalSimplifyingReductions.StepSimplifyingReduction(targetRE, vec, nbParams);
+        };
+        candidates.addAll(ListExtensions.<long[], OptimalSimplifyingReductions.StepSimplifyingReduction>map(candidateReuse.getVectors(), _function));
+      }
     }
     boolean _shouldSplit = this.shouldSplit(targetRE, shouldSimplify);
     if (_shouldSplit) {
@@ -579,6 +608,11 @@ public class OptimalSimplifyingReductions {
     return Integer.valueOf(_xblockexpression);
   }
 
+  protected Integer _applyDPStep(final ReduceExpression re, final OptimalSimplifyingReductions.StepRemoveIndenticalAnswers step) {
+    RemoveIdenticalAnswers.transform(re, step.identicalAnswerBasis, step.identicalAnswerDomain);
+    return null;
+  }
+
   protected Integer _applyDPStep(final AlphaExpression ae, final OptimalSimplifyingReductions.DynamicProgrammingStep step) {
     return null;
   }
@@ -630,7 +664,7 @@ public class OptimalSimplifyingReductions {
         }
         Equation _containerEquation = AlphaUtil.getContainerEquation(re);
         final StandardEquation eq = ((StandardEquation) _containerEquation);
-        final int lhsDim = eq.getVariable().getDomain().getNbIndices();
+        final int lhsDim = ISLUtil.dimensionality(eq.getVariable().getDomain());
         final int rhsDim = ISLUtil.dimensionality(re.getBody().getContextDomain());
         _xblockexpression = (lhsDim >= rhsDim);
       }
@@ -704,6 +738,9 @@ public class OptimalSimplifyingReductions {
     } else if (re instanceof ReduceExpression
          && step instanceof OptimalSimplifyingReductions.StepReductionDecomposition) {
       return _applyDPStep((ReduceExpression)re, (OptimalSimplifyingReductions.StepReductionDecomposition)step);
+    } else if (re instanceof ReduceExpression
+         && step instanceof OptimalSimplifyingReductions.StepRemoveIndenticalAnswers) {
+      return _applyDPStep((ReduceExpression)re, (OptimalSimplifyingReductions.StepRemoveIndenticalAnswers)step);
     } else if (re instanceof ReduceExpression
          && step instanceof OptimalSimplifyingReductions.StepSimplifyingReduction) {
       return _applyDPStep((ReduceExpression)re, (OptimalSimplifyingReductions.StepSimplifyingReduction)step);
