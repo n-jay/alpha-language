@@ -1,8 +1,8 @@
-package alpha.codegen.tests.writeC
+package alpha.codegen.tests.demandDriven
 
 import alpha.codegen.BaseDataType
 import alpha.codegen.ProgramPrinter
-import alpha.codegen.writeC.SystemConverter
+import alpha.codegen.demandDriven.WriteC
 import alpha.commands.Utility
 import alpha.loader.AlphaLoader
 import java.io.FileWriter
@@ -38,7 +38,7 @@ class SystemConverterManualTest {
 			val system = Utility.GetSystem(root, program)
 			
 			// Convert the system using older AlphaZ compatibility.
-			val cAST = SystemConverter.convert(system, BaseDataType.FLOAT, true)
+			val cAST = WriteC.convert(system, BaseDataType.FLOAT, true)
 			val cProgram = ProgramPrinter.print(cAST).toString
 			
 			// Write the C program out.

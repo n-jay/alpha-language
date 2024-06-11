@@ -1,9 +1,9 @@
-package alpha.codegen.tests.writeC;
+package alpha.codegen.tests.demandDriven;
 
 import alpha.codegen.BaseDataType;
 import alpha.codegen.Program;
 import alpha.codegen.ProgramPrinter;
-import alpha.codegen.writeC.SystemConverter;
+import alpha.codegen.demandDriven.WriteC;
 import alpha.commands.Utility;
 import alpha.loader.AlphaLoader;
 import alpha.model.AlphaRoot;
@@ -42,7 +42,7 @@ public class SystemConverterManualTest {
           final String alphaFile = (((("resources/" + program) + "/") + program) + ".alpha");
           final AlphaRoot root = AlphaLoader.loadAlpha(alphaFile);
           final AlphaSystem system = Utility.GetSystem(root, program);
-          final Program cAST = SystemConverter.convert(system, BaseDataType.FLOAT, true);
+          final Program cAST = WriteC.convert(system, BaseDataType.FLOAT, true);
           final String cProgram = ProgramPrinter.print(cAST).toString();
           final String cFile = (((("resources/" + program) + "/") + program) + ".c");
           final FileWriter writer = new FileWriter(cFile);

@@ -1,8 +1,9 @@
-package alpha.codegen.tests.writeC;
+package alpha.codegen.tests.demandDriven;
 
+import alpha.codegen.BaseDataType;
 import alpha.codegen.Program;
 import alpha.codegen.ProgramPrinter;
-import alpha.codegen.writeC.SystemConverter;
+import alpha.codegen.demandDriven.WriteC;
 import alpha.commands.UtilityBase;
 import alpha.model.AlphaModelLoader;
 import alpha.model.AlphaSystem;
@@ -15,7 +16,7 @@ public class SystemConverterTest {
   /**
    * The path to the Alpha file for these unit tests.
    */
-  private static final String alphaFile = "resources/alpha.codegen.tests.writeC/SystemConverterTest.alpha";
+  private static final String alphaFile = "resources/alpha.codegen.tests.demandDriven/SystemConverterTest.alpha";
 
   /**
    * Gets the desired system for these unit tests.
@@ -31,7 +32,7 @@ public class SystemConverterTest {
   @Test
   public void convertSystem_noParameters() {
     final AlphaSystem system = SystemConverterTest.getSystem("NoParameters");
-    final Program program = SystemConverter.convert(system);
+    final Program program = WriteC.convert(system, BaseDataType.FLOAT, false);
     final CharSequence code = ProgramPrinter.print(program);
     Assert.assertNotNull(code);
     Assert.assertNotEquals("", code);
@@ -40,7 +41,7 @@ public class SystemConverterTest {
   @Test
   public void convertSystem_noParameterConstraints() {
     final AlphaSystem system = SystemConverterTest.getSystem("NoParameterConstraints");
-    final Program program = SystemConverter.convert(system);
+    final Program program = WriteC.convert(system, BaseDataType.FLOAT, false);
     final CharSequence code = ProgramPrinter.print(program);
     Assert.assertNotNull(code);
     Assert.assertNotEquals("", code);
