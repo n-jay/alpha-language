@@ -22,7 +22,6 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 
@@ -290,10 +289,10 @@ public class AffineFactorizer {
    * equal to the desired amount.
    */
   private static Pair<ISLSpace, ISLSpace> createDecompositionSpaces(final ISLSpace originalSpace, final int innerDimensionCount) {
-    final int namesToMake = innerDimensionCount;
-    final List<String> innerNames = IteratorExtensions.<String>toList(IteratorExtensions.<String>take(AffineFactorizer.getNameGenerator("mid"), namesToMake));
-    final ISLSpace firstSpace = originalSpace.copy().dropDims(ISLDimType.isl_dim_out, 0, originalSpace.getNbOutputs()).<ISLSpace>addOutputs(innerNames);
-    final ISLSpace secondSpace = originalSpace.copy().dropDims(ISLDimType.isl_dim_in, 0, originalSpace.getNbInputs()).<ISLSpace>addInputs(innerNames);
+    final List<String> outputNames = AlphaUtil.defaultDimNames(innerDimensionCount);
+    final ISLSpace firstSpace = originalSpace.copy().dropDims(ISLDimType.isl_dim_out, 0, originalSpace.getNbOutputs()).<ISLSpace>addOutputs(outputNames);
+    final List<String> inputNames = AlphaUtil.defaultDimNames(innerDimensionCount);
+    final ISLSpace secondSpace = originalSpace.copy().dropDims(ISLDimType.isl_dim_in, 0, originalSpace.getNbInputs()).<ISLSpace>addInputs(inputNames);
     return Pair.<ISLSpace, ISLSpace>of(firstSpace, secondSpace);
   }
 

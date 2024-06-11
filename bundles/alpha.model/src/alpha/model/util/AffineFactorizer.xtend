@@ -297,27 +297,23 @@ class AffineFactorizer {
 	 * equal to the desired amount.
 	 */
 	def private static createDecompositionSpaces(ISLSpace originalSpace, int innerDimensionCount) {
-		// Get the names of the indexes for the inner dimension.
-		// Note: we need at least one inner dimension, otherwise we'll get null values.
-//		val namesToMake = (innerDimensionCount > 0) ? innerDimensionCount : 1
-		val namesToMake = innerDimensionCount
-		val innerNames = getNameGenerator("mid").take(namesToMake).toList
-		
 		// The first space we need has the same parameters and inputs as the original
 		// space, and one output per inner dimension (instead of the original outputs).
+		val outputNames = AlphaUtil.defaultDimNames(innerDimensionCount)
 		val ISLSpace firstSpace =
 			originalSpace
 			.copy
 			.dropDims(ISLDimType.isl_dim_out, 0, originalSpace.nbOutputs)
-			.addOutputs(innerNames)
+			.addOutputs(outputNames)
 		
 		// The second space we need has the same parameters and outputs as the original
 		// space, and one input per inner dimension (instead of the original inputs).
+		val inputNames = AlphaUtil.defaultDimNames(innerDimensionCount)
 		val ISLSpace secondSpace =
 			originalSpace
 			.copy
 			.dropDims(ISLDimType.isl_dim_in, 0, originalSpace.nbInputs)
-			.addInputs(innerNames)
+			.addInputs(inputNames)
 			
 		return firstSpace -> secondSpace
 	}
