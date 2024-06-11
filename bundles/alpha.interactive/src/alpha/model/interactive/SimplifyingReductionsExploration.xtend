@@ -34,6 +34,7 @@ import fr.irisa.cairn.jnimap.isl.ISLMultiAff
 import java.util.LinkedList
 import java.util.List
 import org.eclipse.xtext.EcoreUtil2
+import alpha.model.analysis.reduction.CandidateReuse
 
 /**
  * Interactive exploration of Simplifying Reductions.
@@ -262,8 +263,8 @@ class SimplifyingReductionsExploration extends AbstractInteractiveExploration {
 		val options = new LinkedList<ExplorationStep>();
 		
 		//SimplifyingReductions
-		val vectors = SimplifyingReductions.generateCandidateReuseVectors(targetRE, SSAR);
-		for (vec : vectors) {
+		val candidateReuse = new CandidateReuse(targetRE, SSAR)
+		for (vec : candidateReuse.vectors) {
 			options.add(new StepSimplifyingReduction(vec));
 		}
 		
