@@ -8,12 +8,12 @@ import fr.irisa.cairn.jnimap.isl.ISLContext
 import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLMatrix
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff
+import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 import fr.irisa.cairn.jnimap.isl.ISLSet
 
 import static extension alpha.model.matrix.MatrixOperations.scalarMultiplication
 import static extension alpha.model.matrix.MatrixOperations.transpose
 import static extension alpha.model.util.DomainOperations.*
-import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial
 
 class ISLUtil {
 	
@@ -84,6 +84,10 @@ class ISLUtil {
 		set.copy.subtract(origin).isEmpty
 	}
 	
+	def static isNonTrivial(ISLSet set) {
+		!(set.isTrivial)
+	}
+	
 	/** Returns true if c is effectively saturated per Theorem 1 in GR06, and false otherwise */
 	def static boolean isEffectivelySaturated(ISLConstraint c, ISLBasicSet P) {
 		if (c.isEquality) {
@@ -151,7 +155,7 @@ class ISLUtil {
 	 * this will indicate that the set is 2D.
 	 */
 	def static int dimensionality(ISLSet set) {
-		set.computeDivs.basicSets.map[dimensionality].max
+		set.copy.computeDivs.basicSets.map[dimensionality].max
 	}
 	
 	def static int dimensionality(ISLBasicSet set) {
@@ -172,4 +176,27 @@ class ISLUtil {
 		
 		return set.nbIndices - effectivelySaturatedCount
 	}
+	
+	/**
+	 * Returns the ISLBasicSet characterizing the null space of the multiAff
+	 */
+	def static ISLSet nullSpace(ISLMultiAff maff) {
+		maff.affs.fold(
+			ISLBasicSet.buildUniverse(maff.space.domain.copy),
+			[ret, c | ret.addConstraint(c.toEqualityConstraint)]
+		).toSet
+	}
+	
+	/**
+	 * Returns true if the set is a lower dimensional polyhedron embedded in a higher
+	 * dimension space, or false otherwise
+	 */
+	def static boolean isEmbedding(ISLSet set) {
+		val nbIndices = set.dim(ISLDimType.isl_dim_set)
+		set.dimensionality < nbIndices
+	}
+	 
+	 
+	 
+	 
 }
