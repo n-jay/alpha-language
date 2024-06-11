@@ -211,6 +211,7 @@ class AffineFactorizer {
 		return expression
 	}
 	
+	// Creates a map from the given parameters and inputs to the empty set.
 	def private static mapToEmptySet(Collection<String> paramNames, Collection<String> inputNames) {
 		return '''[«paramNames.join(",")»] -> { [«inputNames.join(",")»] -> [] }'''.toString.toISLMultiAff
 	}
