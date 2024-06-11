@@ -132,17 +132,17 @@ public class RemoveIdenticalAnswers extends AbstractAlphaCompleteVisitor {
    * - h is the transitive closure of the uniform dependence of case 2
    * - D is the POS-face of the residual reduction induced by rho
    */
-  public static void transform(final AbstractReduceExpression reduceExpr, final ISLMultiAff rho) {
-    RemoveIdenticalAnswers.transform(reduceExpr, rho, ISLSet.buildEmpty(reduceExpr.getBody().getContextDomain().getSpace()));
+  public static void transform(final AbstractReduceExpression reduceExpr, final ISLMultiAff identicalAnswerBasis) {
+    RemoveIdenticalAnswers.transform(reduceExpr, identicalAnswerBasis, ISLSet.buildEmpty(reduceExpr.getBody().getContextDomain().getSpace()));
   }
 
-  public static void transform(final AbstractReduceExpression reduceExpr, final ISLMultiAff rho, final ISLSet decompositionDomain) {
+  public static void transform(final AbstractReduceExpression reduceExpr, final ISLMultiAff identicalAnswerBasis, final ISLSet identicalAnswerDomain) {
     try {
       AbstractReduceExpression targetReduceExpr = reduceExpr;
       final Equation eq = AlphaUtil.getContainerEquation(targetReduceExpr);
       final AlphaSystem system = AlphaUtil.getContainerSystem(eq);
-      if ((RemoveIdenticalAnswers.canBeDecomposed(reduceExpr) && (!decompositionDomain.isEmpty()))) {
-        RemoveIdenticalAnswers.debug(("decompositionDomain: " + decompositionDomain));
+      if ((RemoveIdenticalAnswers.canBeDecomposed(reduceExpr) && (!identicalAnswerDomain.isEmpty()))) {
+        RemoveIdenticalAnswers.debug(("decompositionDomain: " + identicalAnswerDomain));
         final ShareSpaceAnalysisResult SSAR = ShareSpaceAnalysis.apply(targetReduceExpr);
         final LinkedList<Pair<ISLMultiAff, ISLMultiAff>> decompositions = SimplifyingReductions.generateDecompositionCandidates(SSAR, targetReduceExpr);
         final Consumer<Pair<ISLMultiAff, ISLMultiAff>> _function = (Pair<ISLMultiAff, ISLMultiAff> d) -> {
@@ -152,7 +152,7 @@ public class RemoveIdenticalAnswers extends AbstractAlphaCompleteVisitor {
         };
         decompositions.forEach(_function);
         final Function1<Pair<ISLMultiAff, ISLMultiAff>, Boolean> _function_1 = (Pair<ISLMultiAff, ISLMultiAff> it) -> {
-          return Boolean.valueOf(ISLUtil.nullSpace(it.getKey()).isEqual(decompositionDomain));
+          return Boolean.valueOf(ISLUtil.nullSpace(it.getKey()).isEqual(identicalAnswerDomain));
         };
         final Pair<ISLMultiAff, ISLMultiAff> decomposition = IterableExtensions.<Pair<ISLMultiAff, ISLMultiAff>>findFirst(decompositions, _function_1);
         if ((decomposition == null)) {
@@ -172,7 +172,7 @@ public class RemoveIdenticalAnswers extends AbstractAlphaCompleteVisitor {
       }
       final ISLSpace resultSpace = targetReduceExpr.getContextDomain().getSpace();
       final ISLMultiAff fp = targetReduceExpr.getProjection();
-      final ISLMultiAff reuseDep = AffineFunctionOperations.negateUniformFunction(rho);
+      final ISLMultiAff reuseDep = AffineFunctionOperations.negateUniformFunction(identicalAnswerBasis);
       final SimplifyingReductions.BasicElements basicElements = SimplifyingReductions.computeBasicElements(targetReduceExpr, reuseDep);
       final ISLSet Dadd = basicElements.Dadd;
       final ISLMultiAff uniformReuseDependence = SimplifyingReductions.constructDependenceFunctionInAnswerSpace(resultSpace, fp, reuseDep);

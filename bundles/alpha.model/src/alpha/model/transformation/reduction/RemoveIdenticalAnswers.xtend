@@ -113,26 +113,27 @@ class RemoveIdenticalAnswers extends AbstractAlphaCompleteVisitor {
 	 * - h is the transitive closure of the uniform dependence of case 2
 	 * - D is the POS-face of the residual reduction induced by rho
 	 */
-	def static transform(AbstractReduceExpression reduceExpr, ISLMultiAff rho) {
-		transform(reduceExpr, rho, ISLSet.buildEmpty(reduceExpr.body.contextDomain.space))
+	def static transform(AbstractReduceExpression reduceExpr, ISLMultiAff identicalAnswerBasis) {
+		transform(reduceExpr, identicalAnswerBasis, ISLSet.buildEmpty(reduceExpr.body.contextDomain.space))
 	}
-	def static transform(AbstractReduceExpression reduceExpr, ISLMultiAff rho, ISLSet decompositionDomain) {
+	def static transform(AbstractReduceExpression reduceExpr, ISLMultiAff identicalAnswerBasis, ISLSet identicalAnswerDomain) {
 		
 		var targetReduceExpr = reduceExpr
 		val eq = targetReduceExpr.getContainerEquation
 		val system = eq.getContainerSystem
 		
-		// decompositionDomain is the inner accumulation space along which to do the
-		// decomposition
-		if (reduceExpr.canBeDecomposed && !decompositionDomain.isEmpty) {
-			debug('decompositionDomain: ' + decompositionDomain)
+		// The reduction may need to be decomposed first to exploit identical answers. If identicalAnswerDomain 
+		// is non-empty then it represents the inner accumulation space along which such a decomposition can
+		// be performed to expose a labeling resulting in the computation of identical answers.
+		if (reduceExpr.canBeDecomposed && !identicalAnswerDomain.isEmpty) {
+			debug('decompositionDomain: ' + identicalAnswerDomain)
 			val SSAR = ShareSpaceAnalysis.apply(targetReduceExpr)
 			val decompositions = SimplifyingReductions.generateDecompositionCandidates(SSAR, targetReduceExpr)
 			
 			decompositions.forEach[d | debug('decomposition ' + d.toString)]
 			
 			val decomposition = decompositions
-				.findFirst[key.nullSpace.isEqual(decompositionDomain)]
+				.findFirst[key.nullSpace.isEqual(identicalAnswerDomain)]
 			
 			if (decomposition === null) {
 				throw new Exception('A valid decomposition should exist, something went wrong.')
@@ -145,12 +146,11 @@ class RemoveIdenticalAnswers extends AbstractAlphaCompleteVisitor {
 			ReductionDecomposition.apply(targetReduceExpr, innerProjection.copy, outerProjection.copy)
 			targetReduceExpr = targetReduceExpr.body as ReduceExpression
 			debug('After reduction decomposition\n' + Show.print(system))
-			
 		}
 		
 		val resultSpace = targetReduceExpr.contextDomain.space
 		val fp = targetReduceExpr.projection
-		val reuseDep = AffineFunctionOperations.negateUniformFunction(rho)
+		val reuseDep = AffineFunctionOperations.negateUniformFunction(identicalAnswerBasis)
 		
 		val basicElements = SimplifyingReductions.computeBasicElements(targetReduceExpr, reuseDep)
 		val Dadd = basicElements.Dadd
@@ -163,8 +163,6 @@ class RemoveIdenticalAnswers extends AbstractAlphaCompleteVisitor {
 		val h = uniformReuseDependence.transitiveClosureAt(Dadd)
 		
 		val newReduceExpr = SimplifyingReductions.createXadd(targetReduceExpr, basicElements)
-		
-		
 		val depExpr = createDependenceExpression(h.copy, newReduceExpr)
 		
 		EcoreUtil.replace(targetReduceExpr, depExpr)
