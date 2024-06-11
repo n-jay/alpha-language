@@ -460,7 +460,7 @@ class OptimalSimplifyingReductions {
 	static class StepRemoveIndenticalAnswers extends DynamicProgrammingStep {
 		ISLMultiAff identicalAnswerBasis
 		ISLSet identicalAnswerDomain
-		new(AbstractReduceExpression targetRE, ISLMultiAff rho, ISLSet identicalAnswerDomain) {
+		new(AbstractReduceExpression targetRE, ISLMultiAff identicalAnswerBasis, ISLSet identicalAnswerDomain) {
 			super(targetRE)
 			this.identicalAnswerBasis = identicalAnswerBasis
 			this.identicalAnswerDomain = identicalAnswerDomain

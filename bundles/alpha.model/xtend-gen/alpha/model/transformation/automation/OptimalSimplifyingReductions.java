@@ -185,9 +185,9 @@ public class OptimalSimplifyingReductions {
 
     private ISLSet identicalAnswerDomain;
 
-    public StepRemoveIndenticalAnswers(final AbstractReduceExpression targetRE, final ISLMultiAff rho, final ISLSet identicalAnswerDomain) {
+    public StepRemoveIndenticalAnswers(final AbstractReduceExpression targetRE, final ISLMultiAff identicalAnswerBasis, final ISLSet identicalAnswerDomain) {
       super(targetRE);
-      this.identicalAnswerBasis = this.identicalAnswerBasis;
+      this.identicalAnswerBasis = identicalAnswerBasis;
       this.identicalAnswerDomain = identicalAnswerDomain;
     }
 
