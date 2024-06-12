@@ -431,7 +431,7 @@ class AffineFactorizerTest {
 		val qActual = decomposed.value
 		
 		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }")
-		val qExpected = stringToMultiAff("{ [i,j,k] -> [i,j,k] }")
+		val qExpected = stringToMultiAff("[N] -> { [i,j,k] -> [i,j,k] }")
 		
 		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
 		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
@@ -446,7 +446,7 @@ class AffineFactorizerTest {
 		val qActual = decomposed.value
 		
 		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }")
-		val qExpected = stringToMultiAff("{ [x,y] -> [x,x+y] }")
+		val qExpected = stringToMultiAff("[N] -> { [x,y] -> [x,x+y] }")
 		
 		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
 		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
@@ -461,7 +461,7 @@ class AffineFactorizerTest {
 		val qActual = decomposed.value
 		
 		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [i+k,j] }")
-		val qExpected = stringToMultiAff("{ [x,y] -> [x,x+y,x] }")
+		val qExpected = stringToMultiAff("[N] -> { [x,y] -> [x,x+y,x] }")
 		
 		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
 		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
@@ -475,8 +475,24 @@ class AffineFactorizerTest {
 		val hActual = decomposed.key
 		val qActual = decomposed.value
 		
-		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [0] }")
-		val qExpected = stringToMultiAff("{ [i] -> [i,0,0,0] }")
+		// H will always at least output a constant 0.
+		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [] }")
+		val qExpected = stringToMultiAff("[N] -> { [] -> [0,0,0,0] }")
+		
+		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
+		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
+	}
+	
+	@Test
+	def hermiteExpressionDecomposition_05() {
+		// Testing that we only factorize the linear part.
+		val original = stringToMultiAff("[N] -> { [i,j,k] -> [N, N+3, 7] }")
+		val decomposed = AffineFactorizer.hermiteExpressionDecomposition(original)
+		val hActual = decomposed.key
+		val qActual = decomposed.value
+		
+		val hExpected = stringToMultiAff("[N] -> { [i,j,k] -> [] }")
+		val qExpected = stringToMultiAff("[N] -> { [] -> [N,N+3,7] }")
 		
 		assertTrue("The decomposed H is incorrect.", hExpected.isPlainEqual(hActual))
 		assertTrue("The decomposed Q is incorrect.", qExpected.isPlainEqual(qActual))
@@ -567,17 +583,20 @@ class AffineFactorizerTest {
 	
 	@Test
 	def factorizeExpressions_03() {
-		val expectedInnerDimensions = 5
+		// The common factor will only be for the linear part,
+		// so we expect it to pull out (i,j,k->i,j,k).
+		// Thus, there should only be 3 inner dimensions.
+		val expectedInnerDimensions = 3
 		assertFactorizationIsCorrect(expectedInnerDimensions,
 			"[N] -> { [i,j,k] -> [k,j,i,N,4] }")
 	}
 	
 	@Test
 	def factorizeExpressions_04() {
-		// The inner dimensions roughly map to i, j, k, and N,
-		// but they also have +/- constants in there so we don't
-		// need to directly express them.
-		val expectedInnerDimensions = 4
+		// The common factor will only be for the linear part,
+		// so we expect it to pull out (i,j,k->i,j,k).
+		// Thus, there should only be 3 inner dimensions.
+		val expectedInnerDimensions = 3
 		assertFactorizationIsCorrect(expectedInnerDimensions,
 			"[N] -> { [i,j,k] -> [i+j, N+k] }",
 			"[N] -> { [i,j,k] -> [j+k, N+j+3] }")
@@ -585,8 +604,10 @@ class AffineFactorizerTest {
 	
 	@Test
 	def factorizeExpressions_05() {
-		// The inner dimensions are: N+4, M, i+k, j
-		val expectedInnerDimensions = 4
+		// The common factor will only be for the linear part,
+		// so we expect it to pull out (i,j,k->i+k,j) or similar.
+		// Thus, there should only be 2 inner dimensions.
+		val expectedInnerDimensions = 2
 		assertFactorizationIsCorrect(expectedInnerDimensions,
 			"[N,M] -> { [i,j,k] -> [i+k, N-j+4] }",
 			"[N,M] -> { [i,j,k] -> [M+N+4, N+M+4] }",
