@@ -21,7 +21,7 @@ public class AlphaNameChecker extends NameChecker {
   protected final HashMap<String, String> flagNames = CollectionLiterals.<String, String>newHashMap();
 
   /**
-   * Stores the entry point's argument name accociated with each Alpha variable or system parameter.
+   * Stores the entry point's argument name associated with each Alpha variable or system parameter.
    */
   protected final HashMap<String, String> argumentNames = CollectionLiterals.<String, String>newHashMap();
 

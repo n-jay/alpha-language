@@ -23,7 +23,6 @@ import fr.irisa.cairn.jnimap.isl.ISLSet
 
 import static extension alpha.model.util.AlphaUtil.copyAE
 import static extension alpha.model.util.CommonExtensions.toArrayList
-import fr.irisa.cairn.jnimap.isl.ISLMap
 
 /**
  * Generates demand-driven code that performs cycle detection.
@@ -118,7 +117,6 @@ class WriteC extends CodeGeneratorBase {
 	override declareFlagMemoryMacro(Variable variable) {
 		// Flag variables don't need to worry about compatibility
 		// with the older AlphaZ system.
-		val ISLMap asdf = null
 		val name = nameChecker.getFlagName(variable)
 		declareLinearMemoryMacro(name, variable.domain)
 	}

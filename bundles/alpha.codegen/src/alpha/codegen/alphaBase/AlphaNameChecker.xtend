@@ -12,7 +12,7 @@ class AlphaNameChecker extends NameChecker {
 	/** Stores the names of flag variables associated with each Alpha variable. */
 	protected val HashMap<String, String> flagNames = newHashMap
 	
-	/** Stores the entry point's argument name accociated with each Alpha variable or system parameter. */
+	/** Stores the entry point's argument name associated with each Alpha variable or system parameter. */
 	protected val HashMap<String, String> argumentNames = newHashMap
 	
 	/**

@@ -39,7 +39,6 @@ import alpha.model.util.AlphaUtil;
 import alpha.model.util.CommonExtensions;
 import fr.irisa.cairn.jnimap.barvinok.BarvinokBindings;
 import fr.irisa.cairn.jnimap.isl.ISLASTNode;
-import fr.irisa.cairn.jnimap.isl.ISLMap;
 import fr.irisa.cairn.jnimap.isl.ISLPWQPolynomial;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
 import java.util.ArrayList;
@@ -138,7 +137,6 @@ public class WriteC extends CodeGeneratorBase {
    */
   @Override
   public void declareFlagMemoryMacro(final Variable variable) {
-    final ISLMap asdf = null;
     final String name = this.nameChecker.getFlagName(variable);
     this.declareLinearMemoryMacro(name, variable.getDomain());
   }
