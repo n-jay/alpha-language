@@ -16,7 +16,7 @@ public class WriteCTest {
   /**
    * The path to the Alpha file for these unit tests.
    */
-  private static final String alphaFile = "resources/alpha.codegen.tests.demandDriven/SystemConverterTest.alpha";
+  private static final String alphaFile = "resources/alpha.codegen.tests.demandDriven/WriteCTest.alpha";
 
   /**
    * Gets the desired system for these unit tests.

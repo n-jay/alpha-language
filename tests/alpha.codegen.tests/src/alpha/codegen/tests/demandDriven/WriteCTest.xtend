@@ -12,7 +12,7 @@ import static extension alpha.commands.UtilityBase.*
 
 class WriteCTest {
 	/** The path to the Alpha file for these unit tests. */
-	static val alphaFile = "resources/alpha.codegen.tests.demandDriven/SystemConverterTest.alpha";
+	static val alphaFile = "resources/alpha.codegen.tests.demandDriven/WriteCTest.alpha";
 	
 	/** Gets the desired system for these unit tests. */
 	static def getSystem(String system) {
