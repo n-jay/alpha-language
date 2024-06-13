@@ -32,7 +32,7 @@ import org.eclipse.xtext.xbase.lib.InputOutput;
  * 8. Repeat steps 3-7 for all programs.
  */
 @SuppressWarnings("all")
-public class SystemConverterManualTest {
+public class WriteCManualTest {
   public static void main(final String[] args) {
     try {
       final List<String> programs = Collections.<String>unmodifiableList(CollectionLiterals.<String>newArrayList("CopyInput", "LUDecomposition", "PrefixScan"));

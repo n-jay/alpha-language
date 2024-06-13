@@ -23,7 +23,7 @@ import java.io.FileWriter
  * 7. Look at the output and check that it says that all the tests passed.
  * 8. Repeat steps 3-7 for all programs.
  */
-class SystemConverterManualTest {
+class WriteCManualTest {
 	def static void main(String[] args) {
 		val programs = #[
 			"CopyInput",

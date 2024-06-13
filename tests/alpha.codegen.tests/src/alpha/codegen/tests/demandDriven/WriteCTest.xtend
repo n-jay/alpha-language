@@ -10,7 +10,7 @@ import static org.junit.Assert.*
 
 import static extension alpha.commands.UtilityBase.*
 
-class SystemConverterTest {
+class WriteCTest {
 	/** The path to the Alpha file for these unit tests. */
 	static val alphaFile = "resources/alpha.codegen.tests.demandDriven/SystemConverterTest.alpha";
 	

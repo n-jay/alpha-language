@@ -12,7 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 @SuppressWarnings("all")
-public class SystemConverterTest {
+public class WriteCTest {
   /**
    * The path to the Alpha file for these unit tests.
    */
@@ -23,7 +23,7 @@ public class SystemConverterTest {
    */
   public static AlphaSystem getSystem(final String system) {
     try {
-      return UtilityBase.GetSystem(AlphaModelLoader.loadModel(SystemConverterTest.alphaFile), system);
+      return UtilityBase.GetSystem(AlphaModelLoader.loadModel(WriteCTest.alphaFile), system);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -31,7 +31,7 @@ public class SystemConverterTest {
 
   @Test
   public void convertSystem_noParameters() {
-    final AlphaSystem system = SystemConverterTest.getSystem("NoParameters");
+    final AlphaSystem system = WriteCTest.getSystem("NoParameters");
     final Program program = WriteC.convert(system, BaseDataType.FLOAT, false);
     final CharSequence code = ProgramPrinter.print(program);
     Assert.assertNotNull(code);
@@ -40,7 +40,7 @@ public class SystemConverterTest {
 
   @Test
   public void convertSystem_noParameterConstraints() {
-    final AlphaSystem system = SystemConverterTest.getSystem("NoParameterConstraints");
+    final AlphaSystem system = WriteCTest.getSystem("NoParameterConstraints");
     final Program program = WriteC.convert(system, BaseDataType.FLOAT, false);
     final CharSequence code = ProgramPrinter.print(program);
     Assert.assertNotNull(code);
