@@ -160,7 +160,7 @@ public class SplitReduction {
     final ISLBasicSet bodyDomain = bodyFace.toBasicSet();
     final int bodyDim = bodyFace.getDimensionality();
     final Function1<Face, ISLBasicSet> _function = (Face it) -> {
-      return it.toLinearSpace();
+      return it.toBasicSet();
     };
     final List<ISLBasicSet> faces = ListExtensions.<Face, ISLBasicSet>map(bodyFace.getLattice().getFaces((bodyDim - 2)), _function);
     final ISLMultiAff accVec = SplitReduction.construct1DBasis(are.getProjection());

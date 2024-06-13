@@ -9,10 +9,12 @@ import fr.irisa.cairn.jnimap.isl.ISLLocalSpace;
 import fr.irisa.cairn.jnimap.isl.ISLMatrix;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSpace;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.ExclusiveRange;
@@ -20,7 +22,6 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IntegerRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 
@@ -151,15 +152,15 @@ public class AffineFactorizer {
 
   /**
    * Returns the number of empty columns in the given matrix.
-   * Assumes that the empty rows appear only on the right of the matrix.
+   * Assumes that the empty rows appear only on the top of the matrix.
    */
   private static int countEmptyCols(final ISLMatrix matrix) {
     final int cols = matrix.getNbCols();
     final Function1<Integer, Boolean> _function = (Integer col) -> {
       return Boolean.valueOf(AffineFactorizer.isColEmpty(matrix, (col).intValue()));
     };
-    final int emptyRowCount = IterableExtensions.size(IterableExtensions.<Integer>takeWhile(new ExclusiveRange(cols, 1, false), _function));
-    return emptyRowCount;
+    final int emptyColCount = IterableExtensions.size(IterableExtensions.<Integer>takeWhile(new ExclusiveRange(cols, 0, false), _function));
+    return emptyColCount;
   }
 
   /**
@@ -179,6 +180,11 @@ public class AffineFactorizer {
    * Converts a matrix into an expression. Each column is for one of the output dimensions.
    */
   public static ISLMultiAff toExpression(final ISLMatrix matrix, final ISLSpace space) {
+    int _nbOutputs = space.getNbOutputs();
+    boolean _equals = (_nbOutputs == 0);
+    if (_equals) {
+      return AffineFactorizer.mapToEmptySet(space.getParamNames(), space.getInputNames());
+    }
     final List<String> paramNames = space.getParamNames();
     final List<String> inputNames = space.getInputNames();
     int _nbRows = matrix.getNbRows();
@@ -203,6 +209,18 @@ public class AffineFactorizer {
     return expression;
   }
 
+  private static ISLMultiAff mapToEmptySet(final Collection<String> paramNames, final Collection<String> inputNames) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("[");
+    String _join = IterableExtensions.join(paramNames, ",");
+    _builder.append(_join);
+    _builder.append("] -> { [");
+    String _join_1 = IterableExtensions.join(inputNames, ",");
+    _builder.append(_join_1);
+    _builder.append("] -> [] }");
+    return ISLUtil.toISLMultiAff(_builder.toString());
+  }
+
   /**
    * Decomposes an expression using the Hermite decomposition of the matrix
    * which represents the given expression. The decomposition is returned as
@@ -217,10 +235,23 @@ public class AffineFactorizer {
       ISLMultiAff _emptyExpr = AffineFactorizer.emptyExpr(expression.getContext());
       return Pair.<ISLMultiAff, ISLMultiAff>of(expression, _emptyExpr);
     }
-    final Pair<ISLMatrix, ISLMatrix> decomposed = AffineFactorizer.hermiteMatrixDecomposition(AffineFactorizer.expressionToMatrix(expression));
-    final ISLMatrix hMatrix = decomposed.getKey();
-    final ISLMatrix qMatrix = decomposed.getValue();
-    final Pair<ISLSpace, ISLSpace> spaces = AffineFactorizer.createDecompositionSpaces(expression.getSpace(), hMatrix.getNbCols());
+    final ISLMatrix fullMatrix = AffineFactorizer.expressionToMatrix(expression);
+    ISLMatrix _copy = fullMatrix.copy();
+    int _nbParams = expression.getNbParams();
+    int _nbInputs = expression.getNbInputs();
+    int _plus = (_nbInputs + 1);
+    final ISLMatrix paramsRows = _copy.dropRows(_nbParams, _plus);
+    final ISLMatrix indexRows = fullMatrix.copy().dropRows(0, expression.getNbParams()).dropRows(expression.getNbInputs(), 1);
+    int _nbParams_1 = expression.getNbParams();
+    int _nbInputs_1 = expression.getNbInputs();
+    int _plus_1 = (_nbParams_1 + _nbInputs_1);
+    final ISLMatrix constantsRow = fullMatrix.dropRows(0, _plus_1);
+    final Pair<ISLMatrix, ISLMatrix> decomposed = AffineFactorizer.hermiteMatrixDecomposition(indexRows);
+    final int hCols = decomposed.getKey().getNbCols();
+    final ISLMatrix hMatrix = AffineFactorizer.zeroMatrix(expression.getNbParams(), hCols).concat(decomposed.getKey()).concat(AffineFactorizer.zeroMatrix(1, hCols));
+    final ISLMatrix qMatrix = paramsRows.concat(decomposed.getValue()).concat(constantsRow);
+    final ISLSpace originalSpace = expression.getSpace();
+    final Pair<ISLSpace, ISLSpace> spaces = AffineFactorizer.createDecompositionSpaces(originalSpace, hMatrix.getNbCols());
     final ISLSpace hSpace = spaces.getKey();
     final ISLSpace qSpace = spaces.getValue();
     final ISLMultiAff hExpression = AffineFactorizer.toExpression(hMatrix, hSpace);
@@ -236,6 +267,21 @@ public class AffineFactorizer {
   }
 
   /**
+   * Returns a matrix of all zeros.
+   */
+  private static ISLMatrix zeroMatrix(final int rows, final int cols) {
+    ISLMatrix matrix = ISLMatrix.build(ISLContext.getInstance(), rows, cols);
+    ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, rows, true);
+    for (final Integer r : _doubleDotLessThan) {
+      ExclusiveRange _doubleDotLessThan_1 = new ExclusiveRange(0, cols, true);
+      for (final Integer c : _doubleDotLessThan_1) {
+        matrix = matrix.setElement((r).intValue(), (c).intValue(), 0);
+      }
+    }
+    return matrix;
+  }
+
+  /**
    * Creates the new spaces for the decomposition of the original space,
    * returned as a key->value pair. The key has the same domain as the
    * original space, and the value has the same range as the original space.
@@ -243,17 +289,10 @@ public class AffineFactorizer {
    * equal to the desired amount.
    */
   private static Pair<ISLSpace, ISLSpace> createDecompositionSpaces(final ISLSpace originalSpace, final int innerDimensionCount) {
-    int _xifexpression = (int) 0;
-    if ((innerDimensionCount > 0)) {
-      _xifexpression = innerDimensionCount;
-    } else {
-      _xifexpression = 1;
-    }
-    final int namesToMake = _xifexpression;
-    final List<String> innerNames = IteratorExtensions.<String>toList(IteratorExtensions.<String>take(AffineFactorizer.getNameGenerator("mid"), namesToMake));
-    final ISLSpace firstSpace = originalSpace.copy().domain().reverse().<ISLSpace>addOutputs(innerNames);
-    final int paramCount = originalSpace.getNbParams();
-    final ISLSpace secondSpace = originalSpace.copy().range().dropDims(ISLDimType.isl_dim_param, 0, paramCount).<ISLSpace>addInputs(innerNames);
+    final List<String> outputNames = AlphaUtil.defaultDimNames(innerDimensionCount);
+    final ISLSpace firstSpace = originalSpace.copy().dropDims(ISLDimType.isl_dim_out, 0, originalSpace.getNbOutputs()).<ISLSpace>addOutputs(outputNames);
+    final List<String> inputNames = AlphaUtil.defaultDimNames(innerDimensionCount);
+    final ISLSpace secondSpace = originalSpace.copy().dropDims(ISLDimType.isl_dim_in, 0, originalSpace.getNbInputs()).<ISLSpace>addInputs(inputNames);
     return Pair.<ISLSpace, ISLSpace>of(firstSpace, secondSpace);
   }
 

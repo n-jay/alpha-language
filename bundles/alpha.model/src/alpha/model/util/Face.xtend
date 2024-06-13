@@ -17,7 +17,9 @@ import static extension alpha.model.util.CommonExtensions.toIndexHashMap
 import static extension alpha.model.util.CommonExtensions.zipWith
 import static extension alpha.model.util.ISLUtil.dimensionality
 import static extension alpha.model.util.ISLUtil.isEffectivelySaturated
+import static extension alpha.model.util.ISLUtil.nullSpace
 import static extension alpha.model.util.ISLUtil.toEqualityConstraint
+import fr.irisa.cairn.jnimap.isl.ISLSet
 
 /**
  * Represents a face which can be used to construct a face lattice.
@@ -39,6 +41,12 @@ class Face {
 		POS,
 		NEG,
 		ZERO
+	}
+	
+	enum Boundary {
+		WEAK,
+		STRONG,
+		NON
 	}
 	
 	////////////////////////////////////////////////////////////
@@ -115,8 +123,13 @@ class Face {
 	
 	/** Enumerates the set of all possible label combinations. */
 	static def enumerateAllPossibleLabelings(int nbFacets, boolean includeNeg) {
-		val labels = includeNeg ? #[Label.POS, Label.ZERO, Label.NEG] : #[Label.POS, Label.ZERO] 
-		return labels.permutations(nbFacets)
+		val labels = includeNeg ? #[Label.ZERO, Label.POS, Label.NEG] : #[Label.POS, Label.ZERO]
+		return labels.permutations(nbFacets).filter[isValid]
+	}
+	
+	/** Returns True if labeling contains at least one POS and NEG label, or false otherwise */
+	static def isValid(Label... labeling) {
+		return labeling.exists[it == Label.POS] && labeling.exists[it == Label.NEG]
 	}
 	
 	/**
@@ -255,12 +268,32 @@ class Face {
 	 * from the union of saturated constraints.
 	 */
 	def toLinearSpace() {
-		// The constant terms of each constraint must be "removed" by setting them to 0.
+		// The constant terms and parameter coefficients of each constraint must be "removed" by setting them to 0.
 		val universe = ISLBasicSet.buildUniverse(space.copy)
+		val nbParams = space.dim(ISLDimType.isl_dim_param)
 		return saturatedConstraints
 			.map[c | c.copy.setConstant(0)]
+			.map[c | (0..<nbParams).map[i | c.copy.setCoefficient(ISLDimType.isl_dim_param, i, 0)]]
+			.flatten
 			.fold(universe, [s, c | s.addConstraint(c)])
 	}
+	
+	/** Returns the boundary classification of the face. */
+	def boundaryLabel(ISLSet accumulationSpace) {
+		val lp = toLinearSpace.toSet
+		
+		val accDims = accumulationSpace.dimensionality
+		val intDims = accumulationSpace.copy.intersect(lp).dimensionality
+		
+		if (intDims == accDims) {
+			return Boundary.STRONG
+		} else if (0 < intDims && intDims < accDims) {
+			return Boundary.WEAK
+		} else {
+			return Boundary.NON
+		}
+	} 
+	
 	
 	/** Returns a string indicating which constraints were saturated to form this face. */
 	override toString() {
@@ -269,7 +302,6 @@ class Face {
 			.join(",")
 		return "{" + saturatedIndexes + "}"
 	}
-	
 	
 	////////////////////////////////////////////////////////////
 	// Local Methods

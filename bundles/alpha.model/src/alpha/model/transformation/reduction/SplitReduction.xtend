@@ -130,7 +130,7 @@ class SplitReduction {
 		val bodyFace = are.facet
 		val bodyDomain = bodyFace.toBasicSet
 		val bodyDim = bodyFace.dimensionality
-		val faces = bodyFace.lattice.getFaces(bodyDim - 2).map[toLinearSpace]
+		val faces = bodyFace.lattice.getFaces(bodyDim - 2).map[toBasicSet]
 		
 		// Construct splits that saturate the accumulation space
 		val accVec = are.projection.construct1DBasis

@@ -12,6 +12,7 @@ import alpha.model.SystemBody;
 import alpha.model.UseEquation;
 import alpha.model.Variable;
 import alpha.model.VariableExpression;
+import alpha.model.analysis.reduction.CandidateReuse;
 import alpha.model.analysis.reduction.ShareSpaceAnalysis;
 import alpha.model.analysis.reduction.ShareSpaceAnalysisResult;
 import alpha.model.matrix.MatrixOperations;
@@ -89,6 +90,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       this.are = are;
     }
 
+    @Override
     public String description() {
       return String.format("%s (in %s)", AShow.print(this.are), SimplifyingReductionsExploration.getEquationName(AlphaUtil.getContainerEquation(this.are)));
     }
@@ -101,24 +103,28 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       this.reuseDepNoParams = reuseDepNoParams;
     }
 
+    @Override
     public String description() {
       return String.format("Apply SimplifyingReduction with: %s", MatrixOperations.toString(this.reuseDepNoParams));
     }
   }
 
   private static class StepIdempotence extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
     public String description() {
       return String.format("Apply Idempotence");
     }
   }
 
   private static class StepHigherOrderOperator extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
     public String description() {
       return String.format("Apply HigherOrderOperator");
     }
   }
 
   private static class StepReductionComposition extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
     public String description() {
       return "Apply ReductionComposition";
     }
@@ -134,6 +140,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       this.outerProjection = outerF;
     }
 
+    @Override
     public String description() {
       return String.format("Apply ReductionDecomposition with %s o %s", this.outerProjection, this.innerProjection);
     }
@@ -146,30 +153,35 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       this.variable = v;
     }
 
+    @Override
     public String description() {
       return String.format("Inline %s", this.variable.getName());
     }
   }
 
   private static class StepSimplifyExpressions extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
     public String description() {
       return "Apply SimplifyExpression to current SystemBody";
     }
   }
 
   private static class StepSplitUnionIntoCase extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
     public String description() {
       return "Apply SplitUnionIntoCase to current SystemBody";
     }
   }
 
   private static class StepPrintSystemBody extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
     public String description() {
       return String.format("Print current SystemBody");
     }
   }
 
   private static class StepPrintCardinality extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
     public String description() {
       return String.format("Print Cardinality of the reduction bodies");
     }
@@ -182,18 +194,21 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       this.SSAR = SSAR;
     }
 
+    @Override
     public String description() {
       return String.format("Print Share Space");
     }
   }
 
   private static class StepBacktrack extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
     public String description() {
       return String.format("Revert to previous state.");
     }
   }
 
   private static class StepFinish extends SimplifyingReductionsExploration.ExplorationStep {
+    @Override
     public String description() {
       return String.format("Finish exploration.");
     }
@@ -215,6 +230,7 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     sre.run();
   }
 
+  @Override
   public void mainLoop() {
     try {
       AbstractInteractiveExploration.SKIP_SINGLE_CHOICE_QUESTIONS = false;
@@ -296,10 +312,8 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
       final SystemBody body = this.getCurrentBody();
       final List<AbstractReduceExpression> candidates = EcoreUtil2.<AbstractReduceExpression>getAllContentsOfType(body, AbstractReduceExpression.class);
       final LinkedList<SimplifyingReductionsExploration.ExplorationStep> options = new LinkedList<SimplifyingReductionsExploration.ExplorationStep>();
-      final Function1<AbstractReduceExpression, SimplifyingReductionsExploration.StepSelectReduction> _function = new Function1<AbstractReduceExpression, SimplifyingReductionsExploration.StepSelectReduction>() {
-        public SimplifyingReductionsExploration.StepSelectReduction apply(final AbstractReduceExpression e) {
-          return new SimplifyingReductionsExploration.StepSelectReduction(e);
-        }
+      final Function1<AbstractReduceExpression, SimplifyingReductionsExploration.StepSelectReduction> _function = (AbstractReduceExpression e) -> {
+        return new SimplifyingReductionsExploration.StepSelectReduction(e);
       };
       options.addAll(ListExtensions.<AbstractReduceExpression, SimplifyingReductionsExploration.StepSelectReduction>map(candidates, _function));
       SimplifyingReductionsExploration.StepPrintSystemBody _stepPrintSystemBody = new SimplifyingReductionsExploration.StepPrintSystemBody();
@@ -437,8 +451,9 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     {
       final ShareSpaceAnalysisResult SSAR = ShareSpaceAnalysis.apply(this.targetRE);
       final LinkedList<SimplifyingReductionsExploration.ExplorationStep> options = new LinkedList<SimplifyingReductionsExploration.ExplorationStep>();
-      final LinkedList<long[]> vectors = SimplifyingReductions.generateCandidateReuseVectors(this.targetRE, SSAR);
-      for (final long[] vec : vectors) {
+      final CandidateReuse candidateReuse = new CandidateReuse(this.targetRE, SSAR);
+      List<long[]> _vectors = candidateReuse.getVectors();
+      for (final long[] vec : _vectors) {
         SimplifyingReductionsExploration.StepSimplifyingReduction _stepSimplifyingReduction = new SimplifyingReductionsExploration.StepSimplifyingReduction(vec);
         options.add(_stepSimplifyingReduction);
       }
@@ -693,10 +708,12 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
     return String.format("GetExpression(body, \"%s\", \"%s\")", eqName, exprID);
   }
 
+  @Override
   protected void initProperties() {
     this.setProperty("state", SimplifyingReductionsExploration.STATE.INITIAL);
   }
 
+  @Override
   protected void reflectProperties() {
     SimplifyingReductionsExploration.STATE _xifexpression = null;
     Object _property = this.getProperty("state");
@@ -724,16 +741,12 @@ public class SimplifyingReductionsExploration extends AbstractInteractiveExplora
   }
 
   private static Iterable<SimplifyingReductionsExploration.StepInlineVariable> findInlineCandidates(final AbstractReduceExpression are) {
-    final Function1<VariableExpression, Boolean> _function = new Function1<VariableExpression, Boolean>() {
-      public Boolean apply(final VariableExpression ve) {
-        return Boolean.valueOf(((ve.getVariable().isLocal()).booleanValue() || (ve.getVariable().isOutput()).booleanValue()));
-      }
+    final Function1<VariableExpression, Boolean> _function = (VariableExpression ve) -> {
+      return Boolean.valueOf(((ve.getVariable().isLocal()).booleanValue() || (ve.getVariable().isOutput()).booleanValue()));
     };
-    final Function1<VariableExpression, SimplifyingReductionsExploration.StepInlineVariable> _function_1 = new Function1<VariableExpression, SimplifyingReductionsExploration.StepInlineVariable>() {
-      public SimplifyingReductionsExploration.StepInlineVariable apply(final VariableExpression ve) {
-        Variable _variable = ve.getVariable();
-        return new SimplifyingReductionsExploration.StepInlineVariable(_variable);
-      }
+    final Function1<VariableExpression, SimplifyingReductionsExploration.StepInlineVariable> _function_1 = (VariableExpression ve) -> {
+      Variable _variable = ve.getVariable();
+      return new SimplifyingReductionsExploration.StepInlineVariable(_variable);
     };
     return IterableExtensions.<VariableExpression, SimplifyingReductionsExploration.StepInlineVariable>map(IterableExtensions.<VariableExpression>filter(EcoreUtil2.<VariableExpression>getAllContentsOfType(are, VariableExpression.class), _function), _function_1);
   }
