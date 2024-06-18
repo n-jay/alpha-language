@@ -27,36 +27,36 @@ jobs:
 
     # the ghcr.io/csu-cs-melange/alpha-language-image image exposes a junit CLI
     - name: run junit tests and collect code coverage
-      run: |
-        export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}"
+      run: >
+        export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}" &&
         org.junit.runner.JUnitCore alpha.codegen.tests.FactoryTest
-        org.junit.runner.JUnitCore alpha.codegen.tests.ModelTest
-        org.junit.runner.JUnitCore alpha.codegen.tests.NameCheckerTest
-        org.junit.runner.JUnitCore alpha.codegen.tests.isl.MemoryUtilsTest
-        org.junit.runner.JUnitCore alpha.model.tests.AlphaAShowTest
-        org.junit.runner.JUnitCore alpha.model.tests.AlphaCheckProgramTest
-        org.junit.runner.JUnitCore alpha.model.tests.AlphaNormalizeTest
-        org.junit.runner.JUnitCore alpha.model.tests.AlphaShowTest
-        org.junit.runner.JUnitCore alpha.model.tests.ComplexityCalculatorTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformation.reduction.NormalizeReductionDeepTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformation.reduction.SplitReductionTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.DistributivityTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.FactorOutFromReductionTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.HigherOrderOperatorTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.HoistOutOfReductionTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.IdempotenceTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.NormalizeTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.PermutationCaseReduceTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.PropagateSimpleEquationsTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.RaiseDependenceTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.SameOperatorSimplificationTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.SimplifyExpressionsTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.SimplifyingReductionsTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.SplitUnionIntoCaseTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.StandardizeNamesTest
-        org.junit.runner.JUnitCore alpha.model.tests.transformations.SubstituteByDefTest
-        org.junit.runner.JUnitCore alpha.model.tests.util.AffineFactorizerTest
-        org.junit.runner.JUnitCore alpha.model.tests.util.FaceLatticeTest
+        alpha.codegen.tests.ModelTest
+        alpha.codegen.tests.NameCheckerTest
+        alpha.codegen.tests.isl.MemoryUtilsTest
+        alpha.model.tests.AlphaAShowTest
+        alpha.model.tests.AlphaCheckProgramTest
+        alpha.model.tests.AlphaNormalizeTest
+        alpha.model.tests.AlphaShowTest
+        alpha.model.tests.ComplexityCalculatorTest
+        alpha.model.tests.transformation.reduction.NormalizeReductionDeepTest
+        alpha.model.tests.transformation.reduction.SplitReductionTest
+        alpha.model.tests.transformations.DistributivityTest
+        alpha.model.tests.transformations.FactorOutFromReductionTest
+        alpha.model.tests.transformations.HigherOrderOperatorTest
+        alpha.model.tests.transformations.HoistOutOfReductionTest
+        alpha.model.tests.transformations.IdempotenceTest
+        alpha.model.tests.transformations.NormalizeTest
+        alpha.model.tests.transformations.PermutationCaseReduceTest
+        alpha.model.tests.transformations.PropagateSimpleEquationsTest
+        alpha.model.tests.transformations.RaiseDependenceTest
+        alpha.model.tests.transformations.SameOperatorSimplificationTest
+        alpha.model.tests.transformations.SimplifyExpressionsTest
+        alpha.model.tests.transformations.SimplifyingReductionsTest
+        alpha.model.tests.transformations.SplitUnionIntoCaseTest
+        alpha.model.tests.transformations.StandardizeNamesTest
+        alpha.model.tests.transformations.SubstituteByDefTest
+        alpha.model.tests.util.AffineFactorizerTest
+        alpha.model.tests.util.FaceLatticeTest
 
     - name: generate code coverage report
       run: |
