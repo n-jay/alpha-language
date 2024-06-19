@@ -18,12 +18,12 @@ class NameCheckerTest {
 		// Ensure the names added are present.
 		assertTrue(checker.globalNameExists("c"))
 		assertTrue(checker.globalNameExists("a"))
-		assertTrue(checker.globalNameExists("b"))
+		assertTrue(checker.globalNameExists("bq"))
 		
 		// Ensure that some other names are not present.
 		assertFalse(checker.globalNameExists("d"))
 		assertFalse(checker.globalNameExists("A"))
-		assertFalse(checker.globalNameExists("aaaaq"))
+		assertFalse(checker.globalNameExists("aaaa"))
 	}
 	
 	@Test
