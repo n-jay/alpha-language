@@ -23,7 +23,7 @@ class NameCheckerTest {
 		// Ensure that some other names are not present.
 		assertFalse(checker.globalNameExists("d"))
 		assertFalse(checker.globalNameExists("A"))
-		assertFalse(checker.globalNameExists("aaaa"))
+		assertFalse(checker.globalNameExists("aaaaq"))
 	}
 	
 	@Test

@@ -65,7 +65,6 @@ jobs:
         alpha.model.tests.transformations.SubstituteByDefTest
         alpha.model.tests.util.AffineFactorizerTest
         alpha.model.tests.util.FaceLatticeTest
-        alpha.model.tests.util.DoesNotExist
 
     - name: run junit tests and collect code coverage for alpha.targetmapping.tests
       run: >
