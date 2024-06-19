@@ -1,12 +1,12 @@
 package alpha.codegen.tests
 
-import org.junit.Test
-import alpha.codegen.NameChecker
-import static extension alpha.model.util.CommonExtensions.toArrayList
-import static org.junit.Assert.*
-import alpha.codegen.NameConflictException
 import alpha.codegen.Factory
+import alpha.codegen.NameChecker
+import alpha.codegen.NameConflictException
 import alpha.codegen.writeC.Common
+import org.junit.Test
+
+import static org.junit.Assert.*
 
 class NameCheckerTest {
 	@Test
