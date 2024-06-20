@@ -22,7 +22,7 @@ public class NameCheckerTest {
     checker.checkAddGlobal("a", "b", "c");
     Assert.assertTrue(checker.globalNameExists("c"));
     Assert.assertTrue(checker.globalNameExists("a"));
-    Assert.assertTrue(checker.globalNameExists("bq"));
+    Assert.assertTrue(checker.globalNameExists("b"));
     Assert.assertFalse(checker.globalNameExists("d"));
     Assert.assertFalse(checker.globalNameExists("A"));
     Assert.assertFalse(checker.globalNameExists("aaaa"));
