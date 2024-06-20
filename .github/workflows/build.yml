@@ -86,9 +86,11 @@ jobs:
     - name: finish and report Codeclimate statistics
       run: |
         mkdir -p all-src
-        cp -R bundles/alpha.model/src/* all-src/
-        cp -R bundles/alpha.model/src-gen/* all-src/
-        cp -R bundles/alpha.model/xtend-gen/* all-src/
+        for proj in alpha.codegen alpha.model alpha.targetmapping; do
+          cp -R bundles/$proj/src/* all-src/
+          cp -R bundles/$proj/src-gen/* all-src/
+          cp -R bundles/$proj/xtend-gen/* all-src/
+        done
         cd all-src
         cc-test-reporter format-coverage -t jacoco "${JACOCO_PREFIX}/coverage/cc-${GITHUB_SHA}.xml" --output "codeclimate.json"
         cc-test-reporter upload-coverage --input "codeclimate.json"
