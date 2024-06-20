@@ -26,13 +26,21 @@ jobs:
       run: mvn clean package
 
     # the ghcr.io/csu-cs-melange/alpha-language-image image exposes a junit CLI
-    - name: run junit tests and collect code coverage
+    - name: run junit tests and collect code coverage for alpha.codegen.tests
       run: >
         export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}" &&
-        org.junit.runner.JUnitCore alpha.codegen.tests.FactoryTest
+        export TEST_PACKAGE="alpha.codegen.tests" &&
+        org.junit.runner.JUnitCore
+        alpha.codegen.tests.FactoryTest
         alpha.codegen.tests.ModelTest
         alpha.codegen.tests.NameCheckerTest
         alpha.codegen.tests.isl.MemoryUtilsTest
+
+    - name: run junit tests and collect code coverage for alpha.model.tests
+      run: >
+        export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}" &&
+        export TEST_PACKAGE="alpha.model.tests" &&
+        org.junit.runner.JUnitCore
         alpha.model.tests.AlphaAShowTest
         alpha.model.tests.AlphaCheckProgramTest
         alpha.model.tests.AlphaNormalizeTest
@@ -58,11 +66,19 @@ jobs:
         alpha.model.tests.util.AffineFactorizerTest
         alpha.model.tests.util.FaceLatticeTest
 
+    - name: run junit tests and collect code coverage for alpha.targetmapping.tests
+      run: >
+        export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}" &&
+        export TEST_PACKAGE="alpha.targetmapping.tests" &&
+        org.junit.runner.JUnitCore
+        alpha.targetmapping.tests.TargetMappingAShowTest
+        alpha.targetmapping.tests.TargetMappingShowTest
+
     - name: generate code coverage report
       run: |
         export ALPHA_REPO_ROOT="${GITHUB_WORKSPACE}"
         mkdir -p "${JACOCO_PREFIX}/coverage"
-        jacococli report "${JACOCO_PREFIX}/jacoco-${GITHUB_SHA}.exec" \
+        jacococli report "${JACOCO_PREFIX}/jacoco-${GITHUB_SHA}-*.exec" \
           --classfiles "${ALPHA_REPO_ROOT}/bundles/alpha.model/bin" \
           --xml "${JACOCO_PREFIX}/coverage/cc-${GITHUB_SHA}.xml" \
           --html "${JACOCO_PREFIX}/coverage/html"
@@ -70,9 +86,11 @@ jobs:
     - name: finish and report Codeclimate statistics
       run: |
         mkdir -p all-src
-        cp -R bundles/alpha.model/src/* all-src/
-        cp -R bundles/alpha.model/src-gen/* all-src/
-        cp -R bundles/alpha.model/xtend-gen/* all-src/
+        for proj in alpha.codegen alpha.model alpha.targetmapping; do
+          cp -R bundles/$proj/src/* all-src/
+          cp -R bundles/$proj/src-gen/* all-src/
+          cp -R bundles/$proj/xtend-gen/* all-src/
+        done
         cd all-src
         cc-test-reporter format-coverage -t jacoco "${JACOCO_PREFIX}/coverage/cc-${GITHUB_SHA}.xml" --output "codeclimate.json"
         cc-test-reporter upload-coverage --input "codeclimate.json"
