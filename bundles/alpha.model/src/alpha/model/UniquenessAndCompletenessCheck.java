@@ -254,7 +254,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	
 	@Override
 	public void inReduceExpression(ReduceExpression re) {
-		ISLSet dom = re.getBody().getZ__internal_cache_contextDom().convexHull().toSet();
+		ISLSet dom = re.getBody().getZ__internal_cache_contextDom().copy().convexHull().toSet();
 		
 		for(int i = 0; i < dom.dim(ISLDimType.isl_dim_out); i++) {
 			if(!dom.hasUpperBound(ISLDimType.isl_dim_out, i) || !dom.hasLowerBound(ISLDimType.isl_dim_out, i)) {
