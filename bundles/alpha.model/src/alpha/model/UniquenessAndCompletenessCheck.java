@@ -19,6 +19,7 @@ import alpha.model.issue.UnexpectedISLErrorIssue;
 import alpha.model.util.AbstractAlphaCompleteVisitor;
 import alpha.model.util.AlphaExpressionUtil;
 import alpha.model.util.AlphaUtil;
+import fr.irisa.cairn.jnimap.isl.ISLBasicSet;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
 import fr.irisa.cairn.jnimap.isl.ISLMultiAff;
 import fr.irisa.cairn.jnimap.isl.ISLSet;
@@ -279,5 +280,18 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 		usedVariables.add(ve.getVariable());
 		
 		super.inVariableExpression(ve);
+  }
+  
+	public void inReduceExpression(ReduceExpression re) {
+		ISLSet dom = re.getBody().getZ__internal_cache_contextDom().copy().convexHull().toSet();
+		
+		for(int i = 0; i < dom.dim(ISLDimType.isl_dim_out); i++) {
+			if(!dom.hasUpperBound(ISLDimType.isl_dim_out, i) || !dom.hasLowerBound(ISLDimType.isl_dim_out, i)) {
+				issues.add(AlphaIssueFactory.unboundedReductionBody(re));
+			}
+			dom = dom.eliminate(ISLDimType.isl_dim_out, i, 1);
+		}
+		
+		super.inReduceExpression(re);
 	}
 }

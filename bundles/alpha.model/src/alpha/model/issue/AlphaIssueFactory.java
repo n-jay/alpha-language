@@ -14,6 +14,7 @@ import alpha.model.ExternalFunction;
 import alpha.model.FuzzyFunction;
 import alpha.model.ModelPackage;
 import alpha.model.POLY_OBJECT_TYPE;
+import alpha.model.ReduceExpression;
 import alpha.model.RestrictExpression;
 import alpha.model.SelectExpression;
 import alpha.model.StandardEquation;
@@ -182,4 +183,10 @@ public class AlphaIssueFactory {
 				ModelPackage.Literals.SELECT_EXPRESSION__RELATION_EXPR);
 	}
 	
+	public static ExpressionDomainIssue unboundedReductionBody(ReduceExpression re) {
+		return new ExpressionDomainIssue(TYPE.ERROR,
+				"The expression has an unbounded reduction body.", re,
+				null);
+
+	}
 }
