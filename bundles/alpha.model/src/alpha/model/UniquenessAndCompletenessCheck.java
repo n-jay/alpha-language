@@ -4,9 +4,11 @@ import static alpha.model.util.AlphaUtil.callISLwithErrorHandling;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
@@ -45,6 +47,7 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	
 	private List<AlphaIssue> issues = new LinkedList<>();
 	private Map<Variable, List<VariableExpression>> useDefs;
+	private Set<Variable> usedVariables;
 
 	public static List<AlphaIssue> check(List<AlphaRoot> roots) {
 		UniquenessAndCompletenessCheck checker = new UniquenessAndCompletenessCheck();
@@ -106,8 +109,10 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	@Override
 	public void inSystemBody(SystemBody sysBody) {
 		//initialize book-keeping records for UseEquation checks
-		useDefs = new HashMap<Variable, List<VariableExpression>>(); 
-	
+		useDefs = new HashMap<Variable, List<VariableExpression>>();
+		//and variable definition checks
+		usedVariables = new HashSet<Variable>();
+		
 		super.inSystemBody(sysBody);
 	}
 	
@@ -157,6 +162,17 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 			}
 		}
 		
+		//check for non-input variables that are used but not defined
+		for(Variable v : sysBody.getSystem().getLocals()) {
+			if(usedVariables.contains(v)) {
+				checkVariableDefined(v, sysBody);
+			}
+		}
+
+		for(Variable v : sysBody.getSystem().getOutputs()) {
+			checkVariableDefined(v, sysBody);
+		}
+		
 		super.outSystemBody(sysBody);
 	}
 	
@@ -169,6 +185,12 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 		}
 		
 		throw new RuntimeException("Ancestor of a VariableExpression was not found in the container equation. The model is in an inconsistent state.");
+	}
+	
+	private void checkVariableDefined(Variable v, SystemBody body) {
+		if(body.getStandardEquation(v) == null && useDefs.get(v) == null) {
+			issues.add(AlphaIssueFactory.undefinedVariable(v, body));
+		}
 	}
 	
 	@Override
@@ -253,6 +275,13 @@ public class UniquenessAndCompletenessCheck extends AbstractAlphaCompleteVisitor
 	}
 	
 	@Override
+	public void inVariableExpression(VariableExpression ve) {
+		//bookkeeping for checking that all used variables are defined
+		usedVariables.add(ve.getVariable());
+		
+		super.inVariableExpression(ve);
+  }
+  
 	public void inReduceExpression(ReduceExpression re) {
 		ISLSet dom = re.getBody().getZ__internal_cache_contextDom().copy().convexHull().toSet();
 		
