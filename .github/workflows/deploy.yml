@@ -52,10 +52,10 @@ jobs:
         destination: "./update-site"
 
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
+      uses: actions/upload-pages-artifact@v3
       with:
         path: "./update-site"
 
     - name: deploy update-site
       id: deployment
-      uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
+      uses: actions/deploy-pages@v4
