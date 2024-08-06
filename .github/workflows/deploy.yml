@@ -24,7 +24,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
       
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container: ghcr.io/csu-cs-melange/alpha-language-image:latest
 
     steps:
