@@ -28,12 +28,10 @@ jobs:
     container: ghcr.io/csu-cs-melange/alpha-language-image:latest
 
     steps:
-    - name: Cache alpha language plugin
-      id: cache-plugin
-      uses: actions/cache@v3
+    - name: Load the build artifacts
+      uses: actions/download-artifact@v4
       with:
-        path: ./releng/alpha.language.update/target/repository
-        key: cache-plugin
+        name: plugin-artifact   # Must match the name from the build action.
 
     - name: Set SHORT_SHA 
       run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
