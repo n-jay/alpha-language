@@ -39,6 +39,9 @@ jobs:
     - name: Make downloads directory
       run: mkdir -p ./releng/alpha.language.update/target/repository/downloads
 
+    - name: fix permissions
+      run: chmod +x ./scripts/make-update-site-readme.sh
+
     - name: make update-site readme
       run: ./scripts/make-update-site-readme.sh
  
@@ -56,6 +59,3 @@ jobs:
     - name: deploy update-site
       id: deployment
       uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
-
-
-
