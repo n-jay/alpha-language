@@ -336,12 +336,7 @@ class WriteC extends CodeGeneratorBase {
 	override preprocess() {
 		Normalize.apply(systemBody)
 		NormalizeReduction.apply(systemBody)
-		/*
-		 * Demand driven codegen incorrectly produces macros with duplicate names
-		 * The issue is caused by StandardizeNames, commenting out fixes the issue.
-		 */
-
-//		StandardizeNames.apply(systemBody)
+		StandardizeNames.apply(systemBody)
 	}
 	
 }
