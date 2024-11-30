@@ -26,8 +26,6 @@ class PRDGTest {
 	If 'true', the edge is flipped, to conform to old AlphaZ specifications
 	If this is ever changed, this value can simply be set to false to maintain test correctness*/
 	val boolean RESULT_BODY_EDGE_FLIPPED = true
-	val ISLContext ctx = ISLContext.getInstance
-	val ISLSet arbitrarySet = ISLSet.buildFromString(ctx, "{:}")
 	var PRDG prdg
 	var AlphaSystem sys
 	
@@ -37,69 +35,8 @@ class PRDGTest {
 		prdg = PRDGGenerator.apply(sys)
 	}
 	
-	def void composeReductionEdges() {
-		var reductionEdges = new HashMap<PRDGNode, ArrayList<PRDGEdge>>
-		for(PRDGEdge edge : prdg.getEdges.filter[edge | edge.getSource.isReductionNode]) {
-			if(!reductionEdges.containsKey(edge.getSource)) reductionEdges.put(edge.getSource, new ArrayList<PRDGEdge>)
-			reductionEdges.get(edge.getSource).add(edge)
-		}
-		var Iterable<PRDGEdge> workingEdges = prdg.getEdges.filter[edge | edge.getDest.isReductionNode && !edge.getSource.isReductionNode]
-		while(!workingEdges.isEmpty) {
-			var nextEdges = new ArrayList<PRDGEdge>
-			for(PRDGEdge edge1 : workingEdges) {
-				for(PRDGEdge edge2 : reductionEdges.get(edge1.getDest)) {
-					println(edge1)
-					println(ISLMultiAff.buildFromString(ctx, edge2.getFunction.copy.toMap.reverse.toString))
-					var newEdge = new PRDGEdge(
-						edge1.getSource,
-						edge2.getDest,
-						arbitrarySet,
-						edge1.getFunction.copy.pullback(edge2.isReductionEdge ? 
-							edge2.getFunction.copy : 
-							edge2.getFunction.copy
-						)
-					)
-					if(newEdge.getDest.isReductionNode) nextEdges.add(newEdge)
-					else prdg.addEdge(newEdge)
-					println(newEdge)
-				}
-			}
-			workingEdges = nextEdges
-		}
-		
-		prdg.setEdges(prdg.getEdges.filter[edge | !edge.getDest.isReductionNode && !edge.getSource.isReductionNode].toSet) 
-	}
-	
 	def void assertEdgeDomsInVariable(Iterable<ISLSet> outgoingDoms, Variable variable) {
 		outgoingDoms.forEach[dom | assertTrue(dom.copy.isSubset(variable.getDomain.copy))]
-	}
-
-	def void assertEdgeDomsCoverVariable(Iterable<ISLSet> outgoingDoms, Variable variable) {
-		//val ISLUnionSet reconstructedDomain = ISLUnionSet.buildFromSets(outgoingDoms.map[dom | dom.copy])
-		//buildFromSets is bugged and throws an error when given more than 2 sets
-		//Who wrote this garbage?
-		if(outgoingDoms.isEmpty) {
-			assertTrue(variable.getDomain.isEmpty)
-			return
-		}
-		var ISLUnionSet reconstructedDomain = ISLUnionSet.buildEmpty(outgoingDoms.get(0).getSpace)
-		for(ISLSet dom : outgoingDoms) {
-			reconstructedDomain = reconstructedDomain.union(dom.copy.toUnionSet)
-		}
-		if(!variable.getDomain.copy.toUnionSet.isSubset(reconstructedDomain)) {
-			println("Variable " + variable.getName + " is not covered by edge domains.")
-			println("Remainder space: " + variable.getDomain.copy.toUnionSet.subtract(reconstructedDomain))
-			assertTrue(false)
-		}
-	}
-	
-	def void assertEdgeDomsDisjoint(Iterable<ISLSet> outgoingDoms) {
-		if(outgoingDoms.isEmpty) return
-		var ISLUnionSet otherDoms = ISLUnionSet.buildEmpty(outgoingDoms.get(0).getSpace)
-		for(ISLSet dom : outgoingDoms) {
-			assertTrue(otherDoms.isDisjoint(dom.copy.toUnionSet))
-			otherDoms = otherDoms.union(dom.copy.toUnionSet)
-		}
 	}
 
 	def void assertEdgeDomsPartitionVariables() {
@@ -108,10 +45,6 @@ class PRDGTest {
 			val Iterable<ISLSet> outgoingDoms = outgoing.map[edge | edge.getDomain.copy]
 			
 			assertEdgeDomsInVariable(outgoingDoms, variable)
-			if(!variable.isInput) {
-				//assertEdgeDomsDisjoint(outgoingDoms)
-				//assertEdgeDomsCoverVariable(outgoingDoms, variable)
-			}
 		}
 	}
 	
@@ -186,7 +119,6 @@ class PRDGTest {
 		 * Which would be redundant, since that's how they're generated
 		 * So that goes unchecked
 		 */
-		//composeReductionEdges
 		assertEdgeDimensionsCorrect
 		assertEdgeDomsPartitionVariables
 		assertEdgeRangesInVariables
