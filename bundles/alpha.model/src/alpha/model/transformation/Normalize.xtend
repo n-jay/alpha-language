@@ -36,8 +36,11 @@ import static alpha.model.factory.AlphaUserFactory.createJNIDomain
 import static alpha.model.factory.AlphaUserFactory.createJNIFunction
 import static alpha.model.factory.AlphaUserFactory.createRestrictExpression
 import static alpha.model.factory.AlphaUserFactory.createUnaryExpression
+import static alpha.model.factory.AlphaUserFactory.createVariableExpression
 
 import static extension alpha.model.util.ISLUtil.isNoneToNone
+import alpha.model.VariableExpression
+import alpha.model.util.ISLUtil
 
 /**
  * Normalization of Alpha programs.
@@ -45,6 +48,7 @@ import static extension alpha.model.util.ISLUtil.isNoneToNone
  * Each StandardEquation in an Alpha program should satisfy the following in its normal form:
  *   - the parent of CaseExpression should be StandardEquation or ReduceExpression
  *   - the parent of RestrictExpression should be StandarEquation, ReduceExpression, or CaseExpression
+ *   - the parent of VariableExpression should be DependenceExpression
  *   - the child of DependenceExpression should be VariableExpression or ConstantExpression
  *  
  * The same applies to each input expression in an UseEquation.
@@ -86,7 +90,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 
 	/*
 	 *  Rules collected from AlphaZ implementation using Tom/Gom
-	 *  Removal of identity functions and empty case branches were
+	 *  Removal/creation of identity functions and empty case branches were
 	 *  implemented separately.
 	 * 
 	 *  debug("rule1", "dep@(A op B) -> dep@A op dep@B", "");
@@ -132,6 +136,7 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 	 *  - remove restrict expression when it is redundant (expression domain is unchanged by the restrict)
 	 *  - remove branches of case expressions that have empty context domain
 	 *  - replaces case with its child if it only has a branch
+	 *  - inserts identity dependence expression where implied
 	 */
 
 	final boolean DEEP;
@@ -803,5 +808,15 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 	}
 	private def dispatch wrapExpression(UnaryExpression wrapper, AlphaExpression expr) {
 		return createUnaryExpression(wrapper.operator, expr)
+	}
+	
+	override outVariableExpression(VariableExpression ve) {
+		// Every VariableExpression must have a DependenceExpression as a parent
+		if(!(ve.eContainer instanceof DependenceExpression)) {
+			debug("implicit DepExpr", "V -> I @ V")
+			val identityMaff = ISLUtil.toMultiAff(ve.getVariable.getDomain.copy.toIdentityMap)
+			val de = createDependenceExpression(identityMaff, createVariableExpression(ve.getVariable))
+			EcoreUtil.replace(ve, de)
+		}
 	}
 }
