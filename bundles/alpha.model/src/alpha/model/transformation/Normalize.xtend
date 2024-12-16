@@ -815,7 +815,8 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		if(!(ve.eContainer instanceof DependenceExpression)) {
 			debug("implicit DepExpr", "V -> I @ V")
 			val identityMaff = ISLUtil.toMultiAff(ve.getVariable.getDomain.copy.toIdentityMap)
-			val de = createDependenceExpression(identityMaff, createVariableExpression(ve.getVariable))
+			var de = createDependenceExpression(identityMaff, createVariableExpression(ve.getVariable))
+			de.setContextDomain(ve.getContextDomain)
 			EcoreUtil.replace(ve, de)
 		}
 	}

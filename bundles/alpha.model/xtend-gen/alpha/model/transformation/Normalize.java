@@ -909,7 +909,8 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     if (_not) {
       this.debug("implicit DepExpr", "V -> I @ V");
       final ISLMultiAff identityMaff = ISLUtil.toMultiAff(ve.getVariable().getDomain().copy().toIdentityMap());
-      final DependenceExpression de = AlphaUserFactory.createDependenceExpression(identityMaff, AlphaUserFactory.createVariableExpression(ve.getVariable()));
+      DependenceExpression de = AlphaUserFactory.createDependenceExpression(identityMaff, AlphaUserFactory.createVariableExpression(ve.getVariable()));
+      de.setContextDomain(ve.getContextDomain());
       EcoreUtil.replace(ve, de);
     }
   }
