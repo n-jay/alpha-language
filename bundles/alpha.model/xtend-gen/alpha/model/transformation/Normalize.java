@@ -228,6 +228,10 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     }
     this.dependenceExpressionRules(de, de.getExpr());
     if ((ISLUtil.isNoneToNone(de.getFunction()) || de.getFunction().isIdentity())) {
+      AlphaExpression _expr = de.getExpr();
+      if ((_expr instanceof VariableExpression)) {
+        return;
+      }
       this.debug("identity", "f @ E = E if f = I");
       EcoreUtil.replace(de, de.getExpr());
     }
@@ -909,7 +913,10 @@ public class Normalize extends AbstractAlphaCompleteVisitor {
     if (_not) {
       this.debug("implicit DepExpr", "V -> I @ V");
       final ISLMultiAff identityMaff = ISLUtil.toMultiAff(ve.getVariable().getDomain().copy().toIdentityMap());
-      DependenceExpression de = AlphaUserFactory.createDependenceExpression(identityMaff, AlphaUserFactory.createVariableExpression(ve.getVariable()));
+      VariableExpression newVe = AlphaUserFactory.createVariableExpression(ve.getVariable());
+      newVe.setContextDomain(ve.getContextDomain().copy());
+      newVe.setExpressionDomain(ve.getExpressionDomain().copy());
+      DependenceExpression de = AlphaUserFactory.createDependenceExpression(identityMaff, newVe);
       de.setContextDomain(ve.getContextDomain().copy());
       de.setExpressionDomain(ve.getExpressionDomain().copy());
       EcoreUtil.replace(ve, de);

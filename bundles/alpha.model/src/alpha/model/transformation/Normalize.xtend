@@ -210,6 +210,9 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		// This is caused because the "isIdentity" function tries to build an identity function
 		// from the dependence function's space, but can't do so if there are no inputs or outputs.
 		if (de.function.isNoneToNone || de.function.isIdentity) {
+			// VariableExpressions must have a DependenceExpression parent
+			if (de.expr instanceof VariableExpression) return;
+			
 			debug("identity", "f @ E = E if f = I");
 			EcoreUtil.replace(de, de.expr);
 		}
@@ -815,9 +818,15 @@ class Normalize extends AbstractAlphaCompleteVisitor {
 		if(!(ve.eContainer instanceof DependenceExpression)) {
 			debug("implicit DepExpr", "V -> I @ V")
 			val identityMaff = ISLUtil.toMultiAff(ve.getVariable.getDomain.copy.toIdentityMap)
-			var de = createDependenceExpression(identityMaff, createVariableExpression(ve.getVariable))
+			
+			var newVe = createVariableExpression(ve.getVariable)
+			newVe.setContextDomain(ve.getContextDomain.copy)
+			newVe.setExpressionDomain(ve.getExpressionDomain.copy)
+			
+			var de = createDependenceExpression(identityMaff, newVe)
 			de.setContextDomain(ve.getContextDomain.copy)
 			de.setExpressionDomain(ve.getExpressionDomain.copy)
+			
 			EcoreUtil.replace(ve, de)
 		}
 	}
