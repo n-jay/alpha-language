@@ -47,7 +47,7 @@ jobs:
         alpha.model.tests.AlphaCheckProgramTest
         alpha.model.tests.AlphaNormalizeTest
         alpha.model.tests.AlphaShowTest
-        alpha.model.tests.ComplexityCalculatorTes
+        alpha.model.tests.ComplexityCalculatorTest
         alpha.model.tests.scheduling.FoutrierSchedulerTest
         alpha.model.tests.transformation.reduction.NormalizeReductionDeepTest
         alpha.model.tests.transformation.reduction.SplitReductionTest
