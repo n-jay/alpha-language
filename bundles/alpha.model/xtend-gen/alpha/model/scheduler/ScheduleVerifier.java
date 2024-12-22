@@ -74,7 +74,7 @@ public class ScheduleVerifier extends AbstractAlphaCompleteVisitor {
   protected void verifyCausality(final DependenceExpression de, final ISLMultiAff writeTimestampMaff, final ISLMultiAff readTimestampMaff) {
     final ISLSet domain = de.getContextDomain().copy();
     final int timestampDims = writeTimestampMaff.getNbOutputs();
-    ISLSet coveredSet = domain.copy().subtract(domain.copy());
+    ISLSet coveredSet = ISLSet.buildEmpty(domain.getSpace().copy());
     for (int i = 0; (i < timestampDims); i++) {
       {
         final ISLSet causalitySet = coveredSet.copy().union(

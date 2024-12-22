@@ -64,7 +64,7 @@ class ScheduleVerifier extends AbstractAlphaCompleteVisitor {
 		 
 		val int timestampDims = writeTimestampMaff.getNbOutputs
 		// Start with the empty set in the relevant space
-		var coveredSet = domain.copy.subtract(domain.copy)
+		var coveredSet = ISLSet.buildEmpty(domain.getSpace.copy)
 		for(var i = 0; i < timestampDims; i++) {
 			// The points where causality holds at dimension i, plus the ones that are already covered
 			val causalitySet = coveredSet.copy.union(
