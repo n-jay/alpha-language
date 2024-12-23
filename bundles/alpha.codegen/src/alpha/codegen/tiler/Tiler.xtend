@@ -7,7 +7,5 @@ import fr.irisa.cairn.jnimap.isl.ISLSet
 interface Tiler {
 	def ISLMap getTileMap()
 	def Set<Integer> getTiledDims()
-	def ISLSet getApproximateOutset()
-	def ISLSet getTilePrototype()
-	def boolean isVectorizable()
+	def ISLSet getApproximateOutset(ISLSet domain)
 }

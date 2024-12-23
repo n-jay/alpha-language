@@ -10,9 +10,5 @@ public interface Tiler {
 
   Set<Integer> getTiledDims();
 
-  ISLSet getApproximateOutset();
-
-  ISLSet getTilePrototype();
-
-  boolean isVectorizable();
+  ISLSet getApproximateOutset(final ISLSet domain);
 }
