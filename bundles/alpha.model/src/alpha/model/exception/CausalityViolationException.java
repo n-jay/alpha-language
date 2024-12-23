@@ -23,7 +23,7 @@ public class CausalityViolationException extends RuntimeException {
 			+ "\nwith write timestamp function: " + writeTimestampMaff
 			+ "\nwith read timestamp function: " + readTimestampMaff
 			+ "\nat dimension: " + dimension 
-			+ "\nfor points: " + de.getContextDomain().copy().subtract(set.copy())
+			+ "\nfor points: " + set
 		);
 	}
 }
