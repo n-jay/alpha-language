@@ -333,14 +333,16 @@ public class ISLUtil {
   public static ISLMultiAff convertToMultiAff(final List<ISLAff> affs) {
     ISLMultiAff _xblockexpression = null;
     {
-      final int nParams = affs.get(0).dim(ISLDimType.isl_dim_param);
-      final int nInputs = affs.get(0).dim(ISLDimType.isl_dim_in);
       ISLAffList affList = ISLAffList.build(ISLContext.getInstance(), 0);
+      ISLSpace _copy = affs.get(0).getSpace().copy();
+      int _size = affs.size();
+      int _minus = (_size - 1);
+      ISLSpace space = _copy.addDims(
+        ISLDimType.isl_dim_out, _minus);
       for (final ISLAff aff : affs) {
         affList = affList.add(aff);
       }
-      _xblockexpression = ISLMultiAff.buildFromAffList(
-        ISLSpace.alloc(nParams, nInputs, affs.size()), affList);
+      _xblockexpression = ISLMultiAff.buildFromAffList(space, affList);
     }
     return _xblockexpression;
   }

@@ -239,18 +239,15 @@ class ISLUtil {
 	 * Generates a MultiAff out of a list of ISLAffs 
 	 */
 	def static ISLMultiAff convertToMultiAff(List<ISLAff> affs) {
-		val int nParams = affs.get(0).dim(ISLDimType.isl_dim_param)
-		val int nInputs = affs.get(0).dim(ISLDimType.isl_dim_in)
 		var ISLAffList affList = ISLAffList.build(ISLContext.getInstance, 0)
-		
-		for(aff : affs) {
-			affList = affList.add(aff)
-		}
-		
-		ISLMultiAff.buildFromAffList(
-			ISLSpace.alloc(nParams, nInputs, affs.size()),
-			affList
+		var space = affs.get(0).getSpace.copy.addDims(
+			ISLDimType.isl_dim_out,
+			affs.size()-1
 		)
+		
+		for(aff : affs) {affList = affList.add(aff)}
+		
+		ISLMultiAff.buildFromAffList(space, affList)
 	}
 	
 	/**
