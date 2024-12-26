@@ -30,19 +30,7 @@ public class DTiler implements Tiler {
   public DTiler(final List<Integer> tileSizes, final ISLSpace scheduleSpace, final int startDim, final int endDim) {
     final int scheduleDim = scheduleSpace.dim(ISLDimType.isl_dim_out);
     final int bandDim = ((endDim - startDim) + 1);
-    final Function1<Integer, Boolean> _function = (Integer size) -> {
-      return Boolean.valueOf(((size).intValue() <= 0));
-    };
-    boolean _exists = IterableExtensions.<Integer>exists(tileSizes, _function);
-    if (_exists) {
-      throw new IllegalArgumentException("Tiles cannot have non-positive size.");
-    }
-    if (((((startDim < 0) || (endDim < 0)) || (startDim >= scheduleDim)) || (endDim >= scheduleDim))) {
-      throw new IllegalArgumentException("Tiled dimensions are out of range.");
-    }
-    if ((startDim > endDim)) {
-      throw new IllegalArgumentException("endDim must be greater than startDim.");
-    }
+    this.argumentCheck(tileSizes, scheduleSpace, startDim, endDim, scheduleDim, bandDim);
     final ISLSpace space = scheduleSpace.copy();
     ArrayList<ISLAff> affs = new ArrayList<ISLAff>();
     for (int i = 0; (i < scheduleDim); i++) {
@@ -63,6 +51,27 @@ public class DTiler implements Tiler {
     this.startDim = startDim;
     this.endDim = endDim;
     this.tileMap = ISLUtil.convertToMultiAff(affs).toMap();
+  }
+
+  public void argumentCheck(final List<Integer> tileSizes, final ISLSpace scheduleSpace, final int startDim, final int endDim, final int scheduleDim, final int bandDim) {
+    final Function1<Integer, Boolean> _function = (Integer size) -> {
+      return Boolean.valueOf(((size).intValue() <= 0));
+    };
+    boolean _exists = IterableExtensions.<Integer>exists(tileSizes, _function);
+    if (_exists) {
+      throw new IllegalArgumentException("Tiles cannot have non-positive size.");
+    }
+    if (((((startDim < 0) || (endDim < 0)) || (startDim >= scheduleDim)) || (endDim >= scheduleDim))) {
+      throw new IllegalArgumentException("Tiled dimensions are out of range.");
+    }
+    if ((startDim > endDim)) {
+      throw new IllegalArgumentException("endDim must be greater than startDim.");
+    }
+    int _size = tileSizes.size();
+    boolean _notEquals = (_size != bandDim);
+    if (_notEquals) {
+      throw new IllegalArgumentException("The size of tileSizes must match the number of tiled dimensions.");
+    }
   }
 
   public DTiler(final List<Integer> tileSizes, final Scheduler scheduler, final int startDim, final int endDim) {

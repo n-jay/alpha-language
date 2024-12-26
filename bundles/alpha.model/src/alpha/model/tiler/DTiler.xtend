@@ -26,12 +26,7 @@ class DTiler implements Tiler {
 		val int scheduleDim = scheduleSpace.dim(ISLDimType.isl_dim_out)
 		val int bandDim = endDim - startDim + 1
 		
-		if(tileSizes.exists(size | size <= 0)) 
-			throw new IllegalArgumentException("Tiles cannot have non-positive size.")
-		if(startDim < 0 || endDim < 0 || startDim >= scheduleDim || endDim >= scheduleDim)	
-			throw new IllegalArgumentException("Tiled dimensions are out of range.")
-		if(startDim > endDim)
-			throw new IllegalArgumentException("endDim must be greater than startDim.")
+		argumentCheck(tileSizes, scheduleSpace, startDim, endDim, scheduleDim, bandDim)
 	
 		val ISLSpace space = scheduleSpace.copy
 		
@@ -52,6 +47,18 @@ class DTiler implements Tiler {
 		this.startDim = startDim
 		this.endDim = endDim
 		this.tileMap = ISLUtil.convertToMultiAff(affs).toMap
+	}
+	
+	def void argumentCheck(List<Integer> tileSizes, ISLSpace scheduleSpace, int startDim, int endDim,
+							int scheduleDim, int bandDim) {
+		if(tileSizes.exists(size | size <= 0)) 
+			throw new IllegalArgumentException("Tiles cannot have non-positive size.")
+		if(startDim < 0 || endDim < 0 || startDim >= scheduleDim || endDim >= scheduleDim)	
+			throw new IllegalArgumentException("Tiled dimensions are out of range.")
+		if(startDim > endDim)
+			throw new IllegalArgumentException("endDim must be greater than startDim.")
+		if(tileSizes.size() != bandDim)
+			throw new IllegalArgumentException("The size of tileSizes must match the number of tiled dimensions.")
 	}
 	
 	new(List<Integer> tileSizes, Scheduler scheduler, int startDim, int endDim) {
