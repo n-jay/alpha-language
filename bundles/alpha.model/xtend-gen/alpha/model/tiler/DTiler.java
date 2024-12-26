@@ -1,4 +1,4 @@
-package alpha.codegen.tiler;
+package alpha.model.tiler;
 
 import alpha.model.util.ISLUtil;
 import fr.irisa.cairn.jnimap.isl.ISLAff;

@@ -1,4 +1,4 @@
-package alpha.codegen.tiler
+package alpha.model.tiler
 
 import fr.irisa.cairn.jnimap.isl.ISLMap
 import java.util.Set
