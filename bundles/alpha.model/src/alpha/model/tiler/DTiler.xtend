@@ -11,6 +11,7 @@ import fr.irisa.cairn.jnimap.isl.ISLDimType
 import fr.irisa.cairn.jnimap.isl.ISLAff
 import java.util.ArrayList
 import alpha.model.util.ISLUtil
+import alpha.model.scheduler.Scheduler
 
 class DTiler implements Tiler {
 	ISLMap tileMap
@@ -45,13 +46,16 @@ class DTiler implements Tiler {
 		
 		for(var i = 0; i < bandDim; i++) {
 			var aff = ISLAff.buildVarOnDomain(space.copy.toLocalSpace, ISLDimType.isl_dim_out, i+startDim)
-				.mod(tileSizes.get(i))
 			affs.add(aff)
 		}
 		
 		this.startDim = startDim
 		this.endDim = endDim
 		this.tileMap = ISLUtil.convertToMultiAff(affs).toMap
+	}
+	
+	new(List<Integer> tileSizes, Scheduler scheduler, int startDim, int endDim) {
+		this(tileSizes, scheduler.getMaps.getMaps.get(0).getRange.getSpace, startDim, endDim)
 	}
 	
 	override ISLMap getTileMap() {tileMap.copy}

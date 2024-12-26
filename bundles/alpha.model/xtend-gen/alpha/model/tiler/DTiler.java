@@ -1,5 +1,6 @@
 package alpha.model.tiler;
 
+import alpha.model.scheduler.Scheduler;
 import alpha.model.util.ISLUtil;
 import fr.irisa.cairn.jnimap.isl.ISLAff;
 import fr.irisa.cairn.jnimap.isl.ISLDimType;
@@ -55,13 +56,17 @@ public class DTiler implements Tiler {
     }
     for (int i = 0; (i < bandDim); i++) {
       {
-        ISLAff aff = ISLAff.buildVarOnDomain(space.copy().toLocalSpace(), ISLDimType.isl_dim_out, (i + startDim)).mod((tileSizes.get(i)).intValue());
+        ISLAff aff = ISLAff.buildVarOnDomain(space.copy().toLocalSpace(), ISLDimType.isl_dim_out, (i + startDim));
         affs.add(aff);
       }
     }
     this.startDim = startDim;
     this.endDim = endDim;
     this.tileMap = ISLUtil.convertToMultiAff(affs).toMap();
+  }
+
+  public DTiler(final List<Integer> tileSizes, final Scheduler scheduler, final int startDim, final int endDim) {
+    this(tileSizes, scheduler.getMaps().getMaps().get(0).getRange().getSpace(), startDim, endDim);
   }
 
   @Override
