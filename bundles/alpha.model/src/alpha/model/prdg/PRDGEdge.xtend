@@ -8,7 +8,6 @@ class PRDGEdge {
 	PRDGNode dest
 	ISLSet domain
 	ISLMultiAff function
-//	JNIFunction function
 	
 	new(PRDGNode source, PRDGNode dest, ISLSet domain, ISLMultiAff func) {
 		this.source = source
